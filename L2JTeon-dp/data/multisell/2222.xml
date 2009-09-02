@@ -1,0 +1,224 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Elysian - Health -->
+  <item id="1">
+    <production id="5602" count="1"/>
+  </item>
+
+  <!-- Elysian - Anger -->
+  <item id="2">
+    <production id="5603" count="1"/>
+  </item>
+
+  <!-- Elysian - Critical Drain -->
+  <item id="3">
+    <production id="5604" count="1"/>
+  </item>
+
+  <!-- Branch of The Mother Tree - Conversion -->
+  <item id="4">
+    <production id="5605" count="1"/>
+  </item>
+
+  <!-- Branch of The Mother Tree - Magic Damage -->
+  <item id="5">
+    <production id="5606" count="1"/>
+  </item>
+
+  <!-- Branch of The Mother Tree - Acumen -->
+  <item id="6">
+    <production id="5607" count="1"/>
+  </item>
+
+  <!-- Soul Bow - Cheap Shot -->
+  <item id="7">
+    <production id="5611" count="1"/>
+  </item>
+
+  <!-- Soul Bow - Quick Recovery -->
+  <item id="8">
+    <production id="5612" count="1"/>
+  </item>
+
+  <!-- Soul Bow - Critical Poison -->
+  <item id="9">
+    <production id="5613" count="1"/>
+  </item>
+
+  <!-- Soul Separator - Guidance -->
+  <item id="10">
+    <production id="5617" count="1"/>
+  </item>
+
+  <!-- Soul Separator - Critical Damage -->
+  <item id="11">
+    <production id="5618" count="1"/>
+  </item>
+
+  <!-- Soul Separator - Rsk. Haste -->
+  <item id="12">
+    <production id="5619" count="1"/>
+  </item>
+
+  <!-- Bloody Orchid - Evasion -->
+  <item id="13">
+    <production id="4783" count="1"/>
+  </item>
+
+  <!-- Bloody Orchid - Focus -->
+  <item id="14">
+    <production id="4784" count="1"/>
+  </item>
+
+  <!-- Bloody Orchid - Back Blow -->
+  <item id="15">
+    <production id="4785" count="1"/>
+  </item>
+
+  <!-- Dragon Grinder - Rsk. Evasion -->
+  <item id="16">
+    <production id="5623" count="1"/>
+  </item>
+
+  <!-- Dragon Grinder - Guidance -->
+  <item id="17">
+    <production id="5624" count="1"/>
+  </item>
+
+  <!-- Dragon Grinder - Health -->
+  <item id="18">
+    <production id="5625" count="1"/>
+  </item>
+
+  <!-- Blood Tornado - Critical Drain -->
+  <item id="19">
+    <production id="4807" count="1"/>
+  </item>
+
+  <!-- Blood Tornado - Rsk. Evasion -->
+  <item id="20">
+    <production id="4808" count="1"/>
+  </item>
+
+  <!-- Blood Tornado - Haste -->
+  <item id="21">
+    <production id="4809" count="1"/>
+  </item>
+
+  <!-- Halberd - Haste -->
+  <item id="22">
+    <production id="5626" count="1"/>
+  </item>
+
+  <!-- Halberd - Critical Stun -->
+  <item id="23">
+    <production id="5627" count="1"/>
+  </item>
+
+  <!-- Halberd - Wide Blow -->
+  <item id="24">
+    <production id="5628" count="1"/>
+  </item>
+
+  <!-- Elemental Sword - Magic Power -->
+  <item id="25">
+    <production id="5638" count="1"/>
+  </item>
+
+  <!-- Elemental Sword - Magic Paralyze -->
+  <item id="26">
+    <production id="5639" count="1"/>
+  </item>
+
+  <!-- Elemental Sword - Empower -->
+  <item id="27">
+    <production id="5640" count="1"/>
+  </item>
+
+  <!-- Sword of Miracles - Magic Power -->
+  <item id="28">
+    <production id="5641" count="1"/>
+  </item>
+
+  <!-- Sword of Miracles - Magic Silence -->
+  <item id="29">
+    <production id="5642" count="1"/>
+  </item>
+
+  <!-- Sword of Miracles - Acumen -->
+  <item id="30">
+    <production id="5643" count="1"/>
+  </item>
+
+  <!-- Dragon Slayer - Health -->
+  <item id="31">
+    <production id="5644" count="1"/>
+  </item>
+
+  <!-- Dragon Slayer - Critical Bleed -->
+  <item id="32">
+    <production id="5645" count="1"/>
+  </item>
+
+  <!-- Dragon Slayer - Critical Drain -->
+  <item id="33">
+    <production id="5646" count="1"/>
+  </item>
+
+  <!-- Dark Legion's Edge - Critical Damage -->
+  <item id="34">
+    <production id="5647" count="1"/>
+  </item>
+
+  <!-- Dark Legion's Edge - Health -->
+  <item id="35">
+    <production id="5648" count="1"/>
+  </item>
+
+  <!-- Dark Legion's Edge - Rsk. Focus -->
+  <item id="36">
+    <production id="5649" count="1"/>
+  </item>
+
+  <!-- Keshanberk*Keshanberk -->
+  <item id="37">
+    <production id="5704" count="1"/>
+  </item>
+
+  <!-- Damascus*Damascus -->
+  <item id="38">
+    <production id="5706" count="1"/>
+  </item>
+
+  <!-- Carnage Bow - Critical Bleed -->
+  <item id="39">
+    <production id="4831" count="1"/>
+  </item>
+
+  <!-- Carnage Bow - Light -->
+  <item id="40">
+    <production id="5608" count="1"/>
+  </item>
+
+  <!-- Carnage Bow - Mana Up -->
+  <item id="41">
+    <production id="4832" count="1"/>
+  </item>
+
+  <!-- Carnage Bow - Quick Recovery -->
+  <item id="42">
+    <production id="4833" count="1"/>
+  </item>
+
+  <!-- Mithril Arrow -->
+  <item id="43">
+    <production id="1344" count="1000"/>
+  </item>
+
+
+</list>
