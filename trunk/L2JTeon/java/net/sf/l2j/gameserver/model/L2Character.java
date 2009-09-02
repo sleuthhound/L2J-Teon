@@ -199,23 +199,25 @@ public abstract class L2Character extends L2Object
     private Calculator[] _calculators;
     /** FastMap(Integer, L2Skill) containing all skills of the L2Character */
     protected final Map<Integer, L2Skill> _skills;
-    /** Zone system */
-    public static final int ZONE_PVP = 1;
-    public static final int ZONE_PEACE = 2;
-    public static final int ZONE_SIEGE = 4;
-    public static final int ZONE_MOTHERTREE = 8;
-    public static final byte ZONE_CASTLE = 10;
-    public static final byte ZONE_SWAMP = 11;
-    public static final byte ZONE_NOSUMMONFRIEND = 12;
-    public static final byte ZONE_FORT = 13;
-    public static final int ZONE_CLANHALL = 16;
-    public static final int ZONE_UNUSED = 32;
-    public static final int ZONE_NOLANDING = 64;
-    public static final int ZONE_WATER = 128;
-    public static final int ZONE_JAIL = 256;
-    public static final int ZONE_MONSTERTRACK = 512;
-	
-    private int _currentZones = 0;
+
+	/** Zone system */
+	public static final int ZONE_PVP = 1;
+	public static final int ZONE_PEACE = 2;
+	public static final int ZONE_SIEGE = 4;
+	public static final int ZONE_MOTHERTREE = 8;
+	public static final int ZONE_CLANHALL = 16;
+	public static final int ZONE_UNUSED = 32;
+	public static final int ZONE_NOLANDING = 64;
+	public static final int ZONE_WATER = 128;
+	public static final int ZONE_JAIL = 256;
+	public static final int ZONE_MONSTERTRACK = 512;
+	public static final int ZONE_CASTLE = 1024;
+	public static final int ZONE_SWAMP = 2048;
+	public static final int ZONE_NOSUMMONFRIEND = 4096;
+	public static final int ZONE_FORT = 8194;
+
+	private int _currentZones = 0;
+
     // Augmentation Skills
     // by schursin L2JOneo
     //
