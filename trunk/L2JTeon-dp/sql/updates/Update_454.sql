@@ -1,0 +1,1 @@
+update npc set type='L2TownPet' where id>=31202 and id<=31209;

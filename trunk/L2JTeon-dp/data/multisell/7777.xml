@@ -1,0 +1,109 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<!-- Created with Lineage II - Multisell Manager -->
+<!-- © 2007 by tReXpert -->
+
+<list maintainEnchantment="true">
+
+  <!-- Soul Ore -->
+  <item id="1">
+    <production id="1785" count="1000"/>
+  </item>
+
+  <!-- Spirit Ore -->
+  <item id="2">
+    <production id="3031" count="1000"/>
+  </item>
+
+  <!-- Cursed Bone -->
+  <item id="3">
+    <production id="2508" count="1000"/>
+  </item>
+
+  <!-- Greater Healing Potion -->
+  <item id="4">
+    <production id="1539" count="1000"/>
+  </item>
+
+  <!-- Quick Healing Potion -->
+  <item id="5">
+    <ingredient id="57" count="50"/>
+    <production id="1540" count="20"/>
+  </item>
+
+  <!-- Greater CP Potion -->
+  <item id="6">
+    <ingredient id="57" count="50"/>
+    <production id="5592" count="30"/>
+  </item>
+
+  <!-- Beast Soulshot -->
+  <item id="7">
+    <production id="6645" count="1000"/>
+  </item>
+
+  <!-- Soulshot: A-grade -->
+  <item id="8">
+    <production id="1466" count="1000"/>
+  </item>
+
+  <!-- Soulshot: S-grade -->
+  <item id="9">
+    <production id="1467" count="1000"/>
+  </item>
+
+  <!-- Beast Spiritshot -->
+  <item id="10">
+    <production id="6646" count="1000"/>
+  </item>
+
+  <!-- Blessed Spiritshot: A-Grade -->
+  <item id="11">
+    <production id="3951" count="1000"/>
+  </item>
+
+  <!-- Blessed Spiritshot: S Grade -->
+  <item id="12">
+    <production id="3952" count="1000"/>
+  </item>
+
+<item id="13">
+    <ingredient id="57" count="10"/>
+    <production id="1458" count="10"/>
+  </item>
+
+  <!-- Crystal: C-Grade -->
+  <item id="14">
+    <ingredient id="57" count="10"/>
+    <production id="1459" count="10"/>
+  </item>
+<!-- Energy Stone -->
+  <item id="15">
+    <production id="5589" count="1000"/>
+  </item>
+
+  <!-- Scroll: Recovery (Grade S) -->
+  <item id="16">
+    <production id="8599" count="100"/>
+  </item>
+
+  <!-- Blood Mark -->
+  <item id="17">
+    <ingredient id="57" count="20"/>
+    <production id="1419" count="1"/>
+  </item>
+
+  <!-- Alliance Manifesto -->
+  <item id="18">
+    <ingredient id="57" count="40"/>
+    <production id="3874" count="1"/>
+  </item>
+
+  <!-- Seal of Aspiration -->
+  <item id="19">
+    <ingredient id="57" count="40"/>
+    <production id="3870" count="1"/>
+  </item>
+
+
+</list>
