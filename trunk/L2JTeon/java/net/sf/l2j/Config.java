@@ -96,21 +96,22 @@ public final class Config
     public static int MAX_ITEM_IN_PACKET;
     /** Properties file for irc configuration */
     public static final String IRC_FILE = "./config/irc.properties";
-    /** L2J Oneo Custom Properties File */
-    public static final String L2J_ONEO_CUSTOM = "./config/L2JOneoCustom.properties";
-    /** L2J Oneo Event Mods Properties File */
-    public static final String L2JONEO_MODS = "./config/L2JOneoMods.properties";
     /** Properties file FloodProtector Configuration */ 
-    public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";   
+    public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";
     /** Properties file for Bosses */
-    public static final String  BOS_CONFIG_FILE = "./config/boss/bosses.properties";
-	public static final String FS_CONFIG_FILE = "./config/boss/foursepulchers.properties";
+    public static final String  BOS_CONFIG_FILE = "./config/bosses/bosses.properties";
+    /** Properties file for FourSepulchers */
+    public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";   
+    /** L2J Teon Custom Properties File */
+    public static final String L2J_TEON_CUSTOM = "./config/custom/L2JTeonCustom.properties";
+    /** L2J Teon Event Mods Properties File */
+    public static final String L2JTEON_MODS = "./config/custom/L2JTeonMods.properties";
     /** Properties file for Feature Extensions*/
-    public static final String  FEATURE_CONFIG_FILE = "./config/Custom/Feature.properties";
+    public static final String  FEATURE_CONFIG_FILE = "./config/custom/Feature.properties";
     /** Properties file for General Configurations */
-    public static final String  GENERAL_CONFIG_FILE = "./config/Custom/General.properties";
+    public static final String  GENERAL_CONFIG_FILE = "./config/custom/General.properties";
     /** Properties file for Olympiad Extensions*/
-    public static final String  OLYMPIAD_FILE = "./config/Custom/Olympiad.properties";
+    public static final String  OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
     
     /** Debug/release mode */
     public static boolean DEBUG;
@@ -358,13 +359,13 @@ public final class Config
      */
     public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
     /** ************************************************** */
-    /** L2J Oneo Mods Customizations -Begin * */
+    /** L2J Teon Mods Customizations -Begin * */
     /** ************************************************** */
     // * Event Engine Automation *//
     /** Time in between Automated event cycling */
     public static int TIME_BETWEEN_EVENTS;
     /**
-     * Time interval to check and see if L2JOneoEvent Manager should start a cycle of events if non in progress, or wait
+     * Time interval to check and see if L2JTeonEvent Manager should start a cycle of events if non in progress, or wait
      */
     // * TvT Event Engine */
     /** Enable or Disable TvT Engine with this option */
@@ -561,10 +562,10 @@ public final class Config
     /** Champion Mob reward quantity. */
     public static int CHAMPION_REWARD_QTY;
     /** ************************************************** */
-    /** L2J Oneo Event Mods Customizations -End * */
+    /** L2J Teon Event Mods Customizations -End * */
     /** ************************************************** */
     /** ************************************************** */
-    /** L2J Oneo Customizations -Begin * */
+    /** L2J Teon Customizations -Begin * */
     /** ************************************************** */
     // * Baby Pets Customizations *//
     /** Can Baby Pets Grow Up? * */
@@ -653,6 +654,16 @@ public final class Config
     public static int REBIRTH_SKILL9_LVL;
     public static int REBIRTH_SKILL10;
     public static int REBIRTH_SKILL10_LVL;
+
+	/** Away System Requested by untamed **/
+	public static boolean				ALLOW_AWAY_STATUS;
+	public static int					AWAY_TIMER;
+	public static int					BACK_TIMER;
+	public static int					AWAY_TITLE_COLOR;
+	public static boolean				AWAY_ALLOW_INTERFERENCE;
+	public static boolean				AWAY_PLAYER_TAKE_AGGRO;
+	public static boolean				AWAY_PEACE_ZONE;
+
     /**
      * Config option allowing server administrators/owners the ability to set a title for new players.
      */
@@ -979,7 +990,7 @@ public final class Config
      */
     public static int BANKING_SYSTEM_GOLDBARS;
     /** ************************************************** */
-    /** L2J Oneo Customizations -End * */
+    /** L2J Teon Customizations -End * */
 	/** ************************************************** */
 
 	/***************************************************************************
@@ -2421,32 +2432,32 @@ public final class Config
 		throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
 	    }
 	    /** ************************************************** */
-	    /** L2J Oneo Mods Properties File -Begin * */
+	    /** L2J Teon Mods Properties File -Begin * */
 	    /** ************************************************** */
 	    try
 	    {
-		Properties L2JOneoEventMods = new Properties();
-		InputStream is = new FileInputStream(new File(L2JONEO_MODS));
-		L2JOneoEventMods.load(is);
+		Properties L2JTeonEventMods = new Properties();
+		InputStream is = new FileInputStream(new File(L2JTEON_MODS));
+		L2JTeonEventMods.load(is);
 		is.close();
 		// ********************//
 		/* Event Automation */
 		// ********************//
-		TIME_BETWEEN_EVENTS = Integer.parseInt(L2JOneoEventMods.getProperty("TimeInBetweenEvents", "60"));
+		TIME_BETWEEN_EVENTS = Integer.parseInt(L2JTeonEventMods.getProperty("TimeInBetweenEvents", "60"));
 		// ********************//
 		/* TvT Event Engine */
 		// ********************//
-		TVT_EVENT_ENABLED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("TvTEventEnabled", "False"));
-		TVT_EVENT_PARTICIPATION_TIME = Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventParticipationTime", "3600"));
-		TVT_EVENT_RUNNING_TIME = Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventRunningTime", "1800"));
-		TVT_EVENT_PARTICIPATION_NPC_ID = Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventParticipationNpcId", "0"));
+		TVT_EVENT_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventEnabled", "False"));
+		TVT_EVENT_PARTICIPATION_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventParticipationTime", "3600"));
+		TVT_EVENT_RUNNING_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventRunningTime", "1800"));
+		TVT_EVENT_PARTICIPATION_NPC_ID = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventParticipationNpcId", "0"));
 		if (TVT_EVENT_PARTICIPATION_NPC_ID == 0)
 		{
 		    TVT_EVENT_ENABLED = false;
 		    System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventParticipationNpcId");
 		} else
 		{
-		    String[] propertySplit = L2JOneoEventMods.getProperty("TvTEventParticipationNpcCoordinates", "0,0,0").split(",");
+		    String[] propertySplit = L2JTeonEventMods.getProperty("TvTEventParticipationNpcCoordinates", "0,0,0").split(",");
 		    if (propertySplit.length < 3)
 		    {
 			TVT_EVENT_ENABLED = false;
@@ -2456,14 +2467,14 @@ public final class Config
 			TVT_EVENT_PARTICIPATION_NPC_COORDINATES[0] = Integer.parseInt(propertySplit[0]);
 			TVT_EVENT_PARTICIPATION_NPC_COORDINATES[1] = Integer.parseInt(propertySplit[1]);
 			TVT_EVENT_PARTICIPATION_NPC_COORDINATES[2] = Integer.parseInt(propertySplit[2]);
-			TVT_EVENT_MIN_PLAYERS_IN_TEAMS = Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventMinPlayersInTeams", "1"));
-			TVT_EVENT_MAX_PLAYERS_IN_TEAMS = Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventMaxPlayersInTeams", "20"));
-			TVT_EVENT_MIN_LVL = (byte) Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventMinPlayerLevel", "1"));
-			TVT_EVENT_MAX_LVL = (byte) Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventMaxPlayerLevel", "80"));
-			TVT_EVENT_RESPAWN_TELEPORT_DELAY = Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventRespawnTeleportDelay", "20"));
-			TVT_EVENT_START_LEAVE_TELEPORT_DELAY = Integer.parseInt(L2JOneoEventMods.getProperty("TvTEventStartLeaveTeleportDelay", "20"));
-			TVT_EVENT_TEAM_1_NAME = L2JOneoEventMods.getProperty("TvTEventTeam1Name", "Team1");
-			propertySplit = L2JOneoEventMods.getProperty("TvTEventTeam1Coordinates", "0,0,0").split(",");
+			TVT_EVENT_MIN_PLAYERS_IN_TEAMS = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMinPlayersInTeams", "1"));
+			TVT_EVENT_MAX_PLAYERS_IN_TEAMS = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMaxPlayersInTeams", "20"));
+			TVT_EVENT_MIN_LVL = (byte) Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMinPlayerLevel", "1"));
+			TVT_EVENT_MAX_LVL = (byte) Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMaxPlayerLevel", "80"));
+			TVT_EVENT_RESPAWN_TELEPORT_DELAY = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventRespawnTeleportDelay", "20"));
+			TVT_EVENT_START_LEAVE_TELEPORT_DELAY = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventStartLeaveTeleportDelay", "20"));
+			TVT_EVENT_TEAM_1_NAME = L2JTeonEventMods.getProperty("TvTEventTeam1Name", "Team1");
+			propertySplit = L2JTeonEventMods.getProperty("TvTEventTeam1Coordinates", "0,0,0").split(",");
 			if (propertySplit.length < 3)
 			{
 			    TVT_EVENT_ENABLED = false;
@@ -2473,8 +2484,8 @@ public final class Config
 			    TVT_EVENT_TEAM_1_COORDINATES[0] = Integer.parseInt(propertySplit[0]);
 			    TVT_EVENT_TEAM_1_COORDINATES[1] = Integer.parseInt(propertySplit[1]);
 			    TVT_EVENT_TEAM_1_COORDINATES[2] = Integer.parseInt(propertySplit[2]);
-			    TVT_EVENT_TEAM_2_NAME = L2JOneoEventMods.getProperty("TvTEventTeam2Name", "Team2");
-			    propertySplit = L2JOneoEventMods.getProperty("TvTEventTeam2Coordinates", "0,0,0").split(",");
+			    TVT_EVENT_TEAM_2_NAME = L2JTeonEventMods.getProperty("TvTEventTeam2Name", "Team2");
+			    propertySplit = L2JTeonEventMods.getProperty("TvTEventTeam2Coordinates", "0,0,0").split(",");
 			    if (propertySplit.length < 3)
 			    {
 				TVT_EVENT_ENABLED = false;
@@ -2484,7 +2495,7 @@ public final class Config
 				TVT_EVENT_TEAM_2_COORDINATES[0] = Integer.parseInt(propertySplit[0]);
 				TVT_EVENT_TEAM_2_COORDINATES[1] = Integer.parseInt(propertySplit[1]);
 				TVT_EVENT_TEAM_2_COORDINATES[2] = Integer.parseInt(propertySplit[2]);
-				propertySplit = L2JOneoEventMods.getProperty("TvTEventReward", "57,100000").split(";");
+				propertySplit = L2JTeonEventMods.getProperty("TvTEventReward", "57,100000").split(";");
 				for (String reward : propertySplit)
 				{
 				    String[] rewardSplit = reward.split(",");
@@ -2505,13 +2516,13 @@ public final class Config
 					}
 				    }
 				}
-				TVT_EVENT_TARGET_TEAM_MEMBERS_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("TvTEventTargetTeamMembersAllowed", "True"));
-				TVT_EVENT_POTIONS_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("TvTEventPotionsAllowed", "False"));
-				TVT_EVENT_POTIONS_MP_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("TvTEventPotionsMPAllowed", "False"));
-				TVT_EVENT_POTIONS_HP_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("TvTEventPotionsHPAllowed", "False"));
-				TVT_EVENT_POTIONS_CP_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("TvTEventPotionsCPAllowed", "False"));
-				TVT_EVENT_SUMMON_BY_ITEM_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("TvTEventSummonByItemAllowed", "False"));
-				propertySplit = L2JOneoEventMods.getProperty("TvTEventDoorsCloseOpenOnStartEnd", "").split(";");
+				TVT_EVENT_TARGET_TEAM_MEMBERS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventTargetTeamMembersAllowed", "True"));
+				TVT_EVENT_POTIONS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsAllowed", "False"));
+				TVT_EVENT_POTIONS_MP_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsMPAllowed", "False"));
+				TVT_EVENT_POTIONS_HP_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsHPAllowed", "False"));
+				TVT_EVENT_POTIONS_CP_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsCPAllowed", "False"));
+				TVT_EVENT_SUMMON_BY_ITEM_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventSummonByItemAllowed", "False"));
+				propertySplit = L2JTeonEventMods.getProperty("TvTEventDoorsCloseOpenOnStartEnd", "").split(";");
 				for (String door : propertySplit)
 				{
 				    try
@@ -2532,16 +2543,16 @@ public final class Config
 		// ********************//
 		/* VIP Event Engine */
 		// ********************//
-		VIP_EVENT_ENABLED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("VIPEventEnabled", "False"));
-		VIP_FORCE_SIT = Boolean.parseBoolean(L2JOneoEventMods.getProperty("VIPForceSit", "True"));
-		MIN_VIP_PLAYERS = Integer.parseInt(L2JOneoEventMods.getProperty("MinVIPPlayers", "1"));
-		MIN_NON_VIP_PLAYERS = Integer.parseInt(L2JOneoEventMods.getProperty("MinNonVIPPlayers", "1"));
-		VIP_EVENT_POTIONS_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("VIPEventPotionsAllowed", "False"));
-		VIP_EVENT_SUMMON_BY_ITEM_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("VIPEventSummonByItemAllowed", "False"));
-		VIP_ENDTP_DESC = L2JOneoEventMods.getProperty("EndTPDescription", "Giran");
+		VIP_EVENT_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("VIPEventEnabled", "False"));
+		VIP_FORCE_SIT = Boolean.parseBoolean(L2JTeonEventMods.getProperty("VIPForceSit", "True"));
+		MIN_VIP_PLAYERS = Integer.parseInt(L2JTeonEventMods.getProperty("MinVIPPlayers", "1"));
+		MIN_NON_VIP_PLAYERS = Integer.parseInt(L2JTeonEventMods.getProperty("MinNonVIPPlayers", "1"));
+		VIP_EVENT_POTIONS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("VIPEventPotionsAllowed", "False"));
+		VIP_EVENT_SUMMON_BY_ITEM_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("VIPEventSummonByItemAllowed", "False"));
+		VIP_ENDTP_DESC = L2JTeonEventMods.getProperty("EndTPDescription", "Giran");
 		if (Config.VIP_EVENT_ENABLED)
 		{
-		    String[] propertySplit = L2JOneoEventMods.getProperty("VIPReward", "57,1000").split(";");
+		    String[] propertySplit = L2JTeonEventMods.getProperty("VIPReward", "57,1000").split(";");
 		    for (String vipreward : propertySplit)
 		    {
 			String[] viprewardSplit = vipreward.split(",");
@@ -2567,7 +2578,7 @@ public final class Config
 		}
 		if (Config.VIP_EVENT_ENABLED)
 		{
-		    String[] propertySplit = L2JOneoEventMods.getProperty("VIPTeamReward", "57,1000").split(";");
+		    String[] propertySplit = L2JTeonEventMods.getProperty("VIPTeamReward", "57,1000").split(";");
 		    for (String VIPTeamReward : propertySplit)
 		    {
 			String[] VIPTeamRewardSplit = VIPTeamReward.split(",");
@@ -2593,7 +2604,7 @@ public final class Config
 		}
 		if (Config.VIP_EVENT_ENABLED)
 		{
-		    String[] propertySplit = L2JOneoEventMods.getProperty("NonVIPReward", "57,1000").split(";");
+		    String[] propertySplit = L2JTeonEventMods.getProperty("NonVIPReward", "57,1000").split(";");
 		    for (String nonvipreward : propertySplit)
 		    {
 			String[] nonviprewardSplit = nonvipreward.split(",");
@@ -2617,36 +2628,36 @@ public final class Config
 			}
 		    }
 		}
-		VIP_FINISH_NPC_ID = Integer.parseInt(L2JOneoEventMods.getProperty("VIPNPCID", "50084"));
-		VIP_TP_LOC_X = Integer.parseInt(L2JOneoEventMods.getProperty("VIPTPLocX", "83427"));
-		VIP_TP_LOC_Y = Integer.parseInt(L2JOneoEventMods.getProperty("VIPTPLocY", "148435"));
-		VIP_TP_LOC_Z = Integer.parseInt(L2JOneoEventMods.getProperty("VIPTPLocZ", "-3404"));
-		VIP_PARTICIPATION_TO_START_DELAY = Integer.parseInt(L2JOneoEventMods.getProperty("VIPParticipationToStartDelay", "20"));
-		VIP_LASTING_TIME = Integer.parseInt(L2JOneoEventMods.getProperty("VIPEventTime", "20"));
-		VIP_SIT_TIME = Integer.parseInt(L2JOneoEventMods.getProperty("VIPSitTime", "20"));
-		VIP_TELEPORT_TIME = Integer.parseInt(L2JOneoEventMods.getProperty("VIPFinishTeleportTime", "20"));
-		VIP_TIME_BEFORE_TELEPORT = Integer.parseInt(L2JOneoEventMods.getProperty("VIPStartTeleportTime", "20"));
-		VIP_EVENT_POTIONS_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("VIPEventPotionsAllowed", "False"));
-		VIP_EVENT_SUMMON_BY_ITEM_ALLOWED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("VIPEventSummonByItemAllowed", "False"));
+		VIP_FINISH_NPC_ID = Integer.parseInt(L2JTeonEventMods.getProperty("VIPNPCID", "50084"));
+		VIP_TP_LOC_X = Integer.parseInt(L2JTeonEventMods.getProperty("VIPTPLocX", "83427"));
+		VIP_TP_LOC_Y = Integer.parseInt(L2JTeonEventMods.getProperty("VIPTPLocY", "148435"));
+		VIP_TP_LOC_Z = Integer.parseInt(L2JTeonEventMods.getProperty("VIPTPLocZ", "-3404"));
+		VIP_PARTICIPATION_TO_START_DELAY = Integer.parseInt(L2JTeonEventMods.getProperty("VIPParticipationToStartDelay", "20"));
+		VIP_LASTING_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("VIPEventTime", "20"));
+		VIP_SIT_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("VIPSitTime", "20"));
+		VIP_TELEPORT_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("VIPFinishTeleportTime", "20"));
+		VIP_TIME_BEFORE_TELEPORT = Integer.parseInt(L2JTeonEventMods.getProperty("VIPStartTeleportTime", "20"));
+		VIP_EVENT_POTIONS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("VIPEventPotionsAllowed", "False"));
+		VIP_EVENT_SUMMON_BY_ITEM_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("VIPEventSummonByItemAllowed", "False"));
 		// ********************//
 		/* CTF Event Engine */
 		// ********************//
-		CTF_EVENT_ENABLED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("CTFEventEnabled", "False"));
-		CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JOneoEventMods.getProperty("CTFAllowInterference", "False"));
-		CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JOneoEventMods.getProperty("CTFAllowPotions", "False"));
-		CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JOneoEventMods.getProperty("CTFAllowSummon", "False"));
-		CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JOneoEventMods.getProperty("CTFOnStartRemoveAllEffects", "True"));
-		CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JOneoEventMods.getProperty("CTFOnStartUnsummonPet", "True"));
-		CTF_TEAM_NAME_1 = L2JOneoEventMods.getProperty("CTFTeamName1", "Heaven");
-		CTF_TEAM_NAME_2 = L2JOneoEventMods.getProperty("CTFTeamName2", "Hell");
-		CTF_TEAM_FLAG_ID_1 = Integer.parseInt(L2JOneoEventMods.getProperty("CTFTeamFlagId1", "20001"));
-		CTF_TEAM_COLOR_1 = Integer.decode("0x" + L2JOneoEventMods.getProperty("CTFTeamColor1", "0000FF"));
-		CTF_TEAM_FLAG_ID_2 = Integer.parseInt(L2JOneoEventMods.getProperty("CTFTeamFlagId2", "20001"));
-		CTF_TEAM_COLOR_1 = Integer.decode("0x" + L2JOneoEventMods.getProperty("CTFTeamColor2", "FF0000"));
-		CTF_MIN_PLAYERS = Integer.parseInt(L2JOneoEventMods.getProperty("CTFMinplayers", "10"));
+		CTF_EVENT_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFEventEnabled", "False"));
+		CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "False"));
+		CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "False"));
+		CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowSummon", "False"));
+		CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartRemoveAllEffects", "True"));
+		CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartUnsummonPet", "True"));
+		CTF_TEAM_NAME_1 = L2JTeonEventMods.getProperty("CTFTeamName1", "Heaven");
+		CTF_TEAM_NAME_2 = L2JTeonEventMods.getProperty("CTFTeamName2", "Hell");
+		CTF_TEAM_FLAG_ID_1 = Integer.parseInt(L2JTeonEventMods.getProperty("CTFTeamFlagId1", "20001"));
+		CTF_TEAM_COLOR_1 = Integer.decode("0x" + L2JTeonEventMods.getProperty("CTFTeamColor1", "0000FF"));
+		CTF_TEAM_FLAG_ID_2 = Integer.parseInt(L2JTeonEventMods.getProperty("CTFTeamFlagId2", "20001"));
+		CTF_TEAM_COLOR_1 = Integer.decode("0x" + L2JTeonEventMods.getProperty("CTFTeamColor2", "FF0000"));
+		CTF_MIN_PLAYERS = Integer.parseInt(L2JTeonEventMods.getProperty("CTFMinplayers", "10"));
 		if (true)
 		{
-		    String[] propertySplit = L2JOneoEventMods.getProperty("CTFTeamCords1", "0,0,0").split(",");
+		    String[] propertySplit = L2JTeonEventMods.getProperty("CTFTeamCords1", "0,0,0").split(",");
 		    if (propertySplit.length < 3)
 		    {
 			CTF_EVENT_ENABLED = false;
@@ -2660,7 +2671,7 @@ public final class Config
 		}
 		if (true)
 		{
-		    String[] propertySplit = L2JOneoEventMods.getProperty("CTFTeamCords2", "0,0,0").split(",");
+		    String[] propertySplit = L2JTeonEventMods.getProperty("CTFTeamCords2", "0,0,0").split(",");
 		    if (propertySplit.length < 3)
 		    {
 			CTF_EVENT_ENABLED = false;
@@ -2675,11 +2686,11 @@ public final class Config
 		// ********************//
 		/* RAID Event Engine */
 		// ********************//
-		RAID_SYSTEM_ENABLED = Boolean.parseBoolean(L2JOneoEventMods.getProperty("RaidEnginesEnabled", "False"));
-		RAID_SYSTEM_GIVE_BUFFS = Boolean.parseBoolean(L2JOneoEventMods.getProperty("RaidGiveBuffs", "True"));
-		RAID_SYSTEM_RESURRECT_PLAYER = Boolean.parseBoolean(L2JOneoEventMods.getProperty("RaidResurrectPlayer", "True"));
-		RAID_SYSTEM_MAX_EVENTS = Integer.parseInt(L2JOneoEventMods.getProperty("RaidMaxNumEvents", "3"));
-		RAID_SYSTEM_FIGHT_TIME = Integer.parseInt(L2JOneoEventMods.getProperty("RaidSystemFightTime", "60"));
+		RAID_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidEnginesEnabled", "False"));
+		RAID_SYSTEM_GIVE_BUFFS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidGiveBuffs", "True"));
+		RAID_SYSTEM_RESURRECT_PLAYER = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidResurrectPlayer", "True"));
+		RAID_SYSTEM_MAX_EVENTS = Integer.parseInt(L2JTeonEventMods.getProperty("RaidMaxNumEvents", "3"));
+		RAID_SYSTEM_FIGHT_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("RaidSystemFightTime", "60"));
 		if (RAID_SYSTEM_MAX_EVENTS == 0)
 		{
 		    RAID_SYSTEM_ENABLED = false;
@@ -2688,125 +2699,136 @@ public final class Config
 		// ********************//
 		/* Wedding System */
 		// ********************//
-		ALLOW_WEDDING = Boolean.valueOf(L2JOneoEventMods.getProperty("AllowWedding", "True"));
-		WEDDING_PRICE = Integer.parseInt(L2JOneoEventMods.getProperty("WeddingPrice", "500000"));
-		WEDDING_PUNISH_INFIDELITY = Boolean.parseBoolean(L2JOneoEventMods.getProperty("WeddingPunishInfidelity", "True"));
-		WEDDING_TELEPORT = Boolean.parseBoolean(L2JOneoEventMods.getProperty("WeddingTeleport", "True"));
-		WEDDING_TELEPORT_PRICE = Integer.parseInt(L2JOneoEventMods.getProperty("WeddingTeleportPrice", "500000"));
-		WEDDING_TELEPORT_INTERVAL = Integer.parseInt(L2JOneoEventMods.getProperty("WeddingTeleportInterval", "120"));
-		WEDDING_SAMESEX = Boolean.parseBoolean(L2JOneoEventMods.getProperty("WeddingAllowSameSex", "False"));
+		ALLOW_WEDDING = Boolean.valueOf(L2JTeonEventMods.getProperty("AllowWedding", "True"));
+		WEDDING_PRICE = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingPrice", "500000"));
+		WEDDING_PUNISH_INFIDELITY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("WeddingPunishInfidelity", "True"));
+		WEDDING_TELEPORT = Boolean.parseBoolean(L2JTeonEventMods.getProperty("WeddingTeleport", "True"));
+		WEDDING_TELEPORT_PRICE = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingTeleportPrice", "500000"));
+		WEDDING_TELEPORT_INTERVAL = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingTeleportInterval", "120"));
+		WEDDING_SAMESEX = Boolean.parseBoolean(L2JTeonEventMods.getProperty("WeddingAllowSameSex", "False"));
 		// ********************//
 		/* Champion Mods */
 		// ********************//
-		CHAMPION_ENABLE = Boolean.parseBoolean(L2JOneoEventMods.getProperty("ChampionEnable", "False"));
-		CHAMPION_FREQUENCY = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionFrequency", "0"));
-		CHAMPION_MIN_LVL = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionMinLevel", "20"));
-		CHAMPION_MAX_LVL = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionMaxLevel", "60"));
-		CHAMPION_HP = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionHp", "7"));
-		CHAMPION_HP_REGEN = Float.parseFloat(L2JOneoEventMods.getProperty("ChampionHpRegen", "1."));
-		CHAMPION_REWARDS = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionRewards", "8"));
-		CHAMPION_ADENAS_REWARDS = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionAdenasRewards", "1"));
-		CHAMPION_ATK = Float.parseFloat(L2JOneoEventMods.getProperty("ChampionAtk", "1."));
-		CHAMPION_SPD_ATK = Float.parseFloat(L2JOneoEventMods.getProperty("ChampionSpdAtk", "1."));
-		CHAMPION_REWARD = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionRewardItem", "0"));
-		CHAMPION_REWARD_ID = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionRewardItemID", "6393"));
-		CHAMPION_REWARD_QTY = Integer.parseInt(L2JOneoEventMods.getProperty("ChampionRewardItemQty", "1"));
+		CHAMPION_ENABLE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("ChampionEnable", "False"));
+		CHAMPION_FREQUENCY = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionFrequency", "0"));
+		CHAMPION_MIN_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionMinLevel", "20"));
+		CHAMPION_MAX_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionMaxLevel", "60"));
+		CHAMPION_HP = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionHp", "7"));
+		CHAMPION_HP_REGEN = Float.parseFloat(L2JTeonEventMods.getProperty("ChampionHpRegen", "1."));
+		CHAMPION_REWARDS = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionRewards", "8"));
+		CHAMPION_ADENAS_REWARDS = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionAdenasRewards", "1"));
+		CHAMPION_ATK = Float.parseFloat(L2JTeonEventMods.getProperty("ChampionAtk", "1."));
+		CHAMPION_SPD_ATK = Float.parseFloat(L2JTeonEventMods.getProperty("ChampionSpdAtk", "1."));
+		CHAMPION_REWARD = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionRewardItem", "0"));
+		CHAMPION_REWARD_ID = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionRewardItemID", "6393"));
+		CHAMPION_REWARD_QTY = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionRewardItemQty", "1"));
 
 	    } catch (Exception e)
 	    {
 		e.printStackTrace();
-		throw new Error("Failed to Load " + L2JONEO_MODS + " File.");
+		throw new Error("Failed to Load " + L2JTEON_MODS + " File.");
 	    }
 	    /** ************************************************** */
-	    /** L2J Oneo Mods Properties File -End * */
+	    /** L2J Teon Mods Properties File -End * */
 	    /** ************************************************** */
 	    /** ************************************************** */
-	    /** L2J Oneo Custom Properties File -Begin * */
+	    /** L2J Teon Custom Properties File -Begin * */
 	    /** ************************************************** */
 	    try
 	    {
-		Properties L2JOneoCustom = new Properties();
-		InputStream is = new FileInputStream(new File(L2J_ONEO_CUSTOM));
-		L2JOneoCustom.load(is);
+		Properties L2JTeonCustom = new Properties();
+		InputStream is = new FileInputStream(new File(L2J_TEON_CUSTOM));
+		L2JTeonCustom.load(is);
 		is.close();
+		// **************************//
+		/* Away System */
+		// **************************//
+                /** Away System **/
+                ALLOW_AWAY_STATUS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowAwayStatus", "False"));
+                AWAY_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayAllowInterference", "False"));
+                AWAY_PLAYER_TAKE_AGGRO = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayPlayerTakeAggro", "False"));
+                AWAY_TITLE_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("AwayTitleColor", "0000FF"));
+                AWAY_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("AwayTimer", "30"));
+                BACK_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("BackTimer", "30"));
+                AWAY_PEACE_ZONE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayOnlyInPeaceZone", "False"));
 		// **************************//
 		/* Baby Pets Customizations */
 		// **************************//
-		BABY_PETS_CAN_GROWUP = Boolean.parseBoolean(L2JOneoCustom.getProperty("BabyPetsCanGrowUp", "False"));
-		WOLF_PETS_CAN_GROWUP = Boolean.parseBoolean(L2JOneoCustom.getProperty("WolfPetsCanGrowUp", "False"));
-		BABY_PETS_GROWUP_LVL = Integer.parseInt(L2JOneoCustom.getProperty("BabyPetsGrowUpLvl", "65"));
+		BABY_PETS_CAN_GROWUP = Boolean.parseBoolean(L2JTeonCustom.getProperty("BabyPetsCanGrowUp", "False"));
+		WOLF_PETS_CAN_GROWUP = Boolean.parseBoolean(L2JTeonCustom.getProperty("WolfPetsCanGrowUp", "False"));
+		BABY_PETS_GROWUP_LVL = Integer.parseInt(L2JTeonCustom.getProperty("BabyPetsGrowUpLvl", "65"));
 		// ********************//
 		/* Character Statistics */
 		// ********************//
-        MAX_RUN_SPEED = Integer.parseInt(L2JOneoCustom.getProperty("MaxRunSpeed", "250")); 
-        MAX_EVASION = Integer.parseInt(L2JOneoCustom.getProperty("MaxEvasion", "200")); 
-        MAX_MCRIT_RATE = Integer.parseInt(L2JOneoCustom.getProperty("MaxMCritRate", "300"));  
-		MAX_RCRIT = Integer.parseInt(L2JOneoCustom.getProperty("MaxCritical", "500"));
-		MAX_PATK_SPEED = Integer.parseInt(L2JOneoCustom.getProperty("MaxPAtkSpeed", "0"));
-		MAX_MATK_SPEED = Integer.parseInt(L2JOneoCustom.getProperty("MaxMAtkSpeed", "0"));
-		KEEP_SUBCLASS_SKILLS = Boolean.parseBoolean(L2JOneoCustom.getProperty("KeepSubClassSkills", "False"));
-		MAX_SUBCLASSES = Integer.parseInt(L2JOneoCustom.getProperty("MaxSubClasses", "3"));
-		PLAYER_PROTECTION_SYSTEM = Integer.parseInt(L2JOneoCustom.getProperty("PlayerProtectionLevel", "0"));
-        ALT_DAGGER_DMG_VS_ROBE = Float.parseFloat(L2JOneoCustom.getProperty("DaggerVSRobe", "1.00"));   
-        ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(L2JOneoCustom.getProperty("DaggerVSLight", "1.20"));  
-        ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(L2JOneoCustom.getProperty("DaggerVSHeavy", "1.40"));   
-		FRONT_BLOW_SUCCESS = Integer.parseInt(L2JOneoCustom.getProperty("FrontBlow", "50"));
-		BACK_BLOW_SUCCESS = Integer.parseInt(L2JOneoCustom.getProperty("BackBlow", "70"));
-		SIDE_BLOW_SUCCESS = Integer.parseInt(L2JOneoCustom.getProperty("SideBlow", "60"));
-		DISABLE_GRADE_PENALTIES = Boolean.parseBoolean(L2JOneoCustom.getProperty("DisableGradePenalties", "False"));
-		DISABLE_WEIGHT_PENALTIES = Boolean.parseBoolean(L2JOneoCustom.getProperty("DisableWeightPenalties", "False"));
-		DONATOR_DELETE_RENTED_ITEMS = Boolean.parseBoolean(L2JOneoCustom.getProperty("DonatorDeleteRentedItems", "False"));
-		DONATOR_NAME_COLOR = Integer.decode("0x" + L2JOneoCustom.getProperty("DonatorColorName", "00FFFF"));
-		DONATOR_ITEMS = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowDonatorItems", "False"));
-		DONATORS_REVIVE = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowDonatorAutoRevive", "False"));
-		HERO_CUSTOM_ITEMS = Boolean.parseBoolean(L2JOneoCustom.getProperty("EnableHeroCustomItem", "False"));
-		Config.ALLOW_DONATORS_UNLEGIT_SKILLS = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowDonatorsUnlegit", "False"));
-		KOOFS_NAME_COLOR = Integer.decode("0x" + L2JOneoCustom.getProperty("KoofsColorName", "00FFFF"));
-		NOOBS_NAME_COLOR = Integer.decode("0x" + L2JOneoCustom.getProperty("NoobsColorName", "00FF00"));
-		ENABLE_FACTION_KOOFS_NOOBS = Boolean.parseBoolean(L2JOneoCustom.getProperty("FactionKoofsNoobs", "False"));
-		FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JOneoCustom.getProperty("AnnounceTimeFaction", "0"));
-		KOOFS_NAME_TEAM = L2JOneoCustom.getProperty("KoofsTeamName", "koofs");
-		NOOBS_NAME_TEAM = L2JOneoCustom.getProperty("NoobsTeamName", "noobs");
-		REBIRTH_ITEM = Integer.parseInt(L2JOneoCustom.getProperty("RebirthItemId", "0"));
-		REBIRTH_SKILL1 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill1", "0"));
-		REBIRTH_SKILL1_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL1", "0"));
-		REBIRTH_SKILL2 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill2", "0"));
-		REBIRTH_SKILL2_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL2", "0"));
-		REBIRTH_SKILL3 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill3", "0"));
-		REBIRTH_SKILL3_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL3", "0"));
-		REBIRTH_SKILL4 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill4", "0"));
-		REBIRTH_SKILL4_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL4", "0"));
-		REBIRTH_SKILL5 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill5", "0"));
-		REBIRTH_SKILL5_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL5", "0"));
-		REBIRTH_SKILL6 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill6", "0"));
-		REBIRTH_SKILL6_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL6", "0"));
-		REBIRTH_SKILL7 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill7", "0"));
-		REBIRTH_SKILL7_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL7", "0"));
-		REBIRTH_SKILL8 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill8", "0"));
-		REBIRTH_SKILL8_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL8", "0"));
-		REBIRTH_SKILL9 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill9", "0"));
-		REBIRTH_SKILL9_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL9", "0"));
-		REBIRTH_SKILL10 = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKill10", "0"));
-		REBIRTH_SKILL10_LVL = Integer.parseInt(L2JOneoCustom.getProperty("RewardSKillLvL10", "0"));
-		CHAR_TITLE = Boolean.parseBoolean(L2JOneoCustom.getProperty("CharTitle", "False"));
-		ADD_CHAR_TITLE = L2JOneoCustom.getProperty("CharAddTitle", "OneoDevTeam");
-		ADD_MAX_LOAD = Integer.parseInt(L2JOneoCustom.getProperty("WeightLimit", "0"));
-		CUSTOM_RUN_SPEED = Integer.parseInt(L2JOneoCustom.getProperty("CustomRunSpeed", "0"));
-		KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JOneoCustom.getProperty("KeepBuffsOnDeath", "False"));
-		DEATH_PENALTY_CHANCE = Integer.parseInt(L2JOneoCustom.getProperty("DeathPenaltyChance", "20"));
-		ALT_PLAYER_CAN_DROP_AA = Boolean.parseBoolean(L2JOneoCustom.getProperty("PlayerCanDropAncientAdena", "False"));
-		PLAYER_DROP_AA = Integer.parseInt(L2JOneoCustom.getProperty("DropAncientAdena", "1"));
-		ALLOW_ADENA_REWARD = Boolean.parseBoolean(L2JOneoCustom.getProperty("PlayerGetAdenaByPvP", "False"));
-		ADENA_NUMBER_REWARD_ON_PVP = Integer.parseInt(L2JOneoCustom.getProperty("AmmountAdenaGetByPvP", "1"));
-		LOOSE_ADENA_ON_DIE = Boolean.parseBoolean(L2JOneoCustom.getProperty("PlayerLooseAdena", "False"));
-		ADENA_NUMBER_LOST_ON_DIE = Integer.parseInt(L2JOneoCustom.getProperty("AmmountAdenaLostWhenDies", "1"));
-		SET_LVL_ON_START = Boolean.parseBoolean(L2JOneoCustom.getProperty("SetHighLevelOnStart", "False"));
-		HIGH_LEVEL_ON_START_FOR_SUBCLASS = Boolean.parseBoolean(L2JOneoCustom.getProperty("HighLevelOnStartForSubclass", "True"));
-		CUSTOM_STARTER_ITEMS_ENABLED = Boolean.parseBoolean(L2JOneoCustom.getProperty("CustomStarterItemsEnabled", "False"));
-		DISABLE_OFFICIAL_STARTER_ITEMS = Boolean.parseBoolean(L2JOneoCustom.getProperty("DisableOfficialStarterItems", "False"));
+        MAX_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxRunSpeed", "250")); 
+        MAX_EVASION = Integer.parseInt(L2JTeonCustom.getProperty("MaxEvasion", "200")); 
+        MAX_MCRIT_RATE = Integer.parseInt(L2JTeonCustom.getProperty("MaxMCritRate", "300"));  
+		MAX_RCRIT = Integer.parseInt(L2JTeonCustom.getProperty("MaxCritical", "500"));
+		MAX_PATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxPAtkSpeed", "0"));
+		MAX_MATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxMAtkSpeed", "0"));
+		KEEP_SUBCLASS_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepSubClassSkills", "False"));
+		MAX_SUBCLASSES = Integer.parseInt(L2JTeonCustom.getProperty("MaxSubClasses", "3"));
+		PLAYER_PROTECTION_SYSTEM = Integer.parseInt(L2JTeonCustom.getProperty("PlayerProtectionLevel", "0"));
+        ALT_DAGGER_DMG_VS_ROBE = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSRobe", "1.00"));   
+        ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSLight", "1.20"));  
+        ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSHeavy", "1.40"));   
+		FRONT_BLOW_SUCCESS = Integer.parseInt(L2JTeonCustom.getProperty("FrontBlow", "50"));
+		BACK_BLOW_SUCCESS = Integer.parseInt(L2JTeonCustom.getProperty("BackBlow", "70"));
+		SIDE_BLOW_SUCCESS = Integer.parseInt(L2JTeonCustom.getProperty("SideBlow", "60"));
+		DISABLE_GRADE_PENALTIES = Boolean.parseBoolean(L2JTeonCustom.getProperty("DisableGradePenalties", "False"));
+		DISABLE_WEIGHT_PENALTIES = Boolean.parseBoolean(L2JTeonCustom.getProperty("DisableWeightPenalties", "False"));
+		DONATOR_DELETE_RENTED_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("DonatorDeleteRentedItems", "False"));
+		DONATOR_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("DonatorColorName", "00FFFF"));
+		DONATOR_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorItems", "False"));
+		DONATORS_REVIVE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorAutoRevive", "False"));
+		HERO_CUSTOM_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnableHeroCustomItem", "False"));
+		Config.ALLOW_DONATORS_UNLEGIT_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorsUnlegit", "False"));
+		KOOFS_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("KoofsColorName", "00FFFF"));
+		NOOBS_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("NoobsColorName", "00FF00"));
+		ENABLE_FACTION_KOOFS_NOOBS = Boolean.parseBoolean(L2JTeonCustom.getProperty("FactionKoofsNoobs", "False"));
+		FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JTeonCustom.getProperty("AnnounceTimeFaction", "0"));
+		KOOFS_NAME_TEAM = L2JTeonCustom.getProperty("KoofsTeamName", "koofs");
+		NOOBS_NAME_TEAM = L2JTeonCustom.getProperty("NoobsTeamName", "noobs");
+		REBIRTH_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("RebirthItemId", "0"));
+		REBIRTH_SKILL1 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill1", "0"));
+		REBIRTH_SKILL1_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL1", "0"));
+		REBIRTH_SKILL2 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill2", "0"));
+		REBIRTH_SKILL2_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL2", "0"));
+		REBIRTH_SKILL3 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill3", "0"));
+		REBIRTH_SKILL3_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL3", "0"));
+		REBIRTH_SKILL4 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill4", "0"));
+		REBIRTH_SKILL4_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL4", "0"));
+		REBIRTH_SKILL5 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill5", "0"));
+		REBIRTH_SKILL5_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL5", "0"));
+		REBIRTH_SKILL6 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill6", "0"));
+		REBIRTH_SKILL6_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL6", "0"));
+		REBIRTH_SKILL7 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill7", "0"));
+		REBIRTH_SKILL7_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL7", "0"));
+		REBIRTH_SKILL8 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill8", "0"));
+		REBIRTH_SKILL8_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL8", "0"));
+		REBIRTH_SKILL9 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill9", "0"));
+		REBIRTH_SKILL9_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL9", "0"));
+		REBIRTH_SKILL10 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill10", "0"));
+		REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL10", "0"));
+		CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
+		ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "OneoDevTeam");
+		ADD_MAX_LOAD = Integer.parseInt(L2JTeonCustom.getProperty("WeightLimit", "0"));
+		CUSTOM_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("CustomRunSpeed", "0"));
+		KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepBuffsOnDeath", "False"));
+		DEATH_PENALTY_CHANCE = Integer.parseInt(L2JTeonCustom.getProperty("DeathPenaltyChance", "20"));
+		ALT_PLAYER_CAN_DROP_AA = Boolean.parseBoolean(L2JTeonCustom.getProperty("PlayerCanDropAncientAdena", "False"));
+		PLAYER_DROP_AA = Integer.parseInt(L2JTeonCustom.getProperty("DropAncientAdena", "1"));
+		ALLOW_ADENA_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("PlayerGetAdenaByPvP", "False"));
+		ADENA_NUMBER_REWARD_ON_PVP = Integer.parseInt(L2JTeonCustom.getProperty("AmmountAdenaGetByPvP", "1"));
+		LOOSE_ADENA_ON_DIE = Boolean.parseBoolean(L2JTeonCustom.getProperty("PlayerLooseAdena", "False"));
+		ADENA_NUMBER_LOST_ON_DIE = Integer.parseInt(L2JTeonCustom.getProperty("AmmountAdenaLostWhenDies", "1"));
+		SET_LVL_ON_START = Boolean.parseBoolean(L2JTeonCustom.getProperty("SetHighLevelOnStart", "False"));
+		HIGH_LEVEL_ON_START_FOR_SUBCLASS = Boolean.parseBoolean(L2JTeonCustom.getProperty("HighLevelOnStartForSubclass", "True"));
+		CUSTOM_STARTER_ITEMS_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomStarterItemsEnabled", "False"));
+		DISABLE_OFFICIAL_STARTER_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("DisableOfficialStarterItems", "False"));
 		if (Config.CUSTOM_STARTER_ITEMS_ENABLED)
 		{
-		    String[] propertySplit = L2JOneoCustom.getProperty("CustomStarterItems", "0,0").split(";");
+		    String[] propertySplit = L2JTeonCustom.getProperty("CustomStarterItems", "0,0").split(";");
 		    for (String starteritems : propertySplit)
 		    {
 			String[] starteritemsSplit = starteritems.split(",");
@@ -2833,157 +2855,157 @@ public final class Config
 		// ********************//
 		/* NPC Customizations */
 		// ********************//
-		GAME_VIEWNPC = Boolean.parseBoolean(L2JOneoCustom.getProperty("GameViewNpc", "False"));
-		GAME_VIEWNPC_COMBAT = Boolean.parseBoolean(L2JOneoCustom.getProperty("GameViewNpcCombat", "False"));
-		GAME_VIEWNPC_BASIC = Boolean.parseBoolean(L2JOneoCustom.getProperty("GameViewNpcBasic", "False"));
-		GAME_VIEWNPC_DROP = Boolean.parseBoolean(L2JOneoCustom.getProperty("GameViewNpcDrop", "False"));
-		GAME_VIEWNPC_QUESTDROP = Boolean.parseBoolean(L2JOneoCustom.getProperty("GameViewNpcQuestDrop", "False"));
-		MIN_MONSTER_ANIMATION = Integer.parseInt(L2JOneoCustom.getProperty("MinMonsterAnimation", "0"));
-		MAX_MONSTER_ANIMATION = Integer.parseInt(L2JOneoCustom.getProperty("MaxMonsterAnimation", "0"));
-		RAID_FOSSILIZATION_PENALTY = Boolean.parseBoolean(L2JOneoCustom.getProperty("RaidFossilizationPenalty", "False"));
-		ALLOW_MANOR = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowManor", "False"));
-		ALT_MANOR_REFRESH_TIME = Integer.parseInt(L2JOneoCustom.getProperty("AltManorRefreshTime", "20"));
-		ALT_MANOR_REFRESH_MIN = Integer.parseInt(L2JOneoCustom.getProperty("AltManorRefreshMin", "00"));
-		ALT_MANOR_APPROVE_TIME = Integer.parseInt(L2JOneoCustom.getProperty("AltManorApproveTime", "6"));
-		ALT_MANOR_APPROVE_MIN = Integer.parseInt(L2JOneoCustom.getProperty("AltManorApproveMin", "00"));
-		ALT_MANOR_MAINTENANCE_PERIOD = Integer.parseInt(L2JOneoCustom.getProperty("AltManorMaintenancePreiod", "360000"));
-		ALT_MANOR_SAVE_ALL_ACTIONS = Boolean.parseBoolean(L2JOneoCustom.getProperty("AltManorSaveAllActions", "False"));
-		ALT_MANOR_SAVE_PERIOD_RATE = Integer.parseInt(L2JOneoCustom.getProperty("AltManorSavePeriodRate", "2"));
-		ALLOW_NPC_WALKERS = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowNpcWalkers", "False"));
+		GAME_VIEWNPC = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpc", "False"));
+		GAME_VIEWNPC_COMBAT = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcCombat", "False"));
+		GAME_VIEWNPC_BASIC = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcBasic", "False"));
+		GAME_VIEWNPC_DROP = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcDrop", "False"));
+		GAME_VIEWNPC_QUESTDROP = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcQuestDrop", "False"));
+		MIN_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MinMonsterAnimation", "0"));
+		MAX_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MaxMonsterAnimation", "0"));
+		RAID_FOSSILIZATION_PENALTY = Boolean.parseBoolean(L2JTeonCustom.getProperty("RaidFossilizationPenalty", "False"));
+		ALLOW_MANOR = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowManor", "False"));
+		ALT_MANOR_REFRESH_TIME = Integer.parseInt(L2JTeonCustom.getProperty("AltManorRefreshTime", "20"));
+		ALT_MANOR_REFRESH_MIN = Integer.parseInt(L2JTeonCustom.getProperty("AltManorRefreshMin", "00"));
+		ALT_MANOR_APPROVE_TIME = Integer.parseInt(L2JTeonCustom.getProperty("AltManorApproveTime", "6"));
+		ALT_MANOR_APPROVE_MIN = Integer.parseInt(L2JTeonCustom.getProperty("AltManorApproveMin", "00"));
+		ALT_MANOR_MAINTENANCE_PERIOD = Integer.parseInt(L2JTeonCustom.getProperty("AltManorMaintenancePreiod", "360000"));
+		ALT_MANOR_SAVE_ALL_ACTIONS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AltManorSaveAllActions", "False"));
+		ALT_MANOR_SAVE_PERIOD_RATE = Integer.parseInt(L2JTeonCustom.getProperty("AltManorSavePeriodRate", "2"));
+		ALLOW_NPC_WALKERS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowNpcWalkers", "False"));
 		// ********************//
 		/* Player Command */
 		// ********************//
-		ALLOW_AUTOHERBS_CMD = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowAutoHerbsCommand", "False"));
-		ALLOW_WITHDRAW_CWH_CMD = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowPlayersWithdrawCWH", "False"));
+		ALLOW_AUTOHERBS_CMD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowAutoHerbsCommand", "False"));
+		ALLOW_WITHDRAW_CWH_CMD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPlayersWithdrawCWH", "False"));
 		// ********************//
 		/* Announcements */
 		// ********************//
-		SHOW_HTML_WELCOME = Boolean.parseBoolean(L2JOneoCustom.getProperty("ShowOneoInfo", "True"));
-		SHOW_GM_LOGIN = Boolean.parseBoolean(L2JOneoCustom.getProperty("ShowGMLogin", "False"));
-		SHOW_L2J_LICENSE = Boolean.parseBoolean(L2JOneoCustom.getProperty("ShowL2JLicense", "False"));
-		SHOW_HTML_NEWBIE = Boolean.parseBoolean(L2JOneoCustom.getProperty("ShowHTMLNewbie", "False"));
-		LEVEL_HTML_NEWBIE = Integer.parseInt(L2JOneoCustom.getProperty("LevelShowHTMLNewbie", "10"));
-		ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(L2JOneoCustom.getProperty("ShowOnlinePlayersAtStartup", "False"));
-		PLAYERS_ONLINE_TRICK = Integer.parseInt(L2JOneoCustom.getProperty("OnlinePlayerCountTrick", "0"));
-		ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(L2JOneoCustom.getProperty("OnlinePlayersAnnounceInterval", "900000"));
-		ANNOUNCE_CASTLE_LORDS = Boolean.parseBoolean(L2JOneoCustom.getProperty("AnnounceCastleLords", "False"));
-		ALT_ANNOUNCE_PK = Boolean.parseBoolean(L2JOneoCustom.getProperty("NoticePK", "False"));
-		ENABLE_PK_INFO = Boolean.valueOf(L2JOneoCustom.getProperty("EnablePkInfo", "False"));
-		NPC_ANNOUNCER_DONATOR_ONLY = Boolean.parseBoolean(L2JOneoCustom.getProperty("NpcAnnouncerDonatorOnly", "False"));
-		ALLOW_NPC_ANNOUNCER = Boolean.parseBoolean(L2JOneoCustom.getProperty("AllowNpcAnnouncer", "False"));
-		NPC_ANNOUNCER_PRICE_PER_ANNOUNCE = Integer.parseInt(L2JOneoCustom.getProperty("PricePerAnnounce", "10000"));
-		NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY = Integer.parseInt(L2JOneoCustom.getProperty("AnnouncesPerDay", "20"));
-		NPC_ANNOUNCER_MIN_LVL_TO_ANNOUNCE = Integer.parseInt(L2JOneoCustom.getProperty("MinLevelToAnnounce", "0"));
-		NPC_ANNOUNCER_MAX_LVL_TO_ANNOUNCE = Integer.parseInt(L2JOneoCustom.getProperty("MaxLevelToAnnounce", "80"));
+		SHOW_HTML_WELCOME = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowOneoInfo", "True"));
+		SHOW_GM_LOGIN = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowGMLogin", "False"));
+		SHOW_L2J_LICENSE = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowL2JLicense", "False"));
+		SHOW_HTML_NEWBIE = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowHTMLNewbie", "False"));
+		LEVEL_HTML_NEWBIE = Integer.parseInt(L2JTeonCustom.getProperty("LevelShowHTMLNewbie", "10"));
+		ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowOnlinePlayersAtStartup", "False"));
+		PLAYERS_ONLINE_TRICK = Integer.parseInt(L2JTeonCustom.getProperty("OnlinePlayerCountTrick", "0"));
+		ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(L2JTeonCustom.getProperty("OnlinePlayersAnnounceInterval", "900000"));
+		ANNOUNCE_CASTLE_LORDS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AnnounceCastleLords", "False"));
+		ALT_ANNOUNCE_PK = Boolean.parseBoolean(L2JTeonCustom.getProperty("NoticePK", "False"));
+		ENABLE_PK_INFO = Boolean.valueOf(L2JTeonCustom.getProperty("EnablePkInfo", "False"));
+		NPC_ANNOUNCER_DONATOR_ONLY = Boolean.parseBoolean(L2JTeonCustom.getProperty("NpcAnnouncerDonatorOnly", "False"));
+		ALLOW_NPC_ANNOUNCER = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowNpcAnnouncer", "False"));
+		NPC_ANNOUNCER_PRICE_PER_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("PricePerAnnounce", "10000"));
+		NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY = Integer.parseInt(L2JTeonCustom.getProperty("AnnouncesPerDay", "20"));
+		NPC_ANNOUNCER_MIN_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MinLevelToAnnounce", "0"));
+		NPC_ANNOUNCER_MAX_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MaxLevelToAnnounce", "80"));
 		// ********************//
 		/* Dimensional Rift */
 		// ********************//
-		RIFT_MIN_PARTY_SIZE = Integer.parseInt(L2JOneoCustom.getProperty("RiftMinPartySize", "5"));
-		RIFT_MAX_JUMPS = Integer.parseInt(L2JOneoCustom.getProperty("MaxRiftJumps", "4"));
-		RIFT_SPAWN_DELAY = Integer.parseInt(L2JOneoCustom.getProperty("RiftSpawnDelay", "10000"));
-		RIFT_AUTO_JUMPS_TIME_MIN = Integer.parseInt(L2JOneoCustom.getProperty("AutoJumpsDelayMin", "480"));
-		RIFT_AUTO_JUMPS_TIME_MAX = Integer.parseInt(L2JOneoCustom.getProperty("AutoJumpsDelayMax", "600"));
-		RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(L2JOneoCustom.getProperty("BossRoomTimeMultiply", "1.5"));
-		RIFT_ENTER_COST_RECRUIT = Integer.parseInt(L2JOneoCustom.getProperty("RecruitCost", "18"));
-		RIFT_ENTER_COST_SOLDIER = Integer.parseInt(L2JOneoCustom.getProperty("SoldierCost", "21"));
-		RIFT_ENTER_COST_OFFICER = Integer.parseInt(L2JOneoCustom.getProperty("OfficerCost", "24"));
-		RIFT_ENTER_COST_CAPTAIN = Integer.parseInt(L2JOneoCustom.getProperty("CaptainCost", "27"));
-		RIFT_ENTER_COST_COMMANDER = Integer.parseInt(L2JOneoCustom.getProperty("CommanderCost", "30"));
-		RIFT_ENTER_COST_HERO = Integer.parseInt(L2JOneoCustom.getProperty("HeroCost", "33"));
+		RIFT_MIN_PARTY_SIZE = Integer.parseInt(L2JTeonCustom.getProperty("RiftMinPartySize", "5"));
+		RIFT_MAX_JUMPS = Integer.parseInt(L2JTeonCustom.getProperty("MaxRiftJumps", "4"));
+		RIFT_SPAWN_DELAY = Integer.parseInt(L2JTeonCustom.getProperty("RiftSpawnDelay", "10000"));
+		RIFT_AUTO_JUMPS_TIME_MIN = Integer.parseInt(L2JTeonCustom.getProperty("AutoJumpsDelayMin", "480"));
+		RIFT_AUTO_JUMPS_TIME_MAX = Integer.parseInt(L2JTeonCustom.getProperty("AutoJumpsDelayMax", "600"));
+		RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(L2JTeonCustom.getProperty("BossRoomTimeMultiply", "1.5"));
+		RIFT_ENTER_COST_RECRUIT = Integer.parseInt(L2JTeonCustom.getProperty("RecruitCost", "18"));
+		RIFT_ENTER_COST_SOLDIER = Integer.parseInt(L2JTeonCustom.getProperty("SoldierCost", "21"));
+		RIFT_ENTER_COST_OFFICER = Integer.parseInt(L2JTeonCustom.getProperty("OfficerCost", "24"));
+		RIFT_ENTER_COST_CAPTAIN = Integer.parseInt(L2JTeonCustom.getProperty("CaptainCost", "27"));
+		RIFT_ENTER_COST_COMMANDER = Integer.parseInt(L2JTeonCustom.getProperty("CommanderCost", "30"));
+		RIFT_ENTER_COST_HERO = Integer.parseInt(L2JTeonCustom.getProperty("HeroCost", "33"));
 		// ********************//
 		/* Clan. Customizes. */
 		// ********************//
-		CLAN_RAISE_FIRST_COST = Integer.parseInt(L2JOneoCustom.getProperty("ClanFirstCost", "650000"));
-		CLAN_RAISE_SEC_COST = Integer.parseInt(L2JOneoCustom.getProperty("ClanSecondCOst", "2500000"));
-		CLAN_MEMBERS_FIRST = Integer.parseInt(L2JOneoCustom.getProperty("ClanMembersNeedSix", "30"));
-		CLAN_MEMBERS_SEC = Integer.parseInt(L2JOneoCustom.getProperty("ClanMembersNeedSeven", "80"));
-		CLAN_MEMBERS_THIRD = Integer.parseInt(L2JOneoCustom.getProperty("ClanMembersNeedEight", "120"));
-		CLAN_REPUTATION_FIRST = Integer.parseInt(L2JOneoCustom.getProperty("ClanReputationSix", "10000"));
-		CLAN_REPUTATION_SEC = Integer.parseInt(L2JOneoCustom.getProperty("ClanReputationSeven", "20000"));
-		CLAN_REPUTATION_THIRD = Integer.parseInt(L2JOneoCustom.getProperty("ClanReputationEight", "40000"));
-		CLAN_SP_FIRST = Integer.parseInt(L2JOneoCustom.getProperty("ClanSpFirst", "30000"));
-		CLAN_SP_SEC = Integer.parseInt(L2JOneoCustom.getProperty("ClanSpSecond", "150000"));
-		CLAN_SP_THIRD = Integer.parseInt(L2JOneoCustom.getProperty("ClanSpThird", "500000"));
-		CLAN_SP_FORTH = Integer.parseInt(L2JOneoCustom.getProperty("ClanSpForth", "1400000"));
-		CLAN_SP_FIFTH = Integer.parseInt(L2JOneoCustom.getProperty("ClanSpFifth", "3500000"));
+		CLAN_RAISE_FIRST_COST = Integer.parseInt(L2JTeonCustom.getProperty("ClanFirstCost", "650000"));
+		CLAN_RAISE_SEC_COST = Integer.parseInt(L2JTeonCustom.getProperty("ClanSecondCOst", "2500000"));
+		CLAN_MEMBERS_FIRST = Integer.parseInt(L2JTeonCustom.getProperty("ClanMembersNeedSix", "30"));
+		CLAN_MEMBERS_SEC = Integer.parseInt(L2JTeonCustom.getProperty("ClanMembersNeedSeven", "80"));
+		CLAN_MEMBERS_THIRD = Integer.parseInt(L2JTeonCustom.getProperty("ClanMembersNeedEight", "120"));
+		CLAN_REPUTATION_FIRST = Integer.parseInt(L2JTeonCustom.getProperty("ClanReputationSix", "10000"));
+		CLAN_REPUTATION_SEC = Integer.parseInt(L2JTeonCustom.getProperty("ClanReputationSeven", "20000"));
+		CLAN_REPUTATION_THIRD = Integer.parseInt(L2JTeonCustom.getProperty("ClanReputationEight", "40000"));
+		CLAN_SP_FIRST = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpFirst", "30000"));
+		CLAN_SP_SEC = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpSecond", "150000"));
+		CLAN_SP_THIRD = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpThird", "500000"));
+		CLAN_SP_FORTH = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpForth", "1400000"));
+		CLAN_SP_FIFTH = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpFifth", "3500000"));
 		// ********************//
 		/* Serv. Customizes. */
 		// ********************//
-		LOGIN_RESTART_WITH_GAMESERVER = Boolean.parseBoolean(L2JOneoCustom.getProperty("LoginRestartWithGameserver", "False"));
-		LOGIN_RESTART_BY_TIME = Boolean.parseBoolean(L2JOneoCustom.getProperty("LoginRestartByTime", "False"));
-		LOGIN_RESTART_TIME = Integer.parseInt(L2JOneoCustom.getProperty("LoginRestartTime", "60"));
-		SAFE_SIGTERM = Boolean.parseBoolean(L2JOneoCustom.getProperty("SafeSigterm", "False"));
-		GM_OVER_ENCHANT = Integer.parseInt(L2JOneoCustom.getProperty("GMOverEnchant", "0"));
-		STARTING_AA = Integer.parseInt(L2JOneoCustom.getProperty("StartingAA", "0"));
-		USE_CHAT_FILTER = Boolean.parseBoolean(L2JOneoCustom.getProperty("UseChatFilter", "False"));
-		USE_POWERFULL_CHAT_FILTER = Boolean.parseBoolean(L2JOneoCustom.getProperty("UsePowerfullChatFilter", "False"));
-		CHAT_FILTER_CHARS = L2JOneoCustom.getProperty("ChatFilterChars", "***");
-		CHAT_FILTER_PUNISHMENT = Integer.parseInt(L2JOneoCustom.getProperty("ChatFilterPunishment", "1"));
-		CHAT_FILTER_PUNISHMENT_TIME = Integer.parseInt(L2JOneoCustom.getProperty("ChatFilterPunishmentTime", "5"));
-		CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JOneoCustom.getProperty("CheckSkillsOnEnter", "False"));
-		SPAWN_CHAR = Boolean.parseBoolean(L2JOneoCustom.getProperty("CustomSpawn", "False"));
-		SPAWN_X = Integer.parseInt(L2JOneoCustom.getProperty("SpawnX", ""));
-		SPAWN_Y = Integer.parseInt(L2JOneoCustom.getProperty("SpawnY", ""));
-		SPAWN_Z = Integer.parseInt(L2JOneoCustom.getProperty("SpawnZ", ""));
-		ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(L2JOneoCustom.getProperty("EnchantChanceWeaponCrystal", "85"));
-		ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(L2JOneoCustom.getProperty("EnchantChanceArmorCrystal", "85"));
-		ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(L2JOneoCustom.getProperty("EnchantChanceJewelryCrystal", "85"));
-		ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(L2JOneoCustom.getProperty("EnchantChanceWeaponBlessed", "55"));
-		ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(L2JOneoCustom.getProperty("EnchantChanceArmorBlessed", "55"));
-		ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(L2JOneoCustom.getProperty("EnchantChanceJewelryBlessed", "55"));
-		ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(L2JOneoCustom.getProperty("EnableDwarfEnchantBonus", "False"));
-		DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(L2JOneoCustom.getProperty("DwarfEnchantMinLevel", "80"));
-		DWARF_ENCHANT_BONUS = Integer.parseInt(L2JOneoCustom.getProperty("DwarfEnchantBonus", "15"));
-		GM_ADMIN_MENU_STYLE = L2JOneoCustom.getProperty("GMAdminMenuStyle", "modern");
-		ENABLE_PACKET_PROTECTION = Boolean.parseBoolean(L2JOneoCustom.getProperty("PacketProtection", "False"));
-		MAX_UNKNOWN_PACKETS = Integer.parseInt(L2JOneoCustom.getProperty("UnknownPacketsBeforeBan", "5"));
-		UNKNOWN_PACKETS_PUNiSHMENT = Integer.parseInt(L2JOneoCustom.getProperty("UnknownPacketsPunishment", "2"));
-		GMAUDIT = Boolean.valueOf(L2JOneoCustom.getProperty("GMAudit", "True"));
+		LOGIN_RESTART_WITH_GAMESERVER = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartWithGameserver", "False"));
+		LOGIN_RESTART_BY_TIME = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartByTime", "False"));
+		LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
+		SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
+		GM_OVER_ENCHANT = Integer.parseInt(L2JTeonCustom.getProperty("GMOverEnchant", "0"));
+		STARTING_AA = Integer.parseInt(L2JTeonCustom.getProperty("StartingAA", "0"));
+		USE_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UseChatFilter", "False"));
+		USE_POWERFULL_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UsePowerfullChatFilter", "False"));
+		CHAT_FILTER_CHARS = L2JTeonCustom.getProperty("ChatFilterChars", "***");
+		CHAT_FILTER_PUNISHMENT = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishment", "1"));
+		CHAT_FILTER_PUNISHMENT_TIME = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishmentTime", "5"));
+		CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "False"));
+		SPAWN_CHAR = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomSpawn", "False"));
+		SPAWN_X = Integer.parseInt(L2JTeonCustom.getProperty("SpawnX", ""));
+		SPAWN_Y = Integer.parseInt(L2JTeonCustom.getProperty("SpawnY", ""));
+		SPAWN_Z = Integer.parseInt(L2JTeonCustom.getProperty("SpawnZ", ""));
+		ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceWeaponCrystal", "85"));
+		ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceArmorCrystal", "85"));
+		ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceJewelryCrystal", "85"));
+		ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceWeaponBlessed", "55"));
+		ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceArmorBlessed", "55"));
+		ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceJewelryBlessed", "55"));
+		ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnableDwarfEnchantBonus", "False"));
+		DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(L2JTeonCustom.getProperty("DwarfEnchantMinLevel", "80"));
+		DWARF_ENCHANT_BONUS = Integer.parseInt(L2JTeonCustom.getProperty("DwarfEnchantBonus", "15"));
+		GM_ADMIN_MENU_STYLE = L2JTeonCustom.getProperty("GMAdminMenuStyle", "modern");
+		ENABLE_PACKET_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("PacketProtection", "False"));
+		MAX_UNKNOWN_PACKETS = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsBeforeBan", "5"));
+		UNKNOWN_PACKETS_PUNiSHMENT = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsPunishment", "2"));
+		GMAUDIT = Boolean.valueOf(L2JTeonCustom.getProperty("GMAudit", "True"));
 		// ********************//
 		/* Misc. Customizes. */
 		// ********************//
-		STRICT_HERO_SYSTEM = Boolean.parseBoolean(L2JOneoCustom.getProperty("StrictHeroSystem", "True"));
-                ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(L2JOneoCustom.getProperty("EnchantHeroWeapons", "False"));
-		SUBCLASS_WITH_ITEM_AND_NO_QUEST = Boolean.parseBoolean(L2JOneoCustom.getProperty("SubclassWithItemAndNoQuest", "False"));
-		FLYING_WYVERN_DURING_SIEGE = Boolean.parseBoolean(L2JOneoCustom.getProperty("FlyingWyvernDuringSiege", "False"));
-		ES_SP_BOOK_NEEDED = Boolean.parseBoolean(L2JOneoCustom.getProperty("EnchantSkillSpBookNeeded", "True"));
-		LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(L2JOneoCustom.getProperty("LifeCrystalNeeded", "True"));
-		POTIONS_REUSE_DELAY = Integer.parseInt(L2JOneoCustom.getProperty("PotionsDelay", "0")) * 1000;
-		ELIXIRS_REUSE_DELAY = Integer.parseInt(L2JOneoCustom.getProperty("ElixirsDelay", "0")) * 1000;
-		REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(L2JOneoCustom.getProperty("RemoveCastleCirclets", "True"));
-		ENABLE_WAREHOUSESORTING_CLAN = Boolean.valueOf(L2JOneoCustom.getProperty("EnableWarehouseSortingClan", "False"));
-		ENABLE_WAREHOUSESORTING_PRIVATE = Boolean.valueOf(L2JOneoCustom.getProperty("EnableWarehouseSortingPrivate", "False"));
-		ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.valueOf(L2JOneoCustom.getProperty("EnableWarehouseSortingFreight", "False"));
-		DISABLE_SUMMON_IN_COMBAT = Boolean.valueOf(L2JOneoCustom.getProperty("DisableSummonInCombat", "True"));
-		DISABLE_ATTACK_NPC_TYPE = Boolean.valueOf(L2JOneoCustom.getProperty("DisableAttackToNpcs", "False"));
-		ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(L2JOneoCustom.getProperty("AltPerfectShieldBlockRate", "5"));
-		ALLOWED_NPC_TYPES = L2JOneoCustom.getProperty("AllowedNPCTypes");
+		STRICT_HERO_SYSTEM = Boolean.parseBoolean(L2JTeonCustom.getProperty("StrictHeroSystem", "True"));
+                ENCHANT_HERO_WEAPONS  = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnchantHeroWeapons", "False"));
+		SUBCLASS_WITH_ITEM_AND_NO_QUEST = Boolean.parseBoolean(L2JTeonCustom.getProperty("SubclassWithItemAndNoQuest", "False"));
+		FLYING_WYVERN_DURING_SIEGE = Boolean.parseBoolean(L2JTeonCustom.getProperty("FlyingWyvernDuringSiege", "False"));
+		ES_SP_BOOK_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnchantSkillSpBookNeeded", "True"));
+		LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("LifeCrystalNeeded", "True"));
+		POTIONS_REUSE_DELAY = Integer.parseInt(L2JTeonCustom.getProperty("PotionsDelay", "0")) * 1000;
+		ELIXIRS_REUSE_DELAY = Integer.parseInt(L2JTeonCustom.getProperty("ElixirsDelay", "0")) * 1000;
+		REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(L2JTeonCustom.getProperty("RemoveCastleCirclets", "True"));
+		ENABLE_WAREHOUSESORTING_CLAN = Boolean.valueOf(L2JTeonCustom.getProperty("EnableWarehouseSortingClan", "False"));
+		ENABLE_WAREHOUSESORTING_PRIVATE = Boolean.valueOf(L2JTeonCustom.getProperty("EnableWarehouseSortingPrivate", "False"));
+		ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.valueOf(L2JTeonCustom.getProperty("EnableWarehouseSortingFreight", "False"));
+		DISABLE_SUMMON_IN_COMBAT = Boolean.valueOf(L2JTeonCustom.getProperty("DisableSummonInCombat", "True"));
+		DISABLE_ATTACK_NPC_TYPE = Boolean.valueOf(L2JTeonCustom.getProperty("DisableAttackToNpcs", "False"));
+		ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(L2JTeonCustom.getProperty("AltPerfectShieldBlockRate", "5"));
+		ALLOWED_NPC_TYPES = L2JTeonCustom.getProperty("AllowedNPCTypes");
 		LIST_ALLOWED_NPC_TYPES = new FastList<String>();
 		for (String npc_type : ALLOWED_NPC_TYPES.split(","))
 		{
 		    LIST_ALLOWED_NPC_TYPES.add(npc_type);
 		}
-		CUSTOM_SPAWNLIST_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomSpawnlistTable", "False"));
-		SAVE_GMSPAWN_ON_CUSTOM = Boolean.valueOf(L2JOneoCustom.getProperty("SaveGmSpawnOnCustom", "False"));
-		DELETE_GMSPAWN_ON_CUSTOM = Boolean.valueOf(L2JOneoCustom.getProperty("DeleteGmSpawnOnCustom", "False"));
-		CUSTOM_NPC_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomNpcTable", "False"));
-		CUSTOM_ETCITEM_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomEtcitemTable", "False"));
-		CUSTOM_ARMOR_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomArmorTable", "False"));
-		CUSTOM_ARMORSETS_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomArmorSetsTable", "False"));
-		CUSTOM_WEAPON_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomWeaponTable", "False"));
-		CUSTOM_TELEPORT_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomTeleportTable", "False"));
-		CUSTOM_DROPLIST_TABLE = Boolean.valueOf(L2JOneoCustom.getProperty("CustomDroplistTable", "False"));
-		CUSTOM_MERCHANT_TABLES = Boolean.valueOf(L2JOneoCustom.getProperty("CustomMerchantTables", "False"));
-		ENABLE_OLY_WEAPON_ENCH = Boolean.valueOf(L2JOneoCustom.getProperty("EnableOlyWeaponEnch", "False"));
-		MAX_OLY_WEAPON_ENCH = Integer.parseInt(L2JOneoCustom.getProperty("MaxOlyWeaponEnch", "0"));
-		DISABLE_OLY_DUALBOX = Boolean.valueOf(L2JOneoCustom.getProperty("DisableOlyDualBox", "False"));
-		ENABLE_MODIFY_SKILL_DURATION = Boolean.valueOf(L2JOneoCustom.getProperty("EnableModifySkillDuration", "False"));
+		CUSTOM_SPAWNLIST_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomSpawnlistTable", "False"));
+		SAVE_GMSPAWN_ON_CUSTOM = Boolean.valueOf(L2JTeonCustom.getProperty("SaveGmSpawnOnCustom", "False"));
+		DELETE_GMSPAWN_ON_CUSTOM = Boolean.valueOf(L2JTeonCustom.getProperty("DeleteGmSpawnOnCustom", "False"));
+		CUSTOM_NPC_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomNpcTable", "False"));
+		CUSTOM_ETCITEM_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomEtcitemTable", "False"));
+		CUSTOM_ARMOR_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomArmorTable", "False"));
+		CUSTOM_ARMORSETS_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomArmorSetsTable", "False"));
+		CUSTOM_WEAPON_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomWeaponTable", "False"));
+		CUSTOM_TELEPORT_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomTeleportTable", "False"));
+		CUSTOM_DROPLIST_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomDroplistTable", "False"));
+		CUSTOM_MERCHANT_TABLES = Boolean.valueOf(L2JTeonCustom.getProperty("CustomMerchantTables", "False"));
+		ENABLE_OLY_WEAPON_ENCH = Boolean.valueOf(L2JTeonCustom.getProperty("EnableOlyWeaponEnch", "False"));
+		MAX_OLY_WEAPON_ENCH = Integer.parseInt(L2JTeonCustom.getProperty("MaxOlyWeaponEnch", "0"));
+		DISABLE_OLY_DUALBOX = Boolean.valueOf(L2JTeonCustom.getProperty("DisableOlyDualBox", "False"));
+		ENABLE_MODIFY_SKILL_DURATION = Boolean.valueOf(L2JTeonCustom.getProperty("EnableModifySkillDuration", "False"));
 		// Create Map only if enabled
 		if (ENABLE_MODIFY_SKILL_DURATION)
 		{
 		    SKILL_DURATION_LIST = new FastMap<Integer, Integer>();
 		    String[] propertySplit;
-		    propertySplit = L2JOneoCustom.getProperty("SkillDurationList", "").split(";");
+		    propertySplit = L2JTeonCustom.getProperty("SkillDurationList", "").split(";");
 		    for (String skill : propertySplit)
 		    {
 			String[] skillSplit = skill.split(",");
@@ -3005,12 +3027,12 @@ public final class Config
 			}
 		    }
 		}
-		ENABLE_NO_AUTOLEARN_LIST = Boolean.valueOf(L2JOneoCustom.getProperty("EnableNoAutoLearnList", "False"));
+		ENABLE_NO_AUTOLEARN_LIST = Boolean.valueOf(L2JTeonCustom.getProperty("EnableNoAutoLearnList", "False"));
 		if (ENABLE_NO_AUTOLEARN_LIST)
 		{
 		    NO_AUTOLEARN_LIST = new FastList<Integer>();
 		    String[] propertySplit;
-		    propertySplit = L2JOneoCustom.getProperty("NoAutoLearnList", "").split(";");
+		    propertySplit = L2JTeonCustom.getProperty("NoAutoLearnList", "").split(";");
 		    for (String skill : propertySplit)
 		    {
 			try
@@ -3028,25 +3050,25 @@ public final class Config
 		// ************************//
 		/* Equipment Restriction. */
 		// **********************//
-		CASTLE_SHIELD = Boolean.parseBoolean(L2JOneoCustom.getProperty("CastleShieldRestriction", "True"));
-		CLANHALL_SHIELD = Boolean.parseBoolean(L2JOneoCustom.getProperty("ClanHallShieldRestriction", "True"));
-		APELLA_ARMORS = Boolean.parseBoolean(L2JOneoCustom.getProperty("ApellaArmorsRestriction", "True"));
-		OATH_ARMORS = Boolean.parseBoolean(L2JOneoCustom.getProperty("OathArmorsRestriction", "True"));
-		CASTLE_CROWN = Boolean.parseBoolean(L2JOneoCustom.getProperty("CastleLordsCrownRestriction", "True"));
-		CASTLE_CIRCLETS = Boolean.parseBoolean(L2JOneoCustom.getProperty("CastleCircletsRestriction", "True"));
+		CASTLE_SHIELD = Boolean.parseBoolean(L2JTeonCustom.getProperty("CastleShieldRestriction", "True"));
+		CLANHALL_SHIELD = Boolean.parseBoolean(L2JTeonCustom.getProperty("ClanHallShieldRestriction", "True"));
+		APELLA_ARMORS = Boolean.parseBoolean(L2JTeonCustom.getProperty("ApellaArmorsRestriction", "True"));
+		OATH_ARMORS = Boolean.parseBoolean(L2JTeonCustom.getProperty("OathArmorsRestriction", "True"));
+		CASTLE_CROWN = Boolean.parseBoolean(L2JTeonCustom.getProperty("CastleLordsCrownRestriction", "True"));
+		CASTLE_CIRCLETS = Boolean.parseBoolean(L2JTeonCustom.getProperty("CastleCircletsRestriction", "True"));
 		// ************************//
 		/* Banking System */
 		// **********************//
-		BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(L2JOneoCustom.getProperty("BankingSystemEnabled", "False"));
-		BANKING_SYSTEM_ADENA = Integer.parseInt(L2JOneoCustom.getProperty("BankingSystemAdena", "0"));
-		BANKING_SYSTEM_GOLDBARS = Integer.parseInt(L2JOneoCustom.getProperty("BankingSystemGoldBars", "0"));
+		BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("BankingSystemEnabled", "False"));
+		BANKING_SYSTEM_ADENA = Integer.parseInt(L2JTeonCustom.getProperty("BankingSystemAdena", "0"));
+		BANKING_SYSTEM_GOLDBARS = Integer.parseInt(L2JTeonCustom.getProperty("BankingSystemGoldBars", "0"));
 	    } catch (Exception e)
 	    {
 		e.printStackTrace();
-		throw new Error("Failed to Load " + L2J_ONEO_CUSTOM + " File.");
+		throw new Error("Failed to Load " + L2J_TEON_CUSTOM + " File.");
 	    }
 	    /** ************************************************** */
-	    /** L2J Oneo Custom Properties File -End * */
+	    /** L2J Teon Custom Properties File -End * */
 	    /** ************************************************** */
 	    // irc to ig
 	    try

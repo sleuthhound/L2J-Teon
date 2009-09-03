@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.PcInventory;
-import net.sf.l2j.gameserver.model.actor.instance.L2BufferOneoInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2BufferTeonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2EventManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -313,7 +313,7 @@ public class L2RaidEvent
 	{
 	    int previousPoints = player.getEventPoints();
 	    if (Config.RAID_SYSTEM_GIVE_BUFFS)
-		L2BufferOneoInstance.makeBuffs(player, buffList, efector, false);
+		L2BufferTeonInstance.makeBuffs(player, buffList, efector, false);
 	    player.setEventPoints(player.getEventPoints() - eventPoints);
 	    player.sendMessage("Event Manager: " + eventPoints + " Event Points have Been used. " + "You had " + previousPoints + " and now you have " + player.getEventPoints() + "Event Points.");
 	}
@@ -337,7 +337,7 @@ public class L2RaidEvent
 		    continue;
 		// Apply the Buffs if allowed
 		if (Config.RAID_SYSTEM_GIVE_BUFFS)
-		    L2BufferOneoInstance.makeBuffs(member, buffList, efector, false);
+		    L2BufferTeonInstance.makeBuffs(member, buffList, efector, false);
 		/*
 		 * In this case we will generate an HTML to notify the member of
 		 * the action taken. 1. In the first case, we will check if the
@@ -393,7 +393,7 @@ public class L2RaidEvent
 		if (member == null)
 		    continue;
 		if (Config.RAID_SYSTEM_GIVE_BUFFS)
-		    L2BufferOneoInstance.makeBuffs(member, buffList, efector, false);
+		    L2BufferTeonInstance.makeBuffs(member, buffList, efector, false);
 		member.inPartyEvent = true;
 		if (individualPrice > member.getEventPoints())
 		{

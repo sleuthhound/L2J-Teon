@@ -67,8 +67,8 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.model.entity.GmAudit;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.VIP;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.model.quest.State;
@@ -1480,7 +1480,7 @@ public class L2NpcInstance extends L2Character
     }
 
     /**
-     * Throws an action command to L2BufferOneoInstance.<br>
+     * Throws an action command to L2BufferTeonInstance.<br>
      *
      * @param player
      *                --> Target player
@@ -1499,7 +1499,7 @@ public class L2NpcInstance extends L2Character
 	}
 	if (_templateId > 0)
 	{
-	    L2BufferOneoInstance.makeBuffs(player, _templateId, this, true);
+	    L2BufferTeonInstance.makeBuffs(player, _templateId, this, true);
 	}
     }
     

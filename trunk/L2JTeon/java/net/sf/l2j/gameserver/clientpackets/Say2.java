@@ -182,6 +182,11 @@ public final class Say2 extends L2GameClientPacket
 			    activeChar.sendMessage(receiver.getName() + " is in jail.");
 			    return;
 			}
+			if (receiver.isAway())
+			{
+				activeChar.sendMessage("Player is Away try again later.");
+			    	return;
+			}
 			// receiver's chat is banned?
 			if (receiver.isChatBanned())
 			{

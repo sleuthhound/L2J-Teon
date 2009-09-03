@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2BuffTemplate;
 
-public class L2BufferOneoInstance
+public class L2BufferTeonInstance
 {
     static L2PcInstance selfBuffer;
     static L2NpcInstance npcBuffer;
