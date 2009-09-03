@@ -661,6 +661,12 @@ public final class Config
     public static int MIN_MONSTER_ANIMATION;
     /** Maximal time between animations of a MONSTER */
     public static int MAX_MONSTER_ANIMATION;
+    
+    // Limits 
+    public static int   MAX_RUN_SPEED; 
+    public static int   MAX_EVASION; 
+    public static int   MAX_MCRIT_RATE;
+    
     /**
      * Config option to either allow or disallow a player getting petrified
      * by a raidboss, due to the 8+ level difference rule.
@@ -2787,6 +2793,9 @@ public final class Config
 		// ********************//
 		/* Character Statistics */
 		// ********************//
+        MAX_RUN_SPEED = Integer.parseInt(L2JOneoCustom.getProperty("MaxRunSpeed", "250")); 
+        MAX_EVASION = Integer.parseInt(L2JOneoCustom.getProperty("MaxEvasion", "200")); 
+        MAX_MCRIT_RATE = Integer.parseInt(L2JOneoCustom.getProperty("MaxMCritRate", "300"));  
 		MAX_RCRIT = Integer.parseInt(L2JOneoCustom.getProperty("MaxCritical", "500"));
 		MAX_PATK_SPEED = Integer.parseInt(L2JOneoCustom.getProperty("MaxPAtkSpeed", "0"));
 		MAX_MATK_SPEED = Integer.parseInt(L2JOneoCustom.getProperty("MaxMAtkSpeed", "0"));

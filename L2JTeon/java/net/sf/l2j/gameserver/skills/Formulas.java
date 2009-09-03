@@ -495,9 +495,9 @@ public final class Formulas
 			{
 				env.value *= DEXbonus[p.getDEX()];
 				env.value *= 10;
-				if (env.value > 500)
+				if (env.value > Config.MAX_RCRIT)
 				{
-					env.value = 500;
+					env.value = Config.MAX_RCRIT;
 				}
 			}
 		}
@@ -551,6 +551,9 @@ public final class Formulas
 		{
 			L2PcInstance p = (L2PcInstance) env.player;
 			env.value *= DEXbonus[p.getDEX()];
+			
+            if(env.value > Config.MAX_MCRIT_RATE)  
+                env.value = Config.MAX_MCRIT_RATE;  
 		}
 	}
 
