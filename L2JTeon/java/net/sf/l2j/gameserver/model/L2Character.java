@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.model.ChanceSkillList; 
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -197,6 +198,9 @@ public abstract class L2Character extends L2Object
     private Calculator[] _calculators;
     /** FastMap(Integer, L2Skill) containing all skills of the L2Character */
     protected final Map<Integer, L2Skill> _skills;
+    
+    /** FastMap containing the active chance skills on this character */ 
+    protected ChanceSkillList _chanceSkills; 
 
 	/** Zone system */
 	public static final int ZONE_PVP = 1;
@@ -6597,8 +6601,41 @@ public abstract class L2Character extends L2Object
 	    // Add Func objects of newSkill to the calculator set of the
 	    // L2Character
 	    addStatFuncs(newSkill.getStatFuncs(null, this));
+	    
+	    if (oldSkill != null && _chanceSkills != null) 
+	    { 
+	    	removeChanceSkill(oldSkill.getId()); 
+	    } 
+	    if (newSkill.isChance()) 
+	    { 
+	    	addChanceSkill(newSkill); 
+	    }
 	}
 	return oldSkill;
+    } 
+    
+    public void addChanceSkill(L2Skill skill) 
+    { 
+    	synchronized(this) 
+    	{ 
+    		if (_chanceSkills == null) 
+    			_chanceSkills = new ChanceSkillList(this); 
+    		_chanceSkills.put(skill, skill.getChanceCondition()); 
+    	} 
+    } 
+    
+    public void removeChanceSkill(int id) 
+    { 
+    	synchronized(this) 
+    	{ 
+    		for (L2Skill skill : _chanceSkills.keySet()) 
+    		{ 
+    			if (skill.getId() == id) 
+    				_chanceSkills.remove(skill); 
+    		} 
+    		if (_chanceSkills.size() == 0) 
+    			_chanceSkills = null; 
+    	}
     }
 
     /**
@@ -6638,10 +6675,27 @@ public abstract class L2Character extends L2Object
 	    return null;
 	}
 	// Remove the skill from the L2Character _skills
-	L2Skill oldSkill = _skills.remove(skill.getId());
+    return removeSkill(skill.getId()); 
+    }
+    
+    public L2Skill removeSkill(int skillId) 
+    {
+        // Remove the skill from the L2Character _skills 
+        L2Skill oldSkill = _skills.remove(skillId); 
 	// Remove all its Func objects from the L2Character calculator set
 	if (oldSkill != null)
 	{
+        // Stop casting if this skill is used right now 
+        if (getLastSkillCast() != null && isCastingNow()) 
+        {
+            if (oldSkill.getId() == getLastSkillCast().getId()) 
+                abortCast(); 
+        }
+        if (oldSkill.isChance() && _chanceSkills != null) 
+        {
+            removeChanceSkill(oldSkill.getId()); 
+        }
+        
 	    removeStatsOwner(oldSkill);
 	}
 	return oldSkill;
