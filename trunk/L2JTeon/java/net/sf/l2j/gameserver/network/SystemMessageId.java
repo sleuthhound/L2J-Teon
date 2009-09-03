@@ -3512,6 +3512,18 @@ public enum SystemMessageId
      * won.
      */
     SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON(1956),
+	/**
+	* ID: 1999<br>
+	* Message: $c1 dodges the attack.
+	*/
+	S1_DODGES_ATTACK(1999),
+
+	/**
+	* ID: 2000<br>
+	* Message: You have avoided $c1's attack.
+	*/
+	AVOIDED_S1_ATTACK2(2000),
+
     /**
      * ID: 2017<br>
      * Message: $s1 cannot duel because $s1 is currently engaged in a

@@ -94,6 +94,27 @@ public class L2SkillChargeDmg extends L2Skill
 	    L2Character target = (L2Character) targets[index];
 	    if (target.isAlikeDead())
 		continue;
+        	//Calculate skill evasion
+        	boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, this);
+        	if(skillIsEvaded)
+        	{
+				if (caster instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_DODGES_ATTACK);
+					sm.addString(target.getName());
+					((L2PcInstance) caster).sendPacket(sm);
+				}
+				if (target instanceof L2PcInstance)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.AVOIDED_S1_ATTACK2);
+					sm.addString(caster.getName());
+					((L2PcInstance) target).sendPacket(sm);
+				}
+				
+				//no futher calculations needed. 
+				continue;
+			}
+
 	    // TODO: should we use dual or not?
 	    // because if so, damage are lowered but we dont do anything
 	    // special with dual then

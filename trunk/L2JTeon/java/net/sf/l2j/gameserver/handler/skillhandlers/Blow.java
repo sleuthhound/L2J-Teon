@@ -58,6 +58,7 @@ public class Blow implements ISkillHandler
 	{
 	    return;
 	}
+	    
 	for (int index = 0; index < targets.length; index++)
 	{
 	    L2Character target = (L2Character) targets[index];
@@ -65,6 +66,10 @@ public class Blow implements ISkillHandler
 	    {
 		continue;
 	    }
+	    
+	    // Check firstly if target dodges skill 
+	    boolean skillIsEvaded = Formulas.getInstance().calcPhysicalSkillEvasion(target, skill); 
+	    
 	    if (activeChar.isBehindTarget())
 	    {
 		_successChance = BACK;
@@ -77,7 +82,7 @@ public class Blow implements ISkillHandler
 	    }
 	    // If skill requires Crit or skill requires behind,
 	    // calculate chance based on DEX, Position and on self BUFF
-	    if ((((skill.getCondition() & L2Skill.COND_BACK) != 0) && (_successChance == BACK)) || (((skill.getCondition() & L2Skill.COND_CRIT) != 0) && Formulas.getInstance().calcBlow(activeChar, target, _successChance)))
+	    if ((((skill.getCondition() & L2Skill.COND_BACK) != 0) && (_successChance == BACK)) && (!skillIsEvaded) || (((skill.getCondition() & L2Skill.COND_CRIT) != 0) && Formulas.getInstance().calcBlow(activeChar, target, _successChance)))
 	    {
 		if (skill.hasEffects())
 		{

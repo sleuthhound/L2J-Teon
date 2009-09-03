@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
@@ -59,7 +58,6 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillExitBuffs;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillNeedCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSeed;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
-import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -149,9 +147,7 @@ public abstract class L2Skill
 	    _class = classType;
 	}
     }
-
-    protected ChanceCondition _chanceCondition = null;  
-    
+   
     // elements
     public final static int ELEMENT_WIND = 1;
     public final static int ELEMENT_FIRE = 2;
@@ -329,8 +325,14 @@ public abstract class L2Skill
     private final int _minPledgeClass;
     private final boolean _isOffensive;
     private final int _numCharges;
+    
+    // OP Chance 
     private final int _triggeredId;  
     private final int _triggeredLevel;  
+    private final boolean _bestow; 
+    private final boolean _bestowed; 
+    protected ChanceCondition _chanceCondition = null; 
+    
     private final int _forceId;
     private final boolean _isHeroSkill; // If true the skill is a Hero Skill
     private final int _baseCritRate; // percent of success for skill critical
@@ -426,7 +428,9 @@ public abstract class L2Skill
 	_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
 	_numCharges = set.getInteger("num_charges", getLevel());
     _triggeredId = set.getInteger("triggeredId", 0);  
-    _triggeredLevel = set.getInteger("triggeredLevel", 0);  
+    _triggeredLevel = set.getInteger("triggeredLevel", 0);
+    _bestow = set.getBool("bestowTriggered", false); 
+    _bestowed = set.getBool("bestowed", false); 
 	_forceId = set.getInteger("forceId", 0);
 	
     if (_operateType == SkillOpType.OP_CHANCE)  
@@ -692,6 +696,21 @@ public abstract class L2Skill
     {  
     	return _triggeredLevel;  
     }
+    
+    public boolean bestowTriggered() 
+    { 
+    	return _bestow; 
+    } 
+    
+    public boolean bestowed() 
+    { 
+    	return _bestowed; 
+    } 
+    
+    public boolean triggerAnotherSkill() 
+    { 
+    	return _triggeredId > 1; 
+    } 
 
     /**
      * Return the skill type (ex : BLEED, SLEEP, WATER...).<BR>
@@ -1063,53 +1082,23 @@ public abstract class L2Skill
 	}
     }
 
-    // int weapons[] = {L2Weapon.WEAPON_TYPE_ETC, L2Weapon.WEAPON_TYPE_BOW,
-    // L2Weapon.WEAPON_TYPE_POLE, L2Weapon.WEAPON_TYPE_DUALFIST,
-    // L2Weapon.WEAPON_TYPE_DUAL, L2Weapon.WEAPON_TYPE_BLUNT,
-    // L2Weapon.WEAPON_TYPE_SWORD, L2Weapon.WEAPON_TYPE_DAGGER};
-
-    public final boolean getWeaponDependancy(L2Character activeChar)
-    {
-	int weaponsAllowed = getWeaponsAllowed();
+    public final boolean getWeaponDependancy(L2Character activeChar) 
+    { 
+        int weaponsAllowed = getWeaponsAllowed(); 
 	// check to see if skill has a weapon dependency.
 	if (weaponsAllowed == 0)
 	{
 	    return true;
 	}
+    int mask = 0; 
 	if (activeChar.getActiveWeaponItem() != null)
-	{
-	    L2WeaponType playerWeapon;
-	    playerWeapon = activeChar.getActiveWeaponItem().getItemType();
-	    int mask = playerWeapon.mask();
-	    if ((mask & weaponsAllowed) != 0)
-	    {
-		return true;
-	    }
-	    // can be on the secondary weapon
-	    if (activeChar.getSecondaryWeaponItem() != null)
-	    {
-		playerWeapon = activeChar.getSecondaryWeaponItem().getItemType();
-		mask = playerWeapon.mask();
-		if ((mask & weaponsAllowed) != 0)
-		{
-		    return true;
-		}
-	    }
-	}
-	TextBuilder skillmsg = new TextBuilder();
-	skillmsg.append(getName());
-	skillmsg.append(" can only be used with weapons of type ");
-	for (L2WeaponType wt : L2WeaponType.values())
-	{
-	    if ((wt.mask() & weaponsAllowed) != 0)
-	    {
-		skillmsg.append(wt).append('/');
-	    }
-	}
-	skillmsg.setCharAt(skillmsg.length() - 1, '.');
-	SystemMessage message = new SystemMessage(SystemMessageId.S1_S2);
-	message.addString(skillmsg.toString());
-	activeChar.sendPacket(message);
+        mask |= activeChar.getActiveWeaponItem().getItemType().mask(); 
+    if (activeChar.getSecondaryWeaponItem() != null) 
+        mask |= activeChar.getSecondaryWeaponItem().getItemType().mask(); 
+    
+    if ((mask & weaponsAllowed) != 0) 
+        return true; 
+    
 	return false;
     }
 
