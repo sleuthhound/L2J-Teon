@@ -216,6 +216,7 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.OlympiadStat;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Away;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.AutoLootHerbs;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Banking;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.JoinVIP;
@@ -225,8 +226,8 @@ import net.sf.l2j.gameserver.handler.voicedcommandhandlers.castle;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.version;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
-// import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
+import net.sf.l2j.gameserver.instancemanager.AwayManager;
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
@@ -245,13 +246,8 @@ import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
-// import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-// import net.sf.l2j.gameserver.instancemanager.ValakasManager;
-// import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-// import net.sf.l2j.gameserver.instancemanager.lastimperialtomb.LastImperialTombManager;
-// import net.sf.l2j.gameserver.instancemanager.lastimperialtomb.FrintezzaManager;
 import net.sf.l2j.gameserver.lib.L2jConnect;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
@@ -494,6 +490,9 @@ public class GameServer
 		QuestManager.getInstance().report();
 		
 		AugmentationData.getInstance();
+		if (Config.ALLOW_AWAY_STATUS)
+			_log.info("Away System");
+			AwayManager.getInstance();
 	if (Config.SAVE_DROPPED_ITEM)
 	{
 	    ItemsOnGroundManager.getInstance();
@@ -679,6 +678,10 @@ public class GameServer
 	_log.config("UserCommandHandler: Loaded " + _userCommandHandler.size() + " handlers.");
 	_voicedCommandHandler = VoicedCommandHandler.getInstance();
 	_voicedCommandHandler.registerVoicedCommandHandler(new stats());
+		if(Config.ALLOW_AWAY_STATUS)
+	{
+			_voicedCommandHandler.registerVoicedCommandHandler(new Away());
+	}
 	_voicedCommandHandler.registerVoicedCommandHandler(new castle());
 	if (Config.ALLOW_WEDDING)
 	{
