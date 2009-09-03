@@ -339,6 +339,11 @@ public class L2Attackable extends L2NpcInstance
      * L2Attackable
      */
     private RewardItem[] _sweepItems;
+    
+    private boolean _canReturnToSpawnPoint = true;    
+    public final boolean canReturnToSpawnPoint() { return _canReturnToSpawnPoint; }    
+    public final void setCanReturnToSpawnPoint(boolean value) { _canReturnToSpawnPoint = value; }   
+    
     /** crops */
     private RewardItem[] _harvestItems;
     private boolean _seeded;
