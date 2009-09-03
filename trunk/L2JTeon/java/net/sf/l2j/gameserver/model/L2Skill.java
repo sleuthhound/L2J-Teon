@@ -88,7 +88,7 @@ public abstract class L2Skill
 
     public static enum SkillOpType
     {
-	OP_PASSIVE, OP_ACTIVE, OP_TOGGLE
+	OP_PASSIVE, OP_ACTIVE, OP_TOGGLE, OP_CHANCE
     }
 
     /** Target types of skills : SELF, PARTY, CLAN, PET... */
@@ -150,6 +150,8 @@ public abstract class L2Skill
 	}
     }
 
+    protected ChanceCondition _chanceCondition = null;  
+    
     // elements
     public final static int ELEMENT_WIND = 1;
     public final static int ELEMENT_FIRE = 2;
@@ -302,6 +304,7 @@ public abstract class L2Skill
     private final SkillType _skillType;
     private final SkillType _effectType;
     private final int _effectPower;
+    private final int _effectId;  
     private final int _effectLvl;
     private final boolean _ispotion;
     private final int _element;
@@ -326,6 +329,8 @@ public abstract class L2Skill
     private final int _minPledgeClass;
     private final boolean _isOffensive;
     private final int _numCharges;
+    private final int _triggeredId;  
+    private final int _triggeredLevel;  
     private final int _forceId;
     private final boolean _isHeroSkill; // If true the skill is a Hero Skill
     private final int _baseCritRate; // percent of success for skill critical
@@ -403,6 +408,7 @@ public abstract class L2Skill
 	_skillType = set.getEnum("skillType", SkillType.class);
 	_effectType = set.getEnum("effectType", SkillType.class, null);
 	_effectPower = set.getInteger("effectPower", 0);
+    _effectId = set.getInteger("effectId", 0);  
 	_effectLvl = set.getInteger("effectLevel", 0);
 	_element = set.getInteger("element", 0);
 	_savevs = set.getInteger("save", 0);
@@ -419,7 +425,13 @@ public abstract class L2Skill
 	_minPledgeClass = set.getInteger("minPledgeClass", 0);
 	_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
 	_numCharges = set.getInteger("num_charges", getLevel());
+    _triggeredId = set.getInteger("triggeredId", 0);  
+    _triggeredLevel = set.getInteger("triggeredLevel", 0);  
 	_forceId = set.getInteger("forceId", 0);
+	
+    if (_operateType == SkillOpType.OP_CHANCE)  
+        _chanceCondition = ChanceCondition.parse(set);  
+    
 	_isHeroSkill = HeroSkillTable.isHeroSkill(_id);
 	_baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM) || (_skillType == SkillType.BLOW) ? 0 : -1);
 	_lethalEffect1 = set.getInteger("lethal1", 0);
@@ -589,6 +601,14 @@ public abstract class L2Skill
     {
 	return _effectPower;
     }
+    
+    /**  
+     * Return the additional effect Id.<BR><BR>  
+     */  
+    public final int getEffectId()  
+    {  
+    	return _effectId;  
+    }
 
     /**
      * Return the additional effect level.<BR>
@@ -661,6 +681,16 @@ public abstract class L2Skill
     public int getForceId()
     {
 	return _forceId;
+    }  
+    
+    public int getTriggeredId()  
+    {  
+    	return _triggeredId;  
+    }  
+    
+    public int getTriggeredLevel()  
+    {  
+    	return _triggeredLevel;  
     }
 
     /**
@@ -829,6 +859,16 @@ public abstract class L2Skill
     public final boolean isToggle()
     {
 	return _operateType == SkillOpType.OP_TOGGLE;
+    }  
+    
+    public final boolean isChance()  
+    {  
+    	return _operateType == SkillOpType.OP_CHANCE;  
+    }  
+    
+    public ChanceCondition getChanceCondition()  
+    {  
+    	return _chanceCondition;  
     }
 
     public final boolean isDance()
