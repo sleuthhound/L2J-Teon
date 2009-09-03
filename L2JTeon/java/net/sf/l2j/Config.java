@@ -42,6 +42,76 @@ import javolution.util.FastMap;
 public final class Config
 {
     protected static final Logger _log = Logger.getLogger(Config.class.getName());
+    
+    // Configuration files
+    /**
+     * Properties file that allows selection of new Classes for storage of World Objects. <br>
+     * This may help servers with large amounts of players recieving error messages related to the 
+     * <i>L2ObjectHashMap</i> and
+     * <i>L2ObejctHashSet</i> classes.
+     */
+    /**
+     * Properties file for game server (connection and ingame) configurations
+     */
+    public static final String CONFIGURATION_FILE = "./config/server.properties";
+    /** Properties file for game server options */
+    public static final String OPTIONS_FILE = "./config/options.properties";
+    /** Properties file for login server configurations */
+    public static final String LOGIN_CONFIGURATION_FILE = "./config/loginserver.properties";
+    /** Properties file for the ID factory */
+    public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
+    /** Properties file for other configurations */
+    public static final String OTHER_CONFIG_FILE = "./config/other.properties";
+    /** Properties file for rates configurations */
+    public static final String RATES_CONFIG_FILE = "./config/rates.properties";
+    /** Properties file for alternative configuration */
+    public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
+    /** Properties file for PVP configurations */
+    public static final String PVP_CONFIG_FILE = "./config/pvp.properties";
+    /** Properties file for GM access configurations */
+    public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
+    /** Properties file for telnet configuration */
+    public static final String TELNET_FILE = "./config/telnet.properties";
+    /** Properties file for l2j server version configurations */
+    public static final String SERVER_VERSION_FILE = "./config/l2j-version.properties";
+    /** Properties file for l2j datapack version configurations */
+    public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
+    /** Properties file for siege configuration */
+    public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
+    /** XML file for banned IP */
+    public static final String BANNED_IP_XML = "./config/banned.xml";
+    /** Text file containing hexadecimal value of server ID */
+    public static final String HEXID_FILE = "./config/hexid.txt";
+    /**
+     * Properties file for alternative configure GM commands access level.<br>
+     * Note that this file only read if "AltPrivilegesAdmin = true"
+     */
+    public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
+    /** Properties file for AI configurations */
+    public static final String AI_FILE = "./config/ai.properties";
+    /** Properties file for 7 Signs Festival */
+    public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
+    public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
+    public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
+    public static int MAX_ITEM_IN_PACKET;
+    /** Properties file for irc configuration */
+    public static final String IRC_FILE = "./config/irc.properties";
+    /** L2J Oneo Custom Properties File */
+    public static final String L2J_ONEO_CUSTOM = "./config/L2JOneoCustom.properties";
+    /** L2J Oneo Event Mods Properties File */
+    public static final String L2JONEO_MODS = "./config/L2JOneoMods.properties";
+    /** Properties file FloodProtector Configuration */ 
+    public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";   
+    /** Properties file for Bosses */
+    public static final String  BOS_CONFIG_FILE = "./config/boss/bosses.properties";
+	public static final String FS_CONFIG_FILE = "./config/boss/foursepulchers.properties";
+    /** Properties file for Feature Extensions*/
+    public static final String  FEATURE_CONFIG_FILE = "./config/Custom/Feature.properties";
+    /** Properties file for General Configurations */
+    public static final String  GENERAL_CONFIG_FILE = "./config/Custom/General.properties";
+    /** Properties file for Olympiad Extensions*/
+    public static final String  OLYMPIAD_FILE = "./config/Custom/Olympiad.properties";
+    
     /** Debug/release mode */
     public static boolean DEBUG;
     /** Enable/disable assertions */
@@ -135,8 +205,7 @@ public final class Config
     /** Alternative game crafting SP rate multiplier - default 1 */
     public static double ALT_GAME_CREATION_SP_RATE;
     /**
-     * Alternative setting to blacksmith use of recipes to craft - default
-     * True
+     * Alternative setting to blacksmith use of recipes to craft - default True
      */
     public static boolean ALT_BLACKSMITH_USE_RECIPES;
     /** Alternative game skill learning */
@@ -160,13 +229,11 @@ public final class Config
     public static boolean ALT_GAME_MOB_ATTACK_AI;
     public static boolean ALT_MOB_AGRO_IN_PEACEZONE;
     /**
-     * Alternative freight modes - Freights can be withdrawed from any
-     * village
+     * Alternative freight modes - Freights can be withdrawed from any village
      */
     public static boolean ALT_GAME_FREIGHTS;
     /**
-     * Alternative freight modes - Sets the price value for each freightened
-     * item
+     * Alternative freight modes - Sets the price value for each freightened item
      */
     public static int ALT_GAME_FREIGHT_PRICE;
     /** Alternative gameing - loss of XP on death */
@@ -174,13 +241,11 @@ public final class Config
     /** Alternative gameing - magic dmg failures */
     public static boolean ALT_GAME_MAGICFAILURES;
     /**
-     * Alternative gaming - player must be in a castle-owning clan or ally
-     * to sign up for Dawn.
+     * Alternative gaming - player must be in a castle-owning clan or ally to sign up for Dawn.
      */
     public static boolean ALT_GAME_REQUIRE_CASTLE_DAWN;
     /**
-     * Alternative gaming - allow clan-based castle ownage check rather than
-     * ally-based.
+     * Alternative gaming - allow clan-based castle ownage check rather than ally-based.
      */
     public static boolean ALT_GAME_REQUIRE_CLAN_CASTLE;
     /** Alternative gaming - allow free teleporting around the world. */
@@ -188,8 +253,7 @@ public final class Config
     /** Disallow recommend character twice or more a day ? */
     public static boolean ALT_RECOMMEND;
     /**
-     * Alternative gaming - allow sub-class addition without quest
-     * completion.
+     * Alternative gaming - allow sub-class addition without quest completion.
      */
     public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
     
@@ -224,30 +288,25 @@ public final class Config
     /** Number of days it takes to dissolve a clan */
     public static int ALT_CLAN_DISSOLVE_DAYS;
     /**
-     * Number of days before joining a new alliance when clan voluntarily
-     * leave an alliance
+     * Number of days before joining a new alliance when clan voluntarily leave an alliance
      */
     public static int ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;
     /**
-     * Number of days before joining a new alliance when clan was dismissed
-     * from an alliance
+     * Number of days before joining a new alliance when clan was dismissed from an alliance
      */
     public static int ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;
     /**
-     * Number of days before accepting a new clan for alliance when clan was
-     * dismissed from an alliance
+     * Number of days before accepting a new clan for alliance when clan was dismissed from an alliance
      */
     public static int ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;
     /**
-     * Number of days before creating a new alliance when dissolved an
-     * alliance
+     * Number of days before creating a new alliance when dissolved an alliance
      */
     public static int ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;
     /** Alternative gaming - all new characters always are newbies. */
     public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
     /**
-     * Alternative gaming - clan members with see privilege can also
-     * withdraw from clan warehouse.
+     * Alternative gaming - clan members with see privilege can also withdraw from clan warehouse.
      */
     public static boolean ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;
     /** Maximum number of clans in ally */
@@ -283,23 +342,19 @@ public final class Config
     /** Lottery Ticket Price */
     public static int ALT_LOTTERY_TICKET_PRICE;
     /**
-     * What part of jackpot amount should receive characters who pick 5
-     * wining numbers
+     * What part of jackpot amount should receive characters who pick 5 wining numbers
      */
     public static float ALT_LOTTERY_5_NUMBER_RATE;
     /**
-     * What part of jackpot amount should receive characters who pick 4
-     * wining numbers
+     * What part of jackpot amount should receive characters who pick 4 wining numbers
      */
     public static float ALT_LOTTERY_4_NUMBER_RATE;
     /**
-     * What part of jackpot amount should receive characters who pick 3
-     * wining numbers
+     * What part of jackpot amount should receive characters who pick 3 wining numbers
      */
     public static float ALT_LOTTERY_3_NUMBER_RATE;
     /**
-     * How much adena receive characters who pick two or less of the winning
-     * number
+     * How much adena receive characters who pick two or less of the winning number
      */
     public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
     /** ************************************************** */
@@ -309,8 +364,7 @@ public final class Config
     /** Time in between Automated event cycling */
     public static int TIME_BETWEEN_EVENTS;
     /**
-     * Time interval to check and see if L2JOneoEvent Manager should start a
-     * cycle of events if non in progress, or wait
+     * Time interval to check and see if L2JOneoEvent Manager should start a cycle of events if non in progress, or wait
      */
     // * TvT Event Engine */
     /** Enable or Disable TvT Engine with this option */
@@ -350,20 +404,17 @@ public final class Config
     public static boolean TVT_EVENT_POTIONS_HP_ALLOWED;
     public static boolean TVT_EVENT_POTIONS_CP_ALLOWED;
     /**
-     * This checks if players can use Summon by Item during TvT event or
-     * not.
+     * This checks if players can use Summon by Item during TvT event or not.
      */
     public static boolean TVT_EVENT_SUMMON_BY_ITEM_ALLOWED;
     /** This option will close/open event doors during the TvT Event. */
     public static List<Integer> TVT_EVENT_DOOR_IDS = new FastList<Integer>();
     /**
-     * This option will check what the administrator sets for a minimum
-     * participation level.
+     * This option will check what the administrator sets for a minimum participation level.
      */
     public static byte TVT_EVENT_MIN_LVL;
     /**
-     * This option will check what the administrator sets for a maximum
-     * participation level.
+     * This option will check what the administrator sets for a maximum participation level.
      */
     public static byte TVT_EVENT_MAX_LVL;
     // * VIP Event Engine *//
@@ -376,20 +427,17 @@ public final class Config
     /** Minimum Non-VIP Players */
     public static int MIN_NON_VIP_PLAYERS;
     /**
-     * Name of place where people will be teleported after event is over,
-     * ex: Giran
+     * Name of place where people will be teleported after event is over, ex: Giran
      */
     public static String VIP_ENDTP_DESC;
     /**
-     * Reward for VIP Engine in format: Reward Item ID for VIP,Reward Item
-     * ID for VIP's Team;
+     * Reward for VIP Engine in format: Reward Item ID for VIP,Reward Item ID for VIP's Team;
      */
     public static List<int[]> VIP_REWARD = new FastList<int[]>();
     public static List<int[]> VIP_TEAM_REWARD = new FastList<int[]>();
     public static List<int[]> VIP_NON_REWARD = new FastList<int[]>();
     /**
-     * Finish NPC ID, YOU MUST SET THIS TO AN EXISTING NPC (Built in NPC is
-     * 50054)
+     * Finish NPC ID, YOU MUST SET THIS TO AN EXISTING NPC (Built in NPC is 50054)
      */
     public static int VIP_FINISH_NPC_ID;
     /** Location where all participants are teleported after event is over. */
@@ -397,25 +445,21 @@ public final class Config
     public static int VIP_TP_LOC_Y;
     public static int VIP_TP_LOC_Z;
     /**
-     * This is the time participation will last for, when participation is
-     * over event will start. (in minutes)
+     * This is the time participation will last for, when participation is over event will start. (in minutes)
      */
     public static int VIP_PARTICIPATION_TO_START_DELAY;
     /**
-     * This is the event lasting time after the Participation ends. (in
-     * minutes)
+     * This is the event lasting time after the Participation ends. (in minutes)
      */
     public static int VIP_LASTING_TIME;
     /** This is the time people are forced to sit. (in seconds) */
     public static int VIP_SIT_TIME;
     /**
-     * This is the time before players teleported to finish location after
-     * event is over. (in seconds)
+     * This is the time before players teleported to finish location after event is over. (in seconds)
      */
     public static int VIP_TELEPORT_TIME;
     /**
-     * This is the time before players teleported to start location. (in
-     * seconds)
+     * This is the time before players teleported to start location. (in seconds)
      */
     public static int VIP_TIME_BEFORE_TELEPORT;
     /** This checks if players can use Potions during VIP event or not. */
@@ -437,8 +481,7 @@ public final class Config
      */
     public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
     /**
-     * This checks if the administrator or Owner want characters pets
-     * unsummoned on event start.
+     * This checks if the administrator or Owner want characters pets unsummoned on event start.
      */
     public static boolean CTF_ON_START_UNSUMMON_PET;
     /** This is the Team name for Team 1 */
@@ -557,7 +600,6 @@ public final class Config
     public static boolean DISABLE_WEIGHT_PENALTIES;
     /**
      * Config to
-     *
      * @Checkup and delete delayed rented items.
      */
     public static boolean DONATOR_DELETE_RENTED_ITEMS;
@@ -608,8 +650,7 @@ public final class Config
     public static int REBIRTH_SKILL10;
     public static int REBIRTH_SKILL10_LVL;
     /**
-     * Config option allowing server administrators/owners the ability to
-     * set a title for new players.
+     * Config option allowing server administrators/owners the ability to set a title for new players.
      */
     public static boolean CHAR_TITLE;
     /** This is the new players title. */
@@ -641,8 +682,7 @@ public final class Config
     /** Configuration to disable official items given on character creation */
     public static boolean DISABLE_OFFICIAL_STARTER_ITEMS;
     /**
-     * This allows the administrator to set up additional items for players
-     * to start off with, items are put in the format:
+     * This allows the administrator to set up additional items for players to start off with, items are put in the format: 
      * id,count;id,count;id,count
      */
     public static List<int[]> CUSTOM_STARTER_ITEMS = new FastList<int[]>();
@@ -668,8 +708,7 @@ public final class Config
     public static int   MAX_MCRIT_RATE;
     
     /**
-     * Config option to either allow or disallow a player getting petrified
-     * by a raidboss, due to the 8+ level difference rule.
+     * Config option to either allow or disallow a player getting petrified by a raidboss, due to the 8+ level difference rule.
      */
     public static boolean RAID_FOSSILIZATION_PENALTY;
     /** Allow Manor system */
@@ -692,13 +731,11 @@ public final class Config
     public static boolean ALLOW_NPC_WALKERS;
     // * Player Commands *//
     /**
-     * Config allowing players to select auto-loot enabled or disabled for
-     * themselves.
+     * Config allowing players to select auto-loot enabled or disabled for themselves.
      */
     public static boolean ALLOW_AUTOHERBS_CMD;
     /**
-     * Allows clan leaders the power allow clan members withdraw items from
-     * clan warehouse.
+     * Allows clan leaders the power allow clan members withdraw items from clan warehouse.
      */
     public static boolean ALLOW_WITHDRAW_CWH_CMD;
     // * Announcements and Messages *//
@@ -732,26 +769,22 @@ public final class Config
     public static boolean NPC_ANNOUNCER_DONATOR_ONLY;
     // * Dimensional Drift *//
     /**
-     * Minimum size of a party that may enter dimensional rift, if number
-     * becomes lower then defined number, the party will be teleported back.
+     * Minimum size of a party that may enter dimensional rift, if number becomes lower then defined number, the party will be teleported back.
      */
     public static int RIFT_MIN_PARTY_SIZE;
     /**
-     * Maximum number of jumps between rooms allowed. After Maximum number,
-     * party will be teleported back.
+     * Maximum number of jumps between rooms allowed. After Maximum number, party will be teleported back.
      */
     public static int RIFT_MAX_JUMPS;
     /**
-     * After entering the room, this is the wait time before mobs will spawn
-     * in the room. (in ms, 1 second = 1000 ms)
+     * After entering the room, this is the wait time before mobs will spawn in the room. (in ms, 1 second = 1000 ms)
      */
     public static int RIFT_SPAWN_DELAY;
     /** Time between automatic jumps (in seconds). */
     public static int RIFT_AUTO_JUMPS_TIME_MIN;
     public static int RIFT_AUTO_JUMPS_TIME_MAX;
     /**
-     * To enter the dimension rift, each person in your party must have the
-     * below amount of dimension fragments.
+     * To enter the dimension rift, each person in your party must have the below amount of dimension fragments.
      */
     public static int RIFT_ENTER_COST_RECRUIT;
     public static int RIFT_ENTER_COST_SOLDIER;
@@ -782,8 +815,7 @@ public final class Config
     /** Restart time for Login Server */
     public static int LOGIN_RESTART_TIME;
     /**
-     * Safe Sigterm will disable some features during restart/shutdown to
-     * prevent enchant and sublcass exploits! *
+     * Safe Sigterm will disable some features during restart/shutdown to prevent enchant and sublcass exploits! *
      */
     public static boolean SAFE_SIGTERM;
     /** GM Over Enchant value */
@@ -799,9 +831,7 @@ public final class Config
     /** Check players for illegitimate skills on player entering the server. */
     public static boolean CHECK_SKILLS_ON_ENTER;
     /**
-     * Allows the Administrator/Owner the ability to change the default
-     * coordinates of ALL characters making them all at the same spawn
-     * point.
+     * Allows the Administrator/Owner the ability to change the default coordinates of ALL characters making them all at the same spawn point.
      */
     public static boolean SPAWN_CHAR;
     /** X Coordinate of the SPAWN_CHAR setting. */
@@ -842,13 +872,11 @@ public final class Config
     /** Allow subclass with only subclass items and no quest. */
     public static boolean SUBCLASS_WITH_ITEM_AND_NO_QUEST;
     /**
-     * Config option which allows or dis-allows use of Wyverns during
-     * Sieges.
+     * Config option which allows or dis-allows use of Wyverns during Sieges.
      */
     public static boolean FLYING_WYVERN_DURING_SIEGE;
     /**
-     * Config option to require or not require Skill Book for enchanting a
-     * skill.
+     * Config option to require or not require Skill Book for enchanting a skill.
      */
     public static boolean ES_SP_BOOK_NEEDED;
     /** Life Crystal needed to learn clan skill */
@@ -870,8 +898,7 @@ public final class Config
     /** Alternative Perfect shield defence rate */
     public static int ALT_PERFECT_SHLD_BLOCK;
     /**
-     * Allows or dis-allows the option for NPC types that won't allow
-     * casting
+     * Allows or dis-allows the option for NPC types that won't allow casting
      */
     public static String ALLOWED_NPC_TYPES;
     /** List of NPC types that won't allow casting */
@@ -913,46 +940,38 @@ public final class Config
     /** List of Skills not autolearned */
     public static FastList<Integer> NO_AUTOLEARN_LIST;
     /**
-     * Alternative gaming - Castle Shield can be equiped by all clan members
-     * if they own a castle. - default True
+     * Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
      */
     public static boolean CASTLE_SHIELD;
     /**
-     * Alternative gaming - Clan Hall Shield can be equiped by all clan
-     * members if they own a clan hall. - default True
+     * Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
      */
     public static boolean CLANHALL_SHIELD;
     /**
-     * Alternative gaming - Apella armors can be equiped only by clan
-     * members if their class is Baron or higher - default True
+     * Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
      */
     public static boolean APELLA_ARMORS;
     /**
-     * Alternative gaming - Clan Oath Armors can be equiped only by clan
-     * members - default True
+     * Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
      */
     public static boolean OATH_ARMORS;
     /**
-     * Alternative gaming - Castle Crown can be equiped only by castle lord -
-     * default True
+     * Alternative gaming - Castle Crown can be equiped only by castle lord - default True
      */
     public static boolean CASTLE_CROWN;
     /**
-     * Alternative gaming - Castle Circlets can be equiped only by clan
-     * members if they own a castle - default True
+     * Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
      */
     public static boolean CASTLE_CIRCLETS;
     // * Banking System *//
     /** Banking System Enabled */
     public static boolean BANKING_SYSTEM_ENABLED;
     /**
-     * Configure the amount of Adena to trade for the below configured
-     * number of Gold Bars.
+     * Configure the amount of Adena to trade for the below configured number of Gold Bars.
      */
     public static int BANKING_SYSTEM_ADENA;
     /**
-     * Configure the amount of Gold Bars to trade for the above configured
-     * number of Adena.
+     * Configure the amount of Gold Bars to trade for the above configured number of Adena.
      */
     public static int BANKING_SYSTEM_GOLDBARS;
     /** ************************************************** */
@@ -1233,14 +1252,10 @@ public final class Config
     /** Rate siege guards prices */
     public static float RATE_SIEGE_GUARDS_PRICE;
     /*
-     * Alternative Xp/Sp rewards, if not 0, then calculated as
-     * 2^((mob.level-player.level) / coef), A few examples for
-     * "AltGameExponentXp = 5." and "AltGameExponentSp = 3." diff = 0
-     * (player and mob has the same level), XP bonus rate = 1, SP bonus rate =
-     * 1 diff = 3 (mob is 3 levels above), XP bonus rate = 1.52, SP bonus
-     * rate = 2 diff = 5 (mob is 5 levels above), XP bonus rate = 2, SP
-     * bonus rate = 3.17 diff = -8 (mob is 8 levels below), XP bonus rate =
-     * 0.4, SP bonus rate = 0.16
+     * Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef), A few examples for
+     * "AltGameExponentXp = 5." and "AltGameExponentSp = 3." diff = 0 (player and mob has the same level), XP bonus rate = 1, SP bonus rate =
+     * 1 diff = 3 (mob is 3 levels above), XP bonus rate = 1.52, SP bonus rate = 2 diff = 5 (mob is 5 levels above), XP bonus rate = 2, SP
+     * bonus rate = 3.17 diff = -8 (mob is 8 levels below), XP bonus rate = 0.4, SP bonus rate = 0.16
      */
     /** Alternative eXperience Point rewards */
     public static float ALT_GAME_EXPONENT_XP;
@@ -1310,12 +1325,10 @@ public final class Config
     /** Accept multi-items drop ? */
     public static boolean MULTIPLE_ITEM_DROP;
     /**
-     * This is setting of experimental Client <--> Server Player coordinates
-     * synchronization<br>
+     * This is setting of experimental Client <--> Server Player coordinates synchronization<br>
      * <b><u>Valeurs :</u></b>
      * <li>0 - no synchronization at all</li>
-     * <li>1 - parcial synchronization Client --> Server only * using this
-     * option it is difficult for players to bypass obstacles</li>
+     * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players to bypass obstacles</li>
      * <li>2 - parcial synchronization Server --> Client only</li>
      * <li>3 - full synchronization Client <--> Server</li>
      * <li>-1 - Old system: will synchronize Z only</li>
@@ -1333,18 +1346,14 @@ public final class Config
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
     /*
-     * Removed by Ahmed, Reason: This has no effect at all whether players
-     * can use L2Walker or not.
+     * Removed by Ahmed, Reason: This has no effect at all whether players can use L2Walker or not.
      */
     /**
-     * Enumeration describing values for Allowing the use of L2Walker client
-     * public static enum L2WalkerAllowed { True, False, GM }
+     * Enumeration describing values for Allowing the use of L2Walker client public static enum L2WalkerAllowed { True, False, GM }
      *
-     * /** Allow the use of L2Walker client ? public static L2WalkerAllowed
-     * ALLOW_L2WALKER_CLIENT;
+     * /** Allow the use of L2Walker client ? public static L2WalkerAllowed ALLOW_L2WALKER_CLIENT;
      *
-     * /** Auto-ban client that use L2Walker ? public static boolean
-     * AUTOBAN_L2WALKER_ACC;
+     * /** Auto-ban client that use L2Walker ? public static boolean AUTOBAN_L2WALKER_ACC;
      *
      * /** Revision of L2Walker public static int L2WALKER_REVISION;
      */
@@ -1415,76 +1424,7 @@ public final class Config
     public static int NAME_PAGE_SIZE_COMMUNITYBOARD;
     /** Name per row on community board */
     public static int NAME_PER_ROW_COMMUNITYBOARD;
-    // Configuration files
-    /**
-     * Properties file that allows selection of new Classes for storage of
-     * World Objects. <br>
-     * This may help servers with large amounts of players recieving error
-     * messages related to the <i>L2ObjectHashMap</i> and
-     * <i>L2ObejctHashSet</i> classes.
-     */
-    /**
-     * Properties file for game server (connection and ingame)
-     * configurations
-     */
-    public static final String CONFIGURATION_FILE = "./config/server.properties";
-    /** Properties file for game server options */
-    public static final String OPTIONS_FILE = "./config/options.properties";
-    /** Properties file for login server configurations */
-    public static final String LOGIN_CONFIGURATION_FILE = "./config/loginserver.properties";
-    /** Properties file for the ID factory */
-    public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
-    /** Properties file for other configurations */
-    public static final String OTHER_CONFIG_FILE = "./config/other.properties";
-    /** Properties file for rates configurations */
-    public static final String RATES_CONFIG_FILE = "./config/rates.properties";
-    /** Properties file for alternative configuration */
-    public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
-    /** Properties file for PVP configurations */
-    public static final String PVP_CONFIG_FILE = "./config/pvp.properties";
-    /** Properties file for GM access configurations */
-    public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
-    /** Properties file for telnet configuration */
-    public static final String TELNET_FILE = "./config/telnet.properties";
-    /** Properties file for l2j server version configurations */
-    public static final String SERVER_VERSION_FILE = "./config/l2j-version.properties";
-    /** Properties file for l2j datapack version configurations */
-    public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
-    /** Properties file for siege configuration */
-    public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
-    /** XML file for banned IP */
-    public static final String BANNED_IP_XML = "./config/banned.xml";
-    /** Text file containing hexadecimal value of server ID */
-    public static final String HEXID_FILE = "./config/hexid.txt";
-    /**
-     * Properties file for alternative configure GM commands access level.<br>
-     * Note that this file only read if "AltPrivilegesAdmin = true"
-     */
-    public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
-    /** Properties file for AI configurations */
-    public static final String AI_FILE = "./config/ai.properties";
-    /** Properties file for 7 Signs Festival */
-    public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
-    public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
-    public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
-    public static int MAX_ITEM_IN_PACKET;
-    /** Properties file for irc configuration */
-    public static final String IRC_FILE = "./config/irc.properties";
-    /** L2J Oneo Custom Properties File */
-    public static final String L2J_ONEO_CUSTOM = "./config/L2JOneoCustom.properties";
-    /** L2J Oneo Event Mods Properties File */
-    public static final String L2JONEO_MODS = "./config/L2JOneoMods.properties";
-    /** Properties file FloodProtector Configuration */ 
-    public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";   
-    /** Properties file for Bosses */
-    public static final String  BOS_CONFIG_FILE = "./config/boss/bosses.properties";
-	public static final String FS_CONFIG_FILE = "./config/boss/foursepulchers.properties";
-    /** Properties file for Feature Extensions*/
-    public static final String  FEATURE_CONFIG_FILE = "./config/Custom/Feature.properties";
-    /** Properties file for General Configurations */
-    public static final String  GENERAL_CONFIG_FILE = "./config/Custom/General.properties";
-    /** Properties file for Olympiad Extensions*/
-    public static final String  OLYMPIAD_FILE = "./config/Custom/Olympiad.properties";
+
     public static boolean CHECK_KNOWN;
     /** Game Server login port */
     public static int GAME_SERVER_LOGIN_PORT;
