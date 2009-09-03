@@ -1180,7 +1180,6 @@ public abstract class L2Skill
 	    case MANARECHARGE:
 	    case MANAHEAL:
 	    case NEGATE:
-	    case CANCEL:
 	    case REFLECT:
 	    case UNBLEED:
 	    case UNPOISON:
