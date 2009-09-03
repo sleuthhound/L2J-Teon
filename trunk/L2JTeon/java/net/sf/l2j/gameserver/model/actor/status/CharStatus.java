@@ -189,6 +189,10 @@ public class CharStatus
 	{
 	    getActiveChar().stopStunning(null);
 	}
+    if (getActiveChar().isAfraid())   
+    {
+    	getActiveChar().stopFear(null);  
+    }
 	// Add attackers to npc's attacker list
 	if (getActiveChar() instanceof L2NpcInstance)
 	{
