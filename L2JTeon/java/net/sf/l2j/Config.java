@@ -147,6 +147,9 @@ public final class Config
     public static boolean ALT_GAME_CANCEL_BOW;
     /** Cancel cast by hit */
     public static boolean ALT_GAME_CANCEL_CAST;
+    /** Soul Crystal chances */  
+    public static int SOUL_CRYSTAL_BREAK_CHANCE;   
+    public static int SOUL_CRYSTAL_LEVEL_CHANCE;   
     /** Alternative game - use tiredness, instead of CP */
     public static boolean ALT_GAME_TIREDNESS;
     public static int ALT_PARTY_RANGE;
@@ -2384,6 +2387,8 @@ public final class Config
 		altSettings.load(is);
 		is.close();
 		ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "False"));
+        SOUL_CRYSTAL_BREAK_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalBreakChance","10"));   
+        SOUL_CRYSTAL_LEVEL_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalLevelChance", "32"));   
 		ALT_GAME_CREATION = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "False"));
 		ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
 		ALT_GAME_CREATION_XP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
