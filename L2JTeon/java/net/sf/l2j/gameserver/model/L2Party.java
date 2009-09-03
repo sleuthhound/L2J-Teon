@@ -292,56 +292,49 @@ public class L2Party
 	    member.updateEffectIcons(true); // update party icons only
 	if (isInDimensionalRift())
 	    _dr.partyMemberInvited();
-    }	/**
-	 * removes player from party
-	 * @param player
-	 */
-	public void removePartyMember(L2PcInstance player)
+    }
+
+    /**
+     * removes player from party
+     * 
+     * @param player
+     */
+    public void removePartyMember(L2PcInstance player)
+    {
+	if (getPartyMembers().contains(player))
 	{
-		if (getPartyMembers().contains(player))
-		{
-			getPartyMembers().remove(player);
-			recalculatePartyLevel();
-
-			if (player.isFestivalParticipant())
-				SevenSignsFestival.getInstance().updateParticipants(player, this);
-
-			if(player.isInDuel())
-				DuelManager.getInstance().onRemoveFromParty(player);
-
-			try
-            {
-                if (player.getForceBuff() != null)
-                    player.abortCast();
-                
-                for (L2Character character : player.getKnownList().getKnownCharacters())
-                    if (character.getForceBuff() != null && character.getForceBuff().getTarget() == player)
-                        character.abortCast();
-            }
-            catch (Exception e){}
-
-			SystemMessage msg = new SystemMessage(SystemMessageId.YOU_LEFT_PARTY);
-			player.sendPacket(msg);
-			player.sendPacket(new PartySmallWindowDeleteAll());
-			player.setParty(null);
-
-			msg = new SystemMessage(SystemMessageId.S1_LEFT_PARTY);
-			msg.addString(player.getName());
-			broadcastToPartyMembers(msg);
-			broadcastToPartyMembers(new PartySmallWindowDelete(player));
-
-			if (isInDimensionalRift())
-				_dr.partyMemberExited(player);
-
-			if (getPartyMembers().size() == 1)
-			{
-				getLeader().setParty(null);
-				if (getLeader().isInDuel())
-					DuelManager.getInstance().onRemoveFromParty(getLeader());
-			}
-		}
+	    // remove player
+	    if (isLeader(player) && (getPartyMembers().size() > 2))
+		changePartyLeader(getPartyMembers().get(1).getName());
+	    getPartyMembers().remove(player);
+	    // delete all party-windows on removed player
+	    SystemMessage msg = new SystemMessage(SystemMessageId.YOU_LEFT_PARTY);
+	    player.sendPacket(msg);
+	    player.sendPacket(new PartySmallWindowDeleteAll());
+	    player.setParty(null);
+	    // delete removed player window on other players
+	    msg = new SystemMessage(SystemMessageId.S1_LEFT_PARTY);
+	    msg.addString(player.getName());
+	    broadcastToPartyMembers(msg);
+	    broadcastToPartyMembers(new PartySmallWindowDelete(player));
+	    // calc new party level
+	    recalculatePartyLevel();
+	    // check some views
+	    if (player.isFestivalParticipant())
+		SevenSignsFestival.getInstance().updateParticipants(player, this);
+	    if (player.isInDuel())
+		DuelManager.getInstance().onRemoveFromParty(player);
+	    if (isInDimensionalRift())
+		_dr.partyMemberExited(player);
+	    // check party size
+	    if (getPartyMembers().size() == 1)
+	    {
+		getLeader().setParty(null);
+		if (getLeader().isInDuel())
+		    DuelManager.getInstance().onRemoveFromParty(getLeader());
+	    }
 	}
-
+    }
 
     /**
      * Send to all party members new party-list

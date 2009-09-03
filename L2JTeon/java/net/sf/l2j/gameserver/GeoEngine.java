@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
-import net.sf.l2j.util.Point3D;
 
 /**
  * 
@@ -99,20 +98,23 @@ public class GeoEngine extends GeoData
     {
 	return nGetSpawnHeight(x - L2World.MAP_MIN_X >> 4, y - L2World.MAP_MIN_Y >> 4, zmin, zmax, spawnid);
     }
+
+    /**
+     * @see net.sf.l2j.gameserver.GeoData#geoPosition(int, int)
+     */
+    @Override
     public String geoPosition(int x, int y)
     {
 	int gx = x - L2World.MAP_MIN_X >> 4;
 	int gy = y - L2World.MAP_MIN_Y >> 4;
 	return "bx: " + getBlock(gx) + " by: " + getBlock(gy) + " cx: " + getCell(gx) + " cy: " + getCell(gy) + "  region offset: " + getRegionOffset(gx, gy);
     }
-    public boolean canSeeTarget(L2Object cha, Point3D target)
-    {
-    	if(cha.getZ() >= target.getZ())
-    		return canSeeTarget(cha.getX(),cha.getY(),cha.getZ(),target.getX(),target.getY(),target.getZ());
-    	else
-    		return canSeeTarget(target.getX(),target.getY(),target.getZ(), cha.getX(),cha.getY(),cha.getZ());
 
-    }
+    /**
+     * @see net.sf.l2j.gameserver.GeoData#canSeeTarget(net.sf.l2j.gameserver.model.L2Object,
+     *      net.sf.l2j.gameserver.model.L2Object)
+     */
+    @Override
     public boolean canSeeTarget(L2Object cha, L2Object target)
     {
 	// To be able to see over fences and give the player the viewpoint

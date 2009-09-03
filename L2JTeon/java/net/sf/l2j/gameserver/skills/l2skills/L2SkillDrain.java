@@ -85,8 +85,7 @@ public class L2SkillDrain extends L2Skill
 		    activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 		}
 	    }
-			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, this));
-	    // boolean mcrit = Formulas.getInstance().calcMCrit(activeChar, activeChar.getMCriticalHit(target, this));
+	    boolean mcrit = Formulas.getInstance().calcMCrit(activeChar, activeChar.getMCriticalHit(target, this));
 	    int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
 	    double hpAdd = _absorbAbs + _absorbPart * damage;
 	    double hp = activeChar.getCurrentHp() + hpAdd > activeChar.getMaxHp() ? activeChar.getMaxHp() : activeChar.getCurrentHp() + hpAdd;

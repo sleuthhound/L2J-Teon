@@ -125,8 +125,7 @@ public class Mdam implements ISkillHandler
 	    // }
 	    //
 	    // }
-            boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, skill));
-	    // boolean mcrit = Formulas.getInstance().calcMCrit(activeChar, activeChar.getMCriticalHit(target, skill));
+	    boolean mcrit = Formulas.getInstance().calcMCrit(activeChar, activeChar.getMCriticalHit(target, skill));
 	    int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss, mcrit);
 	    if ((damage > 5000) && (activeChar instanceof L2PcInstance))
 	    {

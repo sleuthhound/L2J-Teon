@@ -1837,16 +1837,11 @@ public final class Formulas
 	 * make no promises. In fact, this calculator doesn't exist and you never
 	 * saw it.
 	 */
-	// public final boolean calcMCrit(L2Character activeChar, double mRate)
-	// {
-		// mRate *= WITbonus[activeChar.getWIT()];
-		// return mRate > Rnd.get(1000);
-	// }
-	public final boolean calcMCrit(double mRate)
+	public final boolean calcMCrit(L2Character activeChar, double mRate)
 	{
+		mRate *= WITbonus[activeChar.getWIT()];
 		return mRate > Rnd.get(1000);
 	}
-
 
 	/** Returns true in case when ATTACK is canceled due to hit */
 	public final boolean calcAtkBreak(L2Character target, double dmg)
@@ -1953,7 +1948,7 @@ public final class Formulas
 		// Check for passive skill Aegis (316) or Aegis Stance (318)
 		if ((target.getKnownSkill(316) == null) && (target.getFirstEffect(318) == null))
 		{
-			if (!target.isInFrontOf(attacker))
+			if (!target.isFront(attacker))
 			{
 				return false;
 			}
