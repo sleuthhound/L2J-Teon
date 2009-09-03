@@ -10,16 +10,16 @@ public class L2JTeon {
 	 */
 	public static void L2JTeon()
 	{
-	_log.info("-----------------------------------------------------")	
-	_log.info("#      # # #   # # #   # # #  # # #    ####   #   #	");
-	_log.info("#          #     #       #    #       #    #  ##  #	");
-	_log.info("#        #       #       #    # # #   #    #  # # #	");
-	_log.info("#      #      #  #       #    #	     #    #  #  ##	");
-	_log.info("# # #  # # #  ####       #    # # #    ####   #   #	");
 	_log.info("-----------------------------------------------------");
-	_log.info("					 Project Interlude					");
-	_log.info("						Game Server						");
-	_log.info("				Developers: Maxi56, Meyknho				");
+	_log.info("#      # # #   # # #   # # #  # # #    ####   #   #  ");
+	_log.info("#          #     #       #    #       #    #  ##  #  ");
+	_log.info("#        #       #       #    # # #   #    #  # # #  ");
+	_log.info("#      #      #  #       #    #       #    #  #  ##  ");
+	_log.info("# # #  # # #  ####       #    # # #    ####   #   #  ");
+	_log.info("-----------------------------------------------------");
+	_log.info("                  Project Interlude                  ");
+	_log.info("                      Game Server                    ");
+	_log.info("             Developers: Maxi56, Meyknho             ");
 	_log.info("-----------------------------------------------------");
 	}
 }
