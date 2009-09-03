@@ -30,7 +30,7 @@ INSERT IGNORE INTO `grandboss_data` VALUES
 -- (25337, 000000,000000,000000,0,	0,865808,3718, 0), -- Anakazel (68) -- (Spawn by Dimensional Instance)
 -- (25338, 000000,000000,000000,0,	0,977523,3718, 0); -- Anakazel (78) -- (Spawn by Dimensional Instance)
 (29019, 185708, 114298, -8221, 32768, 0, 14518000, 22197, 0),	-- Antharas
-(29028, 0, 0, 0, 0, 0, 0, 0, 0),	-- Valakas
+(29028, -105200, -253104, -15264, 0, 0, 16660000, 22197, 0),	-- Valakas
 (29045, 0, 0, 0, 0, 0, 0, 0, 0),	-- Frintezza
 (29062, 0, 0, 0, 0, 0, 0, 0, 0),	-- High Priestess van Halter
 (29065, 0, 0, 0, 0, 0, 0, 0, 0),	-- Sailren
