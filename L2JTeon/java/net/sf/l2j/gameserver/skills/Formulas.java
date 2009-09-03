@@ -1548,6 +1548,22 @@ public final class Formulas
 				damage = 0;
 			}
 		}
+        
+		// Daggers alternative damages... 
+		if (target instanceof L2PcInstance && weapon != null && weapon.getItemType() == L2WeaponType.DAGGER && skill != null)   
+		{   
+			L2Armor armor = ((L2PcInstance) target).getActiveChestArmorItem();   
+			if (armor != null)   
+			{   
+				if (((L2PcInstance) target).isWearingHeavyArmor())   
+					damage /= Config.ALT_DAGGER_DMG_VS_HEAVY;   
+				if (((L2PcInstance) target).isWearingLightArmor())   
+					damage /= Config.ALT_DAGGER_DMG_VS_LIGHT;   
+				if (((L2PcInstance) target).isWearingMagicArmor())   
+					damage /= Config.ALT_DAGGER_DMG_VS_ROBE;   
+			}   
+		} 
+	 	
 		if (attacker instanceof L2NpcInstance)
 		{
 			// Skill Race : Undead
