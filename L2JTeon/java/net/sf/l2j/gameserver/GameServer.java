@@ -331,14 +331,14 @@ public class GameServer
 		L2JTeon.L2JTeon();
 	gameServer = this;
 	_log.finest("used mem:" + getUsedMemoryMB() + "MB");
-	if (Config.SERVER_VERSION != null)
+/**	if (Config.SERVER_VERSION != null)
 	{
 	    _log.info("## L2JTeon GS REV ## :  " + Config.SERVER_VERSION);
 	}
 	if (Config.DATAPACK_VERSION != null)
 	{
 	    _log.info("## L2JTeon DP REV ## :  " + Config.DATAPACK_VERSION);
-	}
+	} */
 	_idFactory = IdFactory.getInstance();
 	if (!_idFactory.isInitialized())
 	{
