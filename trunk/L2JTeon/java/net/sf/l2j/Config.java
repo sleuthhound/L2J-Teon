@@ -588,6 +588,10 @@ public final class Config
     public static List INVUL_NPC_LIST;
     /** Low Level Protection System. */
     public static int PLAYER_PROTECTION_SYSTEM;
+    /** Alternatives damages for daggers */ 
+    public static float ALT_DAGGER_DMG_VS_ROBE;  
+    public static float ALT_DAGGER_DMG_VS_LIGHT;
+    public static float ALT_DAGGER_DMG_VS_HEAVY;  
     /** Front Blow Success Rate. */
     public static int FRONT_BLOW_SUCCESS;
     /** Back Blow Success Rate. */
@@ -2743,6 +2747,9 @@ public final class Config
 		KEEP_SUBCLASS_SKILLS = Boolean.parseBoolean(L2JOneoCustom.getProperty("KeepSubClassSkills", "False"));
 		MAX_SUBCLASSES = Integer.parseInt(L2JOneoCustom.getProperty("MaxSubClasses", "3"));
 		PLAYER_PROTECTION_SYSTEM = Integer.parseInt(L2JOneoCustom.getProperty("PlayerProtectionLevel", "0"));
+        ALT_DAGGER_DMG_VS_ROBE = Float.parseFloat(L2JOneoCustom.getProperty("DaggerVSRobe", "1.00"));   
+        ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(L2JOneoCustom.getProperty("DaggerVSLight", "1.20"));  
+        ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(L2JOneoCustom.getProperty("DaggerVSHeavy", "1.40"));   
 		FRONT_BLOW_SUCCESS = Integer.parseInt(L2JOneoCustom.getProperty("FrontBlow", "50"));
 		BACK_BLOW_SUCCESS = Integer.parseInt(L2JOneoCustom.getProperty("BackBlow", "70"));
 		SIDE_BLOW_SUCCESS = Integer.parseInt(L2JOneoCustom.getProperty("SideBlow", "60"));
