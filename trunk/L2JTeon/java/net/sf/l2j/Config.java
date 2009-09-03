@@ -1045,7 +1045,8 @@ public final class Config
     public static int ITEMPETSUMMON_DELAY; 
     public static int HEROVOICE_DELAY; 
     public static int UNKNOWN_PACKET_DELAY; 
-    public static int SUBCLASS_DELAY; 
+    public static int SUBCLASS_DELAY;
+    public static int MULTISELL_DELAY; 
     
     /** ************************************************** **/
 	/** Boss Settings -Begin                            **/
@@ -3376,7 +3377,8 @@ public final class Config
 				ITEMPETSUMMON_DELAY = Integer.parseInt(FloodProtector.getProperty("ItemPetSummonDelay", "16")); 
 				HEROVOICE_DELAY = Integer.parseInt(FloodProtector.getProperty("HeroChatDelay", "100")); 
 				UNKNOWN_PACKET_DELAY = Integer.parseInt(FloodProtector.getProperty("UnknownPacketDelay", "15")); 
-				SUBCLASS_DELAY = Integer.parseInt(FloodProtector.getProperty("SubClassDelay", "100")); 
+				SUBCLASS_DELAY = Integer.parseInt(FloodProtector.getProperty("SubClassDelay", "100"));
+                MULTISELL_DELAY = Integer.parseInt(FloodProtector.getProperty("MultisellDelay", "100"));  
 			}  
 			
 			catch (Exception e) 

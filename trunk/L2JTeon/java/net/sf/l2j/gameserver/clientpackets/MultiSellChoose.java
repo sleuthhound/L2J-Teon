@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
+import net.sf.l2j.gameserver.util.FloodProtector; 
 
 public class MultiSellChoose extends L2GameClientPacket
 {
@@ -92,6 +93,10 @@ public class MultiSellChoose extends L2GameClientPacket
     private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantment)
     {
 	PcInventory inv = player.getInventory();
+	
+    if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL)) 
+        player.sendMessage("You can Buy Every 10 Second(s)!."); 
+    
 	// given the template entry and information about maintaining
 	// enchantment and applying taxes
 	// re-create the instance of the entry that will be used for this
