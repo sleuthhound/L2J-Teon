@@ -135,9 +135,9 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.VIP;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2EventChecks;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2RaidEvent;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
@@ -422,6 +422,10 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inJail = false;
     private long _jailTimer = 0;
     private ScheduledFuture<?> _jailTask;
+    /** character away mode **/
+    private boolean _isAway = false;
+    public int _originalTitleColorAway;
+    public String _originalTitleAway;
     /** Olympiad */
     private boolean _inOlympiadMode = false;
     private boolean _OlympiadStart = false;
@@ -489,7 +493,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _noble = false;
     private boolean _hero = false;
     private boolean _isDonator = false;
-    // Faction Koofs and Noobs by DaRkRaGe L2JOneo
+    // Faction Koofs and Noobs by DaRkRaGe
     private boolean _isKoof = false;
     private boolean _isNoob = false;
     /**
@@ -2836,6 +2840,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	if (L2Event.active && eventSitForced)
 	{
 	    sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
+
+	} else if (isAway())
+	{
+	    sendMessage("You can't stand up if your Status is Away");
 	} else if (VIP._sitForced && _inEventVIP)
 	{
 	    sendMessage("You cannot stand up at this time in the event. Please wait until the event has begun.");
@@ -4020,6 +4028,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	if ((_inEventCTF && !player._inEventCTF && (CTF._started || CTF._teleport) && !Config.CTF_ALLOW_INTERFERENCE) || (_inEventCTF && player._inEventCTF && (_lastKilledTimeCTF > System.currentTimeMillis())))
 	{
 	    player.sendPacket(new ActionFailed());
+	    return;
+	}
+	// Away Sys
+	if (isAway() && !Config.AWAY_ALLOW_INTERFERENCE)
+	{
+	    sendMessage("You can't target Away Players");
+	    sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	// Check if the L2PcInstance is confused
@@ -9959,6 +9974,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 	_hero = hero;
 	sendSkillList();
+    }
+
+    public boolean isAway()
+    {
+	return _isAway;
+    }
+
+    public void setIsAway(boolean state)
+    {
+	_isAway = state;
     }
 
     public void setIsInOlympiadMode(boolean b)

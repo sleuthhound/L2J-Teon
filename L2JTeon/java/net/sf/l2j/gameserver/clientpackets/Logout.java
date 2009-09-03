@@ -30,8 +30,8 @@ import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.VIP;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
@@ -76,6 +76,11 @@ public final class Logout extends L2GameClientPacket
 	if (player.atEvent)
 	{
 	    player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event"));
+	    return;
+	}
+	if (player.isAway())
+	{
+	    player.sendMessage("You can't restart in Away mode.");
 	    return;
 	}
 	if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player))

@@ -218,6 +218,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	    {
 		return false;
 	    }
+	    // check player is in away mod
+	    if(((L2PcInstance)target).isAway() && !Config.AWAY_PLAYER_TAKE_AGGRO)
+	    {
+		return false;
+	    }
 	    if (target.isInParty() && target.getParty().isInDimensionalRift())
 	    {
 		byte riftType = target.getParty().getDimensionalRift().getType();

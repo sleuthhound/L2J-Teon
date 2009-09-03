@@ -57,9 +57,9 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.VIP;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -301,7 +301,7 @@ public class EnterWorld extends L2GameClientPacket
 	    activeChar.sendMessage("Welcome " + activeChar.getName() + " to our L][ Server!");
 	    activeChar.sendMessage("Enjoy your Stay Donator!");
 	}
-	// Faction Engine by DaRkRaGe L2JOneo
+	// Faction Engine by DaRkRaGe L2JTeon
 	if (activeChar.isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS)
 	{
 	    activeChar.getAppearance().setNameColor(Config.KOOFS_NAME_COLOR);
@@ -333,7 +333,7 @@ public class EnterWorld extends L2GameClientPacket
 	// sends welcome htm if enabled.
 	if (Config.SHOW_HTML_WELCOME)
 	{
-	    WindowService.sendWindow(activeChar, "data/html/", "OneoInfo.htm");
+	    WindowService.sendWindow(activeChar, "data/html/", "TeonInfo.htm");
 	}
 	// sends newbie htm if enabled.
 	if (Config.SHOW_HTML_NEWBIE && (activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE))

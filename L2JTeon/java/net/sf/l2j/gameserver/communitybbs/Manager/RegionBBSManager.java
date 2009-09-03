@@ -211,6 +211,11 @@ public class RegionBBSManager extends BaseBBSManager
 		    activeChar.sendMessage("You can not chat while in jail.");
 		    return;
 		}
+		if (receiver.isAway())
+		{
+		    activeChar.sendMessage(receiver.getName() + " is Away please try again later.");
+		    return;
+		}
 		if (Config.LOG_CHAT)
 		{
 		    LogRecord record = new LogRecord(Level.INFO, ar3);
@@ -402,6 +407,10 @@ public class RegionBBSManager extends BaseBBSManager
 		    htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
 		} else
 		{
+	            if(player.isAway() && Config.ALLOW_AWAY_STATUS)
+		{
+					htmlCode.append(player.getName() + "*Away*");
+		}
 		    htmlCode.append(player.getName());
 		}
 		htmlCode.append("</a></td>");

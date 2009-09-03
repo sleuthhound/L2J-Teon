@@ -79,7 +79,7 @@ public class RequestRecordInfo extends L2GameClientPacket
 		    _activeChar.sendPacket(new SpawnItem((L2ItemInstance) object));
 		else if (object instanceof L2DoorInstance)
 		{
-		    _activeChar.sendPacket(new DoorInfo((L2DoorInstance) object));
+		    _activeChar.sendPacket(new DoorInfo((L2DoorInstance) object, false));
 		    _activeChar.sendPacket(new DoorStatusUpdate((L2DoorInstance) object));
 		} else if (object instanceof L2BoatInstance)
 		{

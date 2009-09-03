@@ -30,9 +30,9 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JOneoEvents.VIP;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
@@ -41,12 +41,10 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 /**
  * Potions.java
  * 
- * Reworked by schursin (L2JOneo) From now: Pets can drink potions!
+ * Reworked by schursin From now: Pets can drink potions!
  * 
  * PLEASE DONT DO "CLEANUP" OR ETC. OF THIS FILE! LET IT BE "AS IS". IT'S
  * FORMATED FOR FUTURE CHANGES! (schursin)
- * 
- * www.oneodevteam.com www.gludin.ru
  */
 public class Potions implements IItemHandler
 {

@@ -76,7 +76,7 @@
             depends="compile"
             description="Create the jar file">
 
-        <jar destfile="${build}/l2jserver.jar">
+        <jar destfile="${build}/l2jteon.jar">
             <fileset dir="${build.classes}"/>
             <manifest>
                 <attribute name="Main-Class" value="net.sf.l2j.Server"/>
@@ -86,12 +86,12 @@
         
     	<copy todir="${build.dist.login}">
             <fileset dir="${build}">
-                <include name="l2jserver.jar"/>
+                <include name="l2jteon.jar"/>
 			</fileset>
         </copy>
     	<copy todir="${build.dist.game}">
             <fileset dir="${build}">
-                <include name="l2jserver.jar"/>
+                <include name="l2jteon.jar"/>
 			</fileset>
         </copy>
         
@@ -103,7 +103,7 @@
             description="Build machine executable binary">  
             
         <exec dir="." executable="gcj" failifexecutionfails="false" os="linux:Linux:freebsd:FreeBSD" >
-            <arg line="-O3 ${build.dist}/l2jserver.jar  -o ${build.dist}/l2jserver --main=net.sf.l2j.Server"/>
+            <arg line="-O3 ${build.dist}/l2jteon.jar  -o ${build.dist}/l2jserver --main=net.sf.l2j.Server"/>
         </exec>
     </target>
  
@@ -214,17 +214,14 @@
 				<include name="telnet.properties"/>
 			</fileset>
         </copy>
-    	<copy todir="${build.dist.game}/config/boss">
-			<fileset dir="java/config/boss">
-				<include name="bosses.properties"/>
-				<include name="foursepulchers.properties"/>
+    	<copy todir="${build.dist.game}/config/bosses">
+			<fileset dir="java/config/bosses">
+				<include name="*.properties"/>
 			</fileset>
         </copy>
     	<copy todir="${build.dist.game}/config/custom">
 			<fileset dir="java/config/custom">
-				<include name="Feature.properties"/>
-				<include name="General.properties"/>
-				<include name="Olympiad.properties"/>
+				<include name="*.properties"/>
 			</fileset>
 		</copy>
 

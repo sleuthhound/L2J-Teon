@@ -140,7 +140,7 @@ public class PcKnownList extends PlayableKnownList
 		    getActiveChar().sendPacket(new SpawnItem((L2ItemInstance) object));
 	    } else if (object instanceof L2DoorInstance)
 	    {
-		getActiveChar().sendPacket(new DoorInfo((L2DoorInstance) object));
+		getActiveChar().sendPacket(new DoorInfo((L2DoorInstance) object, false));
 		getActiveChar().sendPacket(new DoorStatusUpdate((L2DoorInstance) object));
 	    } else if (object instanceof L2BoatInstance)
 	    {

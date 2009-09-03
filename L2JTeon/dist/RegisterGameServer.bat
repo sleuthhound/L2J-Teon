@@ -1,6 +1,6 @@
 @echo off
 color 17
-title L2JOneo Register GameServer
+title L2JTeon Register GameServer
 REM #======================================================================#
 REM # You need to set here your JDK/JRE params in case of x64 bits System. #
 REM # Remove the "REM" after set PATH variable                             #
@@ -9,5 +9,5 @@ REM #======================================================================#
 REM set PATH="type here your path to java jdk/jre (including bin folder)"
 REM -----------------------------------------------------------------------
 
-@java -Djava.util.logging.config.file=console.cfg -cp c3p0-0.9.1.2.jar;l2jserver.jar;mysql-connector-java-5.1.5-bin.jar net.sf.l2j.gsregistering.GameServerRegister
+@java -Djava.util.logging.config.file=console.cfg -cp c3p0-0.9.1.2.jar;l2jteon.jar;mysql-connector-java-5.1.5-bin.jar net.sf.l2j.gsregistering.GameServerRegister
 @pause
