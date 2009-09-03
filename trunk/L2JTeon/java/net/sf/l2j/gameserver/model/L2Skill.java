@@ -860,7 +860,7 @@ public abstract class L2Skill
 
     public final boolean useSoulShot()
     {
-	return (getSkillType() == SkillType.PDAM) || (getSkillType() == SkillType.STUN) || (getSkillType() == SkillType.CHARGEDAM);
+	return (getSkillType() == SkillType.PDAM) || (getSkillType() == SkillType.STUN) || (getSkillType() == SkillType.CHARGEDAM) || (getSkillType() == SkillType.BLOW);
     }
 
     public final boolean useSpiritShot()
