@@ -2332,4 +2332,11 @@ public final class Formulas
 	{
 		return STRbonus[activeChar.getSTR()];
 	}
+    public static boolean calcPhysicalSkillEvasion(L2Character target, L2Skill skill)
+    {
+    	if (skill.isMagic() && skill.getSkillType() != SkillType.BLOW)
+    		return false;
+    	
+    	return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
+    }
 }

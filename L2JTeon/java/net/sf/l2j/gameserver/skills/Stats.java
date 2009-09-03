@@ -44,7 +44,7 @@ public enum Stats
 	// Atk & Def rates
 	EVASION_RATE("rEvas"), SHIELD_RATE("rShld"), CRITICAL_RATE("rCrit"), BLOW_RATE(
 	        "blowRate"), LETHAL_RATE("lethalRate"), MCRITICAL_RATE("mCritRate"), EXPSP_RATE(
-	        "rExp"), ATTACK_CANCEL("cancel"),
+	        "rExp"), ATTACK_CANCEL("cancel"), P_SKILL_EVASION ("pSkillEvas"),
 
 	// Accuracy and range
 	ACCURACY_COMBAT("accCombat"), POWER_ATTACK_RANGE("pAtkRange"), MAGIC_ATTACK_RANGE(
