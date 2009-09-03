@@ -70,18 +70,13 @@ public class Fishing implements ISkillHandler
 	int rnd = Rnd.get(200) + 200;
 	double angle = Util.convertHeadingToDegree(player.getHeading());
 	// this.sendMessage("Angel: "+angle+" Heading: "+getHeading());
-	// double radian = Math.toRadians(angle - 90);
-        double radian = Math.toRadians(angle);
+	double radian = Math.toRadians(angle - 90);
 	double sin = Math.sin(radian);
 	double cos = Math.cos(radian);
-        int x1 = (int)(cos * rnd);
-        int y1 = (int)(sin * rnd);
-	/*
 	int x1 = -(int) (sin * rnd); // Somthing wrong with L2j Heding
 	// calculation o_0?
 	int y1 = (int) (cos * rnd); // Somthing wrong with L2j Heding
 	// calculation o_0?
-	 */
 	int x = player.getX() + x1;
 	int y = player.getY() + y1;
 	int z = player.getZ() - 30;

@@ -473,14 +473,6 @@ public class Disablers implements ISkillHandler
 			int maxfive = 5;
 			for (L2Effect e : effects)
 			{
-                    			// do not delete signet effects!
-                    			switch (e.getEffectType())
-							    {
-							        case SIGNET_GROUND:
-							        case SIGNET_EFFECT:
-							            continue;
-							    }
-                    			
 			    if ((e.getSkill().getId() != 4082) && (e.getSkill().getId() != 4215) && (e.getSkill().getId() != 4515) && (e.getSkill().getId() != 110) && (e.getSkill().getId() != 111) && (e.getSkill().getId() != 1323) && (e.getSkill().getId() != 1325)) // Cannot
 			    // cancel
 			    // skills

@@ -319,37 +319,40 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void doCast(L2Skill skill)
 	{
 	    // players cant cast augmentation skill manually
-	    // if (skill.isAugmentationSkill())
-
-		// sendMessage("You can't cast augmentation skills manually. It will be used automatically.");
-		// return;
-
-			super.doCast(skill);
-
-			// cancel the recent fake-death protection instantly if the player attacks or casts spells
-			getPlayer().setRecentFakeDeath(false);
-			if(skill == null) return;
-			if(!skill.isOffensive()) return;
-			switch (skill.getTargetType())
-			{
-				case TARGET_GROUND:
-				// case TARGET_SIGNET:
-					return;
-					
-				default:
-				{
-					L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
-					if (mainTarget == null || !(mainTarget instanceof L2Character))
-						return;
-					for (L2CubicInstance cubic : getCubics().values())
-						if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-							cubic.doAction((L2Character)mainTarget);
-				}
-					break;
-			}	
+	    if (skill.isAugmentationSkill())
+	    {
+		sendMessage("You can't cast augmentation skills manually. It will be used automatically.");
+		return;
+	    }
+	    //
+	    super.doCast(skill);
+	    // cancel the recent fake-death protection instantly if the
+	    // player
+	    // attacks or casts spells
+	    getPlayer().setRecentFakeDeath(false);
+	    if (skill == null)
+	    {
+		return;
+	    }
+	    if (!skill.isOffensive())
+	    {
+		return;
+	    }
+	    L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
+	    // the code doesn't now support multiple targets
+	    if ((mainTarget == null) || !(mainTarget instanceof L2Character))
+	    {
+		return;
+	    }
+	    for (L2CubicInstance cubic : getCubics().values())
+	    {
+		if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+		{
+		    cubic.doAction((L2Character) mainTarget);
 		}
+	    }
 	}
-
+    }
 
     /*
      * Starts battle force / spell force on target.<br><br>
@@ -548,10 +551,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _wantsPeace = 0;
     // Death Penalty Buff Level
     private int _deathPenaltyBuffLevel = 0;
-
-    // WorldPosition used by TARGET_SIGNET_GROUND
-    private Point3D _currentSkillWorldPosition;
-
     // GM related variables
     private boolean _isGm;
     private int _accessLevel;
@@ -3970,16 +3969,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	    _client.close(new LeaveWorld());
 	}
     }
-
-	public Point3D getCurrentSkillWorldPosition()
-	{
-		return _currentSkillWorldPosition;
-	}
-	
-	public void setCurrentSkillWorldPosition(Point3D worldPosition)
-	{
-		_currentSkillWorldPosition = worldPosition;
-	}
 
     /**
      * Manage actions when a player click on this L2PcInstance.<BR>
@@ -8528,34 +8517,22 @@ public final class L2PcInstance extends L2PlayableInstance
 	L2Object target = null;
 	SkillTargetType sklTargetType = skill.getTargetType();
 	SkillType sklType = skill.getSkillType();
- 
-        Point3D worldPosition = getCurrentSkillWorldPosition();
-        
-        if (sklTargetType == SkillTargetType.TARGET_GROUND && worldPosition == null)
-        {
-        	_log.info("WorldPosition is null for skill: "+skill.getName() + ", player: " + getName() + ".");
-        	sendPacket(new ActionFailed());
-        	return;
-        }
-        
 	switch (sklTargetType)
 	{
-            // Target the player if skill type is AURA, PARTY, CLAN or SELF
-            case TARGET_AURA:
-            case TARGET_GROUND:
-			// case TARGET_SIGNET:
-            case TARGET_PARTY:
-            case TARGET_ALLY:
-            case TARGET_CLAN:
-            case TARGET_SELF:
-                target = this;
-                break;
-            case TARGET_PET:
-                target = getPet();
-                break;
-            default:
-                target = getTarget();
-            break;
+	// Target the player if skill type is AURA, PARTY, CLAN or SELF
+	case TARGET_AURA:
+	case TARGET_PARTY:
+	case TARGET_ALLY:
+	case TARGET_CLAN:
+	case TARGET_SELF:
+	    target = this;
+	    break;
+	case TARGET_PET:
+	    target = getPet();
+	    break;
+	default:
+	    target = getTarget();
+	    break;
 	}
 	// Check the validity of the target
 	if (target == null)
@@ -8717,42 +8694,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		sendPacket(new ActionFailed());
 		return;
 	    }
-
-			if (!target.isAutoAttackable(this) && !forceUse)
-			{
-				switch (sklTargetType)
-				{
-					case TARGET_AURA:
-					case TARGET_CLAN:
-					case TARGET_ALLY:
-					case TARGET_PARTY:
-					case TARGET_SELF:
-					case TARGET_GROUND:
-					// case TARGET_SIGNET:
-						break;
-					default: // Send a Server->Client packet ActionFailed to the L2PcInstance
-						sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-			}
 	    // Check if the target is in the skill cast range
 	    if (dontMove)
 	    {
 		// Calculate the distance between the L2PcInstance and the
 		// target
-				if (sklTargetType == SkillTargetType.TARGET_GROUND)
-				{
-					if (!isInsideRadius(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), skill.getCastRange()+getTemplate().collisionRadius, false, false))
-					{
-						// Send a System Message to the caster
-						sendPacket(new SystemMessage(SystemMessageId.TARGET_TOO_FAR));
-
-						// Send a Server->Client packet ActionFailed to the L2PcInstance
-						sendPacket(new ActionFailed());
-						return;
-					}
-				}
-				else if (skill.getCastRange() > 0 && !isInsideRadius(target, skill.getCastRange()+getTemplate().collisionRadius, false, false))
+		if ((skill.getCastRange() > 0) && !isInsideRadius(target, skill.getCastRange() + getTemplate().collisionRadius, false, false))
 		{
 		    // Send a System Message to the caster
 		    sendPacket(new SystemMessage(SystemMessageId.TARGET_TOO_FAR));
@@ -8764,37 +8711,18 @@ public final class L2PcInstance extends L2PlayableInstance
 	    }
 	}
 	// Check if the skill is defensive
-	if (!skill.isOffensive() && target instanceof L2MonsterInstance && !forceUse)
+	if (!skill.isOffensive())
 	{
-        	// check if the target is a monster and if force attack is set.. if not then we don't want to cast.
-        	switch (sklTargetType)
-        	{
-        		case TARGET_PET:
-        		case TARGET_AURA:
-        		case TARGET_CLAN:
-        		case TARGET_SELF:
-        		case TARGET_PARTY:
-        		case TARGET_ALLY:
-        		case TARGET_CORPSE_MOB:
-        		case TARGET_AREA_CORPSE_MOB:
-        		case TARGET_GROUND:
-        		// case TARGET_SIGNET:
-        			break;
-        			
-        		default:
-        			switch(sklType)
-        			{
-        				case BEAST_FEED:
-        				case DELUXE_KEY_UNLOCK:
-        				case UNLOCK:
-        					break;
-        					
-        					default:
-        						sendPacket (new ActionFailed());
-        					return;
-        			}
-        	}
-        }
+	    // check if the target is a monster and if force attack is set..
+	    // if
+	    // not then we don't want to cast.
+	    if ((target instanceof L2MonsterInstance) && !forceUse && (sklTargetType != SkillTargetType.TARGET_PET) && (sklTargetType != SkillTargetType.TARGET_AURA) && (sklTargetType != SkillTargetType.TARGET_CLAN) && (sklTargetType != SkillTargetType.TARGET_SELF) && (sklTargetType != SkillTargetType.TARGET_PARTY) && (sklTargetType != SkillTargetType.TARGET_ALLY) && (sklTargetType != SkillTargetType.TARGET_CORPSE_MOB) && (sklTargetType != SkillTargetType.TARGET_AREA_CORPSE_MOB) && (sklType != SkillType.BEAST_FEED) && (sklType != SkillType.DELUXE_KEY_UNLOCK) && (sklType != SkillType.UNLOCK))
+	    {
+		// send the action failed so that the skill doens't go off.
+		sendPacket(new ActionFailed());
+		return;
+	    }
+	}
 	// Check if the skill is Spoil type and if the target isn't already
 	// spoiled
 	if (sklType == SkillType.SPOIL)
@@ -8857,8 +8785,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	case TARGET_CLAN: // For such skills, checkPvpSkill() is called
 	    // from L2Skill.getTargetList()
 	case TARGET_AURA:
-			case TARGET_GROUND:
-			// case TARGET_SIGNET:
 	case TARGET_SELF:
 	    break;
 	default:
@@ -8890,23 +8816,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	    return;
 	}
 	// GeoData Los Check here
-        if (skill.getCastRange() > 0)
-        {
-        	if (sklTargetType == SkillTargetType.TARGET_GROUND)
-        	{
-        		if (!GeoData.getInstance().canSeeTarget(this, worldPosition))
-        		{
-        			sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
-        			sendPacket(new ActionFailed());
-	        			return;
-        		}
-        	}
-        	else if (!GeoData.getInstance().canSeeTarget(this, target))
-        	{
-        		sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
-        		sendPacket(new ActionFailed());
-        		return;
-        	}
+	if ((skill.getCastRange() > 0) && !GeoData.getInstance().canSeeTarget(this, target))
+	{
+	    sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
+	    sendPacket(new ActionFailed());
+	    return;
 	}
 	// If all conditions are checked, create a new SkillDat object and set
 	// the player _currentSkill
@@ -11570,24 +11484,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 	    _log.log(Level.SEVERE, "deleteMe()", t);
 	}
-
-	try
-		{
-			for (L2Effect effect : getAllEffects())
-			{
-				switch (effect.getEffectType())
-				{
-					case SIGNET_GROUND:
-					case SIGNET_EFFECT:
-						effect.exit();
-						break;
-				}
-			}
-		}
-		catch(Throwable t)
-	{
-	    _log.log(Level.SEVERE, "deleteMe()", t);
-	}
 	// Remove the L2PcInstance from the world
 	if (isVisible())
 	{
@@ -12576,6 +12472,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
     }
 
+    /**
+     * Index according to skill id the current timestamp of use.
+     *
+     * @param skillid
+     * @param reuse
+     *                delay
+     */
+    @Override
     public void addTimeStamp(int s, int r)
     {
 	ReuseTimeStamps.put(s, new TimeStamp(s, r));
@@ -12592,16 +12496,23 @@ public final class L2PcInstance extends L2PlayableInstance
 	ReuseTimeStamps.put(T.getSkill(), T);
     }
 
+    /**
+     * Index according to skill id the current timestamp of use.
+     *
+     * @param skillid
+     */
+    @Override
     public void removeTimeStamp(int s)
     {
 	ReuseTimeStamps.remove(s);
-    }
-
+    }	
+    @Override
     public L2PcInstance getActingPlayer()
     {
 		return this;
     }
 
+    @Override
     public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
     {
 	// Check if hit is missed
@@ -12740,11 +12651,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
     }
 
+    @Override
     public ForceBuff getForceBuff()
     {
 	return _forceBuff;
     }
 
+    @Override
     public void setForceBuff(ForceBuff fb)
     {
 	_forceBuff = fb;

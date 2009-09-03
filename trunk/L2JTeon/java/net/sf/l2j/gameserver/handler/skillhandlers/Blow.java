@@ -68,7 +68,7 @@ public class Blow implements ISkillHandler
 	    if (activeChar.isBehindTarget())
 	    {
 		_successChance = BACK;
-	    } else if (activeChar.isInFrontOfTarget())
+	    } else if (activeChar.isFrontTarget())
 	    {
 		_successChance = FRONT;
 	    } else
