@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;  
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
@@ -1611,6 +1612,16 @@ public final class Formulas
 				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 			}
 		}
+        
+		if (attacker instanceof L2PcInstance){
+			if (((L2PcInstance) attacker).getClassId().isMage()) 
+				damage = damage*Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI; 
+			else damage = damage*Config.ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;} 
+		else if (attacker instanceof L2Summon) 
+			damage = damage*Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI; 
+		else if (attacker instanceof L2NpcInstance) 
+			damage = damage*Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI; 
+
 		return damage;
 	}
 
@@ -1714,6 +1725,25 @@ public final class Formulas
 				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 			}
 		}
+		
+		if (attacker instanceof L2PcInstance){ 
+			if (((L2PcInstance) attacker).getClassId().isMage()) 
+				damage = damage*Config.ALT_MAGES_MAGICAL_DAMAGE_MULTI; 
+			else damage = damage*Config.ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;} 
+		else if (attacker instanceof L2Summon) 
+			damage = damage*Config.ALT_PETS_MAGICAL_DAMAGE_MULTI; 
+		else if (attacker instanceof L2NpcInstance) 
+			damage = damage*Config.ALT_NPC_MAGICAL_DAMAGE_MULTI; 
+		
+		if (skill != null) 
+		{ 
+			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc 
+				damage *= skill.getPvpMulti(); 
+			
+			if (skill.getSkillType() == SkillType.DEATHLINK) 
+				damage = damage * (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0; 
+		} 
+		
 		return damage;
 	}
 

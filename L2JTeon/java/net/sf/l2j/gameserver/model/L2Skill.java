@@ -350,6 +350,7 @@ public abstract class L2Skill
     // boost
     // (power*2)
     private final int _aggroPoints;
+    private final float _pvpMulti; 
     /*
      * Augmentation Skill Type 0 - Both 1 - Physical 2 - Magic 3 - Critical
      * (unsupported now) 4 - You under attack (unsupported now)
@@ -430,6 +431,7 @@ public abstract class L2Skill
 	_nextDanceCost = set.getInteger("nextDanceCost", 0);
 	_sSBoost = set.getFloat("SSBoost", 0.f);
 	_aggroPoints = set.getInteger("aggroPoints", 0);
+    _pvpMulti = set.getFloat("pvpMulti", 1.f); 
 	// Augmentation Skill Type
 	augmentationType = set.getInteger("augmentType", -1);
 	String canLearn = set.getString("canLearn", null);
@@ -849,6 +851,11 @@ public abstract class L2Skill
     public final int getAggroPoints()
     {
 	return _aggroPoints;
+    }
+    
+    public final float getPvpMulti() 
+    {
+        return _pvpMulti; 
     }
 
     public final boolean useSoulShot()

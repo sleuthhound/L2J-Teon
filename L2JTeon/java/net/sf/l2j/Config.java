@@ -1043,6 +1043,17 @@ public final class Config
 	/** ************************************************** **/
     /** Multiplies stay time in boss room. */
     public static float RIFT_BOSS_ROOM_TIME_MUTIPLY;
+    
+    /** multiples damages Char's / Pet's / Npc's */ 
+    public static float ALT_MAGES_PHYSICAL_DAMAGE_MULTI; 
+    public static float ALT_MAGES_MAGICAL_DAMAGE_MULTI; 
+    public static float ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI; 
+    public static float ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI; 
+    public static float ALT_PETS_PHYSICAL_DAMAGE_MULTI; 
+ 	public static float ALT_PETS_MAGICAL_DAMAGE_MULTI; 
+ 	public static float ALT_NPC_PHYSICAL_DAMAGE_MULTI; 
+ 	public static float ALT_NPC_MAGICAL_DAMAGE_MULTI; 
+ 	
 	/** Time limit of invade to lair of bosses after server restarted */
 	public static int TIMELIMITOFINVADE;
 	public static int TIME_IN_A_DAY_OF_OPEN_A_DOOR;
@@ -2378,6 +2389,14 @@ public final class Config
 		ALT_GAME_CREATION_XP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
 		ALT_GAME_CREATION_SP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
 		ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "True"));
+        ALT_MAGES_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00")); 
+        ALT_MAGES_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00")); 
+        ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00")); 
+        ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageFighters", "1.00")); 
+        ALT_PETS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamagePets", "1.00")); 
+        ALT_PETS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamagePets", "1.00")); 
+        ALT_NPC_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00")); 
+        ALT_NPC_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00")); 
 		ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "False"));
 		AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "False"));
 		ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("all");
