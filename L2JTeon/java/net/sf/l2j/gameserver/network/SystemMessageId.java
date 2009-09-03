@@ -798,6 +798,11 @@ public enum SystemMessageId
      * Message: $s1 has canceled the trade.
      */
     S1_CANCELED_TRADE(124),
+    /**   
+     * ID: 148<br>   
+     * Message: You cannot use quest items.   
+     */   
+    CANNOT_USE_QUEST_ITEMS(148),
     /**
      * ID: 149<br>
      * Message: You cannot pick up or use items while trading.
