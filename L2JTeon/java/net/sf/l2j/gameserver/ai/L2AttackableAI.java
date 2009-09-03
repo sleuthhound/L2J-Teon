@@ -557,6 +557,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	{
 	    return;
 	}
+    // Check if the Mob should not return to the spawn point  
+    if (!npc.canReturnToSpawnPoint()) return;   
 	// Minions following leader
 	if ((_actor instanceof L2MinionInstance) && (((L2MinionInstance) _actor).getLeader() != null))
 	{
@@ -634,6 +636,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		y1 = npc.getSpawn().getLocy() + Rnd.nextInt(Config.MAX_DRIFT_RANGE * 2) - Config.MAX_DRIFT_RANGE;
 		z1 = npc.getZ();
 	    }
+	    
+        // Orfen After teleporting should not respawn to the spawn point  
+        if (npc.getNpcId() == 29014  
+                && npc instanceof L2GrandBossInstance  
+                && ((L2GrandBossInstance)npc).getTeleported())    
+            return;
+        
 	    // _log.config("Curent pos ("+getX()+", "+getY()+"), moving to
 	    // ("+x1+", "+y1+").");
 	    // Move the actor to Location (x,y,z) server side AND client
