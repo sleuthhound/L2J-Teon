@@ -94,13 +94,13 @@
     <target name="dist"
           depends="export"
           description="Creates a ZIP file. Suitable for distribution but building takes longer. See dist-deflate for faster builds.">
-      <zip destfile="${build}/L2JOneo_DataPack.zip" basedir="${build.dist}" update="true"/>
+      <zip destfile="${build}/L2JTeon_DataPack.zip" basedir="${build.dist}" update="true"/>
     </target>
 
     <target name="dist-deflate"
           depends="export"
           description="Creates a datapack ZIP file with NO compression (bigger ZIP file but faster than regular dist target)">
-      <zip destfile="${build}/L2JOneo_DataPack-nocompress.zip" basedir="${build.dist}" update="true" compress="false"/>
+      <zip destfile="${build}/L2JTeon_DataPack-nocompress.zip" basedir="${build.dist}" update="true" compress="false"/>
     </target>
   
   
