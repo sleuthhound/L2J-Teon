@@ -279,6 +279,17 @@ public class PcStat extends PlayableStat
 	getActiveChar().sendPacket(new UserInfo(getActiveChar()));
 	return levelIncreased;
     }
+    
+    /** Return the Attack Evasion rate (base+modifier) of the L2Character. */ 
+    @Override 
+    public int getEvasionRate(L2Character target) 
+    {
+        int val = super.getEvasionRate(target); 
+        
+        if (val > Config.MAX_EVASION && Config.MAX_EVASION > 0 && !getActiveChar().isGM()) 
+            return Config.MAX_EVASION; 
+        return val; 
+    }
 
     @Override
     public boolean addSp(int value)
