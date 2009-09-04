@@ -68,6 +68,7 @@ public class Couple
 		_weddingDate.setTimeInMillis(rs.getLong("weddingDate"));
 	    }
 	    statement.close();
+            this._maried = true;
 	} catch (Exception e)
 	{
 	    _log.error("Exception: Couple.load(): " + e.getMessage(), e);
