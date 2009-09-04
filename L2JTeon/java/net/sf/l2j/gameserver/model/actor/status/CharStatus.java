@@ -189,6 +189,10 @@ public class CharStatus
 	{
 	    getActiveChar().stopStunning(null);
 	}
+    if (getActiveChar().isImmobileUntilAttacked()) 
+    {
+    	getActiveChar().stopImmobileUntilAttacked(null);  
+    }
     if (getActiveChar().isAfraid())   
     {
     	getActiveChar().stopFear(null);  
