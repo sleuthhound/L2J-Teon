@@ -322,6 +322,10 @@ public class Wedding implements IVoicedCommandHandler
 	{
 	    playerA.sendPacket(new ActionFailed());
 	    return false;
+	} else if (playerA.isCursedWeaponEquiped())
+	{
+	    playerA.sendMessage("You Cannot Teleport To Your Partner When You Have a Cursed Weapon Equipped.");
+	    return false;
 	}
 	// get teleport time
 	int _portTimer = Config.WEDDING_TELEPORT_INTERVAL * 1000;
