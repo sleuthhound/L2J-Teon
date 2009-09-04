@@ -19,14 +19,14 @@
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.form.ZoneCylinder;
 import net.sf.l2j.gameserver.model.zone.type.L2DynamicZone;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 
 /*
  *  Symbol skills creating a signet, temporary zone with effects and an owner
@@ -35,26 +35,28 @@ import net.sf.l2j.gameserver.model.zone.type.L2DynamicZone;
  *
  *  Animation packets still needed
  */
-public class Signets implements ISkillHandler
-{
-    private static final SkillType[] SKILL_IDS = { SkillType.SIGNET };
+public class Signets implements ISkillHandler {
 
-    public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
-    L2Object[] targets)
-    {
-	if (!(activeChar instanceof L2PcInstance))
-	    return;
-	L2WorldRegion region = activeChar.getWorldRegion();
-	L2DynamicZone zone = new L2DynamicZone(region, activeChar, skill);
-	zone.setZone(new ZoneCylinder(activeChar.getX(), activeChar.getY(), activeChar.getZ() - 200, activeChar.getZ() + 200, skill.getSkillRadius()));
-	region.addZone(zone);
-	for (L2Character c : activeChar.getKnownList().getKnownCharacters())
-	    zone.revalidateInZone(c);
-	zone.revalidateInZone(activeChar);
+    private static final SkillType[] SKILL_IDS = {SkillType.SIGNET};
+
+    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets) {
+
+    	if (!(activeChar instanceof L2PcInstance))
+            return;
+
+        L2WorldRegion region = activeChar.getWorldRegion();
+        L2DynamicZone zone = new L2DynamicZone(region, activeChar, skill);
+		zone.setZone(new ZoneCylinder(activeChar.getX(),activeChar.getY(), activeChar.getZ()-200,
+				activeChar.getZ()+200, skill.getSkillRadius()));
+
+        region.addZone(zone);
+        for(L2Character c : activeChar.getKnownList().getKnownCharacters())
+        	zone.revalidateInZone(c);
+        zone.revalidateInZone(activeChar);
     }
 
-    public SkillType[] getSkillIds()
+    public SkillType[] getSkillIds() 
     {
-	return SKILL_IDS;
+        return SKILL_IDS;
     }
 }

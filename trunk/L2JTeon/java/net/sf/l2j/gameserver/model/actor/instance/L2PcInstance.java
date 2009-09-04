@@ -555,6 +555,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _wantsPeace = 0;
     // Death Penalty Buff Level
     private int _deathPenaltyBuffLevel = 0;
+    private Point3D _currentSkillWorldPosition;
     // GM related variables
     private boolean _isGm;
     private int _accessLevel;
@@ -12847,6 +12848,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void dropItem(L2MonsterInstance npc, L2PcInstance player, int itemId, int count)
 	{
 		npc.DropItem(player, itemId, count);
+	}
+
+	public Point3D getCurrentSkillWorldPosition()
+	{
+		return _currentSkillWorldPosition;
+	}
+	
+	public void setCurrentSkillWorldPosition(Point3D worldPosition)
+	{
+		_currentSkillWorldPosition = worldPosition;
 	}
 }
 

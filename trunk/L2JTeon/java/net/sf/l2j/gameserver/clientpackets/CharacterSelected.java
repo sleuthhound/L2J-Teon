@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.util.logging.Logger;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
+import net.sf.l2j.gameserver.network.L2GameClient.ClientState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelected;
 
@@ -98,7 +98,7 @@ public class CharacterSelected extends L2GameClientPacket
 		    }
 		    cha.setClient(getClient());
 		    getClient().setActiveChar(cha);
-		    getClient().setState(GameClientState.IN_GAME);
+		    getClient().setState(ClientState.IN_GAME);
 		    CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
 		    sendPacket(cs);
 		}

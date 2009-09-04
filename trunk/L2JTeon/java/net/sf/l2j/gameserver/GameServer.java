@@ -153,7 +153,6 @@ import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
 import net.sf.l2j.gameserver.handler.itemhandlers.HeroCustomItem;
 import net.sf.l2j.gameserver.handler.itemhandlers.JackpotSeed;
 import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
-// import net.sf.l2j.gameserver.handler.itemhandlers.MonasteryKeys;
 import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
 import net.sf.l2j.gameserver.handler.itemhandlers.PaganKeys;
 import net.sf.l2j.gameserver.handler.itemhandlers.Potions;
@@ -258,8 +257,10 @@ import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.ChainAutomation.L2JTeonEventManager;
 import net.sf.l2j.gameserver.model.item.Item;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
+import net.sf.l2j.gameserver.network.TeonPacketHandler;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
+import net.sf.l2j.gameserver.network.L2GameClient.ClientState;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.scripting.CompiledScriptCache;
@@ -270,6 +271,7 @@ import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.status.Status;
 import com.l2jserver.mmocore.network.SelectorServerConfig;
 import com.l2jserver.mmocore.network.SelectorThread;
+import net.sf.l2j.util.Util;
 
 /**
  * This class ...
@@ -327,35 +329,29 @@ public class GameServer
     public GameServer() throws Exception
     {
 		long serverLoadStart = System.currentTimeMillis();
-        // Prints General System Info
-		L2JTeon.L2JTeon();
+        // Prints General System Info+        
+        Util.printSection("L2JTeon-Info");
+        L2JTeon.L2JTeon();
 	gameServer = this;
 	_log.finest("used mem:" + getUsedMemoryMB() + "MB");
-/**	if (Config.SERVER_VERSION != null)
-	{
-	    _log.info("## L2JTeon GS REV ## :  " + Config.SERVER_VERSION);
-	}
-	if (Config.DATAPACK_VERSION != null)
-	{
-	    _log.info("## L2JTeon DP REV ## :  " + Config.DATAPACK_VERSION);
-	} */
+	//Teon packet mapping
+	TeonPacketHandler.getInstance();
 	_idFactory = IdFactory.getInstance();
+	_threadpools = ThreadPoolManager.getInstance();
+	new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
+	new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
+	// load script engines
+	L2ScriptEngineManager.getInstance();
+	// start game time control early
+	GameTimeController.getInstance();
+        Util.printSection("Database");
+	// keep the references of Singletons to prevent garbage collection
+	CharNameTable.getInstance();
 	if (!_idFactory.isInitialized())
 	{
 	    _log.severe("Could not read object IDs from DB. Please Check Your Data.");
 	    throw new Exception("Could not initialize the ID factory");
 	}
-	_threadpools = ThreadPoolManager.getInstance();
-	new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
-	new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
-		
-	// load script engines
-	L2ScriptEngineManager.getInstance();
-		
-	// start game time control early
-	GameTimeController.getInstance();
-	// keep the references of Singletons to prevent garbage collection
-	CharNameTable.getInstance();
 	_itemTable = ItemTable.getInstance();
 	if (!_itemTable.isInitialized())
 	{
@@ -376,6 +372,7 @@ public class GameServer
     	NpcWalkerRoutesTable.getInstance().load();
     }
 	RecipeController.getInstance();
+        Util.printSection("Skill Trees");
 	SkillTreeTable.getInstance();
 	ArmorSetsTable.getInstance();
 	FishTable.getInstance();
@@ -384,11 +381,15 @@ public class GameServer
 	NobleSkillTable.getInstance();
 	HeroSkillTable.getInstance();
 	PcColorTable.getInstance();
+	Util.printSection("Cache");
 	// Call to load caches
 	ChatFilterCache.getInstance();
 	HtmCache.getInstance();
 	CrestCache.getInstance();
 	ClanTable.getInstance();
+	MapRegionTable.getInstance();
+	SpawnTable.getInstance();
+	GmListTable.getInstance();
 	_npcTable = NpcTable.getInstance();
 	if (!_npcTable.isInitialized())
 	{
@@ -415,11 +416,13 @@ public class GameServer
 	{
 	    throw new Exception("Could not initialize the Helper Buff Table");
 	}
+        Util.printSection("Geodata");
 	GeoData.getInstance();
 	if (Config.GEODATA == 2)
 	{
 	    GeoPathFinding.getInstance();
 	}
+        Util.printSection("Instances Managers");
 	// Load clan hall data before zone data
 	_cHManager = ClanHallManager.getInstance();
 	CastleManager.getInstance();
@@ -430,14 +433,12 @@ public class GameServer
 	LevelUpData.getInstance();
 	L2World.getInstance();
 	ZoneManager.getInstance();
-	SpawnTable.getInstance();
 	DayNightSpawnManager.getInstance().notifyChangeMode();
 	GrandBossManager.getInstance();
 	RaidBossSpawnManager.getInstance();
         RaidBossPointsManager.init();
 	DimensionalRiftManager.getInstance();
 	Announcements.getInstance();
-	MapRegionTable.getInstance();
 	EventDroplist.getInstance();
 	/** Load Manor data */
 	L2Manor.getInstance();
@@ -448,6 +449,10 @@ public class GameServer
 	MercTicketManager.getInstance();
 	// PartyCommandManager.getInstance();
 	PetitionManager.getInstance();
+	// Init of a cursed weapon manager
+	CursedWeaponsManager.getInstance();
+	FourSepulchersManager.getInstance().init();
+        Util.printSection("Quests - Scripts");
 		QuestManager.getInstance();
 		
 		try
@@ -514,17 +519,8 @@ public class GameServer
 	_sevenSignsEngine.spawnSevenSignsNPC();
 	Olympiad.getInstance();
 	Hero.getInstance();
-		GmListTable.getInstance();
 	FaenorScriptEngine.getInstance();
-	// Init of a cursed weapon manager
-	CursedWeaponsManager.getInstance();
-		FourSepulchersManager.getInstance().init();
-		// SailrenManager.getInstance().init();
-		// AntharasManager.getInstance().init();
-		// ValakasManager.getInstance().init();
-		// VanHalterManager.getInstance().init();
-		// LastImperialTombManager.getInstance().init();
-		// FrintezzaManager.getInstance().init();
+        Util.printSection("Handlers");
 	_log.config("AutoChatHandler: Loaded " + _autoChatHandler.size() + " handlers in total.");
 	_log.info("AutoAnnouncementHandler: Loaded " + _autoAnnouncementHandler.size() + " handlers in total.");
 	_log.config("AutoSpawnHandler: Loaded " + _autoSpawnHandler.size() + " handlers in total.");
@@ -542,7 +538,6 @@ public class GameServer
 	_itemHandler.registerItemHandler(new Potions());
 	_itemHandler.registerItemHandler(new Recipes());
 	_itemHandler.registerItemHandler(new RollingDice());
-	// _itemHandler.registerItemHandler(new MonasteryKeys());
 	_itemHandler.registerItemHandler(new MysteryPotion());
 	_itemHandler.registerItemHandler(new EnchantScrolls());
 	_itemHandler.registerItemHandler(new EnergyStone());
@@ -773,6 +768,12 @@ public class GameServer
 	_selectorThread.openServerSocket();
 	_selectorThread.start();
 	_log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
+
+	Util.printSection("Teon Packet System");
+	_log.info("Loaded: "+TeonPacketHandler.getInstance().getPackets().get(ClientState.CONNECTED).size()+" Connection Packet(s).");
+	_log.info("Loaded: "+TeonPacketHandler.getInstance().getPackets().get(ClientState.AUTHED).size()+" Auth Packet(s).");
+	_log.info("Loaded: "+TeonPacketHandler.getInstance().getPackets().get(ClientState.IN_GAME).size()+" In Game Packet(s).");
+	_log.info("Loaded: "+TeonPacketHandler.getInstance().get2xOpPackets().get(0xd0).size()+" Double OpCode Packet(s).");
 	// Start IRC Connection
 	if (Config.IRC_LOAD)
 	{
@@ -812,6 +813,7 @@ public class GameServer
 	InputStream is = new FileInputStream(new File(LOG_NAME));
 	LogManager.getLogManager().readConfiguration(is);
 	is.close();
+	Util.printSection("Configs");
 	// Initialize config
 	Config.load();
 	L2DatabaseFactory.getInstance();

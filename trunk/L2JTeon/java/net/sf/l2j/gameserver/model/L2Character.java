@@ -175,6 +175,7 @@ public abstract class L2Character extends L2Object
     // timed out or monster is attacked
     private boolean _isStunned = false; // Cannot move/attack until stun timed
     // out
+    private boolean _isImmobileUntilAttacked = false;
     private boolean _isBetrayed = false; // Betrayed by own summon
     protected boolean _showSummonAnimation = false;
     private boolean _buffImmunity = false; // Immunity to buff/debuffs
@@ -2306,6 +2307,16 @@ public abstract class L2Character extends L2Object
     {
 	_isSleeping = value;
     }
+ 
+    public final void setIsImmobileUntilAttacked(boolean value)
+    {
+	_isImmobileUntilAttacked = value;
+    }
+
+    public final boolean isImmobileUntilAttacked()
+    {
+	return _isImmobileUntilAttacked;
+    }
 
     public final boolean isStunned()
     {
@@ -3622,6 +3633,21 @@ public abstract class L2Character extends L2Object
 	getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 	updateAbnormalEffect();
     }
+ 
+	public final void stopImmobileUntilAttacked(L2Effect effect)
+	{
+		if (effect == null)
+			stopEffects(L2Effect.EffectType.IMMOBILEUNTILATTACKED);
+		else
+		{
+			removeEffect(effect);
+			stopSkillEffects(effect.getSkill().getNegateId());
+		}
+
+		setIsImmobileUntilAttacked(false);
+		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
+		updateAbnormalEffect();
+	}
 
     /**
      * Stop a specified/all Stun abnormal L2Effect.<BR>
@@ -5912,6 +5938,16 @@ public abstract class L2Character extends L2Object
     {
 	// Dummy method (overridden by players and pets)
     }
+ 
+	public final void startImmobileUntilAttacked()
+	{
+		setIsImmobileUntilAttacked(true);
+		abortAttack();
+		abortCast();
+		stopMove(null);
+		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
+		updateAbnormalEffect();
+	}	
 
     /**
      * Return the active weapon instance (always equiped in the right hand).<BR>
@@ -6350,7 +6386,7 @@ public abstract class L2Character extends L2Object
 	return (attacker.getAccessLevel() < Config.GM_PEACEATTACK) && isInsidePeaceZone((L2Object) attacker, target);
     }
 
-    public boolean isInsidePeaceZone(L2Object attacker, L2Object target)
+    public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)
     {
 	if (target == null)
 	{
