@@ -88,11 +88,6 @@ public final class RequestDropItem extends L2GameClientPacket
 	    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 	    return;
 	}
-    // Char is dead cannot discard itens... 
-    if (activeChar.isDead()) 
-    {
-        return; 
-    }
 	if (_count <= 0)
 	{
 	    Util.handleIllegalPlayerAction(activeChar, "[RequestDropItem] count <= 0! ban! oid: " + _objectId + " owner: " + activeChar.getName(), IllegalPlayerAction.PUNISH_KICK);
