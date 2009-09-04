@@ -41,6 +41,7 @@ public class PcStat extends PlayableStat
     // Data Field
     private int _oldMaxHp; // stats watch
     private int _oldMaxMp; // stats watch
+    private int _oldMaxCp; // stats watch
 
     // =========================================================
     // Constructor
@@ -408,6 +409,21 @@ public class PcStat extends PlayableStat
 	    }
 	}
 	return val;
+    }
+
+     @Override
+    public final int getMaxCp()
+    {
+    	int val = super.getMaxCp();
+    	if (val != _oldMaxCp)
+    	{
+    		_oldMaxCp = val;
+    		if (getActiveChar().getStatus().getCurrentCp() != val)
+    		{
+    			getActiveChar().getStatus().setCurrentCp(getActiveChar().getStatus().getCurrentCp());
+    		}
+    	}
+    	return val;
     }
 
     @Override

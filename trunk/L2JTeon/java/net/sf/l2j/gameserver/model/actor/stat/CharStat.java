@@ -243,7 +243,7 @@ public class CharStat
 	return _activeChar.getTemplate().baseAtkRange;
     }
 
-    public final int getMaxCp()
+    public int getMaxCp()
     {
 	if (_activeChar == null)
 	{
