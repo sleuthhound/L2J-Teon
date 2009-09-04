@@ -112,6 +112,8 @@ public final class Config
     public static final String  GENERAL_CONFIG_FILE = "./config/custom/General.properties";
     /** Properties file for Olympiad Extensions*/
     public static final String  OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
+    /** Properties file for Augment Configurations */
+    public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";         
     
     /** Debug/release mode */
     public static boolean DEBUG;
@@ -1080,7 +1082,18 @@ public final class Config
     public static int HEROVOICE_DELAY; 
     public static int UNKNOWN_PACKET_DELAY; 
     public static int SUBCLASS_DELAY;
-    public static int MULTISELL_DELAY; 
+    public static int MULTISELL_DELAY;
+    
+    // Augment.properties Configs 
+    public static int AUGMENTATION_BASESTAT_CHANCE;  
+    public static int AUGMENTATION_NG_SKILL_CHANCE; 
+    public static int AUGMENTATION_NG_GLOW_CHANCE; 
+    public static int AUGMENTATION_MID_SKILL_CHANCE; 
+    public static int AUGMENTATION_MID_GLOW_CHANCE; 
+    public static int AUGMENTATION_HIGH_SKILL_CHANCE; 
+    public static int AUGMENTATION_HIGH_GLOW_CHANCE; 
+    public static int AUGMENTATION_TOP_SKILL_CHANCE; 
+    public static int AUGMENTATION_TOP_GLOW_CHANCE; 
     
     /** ************************************************** **/
 	/** Boss Settings -Begin                            **/
@@ -2116,6 +2129,30 @@ public final class Config
 	    {
 		e.printStackTrace();
 		throw new Error("Failed to Load " + OPTIONS_FILE + " File.");
+	    }
+        // Augment CONFIG... AUGMENT_CONFIG_FILE 
+	    try 
+	    { 
+	    	Properties Augment = new Properties(); 
+	    	InputStream is = new FileInputStream(new File(AUGMENT_CONFIG_FILE)); 
+	    	Augment.load(is); 
+	    	is.close(); 
+	    	
+	    	//chances skills and glow 
+	    	AUGMENTATION_BASESTAT_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationBaseStatChance", "1")); 
+	    	AUGMENTATION_NG_SKILL_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationNGSkillChance", "15")); 
+	    	AUGMENTATION_NG_GLOW_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationNGGlowChance", "0")); 
+	    	AUGMENTATION_MID_SKILL_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationMidSkillChance", "30")); 
+	    	AUGMENTATION_MID_GLOW_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationMidGlowChance", "40")); 
+	    	AUGMENTATION_HIGH_SKILL_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationHighSkillChance", "45"));                    AUGMENTATION_HIGH_GLOW_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationHighGlowChance", "70")); 
+	    	AUGMENTATION_TOP_SKILL_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationTopSkillChance", "60")); 
+	    	AUGMENTATION_TOP_GLOW_CHANCE = Integer.parseInt(Augment.getProperty("AugmentationTopGlowChance", "100")); 
+	    } 
+	    
+	    catch (Exception e) 
+	    { 
+	    	e.printStackTrace(); 
+	    	throw new Error("Failed to Load " + AUGMENT_CONFIG_FILE + " File."); 
 	    }
 	    /*
 	     * Load L2J Server Version Properties file (if exists)
@@ -4113,6 +4150,30 @@ public final class Config
 	} else if (pName.equalsIgnoreCase("MenuStyle"))
 	{
 	    GM_ADMIN_MENU_STYLE = pValue;
+	} else if (pName.equalsIgnoreCase("AugmentationNGSkillChance")) 
+	{
+		AUGMENTATION_NG_SKILL_CHANCE = Integer.parseInt(pValue); 
+	} else if (pName.equalsIgnoreCase("AugmentationNGGlowChance")) 
+	{
+		AUGMENTATION_NG_GLOW_CHANCE = Integer.parseInt(pValue); 
+	} else if (pName.equalsIgnoreCase("AugmentationMidSkillChance"))  
+	{
+		AUGMENTATION_MID_SKILL_CHANCE = Integer.parseInt(pValue); 
+	} else if (pName.equalsIgnoreCase("AugmentationMidGlowChance")) 
+	{
+		AUGMENTATION_MID_GLOW_CHANCE = Integer.parseInt(pValue); 
+	} else if (pName.equalsIgnoreCase("AugmentationHighSkillChance")) 
+	{
+		AUGMENTATION_HIGH_SKILL_CHANCE = Integer.parseInt(pValue); 
+	} else if (pName.equalsIgnoreCase("AugmentationHighGlowChance")) 
+	{
+		AUGMENTATION_HIGH_GLOW_CHANCE = Integer.parseInt(pValue); 
+	} else if (pName.equalsIgnoreCase("AugmentationTopSkillChance")) 
+	{
+		AUGMENTATION_TOP_SKILL_CHANCE = Integer.parseInt(pValue); 
+	} else if (pName.equalsIgnoreCase("AugmentationTopGlowChance")) 
+	{
+		AUGMENTATION_TOP_GLOW_CHANCE = Integer.parseInt(pValue); 
 	} else
 	{
 	    return false;
