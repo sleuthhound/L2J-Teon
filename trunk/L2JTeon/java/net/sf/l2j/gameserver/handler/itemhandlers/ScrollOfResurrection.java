@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -57,6 +58,14 @@ public class ScrollOfResurrection implements IItemHandler
 	    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
 	    return;
 	}
+        
+        if (activeChar.isInOlympiadMode() || activeChar.inObserverMode())
+        {
+        	activeChar.sendMessage("You Cannot Use This Item In Olympiad Mode!");
+        	activeChar.sendPacket(new ActionFailed());
+        	return;
+        }
+
 	if (activeChar.isMovementDisabled())
 	    return;
 	int itemId = item.getItemId();

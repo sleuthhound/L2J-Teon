@@ -63,7 +63,7 @@ public final class Logout extends L2GameClientPacket
 	    return;
 	}
 	player.getInventory().updateDatabase();
-	if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player))
+	if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player) && !player.isGM())
 	{
 	    if (Config.DEBUG)
 	    {

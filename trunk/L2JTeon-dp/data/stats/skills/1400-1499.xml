@@ -106,14 +106,8 @@
   </for>
 </skill>
 <skill id="1406" levels="1" name="Summon Feline King">
-<!--
-  Needs to be verified.
-
-  Description(s):
-      Summons Feline King. Requires 2 Crystals: A-Grade. Consumes 1 additional crystal at 14 regular intervals.  Takes away 10% of earned Exp.
--->
-  <table name="#mpConsume_Init"> 30 </table> <!-- Guessing -->
-  <table name="#mpConsume"> 114 </table> <!-- Guessing -->
+  <table name="#mpConsume_Init"> 30 </table>
+  <table name="#mpConsume"> 114 </table>
   <table name="#itemConsumeCount"> 2 </table>
   <table name="#itemConsumeCountOT"> 1 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
@@ -128,7 +122,7 @@
   <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="reuseDelay" val="20000"/> <!-- Guessing -->
+  <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="15000"/>
   <set name="skillType" val="SUMMON"/>
   <set name="isMagic" val="true"/>
@@ -150,8 +144,8 @@
   Description(s):
       Summons Magnus the Unicorn. Requires 2 Crystals: A-Grade. Consumes 1 additional crystal at 14 regular intervals. Takes away 10% of earned Exp.
 -->
-  <table name="#mpConsume_Init"> 30 </table> <!-- Guessing -->
-  <table name="#mpConsume"> 114 </table> <!-- Guessing -->
+  <table name="#mpConsume_Init"> 30 </table>
+  <table name="#mpConsume"> 114 </table>
   <table name="#itemConsumeCount"> 2 </table>
   <table name="#itemConsumeCountOT"> 1 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
@@ -166,7 +160,7 @@
   <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="reuseDelay" val="20000"/> <!-- Guessing -->
+  <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="15000"/>
   <set name="skillType" val="SUMMON"/>
   <set name="isMagic" val="true"/>
@@ -188,8 +182,8 @@
   Description(s):
       Summons Spectral Lord. Requires 2 Crystals: A-Grade. Consumes 1 additional crystal at 14 regular intervals. Takes away 10% of earned Exp.
 -->
-  <table name="#mpConsume_Init"> 30 </table> <!-- Guessing -->
-  <table name="#mpConsume"> 114 </table> <!-- Guessing -->
+  <table name="#mpConsume_Init"> 30 </table>
+  <table name="#mpConsume"> 114 </table>
   <table name="#itemConsumeCount"> 2 </table>
   <table name="#itemConsumeCountOT"> 1 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
@@ -204,7 +198,7 @@
   <set name="summonTimeLostActive" val="1000"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="reuseDelay" val="20000"/> <!-- Guessing -->
+  <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="15000"/>
   <set name="skillType" val="SUMMON"/>
   <set name="isMagic" val="true"/>
@@ -226,11 +220,11 @@
 -->
   <set name="itemConsumeId" val="8874"/>
   <set name="itemConsumeCount" val="1"/>
-  <set name="mpInitialConsume" val="21"/> <!-- Guessing -->
+  <set name="mpInitialConsume" val="21"/>
   <set name="mpConsume" val="58"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="15000"/> <!-- Guessing -->
+  <set name="reuseDelay" val="15000"/>
   <set name="hitTime" val="4000"/>
   <set name="skillType" val="NEGATE"/>
   <set name="isMagic" val="true"/>
@@ -238,7 +232,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <set name="negateStats" val="BLEED CONFUSION DEBUFF FEAR MUTE PARALYZE ROOT SLEEP STUN POISON WEAKNESS"/>
-  <set name="negatePower" val="9.0"/> <!-- Guessing -->
+  <set name="negatePower" val="9.0"/>
   <for>
   </for>
 </skill>
@@ -279,7 +273,7 @@
   <set name="target" val="TARGET_PARTY_MEMBER"/>
   <set name="hitTime" val="2000"/>
   <set name="reuseDelay" val="25000"/>
-  <set name="hitTime" val="2000"/>
+  <set name="hitTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -291,16 +285,12 @@
   </for>
 </skill>
 <skill id="1412" levels="1" name="Spell Turning">
-<!--
-  Description(s):
-      Cancels a nearby target's magic casting.
--->
   <set name="mpConsume" val="25"/>
   <set name="magicLvl" val="79"/>
   <set name="power" val="40"/>
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1500"/>
+  <set name="hitTime" val="500"/>
   <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="1500"/>
   <set name="skillType" val="DEBUFF"/>
@@ -314,20 +304,14 @@
   </for>
 </skill>
 <skill id="1413" levels="1" name="Magnus' Chant">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Allows the Ancient Soul of Magnus to temporarily possess a party member. Consumes 40 Spirit Ores.
--->
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="40"/>
-  <set name="mpInitialConsume" val="59"/> <!-- Guessing -->
+  <set name="mpInitialConsume" val="59"/>
   <set name="mpConsume" val="287"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
-  <set name="reuseDelay" val="1200000"/> <!-- Guessing -->
+  <set name="reuseDelay" val="1200000"/>
   <set name="hitTime" val="2500"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
@@ -342,7 +326,7 @@
       <mul order="0x30" stat="mAtk" val="1.30"/>
       <mul order="0x30" stat="maxMp" val="1.20"/>
       <mul order="0x30" stat="MpConsumeRate" val="0.80"/>
-      <mul order="0x30" stat="mCritRate" val="1.2"/> <!-- Guessing -->
+      <mul order="0x30" stat="mCritRate" val="1.2"/>
     </effect>
   </for>
 </skill>

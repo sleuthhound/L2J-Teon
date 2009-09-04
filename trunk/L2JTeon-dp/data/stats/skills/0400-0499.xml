@@ -572,7 +572,7 @@
     <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="possession">
       <add order="0x40" stat="accCombat" val="6"/>
       <add order="0x40" stat="rCrit" val="100"/>
-      <mul order="0x30" stat="cAtk" val="1.5"/> <!-- L2calc says 1.3 -->
+      <mul order="0x30" stat="cAtk" val="1.5"/>
     </effect>
   </for>
 </skill>
@@ -609,27 +609,14 @@
   </for>
 </skill>
 <skill id="428" levels="1" name="Inner Rhythm">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      MP consumption for singing and dancing is decreased.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-<!-- needs core support -->
-  </for>
-</skill>
+   <for>
+    <mul order="0x30" stat="DanceMpConsumeRate" val="0.9"/>
+   </for>
+ </skill>
 <skill id="429" levels="1" name="Knighthood">
-<!--
-  Needs to be finished.
-
-  Description(s):
-      Increases P. Def. when wearing heavy armor. Shield defense is increased.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -656,10 +643,6 @@
   </for>
 </skill>
 <skill id="430" levels="1" name="Master of Combat">
-<!--
-  Description(s):
-      Increases the attack strength of a sword, blunt weapon, spear, dual-bladed or hand-to-hand combat weapon. Also increases maximum CP.
--->
   <set name="weaponsAllowed" val="20300"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -681,10 +664,6 @@
   </for>
 </skill>
 <skill id="431" levels="1" name="Archery">
-<!--
-  Description(s):
-      Increases attack strength and maximum attack range while using a bow.
--->
   <set name="weaponsAllowed" val="32"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -702,12 +681,6 @@
   </for>
 </skill>
 <skill id="432" levels="1" name="Assassination">
-<!--
-  Needs to be finished.
-
-  Description(s):
-      Increases attack strength and the rate of deadly attack while using a dagger.
--->
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -719,20 +692,12 @@
     <add order="0x40" stat="pAtk" val="70">
       <using kind="Dagger"/>
     </add>
-<!-- need to add increase of deadly attack rate (Criticial Attack afaik)
-    <add order="0x40" stat="rCrit" val="?">
+    <add order="0x40" stat="rCrit" val="12">
       <using kind="Dagger"/>
     </add>
--->
   </for>
 </skill>
-<skill id="433" levels="1" name="Arcane Roar"> <!-- perhaps "Arcane Lore" -->
-<!--
-  Needs to be finished.
-
-  Description(s):
-      Increases resistance to elemental attacks and increases magic power.
--->
+<skill id="433" levels="1" name="Arcane Roar">
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -740,24 +705,16 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-<!-- need to add resistance increase to elemental attacks
-    <mul order="0x30" stat="fireVuln" val="?"/>
-    <mul order="0x30" stat="windVuln" val="?"/>
-    <mul order="0x30" stat="waterVuln" val="?"/>
-    <mul order="0x30" stat="earthVuln" val="?"/>
-    <mul order="0x30" stat="holyVuln" val="?"/>
-    <mul order="0x30" stat="darkVuln" val="?"/>
--->
+    <mul order="0x30" stat="fireVuln" val="1.03"/>
+    <mul order="0x30" stat="windVuln" val="1.03"/>
+    <mul order="0x30" stat="waterVuln" val="1.03"/>
+    <mul order="0x30" stat="earthVuln" val="1.03"/>
+    <mul order="0x30" stat="holyVuln" val="1.03"/>
+    <mul order="0x30" stat="darkVuln" val="1.03"/>
     <mul order="0x30" stat="mAtk" val="1.03"/>
   </for>
 </skill>
 <skill id="434" levels="1" name="Necromancy">
-<!--
-  Needs to be finished.
-
-  Description(s):
-      Increases resistance to dark attacks and increases magic power.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -765,19 +722,11 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-<!-- need to add resistance increase to dark attacks
-    <mul order="0x30" stat="darkVuln" val="?"/>
--->
+    <mul order="0x30" stat="darkVuln" val="1.03"/>
     <mul order="0x30" stat="mAtk" val="1.03"/>
   </for>
 </skill>
 <skill id="435" levels="1" name="Summon Lore">
-<!--
-  Needs to be finished.
-
-  Description(s):
-      Increases P. Def. when equipped with Robe/Light Armor and increases Casting Speed. Decreases MP consumption for magic skills.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -801,16 +750,10 @@
         </not>
       </and>
     </mul>
-<!-- need to add MP consumption decrease and check whether armor restriction applies to it as well
-    <mul order="0x30" stat="MpConsumeRate" val="?"/>
--->
+   <mul order="0x30" stat="MpConsumeRate" val="1.03"/>
   </for>
 </skill>
 <skill id="436" levels="1" name="Divine Lore">
-<!--
-  Description(s):
-      MP consumption for magical skills is decreased.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -822,12 +765,6 @@
   </for>
 </skill>
 <skill id="437" levels="1" name="Song of Silence">
-<!--
-  Needs to be verified.
-
-  Description(s):
-      Sing the Song of Silence to temporarily disable all enemy physical and magical skills.
--->
   <set name="magicLvl" val="79"/>
   <set name="mpConsume" val="54"/>
   <set name="skillRadius" val="150"/>
@@ -864,10 +801,6 @@
   </for>
 </skill>
 <skill id="439" levels="1" name="Shield of Revenge">
-<!--
-  Description(s):
-      Temporarily reflects damage from melee attack skills back to the enemy.
--->
   <set name="mpConsume" val="36"/>
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="78"/>
@@ -887,12 +820,6 @@
   </for>
 </skill>
 <skill id="440" levels="1" name="Braveheart">
-<!--
-  Needs to be verified.
-
-  Description(s):
-      Recovers 1000 CP by increasing your will to fight. Power 1000.
--->
   <set name="mpConsume" val="57"/>
   <set name="power" val="1000"/>
   <set name="target" val="TARGET_SELF"/>
@@ -908,26 +835,25 @@
   </for>
 </skill>
 <skill id="441" levels="1" name="Force Meditation">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Meditate to increase HP/MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked. Level 3 Focused Force charge required.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+   <set name="num_charges" val="5"/>  
+  <set name="charge_skill_id" val="8"/>
+  <set name="weaponsAllowed" val="512"/>
+  <set name="negateId" val="441"/>
+  <set name="hitTime" val="2000"/>
+  <set name="numCharges" val="3"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="1200000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
+  <for>
+    <effect name="ImmobileUntilAttacked" time="60" val="0">
+      <mul order="0x30" stat="pDef" val="0.2"/>
+    </effect>
   <for>
 <!-- needs core support for effect stopping when attacked -->
   </for>
 </skill>
 <skill id="442" levels="1" name="Sonic Barrier">
-  <!--
-  Description(s):
-      Uses sonic force to create a temporary protective barrier that is impervious to normal strikes, skills, buffs/debuffs.
-      An equipped dual-sword weapon is required to use this skill. Level 5 Sonic Focus charge required.
-  -->
   <set name="num_charges" val="5"/>  
   <set name="charge_skill_id" val="8"/>
   <set name="weaponsAllowed" val="512"/>
@@ -945,11 +871,6 @@
   </for>
 </skill>
 <skill id="443" levels="1" name="Force Barrier">
-  <!--
-      Description(s):
-      Uses spiritual forces to create a temporary protective barrier that is impervious to normal strikes, skills, buffs/debuffs. 
-      An equipped hand-to-hand combat weapon is required to use this skill. Level 4 Focused Force charge required.
-  -->
   <set name="mpConsume" val="72"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -969,12 +890,6 @@
   </for>
 </skill>
 <skill id="444" levels="1" name="Festive Sweeper">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      When used on nearby corpses that are in a Spoil state, extra items may be obtained.
--->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -984,21 +899,20 @@
   </for>
 </skill>
 <skill id="445" levels="1" name="Mirage">
-  <!-- Needs to be verified --> 
-  <set name="castRange" val="-1"/> 
-  <set name="effectRange" val="-1"/> 
-  <set name="hitTime" val="1000"/> 
-  <set name="magicLevel" val="79"/> 
-  <set name="mpConsume" val="43"/> 
-  <set name="operateType" val="OP_ACTIVE"/> 
-  <set name="power" val="0.0"/> 
-  <set name="reuseDelay" val="60000"/> 
-  <set name="skillType" val="BUFF"/> 
-  <set name="target" val="TARGET_SELF"/> 
-  <set name="triggeredId" val="5144"/> 
-  <set name="triggeredLevel" val="1"/> 
-  <for> 
-	<effect count="1" name="BestowSkill" time="60" val="0"/> 
+<<<<<<< .mine
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="hitTime" val="2000"/>
+  <set name="magicLvl" val="79"/>
+  <set name="mpConsume" val="43"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="triggeredId" val="5144"/>
+  <set name="triggeredLevel" val="1"/>
+  <for>
+    <effect count="1" name="BestowSkill" time="60" val="0"/>
   </for>
 </skill>
 <skill id="446" levels="1" name="Dodge">
@@ -1171,10 +1085,6 @@
   <set name="negatePower" val="3.0"/>
 </skill>
  <skill id="454" levels="1" name="Symbol of Defense">
-<!--
-  Description(s):
-      Generates a signet that maximizes the defense abilities of those nearby. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
--->
   <set name="target" val="TARGET_SIGNET"/>
   <set name="skillType" val="MOG"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1200,10 +1110,6 @@
   </for>
 </skill>
 <skill id="455" levels="1" name="Symbol of Noise">
-<!--
-  Description(s):
-      Generates a signet that cancels the singing or dancing abilities of those nearby. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
--->
   <set name="target" val="TARGET_SIGNET_GROUND"/>
   <set name="skillType" val="MOG"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1233,10 +1139,6 @@
   </for>
 </skill>
 <skill id="456" levels="1" name="Symbol of Resistance">
-<!--
-  Description(s):
-      Generates a signet that maximizes resistance to abnormal states of those nearby. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
--->
   <set name="target" val="TARGET_SIGNET"/>
   <set name="skillType" val="MOG"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1262,10 +1164,6 @@
   </for>
 </skill>
 <skill id="457" levels="1" name="Symbol of Honor">
-<!--
-  Description(s):
-      Generates a signet that maximizes the HP/CP recovery rate of those nearby. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
--->
   <set name="target" val="TARGET_SIGNET"/>
   <set name="skillType" val="MOG"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1291,10 +1189,6 @@
   </for>
 </skill>
 <skill id="458" levels="1" name="Symbol of Energy">
-<!--
-  Description(s):
-      Generates a signet that increases P. Atk. and force for those nearby. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
--->
   <set name="target" val="TARGET_SIGNET"/>
   <set name="skillType" val="MOG"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1320,10 +1214,6 @@
   </for>
 </skill>
 <skill id="459" levels="1" name="Symbol of the Sniper">
-<!--
-  Description(s):
-      Generates a signet that maximizes the archery skill of those nearby. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
--->
   <set name="target" val="TARGET_SIGNET"/>
   <set name="skillType" val="MOG"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1349,10 +1239,6 @@
   </for>
 </skill>
 <skill id="460" levels="1" name="Symbol of the Assassin">
-<!--
-  Description(s):
-      Generates a signet that maximizes your dodging ability and increases the chance of inflicting a deadly attack for those near to you. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
--->
   <set name="target" val="TARGET_SIGNET"/>
   <set name="skillType" val="MOG"/>
   <set name="operateType" val="OP_ACTIVE"/>

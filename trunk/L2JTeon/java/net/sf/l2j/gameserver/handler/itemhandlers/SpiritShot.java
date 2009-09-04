@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -65,6 +66,13 @@ public class SpiritShot implements IItemHandler
 	// Check if Spiritshot is already active
 	if (weaponInst.getChargedSpiritshot() != L2ItemInstance.CHARGED_NONE)
 	    return;
+        if (activeChar.isParalyzed())
+        {
+        	activeChar.sendMessage("You Cannot Use Spirishots While You Are Paralyzed!");
+        	activeChar.sendPacket(new ActionFailed());
+        	return;
+        }
+
 	// Check for correct grade
 	int weaponGrade = weaponItem.getCrystalType();
 	if (((weaponGrade == L2Item.CRYSTAL_NONE) && (itemId != 5790) && (itemId != 2509)) || ((weaponGrade == L2Item.CRYSTAL_D) && (itemId != 2510)) || ((weaponGrade == L2Item.CRYSTAL_C) && (itemId != 2511)) || ((weaponGrade == L2Item.CRYSTAL_B) && (itemId != 2512)) || ((weaponGrade == L2Item.CRYSTAL_A) && (itemId != 2513)) || ((weaponGrade == L2Item.CRYSTAL_S) && (itemId != 2514)))

@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.util.FloodProtector;
 
 /**
  * This class ...
@@ -65,6 +66,14 @@ public final class RequestBypassToServer extends L2GameClientPacket
 	{
 	    return;
 	}
+		
+	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_BYPASS))
+	{
+	    activeChar.sendMessage("You Cannot Bypass That Fast. Try Again in 10 Second(s)!");
+	    activeChar.sendPacket(new ActionFailed());
+	    return;
+	}
+
 	try
 	{
 	    if (_command.startsWith("admin_")) // &&

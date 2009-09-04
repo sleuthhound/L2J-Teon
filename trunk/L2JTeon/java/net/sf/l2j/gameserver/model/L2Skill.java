@@ -28,7 +28,8 @@ import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;;
+import net.sf.l2j.gameserver.model.L2Skill.SkillOpType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -205,6 +206,7 @@ public abstract class L2Skill
     // per skill use
     public final static int STAT_HP_CONSUME_RATE = 337; // Rate of hp consume
     // per skill use
+    public final static int STAT_DANCE_MP_CONSUME_RATE = 338; // rate of mp consume per dance use
     // COMBAT DAMAGE MODIFIER SKILLS...DETECT WEAKNESS AND WEAKNESS/STRENGTH
     public final static int COMBAT_MOD_ANIMAL = 200;
     public final static int COMBAT_MOD_BEAST = 201;

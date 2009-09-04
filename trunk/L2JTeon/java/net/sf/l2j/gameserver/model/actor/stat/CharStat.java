@@ -609,14 +609,11 @@ public class CharStat
 				&& _activeChar.isInsideZone(L2Character.ZONE_SWAMP))
 			val /= 2;
 
-		/**if (_activeChar instanceof L2PlayableInstance && _activeChar.isInsideZone(L2Character.ZONE_SWAMP))
-			val /= 2;*/
-
 		val /= _activeChar.getArmourExpertisePenalty();
 		
-        // Apply max run speed cap.  
-        if (val > Config.MAX_RUN_SPEED)  
-            val = Config.MAX_RUN_SPEED;  
+        // Apply max run speed cap.
+        if (val > Config.MAX_RUN_SPEED)
+            val = Config.MAX_RUN_SPEED;
 		return val;
 	}
 

@@ -115,7 +115,7 @@ public enum Stats
 	        "pReuse"),
 
 	// C4 Stats
-	MP_CONSUME_RATE("MpConsumeRate"), HP_CONSUME_RATE("HpConsumeRate"), MP_CONSUME(
+	MP_CONSUME_RATE("MpConsumeRate"), HP_CONSUME_RATE("HpConsumeRate"), DANCE_MP_CONSUME_RATE("DanceMpConsumeRate"),  MP_CONSUME(
 	        "MpConsume"), SOULSHOT_COUNT("soulShotCount"),
 
 	// T1 stats
