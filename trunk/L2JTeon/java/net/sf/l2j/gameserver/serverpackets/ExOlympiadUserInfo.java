@@ -47,15 +47,15 @@ public class ExOlympiadUserInfo extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-	/*
-	 * writeC(0xfe); writeH(0x2c); writeD(_activeChar.getObjectId());
-	 * writeS(_activeChar.getName());
-	 * writeD(_activeChar.getClassId().getId());
-	 * writeD((int)_activeChar.getCurrentHp());
-	 * writeD(_activeChar.getMaxHp());
-	 * writeD((int)_activeChar.getCurrentCp());
-	 * writeD(_activeChar.getMaxCp());
-	 */
+	writeC(0xfe);
+	writeH(0x2c);
+	writeD(_activeChar.getObjectId());
+	writeS(_activeChar.getName());
+	writeD(_activeChar.getClassId().getId());
+	writeD((int)_activeChar.getCurrentHp()); 
+	writeD(_activeChar.getMaxHp()); 
+	writeD((int)_activeChar.getCurrentCp());	 
+	writeD(_activeChar.getMaxCp());
     }
 
     /*
