@@ -303,7 +303,7 @@ public class EnterWorld extends L2GameClientPacket
 	    activeChar.sendMessage("Welcome " + activeChar.getName() + " to our L][ Server!");
 	    activeChar.sendMessage("Enjoy your Stay Donator!");
 	}
-	// Faction Engine by DaRkRaGe L2JTeon
+	// Faction Engine by DaRkRaGe
 	if (activeChar.isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS)
 	{
 	    activeChar.getAppearance().setNameColor(Config.KOOFS_NAME_COLOR);

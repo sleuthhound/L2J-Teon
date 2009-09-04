@@ -54,7 +54,8 @@ public class FloodProtector
     	Config.HEROVOICE_DELAY, 
     	Config.UNKNOWN_PACKET_DELAY,  
     	Config.SUBCLASS_DELAY,
-        Config.MULTISELL_DELAY
+        Config.MULTISELL_DELAY,
+	100
                                                     }; 	// protected actions
 	public static final int PROTECTED_USEITEM = 0;
 	public static final int PROTECTED_ROLLDICE = 1;
@@ -63,7 +64,8 @@ public class FloodProtector
 	public static final int PROTECTED_HEROVOICE = 4;
 	public static final int PROTECTED_UNKNOWNPACKET = 5;
 	public static final int PROTECTED_SUBCLASS = 6;
-	public static final int PROTECTED_MULTISELL = 6; 
+	public static final int PROTECTED_MULTISELL = 7;
+	public static final int PROTECTED_BANKING_SYSTEM = 8;
 	public static final int PROTECTED_NPCBUFFER = (int) 0.2;
 
 	// =========================================================
