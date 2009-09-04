@@ -93,6 +93,7 @@ public class MultiSellChoose extends L2GameClientPacket
     private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantment)
     {
 	PcInventory inv = player.getInventory();
+    	boolean maintainItemFound = false;
 	
     if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL)) 
         player.sendMessage("You can Buy Every 10 Second(s)!."); 
@@ -142,11 +143,22 @@ public class MultiSellChoose extends L2GameClientPacket
 	    }
 	    if (newIng)
 	    {
+    			if (maintainEnchantment || e.getMantainIngredient())
+    				{
+    				maintainItemFound = true;
+    				}
 		// if it's a new ingredient, just store its info directly (item
 		// id, count, enchantment)
 		_ingredientsList.add(L2Multisell.getInstance().new MultiSellIngredient(e));
 	    }
 	}
+    	if (!maintainItemFound)
+	{
+    		for (MultiSellIngredient product : entry.getProducts())
+	{
+    		product.setEnchantmentLevel(0);
+	}
+    }
 	// now check if the player has sufficient items in the inventory to
 	// cover the ingredients' expences
 	for (MultiSellIngredient e : _ingredientsList)
