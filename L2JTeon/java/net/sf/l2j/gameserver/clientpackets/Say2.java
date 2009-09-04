@@ -96,6 +96,12 @@ public final class Say2 extends L2GameClientPacket
 	    _log.warning("Say2: Invalid type: " + _type);
 	    return;
 	}
+		
+		if (_text.length() >= 100)
+		{
+		    _log.warning("Max input limit exceeded.");
+			return;
+		}	
 	// getting char instance
 	L2PcInstance activeChar = getClient().getActiveChar();
 	// words from nowere?
