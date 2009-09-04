@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -282,6 +283,7 @@ public class EnterWorld extends L2GameClientPacket
 	sm = null;
 	SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
 	Announcements.getInstance().showAnnouncements(activeChar);
+	CrownManager.getInstance().checkCrowns(activeChar);
 	// restore info about chat ban
 	activeChar.checkBanChat(false);
 	// restore info about auto herbs loot
