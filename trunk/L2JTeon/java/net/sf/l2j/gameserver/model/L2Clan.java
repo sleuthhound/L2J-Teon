@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.PledgeReceiveSubPledgeCreated;
@@ -219,8 +220,14 @@ public class L2Clan
 	_members.put(leader.getName(), leader);
     }
 
-    public void setNewLeader(L2ClanMember member)
-    {
+    public void setNewLeader(L2ClanMember member,L2PcInstance activeChar)
+	{
+		if (activeChar.isRiding() || activeChar.isFlying())		
+		{
+			activeChar.sendPacket(new ActionFailed());
+			return;
+		}
+		
 	if (!getLeader().isOnline())
 	{
 	    return;
