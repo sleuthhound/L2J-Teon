@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.model.L2Multisell.MultiSellListContainer;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -80,6 +81,13 @@ public class MultiSellChoose extends L2GameClientPacket
 	{
 	    return;
 	}
+        if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL))
+        {
+        	player.sendMessage("You Cannot Buy That Fast. Try Again in 10 Second(s)!");
+        	player.sendPacket(new ActionFailed());
+        	return;
+        }
+
 	for (MultiSellEntry entry : list.getEntries())
 	{
 	    if (entry.getEntryId() == _entryId)
@@ -96,7 +104,8 @@ public class MultiSellChoose extends L2GameClientPacket
     	boolean maintainItemFound = false;
 	
     if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL)) 
-        player.sendMessage("You can Buy Every 10 Second(s)!."); 
+        player.sendMessage("You Cannot Buy That Fast. Try Again in 10 Second(s)!"); 
+        	player.sendPacket(new ActionFailed());
     
 	// given the template entry and information about maintaining
 	// enchantment and applying taxes

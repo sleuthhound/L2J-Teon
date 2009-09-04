@@ -62,8 +62,8 @@ public class FloodProtector
 	public static final int PROTECTED_ITEMPETSUMMON = 3;
 	public static final int PROTECTED_HEROVOICE = 4;
 	public static final int PROTECTED_UNKNOWNPACKET = 5;
-    public static final int PROTECTED_SUBCLASS = 6;
-    public static final int PROTECTED_MULTISELL = 6; 
+	public static final int PROTECTED_SUBCLASS = 6;
+	public static final int PROTECTED_MULTISELL = 6; 
 	public static final int PROTECTED_NPCBUFFER = (int) 0.2;
 
 	// =========================================================
