@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
+import net.sf.l2j.gameserver.network.L2GameClient.ClientState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.serverpackets.RestartResponse;
@@ -121,7 +121,7 @@ public final class RequestRestart extends L2GameClientPacket
 	L2GameClient.saveCharToDisk(client.getActiveChar());
 	getClient().setActiveChar(null);
 	// return the client to the authed status
-	client.setState(GameClientState.AUTHED);
+	client.setState(ClientState.AUTHED);
 	RestartResponse response = new RestartResponse();
 	sendPacket(response);
 	// send char list

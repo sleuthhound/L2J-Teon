@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
 <skill id="1400" levels="10" name="Turn Undead">
-<!-- Done by KID -->
   <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
   <table name="#power"> 230.0 250.0 270.0 290.0 310.0 330.0 350.0 370.0 390.0 411.0 </table>
   <table name="#itemConsumeCount"> 3 3 4 4 4 4 5 5 5 5 </table>
@@ -387,36 +386,37 @@
   </for>
 </skill>
 <skill id="1415" levels="1" name="Pa'agrio's Emblem">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Temporarily increases an alliance member's resistance to buff cancelling and de-buff attacks. Effect 3.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpInitialConsume" val="56"/>
+  <set name="mpConsume" val="280"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_PARTY"/>
+  <set name="skillRadius" val="900"/>
+  <set name="reuseDelay" val="20000"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="666"/>
   <for>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="cancelVuln">
+      <mul stat="cancelVuln" val="0.7" order="0x30"/>
+      <mul order="0x30" stat="debuffVuln" val="0.8"/>
+    </effect>
   </for>
 </skill>
 <skill id="1416" levels="1" name="Pa'agrio's Fist">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Increases an alliance member's maximum CP and fully restores it. Consumes 20 Spirit Ores.
--->
-  <set name="mpInitialConsume" val="57"/> <!-- Guessing -->
+  <set name="mpInitialConsume" val="57"/>
   <set name="mpConsume" val="284"/>
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="20"/> 
   <set name="power" val="800.0"/>
   <set name="target" val="TARGET_CLAN"/>
   <set name="skillRadius" val="1000"/>
-  <set name="reuseDelay" val="200000"/> <!-- Guessing -->
+  <set name="reuseDelay" val="200000"/>
   <set name="hitTime" val="2500"/>
-  <set name="skillType" val="BUFF"/> <!-- Needs core support for CP Heal & Buff at once -->
+  <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -469,120 +469,201 @@
   </for>
 </skill>
 <skill id="1419" levels="1" name="Volcano">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Consecutive strikes inflict a great amount of fire damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_SIGNET_GROUND"/>
+  <set name="skillType" val="MOG"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="16000"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="skillRadius" val="200"/>
+  <set name="magicLvl" val="80"/>
+  <set name="effectNpcId" val="13025"/>
+  <set name="initialEffectDelay" val="3000"/>
+  <set name="offensive" val="True"/>
+  <set name="triggerEffectId" val="5130"/>
+  <set name="element" val="2"/>
+  <set name="isMagic" val="true"/>
+  <set name="power" val="200"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpInitialConsume" val="36"/>
+  <set name="mpConsume" val="36"/>
+  <cond msg="Proper SpellForces required.">
+    <player spell_force="3"/>
+  </cond>
   <for>
+	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
+    </effect>
   </for>
 </skill>
 <skill id="1420" levels="1" name="Cyclone">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Consecutive strikes inflict a great amount of wind damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_SIGNET_GROUND"/>
+  <set name="skillType" val="MOG"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="16000"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="skillRadius" val="200"/>
+  <set name="magicLvl" val="80"/>
+  <set name="initialEffectDelay" val="3000"/>
+  <set name="offensive" val="True"/>
+  <set name="element" val="1"/>
+  <set name="effectNpcId" val="13025"/>
+  <set name="triggerEffectId" val="5132"/>
+  <set name="isMagic" val="true"/>
+  <set name="power" val="200"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpInitialConsume" val="36"/>
+  <set name="mpConsume" val="36"/>
+  <cond msg="Proper SpellForces required.">
+    <player spell_force="3"/>
+  </cond>
   <for>
+	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
+    </effect>
   </for>
 </skill>
 <skill id="1421" levels="1" name="Raging Waves">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Consecutive strikes inflict a great amount of water damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_SIGNET_GROUND"/>
+  <set name="skillType" val="MOG"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="16000"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="skillRadius" val="200"/>
+  <set name="magicLvl" val="80"/>
+  <set name="effectNpcId" val="13025"/>
+  <set name="initialEffectDelay" val="3000"/>
+  <set name="offensive" val="True"/>
+  <set name="triggerEffectId" val="5131"/>
+  <set name="element" val="3"/>
+  <set name="isMagic" val="true"/>
+  <set name="power" val="200"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpInitialConsume" val="36"/>
+  <set name="mpConsume" val="36"/>
+  <cond msg="Proper SpellForces required.">
+    <player spell_force="3"/>
+  </cond>
   <for>
+	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
+    </effect>
   </for>
 </skill>
 <skill id="1422" levels="1" name="Day of Doom">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Generates a signet that produces a strong curse that decreases all abilities. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_GROUND"/>
+  <set name="skillType" val="SIGNET"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="5000"/>
+  <set name="reuseDelay" val="1800000"/>
+  <set name="castRange" val="900"/>
+  <set name="skillRadius" val="200"/>
+  <set name="staticReuse" val="true"/>
+  <set name="magicLvl" val="80"/>
+  <set name="effectNpcId" val="13028"/>
+  <set name="effectId" val="5145"/>
+  <set name="isMagic" val="true"/>
+  <set name="power" val="200"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpInitialConsume" val="36"/>
+  <set name="mpConsume" val="89"/>
+  <cond msg="Proper SpellForces required.">
+    <player spell_force="3"/>
+  </cond>
   <for>
+    <effect count="24" name="Signet" time="5" val="0"/>
   </for>
 </skill>
 <skill id="1423" levels="1" name="Gehenna">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Consecutive strikes inflict a great amount of dark damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_SIGNET_GROUND"/>
+  <set name="skillType" val="MOG"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="16000"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="skillRadius" val="200"/>
+  <set name="magicLvl" val="80"/>
+  <set name="effectNpcId" val="13025"/>
+  <set name="initialEffectDelay" val="3000"/>
+  <set name="offensive" val="True"/>
+  <set name="triggerEffectId" val="5133"/>
+  <set name="element" val="6"/>
+  <set name="isMagic" val="true"/>
+  <set name="power" val="200"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpInitialConsume" val="36"/>
+  <set name="mpConsume" val="36"/>
+  <cond msg="Proper SpellForces required.">
+    <player spell_force="3"/>
+  </cond>
   <for>
+	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
+    </effect>
   </for>
 </skill>
 <skill id="1424" levels="1" name="Anti-Summoning Field">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Generates a signet that sends a servitor to another dimension at regular intervals. Applies to all servitors in the affected area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="target" val="TARGET_SIGNET_GROUND"/>
+  <set name="skillType" val="MOG"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="16000"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="castRange" val="400"/>
+  <set name="skillRadius" val="200"/>
+  <set name="magicLvl" val="80"/>
+  <set name="effectNpcId" val="13020"/>
+  <set name="initialEffectDelay" val="3000"/>
+  <set name="triggerEffectId" val="5134"/>
+  <set name="offensive" val="True"/>
+  <set name="isMagic" val="true"/>
+  <set name="power" val="200"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpInitialConsume" val="36"/>
+  <set name="mpConsume" val="36"/>
+  <cond msg="Proper SpellForces required.">
+    <player spell_force="2"/>
+ </cond>
   <for>
+	<effect self="1" count="0x7fffffff" name="SignetAntiSummon" time="1" val="0">
+    </effect>
   </for>
 </skill>
 <skill id="1425" levels="1" name="Purification Field">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Cancels all debuff of nearby allies. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpConsume" val="70"/>
+  <set name="target" val="TARGET_CLAN"/>
+  <set name="skillRadius" val="900"/>
+  <set name="skillType" val="NEGATE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="5000"/>
+  <set name="reuseDelay" val="1800000"/>
+  <set name="isMagic" val="false"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="negateStats" val="ROOT PARALYZE POISON BLEED STUN DEBUFF CONFUSION FEAR MUTE SLEEP WEAKNESS"/>
+  <set name="negatePower" val="80.0"/>
+  <cond msg="Proper force required.">
+    <player spell_force="2"/>
+  </cond>
 </skill>
 <skill id="1426" levels="1" name="Miracle">
-<!--
-  Description(s):
-      Heartily regenerates the HP of all alliance members in the applicable area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="mpConsume" val="72"/>
   <set name="magicLvl" val="80"/>
   <set name="power" val="100"/>
-  <set name="target" val="TARGET_CLAN"/>
+  <set name="target" val="TARGET_ALLY"/>
   <set name="skillRadius" val="900"/>
   <set name="skillType" val="HEAL_PERCENT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="4000"/>
-  <set name="reuseDelay" val="3600000"/> <!-- reuse 60 minutes -->
-  <set name="isMagic" val="false"/> <!-- skill won't be affected by Casting speed -->
+  <set name="reuseDelay" val="3600000"/> 
+  <set name="isMagic" val="false"/> 
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -593,36 +674,28 @@
   </for>
 </skill>
 <skill id="1427" levels="1" name="Flames of Invincibility">
-<!--
-  Description(s):
-      Blesses nearby allies with fire and makes them invincible. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
-  <set name="mpConsume" val="72"/>
-  <set name="magicLvl" val="80"/>
-  <set name="power" val="100"/>
-  <set name="target" val="TARGET_ALLY"/>
+  <set name="mpInitialConsume" val="36"/>
+  <set name="mpConsume" val="37"/>
+  <set name="target" val="TARGET_CLAN"/>
   <set name="skillRadius" val="900"/>
+  <set name="staticReuse" val="true"/>
+  <set name="reuseDelay" val="2700000"/>
+  <set name="hitTime" val="5000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="hitTime" val="4000"/>
-  <set name="reuseDelay" val="3600000"/>
-  <set name="isMagic" val="false"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <cond msg="Proper force required.">
+  <set name="isMagic" val="true"/>
+  <cond msg="Proper SpellForces required.">
     <player spell_force="2"/>
   </cond>
   <for>
-    <effect count="1" name="Invul" time="30" val="0"/>
+    <effect count="1" name="Invul" time="30" val="0" stackOrder="1" stackType="Instant_Shield"/>
   </for>
 </skill>
 <skill id="1428" levels="1" name="Mass Recharge">
-<!--
-  Description(s):
-      Greatly regenerates MP of party members. Can be used when Spell Force is level 3 or higher. Consumes 1 Magic Symbol.
--->
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="mpConsume" val="73"/>
@@ -632,8 +705,8 @@
   <set name="skillRadius" val="900"/>
   <set name="skillType" val="MANARECHARGE"/>
   <set name="hitTime" val="4000"/>
-  <set name="reuseDelay" val="3600000"/> <!-- reuse 60 minutes -->
-  <set name="isMagic" val="false"/> <!-- skill won't be affected by Casting speed -->
+  <set name="reuseDelay" val="3600000"/> 
+  <set name="isMagic" val="false"/> 
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -644,51 +717,35 @@
   </for>
 </skill>
 <skill id="1429" levels="1" name="Gate Chant">
-<!--
-  Description(s):
-      Summons a party member. Consumes 4 Summon Crystals.
--->
   <set name="target" val="TARGET_PARTY_MEMBER"/>
-  <set name="itemConsumeId" val="8615"/>
-  <set name="itemConsumeCount" val="4"/>
   <set name="skillType" val="SUMMON_FRIEND"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="mpConsume" val="180"/>
   <set name="hitTime" val="15000"/>
-  <set name="reuseDelay" val="100000"/>
+  <set name="reuseDelay" val="20000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="1430" levels="5" name="Invocation">
-<!--
-  Done by: schursin
-
-  Description(s):
-      Lvl 1 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-      Lvl 2 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-      Lvl 3 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-      Lvl 4 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-      Lvl 5 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
--->
+  <table name="#pDef"> 0.8 0.8 0.8 0.8 0.8 </table>
   <table name="#mpConsume"> 27 28 30 33 34 </table>
-  <table name="#regMp"> 160 180 200 220 240 </table>
-  <table name="#pDef"> 0.5 0.47 0.43 0.40 0.37 </table>
+  <table name="#Tab-regMp"> 90 100 115 125 140 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="1000"/>
-  <set name="reuseDelay" val="1200000"/>
+  <set name="hitTime" val="2000"/>
+  <set name="reuseDelay" val="900000"/>
   <set name="skillType" val="BUFF"/>
+  <set name="staticReuse" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="25000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="negateId" val="1430"/>
   <for>
-    <effect count="1" name="Sleep" time="25" val="0" stackOrder="#regMp" stackType="RegMPUp">
-      <add order="0x40" stat="regMp" val="#regMp"/>
+    <effect count="1" name="ImmobileUntilAttacked" time="30" val="0">
       <mul order="0x30" stat="pDef" val="#pDef"/>
+      <add order="0x40" stat="regMp" val="#Tab-regMp"/>
     </effect>
   </for>
 </skill>

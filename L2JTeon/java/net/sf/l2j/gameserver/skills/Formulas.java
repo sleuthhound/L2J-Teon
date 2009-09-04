@@ -1843,6 +1843,10 @@ public final class Formulas
 		return mRate > Rnd.get(1000);
 	}
 
+	public final boolean calcMCrit(double mRate)
+	{
+		return mRate > Rnd.get(1000);
+	}
 	/** Returns true in case when ATTACK is canceled due to hit */
 	public final boolean calcAtkBreak(L2Character target, double dmg)
 	{

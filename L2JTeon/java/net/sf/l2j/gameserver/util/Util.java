@@ -354,5 +354,4 @@ public final class Util
 	{
 		return calcCameraAngle(target.getHeading());
 	}
-
 }
