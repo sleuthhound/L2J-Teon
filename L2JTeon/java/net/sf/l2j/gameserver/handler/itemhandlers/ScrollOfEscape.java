@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -121,9 +122,12 @@ public class ScrollOfEscape implements IItemHandler
 	if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
 	    return;
 	activeChar.disableAllSkills();
+        L2Object oldtarget = activeChar.getTarget();
+     		activeChar.setTarget(activeChar);
 	L2Skill skill = SkillTable.getInstance().getInfo(escapeSkill, 1);
 	MagicSkillUser msu = new MagicSkillUser(activeChar, escapeSkill, 1, skill.getHitTime(), 0);
 	activeChar.broadcastPacket(msu);
+        activeChar.setTarget(oldtarget);
 	SetupGauge sg = new SetupGauge(0, skill.getHitTime());
 	activeChar.sendPacket(sg);
 	// End SoE Animation section
