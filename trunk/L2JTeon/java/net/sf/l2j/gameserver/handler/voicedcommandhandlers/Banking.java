@@ -20,7 +20,9 @@ package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.util.FloodProtector;
 
 /**
  * This class trades Gold Bars for Adena and vice versa.
@@ -33,6 +35,12 @@ public class Banking implements IVoicedCommandHandler
 
     public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
     {
+        if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_BANKING_SYSTEM))
+        {
+        	activeChar.sendMessage("You Cannot Use Banking System That Fast. Try Again in 10 Second(s)!");
+        	activeChar.sendPacket(new ActionFailed());
+        	return false;
+        }
 	if (command.equalsIgnoreCase("bank"))
 	{
 	    activeChar.sendMessage(".deposit (" + Config.BANKING_SYSTEM_ADENA + " Adena = " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar) / .withdraw (" + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar = " + Config.BANKING_SYSTEM_ADENA + " Adena)");

@@ -120,7 +120,7 @@ public abstract class L2Skill
 	CANCEL, MAGE_BANE, WARRIOR_BANE, NEGATE, BUFF, DEBUFF, PASSIVE, CONT, SIGNET, RESURRECT, CHARGE(
 		L2SkillCharge.class), MHOT, CHARGEDAM(L2SkillChargeDmg.class), EXITBUFFS(
 		L2SkillExitBuffs.class), NEEDCHARGE(L2SkillNeedCharge.class), DETECT_WEAKNESS, LUCK, RECALL, SUMMON_FRIEND, REFLECT, SPOIL, SWEEP, FAKE_DEATH, UNBLEED, UNPOISON, UNDEAD_DEFENSE, SEED(
-		L2SkillSeed.class), BEAST_FEED, FORCE_BUFF,
+		L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, GIVE_SP,
 	// unimplemented
 	NOTDONE;
 	private final Class<? extends L2Skill> _class;
