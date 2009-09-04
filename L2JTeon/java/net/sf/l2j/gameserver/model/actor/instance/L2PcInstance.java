@@ -12590,6 +12590,22 @@ public final class L2PcInstance extends L2PlayableInstance
         sendPacket(sm);
     }
 
+	 public void restoreHP()  
+	 	{  
+	 	getStatus().setCurrentHp(getMaxHp());  
+	 	}  
+
+	 	public void restoreMP() 
+	 	{ 
+	 	getStatus().setCurrentMp(getMaxMp()); 
+	 	} 
+
+	 	public void restoreCP()  
+	 	{  
+	 	getStatus().setCurrentCp(getMaxCp());  
+	 	} 
+	 	
+
     /** Raid Event Parameters */
     public boolean inClanEvent = false;
     public boolean inPartyEvent = false;
