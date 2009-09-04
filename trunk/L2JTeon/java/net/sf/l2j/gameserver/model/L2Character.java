@@ -161,7 +161,6 @@ public abstract class L2Character extends L2Object
     private boolean _isMuted = false; // Cannot use magic
     private boolean _isPsychicalMuted = false; // Cannot use psychical skills
     private boolean _isKilledAlready = false;
-    private boolean _isImobilised = false;
     private boolean _isImmobilized = false;
     private boolean _isOverloaded = false; // the char is carrying too much
     private boolean _isParalyzed = false;
@@ -1887,7 +1886,7 @@ public abstract class L2Character extends L2Object
 		    teleToLocation(59669, -42221, -2992);
 		}
 	    }
-	    if ((this instanceof L2PcInstance) && (((L2PcInstance) this).isImobilised() || ((L2PcInstance) this).isParalyzed() || ((L2PcInstance) this).isPetrified() || ((L2PcInstance) this).isRooted() || ((L2PcInstance) this).isSleeping() || ((L2PcInstance) this).isStunned()))
+	    if ((this instanceof L2PcInstance) && (((L2PcInstance) this).isImmobilized() || ((L2PcInstance) this).isParalyzed() || ((L2PcInstance) this).isPetrified() || ((L2PcInstance) this).isRooted() || ((L2PcInstance) this).isSleeping() || ((L2PcInstance) this).isStunned()))
 	    {
 		stopEffects(L2Effect.EffectType.PARALYZE);
 		stopEffects(L2Effect.EffectType.PETRIFICATION);
@@ -2071,7 +2070,7 @@ public abstract class L2Character extends L2Object
      */
     public final boolean isAllSkillsDisabled()
     {
-	return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed() || isPetrified();
+	return _allSkillsDisabled || isImmobileUntilAttacked() || isStunned() || isSleeping() || isParalyzed() || isPetrified();
     }
 
     /**
@@ -2080,7 +2079,7 @@ public abstract class L2Character extends L2Object
      */
     public boolean isAttackingDisabled()
     {
-	return isStunned() || isSleeping() || (_attackEndTime > GameTimeController.getGameTicks()) || isFakeDeath() || isParalyzed() || isPetrified() || isFallsdown();
+	return isStunned() || isImmobileUntilAttacked() || isSleeping() || (_attackEndTime > GameTimeController.getGameTicks()) || isFakeDeath() || isParalyzed() || isPetrified() || isFallsdown();
     }
 
     public final Calculator[] getCalculators()
@@ -2146,16 +2145,6 @@ public abstract class L2Character extends L2Object
 		_isImmobilized = value;
 	}
 
-    public boolean isImobilised()
-    {
-	return _isImobilised;
-    }
-
-    public void setIsImobilised(boolean value)
-    {
-	_isImobilised = value;
-    }
-
     public final boolean isKilledAlready()
     {
 	return _isKilledAlready;
@@ -2192,7 +2181,7 @@ public abstract class L2Character extends L2Object
      */
     public boolean isMovementDisabled()
     {
-	return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath() || isPetrified() || isFallsdown();
+	return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImmobilized() || isFakeDeath() || isPetrified() || isFallsdown();
     }
 
     /**

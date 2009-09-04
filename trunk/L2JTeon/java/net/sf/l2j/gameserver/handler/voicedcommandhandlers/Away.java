@@ -115,7 +115,7 @@ public class Away implements IVoicedCommandHandler
 			activeChar.sendMessage("Player in PVP or with Karma can't use the Away command!");
 			return false;
 		}
-		if (activeChar.isImobilised())
+		if (activeChar.isImmobilized())
 			return false;
 		//check away text have not more then 10 letter
 		if (text.length() > 10)

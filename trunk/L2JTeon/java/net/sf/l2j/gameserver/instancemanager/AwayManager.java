@@ -90,7 +90,7 @@ public final class AwayManager
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		SetupGauge sg = new SetupGauge(SetupGauge.BLUE, Config.AWAY_TIMER * 1000);
 		activeChar.sendPacket(sg);
-		activeChar.setIsImobilised(true);
+		activeChar.setIsImmobilized(true);
 		ThreadPoolManager.getInstance().scheduleGeneral(new setPlayerAwayTask(activeChar, text), Config.AWAY_TIMER * 1000);
 	}
 
@@ -130,7 +130,7 @@ public final class AwayManager
 			_activeChar.abortAttack();
 			_activeChar.abortCast();
 			_activeChar.setTarget(null);
-			_activeChar.setIsImobilised(false);
+			_activeChar.setIsImmobilized(false);
 			if (!_activeChar.isSitting())
 				_activeChar.sitDown();
 			if (_awayText.length() <= 1)

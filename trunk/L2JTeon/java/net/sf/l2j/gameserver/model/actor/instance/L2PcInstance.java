@@ -2781,7 +2781,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	    sendMessage("Cannot sit while casting");
 	    return;
 	}
-	if (!_waitTypeSitting && !isAttackingDisabled() && !isOutOfControl() && !isImobilised())
+	if (!_waitTypeSitting && !isAttackingDisabled() && !isOutOfControl() && !isImmobilized())
 	{
 	    breakAttack();
 	    setIsSitting(true);
@@ -9483,7 +9483,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	stopMove(null);
 	setIsParalyzed(true);
 	setIsInvul(true);
-	setIsImobilised(true);
+	setIsImmobilized(true);
 	sendPacket(new CameraMode(1));
     }
 
@@ -9535,7 +9535,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	stopMove(null);
 	setIsParalyzed(false);
 	setIsInvul(false);
-	setIsImobilised(false);
+	setIsImmobilized(false);
 	sendPacket(new CameraMode(0));
     }
 
@@ -11656,7 +11656,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public void startFishing(int _x, int _y, int _z)
     {
 	stopMove(null);
-	setIsImobilised(true);
+	setIsImmobilized(true);
 	_fishing = true;
 	_fishx = _x;
 	_fishy = _y;
@@ -12006,7 +12006,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	_lure = null;
 	// Ends fishing
 	sendPacket(new SystemMessage(SystemMessageId.REEL_LINE_AND_STOP_FISHING));
-	setIsImobilised(false);
+	setIsImmobilized(false);
 	stopLookingForFishTask();
     }
 
