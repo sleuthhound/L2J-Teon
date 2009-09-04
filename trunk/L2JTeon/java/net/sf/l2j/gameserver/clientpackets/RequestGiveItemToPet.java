@@ -19,11 +19,14 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.util.IllegalPlayerAction;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
@@ -68,7 +71,15 @@ public final class RequestGiveItemToPet extends L2GameClientPacket
 	{
 	    player.sendMessage("Duo To Hero Weapons Protection u Canot Use Pet's Inventory");
 	    return;
-	}
+	} 
+        if (player.getActiveEnchantItem() != null)
+        {
+        	player.setAccountAccesslevel(-100); 
+        	Util.handleIllegalPlayerAction(player,"Player "+player.getName()+" Tried To Use Enchant Exploit And Got Banned!", IllegalPlayerAction.PUNISH_KICKBAN);
+        	return;
+     
+        }
+        
 	L2PetInstance pet = (L2PetInstance) player.getPet();
 	if (pet.isDead())
 	{

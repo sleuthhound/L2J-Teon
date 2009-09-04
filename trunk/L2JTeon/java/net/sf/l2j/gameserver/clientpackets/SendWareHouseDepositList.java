@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.ClanWarehouse;
 import net.sf.l2j.gameserver.model.ItemContainer;
@@ -27,6 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -91,14 +93,18 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 	    player.sendMessage("Transactions are disable for your Access Level");
 	    return;
 	}
-    if (player.getActiveEnchantItem() != null) 
-    {
-        player.setAccessLevel(-100);  
-        Util.handleIllegalPlayerAction(player,"Player "
+	if (player.isDead())
+	{
+	    player.sendPacket(new ActionFailed());
+	}
+	if (player.getActiveEnchantItem() != null) 
+	{
+	    player.setAccessLevel(-100);  
+	    Util.handleIllegalPlayerAction(player,"Player "
         		+player.getName()
-        		+" tried to use phx enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN); 
-        return; 
-    }
+        		+" Tried to Use Warehouse Enchant Exploit and Got Banned!", IllegalPlayerAction.PUNISH_KICKBAN); 
+	    return; 
+	}
 	// Alt game - Karma punishment
 	if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && (player.getKarma() > 0))
 	    return;
