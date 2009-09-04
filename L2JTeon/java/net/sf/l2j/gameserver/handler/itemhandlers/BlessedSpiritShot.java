@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -69,7 +70,13 @@ public class BlessedSpiritShot implements IItemHandler
 	    if (!activeChar.getAutoSoulShot().containsKey(itemId))
 		activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SPIRITSHOTS));
 	    return;
-	}
+	} 
+        if (activeChar.isParalyzed())
+        {
+        	activeChar.sendMessage("You Cannot Use Soulshots While You Are Paralyzed!");
+        	activeChar.sendPacket(new ActionFailed());
+        	return;
+        }
 	// Check if Blessed Spiritshot is already active (it can be charged over
 	// Spiritshot)
 	if (weaponInst.getChargedSpiritshot() != L2ItemInstance.CHARGED_NONE)

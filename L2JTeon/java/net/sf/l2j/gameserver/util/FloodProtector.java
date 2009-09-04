@@ -55,7 +55,8 @@ public class FloodProtector
     	Config.UNKNOWN_PACKET_DELAY,  
     	Config.SUBCLASS_DELAY,
         Config.MULTISELL_DELAY,
-	100
+	100,
+	4
                                                     }; 	// protected actions
 	public static final int PROTECTED_USEITEM = 0;
 	public static final int PROTECTED_ROLLDICE = 1;
@@ -66,6 +67,7 @@ public class FloodProtector
 	public static final int PROTECTED_SUBCLASS = 6;
 	public static final int PROTECTED_MULTISELL = 7;
 	public static final int PROTECTED_BANKING_SYSTEM = 8;
+        public static final int PROTECTED_BYPASS = 9;
 	public static final int PROTECTED_NPCBUFFER = (int) 0.2;
 
 	// =========================================================
