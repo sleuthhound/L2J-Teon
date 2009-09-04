@@ -304,6 +304,7 @@ public class L2Clan
 	addClanMember(member);
 	member.setPlayerInstance(player);
 	player.setClan(this);
+	player.rewardSkills();
 	player.setPledgeClass(member.calculatePledgeClass(player));
 	player.sendPacket(new PledgeShowMemberListUpdate(player));
 	player.sendPacket(new UserInfo(player));

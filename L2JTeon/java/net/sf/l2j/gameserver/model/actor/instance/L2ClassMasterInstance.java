@@ -200,6 +200,8 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 	    if (player.isGM())
 	    {
 		changeClass(player, val);
+            	player.rewardSkills();
+            	
 		if (val >= 88)
 		{
 		    player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system
@@ -281,6 +283,8 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		// -- prevention ends
 	    }
 	    changeClass(player, val);
+            player.rewardSkills();
+
 	    if (val >= 88)
 	    {
 		player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system
