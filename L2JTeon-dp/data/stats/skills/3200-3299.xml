@@ -154,456 +154,409 @@
   </for>
 </skill>
 <skill id="3207" levels="10" name="Item Skill: Heal">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Restores your HP by using attack rate.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5146"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3208" levels="10" name="Item Skill: Blessed Body">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases maximum HP by using attack rate for a certain amount of time.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5147"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3209" levels="10" name="Item Skill: Prayer">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases the effect of HP recovery magic by using attack rate for a certain amount of time.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5148"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3210" levels="10" name="Item Skill: Recharge">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Restores your MP by using attack rate.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5149"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3211" levels="10" name="Item Skill: Blessed Soul">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases maximum MP when under attack for a certain amount of time.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5150"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3212" levels="10" name="Item Skill: Mana Gain">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases the recharge recovery rate of MP when under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5151"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3213" levels="10" name="Item Skill: Ritual">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Restores CP when under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5152"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3214" levels="10" name="Item Skill: Cheer">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases maximum CP when under attack for a certain amount of time.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 1 1 2 2 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5153"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3215" levels="10" name="Item Skill: Might">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases P. Atk. when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5154"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3216" levels="10" name="Item Skill: Empower">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases M. Atk. when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5156"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3217" levels="10" name="Item Skill: Duel Might">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases PVP P. Atk. when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5157"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3218" levels="10" name="Item Skill: Shield">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases P. Def. when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5158"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3219" levels="10" name="Item Skill: Magic Barrier">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases M. Def. when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5159"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3220" levels="10" name="Item Skill: Duel Weakness">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Decreases the opponent's PVP P. Atk. when you are under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="power" val="40"/> <!-- Guessing -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="isDebuff" val="true"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5160"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3221" levels="10" name="Item Skill: Agility">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases Evasion when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5161"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3222" levels="10" name="Item Skill: Guidance">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases Accuracy when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5162"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3223" levels="10" name="Item Skill: Focus">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases the critical attack rate when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5163"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3224" levels="10" name="Item Skill: Wild Magic">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Increases the critical attack rate of magic attacks when under attack temporarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5164"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3225" levels="10" name="Item Skill: Charm">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Decreases the enemy's urge to attack when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5165"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3226" levels="10" name="Item Skill: Slow">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily decreases a target's speed when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5166"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3227" levels="10" name="Item Skill: Winter">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily decreases a target's Atk. Spd. when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5167"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3228" levels="10" name="Item Skill: Stun">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily throws the target into a state of shock when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5168"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3229" levels="10" name="Item Skill: Hold">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily throws the target into a state of hold when you are under attack. The target cannot be affected by any additional hold attacks while the effect lasts.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5169"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3230" levels="10" name="Item Skill: Sleep">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily throws the target into a state of sleep when you are under attack. The target cannot be affected by any additional sleep attacks while the effect lasts.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5170"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3231" levels="10" name="Item Skill: Paralyze">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily throws the target into a state of paralysis when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5171"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3232" levels="10" name="Item Skill: Medusa">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily throws the target into a petrified state when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5172"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3233" levels="10" name="Item Skill: Fear">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily throws the target into a state of fear and causes him to flee when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5173"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3234" levels="10" name="Item Skill: Poison">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 5.
-      Lvl 2 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 5.
-      Lvl 3 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 6.
-      Lvl 4 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 6.
-      Lvl 5 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 6.
-      Lvl 6 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 7.
-      Lvl 7 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 7.
-      Lvl 8 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 7.
-      Lvl 9 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 8.
-      Lvl 10 - Chance: Momentarily throws the target into a poisoned state when you are under attack. Effect 8.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5174"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3235" levels="10" name="Item Skill: Bleed">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 5.
-      Lvl 2 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 5.
-      Lvl 3 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 6.
-      Lvl 4 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 6.
-      Lvl 5 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 6.
-      Lvl 6 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 7.
-      Lvl 7 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 7.
-      Lvl 8 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 7.
-      Lvl 9 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 8.
-      Lvl 10 - Chance: Momentarily throws the target into a bleeding state when you are under attack. Effect 8.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5175"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3236" levels="10" name="Item Skill: Silence">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily blocks the target's magic skill when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5176"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3237" levels="10" name="Item Skill: Doom">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-10 - Chance: Momentarily blocks all of the target's physical and magic skills when you are under attack.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#triggeredLevel"> 1 2 3 4 5 6 7 8 9 10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_ATTACKED"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="triggeredId" val="5177"/>
+  <set name="triggeredLevel" val="#triggeredLevel"/>
 </skill>
 <skill id="3238" levels="10" name="Item Skill: Prayer">
 <!--
