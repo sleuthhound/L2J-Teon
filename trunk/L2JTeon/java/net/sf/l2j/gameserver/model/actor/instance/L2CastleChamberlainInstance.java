@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2TradeList;
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
@@ -1041,6 +1042,76 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		html.replace("%withdraw_amount%", Util.formatAdena(amount));
 		player.sendPacket(html);
 		return;
+							}
+						
+							else if (actualCommand.equalsIgnoreCase("Clan_Gate"))  
+							{  
+			    
+									L2PcInstance leader;     
+									leader = (L2PcInstance)L2World.getInstance().findObject(player.getClan().getLeaderId());  
+			         
+			                                              
+									if(leader.atEvent)  
+									{  
+										player.sendMessage("Your leader is in an event.");  
+										return;  
+									}  
+			
+									else if(leader.isInJail())  
+									{  
+										player.sendMessage("Your leader is in Jail.");  
+										return;  
+									}  
+				                                                        
+						else if(leader.isInOlympiadMode())  
+						{  
+						player.sendMessage("Your leader is in the Olympiad now.");  
+						return;  
+						}  
+			
+						else if(leader.inObserverMode())  
+						{  
+						player.sendMessage("Your leader is in Observer Mode.");  
+						return;  
+						}  
+			 
+						else  if (leader.isInDuel())  
+						{  
+						player.sendMessage("Your leader is in a duel.");  
+						return;  
+						}  
+					                                                                
+						else if (leader.isFestivalParticipant())  
+						{  
+						player.sendMessage("Your leader is in a festival.");  			                          
+						return;  
+						}  	
+			
+						else if (leader.isInParty() && leader.getParty().isInDimensionalRift())  
+						{  
+						player.sendMessage("Your leader is in dimensional rift.");  
+						return;  
+						}  
+						 	                                                  
+						else if(leader.getClan() != null && CastleManager.getInstance().getCastleByOwner(leader.getClan()) != null  
+						&& CastleManager.getInstance().getCastleByOwner(leader.getClan()).getSiege().getIsInProgress())  
+						{  
+						player.sendMessage("Your leader is in siege, you can't go to your leader.");  
+						return;  
+						}  
+			
+					int leaderx;  
+						int leadery;  
+						int leaderz;  
+						                                                         
+						leaderx = leader.getX();  
+						leadery = leader.getY();  
+						leaderz = leader.getZ();  
+			
+						player.teleToLocation(leaderx, leadery, leaderz);  
+						player.sendMessage("You have been teleported to your leader.");  
+
+
 	    } else if (actualCommand.equalsIgnoreCase("manor"))
 	    {
 		String filename = "";

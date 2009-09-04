@@ -12600,12 +12600,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	 	getStatus().setCurrentMp(getMaxMp()); 
 	 	} 
 
-	 	public void restoreCP()  
-	 	{  
-	 	getStatus().setCurrentCp(getMaxCp());  
-	 	} 
-	 	
-
     /** Raid Event Parameters */
     public boolean inClanEvent = false;
     public boolean inPartyEvent = false;
