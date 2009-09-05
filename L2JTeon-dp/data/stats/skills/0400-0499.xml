@@ -850,7 +850,6 @@
       <mul order="0x30" stat="pDef" val="0.2"/>
     </effect>
   <for>
-<!-- needs core support for effect stopping when attacked -->
   </for>
 </skill>
 <skill id="442" levels="1" name="Sonic Barrier">
@@ -890,16 +889,18 @@
   </for>
 </skill>
 <skill id="444" levels="1" name="Festive Sweeper">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="12"/>
+  <set name="skillRadius" val="85"/>
+  <set name="target" val="TARGET_AREA_CORPSE_MOB"/>
+  <set name="skillType" val="SWEEP"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="reuseDelay" val="23000"/>
+  <set name="hitTime" val="5000"/>
   <for>
-<!-- needs core support -->
   </for>
-</skill>
+ </skill>
 <skill id="445" levels="1" name="Mirage">
-<<<<<<< .mine
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="hitTime" val="2000"/>
@@ -1042,7 +1043,7 @@
     <using kind="Dual Sword"/>
   </cond>
   <for>
-    <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="SpeedUpS"> <!-- changed to 15s duration - retail info -->
+    <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="SpeedUpS">
       <add order="0x40" stat="runSpd" val="#spd"/>
     </effect>
   </for>
@@ -1281,7 +1282,6 @@
   <set name="exitBuffs" val="#buffEffects"/>
   <set name="skillType" val="EXITBUFFS"/>
   <for>
-    <!-- just nothing here -->
   </for>
 </skill>
 </list>
