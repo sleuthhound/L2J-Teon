@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
@@ -22,52 +21,56 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 
 /**
- * This class ...
+ * This class handles all chat handlers
  *
  * @Author Stefoulis15
- * 
- * @version $Revision: 1.1.4.5 $ $Date: 2005/03/27 15:30:09 $
  */
-public class VoicedCommandHandler
+public class ChatHandler
 {
-	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
+	private static Logger _log = Logger.getLogger(ChatHandler.class.getName());
 	
-	private Map<String, IVoicedCommandHandler> _datatable;
+	private FastMap<Integer, IChatHandler> _datatable;
 	
-	public static VoicedCommandHandler getInstance()
+	public static ChatHandler getInstance()
 	{
 		return SingletonHolder._instance;
 	}
 	
-	private VoicedCommandHandler()
+	/**
+	 * Singleton constructor
+	 */
+	private ChatHandler()
 	{
-		_datatable = new FastMap<String, IVoicedCommandHandler>();
+		_datatable = new FastMap<Integer, IChatHandler>();
 	}
 	
-	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)
+	/**
+	 * Register a new chat handler
+	 * @param handler
+	 */
+	public void registerChatHandler(IChatHandler handler)
 	{
-		String[] ids = handler.getVoicedCommandList();
+		int[] ids = handler.getChatTypeList();
 		for (int i = 0; i < ids.length; i++)
 		{
 			if (Config.DEBUG)
-				_log.fine("Adding handler for command " + ids[i]);
+				_log.fine("Adding handler for chat type " + ids[i]);
 			_datatable.put(ids[i], handler);
 		}
 	}
 	
-	public IVoicedCommandHandler getVoicedCommandHandler(String voicedCommand)
+	/**
+	 * Get the chat handler for the given chat type
+	 * @param chatType
+	 * @return
+	 */
+	public IChatHandler getChatHandler(int chatType)
 	{
-		String command = voicedCommand;
-		if (voicedCommand.indexOf(" ") != -1)
-		{
-			command = voicedCommand.substring(0, voicedCommand.indexOf(" "));
-		}
-		if (Config.DEBUG)
-			_log.fine("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
-		return _datatable.get(command);
+		return _datatable.get(chatType);
 	}
 	
 	/**
+	 * Returns the size
 	 * @return
 	 */
 	public int size()
@@ -78,6 +81,6 @@ public class VoicedCommandHandler
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{
-		protected static final VoicedCommandHandler _instance = new VoicedCommandHandler();
+		protected static final ChatHandler _instance = new ChatHandler();
 	}
 }

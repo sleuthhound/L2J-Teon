@@ -20,82 +20,79 @@ package net.sf.l2j.gameserver.handler;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
+
+import net.sf.l2j.gameserver.GameServer;
 
 /**
  * This class manages handlers of items
- * 
- * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:30:09 $
+ *
+ * @version $Revision: 1.1.5.0 $ $Date: 2009/08/25 19:36:00 $
  */
 public class ItemHandler
 {
-    // private static Logger _log =
-    // Logger.getLogger(ItemHandler.class.getName());
-    private static ItemHandler _instance;
-    private Map<Integer, IItemHandler> _datatable;
+	private static final Logger _log = Logger.getLogger(GameServer.class.getName());
 
-    /**
-     * Create ItemHandler if doesn't exist and returns ItemHandler
-     * 
-     * @return ItemHandler
-     */
-    public static ItemHandler getInstance()
-    {
-	if (_instance == null)
+	private Map<Integer, IItemHandler> _datatable;
+
+	/**
+	 * Create ItemHandler if doesn't exist and returns ItemHandler
+	 * @return ItemHandler
+	 */
+	public static ItemHandler getInstance()
 	{
-	    _instance = new ItemHandler();
+		return SingletonHolder._instance;
 	}
-	return _instance;
-    }
 
-    /**
-     * Returns the number of elements contained in datatable
-     * 
-     * @return int : Size of the datatable
-     */
+	/**
+	 * Returns the number of elements contained in datatable
+	 * @return int : Size of the datatable
+	 */
     public int size()
     {
-	return _datatable.size();
+        return _datatable.size();
     }
 
     /**
      * Constructor of ItemHandler
      */
-    private ItemHandler()
-    {
-	_datatable = new TreeMap<Integer, IItemHandler>();
-    }
-
-    /**
-     * Adds handler of item type in <I>datatable</I>.<BR>
-     * <BR>
-     * <B><I>Concept :</I></U><BR>
-     * This handler is put in <I>datatable</I> Map &lt;Integer ;
-     * IItemHandler &gt; for each ID corresponding to an item type (existing
-     * in classes of package itemhandlers) sets as key of the Map.
-     * 
-     * @param handler
-     *                (IItemHandler)
-     */
-    public void registerItemHandler(IItemHandler handler)
-    {
-	// Get all ID corresponding to the item type of the handler
-	int[] ids = handler.getItemIds();
-	// Add handler for each ID found
-	for (int i = 0; i < ids.length; i++)
+	private ItemHandler()
 	{
-	    _datatable.put(new Integer(ids[i]), handler);
+		_datatable = new TreeMap<Integer, IItemHandler>();
+        _log.info("ItemHandler: Loaded " + _datatable.size() + " handlers.");
 	}
-    }
 
-    /**
-     * Returns the handler of the item
-     * 
-     * @param itemId :
-     *                int designating the itemID
-     * @return IItemHandler
-     */
-    public IItemHandler getItemHandler(int itemId)
-    {
-	return _datatable.get(new Integer(itemId));
-    }
+	/**
+	 * Adds handler of item type in <I>datatable</I>.<BR><BR>
+	 * <B><I>Concept :</I></U><BR>
+	 * This handler is put in <I>datatable</I> Map &lt;Integer ; IItemHandler &gt; for each ID corresponding to an item type
+	 * (existing in classes of package itemhandlers) sets as key of the Map.
+	 * @param handler (IItemHandler)
+	 */
+	public void registerItemHandler(IItemHandler handler)
+	{
+		// Get all ID corresponding to the item type of the handler
+		int[] ids = handler.getItemIds();
+		// Add handler for each ID found
+		for (int i = 0; i < ids.length; i++)
+		{
+			_datatable.put(new Integer(ids[i]), handler);
+		}
+	}
+
+	/**
+	 * Returns the handler of the item
+	 * @param itemId : int designating the itemID
+	 * @return IItemHandler
+	 */
+	public IItemHandler getItemHandler(int itemId)
+	{
+		return _datatable.get(new Integer(itemId));
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ItemHandler _instance = new ItemHandler();
+	}
 }
