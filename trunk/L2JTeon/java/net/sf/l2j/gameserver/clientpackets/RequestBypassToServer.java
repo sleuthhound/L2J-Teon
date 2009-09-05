@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.util.FloodProtector;
 

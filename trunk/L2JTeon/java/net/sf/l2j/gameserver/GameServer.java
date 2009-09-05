@@ -135,6 +135,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTeleport;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTest;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminUnblockIp;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminZone;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMassRecall; 
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpice;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
@@ -650,6 +651,7 @@ public class GameServer
 	_adminCommandHandler.registerAdminCommandHandler(new AdminLevel());
 	_adminCommandHandler.registerAdminCommandHandler(new AdminQuest());
 	_adminCommandHandler.registerAdminCommandHandler(new AdminZone());
+    _adminCommandHandler.registerAdminCommandHandler(new AdminMassRecall()); 
 	_adminCommandHandler.registerAdminCommandHandler(new AdminDonator());
 	_adminCommandHandler.registerAdminCommandHandler(new AdminCTFEngine());
 	_adminCommandHandler.registerAdminCommandHandler(new AdminCursedWeapons());
