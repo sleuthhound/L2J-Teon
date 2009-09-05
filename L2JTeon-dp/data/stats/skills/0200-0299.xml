@@ -565,7 +565,7 @@
     </mul>
   </for>
 </skill>
-<skill id="239" levels="6" name="Expertise S80">
+<skill id="239" levels="5" name="Expertise S">
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="PASSIVE"/>
