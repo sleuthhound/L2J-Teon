@@ -156,27 +156,27 @@ public class GameServer
     private final ThreadPoolManager _threadpools;
     public static final Calendar dateTimeServerStarted = Calendar.getInstance();
 
-    public long getUsedMemoryMB()
-    {
+	public long getUsedMemoryMB()
+	{
 	return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576; // 1024
 	// *
 	// 1024
 	// =
 	// 1048576;
-    }
+	}
 
-    public SelectorThread<L2GameClient> getSelectorThread()
-    {
+	public SelectorThread<L2GameClient> getSelectorThread()
+	{
 	return _selectorThread;
-    }
+	}
 
-    public ClanHallManager getCHManager()
-    {
+	public ClanHallManager getCHManager()
+	{
 	return _cHManager;
-    }
+	}
 
-    public GameServer() throws Exception
-    {
+	public GameServer() throws Exception
+	{
 		long serverLoadStart = System.currentTimeMillis();
         // Prints General System Info+        
         Util.printSection("L2JTeon-Info");

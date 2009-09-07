@@ -44,7 +44,7 @@ import net.sf.l2j.gameserver.skills.funcs.Lambda;
  */
 public abstract class L2Effect
 {
-    static final Logger _log = Logger.getLogger(L2Effect.class.getName());
+	static final Logger _log = Logger.getLogger(L2Effect.class.getName());
 
     public static enum EffectState
     {
