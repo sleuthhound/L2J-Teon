@@ -51,6 +51,7 @@ public abstract class L2PlayableInstance extends L2Character
     // after death and full
     // CP/HP/MP
     private boolean _isSalvation = false; // for Salvation skill, restores
+    private boolean _ProtectionBlessing = false;
 
     // buffs after death and full
     // CP/HP/MP
@@ -304,6 +305,29 @@ public abstract class L2PlayableInstance extends L2Character
     public abstract boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage);
 
     public abstract boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage);
+
+ 
+	// for Newbie Protection Blessing skill, keeps you safe from an attack by a chaotic character >= 10 levels apart from you 
+	public final boolean getProtectionBlessing() { return _ProtectionBlessing; } 
+	public final void setProtectionBlessing(boolean value) { _ProtectionBlessing = value; }  
+	public void startProtectionBlessing() 
+		{ 
+		       setProtectionBlessing(true); 
+		       updateAbnormalEffect(); 
+		 }
+	 /** 
+	 * @param blessing 
+	 */ 
+     public void stopProtectionBlessing(L2Effect effect) 
+		       { 
+		       if (effect == null) 
+		          stopEffects(L2Effect.EffectType.PROTECTION_BLESSING); 
+		       else 
+		          removeEffect(effect); 
+		              
+		       setProtectionBlessing(false); 
+		       updateAbnormalEffect(); 
+	}
 
     // Charm of Luck - During a Raid/Boss war, decreased chance for death
     // penalty
