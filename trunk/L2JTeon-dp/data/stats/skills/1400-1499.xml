@@ -92,18 +92,10 @@
   </for>
 </skill>
 <skill id="1405" levels="4" name="Divine Inspiration">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Increases the number of buffs you can receive.
--->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
 </skill>
 <skill id="1406" levels="1" name="Summon Feline King">
   <table name="#mpConsume_Init"> 30 </table>
@@ -138,12 +130,6 @@
   </for>
 </skill>
 <skill id="1407" levels="1" name="Summon Magnus the Unicorn">
-<!--
-  Needs to be verified.
-
-  Description(s):
-      Summons Magnus the Unicorn. Requires 2 Crystals: A-Grade. Consumes 1 additional crystal at 14 regular intervals. Takes away 10% of earned Exp.
--->
   <table name="#mpConsume_Init"> 30 </table>
   <table name="#mpConsume"> 114 </table>
   <table name="#itemConsumeCount"> 2 </table>
@@ -176,12 +162,6 @@
   </for>
 </skill>
 <skill id="1408" levels="1" name="Summon Spectral Lord">
-<!--
-  Needs to be verified.
-
-  Description(s):
-      Summons Spectral Lord. Requires 2 Crystals: A-Grade. Consumes 1 additional crystal at 14 regular intervals. Takes away 10% of earned Exp.
--->
   <table name="#mpConsume_Init"> 30 </table>
   <table name="#mpConsume"> 114 </table>
   <table name="#itemConsumeCount"> 2 </table>
@@ -214,10 +194,6 @@
   </for>
 </skill>
 <skill id="1409" levels="1" name="Cleanse">
-<!--
-  Description(s):
-      Cancels your target's debuffs. Consumes 1 Einhasad Holy Water.
--->
   <set name="itemConsumeId" val="8874"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="mpInitialConsume" val="21"/>
@@ -237,10 +213,6 @@
   </for>
 </skill>
 <skill id="1410" levels="1" name="Salvation">
-<!--
-  Description(s):
-      Revives target from death and restores them to full health, retaining all buff/debuff effects except for Noblesse Blessing and Lucky Charm.  Consumes 2 Einhasad Holy Water.
--->
   <set name="mpInitialConsume" val="79"/>
   <set name="mpConsume" val="250"/>
   <set name="itemConsumeId" val="8874"/>
@@ -264,9 +236,6 @@
 <skill id="1411" levels="1" name="Mystic Immunity">
 <!--
   Done by: schursin & The_Joker
-
-  Description(s):
-      Makes a target temporarily immune to buffs/debuffs.
 -->
   <set name="mpConsume" val="73"/>
   <set name="power" val="0.0"/>
@@ -331,12 +300,6 @@
   </for>
 </skill>
 <skill id="1414" levels="1" name="Victories of Pa'agrio">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Allows the Ancient Hero's Soul to temporarily possesses an alliance member. Consumes 40 Spirit Ores.
--->
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="40"/>
   <set name="mpInitialConsume" val="57"/>
@@ -435,10 +398,6 @@
   </for>
 </skill>
 <skill id="1418" levels="1" name="Celestial Shield">
-  <!--
-  Description(s):
-      Protects your target using holy powers, making it temporarily invincible.
-  -->
   <set name="mpConsume" val="60"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
