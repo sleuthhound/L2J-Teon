@@ -473,7 +473,7 @@ public class Disablers implements ISkillHandler
 			int maxfive = 5;
 			for (L2Effect e : effects)
 			{
-			    if ((e.getSkill().getId() != 4082) && (e.getSkill().getId() != 4215) && (e.getSkill().getId() != 4515) && (e.getSkill().getId() != 110) && (e.getSkill().getId() != 111) && (e.getSkill().getId() != 1323) && (e.getSkill().getId() != 1325)) // Cannot
+			    if ((e.getSkill().getId() != 4082) && (e.getSkill().getId() != 4215) && (e.getSkill().getId() != 4515) && (e.getSkill().getId() != 5182) && (e.getSkill().getId() != 110) && (e.getSkill().getId() != 111) && (e.getSkill().getId() != 1323) && (e.getSkill().getId() != 1325)) // Cannot
 			    // cancel
 			    // skills
 			    // 4082,
