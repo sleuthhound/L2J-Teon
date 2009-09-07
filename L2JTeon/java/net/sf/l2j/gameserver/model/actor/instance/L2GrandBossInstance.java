@@ -110,12 +110,6 @@ public final class L2GrandBossInstance extends L2MonsterInstance
         super.reduceCurrentHp(damage, attacker, awake);
     }
 
-    @Override
-	public boolean isRaid()
-    {
-        return true;
-    }
-
     /**
      * 
      * @see net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance#doDie(net.sf.l2j.gameserver.model.L2Character)

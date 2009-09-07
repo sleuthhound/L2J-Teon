@@ -19,8 +19,8 @@ import java.util.concurrent.Future;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.serverpackets.NpcSay;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -41,12 +41,14 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 	public L2SepulcherMonsterInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
+		setShowSummonAnimation(true);
 	}
 	
 	@Override
 	public void onSpawn()
 	{
 		super.onSpawn();
+		setShowSummonAnimation(false);
 		switch (getNpcId())
 		{
 			case 18150:
@@ -101,6 +103,12 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 				
 				break;
 			case 18256:
+				break;
+			case 25339:
+			case 25342:
+			case 25346:
+			case 25349:
+				setIsRaid(true);
 				break;
 		}
 	}
@@ -221,7 +229,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 			case 25342:
 			case 25346:
 			case 25349:
-				giveCup((L2PcInstance) killer);
+				giveCup(killer);
 				if (_onDeadEventTask != null)
 					_onDeadEventTask.cancel(true);
 				_onDeadEventTask = ThreadPoolManager.getInstance().scheduleEffect(new OnDeadEvent(this), 8500);
@@ -247,22 +255,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		super.deleteMe();
 	}
 	
-	@Override
-	public boolean isRaid()
-	{
-		switch (getNpcId())
-		{
-			case 25339:
-			case 25342:
-			case 25346:
-			case 25349:
-				return true;
-			default:
-				return false;
-		}
-	}
-	
-	private void giveCup(L2PcInstance player)
+	private void giveCup(L2Character killer)
 	{
 		String questId = "620_FourGoblets";
 		int cupId = 0;
@@ -283,7 +276,12 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 				cupId = 7259;
 				break;
 		}
-		
+
+		L2PcInstance player = killer.getActingPlayer();
+
+		if (player == null)
+			return;
+
 		if (player.getParty() != null)
 		{
 			for (L2PcInstance mem : player.getParty().getPartyMembers())
