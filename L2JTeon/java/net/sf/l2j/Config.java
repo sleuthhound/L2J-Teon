@@ -522,6 +522,8 @@ public final class Config
     // * Wedding System *//
     /** Enable or Disable wedding system with this option. */
     public static boolean ALLOW_WEDDING;
+    public static boolean ALLOW_TRADEOFF_VOICE_COMMAND;
+    public static boolean ONLINE_VOICE_COMMAND;
     /** This is the cost to get married. */
     public static int WEDDING_PRICE;
     /** This checks if a player should get punished for infedelity. */
@@ -2790,6 +2792,8 @@ public final class Config
                 AWAY_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("AwayTimer", "30"));
                 BACK_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("BackTimer", "30"));
                 AWAY_PEACE_ZONE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayOnlyInPeaceZone", "False"));
+                ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("TradeOffCommand","False"));
+                ONLINE_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("OnlineVCommand", "False")); 
 		// **************************//
 		/* Baby Pets Customizations */
 		// **************************//
