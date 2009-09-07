@@ -848,8 +848,7 @@
   <for>
     <effect name="ImmobileUntilAttacked" time="60" val="0">
       <mul order="0x30" stat="pDef" val="0.2"/>
-    </effect>
-  <for>
+     </effect>
   </for>
 </skill>
 <skill id="442" levels="1" name="Sonic Barrier">

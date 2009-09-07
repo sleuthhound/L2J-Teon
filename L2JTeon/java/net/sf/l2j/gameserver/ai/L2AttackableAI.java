@@ -744,6 +744,25 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				    continue;
 				}
 			    }
+ 
+							int chance = 4;
+							if (_actor instanceof L2MinionInstance)
+							{
+								// minions support boss
+								if (((L2MinionInstance) _actor).getLeader() == npc)
+									chance = 6;
+								else
+									chance = 3;
+							}
+							//XXX All the ai system needs to be recoded..
+							if (npc instanceof L2GrandBossInstance)
+								chance = 6;
+							if (chance >= Rnd.get(100)) // chance
+								continue;
+							if (!GeoData.getInstance().canSeeTarget(_actor, npc))
+								break;
+							
+
 			    // Notify the L2Object AI with EVT_AGGRESSION
 			    npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
 				if ((getAttackTarget() instanceof L2PcInstance) || (getAttackTarget() instanceof L2Summon)) 

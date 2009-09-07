@@ -57,6 +57,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2CubicInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2DecoInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
@@ -67,6 +68,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsynchronousUpdateTask;
@@ -181,6 +183,7 @@ public abstract class L2Character extends L2Object
     protected boolean _isTeleporting = false;
     private L2Character _lastBuffer = null;
     protected boolean _isInvul = false;
+    private boolean _AIdisabled = false;
     private int _lastHealAmount = 0;
     private CharStat _stat;
     private CharStatus _status;
@@ -216,7 +219,7 @@ public abstract class L2Character extends L2Object
 	public static final int ZONE_CASTLE = 1024;
 	public static final int ZONE_SWAMP = 2048;
 	public static final int ZONE_NOSUMMONFRIEND = 4096;
-	public static final int ZONE_FORT = 8194;
+	public static final int ZONE_FORT = 8192;
 
 	private int _currentZones = 0;
 
@@ -316,56 +319,53 @@ public abstract class L2Character extends L2Object
      * @param template
      *                The L2CharTemplate to apply to the object
      */
-    public L2Character(int objectId, L2CharTemplate template)
-    {
-	super(objectId);
-	getKnownList();
-	// Set its template to the new L2Character
-	_template = template;
-	if ((template != null) && (this instanceof L2NpcInstance))
+	public L2Character(int objectId, L2CharTemplate template)
 	{
-	    // Copy the Standard Calcultors of the L2NPCInstance in
-	    // _calculators
-	    _calculators = NPC_STD_CALCULATOR;
-	    // Copy the skills of the L2NPCInstance from its template to the
-	    // L2Character Instance
-	    // The skills list can be affected by spell effects so it's
-	    // necessary to make a copy
-	    // to avoid that a spell affecting a L2NPCInstance, affects
-	    // others
-	    // L2NPCInstance of the same type too.
-	    _skills = ((L2NpcTemplate) template).getSkills();
-	    if (_skills != null)
-	    {
-		for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
+		super(objectId);
+		getKnownList();
+
+		// Set its template to the new L2Character
+		_template = template;
+
+		if (template != null && this instanceof L2NpcInstance)
 		{
-		    addStatFuncs(skill.getValue().getStatFuncs(null, this));
+			// Copy the Standard Calcultors of the L2NPCInstance in _calculators
+			_calculators = NPC_STD_CALCULATOR;
+
+			// Copy the skills of the L2NPCInstance from its template to the L2Character Instance
+			// The skills list can be affected by spell effects so it's necessary to make a copy
+			// to avoid that a spell affecting a L2NPCInstance, affects others L2NPCInstance of the same type too.
+			_skills = ((L2NpcTemplate)template).getSkills();
+			if (_skills != null)
+			{
+				for(Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
+					addStatFuncs(skill.getValue().getStatFuncs(null, this));
+			}
 		}
-	    }
-	} else
-	{
-	    // Initialize the FastMap _skills to null
-	    _skills = new FastMap<Integer, L2Skill>().setShared(true);
-	    // If L2Character is a L2PcInstance or a L2Summon, create the
-	    // basic
-	    // calculator set
-	    _calculators = new Calculator[Stats.NUM_STATS];
-	    Formulas.getInstance().addFuncsToNewCharacter(this);
-	}
-		
+		else
+		{
+			// Initialize the FastMap _skills to null
+			_skills = new FastMap<Integer,L2Skill>().setShared(true);
+
+			// If L2Character is a L2PcInstance or a L2Summon, create the basic calculator set
+			_calculators = new Calculator[Stats.NUM_STATS];
+			Formulas.getInstance().addFuncsToNewCharacter(this);
+		}
+
 		if (!(this instanceof L2PcInstance) && !(this instanceof L2MonsterInstance) &&
 			!(this instanceof L2GuardInstance) && !(this instanceof L2SiegeGuardInstance) &&
-			!(this instanceof L2ControlTowerInstance) && !(this instanceof L2SummonInstance) &&
-			!(this instanceof L2DoorInstance) && !(this instanceof L2FortSiegeGuardInstance))
+			!(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance) &&
+			!(this instanceof L2DecoInstance) && !(this instanceof L2SiegeSummonInstance) &&
+			!(this instanceof L2PetInstance) && !(this instanceof L2SummonInstance))
 			setIsInvul(true);
-    }
+	}
 
-    protected void initCharStatusUpdateValues()
-    {
-	_hpUpdateInterval = getMaxHp() / 352.0; // MAX_HP div MAX_HP_BAR_PX
-	_hpUpdateIncCheck = getMaxHp();
-	_hpUpdateDecCheck = getMaxHp() - _hpUpdateInterval;
-    }
+	protected void initCharStatusUpdateValues()
+	{
+		_hpUpdateInterval = getMaxHp()/352.0; // MAX_HP div MAX_HP_BAR_PX
+		_hpUpdateIncCheck = getMaxHp();
+		_hpUpdateDecCheck = getMaxHp()-_hpUpdateInterval;
+	}
 
     // =========================================================
     // Event - Public
@@ -2079,7 +2079,7 @@ public abstract class L2Character extends L2Object
      */
     public boolean isAttackingDisabled()
     {
-	return isStunned() || isImmobileUntilAttacked() || isSleeping() || (_attackEndTime > GameTimeController.getGameTicks()) || isFakeDeath() || isParalyzed() || isPetrified() || isFallsdown();
+	return isStunned() || isImmobileUntilAttacked() || isSleeping() || (_attackEndTime > GameTimeController.getGameTicks()) || isFakeDeath() || isParalyzed() || isPetrified() || isFallsdown() || isCoreAIDisabled();
     }
 
     public final Calculator[] getCalculators()
@@ -7632,8 +7632,6 @@ public abstract class L2Character extends L2Object
     private Future _PvPRegTask;
     private long _pvpFlagLasts;
 
-    private boolean _AIdisabled = false;
-
     public void setPvpFlagLasts(long time)
     {
 	_pvpFlagLasts = time;
@@ -8007,16 +8005,6 @@ public abstract class L2Character extends L2Object
     {
 	getStatus().stopHpMpRegeneration();
     }
-	
-    public void disableCoreAI(boolean val)
-    {
-    	_AIdisabled = val;
-    }
-	
-    public boolean isCoreAIDisabled()
-    {
-    	return _AIdisabled;
-    }
 
     // Property - Public
     public final double getCurrentCp()
@@ -8156,5 +8144,15 @@ public abstract class L2Character extends L2Object
 
     public void setForceBuff(ForceBuff fb)
     {
+    }
+
+    public void disableCoreAI(boolean val)
+    {
+    	_AIdisabled = val;
+    }
+	
+    public boolean isCoreAIDisabled()
+    {
+    	return _AIdisabled;
     }
 }

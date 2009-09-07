@@ -12,20 +12,20 @@
   </for>
 </skill>
 <skill id="2101" levels="1" name="Feed: General Strider">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="FEED_PET"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="feed" val="200"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="2102" levels="1" name="Feed: Clan Hall Strider">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="FEED_PET"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="feed" val="450"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="2103" levels="1" name="Mystery Potion">
   <set name="target" val="TARGET_NONE"/>
