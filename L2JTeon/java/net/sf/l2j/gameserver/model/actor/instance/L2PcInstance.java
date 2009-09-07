@@ -1622,6 +1622,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	    }
 	}
 	getWorldRegion().revalidateZones(this);
+    	
+        if (Config.ALLOW_WATER)
+            checkWaterState();
 	if (isInsideZone(ZONE_SIEGE))
 	{
 	    if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
@@ -1673,6 +1676,19 @@ public final class L2PcInstance extends L2PlayableInstance
 	    sendPacket(cz);
 	}
     }
+	public boolean dismount()
+	{
+	    if (setMountType(0))
+	    {
+	        if (isFlying()) 
+	            removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+	        Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
+	        broadcastPacket(dismount);
+	        setMountObjectID(0);
+	        return true;
+	    }
+        return false;
+	}
 
     /**
      * Return true if the L2PcInstance can Craft Dwarven Recipes.<BR>
@@ -10737,7 +10753,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
 	if (!isDead() && (_taskWater == null))
 	{
-	    int timeinwater = 86000;
+	    int timeinwater = (int)calcStat(Stats.BREATH, 60000, this, null);
 	    sendPacket(new SetupGauge(2, timeinwater));
 	    _taskWater = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new WaterTask(), timeinwater, 1000);
 	}
@@ -10754,16 +10770,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void checkWaterState()
     {
-	// checking if char is over base level of water (sea, rivers)
-	if (getZ() > -3793)
-	{
+		if (isInsideZone(ZONE_WATER))
+			startWaterTask();
+		else 
 	    stopWaterTask();
-	    return;
-	}
-	if (isInsideZone(ZONE_WATER))
-	{
-	    startWaterTask();
-	}
     }
 
     public void onPlayerEnter()
@@ -11039,10 +11049,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	if (Config.PLAYER_SPAWN_PROTECTION > 0)
 	{
 	    setProtection(true);
-	}
-	if (Config.ALLOW_WATER)
-	{
-	    checkWaterState();
 	}
 	// Modify the position of the tamed beast if necessary (normal pets are
 	// handled by super...though

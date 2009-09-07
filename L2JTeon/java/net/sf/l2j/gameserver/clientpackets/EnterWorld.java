@@ -360,10 +360,6 @@ public class EnterWorld extends L2GameClientPacket
 	{
 	    sendPacket(new Die(activeChar));
 	}
-	if (Config.ALLOW_WATER)
-	{
-	    activeChar.checkWaterState();
-	}
 	if ((Hero.getInstance().getHeroes() != null) && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
 	{
 	    activeChar.setHero(true);

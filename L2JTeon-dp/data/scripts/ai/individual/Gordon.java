@@ -17,9 +17,9 @@ package ai.individual;
 import java.util.Collection;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import ai.group_template.L2AttackableAIScript;
@@ -173,6 +173,7 @@ public class Gordon extends L2AttackableAIScript
 		        	_npcBlock++;
 		            if (_npcBlock > 2)
 		            {
+		              npc.teleToLocation(X, Y, Z);
 		              return super.onAdvEvent(event, npc, player);
 		            }
 		            if (_npcBlock > 0)

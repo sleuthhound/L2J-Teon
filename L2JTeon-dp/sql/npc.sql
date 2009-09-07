@@ -6663,3 +6663,6 @@ UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31364';
 UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31365';
 UPDATE `npc` SET `runspd` = '50', `walkspd` = '50' WHERE `id` = '32070';
 UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12' WHERE `id` = '32072';
+
+
+UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` IN (13001,29055,31385,31540,32109);

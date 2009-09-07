@@ -1,14 +1,29 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package ai.individual;
 
 import java.util.List;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
-import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
@@ -17,6 +32,11 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.util.Rnd;
 import ai.group_template.L2AttackableAIScript;
 
+/**
+ * Queen Ant AI
+ * @author Emperorc
+ *
+ */
 public class QueenAnt extends L2AttackableAIScript
 {
 	
@@ -85,21 +105,23 @@ public class QueenAnt extends L2AttackableAIScript
         startQuestTimer("action",10000, npc, null, true);
         npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
         //Spawn minions
-        addSpawn(LARVA,-21600,179482,-5846,Rnd.get(360),false,0);
-        addSpawn(NURSE,-22000,179482,-5846,0,false,0);
-        addSpawn(NURSE,-21200,179482,-5846,0,false,0);
+        addSpawn(LARVA,-21600,179482,-5846,Rnd.get(360),false,0).setIsRaidMinion(true);
+        addSpawn(NURSE,-22000,179482,-5846,0,false,0).setIsRaidMinion(true);
+        addSpawn(NURSE,-21200,179482,-5846,0,false,0).setIsRaidMinion(true);
         int radius = 400;
         for (int i=0;i<6;i++)
         {
             int x = (int) (radius*Math.cos(i*1.407)); //1.407~2pi/6
             int y = (int) (radius*Math.sin(i*1.407));
-            addSpawn(NURSE,npc.getX()+x,npc.getY()+y,npc.getZ(),0,false,0);
+            addSpawn(NURSE,npc.getX()+x,npc.getY()+y,npc.getZ(),0,false,0).setIsRaidMinion(true);
         }
         for (int i=0;i<8;i++)
         {
             int x = (int) (radius*Math.cos(i*.7854)); //.7854~2pi/8
             int y = (int) (radius*Math.sin(i*.7854));
-            _Minions.add((L2Attackable) addSpawn(ROYAL,npc.getX()+x,npc.getY()+y,npc.getZ(),0,false,0));
+            L2NpcInstance mob = addSpawn(ROYAL,npc.getX()+x,npc.getY()+y,npc.getZ(),0,false,0);
+            mob.setIsRaidMinion(true);
+            _Minions.add((L2Attackable)mob);
         }
         startQuestTimer("check_royal__Zone",120000,npc,null,true);
     }
@@ -151,11 +173,13 @@ public class QueenAnt extends L2AttackableAIScript
         }
         else if (event.equalsIgnoreCase("spawn_royal"))
         {
-            _Minions.add((L2Attackable) addSpawn(ROYAL,npc.getX(),npc.getY(),npc.getZ(),0,false,0));
+            L2NpcInstance mob = addSpawn(ROYAL,npc.getX(),npc.getY(),npc.getZ(),0,false,0);
+            mob.setIsRaidMinion(true);
+            _Minions.add((L2Attackable)mob);
         }
         else if (event.equalsIgnoreCase("spawn_nurse"))
         {
-            addSpawn(NURSE,npc.getX(),npc.getY(),npc.getZ(),0,false,0);
+            addSpawn(NURSE,npc.getX(),npc.getY(),npc.getZ(),0,false,0).setIsRaidMinion(true);
         }
         return super.onAdvEvent(event, npc, player);
 	}
@@ -211,7 +235,7 @@ public class QueenAnt extends L2AttackableAIScript
             npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
             GrandBossManager.getInstance().setBossStatus(QUEEN,DEAD);
             //time is 36hour	+/- 17hour
-            long respawnTime = ((19 + Rnd.get(35) ) * 3600000);
+            long respawnTime = Config.Interval_Of_QueenAnt_Spawn + Rnd.get(Config.Random_Of_QueenAnt_Spawn);
             startQuestTimer("queen_unlock", respawnTime, null, null);
             cancelQuestTimer("action", npc, null);
             // also save the respawn time so that the info is maintained past reboots
