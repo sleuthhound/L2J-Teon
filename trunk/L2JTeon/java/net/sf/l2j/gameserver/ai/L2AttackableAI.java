@@ -462,8 +462,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					    		for (Quest quest: npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER))
 					    			quest.notifyAggroRangeEnter(npc, targetPlayer, (obj instanceof L2Summon));
 						}
-					}
-					 */
+					}*/
+
 					// TODO: The AI Script ought to handle aggro behaviors in onSee.  Once implemented, aggro behaviors ought
 					// to be removed from here.  (Fulminus)
 					// For each L2Character check if the target is autoattackable

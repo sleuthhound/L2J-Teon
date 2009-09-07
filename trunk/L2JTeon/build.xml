@@ -131,7 +131,6 @@
 				<include name="mysql-connector-java-5.1.5-bin.jar"/>
 				<include name="javolution.jar"/>
 				<include name="mmocore.jar"/>
-				<include name="*.jar"/>
 			</fileset>
 		</copy>
     	
