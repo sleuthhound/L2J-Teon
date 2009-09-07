@@ -211,6 +211,16 @@ public class MasterHandler
 		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Banking());
 		}
 		
+		if(Config.ONLINE_VOICE_COMMAND)
+		{
+		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new OnlinePlayers());
+		}
+		
+		if(Config.ALLOW_TRADEOFF_VOICE_COMMAND)
+		{
+		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new tradeoff());
+		}
+		
 		if(Config.ALLOW_WEDDING)
 		{
 		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Wedding());
