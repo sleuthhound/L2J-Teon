@@ -261,7 +261,7 @@ public final class Config
      * Alternative gaming - allow sub-class addition without quest completion.
      */
     public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
-    
+   
     /** Restore effects on subclass change? */
     public static boolean RESTORE_EFFECTS_ON_SUBCLASS_CHANGE;
     /** Minimum number of player to participate in SevenSigns Festival */

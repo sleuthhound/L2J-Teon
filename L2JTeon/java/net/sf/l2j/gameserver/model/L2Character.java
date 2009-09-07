@@ -132,7 +132,6 @@ import net.sf.l2j.util.Rnd;
  * <BR>
  * <BR>
  *
- *
  * <B><U> Concept of L2CharTemplate</U> :</B><BR>
  * <BR>
  * Each L2Character owns generic and static properties (ex : all Keltir have the

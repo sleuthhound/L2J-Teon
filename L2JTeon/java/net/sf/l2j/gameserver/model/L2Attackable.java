@@ -2902,7 +2902,8 @@ public class L2Attackable extends L2NpcInstance
     @Override
     public boolean isMob()
     {
-	return true; // This means we use MAX_MONSTER_ANIMATION instead of
+	return true; 
+	// This means we use MAX_MONSTER_ANIMATION instead of
 	// MAX_NPC_ANIMATION
     }
 
