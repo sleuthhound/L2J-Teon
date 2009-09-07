@@ -743,3 +743,61 @@ INSERT INTO spawnlist VALUES
 (null,'','1',32008,114661,-70841,-548,0,0,0,60,0,0),
 (null,'','1',32028,112801,-76510,85,0,0,0,60,0,0);
 
+
+
+
+DELETE FROM npc WHERE id = 29065;
+INSERT INTO `npc` VALUES
+(29065,29065,'Sailren',0,'Sealed Evil Power',0,'Monster3.sailren',100,82,80,'male','L2RaidBoss',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,'NULL',0,0,12,'LAST_HIT');
+
+
+insert  into npc values 
+('10', 30391, 'Buffer v1', 1, 'Interlude Project', 1, 'NPC.a_common_peopleB_FHuman', '8.00', '20.50', '70', 'female', 'L2Buff', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '55', '132', '', '0', 1, '0', 'LAST_HIT');
+
+
+
+DELETE FROM npc WHERE id = 22125;
+DELETE FROM npc WHERE id = 22127;
+DELETE FROM npc WHERE id = 22132;
+DELETE FROM npc WHERE id = 22133;
+DELETE FROM npc WHERE id = 22134;
+DELETE FROM npc WHERE id = 22135;
+DELETE FROM npc WHERE id = 32008;
+DELETE FROM npc WHERE id = 32028;
+
+insert  into npc values 
+(22125,22125,'Solina Lay Brother',0,'',0,'Monster3.solina_brother',20,25,78,'male','L2Monster',80,4664,2126,13.43,3.09,40,43,30,21,20,10,8326,911,2203,573,1220,485,278,500,333,8212,0,0,88,180,'monastery_clan',400,0,0,'LAST_HIT'),
+(22127,22127,'Silent Brother',0,'',0,'Monster3.solina_father',20,25,78,'male','L2Monster',80,4717,2168,13.43,3.09,40,43,30,21,20,10,8530,944,2695,571,1258,494,278,500,333,8212,0,0,88,180,'monastery_clan',400,0,0,'LAST_HIT'),
+(22132,22132,'Judge of Light',0,'',0,'Monster3.apostle_grail_a',20,43,78,'male','L2Monster',80,4858,2296,13.43,3.09,40,43,30,21,20,10,7432,851,2199,625,1373,521,278,200,333,8220,0,0,40,80,'monastery_clan',400,0,0,'LAST_HIT'),
+(22133,22133,'Guardian of the Grail',0,'',0,'Monster.will_o_wisp',13,22,78,'male','L2Monster',80,4858,2296,13.43,3.09,40,43,30,21,20,10,13888,1670,2199,625,1373,521,278,500,333,0,0,0,40,120,'monastery_clan',400,0,0,'LAST_HIT'),
+(22134,22134,'Guardian of the Holy Land',0,'',0,'Monster3.solina_priest',20,35,78,'male','L2Monster',80,4900,2339,13.43,3.09,40,43,30,21,20,10,9372,1088,2269,635,1413,531,278,0,333,8214,0,0,40,120,'monastery_clan',400,0,0,'LAST_HIT'),
+(22135,22135,'Beholder of Light',0,'',0,'Monster3.apostle_grail',20,43,78,'male','L2Monster',80,4900,2339,13.43,3.09,40,43,30,21,20,10,10160,1192,2269,635,1413,531,278,500,333,8221,0,0,40,120,'monastery_clan',400,0,0,'LAST_HIT'),
+(32008,32008,'Gremory',0,'Priest',0,'NPC.a_temple_master_Mhuman',9.5,24,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,'NULL',0,0,0,'LAST_HIT'),
+(32028,32028,'Holy Grail',0,'',0,'NpcEV.holy_grail',9.5,7,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,'NULL',0,0,0,'LAST_HIT');
+
+DELETE FROM npc WHERE id = 29096;
+DELETE FROM npc WHERE id = 29097;
+DELETE FROM npc WHERE id = 29098;
+
+insert  into npc values 
+('29096', 29096, 'Lord of Splendor Anays', 0, 'Raid Boss', 0, 'Monster3.solina_priest_120p', '18.00', '41.80', '87', 'male', 'L2Monster', 40, '1069643', '3718', '13.43', '3.09', '60', '57', '73', '76', '70', '80', '3526018', '952059', '17006', '24162', '5200', '2112', '409', '500', '3819', '0', '0', '0', '42', '307', 'Anays', '800', 0, '0', 'LAST_HIT'), 
+('29097', 29097, 'Splendor Disciple', 0, 'Raid Fighter', 0, 'Monster3.apostle_grail', '13.00', '47.00', '99', 'male', 'L2Monster', 40, '400000', '9999', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '0', '0', '9000', '5000', '6000', '6000', '300', '0', '333', '0', '0', '0', '88', '132', 'Anays', '800', 0, '0', 'LAST_HIT'), 
+('29098', 29098, 'Splendor Worshiper', 0, 'Raid Fighter', 0, 'Monster3.apostle_grail_a', '13.00', '47.00', '86', 'male', 'L2Monster', 40, '400000', '9999', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '0', '0', '9000', '5000', '6000', '6000', '300', '0', '333', '0', '0', '0', '88', '132', 'Anays', '800', 0, '0', 'LAST_HIT');
+
+
+UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (29020,29021,29022,29065,29069,29070);
+UPDATE `npc` SET `aggro` = 800 WHERE `id` IN (29019,29028);
+UPDATE `npc` SET `hp` = '13090000', `mp` = '39960' WHERE `id` IN (29019);
+UPDATE `npc` SET `hp` = '3698520', `mp` = '39960' WHERE `id` IN (29020);
+UPDATE `npc` SET `hp` = '16660000', `mp` = '39960' WHERE `id` IN (29028);
+UPDATE `npc` SET `mp` = '3793' WHERE `id` IN (29006,29014);
+UPDATE `npc` SET `level` = '78' WHERE `id` IN (29070);
+UPDATE `npc` SET `collision_radius` = '38.00', `collision_height` = '77.00' WHERE `id` IN (29108);
+UPDATE `npc` SET `collision_radius` = '0.10', `collision_height` = '0.10' WHERE `id` IN (29109);
+UPDATE `npc` SET `hp` = '1532678', `mp` = '4255', `type` = 'L2GrandBoss', `level` = '87' WHERE `id` IN (29065);
+UPDATE `npc` SET `faction_id` = 'antharas_clan', `faction_range` = '1000' WHERE `id` IN (29019,29069,29070);
+UPDATE `npc` SET `faction_id` = 'baium_clan', `faction_range` = '1000' WHERE `id` IN (29020,29021);
+
+
+-- Update Npc 
+Update npc set `type` = 'L2Npc' Where idTemplate = 13001;

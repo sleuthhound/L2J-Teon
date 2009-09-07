@@ -18,8 +18,8 @@
  */
 package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -65,7 +65,7 @@ public class Mount implements IUserCommandHandler
 		// A pet cannot be ridden while player is in battle.
 		SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
 		activeChar.sendPacket(msg);
-	    } else if (activeChar.isSitting() || activeChar.isMoving())
+	    } else if (activeChar.isSitting() || activeChar.isMoving() || activeChar.isInsideZone(L2Character.ZONE_WATER))
 	    {
 		// A strider can be ridden only when player is standing.
 		SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING);
@@ -85,15 +85,7 @@ public class Mount implements IUserCommandHandler
 	    activeChar.stopRentPet();
 	} else if (activeChar.isMounted())
 	{
-	    // Dismount
-	    if (activeChar.setMountType(0))
-	    {
-		if (activeChar.isFlying())
-		    activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-		Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
-		Broadcast.toSelfAndKnownPlayers(activeChar, dismount);
-		activeChar.setMountObjectID(0);
-	    }
+        	activeChar.dismount();
 	}
 	return true;
     }

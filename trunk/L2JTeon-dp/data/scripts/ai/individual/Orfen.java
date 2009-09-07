@@ -1,18 +1,33 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package ai.individual;
 
 import java.util.List;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
-import net.sf.l2j.gameserver.model.L2Attackable;
-import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
+import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
 import net.sf.l2j.gameserver.serverpackets.NpcSay;
@@ -21,38 +36,21 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.util.Rnd;
 import ai.group_template.L2AttackableAIScript;
 
+/**
+ * Orfen AI
+ * @author Emperorc
+ *
+ */
 public class Orfen extends L2AttackableAIScript
 {
 
-	        private static final int[][] Pos = { 
+	private static final int[][] Pos = {{43728,17220,-4342},
+		{55024,17368,-5412},{53504,21248,-5486},{53248,24576,-5262}};
 
-	                {43728,17220,-4342}, 
-
-	                {55024,17368,-5412}, 
-
-	                {53504,21248,-5486}, 
-
-	                {53248,24576,-5262}}; 
-
-	 
-
-	        private static final String[] Text = {
-
-	                "PLAYERNAME, stop kidding yourthis about your own powerlessness!",
-
-	                "PLAYERNAME, I'll make you feel what true fear is!",
-
-	                "You're really stupid to have challenged me. PLAYERNAME! Get ready!",
-
-	                "PLAYERNAME, do you think that's going to work?!"};
-
-	// private static final int[][] Pos = {{43728,17220,-4342},
-		// {55024,17368,-5412},{53504,21248,-5486},{53248,24576,-5262}};
-
-	// private static final String[] Text = {"PLAYERNAME, stop kidding yourthis about your own powerlessness!",
-	        // "PLAYERNAME, I’ll make you feel what true fear is!",
-	        // "You’re really stupid to have challenged me. PLAYERNAME! Get ready!",
-	        // "PLAYERNAME, do you think that’s going to work?!"};
+	private static final String[] Text = {"PLAYERNAME, stop kidding yourthis about your own powerlessness!",
+	        "PLAYERNAME, I’ll make you feel what true fear is!",
+	        "You’re really stupid to have challenged me. PLAYERNAME! Get ready!",
+	        "PLAYERNAME, do you think that’s going to work?!"};
 
 	private static final int ORFEN = 29014;
 	//private static final int RAIKEL = 29015;
@@ -128,7 +126,7 @@ public class Orfen extends L2AttackableAIScript
         }
 	}
         
-    public void setSpawnPoint(L2NpcInstance npc, int index)
+    public void setSpawnPoint(L2NpcInstance npc,int index)
     {
     	((L2Attackable) npc).clearAggroList();
         npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
@@ -148,10 +146,19 @@ public class Orfen extends L2AttackableAIScript
         //Spawn minions
         int x = npc.getX();
         int y = npc.getY();
-        _Minions.add((L2Attackable) addSpawn(RAIKEL_LEOS,x+100,y+100,npc.getZ(),0,false,0));
-        _Minions.add((L2Attackable) addSpawn(RAIKEL_LEOS,x+100,y-100,npc.getZ(),0,false,0));
-        _Minions.add((L2Attackable) addSpawn(RAIKEL_LEOS,x-100,y+100,npc.getZ(),0,false,0));
-        _Minions.add((L2Attackable) addSpawn(RAIKEL_LEOS,x-100,y-100,npc.getZ(),0,false,0));
+        L2NpcInstance mob;
+        mob = addSpawn(RAIKEL_LEOS,x+100,y+100,npc.getZ(),0,false,0);
+        mob.setIsRaidMinion(true);
+        _Minions.add((L2Attackable) mob);
+        mob = addSpawn(RAIKEL_LEOS,x+100,y-100,npc.getZ(),0,false,0);
+        mob.setIsRaidMinion(true);
+        _Minions.add((L2Attackable) mob);
+        mob = addSpawn(RAIKEL_LEOS,x-100,y+100,npc.getZ(),0,false,0);
+        mob.setIsRaidMinion(true);
+        _Minions.add((L2Attackable) mob);
+        mob = addSpawn(RAIKEL_LEOS,x-100,y-100,npc.getZ(),0,false,0);
+        mob.setIsRaidMinion(true);
+        _Minions.add((L2Attackable) mob);
         this.startQuestTimer("check_minion_loc",10000,npc,null,true);
     }
 
@@ -219,7 +226,11 @@ public class Orfen extends L2AttackableAIScript
             _Minions.clear();
         }
         else if (event.equalsIgnoreCase("spawn_minion"))
-            _Minions.add((L2Attackable) addSpawn(RAIKEL_LEOS,npc.getX(),npc.getY(),npc.getZ(),0,false,0));
+        {
+        	L2NpcInstance mob = addSpawn(RAIKEL_LEOS,npc.getX(),npc.getY(),npc.getZ(),0,false,0);
+        	mob.setIsRaidMinion(true);
+            _Minions.add((L2Attackable) mob);
+        }
         return super.onAdvEvent(event, npc, player);
 	}
 
@@ -301,7 +312,7 @@ public class Orfen extends L2AttackableAIScript
             npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
             GrandBossManager.getInstance().setBossStatus(ORFEN,DEAD);
             //time is 48hour	+/- 20hour
-            long respawnTime = (28 + Rnd.get(41) * 3600000);
+            long respawnTime = Config.Interval_Of_Orfen_Spawn + Rnd.get(Config.Random_Of_Orfen_Spawn);
             this.startQuestTimer("orfen_unlock", respawnTime, null, null);
             // also save the respawn time so that the info is maintained past reboots
             StatsSet info = GrandBossManager.getInstance().getStatsSet(ORFEN);

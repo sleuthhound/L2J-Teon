@@ -1,12 +1,27 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package ai.individual;
 
 import java.util.List;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
-import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.NpcSay;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
@@ -14,6 +29,11 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.util.Rnd;
 import ai.group_template.L2AttackableAIScript;
 
+/**
+ * Core AI
+ * @author DrLecter
+ * Revised By Emperorc
+ */
 public class Core extends L2AttackableAIScript
 {
 	private static final int CORE = 29006;
@@ -47,6 +67,8 @@ public class Core extends L2AttackableAIScript
         {
             // load the unlock date and time for Core from DB
             long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
+            // if Core is locked until a certain time, mark it so and start the unlock timer
+            // the unlock time has not yet expired.
             if (temp > 0)
                 startQuestTimer("core_unlock", temp, null, null);
             else
@@ -64,7 +86,7 @@ public class Core extends L2AttackableAIScript
                 _FirstAttacked = true;
             int loc_x = info.getInteger("loc_x");
             int loc_y = info.getInteger("loc_y");
-            int loc_z = info.getInteger("loc_z");
+            int loc_z = -6480;
             int heading = info.getInteger("heading");
             int hp = info.getInteger("currentHP");
             int mp = info.getInteger("currentMP");
@@ -85,18 +107,27 @@ public class Core extends L2AttackableAIScript
         GrandBossManager.getInstance().addBoss(npc);
         npc.broadcastPacket(new PlaySound(1, "BS01_A", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
         //Spawn minions
+        L2NpcInstance mob;
         for (int i=0;i<5;i++)
         {
             int x = 16800 + i*360;
-            Minions.add((L2Attackable) addSpawn(DEATH_KNIGHT,x,110000,npc.getZ(),280+Rnd.get(40),false,0));
-            Minions.add((L2Attackable) addSpawn(DEATH_KNIGHT,x,109000,npc.getZ(),280+Rnd.get(40),false,0));
+            mob = addSpawn(DEATH_KNIGHT,x,110000,npc.getZ(),280+Rnd.get(40),false,0);
+            mob.setIsRaidMinion(true);
+            Minions.add((L2Attackable)mob);
+            mob = addSpawn(DEATH_KNIGHT,x,109000,npc.getZ(),280+Rnd.get(40),false,0);
+            mob.setIsRaidMinion(true);
+            Minions.add((L2Attackable)mob);
         	int x2 = 16800 + i*600;
-            Minions.add((L2Attackable) addSpawn(DOOM_WRAITH,x2,109300,npc.getZ(),280+Rnd.get(40),false,0));
+        	mob = addSpawn(DOOM_WRAITH,x2,109300,npc.getZ(),280+Rnd.get(40),false,0);
+        	mob.setIsRaidMinion(true);
+            Minions.add((L2Attackable)mob);
         }
         for (int i=0;i<4;i++)
         {
             int x = 16800 + i*450;
-            Minions.add((L2Attackable) addSpawn(SUSCEPTOR,x,110300,npc.getZ(),280+Rnd.get(40),false,0));
+            mob = addSpawn(SUSCEPTOR,x,110300,npc.getZ(),280+Rnd.get(40),false,0);
+            mob.setIsRaidMinion(true);
+            Minions.add((L2Attackable)mob);
         }
     }
 
@@ -109,7 +140,11 @@ public class Core extends L2AttackableAIScript
             spawnBoss(core);
         }
         else if (event.equalsIgnoreCase("spawn_minion"))
-            Minions.add((L2Attackable) addSpawn(npc.getNpcId(),npc.getX(),npc.getY(),npc.getZ(),npc.getHeading(),false,0));
+        {
+        	L2NpcInstance mob = addSpawn(npc.getNpcId(),npc.getX(),npc.getY(),npc.getZ(),npc.getHeading(),false,0);
+        	mob.setIsRaidMinion(true);
+            Minions.add((L2Attackable)mob);
+        }
         else if (event.equalsIgnoreCase("despawn_minions"))
         {
             for (int i = 0;i<Minions.size();i++)
@@ -157,7 +192,7 @@ public class Core extends L2AttackableAIScript
             addSpawn(31842,18948,110166,-6397,0,false,900000);
             GrandBossManager.getInstance().setBossStatus(CORE,DEAD);
             //time is 60hour	+/- 23hour
-            long respawnTime = (27 + Rnd.get(47)) * 3600000;
+            long respawnTime = Config.Interval_Of_Core_Spawn + Rnd.get(Config.Random_Of_Core_Spawn);
             startQuestTimer("core_unlock", respawnTime, null, null);
             // also save the respawn time so that the info is maintained past reboots
             StatsSet info = GrandBossManager.getInstance().getStatsSet(CORE);
@@ -166,7 +201,7 @@ public class Core extends L2AttackableAIScript
             this.startQuestTimer("despawn_minions",20000,null,null);
             this.cancelQuestTimers("spawn_minion");
         }
-        else if (GrandBossManager.getInstance().getBossStatus(CORE) == ALIVE && Minions.contains(npc))
+        else if (GrandBossManager.getInstance().getBossStatus(CORE) == ALIVE && Minions != null && Minions.contains(npc))
         {
             Minions.remove(npc);
             startQuestTimer("spawn_minion",60000,npc,null);

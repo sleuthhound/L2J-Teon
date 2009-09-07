@@ -603,11 +603,13 @@ public class CharStat
 	    val += Config.STRIDER_SPEED;
 	    return val;
 	}
+                // if (_activeChar.isInsideZone(L2Character.ZONE_WATER)) val /= 2;
+                // TODO: base speed must be 80 (without buffs/passive skills) ;)
+                if (_activeChar instanceof L2PlayableInstance && _activeChar.isInsideZone(L2Character.ZONE_WATER))
+                        val /= 2;
 
-		if (_activeChar instanceof L2PlayableInstance 
-				&& _activeChar.isInsideZone(L2Character.ZONE_WATER)
-				&& _activeChar.isInsideZone(L2Character.ZONE_SWAMP))
-			val /= 2;
+                // TODO: get value from zone ;)
+                if (_activeChar instanceof L2PlayableInstance && _activeChar.isInsideZone(L2Character.ZONE_SWAMP))
 
 		val /= _activeChar.getArmourExpertisePenalty();
 		
