@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<project name="L2JOneo_Datapack" default="dist" basedir=".">
+<project name="L2JTeon_Datapack" default="dist" basedir=".">
   <description>
-        This script will build the L2JOneo_Datapack.
+        This script will build the L2JTeon_Datapack.
         
         $Author: DrLecter $
         $Date: 2007-11-19 16:57:12 -0300 (mo, 19 nov 2007) $
@@ -139,6 +139,6 @@
   <target name="distclean" 
       description="Deletes the datapack distribution ZIP file only, preserving synchronized build files.">
     <delete file="${build}/L2JTeon_DataPack.zip"/>
-      <delete file="${build}/L2JOneo_DataPack-nocompress.zip"/>
+      <delete file="${build}/L2JTeon_DataPack-nocompress.zip"/>
     </target>
 </project>

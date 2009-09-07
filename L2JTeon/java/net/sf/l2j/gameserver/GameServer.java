@@ -185,15 +185,19 @@ public class GameServer
 	_log.finest("used mem:" + getUsedMemoryMB() + "MB");
 	//Teon packet mapping
 	TeonPacketHandler.getInstance();
+        Util.printSection("Database");
+	L2DatabaseFactory.getInstance();
 	_idFactory = IdFactory.getInstance();
 	_threadpools = ThreadPoolManager.getInstance();
 	new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
 	new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
+	Util.printSection("World");
+	L2World.getInstance();
 	// load script engines
 	L2ScriptEngineManager.getInstance();
 	// start game time control early
 	GameTimeController.getInstance();
-        Util.printSection("Database");
+	PcColorTable.getInstance();
 	// keep the references of Singletons to prevent garbage collection
 	CharNameTable.getInstance();
 	if (!_idFactory.isInitialized())
@@ -201,15 +205,8 @@ public class GameServer
 	    _log.severe("Could not read object IDs from DB. Please Check Your Data.");
 	    throw new Exception("Could not initialize the ID factory");
 	}
-	_itemTable = ItemTable.getInstance();
-	if (!_itemTable.isInitialized())
-	{
-	    _log.severe("Could not find the extraced files. Please Check Your Data.");
-	    throw new Exception("Could not initialize the item table");
-	}
-	ExtractableItemsData.getInstance();
-	SummonItemsData.getInstance();
-	TradeController.getInstance();
+	CharTemplateTable.getInstance();
+        Util.printSection("Skills");
 	_skillTable = SkillTable.getInstance();
 	if (!_skillTable.isInitialized())
 	{
@@ -220,31 +217,32 @@ public class GameServer
     {
     	NpcWalkerRoutesTable.getInstance().load();
     }
-	RecipeController.getInstance();
-        Util.printSection("Skill Trees");
 	SkillTreeTable.getInstance();
-	ArmorSetsTable.getInstance();
-	FishTable.getInstance();
 	SkillSpellbookTable.getInstance();
-	CharTemplateTable.getInstance();
 	NobleSkillTable.getInstance();
 	HeroSkillTable.getInstance();
-	PcColorTable.getInstance();
-	Util.printSection("Cache");
-	// Call to load caches
-	ChatFilterCache.getInstance();
-	HtmCache.getInstance();
-	CrestCache.getInstance();
-	ClanTable.getInstance();
-	MapRegionTable.getInstance();
-	SpawnTable.getInstance();
-	GmListTable.getInstance();
-	_npcTable = NpcTable.getInstance();
-	if (!_npcTable.isInitialized())
+	NpcBufferSkillIdsTable.getInstance();
+	Util.printSection("Trade Controller");
+	TradeController.getInstance();
+        /** NPC Buffer by House */
+        if (Config.NPCBUFFER_FEATURE_ENABLED)
+	Util.printSection("Npc Buffer");
+        {
+        	BufferSkillsTable.getInstance();
+        	CharSchemesTable.getInstance();
+        }
+	Util.printSection("Items");
+	_itemTable = ItemTable.getInstance();
+	if (!_itemTable.isInitialized())
 	{
 	    _log.severe("Could not find the extraced files. Please Check Your Data.");
-	    throw new Exception("Could not initialize the npc table");
+	    throw new Exception("Could not initialize the item table");
 	}
+	ExtractableItemsData.getInstance();
+	SummonItemsData.getInstance();
+	ArmorSetsTable.getInstance();
+	FishTable.getInstance();
+	Util.printSection("Henna");
 	_hennaTable = HennaTable.getInstance();
 	if (!_hennaTable.isInitialized())
 	{
@@ -255,6 +253,31 @@ public class GameServer
 	{
 	    throw new Exception("Could not initialize the Henna Tree Table");
 	}
+	Util.printSection("Npc");
+	_npcTable = NpcTable.getInstance();
+	if (!_npcTable.isInitialized())
+	{
+	    _log.severe("Could not find the extraced files. Please Check Your Data.");
+	    throw new Exception("Could not initialize the npc table");
+	}
+	Util.printSection("Spawnlist");
+	SpawnTable.getInstance();
+	RaidBossSpawnManager.getInstance();
+	DayNightSpawnManager.getInstance().notifyChangeMode();
+	Util.printSection("Zones");
+	ZoneManager.getInstance();
+	MapRegionTable.getInstance();
+	Util.printSection("Recipes");
+	RecipeController.getInstance();
+	Util.printSection("Cache");
+	// Call to load caches
+	ChatFilterCache.getInstance();
+	HtmCache.getInstance();
+	CrestCache.getInstance();
+
+
+	ClanTable.getInstance();
+	GmListTable.getInstance();
 	_helperBuffTable = HelperBuffTable.getInstance();
 	/**
 	 * NPCBUFFER: Import Table for NpcBuffer Core Side Buffer
@@ -271,30 +294,28 @@ public class GameServer
 	{
 	    GeoPathFinding.getInstance();
 	}
-        Util.printSection("Instances Managers");
+        Util.printSection("Castle Sieges Fortress Sieges");
+	CastleManager.getInstance();
+	SiegeManager.getInstance();
+	FortManager.getInstance();
+	FortSiegeManager.getInstance();
 	// Load clan hall data before zone data
 	_cHManager = ClanHallManager.getInstance();
-	CastleManager.getInstance();
-	FortManager.getInstance();
-	SiegeManager.getInstance();
-	FortSiegeManager.getInstance();
 	TeleportLocationTable.getInstance();
 	LevelUpData.getInstance();
-	L2World.getInstance();
-	ZoneManager.getInstance();
-	DayNightSpawnManager.getInstance().notifyChangeMode();
+        Util.printSection("RaidBosses GrandBosses");
 	GrandBossManager.getInstance();
-	RaidBossSpawnManager.getInstance();
         RaidBossPointsManager.init();
 	DimensionalRiftManager.getInstance();
 	Announcements.getInstance();
 	EventDroplist.getInstance();
 	/** Load Manor data */
+        Util.printSection("Manor");
 	L2Manor.getInstance();
+	CastleManorManager.getInstance();
 	/** Load Manager */
 	AuctionManager.getInstance();
 	BoatManager.getInstance();
-	CastleManorManager.getInstance();
 	MercTicketManager.getInstance();
 	// PartyCommandManager.getInstance();
 	PetitionManager.getInstance();
@@ -302,20 +323,20 @@ public class GameServer
 	CursedWeaponsManager.getInstance();
 	FourSepulchersManager.getInstance().init();
         Util.printSection("Quests - Scripts");
-		QuestManager.getInstance();
+	QuestManager.getInstance();
 		
-		try
-		{
+	try
+	{
 			_log.info("Loading Server Scripts");
 			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
 			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
-		}
-		catch (IOException ioe)
-		{
+	}
+	catch (IOException ioe)
+	{
 			_log.severe("Failed loading scripts.cfg, no script going to be loaded");
-		}
-		try
-		{
+	}
+	try
+	{
 			CompiledScriptCache compiledScriptCache = L2ScriptEngineManager.getInstance().getCompiledScriptCache();
 			if (compiledScriptCache == null)
 			{
@@ -363,16 +384,16 @@ public class GameServer
 	    // initialized");
 	}
 	MonsterRace.getInstance();
-	_doorTable = DoorTable.getInstance();
-	_doorTable.parseData();
 	StaticObjects.getInstance();
+	Util.printSection("Seven Signs Festival");
 	_sevenSignsEngine = SevenSigns.getInstance();
 	SevenSignsFestival.getInstance();
+	// Spawn the Orators/Preachers if in the Seal Validation period.
+	_sevenSignsEngine.spawnSevenSignsNPC();
 	_autoSpawnHandler = AutoSpawnHandler.getInstance();
 	_autoChatHandler = AutoChatHandler.getInstance();
 	_autoAnnouncementHandler = AutoAnnouncementHandler.getInstance();
-	// Spawn the Orators/Preachers if in the Seal Validation period.
-	_sevenSignsEngine.spawnSevenSignsNPC();
+	Util.printSection("Olympiad");
 	Olympiad.getInstance();
 	Hero.getInstance();
 	FaenorScriptEngine.getInstance();
@@ -386,14 +407,19 @@ public class GameServer
 	UserCommandHandler.getInstance();
 	VoicedCommandHandler.getInstance();
 	MasterHandler.load();
+	_log.info("AutoChatHandler : Loaded " + _autoChatHandler.size() + " handlers in total.");
+	_log.info("AutoSpawnHandler : Loaded " + _autoSpawnHandler.size() + " handlers in total.");
 	AutoAnnouncementHandler.getInstance();
 	// read pet stats from db
 	L2PetDataTable.getInstance().loadPetsData();
 	Universe.getInstance();
 	if (Config.ACCEPT_GEOEDITOR_CONN)
-	    GeoEditorListener.getInstance();
+	GeoEditorListener.getInstance();
 	_shutdownHandler = Shutdown.getInstance();
 	Runtime.getRuntime().addShutdownHook(_shutdownHandler);
+	Util.printSection("Doors");
+	_doorTable = DoorTable.getInstance();
+	_doorTable.parseData();
 	try
 	{
 	    _doorTable.getDoor(24190001).openMe();
@@ -415,7 +441,9 @@ public class GameServer
 		e.printStackTrace();
 	    }
 	}
+    	Util.printSection("Game Server");
 	ForumsBBSManager.getInstance();
+	System.gc();
 	_log.config("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 	// initialize the dynamic extension loader
 	try
@@ -426,14 +454,7 @@ public class GameServer
 	    _log.log(Level.WARNING, "DynamicExtension could not be loaded and initialized", ex);
 	}
 	FloodProtector.getInstance();
-        /** NPC Buffer by House */
-        if (Config.NPCBUFFER_FEATURE_ENABLED)
-        {
-        	BufferSkillsTable.getInstance();
-        	CharSchemesTable.getInstance();
-        }
 	L2Manor.getInstance();
-	System.gc();
 	// maxMemory is the upper limit the jvm can use, totalMemory the size of
 	// the current allocation pool, freeMemory the unused memory in the
 	// allocation pool
@@ -469,6 +490,7 @@ public class GameServer
 	{
 	    OnlinePlayers.getInstance();
 	}
+	Util.printSection("L2JTeon EventManager");
 	L2JTeonEventManager.getInstance();
 	if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 	{
@@ -500,7 +522,6 @@ public class GameServer
 	Util.printSection("Configs");
 	// Initialize config
 	Config.load();
-	L2DatabaseFactory.getInstance();
 	gameServer = new GameServer();
 	if (Config.IS_TELNET_ENABLED)
 	{
