@@ -568,7 +568,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	if ((_actor instanceof L2MinionInstance) && (((L2MinionInstance) _actor).getLeader() != null))
 	{
 	    int offset;
-	    if (_actor.isRaid())
+	    if (_actor.isRaidMinion())
 	    {
 		offset = 500; // for Raids - need correction
 	    } else

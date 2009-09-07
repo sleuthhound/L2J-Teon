@@ -178,12 +178,13 @@ public abstract class L2Character extends L2Object
     // out
     private boolean _isImmobileUntilAttacked = false;
     private boolean _isBetrayed = false; // Betrayed by own summon
-    protected boolean _showSummonAnimation = false;
     private boolean _buffImmunity = false; // Immunity to buff/debuffs
+    protected boolean _showSummonAnimation = false;
     protected boolean _isTeleporting = false;
     private L2Character _lastBuffer = null;
     protected boolean _isInvul = false;
     private boolean _AIdisabled = false;
+    private boolean _isMinion = false;
     private int _lastHealAmount = 0;
     private CharStat _stat;
     private CharStatus _status;
@@ -2016,9 +2017,9 @@ public abstract class L2Character extends L2Object
     /** Return true if the L2Character is RaidBoss or his minion. */
     public boolean isRaid()
     {
-		return _isRaid;
-	}
-	
+        return _isRaid  ;
+    }
+
 	/**
 	 * Set this Npc as a Raid instance.<BR><BR>
 	 * @param isRaid
@@ -6503,16 +6504,6 @@ public abstract class L2Character extends L2Object
     }
 
     /**
-    public boolean isShowSummonAnimation()
-    {
-	return _showSummonAnimation;
-    }
-    public void setShowSummonAnimation(boolean showSummonAnimation)
-    {
-	 _showSummonAnimation = showSummonAnimation;
-    }
-
-    /**
      * Return the L2Party object of the L2Character.<BR>
      * <BR>
      */
@@ -8154,5 +8145,35 @@ public abstract class L2Character extends L2Object
     public boolean isCoreAIDisabled()
     {
     	return _AIdisabled;
+    }
+    public boolean isRaidMinion()
+    {
+        return _isMinion ;
+    }
+    
+    /**
+     * Set this Npc as a Minion instance.<BR><BR>
+     * @param val
+     */
+    public void setIsRaidMinion(boolean val)
+    {
+    	_isRaid = val;
+    	_isMinion = val;
+    }
+
+    /**
+     * @return Returns the showSummonAnimation.
+     */
+    public boolean isShowSummonAnimation()
+    {
+        return _showSummonAnimation;
+    }
+
+    /**
+     * @param showSummonAnimation The showSummonAnimation to set.
+     */
+    public void setShowSummonAnimation(boolean showSummonAnimation)
+    {
+        _showSummonAnimation = showSummonAnimation;
     }
 }

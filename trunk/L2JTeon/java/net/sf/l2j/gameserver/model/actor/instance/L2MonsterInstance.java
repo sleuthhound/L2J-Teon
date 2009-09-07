@@ -194,47 +194,39 @@ public class L2MonsterInstance extends L2Attackable
 
     public void callMinionsToAssist(L2Character attacker)
     {
-	if (_minionList.hasMinions())
-	{
-	    List<L2MinionInstance> spawnedMinions = _minionList.getSpawnedMinions();
-	    if ((spawnedMinions != null) && (spawnedMinions.size() > 0))
-	    {
-		Iterator<L2MinionInstance> itr = spawnedMinions.iterator();
-		L2MinionInstance minion;
-		while (itr.hasNext())
-		{
-		    minion = itr.next();
-		    // Trigger the aggro condition of the minion
-		    if ((minion != null) && !minion.isDead())
-		    {
-			if (this instanceof L2RaidBossInstance)
-			{
-			    minion.addDamage(attacker, 100);
-			} else
-			{
-			    minion.addDamage(attacker, 1);
-			}
-		    }
-		}
-	    }
-	}
+        if (_minionList.hasMinions())
+        {
+            List<L2MinionInstance> spawnedMinions = _minionList.getSpawnedMinions();
+            if (spawnedMinions != null && spawnedMinions.size() > 0)
+            {
+                Iterator<L2MinionInstance> itr = spawnedMinions.iterator();
+                L2MinionInstance minion;
+                while (itr.hasNext())
+                {
+                    minion = itr.next();
+                    // Trigger the aggro condition of the minion
+                    if (minion != null && !minion.isDead())
+                    {
+                        if(isRaid()&&!isRaidMinion())
+                        	minion.addDamage(attacker, 100);
+                        else minion.addDamage(attacker, 1);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public boolean doDie(L2Character killer)
     {
-	if (!super.doDie(killer))
-	{
-	    return false;
-	}
-	if (_minionMaintainTask != null)
-	{
-	    _minionMaintainTask.cancel(true); // doesn't do it?
-	}
-	if (this instanceof L2RaidBossInstance)
-	{
-	    deleteSpawnedMinions();
-	}
+        if (!super.doDie(killer))
+	return false;
+
+        if (_minionMaintainTask != null)
+            _minionMaintainTask.cancel(true); // doesn't do it?
+
+        if (isRaid() && !isRaidMinion())
+        	deleteSpawnedMinions();
 	return true;
     }
 
