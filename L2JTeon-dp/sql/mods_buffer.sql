@@ -112,9 +112,3 @@ INSERT INTO `mods_buffer_skills` (`id`, `level`, `skill_group`, `adena`) VALUES
 (4700,13,'Summon',0),
 (4702,13,'Summon',0),
 (4703,13,'Summon',0);
-
-
-
-
-
-
