@@ -1162,7 +1162,6 @@
   <set name="effectRange" val="900"/>
   <for>
     <effect count="1" name="ProtectionBlessing" time="3600" val="0"/>
-  <for>
   </for>
 </skill>
 <skill id="5183" levels="1" name="Production: Dimensional Shock">
