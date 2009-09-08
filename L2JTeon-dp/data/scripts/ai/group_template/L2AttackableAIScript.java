@@ -17,6 +17,7 @@ package ai.group_template;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -120,6 +121,30 @@ public class L2AttackableAIScript extends QuestJython
     			skillAggroPoints = 0;
     	}
     	
+    	if ( attackable.isRaid() && attackable.hasAI() && (attackable.getAI().getIntention() == AI_INTENTION_ATTACK))
+		{
+			if ((skill.getMagicLevel() > caster.getLevel() ? skill.getMagicLevel()-10 : caster.getLevel()-8) > attackable.getLevel())
+	    	{
+		        	if (skill.isMagic())
+					{
+						L2Skill tempSkill = SkillTable.getInstance().getInfo(4215, 1);
+						if(tempSkill != null)
+							tempSkill.getEffects(attackable, caster);
+						else
+							_log.warning("Skill 4215 at level 1 is missing in DP.");
+					}
+					else
+					{
+						L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 1);
+						if(tempSkill != null)
+							tempSkill.getEffects(attackable, caster);
+						else
+							_log.warning("Skill 4515 at level 1 is missing in DP.");
+					}
+	        	return null;
+	    	}
+	}
+
 		if (skillAggroPoints > 0)
 		{
 			if ( attackable.hasAI() && (attackable.getAI().getIntention() == AI_INTENTION_ATTACK))

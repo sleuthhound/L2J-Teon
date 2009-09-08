@@ -762,54 +762,61 @@
   <for>
   </for>
 </skill>
-<skill id="4146" levels="3" name="Decrease M.Def">
-  <!-- NOT USED IN C4 -->
-  <set name="power" val="0.0"/>
+<skill id="4146" levels="3" name="Decrease P. Def">
+  <table name="#pdef"> 0.9 0.85 0.79 </table>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="0x7fffffff" name="DamOverTime" time="1" val="0" stackOrder="#pdef" stackType="pDefDown">
+      <mul order="0x30" stat="pDef" val="#pdef"/>
+    </effect>
   </for>
 </skill>
 <skill id="4147" levels="7" name="Area Dispel">
-  <!-- NOT USED IN C4 -->
-  <set name="power" val="0.0"/>
+  <table name="#dispel"> 66 66 66 66 66 66 66 </table>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="0x7fffffff" name="DamOverTime" time="1" val="#dispel"/>
   </for>
 </skill>
 <skill id="4148" levels="12" name="Poison">
-  <!-- NOT USED IN C4 -->
-  <set name="power" val="0.0"/>
+  <table name="#poison"> 66 66 66 66 66 6 66 66 66 66 66 66 </table>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="0x7fffffff" name="DamOverTime" time="1" val="#poison" abnormal="poison"/>
   </for>
 </skill>
 <skill id="4149" levels="12" name="Bleed">
-  <!-- NOT USED IN C4 -->
-  <set name="power" val="0.0"/>
+  <table name="#bleed"> 66 66 66 66 66 6 66 66 66 66 66 66 </table>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="0x7fffffff" name="DamOverTime" time="1" val="#bleed" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="4150" levels="12" name="Flame">
-  <!-- NOT USED IN C4 -->
-  <set name="power" val="0.0"/>
+  <table name="#flame"> 66 66 66 66 66 6 66 66 66 66 66 66 </table>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="0x7fffffff" name="DamOverTime" time="1" val="#flame" abnormal="flame"/>
   </for>
 </skill>
 <skill id="4151" levels="12" name="NPC Windstrike - Magic">
