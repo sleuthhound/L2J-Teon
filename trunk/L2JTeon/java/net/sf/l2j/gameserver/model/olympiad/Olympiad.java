@@ -508,6 +508,13 @@ public class Olympiad
 	return true;
     }
 
+    public void removeDisconnectedCompetitor(L2PcInstance player) 
+    {
+        if (_manager == null || (_manager.getOlympiadInstance(player.getOlympiadGameId()) == null)) return; 
+        
+        _manager.getOlympiadInstance(player.getOlympiadGameId()).handleDisconnect(player); 
+    }
+    
     private void updateCompStatus()
     {
 	_compStarted = false;
@@ -1042,7 +1049,7 @@ public class Olympiad
 	    // Announcements.getInstance().announceToAll("Comp Match Init");
 	    if (_nobles.size() == 0)
 		return;
-	    _compStarted = true;
+
 	    try
 	    {
 		sortClassBasedOpponents();
@@ -1069,11 +1076,19 @@ public class Olympiad
 		    index++;
 		}
 	    }
+        _compStarted = false; 
 	    if (_olympiadInstances.size() == 0)
-	    {
-		_compStarted = false;
 		return;
-	    }
+	    
+        for (L2OlympiadGame instance : _olympiadInstances.values()) 
+        {
+            if (!instance.isAborted()) 
+                _compStarted = true; 
+        }
+        
+        if (!_compStarted) 
+            return; 
+        	
 	    for (L2OlympiadGame instance : _olympiadInstances.values())
 		instance.sendMessageToPlayers(false, 30);
 	    // Wait 30 seconds
@@ -1138,7 +1153,7 @@ public class Olympiad
 	    {
 		instance.makeCompetitionStart();
 	    }
-	    // Wait 6 mins (Battle)
+	    // Wait 6 minutes (Battle)
 	    try
 	    {
 		wait(BATTLE_PERIOD);
@@ -1284,6 +1299,8 @@ public class Olympiad
     {
 	protected COMP_TYPE _type;
 	private boolean _aborted;
+    private boolean _playerOneDisconnected; 
+    private boolean _playerTwoDisconnected; 
 	private String _playerOneName;
 	private String _playerTwoName;
 	private int _playerOneID = 0;
@@ -1302,6 +1319,8 @@ public class Olympiad
 	protected L2OlympiadGame(int id, COMP_TYPE type, List<L2PcInstance> list, int[] stadiumPort)
 	{
 	    _aborted = false;
+        _playerOneDisconnected = false; 
+        _playerTwoDisconnected = false; 
 	    _type = type;
 	    _stadiumPort = stadiumPort;
 	    _spectators = new FastList<L2PcInstance>();
@@ -1332,12 +1351,37 @@ public class Olympiad
 	    }
 	}
 
+    public boolean isAborted() 
+    { 
+    	return _aborted; 
+    } 
+    
+    protected void clearPlayers() 
+    { 
+    	_playerOne = null; 
+    	_playerTwo = null; 
+    	_players = null; 
+    	_playerOneName = ""; 
+    	_playerTwoName = ""; 
+    	_playerOneID = 0; 
+    	_playerTwoID = 0; 
+    } 
+    
+    protected void handleDisconnect(L2PcInstance player) 
+    { 
+    	if (player == _playerOne) 
+    		_playerOneDisconnected = true; 
+    	else if (player == _playerTwo) 
+    		_playerTwoDisconnected = true; 
+    } 
+ 	
 	protected void removals()
 	{
 	    if (_aborted)
 		return;
 	    if ((_playerOne == null) || (_playerTwo == null))
 		return;
+        if (_playerOneDisconnected  || _playerTwoDisconnected) return; 
 	    for (L2PcInstance player : _players)
 	    {
 		try
@@ -1420,7 +1464,7 @@ public class Olympiad
                     if(!Config.OLYMPIAD_ALLOW_AUTO_SS)    
                     {    
 
-                    	//Remove ss/sps/bsps automation
+                    	//Remove shot automation
                     	Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
                     	for (int itemId : activeSoulShots.values())
                     	{
@@ -1443,37 +1487,14 @@ public class Olympiad
 	    broadcastMessage(_sm, false);
 	}
 
-	protected void clearPlayers()
-	{
-	    _playerOne = null;
-	    _playerTwo = null;
-	    _players = null;
-	    _playerOneName = "";
-	    _playerTwoName = "";
-	    _playerOneID = 0;
-	    _playerTwoID = 0;
-	}
-
 	protected boolean portPlayersToArena()
 	{
 	    _playerOneLocation = new int[3];
 	    _playerTwoLocation = new int[3];
-	    boolean _playerOneCrash = true;
-	    boolean _playerTwoCrash = true;
-	    try
-	    {
-		if ((_playerOne != null) && (_playerOne.getOlympiadGameId() != -1))
-		    _playerOneCrash = false;
-	    } catch (Exception e)
-	    {
-	    }
-	    try
-	    {
-		if ((_playerTwo != null) && (_playerTwo.getOlympiadGameId() != -1))
-		    _playerTwoCrash = false;
-	    } catch (Exception e)
-	    {
-	    }
+
+        boolean _playerOneCrash = (_playerOne == null || _playerOneDisconnected); 
+        boolean _playerTwoCrash = (_playerTwo == null || _playerTwoDisconnected); 
+        
 	    if (_playerOneCrash)
 	    {
 		StatsSet playerOneStat;
@@ -1490,7 +1511,7 @@ public class Olympiad
 		playerTwoStat.set(POINTS, playerTwoPoints - playerTwoPoints / 5);
 		_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... " + _playerTwoName + " lost " + (playerTwoPoints - playerTwoPoints / 5) + " points for crash before teleport to arena");
 	    }
-	    if (_playerOneCrash || _playerTwoCrash)
+	    if (_playerOneCrash || _playerTwoCrash || _aborted)
 	    {
 		_playerOne = null;
 		_playerTwo = null;
@@ -1525,7 +1546,7 @@ public class Olympiad
 		_playerOne.setIsOlympiadStart(false);
 		_playerTwo.setIsInOlympiadMode(true);
 		_playerTwo.setIsOlympiadStart(false);
-	    } catch (Exception e)
+	    } catch (NullPointerException e)
 	    {
 		return false;
 	    }
@@ -1599,7 +1620,7 @@ public class Olympiad
 
 	protected void validateWinner()
 	{
-	    if (_aborted || ((_playerOne == null) && (_playerTwo == null)))
+	    if (_aborted || ((_playerOne == null) && (_playerTwo == null)) || ((_playerOneDisconnected) && (_playerTwoDisconnected)))
 	    {
 		_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... aborted/tie due to crashes!");
 		return;
@@ -1616,7 +1637,7 @@ public class Olympiad
 	    double hpDiffOne = 9999999;
 	    try
 	    {
-		if ((_playerOne != null) && (_playerOne.getOlympiadGameId() != -1))
+	    if (_playerOne != null && !_playerOneDisconnected) 
 		{
 		    playerOneHp = _playerOne.getCurrentHp() + _playerOne.getCurrentCp();
 		    hpDiffOne = _playerOne.getMaxHp() + _playerOne.getMaxCp() - playerOneHp;
@@ -1630,7 +1651,7 @@ public class Olympiad
 	    double hpDiffTwo = 9999999;
 	    try
 	    {
-		if ((_playerTwo != null) && (_playerTwo.getOlympiadGameId() != -1))
+	    if (_playerTwo != null && !_playerTwoDisconnected)
 		{
 		    playerTwoHp = _playerTwo.getCurrentHp() + _playerTwo.getCurrentCp();
 		    hpDiffTwo = _playerTwo.getMaxHp() + _playerTwo.getMaxCp() - playerTwoHp;
@@ -1644,7 +1665,13 @@ public class Olympiad
 	    _sm2 = new SystemMessage(SystemMessageId.S1_HAS_GAINED_S2_OLYMPIAD_POINTS);
 	    _sm3 = new SystemMessage(SystemMessageId.S1_HAS_LOST_S2_OLYMPIAD_POINTS);
 	    String result = "";
-	    if ((playerTwoHp == 0) || (hpDiffOne < hpDiffTwo))
+        // if players crashed, search if they've relogged 
+        _playerOne =  L2World.getInstance().getPlayer(_playerOneName);  
+        _players.set(0, _playerOne); 
+        _playerTwo =  L2World.getInstance().getPlayer(_playerTwoName); 
+        _players.set(1, _playerTwo); 
+        
+        if ((playerTwoHp == 0 && playerOneHp != 0) || (hpDiffOne < hpDiffTwo && playerTwoHp != 0)) 
 	    {
 		int pointDiff;
 		pointDiff = playerTwoPoints / 3;
@@ -1658,8 +1685,7 @@ public class Olympiad
 		_sm3.addString(_playerTwoName);
 		_sm3.addNumber(pointDiff);
 		broadcastMessage(_sm3, true);
-		_playerOne = L2World.getInstance().getPlayer(_playerOneName); // why
-		// this...
+
 		try
 		{
 		    result = " (" + playerOneHp + "hp vs " + playerTwoHp + "hp - " + hpDiffOne + " vs " + hpDiffTwo + ") " + _playerOneName + " win " + pointDiff + " points";
@@ -1674,22 +1700,21 @@ public class Olympiad
 		} catch (Exception e)
 		{
 		}
-	    } else if ((playerOneHp == 0) || (hpDiffOne > hpDiffTwo))
+	    } else if ((playerOneHp == 0 && playerTwoHp != 0) || (hpDiffOne > hpDiffTwo && playerOneHp != 0))
 	    {
 		int pointDiff;
 		pointDiff = playerOnePoints / 3;
 		playerTwoStat.set(POINTS, playerTwoPoints + pointDiff);
 		playerOneStat.set(POINTS, playerOnePoints - pointDiff);
-		_sm.addString(_playerTwo.getName());
+		_sm.addString(_playerTwoName);
 		broadcastMessage(_sm, true);
-		_sm2.addString(_playerTwo.getName());
-		_sm2.addNumber(pointDiff);
+        _sm2.addString(_playerTwoName); 
+        _sm2.addNumber(pointDiff);
 		broadcastMessage(_sm2, true);
-		_sm3.addString(_playerOne.getName());
-		_sm3.addNumber(pointDiff);
+        _sm3.addString(_playerOneName); 
+        _sm3.addNumber(pointDiff);
 		broadcastMessage(_sm3, true);
-		_playerTwo = L2World.getInstance().getPlayer(_playerTwoName); // why
-		// this...
+
 		try
 		{
 		    result = " (" + playerOneHp + "hp vs " + playerTwoHp + "hp - " + hpDiffOne + " vs " + hpDiffTwo + ") " + _playerTwoName + " win " + pointDiff + " points";
@@ -1796,12 +1821,10 @@ public class Olympiad
 
 	protected boolean makeCompetitionStart()
 	{
-	    if ((_playerOne == null) || (_playerTwo == null))
-	    {
-		_aborted = true;
-		return false;
-	    }
+        if (_aborted) return false; 
+        
 	    _sm = new SystemMessage(SystemMessageId.STARTS_THE_GAME);
+	    
 	    try
 	    {
 		for (L2PcInstance player : _players)
@@ -1875,18 +1898,11 @@ public class Olympiad
 
 	private void broadcastMessage(SystemMessage sm, boolean toAll)
 	{
-	    try
-	    {
-		_playerOne.sendPacket(sm);
-	    } catch (Exception e)
-	    {
-	    }
-	    try
-	    {
-		_playerTwo.sendPacket(sm);
-	    } catch (Exception e)
-	    {
-	    }
+        try {  
+            _playerOne.sendPacket(sm); 
+            _playerTwo.sendPacket(sm);  
+        } catch (Exception e) {}
+        
 	    if (toAll && (_spectators != null))
 	    {
 		for (L2PcInstance spec : _spectators)

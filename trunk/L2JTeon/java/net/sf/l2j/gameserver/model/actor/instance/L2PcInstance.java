@@ -11526,7 +11526,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	    {
 		_log.log(Level.SEVERE, "deleteMe()", t);
 	    }
-	    // If a Party is in progress, leave it
+        // If a Party is in progress, leave it (and festival party) 
 	    if (isInParty())
 	    {
 		try
@@ -11537,6 +11537,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		    _log.log(Level.SEVERE, "deleteMe()", t);
 		}
 	    }
+	    
+        if (getOlympiadGameId() != -1) // handle removal from olympiad game
+        {
+        	Olympiad.getInstance().removeDisconnectedCompetitor(this);
+        }
+        
 	    // If the L2PcInstance has Pet, unsummon it
 	    if (getPet() != null)
 	    {
