@@ -6083,13 +6083,14 @@ public abstract class L2Character extends L2Object
 		}
 		if ((level > target.getLevel() + 8) && Config.RAID_FOSSILIZATION_PENALTY)
 		{
-		    L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
+		    L2Skill skill = SkillTable.getInstance().getInfo(4515, 1);
+		    SkillTable.getInstance().getInfo(4215, 1);
 		    if (skill != null)
 		    {
 			skill.getEffects(target, this);
 		    } else
 		    {
-			_log.warning("Skill 4515 at level 99 is missing in DP.");
+			_log.warning("Skill 4515 at level 1 is missing in DP.");
 		    }
 		    damage = 0; // prevents messing up drop calculation
 		}
@@ -7341,13 +7342,14 @@ public abstract class L2Character extends L2Object
 		    // Check Raidboss attack
 		    if (player.isRaid() && (getLevel() > player.getLevel() + 8) && Config.RAID_FOSSILIZATION_PENALTY)
 		    {
-			L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 99);
+			L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 1);
+			SkillTable.getInstance().getInfo(4215, 1);
 			if (tempSkill != null)
 			{
 			    tempSkill.getEffects(player, this);
 			} else
 			{
-			    _log.warning("Skill 4515 at level 99 is missing in DP.");
+			    _log.warning("Skill 4515 at level 1 is missing in DP.");
 			}
 		    }
 		    L2PcInstance activeChar = null;
