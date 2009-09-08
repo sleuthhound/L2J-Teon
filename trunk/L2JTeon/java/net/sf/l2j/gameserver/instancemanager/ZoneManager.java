@@ -47,6 +47,7 @@ import net.sf.l2j.gameserver.model.zone.type.L2DamageZone;
 import net.sf.l2j.gameserver.model.zone.type.L2DerbyTrackZone;
 import net.sf.l2j.gameserver.model.zone.type.L2FishingZone;
 import net.sf.l2j.gameserver.model.zone.type.L2FortZone;
+import net.sf.l2j.gameserver.model.zone.type.L2HotSpringsZone;
 import net.sf.l2j.gameserver.model.zone.type.L2JailZone;
 import net.sf.l2j.gameserver.model.zone.type.L2MotherTreeZone;
 import net.sf.l2j.gameserver.model.zone.type.L2NoLandingZone;
@@ -183,6 +184,8 @@ public class ZoneManager
 								temp = new L2BigheadZone(zoneId);
 							else if (zoneType.equals("NoLandingZone"))
 								temp = new L2NoLandingZone(zoneId);
+							else if (zoneType.equals("HotSpringsZone"))
+								temp = new L2HotSpringsZone(zoneId);
 							else if (zoneType.equals("JailZone"))
 								temp = new L2JailZone(zoneId);
 							else if (zoneType.equals("DerbyTrackZone"))
@@ -198,7 +201,7 @@ public class ZoneManager
 							// Check for unknown type
 							if (temp == null)
 							{
-								_log.warning("ZoneData: No such zone type: "+zoneType);
+								_log.warning("ZoneManager: No such zone type: "+zoneType);
 								continue;
 							}
 
@@ -230,7 +233,7 @@ public class ZoneManager
 										}
 										else
 										{
-											_log.warning("ZoneData: Missing cuboid vertex in sql data for zone: "+zoneId);
+											_log.warning("ZoneManager: Missing cuboid vertex in sql data for zone: "+zoneId);
 											rset.close();
 											statement.close();
 											successfulLoad = false;
@@ -269,7 +272,7 @@ public class ZoneManager
 									}
 									else
 									{
-										_log.warning("ZoneData: Bad sql data for zone: "+zoneId);
+										_log.warning("ZoneManager: Bad sql data for zone: "+zoneId);
 										rset.close();
 										statement.close();
 										continue;
@@ -290,7 +293,7 @@ public class ZoneManager
 									}
 									else
 									{
-										_log.warning("ZoneData: Bad sql data for zone: "+zoneId);
+										_log.warning("ZoneManager: Bad sql data for zone: "+zoneId);
 										rset.close();
 										statement.close();
 										continue;
@@ -298,7 +301,7 @@ public class ZoneManager
 								}
 								else
 								{
-									_log.warning("ZoneData: Unknown shape: "+zoneShape);
+									_log.warning("ZoneManager: Unknown shape: "+zoneShape);
 									rset.close();
 									statement.close();
 									continue;
@@ -309,7 +312,7 @@ public class ZoneManager
 							}
 							catch (Exception e)
 							{
-								_log.warning("ZoneData: Failed to load zone coordinates: " + e);
+								_log.warning("ZoneManager: Failed to load zone coordinates: " + e);
 							}
 
 

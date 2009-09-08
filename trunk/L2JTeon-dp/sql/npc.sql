@@ -6666,3 +6666,6 @@ UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12'
 
 
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` IN (13001,29055,31385,31540,32109);
+
+-- Delete skills, control HotSprings.java
+DELETE FROM `npcskills` WHERE `skillid` IN (4551,4552,4553,4554);
