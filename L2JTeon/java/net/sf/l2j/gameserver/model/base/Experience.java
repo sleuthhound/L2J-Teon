@@ -104,26 +104,10 @@ public class Experience
 		2099275834L,
 		4200000000L, //level 80
 		6299994999L };
-	/**
-// configs furute custom 
-		// 6300000000L, //level 81
-		// 8820000000L, //level 82
-		// 11844000000L, //level 83
-		// 15472800000L, //level 84
-		// 19827360000L, //level 85
-		// 25314000000L
-	};
-	 */
-	
-
-
 
 	/**
 	 * This is the first UNREACHABLE level.<BR>
-	 *   ex: If you want a max at 85 & 100.00%, you have to put 86.<BR><BR>
-	 */
-	/**
-	// public final static byte MAX_LEVEL = 86;
+	 *   ex: If you want a max at 80 & 100.00%, you have to put 81.<BR><BR>
 	 */
 	
 	public final static byte MAX_LEVEL = 81;
