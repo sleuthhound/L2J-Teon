@@ -24,9 +24,7 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.util.Rnd;
 
 /**
- * another type of damage zone with skills
- *
- * @author  kerberos
+ * @author  maxi
  */
 public class L2HotSpringsZone extends L2ZoneType
 {
@@ -42,7 +40,6 @@ public class L2HotSpringsZone extends L2ZoneType
 	{
 		super(id);
 
-		// Setup default skill
 		_skillId = 4559;
 		_chance = 100;
 		_initialDelay = 15;
