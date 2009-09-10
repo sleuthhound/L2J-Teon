@@ -99,7 +99,11 @@ public final class Config
     /** Properties file for FourSepulchers */
     public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";
     /** Properties file for Character Configurations */
-    public static final String GRANDBOSS_CONFIG_FILE = "./config/bosses/Grandboss.properties";   
+    public static final String GRANDBOSS_CONFIG_FILE = "./config/bosses/Grandboss.properties";  
+    /** Properties file for L2J_JP Baium configuration */
+    public static final String  FWB_CONFIG_FILE              = "./config/bosses/baium.properties";
+    /** Properties file for L2J_JP High Priestess van Halter */
+    public static final String  HPH_CONFIG_FILE              = "./config/bosses/vanhalter.properties"; 
     /** L2J Teon Custom Properties File */
     public static final String L2J_TEON_CUSTOM = "./config/custom/L2JTeonCustom.properties";
     /** L2J Teon Event Mods Properties File */
@@ -111,8 +115,7 @@ public final class Config
     /** Properties file for Olympiad Extensions*/
     public static final String  OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
     /** Properties file for Augment Configurations */
-    public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";         
-    
+    public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
     /** Debug/release mode */
     public static boolean DEBUG;
     /** Enable/disable assertions */
@@ -1014,6 +1017,34 @@ public final class Config
     public static int Random_Of_Zaken_Spawn;
     public static int Interval_Of_Sailren_Spawn;
     public static int Random_Of_Sailren_Spawn;
+
+    /***************************************************************************
+     * Baium Custom CONFIG                                     *
+     **************************************************************************/
+    public static int FWB_FIXINTERVALOFBAIUM;
+    public static int FWB_RANDOMINTERVALOFBAIUM;
+    public static int FWB_ACTIVITYTIMEOFBAIUM;
+    public static boolean FWB_MOVEATRANDOM;
+    public static int FWB_LIMITUNTILSLEEP;
+    /***************************************************************************
+     * Baium Custom CONFIG END                                 *
+     **************************************************************************/
+
+    /***************************************************************************
+     * High Priestess van Halter Custom CONFIG                *
+     **************************************************************************/
+    public static int HPH_FIXINTERVALOFHALTER;
+    public static int HPH_RANDOMINTERVALOFHALTER;
+    public static int HPH_APPTIMEOFHALTER;
+    public static int HPH_ACTIVITYTIMEOFHALTER;
+    public static int HPH_FIGHTTIMEOFHALTER;
+    public static int HPH_CALLROYALGUARDHELPERCOUNT;
+    public static int HPH_CALLROYALGUARDHELPERINTERVAL;
+    public static int HPH_INTERVALOFDOOROFALTER;
+    public static int HPH_TIMEOFLOCKUPDOOROFALTAR;
+    /***************************************************************************
+     * High Priestess van Halter Custom CONFIG END            *
+     **************************************************************************/
     /****************************************** 
 	/** Castle Settings -Begin                           **/
 	/** ************************************************** **/
@@ -3353,6 +3384,65 @@ public final class Config
 				e.printStackTrace();
 				throw new Error("Failed to Load " + FS_CONFIG_FILE + " File.");
 			}
+            // Baium Custom Setting
+            try
+            {
+                Properties Settings   = new Properties();
+                InputStream is          = new FileInputStream(FWB_CONFIG_FILE);  
+                Settings.load(is);
+                is.close();
+                
+                FWB_FIXINTERVALOFBAIUM = Integer.parseInt(Settings.getProperty("FixIntervalOfBaium", "7200"));
+                if(FWB_FIXINTERVALOFBAIUM < 5 || FWB_FIXINTERVALOFBAIUM > 12960) FWB_FIXINTERVALOFBAIUM = 7200;
+                FWB_FIXINTERVALOFBAIUM = FWB_FIXINTERVALOFBAIUM * 60000;
+                FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(Settings.getProperty("RandomIntervalOfBaium", "5760"));
+                if(FWB_RANDOMINTERVALOFBAIUM < 5 || FWB_RANDOMINTERVALOFBAIUM > 12960) FWB_RANDOMINTERVALOFBAIUM = 5760;
+                FWB_RANDOMINTERVALOFBAIUM = FWB_RANDOMINTERVALOFBAIUM * 60000;
+                FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(Settings.getProperty("ActivityTimeOfBaium", "120"));
+                if(FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720) FWB_ACTIVITYTIMEOFBAIUM = 120;
+                FWB_ACTIVITYTIMEOFBAIUM = FWB_ACTIVITYTIMEOFBAIUM * 60000;
+                FWB_MOVEATRANDOM = Boolean.parseBoolean(Settings.getProperty("MoveAtRandom", "True"));
+                FWB_LIMITUNTILSLEEP = Integer.parseInt(Settings.getProperty("LimitUntilSleep", "30"));
+                if(FWB_LIMITUNTILSLEEP < 30 || FWB_LIMITUNTILSLEEP > 90) FWB_LIMITUNTILSLEEP = 30;
+                FWB_LIMITUNTILSLEEP = FWB_LIMITUNTILSLEEP * 60000;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                throw new Error("Failed to Load "+FWB_CONFIG_FILE+" File.");
+            }
+            // High Priestess van Halter Custom Setting
+            try
+            {
+                Properties Settings   = new Properties();
+                InputStream is          = new FileInputStream(HPH_CONFIG_FILE);  
+                Settings.load(is);
+                is.close();
+
+                HPH_FIXINTERVALOFHALTER = Integer.parseInt(Settings.getProperty("FixIntervalOfHalter", "172800"));
+                if (HPH_FIXINTERVALOFHALTER < 300 || HPH_FIXINTERVALOFHALTER > 864000) HPH_FIXINTERVALOFHALTER = 172800;
+                HPH_RANDOMINTERVALOFHALTER = Integer.parseInt(Settings.getProperty("RandomIntervalOfHalter", "86400"));
+                if (HPH_RANDOMINTERVALOFHALTER < 300 || HPH_RANDOMINTERVALOFHALTER > 864000) HPH_RANDOMINTERVALOFHALTER = 86400;
+                HPH_APPTIMEOFHALTER = Integer.parseInt(Settings.getProperty("AppTimeOfHalter", "20"));
+                if (HPH_APPTIMEOFHALTER < 5 || HPH_APPTIMEOFHALTER > 60) HPH_APPTIMEOFHALTER = 20;
+                HPH_ACTIVITYTIMEOFHALTER = Integer.parseInt(Settings.getProperty("ActivityTimeOfHalter", "21600"));
+                if (HPH_ACTIVITYTIMEOFHALTER < 7200 || HPH_ACTIVITYTIMEOFHALTER > 86400) HPH_ACTIVITYTIMEOFHALTER = 21600;
+                HPH_FIGHTTIMEOFHALTER = Integer.parseInt(Settings.getProperty("FightTimeOfHalter", "7200"));
+                if (HPH_FIGHTTIMEOFHALTER < 7200 || HPH_FIGHTTIMEOFHALTER > 21600) HPH_FIGHTTIMEOFHALTER = 7200;
+                HPH_CALLROYALGUARDHELPERCOUNT = Integer.parseInt(Settings.getProperty("CallRoyalGuardHelperCount", "6"));
+                if (HPH_CALLROYALGUARDHELPERCOUNT < 1 || HPH_CALLROYALGUARDHELPERCOUNT > 6) HPH_CALLROYALGUARDHELPERCOUNT = 6;
+                HPH_CALLROYALGUARDHELPERINTERVAL = Integer.parseInt(Settings.getProperty("CallRoyalGuardHelperInterval", "10"));
+                if (HPH_CALLROYALGUARDHELPERINTERVAL < 1 || HPH_CALLROYALGUARDHELPERINTERVAL > 60) HPH_CALLROYALGUARDHELPERINTERVAL = 10;
+                HPH_INTERVALOFDOOROFALTER = Integer.parseInt(Settings.getProperty("IntervalOfDoorOfAlter", "5400"));
+                if (HPH_INTERVALOFDOOROFALTER < 60 || HPH_INTERVALOFDOOROFALTER > 5400) HPH_INTERVALOFDOOROFALTER = 5400;
+                HPH_TIMEOFLOCKUPDOOROFALTAR = Integer.parseInt(Settings.getProperty("TimeOfLockUpDoorOfAltar", "180"));
+                if (HPH_TIMEOFLOCKUPDOOROFALTAR < 60 || HPH_TIMEOFLOCKUPDOOROFALTAR > 600) HPH_TIMEOFLOCKUPDOOROFALTAR = 180;
+
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error("Failed to Load " + HPH_CONFIG_FILE + " File.");
+			}
 			// GrandBoss Custom Setting
 			try
 			{
@@ -4236,30 +4326,46 @@ public final class Config
 	} else if (pName.equalsIgnoreCase("MenuStyle"))
 	{
 	    GM_ADMIN_MENU_STYLE = pValue;
-	} else if (pName.equalsIgnoreCase("AugmentationNGSkillChance")) 
+	} else if (pName.equalsIgnoreCase("AugmentationNGSkillChance"))
 	{
-		AUGMENTATION_NG_SKILL_CHANCE = Integer.parseInt(pValue); 
-	} else if (pName.equalsIgnoreCase("AugmentationNGGlowChance")) 
+		AUGMENTATION_NG_SKILL_CHANCE = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("AugmentationNGGlowChance"))
 	{
-		AUGMENTATION_NG_GLOW_CHANCE = Integer.parseInt(pValue); 
-	} else if (pName.equalsIgnoreCase("AugmentationMidSkillChance"))  
+		AUGMENTATION_NG_GLOW_CHANCE = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("AugmentationMidSkillChance"))
 	{
-		AUGMENTATION_MID_SKILL_CHANCE = Integer.parseInt(pValue); 
-	} else if (pName.equalsIgnoreCase("AugmentationMidGlowChance")) 
+		AUGMENTATION_MID_SKILL_CHANCE = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("AugmentationMidGlowChance"))
 	{
-		AUGMENTATION_MID_GLOW_CHANCE = Integer.parseInt(pValue); 
-	} else if (pName.equalsIgnoreCase("AugmentationHighSkillChance")) 
+		AUGMENTATION_MID_GLOW_CHANCE = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("AugmentationHighSkillChance"))
 	{
-		AUGMENTATION_HIGH_SKILL_CHANCE = Integer.parseInt(pValue); 
-	} else if (pName.equalsIgnoreCase("AugmentationHighGlowChance")) 
+		AUGMENTATION_HIGH_SKILL_CHANCE = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("AugmentationHighGlowChance"))
 	{
-		AUGMENTATION_HIGH_GLOW_CHANCE = Integer.parseInt(pValue); 
-	} else if (pName.equalsIgnoreCase("AugmentationTopSkillChance")) 
+		AUGMENTATION_HIGH_GLOW_CHANCE = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("AugmentationTopSkillChance"))
 	{
-		AUGMENTATION_TOP_SKILL_CHANCE = Integer.parseInt(pValue); 
-	} else if (pName.equalsIgnoreCase("AugmentationTopGlowChance")) 
+		AUGMENTATION_TOP_SKILL_CHANCE = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("AugmentationTopGlowChance"))
 	{
-		AUGMENTATION_TOP_GLOW_CHANCE = Integer.parseInt(pValue); 
+		AUGMENTATION_TOP_GLOW_CHANCE = Integer.parseInt(pValue);
+        // Baium Custom Setting
+	} else if (pName.equalsIgnoreCase("FixIntervalOfBaium"))
+	{
+		FWB_FIXINTERVALOFBAIUM = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("RandomIntervalOfBaium"))
+	{
+		FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("ActivityTimeOfBaium"))
+	{
+		FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(pValue);
+	} else if (pName.equalsIgnoreCase("MoveAtRandom"))
+	{
+		FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue);
+	} else if (pName.equalsIgnoreCase("LimitUntilSleep"))
+	{
+		FWB_LIMITUNTILSLEEP = Integer.parseInt(pValue);
 	} else
 	{
 	    return false;

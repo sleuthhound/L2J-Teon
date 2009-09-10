@@ -84,6 +84,9 @@ import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.CustomZoneManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.ForceBuff;
@@ -5155,8 +5158,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	calculateDeathPenaltyBuffLevel(killer);
 	stopRentPet();
 	stopWaterTask();
+
+    	if (CustomZoneManager.getInstance().checkIfInZone("Lair of Baium", this))
+    	{
+    		BaiumManager.getInstance().checkAnnihilated();
+    	}
 		return true;
 	}
+
 
     private void onDieDropItem(L2Character killer)
     {
@@ -10778,39 +10787,68 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void onPlayerEnter()
     {
-	startWarnUserTakeBreak();
-	//if (SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod())
-	//{
-	    //if (!isGM() && isIn7sDungeon() && (SevenSigns.getInstance().getPlayerCabal(this) != SevenSigns.getInstance().getCabalHighestScore()))
-	    //{
-		//teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		//setIsIn7sDungeon(false);
-		//sendMessage("You have been teleported to the nearest town due to the beginning of the Seal Validation period.");
-	    //}
-	//} else
-	//{
-	    //if (!isGM() && isIn7sDungeon() && (SevenSigns.getInstance().getPlayerCabal(this) == SevenSigns.CABAL_NULL))
-	    //{
-		//teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		//setIsIn7sDungeon(false);
-		//sendMessage("You have been teleported to the nearest town because you have not signed for any cabal.");
-	    //}
-	//}
-	// jail task
-	updateJailState();
-	if (_isInvul)
-	{
-	    sendMessage("Entering world in Invulnerable mode.");
-	}
-	if (getAppearance().getInvisible())
-	{
-	    sendMessage("Entering world in Invisible mode.");
-	}
-	if (getMessageRefusal())
-	{
-	    sendMessage("Entering world in Message Refusal mode.");
-	}
+		startWarnUserTakeBreak();
+
+        if (SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod())
+        {
+            if (!isGM() && isIn7sDungeon() && SevenSigns.getInstance().getPlayerCabal(this) != SevenSigns.getInstance().getCabalHighestScore())
+            {
+                teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                setIsIn7sDungeon(false);
+                sendMessage("You have been teleported to the nearest town due to the beginning of the Seal Validation period.");
+            }
+        }
+        else
+        {
+            if (!isGM() && isIn7sDungeon() && SevenSigns.getInstance().getPlayerCabal(this) == SevenSigns.CABAL_NULL)
+            {
+                teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                setIsIn7sDungeon(false);
+                sendMessage("You have been teleported to the nearest town because you have not signed for any cabal.");
+            }
+        }
+
+        // jail task
+        updateJailState();
+
+        if (_isInvul)
+        	sendMessage("Entering world in Invulnerable mode.");
+        if (getAppearance().getInvisible())
+            sendMessage("Entering world in Invisible mode.");
+        if (getMessageRefusal())
+            sendMessage("Entering world in Message Refusal mode.");
+
 		revalidateZone(true);
+
+		// [L2J_JP ADD SANDMAN] Check of a restart prohibition area.
+		if(CustomZoneManager.getInstance().getZone(this) != null && !isGM())
+		{
+	    	String zn = CustomZoneManager.getInstance().getZone(this).getZoneName();
+
+	    	if (zn.equalsIgnoreCase("Lair of Baium"))
+    		{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+				{
+	        		if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
+	    			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+				}
+				else
+				{
+					// Player can restart inside lair, but can not awake Baium.
+	        		if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
+	        		BaiumManager.getInstance().addPlayerToLair(this);
+				}
+    		}
+
+    		// High Priestess van Halter
+	    	else if (zn.equalsIgnoreCase("Altar of Sacrifice"))
+			{
+				if(System.currentTimeMillis() - getLastAccess() >= 600000)
+	    			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+	        	else
+	        		VanHalterManager.getInstance().intruderDetection(this);
+			}
+		}
 	}
 
     public long getLastAccess()

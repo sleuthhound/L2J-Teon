@@ -605,49 +605,11 @@ INSERT INTO spawnlist VALUES (NULL, 'primeval_isle', 1, 32109, 23666, -7144, -11
 
 -- Van Halter
 -- Update Npc
-UPDATE npc SET rhand = 8208, aggro = 0 WHERE id = 29062;
-UPDATE npc SET rhand = 8208, aggro = 0 WHERE id = 29063;
-UPDATE npc SET rhand = 8207, lhand = 8207, aggro = 0 WHERE id = 29064;
-UPDATE npc SET faction_id = 'VANHALTER', faction_range = 1800 WHERE id IN ( 22191,22192,22193,29062 );
-UPDATE npc SET `type` = 'L2Monster' , walkspd = 0 ,runspd = 0, aggro = 500 WHERE id IN
-( 32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068 );
-
--- Update minions
-DELETE FROM minions WHERE boss_id IN ( 29062,22188,22191 );
-INSERT INTO minions VALUES
-(29062, 29063, 1, 1),
-(29062, 29064, 3, 3),
-(22188, 22189, 4, 4),
-(22188, 22190, 1, 1),
-(22191, 22192, 1, 1),
-(22191, 22193, 1, 1);
-
--- Update spawnlist
-DELETE FROM raidboss_spawnlist WHERE boss_id = 29062;
-DELETE FROM spawnlist WHERE npc_templateId IN
-( 22175,22176,22188,22189,22190,22191,22192,22193,22195,29062,29063,29064,32038,
-  32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068 );
-  
--- Frintezza
--- Setting NPC
-DELETE FROM npc WHERE id IN ( 29045,29046,29047,29048,29049,29050,29051 );
-INSERT INTO npc (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-(29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2Npc',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
-(29046,29046,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa',29,90,85,'male','L2GrandBoss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY'),
-(29047,29047,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa_tran',29,110,90,'male','L2GrandBoss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,'frintezza_clan',6000,0,13,'FULL_PARTY'),
-(29048,29048,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29049,29049,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29050,29050,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29051,29051,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit_winged',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT');
-
-
--- Update Npc
-Update npc set `type` = "L2GrandBoss", rhand = 8208, aggro = 0 where id = 29062;
+Update npc set rhand = 8208, aggro = 0 where id = 29062;
 Update npc set rhand = 8208, aggro = 0 where id = 29063;
 Update npc set rhand = 8207, lhand = 8207, aggro = 0 where id = 29064;
 Update npc set faction_id = "VANHALTER", faction_range = 1800 where id in (22191,22192,22193,29062);
 Update npc set `type` = "L2Monster" , walkspd = 0 ,runspd = 0, aggro = 500 where id in (32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068);
-Update npc set collision_radius = 8, collision_height = 22, walkspd = 0 ,runspd = 0, aggro = 0 where id = 29059;
 
 -- Update minions
 Delete From minions where boss_id in (29062,22188,22191);
@@ -666,17 +628,21 @@ Delete From raidboss_spawnlist where boss_id = 29062;
 Delete From spawnlist where npc_templateId in
 (22175,22176,22188,22189,22190,22191,22192,22193,22195,29062,29063,29064,32038,32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068);
 
-
+-- Frintezza
+-- Setting NPC
+DELETE FROM npc WHERE id IN ( 29045,29046,29047,29048,29049,29050,29051 );
+INSERT INTO npc (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+(29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2Npc',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
+(29046,29046,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa',29,90,85,'male','L2GrandBoss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY'),
+(29047,29047,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa_tran',29,110,90,'male','L2GrandBoss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,'frintezza_clan',6000,0,13,'FULL_PARTY'),
+(29048,29048,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
+(29049,29049,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2GrandBoss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
+(29050,29050,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT'),
+(29051,29051,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit_winged',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT');
 
 -- L2JTeon actualisaciones
 UPDATE npc SET `type` = 'L2Npc' WHERE id IN
 ( 13001,31384,31385,31540,31686,31687,31859,21759 );
-
-UPDATE npc SET aggro = 500 WHERE id = 29014;
-UPDATE npc SET aggro = 500 WHERE id = 29020;
-UPDATE npc SET aggro = 500 WHERE id = 29021;
-UPDATE npc SET aggro = 500 WHERE id = 29022;
-UPDATE npc SET aggro = 800 WHERE id = 29028;
 
 Delete From spawnlist where npc_templateId in
 (29001,29014,29020,29022,22190);
@@ -713,9 +679,6 @@ INSERT INTO `npc` VALUES
 (29097,29097,'Splendor Disciple',0,'Raid Fighter',0,'Monster3.apostle_grail',13,47,80,'male','L2Minion',40,59620,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,'NULL',0,0,0,'LAST_HIT'),
 (29098,29098,'Splendor Worshiper',0,'Raid Fighter',0,'Monster3.apostle_grail_a',13,47,80,'male','L2Minion',40,79891,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,'NULL',0,0,0,'LAST_HIT');
 
-
-
-
 -- Setting Skills
 DELETE FROM npcskills WHERE npcid BETWEEN 22124 AND 22126;
 INSERT INTO npcskills VALUES
@@ -743,13 +706,13 @@ INSERT INTO spawnlist VALUES
 (null,'','1',32008,114661,-70841,-548,0,0,0,60,0,0),
 (null,'','1',32028,112801,-76510,85,0,0,0,60,0,0);
 
-
-
-
 DELETE FROM npc WHERE id = 29065;
 INSERT INTO `npc` VALUES
 (29065,29065,'Sailren',0,'Sealed Evil Power',0,'Monster3.sailren',100,82,80,'male','L2RaidBoss',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,'NULL',0,0,12,'LAST_HIT');
 
+
+insert  into npc values 
+('10', 30391, 'Buffer v1', 1, 'Interlude Project', 1, 'NPC.a_common_peopleB_FHuman', '8.00', '20.50', '70', 'female', 'L2Buff', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '55', '132', '', '0', 1, '0', 'LAST_HIT');
 
 DELETE FROM npc WHERE id = 22125;
 DELETE FROM npc WHERE id = 22127;
@@ -799,3 +762,9 @@ Update npc set `type` = 'L2Npc' Where idTemplate = 13001;
 
 
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (22124,22125,22126,22127,22129,22134,22135);
+
+update npc set aggro = 500 where id = 29014;
+update npc set aggro = 500 where id = 29020;
+update npc set aggro = 500 where id = 29021;
+update npc set aggro = 500 where id = 29022;
+update npc set aggro = 800 where id = 29028;
