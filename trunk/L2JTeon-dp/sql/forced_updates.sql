@@ -751,11 +751,6 @@ INSERT INTO `npc` VALUES
 (29065,29065,'Sailren',0,'Sealed Evil Power',0,'Monster3.sailren',100,82,80,'male','L2RaidBoss',40,400000,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,'NULL',0,0,12,'LAST_HIT');
 
 
-insert  into npc values 
-('10', 30391, 'Buffer v1', 1, 'Interlude Project', 1, 'NPC.a_common_peopleB_FHuman', '8.00', '20.50', '70', 'female', 'L2Buff', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '55', '132', '', '0', 1, '0', 'LAST_HIT');
-
-
-
 DELETE FROM npc WHERE id = 22125;
 DELETE FROM npc WHERE id = 22127;
 DELETE FROM npc WHERE id = 22132;
