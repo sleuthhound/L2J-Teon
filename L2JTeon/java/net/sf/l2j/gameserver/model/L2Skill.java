@@ -1318,7 +1318,7 @@ public abstract class L2Skill
 		{
 		    // Don't add this target if this is a Pc->Pc pvp casting
 		    // and pvp condition not met
-		    if ((obj == activeChar) || (obj == src))
+		    if ((obj == activeChar) || (obj == src) || ((L2Character)obj).isDead())
 		    {
 			continue;
 		    }
@@ -1390,7 +1390,7 @@ public abstract class L2Skill
 	case TARGET_AREA:
 	{
 	    if (!((target instanceof L2Attackable) || (target instanceof L2PlayableInstance)) || // Target
-	    ((getCastRange() >= 0) && ((target == null) || (target == activeChar) || target.isAlikeDead()))) // target
+	    ((getCastRange() >= 0) && ((target == null) || (target == activeChar) || target.isDead() || target.isAlikeDead()))) // target
 	    // is
 	    // null
 	    // or
