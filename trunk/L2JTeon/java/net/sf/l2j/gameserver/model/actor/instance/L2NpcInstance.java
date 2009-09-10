@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -1204,7 +1205,7 @@ public class L2NpcInstance extends L2Character
                 }
                 return;
             }
-            // [J2J_JP ADD START]
+            // L2JTeon add maxi
             else if (command.startsWith("close_gate"))
             {
                 final DoorTable _doorTable = DoorTable.getInstance();
@@ -1227,6 +1228,11 @@ public class L2NpcInstance extends L2Character
                 }
                 return;
 
+            }
+            else if (command.equalsIgnoreCase("wake_baium"))
+            {
+            	setTarget(player);
+                BaiumManager.getInstance().spawnBaium(this);
             }
 	    else if (command.startsWith("NobleTeleport"))
 	    {

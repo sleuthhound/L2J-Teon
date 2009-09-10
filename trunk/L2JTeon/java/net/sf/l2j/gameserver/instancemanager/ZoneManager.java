@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.instancemanager.FishingZoneManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.CustomZoneManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
@@ -42,6 +43,7 @@ import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
 import net.sf.l2j.gameserver.model.zone.type.L2CastleZone;
 import net.sf.l2j.gameserver.model.zone.type.L2CastleTeleportZone;
 import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
+import net.sf.l2j.gameserver.model.zone.type.L2CustomZone;
 import net.sf.l2j.gameserver.model.zone.type.L2DamageZone;
 import net.sf.l2j.gameserver.model.zone.type.L2DerbyTrackZone;
 import net.sf.l2j.gameserver.model.zone.type.L2FishingZone;
@@ -156,6 +158,8 @@ public class ZoneManager
 								 temp = new L2FishingZone(zoneId);
 							else if (zoneType.equals("ClanHallZone"))
 								 temp = new L2ClanHallZone(zoneId);
+							else if (zoneType.equals("CustomZone"))
+								 temp = new L2CustomZone(zoneId);
 							else if (zoneType.equals("PeaceZone"))
 								temp = new L2PeaceZone(zoneId);
 							else if (zoneType.equals("PoisonZone"))
@@ -363,6 +367,8 @@ public class ZoneManager
 								OlympiadStadiaManager.getInstance().addStadium((L2OlympiadStadiumZone)temp);
 			    else if (temp instanceof L2BossZone)
 				GrandBossManager.getInstance().addZone((L2BossZone)temp);
+							else if (temp instanceof L2CustomZone)
+								CustomZoneManager.getInstance().addZone((L2CustomZone)temp);
 
 							// Increase the counter
 							zoneCount++;

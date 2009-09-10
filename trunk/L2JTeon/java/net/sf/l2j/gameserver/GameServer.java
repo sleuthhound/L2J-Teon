@@ -97,6 +97,8 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.lib.L2jConnect;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
@@ -318,6 +320,8 @@ public class GameServer
 	// Init of a cursed weapon manager
 	CursedWeaponsManager.getInstance();
 	FourSepulchersManager.getInstance().init();
+	BaiumManager.getInstance().init();
+	// VanHalterManager.getInstance().init();
         Util.printSection("Quests - Scripts");
 	QuestManager.getInstance();
 		
