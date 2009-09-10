@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <list>
 
 <!-- Jail -->
@@ -188,22 +188,6 @@
 		<stat name='spawnX' val='10468'/>
 		<stat name='spawnY' val='-24569'/>
 		<stat name='spawnZ' val='-3645'/>
-	</zone>
-	<zone id="11038" type="Town" shape="NPoly" minZ="250" maxZ="2250">
-		<stat name="name" val="Kamael Village" /> 
-		<stat name="townId" val="20" /> 
-		<stat name="taxById" val="5" /> 
-		<stat name="spawnX" val="-118092" /> 
-		<stat name="spawnY" val="46955" /> 
-		<stat name="spawnZ" val="360" /> 
-	</zone>
-	<zone id="11039" type="Town" shape="Cuboid" minZ="-4324" maxZ="3097">
-		<stat name="name" val="Fantasy Isle" /> 
-		<stat name="townId" val="22" /> 
-		<stat name="taxById" val="14" /> 
-		<stat name="spawnX" val="-58752" /> 
-		<stat name="spawnY" val="-56898" /> 
-		<stat name="spawnZ" val="-2032" /> 
 	</zone>
 
 <!-- Mother trees -->
@@ -560,304 +544,134 @@
 		<stat name='spawnZ' val='569'/>
 	</zone>
 
-<!-- Fortress zones -->
-	<zone id='11501' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Shanty Fortress -->
-		<stat name='fortId' val='101'/>
-		<stat name='spawnX' val='-52695'/>
-		<stat name='spawnY' val='156457'/>
-		<stat name='spawnZ' val='-2053'/>
-	</zone>
-
-	<zone id='11502' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Southern Fortress -->
-		<stat name='fortId' val='102'/>
-		<stat name='spawnX' val='-22759'/>
-		<stat name='spawnY' val='219818'/>
-		<stat name='spawnZ' val='-3236'/>
-	</zone>
-
-	<zone id='11503' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Hive Fortress -->
-		<stat name='fortId' val='103'/>
-		<stat name='spawnX' val='16625'/>
-		<stat name='spawnY' val='188108'/>
-		<stat name='spawnZ' val='-2924'/>
-	</zone>
-
-	<zone id='11504' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Valley Fortress -->
-		<stat name='fortId' val='104'/>
-		<stat name='spawnX' val='126058'/>
-		<stat name='spawnY' val='123425'/>
-		<stat name='spawnZ' val='-2585'/>
-	</zone>
-
-	<zone id='11505' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Ivory Fortress -->
-		<stat name='fortId' val='105'/>
-		<stat name='spawnX' val='72808'/>
-		<stat name='spawnY' val='4307'/>
-		<stat name='spawnZ' val='-3045'/>
-	</zone>
-	
-	<zone id='11506' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Narsell Fortress -->
-		<stat name='fortId' val='106'/>
-		<stat name='spawnX' val='154966'/>
-		<stat name='spawnY' val='55276'/>
-		<stat name='spawnZ' val='-3254'/>
-	</zone>
-
-	<zone id='11507' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Bayou Fortress -->
-		<stat name='fortId' val='107'/>
-		<stat name='spawnX' val='189910'/>
-		<stat name='spawnY' val='39770'/>
-		<stat name='spawnZ' val='-3410'/>
-	</zone>
-
-	<zone id='11508' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- White Sands Fortress -->
-		<stat name='fortId' val='108'/>
-		<stat name='spawnX' val='118361'/>
-		<stat name='spawnY' val='204924'/>
-		<stat name='spawnZ' val='-3333'/>
-	</zone>
-	
-	<zone id='11509' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Borderland Fortress -->
-		<stat name='fortId' val='109'/>
-		<stat name='spawnX' val='159009'/>
-		<stat name='spawnY' val='-70167'/>
-		<stat name='spawnZ' val='-2864'/>
-	</zone>
-
-	<zone id='11510' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Marshland Fortress -->
-		<stat name='fortId' val='110'/>
-		<stat name='spawnX' val='69791'/>
-		<stat name='spawnY' val='-61482'/>
-		<stat name='spawnZ' val='-2786'/>
-	</zone>
-	
-	<zone id='11511' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Archaic Fortress -->
-		<stat name='fortId' val='111'/>
-		<stat name='spawnX' val='109568'/>
-		<stat name='spawnY' val='-141277'/>
-		<stat name='spawnZ' val='-2957'/>
-	</zone>
-
-	<zone id='11512' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Floran Fortress - Border -->
-		<stat name='fortId' val='112'/>
-		<stat name='spawnX' val='5688'/>
-		<stat name='spawnY' val='149726'/>
-		<stat name='spawnZ' val='-2889'/>
-	</zone>
-
-	<zone id='11513' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Cloud Mountain Fortress - Border -->
-		<stat name='fortId' val='113'/>
-		<stat name='spawnX' val='-53204'/>
-		<stat name='spawnY' val='91210'/>
-		<stat name='spawnZ' val='-2821'/>
-	</zone>
-	
-	<zone id='11514' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Tanor Fortress - Border -->
-		<stat name='fortId' val='114'/>
-		<stat name='spawnX' val='60258'/>
-		<stat name='spawnY' val='139425'/>
-		<stat name='spawnZ' val='-1754'/>
-	</zone>
-	
-	<zone id='11515' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Dragonspine Fortress - Border -->
-		<stat name='fortId' val='115'/>
-		<stat name='spawnX' val='11542'/>
-		<stat name='spawnY' val='95060'/>
-		<stat name='spawnZ' val='-3426'/>
-	</zone>
-
-	<zone id='11516' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Antharas Fortress - Border -->
-		<stat name='fortId' val='116'/>
-		<stat name='spawnX' val='79199'/>
-		<stat name='spawnY' val='91021'/>
-		<stat name='spawnZ' val='-2878'/>
-	</zone>
-
-	<zone id='11517' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Western Fortress - Border -->
-		<stat name='fortId' val='117'/>
-		<stat name='spawnX' val='111376'/>
-		<stat name='spawnY' val='-15203'/>
-		<stat name='spawnZ' val='-995'/>
-	</zone>
-	
-	<zone id='11518' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Hunters Fortress - Border -->
-		<stat name='fortId' val='118'/>
-		<stat name='spawnX' val='125308'/>
-		<stat name='spawnY' val='95066'/>
-		<stat name='spawnZ' val='-2140'/>
-	</zone>
-	
-	<zone id='11519' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Aaru Fortress - Border -->
-		<stat name='fortId' val='119'/>
-		<stat name='spawnX' val='73066'/>
-		<stat name='spawnY' val='185954'/>
-		<stat name='spawnZ' val='-2581'/>
-	</zone>
-	
-	<zone id='11520' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Demon Fortress - Border -->
-		<stat name='fortId' val='120'/>
-		<stat name='spawnX' val='100698'/>
-		<stat name='spawnY' val='-55334'/>
-		<stat name='spawnZ' val='-645'/>
-	</zone>
-	
-	<zone id='11521' type='FortZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
-		<!-- Monastic Fortress - Border -->
-		<stat name='fortId' val='121'/>
-		<stat name='spawnX' val='72146'/>
-		<stat name='spawnY' val='-94782'/>
-		<stat name='spawnZ' val='-1428'/>
-	</zone>
-
 <!-- Castle zones -->
-	<zone id='11200' type='CastleZone' shape='Cuboid' minZ='-3800' maxZ='20000'>
+	<zone id='11200' type='CastleZone' shape='Cuboid' minZ='-3800' maxZ='-1400'>
 		<stat name='castleId' val='1'/>
 		<stat name='spawnX' val='-16770'/>
 		<stat name='spawnY' val='109356'/>
 		<stat name='spawnZ' val='-1798'/>
 	</zone>
-	<zone id='11201' type='CastleZone' shape='Cuboid' minZ='-3100' maxZ='20000'>
+	<zone id='11201' type='CastleZone' shape='Cuboid' minZ='-3100' maxZ='-1800'>
 		<stat name='castleId' val='2'/>
 		<stat name='spawnX' val='20515'/>
 		<stat name='spawnY' val='160384'/>
 		<stat name='spawnZ' val='-1992'/>
 	</zone>
-	<zone id='11202' type='CastleZone' shape='Cuboid' minZ='-4000' maxZ='20000'>
+	<zone id='11202' type='CastleZone' shape='Cuboid' minZ='-4000' maxZ='-1700'>
 		<stat name='castleId' val='3'/>
 		<stat name='spawnX' val='116553'/>
 		<stat name='spawnY' val='146396'/>
 		<stat name='spawnZ' val='-1868'/>
 	</zone>
-	<zone id='11203' type='CastleZone' shape='Cuboid' minZ='-3800' maxZ='20000'>
+	<zone id='11203' type='CastleZone' shape='Cuboid' minZ='-3800' maxZ='-1400'>
 		<stat name='castleId' val='4'/>
 		<stat name='spawnX' val='82644'/>
 		<stat name='spawnY' val='38542'/>
 		<stat name='spawnZ' val='-1592'/>
 	</zone>
-	<zone id='11204' type='CastleZone' shape='Cuboid' minZ='-2050' maxZ='20000'>
+	<zone id='11204' type='CastleZone' shape='Cuboid' minZ='-2050' maxZ='6400'>
 		<stat name='castleId' val='5'/>
 		<stat name='spawnX' val='147726'/>
 		<stat name='spawnY' val='4611'/>
 		<stat name='spawnZ' val='-2788'/>
 	</zone>
-	<zone id='11205' type='CastleZone' shape='Cuboid' minZ='-3250' maxZ='20000'>
+	<zone id='11205' type='CastleZone' shape='Cuboid' minZ='-3250' maxZ='-50'>
 		<stat name='castleId' val='6'/>
 		<stat name='spawnX' val='114796'/>
 		<stat name='spawnY' val='249159'/>
 		<stat name='spawnZ' val='-88'/>
 	</zone>
-	<zone id='11206' type='CastleZone' shape='Cuboid' minZ='-2700' maxZ='20000'>
+	<zone id='11206' type='CastleZone' shape='Cuboid' minZ='-2700' maxZ='900'>
 		<stat name='castleId' val='7'/>
 		<stat name='spawnX' val='147451'/>
 		<stat name='spawnY' val='-46878'/>
 		<stat name='spawnZ' val='-961'/>
 	</zone>
-	<zone id='11207' type='CastleZone' shape='Cuboid' minZ='-3000' maxZ='20000'>
+	<zone id='11207' type='CastleZone' shape='Cuboid' minZ='-3000' maxZ='4000'>
 		<stat name='castleId' val='8'/>
-		<stat name='spawnX' val='10558'/>
+		<stat name='spawnX' val='11388'/>
 		<stat name='spawnY' val='-49160'/>
-		<stat name='spawnZ' val='3856'/>
+		<stat name='spawnZ' val='-537'/>
 	</zone>
-	<zone id='11208' type='CastleZone' shape='Cuboid' minZ='-3800' maxZ='20000'>
+	<zone id='11208' type='CastleZone' shape='Cuboid' minZ='-3800' maxZ='3200'>
 		<stat name='castleId' val='9'/>
 		<stat name='spawnX' val='77555'/>
 		<stat name='spawnY' val='-150903'/>
 		<stat name='spawnZ' val='769'/>
 	</zone>
 
-<!-- Castle teleport zones -->
-	<zone id='11209' type='CastleTeleportZone' shape='Cuboid' minZ='-1827' maxZ='-1682'>
-		<stat name='castleId' val='1'/>
-		<stat name='spawnMinX' val='-17727'/>
-		<stat name='spawnMaxX' val='-18482'/>
-		<stat name='spawnMinY' val='109041'/>
-		<stat name='spawnMaxY' val='109383'/>
-		<stat name='spawnZ' val='-2496'/>
+<!-- Boss Zones -->
+	<zone id='12001' type='BossZone' shape='Cuboid' minZ='-7225' maxZ='-6621'>
+		<stat name='name' val='Four Sepulcher'/>
+		<stat name='oustX' val='169589'/>
+		<stat name='oustY' val='-90493'/>
+		<stat name='oustZ' val='-2914'/>
 	</zone>
-	<zone id='11210' type='CastleTeleportZone' shape='Cuboid' minZ='-2021' maxZ='-1877'>
-		<stat name='castleId' val='2'/>
-		<stat name='spawnMinX' val='21709'/>
-		<stat name='spawnMaxX' val='22456'/>
-		<stat name='spawnMinY' val='160392'/>
-		<stat name='spawnMaxY' val='160706'/>
-		<stat name='spawnZ' val='-2690'/>
+	<zone id='12002' type='BossZone' shape='Cuboid' minZ='-7225' maxZ='-6621'>
+		<stat name='name' val='Four Sepulcher'/>
+		<stat name='oustX' val='169589'/>
+		<stat name='oustY' val='-90493'/>
+		<stat name='oustZ' val='-2914'/>
 	</zone>
-	<zone id='11211' type='CastleTeleportZone' shape='Cuboid' minZ='-1891' maxZ='-1750'>
-		<stat name='castleId' val='3'/>
-		<stat name='spawnMinX' val='116555'/>
-		<stat name='spawnMaxX' val='116894'/>
-		<stat name='spawnMinY' val='144729'/>
-		<stat name='spawnMaxY' val='145470'/>
-		<stat name='spawnZ' val='-2566'/>
+	<zone id='12003' type='BossZone' shape='Cuboid' minZ='-7225' maxZ='-6621'>
+		<stat name='name' val='Four Sepulcher'/>
+		<stat name='oustX' val='169589'/>
+		<stat name='oustY' val='-90493'/>
+		<stat name='oustZ' val='-2914'/>
 	</zone>
-	<zone id='11212' type='CastleTeleportZone' shape='Cuboid' minZ='-1621' maxZ='-1477'>
-		<stat name='castleId' val='4'/>
-		<stat name='spawnMinX' val='82633'/>
-		<stat name='spawnMaxX' val='82957'/>
-		<stat name='spawnMinY' val='36787'/>
-		<stat name='spawnMaxY' val='37599'/>
-		<stat name='spawnZ' val='-2288'/>
+	<zone id='12004' type='BossZone' shape='Cuboid' minZ='-7225' maxZ='-6621'>
+		<stat name='name' val='Four Sepulcher'/>
+		<stat name='oustX' val='169589'/>
+		<stat name='oustY' val='-90493'/>
+		<stat name='oustZ' val='-2914'/>
 	</zone>
-	<zone id='11213' type='CastleTeleportZone' shape='Cuboid' minZ='-2811' maxZ='-2641'>
-		<stat name='castleId' val='5'/>
-		<stat name='spawnMinX' val='147208'/>
-		<stat name='spawnMaxX' val='147718'/>
-		<stat name='spawnMinY' val='4359'/>
-		<stat name='spawnMaxY' val='4806'/>
-		<stat name='spawnZ' val='-343'/>
+	<zone id='12005' type='BossZone' shape='NPoly' minZ='-5120' maxZ='-2500'>
+		<stat name='name' val='Lair of Frintezza'/>
 	</zone>
-	<zone id='11214' type='CastleTeleportZone' shape='Cuboid' minZ='-117' maxZ='26'>
-		<stat name='castleId' val='6'/>
-		<stat name='spawnMinX' val='115666'/>
-		<stat name='spawnMaxX' val='116390'/>
-		<stat name='spawnMinY' val='249161'/>
-		<stat name='spawnMaxY' val='249488'/>
-		<stat name='spawnZ' val='-786'/>
+	<zone id='12006' type='BossZone' shape='Cuboid' minZ='-8320' maxZ='-4870'>
+		<stat name='name' val='Lair of Antharas'/>
+		<stat name='InvadeTime' val='1800000'/>
 	</zone>
-	<zone id='11215' type='CastleTeleportZone' shape='Cuboid' minZ='-989' maxZ='-573'>
-		<stat name='castleId' val='7'/>
-		<stat name='spawnMinX' val='147061'/>
-		<stat name='spawnMaxX' val='147809'/>
-		<stat name='spawnMinY' val='-48198'/>
-		<stat name='spawnMaxY' val='-48779'/>
-		<stat name='spawnZ' val='-2276'/>
+	<zone id='12007' type='BossZone' shape='NPoly' minZ='9967' maxZ='16301'>
+		<stat name='name' val='Lair of Baium'/>
+		<stat name='InvadeTime' val='1800000'/>
 	</zone>
-	<zone id='11216' type='CastleTeleportZone' shape='NPoly' minZ='3800' maxZ='4250'>
-		<stat name='castleId' val='8'/>
-		<stat name='spawnMinX' val='10985'/>
-		<stat name='spawnMaxX' val='11997'/>
-		<stat name='spawnMinY' val='-48780'/>
-		<stat name='spawnMaxY' val='-49498'/>
-		<stat name='spawnZ' val='-546'/>
+	<zone id='12008' type='BossZone' shape='NPoly' minZ='-2572' maxZ='5428'>
+		<stat name='name' val='Lair of Valakas'/>
+		<stat name='InvadeTime' val='1800000'/>
 	</zone>
-	<zone id='11217' type='CastleTeleportZone' shape='Cuboid' minZ='746' maxZ='1136'>
-		<stat name='castleId' val='9'/>
-		<stat name='spawnMinX' val='77144'/>
-		<stat name='spawnMaxX' val='77927'/>
-		<stat name='spawnMinY' val='-152272'/>
-		<stat name='spawnMaxY' val='-152843'/>
-		<stat name='spawnZ' val='-544'/>
+	<zone id='12011' type='BossZone' shape='NPoly' minZ='-4815' maxZ='-315'>
+		<stat name='name' val='Lair of Zaken'/>
+		<stat name='EnabledByDefault' val='false'/>
 	</zone>
+	<zone id='12012' type='BossZone' shape='NPoly' minZ='-5947' maxZ='-5547'>
+		<stat name='name' val='Lair of Ant Queen'/>
+		<stat name='EnabledByDefault' val='false'/>
+	</zone>
+	<zone id='12013' type='BossZone' shape='NPoly' minZ='-5796' maxZ='-3796'>
+		<stat name='name' val='Lair of Orfen'/>
+		<stat name='EnabledByDefault' val='false'/>
+	</zone>
+	<zone id='12015' type='BossZone' shape='NPoly' minZ='-4000' maxZ='-500'>
+		<stat name='name' val='Ice Queens Castle'/>
+		<stat name='oustX' val='115844'/>
+		<stat name='oustY' val='-125602'/>
+		<stat name='oustZ' val='-3352'/>
+	</zone>
+<!--
+	<zone id='12009' type='BossZone' shape='Cuboid' minZ='-5600' maxZ='-3895'>
+		<stat name='name' val='Lair of Lilith'/>
+		<stat name='InvadeTime' val='60000'/>
+	</zone>
+	<zone id='12010' type='BossZone' shape='Cuboid' minZ='-5600' maxZ='-3895'>
+		<stat name='name' val='Lair of Anakim'/>
+		<stat name='InvadeTime' val='60000'/>
+	</zone>
+	<zone id='12014' type='BossZone' shape='Cuboid' minZ='-10730' maxZ='-10290'>
+		<stat name='name' val='Altar of Sacrifice'/>
+		<stat name='InvadeTime' val='60000'/>
+	</zone>
+-->
 
 <!-- Peace Zones -->
 	<zone id='13001' type='PeaceZone' shape='NPoly' minZ='-3500' maxZ='-2000' /> <!-- Coliseum Entrance -->
@@ -871,47 +685,636 @@
 	<zone id='13009' type='PeaceZone' shape='NPoly' minZ='-4300' maxZ='-2300' /> <!-- The Shilen Temple -->
 	<zone id='13010' type='PeaceZone' shape='Cuboid' minZ='-1000' maxZ='500' /> <!-- The Pa'agrio Temple -->
 	<zone id='13011' type='PeaceZone' shape='Cuboid' minZ='-1000' maxZ='500' /> <!-- Cave of Souls -->
-	<zone id='13012' type='PeaceZone' shape='Cuboid' minZ='-6900' maxZ='-5500' /> <!-- Dimensional Rift -->
-	<zone id='13013' type='PeaceZone' shape='NPoly' minZ='-5000' maxZ='-4500' /> <!-- Oracle of Dawn -->
-	<zone id='13014' type='PeaceZone' shape='NPoly' minZ='-5300' maxZ='-4800' /> <!-- Oracle of Dusk -->
 
 <!-- Fishing zones -->
-	<zone id='11400' type='FishingZone' shape='NPoly' minZ='-3991' maxZ='-3759'/>
-	<zone id='11401' type='FishingZone' shape='NPoly' minZ='-3634' maxZ='-3586'/>
-	<zone id='11403' type='FishingZone' shape='NPoly' minZ='-3668' maxZ='-3620'/>
-	<zone id='11404' type='FishingZone' shape='NPoly' minZ='-3724' maxZ='-3677'/>
-	<zone id='11405' type='FishingZone' shape='NPoly' minZ='-2871' maxZ='-2806'/>
-	<zone id='11406' type='FishingZone' shape='NPoly' minZ='-2787' maxZ='-2749'/>
-	<zone id='11407' type='FishingZone' shape='NPoly' minZ='-2717' maxZ='-2663'/>
-	<zone id='11408' type='FishingZone' shape='NPoly' minZ='-1609' maxZ='-1569'/>
-	<zone id='11409' type='FishingZone' shape='NPoly' minZ='-1694' maxZ='-1651'/>
-	<zone id='11410' type='FishingZone' shape='NPoly' minZ='-1979' maxZ='-1906'/>
-	<zone id='11411' type='FishingZone' shape='NPoly' minZ='-2152' maxZ='-2113'/>
-	<zone id='11412' type='FishingZone' shape='NPoly' minZ='-4388' maxZ='-3763'/>
-	<zone id='11413' type='FishingZone' shape='NPoly' minZ='-4916' maxZ='-3793'/>
-	<zone id='11414' type='FishingZone' shape='NPoly' minZ='-4640' maxZ='-3759'/>
-	<zone id='11415' type='FishingZone' shape='NPoly' minZ='-4216' maxZ='-3767'/>
-	<zone id='11416' type='FishingZone' shape='NPoly' minZ='-2568' maxZ='-1432'/>
-	<zone id='11417' type='FishingZone' shape='NPoly' minZ='-7356' maxZ='-1356'/>
-	<zone id='11418' type='FishingZone' shape='NPoly' minZ='-3892' maxZ='-892'/>
-	<zone id='11419' type='FishingZone' shape='NPoly' minZ='-4684' maxZ='-1684'/>
-	<zone id='11420' type='FishingZone' shape='NPoly' minZ='-4874' maxZ='-1874'/>
-	<zone id='11421' type='FishingZone' shape='NPoly' minZ='-4372' maxZ='-1372'/>
-	<zone id='11422' type='FishingZone' shape='NPoly' minZ='-4328' maxZ='-1328'/>
-	<zone id='11423' type='FishingZone' shape='NPoly' minZ='-4096' maxZ='-1096'/>
-	<zone id='11424' type='FishingZone' shape='NPoly' minZ='-4724' maxZ='-1724'/>
-	<zone id='11425' type='FishingZone' shape='NPoly' minZ='-4764' maxZ='-1764'/>
-	<zone id='11426' type='FishingZone' shape='NPoly' minZ='-3900' maxZ='-900'/>
-	<zone id='11427' type='FishingZone' shape='NPoly' minZ='-4004' maxZ='-1004'/>
-	<zone id='11428' type='FishingZone' shape='NPoly' minZ='-3856' maxZ='-856'/>
-	<zone id='11429' type='FishingZone' shape='NPoly' minZ='-4848' maxZ='-1848'/>
-	<zone id='11430' type='FishingZone' shape='NPoly' minZ='-4044' maxZ='-1044'/>
-	<zone id='11431' type='FishingZone' shape='NPoly' minZ='-4084' maxZ='-1084'/>
-	<zone id='11432' type='FishingZone' shape='NPoly' minZ='-4880' maxZ='-1880'/>
-	<zone id='11433' type='FishingZone' shape='NPoly' minZ='-4828' maxZ='-1828'/>
-	<zone id='11434' type='FishingZone' shape='NPoly' minZ='-3772' maxZ='-772'/>
-	<zone id='11435' type='FishingZone' shape='NPoly' minZ='-4892' maxZ='-1892'/>
-	<zone id='11436' type='FishingZone' shape='NPoly' minZ='-3600' maxZ='-3346'/>
+    <zone id='11401' type='FishingZone' shape='NPoly' minZ='-5223' maxZ='-3752'></zone>
+    <zone id='11402' type='FishingZone' shape='NPoly' minZ='-5223' maxZ='-3752'></zone>
+    <zone id='11403' type='FishingZone' shape='NPoly' minZ='-5202' maxZ='-3752'></zone>
+    <zone id='11404' type='FishingZone' shape='NPoly' minZ='-4919' maxZ='-3752'></zone>
+<!-- Gludio -->
+    <zone id='11405' type='FishingZone' shape='NPoly' minZ='-3778' maxZ='-3722'>
+	</zone>
+<!-- Giran  Harbor -->
+    <zone id='11406' type='FishingZone' shape='NPoly' minZ='-3788' maxZ='-3770'>
+	</zone>
+<!-- Rune  -->
+    <zone id='11407' type='FishingZone' shape='NPoly' minZ='-3810' maxZ='-3720'>
+	</zone>
+<!-- Castle Rune  -->
+    <zone id='11408' type='FishingZone' shape='NPoly' minZ='-1135' maxZ='-1045'>
+	</zone>  
+<!-- Primeval Isle  -->
+    <zone id='11409' type='FishingZone' shape='NPoly' minZ='-4679' maxZ='-3781'>
+	</zone> 
+<!-- Heine  -->
+    <zone id='11410' type='FishingZone' shape='NPoly' minZ='-4810' maxZ='-3810'>
+	</zone> 
+<!-- s PTS [fishing_zone13] -->	
+    <zone id='11411' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 	
+<!-- s PTS [fishing_zone14] -->	
+    <zone id='11412' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 	
+<!-- s PTS [fishing_zone15] -->	
+    <zone id='11413' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 	
+<!-- s PTS [fishing_zone16] -->	
+    <zone id='11414' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone21] -->	
+    <zone id='11415' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone22] -->	
+    <zone id='11416' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone23] -->	
+    <zone id='11417' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone24] -->	
+    <zone id='11418' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone25] -->	
+    <zone id='11419' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone26] -->	
+    <zone id='11420' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone16_21_1]-->	
+    <zone id='11421' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone> 
+<!-- s PTS [fishing_zone16_22_1]--> 
+	<zone id='11422' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone16_23_1]--> 
+    <zone id='11423' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone16_24_1]--> 
+    <zone id='11424' type='FishingZone' shape='NPoly' minZ='-7779' maxZ='-3779'>
+	</zone>
+<!-- s PTS [fishing_zone16_25_1]--> 
+    <zone id='11425' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+<!-- s PTS [fishing_zone17_20_1]--> 
+    <zone id='11426' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone17_20_2]--> 
+    <zone id='11427' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone17_20_3]--> 
+    <zone id='11428' type='FishingZone' shape='NPoly' minZ='-5824' maxZ='-3504'>
+	</zone>	
+<!-- s PTS [fishing_zone17_20_4]--> 
+    <zone id='11429' type='FishingZone' shape='NPoly' minZ='-5824' maxZ='-5248'>
+	</zone>		
+<!-- s PTS [fishing_zone17_21_1]--> 
+    <zone id='11430' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	
+<!-- s PTS [fishing_zone17_21_2]--> 
+    <zone id='11431' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	
+<!-- s PTS [fishing_zone17_21_3]--> 
+    <zone id='11432' type='FishingZone' shape='NPoly' minZ='-4179' maxZ='-3179'>
+	</zone>	
+<!-- s PTS [fishing_zone17_21_4]--> 
+    <zone id='11433' type='FishingZone' shape='NPoly' minZ='-5568' maxZ='-3248'>
+	</zone>	
+<!-- s PTS [fishing_zone17_21_5]--> 
+    <zone id='11434' type='FishingZone' shape='NPoly' minZ='-5568' maxZ='-4992'>
+	</zone>	
+<!-- s PTS [fishing_zone17_22_1]--> 
+    <zone id='11435' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>		
+<!-- s PTS [fishing_zone17_22_2]--> 
+    <zone id='11436' type='FishingZone' shape='NPoly' minZ='-4179' maxZ='-3179'>
+	</zone>		
+<!-- s PTS [fishing_zone17_23_1]--> 
+    <zone id='11437' type='FishingZone' shape='NPoly' minZ='-7780' maxZ='-3780'>
+	</zone>		
+<!-- s PTS [fishing_zone17_24_1]--> 
+    <zone id='11438' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>			
+<!-- s PTS [fishing_zone17_25_1]--> 
+    <zone id='11439' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>	
+<!-- s PTS [fishing_zone11] -->
+    <zone id='11440' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone>  
+<!-- s PTS [fishing_zone12] -->	
+    <zone id='11441' type='FishingZone' shape='NPoly' minZ='-4000' maxZ='-3000'>
+	</zone> 
+<!-- s PTS [fishing_zone18_14_1]--> 
+    <zone id='11442' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	
+<!-- s PTS [fishing_zone18_19_1]--> 
+    <zone id='11443' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>	
+<!-- s PTS [fishing_zone18_19_2]--> 
+    <zone id='11444' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>	
+<!-- s PTS [fishing_zone18_20_1]--> 
+    <zone id='11445' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	
+<!-- s PTS [fishing_zone18_20_2]--> 
+    <zone id='11446' type='FishingZone' shape='NPoly' minZ='-5408' maxZ='-4832'>
+	</zone>	
+<!-- s PTS [fishing_zone18_20_3]--> 
+    <zone id='11447' type='FishingZone' shape='NPoly' minZ='-5408' maxZ='-3088'>
+	</zone>	
+<!-- s PTS [fishing_zone18_21_1]--> 
+    <zone id='11448' type='FishingZone' shape='NPoly' minZ='-4179' maxZ='-3179'>
+	</zone>
+<!-- s PTS [fishing_zone18_21_1]--> 
+    <zone id='11449' type='FishingZone' shape='NPoly' minZ='-4659' maxZ='-3659'>
+	</zone>
+<!-- s PTS [fishing_zone18_22_1]--> 
+    <zone id='11450' type='FishingZone' shape='NPoly' minZ='-4179' maxZ='-3179'>
+	</zone>
+<!-- s PTS [fishing_zone18_22_2]--> 
+    <zone id='11451' type='FishingZone' shape='NPoly' minZ='-4179' maxZ='-3179'>
+	</zone>
+<!-- s PTS [fishing_zone18_23_1]--> 
+    <zone id='11452' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone18_23_2]--> 
+    <zone id='11453' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone18_23_3]--> 
+    <zone id='11454' type='FishingZone' shape='NPoly' minZ='-4960' maxZ='-4702'>
+	</zone>
+<!-- s PTS [fishing_zone18_23_4]-->
+    <zone id='11455' type='FishingZone' shape='NPoly' minZ='-4960' maxZ='-4702'>
+	</zone>
+<!-- s PTS [fishing_zone18_24_1]--> 
+    <zone id='11456' type='FishingZone' shape='NPoly' minZ='-5754' maxZ='-5177'>
+	</zone>
+<!-- s PTS [fishing_zone18_24_2]--> 
+    <zone id='11457' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone18_24_3]--> 
+    <zone id='11458' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone18_24_4]--> 
+    <zone id='11459' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone18_24_5]--> 
+    <zone id='11460' type='FishingZone' shape='NPoly' minZ='-4282' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone18_24_6]--> 
+    <zone id='11461' type='FishingZone' shape='NPoly' minZ='-4282' maxZ='-3780'>
+	</zone>	
+<!-- s PTS [fishing_zone18_24_7]--> 
+    <zone id='11462' type='FishingZone' shape='NPoly' minZ='-4282' maxZ='-3780'>
+	</zone>		
+<!-- s PTS [fishing_zone18_24_8]--> 
+    <zone id='11463' type='FishingZone' shape='NPoly' minZ='-5754' maxZ='-3434'>
+	</zone>		
+<!-- s PTS [fishing_zone18_25_1]--> 
+    <zone id='11464' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>	
+<!-- s PTS [fishing_zone19_14_1]--> 
+    <zone id='11465' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>	 
+<!-- s PTS [fishing_zone19_15_1]--> 
+    <zone id='11466' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	 
+<!-- s PTS [fishing_zone19_18_1]--> 
+    <zone id='11467' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	  
+<!-- s PTS [fishing_zone19_18_2]--> 
+    <zone id='11468' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	 
+<!-- s PTS [fishing_zone19_18_3]--> 
+    <zone id='11469' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	 
+<!-- s PTS [fishing_zone19_18_4]--> 
+    <zone id='11470' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>	 
+<!-- s PTS [fishing_zone19_19_1]--> 
+    <zone id='11471' type='FishingZone' shape='NPoly' minZ='-4784' maxZ='-3784'>
+	</zone>	
+<!-- s PTS [fishing_zone19_19_2]--> 
+    <zone id='11472' type='FishingZone' shape='NPoly' minZ='-4788' maxZ='-3788'>
+	</zone>	
+<!-- s PTS [fishing_zone19_20_1]--> 
+    <zone id='11473' type='FishingZone' shape='NPoly' minZ='-4268' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone19_20_2]--> 
+    <zone id='11474' type='FishingZone' shape='NPoly' minZ='-5840' maxZ='-3520'>
+	</zone>
+<!-- s PTS [fishing_zone19_20_3]--> 
+    <zone id='11475' type='FishingZone' shape='NPoly' minZ='-5840' maxZ='-5263'>
+	</zone>
+<!-- s PTS [fishing_zone19_21_1]--> 
+    <zone id='11476' type='FishingZone' shape='NPoly' minZ='-10611' maxZ='-3779'>
+	</zone>
+<!-- s PTS [fishing_zone19_24_1]--> 
+    <zone id='11477' type='FishingZone' shape='NPoly' minZ='-7780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone19_24_2]--> 
+    <zone id='11478' type='FishingZone' shape='NPoly' minZ='-7780' maxZ='-3780'>
+	</zone>
+<!-- s PTS [fishing_zone19_25_1]--> 
+    <zone id='11479' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone> 
+<!--[fishing_zone20_15_1]--> 
+    <zone id='11480' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!--[fishing_zone20_18_1]--> 
+	<zone id='11481' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!--[fishing_zone20_19_1]--> 
+	<zone id='11482' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- [fishing_zone20_20_1]  -->	
+	<zone id='11483' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- [fishing_zone20_20_2]  -->
+	<zone id='11484' type='FishingZone' shape='NPoly' minZ='-4794' maxZ='-3794'>
+	</zone>
+<!-- [fishing_zone20_20_3]  -->
+	<zone id='11485' type='FishingZone' shape='NPoly' minZ='-4794' maxZ='-3794'>
+	</zone>
+<!-- [fishing_zone20_21_1]  -->
+	<zone id='11486' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- [fishing_zone20_22_1]  -->
+	<zone id='11487' type='FishingZone' shape='NPoly' minZ='-4788' maxZ='-3788'>
+	</zone>
+<!-- [fishing_zone20_23_1]  -->
+	<zone id='11488' type='FishingZone' shape='NPoly' minZ='-7780' maxZ='-3780'>
+	</zone>
+<!-- [fishing_zone20_24_1] -->	
+	<zone id='11489' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- [fishing_zone21_18_1]-->
+	<zone id='11490' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone21_19_1-->
+	<zone id='11491' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone21_20_1 -->
+	<zone id='11492' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone21_20_2-->
+	<zone id='11493' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone21_21_1-->
+	<zone id='11494' type='FishingZone' shape='NPoly' minZ='-3980' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone21_21_2-->
+	<zone id='11495' type='FishingZone' shape='NPoly' minZ='-2377' maxZ='-2227'>
+	</zone>
+<!-- fishing_zone21_21_3-->
+	<zone id='11496' type='FishingZone' shape='NPoly' minZ='-2409' maxZ='-2259'>
+	</zone>
+	<!-- fishing_zone21_21_4-->
+	<zone id='11497' type='FishingZone' shape='NPoly' minZ='-2409' maxZ='-2259'>
+	</zone>
+	<!-- fishing_zone21_21_5-->
+	<zone id='11498' type='FishingZone' shape='NPoly' minZ='-2409' maxZ='-2259'>
+	</zone>
+<!--fishing_zone21_21_6 -->
+	<zone id='11499' type='FishingZone' shape='NPoly' minZ='-6080' maxZ='-3776'>
+	</zone>
+	<!-- fishing_zone21_21_7-->
+	<zone id='11500' type='FishingZone' shape='NPoly' minZ='-6080' maxZ='-5504'>
+	</zone>
+	<!-- fishing_zone21_22_1-->
+	<zone id='11501' type='FishingZone' shape='NPoly' minZ='-3948' maxZ='-3748'>
+	</zone>
+<!-- fishing_zone21_22_2-->
+	<zone id='11502' type='FishingZone' shape='NPoly' minZ='-6048' maxZ='-3728'>
+	</zone>
+	<!--fishing_zone21_22_3 -->
+	<zone id='11503' type='FishingZone' shape='NPoly' minZ='-6048' maxZ='-5471'>
+	</zone>
+	<!-- fishing_zone21_23_1-->
+	<zone id='11504' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone21_23_2-->
+	<zone id='11505' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone21_23_3 -->
+	<zone id='11506' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone21_23_4-->
+	<zone id='11507' type='FishingZone' shape='NPoly' minZ='-5648' maxZ='-3328'>
+	</zone>
+<!-- fishing_zone21_23_5-->
+	<zone id='11508' type='FishingZone' shape='NPoly' minZ='-5648' maxZ='-5071'>
+	</zone>
+	<!-- fishing_zone21_24_1-->
+	<zone id='11509' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+<!-- fishing_zone22_18_1-->
+	<zone id='11510' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_18_2-->
+	<zone id='11511' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_19_1-->
+	<zone id='11512' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone22_20_1-->
+	<zone id='11513' type='FishingZone' shape='NPoly' minZ='-4772' maxZ='-3772'>
+	</zone>
+	<!-- fishing_zone22_20_2-->
+	<zone id='11514' type='FishingZone' shape='NPoly' minZ='-4772' maxZ='-3772'>
+	</zone>
+	<!-- fishing_zone22_20_3-->
+	<zone id='11515' type='FishingZone' shape='NPoly' minZ='-5792' maxZ='-3472'>
+	</zone>
+<!--fishing_zone22_20_4 -->
+	<zone id='11516' type='FishingZone' shape='NPoly' minZ='-5792' maxZ='-5215'>
+	</zone>
+	<!-- fishing_zone22_23_1-->
+	<zone id='11518' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+<!--fishing_zone22_23_2 -->
+	<zone id='11519' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!--fishing_zone22_23_3 -->
+	<zone id='11520' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!-- fishing_zone22_23_4-->
+	<zone id='11521' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+<!-- fishing_zone22_23_5-->
+	<zone id='11522' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!--fishing_zone22_23_6 -->
+	<zone id='11523' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!--fishing_zone22_23_7 -->
+	<zone id='11524' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!--fishing_zone22_23_8 -->
+	<zone id='11525' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!-- fishing_zone22_24_1-->
+	<zone id='11526' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone22_24_2-->
+	<zone id='11527' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone22_24_3 -->
+	<zone id='11528' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_24_4-->
+	<zone id='11529' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone22_24_5 -->
+	<zone id='11530' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone22_24_6 -->
+	<zone id='11531' type='FishingZone' shape='NPoly' minZ='-4268' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone22_24_7-->
+	<zone id='11532' type='FishingZone' shape='NPoly' minZ='-4268' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_24_8-->
+	<zone id='11533' type='FishingZone' shape='NPoly' minZ='-4268' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone22_24_9 -->
+	<zone id='11534' type='FishingZone' shape='NPoly' minZ='-4268' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_24_10-->
+	<zone id='11535' type='FishingZone' shape='NPoly' minZ='-6106' maxZ='-3786'>
+	</zone>
+	<!-- fishing_zone22_24_11-->
+	<zone id='11536' type='FishingZone' shape='NPoly' minZ='-6106' maxZ='-5529'>
+	</zone>
+<!--fishing_zone22_24_12 -->
+	<zone id='11537' type='FishingZone' shape='NPoly' minZ='-4268' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_24_13-->
+	<zone id='11538' type='FishingZone' shape='NPoly' minZ='-4268' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_25_1-->
+	<zone id='11539' type='FishingZone' shape='NPoly' minZ='-10902' maxZ='-10886'>
+	</zone>
+	<!-- fishing_zone22_25_2-->
+	<zone id='11540' type='FishingZone' shape='NPoly' minZ='-7219' maxZ='-4203'>
+	</zone>
+	<!-- fishing_zone22_25_3-->
+	<zone id='11541' type='FishingZone' shape='NPoly' minZ='-7219' maxZ='-6763'>
+	</zone>
+<!-- fishing_zone22_25_4-->
+	<zone id='11542' type='FishingZone' shape='NPoly' minZ='-9354' maxZ='-8898'>
+	</zone>
+	<!--fishing_zone22_25_5 -->
+	<zone id='11543' type='FishingZone' shape='NPoly' minZ='-9354' maxZ='-8898'>
+	</zone>
+	<!-- fishing_zone22_25_6-->
+	<zone id='11544' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!--fishing_zone22_25_7 -->
+	<zone id='11545' type='FishingZone' shape='NPoly' minZ='-10902' maxZ='-10886'>
+	</zone>
+	<!-- fishing_zone22_25_8-->
+	<zone id='11546' type='FishingZone' shape='NPoly' minZ='-10902' maxZ='-10886'>
+	</zone>
+<!-- fishing_zone22_25_9-->
+	<zone id='11547' type='FishingZone' shape='NPoly' minZ='-10902' maxZ='-10886'>
+	</zone>
+<!-- fishing_zone23_11_1-->
+	<zone id='11548' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone23_12_1 -->
+	<zone id='11549' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone23_18_1 -->
+	<zone id='11550' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone23_19_1-->
+	<zone id='11551' type='FishingZone' shape='NPoly' minZ='-5656' maxZ='-4656'>
+	</zone>
+	<!-- fishing_zone23_20_1-->
+	<zone id='11552' type='FishingZone' shape='NPoly' minZ='-7184' maxZ='-4864'>
+	</zone>
+<!-- fishing_zone23_20_2-->
+	<zone id='11553' type='FishingZone' shape='NPoly' minZ='-7208' maxZ='-6631'>
+	</zone>
+	<!-- fishing_zone23_22_1-->
+	<zone id='11554' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone23_22_2-->
+	<zone id='11555' type='FishingZone' shape='NPoly' minZ='-3176' maxZ='-2892'>
+	</zone>
+	<!--fishing_zone23_22_3 -->
+	<zone id='11556' type='FishingZone' shape='NPoly' minZ='-4080' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone23_22_4-->
+	<zone id='11557' type='FishingZone' shape='NPoly' minZ='-4080' maxZ='-3780'>
+	</zone>
+<!--fishing_zone23_22_5 -->
+	<zone id='11558' type='FishingZone' shape='NPoly' minZ='-4080' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone23_22_6 -->
+	<zone id='11559' type='FishingZone' shape='NPoly' minZ='-5504' maxZ='-3184'>
+	</zone>
+	<!-- fishing_zone23_22_7-->
+	<zone id='11560' type='FishingZone' shape='NPoly' minZ='-5504' maxZ='-4928'>
+	</zone>
+	<!-- fishing_zone23_23_1-->
+	<zone id='11561' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!-- fishing_zone23_23_2-->
+	<zone id='11562' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+<!-- fishing_zone23_23_3-->
+	<zone id='11563' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!-- fishing_zone23_23_4-->
+	<zone id='11564' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!-- fishing_zone23_23_5-->
+	<zone id='11565' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!-- fishing_zone23_23_6-->
+	<zone id='11566' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+	<!-- fishing_zone23_23_7-->
+	<zone id='11567' type='FishingZone' shape='NPoly' minZ='-4779' maxZ='-3779'>
+	</zone>
+<!-- fishing_zone23_23_8-->
+	<zone id='11568' type='FishingZone' shape='NPoly' minZ='-6096' maxZ='-3776'>
+	</zone>
+	<!-- fishing_zone23_23_9-->
+	<zone id='11569' type='FishingZone' shape='NPoly' minZ='-6106' maxZ='-5529'>
+	</zone>
+	<!--fishing_zone23_24_1 -->
+	<zone id='11570' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone23_25_1-->
+	<zone id='11571' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone24_11_1-->
+	<zone id='11572' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone24_12_1-->
+	<zone id='11573' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone24_18_1 -->
+	<zone id='11574' type='FishingZone' shape='NPoly' minZ='-2626' maxZ='-2528'>
+	</zone>
+	<!-- fishing_zone24_19_1-->
+	<zone id='11575' type='FishingZone' shape='NPoly' minZ='-4775' maxZ='-3775'>
+	</zone>
+	<!-- fishing_zone24_20_1-->
+	<zone id='11576' type='FishingZone' shape='NPoly' minZ='-6096' maxZ='-3736'>
+	</zone>
+<!-- fishing_zone24_20_2-->
+	<zone id='11577' type='FishingZone' shape='NPoly' minZ='-6096' maxZ='-5519'>
+	</zone>
+	<!--fishing_zone24_20_3 -->
+	<zone id='11578' type='FishingZone' shape='NPoly' minZ='-4480' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone24_21_1-->
+	<zone id='11579' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone25_11_1-->
+	<zone id='11580' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone25_12_1-->
+	<zone id='11581' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone25_12_2-->
+	<zone id='11582' type='FishingZone' shape='NPoly' minZ='-5465' maxZ='-4465'>
+	</zone>
+	<!-- fishing_zone25_12_3-->
+	<zone id='11583' type='FishingZone' shape='NPoly' minZ='-2322' maxZ='-2066'>
+	</zone>
+	<!-- fishing_zone25_14_1-->
+	<zone id='11584' type='FishingZone' shape='NPoly' minZ='-4643' maxZ='-4033'>
+	</zone>
+<!-- fishing_zone25_14_2-->
+	<zone id='11585' type='FishingZone' shape='NPoly' minZ='-6130' maxZ='-5256'>
+	</zone>
+	<!-- fishing_zone25_20_1-->
+	<zone id='11586' type='FishingZone' shape='NPoly' minZ='-4280' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone25_17_1 -->
+	<zone id='11587' type='FishingZone' shape='NPoly' minZ='-5568' maxZ='-3248'>
+	</zone>
+	<!-- fishing_zone25_17_2-->
+	<zone id='11588' type='FishingZone' shape='NPoly' minZ='-5568' maxZ='-4991'>
+	</zone>
+<!-- fishing_zone20_15_1-->
+	<zone id='11589' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone20_16_1 -->
+	<zone id='11590' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone21_15_1 -->
+	<zone id='11591' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone21_16_1 -->
+	<zone id='11592' type='FishingZone' shape='NPoly' minZ='-4783' maxZ='-3783'>
+	</zone>
+	<!-- fishing_zone21_17_1-->
+	<zone id='11593' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+<!-- fishing_zone22_16_1-->
+	<zone id='11594' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!-- fishing_zone22_16_2-->
+	<zone id='11595' type='FishingZone' shape='NPoly' minZ='-2889' maxZ='-2633'>
+	</zone>
+	<!-- fishing_zone22_16_3-->
+	<zone id='11596' type='FishingZone' shape='NPoly' minZ='-2889' maxZ='-2633'>
+	</zone>
+	<!-- fishing_zone22_16_4-->
+	<zone id='11597' type='FishingZone' shape='NPoly' minZ='-3408' maxZ='-3152'>
+	</zone>
+	<!-- fishing_zone22_16_5-->
+	<zone id='11598' type='FishingZone' shape='NPoly' minZ='-3504' maxZ='-3248'>
+	</zone>
+<!-- fishing_zone22_16_6-->
+	<zone id='11599' type='FishingZone' shape='NPoly' minZ='-3417' maxZ='-3161'>
+	</zone>
+	<!--fishing_zone22_16_7 -->
+	<zone id='11600' type='FishingZone' shape='NPoly' minZ='-3417' maxZ='-3161'>
+	</zone>
+	<!-- fishing_zone22_16_8-->
+	<zone id='11601' type='FishingZone' shape='NPoly' minZ='-3417' maxZ='-3161'>
+	</zone>
+	<!-- fishing_zone22_16_9-->
+	<zone id='11602' type='FishingZone' shape='NPoly' minZ='-2608' maxZ='-2352'>
+	</zone>
+	<!-- fishing_zone22_16_10-->
+	<zone id='11603' type='FishingZone' shape='NPoly' minZ='-2608' maxZ='-2352'>
+	</zone>
+<!-- fishing_zone22_16_11-->
+	<zone id='11604' type='FishingZone' shape='NPoly' minZ='-2608' maxZ='-2352'>
+	</zone>
+	<!-- fishing_zone22_16_12-->
+	<zone id='11605' type='FishingZone' shape='NPoly' minZ='-2608' maxZ='-2352'>
+	</zone>
+	<!-- fishing_zone22_16_13-->
+	<zone id='11606' type='FishingZone' shape='NPoly' minZ='-2608' maxZ='-2352'>
+	</zone>
+	<!-- fishing_zone22_16_14-->
+	<zone id='11607' type='FishingZone' shape='NPoly' minZ='-2608' maxZ='-2352'>
+	</zone>
+	<!-- fishing_zone22_16_15-->
+	<zone id='11608' type='FishingZone' shape='NPoly' minZ='-3504' maxZ='-3248'>
+	</zone>
+<!-- fishing_zone22_16_16-->
+	<zone id='11609' type='FishingZone' shape='NPoly' minZ='-2608' maxZ='-2352'>
+	</zone>
+	<!--fishing_zone22_17_1 -->
+	<zone id='11610' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--fishing_zone22_17_2 -->
+	<zone id='11611' type='FishingZone' shape='NPoly' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--Shuttgart 23_13-->
+	<zone id='11612' type='FishingZone' shape='Cuboid' minZ='-4780' maxZ='-3780'>
+	</zone>
+	<!--Shuttgart 23_14-->
+	<zone id='11613' type='FishingZone' shape='Cuboid' minZ='-4780' maxZ='-3780'>
+	</zone>
 
 <!-- Water zones -->
 	<zone id='15000' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [16_21_1] water zone-->
@@ -937,8 +1340,8 @@
 	<zone id='15020' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_19_1] water zone-->
 	<zone id='15021' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_19_2] water zone-->
 	<zone id='15022' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_20_1] water zone-->
-    <zone id='15023' type='WaterZone' shape='Cuboid' minZ='-5438' maxZ='-4862'/> <!-- [18_20_2] Necropolis od Devotion - horizontal -->
-    <zone id='15024' type='WaterZone' shape='Cuboid' minZ='-5438' maxZ='-2960'/> <!-- [18_20_3] Necropolis od Devotion - vertical -->
+	<zone id='15023' type='WaterZone' shape='NPoly' minZ='-5438' maxZ='-4862'/> <!-- [18_20_2] water zone-->
+	<zone id='15024' type='WaterZone' shape='NPoly' minZ='-5438' maxZ='-3118'/> <!-- [18_20_3] water zone-->
 	<zone id='15025' type='WaterZone' shape='NPoly' minZ='-4209' maxZ='-3209'/> <!-- [18_21_1] water zone-->
 	<zone id='15026' type='WaterZone' shape='NPoly' minZ='-4689' maxZ='-3689'/> <!-- [18_21_1] water zone-->
 	<zone id='15027' type='WaterZone' shape='NPoly' minZ='-4209' maxZ='-3209'/> <!-- [18_22_1] water zone-->
@@ -947,26 +1350,26 @@
 	<zone id='15030' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_23_2] water zone-->
 	<zone id='15031' type='WaterZone' shape='NPoly' minZ='-4990' maxZ='-4732'/> <!-- [18_23_3] water zone-->
 	<zone id='15032' type='WaterZone' shape='NPoly' minZ='-4990' maxZ='-4732'/> <!-- [18_23_4] water zone-->
-	<zone id='15033' type='WaterZone' shape='Cuboid' minZ='-5784' maxZ='-5207'/> <!-- [18_24_1] Necropolis of Sacrifice - horizontal -->
+	<zone id='15033' type='WaterZone' shape='NPoly' minZ='-5784' maxZ='-5207'/> <!-- [18_24_1] water zone-->
 	<zone id='15034' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_24_2] water zone-->
 	<zone id='15035' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_24_3] water zone-->
 	<zone id='15036' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_24_4] water zone-->
 	<zone id='15037' type='WaterZone' shape='NPoly' minZ='-4312' maxZ='-3810'/> <!-- [18_24_5] water zone-->
 	<zone id='15038' type='WaterZone' shape='NPoly' minZ='-4312' maxZ='-3810'/> <!-- [18_24_6] water zone-->
 	<zone id='15039' type='WaterZone' shape='NPoly' minZ='-4312' maxZ='-3810'/> <!-- [18_24_7] water zone-->
-	<zone id='15040' type='WaterZone' shape='Cuboid' minZ='-5660' maxZ='-3300'/> <!-- [18_24_8] Necropolis of Sacrifice - vertical -->
+	<zone id='15040' type='WaterZone' shape='NPoly' minZ='-5784' maxZ='-3464'/> <!-- [18_24_8] water zone-->
 	<zone id='15041' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [18_25_1] water zone-->
 	<zone id='15042' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [19_14_1] water zone-->
 	<zone id='15043' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [19_15_1] water zone-->
 	<zone id='15044' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [19_18_1] water zone-->
-    <zone id='15045' type='WaterZone' shape='Cuboid' minZ='-5550' maxZ='-3120'/> <!-- [19_18_2] Catacomb of Dark Omens - horizontal -->
-    <zone id='15046' type='WaterZone' shape='Cuboid' minZ='-5550' maxZ='-5005'/> <!-- [19_18_3] Catacomb of Dark Omens - vertical -->
+	<zone id='15045' type='WaterZone' shape='NPoly' minZ='-5550' maxZ='-3225'/> <!-- [19_18_2] Catacomb of Dark Omens water zone-->
+	<zone id='15046' type='WaterZone' shape='NPoly' minZ='-5550' maxZ='-5005'/> <!-- [19_18_3] Catacomb of Dark Omens water zone-->
 	<zone id='15047' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [19_18_4] water zone-->
 	<zone id='15048' type='WaterZone' shape='NPoly' minZ='-4814' maxZ='-3814'/> <!-- [19_19_1] water zone-->
 	<zone id='15049' type='WaterZone' shape='NPoly' minZ='-4818' maxZ='-3818'/> <!-- [19_19_2] water zone-->
 	<zone id='15050' type='WaterZone' shape='NPoly' minZ='-4298' maxZ='-3810'/> <!-- [19_20_1] water zone-->
-    <zone id='15051' type='WaterZone' shape='Cuboid' minZ='-5870' maxZ='-3390'/> <!-- [19_20_2] The Patriot's Necropolis - horizontal -->
-    <zone id='15052' type='WaterZone' shape='Cuboid' minZ='-5870' maxZ='-5293'/> <!-- [19_20_3] The Patriot's Necropolis - vertical -->
+	<zone id='15051' type='WaterZone' shape='NPoly' minZ='-5870' maxZ='-3550'/> <!-- [19_20_2] water zone-->
+	<zone id='15052' type='WaterZone' shape='NPoly' minZ='-5870' maxZ='-5293'/> <!-- [19_20_3] water zone-->
 	<zone id='15053' type='WaterZone' shape='NPoly' minZ='-10642' maxZ='-3810'/><!-- [19_21_1] water zone-->
 	<zone id='15054' type='WaterZone' shape='NPoly' minZ='-7810' maxZ='-3810'/> <!-- [19_24_1] water zone-->
 	<zone id='15055' type='WaterZone' shape='NPoly' minZ='-7810' maxZ='-3810'/> <!-- [19_24_2] water zone-->
@@ -990,24 +1393,24 @@
 	<zone id='15073' type='WaterZone' shape='NPoly' minZ='-2439' maxZ='-2289'/> <!-- [21_21_3] water zone-->
 	<zone id='15074' type='WaterZone' shape='NPoly' minZ='-2439' maxZ='-2289'/> <!-- [21_21_4] water zone-->
 	<zone id='15075' type='WaterZone' shape='NPoly' minZ='-2439' maxZ='-2289'/> <!-- [21_21_5] water zone-->
-    <zone id='15076' type='WaterZone' shape='Cuboid' minZ='-6110' maxZ='-3630'/> <!-- [21_21_6] The Pilgrim's Necropolis - horizontal -->
-    <zone id='15077' type='WaterZone' shape='Cuboid' minZ='-6110' maxZ='-5534'/> <!-- [21_21_7] The Pilgrim's Necropolis - vertical -->
+	<zone id='15076' type='WaterZone' shape='NPoly' minZ='-6110' maxZ='-3806'/> <!-- [21_21_6] water zone-->
+	<zone id='15077' type='WaterZone' shape='NPoly' minZ='-6110' maxZ='-5534'/> <!-- [21_21_7] water zone-->
 	<zone id='15078' type='WaterZone' shape='NPoly' minZ='-3979' maxZ='-3779'/> <!-- [21_22_1] water zone-->
-    <zone id='15079' type='WaterZone' shape='Cuboid' minZ='-6078' maxZ='-3600'/> <!-- [21_22_2] Catacomb of the Heretic - vertical -->
-    <zone id='15080' type='WaterZone' shape='Cuboid' minZ='-6078' maxZ='-5501'/> <!-- [21_22_3] Catacomb of the Heretic - horizontal -->
+	<zone id='15079' type='WaterZone' shape='NPoly' minZ='-6078' maxZ='-3758'/> <!-- [21_22_2] water zone-->
+	<zone id='15080' type='WaterZone' shape='NPoly' minZ='-6078' maxZ='-5501'/> <!-- [21_22_3] water zone-->
 	<zone id='15081' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [21_23_1] water zone-->
 	<zone id='15082' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [21_23_2] water zone-->
 	<zone id='15083' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [21_23_3] water zone-->
-    <zone id='15084' type='WaterZone' shape='Cuboid' minZ='-5678' maxZ='-3200'/> <!-- [21_23_4] Catacomb of the Branded - vertical -->
-    <zone id='15085' type='WaterZone' shape='Cuboid' minZ='-5678' maxZ='-5101'/> <!-- [21_23_5] Catacomb of the Branded - horizontal -->
+	<zone id='15084' type='WaterZone' shape='NPoly' minZ='-5678' maxZ='-3358'/> <!-- [21_23_4] water zone-->
+	<zone id='15085' type='WaterZone' shape='NPoly' minZ='-5678' maxZ='-5101'/> <!-- [21_23_5] water zone-->
 	<zone id='15086' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [21_24_1] water zone-->
 	<zone id='15087' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [22_18_1] water zone-->
 	<zone id='15088' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [22_18_2] water zone-->
 	<zone id='15089' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [22_19_1] water zone-->
 	<zone id='15090' type='WaterZone' shape='NPoly' minZ='-4802' maxZ='-3802'/> <!-- [22_20_1] water zone-->
 	<zone id='15091' type='WaterZone' shape='NPoly' minZ='-4802' maxZ='-3802'/> <!-- [22_20_2] water zone-->
-    <zone id='15092' type='WaterZone' shape='Cuboid' minZ='-5822' maxZ='-3340'/> <!-- [22_20_3] Catacomb of the Apostate - vertical -->
-    <zone id='15093' type='WaterZone' shape='Cuboid' minZ='-5822' maxZ='-5245'/> <!-- [22_20_4] Catacomb of the Apostate - horizontal -->
+	<zone id='15092' type='WaterZone' shape='NPoly' minZ='-5822' maxZ='-3502'/> <!-- [22_20_3] water zone-->
+	<zone id='15093' type='WaterZone' shape='NPoly' minZ='-5822' maxZ='-5245'/> <!-- [22_20_4] water zone-->
 	<zone id='15094' type='WaterZone' shape='NPoly' minZ='-8808' maxZ='-3810'/> <!-- [22_22_1] water zone-->
 	<zone id='15095' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [22_23_1] water zone-->
 	<zone id='15096' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [22_23_2] water zone-->
@@ -1026,8 +1429,8 @@
 	<zone id='15109' type='WaterZone' shape='NPoly' minZ='-4298' maxZ='-3810'/> <!-- [22_24_7] water zone-->
 	<zone id='15110' type='WaterZone' shape='NPoly' minZ='-4298' maxZ='-3810'/> <!-- [22_24_8] water zone-->
 	<zone id='15111' type='WaterZone' shape='NPoly' minZ='-4298' maxZ='-3810'/> <!-- [22_24_9] water zone-->
-    <zone id='15112' type='WaterZone' shape='Cuboid' minZ='-6136' maxZ='-3630'/> <!-- [22_24_10] The Saint's Necropolis - vertical -->
-    <zone id='15113' type='WaterZone' shape='Cuboid' minZ='-6136' maxZ='-5559'/> <!-- [22_24_11] The Saint's Necropolis - horizontal -->
+	<zone id='15112' type='WaterZone' shape='NPoly' minZ='-6136' maxZ='-3816'/> <!-- [22_24_10] water zone-->
+	<zone id='15113' type='WaterZone' shape='NPoly' minZ='-6136' maxZ='-5559'/> <!-- [22_24_11] water zone-->
 	<zone id='15114' type='WaterZone' shape='NPoly' minZ='-4298' maxZ='-3810'/> <!-- [22_24_12] water zone-->
 	<zone id='15115' type='WaterZone' shape='NPoly' minZ='-4298' maxZ='-3810'/> <!-- [22_24_13] water zone-->
 	<zone id='15116' type='WaterZone' shape='NPoly' minZ='-10932' maxZ='-10916'/><!-- [22_25_1] water zone-->
@@ -1043,15 +1446,15 @@
 	<zone id='15126' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_12_1] water zone-->
 	<zone id='15127' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_18_1] water zone-->
 	<zone id='15128' type='WaterZone' shape='NPoly' minZ='-5686' maxZ='-4686'/> <!-- [23_19_1] water zone-->
-    <zone id='15129' type='WaterZone' shape='Cuboid' minZ='-7214' maxZ='-4760'/> <!-- [23_20_1] Catacomb of the Forbidden Path - vertical -->
-    <zone id='15130' type='WaterZone' shape='Cuboid' minZ='-7238' maxZ='-6661'/> <!-- [23_20_2] Catacomb of the Forbidden Path - hoizontal -->
+	<zone id='15129' type='WaterZone' shape='NPoly' minZ='-7214' maxZ='-4894'/> <!-- [23_20_1] water zone-->
+	<zone id='15130' type='WaterZone' shape='NPoly' minZ='-7238' maxZ='-6661'/> <!-- [23_20_2] water zone-->
 	<zone id='15131' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_22_1] water zone-->
 	<zone id='15132' type='WaterZone' shape='NPoly' minZ='-3206' maxZ='-2922'/> <!-- [23_22_2] water zone-->
 	<zone id='15133' type='WaterZone' shape='NPoly' minZ='-4110' maxZ='-3810'/> <!-- [23_22_3] water zone-->
 	<zone id='15134' type='WaterZone' shape='NPoly' minZ='-4110' maxZ='-3810'/> <!-- [23_22_4] water zone-->
 	<zone id='15135' type='WaterZone' shape='NPoly' minZ='-4110' maxZ='-3810'/> <!-- [23_22_5] water zone-->
-    <zone id='15136' type='WaterZone' shape='Cuboid' minZ='-5534' maxZ='-3020'/> <!-- [23_22_6] Necropolis of Martyrdom - horizontal -->
-    <zone id='15137' type='WaterZone' shape='Cuboid' minZ='-5534' maxZ='-4900'/> <!-- [23_22_7] Necropolis of Martyrdom - vertical -->
+	<zone id='15136' type='WaterZone' shape='NPoly' minZ='-5534' maxZ='-3214'/> <!-- [23_22_6] water zone-->
+	<zone id='15137' type='WaterZone' shape='NPoly' minZ='-5534' maxZ='-4958'/> <!-- [23_22_7] water zone-->
 	<zone id='15138' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_23_1] water zone-->
 	<zone id='15139' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_23_2] water zone-->
 	<zone id='15140' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_23_3] water zone-->
@@ -1059,16 +1462,16 @@
 	<zone id='15142' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_23_5] water zone-->
 	<zone id='15143' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_23_6] water zone-->
 	<zone id='15144' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_23_7] water zone-->
-    <zone id='15145' type='WaterZone' shape='Cuboid' minZ='-6126' maxZ='-3660'/> <!-- [23_23_8] Necropolis of Worship - horizontal -->
-    <zone id='15146' type='WaterZone' shape='Cuboid' minZ='-6136' maxZ='-5520'/> <!-- [23_23_9] Necropolis of Worship - vertical -->
+	<zone id='15145' type='WaterZone' shape='NPoly' minZ='-6126' maxZ='-3806'/> <!-- [23_23_8] water zone-->
+	<zone id='15146' type='WaterZone' shape='NPoly' minZ='-6136' maxZ='-5559'/> <!-- [23_23_9] water zone-->
 	<zone id='15147' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_24_1] water zone-->
 	<zone id='15148' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [23_25_1] water zone-->
 	<zone id='15149' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [24_11_1] water zone-->
 	<zone id='15150' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [24_12_1] water zone-->
 	<zone id='15151' type='WaterZone' shape='NPoly' minZ='-2656' maxZ='-2558'/> <!-- [24_18_1] water zone-->
 	<zone id='15152' type='WaterZone' shape='NPoly' minZ='-4806' maxZ='-3806'/> <!-- [24_19_1] water zone-->
-    <zone id='15153' type='WaterZone' shape='Cuboid' minZ='-6126' maxZ='-3650'/> <!-- [24_20_1] Catacomb of the Witch - vertical -->
-    <zone id='15154' type='WaterZone' shape='Cuboid' minZ='-6126' maxZ='-5549'/> <!-- [24_20_2] Catacomb of the Witch - horizontal -->
+	<zone id='15153' type='WaterZone' shape='NPoly' minZ='-6126' maxZ='-3766'/> <!-- [24_20_1] water zone-->
+	<zone id='15154' type='WaterZone' shape='NPoly' minZ='-6126' maxZ='-5549'/> <!-- [24_20_2] water zone-->
 	<zone id='15155' type='WaterZone' shape='NPoly' minZ='-4510' maxZ='-3810'/> <!-- [24_20_3] water zone-->
 	<zone id='15156' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [24_21_1] water zone-->
 	<zone id='15157' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [25_11_1] water zone-->
@@ -1078,8 +1481,8 @@
 	<zone id='15161' type='WaterZone' shape='NPoly' minZ='-4673' maxZ='-4063'/> <!-- [25_14_1] water zone-->
 	<zone id='15162' type='WaterZone' shape='NPoly' minZ='-6160' maxZ='-5286'/> <!-- [25_14_2] water zone-->
 	<zone id='15163' type='WaterZone' shape='NPoly' minZ='-4310' maxZ='-3810'/> <!-- [25_20_1] water zone-->
-    <zone id='15164' type='WaterZone' shape='Cuboid' minZ='-5598' maxZ='-3120'/> <!-- [25_17_1] The Disciple's Necropolis - vertical -->
-    <zone id='15165' type='WaterZone' shape='Cuboid' minZ='-5598' maxZ='-5021'/> <!-- [25_17_2] The Disciple's Necropolis - horizontal -->
+	<zone id='15164' type='WaterZone' shape='NPoly' minZ='-5598' maxZ='-3278'/> <!-- [25_17_1] water zone-->
+	<zone id='15165' type='WaterZone' shape='NPoly' minZ='-5598' maxZ='-5021'/> <!-- [25_17_2] water zone-->
 	<zone id='15166' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [20_15_1] water zone-->
 	<zone id='15167' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [20_16_1] water zone-->
 	<zone id='15168' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [21_15_1] water zone-->
@@ -1103,6 +1506,23 @@
 	<zone id='15186' type='WaterZone' shape='NPoly' minZ='-2638' maxZ='-2382'/> <!-- [22_16_16] water zone-->
 	<zone id='15187' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [22_17_1] water zone-->
 	<zone id='15188' type='WaterZone' shape='NPoly' minZ='-4810' maxZ='-3810'/> <!-- [22_17_2] water zone-->
+	<zone id='15189' type='WaterZone' shape='NPoly' minZ='-4679' maxZ='-3781'/>
+	<zone id='15190' type='WaterZone' shape='NPoly' minZ='-4150' maxZ='-3733'/>
+                <zone id='15191' type='WaterZone' shape='NPoly' minZ='-5223' maxZ='-3752'/>
+                <zone id='15192' type='WaterZone' shape='NPoly' minZ='-5223' maxZ='-3752'/>
+                <zone id='15193' type='WaterZone' shape='NPoly' minZ='-5202' maxZ='-3752'/>
+                <zone id='15194' type='WaterZone' shape='NPoly' minZ='-4919' maxZ='-3752'/>
+	<zone id='15195' type='WaterZone' shape='NPoly' minZ='-2900' maxZ='-2599'/>
+	<zone id='15196' type='WaterZone' shape='NPoly' minZ='-3500' maxZ='-2997'/>
+	<zone id='15197' type='WaterZone' shape='NPoly' minZ='-3200' maxZ='-2806'/>
+	<zone id='15198' type='WaterZone' shape='NPoly' minZ='-1500' maxZ='-1089'/>
+	<zone id='15199' type='WaterZone' shape='NPoly' minZ='-1500' maxZ='-1089'/>
+	<zone id='15200' type='WaterZone' shape='NPoly' minZ='-1500' maxZ='-1100'/>
+	<zone id='15201' type='WaterZone' shape='NPoly' minZ='-1500' maxZ='-1100'/>
+	<zone id='15202' type='WaterZone' shape='NPoly' minZ='-7500' maxZ='-3780'/>
+	<zone id='15203' type='WaterZone' shape='NPoly' minZ='-7500' maxZ='-3780'/>
+	<zone id='15204' type='WaterZone' shape='Cuboid' minZ='-7500' maxZ='-3780'/>
+	<zone id='15205' type='WaterZone' shape='Cuboid' minZ='-7500' maxZ='-3780'/>
 
 <!-- Damage zones -->
 	<zone id='20000' type='DamageZone' shape='NPoly' minZ='-6519' maxZ='-6319'/>
@@ -1205,154 +1625,485 @@
 		<stat name='chance' val='70'/>
               <stat name='reuse' val='6000'/>
 	</zone>
-	<zone id='12013' type='PoisonZone' shape='NPoly' minZ='-7262' maxZ='-7012'> <!-- [25_15] magistrates_nonheal-->
-		<stat name='skillId' val='4625'/>
-		<stat name='skillLvl' val='1'/>
-		<stat name='chance' val='70'/>
-              <stat name='reuse' val='6000'/>
+  	<zone id='50000' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='50001' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='50002' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+	<zone id='50003' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='50004' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='50005' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='50006' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='50007' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='50008' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='50009' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='50010' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='50011' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
 	</zone>
 
-<!-- Boss Zones -->
-	<zone id='12001' type='BossZone' shape='Cuboid' minZ='-7230' maxZ='-6621'>
-		<stat name='name' val='Four Sepulcher'/>
-		<stat name='oustX' val='169589'/>
-		<stat name='oustY' val='-90493'/>
-		<stat name='oustZ' val='-2914'/>
+	<zone id='60002' type='SkillZone' shape='NPoly' minZ='-1800' maxZ='16301'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12002' type='BossZone' shape='Cuboid' minZ='-7230' maxZ='-6621'>
-		<stat name='name' val='Four Sepulcher'/>
-		<stat name='oustX' val='169589'/>
-		<stat name='oustY' val='-90493'/>
-		<stat name='oustZ' val='-2914'/>
+	<zone id='60003' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12003' type='BossZone' shape='Cuboid' minZ='-7230' maxZ='-6621'>
-		<stat name='name' val='Four Sepulcher'/>
-		<stat name='oustX' val='169589'/>
-		<stat name='oustY' val='-90493'/>
-		<stat name='oustZ' val='-2914'/>
+	<zone id='60004' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12004' type='BossZone' shape='Cuboid' minZ='-7230' maxZ='-6621'>
-		<stat name='name' val='Four Sepulcher'/>
-		<stat name='oustX' val='169589'/>
-		<stat name='oustY' val='-90493'/>
-		<stat name='oustZ' val='-2914'/>
+	<zone id='60005' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12005' type='BossZone' shape='NPoly' minZ='-5120' maxZ='-2500'>
-		<stat name='name' val='Lair of Frintezza'/>
+	<zone id='60006' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12006' type='BossZone' shape='Cuboid' minZ='-8320' maxZ='-4870'>
-		<stat name='name' val='Lair of Antharas'/>
-		<stat name='Flying' val='false'/>
-		<stat name='InvadeTime' val='600000'/>
-		<stat name='InvadeTimeAfterRestart' val='1800000'/>
-		<stat name='QuestName' val='antharas'/>
+	<zone id='60007' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12007' type='BossZone' shape='NPoly' minZ='9967' maxZ='16301'>
-		<stat name='name' val='Lair of Baium'/>
-		<stat name='InvadeTime' val='1800000'/>
+	<zone id='60008' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12008' type='BossZone' shape='NPoly' minZ='-2572' maxZ='5428'>
-		<stat name='name' val='Lair of Valakas'/>
-		<stat name='Flying' val='false'/>
-		<stat name='InvadeTime' val='0'/>
-		<stat name='InvadeTimeAfterRestart' val='1800000'/>
-		<stat name='QuestName' val='valakas'/>
+	<zone id='60009' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12011' type='BossZone' shape='NPoly' minZ='-4815' maxZ='-315'>
-		<stat name='name' val='Lair of Zaken'/>
-		<stat name='EnabledByDefault' val='false'/>
+	<zone id='60010' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12012' type='BossZone' shape='NPoly' minZ='-5947' maxZ='-5547'>
-		<stat name='name' val='Lair of Ant Queen'/>
-		<stat name='EnabledByDefault' val='false'/>
+	<zone id='60011' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12013' type='BossZone' shape='NPoly' minZ='-5796' maxZ='-3796'>
-		<stat name='name' val='Lair of Orfen'/>
-		<stat name='EnabledByDefault' val='false'/>
+	<zone id='60012' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12015' type='BossZone' shape='NPoly' minZ='-4000' maxZ='-500'>
-		<stat name='name' val='Ice Queens Castle'/>
-		<stat name='oustX' val='115844'/>
-		<stat name='oustY' val='-125602'/>
-		<stat name='oustZ' val='-3352'/>
+	<zone id='60013' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-<!--
-	<zone id='12009' type='BossZone' shape='Cuboid' minZ='-5600' maxZ='-3895'>
-		<stat name='name' val='Lair of Lilith'/>
-		<stat name='InvadeTime' val='60000'/>
+	<zone id='60014' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12010' type='BossZone' shape='Cuboid' minZ='-5600' maxZ='-3895'>
-		<stat name='name' val='Lair of Anakim'/>
-		<stat name='InvadeTime' val='60000'/>
+	<zone id='60015' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12014' type='BossZone' shape='Cuboid' minZ='-10730' maxZ='-10290'>
-		<stat name='name' val='Altar of Sacrifice'/>
-		<stat name='InvadeTime' val='60000'/>
+	<zone id='60016' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12016' type='BossZone' shape='Cuboid' minZ='-5300' maxZ='-3600'>
-		<stat name='name' val='LastImperialTomb'/>
-		<stat name='Flying' val='false'/>
-		<stat name='InvadeTime' val='0'/>
-		<stat name='InvadeTimeAfterRestart' val='0'/>
-		<stat name='QuestName' val='lastimperialtomb'/>
+	<zone id='60017' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='12017' type='BossZone' shape='NPoly' minZ='-5300' maxZ='-1900'>
-		<stat name='name' val='HallofFrintezza'/>
-		<stat name='Flying' val='false'/>
-		<stat name='InvadeTime' val='0'/>
-		<stat name='InvadeTimeAfterRestart' val='0'/>
+	<zone id='60018' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
-	<zone id='20111' type='BossZone' shape='Cuboid' minZ='-2075' maxZ='-1944'>
-		<stat name='name' val='Lair of Sailren'/>
-		<stat name='Flying' val='false'/>
-		<stat name='InvadeTime' val='0'/>
-		<stat name='InvadeTimeAfterRestart' val='0'/>
-		<stat name='QuestName' val='sailren'/>
+	<zone id='60019' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
 	</zone>
--->
-
-<!-- Blazing Swamp -->
-	<zone id='13034' type='SkillZone' shape='NPoly' minZ='-4700' maxZ='-1000'>
+	<zone id='60020' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60021' type='SkillZone' shape='NPoly' minZ='-1735' maxZ='-1400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60022' type='SkillZone' shape='NPoly' minZ='-2700' maxZ='-2400'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60023' type='SkillZone' shape='NPoly' minZ='-3900' maxZ='-3700'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60024' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3180'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60025' type='SkillZone' shape='NPoly' minZ='-3300' maxZ='-3100'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60026' type='SkillZone' shape='NPoly' minZ='-3330' maxZ='-3100'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60027' type='SkillZone' shape='NPoly' minZ='-3300' maxZ='-3100'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60028' type='SkillZone' shape='NPoly' minZ='-3300' maxZ='-3100'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60029' type='SkillZone' shape='NPoly' minZ='-1900' maxZ='-1700'>
+		<stat name='skillId' val='4150'/>
+		<stat name='skillLvl' val='12'/>
+	</zone>
+	<zone id='60030' type='SkillZone' shape='NPoly' minZ='-2500' maxZ='-2000'>
+		<stat name='skillId' val='4559'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+	<zone id='60031' type='SkillZone' shape='NPoly' minZ='-3800' maxZ='-3563'>
+		<stat name='skillId' val='4559'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+	<zone id='60032' type='SkillZone' shape='NPoly' minZ='-3800' maxZ='-3608'>
+		<stat name='skillId' val='4559'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+	<zone id='60033' type='SkillZone' shape='NPoly' minZ='-3800' maxZ='-3646'>
+		<stat name='skillId' val='4559'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+	<zone id='60034' type='SkillZone' shape='NPoly' minZ='-4700' maxZ='-1000'>
 		<stat name='skillId' val='4150'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-	<zone id='13035' type='SkillZone' shape='NPoly' minZ='-4800' maxZ='-4085'>
+	<zone id='60035' type='SkillZone' shape='NPoly' minZ='-4800' maxZ='-4085'>
 		<stat name='skillId' val='4150'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-	<zone id='13036' type='SkillZone' shape='NPoly' minZ='-5000' maxZ='-4508'>
+	<zone id='60036' type='SkillZone' shape='NPoly' minZ='-5000' maxZ='-4508'>
 		<stat name='skillId' val='4150'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-	<zone id='13037' type='SkillZone' shape='NPoly' minZ='-5000' maxZ='-4508'>
+	<zone id='60037' type='SkillZone' shape='NPoly' minZ='-5000' maxZ='-4508'>
 		<stat name='skillId' val='4150'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-	<zone id='13038' type='SkillZone' shape='NPoly' minZ='-5000' maxZ='-4366'>
+	<zone id='60038' type='SkillZone' shape='NPoly' minZ='-5000' maxZ='-4366'>
 		<stat name='skillId' val='4150'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-	<zone id='13039' type='SkillZone' shape='NPoly' minZ='-3800' maxZ='-2800'>
+	<zone id='60039' type='SkillZone' shape='NPoly' minZ='-3800' maxZ='-2800'>
 		<stat name='skillId' val='4150'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-   <!-- Rune Castle Damage Zones-->
-  	<zone id='13105' type='SkillZone' shape='NPoly' minZ='500' maxZ='900'>
+	<zone id='60040' type='SkillZone' shape='NPoly' minZ='-6654' maxZ='-6100'>
+		<stat name='name' val='Core'/>
+		<stat name='skillId' val='4147'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60041' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60042' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60043' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60044' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+               </zone>
+  	<zone id='60045' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60046' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60047' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60048' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60049' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60050' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60051' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60052' type='SkillZone' shape='NPoly' minZ='-3400' maxZ='-3218'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60053' type='SkillZone' shape='NPoly' minZ='-2700' maxZ='-2580'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60054' type='SkillZone' shape='NPoly' minZ='-2700' maxZ='-2580'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60055' type='SkillZone' shape='NPoly' minZ='-2700' maxZ='-2580'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60056' type='SkillZone' shape='NPoly' minZ='-2700' maxZ='-2580'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60057' type='SkillZone' shape='NPoly' minZ='-2700' maxZ='-2600'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60058' type='SkillZone' shape='NPoly' minZ='-2700' maxZ='-2600'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60059' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60060' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60061' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60062' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60063' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60064' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60065' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60066' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60067' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60068' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60069' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60070' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60071' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60072' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60073' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60074' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60075' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4148'/>
+		<stat name='skillLvl' val='7'/>
+	</zone>
+  	<zone id='60076' type='SkillZone' shape='NPoly' minZ='-2400' maxZ='-2305'>
+		<stat name='skillId' val='4146'/>
+		<stat name='skillLvl' val='3'/>
+	</zone>
+  	<zone id='60077' type='SkillZone' shape='NPoly' minZ='-560' maxZ='-360'>
+		<stat name='onSiege' val='true'/>
 		<stat name='skillId' val='4625'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-  	<zone id='13106' type='DamageZone' shape='NPoly' minZ='500' maxZ='900'>
+  	<zone id='60078' type='DamageZone' shape='NPoly' minZ='-560' maxZ='-360'>
 		<stat name='onSiege' val='true'/>
 	</zone>
-  	<zone id='13107' type='SkillZone' shape='NPoly' minZ='500' maxZ='900'>
+  	<zone id='60079' type='SkillZone' shape='NPoly' minZ='-560' maxZ='-360'>
+		<stat name='onSiege' val='true'/>
 		<stat name='skillId' val='4625'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>
-  	<zone id='13108' type='DamageZone' shape='NPoly' minZ='500' maxZ='900'>
+  	<zone id='60080' type='DamageZone' shape='NPoly' minZ='-560' maxZ='-360'>
 		<stat name='onSiege' val='true'/>
 	</zone>
-  <!-- Orfen -->
-  	<zone id='13113' type='SkillZone' shape='NPoly' minZ='-4468' maxZ='-4118'>
+  	<zone id='60081' type='SkillZone' shape='NPoly' minZ='-1789' maxZ='-1489'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60082' type='DamageZone' shape='NPoly' minZ='-1789' maxZ='-1489'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60083' type='SkillZone' shape='NPoly' minZ='-1789' maxZ='-1439'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60084' type='DamageZone' shape='NPoly' minZ='-1789' maxZ='-1439'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60085' type='SkillZone' shape='NPoly' minZ='-2740' maxZ='-2570'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60086' type='DamageZone' shape='NPoly' minZ='-2740' maxZ='-2570'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60087' type='SkillZone' shape='NPoly' minZ='-2735' maxZ='-2500'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60088' type='DamageZone' shape='NPoly' minZ='-2735' maxZ='-2500'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60089' type='SkillZone' shape='NPoly' minZ='-2722' maxZ='-2300'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60090' type='DamageZone' shape='NPoly' minZ='-2722' maxZ='-2300'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60091' type='SkillZone' shape='NPoly' minZ='-2722' maxZ='-2300'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60092' type='DamageZone' shape='NPoly' minZ='-2722' maxZ='-2300'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60093' type='SkillZone' shape='NPoly' minZ='-2860' maxZ='-2500'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60094' type='DamageZone' shape='NPoly' minZ='-2860' maxZ='-2500'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60095' type='SkillZone' shape='NPoly' minZ='-2880' maxZ='-2500'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60096' type='DamageZone' shape='NPoly' minZ='-2880' maxZ='-2500'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60097' type='SkillZone' shape='NPoly' minZ='-2670' maxZ='-2400'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60098' type='DamageZone' shape='NPoly' minZ='-2670' maxZ='-2400'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60099' type='SkillZone' shape='NPoly' minZ='-2650' maxZ='-2400'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60100' type='DamageZone' shape='NPoly' minZ='-2650' maxZ='-2450'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60101' type='SkillZone' shape='NPoly' minZ='-917' maxZ='-800'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60102' type='DamageZone' shape='NPoly' minZ='-917' maxZ='-800'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60103' type='SkillZone' shape='NPoly' minZ='-917' maxZ='-800'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60104' type='DamageZone' shape='NPoly' minZ='-917' maxZ='-800'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60105' type='SkillZone' shape='NPoly' minZ='500' maxZ='900'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60106' type='DamageZone' shape='NPoly' minZ='500' maxZ='900'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60107' type='SkillZone' shape='NPoly' minZ='500' maxZ='900'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60108' type='DamageZone' shape='NPoly' minZ='500' maxZ='900'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60109' type='SkillZone' shape='NPoly' minZ='-50' maxZ='200'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60110' type='DamageZone' shape='NPoly' minZ='-50' maxZ='200'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60111' type='SkillZone' shape='NPoly' minZ='-50' maxZ='200'>
+		<stat name='skillId' val='4625'/>
+		<stat name='skillLvl' val='1'/>
+	</zone>
+  	<zone id='60112' type='DamageZone' shape='NPoly' minZ='-50' maxZ='200'>
+		<stat name='onSiege' val='true'/>
+	</zone>
+  	<zone id='60113' type='SkillZone' shape='NPoly' minZ='-4468' maxZ='-4118'>
 		<stat name='skillId' val='4625'/>
 		<stat name='skillLvl' val='1'/>
 	</zone>

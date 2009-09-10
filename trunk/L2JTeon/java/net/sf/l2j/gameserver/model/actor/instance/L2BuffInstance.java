@@ -1,30 +1,35 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
-import java.text.DateFormat;
+import java.util.Iterator;
 import java.util.StringTokenizer;
-import java.util.List;
 import javolution.text.TextBuilder;
-import java.util.*;
-import javolution.util.FastList;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
-import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Multisell;
-import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
-import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
-import net.sf.l2j.gameserver.model.quest.Quest;
-import net.sf.l2j.gameserver.model.quest.QuestState;
-import net.sf.l2j.gameserver.model.quest.State;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
-import net.sf.l2j.gameserver.serverpackets.*;
-import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
+import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2ddt.engine.Npcbuffer;
+import net.sf.l2j.gameserver.model.entity.Npcbuffer;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.skills.Stats;
 
 public class L2BuffInstance extends L2NpcInstance
 {
@@ -157,10 +162,10 @@ public class L2BuffInstance extends L2NpcInstance
         html.replace("%after%", id);
         if(id.endsWith("_repl"))
         {
-			net.sf.l2ddt.engine.Npcbuffer.BuffGroup bg;
+			net.sf.l2j.gameserver.model.entity.Npcbuffer.BuffGroup bg;
             for(Iterator iterator = Npcbuffer.buffs().values().iterator(); iterator.hasNext(); html.replace((new StringBuilder("%e")).append(bg.nId).append("i%").toString(), (new StringBuilder("&#")).append(bg.itemId).append(";").toString()))
             {
-				bg = (net.sf.l2ddt.engine.Npcbuffer.BuffGroup)iterator.next();
+				bg = (net.sf.l2j.gameserver.model.entity.Npcbuffer.BuffGroup)iterator.next();
                 html.replace((new StringBuilder("%e")).append(bg.nId).append("c%").toString(), String.valueOf(bg.itemCount));
             }
 

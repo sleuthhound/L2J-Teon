@@ -46,7 +46,6 @@ import net.sf.l2j.gameserver.model.zone.type.L2DamageZone;
 import net.sf.l2j.gameserver.model.zone.type.L2DerbyTrackZone;
 import net.sf.l2j.gameserver.model.zone.type.L2FishingZone;
 import net.sf.l2j.gameserver.model.zone.type.L2FortZone;
-import net.sf.l2j.gameserver.model.zone.type.L2HotSpringsZone;
 import net.sf.l2j.gameserver.model.zone.type.L2JailZone;
 import net.sf.l2j.gameserver.model.zone.type.L2MotherTreeZone;
 import net.sf.l2j.gameserver.model.zone.type.L2NoLandingZone;
@@ -183,8 +182,6 @@ public class ZoneManager
 								temp = new L2BigheadZone(zoneId);
 							else if (zoneType.equals("NoLandingZone"))
 								temp = new L2NoLandingZone(zoneId);
-							else if (zoneType.equals("HotSpringsZone"))
-								temp = new L2HotSpringsZone(zoneId);
 							else if (zoneType.equals("JailZone"))
 								temp = new L2JailZone(zoneId);
 							else if (zoneType.equals("DerbyTrackZone"))
