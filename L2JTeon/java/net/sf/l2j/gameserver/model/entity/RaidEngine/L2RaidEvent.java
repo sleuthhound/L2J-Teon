@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.PcInventory;
+import net.sf.l2j.gameserver.model.item.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2BufferTeonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2EventManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
