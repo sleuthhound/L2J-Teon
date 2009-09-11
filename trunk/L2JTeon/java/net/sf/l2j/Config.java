@@ -95,7 +95,7 @@ public final class Config
     /** Properties file FloodProtector Configuration */ 
     public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";
     /** Properties file for Bosses */
-    public static final String  BOS_CONFIG_FILE = "./config/bosses/bosses.properties";
+    public static final String  ZAKEN_CONFIG_FILE = "./config/bosses/zaken.properties";
     /** Properties file for FourSepulchers */
     public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";
     /** Properties file for Character Configurations */
@@ -3532,7 +3532,7 @@ public final class Config
 			try
 			{
 				Properties Settings = new Properties();
-				InputStream is = new FileInputStream(BOS_CONFIG_FILE);
+				InputStream is = new FileInputStream(ZAKEN_CONFIG_FILE);
 				Settings.load(is);
 				is.close();
                 TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(Settings.getProperty("TimeInADayOfOpenADoor", "0"));
@@ -3543,7 +3543,7 @@ public final class Config
 			} catch (Exception e)
 			{
 				e.printStackTrace();
-				throw new Error("Failed to Load " + BOS_CONFIG_FILE + " File.");
+				throw new Error("Failed to Load " + ZAKEN_CONFIG_FILE + " File.");
 			}
             // FloodProtector 
 			try 
