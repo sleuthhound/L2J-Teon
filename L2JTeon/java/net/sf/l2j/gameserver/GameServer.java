@@ -98,7 +98,6 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.lib.L2jConnect;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
@@ -270,8 +269,11 @@ public class GameServer
     	HtmCache.getInstance();
     	CrestCache.getInstance();
 
+    	Util.printSection("Clan");
     	ClanTable.getInstance();
+    	Util.printSection("GM Table");
     	GmListTable.getInstance();
+    	Util.printSection("Helper Buff Table");
     	_helperBuffTable = HelperBuffTable.getInstance();
     	/**
     	 * NPCBUFFER: Import Table for NpcBuffer Core Side Buffer
@@ -295,6 +297,7 @@ public class GameServer
     	FortSiegeManager.getInstance();
     	// Load clan hall data before zone data
     	_cHManager = ClanHallManager.getInstance();
+    	Util.printSection("Teleport");
     	TeleportLocationTable.getInstance();
     	LevelUpData.getInstance();
         Util.printSection("RaidBosses GrandBosses");
@@ -317,7 +320,7 @@ public class GameServer
         CursedWeaponsManager.getInstance();
         FourSepulchersManager.getInstance().init();
         BaiumManager.getInstance().init();
-        // VanHalterManager.getInstance().init();
+        // VanHalterManager.getInstance().init(); // -.-"
         Util.printSection("Quests - Scripts");
         QuestManager.getInstance();
         

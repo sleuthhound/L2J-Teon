@@ -55,45 +55,4 @@ public class ChSiegeManager
     {
 	_clanHall = new FastMap<Integer, ClanHall>();
     }
-    /** Get Map with all ClanHalls */
-    public final Map<Integer, ClanHall> getClanHalls()
-    {
-	return _clanHall;
-    }
-
-    /** Get Clan Hall by Id */
-    public final ClanHall getClanHallById(int clanHallId)
-    {
-	if (_clanHall.containsKey(clanHallId))
-	    return _clanHall.get(clanHallId);
-	return null;
-    }
-
-    /** Get Clan Hall by x,y,z */
-    /*
-     * public final ClanHall getClanHall(int x, int y, int z) { for
-     * (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet()) if
-     * (ch.getValue().getZone().isInsideZone(x, y, z)) return ch.getValue();
-     * 
-     * for (Map.Entry<Integer, ClanHall> ch : _freeClanHall.entrySet()) if
-     * (ch.getValue().getZone().isInsideZone(x, y, z)) return ch.getValue();
-     * 
-     * return null; }
-     */
-    public final ClanHall getNearbyClanHall(int x, int y, int maxDist)
-    {
-	for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
-	    if (ch.getValue().getZone().getDistanceToZone(x, y) < maxDist)
-		return ch.getValue();
-	return null;
-    }
-
-    /** Get Clan Hall by Owner */
-    public final ClanHall getClanHallByOwner(L2Clan clan)
-    {
-	for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
-	    if (clan.getClanId() == ch.getValue().getOwnerId())
-		return ch.getValue();
-	return null;
-    }
 }
