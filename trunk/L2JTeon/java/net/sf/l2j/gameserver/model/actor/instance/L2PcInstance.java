@@ -82,7 +82,6 @@ import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.CustomZoneManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.ForceBuff;
@@ -10834,17 +10833,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	        		if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
 	        		BaiumManager.getInstance().addPlayerToLair(this);
 				}
+    			}
     		}
-
-    		// High Priestess van Halter
-	    	else if (zn.equalsIgnoreCase("Altar of Sacrifice"))
-			{
-				if(System.currentTimeMillis() - getLastAccess() >= 600000)
-	    			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-	        	else
-	        		VanHalterManager.getInstance().intruderDetection(this);
-			}
-		}
 	}
 
     public long getLastAccess()

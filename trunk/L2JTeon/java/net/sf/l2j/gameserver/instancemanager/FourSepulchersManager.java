@@ -1495,7 +1495,7 @@ public class FourSepulchersManager extends GrandBossManager
 				}
 				else
 				{
-				    _log.warning("FourSepulchersManager: Attempted to close undefined door. doorId: "+doorId);
+				    // _log.warning("FourSepulchersManager: Attempted to close undefined door. doorId: "+doorId);
 				}
 			}
 			catch (Exception e)

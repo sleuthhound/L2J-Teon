@@ -6669,3 +6669,8 @@ UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` IN (13001,29055,31385,31540,32109);
 
 -- Delete skills, control HotSprings.java
 DELETE FROM `npcskills` WHERE `skillid` IN (4551,4552,4553,4554);
+
+-- L2JTeon
+-- Npcs Castle rune, schuttgart fix collision height
+UPDATE `npc` SET `collision_height` = '24' WHERE `id` IN (35513,35503,35504,35505,35511,35509,35510,35548,35549,35557,35555);
+UPDATE `npc` SET `collision_height` = '16' WHERE `id` IN (35507,35508);

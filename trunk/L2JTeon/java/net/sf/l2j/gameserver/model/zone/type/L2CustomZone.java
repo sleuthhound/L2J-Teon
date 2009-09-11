@@ -15,7 +15,6 @@
 package net.sf.l2j.gameserver.model.zone.type;
 
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
@@ -65,9 +64,7 @@ public class L2CustomZone extends L2ZoneType
 	        // player is banished. 
 	        if (!((L2PcInstance)character).isGM() && ((L2PcInstance)character).isFlying() && !((L2PcInstance)character).isInJail() && !_IsFlyingEnable)
 	        	((L2PcInstance)character).teleToLocation(MapRegionTable.TeleportWhereType.Town);
-	        
-	        if (_zoneName.equalsIgnoreCase("Altar of Sacrifice"))
-	        	VanHalterManager.getInstance().intruderDetection((L2PcInstance)character);
+
 		}
 	}
 	
