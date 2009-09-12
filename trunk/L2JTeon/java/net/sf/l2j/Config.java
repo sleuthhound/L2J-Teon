@@ -2194,7 +2194,7 @@ public final class Config
 		InputStream is = new FileInputStream(new File(SERVER_VERSION_FILE));
 		serverVersion.load(is);
 		is.close();
-		SERVER_VERSION = serverVersion.getProperty("committed-rev", "Unsupported Custom Version.");
+		SERVER_VERSION = serverVersion.getProperty("version", "Unsupported Custom Version.");
 		SERVER_BUILD_DATE = serverVersion.getProperty("builddate", "Undefined Date.");
 	    } catch (Exception e)
 	    {
@@ -2211,7 +2211,7 @@ public final class Config
 		InputStream is = new FileInputStream(new File(DATAPACK_VERSION_FILE));
 		serverVersion.load(is);
 		is.close();
-		DATAPACK_VERSION = serverVersion.getProperty("committed-rev", "Unsupported Custom Version.");
+		DATAPACK_VERSION = serverVersion.getProperty("version", "Unsupported Custom Version.");
 	    } catch (Exception e)
 	    {
 		// Ignore Properties file if it doesnt exist
