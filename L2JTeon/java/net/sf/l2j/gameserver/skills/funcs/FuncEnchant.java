@@ -37,9 +37,11 @@ public class FuncEnchant extends Func
 	L2ItemInstance item = (L2ItemInstance) funcOwner;
 	int cristall = item.getItem().getCrystalType();
 	Enum itemType = item.getItemType();
-	if (cristall == L2Item.CRYSTAL_NONE)
-	    return;
 	int enchant = item.getEnchantLevel();
+	
+    if (enchant <= 0) 
+        return;
+    
 	int overenchant = 0;
 	if (enchant > 3)
 	{
