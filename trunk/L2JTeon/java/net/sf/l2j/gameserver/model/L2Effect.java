@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance; 
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.serverpackets.MagicEffectIcons;
@@ -370,7 +371,7 @@ public abstract class L2Effect
 	{
 	    _state = EffectState.ACTING;
 	    onStart();
-	    if (_skill.isPvpSkill())
+	    if (_skill.isPvpSkill() && getEffected() != null && getEffected() instanceof L2PcInstance)
 	    {
 		SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 		smsg.addString(_skill.getName());
@@ -409,7 +410,7 @@ public abstract class L2Effect
 	    // L2Character
 	    onExit();
 	    // If the time left is equal to zero, send the message
-	    if (_count == 0)
+	    if (_count == 0 && getEffected() != null && getEffected() instanceof L2PcInstance)
 	    {
 		SystemMessage smsg3 = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
 		smsg3.addString(_skill.getName());
