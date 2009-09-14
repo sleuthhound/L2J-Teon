@@ -25,10 +25,12 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Experience; 
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.UserInfo; 
 import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Rnd;
@@ -106,12 +108,11 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 	}
 	if (player.getSp() >= _requiredSp)
 	{
-	    if (player.getExp() >= _requiredExp)
+        long expAfter = player.getExp() - _requiredExp; 
+	    if (player.getExp() >= _requiredExp && expAfter >= Experience.LEVEL[player.getLevel()])
 	    {
-		if (Config.ES_SP_BOOK_NEEDED && ((_skillLvl == 101) || (_skillLvl == 141))) // only
-		// first lvl
-		// requires
-		// book
+		if (Config.ES_SP_BOOK_NEEDED && ((_skillLvl == 101) || (_skillLvl == 141))) 
+		// only first lvl requires book
 		{
 		    int spbId = 6622;
 		    L2ItemInstance spb = player.getInventory().getItemByItemId(spbId);
@@ -144,6 +145,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 	    StatusUpdate su = new StatusUpdate(player.getObjectId());
 	    su.addAttribute(StatusUpdate.SP, player.getSp());
 	    player.sendPacket(su);
+        player.sendPacket(new UserInfo(player)); 
 	    SystemMessage ep = new SystemMessage(SystemMessageId.EXP_DECREASED_BY_S1);
 	    ep.addNumber(_requiredExp);
 	    sendPacket(ep);
