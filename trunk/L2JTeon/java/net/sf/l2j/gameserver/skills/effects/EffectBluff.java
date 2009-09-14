@@ -14,17 +14,17 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
-import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import net.sf.l2j.gameserver.serverpackets.BeginRotation; 
+import net.sf.l2j.gameserver.serverpackets.StopRotation; 
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- * @author decad
+ * @author L2J Server
  * 
  * Implementation of the Bluff Effect
  */
@@ -45,7 +45,6 @@ final class EffectBluff extends L2Effect
     @Override
     public void onStart()
     {
-	getEffected().startFear();
 	if (getEffected() instanceof L2FolkInstance)
 	{
 	    return;
@@ -58,35 +57,11 @@ final class EffectBluff extends L2Effect
 	    return;
 	}
 	if (getEffected() instanceof L2SiegeSummonInstance)
-	{
 	    return;
-	}
-	int posX = getEffected().getX();
-	int posY = getEffected().getY();
-	int posZ = getEffected().getZ();
-	int signx = -1;
-	int signy = -1;
-	if (getEffected().getX() > getEffector().getX())
-	{
-	    signx = 1;
-	}
-	if (getEffected().getY() > getEffector().getY())
-	{
-	    signy = 1;
-	}
-	// posX += signx*40; //distance less than melee attacks (40)
-	// posY += signy*40;
-	getEffected().setRunning();
-	getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX + signx * 40, posY + signy * 40, posZ, 0));
-	getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
-	getEffected().setTarget(null);
+    getEffected().broadcastPacket(new BeginRotation(getEffected().getObjectId(), getEffected().getHeading(), 1, 65535)); 
+    getEffected().broadcastPacket(new StopRotation(getEffected().getObjectId(), getEffector().getHeading(), 65535)); 
+    getEffected().setHeading(getEffector().getHeading()); 
 	onActionTime();
-    }
-
-    @Override
-    public void onExit()
-    {
-	getEffected().stopFear(this);
     }
 
     @Override
