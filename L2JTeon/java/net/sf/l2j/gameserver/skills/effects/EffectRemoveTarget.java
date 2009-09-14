@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
+import net.sf.l2j.gameserver.ai.CtrlIntention; 
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
@@ -41,6 +42,7 @@ public class EffectRemoveTarget extends L2Effect
 	getEffected().setTarget(null);
 	getEffected().abortAttack();
 	getEffected().abortCast();
+    getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, getEffector()); 
     }
 
     /** Notify exited */
