@@ -235,8 +235,10 @@ public final class RequestRefine extends L2GameClientPacket
 	if (gemstoneItem.getCount() - modifyGemstoneCount < 0)
 	    return false;
 	// consume the life stone
-	if (!player.destroyItem("RequestRefine", refinerItem, null, false))
-	    return false;
+	if (!player.destroyItem("RequestRefine", refinerItem.getObjectId(), 1, null, false))
+	{
+		return false;
+	}
 	// Prepare inventory update
 	InventoryUpdate iu = new InventoryUpdate();
 	if (gemstoneItem.getCount() - modifyGemstoneCount == 0)
