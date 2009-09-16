@@ -40,28 +40,20 @@ public final class Config
     protected static final Logger _log = Logger.getLogger(Config.class.getName());
     
     // Configuration files
-    /**
-     * Properties file that allows selection of new Classes for storage of World Objects. <br>
-     * This may help servers with large amounts of players recieving error messages related to the 
-     * <i>L2ObjectHashMap</i> and
-     * <i>L2ObejctHashSet</i> classes.
-     */
-    /**
-     * Properties file for game server (connection and ingame) configurations
-     */
+    /** Properties file for game server (connection and ingame) configurations */
     public static final String CONFIGURATION_FILE = "./config/server.properties";
-    /** Properties file for game server options */
-    public static final String OPTIONS_FILE = "./config/options.properties";
     /** Properties file for login server configurations */
     public static final String LOGIN_CONFIGURATION_FILE = "./config/loginserver.properties";
+    /** Properties file for alternative configuration */
+    public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
     /** Properties file for the ID factory */
     public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
     /** Properties file for other configurations */
     public static final String OTHER_CONFIG_FILE = "./config/other.properties";
+    /** Properties file for game server options */
+    public static final String OPTIONS_FILE = "./config/options.properties";
     /** Properties file for rates configurations */
     public static final String RATES_CONFIG_FILE = "./config/rates.properties";
-    /** Properties file for alternative configuration */
-    public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
     /** Properties file for PVP configurations */
     public static final String PVP_CONFIG_FILE = "./config/pvp.properties";
     /** Properties file for GM access configurations */
@@ -116,6 +108,156 @@ public final class Config
     public static final String  OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
     /** Properties file for Augment Configurations */
     public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
+    
+    // Start AltSettings.properties
+    /** Accept auto-loot ? */
+    public static boolean AUTO_LOOT;
+    public static boolean AUTO_LOOT_HERBS;
+    /** Alternative auto skill learning */
+    public static boolean AUTO_LEARN_SKILLS;
+    public static int ALT_PARTY_RANGE;
+    public static int ALT_PARTY_RANGE2;
+    /** Alternative gameing - loss of XP on death */
+    public static boolean ALT_GAME_DELEVEL;
+    /** Alternative gameing - magic dmg failures */
+    public static boolean ALT_GAME_MAGICFAILURES;
+    /** Cancel attack bow by hit */
+    public static boolean ALT_GAME_CANCEL_BOW;
+    /** Cancel cast by hit */
+    public static boolean ALT_GAME_CANCEL_CAST;
+    /** Alternative shield defence */
+    public static boolean ALT_GAME_SHIELD_BLOCKS;
+    /** Alternative game mob ATTACK AI */
+    public static boolean ALT_GAME_MOB_ATTACK_AI;
+    public static boolean ALT_MOB_AGRO_IN_PEACEZONE;
+    /** Alternative freight modes - Freights can be withdrawed from any village */
+    public static boolean ALT_GAME_FREIGHTS;
+    /** Alternative freight modes - Sets the price value for each freightened item */
+    public static int ALT_GAME_FREIGHT_PRICE;
+    /*
+     * Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef), A few examples for
+     * "AltGameExponentXp = 5." and "AltGameExponentSp = 3." diff = 0 (player and mob has the same level), XP bonus rate = 1, SP bonus rate =
+     * 1 diff = 3 (mob is 3 levels above), XP bonus rate = 1.52, SP bonus rate = 2 diff = 5 (mob is 5 levels above), XP bonus rate = 2, SP
+     * bonus rate = 3.17 diff = -8 (mob is 8 levels below), XP bonus rate = 0.4, SP bonus rate = 0.16
+     */
+    /** Alternative eXperience Point rewards */
+    public static float ALT_GAME_EXPONENT_XP;
+    /** Alternative Spirit Point rewards */
+    public static float ALT_GAME_EXPONENT_SP;
+    /** Alternative game - use tiredness, instead of CP */
+    public static boolean ALT_GAME_TIREDNESS;
+    /** Soul Crystal chances */  
+    public static int SOUL_CRYSTAL_BREAK_CHANCE;   
+    public static int SOUL_CRYSTAL_LEVEL_CHANCE;   
+    // Karma Punishment
+    /** Allow player with karma to be killed in peace zone ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
+    /** Allow player with karma to shop ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_SHOP;
+    /** Allow player with karma to use gatekeepers ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_GK;
+    /** Allow player with karma to use SOE or Return skill ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
+    /** Allow player with karma to trade ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_TRADE;
+    /** Allow player with karma to use warehouse ? */
+    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
+    /** Disallow recommend character twice or more a day ? */
+    public static boolean ALT_RECOMMEND;
+    /** Crafting Enabled? */
+    public static boolean IS_CRAFTING_ENABLED;
+    /** Recipebook limits */
+    public static int DWARF_RECIPE_LIMIT;
+    public static int COMMON_RECIPE_LIMIT;
+    /** Alternative game crafting */
+    public static boolean ALT_GAME_CREATION;
+    /** Alternative game crafting speed mutiplier - default 0 (fastest but still not instant) */
+    public static double ALT_GAME_CREATION_SPEED;
+    /** Alternative game crafting XP rate multiplier - default 1 */
+    public static double ALT_GAME_CREATION_XP_RATE;
+    /** Alternative game crafting SP rate multiplier - default 1 */
+    public static double ALT_GAME_CREATION_SP_RATE;
+    /** Alternative setting to blacksmith use of recipes to craft - default True */
+    public static boolean ALT_BLACKSMITH_USE_RECIPES;
+    /** multiples damages Char's / Pet's / Npc's */ 
+    public static float ALT_MAGES_PHYSICAL_DAMAGE_MULTI; 
+    public static float ALT_MAGES_MAGICAL_DAMAGE_MULTI; 
+    public static float ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI; 
+    public static float ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI; 
+    public static float ALT_PETS_PHYSICAL_DAMAGE_MULTI; 
+ 	public static float ALT_PETS_MAGICAL_DAMAGE_MULTI; 
+ 	public static float ALT_NPC_PHYSICAL_DAMAGE_MULTI; 
+ 	public static float ALT_NPC_MAGICAL_DAMAGE_MULTI; 
+    /** Allow use Event Managers for change occupation ? */
+    public static boolean ALLOW_CLASS_MASTERS;
+    public static boolean ALLOW_CLASS_FIRST;
+    public static boolean ALLOW_CLASS_SECOND;
+    public static boolean ALLOW_CLASS_THIRD;
+    /** Config option to require or not require Skill Book for enchanting a skill. */
+    public static boolean ES_SP_BOOK_NEEDED;
+    /** Alternative game skill learning */
+    public static boolean ALT_GAME_SKILL_LEARN;
+    /** Alternative gaming - allow sub-class addition without quest completion. */
+    public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
+    /** Restore effects on subclass change? */
+    public static boolean RESTORE_EFFECTS_ON_SUBCLASS_CHANGE;
+    /** Max amount of buffs */
+    public static byte BUFFS_MAX_AMOUNT;
+    /** Number of members needed to request a clan war */
+    public static int ALT_CLAN_MEMBERS_FOR_WAR;
+    /** Number of days before joining a new clan */
+    public static int ALT_CLAN_JOIN_DAYS;
+    /** Number of days before creating a new clan */
+    public static int ALT_CLAN_CREATE_DAYS;
+    /** Number of days it takes to dissolve a clan */
+    public static int ALT_CLAN_DISSOLVE_DAYS;
+    /** Number of days before joining a new alliance when clan voluntarily leave an alliance */
+    public static int ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;
+    /** Number of days before joining a new alliance when clan was dismissed from an alliance */
+    public static int ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;
+    /** Number of days before accepting a new clan for alliance when clan was dismissed from an alliance */
+    public static int ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;
+    /** Number of days before creating a new alliance when dissolved an alliance */
+    public static int ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;
+    /** Alternative gaming - all new characters always are newbies. */
+    public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
+    /** Alternative gaming - clan members with see privilege can also withdraw from clan warehouse. */
+    public static boolean ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;
+    /** Maximum number of clans in ally */
+    public static int ALT_MAX_NUM_OF_CLANS_IN_ALLY;
+    /** Olympiad Compitition Starting time */
+    public static int ALT_OLY_START_TIME;
+    /** Olympiad Compition Min */
+    public static int ALT_OLY_MIN;
+    /** Olympaid Comptetition Period */
+    public static long ALT_OLY_CPERIOD;
+    /** Olympiad Battle Period */
+    public static long ALT_OLY_BATTLE;
+    /** Olympiad Battle Wait */
+    public static long ALT_OLY_BWAIT;
+    /** Olympiad Inital Wait */
+    public static long ALT_OLY_IWAIT;
+    /** Olympaid Weekly Period */
+    public static long ALT_OLY_WPERIOD;
+    /** Olympaid Validation Period */
+    public static long ALT_OLY_VPERIOD;
+    /** Initial Lottery prize */
+    public static int ALT_LOTTERY_PRIZE;
+    /** Lottery Ticket Price */
+    public static int ALT_LOTTERY_TICKET_PRICE;
+    /** What part of jackpot amount should receive characters who pick 5 wining numbers */
+    public static float ALT_LOTTERY_5_NUMBER_RATE;
+    /** What part of jackpot amount should receive characters who pick 4 wining numbers */
+    public static float ALT_LOTTERY_4_NUMBER_RATE;
+    /** What part of jackpot amount should receive characters who pick 3 wining numbers */
+    public static float ALT_LOTTERY_3_NUMBER_RATE;
+    /** How much adena receive characters who pick two or less of the winning number */
+    public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
+    /** Alt Settings for devs */
+    public static boolean ALT_DEV_NO_QUESTS;
+    public static boolean ALT_DEV_NO_SPAWNS;
+    // The End AltSettings.properties
+    
     /** Debug/release mode */
     public static boolean DEBUG;
     /** Enable/disable assertions */
@@ -182,9 +324,6 @@ public final class Config
     public static int GENERAL_THREAD_CORE_SIZE;
     /** AI max thread */
     public static int AI_MAX_THREAD;
-    /** Accept auto-loot ? */
-    public static boolean AUTO_LOOT;
-    public static boolean AUTO_LOOT_HERBS;
     /** Character name template */
     public static String CNAME_TEMPLATE;
     /** Pet name template */
@@ -197,53 +336,6 @@ public final class Config
     public static String DEFAULT_TRADE_CHAT;
     /** For test servers - everybody has admin rights */
     public static boolean EVERYBODY_HAS_ADMIN_RIGHTS;
-    /** Alternative game crafting */
-    public static boolean ALT_GAME_CREATION;
-    /**
-     * Alternative game crafting speed mutiplier - default 0 (fastest but
-     * still not instant)
-     */
-    public static double ALT_GAME_CREATION_SPEED;
-    /** Alternative game crafting XP rate multiplier - default 1 */
-    public static double ALT_GAME_CREATION_XP_RATE;
-    /** Alternative game crafting SP rate multiplier - default 1 */
-    public static double ALT_GAME_CREATION_SP_RATE;
-    /**
-     * Alternative setting to blacksmith use of recipes to craft - default True
-     */
-    public static boolean ALT_BLACKSMITH_USE_RECIPES;
-    /** Alternative game skill learning */
-    public static boolean ALT_GAME_SKILL_LEARN;
-    /** Alternative auto skill learning */
-    public static boolean AUTO_LEARN_SKILLS;
-    /** Cancel attack bow by hit */
-    public static boolean ALT_GAME_CANCEL_BOW;
-    /** Cancel cast by hit */
-    public static boolean ALT_GAME_CANCEL_CAST;
-    /** Soul Crystal chances */  
-    public static int SOUL_CRYSTAL_BREAK_CHANCE;   
-    public static int SOUL_CRYSTAL_LEVEL_CHANCE;   
-    /** Alternative game - use tiredness, instead of CP */
-    public static boolean ALT_GAME_TIREDNESS;
-    public static int ALT_PARTY_RANGE;
-    public static int ALT_PARTY_RANGE2;
-    /** Alternative shield defence */
-    public static boolean ALT_GAME_SHIELD_BLOCKS;
-    /** Alternative game mob ATTACK AI */
-    public static boolean ALT_GAME_MOB_ATTACK_AI;
-    public static boolean ALT_MOB_AGRO_IN_PEACEZONE;
-    /**
-     * Alternative freight modes - Freights can be withdrawed from any village
-     */
-    public static boolean ALT_GAME_FREIGHTS;
-    /**
-     * Alternative freight modes - Sets the price value for each freightened item
-     */
-    public static int ALT_GAME_FREIGHT_PRICE;
-    /** Alternative gameing - loss of XP on death */
-    public static boolean ALT_GAME_DELEVEL;
-    /** Alternative gameing - magic dmg failures */
-    public static boolean ALT_GAME_MAGICFAILURES;
     /**
      * Alternative gaming - player must be in a castle-owning clan or ally to sign up for Dawn.
      */
@@ -253,16 +345,7 @@ public final class Config
      */
     public static boolean ALT_GAME_REQUIRE_CLAN_CASTLE;
     /** Alternative gaming - allow free teleporting around the world. */
-    public static boolean ALT_GAME_FREE_TELEPORT;
-    /** Disallow recommend character twice or more a day ? */
-    public static boolean ALT_RECOMMEND;
-    /**
-     * Alternative gaming - allow sub-class addition without quest completion.
-     */
-    public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
-   
-    /** Restore effects on subclass change? */
-    public static boolean RESTORE_EFFECTS_ON_SUBCLASS_CHANGE;
+    public static boolean ALT_GAME_FREE_TELEPORT;  
     /** Minimum number of player to participate in SevenSigns Festival */
     public static int ALT_FESTIVAL_MIN_PLAYER;
     /** Maximum of player contrib during Festival */
@@ -283,38 +366,6 @@ public final class Config
     public static long ALT_FESTIVAL_SECOND_SWARM;
     /** Festival Chest Spawn */
     public static long ALT_FESTIVAL_CHEST_SPAWN;
-    /** Number of members needed to request a clan war */
-    public static int ALT_CLAN_MEMBERS_FOR_WAR;
-    /** Number of days before joining a new clan */
-    public static int ALT_CLAN_JOIN_DAYS;
-    /** Number of days before creating a new clan */
-    public static int ALT_CLAN_CREATE_DAYS;
-    /** Number of days it takes to dissolve a clan */
-    public static int ALT_CLAN_DISSOLVE_DAYS;
-    /**
-     * Number of days before joining a new alliance when clan voluntarily leave an alliance
-     */
-    public static int ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;
-    /**
-     * Number of days before joining a new alliance when clan was dismissed from an alliance
-     */
-    public static int ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;
-    /**
-     * Number of days before accepting a new clan for alliance when clan was dismissed from an alliance
-     */
-    public static int ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;
-    /**
-     * Number of days before creating a new alliance when dissolved an alliance
-     */
-    public static int ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;
-    /** Alternative gaming - all new characters always are newbies. */
-    public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
-    /**
-     * Alternative gaming - clan members with see privilege can also withdraw from clan warehouse.
-     */
-    public static boolean ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;
-    /** Maximum number of clans in ally */
-    public static int ALT_MAX_NUM_OF_CLANS_IN_ALLY;
     /** Logging Chat Window */
     public static boolean LOG_CHAT;
     /** Logging Item Window */
@@ -325,42 +376,6 @@ public final class Config
     public static boolean ALT_PRIVILEGES_SECURE_CHECK;
     /** Alternative default level for privileges */
     public static int ALT_PRIVILEGES_DEFAULT_LEVEL;
-    /** Olympiad Compitition Starting time */
-    public static int ALT_OLY_START_TIME;
-    /** Olympiad Compition Min */
-    public static int ALT_OLY_MIN;
-    /** Olympaid Comptetition Period */
-    public static long ALT_OLY_CPERIOD;
-    /** Olympiad Battle Period */
-    public static long ALT_OLY_BATTLE;
-    /** Olympiad Battle Wait */
-    public static long ALT_OLY_BWAIT;
-    /** Olympiad Inital Wait */
-    public static long ALT_OLY_IWAIT;
-    /** Olympaid Weekly Period */
-    public static long ALT_OLY_WPERIOD;
-    /** Olympaid Validation Period */
-    public static long ALT_OLY_VPERIOD;
-    /** Initial Lottery prize */
-    public static int ALT_LOTTERY_PRIZE;
-    /** Lottery Ticket Price */
-    public static int ALT_LOTTERY_TICKET_PRICE;
-    /**
-     * What part of jackpot amount should receive characters who pick 5 wining numbers
-     */
-    public static float ALT_LOTTERY_5_NUMBER_RATE;
-    /**
-     * What part of jackpot amount should receive characters who pick 4 wining numbers
-     */
-    public static float ALT_LOTTERY_4_NUMBER_RATE;
-    /**
-     * What part of jackpot amount should receive characters who pick 3 wining numbers
-     */
-    public static float ALT_LOTTERY_3_NUMBER_RATE;
-    /**
-     * How much adena receive characters who pick two or less of the winning number
-     */
-    public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
     /** ************************************************** */
     /** L2J Teon Mods Customizations -Begin * */
     /** ************************************************** */
@@ -895,10 +910,6 @@ public final class Config
      * Config option which allows or dis-allows use of Wyverns during Sieges.
      */
     public static boolean FLYING_WYVERN_DURING_SIEGE;
-    /**
-     * Config option to require or not require Skill Book for enchanting a skill.
-     */
-    public static boolean ES_SP_BOOK_NEEDED;
     /** Life Crystal needed to learn clan skill */
     public static boolean LIFE_CRYSTAL_NEEDED;
     /** Config for reuse delay of potions (in seconds). */
@@ -1141,16 +1152,6 @@ public final class Config
 	/** ************************************************** **/
     /** Multiplies stay time in boss room. */
     public static float RIFT_BOSS_ROOM_TIME_MUTIPLY;
-    
-    /** multiples damages Char's / Pet's / Npc's */ 
-    public static float ALT_MAGES_PHYSICAL_DAMAGE_MULTI; 
-    public static float ALT_MAGES_MAGICAL_DAMAGE_MULTI; 
-    public static float ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI; 
-    public static float ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI; 
-    public static float ALT_PETS_PHYSICAL_DAMAGE_MULTI; 
- 	public static float ALT_PETS_MAGICAL_DAMAGE_MULTI; 
- 	public static float ALT_NPC_PHYSICAL_DAMAGE_MULTI; 
- 	public static float ALT_NPC_MAGICAL_DAMAGE_MULTI; 
  	
 	/** Time limit of invade to lair of bosses after server restarted */
 	public static int TIMELIMITOFINVADE;
@@ -1320,16 +1321,6 @@ public final class Config
     public static float RATE_KARMA_EXP_LOST;
     /** Rate siege guards prices */
     public static float RATE_SIEGE_GUARDS_PRICE;
-    /*
-     * Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef), A few examples for
-     * "AltGameExponentXp = 5." and "AltGameExponentSp = 3." diff = 0 (player and mob has the same level), XP bonus rate = 1, SP bonus rate =
-     * 1 diff = 3 (mob is 3 levels above), XP bonus rate = 1.52, SP bonus rate = 2 diff = 5 (mob is 5 levels above), XP bonus rate = 2, SP
-     * bonus rate = 3.17 diff = -8 (mob is 8 levels below), XP bonus rate = 0.4, SP bonus rate = 0.16
-     */
-    /** Alternative eXperience Point rewards */
-    public static float ALT_GAME_EXPONENT_XP;
-    /** Alternative Spirit Point rewards */
-    public static float ALT_GAME_EXPONENT_SP;
     /** Rate Common herbs */
     public static float RATE_DROP_COMMON_HERBS;
     /** Rate MP/HP herbs */
@@ -1517,11 +1508,6 @@ public final class Config
     public static boolean FORCE_INVENTORY_UPDATE;
     /** Disable the use of guards against agressive monsters ? */
     public static boolean ALLOW_GUARDS;
-    /** Allow use Event Managers for change occupation ? */
-    public static boolean ALLOW_CLASS_MASTERS;
-    public static boolean ALLOW_CLASS_FIRST;
-    public static boolean ALLOW_CLASS_SECOND;
-    public static boolean ALLOW_CLASS_THIRD;
     /** Time between 2 updates of IP */
     public static int IP_UPDATE_TIME;
     // Server version
@@ -1534,8 +1520,6 @@ public final class Config
     public static String DATAPACK_VERSION;
     /** Zone Setting */
     public static int ZONE_TOWN;
-    /** Crafting Enabled? */
-    public static boolean IS_CRAFTING_ENABLED;
     // Inventory slots limit
     /** Maximum inventory slots limits for non dwarf characters */
     public static int INVENTORY_MAXIMUM_NO_DWARF;
@@ -1596,19 +1580,6 @@ public final class Config
      * purple player
      */
     public static int PVP_PVP_TIME;
-    // Karma Punishment
-    /** Allow player with karma to be killed in peace zone ? */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
-    /** Allow player with karma to shop ? */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_SHOP;
-    /** Allow player with karma to use gatekeepers ? */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_GK;
-    /** Allow player with karma to use SOE or Return skill ? */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
-    /** Allow player with karma to trade ? */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_TRADE;
-    /** Allow player with karma to use warehouse ? */
-    public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
     // Packet information
     /** Count the amount of packets per minute ? */
     public static boolean COUNT_PACKETS = false;
@@ -1628,6 +1599,12 @@ public final class Config
     /** Check for bad ID ? */
     public static boolean BAD_ID_CHECKING;
 
+    /**
+     * Properties file that allows selection of new Classes for storage of World Objects. <br>
+     * This may help servers with large amounts of players recieving error messages related to the 
+     * <i>L2ObjectHashMap</i> and
+     * <i>L2ObejctHashSet</i> classes.
+     */
     /** Enumeration for type of maps object */
     public static enum ObjectMapType
     {
@@ -1790,9 +1767,6 @@ public final class Config
      * gameguard reply received ?
      */
     public static boolean GAMEGUARD_PROHIBITACTION;
-    /** Recipebook limits */
-    public static int DWARF_RECIPE_LIMIT;
-    public static int COMMON_RECIPE_LIMIT;
     /** Grid Options */
     public static boolean GRIDS_ALWAYS_ON;
     public static int GRID_NEIGHBOR_TURNON_TIME;
@@ -1853,11 +1827,6 @@ public final class Config
     /** Force loading GeoData to psychical memory */
     public static boolean FORCE_GEODATA;
     public static boolean ACCEPT_GEOEDITOR_CONN;
-    /** Max amount of buffs */
-    public static byte BUFFS_MAX_AMOUNT;
-    /** Alt Settings for devs */
-    public static boolean ALT_DEV_NO_QUESTS;
-    public static boolean ALT_DEV_NO_SPAWNS;
     /** IRC Settings * */
     public static String IRC_HOSTNAME;
     public static int IRC_PORT;
