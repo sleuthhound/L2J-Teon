@@ -46,6 +46,15 @@ public final class Config
     public static final String LOGIN_CONFIGURATION_FILE = "./config/loginserver.properties";
     /** Properties file for alternative configuration */
     public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
+    /** Properties file for clanhall configuration */
+    public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
+    /**
+     * Properties file for alternative configure GM commands access level.<br>
+     * Note that this file only read if "AltPrivilegesAdmin = true"
+     */
+    public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
+    /** Properties file FloodProtector Configuration */ 
+    public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";
     /** Properties file for the ID factory */
     public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
     /** Properties file for other configurations */
@@ -70,22 +79,14 @@ public final class Config
     public static final String BANNED_IP_XML = "./config/banned.xml";
     /** Text file containing hexadecimal value of server ID */
     public static final String HEXID_FILE = "./config/hexid.txt";
-    /**
-     * Properties file for alternative configure GM commands access level.<br>
-     * Note that this file only read if "AltPrivilegesAdmin = true"
-     */
-    public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
     /** Properties file for AI configurations */
     public static final String AI_FILE = "./config/ai.properties";
     /** Properties file for 7 Signs Festival */
     public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
-    public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
     public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
     public static int MAX_ITEM_IN_PACKET;
     /** Properties file for irc configuration */
     public static final String IRC_FILE = "./config/irc.properties";
-    /** Properties file FloodProtector Configuration */ 
-    public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";
     /** Properties file for Bosses */
     public static final String  ZAKEN_CONFIG_FILE = "./config/bosses/zaken.properties";
     /** Properties file for FourSepulchers */
@@ -257,6 +258,71 @@ public final class Config
     public static boolean ALT_DEV_NO_QUESTS;
     public static boolean ALT_DEV_NO_SPAWNS;
     // The End AltSettings.properties
+    
+    // Start clanhall.properties
+    /** Clan Hall function related configs */
+    public static long CH_TELE_FEE_RATIO;
+    public static int CH_TELE1_FEE;
+    public static int CH_TELE2_FEE;
+    public static long CH_ITEM_FEE_RATIO;
+    public static int CH_ITEM1_FEE;
+    public static int CH_ITEM2_FEE;
+    public static int CH_ITEM3_FEE;
+    public static long CH_MPREG_FEE_RATIO;
+    public static int CH_MPREG1_FEE;
+    public static int CH_MPREG2_FEE;
+    public static int CH_MPREG3_FEE;
+    public static int CH_MPREG4_FEE;
+    public static int CH_MPREG5_FEE;
+    public static long CH_HPREG_FEE_RATIO;
+    public static int CH_HPREG1_FEE;
+    public static int CH_HPREG2_FEE;
+    public static int CH_HPREG3_FEE;
+    public static int CH_HPREG4_FEE;
+    public static int CH_HPREG5_FEE;
+    public static int CH_HPREG6_FEE;
+    public static int CH_HPREG7_FEE;
+    public static int CH_HPREG8_FEE;
+    public static int CH_HPREG9_FEE;
+    public static int CH_HPREG10_FEE;
+    public static int CH_HPREG11_FEE;
+    public static int CH_HPREG12_FEE;
+    public static int CH_HPREG13_FEE;
+    public static long CH_EXPREG_FEE_RATIO;
+    public static int CH_EXPREG1_FEE;
+    public static int CH_EXPREG2_FEE;
+    public static int CH_EXPREG3_FEE;
+    public static int CH_EXPREG4_FEE;
+    public static int CH_EXPREG5_FEE;
+    public static int CH_EXPREG6_FEE;
+    public static int CH_EXPREG7_FEE;
+    public static long CH_SUPPORT_FEE_RATIO;
+    public static int CH_SUPPORT1_FEE;
+    public static int CH_SUPPORT2_FEE;
+    public static int CH_SUPPORT3_FEE;
+    public static int CH_SUPPORT4_FEE;
+    public static int CH_SUPPORT5_FEE;
+    public static int CH_SUPPORT6_FEE;
+    public static int CH_SUPPORT7_FEE;
+    public static int CH_SUPPORT8_FEE;
+    public static long CH_CURTAIN_FEE_RATIO;
+    public static int CH_CURTAIN1_FEE;
+    public static int CH_CURTAIN2_FEE;
+    public static long CH_FRONT_FEE_RATIO;
+    public static int CH_FRONT1_FEE;
+    public static int CH_FRONT2_FEE;
+    // The End clanhall.properties
+    
+    // Start FloodProtector.properties 
+    public static int USEITEM_DELAY; 
+    public static int ROLLDICE_DELAY; 
+    public static int FIREWORK_DELAY; 
+    public static int ITEMPETSUMMON_DELAY; 
+    public static int HEROVOICE_DELAY; 
+    public static int UNKNOWN_PACKET_DELAY; 
+    public static int SUBCLASS_DELAY;
+    public static int MULTISELL_DELAY;
+    // The End FloodProtector.properties 
     
     /** Debug/release mode */
     public static boolean DEBUG;
@@ -1125,17 +1191,7 @@ public final class Config
     /** ************************************************** **/
 	/** Feature Settings -End                              **/
 	/** ************************************************** **/
-    
-    //FloodProtector.properties Configs 
-    public static int USEITEM_DELAY; 
-    public static int ROLLDICE_DELAY; 
-    public static int FIREWORK_DELAY; 
-    public static int ITEMPETSUMMON_DELAY; 
-    public static int HEROVOICE_DELAY; 
-    public static int UNKNOWN_PACKET_DELAY; 
-    public static int SUBCLASS_DELAY;
-    public static int MULTISELL_DELAY;
-    
+
     // Augment.properties Configs 
     public static int AUGMENTATION_BASESTAT_CHANCE;  
     public static int AUGMENTATION_NG_SKILL_CHANCE; 
@@ -1771,57 +1827,6 @@ public final class Config
     public static boolean GRIDS_ALWAYS_ON;
     public static int GRID_NEIGHBOR_TURNON_TIME;
     public static int GRID_NEIGHBOR_TURNOFF_TIME;
-    /** Clan Hall function related configs */
-    public static long CH_TELE_FEE_RATIO;
-    public static int CH_TELE1_FEE;
-    public static int CH_TELE2_FEE;
-    public static long CH_ITEM_FEE_RATIO;
-    public static int CH_ITEM1_FEE;
-    public static int CH_ITEM2_FEE;
-    public static int CH_ITEM3_FEE;
-    public static long CH_MPREG_FEE_RATIO;
-    public static int CH_MPREG1_FEE;
-    public static int CH_MPREG2_FEE;
-    public static int CH_MPREG3_FEE;
-    public static int CH_MPREG4_FEE;
-    public static int CH_MPREG5_FEE;
-    public static long CH_HPREG_FEE_RATIO;
-    public static int CH_HPREG1_FEE;
-    public static int CH_HPREG2_FEE;
-    public static int CH_HPREG3_FEE;
-    public static int CH_HPREG4_FEE;
-    public static int CH_HPREG5_FEE;
-    public static int CH_HPREG6_FEE;
-    public static int CH_HPREG7_FEE;
-    public static int CH_HPREG8_FEE;
-    public static int CH_HPREG9_FEE;
-    public static int CH_HPREG10_FEE;
-    public static int CH_HPREG11_FEE;
-    public static int CH_HPREG12_FEE;
-    public static int CH_HPREG13_FEE;
-    public static long CH_EXPREG_FEE_RATIO;
-    public static int CH_EXPREG1_FEE;
-    public static int CH_EXPREG2_FEE;
-    public static int CH_EXPREG3_FEE;
-    public static int CH_EXPREG4_FEE;
-    public static int CH_EXPREG5_FEE;
-    public static int CH_EXPREG6_FEE;
-    public static int CH_EXPREG7_FEE;
-    public static long CH_SUPPORT_FEE_RATIO;
-    public static int CH_SUPPORT1_FEE;
-    public static int CH_SUPPORT2_FEE;
-    public static int CH_SUPPORT3_FEE;
-    public static int CH_SUPPORT4_FEE;
-    public static int CH_SUPPORT5_FEE;
-    public static int CH_SUPPORT6_FEE;
-    public static int CH_SUPPORT7_FEE;
-    public static int CH_SUPPORT8_FEE;
-    public static long CH_CURTAIN_FEE_RATIO;
-    public static int CH_CURTAIN1_FEE;
-    public static int CH_CURTAIN2_FEE;
-    public static long CH_FRONT_FEE_RATIO;
-    public static int CH_FRONT1_FEE;
-    public static int CH_FRONT2_FEE;
     /** GeoData 0/1/2 */
     public static int GEODATA;
     /** Force loading GeoData to psychical memory */
