@@ -47,9 +47,9 @@ public final class Config
     public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
     public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";
     public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
-    
-    /** Properties file for the ID factory */
     public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
+    public static final String IRC_FILE = "./config/irc.properties";
+
     /** Properties file for other configurations */
     public static final String OTHER_CONFIG_FILE = "./config/other.properties";
     /** Properties file for game server options */
@@ -76,8 +76,6 @@ public final class Config
     public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
     public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
     public static int MAX_ITEM_IN_PACKET;
-    /** Properties file for irc configuration */
-    public static final String IRC_FILE = "./config/irc.properties";
     /** Properties file for Bosses */
     public static final String  ZAKEN_CONFIG_FILE = "./config/bosses/zaken.properties";
     /** Properties file for FourSepulchers */
@@ -100,6 +98,11 @@ public final class Config
     public static final String  OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
     /** Properties file for Augment Configurations */
     public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
+    
+    /** Server and Datapack version */
+    public static String SERVER_VERSION;
+    public static String SERVER_BUILD_DATE;
+    public static String DATAPACK_VERSION;
     
     /** Start AltSettings.properties */
     // Auto loots configs
@@ -322,6 +325,50 @@ public final class Config
     public static int GM_DONT_TAKE_EXPSP;
     public static int GM_DONT_TAKE_AGGRO;
     /** The End GMacess.properties */
+    
+    /** Start idfactory.properties */
+    /*
+     * Properties file that allows selection of new Classes for storage of World Objects. <br>
+     * This may help servers with large amounts of players recieving error messages related to the
+     * <i>IdFactoryType</i> and 
+     * <i>L2ObjectHashMap</i> and
+     * <i>L2ObejctHashSet</i> classes.
+     */
+    public static enum ObjectMapType
+    {
+	L2ObjectHashMap, WorldObjectMap
+    }
+    public static enum ObjectSetType
+    {
+	L2ObjectHashSet, WorldObjectSet
+    }
+    public static enum IdFactoryType
+    {
+	Compaction, BitSet, Stack
+    }
+
+    // ID Factory type and Check for bad ID
+    public static IdFactoryType IDFACTORY_TYPE;
+    public static boolean BAD_ID_CHECKING;
+
+    // Type of map and set object
+    public static ObjectMapType MAP_TYPE;
+    public static ObjectSetType SET_TYPE;
+    /** The End idfactory.properties */
+    
+    /** Start irc.properties */
+    // IRC Settings
+    public static String IRC_HOSTNAME;
+    public static int IRC_PORT;
+    public static String IRC_USERNAME;
+    public static String IRC_USERREALNAME;
+    public static String IRC_USERMAIL;
+    public static String IRC_CHANNEL;
+    public static String IRC_IGTOIRC_FILE;
+    public static String IRC_KEYWORDTOIG;
+    public static String IRC_KEYWORDTOIRC;
+    public static boolean IRC_LOAD;
+    /** The end irc.properties */
     
     /** Debug/release mode */
     public static boolean DEBUG;
@@ -1180,16 +1227,6 @@ public final class Config
      /** ************************************************** **/
 	/** Fortress Settings -End                             **/
 	/** ************************************************** **/
-    
-    /** ************************************************** **/
-	/** Feature Settings -Begin                            **/
-	/** ************************************************** **/
-    
-    // TODO: Fill this area up!
-    
-    /** ************************************************** **/
-	/** Feature Settings -End                              **/
-	/** ************************************************** **/
 
     // Augment.properties Configs 
     public static int AUGMENTATION_BASESTAT_CHANCE;  
@@ -1470,14 +1507,6 @@ public final class Config
     public static boolean ALLOW_GUARDS;
     /** Time between 2 updates of IP */
     public static int IP_UPDATE_TIME;
-    // Server version
-    /** Server version */
-    public static String SERVER_VERSION;
-    /** Date of server build */
-    public static String SERVER_BUILD_DATE;
-    // Datapack version
-    /** Datapack version */
-    public static String DATAPACK_VERSION;
     /** Zone Setting */
     public static int ZONE_TOWN;
     // Inventory slots limit
@@ -1548,39 +1577,6 @@ public final class Config
     /** Time interval between 2 dumps */
     public static int DUMP_INTERVAL_SECONDS = 60;
 
-    /** Enumeration for type of ID Factory */
-    public static enum IdFactoryType
-    {
-	Compaction, BitSet, Stack
-    }
-
-    /** ID Factory type */
-    public static IdFactoryType IDFACTORY_TYPE;
-    /** Check for bad ID ? */
-    public static boolean BAD_ID_CHECKING;
-
-    /**
-     * Properties file that allows selection of new Classes for storage of World Objects. <br>
-     * This may help servers with large amounts of players recieving error messages related to the 
-     * <i>L2ObjectHashMap</i> and
-     * <i>L2ObejctHashSet</i> classes.
-     */
-    /** Enumeration for type of maps object */
-    public static enum ObjectMapType
-    {
-	L2ObjectHashMap, WorldObjectMap
-    }
-
-    /** Enumeration for type of set object */
-    public static enum ObjectSetType
-    {
-	L2ObjectHashSet, WorldObjectSet
-    }
-
-    /** Type of map object */
-    public static ObjectMapType MAP_TYPE;
-    /** Type of set object */
-    public static ObjectSetType SET_TYPE;
     /**
      * Allow lesser effects to be canceled if stronger effects are used when
      * effects of the same stack group are used.<br>
@@ -1736,17 +1732,6 @@ public final class Config
     /** Force loading GeoData to psychical memory */
     public static boolean FORCE_GEODATA;
     public static boolean ACCEPT_GEOEDITOR_CONN;
-    /** IRC Settings * */
-    public static String IRC_HOSTNAME;
-    public static int IRC_PORT;
-    public static String IRC_USERNAME;
-    public static String IRC_USERREALNAME;
-    public static String IRC_USERMAIL;
-    public static String IRC_CHANNEL;
-    public static String IRC_IGTOIRC_FILE;
-    public static String IRC_KEYWORDTOIG;
-    public static String IRC_KEYWORDTOIRC;
-    public static boolean IRC_LOAD;
 
     /**
      * This class initializes all global variables for configuration.<br>
