@@ -39,22 +39,15 @@ public final class Config
 {
     protected static final Logger _log = Logger.getLogger(Config.class.getName());
     
-    // Configuration files
-    /** Properties file for game server (connection and ingame) configurations */
+    /** Configuration files */
     public static final String CONFIGURATION_FILE = "./config/server.properties";
-    /** Properties file for login server configurations */
     public static final String LOGIN_CONFIGURATION_FILE = "./config/loginserver.properties";
-    /** Properties file for alternative configuration */
     public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
-    /** Properties file for clanhall configuration */
     public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
-    /**
-     * Properties file for alternative configure GM commands access level.<br>
-     * Note that this file only read if "AltPrivilegesAdmin = true"
-     */
     public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
-    /** Properties file FloodProtector Configuration */ 
     public static final String FLOODPROTECTOR_CONFIG_FILE =  "./config/FloodProtector.properties";
+    public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
+    
     /** Properties file for the ID factory */
     public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
     /** Properties file for other configurations */
@@ -65,8 +58,6 @@ public final class Config
     public static final String RATES_CONFIG_FILE = "./config/rates.properties";
     /** Properties file for PVP configurations */
     public static final String PVP_CONFIG_FILE = "./config/pvp.properties";
-    /** Properties file for GM access configurations */
-    public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
     /** Properties file for telnet configuration */
     public static final String TELNET_FILE = "./config/telnet.properties";
     /** Properties file for l2j server version configurations */
@@ -110,77 +101,55 @@ public final class Config
     /** Properties file for Augment Configurations */
     public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
     
-    // Start AltSettings.properties
-    /** Accept auto-loot ? */
+    /** Start AltSettings.properties */
+    // Auto loots configs
     public static boolean AUTO_LOOT;
     public static boolean AUTO_LOOT_HERBS;
-    /** Alternative auto skill learning */
+
     public static boolean AUTO_LEARN_SKILLS;
+    
     public static int ALT_PARTY_RANGE;
     public static int ALT_PARTY_RANGE2;
-    /** Alternative gameing - loss of XP on death */
+
+    public static boolean ALT_RECOMMEND;
     public static boolean ALT_GAME_DELEVEL;
-    /** Alternative gameing - magic dmg failures */
     public static boolean ALT_GAME_MAGICFAILURES;
-    /** Cancel attack bow by hit */
     public static boolean ALT_GAME_CANCEL_BOW;
-    /** Cancel cast by hit */
     public static boolean ALT_GAME_CANCEL_CAST;
-    /** Alternative shield defence */
     public static boolean ALT_GAME_SHIELD_BLOCKS;
-    /** Alternative game mob ATTACK AI */
+    
     public static boolean ALT_GAME_MOB_ATTACK_AI;
     public static boolean ALT_MOB_AGRO_IN_PEACEZONE;
-    /** Alternative freight modes - Freights can be withdrawed from any village */
+    
     public static boolean ALT_GAME_FREIGHTS;
-    /** Alternative freight modes - Sets the price value for each freightened item */
     public static int ALT_GAME_FREIGHT_PRICE;
-    /*
-     * Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef), A few examples for
-     * "AltGameExponentXp = 5." and "AltGameExponentSp = 3." diff = 0 (player and mob has the same level), XP bonus rate = 1, SP bonus rate =
-     * 1 diff = 3 (mob is 3 levels above), XP bonus rate = 1.52, SP bonus rate = 2 diff = 5 (mob is 5 levels above), XP bonus rate = 2, SP
-     * bonus rate = 3.17 diff = -8 (mob is 8 levels below), XP bonus rate = 0.4, SP bonus rate = 0.16
-     */
-    /** Alternative eXperience Point rewards */
     public static float ALT_GAME_EXPONENT_XP;
-    /** Alternative Spirit Point rewards */
     public static float ALT_GAME_EXPONENT_SP;
-    /** Alternative game - use tiredness, instead of CP */
     public static boolean ALT_GAME_TIREDNESS;
-    /** Soul Crystal chances */  
+    
+    // Soul Crystal Configs
     public static int SOUL_CRYSTAL_BREAK_CHANCE;   
     public static int SOUL_CRYSTAL_LEVEL_CHANCE;   
+   
     // Karma Punishment
-    /** Allow player with karma to be killed in peace zone ? */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
-    /** Allow player with karma to shop ? */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_SHOP;
-    /** Allow player with karma to use gatekeepers ? */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_GK;
-    /** Allow player with karma to use SOE or Return skill ? */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TELEPORT;
-    /** Allow player with karma to trade ? */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_TRADE;
-    /** Allow player with karma to use warehouse ? */
     public static boolean ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
-    /** Disallow recommend character twice or more a day ? */
-    public static boolean ALT_RECOMMEND;
-    /** Crafting Enabled? */
+
+    // Crafting and Recipes Configs
     public static boolean IS_CRAFTING_ENABLED;
-    /** Recipebook limits */
     public static int DWARF_RECIPE_LIMIT;
     public static int COMMON_RECIPE_LIMIT;
-    /** Alternative game crafting */
     public static boolean ALT_GAME_CREATION;
-    /** Alternative game crafting speed mutiplier - default 0 (fastest but still not instant) */
     public static double ALT_GAME_CREATION_SPEED;
-    /** Alternative game crafting XP rate multiplier - default 1 */
     public static double ALT_GAME_CREATION_XP_RATE;
-    /** Alternative game crafting SP rate multiplier - default 1 */
     public static double ALT_GAME_CREATION_SP_RATE;
-    /** Alternative setting to blacksmith use of recipes to craft - default True */
     public static boolean ALT_BLACKSMITH_USE_RECIPES;
-    /** multiples damages Char's / Pet's / Npc's */ 
+    
+    // multiples damages Char's / Pet's / Npc's 
     public static float ALT_MAGES_PHYSICAL_DAMAGE_MULTI; 
     public static float ALT_MAGES_MAGICAL_DAMAGE_MULTI; 
     public static float ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI; 
@@ -189,78 +158,57 @@ public final class Config
  	public static float ALT_PETS_MAGICAL_DAMAGE_MULTI; 
  	public static float ALT_NPC_PHYSICAL_DAMAGE_MULTI; 
  	public static float ALT_NPC_MAGICAL_DAMAGE_MULTI; 
-    /** Allow use Event Managers for change occupation ? */
+    
+ 	// Allow use Event Managers for change occupation ?
     public static boolean ALLOW_CLASS_MASTERS;
     public static boolean ALLOW_CLASS_FIRST;
     public static boolean ALLOW_CLASS_SECOND;
     public static boolean ALLOW_CLASS_THIRD;
-    /** Config option to require or not require Skill Book for enchanting a skill. */
+
     public static boolean ES_SP_BOOK_NEEDED;
-    /** Alternative game skill learning */
     public static boolean ALT_GAME_SKILL_LEARN;
-    /** Alternative gaming - allow sub-class addition without quest completion. */
     public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
-    /** Restore effects on subclass change? */
     public static boolean RESTORE_EFFECTS_ON_SUBCLASS_CHANGE;
-    /** Max amount of buffs */
     public static byte BUFFS_MAX_AMOUNT;
-    /** Number of members needed to request a clan war */
+
+    // Clan and Ally configs
     public static int ALT_CLAN_MEMBERS_FOR_WAR;
-    /** Number of days before joining a new clan */
     public static int ALT_CLAN_JOIN_DAYS;
-    /** Number of days before creating a new clan */
     public static int ALT_CLAN_CREATE_DAYS;
-    /** Number of days it takes to dissolve a clan */
     public static int ALT_CLAN_DISSOLVE_DAYS;
-    /** Number of days before joining a new alliance when clan voluntarily leave an alliance */
     public static int ALT_ALLY_JOIN_DAYS_WHEN_LEAVED;
-    /** Number of days before joining a new alliance when clan was dismissed from an alliance */
     public static int ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED;
-    /** Number of days before accepting a new clan for alliance when clan was dismissed from an alliance */
     public static int ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED;
-    /** Number of days before creating a new alliance when dissolved an alliance */
     public static int ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED;
-    /** Alternative gaming - all new characters always are newbies. */
     public static boolean ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;
-    /** Alternative gaming - clan members with see privilege can also withdraw from clan warehouse. */
     public static boolean ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;
-    /** Maximum number of clans in ally */
     public static int ALT_MAX_NUM_OF_CLANS_IN_ALLY;
-    /** Olympiad Compitition Starting time */
+
+    // Olympiad time configs
     public static int ALT_OLY_START_TIME;
-    /** Olympiad Compition Min */
     public static int ALT_OLY_MIN;
-    /** Olympaid Comptetition Period */
     public static long ALT_OLY_CPERIOD;
-    /** Olympiad Battle Period */
     public static long ALT_OLY_BATTLE;
-    /** Olympiad Battle Wait */
     public static long ALT_OLY_BWAIT;
-    /** Olympiad Inital Wait */
     public static long ALT_OLY_IWAIT;
-    /** Olympaid Weekly Period */
     public static long ALT_OLY_WPERIOD;
-    /** Olympaid Validation Period */
     public static long ALT_OLY_VPERIOD;
-    /** Initial Lottery prize */
+   
+    // Lottery configs
     public static int ALT_LOTTERY_PRIZE;
-    /** Lottery Ticket Price */
     public static int ALT_LOTTERY_TICKET_PRICE;
-    /** What part of jackpot amount should receive characters who pick 5 wining numbers */
     public static float ALT_LOTTERY_5_NUMBER_RATE;
-    /** What part of jackpot amount should receive characters who pick 4 wining numbers */
     public static float ALT_LOTTERY_4_NUMBER_RATE;
-    /** What part of jackpot amount should receive characters who pick 3 wining numbers */
     public static float ALT_LOTTERY_3_NUMBER_RATE;
-    /** How much adena receive characters who pick two or less of the winning number */
     public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
-    /** Alt Settings for devs */
+
+    // For development
     public static boolean ALT_DEV_NO_QUESTS;
     public static boolean ALT_DEV_NO_SPAWNS;
-    // The End AltSettings.properties
+    /** The End AltSettings.properties */
     
-    // Start clanhall.properties
-    /** Clan Hall function related configs */
+    /** Start clanhall.properties */
+    // Clan Hall function related configs
     public static long CH_TELE_FEE_RATIO;
     public static int CH_TELE1_FEE;
     public static int CH_TELE2_FEE;
@@ -311,9 +259,9 @@ public final class Config
     public static long CH_FRONT_FEE_RATIO;
     public static int CH_FRONT1_FEE;
     public static int CH_FRONT2_FEE;
-    // The End clanhall.properties
+    /** The End clanhall.properties */
     
-    // Start FloodProtector.properties 
+    /** Start FloodProtector.properties */ 
     public static int USEITEM_DELAY; 
     public static int ROLLDICE_DELAY; 
     public static int FIREWORK_DELAY; 
@@ -322,7 +270,58 @@ public final class Config
     public static int UNKNOWN_PACKET_DELAY; 
     public static int SUBCLASS_DELAY;
     public static int MULTISELL_DELAY;
-    // The End FloodProtector.properties 
+    /** The End FloodProtector.properties */ 
+    
+    /** Start GMAcess.properties */
+    // GM access level
+    public static int GM_ACCESSLEVEL;
+    public static int GM_MIN;
+    public static int GM_ALTG_MIN_LEVEL;
+    public static int GM_ANNOUNCE;
+    public static int GM_BAN;
+    public static int GM_BAN_CHAT;
+    public static int GM_CREATE_ITEM;
+    public static int GM_DELETE;
+    public static int GM_KICK;
+    public static int GM_MENU;
+    public static int GM_GODMODE;
+    public static int GM_CHAR_EDIT;
+    public static int GM_CHAR_EDIT_OTHER;
+    public static int GM_CHAR_VIEW;
+    public static int GM_NPC_EDIT;
+    public static int GM_NPC_VIEW;
+    public static int GM_PRIV_EDIT;
+    public static int GM_PRIV_VIEW;
+    public static int GM_TELEPORT;
+    public static int GM_TELEPORT_OTHER;
+    public static int GM_RESTART;
+    public static int GM_MONSTERRACE;
+    public static int GM_RIDER;
+    public static int GM_ESCAPE;
+    public static int GM_FIXED;
+    public static int GM_CREATE_NODES;
+    public static int GM_ENCHANT;
+    public static int GM_DOOR;
+    public static int GM_RES;
+    public static int GM_PEACEATTACK;
+    public static int GM_HEAL;
+    public static int GM_UNBLOCK;
+    public static int GM_CACHE;
+    public static int GM_TALK_BLOCK;
+    public static int GM_TEST;
+    public static int GM_FORTSIEGE;
+    public static int GM_CLAN_PANEL;
+    public static int GM_REPAIR = 75;
+   
+    // Disable transaction
+    public static boolean GM_DISABLE_TRANSACTION;
+    public static int GM_TRANSACTION_MIN;
+    public static int GM_TRANSACTION_MAX;
+   
+    public static int GM_CAN_GIVE_DAMAGE;
+    public static int GM_DONT_TAKE_EXPSP;
+    public static int GM_DONT_TAKE_AGGRO;
+    /** The End GMacess.properties */
     
     /** Debug/release mode */
     public static boolean DEBUG;
@@ -1241,102 +1240,7 @@ public final class Config
 	/** ************************************************** **/
 	/** General Settings -End                              **/
 	/** ************************************************** **/
-    
-    /** ************************************************** **/
-	/** Olympiad Settings -Begin                            **/
-	/** ************************************************** **/
-    
-    // TODO: Fill this area up!
-    
-    /** ************************************************** **/
-	/** Olympiad Settings -End                              **/
-	/** ************************************************** **/
-    /***************************************************************************
-	 * GM CONFIG General GM AccessLevel *
-     **********************************************************************/
-    /** General GM access level */
-    public static int GM_ACCESSLEVEL;
-    /** General GM Minimal AccessLevel */
-    public static int GM_MIN;
-    /** Minimum privileges level for a GM to do Alt+G */
-    public static int GM_ALTG_MIN_LEVEL;
-    /** General GM AccessLevel to change announcements */
-    public static int GM_ANNOUNCE;
-    /** General GM AccessLevel can /ban /unban */
-    public static int GM_BAN;
-    /** General GM AccessLevel can /ban /unban for chat */
-    public static int GM_BAN_CHAT;
-    /** General GM AccessLevel can /create_item and /gmshop */
-    public static int GM_CREATE_ITEM;
-    /** General GM AccessLevel can /delete */
-    public static int GM_DELETE;
-    /** General GM AccessLevel can /kick /disconnect */
-    public static int GM_KICK;
-    /** General GM AccessLevel for access to GMMenu */
-    public static int GM_MENU;
-    /** General GM AccessLevel to use god mode command */
-    public static int GM_GODMODE;
-    /** General GM AccessLevel with character edit rights */
-    public static int GM_CHAR_EDIT;
-    /** General GM AccessLevel with edit rights for other characters */
-    public static int GM_CHAR_EDIT_OTHER;
-    /** General GM AccessLevel with character view rights */
-    public static int GM_CHAR_VIEW;
-    /** General GM AccessLevel with NPC edit rights */
-    public static int GM_NPC_EDIT;
-    public static int GM_NPC_VIEW;
-    /** General GM AccessLevel with NPC edit rights */
-    public static int GM_PRIV_EDIT;
-    public static int GM_PRIV_VIEW;
-    /** General GM AccessLevel to teleport to any location */
-    public static int GM_TELEPORT;
-    /** General GM AccessLevel to teleport character to any location */
-    public static int GM_TELEPORT_OTHER;
-    /** General GM AccessLevel to restart server */
-    public static int GM_RESTART;
-    /** General GM AccessLevel for MonsterRace */
-    public static int GM_MONSTERRACE;
-    /** General GM AccessLevel to ride Wyvern */
-    public static int GM_RIDER;
-    /** General GM AccessLevel to unstuck without 5min delay */
-    public static int GM_ESCAPE;
-    /** General GM AccessLevel to resurect fixed after death */
-    public static int GM_FIXED;
-    /** General GM AccessLevel to create Path Nodes */
-    public static int GM_CREATE_NODES;
-    /** General GM AccessLevel with Enchant rights */
-    public static int GM_ENCHANT;
-    /** General GM AccessLevel to close/open Doors */
-    public static int GM_DOOR;
-    /** General GM AccessLevel with Resurrection rights */
-    public static int GM_RES;
-    /** General GM AccessLevel to attack in the peace zone */
-    public static int GM_PEACEATTACK;
-    /** General GM AccessLevel to heal */
-    public static int GM_HEAL;
-    /** General GM AccessLevel to unblock IPs detected as hack IPs */
-    public static int GM_UNBLOCK;
-    /** General GM AccessLevel to use Cache commands */
-    public static int GM_CACHE;
-    /** General GM AccessLevel to use test&st commands */
-    public static int GM_TALK_BLOCK;
-    public static int GM_TEST;
-    public static int GM_FORTSIEGE;
-    /** Minimum level to Manage Clan Panel */
-    public static int GM_CLAN_PANEL;
-    /** Disable transaction on AccessLevel * */
-    public static boolean GM_DISABLE_TRANSACTION;
-    /** GM transactions disabled from this range */
-    public static int GM_TRANSACTION_MIN;
-    /** GM transactions disabled to this range */
-    public static int GM_TRANSACTION_MAX;
-    /** Minimum level to allow a GM giving damage */
-    public static int GM_CAN_GIVE_DAMAGE;
-    /** Minimum level to don't give Exp/Sp in party */
-    public static int GM_DONT_TAKE_EXPSP;
-    /** Minimum level to don't take aggro */
-    public static int GM_DONT_TAKE_AGGRO;
-    public static int GM_REPAIR = 75;
+
     /* Rate control */
     /** Rate for eXperience Point rewards */
     public static float RATE_XP;
