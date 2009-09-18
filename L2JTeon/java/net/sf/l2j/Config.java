@@ -1786,10 +1786,284 @@ public final class Config
 		e.printStackTrace();
 		throw new Error("Failed to Load " + CONFIGURATION_FILE + " File.");
 	    }
-	            
-	            // General Config File
-	            try
-	            {
+	    // alternative settings
+	    try
+	    {
+		Properties altSettings = new Properties();
+		InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
+		altSettings.load(is);
+		is.close();
+		ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "False"));
+        SOUL_CRYSTAL_BREAK_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalBreakChance","10"));   
+        SOUL_CRYSTAL_LEVEL_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalLevelChance", "32"));   
+		ALT_GAME_CREATION = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "False"));
+		ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
+		ALT_GAME_CREATION_XP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
+		ALT_GAME_CREATION_SP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
+		ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "True"));
+        ALT_MAGES_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00")); 
+        ALT_MAGES_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00")); 
+        ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00")); 
+        ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageFighters", "1.00")); 
+        ALT_PETS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamagePets", "1.00")); 
+        ALT_PETS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamagePets", "1.00")); 
+        ALT_NPC_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00")); 
+        ALT_NPC_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00")); 
+		ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "False"));
+		AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "False"));
+		ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("all");
+		ALT_GAME_CANCEL_CAST = altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("cast") || altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("all");
+		ALT_GAME_SHIELD_BLOCKS = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "False"));
+		ALT_GAME_DELEVEL = Boolean.parseBoolean(altSettings.getProperty("Delevel", "True"));
+		ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "False"));
+		ALT_GAME_MOB_ATTACK_AI = Boolean.parseBoolean(altSettings.getProperty("AltGameMobAttackAI", "False"));
+		ALT_MOB_AGRO_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "True"));
+		ALT_GAME_EXPONENT_XP = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
+		ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
+		ALLOW_CLASS_MASTERS = Boolean.valueOf(altSettings.getProperty("AllowClassMasters", "False"));
+		ALLOW_CLASS_FIRST = Boolean.valueOf(altSettings.getProperty("AllowFirstClass", "False"));
+		ALLOW_CLASS_SECOND = Boolean.valueOf(altSettings.getProperty("AllowSecondClass", "False"));
+		ALLOW_CLASS_THIRD = Boolean.valueOf(altSettings.getProperty("AllowThirdClass", "False"));
+		ALT_GAME_FREIGHTS = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "False"));
+		ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
+		ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
+		ALT_PARTY_RANGE2 = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
+		IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "True"));
+		AUTO_LOOT = Boolean.valueOf(altSettings.getProperty("AutoLoot", "True"));
+		AUTO_LOOT_HERBS = Boolean.valueOf(altSettings.getProperty("AutoLootHerbs", "True"));
+		ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "False"));
+		ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "True"));
+		ALT_GAME_KARMA_PLAYER_CAN_USE_GK = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "False"));
+		ALT_GAME_KARMA_PLAYER_CAN_TELEPORT = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "True"));
+		ALT_GAME_KARMA_PLAYER_CAN_TRADE = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "True"));
+		ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "True"));
+		ALT_GAME_FREE_TELEPORT = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
+		ALT_RECOMMEND = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
+		ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
+        RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(altSettings.getProperty("RestoreEffectsOnSubClassChange", "False"));
+		ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
+		ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
+		ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(altSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
+		DWARF_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit", "50"));
+		COMMON_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit", "50"));
+		ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(altSettings.getProperty("AltClanMembersForWar", "15"));
+		ALT_CLAN_JOIN_DAYS = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAClan", "5"));
+		ALT_CLAN_CREATE_DAYS = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateAClan", "10"));
+		ALT_CLAN_DISSOLVE_DAYS = Integer.parseInt(altSettings.getProperty("DaysToPassToDissolveAClan", "7"));
+		ALT_ALLY_JOIN_DAYS_WHEN_LEAVED = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
+		ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
+		ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
+		ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+		ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
+		ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
+		ALT_OLY_CPERIOD = Long.parseLong(altSettings.getProperty("AltOlyCPeriod", "21600")) * 1000;
+		ALT_OLY_BATTLE = Long.parseLong(altSettings.getProperty("AltOlyBattle", "360")) * 1000;
+		ALT_OLY_BWAIT = Long.parseLong(altSettings.getProperty("AltOlyBWait", "600")) * 1000;
+		ALT_OLY_IWAIT = Long.parseLong(altSettings.getProperty("AltOlyIWait", "300")) * 1000;
+		ALT_OLY_WPERIOD = Long.parseLong(altSettings.getProperty("AltOlyWPeriod", "604800")) * 1000;
+		ALT_OLY_VPERIOD = Long.parseLong(altSettings.getProperty("AltOlyVPeriod", "86400")) * 1000;
+		ALT_LOTTERY_PRIZE = Integer.parseInt(altSettings.getProperty("AltLotteryPrize", "50000"));
+		ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(altSettings.getProperty("AltLotteryTicketPrice", "2000"));
+		ALT_LOTTERY_5_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery5NumberRate", "0.6"));
+		ALT_LOTTERY_4_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery4NumberRate", "0.2"));
+		ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate", "0.2"));
+		ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize", "200"));
+		BUFFS_MAX_AMOUNT = Byte.parseByte(altSettings.getProperty("MaxBuffAmount", "24"));
+		ALT_DEV_NO_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
+		ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
+	    } catch (Exception e)
+	    {
+		e.printStackTrace();
+		throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
+	    }
+	    // clanhall settings
+	    try
+	    {
+		Properties clanhallSettings = new Properties();
+		InputStream is = new FileInputStream(new File(CLANHALL_CONFIG_FILE));
+		clanhallSettings.load(is);
+		is.close();
+		CH_TELE_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
+		CH_TELE1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
+		CH_TELE2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
+		CH_SUPPORT_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
+		CH_SUPPORT1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
+		CH_SUPPORT2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
+		CH_SUPPORT3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
+		CH_SUPPORT4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
+		CH_SUPPORT5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
+		CH_SUPPORT6_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl6", "86400000"));
+		CH_SUPPORT7_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl7", "86400000"));
+		CH_SUPPORT8_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl8", "86400000"));
+		CH_MPREG_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
+		CH_MPREG1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
+		CH_MPREG2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
+		CH_MPREG3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
+		CH_MPREG4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl4", "86400000"));
+		CH_MPREG5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl5", "86400000"));
+		CH_HPREG_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
+		CH_HPREG1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
+		CH_HPREG2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
+		CH_HPREG3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
+		CH_HPREG4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl4", "86400000"));
+		CH_HPREG5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl5", "86400000"));
+		CH_HPREG6_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl6", "86400000"));
+		CH_HPREG7_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl7", "86400000"));
+		CH_HPREG8_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl8", "86400000"));
+		CH_HPREG9_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl9", "86400000"));
+		CH_HPREG10_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl10", "86400000"));
+		CH_HPREG11_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl11", "86400000"));
+		CH_HPREG12_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl12", "86400000"));
+		CH_HPREG13_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl13", "86400000"));
+		CH_EXPREG_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
+		CH_EXPREG1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
+		CH_EXPREG2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
+		CH_EXPREG3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
+		CH_EXPREG4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl4", "86400000"));
+		CH_EXPREG5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl5", "86400000"));
+		CH_EXPREG6_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl6", "86400000"));
+		CH_EXPREG7_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl7", "86400000"));
+		CH_ITEM_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
+		CH_ITEM1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
+		CH_ITEM2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
+		CH_ITEM3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
+		CH_CURTAIN_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallCurtainFunctionFeeRation", "86400000"));
+		CH_CURTAIN1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallCurtainFunctionFeeLvl1", "86400000"));
+		CH_CURTAIN2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallCurtainFunctionFeeLvl2", "86400000"));
+		CH_FRONT_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeRation", "86400000"));
+		CH_FRONT1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeLvl1", "86400000"));
+		CH_FRONT2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeLvl2", "86400000"));
+	    } catch (Exception e)
+	    {
+		e.printStackTrace();
+		throw new Error("Failed to Load " + CLANHALL_CONFIG_FILE + " File.");
+	    }
+        // FloodProtector 
+		try 
+		{ 
+			Properties FloodProtector = new Properties(); 
+			InputStream is = new FileInputStream(new File(FLOODPROTECTOR_CONFIG_FILE)); 
+			FloodProtector.load(is); 
+			is.close(); 
+			
+			USEITEM_DELAY = Integer.parseInt(FloodProtector.getProperty("UseItemDelay", "4")); 
+			ROLLDICE_DELAY = Integer.parseInt(FloodProtector.getProperty("RollDiceDelay", "42")); 
+			FIREWORK_DELAY = Integer.parseInt(FloodProtector.getProperty("FireWorkDelay", "42")); 
+			ITEMPETSUMMON_DELAY = Integer.parseInt(FloodProtector.getProperty("ItemPetSummonDelay", "16")); 
+			HEROVOICE_DELAY = Integer.parseInt(FloodProtector.getProperty("HeroChatDelay", "100")); 
+			UNKNOWN_PACKET_DELAY = Integer.parseInt(FloodProtector.getProperty("UnknownPacketDelay", "15")); 
+			SUBCLASS_DELAY = Integer.parseInt(FloodProtector.getProperty("SubClassDelay", "100"));
+            MULTISELL_DELAY = Integer.parseInt(FloodProtector.getProperty("MultisellDelay", "100"));  
+		}  
+		catch (Exception e) 
+		{ 
+			e.printStackTrace(); 
+			throw new Error("Failed to Load " + FLOODPROTECTOR_CONFIG_FILE + " File."); 
+		}
+	    // access levels
+	    try
+	    {
+		Properties gmSettings = new Properties();
+		InputStream is = new FileInputStream(new File(GM_ACCESS_FILE));
+		gmSettings.load(is);
+		is.close();
+		GM_ACCESSLEVEL = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
+		GM_MIN = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
+		GM_ALTG_MIN_LEVEL = Integer.parseInt(gmSettings.getProperty("GMCanAltG", "100"));
+		GM_ANNOUNCE = Integer.parseInt(gmSettings.getProperty("GMCanAnnounce", "100"));
+		GM_BAN = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
+		GM_BAN_CHAT = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
+		GM_CREATE_ITEM = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
+		GM_DELETE = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
+		GM_KICK = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
+		GM_MENU = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
+		GM_GODMODE = Integer.parseInt(gmSettings.getProperty("GMGodMode", "100"));
+		GM_CHAR_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditChar", "100"));
+		GM_CHAR_EDIT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanEditCharOther", "100"));
+		GM_CHAR_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewChar", "100"));
+		GM_NPC_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditNPC", "100"));
+		GM_NPC_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewNPC", "100"));
+		GM_PRIV_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditPriv", "100"));
+		GM_PRIV_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewPriv", "100"));
+		GM_TELEPORT = Integer.parseInt(gmSettings.getProperty("GMCanTeleport", "100"));
+		GM_TELEPORT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanTeleportOther", "100"));
+		GM_RESTART = Integer.parseInt(gmSettings.getProperty("GMCanRestart", "100"));
+		GM_MONSTERRACE = Integer.parseInt(gmSettings.getProperty("GMMonsterRace", "100"));
+		GM_RIDER = Integer.parseInt(gmSettings.getProperty("GMRider", "100"));
+		GM_ESCAPE = Integer.parseInt(gmSettings.getProperty("GMFastUnstuck", "100"));
+		GM_FIXED = Integer.parseInt(gmSettings.getProperty("GMResurectFixed", "100"));
+		GM_CREATE_NODES = Integer.parseInt(gmSettings.getProperty("GMCreateNodes", "100"));
+		GM_ENCHANT = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
+		GM_DOOR = Integer.parseInt(gmSettings.getProperty("GMDoor", "100"));
+		GM_RES = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
+		GM_PEACEATTACK = Integer.parseInt(gmSettings.getProperty("GMPeaceAttack", "100"));
+		GM_HEAL = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
+		GM_UNBLOCK = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
+		GM_CACHE = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
+		GM_TALK_BLOCK = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
+		GM_TEST = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
+		GM_FORTSIEGE = Integer.parseInt(gmSettings.getProperty("GMFortSiege", "100"));
+		GM_CLAN_PANEL = Integer.parseInt(gmSettings.getProperty("GMClanPanel", "100"));
+		String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
+		if (!gmTrans.equalsIgnoreCase("False"))
+		{
+		    String[] params = gmTrans.split(",");
+		    GM_DISABLE_TRANSACTION = true;
+		    GM_TRANSACTION_MIN = Integer.parseInt(params[0]);
+		    GM_TRANSACTION_MAX = Integer.parseInt(params[1]);
+		} else
+		{
+		    GM_DISABLE_TRANSACTION = false;
+		}
+		GM_CAN_GIVE_DAMAGE = Integer.parseInt(gmSettings.getProperty("GMCanGiveDamage", "90"));
+		GM_DONT_TAKE_AGGRO = Integer.parseInt(gmSettings.getProperty("GMDontTakeAggro", "90"));
+		GM_DONT_TAKE_EXPSP = Integer.parseInt(gmSettings.getProperty("GMDontGiveExpSp", "90"));
+	    } catch (Exception e)
+	    {
+		e.printStackTrace();
+		throw new Error("Failed to Load " + GM_ACCESS_FILE + " File.");
+	    }
+	    // id factory
+	    try
+	    {
+		Properties idSettings = new Properties();
+		InputStream is = new FileInputStream(new File(ID_CONFIG_FILE));
+		idSettings.load(is);
+		is.close();
+		MAP_TYPE = ObjectMapType.valueOf(idSettings.getProperty("L2Map", "WorldObjectMap"));
+		SET_TYPE = ObjectSetType.valueOf(idSettings.getProperty("L2Set", "WorldObjectSet"));
+		IDFACTORY_TYPE = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "Compaction"));
+		BAD_ID_CHECKING = Boolean.valueOf(idSettings.getProperty("BadIdChecking", "True"));
+	    } catch (Exception e)
+	    {
+		e.printStackTrace();
+		throw new Error("Failed to Load " + ID_CONFIG_FILE + " File.");
+	    }
+	    // irc to ig
+	    try
+	    {
+		Properties ircSettings = new Properties();
+		InputStream is = new FileInputStream(new File(IRC_FILE));
+		ircSettings.load(is);
+		is.close();
+		IRC_HOSTNAME = ircSettings.getProperty("IrcHostname", "localhost");
+		IRC_PORT = Integer.parseInt(ircSettings.getProperty("IrcPort", "6667"));
+		IRC_USERNAME = ircSettings.getProperty("IrcUserNick", "L2JBot");
+		IRC_USERREALNAME = ircSettings.getProperty("IrcUserRealName", "L2JBot");
+		IRC_USERMAIL = ircSettings.getProperty("IrcUserMail");
+		IRC_CHANNEL = ircSettings.getProperty("IrcChannel");
+		IRC_IGTOIRC_FILE = ircSettings.getProperty("IrcIgToIrcFile", "./log/igtoirc.log");
+		IRC_KEYWORDTOIG = ircSettings.getProperty("IrcKeywordToIg");
+		IRC_KEYWORDTOIRC = ircSettings.getProperty("IrcKeywordToIrc");
+		IRC_LOAD = Boolean.parseBoolean(ircSettings.getProperty("StartIrcBot", "False"));
+	    } catch (Exception e)
+	    {
+		e.printStackTrace();
+		throw new Error("Failed to Load " + IRC_FILE + " File.");
+	    }
+	    // General Config File
+	    try
+	    {
 		Properties General = new Properties();
 		InputStream is = new FileInputStream(new File(GENERAL_CONFIG_FILE));
 		General.load(is);
@@ -2093,22 +2367,6 @@ public final class Config
 		e.printStackTrace();
 		throw new Error("Failed to Load " + TELNET_FILE + " File.");
 	    }
-	    // id factory
-	    try
-	    {
-		Properties idSettings = new Properties();
-		InputStream is = new FileInputStream(new File(ID_CONFIG_FILE));
-		idSettings.load(is);
-		is.close();
-		MAP_TYPE = ObjectMapType.valueOf(idSettings.getProperty("L2Map", "WorldObjectMap"));
-		SET_TYPE = ObjectSetType.valueOf(idSettings.getProperty("L2Set", "WorldObjectSet"));
-		IDFACTORY_TYPE = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "Compaction"));
-		BAD_ID_CHECKING = Boolean.valueOf(idSettings.getProperty("BadIdChecking", "True"));
-	    } catch (Exception e)
-	    {
-		e.printStackTrace();
-		throw new Error("Failed to Load " + ID_CONFIG_FILE + " File.");
-	    }
 	    // other
 	    try
 	    {
@@ -2271,96 +2529,6 @@ public final class Config
 	    {
 		e.printStackTrace();
 		throw new Error("Failed to Load " + RATES_CONFIG_FILE + " File.");
-	    }
-	    // alternative settings
-	    try
-	    {
-		Properties altSettings = new Properties();
-		InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
-		altSettings.load(is);
-		is.close();
-		ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "False"));
-        SOUL_CRYSTAL_BREAK_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalBreakChance","10"));   
-        SOUL_CRYSTAL_LEVEL_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalLevelChance", "32"));   
-		ALT_GAME_CREATION = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "False"));
-		ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
-		ALT_GAME_CREATION_XP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
-		ALT_GAME_CREATION_SP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
-		ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "True"));
-        ALT_MAGES_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00")); 
-        ALT_MAGES_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00")); 
-        ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00")); 
-        ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageFighters", "1.00")); 
-        ALT_PETS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamagePets", "1.00")); 
-        ALT_PETS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamagePets", "1.00")); 
-        ALT_NPC_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00")); 
-        ALT_NPC_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00")); 
-		ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "False"));
-		AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "False"));
-		ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("all");
-		ALT_GAME_CANCEL_CAST = altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("cast") || altSettings.getProperty("AltGameCancelByHit", "Cast").equalsIgnoreCase("all");
-		ALT_GAME_SHIELD_BLOCKS = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "False"));
-		ALT_GAME_DELEVEL = Boolean.parseBoolean(altSettings.getProperty("Delevel", "True"));
-		ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "False"));
-		ALT_GAME_MOB_ATTACK_AI = Boolean.parseBoolean(altSettings.getProperty("AltGameMobAttackAI", "False"));
-		ALT_MOB_AGRO_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "True"));
-		ALT_GAME_EXPONENT_XP = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
-		ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
-		ALLOW_CLASS_MASTERS = Boolean.valueOf(altSettings.getProperty("AllowClassMasters", "False"));
-		ALLOW_CLASS_FIRST = Boolean.valueOf(altSettings.getProperty("AllowFirstClass", "False"));
-		ALLOW_CLASS_SECOND = Boolean.valueOf(altSettings.getProperty("AllowSecondClass", "False"));
-		ALLOW_CLASS_THIRD = Boolean.valueOf(altSettings.getProperty("AllowThirdClass", "False"));
-		ALT_GAME_FREIGHTS = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "False"));
-		ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
-		ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
-		ALT_PARTY_RANGE2 = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
-		IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "True"));
-		AUTO_LOOT = Boolean.valueOf(altSettings.getProperty("AutoLoot", "True"));
-		AUTO_LOOT_HERBS = Boolean.valueOf(altSettings.getProperty("AutoLootHerbs", "True"));
-		ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "False"));
-		ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanShop", "True"));
-		ALT_GAME_KARMA_PLAYER_CAN_USE_GK = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseGK", "False"));
-		ALT_GAME_KARMA_PLAYER_CAN_TELEPORT = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTeleport", "True"));
-		ALT_GAME_KARMA_PLAYER_CAN_TRADE = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanTrade", "True"));
-		ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE = Boolean.valueOf(altSettings.getProperty("AltKarmaPlayerCanUseWareHouse", "True"));
-		ALT_GAME_FREE_TELEPORT = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
-		ALT_RECOMMEND = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
-		ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
-        RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(altSettings.getProperty("RestoreEffectsOnSubClassChange", "False"));
-		ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
-		ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
-		ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(altSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
-		DWARF_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit", "50"));
-		COMMON_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit", "50"));
-		ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(altSettings.getProperty("AltClanMembersForWar", "15"));
-		ALT_CLAN_JOIN_DAYS = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAClan", "5"));
-		ALT_CLAN_CREATE_DAYS = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateAClan", "10"));
-		ALT_CLAN_DISSOLVE_DAYS = Integer.parseInt(altSettings.getProperty("DaysToPassToDissolveAClan", "7"));
-		ALT_ALLY_JOIN_DAYS_WHEN_LEAVED = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
-		ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
-		ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
-		ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
-		ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
-		ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
-		ALT_OLY_CPERIOD = Long.parseLong(altSettings.getProperty("AltOlyCPeriod", "21600")) * 1000;
-		ALT_OLY_BATTLE = Long.parseLong(altSettings.getProperty("AltOlyBattle", "360")) * 1000;
-		ALT_OLY_BWAIT = Long.parseLong(altSettings.getProperty("AltOlyBWait", "600")) * 1000;
-		ALT_OLY_IWAIT = Long.parseLong(altSettings.getProperty("AltOlyIWait", "300")) * 1000;
-		ALT_OLY_WPERIOD = Long.parseLong(altSettings.getProperty("AltOlyWPeriod", "604800")) * 1000;
-		ALT_OLY_VPERIOD = Long.parseLong(altSettings.getProperty("AltOlyVPeriod", "86400")) * 1000;
-		ALT_LOTTERY_PRIZE = Integer.parseInt(altSettings.getProperty("AltLotteryPrize", "50000"));
-		ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(altSettings.getProperty("AltLotteryTicketPrice", "2000"));
-		ALT_LOTTERY_5_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery5NumberRate", "0.6"));
-		ALT_LOTTERY_4_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery4NumberRate", "0.2"));
-		ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate", "0.2"));
-		ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize", "200"));
-		BUFFS_MAX_AMOUNT = Byte.parseByte(altSettings.getProperty("MaxBuffAmount", "24"));
-		ALT_DEV_NO_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
-		ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
-	    } catch (Exception e)
-	    {
-		e.printStackTrace();
-		throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
 	    }
 	    /** ************************************************** */
 	    /** L2J Teon Mods Properties File -Begin * */
@@ -3003,28 +3171,6 @@ public final class Config
 	    /** ************************************************** */
 	    /** L2J Teon Custom Properties File -End * */
 	    /** ************************************************** */
-	    // irc to ig
-	    try
-	    {
-		Properties ircSettings = new Properties();
-		InputStream is = new FileInputStream(new File(IRC_FILE));
-		ircSettings.load(is);
-		is.close();
-		IRC_HOSTNAME = ircSettings.getProperty("IrcHostname", "localhost");
-		IRC_PORT = Integer.parseInt(ircSettings.getProperty("IrcPort", "6667"));
-		IRC_USERNAME = ircSettings.getProperty("IrcUserNick", "L2JBot");
-		IRC_USERREALNAME = ircSettings.getProperty("IrcUserRealName", "L2JBot");
-		IRC_USERMAIL = ircSettings.getProperty("IrcUserMail");
-		IRC_CHANNEL = ircSettings.getProperty("IrcChannel");
-		IRC_IGTOIRC_FILE = ircSettings.getProperty("IrcIgToIrcFile", "./log/igtoirc.log");
-		IRC_KEYWORDTOIG = ircSettings.getProperty("IrcKeywordToIg");
-		IRC_KEYWORDTOIRC = ircSettings.getProperty("IrcKeywordToIrc");
-		IRC_LOAD = Boolean.parseBoolean(ircSettings.getProperty("StartIrcBot", "False"));
-	    } catch (Exception e)
-	    {
-		e.printStackTrace();
-		throw new Error("Failed to Load " + IRC_FILE + " File.");
-	    }
 	    // Seven Signs Config
 	    try
 	    {
@@ -3048,68 +3194,6 @@ public final class Config
 	    {
 		e.printStackTrace();
 		throw new Error("Failed to Load " + SEVENSIGNS_FILE + " File.");
-	    }
-	    // clanhall settings
-	    try
-	    {
-		Properties clanhallSettings = new Properties();
-		InputStream is = new FileInputStream(new File(CLANHALL_CONFIG_FILE));
-		clanhallSettings.load(is);
-		is.close();
-		CH_TELE_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeRation", "86400000"));
-		CH_TELE1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl1", "86400000"));
-		CH_TELE2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallTeleportFunctionFeeLvl2", "86400000"));
-		CH_SUPPORT_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallSupportFunctionFeeRation", "86400000"));
-		CH_SUPPORT1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl1", "86400000"));
-		CH_SUPPORT2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl2", "86400000"));
-		CH_SUPPORT3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl3", "86400000"));
-		CH_SUPPORT4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl4", "86400000"));
-		CH_SUPPORT5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl5", "86400000"));
-		CH_SUPPORT6_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl6", "86400000"));
-		CH_SUPPORT7_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl7", "86400000"));
-		CH_SUPPORT8_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallSupportFeeLvl8", "86400000"));
-		CH_MPREG_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFunctionFeeRation", "86400000"));
-		CH_MPREG1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl1", "86400000"));
-		CH_MPREG2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl2", "86400000"));
-		CH_MPREG3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl3", "86400000"));
-		CH_MPREG4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl4", "86400000"));
-		CH_MPREG5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallMpRegenerationFeeLvl5", "86400000"));
-		CH_HPREG_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFunctionFeeRation", "86400000"));
-		CH_HPREG1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl1", "86400000"));
-		CH_HPREG2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl2", "86400000"));
-		CH_HPREG3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl3", "86400000"));
-		CH_HPREG4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl4", "86400000"));
-		CH_HPREG5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl5", "86400000"));
-		CH_HPREG6_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl6", "86400000"));
-		CH_HPREG7_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl7", "86400000"));
-		CH_HPREG8_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl8", "86400000"));
-		CH_HPREG9_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl9", "86400000"));
-		CH_HPREG10_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl10", "86400000"));
-		CH_HPREG11_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl11", "86400000"));
-		CH_HPREG12_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl12", "86400000"));
-		CH_HPREG13_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallHpRegenerationFeeLvl13", "86400000"));
-		CH_EXPREG_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFunctionFeeRation", "86400000"));
-		CH_EXPREG1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl1", "86400000"));
-		CH_EXPREG2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl2", "86400000"));
-		CH_EXPREG3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl3", "86400000"));
-		CH_EXPREG4_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl4", "86400000"));
-		CH_EXPREG5_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl5", "86400000"));
-		CH_EXPREG6_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl6", "86400000"));
-		CH_EXPREG7_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallExpRegenerationFeeLvl7", "86400000"));
-		CH_ITEM_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeRation", "86400000"));
-		CH_ITEM1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl1", "86400000"));
-		CH_ITEM2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl2", "86400000"));
-		CH_ITEM3_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallItemCreationFunctionFeeLvl3", "86400000"));
-		CH_CURTAIN_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallCurtainFunctionFeeRation", "86400000"));
-		CH_CURTAIN1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallCurtainFunctionFeeLvl1", "86400000"));
-		CH_CURTAIN2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallCurtainFunctionFeeLvl2", "86400000"));
-		CH_FRONT_FEE_RATIO = Long.valueOf(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeRation", "86400000"));
-		CH_FRONT1_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeLvl1", "86400000"));
-		CH_FRONT2_FEE = Integer.valueOf(clanhallSettings.getProperty("ClanHallFrontPlatformFunctionFeeLvl2", "86400000"));
-	    } catch (Exception e)
-	    {
-		e.printStackTrace();
-		throw new Error("Failed to Load " + CLANHALL_CONFIG_FILE + " File.");
 	    }
 	    // pvp config
 	    try
@@ -3144,69 +3228,6 @@ public final class Config
 	    {
 		e.printStackTrace();
 		throw new Error("Failed to Load " + PVP_CONFIG_FILE + " File.");
-	    }
-	    // access levels
-	    try
-	    {
-		Properties gmSettings = new Properties();
-		InputStream is = new FileInputStream(new File(GM_ACCESS_FILE));
-		gmSettings.load(is);
-		is.close();
-		GM_ACCESSLEVEL = Integer.parseInt(gmSettings.getProperty("GMAccessLevel", "100"));
-		GM_MIN = Integer.parseInt(gmSettings.getProperty("GMMinLevel", "100"));
-		GM_ALTG_MIN_LEVEL = Integer.parseInt(gmSettings.getProperty("GMCanAltG", "100"));
-		GM_ANNOUNCE = Integer.parseInt(gmSettings.getProperty("GMCanAnnounce", "100"));
-		GM_BAN = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
-		GM_BAN_CHAT = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
-		GM_CREATE_ITEM = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
-		GM_DELETE = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
-		GM_KICK = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
-		GM_MENU = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
-		GM_GODMODE = Integer.parseInt(gmSettings.getProperty("GMGodMode", "100"));
-		GM_CHAR_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditChar", "100"));
-		GM_CHAR_EDIT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanEditCharOther", "100"));
-		GM_CHAR_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewChar", "100"));
-		GM_NPC_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditNPC", "100"));
-		GM_NPC_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewNPC", "100"));
-		GM_PRIV_EDIT = Integer.parseInt(gmSettings.getProperty("GMCanEditPriv", "100"));
-		GM_PRIV_VIEW = Integer.parseInt(gmSettings.getProperty("GMCanViewPriv", "100"));
-		GM_TELEPORT = Integer.parseInt(gmSettings.getProperty("GMCanTeleport", "100"));
-		GM_TELEPORT_OTHER = Integer.parseInt(gmSettings.getProperty("GMCanTeleportOther", "100"));
-		GM_RESTART = Integer.parseInt(gmSettings.getProperty("GMCanRestart", "100"));
-		GM_MONSTERRACE = Integer.parseInt(gmSettings.getProperty("GMMonsterRace", "100"));
-		GM_RIDER = Integer.parseInt(gmSettings.getProperty("GMRider", "100"));
-		GM_ESCAPE = Integer.parseInt(gmSettings.getProperty("GMFastUnstuck", "100"));
-		GM_FIXED = Integer.parseInt(gmSettings.getProperty("GMResurectFixed", "100"));
-		GM_CREATE_NODES = Integer.parseInt(gmSettings.getProperty("GMCreateNodes", "100"));
-		GM_ENCHANT = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
-		GM_DOOR = Integer.parseInt(gmSettings.getProperty("GMDoor", "100"));
-		GM_RES = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
-		GM_PEACEATTACK = Integer.parseInt(gmSettings.getProperty("GMPeaceAttack", "100"));
-		GM_HEAL = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
-		GM_UNBLOCK = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
-		GM_CACHE = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
-		GM_TALK_BLOCK = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
-		GM_TEST = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
-		GM_FORTSIEGE = Integer.parseInt(gmSettings.getProperty("GMFortSiege", "100"));
-		GM_CLAN_PANEL = Integer.parseInt(gmSettings.getProperty("GMClanPanel", "100"));
-		String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
-		if (!gmTrans.equalsIgnoreCase("False"))
-		{
-		    String[] params = gmTrans.split(",");
-		    GM_DISABLE_TRANSACTION = true;
-		    GM_TRANSACTION_MIN = Integer.parseInt(params[0]);
-		    GM_TRANSACTION_MAX = Integer.parseInt(params[1]);
-		} else
-		{
-		    GM_DISABLE_TRANSACTION = false;
-		}
-		GM_CAN_GIVE_DAMAGE = Integer.parseInt(gmSettings.getProperty("GMCanGiveDamage", "90"));
-		GM_DONT_TAKE_AGGRO = Integer.parseInt(gmSettings.getProperty("GMDontTakeAggro", "90"));
-		GM_DONT_TAKE_EXPSP = Integer.parseInt(gmSettings.getProperty("GMDontGiveExpSp", "90"));
-	    } catch (Exception e)
-	    {
-		e.printStackTrace();
-		throw new Error("Failed to Load " + GM_ACCESS_FILE + " File.");
 	    }
 	    try
 	    {
@@ -3407,29 +3428,6 @@ public final class Config
 			{
 				e.printStackTrace();
 				throw new Error("Failed to Load " + ZAKEN_CONFIG_FILE + " File.");
-			}
-            // FloodProtector 
-			try 
-			{ 
-				Properties FloodProtector = new Properties(); 
-				InputStream is = new FileInputStream(new File(FLOODPROTECTOR_CONFIG_FILE)); 
-				FloodProtector.load(is); 
-				is.close(); 
-				
-				USEITEM_DELAY = Integer.parseInt(FloodProtector.getProperty("UseItemDelay", "4")); 
-				ROLLDICE_DELAY = Integer.parseInt(FloodProtector.getProperty("RollDiceDelay", "42")); 
-				FIREWORK_DELAY = Integer.parseInt(FloodProtector.getProperty("FireWorkDelay", "42")); 
-				ITEMPETSUMMON_DELAY = Integer.parseInt(FloodProtector.getProperty("ItemPetSummonDelay", "16")); 
-				HEROVOICE_DELAY = Integer.parseInt(FloodProtector.getProperty("HeroChatDelay", "100")); 
-				UNKNOWN_PACKET_DELAY = Integer.parseInt(FloodProtector.getProperty("UnknownPacketDelay", "15")); 
-				SUBCLASS_DELAY = Integer.parseInt(FloodProtector.getProperty("SubClassDelay", "100"));
-                MULTISELL_DELAY = Integer.parseInt(FloodProtector.getProperty("MultisellDelay", "100"));  
-			}  
-			
-			catch (Exception e) 
-			{ 
-				e.printStackTrace(); 
-				throw new Error("Failed to Load " + FLOODPROTECTOR_CONFIG_FILE + " File."); 
 			}
 		} else if (Server.serverMode == Server.MODE_LOGINSERVER)
 		{
