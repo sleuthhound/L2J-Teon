@@ -49,11 +49,10 @@ public final class Config
     public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
     public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
     public static final String IRC_FILE = "./config/irc.properties";
-
+    public static final String OPTIONS_FILE = "./config/options.properties";
+    
     /** Properties file for other configurations */
     public static final String OTHER_CONFIG_FILE = "./config/other.properties";
-    /** Properties file for game server options */
-    public static final String OPTIONS_FILE = "./config/options.properties";
     /** Properties file for rates configurations */
     public static final String RATES_CONFIG_FILE = "./config/rates.properties";
     /** Properties file for PVP configurations */
@@ -370,14 +369,155 @@ public final class Config
     public static boolean IRC_LOAD;
     /** The end irc.properties */
     
-    /** Debug/release mode */
+    /** Start options.properties */
+    // Debug/ assertions / code 'in progress' mode
     public static boolean DEBUG;
-    /** Enable/disable assertions */
     public static boolean ASSERT;
-    /** Enable/disable code 'in progress' */
     public static boolean DEVELOPER;
-    /** Set if this server is a test server used for development */
+    
+    // Setting for serverList
+    public static boolean SERVER_LIST_BRACKET;
+    public static boolean SERVER_LIST_CLOCK;
+    public static boolean SERVER_LIST_TESTSERVER;
+    public static boolean SERVER_GMONLY;
+    
+    // Set if this server is a test server used for development
     public static boolean TEST_SERVER;
+    // For test servers - everybody has admin rights
+    public static boolean EVERYBODY_HAS_ADMIN_RIGHTS;
+    
+    // Global and Trade chat state
+    public static String DEFAULT_GLOBAL_CHAT;
+    public static String DEFAULT_TRADE_CHAT;
+
+    // Default punishment for illegal actions
+    public static int DEFAULT_PUNISH;
+    public static int DEFAULT_PUNISH_PARAM;
+
+    /*
+     * This is setting of experimental Client <--> Server Player coordinates synchronization<br>
+     * <b><u>Valeurs :</u></b>
+     * <li>0 - no synchronization at all</li>
+     * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players to bypass obstacles</li>
+     * <li>2 - parcial synchronization Server --> Client only</li>
+     * <li>3 - full synchronization Client <--> Server</li>
+     * <li>-1 - Old system: will synchronize Z only</li>
+     */
+    public static int COORD_SYNCHRONIZE;
+
+    // Zone Setting
+    public static int ZONE_TOWN;
+    
+    // Bypass exploit protection
+    public static boolean BYPASS_VALIDATION;
+
+    // GameGuard options
+    public static boolean GAMEGUARD_ENFORCE;
+    public static boolean GAMEGUARD_PROHIBITACTION;
+
+    // Period in days after which character is deleted
+    public static int DELETE_DAYS;
+
+    // FloodProtector initial capacity
+    public static int FLOODPROTECTOR_INITIALSIZE;
+    
+    // Auto-delete invalid quest data ?
+    public static boolean AUTODELETE_INVALID_QUEST_DATA;
+    
+    // Allow Discard item ?
+    public static boolean ALLOW_DISCARDITEM;
+    public static boolean FORCE_INVENTORY_UPDATE;
+    // Accept multi-items drop
+    public static boolean MULTIPLE_ITEM_DROP;
+    // Accept precise drop calculation
+    public static boolean PRECISE_DROP_CALCULATION;
+
+    // HTML Lazy chace.
+    public static boolean LAZY_CACHE;
+
+    // Maximum range mobs can randomly go from spawn point
+    public static int MAX_DRIFT_RANGE;
+    
+    // Activate position recorder ?
+    public static boolean ACTIVATE_POSITION_RECORDER;
+
+    // Time after which a packet is considered as lost
+    public static int PACKET_LIFETIME;
+
+    // List of items that will not be destroyed (seperated by ",")
+    public static String PROTECTED_ITEMS;
+    public static List<Integer> LIST_PROTECTED_ITEMS = new FastList<Integer>();
+
+    // Save, deatroy and emply player drops
+    public static int AUTODESTROY_ITEM_AFTER;
+    public static int HERB_AUTO_DESTROY_TIME;
+    public static boolean DESTROY_DROPPED_PLAYER_ITEM;
+    public static boolean DESTROY_EQUIPABLE_PLAYER_ITEM;
+    public static boolean SAVE_DROPPED_ITEM;
+    public static boolean EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;
+    public static int SAVE_DROPPED_ITEM_INTERVAL;
+    public static boolean CLEAR_DROPPED_ITEM_TABLE;
+
+    // random animation interval
+    public static int MIN_NPC_ANIMATION;
+    public static int MAX_NPC_ANIMATION;
+    // Show L2Monster level and aggro ? */
+    public static boolean SHOW_NPC_LVL;
+    
+    // Allow Warehouse?
+    public static boolean ALLOW_WAREHOUSE;
+    public static boolean WAREHOUSE_CACHE;
+    public static int WAREHOUSE_CACHE_TIME;
+    
+    // Allow wear ? (try on in shop)
+    public static boolean ALLOW_WEAR;
+    public static int WEAR_DELAY;
+    public static int WEAR_PRICE;
+    
+    /* 
+     * Allow lottery, race, water, Fishing, rent pet, boat, cursed weapons and freight ? 
+     */
+    public static boolean ALLOW_LOTTERY;
+    public static boolean ALLOW_RACE;
+    public static boolean ALLOW_WATER;
+    public static boolean ALLOW_FISHING;
+    public static boolean ALLOWFISHING;
+    public static boolean ALLOW_RENTPET;
+    public static boolean ALLOW_BOAT;
+    public static boolean ALLOW_CURSED_WEAPONS;
+    public static boolean ALLOW_FREIGHT;
+
+    // Logging Chat and Item Window
+    public static boolean LOG_CHAT;
+    public static boolean LOG_ITEMS;
+
+    // Community Board
+    public static String COMMUNITY_TYPE;
+    public static String BBS_DEFAULT;
+    public static boolean SHOW_LEVEL_COMMUNITYBOARD;
+    public static boolean SHOW_STATUS_COMMUNITYBOARD;
+    public static int NAME_PAGE_SIZE_COMMUNITYBOARD;
+    public static int NAME_PER_ROW_COMMUNITYBOARD;
+
+    // Thread pools size
+    public static int THREAD_P_EFFECTS;
+    public static int THREAD_P_GENERAL;
+    public static int GENERAL_PACKET_THREAD_CORE_SIZE;
+    public static int IO_PACKET_THREAD_CORE_SIZE;
+    public static int GENERAL_THREAD_CORE_SIZE;
+    public static int AI_MAX_THREAD;
+
+    // Grid Options
+    public static boolean GRIDS_ALWAYS_ON;
+    public static int GRID_NEIGHBOR_TURNON_TIME;
+    public static int GRID_NEIGHBOR_TURNOFF_TIME;
+    
+    // GeoData Options
+    public static int GEODATA;
+    public static boolean FORCE_GEODATA;
+    public static boolean ACCEPT_GEOEDITOR_CONN;
+    /** The end options.properties */
+    
     /** Game Server ports */
     public static int PORT_GAME;
     /** Login Server port */
@@ -415,39 +555,12 @@ public final class Config
     public static int DATABASE_MAXIDLETIME;
     /** Maximum number of players allowed to play simultaneously on server */
     public static int MAXIMUM_ONLINE_USERS;
-    // Setting for serverList
-    /** Displays [] in front of server name ? */
-    public static boolean SERVER_LIST_BRACKET;
-    /** Displays a clock next to the server name ? */
-    public static boolean SERVER_LIST_CLOCK;
-    /** Display test server in the list of servers ? */
-    public static boolean SERVER_LIST_TESTSERVER;
-    /** Set the server as gm only at startup ? */
-    public static boolean SERVER_GMONLY;
-    // Thread pools size
-    /** Thread pool size effect */
-    public static int THREAD_P_EFFECTS;
-    /** Thread pool size general */
-    public static int THREAD_P_GENERAL;
-    /** Packet max thread */
-    public static int GENERAL_PACKET_THREAD_CORE_SIZE;
-    public static int IO_PACKET_THREAD_CORE_SIZE;
-    /** General max thread */
-    public static int GENERAL_THREAD_CORE_SIZE;
-    /** AI max thread */
-    public static int AI_MAX_THREAD;
     /** Character name template */
     public static String CNAME_TEMPLATE;
     /** Pet name template */
     public static String PET_NAME_TEMPLATE;
     /** Maximum number of characters per account */
     public static int MAX_CHARACTERS_NUMBER_PER_ACCOUNT;
-    /** Global chat state */
-    public static String DEFAULT_GLOBAL_CHAT;
-    /** Trade chat state */
-    public static String DEFAULT_TRADE_CHAT;
-    /** For test servers - everybody has admin rights */
-    public static boolean EVERYBODY_HAS_ADMIN_RIGHTS;
     /**
      * Alternative gaming - player must be in a castle-owning clan or ally to sign up for Dawn.
      */
@@ -478,10 +591,6 @@ public final class Config
     public static long ALT_FESTIVAL_SECOND_SWARM;
     /** Festival Chest Spawn */
     public static long ALT_FESTIVAL_CHEST_SPAWN;
-    /** Logging Chat Window */
-    public static boolean LOG_CHAT;
-    /** Logging Item Window */
-    public static boolean LOG_ITEMS;
     /** Alternative privileges for admin */
     public static boolean ALT_PRIVILEGES_ADMIN;
     /** Alternative secure check privileges */
@@ -1357,48 +1466,8 @@ public final class Config
     public static int KARMA_RATE_DROP_EQUIP;
     /** Karma drop rate for equipment and weapon */
     public static int KARMA_RATE_DROP_EQUIP_WEAPON;
-    /** Time after which item will auto-destroy */
-    public static int AUTODESTROY_ITEM_AFTER;
-    /** Auto destroy herb time */
-    public static int HERB_AUTO_DESTROY_TIME;
-    /** List of items that will not be destroyed (seperated by ",") */
-    public static String PROTECTED_ITEMS;
-    /** List of items that will not be destroyed */
-    public static List<Integer> LIST_PROTECTED_ITEMS = new FastList<Integer>();
-    /** Auto destroy nonequipable items dropped by players */
-    public static boolean DESTROY_DROPPED_PLAYER_ITEM;
-    /** Auto destroy equipable items dropped by players */
-    public static boolean DESTROY_EQUIPABLE_PLAYER_ITEM;
-    /** Save items on ground for restoration on server restart */
-    public static boolean SAVE_DROPPED_ITEM;
-    /** Empty table ItemsOnGround after load all items */
-    public static boolean EMPTY_DROPPED_ITEM_TABLE_AFTER_LOAD;
-    /** Time interval to save into db items on ground */
-    public static int SAVE_DROPPED_ITEM_INTERVAL;
-    /** Clear all items stored in ItemsOnGround table */
-    public static boolean CLEAR_DROPPED_ITEM_TABLE;
-    /** Accept precise drop calculation ? */
-    public static boolean PRECISE_DROP_CALCULATION;
-    /** Accept multi-items drop ? */
-    public static boolean MULTIPLE_ITEM_DROP;
-    /**
-     * This is setting of experimental Client <--> Server Player coordinates synchronization<br>
-     * <b><u>Valeurs :</u></b>
-     * <li>0 - no synchronization at all</li>
-     * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players to bypass obstacles</li>
-     * <li>2 - parcial synchronization Server --> Client only</li>
-     * <li>3 - full synchronization Client <--> Server</li>
-     * <li>-1 - Old system: will synchronize Z only</li>
-     */
-    public static int COORD_SYNCHRONIZE;
-    /** Period in days after which character is deleted */
-    public static int DELETE_DAYS;
     /** Datapack root directory */
     public static File DATAPACK_ROOT;
-    /** Maximum range mobs can randomly go from spawn point */
-    public static int MAX_DRIFT_RANGE;
-    /** Allow fishing ? */
-    public static boolean ALLOWFISHING;
     /** Jail config * */
     public static boolean JAIL_IS_PVP;
     public static boolean JAIL_DISABLE_CHAT;
@@ -1414,40 +1483,6 @@ public final class Config
      *
      * /** Revision of L2Walker public static int L2WALKER_REVISION;
      */
-    /** FloodProtector initial capacity */
-    public static int FLOODPROTECTOR_INITIALSIZE;
-    /** Allow Discard item ? */
-    public static boolean ALLOW_DISCARDITEM;
-    /** Allow freight ? */
-    public static boolean ALLOW_FREIGHT;
-    /** Allow warehouse ? */
-    public static boolean ALLOW_WAREHOUSE;
-    /** Allow warehouse cache? */
-    public static boolean WAREHOUSE_CACHE;
-    /** How long store WH datas */
-    public static int WAREHOUSE_CACHE_TIME;
-    /** Allow wear ? (try on in shop) */
-    public static boolean ALLOW_WEAR;
-    /** Duration of the try on after which items are taken back */
-    public static int WEAR_DELAY;
-    /** Price of the try on of one item */
-    public static int WEAR_PRICE;
-    /** Allow lottery ? */
-    public static boolean ALLOW_LOTTERY;
-    /** Allow race ? */
-    public static boolean ALLOW_RACE;
-    /** Allow water ? */
-    public static boolean ALLOW_WATER;
-    /** Allow Fishing ? */
-    public static boolean ALLOW_FISHING;
-    /** Allow rent pet ? */
-    public static boolean ALLOW_RENTPET;
-    /** Allow boat ? */
-    public static boolean ALLOW_BOAT;
-    /** Allow cursed weapons ? */
-    public static boolean ALLOW_CURSED_WEAPONS;
-    /** Time after which a packet is considered as lost */
-    public static int PACKET_LIFETIME;
     // Pets
     /** Speed of Weverns */
     public static int WYVERN_SPEED;
@@ -1460,27 +1495,8 @@ public final class Config
     public static int MIN_PROTOCOL_REVISION;
     /** Maximal protocol revision */
     public static int MAX_PROTOCOL_REVISION;
-    // random animation interval
-    /** Minimal time between 2 animations of a NPC */
-    public static int MIN_NPC_ANIMATION;
-    /** Maximal time between 2 animations of a NPC */
-    public static int MAX_NPC_ANIMATION;
-    /** Activate position recorder ? */
-    public static boolean ACTIVATE_POSITION_RECORDER;
     /** Use 3D Map ? */
     public static boolean USE_3D_MAP;
-    // Community Board
-    /** Type of community */
-    public static String COMMUNITY_TYPE;
-    public static String BBS_DEFAULT;
-    /** Show level of the community board ? */
-    public static boolean SHOW_LEVEL_COMMUNITYBOARD;
-    /** Show status of the community board ? */
-    public static boolean SHOW_STATUS_COMMUNITYBOARD;
-    /** Size of the name page on the community board */
-    public static int NAME_PAGE_SIZE_COMMUNITYBOARD;
-    /** Name per row on community board */
-    public static int NAME_PER_ROW_COMMUNITYBOARD;
 
     public static boolean CHECK_KNOWN;
     /** Game Server login port */
@@ -1496,19 +1512,10 @@ public final class Config
     public static int SELECTED_NODE_ID;
     public static int LINKED_NODE_ID;
     public static String NEW_NODE_TYPE;
-    /** Show L2Monster level and aggro ? */
-    public static boolean SHOW_NPC_LVL;
-    /**
-     * Force full item inventory packet to be sent for any item change ?<br>
-     * <u><i>Note:</i></u> This can increase network traffic
-     */
-    public static boolean FORCE_INVENTORY_UPDATE;
     /** Disable the use of guards against agressive monsters ? */
     public static boolean ALLOW_GUARDS;
     /** Time between 2 updates of IP */
     public static int IP_UPDATE_TIME;
-    /** Zone Setting */
-    public static int ZONE_TOWN;
     // Inventory slots limit
     /** Maximum inventory slots limits for non dwarf characters */
     public static int INVENTORY_MAXIMUM_NO_DWARF;
@@ -1584,8 +1591,6 @@ public final class Config
      * priority to the old one.
      */
     public static boolean EFFECT_CANCELING;
-    /** Auto-delete invalid quest data ? */
-    public static boolean AUTODELETE_INVALID_QUEST_DATA;
     /** Chance that an item will succesfully be enchanted */
     public static int ENCHANT_CHANCE_WEAPON;
     public static int ENCHANT_CHANCE_ARMOR;
@@ -1660,10 +1665,6 @@ public final class Config
     public static boolean SHOW_LICENCE;
     /** Force GameGuard authorization in loginserver */
     public static boolean FORCE_GGAUTH;
-    /** Default punishment for illegal actions */
-    public static int DEFAULT_PUNISH;
-    /** Parameter for default punishment */
-    public static int DEFAULT_PUNISH_PARAM;
     /** Accept new game server ? */
     public static boolean ACCEPT_NEW_GAMESERVER;
     /** Server ID used with the HexID */
@@ -1679,7 +1680,6 @@ public final class Config
     public static int KNOWNLIST_FORGET_DELAY;
     public static int MINIMUN_UPDATE_TIME;
     public static boolean ANNOUNCE_MAMMON_SPAWN;
-    public static boolean LAZY_CACHE;
     /** Enable colored name for GM ? */
     public static boolean GM_NAME_COLOR_ENABLED;
     /** Color of GM name */
@@ -1705,8 +1705,6 @@ public final class Config
     public static int MAX_PETITIONS_PER_PLAYER;
     /** Maximum number of petitions pending */
     public static int MAX_PETITIONS_PENDING;
-    /** Bypass exploit protection ? */
-    public static boolean BYPASS_VALIDATION;
     /** Only GM buy items for free* */
     public static boolean ONLY_GM_ITEMS_FREE;
     /** Allow auto-create account ? */
@@ -1716,23 +1714,6 @@ public final class Config
     public static int NORMAL_CONNECTION_TIME;
     public static int FAST_CONNECTION_TIME;
     public static int MAX_CONNECTION_PER_IP;
-    /** Enforce gameguard query on character login ? */
-    public static boolean GAMEGUARD_ENFORCE;
-    /**
-     * Don't allow player to perform trade,talk with npc and move until
-     * gameguard reply received ?
-     */
-    public static boolean GAMEGUARD_PROHIBITACTION;
-    /** Grid Options */
-    public static boolean GRIDS_ALWAYS_ON;
-    public static int GRID_NEIGHBOR_TURNON_TIME;
-    public static int GRID_NEIGHBOR_TURNOFF_TIME;
-    /** GeoData 0/1/2 */
-    public static int GEODATA;
-    /** Force loading GeoData to psychical memory */
-    public static boolean FORCE_GEODATA;
-    public static boolean ACCEPT_GEOEDITOR_CONN;
-
     /**
      * This class initializes all global variables for configuration.<br>
      * If key doesn't appear in properties file, a default value is setting
