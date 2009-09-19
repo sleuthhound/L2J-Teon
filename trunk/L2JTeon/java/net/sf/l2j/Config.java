@@ -518,6 +518,136 @@ public final class Config
     public static boolean ACCEPT_GEOEDITOR_CONN;
     /** The end options.properties */
     
+    /** Start other.properties */
+    // Amount of adenas when starting a new character
+    public static int STARTING_ADENA;
+    
+    // Pets
+    public static int WYVERN_SPEED;
+    public static int STRIDER_SPEED;
+    public static boolean ALLOW_WYVERN_UPGRADER;
+
+    /*
+     * Allow lesser effects to be canceled if stronger effects are used when effects of the same stack group are used.<br>
+     * New effects that are added will be canceled if they are of lesser priority to the old one.
+     */
+    public static boolean EFFECT_CANCELING;
+    
+    // Disable the use of guards against agressive monsters ?
+    public static boolean ALLOW_GUARDS;
+    
+    // Deep Blue Mobs' Drop Rules Enabled
+    public static boolean DEEPBLUE_DROP_RULES;
+    
+    // Inventory slots limit
+    public static int INVENTORY_MAXIMUM_NO_DWARF;
+    public static int INVENTORY_MAXIMUM_DWARF;
+    public static int INVENTORY_MAXIMUM_GM;
+    
+    // Warehouse slots limits
+    public static int WAREHOUSE_SLOTS_NO_DWARF;
+    public static int WAREHOUSE_SLOTS_DWARF;
+    public static int WAREHOUSE_SLOTS_CLAN;
+    public static int FREIGHT_SLOTS;
+
+    // Chance that an item will succesfully be enchanted 
+    public static int ENCHANT_CHANCE_WEAPON;
+    public static int ENCHANT_CHANCE_ARMOR;
+    public static int ENCHANT_CHANCE_JEWELRY;
+    
+    // Maximum level of enchantment
+    public static int ENCHANT_MAX_WEAPON;
+    public static int ENCHANT_MAX_ARMOR;
+    public static int ENCHANT_MAX_JEWELRY;
+    
+    // maximum level of safe enchantment for normal items
+    public static int ENCHANT_SAFE_MAX;
+    // maximum level of safe enchantment for full body armor
+    public static int ENCHANT_SAFE_MAX_FULL;
+
+    // Character multipliers
+    public static double HP_REGEN_MULTIPLIER;
+    public static double MP_REGEN_MULTIPLIER;
+    public static double CP_REGEN_MULTIPLIER;
+    
+    // Raid Boss multipliers
+    public static double RAID_HP_REGEN_MULTIPLIER;
+    public static double RAID_MP_REGEN_MULTIPLIER;
+    public static double RAID_DEFENCE_MULTIPLIER;
+    
+    // Raid Boss Minin Spawn Timer
+    public static double RAID_MINION_RESPAWN_TIMER;
+    // Mulitplier for Raid boss minimum and maximum time respawn
+    public static float RAID_MIN_RESPAWN_MULTIPLIER;
+    public static float RAID_MAX_RESPAWN_MULTIPLIER;
+    
+    // Unstuck Interval
+    public static int UNSTUCK_INTERVAL;
+
+    // Player Protection control
+    public static int PLAYER_SPAWN_PROTECTION;
+    public static int PLAYER_FAKEDEATH_UP_PROTECTION;
+
+    /*
+     * Define Party XP cutoff point method - Possible values: level and percentage
+     */
+    public static String PARTY_XP_CUTOFF_METHOD;
+    public static int PARTY_XP_CUTOFF_LEVEL;
+    public static double PARTY_XP_CUTOFF_PERCENT;
+    
+    // Percent CP / HP / MP is restore on respawn
+    public static double RESPAWN_RESTORE_CP;
+    public static double RESPAWN_RESTORE_HP;
+    public static double RESPAWN_RESTORE_MP;
+    
+    // Allow randomizing of the respawn point in towns.
+    public static boolean RESPAWN_RANDOM_ENABLED;
+    public static int RESPAWN_RANDOM_MAX_OFFSET;
+    
+    // Maximum number of available slots for pvt stores (sell/buy) - Dwarves / Others
+    public static int MAX_PVTSTORE_SLOTS_DWARF;
+    public static int MAX_PVTSTORE_SLOTS_OTHER;
+    
+    // Store skills cooltime on char exit/relogin
+    public static boolean STORE_SKILL_COOLTIME;
+
+    // List of NPCs that rent pets (seperated by ",")
+    public static String PET_RENT_NPC;
+    public static List<Integer> LIST_PET_RENT_NPC = new FastList<Integer>();
+
+    public static boolean ANNOUNCE_MAMMON_SPAWN;
+
+    // Alternative privileges for admin
+    public static boolean ALT_PRIVILEGES_ADMIN;
+    public static boolean ALT_PRIVILEGES_SECURE_CHECK;
+    public static int ALT_PRIVILEGES_DEFAULT_LEVEL;
+
+    // Enable colored name for GM / Admin ? */
+    public static boolean GM_NAME_COLOR_ENABLED;
+    public static int GM_NAME_COLOR;
+    public static int ADMIN_NAME_COLOR;
+
+    public static int MASTERACCESS_LEVEL;
+    public static int MASTERACCESS_NAME_COLOR;
+    public static int MASTERACCESS_TITLE_COLOR;
+
+    // Set the GM in startup ?
+    public static boolean GM_HERO_AURA;
+    public static boolean GM_STARTUP_INVULNERABLE;
+    public static boolean GM_STARTUP_INVISIBLE;
+    public static boolean GM_STARTUP_SILENCE;
+    public static boolean GM_STARTUP_AUTO_LIST;
+    
+    // Allow petition ?
+    public static boolean PETITIONING_ALLOWED;
+    public static int MAX_PETITIONS_PER_PLAYER;
+    public static int MAX_PETITIONS_PENDING;
+
+    // Jail config
+    public static boolean JAIL_IS_PVP;
+    public static boolean JAIL_DISABLE_CHAT;
+    /** The end other.properties */
+    
     /** Game Server ports */
     public static int PORT_GAME;
     /** Login Server port */
@@ -591,12 +721,6 @@ public final class Config
     public static long ALT_FESTIVAL_SECOND_SWARM;
     /** Festival Chest Spawn */
     public static long ALT_FESTIVAL_CHEST_SPAWN;
-    /** Alternative privileges for admin */
-    public static boolean ALT_PRIVILEGES_ADMIN;
-    /** Alternative secure check privileges */
-    public static boolean ALT_PRIVILEGES_SECURE_CHECK;
-    /** Alternative default level for privileges */
-    public static int ALT_PRIVILEGES_DEFAULT_LEVEL;
     /** ************************************************** */
     /** L2J Teon Mods Customizations -Begin * */
     /** ************************************************** */
@@ -1468,9 +1592,6 @@ public final class Config
     public static int KARMA_RATE_DROP_EQUIP_WEAPON;
     /** Datapack root directory */
     public static File DATAPACK_ROOT;
-    /** Jail config * */
-    public static boolean JAIL_IS_PVP;
-    public static boolean JAIL_DISABLE_CHAT;
     /*
      * Removed by Ahmed, Reason: This has no effect at all whether players can use L2Walker or not.
      */
@@ -1483,13 +1604,6 @@ public final class Config
      *
      * /** Revision of L2Walker public static int L2WALKER_REVISION;
      */
-    // Pets
-    /** Speed of Weverns */
-    public static int WYVERN_SPEED;
-    /** Speed of Striders */
-    public static int STRIDER_SPEED;
-    /** Allow Wyvern Upgrader ? */
-    public static boolean ALLOW_WYVERN_UPGRADER;
     // protocol revision
     /** Minimal protocol revision */
     public static int MIN_PROTOCOL_REVISION;
@@ -1512,26 +1626,8 @@ public final class Config
     public static int SELECTED_NODE_ID;
     public static int LINKED_NODE_ID;
     public static String NEW_NODE_TYPE;
-    /** Disable the use of guards against agressive monsters ? */
-    public static boolean ALLOW_GUARDS;
     /** Time between 2 updates of IP */
     public static int IP_UPDATE_TIME;
-    // Inventory slots limit
-    /** Maximum inventory slots limits for non dwarf characters */
-    public static int INVENTORY_MAXIMUM_NO_DWARF;
-    /** Maximum inventory slots limits for dwarf characters */
-    public static int INVENTORY_MAXIMUM_DWARF;
-    /** Maximum inventory slots limits for GM */
-    public static int INVENTORY_MAXIMUM_GM;
-    // Warehouse slots limits
-    /** Maximum inventory slots limits for non dwarf warehouse */
-    public static int WAREHOUSE_SLOTS_NO_DWARF;
-    /** Maximum inventory slots limits for dwarf warehouse */
-    public static int WAREHOUSE_SLOTS_DWARF;
-    /** Maximum inventory slots limits for clan warehouse */
-    public static int WAREHOUSE_SLOTS_CLAN;
-    /** Maximum inventory slots limits for freight */
-    public static int FREIGHT_SLOTS;
     // Karma System Variables
     /** Minimum karma gain/loss */
     public static int KARMA_MIN_KARMA;
@@ -1562,10 +1658,6 @@ public final class Config
     public static String NONDROPPABLE_ITEMS;
     /** List of items that cannot be dropped */
     public static List<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-    /** List of NPCs that rent pets (seperated by ",") */
-    public static String PET_RENT_NPC;
-    /** List of NPCs that rent pets */
-    public static List<Integer> LIST_PET_RENT_NPC = new FastList<Integer>();
     /**
      * Duration (in ms) while a player stay in PVP mode after hitting an
      * innocent
@@ -1584,80 +1676,8 @@ public final class Config
     /** Time interval between 2 dumps */
     public static int DUMP_INTERVAL_SECONDS = 60;
 
-    /**
-     * Allow lesser effects to be canceled if stronger effects are used when
-     * effects of the same stack group are used.<br>
-     * New effects that are added will be canceled if they are of lesser
-     * priority to the old one.
-     */
-    public static boolean EFFECT_CANCELING;
-    /** Chance that an item will succesfully be enchanted */
-    public static int ENCHANT_CHANCE_WEAPON;
-    public static int ENCHANT_CHANCE_ARMOR;
-    public static int ENCHANT_CHANCE_JEWELRY;
-    /** Maximum level of enchantment */
-    public static int ENCHANT_MAX_WEAPON;
-    public static int ENCHANT_MAX_ARMOR;
-    public static int ENCHANT_MAX_JEWELRY;
-    /** maximum level of safe enchantment for normal items */
-    public static int ENCHANT_SAFE_MAX;
-    /** maximum level of safe enchantment for full body armor */
-    public static int ENCHANT_SAFE_MAX_FULL;
-    // Character multipliers
-    /** Multiplier for character HP regeneration */
-    public static double HP_REGEN_MULTIPLIER;
-    /** Mutilplier for character MP regeneration */
-    public static double MP_REGEN_MULTIPLIER;
-    /** Multiplier for character CP regeneration */
-    public static double CP_REGEN_MULTIPLIER;
-    // Raid Boss multipliers
-    /** Multiplier for Raid boss HP regeneration */
-    public static double RAID_HP_REGEN_MULTIPLIER;
-    /** Mulitplier for Raid boss MP regeneration */
-    public static double RAID_MP_REGEN_MULTIPLIER;
-    /** Multiplier for Raid boss defense multiplier */
-    public static double RAID_DEFENCE_MULTIPLIER;
-    /** Raid Boss Minin Spawn Timer */
-    public static double RAID_MINION_RESPAWN_TIMER;
-    /** Mulitplier for Raid boss minimum time respawn */
-    public static float RAID_MIN_RESPAWN_MULTIPLIER;
-    /** Mulitplier for Raid boss maximum time respawn */
-    public static float RAID_MAX_RESPAWN_MULTIPLIER;
-    /** Amount of adenas when starting a new character */
-    public static int STARTING_ADENA;
-    /** Deep Blue Mobs' Drop Rules Enabled */
-    public static boolean DEEPBLUE_DROP_RULES;
-    public static int UNSTUCK_INTERVAL;
     /** Is telnet enabled ? */
     public static boolean IS_TELNET_ENABLED;
-    /** Player Protection control */
-    public static int PLAYER_SPAWN_PROTECTION;
-    public static int PLAYER_FAKEDEATH_UP_PROTECTION;
-    /**
-     * Define Party XP cutoff point method - Possible values: level and
-     * percentage
-     */
-    public static String PARTY_XP_CUTOFF_METHOD;
-    /** Define the cutoff point value for the "level" method */
-    public static int PARTY_XP_CUTOFF_LEVEL;
-    /** Define the cutoff point value for the "percentage" method */
-    public static double PARTY_XP_CUTOFF_PERCENT;
-    /** Percent CP is restore on respawn */
-    public static double RESPAWN_RESTORE_CP;
-    /** Percent HP is restore on respawn */
-    public static double RESPAWN_RESTORE_HP;
-    /** Percent MP is restore on respawn */
-    public static double RESPAWN_RESTORE_MP;
-    /** Allow randomizing of the respawn point in towns. */
-    public static boolean RESPAWN_RANDOM_ENABLED;
-    /** The maximum offset from the base respawn point to allow. */
-    public static int RESPAWN_RANDOM_MAX_OFFSET;
-    /** Maximum number of available slots for pvt stores (sell/buy) - Dwarves */
-    public static int MAX_PVTSTORE_SLOTS_DWARF;
-    /** Maximum number of available slots for pvt stores (sell/buy) - Others */
-    public static int MAX_PVTSTORE_SLOTS_OTHER;
-    /** Store skills cooltime on char exit/relogin */
-    public static boolean STORE_SKILL_COOLTIME;
     /**
      * Show licence or not just after login (if False, will directly go to
      * the Server List
@@ -1679,32 +1699,6 @@ public final class Config
     public static int MINIMUM_UPDATE_DISTANCE;
     public static int KNOWNLIST_FORGET_DELAY;
     public static int MINIMUN_UPDATE_TIME;
-    public static boolean ANNOUNCE_MAMMON_SPAWN;
-    /** Enable colored name for GM ? */
-    public static boolean GM_NAME_COLOR_ENABLED;
-    /** Color of GM name */
-    public static int GM_NAME_COLOR;
-    /** Color of admin name */
-    public static int ADMIN_NAME_COLOR;
-    /** Place an aura around the GM ? */
-    public static boolean GM_HERO_AURA;
-    /** Set the GM invulnerable at startup ? */
-    public static boolean GM_STARTUP_INVULNERABLE;
-    /** Set the GM invisible at startup ? */
-    public static boolean GM_STARTUP_INVISIBLE;
-    /** Set silence to GM at startup ? */
-    public static boolean GM_STARTUP_SILENCE;
-    public static int MASTERACCESS_LEVEL;
-    public static int MASTERACCESS_NAME_COLOR;
-    public static int MASTERACCESS_TITLE_COLOR;
-    /** Add GM in the GM list at startup ? */
-    public static boolean GM_STARTUP_AUTO_LIST;
-    /** Allow petition ? */
-    public static boolean PETITIONING_ALLOWED;
-    /** Maximum number of petitions per player */
-    public static int MAX_PETITIONS_PER_PLAYER;
-    /** Maximum number of petitions pending */
-    public static int MAX_PETITIONS_PENDING;
     /** Only GM buy items for free* */
     public static boolean ONLY_GM_ITEMS_FREE;
     /** Allow auto-create account ? */
