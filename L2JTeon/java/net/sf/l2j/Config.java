@@ -647,6 +647,124 @@ public final class Config
     public static boolean JAIL_DISABLE_CHAT;
     /** The end other.properties */
     
+    /** Start pvp.properties */
+    // Maximum and Minimum karma gain/loss
+    public static int KARMA_MIN_KARMA;
+    public static int KARMA_MAX_KARMA;
+    
+    // Number to divide the xp recieved by, to calculate karma lost on xp gain/lost
+    public static int KARMA_XP_DIVIDER;
+    
+    // The Minimum Karma lost if 0 karma is to be removed
+    public static int KARMA_LOST_BASE;
+    
+    // Can a GM drop item ?
+    public static boolean KARMA_DROP_GM;
+    
+    // Should award a pvp point for killing a player with karma ? 
+    public static boolean KARMA_AWARD_PK_KILL;
+    // Minimum PK required to drop
+    public static int KARMA_PK_LIMIT;
+    
+    // List of pet items that cannot be dropped (seperated by ",") when PVP
+    public static String KARMA_NONDROPPABLE_PET_ITEMS;
+    public static String KARMA_NONDROPPABLE_ITEMS;
+    
+    // List of pet items that cannot be dropped when PVP
+    public static List<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
+    public static List<Integer> KARMA_LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
+    
+    // List of items that cannot be dropped (seperated by ",")
+    public static String NONDROPPABLE_ITEMS;
+    public static List<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
+    
+    // Pvp times
+    public static int PVP_NORMAL_TIME;
+    public static int PVP_PVP_TIME;
+    /** The end pvp.properties */
+    
+    /** Start rate.properties */
+    /* Rate control */
+    public static float RATE_XP;
+    public static float RATE_SP;
+    public static float RATE_PARTY_XP;
+    public static float RATE_PARTY_SP;
+    public static float RATE_QUESTS_REWARD;
+    public static float RATE_DROP_ADENA;
+    public static float RATE_CONSUMABLE_COST;
+    public static float RATE_DROP_ITEMS;
+    public static float RATE_DROP_SPOIL;
+    public static int RATE_DROP_MANOR;
+    
+    // ADENA BOSS
+    public static float ADENA_BOSS;
+    public static float ADENA_RAID;
+    public static float ADENA_MINON;
+    // ITEMS BOSS
+    public static float ITEMS_BOSS;
+    public static float ITEMS_RAID;
+    public static float ITEMS_MINON;
+    // SPOIL BOSS
+    public static float SPOIL_BOSS;
+    public static float SPOIL_RAID;
+    public static float SPOIL_MINON;
+    
+    // Rate for quest items
+    public static float RATE_DROP_QUEST;
+    
+    // Rate for karma and experience lose
+    public static float RATE_KARMA_EXP_LOST;
+    
+    // Rate siege guards prices
+    public static float RATE_SIEGE_GUARDS_PRICE;
+    
+    // Rate herbs
+    public static float RATE_DROP_COMMON_HERBS;
+    public static float RATE_DROP_MP_HP_HERBS;
+    public static float RATE_DROP_GREATER_HERBS;
+    public static float RATE_DROP_SUPERIOR_HERBS;
+    public static float RATE_DROP_SPECIAL_HERBS;
+    
+    // Player Drop Rate control
+    public static int PLAYER_DROP_LIMIT;
+    public static int PLAYER_RATE_DROP;
+    public static int PLAYER_RATE_DROP_ITEM;
+    public static int PLAYER_RATE_DROP_EQUIP;
+    public static int PLAYER_RATE_DROP_EQUIP_WEAPON;
+    
+    // Pet Rates (Multipliers)
+    public static float PET_XP_RATE;
+    public static int PET_FOOD_RATE;
+    public static float SINEATER_XP_RATE;
+    
+    // Karma Drop Rate control
+    public static int KARMA_DROP_LIMIT;
+    public static int KARMA_RATE_DROP;
+    public static int KARMA_RATE_DROP_ITEM;
+    public static int KARMA_RATE_DROP_EQUIP;
+    public static int KARMA_RATE_DROP_EQUIP_WEAPON;
+    /** The end rates.properties */
+    
+    /** Start sevensigns */
+    public static boolean ALT_GAME_REQUIRE_CASTLE_DAWN;
+    public static boolean ALT_GAME_REQUIRE_CLAN_CASTLE;
+    public static boolean ALT_GAME_FREE_TELEPORT;  
+    public static int ALT_FESTIVAL_MIN_PLAYER;
+    public static int ALT_MAXIMUM_PLAYER_CONTRIB;
+    public static long ALT_FESTIVAL_MANAGER_START;
+    public static long ALT_FESTIVAL_LENGTH;
+    public static long ALT_FESTIVAL_CYCLE_LENGTH;
+    public static long ALT_FESTIVAL_FIRST_SPAWN;
+    public static long ALT_FESTIVAL_FIRST_SWARM;
+    public static long ALT_FESTIVAL_SECOND_SPAWN;
+    public static long ALT_FESTIVAL_SECOND_SWARM;
+    public static long ALT_FESTIVAL_CHEST_SPAWN;
+    /** The end sevensigns */
+    
+    /** Start telnet.properties */
+    public static boolean IS_TELNET_ENABLED;
+    /** The end telnet.properties */
+    
     /** Game Server ports */
     public static int PORT_GAME;
     /** Login Server port */
@@ -690,36 +808,6 @@ public final class Config
     public static String PET_NAME_TEMPLATE;
     /** Maximum number of characters per account */
     public static int MAX_CHARACTERS_NUMBER_PER_ACCOUNT;
-    /**
-     * Alternative gaming - player must be in a castle-owning clan or ally to sign up for Dawn.
-     */
-    public static boolean ALT_GAME_REQUIRE_CASTLE_DAWN;
-    /**
-     * Alternative gaming - allow clan-based castle ownage check rather than ally-based.
-     */
-    public static boolean ALT_GAME_REQUIRE_CLAN_CASTLE;
-    /** Alternative gaming - allow free teleporting around the world. */
-    public static boolean ALT_GAME_FREE_TELEPORT;  
-    /** Minimum number of player to participate in SevenSigns Festival */
-    public static int ALT_FESTIVAL_MIN_PLAYER;
-    /** Maximum of player contrib during Festival */
-    public static int ALT_MAXIMUM_PLAYER_CONTRIB;
-    /** Festival Manager start time. */
-    public static long ALT_FESTIVAL_MANAGER_START;
-    /** Festival Length */
-    public static long ALT_FESTIVAL_LENGTH;
-    /** Festival Cycle Length */
-    public static long ALT_FESTIVAL_CYCLE_LENGTH;
-    /** Festival First Spawn */
-    public static long ALT_FESTIVAL_FIRST_SPAWN;
-    /** Festival First Swarm */
-    public static long ALT_FESTIVAL_FIRST_SWARM;
-    /** Festival Second Spawn */
-    public static long ALT_FESTIVAL_SECOND_SPAWN;
-    /** Festival Second Swarm */
-    public static long ALT_FESTIVAL_SECOND_SWARM;
-    /** Festival Chest Spawn */
-    public static long ALT_FESTIVAL_CHEST_SPAWN;
     /** ************************************************** */
     /** L2J Teon Mods Customizations -Begin * */
     /** ************************************************** */
@@ -1510,85 +1598,6 @@ public final class Config
 	/** General Settings -End                              **/
 	/** ************************************************** **/
 
-    /* Rate control */
-    /** Rate for eXperience Point rewards */
-    public static float RATE_XP;
-    /** Rate for Skill Point rewards */
-    public static float RATE_SP;
-    /** Rate for party eXperience Point rewards */
-    public static float RATE_PARTY_XP;
-    /** Rate for party Skill Point rewards */
-    public static float RATE_PARTY_SP;
-    /** Rate for Quest rewards (XP and SP) */
-    public static float RATE_QUESTS_REWARD;
-    /** Rate for drop adena */
-    public static float RATE_DROP_ADENA;
-    /** Rate for cost of consumable */
-    public static float RATE_CONSUMABLE_COST;
-    /** Rate for dropped items */
-    public static float RATE_DROP_ITEMS;
-    /** Rate for spoiled items */
-    public static float RATE_DROP_SPOIL;
-    /** Rate for manored items */
-    public static int RATE_DROP_MANOR;
-    /** Raids Config */
-    // ADENA BOSS
-    public static float ADENA_BOSS;
-    public static float ADENA_RAID;
-    public static float ADENA_MINON;
-    // ITEMS BOSS
-    public static float ITEMS_BOSS;
-    public static float ITEMS_RAID;
-    public static float ITEMS_MINON;
-    // SPOIL BOSS
-    public static float SPOIL_BOSS;
-    public static float SPOIL_RAID;
-    public static float SPOIL_MINON;
-    /** Rate for quest items */
-    public static float RATE_DROP_QUEST;
-    /** Rate for karma and experience lose */
-    public static float RATE_KARMA_EXP_LOST;
-    /** Rate siege guards prices */
-    public static float RATE_SIEGE_GUARDS_PRICE;
-    /** Rate Common herbs */
-    public static float RATE_DROP_COMMON_HERBS;
-    /** Rate MP/HP herbs */
-    public static float RATE_DROP_MP_HP_HERBS;
-    /** Rate Common herbs */
-    public static float RATE_DROP_GREATER_HERBS;
-    /** Rate Common herbs */
-    public static float RATE_DROP_SUPERIOR_HERBS;
-    /** Rate Common herbs */
-    public static float RATE_DROP_SPECIAL_HERBS;
-    // Player Drop Rate control
-    /** Limit for player drop */
-    public static int PLAYER_DROP_LIMIT;
-    /** Rate for drop */
-    public static int PLAYER_RATE_DROP;
-    /** Rate for player's item drop */
-    public static int PLAYER_RATE_DROP_ITEM;
-    /** Rate for player's equipment drop */
-    public static int PLAYER_RATE_DROP_EQUIP;
-    /** Rate for player's equipment and weapon drop */
-    public static int PLAYER_RATE_DROP_EQUIP_WEAPON;
-    // Pet Rates (Multipliers)
-    /** Rate for experience rewards of the pet */
-    public static float PET_XP_RATE;
-    /** Rate for food consumption of the pet */
-    public static int PET_FOOD_RATE;
-    /** Rate for experience rewards of the Sin Eater */
-    public static float SINEATER_XP_RATE;
-    // Karma Drop Rate control
-    /** Karma drop limit */
-    public static int KARMA_DROP_LIMIT;
-    /** Karma drop rate */
-    public static int KARMA_RATE_DROP;
-    /** Karma drop rate for item */
-    public static int KARMA_RATE_DROP_ITEM;
-    /** Karma drop rate for equipment */
-    public static int KARMA_RATE_DROP_EQUIP;
-    /** Karma drop rate for equipment and weapon */
-    public static int KARMA_RATE_DROP_EQUIP_WEAPON;
     /** Datapack root directory */
     public static File DATAPACK_ROOT;
     /*
@@ -1627,46 +1636,6 @@ public final class Config
     public static String NEW_NODE_TYPE;
     /** Time between 2 updates of IP */
     public static int IP_UPDATE_TIME;
-    // Karma System Variables
-    /** Minimum karma gain/loss */
-    public static int KARMA_MIN_KARMA;
-    /** Maximum karma gain/loss */
-    public static int KARMA_MAX_KARMA;
-    /**
-     * Number to divide the xp recieved by, to calculate karma lost on xp
-     * gain/lost
-     */
-    public static int KARMA_XP_DIVIDER;
-    /** The Minimum Karma lost if 0 karma is to be removed */
-    public static int KARMA_LOST_BASE;
-    /** Can a GM drop item ? */
-    public static boolean KARMA_DROP_GM;
-    /** Should award a pvp point for killing a player with karma ? */
-    public static boolean KARMA_AWARD_PK_KILL;
-    /** Minimum PK required to drop */
-    public static int KARMA_PK_LIMIT;
-    /** List of pet items that cannot be dropped (seperated by ",") when PVP */
-    public static String KARMA_NONDROPPABLE_PET_ITEMS;
-    /** List of items that cannot be dropped (seperated by ",") when PVP */
-    public static String KARMA_NONDROPPABLE_ITEMS;
-    /** List of pet items that cannot be dropped when PVP */
-    public static List<Integer> KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
-    /** List of items that cannot be dropped when PVP */
-    public static List<Integer> KARMA_LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-    /** List of items that cannot be dropped (seperated by ",") */
-    public static String NONDROPPABLE_ITEMS;
-    /** List of items that cannot be dropped */
-    public static List<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-    /**
-     * Duration (in ms) while a player stay in PVP mode after hitting an
-     * innocent
-     */
-    public static int PVP_NORMAL_TIME;
-    /**
-     * Duration (in ms) while a player stay in PVP mode after hitting a
-     * purple player
-     */
-    public static int PVP_PVP_TIME;
     // Packet information
     /** Count the amount of packets per minute ? */
     public static boolean COUNT_PACKETS = false;
@@ -1675,8 +1644,6 @@ public final class Config
     /** Time interval between 2 dumps */
     public static int DUMP_INTERVAL_SECONDS = 60;
 
-    /** Is telnet enabled ? */
-    public static boolean IS_TELNET_ENABLED;
     /**
      * Show licence or not just after login (if False, will directly go to
      * the Server List
