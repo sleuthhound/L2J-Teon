@@ -1,1 +1,0 @@
-ALTER TABLE `characters` ADD `autoloot_herbs` int(1) NOT NULL DEFAULT 0;
