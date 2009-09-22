@@ -1,141 +1,124 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
 <skill id="4500" levels="1" name="Treasure Chest - Level 27">
-<!-- TODO
-  1: A locked chest that could contain treasure or a nasty surprise.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4501" levels="1" name="Treasure Chest - Level 29">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4502" levels="1" name="Treasure Chest - Level 31">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4503" levels="1" name="Treasure Chest - Level 32">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4504" levels="1" name="Treasure Chest - Level 33">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4505" levels="1" name="Treasure Chest - Level 35">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4506" levels="1" name="Treasure Chest - Level 39">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4507" levels="1" name="Treasure Chest - Level 42">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4508" levels="1" name="Treasure Chest - Level 43">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4509" levels="1" name="Treasure Chest - Level 45">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4510" levels="1" name="Treasure Chest - Level 47">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4511" levels="1" name="Treasure Chest - Level 49">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4512" levels="1" name="Treasure Chest - Level 52">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4513" levels="1" name="Pumpkin - Level up">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4514" levels="1" name="Pumpkin - Poisoning">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="magicLvl" val="1"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
 </skill>
 <skill id="4515" levels="1" name="Raid Curse">
   <set name="target" val="TARGET_ONE"/>
@@ -167,359 +150,445 @@
   <set name="target" val="TARGET_ONE"/>
 </skill>
 <skill id="4517" levels="1" name="Quest - BOSS Defend">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="skillType" val="CONT"/> 
+ 	<set name="target" val="TARGET_SELF"/> 
+  <for> 
+   <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0"> 
+    <mul order="0x30" stat="runSpd" val="0.5"/> 
+    <mul order="0x30" stat="pAtk" val="0.5"/> 
+    <mul order="0x30" stat="pDef" val="10"/> 
+   </effect> 
   </for>
 </skill>
 <skill id="4518" levels="1" name="Quest - BOSS Rampage">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="skillType" val="CONT"/> 
+  <set name="target" val="TARGET_SELF"/> 
+  <for> 
+   <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0"> 
+    <mul order="0x30" stat="pAtkSpd" val="1.3"/> 
+    <mul order="0x30" stat="pAtk" val="1.3"/> 
+    <mul order="0x30" stat="pDef" val="0.5"/> 
+   </effect> 
   </for>
 </skill>
 <skill id="4519" levels="1" name="Quest - BOSS Defend">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
+      <mul order="0x30" stat="runSpd" val="0.5"/>
+      <mul order="0x30" stat="bowWpnVuln" val="0.1"/>
+    </effect>
   </for>
 </skill>
 <skill id="4520" levels="1" name="Quest - BOSS Rampage">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
+      <mul order="0x30" stat="runSpd" val="0.7"/>
+      <mul order="0x30" stat="bowWpnVuln" val="1.1"/>
+    </effect>
   </for>
 </skill>
 <skill id="4521" levels="1" name="Quest - BOSS Resist non Bow Weapon">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <mul order="0x30" stat="swordWpnVuln" val="0"/>
+    <mul order="0x30" stat="bluntWpnVuln" val="0"/>
+    <mul order="0x30" stat="daggerWpnVuln" val="0"/>
+    <mul order="0x30" stat="poleWpnVuln" val="0"/>
+    <mul order="0x30" stat="dualFistWpnVuln" val="0"/>
+    <mul order="0x30" stat="dualWpnVuln" val="0"/>
   </for>
 </skill>
 <skill id="4522" levels="1" name="Eye of Assassin">
-<!-- TODO
-Extreme assassin sensation. Greatly increases critical 
-chances and the success rate of dagger skills. -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="400"/>
-  <set name="aggroPoints" val="100"/>
+  <set name="effectRange" val="900"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <basemul order="0x30" stat="rCrit" val="1">
+        <player behind="True"/>
+      </basemul>
   </for>
 </skill>
 <skill id="4523" levels="1" name="Quest - BOSS Evasion">
-<!-- TODO -->
-  <set name="hitTime" val="10000"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="hitTime" val="10000"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+      <add order="0x40" stat="accCombat" val="30"/>
   </for>
 </skill>
 <skill id="4524" levels="1" name="Quest - BOSS Bluff">
-<!-- TODO -->
-  <set name="hitTime" val="10000"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="hitTime" val="10000"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
   </for>
 </skill>
 <skill id="4525" levels="1" name="Quest - BOSS Defend">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
+      <mul order="0x30" stat="pDef" val="10"/>
+      <mul order="0x30" stat="mDef" val="10"/>
+      <mul order="0x30" stat="sleepVuln" val="0.3"/>
+    </effect>
   </for>
 </skill>
 <skill id="4526" levels="1" name="Quest - BOSS Summon">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="0.1"/>
+  <set name="skillType" val="HEAL_PERCENT"/>
+  <set name="target" val="TARGET_SELF"/>
 </skill>
 <skill id="4527" levels="1" name="Quest - BOSS Inc HP to Summoned">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
-  <set name="castRange" val="600"/>
   <set name="aggroPoints" val="100"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="30"/>
+  <set name="skillType" val="HEAL_PERCENT"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="maxHp" val="1.3"/>
   </for>
 </skill>
 <skill id="4528" levels="1" name="Quest - BOSS Movement to Summoned">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
-  <set name="castRange" val="400"/>
   <set name="aggroPoints" val="100"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <add order="0x40" stat="runSpd" val="33"/>
   </for>
 </skill>
 <skill id="4529" levels="1" name="Quest - Summoned Explosion">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="56"/>
+  <set name="reuseDelay" val="8000"/>
+  <set name="skillRadius" val="200"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="target" val="TARGET_AURA"/>
 </skill>
 <skill id="4530" levels="1" name="Quest - Summoned HP Heal">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="5"/>
+  <set name="reuseDelay" val="8000"/>
+  <set name="skillRadius" val="200"/>
+  <set name="skillType" val="HEAL_PERCENT"/>
+  <set name="target" val="TARGET_AURA"/>
 </skill>
 <skill id="4531" levels="1" name="Quest - Summoned MP Heal">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="5"/>
+  <set name="reuseDelay" val="8000"/>
+  <set name="skillRadius" val="200"/>
+  <set name="skillType" val="MANAHEAL_PERCENT"/>
+  <set name="target" val="TARGET_AURA"/>
 </skill>
 <skill id="4532" levels="1" name="Quest - BOSS Reflect">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
+      <add order="0x40" stat="reflectDam" val="100"/>
+      <mul order="0x30" stat="mDef" val="10"/>
+    </effect>
   </for>
 </skill>
 <skill id="4533" levels="1" name="Dance of Resistance">
-<!-- TODO 
-Temporarily decreases Speed and Accuracy significantly. 
-Dance of Inspiration can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="hitTime" val="1500"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="hitTime" val="1500"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="runSpd" val="0.5"/>
+      <sub order="0x40" stat="accCombat" val="40"/>
   </for>
 </skill>
 <skill id="4534" levels="1" name="Dance of Nihil">
-<!-- TODO 
-Temporarily decreases Atk.Speed and Evasion significantly. 
-Dance of Fury can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <set name="hitTime" val="1500"/>
+  <set name="magicLvl" val="76"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="power" val="100"/>
+  <set name="isDebuff" val="true"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+     <mul order="0x30" stat="pAtkSpd" val="0.7"/>
+      <sub order="0x40" stat="rEvas" val="40"/>
   </for>
 </skill>
 <skill id="4535" levels="1" name="Dance of Weakness">
-<!-- TODO 
-Temporarily decreases P.Def and P.Atk significantly. 
-Dance of Vampire can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <set name="hitTime" val="1500"/>
+  <set name="magicLvl" val="76"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="pDef" val="0.5"/>
+      <mul order="0x30" stat="pAtk" val="0.5"/>
   </for>
 </skill>
 <skill id="4536" levels="1" name="Song of Seduce">
-<!-- TODO 
-Temporarily decreases Speed and Accuracy significantly. 
-Song of Wind can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <set name="hitTime" val="1500"/>
+  <set name="magicLvl" val="76"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="runSpd" val="0.5"/>
+      <sub order="0x40" stat="accCombat" val="40"/>
   </for>
 </skill>
 <skill id="4537" levels="1" name="Song of Sweet Whisper">
-<!-- TODO 
-Temporarily decreases Atk.Speed and Evasion significantly. 
-Song of Water can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <set name="hitTime" val="1500"/>
+  <set name="magicLvl" val="76"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isDebuff" val="true"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="pAtkSpd" val="0.7"/>
+      <sub order="0x40" stat="rEvas" val="40"/>
   </for>
 </skill>
 <skill id="4538" levels="1" name="Song of Temptation">
-<!-- TODO 
-Temporarily decreases P.Def and P.Atk significantly. 
-Song of Vengeance can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="hitTime" val="1500"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
-<skill id="4539" levels="1" name="Curse of Vague">
-<!-- TODO 
-Temporarily decreases Speed and Accuracy significantly.  
-Guidance spell can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="hitTime" val="4000"/>
-  <set name="isMagic" val="true"/>
   <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="hitTime" val="1500"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="pDef" val="0.5"/>
+      <mul order="0x30" stat="pAtk" val="0.5"/>
   </for>
 </skill>
 <skill id="4540" levels="1" name="Curse of Weakness">
-<!-- TODO 
-Temporarily decreases P.Def and Speed significantly. 
-Shield spell can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <set name="hitTime" val="4000"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
-  <set name="castRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="pDef" val="0.5"/>
+      <mul order="0x30" stat="runSpd" val="0.5"/>
   </for>
 </skill>
 <skill id="4541" levels="1" name="Curse of Nihil">
-<!-- TODO 
-Temporarily decreases P.Atk, M.Atk and Atk.Speed significantly. 
-Might spell can remove the curse.-->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <set name="hitTime" val="4000"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
-  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+      <mul order="0x30" stat="pAtk" val="0.5"/>
+      <mul order="0x30" stat="pAtkSpd" val="0.5"/>
+      <mul order="0x30" stat="mAtk" val="0.5"/>
   </for>
 </skill>
-<skill id="4542" levels="1" name="Quest - Henchman 90% Sleep Shock Weakness">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+<skill id="4542" levels="1" name="Quest - Henchman 90% Sleep Stun Weakness">
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <mul order="0x30" stat="sleepVuln" val="1.9"/>
+    <mul order="0x30" stat="stunVuln" val="1.9"/>
   </for>
 </skill>
-<skill id="4543" levels="1" name="Quest - BOSS Shock Weakness">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+<skill id="4543" levels="1" name="Quest - BOSS Stun Weakness">
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <mul order="0x30" stat="stunVuln" val="1.1"/>
   </for>
 </skill>
 <skill id="4544" levels="3" name="Quest - BOSS Weakness">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
+  <table name="#pDef"> 0.8 0.6 0.7 </table>
+  <table name="#pAtkSpd"> 0.9 0.8 0.6 </table>
+  <table name="#pAtk"> 0.7 0.6 0.5 </table>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
+      <mul order="0x30" stat="pAtk" val="#pAtk"/>
   </for>
 </skill>
 <skill id="4545" levels="1" name="Quest - BOSS Reflect">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="magicLvl" val="76"/>
+  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="target" val="TARGET_SELF"/>
   <for>
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="3" val="0">
+      <add order="0x40" stat="reflectDam" val="100"/>
+      <mul order="0x30" stat="pDef" val="10"/>
+      <mul order="0x30" stat="runSpd" val="0.7"/>
+    </effect>
   </for>
 </skill>
 <skill id="4546" levels="1" name="Quest - Commune to Slate">
-<!-- TODO -->
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="castRange" val="1000"/>
+  <set name="effectRange" val="1500"/>
+  <set name="magicLvl" val="99"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
 </skill>
 <skill id="4547" levels="1" name="Gaze of Watcher">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
+  <set name="effectRange" val="1500"/>
+  <set name="magicLvl" val="99"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="100"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
   </for>
 </skill>
 <skill id="4548" levels="1" name="Quest - Dispel Watcher Gaze">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
-  <for>
-  </for>
+  <set name="effectRange" val="1500"/>
+  <set name="magicLvl" val="99"/>
+  <set name="negateId" val="4547"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="NEGATE"/>
+  <set name="target" val="TARGET_ONE"/>
 </skill>
 <skill id="4549" levels="1" name="Quest - Unsealed Altar">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="hitTime" val="3000"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="hitTime" val="3000"/>
+  <set name="magicLvl" val="99"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
 </skill>
 <skill id="4550" levels="1" name="Quest - Cursed Altar">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="hitTime" val="3000"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="effectRange" val="-1"/>
+  <set name="hitTime" val="3000"/>
+  <set name="magicLvl" val="99"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
 </skill>
 <skill id="4551" levels="10" name="Hot Springs Rheumatism">
   <table name="#Tab-accCombat"> 0 3 3 3 5 5 5 8 8 10 </table>
@@ -588,12 +657,14 @@ is increased and P. Atk. is decreased. Effect 1-10-->
     </effect>
   </for>
 </skill>
-<skill id="4555" levels="1" name="NPC Resist Mutant">
+<skill id="4556" levels="1" name="Dispel Hot Spring Disease A_D">
 <!-- TODO -->
+  <set name="mpConsume" val="69"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="castRange" val="600"/>
   <for>
   </for>
 </skill>

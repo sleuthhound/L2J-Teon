@@ -242,17 +242,12 @@ public class L2DoormenInstance extends L2NpcInstance
 					int ClanHallID = _clanHall.getId();
 					if (ClanHallID==21 ||ClanHallID==34 ||ClanHallID==35 ||ClanHallID==62 ||ClanHallID==63 ||ClanHallID==64)
 						str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName()
-						// str = "<html><body>Sala de Clan <font color=\"LEVEL\">" + getClanHall().getName()
-						// str = "<html><body>????-???? <font color=\"LEVEL\">" + getClanHall().getName()
 
-						+ "</font> no tiene dueño. <br> Para aprovechar este Salón del clan, debe aprovecharla.</body></html>";
-		// + "</font> ?? ????? ?????????.<br>????? ????????? ???? ???? ??????, ?? ?????? ????????? ???.</body></html>";
-		// + "</font> has no owner. <br> To seize this Hall clan, you must seize it.</body></html>";
+						+ "</font> has no owner. <br> To seize this Hall clan, you must seize it.</body></html>";
 					else
 						str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName()
 						+ "</font> has no owner. <br> To purchase, go to the Auction.</body></html>";
-						// + "</font> no tiene dueño. <br> Para comprar, ir a la subasta.</body></html>";
-						// + "</font> ?? ????? ?????????.<br>??? ??????? ????? ?? ???????.</body></html>";
+
 				}
             }
             html.setHtml(str);

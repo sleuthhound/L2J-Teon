@@ -27394,3 +27394,11 @@ INSERT INTO `droplist` VALUES
 (29095, 6695, 3, 9, 3, 930000), -- Demon Splinter Blade
 (29095, 6371, 1, 1, 3, 23810), -- Demon Splinter
 (29095, 960, 1, 1, 4, 450000); -- Scroll: Enchant Armor (Grade S)
+
+DELETE FROM `droplist` where `mobId`='29054';
+INSERT INTO `droplist` VALUES
+(29054,57,400000,700000,0,1000000),
+(29054,6688,2,4,1,500000),
+(29054,6674,1,1,2,200000),
+(29054,6701,5,20,3,500000),
+(29054,6702,1,3,4,500000);

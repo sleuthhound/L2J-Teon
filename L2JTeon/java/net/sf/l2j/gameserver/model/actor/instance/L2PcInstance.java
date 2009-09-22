@@ -5179,7 +5179,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	    boolean isKarmaDrop = false;
 	    boolean isKillerNpc = killer instanceof L2NpcInstance;
 	    int pkLimit = Config.KARMA_PK_LIMIT;
-	    ;
 	    int dropEquip = 0;
 	    int dropEquipWeapon = 0;
 	    int dropItem = 0;
