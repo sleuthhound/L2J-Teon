@@ -48,3 +48,10 @@ CREATE TABLE `custom_npc` (
   `absorb_type` enum('FULL_PARTY','LAST_HIT','PARTY_ONE_RANDOM') NOT NULL default 'LAST_HIT',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+#----------------------------
+# Records for table npc
+#----------------------------
+
+
+insert  into npc values 
+('65535', '30003', 'Clanhall Viewer', '1', 'L2JTeon', '1', 'NPC.a_traderA_FHuman', '20.00', '25.00', '70', 'male', 'L2Npc', '40', '3862', '1493', '13.43', '3.09', '40', '43', '30', '21', '35', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '253', '0', '0', '0', '80', '120', null, '0', '0', '0', 'LAST_HIT');

@@ -26,8 +26,8 @@ ren vars.bat *.txt
 cls
 goto start
 :createVars
-echo Welcome to L2JOneo Opensource Installer version 0.2
-echo You are trying to install L2JOneo datapack.Please configure it if its your first time
+echo Welcome to L2JTeon Opensource Installer version 0.2
+echo You are trying to install L2JTeon datapack.Please configure it if its your first time
 echo.
 echo Your mysqlBinPath is? (default: %ProgramFiles%\MySQL\MySQL Server 5.1\bin)
 set /P mysqlBinPath=": "
@@ -116,7 +116,7 @@ echo Deleting all gameserver tables for new content.
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < full_install.sql
 
 :upgradeinstall
-echo Installing  new L2JOneo Datapack Content.
+echo Installing  new L2JTeon Datapack Content.
 echo The installer will install both official and custom content
 echo Version:Interlude
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/chat_filter.sql
@@ -162,6 +162,7 @@ echo Version:Interlude
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/clan_wars.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/clanhall.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/clanhall_functions.sql
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/clanhall_siege.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/class_list.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/couples.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/cursed_weapons.sql
@@ -248,11 +249,11 @@ echo Almost finish
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/npc_buffer.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/lastimperialtomb_spawnlist.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/forced_updates.sql
-echo Installation finish.Visit oneodevteam.com for more info
+echo Installation finish.Visit l2jteon.servegame.com for more info
 echo.
 :end
 echo.
-echo Powered by L2JOneo Developing Team
-echo 2006-2007
+echo Powered by L2JTeon Developing Team
+echo 2009-2010
 echo Script complete.
 pause

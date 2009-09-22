@@ -79,6 +79,7 @@ import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.AwayManager;
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
@@ -297,6 +298,8 @@ public class GameServer
     	FortSiegeManager.getInstance();
     	// Load clan hall data before zone data
     	_cHManager = ClanHallManager.getInstance();
+    	Util.printSection("Fortress of Resistence");
+    	FortResistSiegeManager.getInstance();
     	Util.printSection("Teleport");
     	TeleportLocationTable.getInstance();
     	LevelUpData.getInstance();

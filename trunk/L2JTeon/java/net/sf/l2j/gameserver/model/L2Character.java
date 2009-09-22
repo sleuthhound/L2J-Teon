@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
+import net.sf.l2j.gameserver.instancemanager.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.ChanceSkillList; 
@@ -1839,6 +1840,10 @@ public abstract class L2Character extends L2Object
 		{
 		    stopAllEffects();
 		    calculateRewards(killer);
+		if (this instanceof L2NpcInstance &&((L2NpcInstance) this).getNpcId()==35368)
+		{
+			FortResistSiegeManager.getInstance().endSiege(true);
+		}
 		}
 	    }
 	}
