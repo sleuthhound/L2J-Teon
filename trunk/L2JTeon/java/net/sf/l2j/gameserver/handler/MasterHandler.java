@@ -21,11 +21,10 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.*;
 import net.sf.l2j.gameserver.handler.chathandlers.*;
 import net.sf.l2j.gameserver.handler.itemhandlers.*;
 import net.sf.l2j.gameserver.handler.skillhandlers.*;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.*;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.*;
 
 /**
-* @Author Stefoulis15
+* @Author nBd 
+* ---> Stefoulis15 <--- idiot
 */
 public class MasterHandler
 {
@@ -66,6 +65,7 @@ public class MasterHandler
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminMenu());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminSiege());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminFort());
+	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminFortResist());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPathNode());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPetition());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPForge());
@@ -185,59 +185,6 @@ public class MasterHandler
 	SkillHandler.getInstance().registerSkillHandler(new GetPlayer());
         SkillHandler.getInstance().registerSkillHandler(new GiveSp());
 	}
-	
-	private static void loadUserHandlers()
-	{
-	UserCommandHandler.getInstance().registerUserCommandHandler(new ClanPenalty());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new ClanWarsList());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new DisMount());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new Escape());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new Loc());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new Mount());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new PartyInfo());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new Time());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new OlympiadStat());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelLeave());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelDelete());
-	UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelListUpdate());
-	}
-	
-	private static void loadVoicedHandlers()
-	{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new stats());
-
-		if(Config.BANKING_SYSTEM_ENABLED)
-		{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Banking());
-		}
-		
-		if(Config.ONLINE_VOICE_COMMAND)
-		{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new OnlinePlayers());
-		}
-		
-		if(Config.ALLOW_TRADEOFF_VOICE_COMMAND)
-		{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new tradeoff());
-		}
-		
-		if(Config.ALLOW_WEDDING)
-		{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Wedding());
-		}
-
-		if (Config.ALLOW_AWAY_STATUS)
-		{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Away());
-		}
-		if(Config.VIP_EVENT_ENABLED)
-		{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new JoinVIP());
-	}
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new PlayersWithdrawCWH());
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new version());
-	}
-	
 	public static void load()
 	{
 		_log.config("Loading Handlers...");
@@ -245,8 +192,6 @@ public class MasterHandler
 		loadChatHandlers();
 		loadItemHandlers();
 		loadSkillHandlers();
-		loadUserHandlers();
-		loadVoicedHandlers();
 		_log.config("Handlers Loaded...");
 	}
 }
