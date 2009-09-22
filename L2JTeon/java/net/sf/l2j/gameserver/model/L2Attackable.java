@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
+import net.sf.l2j.gameserver.instancemanager.FortResistSiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
@@ -1017,7 +1018,13 @@ public class L2Attackable extends L2NpcInstance
     public void addDamageHate(L2Character attacker, int damage, int aggro)
     {
         if (attacker == null /*|| _aggroList == null*/) return;
-
+		if (this.getNpcId()==35368)
+		{
+			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!=null)
+			{
+				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
+			}
+		}
         // Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
         AggroInfo ai = getAggroListRP().get(attacker);
         if (ai == null)
