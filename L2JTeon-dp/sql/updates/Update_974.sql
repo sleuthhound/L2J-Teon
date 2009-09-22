@@ -1,1 +1,0 @@
-ALTER TABLE `items` ADD `donatorRentTime` decimal(20,0) default '0' AFTER `mana_left`;

@@ -1,1 +1,0 @@
-ALTER TABLE `characters` ADD `withdraw_cwh` int(1) NOT NULL DEFAULT 0 AFTER `autoloot_herbs` ;

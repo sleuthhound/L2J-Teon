@@ -1,1 +1,0 @@
-ALTER TABLE `characters` ADD `donator` decimal(1,0) NOT NULL DEFAULT 0 AFTER `coupon` ;

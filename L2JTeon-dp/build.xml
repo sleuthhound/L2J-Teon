@@ -67,8 +67,6 @@
       <sync todir="${build.dist.sql}">
          <fileset dir="${basedir}/sql">
             <include name="*.*"/>
-            <include name="experimental/*.*"/>
-            <include name="updates/*.*"/>
          </fileset>
       </sync>
       <sync todir="${build.dist.tools}">
