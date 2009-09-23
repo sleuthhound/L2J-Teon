@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.olympiad.Olympiad; 
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.util.FloodProtector;
@@ -442,6 +443,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     protected void onForcedDisconnection()
     {
 	_log.info("Client " + toString() + " disconnected abnormally.");
+	
+    if (activeChar.isInOlympiadMode()) 
+        Olympiad.processPlayer(activeChar); 
     }
 
     @Override

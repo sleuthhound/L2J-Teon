@@ -4071,6 +4071,11 @@ public enum SystemMessageId
      * Message: Observers cannot participate.
      */
     OBSERVERS_CANNOT_PARTICIPATE(781),
+    /** 
+     * ID: 782<br> 
+     * Message: $s1 Has Lost $s2 Olympiad Points. 
+     */ 
+    C1_HAS_LOST_S2_OLYMPIAD_POINTS(782),
     /**
      * ID: 1916<br>
      * Message: Your Death Penalty is now level $s1.

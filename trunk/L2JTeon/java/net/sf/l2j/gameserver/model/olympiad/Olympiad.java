@@ -40,36 +40,25 @@ import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.datatables.HeroSkillTable;
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
-import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.L2Party;
-import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Summon;
-import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.L2World; 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.item.Inventory;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfoSpectator;
-import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
-import net.sf.l2j.util.Rnd;
 
 public class Olympiad
 {
     protected static final Logger _log = Logger.getLogger(Olympiad.class.getName());
-    private static Olympiad _instance;
+    private static Olympiad _instance; 
+    protected static Map<String, L2PcInstance> _IPRegisters;
     protected static Map<Integer, StatsSet> _nobles;
     protected static List<StatsSet> _heroesToBe;
     protected static List<L2PcInstance> _nonClassBasedRegisters;
     protected static Map<Integer, List<L2PcInstance>> _classBasedRegisters;
-    protected static Map<String, L2PcInstance> _IPRegisters;
     private static final String OLYMPIAD_DATA_FILE = "config/olympiad.properties";
     public static final String OLYMPIAD_HTML_FILE = "data/html/olympiad/";
     private static final String OLYMPIAD_LOAD_NOBLES = "SELECT * from olympiad_nobles";
@@ -136,7 +125,7 @@ public class Olympiad
     }
 
     protected static OlympiadManager _manager;
-
+    
     public static Olympiad getInstance()
     {
 	if (_instance == null)
@@ -536,7 +525,7 @@ public class Olympiad
 		    return;
 		_inCompPeriod = true;
 		// OlympiadManager om = new OlympiadManager();
-		OlympiadManager om = new OlympiadManager(/**Olympiad.this*/);
+		OlympiadManager om = new OlympiadManager(Olympiad.this);
 		Announcements.getInstance().announceToAll(new SystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
 		_log.info("Olympiad System: Olympiad Game Started");
 		_scheduledManagerTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(om, INITIAL_WAIT, BATTLE_WAIT);
@@ -1023,274 +1012,19 @@ public class Olympiad
 	OlympiadProperties.store(fos, "Olympiad Properties");
 	fos.close();
     }
-
-    private class OlympiadManager implements Runnable
-    {
-	private Map<Integer, L2OlympiadGame> _olympiadInstances;
-	private Map<Integer, List<L2PcInstance>> _classBasedParticipants;
-	private Map<Integer, List<L2PcInstance>> _nonClassBasedParticipants;
-
-	public OlympiadManager()
-	{
-	    _olympiadInstances = new FastMap<Integer, L2OlympiadGame>();
-	    _manager = this;
-	}
-
-	public synchronized void run()
-	{
-	    if (isOlympiadEnd())
-	    {
-		_scheduledManagerTask.cancel(true);
-		return;
-	    }
-	    if (!inCompPeriod())
-		return;
-	    // Announcements.getInstance().announceToAll("Comp Match Init");
-	    if (_nobles.size() == 0)
-		return;
-
-	    try
-	    {
-		sortClassBasedOpponents();
-		_nonClassBasedParticipants = pickOpponents(_nonClassBasedRegisters);
-	    } catch (Exception e)
-	    {
-		e.printStackTrace();
-	    }
-	    int classIndex = 0;
-	    int nonClassIndex = 0;
-	    int index = 0;
-	    for (int i = 0; i < COLLISIEUMS; i++)
-	    {
-		if (_classBasedParticipants.get(classIndex) != null)
-		{
-		    _olympiadInstances.put(index, new L2OlympiadGame(index, COMP_TYPE.CLASSED, _classBasedParticipants.get(classIndex), STADIUMS[index]));
-		    index++;
-		    classIndex++;
-		}
-		if (_nonClassBasedParticipants.get(nonClassIndex) != null)
-		{
-		    _olympiadInstances.put(index, new L2OlympiadGame(index, COMP_TYPE.NON_CLASSED, _nonClassBasedParticipants.get(nonClassIndex), STADIUMS[index]));
-		    nonClassIndex++;
-		    index++;
-		}
-	    }
-        _compStarted = false; 
-	    if (_olympiadInstances.size() == 0)
-		return;
-	    
-        for (L2OlympiadGame instance : _olympiadInstances.values()) 
-        {
-            if (!instance.isAborted()) 
-                _compStarted = true; 
-        }
-        
-        if (!_compStarted) 
-            return; 
-        	
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-		instance.sendMessageToPlayers(false, 30);
-	    // Wait 30 seconds
-	    try
-	    {
-		wait(30000);
-	    } catch (InterruptedException e)
-	    {
-	    }
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-		instance.portPlayersToArena();
-	    // Wait 20 seconds
-	    try
-	    {
-		wait(20000);
-	    } catch (InterruptedException e)
-	    {
-	    }
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-		instance.removals();
-	    _battleStarted = true;
-	    // Wait 1 min
-	    for (int i = 60; i > 10; i -= 10)
-	    {
-		for (L2OlympiadGame instance : _olympiadInstances.values())
-		{
-		    instance.sendMessageToPlayers(true, i);
-		    if (i == 20)
-			instance.additions();
-		}
-		try
-		{
-		    wait(10000);
-		} catch (InterruptedException e)
-		{
-		}
-	    }
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-	    {
-		instance.sendMessageToPlayers(true, 10);
-	    }
-	    try
-	    {
-		wait(5000);
-	    } catch (InterruptedException e)
-	    {
-	    }
-	    for (int i = 5; i > 0; i--)
-	    {
-		for (L2OlympiadGame instance : _olympiadInstances.values())
-		{
-		    instance.sendMessageToPlayers(true, i);
-		}
-		try
-		{
-		    wait(1000);
-		} catch (InterruptedException e)
-		{
-		}
-	    }
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-	    {
-		instance.makeCompetitionStart();
-	    }
-	    // Wait 6 minutes (Battle)
-	    try
-	    {
-		wait(BATTLE_PERIOD);
-	    } catch (InterruptedException e)
-	    {
-	    }
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-	    {
-		try
-		{
-		    instance.validateWinner();
-		} catch (Exception e)
-		{
-		    e.printStackTrace();
-		}
-	    }
-	    // Wait 20 seconds
-	    try
-	    {
-		wait(20000);
-	    } catch (InterruptedException e)
-	    {
-	    }
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-	    {
-		instance.portPlayersBack();
-		instance.clearSpectators();
-	    }
-	    // Wait 20 seconds
-	    try
-	    {
-		wait(20000);
-	    } catch (InterruptedException e)
-	    {
-	    }
-	    _classBasedParticipants.clear();
-	    _nonClassBasedParticipants.clear();
-	    _olympiadInstances.clear();
-	    _classBasedRegisters.clear();
-	    _nonClassBasedRegisters.clear();
-	    if (Config.DISABLE_OLY_DUALBOX)
-	    {
-		_IPRegisters.clear();
-	    }
-	    _battleStarted = false;
-	    _compStarted = false;
-	}
-
-	protected L2OlympiadGame getOlympiadInstance(int index)
-	{
-	    if ((_olympiadInstances != null) || _compStarted)
-	    {
-		return _olympiadInstances.get(index);
-	    }
-	    return null;
-	}
-
-	private void sortClassBasedOpponents()
-	{
-	    Map<Integer, List<L2PcInstance>> result = new FastMap<Integer, List<L2PcInstance>>();
-	    _classBasedParticipants = new FastMap<Integer, List<L2PcInstance>>();
-	    int count = 0;
-	    if (_classBasedRegisters.size() == 0)
-		return;
-	    for (List<L2PcInstance> classed : _classBasedRegisters.values())
-	    {
-		if (classed.size() == 0)
-		    continue;
-		try
-		{
-		    result = pickOpponents(classed);
-		} catch (Exception e)
-		{
-		    e.printStackTrace();
-		}
-		if (result.size() == 0)
-		    continue;
-		for (List<L2PcInstance> list : result.values())
-		{
-		    if (count == 10)
-			break;
-		    _classBasedParticipants.put(count, list);
-		    count++;
-		}
-		if (count == 10)
-		    break;
-	    }
-	}
-
-	protected Map<Integer, L2OlympiadGame> getOlympiadGames()
-	{
-	    return _olympiadInstances == null ? null : _olympiadInstances;
-	}
-
-	private Map<Integer, List<L2PcInstance>> pickOpponents(List<L2PcInstance> list) throws Exception
-	{
-	    Map<Integer, List<L2PcInstance>> result = new FastMap<Integer, List<L2PcInstance>>();
-	    if (list.size() == 0)
-		return result;
-	    int loopCount = list.size() / 2;
-	    int first;
-	    int second;
-	    if (loopCount < 1)
-		return result;
-	    int count = 0;
-	    for (int i = 0; i < loopCount; i++)
-	    {
-		count++;
-		List<L2PcInstance> opponents = new FastList<L2PcInstance>();
-		first = Rnd.nextInt(list.size());
-		opponents.add(list.get(first));
-		list.remove(first);
-		second = Rnd.nextInt(list.size());
-		opponents.add(list.get(second));
-		list.remove(second);
-		result.put(i, opponents);
-		if (count == 11)
-		    break;
-	    }
-	    return result;
-	}
-
-	protected String[] getAllTitles()
-	{
-	    if (!_compStarted)
-		return null;
-	    if (_olympiadInstances.size() == 0)
-		return null;
-	    String[] msg = new String[_olympiadInstances.size()];
-	    int count = 0;
-	    int match = 1;
-	    for (L2OlympiadGame instance : _olympiadInstances.values())
-	    {
-		msg[count] = match + "_In Progress_" + instance.getTitle();
-		count++;
-		match++;
-	    }
-	    return msg;
-	}
-    }
+    
+    public static void processPlayer(L2PcInstance player) 
+    { 
+    	L2PcInstance _opponent = L2World.getInstance().getPlayer(player.getName()); 
+    	StatsSet playerStat = _nobles.get(player.getObjectId()); 
+    	int playerPoints = playerStat.getInteger(POINTS); 
+    	int lostPoints = playerPoints / 3; 
+    	_nobles.remove(player.getObjectId()); 
+    	_nobles.put(player.getObjectId(), playerStat); 
+    	playerStat.set("olympiad_points", playerPoints - lostPoints); 
+    	SystemMessage sm = new SystemMessage(SystemMessageId.C1_HAS_LOST_S2_OLYMPIAD_POINTS); 
+    	sm.addString(player.getName()); 
+    	sm.addNumber(lostPoints); 
+    	_opponent.sendPacket(sm); 
+    } 
 }
