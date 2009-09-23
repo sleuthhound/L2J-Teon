@@ -974,6 +974,15 @@ public class Olympiad
 	return points;
     }
 
+    // returns the players for the given olympiad game Id 
+    public L2PcInstance[] getPlayers(int Id) 
+    { 
+    	if (_manager.getOlympiadInstance(Id) == null) 
+    		return null; 
+    	else 
+    		return _manager.getOlympiadInstance(Id).getPlayers(); 
+    } 
+    
     protected void deleteNobles()
     {
 	Connection con = null;

@@ -39,6 +39,8 @@ import net.sf.l2j.gameserver.model.item.Inventory;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad.COMP_TYPE;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
+import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode; 
+import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo; 
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -290,6 +292,9 @@ public class L2OlympiadGame extends Olympiad
 		_playerOne.setTarget(null);
 		_playerTwo.setTarget(null);
 		_playerOne.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2], true);
+        _playerOne.sendPacket(new ExOlympiadMode(2)); 
+        
+        _playerTwo.sendPacket(new ExOlympiadMode(2)); 
 		_playerTwo.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2], true);
 		_playerOne.setIsInOlympiadMode(true);
 		_playerOne.setIsOlympiadStart(false);
@@ -318,6 +323,28 @@ public class L2OlympiadGame extends Olympiad
 	    }
 	    ;
 	}
+	
+    protected void sentPacketInfoToPlayers() 
+    { 
+    	for (L2PcInstance player : _players) 
+    	{ 
+    		if(player == _playerOne) 
+    		{ 
+    			player.sendPacket(new ExOlympiadUserInfo(_playerOne, 1)); 
+    			player.sendPacket(new ExOlympiadUserInfo(_playerTwo, 2)); 
+    		} 
+    		else 
+    		{ 
+    			player.sendPacket(new ExOlympiadUserInfo(_playerTwo, 1)); 
+    			player.sendPacket(new ExOlympiadUserInfo(_playerOne, 2)); 
+    		} 
+    	} 
+    	for(L2PcInstance spectator : _spectators) 
+    	{ 
+    		spectator.sendPacket(new ExOlympiadUserInfo(_playerTwo, 1)); 
+    		spectator.sendPacket(new ExOlympiadUserInfo(_playerOne, 2)); 
+    	} 
+    } 
 
 	protected void portPlayersBack()
 	{
