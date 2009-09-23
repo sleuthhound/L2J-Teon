@@ -116,6 +116,10 @@ public class OlympiadManager implements Runnable
 	    for (L2OlympiadGame instance : _olympiadInstances.values())
 		instance.removals();
 	    Olympiad._battleStarted = true;
+        // The user info status... 
+        for (L2OlympiadGame instance : _olympiadInstances.values()) 
+            instance.sentPacketInfoToPlayers(); 
+        
 	    // Wait 1 min
 	    for (int i = 60; i > 10; i -= 10)
 	    {
