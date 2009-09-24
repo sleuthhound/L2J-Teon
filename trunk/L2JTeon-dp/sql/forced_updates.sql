@@ -739,7 +739,7 @@ insert  into npc values
 ('29098', 29098, 'Splendor Worshiper', 0, 'Raid Fighter', 0, 'Monster3.apostle_grail_a', '13.00', '47.00', '86', 'male', 'L2Monster', 40, '400000', '9999', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '0', '0', '9000', '5000', '6000', '6000', '300', '0', '333', '0', '0', '0', '88', '132', 'Anays', '800', 0, '0', 'LAST_HIT');
 
 
-UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (29020,29021,29022,29065,29069,29070);
+UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (29020,29021,29022,29065,29069,29070,29014);
 UPDATE `npc` SET `aggro` = 800 WHERE `id` IN (29019,29028);
 UPDATE `npc` SET `hp` = '13090000', `mp` = '39960' WHERE `id` IN (29019);
 UPDATE `npc` SET `hp` = '3698520', `mp` = '39960' WHERE `id` IN (29020);
@@ -758,12 +758,6 @@ Update npc set `type` = 'L2Npc' Where idTemplate = 13001;
 
 
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (22124,22125,22126,22127,22129,22134,22135);
-
-update npc set aggro = 500 where id = 29014;
-update npc set aggro = 500 where id = 29020;
-update npc set aggro = 500 where id = 29021;
-update npc set aggro = 500 where id = 29022;
-update npc set aggro = 800 where id = 29028;
 
 --
 -- Fortress of Resistance
@@ -1363,3 +1357,23 @@ INSERT IGNORE INTO teleport VALUES
 -- This updates the grades of the contestable clan halls to grade 3 (highest grade with core support).
 -- This is completely OPTIONAL and may be safely ignored.
 UPDATE `clanhall` SET `Grade` = '3' WHERE `id` IN ('21', '34', '35', '62', '63', '64');
+
+-- Behemoth Dragon drops Update
+DELETE FROM droplist WHERE mobId = 29069;
+INSERT INTO droplist VALUES
+(29069,8600,4,36,0,700000),
+(29069,8601,4,36,1,700000),
+(29069,8602,4,36,2,700000),
+(29069,8603,4,36,3,700000),
+(29069,8604,4,36,4,700000),
+(29069,8605,4,36,5,700000),
+(29069,8606,4,36,6,700000),
+(29069,8607,4,36,7,700000),
+(29069,8608,4,36,8,700000),
+(29069,8609,4,36,9,700000),
+(29069,8610,4,36,10,700000),
+(29069,8611,4,36,11,700000),
+(29069,8612,4,36,12,700000),
+(29069,8613,4,36,13,700000),
+(29069,8614,4,36,14,700000);
+

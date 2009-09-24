@@ -673,4 +673,11 @@ public class ClanHall
 		player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
 	}
     }
+    // =========================================================
+    // Property
+    public final int getClanHallId()
+    {
+	return _clanHallId;
+    }
+
 }

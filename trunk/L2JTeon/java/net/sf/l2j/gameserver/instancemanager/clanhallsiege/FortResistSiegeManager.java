@@ -13,7 +13,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.sf.l2j.gameserver.instancemanager;
+package net.sf.l2j.gameserver.instancemanager.clanhallsiege;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +34,8 @@ import org.apache.commons.logging.LogFactory;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
@@ -43,7 +45,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.ExclusiveTask;
 
 /*
- *
  * Author: MHard
  * Author: Maxi
  */
