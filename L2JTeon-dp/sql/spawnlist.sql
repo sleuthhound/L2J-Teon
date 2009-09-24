@@ -39092,11 +39092,11 @@ insert  into spawnlist values
 (NULL, 'schuttgart_chmberlain_etc', 1, 35555, 77495, -153314, -415, 0, 0, 2059, 60, 0, 0),
 (NULL, 'schuttgart_chmberlain_etc', 1, 35556, 77502, -152695, 1225, 0, 0, 9673, 60, 0, 0),
 (NULL, 'schuttgart_chmberlain_etc', 1, 35557, 77736, -152938, -546, 0, 0, 22667, 60, 0, 0),
-(NULL, 'schuttgart',                1, 35644, 87735, -140700, -1567, 0, 0, 12555, 60, 0, 0),
+(NULL, 'schuttgart', 1, 35644, 87735, -140700, -1567, 0, 0, 12555, 60, 0, 0),
 (NULL, 'Aden - Clan Trader',1, 32025, 150279, 28136, -2274, 0, 0, 16205, 60, 0, 0),
 (NULL,'Schuttgart', 1, 32070, 90271, -143869, -1547, 0, 0, 10701, 60, 0, 0),
 (NULL,'Schuttgart', 1, 32072, 84429, -144065, -1542, 0, 0, 15666, 60, 0, 0),
-(NULL, 'ValleyOfLords',     1, 32090, 35652, -117571, -1272, 0, 0, 0, 60, 0, 0);
+(NULL, 'ValleyOfLords', 1, 32090, 35652, -117571, -1272, 0, 0, 0, 60, 0, 0);
 
 -- Set first location as actual spawn locs on spawtable to avoid visual bugs on first cycle run
 UPDATE `spawnlist` SET `locx` = '-81681', `locy` = '241109', `locz` = '-3712' WHERE `id` = '57697' AND `npc_templateid` = '31356';

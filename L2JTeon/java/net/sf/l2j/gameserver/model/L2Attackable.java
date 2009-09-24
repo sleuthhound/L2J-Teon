@@ -36,7 +36,8 @@ import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.instancemanager.FortResistSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
@@ -1023,6 +1024,13 @@ public class L2Attackable extends L2NpcInstance
 			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!=null)
 			{
 				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
+			}
+		if (this.getNpcId() == 35410)
+		{
+			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!=null)
+			{
+				DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
+			}
 			}
 		}
         // Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable

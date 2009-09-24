@@ -31,12 +31,12 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 /**
  * @author  Maxi
  */
-public class L2FortResistSiegeZone extends L2ZoneType
+public class L2ChSiegeZone extends L2ZoneType
 {
 	private int _clanHallId;
 	private ClanHall _clanHall;
 
-	public L2FortResistSiegeZone(int id)
+	public L2ChSiegeZone(int id)
 	{
 		super(id);
 	}
