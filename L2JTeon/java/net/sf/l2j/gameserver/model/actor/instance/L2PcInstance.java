@@ -4236,26 +4236,40 @@ public final class L2PcInstance extends L2PlayableInstance
 	    PartySmallWindowUpdate update = new PartySmallWindowUpdate(this);
 	    getParty().broadcastToPartyMembers(this, update);
 	}
-    if (isInOlympiadMode() && isOlympiadStart()) 
-    { 
-    	if (Olympiad.getInstance().getPlayers(_olympiadGameId) != null) 
-    	{ 
-    		for (L2PcInstance player : Olympiad.getInstance().getPlayers(_olympiadGameId)) 
-    		{ 
-    			if (player != null && player != this) 
-    				player.sendPacket(new ExOlympiadUserInfo(this, 2)); 
-    		} 
-    	} 
-    	if (Olympiad.getInstance().getSpectators(_olympiadGameId) != null) 
-    	{ 
-    		for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId)) 
-    		{ 
-    			if (spectator == null) 
-    				continue; 
-    			spectator.sendPacket(new ExOlympiadUserInfo(this, getOlympiadSide())); 
-    		} 
-    	} 
-    } 
+	if (isInOlympiadMode())
+	{
+	    // TODO: implement new OlympiadUserInfo
+		Collection<L2PcInstance> plrs = getKnownList().getKnownPlayers().values();   
+		//synchronized (getKnownList().getKnownPlayers())   
+		{ 
+			for (L2PcInstance player : plrs)   
+			{   
+				if (player.getOlympiadGameId() == getOlympiadGameId()   
+						&& player.isOlympiadStart())   
+				{   
+					if (Config.DEBUG)   
+						_log.fine("Send status for Olympia window of "   
+								+ getObjectId() + "(" + getName() + ") to "   
+								+ player.getObjectId() + "("   
+								+ player.getName() + "). CP: "   
+								+ getCurrentCp() + " HP: " + getCurrentHp()   
+								+ " MP: " + getCurrentMp());   
+					player.sendPacket(new ExOlympiadUserInfo(this));   
+				} 
+			} 
+		} 
+		if(Olympiad.getInstance().getSpectators(_olympiadGameId) != null && this.isOlympiadStart())   
+		{
+		for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
+		{
+		    if (spectator == null)
+		    {
+			continue;
+		    }
+            spectator.sendPacket(new ExOlympiadUserInfo(this)); 
+            }
+	    }
+	}
 	if (isInDuel())
 	{
 	    ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
