@@ -24,6 +24,6 @@ public class AuditFilter implements Filter
 {
     public boolean isLoggable(LogRecord record)
     {
-	return record.getLoggerName().equalsIgnoreCase("audit");
+    	return record.getLoggerName().equalsIgnoreCase("audit");
     }
 }

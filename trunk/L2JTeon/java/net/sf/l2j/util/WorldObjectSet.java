@@ -40,7 +40,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 
     public WorldObjectSet()
     {
-	_objectMap = new FastMap<Integer, T>().setShared(true);
+    	_objectMap = new FastMap<Integer, T>().setShared(true);
     }
 
     /*
@@ -51,7 +51,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public int size()
     {
-	return _objectMap.size();
+    	return _objectMap.size();
     }
 
     /*
@@ -62,7 +62,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public boolean isEmpty()
     {
-	return _objectMap.isEmpty();
+    	return _objectMap.isEmpty();
     }
 
     /*
@@ -73,7 +73,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public void clear()
     {
-	_objectMap.clear();
+    	_objectMap.clear();
     }
 
     /*
@@ -84,7 +84,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public void put(T obj)
     {
-	_objectMap.put(obj.getObjectId(), obj);
+    	_objectMap.put(obj.getObjectId(), obj);
     }
 
     /*
@@ -95,7 +95,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public void remove(T obj)
     {
-	_objectMap.remove(obj.getObjectId());
+    	_objectMap.remove(obj.getObjectId());
     }
 
     /*
@@ -106,7 +106,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public boolean contains(T obj)
     {
-	return _objectMap.containsKey(obj.getObjectId());
+    	return _objectMap.containsKey(obj.getObjectId());
     }
 
     /*
@@ -117,6 +117,6 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public Iterator<T> iterator()
     {
-	return _objectMap.values().iterator();
+    	return _objectMap.values().iterator();
     }
 }

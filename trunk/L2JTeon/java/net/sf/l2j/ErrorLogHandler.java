@@ -21,6 +21,6 @@ public class ErrorLogHandler extends FileHandler
 {
     public ErrorLogHandler() throws IOException, SecurityException
     {
-	super();
+    	super();
     }
 }

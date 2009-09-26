@@ -21,6 +21,6 @@ public class ChatLogHandler extends FileHandler
 {
     public ChatLogHandler() throws IOException, SecurityException
     {
-	super();
+		super();
     }
 }

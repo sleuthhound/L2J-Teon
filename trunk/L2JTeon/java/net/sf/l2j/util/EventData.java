@@ -36,14 +36,14 @@ public class EventData
 
     public EventData(int pEventX, int pEventY, int pEventZ, int pEventkarma, int pEventpvpkills, int pEventpkkills, String pEventTitle, LinkedList<String> pKills, boolean pEventSitForced)
     {
-	eventX = pEventX;
-	eventY = pEventY;
-	eventZ = pEventZ;
-	eventKarma = pEventkarma;
-	eventPvpKills = pEventpvpkills;
-	eventPkKills = pEventpkkills;
-	eventTitle = pEventTitle;
-	kills = pKills;
-	eventSitForced = pEventSitForced;
+		eventX = pEventX;
+		eventY = pEventY;
+		eventZ = pEventZ;
+		eventKarma = pEventkarma;
+		eventPvpKills = pEventpvpkills;
+		eventPkKills = pEventpkkills;
+		eventTitle = pEventTitle;
+		kills = pKills;
+		eventSitForced = pEventSitForced;
     }
 }
