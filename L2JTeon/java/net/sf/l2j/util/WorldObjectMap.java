@@ -46,7 +46,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public int size()
     {
-	return _objectMap.size();
+    	return _objectMap.size();
     }
 
     /*
@@ -57,7 +57,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public boolean isEmpty()
     {
-	return _objectMap.isEmpty();
+    	return _objectMap.isEmpty();
     }
 
     /*
@@ -68,7 +68,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public void clear()
     {
-	_objectMap.clear();
+    	_objectMap.clear();
     }
 
     /*
@@ -79,10 +79,10 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public void put(T obj)
     {
-	if (obj != null)
-	{
-	    _objectMap.put(obj.getObjectId(), obj);
-	}
+    	if (obj != null)
+    	{
+    		_objectMap.put(obj.getObjectId(), obj);
+    	}
     }
 
     /*
@@ -93,10 +93,10 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public void remove(T obj)
     {
-	if (obj != null)
-	{
-	    _objectMap.remove(obj.getObjectId());
-	}
+    	if (obj != null)
+    	{
+    		_objectMap.remove(obj.getObjectId());
+    	}
     }
 
     /*
@@ -107,7 +107,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public T get(int id)
     {
-	return _objectMap.get(id);
+    	return _objectMap.get(id);
     }
 
     /*
@@ -118,11 +118,9 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public boolean contains(T obj)
     {
-	if (obj == null)
-	{
-	    return false;
-	}
-	return _objectMap.get(obj.getObjectId()) != null;
+    	if (obj == null)
+    	return false; 
+    	return _objectMap.get(obj.getObjectId()) != null;
     }
 
     /*
@@ -133,6 +131,6 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
     @Override
     public Iterator<T> iterator()
     {
-	return _objectMap.values().iterator();
+    	return _objectMap.values().iterator();
     }
 }

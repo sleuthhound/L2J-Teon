@@ -22,6 +22,6 @@ public class GMAuditFormatter extends Formatter
     @Override
     public String format(LogRecord record)
     {
-	return record.getMessage() + "\r\n";
+    	return record.getMessage() + "\r\n";
     }
 }

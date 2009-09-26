@@ -26,7 +26,7 @@ public class Rnd
 
     public static final float get() // get random number from 0 to 1
     {
-	return _rnd.nextFloat();
+    	return _rnd.nextFloat();
     }
 
     /**
@@ -38,43 +38,43 @@ public class Rnd
      */
     public static final int get(int n)
     {
-	return (int) Math.floor(_rnd.nextDouble() * n);
+    	return (int) Math.floor(_rnd.nextDouble() * n);
     }
 
     public static final int get(int min, int max) // get random number
     // from
     // min to max (not max-1 !)
     {
-	return min + (int) Math.floor(_rnd.nextDouble() * (max - min + 1));
+    	return min + (int) Math.floor(_rnd.nextDouble() * (max - min + 1));
     }
 
     public static final int nextInt(int n)
     {
-	return (int) Math.floor(_rnd.nextDouble() * n);
+    	return (int) Math.floor(_rnd.nextDouble() * n);
     }
 
     public static final int nextInt()
     {
-	return _rnd.nextInt();
+    	return _rnd.nextInt();
     }
 
     public static final double nextDouble()
     {
-	return _rnd.nextDouble();
+    	return _rnd.nextDouble();
     }
 
     public static final double nextGaussian()
     {
-	return _rnd.nextGaussian();
+    	return _rnd.nextGaussian();
     }
 
     public static final boolean nextBoolean()
     {
-	return _rnd.nextBoolean();
+    	return _rnd.nextBoolean();
     }
 
     public static final void nextBytes(byte[] array)
     {
-	_rnd.nextBytes(array);
+    	_rnd.nextBytes(array);
     }
 }

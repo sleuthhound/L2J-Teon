@@ -33,18 +33,18 @@ public class ChatLogFormatter extends Formatter
     @Override
     public String format(LogRecord record)
     {
-	Object[] params = record.getParameters();
-	TextBuilder output = new TextBuilder();
-	output.append('[');
-	output.append(dateFmt.format(new Date(record.getMillis())));
-	output.append(']');
-	output.append(' ');
+		Object[] params = record.getParameters();
+		TextBuilder output = new TextBuilder();
+		output.append('[');
+		output.append(dateFmt.format(new Date(record.getMillis())));
+		output.append(']');
+		output.append(' ');
 	if (params != null)
 	{
 	    for (Object p : params)
 	    {
-		output.append(p);
-		output.append(' ');
+	    	output.append(p);
+	    	output.append(' ');
 	    }
 	}
 	output.append(record.getMessage());

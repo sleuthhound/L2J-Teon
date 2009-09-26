@@ -35,13 +35,13 @@ import net.sf.l2j.gameserver.model.L2Object;
  */
 public abstract class L2ObjectMap<T extends L2Object> implements Iterable<T>
 {
-    public abstract int size();
+	public abstract int size();
+	
+	public abstract boolean isEmpty();
+	
+	public abstract void clear();
 
-    public abstract boolean isEmpty();
-
-    public abstract void clear();
-
-    public abstract void put(T obj);
+	public abstract void put(T obj);
 
     public abstract void remove(T obj);
 
@@ -53,12 +53,12 @@ public abstract class L2ObjectMap<T extends L2Object> implements Iterable<T>
 
     public static L2ObjectMap<L2Object> createL2ObjectMap()
     {
-	switch (Config.MAP_TYPE)
-	{
-	case WorldObjectMap:
-	    return new WorldObjectMap<L2Object>();
-	default:
-	    return new WorldObjectTree<L2Object>();
-	}
+    	switch (Config.MAP_TYPE)
+    	{
+    	case WorldObjectMap:
+    		return new WorldObjectMap<L2Object>();
+    	default:
+    		return new WorldObjectTree<L2Object>();
+    	}
     }
 }

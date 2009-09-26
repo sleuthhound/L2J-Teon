@@ -21,6 +21,6 @@ public class GMAuditLogHandler extends FileHandler
 {
     public GMAuditLogHandler() throws IOException, SecurityException
     {
-	super();
+    	super();
     }
 }
