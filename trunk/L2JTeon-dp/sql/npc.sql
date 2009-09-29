@@ -6664,7 +6664,6 @@ UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31365';
 UPDATE `npc` SET `runspd` = '50', `walkspd` = '50' WHERE `id` = '32070';
 UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12' WHERE `id` = '32072';
 
-
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` IN (13001,29055,31385,31540,32109);
 
 -- Delete skills, control HotSprings.java
@@ -6674,3 +6673,14 @@ DELETE FROM `npcskills` WHERE `skillid` IN (4551,4552,4553,4554);
 -- Npcs Castle rune, schuttgart fix collision height
 UPDATE `npc` SET `collision_height` = '24' WHERE `id` IN (35513,35503,35504,35505,35511,35509,35510,35548,35549,35557,35555);
 UPDATE `npc` SET `collision_height` = '16' WHERE `id` IN (35507,35508);
+
+-- L2JTeon Updates Clan Halls Sieges Devastated Castle
+UPDATE `npc` SET `type` = 'L2CHSiegeMonster' WHERE `faction_id` = 'gustav_clan';
+UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'gustav_clan';
+UPDATE `npc` SET `faction_id` = 'gustav_clan' WHERE `name` = 'Gustav';
+
+-- L2JTeon Updates Clan Halls Sieges Partisan
+UPDATE `npc` SET `type` = 'L2CHSiegeMonster' WHERE `faction_id` = 'partisan_clan';
+UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'partisan_clan';
+
+UPDATE `npc` SET `type` = 'L2ClanHallSiegeInf' WHERE `id` IN (35437,35604,35627,35639);

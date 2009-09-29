@@ -36,6 +36,7 @@ public class AdminCommandHandler
     // Alt privileges setting
     private static Logger _priviLog = Logger.getLogger("AltPrivilegesAdmin");
     private static FastMap<String, Integer> _privileges;
+	public static final String GROUP_MANAGESERVER = "ManageServer";
 
     public static AdminCommandHandler getInstance()
     {

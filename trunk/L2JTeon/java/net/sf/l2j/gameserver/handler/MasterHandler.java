@@ -65,7 +65,7 @@ public class MasterHandler
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminMenu());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminSiege());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminFort());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminFortResist());
+	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminClanHallSieges());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPathNode());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPetition());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPForge());

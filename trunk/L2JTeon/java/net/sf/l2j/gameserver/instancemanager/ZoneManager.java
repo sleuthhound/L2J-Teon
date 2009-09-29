@@ -58,7 +58,7 @@ import net.sf.l2j.gameserver.model.zone.type.L2SwampZone;
 import net.sf.l2j.gameserver.model.zone.type.L2SkillZone;
 import net.sf.l2j.gameserver.model.zone.type.L2TownZone;
 import net.sf.l2j.gameserver.model.zone.type.L2WaterZone;
-import net.sf.l2j.gameserver.model.zone.type.L2ChSiegeZone;
+import net.sf.l2j.gameserver.model.zone.type.L2ClanHallSiegeZone;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -157,8 +157,8 @@ public class ZoneManager
 
 							if (zoneType.equals("FishingZone"))
 								 temp = new L2FishingZone(zoneId);
-							if (zoneType.equals("ChSiegeZone"))
-								 temp = new L2ChSiegeZone(zoneId);
+							if (zoneType.equals("ClanHallSiegeZone"))
+								 temp = new L2ClanHallSiegeZone(zoneId);
 							else if (zoneType.equals("ClanHallZone"))
 								 temp = new L2ClanHallZone(zoneId);
 							else if (zoneType.equals("CustomZone"))

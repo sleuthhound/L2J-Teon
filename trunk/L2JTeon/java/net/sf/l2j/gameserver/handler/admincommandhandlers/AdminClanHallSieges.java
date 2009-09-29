@@ -21,10 +21,11 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.Location;
-import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
+import net.sf.l2j.gameserver.instancemanager.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -32,17 +33,15 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 /**
  * @author Maxi
  */
-public class AdminFortResist implements IAdminCommandHandler
+public class AdminClanHallSieges implements IAdminCommandHandler
 {
     private static final String[] ADMIN_COMMANDS =
     {
-        "admin_startfortresist", "admin_endfortresist"
+        "admin_startfortresist", "admin_endfortresist", "admin_startdevastated", "admin_enddevastated"
+, "admin_startbandit", "admin_endbandit", "admin_startwildbeastfarm", "admin_endwildbeastfarm"
     };
     private static final int REQUIRED_LEVEL = Config.GM_FORTSIEGE;
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, net.sf.l2j.gameserver.model.L2PcInstance)
-     */
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
 	if (!Config.ALT_PRIVILEGES_ADMIN)
@@ -50,27 +49,41 @@ public class AdminFortResist implements IAdminCommandHandler
 		return false;
         if (command.startsWith("admin_startfortresist"))
         {
-			if (activeChar instanceof L2PcInstance)
 		FortResistSiegeManager.getInstance().startSiege();
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                sm.addString("Start Siege Fortress of Resistence");
-                activeChar.sendPacket(sm);
-                return false;
+                activeChar.sendMessage("Start Siege Fortress of Resistence");
         } else if (command.startsWith("admin_endfortresist"))
         {
-			if (activeChar instanceof L2PcInstance)
 		FortResistSiegeManager.getInstance().endSiege(true);
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                sm.addString("End Siege Fortress of Resistence");
-                activeChar.sendPacket(sm);
-                return false;
+                activeChar.sendMessage("End Siege Fortress of Resistence");
+        } else if (command.startsWith("admin_startdevastated"))
+        {
+		DevastatedCastleManager.getInstance().startSiege();
+                activeChar.sendMessage("Start Siege Devastated Castle");
+        } else if (command.startsWith("admin_enddevastated"))
+        {
+		DevastatedCastleManager.getInstance().endSiege(true);
+                activeChar.sendMessage("End Siege Devastated Castle");
+        } else if (command.startsWith("admin_startbandit"))
+        {
+		BanditStrongholdSiege.getInstance().startSiege();
+                activeChar.sendMessage("Start Siege Bandit Stronghold Siege");
+        } else if (command.startsWith("admin_endbandit"))
+        {
+		BanditStrongholdSiege.getInstance().endSiege(true);
+                activeChar.sendMessage("End Siege Bandit Stronghold Siege");
+
+        } else if (command.startsWith("admin_startwildbeastfarm"))
+        {
+		WildBeastFarmSiege.getInstance().startSiege();
+                activeChar.sendMessage("Start Siege Wild Beast Farm");
+        } else if (command.startsWith("admin_endwildbeastfarm"))
+        {
+		WildBeastFarmSiege.getInstance().endSiege(true);
+                activeChar.sendMessage("End Siege Wild Beast Farm");
         }
         return true;
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#getAdminCommandList()
-     */
     public String[] getAdminCommandList()
     {
         return ADMIN_COMMANDS;

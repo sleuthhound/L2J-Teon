@@ -2759,6 +2759,10 @@ public class L2NpcInstance extends L2Character
     public void onSpawn()
     {
 	super.onSpawn();
+
+		if (getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN) != null)
+			for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN))
+				quest.notifySpawn(this);
     }
 
     /**
