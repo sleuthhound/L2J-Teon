@@ -50,6 +50,7 @@ public class ClanHall
     private List<String> _doorDefault;
     private String _name;
     private int _ownerId;
+    private L2Clan _ownerClan;
     private int _lease;
     private String _desc;
     private String _location;
@@ -680,4 +681,14 @@ public class ClanHall
 	return _clanHallId;
     }
 
+	public L2Clan getOwnerClan()
+	{
+		if (_ownerId == 0)
+			return null;
+
+		if (_ownerClan == null)
+			_ownerClan = ClanTable.getInstance().getClan(getOwnerId());
+
+		return _ownerClan;
+	}
 }

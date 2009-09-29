@@ -97,6 +97,8 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.instancemanager.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.instancemanager.BanditStrongholdSiege;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
@@ -140,6 +142,7 @@ public class GameServer
     private final NpcTable _npcTable;
     private final HennaTable _hennaTable;
     private final IdFactory _idFactory;
+    public static boolean _instanceOk = false;
     public static GameServer gameServer;
     private static ClanHallManager _cHManager;
     private final Shutdown _shutdownHandler;
@@ -292,16 +295,18 @@ public class GameServer
     	{
     		GeoPathFinding.getInstance();
     	}
-    	Util.printSection("Castle Sieges Fortress Sieges");
+    	Util.printSection("Castle Sieges - Fortress Sieges");
     	CastleManager.getInstance();
     	SiegeManager.getInstance();
     	FortManager.getInstance();
     	FortSiegeManager.getInstance();
     	// Load clan hall data before zone data
     	_cHManager = ClanHallManager.getInstance();
-    	Util.printSection("Fortress of Resistence");
+	Util.printSection("Clan Hall Siege");
+	FortResistSiegeManager.getInstance();
+	BanditStrongholdSiege.getInstance();
+	WildBeastFarmSiege.getInstance();
     	FortResistSiegeManager.getInstance();
-    	Util.printSection("Devastated Castle");
     	DevastatedCastleManager.getInstance();
     	Util.printSection("Teleport");
     	TeleportLocationTable.getInstance();

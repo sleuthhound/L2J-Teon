@@ -59,20 +59,24 @@ public abstract class ExclusiveTask
 	public synchronized final void schedule(long delay)
 	{
 		cancel();
-		
-		/**_future = ThreadPoolManager.getInstance().schedule(_runnable, delay);*/
+
         _future = ThreadPoolManager.getInstance().scheduleEffect(_runnable, delay);
+	}
+	
+	public synchronized final void execute()
+	{
+		ThreadPoolManager.getInstance().executeTask(_runnable);
 	}
 	
 	public synchronized final void scheduleAtFixedRate(long delay, long period)
 	{
 		cancel();
-		
-		/**_future = ThreadPoolManager.getInstance().scheduleAtFixedRate(_runnable, delay, period);*/
+
         _future = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(_runnable, delay, period);
 	}
 	
-	private final Runnable _runnable = new Runnable() {
+	private final Runnable _runnable = new Runnable()
+	{
 		@Override
 		public void run()
 		{

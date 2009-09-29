@@ -17,44 +17,28 @@ package scripts;
 import java.util.logging.Logger;
 
 import scripts.items.*;
-//import scripts.skills.*;
 import scripts.usercommand.*;
 import scripts.voicedcommand.*;
 
 import net.sf.l2j.Config;
-// import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
-// import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
-// import net.sf.l2j.gameserver.model.L2Skill;
-// import net.sf.l2j.gameserver.model.L2Character;
 
 /**
- *
  * @author  Maxi
  */
 public class Scripts
 {
 	private static Logger _log = Logger.getLogger(Scripts.class.getName());
-/*
-	private static void loadChatHandlers()
-	{
-		_log.config("Loaded " + ChatHandler.getInstance().size() + "  ChatHandlers");
-	}
-	*/
+
 	private static void loadItemHandlers()
 	{
 		ItemHandler.getInstance().registerItemHandler(new PrimevalPotions());
 		ItemHandler.getInstance().registerItemHandler(new ScrollsValakas());
 		_log.config("Loaded " + ItemHandler.getInstance().size() + " ItemHandlers");
 	}
-	/*
-	private static void loadSkillHandlers()
-	{
-		_log.config("Loaded " + SkillHandler.getInstance().size() + " SkillHandlers");
-	}
-	*/
+
 	private static void loadUserHandlers()
 	{
 		UserCommandHandler.getInstance().registerUserCommandHandler(new ClanPenalty());
@@ -98,9 +82,7 @@ public class Scripts
 	public static void main(String[] args)
 	{
 		_log.config("Loading Handlers...");
-		// loadChatHandlers();
 		loadItemHandlers();
-		// loadSkillHandlers();
 		loadUserHandlers();
 		loadVoicedHandlers();
 		_log.config("Handlers Loaded...");

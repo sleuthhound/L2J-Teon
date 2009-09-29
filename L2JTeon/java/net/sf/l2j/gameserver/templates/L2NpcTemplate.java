@@ -423,4 +423,14 @@ public final class L2NpcTemplate extends L2CharTemplate
     {
 	return rhand;
     }
+	
+	public boolean isCustom()
+	{
+		return npcId != idTemplate;
+	}
+
+	public int getNpcId()
+	{
+		return npcId;
+	}
 }

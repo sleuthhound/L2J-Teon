@@ -16,27 +16,29 @@ package net.sf.l2j.gameserver.model.zone.type;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.instancemanager.BanditStrongholdSiege;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
- * @author  Maxi
+ * @author Maxi
  */
-public class L2FortResistSiegeZone extends L2ZoneType
+public class L2ClanHallSiegeZone extends L2ZoneType
 {
+	protected ClanHall	_clanhall;
 	private int _clanHallId;
-	private ClanHall _clanHall;
+	private String _zoneName;
 
-	public L2FortResistSiegeZone(int id)
+	public L2ClanHallSiegeZone(int id)
 	{
 		super(id);
 	}
@@ -47,10 +49,11 @@ public class L2FortResistSiegeZone extends L2ZoneType
 		if (name.equals("clanHallId"))
 		{
 			_clanHallId = Integer.parseInt(value);
-			// Register self to the correct castle
-			_clanHall = ClanHallManager.getInstance().getClanHallById(_clanHallId);
-			// _clanHall.setZone(this);
-			// ClanHallManager.getInstance().getClanHallById(_clanHallId).setZone(this);
+			ClanHallManager.getInstance().getClanHallById(_clanHallId);
+		}
+		else if (name.equals("name"))
+		{
+			_zoneName = value;
 		}
 		else super.setParameter(name, value);
 	}
@@ -58,12 +61,24 @@ public class L2FortResistSiegeZone extends L2ZoneType
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if(character instanceof L2PcInstance)
+		if (character instanceof L2PcInstance && BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
-			FortResistSiegeManager.getInstance().startSiege();
 			character.setInsideZone(L2Character.ZONE_PVP, true);
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
-
+			if (character instanceof L2PcInstance)
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));	
+		}
+		if (character instanceof L2PcInstance && WildBeastFarmSiege.getInstance().getIsInProgress())
+		{
+			character.setInsideZone(L2Character.ZONE_PVP, true);
+			character.setInsideZone(L2Character.ZONE_SIEGE, true);
+			if (character instanceof L2PcInstance)
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));			
+		}
+		if (character instanceof L2PcInstance && getIsInProgress())
+		{
+			character.setInsideZone(L2Character.ZONE_PVP, true);
+			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			if (character instanceof L2PcInstance)
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
@@ -72,41 +87,92 @@ public class L2FortResistSiegeZone extends L2ZoneType
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if(character instanceof L2PcInstance)
+		if (character instanceof L2PcInstance && BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
-			FortResistSiegeManager.getInstance().startSiege();
 			character.setInsideZone(L2Character.ZONE_PVP, false);
 			character.setInsideZone(L2Character.ZONE_SIEGE, false);
-
 			if (character instanceof L2PcInstance)
-			{
-				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-
-				// Set pvp flag
-				if (((L2PcInstance)character).getPvpFlag() == 0)
-					((L2PcInstance)character).startPvPFlag();
-			}
+			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
-		
-		if (character instanceof L2SiegeSummonInstance)
+		if (character instanceof L2PcInstance && WildBeastFarmSiege.getInstance().getIsInProgress())
 		{
+			character.setInsideZone(L2Character.ZONE_PVP, false);
+			character.setInsideZone(L2Character.ZONE_SIEGE, false);
+			if (character instanceof L2PcInstance)
+			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));			
+		}
+		if (character instanceof L2PcInstance && getIsInProgress())
+		{
+			character.setInsideZone(L2Character.ZONE_PVP, false);
+			character.setInsideZone(L2Character.ZONE_SIEGE, false);
+			if (character instanceof L2PcInstance)
+			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+		}
+		if (character instanceof L2SiegeSummonInstance)
 			((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
+	}
+
+	public void updateSiegeStatus()
+	{
+		if (_clanhall.getId()==35 && BanditStrongholdSiege.getInstance().getIsInProgress())
+		{
+			for (L2Character character : _characterList.values())
+			{
+				try
+				{
+					onEnter(character);
+				}
+				catch (Exception e)
+				{
+				}
+			}	
+		}
+		else if (_clanhall.getId()==63 && WildBeastFarmSiege.getInstance().getIsInProgress())
+		{
+			for (L2Character character : _characterList.values())
+			{
+				try
+				{
+					onEnter(character);
+				}
+				catch (Exception e)
+				{
+				}
+			}	
+		}
+		else
+		{
+			for (L2Character character : _characterList.values())
+			{
+				try
+				{
+			character.setInsideZone(L2Character.ZONE_PVP, true);
+			character.setInsideZone(L2Character.ZONE_SIEGE, true);
+
+					if (character instanceof L2PcInstance)
+			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+				}
+				catch (Exception e)
+				{
+				}
+			}			
 		}
 	}
 
-	@Override
-	protected void onDieInside(L2Character character) {}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
-	public void updateZoneStatusForCharactersInside(L2Character character)
+	protected void onDieInside(L2Character character)
 	{
-		if(character instanceof L2PcInstance)
-		{
-			FortResistSiegeManager.getInstance().startSiege();
+	}
 
-		/**if (_castle.getSiege().getIsInProgress())
+	@Override
+	protected void onReviveInside(L2Character character)
+	{
+	}
+
+	public void updateZoneStatusForCharactersInside()
+	{
+					if (_clanhall.getId()==34 && getIsInProgress())
 		{
 			for (L2Character character : _characterList.values())
 			{
@@ -122,7 +188,7 @@ public class L2FortResistSiegeZone extends L2ZoneType
 			for (L2Character character : _characterList.values())
 			{
 				try
-				{*/
+				{
 					character.setInsideZone(L2Character.ZONE_PVP, false);
 					character.setInsideZone(L2Character.ZONE_SIEGE, false);
 
@@ -133,10 +199,13 @@ public class L2FortResistSiegeZone extends L2ZoneType
 						((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
 					}
 				}
+				catch (NullPointerException e) {}
 			}
+		}
+	}
 
 	/**
-	 * Removes all foreigners from the castle
+	 * Removes all foreigners from the clanhall
 	 * @param owningClanId
 	 */
 	public void banishForeigners(int owningClanId)
@@ -178,5 +247,10 @@ public class L2FortResistSiegeZone extends L2ZoneType
 		}
 
 		return players;
+	}
+
+	public final boolean getIsInProgress()
+	{
+		return DevastatedCastleManager.getInstance().getIsInProgress();
 	}
 }

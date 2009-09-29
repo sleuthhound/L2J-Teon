@@ -21,8 +21,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -32,6 +34,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.Announcements;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
@@ -43,7 +47,7 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
-import net.sf.l2j.gameserver.model.zone.type.L2ChSiegeZone;
+import net.sf.l2j.gameserver.model.zone.type.L2FortResistZone;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.ExclusiveTask;
 
@@ -54,20 +58,39 @@ import net.sf.l2j.gameserver.ExclusiveTask;
 
 public class DevastatedCastleManager
 {
-	protected static Log		_log	= LogFactory.getLog(SiegeManager.class.getName());
 	private static DevastatedCastleManager	_instance;
 	protected FastMap _siegeGuards;
-    private List<L2DoorInstance> _doors = new FastList<L2DoorInstance>();
-    private List<String> _doorDefault = new FastList<String>();
-    private L2ChSiegeZone _zone;
-    private Siege _siege = null;
-    private int _clanHallId = 34;
+    	private List<L2DoorInstance> _doors = new FastList<L2DoorInstance>();
+    	private List<String> _doorDefault = new FastList<String>();
+    	private int _clanHallId = 34;
+	private boolean _isInProgress	= false;
+	private Calendar _siegeEndDate;
+	private Calendar _siegeDate;
+	private Map<Integer, DamageInfo> _clansDamageInfo = new HashMap<Integer, DamageInfo>();
+	private static long GUSTAV_RESPAWN_TIME = 1209600000;
+	protected static Log _log = LogFactory.getLog(DevastatedCastleManager.class.getName());
+
 
 	private class DamageInfo
 	{
 		public L2Clan _clan;
 		public long _damage;
 	}
+
+	protected class RunSiege implements Runnable
+    {
+        public void run()
+        {
+            Siege();
+        }
+
+        final DevastatedCastleManager this1;
+
+        protected RunSiege()
+        {
+            this1 = DevastatedCastleManager.this;
+        }
+    }
 
 	public static final DevastatedCastleManager getInstance()
 	{
@@ -111,6 +134,7 @@ public class DevastatedCastleManager
 		}
 		return res;
 	}
+
 	private void setNewSiegeDate(long siegeDate)
 	{
 		Calendar tmpDate=Calendar.getInstance();
@@ -157,12 +181,10 @@ public class DevastatedCastleManager
 			_siegeDate=tmpDate;
 		}
 	}
+
 	private DevastatedCastleManager()
 	{
-	_siegeGuards = new FastMap();
 	_isInProgress = false;
-	_questMobs = new FastList();
-	_npcSpawnCount = 0;
 	_clansDamageInfo = new HashMap();
 	_log.info("Devastated Castle Siege");
 	long siegeDate=restoreSiegeDate();
@@ -183,33 +205,61 @@ public class DevastatedCastleManager
 
 	public void startSiege()
 	{
-		_isInProgress=true;
+		_isInProgress = true;
 		_clansDamageInfo.clear();
-		for (L2Spawn spawn : _questMobs)
-		{
-			if (spawn != null)
-			{
-				spawn.init();
-			}
-		}
 		_siegeEndDate = Calendar.getInstance();
 		_siegeEndDate.add(Calendar.MINUTE, 60);
 		_endSiegeTask.schedule(1000);
-		
+        RunSiege rs = new RunSiege();
+        ClanHall CH = ClanHallManager.getInstance().getClanHallById(34);
+        CH.banishForeigners();
+        CH.spawnDoor();
+        try
+        {
+            /*fillMonsters();
+            spawnMinions();*/
+            L2NpcTemplate template;
+            L2Spawn spawn;
+
+            template = NpcTable.getInstance().getTemplate(35410);
+            spawn = new L2Spawn(template);
+            spawn.setLocx(178298);
+            spawn.setLocy(-17624);
+            spawn.setLocz(-2194);
+            spawn.stopRespawn();
+            spawn.spawnOne();
+        }
+        catch (Exception e)
+        {
+        	_log.warn("Gustav spawn fails: " + e.getMessage(), e);
+        }
+        finally
+        {
+        	_log.info("Siege of Devastated castle has begun!");
+        	_log.info("Spawning Gustav.");
+        	}
 	}
+
+	public void addSiegeDamage(L2Clan clan, double damage)
+	{
+		_isInProgress = true;
+		DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
+		if (clanDamage != null)
+			clanDamage._damage += damage;
+		else
+		{
+			clanDamage = new DamageInfo();
+			clanDamage._clan=clan;
+			clanDamage._damage += damage;
+
+			_clansDamageInfo.put(clan.getClanId(), clanDamage);
+		}
+	}
+
 
 	public void endSiege(boolean type)
 	{
 		_isInProgress = false;
-		for (L2Spawn spawn : _questMobs)
-		{
-			if (spawn == null)
-				continue;
-
-			spawn.stopRespawn();
-			if (spawn.getLastSpawn() != null)
-				spawn.getLastSpawn().doDie(spawn.getLastSpawn());
-		}
 		if (type = true)
 		{
 			L2Clan clanIdMaxDamage = null;
@@ -229,41 +279,17 @@ public class DevastatedCastleManager
 			{
 				ClanHall clanhall = null;
 				clanhall = ClanHallManager.getInstance().getClanHallById(34);
+        			clanhall.banishForeigners();
+        			clanhall.spawnDoor();
+        			clanhall = null;
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), clanIdMaxDamage);
 			}
 		}
 		setNewSiegeDate(_siegeDate.getTimeInMillis());
 		_startSiegeTask.schedule(1000);
 	}
-
-	public void addSiegeDamage(L2Clan clan,long damage)
-	{
-		DamageInfo clanDamage=_clansDamageInfo.get(clan.getClanId());
-		if (clanDamage != null)
-			clanDamage._damage += damage;
-		else
-		{
-			clanDamage = new DamageInfo();
-			clanDamage._clan=clan;
-			clanDamage._damage += damage;
-
-			_clansDamageInfo.put(clan.getClanId(), clanDamage);
-		}
-	}
-
     /**
-     * @param zone
-     */
-    public void setZone(L2ChSiegeZone zone)
-    {
-	_zone = zone;
-    }
-    public L2ChSiegeZone getZone()
-    {
-	return _zone;
-    }
-    /**
-     * Respawn all doors on castle grounds<BR>
+     * Respawn all doors on clanhall<BR>
      * <BR>
      */
     public void spawnDoor()
@@ -271,9 +297,8 @@ public class DevastatedCastleManager
 	spawnDoor(false);
     }
 
-
     /**
-     * Respawn all doors on castle grounds<BR>
+     * Respawn all doors on clanhall<BR>
      * <BR>
      */
     public void spawnDoor(boolean isDoorWeak)
@@ -313,13 +338,8 @@ public class DevastatedCastleManager
 	return _doors;
     }
 
-
-    public final Siege getSiege()
-    {
-	return _siege;
-    }
-
-	private final ExclusiveTask _endSiegeTask = new ExclusiveTask() {
+	private final ExclusiveTask _endSiegeTask = new ExclusiveTask()
+	{
 		@Override
 		protected void onElapsed()
 		{
@@ -338,7 +358,9 @@ public class DevastatedCastleManager
 			schedule(timeRemaining);
 		}
 	};
-	private final ExclusiveTask _startSiegeTask = new ExclusiveTask(){
+
+	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
+	{
 		@Override
 		protected void onElapsed()
 		{
@@ -359,32 +381,11 @@ public class DevastatedCastleManager
 		}
 	};
 
-	public void addSiegeMob(int npcTemplate,int locx,int locy,int locz,int resp)
-	{	/**
-		L2Spawn spawn1;
-		L2NpcTemplate template1;
-		
-		template1 = NpcTable.getInstance().getTemplate(npcTemplate);
-		if (template1 != null)
-		{
-			_npcSpawnCount++;
-			spawn1 = new L2Spawn(template1);
-			spawn1.setId(_npcSpawnCount);
-			spawn1.setAmount(1);
-			spawn1.setLocx(locx);
-			spawn1.setLocy(locy);
-			spawn1.setLocz(locz);
-			spawn1.setHeading(0);
-			spawn1.setRespawnDelay(resp);
-			spawn1.setLocation(0);
-			_questMobs.add(spawn1);
-		}*/
-	}
-
-	private boolean _isInProgress	= false;
-	private Calendar _siegeEndDate;
-	private Calendar _siegeDate;
-	private FastList<L2Spawn> _questMobs = new FastList<L2Spawn>();
-	private int _npcSpawnCount =0;
-	private Map<Integer, DamageInfo> _clansDamageInfo = new HashMap<Integer, DamageInfo>();
+    public void Siege()
+    {
+		_isInProgress = true;
+        ClanHall CH = ClanHallManager.getInstance().getClanHallById(34);
+        CH.banishForeigners();
+        CH.spawnDoor();
+    }
 }

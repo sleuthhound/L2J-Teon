@@ -757,8 +757,6 @@ UPDATE `npc` SET `faction_id` = 'baium_clan', `faction_range` = '1000' WHERE `id
 Update npc set `type` = 'L2Npc' Where idTemplate = 13001;
 
 
-UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (22124,22125,22126,22127,22129,22134,22135);
-
 --
 -- Fortress of Resistance
 --
@@ -1377,3 +1375,52 @@ INSERT INTO droplist VALUES
 (29069,8613,4,36,13,700000),
 (29069,8614,4,36,14,700000);
 
+UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (22124,22125,22126,22127,22129,22134,22135);
+
+-- Rainbow Springs CH spawnlist
+INSERT INTO `spawnlist` VALUES
+-- Messenger
+(NULL,'ch_rainbow_springs','1','35604','143944','-119196','-2136','0','0','1000','0','0','0'),
+-- Steward
+(NULL,'ch_rainbow_springs','1','35605','140824','-124844','-1864','0','0','10000','0','0','0'),
+-- Doorman
+(NULL,'ch_rainbow_springs','1','35602','140704','-124020','-1904','0','0','34000','0','0','0'),
+(NULL,'ch_rainbow_springs','1','35602','140732','-123796','-1904','0','0','2000','0','0','0'),
+(NULL,'ch_rainbow_springs','1','35601','141152','-124272','-1864','0','0','10000','0','0','0'),
+(NULL,'ch_rainbow_springs','1','35601','141085','-124316','-1868','0','0','44789','0','0','0'),
+-- Coordinator
+(NULL,'ch_rainbow_springs','1','35603','152924','-126604','-2304','0','0','33000','0','0','0');
+
+-- Beast Farm CH spawnlist
+DELETE from `spawnlist` WHERE `npc_templateid` IN(35623,35624,35625,35626,35627,35628);
+INSERT INTO `spawnlist` VALUES 
+-- Inner Doorman
+(NULL,'ch_wild_beast','1','35623','59884','-94204','-1344','0','0','27000','0','0','0'),
+(NULL,'ch_wild_beast','1','35624','59920','-94336','-1344','0','0','60000','0','0','0'),
+-- Outer Doorman
+(NULL,'ch_wild_beast','1','35625','55184','-93040','-1360','0','0','35000','0','0','0'),
+(NULL,'ch_wild_beast','1','35626','55400','-93008','-1360','0','0','30000','0','0','0'),
+-- Messenger
+(NULL,'ch_wild_beast','1','35627','53508','-93776','-1584','0','0','36000','0','0','0'),
+-- Farm Manager
+(NULL,'ch_wild_beast','1','35628','60880','-94320','-1344','0','0','27000','0','0','0');
+
+-- Fortress of Dead
+INSERT INTO `spawnlist` VALUES
+-- Wyvern Manager
+(NULL,'ch_fortress_of_dead','1','35638','56736','-26400','568','0','0','49000','0','0','0'),
+-- Messenger
+(NULL,'ch_fortress_of_dead','1','35639','58128','-32000','296','0','0','0','0','0','0'),
+-- Steward
+(NULL,'ch_fortress_of_dead','1','35640','58024','-25744','592','0','0','49000','0','0','0'),
+-- Fortress Guard
+(NULL,'ch_fortress_of_dead','1','35641','58080','-29552','568','0','0','49000','0','0','0'),
+(NULL,'ch_fortress_of_dead','1','35641','58137','-29223','568','0','0','16500','0','0','0'),
+(NULL,'ch_fortress_of_dead','1','35642','58024','-26456','592','0','0','49000','0','0','0'),
+(NULL,'ch_fortress_of_dead','1','35642','58074','-26325','597','0','0','15732','0','0','0');
+
+
+Delete From spawnlist where id in
+(75002,75004,75005,75006,75008,75009,75010,75011,75012,75013,75015,75016);
+
+-- 75008,75009,75010,75011,75012,75013,75015,75016
