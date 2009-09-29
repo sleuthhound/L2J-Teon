@@ -33,7 +33,7 @@ public abstract class AbstractServerBasePacket extends L2GameServerPacket
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-    abstract protected void writeImpl();
+    abstract public void writeImpl();
 
     /**
      * @see net.sf.l2j.gameserver.BasePacket#getType()
