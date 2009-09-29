@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model;
 
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastTable;
@@ -42,22 +44,16 @@ import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
-import net.sf.l2j.gameserver.model.ChanceSkillList; 
-import net.sf.l2j.gameserver.model.L2Attackable;
-import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2CubicInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DecoInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcWalkerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -66,14 +62,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
+import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.item.Inventory;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
-import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -621,8 +618,7 @@ public abstract class L2Character extends L2Object
      * <BR>
      * <BR>
      */
-    public void sendPacket(@SuppressWarnings("unused")
-    L2GameServerPacket mov)
+    public void sendPacket(L2GameServerPacket mov)
     {
 	// default implementation
     }
@@ -4200,7 +4196,8 @@ public abstract class L2Character extends L2Object
     }
     protected L2CharacterAI _ai;
     /** Future Skill Cast */
-    protected Future _skillCast;
+    @SuppressWarnings("unchecked")
+	protected Future _skillCast;
     /** Char Coords from Client */
     private int _clientX;
     private int _clientY;
@@ -5924,9 +5921,7 @@ public abstract class L2Character extends L2Object
      * <BR>
      *
      */
-    public void addExpAndSp(@SuppressWarnings("unused")
-    long addToExp, @SuppressWarnings("unused")
-    int addToSp)
+    public void addExpAndSp(long addToExp, int addToSp)
     {
 	// Dummy method (overridden by players and pets)
     }
@@ -6924,7 +6919,8 @@ public abstract class L2Character extends L2Object
      *                The L2Skill to use
      *
      */
-    public void onMagicLaunchedTimer(L2Object[] targets, L2Skill skill, int coolTime, boolean instant)
+    @SuppressWarnings("static-access")
+	public void onMagicLaunchedTimer(L2Object[] targets, L2Skill skill, int coolTime, boolean instant)
     {
 	if ((skill == null) || (targets == null) || (targets.length <= 0))
 	{
@@ -7155,37 +7151,11 @@ public abstract class L2Character extends L2Object
      * <BR>
      *
      */
-    public void consumeItem(@SuppressWarnings("unused")
-    int itemConsumeId, @SuppressWarnings("unused")
-    int itemCount)
+    public void consumeItem(int itemConsumeId, int itemCount)
     {
     }
 
-
-	// Quest event ON_SPELL_FNISHED
-	private void notifyQuestEventSkillFinished(L2Skill skill, L2Object target)
-	{
-		if (this instanceof L2NpcInstance)
-		{
-			try
-			{
-				if (((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED) != null)
-				{
-					L2PcInstance player = target.getActingPlayer();
-					for (Quest quest : ((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED))
-					{
-						quest.notifySpellFinished(((L2NpcInstance) this), player, skill);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				_log.log(Level.SEVERE, "", e);
-			}
-		}
-	}
-
-    /**
+	/**
      * Enable a skill (remove it from _disabledSkills of the L2Character).<BR>
      * <BR>
      *
@@ -7611,7 +7581,8 @@ public abstract class L2Character extends L2Object
 	return 1;
     }
 
-    public final void setSkillCast(Future newSkillCast)
+    @SuppressWarnings("unchecked")
+	public final void setSkillCast(Future newSkillCast)
     {
 	_skillCast = newSkillCast;
     }
@@ -7624,7 +7595,8 @@ public abstract class L2Character extends L2Object
 	_castInterruptTime = newSkillCastEndTime - 12;
     }
 
-    private Future _PvPRegTask;
+    @SuppressWarnings("unchecked")
+	private Future _PvPRegTask;
     private long _pvpFlagLasts;
 
     public void setPvpFlagLasts(long time)
@@ -7699,8 +7671,7 @@ public abstract class L2Character extends L2Object
      * Return a Random Damage in function of the weapon.<BR>
      * <BR>
      */
-    public final int getRandomDamage(@SuppressWarnings("unused")
-    L2Character target)
+    public final int getRandomDamage(L2Character target)
     {
 	L2Weapon weaponItem = getActiveWeaponItem();
 	if (weaponItem == null)
@@ -8127,8 +8098,7 @@ public abstract class L2Character extends L2Object
      * <BR>
      *
      */
-    public void sendDamageMessage(@SuppressWarnings("unused")
-    L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
+    public void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
     {
     }
 

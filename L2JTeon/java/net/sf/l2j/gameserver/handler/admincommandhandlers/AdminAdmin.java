@@ -53,7 +53,8 @@ public class AdminAdmin implements IAdminCommandHandler
     private static final String[] ADMIN_COMMANDS = { "admin_admin", "admin_admin1", "admin_admin2", "admin_admin3", "admin_admin4", "admin_admin5", "admin_gmliston", "admin_gmlistoff", "admin_silence", "admin_diet", "admin_tradeoff", "admin_reload", "admin_set", "admin_set_menu", "admin_set_mod", "admin_saveolymp", "admin_manualhero", "admin_camera" };
     private static final int REQUIRED_LEVEL = Config.GM_MENU;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
+    @SuppressWarnings("static-access")
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
 	if (!Config.ALT_PRIVILEGES_ADMIN)
 	{

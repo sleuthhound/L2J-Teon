@@ -53,14 +53,12 @@ public final class ClanWarehouse extends Warehouse
 	return "0";
     }
 
-    public int getLocationId(@SuppressWarnings("unused")
-    boolean dummy)
+    public int getLocationId(boolean dummy)
     {
 	return 0;
     }
 
-    public void setLocationId(@SuppressWarnings("unused")
-    L2PcInstance dummy)
+    public void setLocationId(L2PcInstance dummy)
     {
     }
 

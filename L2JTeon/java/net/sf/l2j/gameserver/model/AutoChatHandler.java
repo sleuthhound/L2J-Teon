@@ -272,6 +272,7 @@ public class AutoChatHandler implements SpawnListener
 	private boolean _globalChat = false;
 	private boolean _isActive;
 	private Map<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
+	@SuppressWarnings("unchecked")
 	protected ScheduledFuture _chatTask;
 
 	protected AutoChatInstance(int npcId, String[] chatTexts, long chatDelay, boolean isGlobal)

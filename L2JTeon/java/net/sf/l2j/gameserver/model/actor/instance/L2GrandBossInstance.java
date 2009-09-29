@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention; 
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill;

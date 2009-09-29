@@ -14,9 +14,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.BufferUnderflowException;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -26,8 +23,6 @@ import net.sf.l2j.gameserver.cache.ChatFilterCache;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * This class is describes Say2 packet

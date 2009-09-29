@@ -47,7 +47,6 @@ import net.sf.l2j.gameserver.serverpackets.SiegeInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.util.Broadcast;
 
 public class Siege
 {

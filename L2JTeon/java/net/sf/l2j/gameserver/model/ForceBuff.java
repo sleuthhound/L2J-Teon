@@ -33,7 +33,8 @@ public class ForceBuff
     private L2PcInstance _target;
     private L2Skill _skill;
     private L2Skill _force;
-    private Future _task;
+    @SuppressWarnings("unchecked")
+	private Future _task;
     private boolean _applied;
 
     public L2PcInstance getCaster()
@@ -56,7 +57,8 @@ public class ForceBuff
 	return _force;
     }
 
-    protected void setTask(Future task)
+    @SuppressWarnings("unchecked")
+	protected void setTask(Future task)
     {
 	_task = task;
     }

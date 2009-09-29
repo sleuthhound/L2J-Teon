@@ -1475,7 +1475,8 @@ public class FortSiege
      * Spawn siege guard.<BR>
      * <BR>
      */
-    private void spawnSiegeGuard()
+    @SuppressWarnings("unused")
+	private void spawnSiegeGuard()
     {
 	getSiegeGuardManager().spawnSiegeGuard();
 	// Register guard to the closest Control Tower

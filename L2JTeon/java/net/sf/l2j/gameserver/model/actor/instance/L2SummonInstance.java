@@ -45,7 +45,8 @@ public class L2SummonInstance extends L2Summon
     private int _nextItemConsumeTime;
     public int lastShowntimeRemaining;  // Following FbiAgent's example to avoid sending useless packets
 
-    private Future _summonLifeTask;
+    @SuppressWarnings("unchecked")
+	private Future _summonLifeTask;
 
     public L2SummonInstance(int objectId, L2NpcTemplate template, L2PcInstance owner, L2Skill skill)
     {

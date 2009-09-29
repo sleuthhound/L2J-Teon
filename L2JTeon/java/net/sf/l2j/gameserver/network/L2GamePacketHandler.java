@@ -19,9 +19,8 @@ import java.util.Map;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.clientpackets.*;
+import net.sf.l2j.gameserver.clientpackets.L2GameClientPacket;
 import net.sf.l2j.gameserver.network.L2GameClient.ClientState;
 import net.sf.l2j.util.Util;
 

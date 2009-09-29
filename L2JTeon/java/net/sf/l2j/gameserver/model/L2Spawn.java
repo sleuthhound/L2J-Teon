@@ -25,8 +25,6 @@ import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.quest.Quest;
-import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.util.Rnd;
@@ -86,7 +84,8 @@ public class L2Spawn
     /** Maximum delay RaidBoss */
     private int _respawnMaxDelay;
     /** The generic constructor of L2NpcInstance managed by this L2Spawn */
-    private Constructor _constructor;
+    @SuppressWarnings("unchecked")
+	private Constructor _constructor;
     /** If true a L2NpcInstance is respawned each time that another is killed */
     // [L2J_JP DELETE]private boolean _doRespawn;
     protected boolean _doRespawn;
@@ -164,7 +163,8 @@ public class L2Spawn
      *                The L2NpcTemplate to link to this L2Spawn
      * 
      */
-    public L2Spawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException, NoSuchMethodException
+    @SuppressWarnings("unchecked")
+	public L2Spawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException, NoSuchMethodException
     {
 	// Set the _template of the L2Spawn
 	_template = mobTemplate;

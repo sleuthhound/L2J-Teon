@@ -49,7 +49,8 @@ public class Blow implements ISkillHandler
     public final static int SIDE = Config.SIDE_BLOW_SUCCESS;
     public final static int BACK = Config.BACK_BLOW_SUCCESS;
 
-    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+    @SuppressWarnings("static-access")
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
     {
 	if (activeChar.isAlikeDead())
 	{

@@ -72,7 +72,8 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 	player.sendPacket(new ActionFailed());
     }
 
-    private ScheduledFuture _aiTask;
+    @SuppressWarnings("unchecked")
+	private ScheduledFuture _aiTask;
 
     private class CabalaAI implements Runnable
     {

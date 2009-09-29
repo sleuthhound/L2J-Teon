@@ -38,7 +38,8 @@ public class AdminMammon implements IAdminCommandHandler
     private static final int REQUIRED_LEVEL = Config.GM_MENU;
     private boolean _isSealValidation = SevenSigns.getInstance().isSealValidationPeriod();
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
+    @SuppressWarnings("deprecation")
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
 	if (!Config.ALT_PRIVILEGES_ADMIN)
 	    if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))

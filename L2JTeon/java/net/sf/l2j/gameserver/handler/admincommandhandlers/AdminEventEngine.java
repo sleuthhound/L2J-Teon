@@ -420,7 +420,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	activeChar.sendPacket(adminReply);
     }
 
-    String getMaxLeveledPlayer()
+    @SuppressWarnings("unchecked")
+	String getMaxLeveledPlayer()
     {
 	Iterator it = L2Event.participatingPlayers.iterator();
 	L2PcInstance pc = null;
@@ -474,7 +475,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
     }
 
-    void teleportTeam(L2PcInstance activeChar, int team)
+    @SuppressWarnings("unchecked")
+	void teleportTeam(L2PcInstance activeChar, int team)
     {
 	LinkedList linked = L2Event.players.get(team);
 	Iterator it = linked.iterator();
@@ -491,7 +493,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
     }
 
-    void sitTeam(int team)
+    @SuppressWarnings("unchecked")
+	void sitTeam(int team)
     {
 	LinkedList linked = L2Event.players.get(team);
 	Iterator it = linked.iterator();
@@ -511,7 +514,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
     }
 
-    void killTeam(L2PcInstance activeChar, int team)
+    @SuppressWarnings("unchecked")
+	void killTeam(L2PcInstance activeChar, int team)
     {
 	LinkedList linked = L2Event.players.get(team);
 	Iterator it = linked.iterator();
@@ -527,7 +531,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
     }
 
-    void resTeam(int team)
+    @SuppressWarnings("unchecked")
+	void resTeam(int team)
     {
 	LinkedList linked = L2Event.players.get(team);
 	Iterator it = linked.iterator();
@@ -550,7 +555,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
     }
 
-    void polyTeam(int team, String id)
+    @SuppressWarnings("unchecked")
+	void polyTeam(int team, String id)
     {
 	LinkedList linked = L2Event.players.get(team);
 	Iterator it = linked.iterator();
@@ -571,7 +577,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
     }
 
-    void unpolyTeam(int team)
+    @SuppressWarnings("unchecked")
+	void unpolyTeam(int team)
     {
 	LinkedList linked = L2Event.players.get(team);
 	Iterator it = linked.iterator();
@@ -606,7 +613,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	player.sendPacket(adminReply);
     }
 
-    void regardTeam(L2PcInstance activeChar, int team, int n, int id, String type)
+    @SuppressWarnings("unchecked")
+	void regardTeam(L2PcInstance activeChar, int team, int n, int id, String type)
     {
 	LinkedList linked = L2Event.players.get(team);
 	int temp = n;
@@ -629,7 +637,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 	}
     }
 
-    void telePlayersBack(int team)
+    @SuppressWarnings("unchecked")
+	void telePlayersBack(int team)
     {
 	resTeam(team);
 	unpolyTeam(team);

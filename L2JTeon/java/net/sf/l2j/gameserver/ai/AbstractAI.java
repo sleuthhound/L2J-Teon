@@ -109,7 +109,8 @@ abstract class AbstractAI implements Ctrl
     L2Skill _skill;
     /** Diferent internal state flags */
     private int _moveToPawnTimeout;
-    protected Future _followTask = null;
+    @SuppressWarnings("unchecked")
+	protected Future _followTask = null;
     private static final int FOLLOW_INTERVAL = 1000;
     private static final int ATTACK_FOLLOW_INTERVAL = 500;
 

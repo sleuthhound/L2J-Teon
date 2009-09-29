@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ServerClose;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -503,25 +502,6 @@ public class Shutdown extends Thread
 	    Thread.sleep(5000);
 	} catch (InterruptedException e)
 	{ /* never happens :p */
-	}
-    }
-
-    /**
-     * inform all chars about procedure by sending sys message (1)
-     * 
-     */
-    private void informAllCharacters(int seconds)
-    {
-	for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-	{
-	    try
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS);
-		sm.addNumber(seconds);
-		player.sendPacket(sm);
-	    } catch (Throwable t)
-	    { /* ignore all */
-	    }
 	}
     }
 

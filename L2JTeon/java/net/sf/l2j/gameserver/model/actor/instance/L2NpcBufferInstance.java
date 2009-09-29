@@ -46,6 +46,7 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		private Vector<L2PcInstance> _playerInstances = new Vector<L2PcInstance>();
 		private Vector<Integer> _skillIds = new Vector<Integer>();
 		private Vector<Integer> _skillLevels = new Vector<Integer>();
+		@SuppressWarnings("unchecked")
 		private ScheduledFuture _task = null;
 
 		public BuffTask(L2NpcBufferInstance me)

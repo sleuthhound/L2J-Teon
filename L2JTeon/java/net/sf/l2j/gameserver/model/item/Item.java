@@ -24,7 +24,6 @@
  */
 package net.sf.l2j.gameserver.model.item;
 
-import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.StatsSet;
 

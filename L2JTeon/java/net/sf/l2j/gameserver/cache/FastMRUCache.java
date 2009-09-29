@@ -19,10 +19,7 @@ import javolution.util.FastCollection;
 import javolution.util.FastComparator;
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.L2DatabaseFactory;
 
-;
 /**
  * @author Layane
  * 

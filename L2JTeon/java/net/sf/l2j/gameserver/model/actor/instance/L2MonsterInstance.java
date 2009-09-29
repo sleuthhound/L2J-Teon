@@ -40,7 +40,7 @@ public class L2MonsterInstance extends L2Attackable
     // private static Logger _log =
     // Logger.getLogger(L2MonsterInstance.class.getName());
     protected final MinionList _minionList;
-    @SuppressWarnings( { "unused", "unchecked" })
+    @SuppressWarnings( { "unchecked" })
     protected ScheduledFuture _minionMaintainTask = null;
     private static final int MONSTER_MAINTENANCE_INTERVAL = 1000;
 

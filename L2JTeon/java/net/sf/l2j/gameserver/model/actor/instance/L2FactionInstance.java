@@ -235,8 +235,10 @@ public class L2FactionInstance extends L2FolkInstance
 		    player.sendPacket(new ActionFailed());
 		} else
 		{
-		    int getnoobs = L2World.getInstance().getAllnoobPlayers().size();
-		    int getkoofs = L2World.getInstance().getAllkoofPlayers().size();
+		    @SuppressWarnings("unused")
+			int getnoobs = L2World.getInstance().getAllnoobPlayers().size();
+		    @SuppressWarnings("unused")
+			int getkoofs = L2World.getInstance().getAllkoofPlayers().size();
 		    //if (getnoobs > getkoofs)
 		    {
 			//player.sendMessage("It is more " + Config.NOOB_NAME_TEAM + " members online.");

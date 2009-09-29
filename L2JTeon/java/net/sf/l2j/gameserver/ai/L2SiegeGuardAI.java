@@ -45,7 +45,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
     //protected static final Logger _log = Logger.getLogger(L2SiegeGuardAI.class.getName());
     private static final int MAX_ATTACK_TIMEOUT = 300; // int ticks, i.e. 30 seconds
     /** The L2Attackable AI task executed every 1s (call onEvtThink method)*/
-    private Future _aiTask;
+    @SuppressWarnings("unchecked")
+	private Future _aiTask;
     /** The delay after wich the attacked is stopped */
     private int _attackTimeout;
     /** The L2Attackable aggro counter */
