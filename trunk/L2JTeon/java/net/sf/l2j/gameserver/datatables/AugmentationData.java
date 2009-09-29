@@ -67,8 +67,6 @@ public class AugmentationData
 	private static final int STAT_SUBBLOCKSIZE = 91;
 	//private static final int STAT_NUMBEROF_SUBBLOCKS = 40;
 
-	// skills
-	private static final int BLUE_START = 14561;
 	private static final int PURPLE_START = 14578;
 	private static final int RED_START = 14685;
 
@@ -78,6 +76,7 @@ public class AugmentationData
 	private static final int BASESTAT_INT = 16343;
 	private static final int BASESTAT_MEN = 16344;
 
+	@SuppressWarnings("unchecked")
 	private FastList _augmentationStats[];
 	private FastList<augmentationSkill> _blueSkills;
 	private FastList<augmentationSkill> _purpleSkills;

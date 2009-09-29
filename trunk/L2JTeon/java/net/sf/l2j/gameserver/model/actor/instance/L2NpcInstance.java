@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.datatables.HelperBuffTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
@@ -45,7 +44,6 @@ import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -62,7 +60,6 @@ import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Fort;
-import net.sf.l2j.gameserver.model.entity.GmAudit;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
@@ -87,7 +84,6 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.skills.Stats;
-import net.sf.l2j.gameserver.skills.effects.*;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.templates.L2HelperBuff;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -547,8 +543,7 @@ public class L2NpcInstance extends L2Character
      * <BR>
      */
     @Override
-    public boolean isAutoAttackable(@SuppressWarnings("unused")
-    L2Character attacker)
+    public boolean isAutoAttackable(L2Character attacker)
     {
 	return false;
     }
@@ -845,7 +840,8 @@ public class L2NpcInstance extends L2Character
      *                and click on the L2NpcInstance
      *
      */
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public void onActionShift(L2GameClient client)
     {
 	// Get the L2PcInstance corresponding to the thread

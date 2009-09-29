@@ -300,8 +300,7 @@ public class Universe implements java.io.Serializable
 	 * 
 	 * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
 	 */
-	public boolean accept(@SuppressWarnings("unused")
-	File arg0, String name)
+	public boolean accept(File arg0, String name)
 	{
 	    return name.startsWith("universe") && name.endsWith("." + _ext);
 	}

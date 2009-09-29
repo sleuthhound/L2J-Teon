@@ -14,22 +14,22 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
-import java.util.Properties;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.LineNumberReader;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Iterator;
-import java.io.LineNumberReader;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.File;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BuffInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -38,7 +38,8 @@ public class Npcbuffer
     public class BuffGroup
     {
 
-        public void addSkill(int t, int f)
+        @SuppressWarnings("unchecked")
+		public void addSkill(int t, int f)
         {
             entries.add(new int[] {
                 t, f
@@ -54,9 +55,11 @@ public class Npcbuffer
         public int nId;
         public int itemId;
         public int itemCount;
-        public List entries;
+        @SuppressWarnings("unchecked")
+		public List entries;
 
-        public BuffGroup(int id)
+        @SuppressWarnings("unchecked")
+		public BuffGroup(int id)
         {
             nId = id;
             entries = new FastList();
@@ -76,7 +79,8 @@ public class Npcbuffer
         return i;
     }
 
-    public static Map buffs()
+    @SuppressWarnings("unchecked")
+	public static Map buffs()
     {
         return buffs;
     }
@@ -127,7 +131,8 @@ public class Npcbuffer
         jj.showChatWnd(client, after);
     }
 
-    public void useBuff(L2BuffInstance jj, L2PcInstance client, String st, String after)
+    @SuppressWarnings("unchecked")
+	public void useBuff(L2BuffInstance jj, L2PcInstance client, String st, String after)
     {
         if(!bInitialized)
         {
@@ -185,7 +190,8 @@ public class Npcbuffer
 
     }
 
-    private void loadBuffs()
+    @SuppressWarnings("unchecked")
+	private void loadBuffs()
     {
         LineNumberReader lnr;
         BuffGroup buffGroup;
@@ -261,8 +267,10 @@ public class Npcbuffer
         return;
     }
 
-    private static Map buffs;
-    private Map buffs_mul;
+    @SuppressWarnings("unchecked")
+	private static Map buffs;
+    @SuppressWarnings("unchecked")
+	private Map buffs_mul;
     private int mp_restore;
     private int cp_restore;
     private int hp_restore;

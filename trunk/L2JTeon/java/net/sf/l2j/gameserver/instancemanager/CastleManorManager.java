@@ -59,9 +59,12 @@ public class CastleManorManager
     private Calendar _periodApprove;
     private boolean _underMaintenance;
     private boolean _disabled;
-    protected ScheduledFuture _scheduledManorRefresh;
-    protected ScheduledFuture _scheduledMaintenanceEnd;
-    protected ScheduledFuture _scheduledNextPeriodapprove;
+    @SuppressWarnings("unchecked")
+	protected ScheduledFuture _scheduledManorRefresh;
+    @SuppressWarnings("unchecked")
+	protected ScheduledFuture _scheduledMaintenanceEnd;
+    @SuppressWarnings("unchecked")
+	protected ScheduledFuture _scheduledNextPeriodapprove;
 
     public static final CastleManorManager getInstance()
     {

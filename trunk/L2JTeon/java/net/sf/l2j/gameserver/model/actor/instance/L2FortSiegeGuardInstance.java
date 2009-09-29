@@ -40,8 +40,7 @@ import net.sf.l2j.util.Rnd;
  */
 public final class L2FortSiegeGuardInstance extends L2Attackable
 {
-    @SuppressWarnings("hiding")
-	private static Logger _log = Logger.getLogger(L2GuardInstance.class.getName());
+    private static Logger _log = Logger.getLogger(L2GuardInstance.class.getName());
 
     private int _homeX;
     private int _homeY;

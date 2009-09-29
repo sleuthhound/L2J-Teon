@@ -50,7 +50,8 @@ public class CursedWeapon
     private int _stageKills;
     private boolean _isDropped = false;
     private boolean _isActivated = false;
-    private ScheduledFuture _removeTask;
+    @SuppressWarnings("unchecked")
+	private ScheduledFuture _removeTask;
     private int _nbKills = 0;
     private long _endTime = 0;
     private int _playerId = 0;

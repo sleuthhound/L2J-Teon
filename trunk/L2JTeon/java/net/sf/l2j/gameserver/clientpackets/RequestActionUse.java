@@ -59,7 +59,8 @@ public final class RequestActionUse extends L2GameClientPacket
 	_shiftPressed = readC() == 1;
     }
 
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     protected void runImpl()
     {
 	L2PcInstance activeChar = getClient().getActiveChar();

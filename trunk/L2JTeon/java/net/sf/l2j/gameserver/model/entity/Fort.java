@@ -21,30 +21,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.GameServer;
-import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.entity.FortUpdater;
 import net.sf.l2j.gameserver.model.zone.type.L2FortZone;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * @author Vice [L2JOneo]
@@ -59,7 +51,8 @@ public class Fort
     private List<String> _doorDefault = new FastList<String>();
     private String _name = "";
     private int _ownerId = 0;
-    private int _lease;
+    @SuppressWarnings("unused")
+	private int _lease;
     private FortSiege _siege = null;
     private Calendar _siegeDate;
     private int _siegeDayOfWeek = 7; // Default to saturday

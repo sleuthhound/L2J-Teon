@@ -115,7 +115,8 @@ public final class L2ItemInstance extends L2Object
     private int _lastChange = 2; // 1 ??, 2 modified, 3 removed
     private boolean _existsInDb; // if a record exists in DB.
     private boolean _storedInDb; // if DB data is up-to-date.
-    private ScheduledFuture itemLootShedule = null;
+    @SuppressWarnings("unchecked")
+	private ScheduledFuture itemLootShedule = null;
 
     /**
      * Constructor of the L2ItemInstance from the objectId and the itemId.
@@ -452,7 +453,8 @@ public final class L2ItemInstance extends L2Object
      * 
      * @return Enum
      */
-    public Enum getItemType()
+    @SuppressWarnings("unchecked")
+	public Enum getItemType()
     {
 	return _item.getItemType();
     }
@@ -1027,8 +1029,7 @@ public final class L2ItemInstance extends L2Object
      * @return boolean false
      */
     @Override
-    public boolean isAutoAttackable(@SuppressWarnings("unused")
-    L2Character attacker)
+    public boolean isAutoAttackable(L2Character attacker)
     {
 	return false;
     }
@@ -1493,12 +1494,14 @@ public final class L2ItemInstance extends L2Object
 	itemLootShedule = null;
     }
 
-    public void setItemLootShedule(ScheduledFuture sf)
+    @SuppressWarnings("unchecked")
+	public void setItemLootShedule(ScheduledFuture sf)
     {
 	itemLootShedule = sf;
     }
 
-    public ScheduledFuture getItemLootShedule()
+    @SuppressWarnings("unchecked")
+	public ScheduledFuture getItemLootShedule()
     {
 	return itemLootShedule;
     }

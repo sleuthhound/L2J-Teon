@@ -18,8 +18,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -110,7 +108,6 @@ import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.ChainAutomation.L2JTeonEventManager;
-import net.sf.l2j.gameserver.model.item.Item;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.network.TeonPacketHandler;
 import net.sf.l2j.gameserver.network.L2GameClient;
@@ -149,7 +146,6 @@ public class GameServer
     private final DoorTable _doorTable;
     private final SevenSigns _sevenSignsEngine;
     private final AutoChatHandler _autoChatHandler;
-    private final AutoAnnouncementHandler _autoAnnouncementHandler;
     private final AutoSpawnHandler _autoSpawnHandler;
     private final LoginServerThread _loginThread;
     private final HelperBuffTable _helperBuffTable;
@@ -176,7 +172,6 @@ public class GameServer
 
     public GameServer() throws Exception
     {
-    	long serverLoadStart = System.currentTimeMillis();
     	// Prints General System Info+        
     	Util.printSection("L2JTeon-Info");
     	L2JTeon.L2JTeon();
@@ -401,7 +396,7 @@ public class GameServer
         _sevenSignsEngine.spawnSevenSignsNPC();
         _autoSpawnHandler = AutoSpawnHandler.getInstance();
         _autoChatHandler = AutoChatHandler.getInstance();
-        _autoAnnouncementHandler = AutoAnnouncementHandler.getInstance();
+        AutoAnnouncementHandler.getInstance();
         Util.printSection("Olympiad");
         Olympiad.getInstance();
         Hero.getInstance();

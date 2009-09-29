@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
@@ -30,10 +29,8 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.L2Territory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 //import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.model.entity.ClanHall;

@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.templates;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2DropCategory;
@@ -26,9 +27,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.skills.Stats;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This cl contains all generic data of a L2Spawn object.<BR><BR>

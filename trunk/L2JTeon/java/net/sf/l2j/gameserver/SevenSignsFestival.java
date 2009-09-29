@@ -238,7 +238,8 @@ public class SevenSignsFestival implements SpawnListener
     { -80153, 84947, -5183, -1, 18118 }, { -80003, 84962, -5183, -1, 18118 }, { -79848, 84962, -5183, -1, 18118 }, { -79742, 84947, -5183, -1, 18118 }, { -79668, 84772, -5183, -1, 18118 }, { -79668, 84619, -5183, -1, 18118 }, { -79772, 84471, -5183, -1, 18118 }, { -79888, 84414, -5183, -1, 18118 }, { -80023, 84414, -5183, -1, 18118 }, { -80166, 84471, -5183, -1, 18118 }, { -80253, 84600, -5183, -1, 18118 }, { -80253, 84780, -5183, -1, 18118 }, } };
     //////////////////////// \\\\\\\\\\\\\\\\\\\\\\\\\\
     protected FestivalManager _managerInstance;
-    protected ScheduledFuture _managerScheduledTask;
+    @SuppressWarnings("unchecked")
+	protected ScheduledFuture _managerScheduledTask;
     protected int _signsCycle = SevenSigns.getInstance().getCurrentCycle();
     protected int _festivalCycle;
     protected long _nextFestivalCycleStart;
@@ -383,7 +384,8 @@ public class SevenSignsFestival implements SpawnListener
      *
      * @return ScheduledFuture festManagerScheduler
      */
-    protected final ScheduledFuture getFestivalManagerSchedule()
+    @SuppressWarnings("unchecked")
+	protected final ScheduledFuture getFestivalManagerSchedule()
     {
 	if (_managerScheduledTask == null)
 	    startFestivalManager();

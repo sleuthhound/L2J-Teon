@@ -45,7 +45,8 @@ public class RaidBossSpawnManager
     protected static Map<Integer, L2RaidBossInstance> _bosses;
     protected static Map<Integer, L2Spawn> _spawns;
     protected static Map<Integer, StatsSet> _storedInfo;
-    protected static Map<Integer, ScheduledFuture> _schedules;
+    @SuppressWarnings("unchecked")
+	protected static Map<Integer, ScheduledFuture> _schedules;
 
     public static enum StatusEnum
     {
@@ -64,7 +65,8 @@ public class RaidBossSpawnManager
 	return _instance;
     }
 
-    private void init()
+    @SuppressWarnings("unchecked")
+	private void init()
     {
 	_bosses = new FastMap<Integer, L2RaidBossInstance>();
 	_schedules = new FastMap<Integer, ScheduledFuture>();
@@ -152,7 +154,8 @@ public class RaidBossSpawnManager
 	}
     }
 
-    public void updateStatus(L2RaidBossInstance boss, boolean isBossDead)
+    @SuppressWarnings("unchecked")
+	public void updateStatus(L2RaidBossInstance boss, boolean isBossDead)
     {
 	if (!_storedInfo.containsKey(boss.getNpcId()))
 	    return;
@@ -189,7 +192,8 @@ public class RaidBossSpawnManager
 	_storedInfo.put(boss.getNpcId(), info);
     }
 
-    public void addNewSpawn(L2Spawn spawnDat, long respawnTime, double currentHP, double currentMP, boolean storeInDb)
+    @SuppressWarnings("unchecked")
+	public void addNewSpawn(L2Spawn spawnDat, long respawnTime, double currentHP, double currentMP, boolean storeInDb)
     {
 	if (spawnDat == null)
 	    return;
@@ -259,7 +263,8 @@ public class RaidBossSpawnManager
 	}
     }
 
-    public void deleteSpawn(L2Spawn spawnDat, boolean updateDb)
+    @SuppressWarnings("unchecked")
+	public void deleteSpawn(L2Spawn spawnDat, boolean updateDb)
     {
 	if (spawnDat == null)
 	    return;
@@ -433,7 +438,8 @@ public class RaidBossSpawnManager
      * Saves all raidboss status and then clears all info from memory,
      * including all schedules.
      */
-    public void cleanUp()
+    @SuppressWarnings("unchecked")
+	public void cleanUp()
     {
 	updateDb();
 	_bosses.clear();

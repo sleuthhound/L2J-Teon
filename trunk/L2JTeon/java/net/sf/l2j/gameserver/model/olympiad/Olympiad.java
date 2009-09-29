@@ -32,13 +32,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.GameServer;
-import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -120,11 +119,17 @@ public class Olympiad
     protected static boolean _isOlympiadEnd;
     protected static boolean _compStarted;
     protected static boolean _battleStarted;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _scheduledCompStart;
-    protected ScheduledFuture _scheduledCompEnd;
+    @SuppressWarnings("unchecked")
+	protected ScheduledFuture _scheduledCompEnd;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _scheduledOlympiadEnd;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _scheduledManagerTask;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _scheduledWeeklyTask;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _scheduledValdationTask;
     protected static final int[][] STADIUMS = { { -20814, -21189, -3030 }, { -120324, -225077, -3331 }, { -102495, -209023, -3331 }, { -120156, -207378, -3331 }, { -87628, -225021, -3331 }, { -81705, -213209, -3331 }, { -87593, -207339, -3331 }, { -93709, -218304, -3331 }, { -77157, -218608, -3331 }, { -69682, -209027, -3331 }, { -76887, -201256, -3331 }, { -109985, -218701, -3331 }, { -126367, -218228, -3331 }, { -109629, -201292, -3331 }, { -87523, -240169, -3331 }, { -81748, -245950, -3331 }, { -77123, -251473, -3331 }, { -69778, -241801, -3331 }, { -76754, -234014, -3331 }, { -93742, -251032, -3331 }, { -87466, -257752, -3331 }, { -114413, -213241, -3331 } };
 

@@ -129,7 +129,8 @@ public abstract class FloodProtectedListener extends Thread
 
     public abstract void addClient(Socket s);
 
-    public void removeFloodProtection(String ip)
+    @SuppressWarnings("null")
+	public void removeFloodProtection(String ip)
     {
 	if (!Config.FLOOD_PROTECTION)
 	    return;

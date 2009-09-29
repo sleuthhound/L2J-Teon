@@ -18,7 +18,6 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.network.L2GameClient;
@@ -154,7 +153,8 @@ public class L2BuffInstance extends L2NpcInstance
     {
     }
 
-    public void showChatWnd(L2PcInstance client, String id)
+    @SuppressWarnings("unchecked")
+	public void showChatWnd(L2PcInstance client, String id)
     {
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         html.setFile((new StringBuilder("data/html/maxi/buffer/").append(id.equals("-1") ? "main" : (new StringBuilder("main-")).append(id).toString()).append(".htm").toString()));

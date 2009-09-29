@@ -15,8 +15,6 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import javolution.text.TextBuilder;

@@ -37,7 +37,8 @@ public class L2Fishing implements Runnable
     private int _anim = 0;
     private int _mode = 0;
     private int _deceptiveMode = 0;
-    private Future _fishAiTask;
+    @SuppressWarnings("unchecked")
+	private Future _fishAiTask;
     private boolean _thinking;
     // Fish datas
     private int _fishId;

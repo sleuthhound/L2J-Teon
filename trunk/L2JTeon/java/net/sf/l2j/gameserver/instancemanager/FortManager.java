@@ -19,7 +19,6 @@ import java.sql.ResultSet;
 import java.util.List;
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Fort;

@@ -24,8 +24,7 @@ import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.instancemanager.CoupleManager;;
-import net.sf.l2j.gameserver.model.L2Skill.SkillOpType;
+import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -2215,8 +2214,7 @@ public abstract class L2Skill
 	}
     }
 
-    public final Func[] getStatFuncs(@SuppressWarnings("unused")
-    L2Effect effect, L2Character player)
+    public final Func[] getStatFuncs(L2Effect effect, L2Character player)
     {
 	if (!(player instanceof L2PcInstance) && !(player instanceof L2Attackable) && !(player instanceof L2Summon))
 	{

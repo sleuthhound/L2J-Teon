@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.handler;
 
 import java.util.logging.Logger;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.*;
 import net.sf.l2j.gameserver.handler.chathandlers.*;
 import net.sf.l2j.gameserver.handler.itemhandlers.*;

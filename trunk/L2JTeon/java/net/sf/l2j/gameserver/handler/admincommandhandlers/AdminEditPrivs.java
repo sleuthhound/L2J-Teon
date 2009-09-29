@@ -85,7 +85,8 @@ public class AdminEditPrivs implements IAdminCommandHandler
 	return true;
     }
 
-    private void Show_Privileges(L2PcInstance activeChar, int page)
+    @SuppressWarnings("unchecked")
+	private void Show_Privileges(L2PcInstance activeChar, int page)
     {
 	// Load the settings from file
 	Properties Settings = new Properties();

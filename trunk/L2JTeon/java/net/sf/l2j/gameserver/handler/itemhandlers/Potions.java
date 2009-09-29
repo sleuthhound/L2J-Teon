@@ -141,7 +141,8 @@ public class Potions implements IItemHandler
 	return true;
     }
 
-    private boolean isEffectReplaceable(L2PlayableInstance playable, Enum effectType, int itemId)
+    @SuppressWarnings("unchecked")
+	private boolean isEffectReplaceable(L2PlayableInstance playable, Enum effectType, int itemId)
     {
 	L2Effect[] effects = playable.getAllEffects();
 	if (effects == null)

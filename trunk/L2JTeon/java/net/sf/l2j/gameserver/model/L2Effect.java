@@ -113,7 +113,8 @@ public abstract class L2Effect
 	}
     }
 
-    private ScheduledFuture _currentFuture;
+    @SuppressWarnings("unchecked")
+	private ScheduledFuture _currentFuture;
     private EffectTask _currentTask;
     /** The Identifier of the stack group */
     private final String _stackType;
@@ -443,7 +444,8 @@ public abstract class L2Effect
 	return funcs.toArray(new Func[funcs.size()]);
     }
 
-    public final void addIcon(MagicEffectIcons mi)
+    @SuppressWarnings("unchecked")
+	public final void addIcon(MagicEffectIcons mi)
     {
 	EffectTask task = _currentTask;
 	ScheduledFuture future = _currentFuture;
@@ -462,7 +464,8 @@ public abstract class L2Effect
 	    mi.addEffect(sk.getId(), getLevel(), (int) future.getDelay(TimeUnit.MILLISECONDS));
     }
 
-    public final void addPartySpelledIcon(PartySpelled ps)
+    @SuppressWarnings("unchecked")
+	public final void addPartySpelledIcon(PartySpelled ps)
     {
 	EffectTask task = _currentTask;
 	ScheduledFuture future = _currentFuture;
@@ -474,7 +477,8 @@ public abstract class L2Effect
 	ps.addPartySpelledEffect(sk.getId(), getLevel(), (int) future.getDelay(TimeUnit.MILLISECONDS));
     }
 
-    public final void addOlympiadSpelledIcon(ExOlympiadSpelledInfo os)
+    @SuppressWarnings("unchecked")
+	public final void addOlympiadSpelledIcon(ExOlympiadSpelledInfo os)
     {
 	EffectTask task = _currentTask;
 	ScheduledFuture future = _currentFuture;

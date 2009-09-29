@@ -43,7 +43,8 @@ public final class L2WorldRegion
     private FastList<L2WorldRegion> _surroundingRegions;
     private int _tileX, _tileY;
     private Boolean _active = false;
-    private ScheduledFuture _neighborsTask = null;
+    @SuppressWarnings("unchecked")
+	private ScheduledFuture _neighborsTask = null;
     private L2ZoneManager _zoneManager;
 
     public L2WorldRegion(int pTileX, int pTileY)

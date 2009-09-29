@@ -77,7 +77,8 @@ public class BaiumManager
 		};
     protected List<L2Spawn> _AngelSpawn1 = new FastList<L2Spawn>();
     protected List<L2Spawn> _AngelSpawn2 = new FastList<L2Spawn>();
-    protected Map<Integer,List> _AngelSpawn = new FastMap<Integer,List>();
+    @SuppressWarnings("unchecked")
+	protected Map<Integer,List> _AngelSpawn = new FastMap<Integer,List>();
     List<L2NpcInstance> _Angels = new FastList<L2NpcInstance>();
 
     // location of teleport cube.
@@ -102,19 +103,33 @@ public class BaiumManager
     protected List<L2NpcInstance> _Monsters = new FastList<L2NpcInstance>();
 
     // tasks.
-    protected ScheduledFuture _CubeSpawnTask = null;
+    @SuppressWarnings("unchecked")
+	protected ScheduledFuture _CubeSpawnTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _MonsterSpawnTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _IntervalEndTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _ActivityTimeEndTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _OnPlayersAnnihilatedTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _SocialTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _MobiliseTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _MoveAtRandomTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _SocialTask2 = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _RecallPcTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _KillPcTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _CallAngelTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _SleepCheckTask = null;
+    @SuppressWarnings("unchecked")
     protected ScheduledFuture _SpeakTask = null;
     
     // status in lair.
@@ -281,7 +296,8 @@ public class BaiumManager
 	}
     
     // Arcangel advent.
-    protected synchronized void adventArcAngel()
+    @SuppressWarnings("unchecked")
+	protected synchronized void adventArcAngel()
     {
     	int i = Rnd.get(2);
     	for(L2Spawn spawn : (FastList<L2Spawn>)_AngelSpawn.get(i))

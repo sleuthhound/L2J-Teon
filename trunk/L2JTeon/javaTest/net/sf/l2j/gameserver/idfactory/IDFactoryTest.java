@@ -27,7 +27,6 @@ package net.sf.l2j.gameserver.idfactory;
 import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
-import junit.framework.TestCase;
 import net.sf.l2j.Config;
 import net.sf.l2j.Server;
 import net.sf.l2j.Config.IdFactoryType;
@@ -78,7 +77,6 @@ public class IDFactoryTest extends TestCase
     /*
      * @see TestCase#setUp()
      */
-    @Override
     protected void setUp() throws Exception
     {
 	super.setUp();
@@ -96,7 +94,6 @@ public class IDFactoryTest extends TestCase
     /*
      * @see TestCase#tearDown()
      */
-    @Override
     protected void tearDown() throws Exception
     {
 	super.tearDown();

@@ -628,7 +628,8 @@ public class ItemTable
      *                selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the new item
      */
-    public L2ItemInstance createItem(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
+    @SuppressWarnings("unchecked")
+	public L2ItemInstance createItem(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
     {
 	// Create and Init the L2ItemInstance corresponding to the Item
 	// Identifier

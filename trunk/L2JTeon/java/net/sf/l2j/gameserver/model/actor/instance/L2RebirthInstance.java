@@ -41,7 +41,8 @@ public class L2RebirthInstance extends L2FolkInstance
 	super(objectId, template);
     }
 
-    private final static Log _log = LogFactory.getLog(L2RebirthInstance.class.getName());
+    @SuppressWarnings("unused")
+	private final static Log _log = LogFactory.getLog(L2RebirthInstance.class.getName());
 
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)

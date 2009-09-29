@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;

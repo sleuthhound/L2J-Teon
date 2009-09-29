@@ -71,10 +71,12 @@ public class AutoSpawnHandler
     private static final int DEFAULT_RESPAWN = 3600000; // 1 hour in millisecs
     private static final int DEFAULT_DESPAWN = 3600000; // 1 hour in millisecs
     protected Map<Integer, AutoSpawnInstance> _registeredSpawns;
-    protected Map<Integer, ScheduledFuture> _runningSpawns;
+    @SuppressWarnings("unchecked")
+	protected Map<Integer, ScheduledFuture> _runningSpawns;
     protected boolean _activeState = true;
 
-    private AutoSpawnHandler()
+    @SuppressWarnings("unchecked")
+	private AutoSpawnHandler()
     {
 	_registeredSpawns = new FastMap<Integer, AutoSpawnInstance>();
 	_runningSpawns = new FastMap<Integer, ScheduledFuture>();
@@ -214,7 +216,8 @@ public class AutoSpawnHandler
      *                spawnInst
      * @return boolean removedSuccessfully
      */
-    public boolean removeSpawn(AutoSpawnInstance spawnInst)
+    @SuppressWarnings("unchecked")
+	public boolean removeSpawn(AutoSpawnInstance spawnInst)
     {
 	if (!isSpawnRegistered(spawnInst))
 	    return false;
@@ -257,7 +260,8 @@ public class AutoSpawnHandler
      * @param boolean
      *                isActive
      */
-    public void setSpawnActive(AutoSpawnInstance spawnInst, boolean isActive)
+    @SuppressWarnings("unchecked")
+	public void setSpawnActive(AutoSpawnInstance spawnInst, boolean isActive)
     {
 	if (spawnInst == null)
 	    return;
