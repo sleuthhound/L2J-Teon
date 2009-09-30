@@ -1918,19 +1918,4 @@ public class Olympiad
 	    }
 	}
     }
-    
-    public static void processPlayer(L2PcInstance activeChar)  
-    {  
-    	L2PcInstance _opponent = L2World.getInstance().getPlayer(activeChar.getName());  
-    	StatsSet playerStat = _nobles.get(activeChar.getObjectId());  
-    	int playerPoints = playerStat.getInteger(POINTS);  
-    	int lostPoints = playerPoints / 3;  
-    	_nobles.remove(activeChar.getObjectId());  
-    	_nobles.put(activeChar.getObjectId(), playerStat);  
-    	playerStat.set("olympiad_points", playerPoints - lostPoints);  
-    	SystemMessage sm = new SystemMessage(SystemMessageId.C1_HAS_LOST_S2_OLYMPIAD_POINTS);  
-    	sm.addString(activeChar.getName());  
-    	sm.addNumber(lostPoints);  
-    	_opponent.sendPacket(sm);  
-    }
 }
