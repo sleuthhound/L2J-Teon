@@ -2988,9 +2988,6 @@ public final class Config
 		CHAT_FILTER_PUNISHMENT = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishment", "1"));
 		CHAT_FILTER_PUNISHMENT_TIME = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishmentTime", "5"));
 		CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "False"));
-
-		CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "false"));
-		
 		ALLOWED_SKILLS = L2JTeonCustom.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
 		ALLOWED_SKILLS_LIST = new FastList<Integer>();
 		for (String id : ALLOWED_SKILLS.trim().split(","))
