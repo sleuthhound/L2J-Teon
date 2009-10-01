@@ -1297,6 +1297,9 @@ public final class Config
     public static int CHAT_FILTER_PUNISHMENT_TIME;
     /** Check players for illegitimate skills on player entering the server. */
     public static boolean CHECK_SKILLS_ON_ENTER;
+    /** Code implementation by: Meyknho */
+	public static String			ALLOWED_SKILLS; // List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
+	public static FastList<Integer>	ALLOWED_SKILLS_LIST	= new FastList<Integer>();
     /**
      * Allows the Administrator/Owner the ability to change the default coordinates of ALL characters making them all at the same spawn point.
      */
@@ -2985,6 +2988,15 @@ public final class Config
 		CHAT_FILTER_PUNISHMENT = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishment", "1"));
 		CHAT_FILTER_PUNISHMENT_TIME = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishmentTime", "5"));
 		CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "False"));
+
+		CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "false"));
+		
+		ALLOWED_SKILLS = L2JTeonCustom.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
+		ALLOWED_SKILLS_LIST = new FastList<Integer>();
+		for (String id : ALLOWED_SKILLS.trim().split(","))
+		{
+			ALLOWED_SKILLS_LIST.add(Integer.parseInt(id.trim()));
+		}
 		SPAWN_CHAR = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomSpawn", "False"));
 		SPAWN_X = Integer.parseInt(L2JTeonCustom.getProperty("SpawnX", ""));
 		SPAWN_Y = Integer.parseInt(L2JTeonCustom.getProperty("SpawnY", ""));

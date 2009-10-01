@@ -12809,6 +12809,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 		    foundskill = true;
 		}
+		// Exclude Skills from AllowedSkills in options.properties
+		if (Config.ALLOWED_SKILLS_LIST.contains(skillid))
+		{
+		    foundskill = true;
+		}
 		// remove skill and do a lil log message
 		if (!foundskill)
 		{
