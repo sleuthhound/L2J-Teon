@@ -16,9 +16,6 @@ package net.sf.l2j.gameserver.handler;
 
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
-
-import net.sf.l2j.gameserver.GameServer;
 
 /**
  * This class manages handlers of items
@@ -27,8 +24,6 @@ import net.sf.l2j.gameserver.GameServer;
  */
 public class ItemHandler
 {
-	private static final Logger _log = Logger.getLogger(GameServer.class.getName());
-
 	private Map<Integer, IItemHandler> _datatable;
 
 	/**
@@ -55,7 +50,6 @@ public class ItemHandler
 	private ItemHandler()
 	{
 		_datatable = new TreeMap<Integer, IItemHandler>();
-        _log.info("ItemHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	/**
