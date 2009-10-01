@@ -34,6 +34,42 @@ public class Scripts
 
 	private static void loadItemHandlers()
 	{
+		ItemHandler.getInstance().registerItemHandler(new ScrollOfEscape());
+		ItemHandler.getInstance().registerItemHandler(new ScrollOfResurrection());
+		ItemHandler.getInstance().registerItemHandler(new SoulShots());
+		ItemHandler.getInstance().registerItemHandler(new SpiritShot());
+		ItemHandler.getInstance().registerItemHandler(new BlessedSpiritShot());
+		ItemHandler.getInstance().registerItemHandler(new BeastSoulShot());
+		ItemHandler.getInstance().registerItemHandler(new BeastSpiritShot());
+		ItemHandler.getInstance().registerItemHandler(new ChestKey());
+		ItemHandler.getInstance().registerItemHandler(new PaganKeys());
+		ItemHandler.getInstance().registerItemHandler(new Maps());
+		ItemHandler.getInstance().registerItemHandler(new Potions());
+		ItemHandler.getInstance().registerItemHandler(new Recipes());
+		ItemHandler.getInstance().registerItemHandler(new RollingDice());
+		ItemHandler.getInstance().registerItemHandler(new MysteryPotion());
+		ItemHandler.getInstance().registerItemHandler(new EnchantScrolls());
+		ItemHandler.getInstance().registerItemHandler(new EnergyStone());
+		ItemHandler.getInstance().registerItemHandler(new Book());
+		ItemHandler.getInstance().registerItemHandler(new Remedy());
+		ItemHandler.getInstance().registerItemHandler(new Scrolls());
+		ItemHandler.getInstance().registerItemHandler(new CrystalCarol());
+		ItemHandler.getInstance().registerItemHandler(new DonatorItems());
+		ItemHandler.getInstance().registerItemHandler(new SoulCrystals());
+		ItemHandler.getInstance().registerItemHandler(new SevenSignsRecord());
+		ItemHandler.getInstance().registerItemHandler(new CharChangePotions());
+		ItemHandler.getInstance().registerItemHandler(new Firework());
+		ItemHandler.getInstance().registerItemHandler(new Seed());
+		ItemHandler.getInstance().registerItemHandler(new Harvester());
+		ItemHandler.getInstance().registerItemHandler(new HeroCustomItem());
+		ItemHandler.getInstance().registerItemHandler(new MercTicket());
+		ItemHandler.getInstance().registerItemHandler(new FishShots());
+		ItemHandler.getInstance().registerItemHandler(new JackpotSeed());
+		ItemHandler.getInstance().registerItemHandler(new ExtractableItems());
+		ItemHandler.getInstance().registerItemHandler(new SpecialXMas());
+		ItemHandler.getInstance().registerItemHandler(new SplendorKeys());
+		ItemHandler.getInstance().registerItemHandler(new SummonItems());
+		ItemHandler.getInstance().registerItemHandler(new BeastSpice());
 		ItemHandler.getInstance().registerItemHandler(new PrimevalPotions());
 		ItemHandler.getInstance().registerItemHandler(new ScrollsValakas());
 		_log.config("Loaded " + ItemHandler.getInstance().size() + " ItemHandlers");
