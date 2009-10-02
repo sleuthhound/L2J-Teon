@@ -271,6 +271,9 @@ public final class Config
     public static int UNKNOWN_PACKET_DELAY; 
     public static int SUBCLASS_DELAY;
     public static int MULTISELL_DELAY;
+    public static int BANKING_DELAY;
+    public static int BYPASS_DELAY;
+
     /** The End FloodProtector.properties */ 
     
     /** Start GMAcess.properties */
@@ -1897,7 +1900,9 @@ public final class Config
 			HEROVOICE_DELAY = Integer.parseInt(FloodProtector.getProperty("HeroChatDelay", "100")); 
 			UNKNOWN_PACKET_DELAY = Integer.parseInt(FloodProtector.getProperty("UnknownPacketDelay", "15")); 
 			SUBCLASS_DELAY = Integer.parseInt(FloodProtector.getProperty("SubClassDelay", "100"));
-            MULTISELL_DELAY = Integer.parseInt(FloodProtector.getProperty("MultisellDelay", "100"));  
+            MULTISELL_DELAY = Integer.parseInt(FloodProtector.getProperty("MultisellDelay", "100"));
+            BANKING_DELAY = Integer.parseInt(FloodProtector.getProperty("BankingDelay", "100"));  
+            BYPASS_DELAY = Integer.parseInt(FloodProtector.getProperty("ByPassDelay", "4"));  
 		}  
 		catch (Exception e) 
 		{ 
