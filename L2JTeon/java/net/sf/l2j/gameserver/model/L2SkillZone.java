@@ -20,8 +20,8 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Just a quick scratch
@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 
 public class L2SkillZone
 {
-	//private static final Log _log = LogFactory.getLog(L2SkillZone.class.getName());
+	private static final Log _log = LogFactory.getLog(L2SkillZone.class.getName());
 	
 	private final L2PcInstance _caster;
 	private final L2WorldRegion _region;

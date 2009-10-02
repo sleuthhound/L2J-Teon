@@ -44,12 +44,14 @@ public class BlockList
 {
     private static final Logger _log = Logger.getLogger(BlockList.class.getName());
     private final Set<String> _blockSet;
+    private boolean _blockAll; 
     private L2PcInstance _owner;
 
     public BlockList(L2PcInstance owner)
     {
 	_owner = owner;
 	_blockSet = new FastSet<String>();
+    _blockAll = false; 
 	restoreBlocksFromDb();
     }
 
