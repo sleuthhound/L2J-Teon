@@ -207,8 +207,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class represents all player characters in the world. There is always a
- * client-thread connected to this (except if a player-store is activated upon
- * logout).<BR>
+ * client-thread connected to this (except if a player-store is activated upon logout).<BR>
  * <BR>
  *
  * @version $Revision: 1.66.2.41.2.33 $ $Date: 2005/04/11 10:06:09 $
@@ -259,92 +258,89 @@ public final class L2PcInstance extends L2PlayableInstance
      * The table containing all minimum level needed for each Expertise
      * (None, D, C, B, A, S)
      */
-    private static final int[] EXPERTISE_LEVELS = { SkillTreeTable.getInstance().getExpertiseLevel(0), // NONE
-    SkillTreeTable.getInstance().getExpertiseLevel(1), // D
-    SkillTreeTable.getInstance().getExpertiseLevel(2), // C
-    SkillTreeTable.getInstance().getExpertiseLevel(3), // B
-    SkillTreeTable.getInstance().getExpertiseLevel(4), // A
-    SkillTreeTable.getInstance().getExpertiseLevel(5), // S
+    private static final int[] EXPERTISE_LEVELS = 
+    { 
+    	SkillTreeTable.getInstance().getExpertiseLevel(0), // NONE
+    	SkillTreeTable.getInstance().getExpertiseLevel(1), // D
+    	SkillTreeTable.getInstance().getExpertiseLevel(2), // C
+    	SkillTreeTable.getInstance().getExpertiseLevel(3), // B
+    	SkillTreeTable.getInstance().getExpertiseLevel(4), // A
+    	SkillTreeTable.getInstance().getExpertiseLevel(5), // S
     };
     private static final int[] COMMON_CRAFT_LEVELS = { 5, 20, 28, 36, 43, 49, 55, 62 };
 
-    // private static Logger _log =
-    // Logger.getLogger(L2PcInstance.class.getName());
+    // private static Logger _log = Logger.getLogger(L2PcInstance.class.getName());
     public class AIAccessor extends L2Character.AIAccessor
     {
-	protected AIAccessor()
-	{
-	}
+    	protected AIAccessor()
+    	{
+    	}
 
-	public L2PcInstance getPlayer()
-	{
-	    return L2PcInstance.this;
-	}
+    	public L2PcInstance getPlayer()
+    	{
+    		return L2PcInstance.this;
+    	}
 
-	public void doPickupItem(L2Object object)
-	{
-	    L2PcInstance.this.doPickupItem(object);
-	}
+    	public void doPickupItem(L2Object object)
+    	{
+    		L2PcInstance.this.doPickupItem(object);
+    	}
 
-	public void doInteract(L2Character target)
-	{
-	    L2PcInstance.this.doInteract(target);
-	}
+    	public void doInteract(L2Character target)
+    	{
+    		L2PcInstance.this.doInteract(target);
+    	}
 
-	@Override
-	public void doAttack(L2Character target)
-	{
-	    super.doAttack(target);
-	    // cancel the recent fake-death protection instantly if the
-	    // player
-	    // attacks or casts spells
-	    getPlayer().setRecentFakeDeath(false);
-	    for (L2CubicInstance cubic : getCubics().values())
-	    {
-		if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+		@Override
+		public void doAttack(L2Character target)
 		{
-		    cubic.doAction(target);
+			super.doAttack(target);
+			// cancel the recent fake-death protection instantly if the player attacks or casts spells
+			getPlayer().setRecentFakeDeath(false);
+			for (L2CubicInstance cubic : getCubics().values())
+			{
+				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+				{
+					cubic.doAction(target);
+				}
+			}
 		}
-	    }
-	}
-
-	@Override
-	public void doCast(L2Skill skill)
-	{
-	    // players cant cast augmentation skill manually
-	    if (skill.isAugmentationSkill())
-	    {
-		sendMessage("You can't cast augmentation skills manually. It will be used automatically.");
-		return;
-	    }
-	    //
-	    super.doCast(skill);
-	    // cancel the recent fake-death protection instantly if the
-	    // player
-	    // attacks or casts spells
-	    getPlayer().setRecentFakeDeath(false);
-	    if (skill == null)
-	    {
-		return;
-	    }
-	    if (!skill.isOffensive())
-	    {
-		return;
-	    }
-	    L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
-	    // the code doesn't now support multiple targets
-	    if ((mainTarget == null) || !(mainTarget instanceof L2Character))
-	    {
-		return;
-	    }
-	    for (L2CubicInstance cubic : getCubics().values())
-	    {
-		if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+		
+		@Override
+		public void doCast(L2Skill skill)
 		{
-		    cubic.doAction((L2Character) mainTarget);
+			// players cant cast augmentation skill manually
+			if (skill.isAugmentationSkill())
+			{
+				sendMessage("You can't cast augmentation skills manually. It will be used automatically.");
+				return;
+			}
+			
+			super.doCast(skill);
+			// cancel the recent fake-death protection instantly if the player attacks or casts spells
+			getPlayer().setRecentFakeDeath(false);
+			if (skill == null)
+			{
+				return;
+			}
+			if (!skill.isOffensive())
+			{
+				return;
+			}
+			L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
+			// the code doesn't now support multiple targets
+			if ((mainTarget == null) || !(mainTarget instanceof L2Character))
+			{
+				return;
+			}
+			for (L2CubicInstance cubic : getCubics().values())
+			{
+				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+				{
+					cubic.doAction((L2Character) mainTarget);
+				}
+			}
 		}
-	    }
-	}
     }
 
     /*
@@ -355,18 +351,18 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public void startForceBuff(L2Character target, L2Skill skill)
     {
-	if (!(target instanceof L2PcInstance))
-	{
-	    return;
-	}
-	if (skill.getSkillType() != SkillType.FORCE_BUFF)
-	{
-	    return;
-	}
-	if (_forceBuff == null)
-	{
-	    _forceBuff = new ForceBuff(this, (L2PcInstance) target, skill);
-	}
+    	if (!(target instanceof L2PcInstance))
+    	{
+    		return;
+    	}
+    	if (skill.getSkillType() != SkillType.FORCE_BUFF)
+    	{
+    		return;
+    	}
+    	if (_forceBuff == null)
+    	{
+    		_forceBuff = new ForceBuff(this, (L2PcInstance) target, skill);
+    	}
     }
 
     private L2GameClient _client;
