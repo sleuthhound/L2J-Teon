@@ -18,8 +18,6 @@
  */
 package scripts.admin;
 
-import java.util.StringTokenizer;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
@@ -27,8 +25,6 @@ import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManag
 import net.sf.l2j.gameserver.instancemanager.BanditStrongholdSiege;
 import net.sf.l2j.gameserver.instancemanager.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * @author Maxi

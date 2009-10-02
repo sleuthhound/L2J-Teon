@@ -97,6 +97,7 @@ public class Scripts
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminGeoEditor());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminManor());
 	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminMassRecall());
+	_log.config("Loaded " + AdminCommandHandler.getInstance().size() + " AdminCommandHandlers");
 	}
 
 	private static void loadItemHandlers()
