@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.handler;
 
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.handler.admincommandhandlers.*;
 import net.sf.l2j.gameserver.handler.chathandlers.*;
 import net.sf.l2j.gameserver.handler.skillhandlers.*;
 
@@ -27,71 +26,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.*;
 public class MasterHandler
 {
 	private static Logger _log = Logger.getLogger(MasterHandler.class.getName());
-	
-	private static void loadAdminHandlers()
-	{
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminAdmin());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminInvul());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminDelete());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminKill());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminTarget());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminShop());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminAnnouncements());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminAutoAnnouncements());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminCreateItem());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminHeal());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminHelpPage());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminShutdown());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminSpawn());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminSkill());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminExpSp());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminEventEngine());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminGmChat());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminEditChar());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminGm());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminTeleport());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminRepairChar());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminChangeAccessLevel());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminBan());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPolymorph());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminBanChat());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminKick());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminMonsterRace());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminEditNpc());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminEditPrivs());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminFightCalculator());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminMenu());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminSiege());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminFort());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminClanHallSieges());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPathNode());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPetition());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPForge());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminBBS());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminEffects());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminDoorControl());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminTest());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminEnchant());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminMobGroup());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminRes());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminMammon());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminUnblockIp());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminPledge());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminRideWyvern());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminReload());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminLogin());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminCache());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminLevel());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminQuest());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminZone());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminDonator());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminCTFEngine());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminCursedWeapons());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminGeodata());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminGeoEditor());
-	AdminCommandHandler.getInstance().registerAdminCommandHandler(new AdminManor());
-	}
-	
+
 	private static void loadChatHandlers()
 	{
 		ChatHandler.getInstance().registerChatHandler(new ChatAll());
@@ -146,7 +81,6 @@ public class MasterHandler
 	public static void load()
 	{
 		_log.config("Loading Handlers...");
-		loadAdminHandlers();
 		loadChatHandlers();
 		loadSkillHandlers();
 		_log.config("Handlers Loaded...");
