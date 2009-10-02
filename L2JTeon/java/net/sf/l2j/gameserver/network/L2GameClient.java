@@ -438,11 +438,13 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	return objectId.intValue();
     }
 
+    @Override
     protected void onForcedDisconnection()
     {
 	_log.info("Client " + toString() + " disconnected abnormally.");
     }
 
+    @Override
     protected void onDisconection()
     {
 	// no long running tasks here, do it async
