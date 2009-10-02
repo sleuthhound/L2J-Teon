@@ -22,11 +22,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author  Maxi
  * to java Kidzor
  */
-public class ancientegg extends L2AttackableAIScript
+public class AncientEGG extends L2AttackableAIScript
 {
 	private int EGG = 18344;
 
-	public ancientegg(int questId, String name, String descr)
+	public AncientEGG(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 		addAttackId(EGG);
@@ -41,6 +41,6 @@ public class ancientegg extends L2AttackableAIScript
 
 	public static void main(String[] args)
 	{
-		new ancientegg(-1, "ancientegg", "ai");
+		new AncientEGG(-1, "AncientEGG", "ai");
 	}
 }
