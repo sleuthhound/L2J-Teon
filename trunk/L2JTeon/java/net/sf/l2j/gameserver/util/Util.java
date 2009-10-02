@@ -32,6 +32,12 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
+import org.python.core.Py; 
+import org.python.core.PyModule; 
+import org.python.core.PySystemState; 
+import org.python.core.imp; 
+import org.python.util.InteractiveConsole; 
 /**
  * General Utility functions related to Gameserver
  * 
