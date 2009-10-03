@@ -31,7 +31,6 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 {
     private static final Logger _log = Logger.getLogger(L2GameClientPacket.class.getName());
 
-    protected int _opcode = 0;
     @Override
     protected boolean read()
     {
