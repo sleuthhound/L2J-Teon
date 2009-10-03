@@ -1,6 +1,6 @@
 # L2JTeon
 import sys
-from net.sf.l2j.gameserver.instancemanager import BanditStrongholdSiege
+from net.sf.l2j.gameserver.instancemanager.clanhallsiege import BanditStrongholdSiege
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
