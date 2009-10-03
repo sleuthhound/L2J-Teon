@@ -20,6 +20,7 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -52,9 +53,9 @@ public class SiegeFlag implements ISkillHandler
 	    return;
 	Castle castle = CastleManager.getInstance().getCastle(player);
 	Fort fort = FortManager.getInstance().getFort(player);
-	if ((castle == null) && (fort == null))
+	if ((castle == null) && (fort == null) && getIsInProgress())
 	    return;
-	if (castle != null)
+	if (castle != null && getIsInProgress())
 	{
 	    if (!checkIfOkToPlaceFlag(player, castle, true))
 		return;
@@ -72,7 +73,7 @@ public class SiegeFlag implements ISkillHandler
 		player.sendMessage("Error placing flag:" + e);
 	    }
 	}
-	if (fort != null)
+	if (fort != null && getIsInProgress())
 	{
 	    if (!checkIfOkToPlaceFlag(player, fort, true))
 		return;
@@ -168,4 +169,8 @@ public class SiegeFlag implements ISkillHandler
 	}
 	return false;
     }
+	public final boolean getIsInProgress()
+	{
+		return DevastatedCastleManager.getInstance().getIsInProgress();
+	}
 }

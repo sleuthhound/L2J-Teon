@@ -24,8 +24,8 @@ import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
-import net.sf.l2j.gameserver.instancemanager.BanditStrongholdSiege;
-import net.sf.l2j.gameserver.instancemanager.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 /**
@@ -68,7 +68,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 			else
-				showMessageWindow(player,0);
+				showChatWindow(player,0);
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
@@ -90,7 +90,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 			catch (NumberFormatException nfe)
 			{
 			}
-			showMessageWindow(player, val);
+			showChatWindow(player, val);
 		}
 		else if (command.startsWith("Quest"))
 		{
@@ -120,12 +120,12 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 			case 35437:
 				if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 				{
-					showMessageWindow(player,3);
+					showChatWindow(player,3);
 					return;
 				}
 				if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
 				{
-					showMessageWindow(player,1);				
+					showChatWindow(player,1);				
 					return;
 				}
 				if (BanditStrongholdSiege.getInstance().clanhall.getOwnerClan()==playerClan)
@@ -166,12 +166,12 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 			case 35627:
 				if(!WildBeastFarmSiege.getInstance().isRegistrationPeriod())
 				{
-					showMessageWindow(player,3);
+					showChatWindow(player,3);
 					return;
 				}
 				if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
 				{
-					showMessageWindow(player,1);				
+					showChatWindow(player,1);				
 					return;
 				}
 				if (WildBeastFarmSiege.getInstance().clanhall.getOwnerClan()==playerClan)
@@ -226,7 +226,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 			}
 			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showMessageWindow(player,3);
+				showChatWindow(player,3);
 				return;
 			}
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -255,7 +255,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 			}
 			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showMessageWindow(player,3);
+				showChatWindow(player,3);
 				return;
 			}
 			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
@@ -272,7 +272,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 			}
 			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showMessageWindow(player,3);
+				showChatWindow(player,3);
 				return;
 			}
 			String 	val = command.substring(10);
@@ -293,7 +293,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 			}
 			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showMessageWindow(player,3);
+				showChatWindow(player,3);
 				return;
 			}
 			String 	val = command.substring(13);
@@ -337,7 +337,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);		
 	}
-	public void showMessageWindow(L2PcInstance player, int val)
+	public void showChatWindow/*showChatWindow*/(L2PcInstance player, int val)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		long startSiege=0;
@@ -401,5 +401,10 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		html.replace("%SiegeDate%", String.valueOf(format.format(startSiege)));		
 		html.replace("%objectId%", String.valueOf(getObjectId()));		
 		player.sendPacket(html);
+	}
+
+	private boolean validateCondition(L2PcInstance player)
+	{
+		return true;
 	}
 }

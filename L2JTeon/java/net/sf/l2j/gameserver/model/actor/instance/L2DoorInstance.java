@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2DoorAI;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -301,6 +302,9 @@ public class L2DoorInstance extends L2Character
     {
         if (isUnlockable())
             return true;
+/*
+        if (DevastatedCastleManager.getInstance().getClosedDoor())
+            return true;*/
 
         // Attackable during siege by attacker only
         boolean isCastle = (getCastle() != null

@@ -37,28 +37,7 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.gameserver.model.zone.form.ZoneCuboid;
 import net.sf.l2j.gameserver.model.zone.form.ZoneCylinder;
 import net.sf.l2j.gameserver.model.zone.form.ZoneNPoly;
-import net.sf.l2j.gameserver.model.zone.type.L2ArenaZone;
-import net.sf.l2j.gameserver.model.zone.type.L2BigheadZone;
-import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
-import net.sf.l2j.gameserver.model.zone.type.L2CastleZone;
-import net.sf.l2j.gameserver.model.zone.type.L2CastleTeleportZone;
-import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
-import net.sf.l2j.gameserver.model.zone.type.L2CustomZone;
-import net.sf.l2j.gameserver.model.zone.type.L2DamageZone;
-import net.sf.l2j.gameserver.model.zone.type.L2DerbyTrackZone;
-import net.sf.l2j.gameserver.model.zone.type.L2FishingZone;
-import net.sf.l2j.gameserver.model.zone.type.L2FortZone;
-import net.sf.l2j.gameserver.model.zone.type.L2JailZone;
-import net.sf.l2j.gameserver.model.zone.type.L2MotherTreeZone;
-import net.sf.l2j.gameserver.model.zone.type.L2NoLandingZone;
-import net.sf.l2j.gameserver.model.zone.type.L2OlympiadStadiumZone;
-import net.sf.l2j.gameserver.model.zone.type.L2PeaceZone;
-import net.sf.l2j.gameserver.model.zone.type.L2PoisonZone;
-import net.sf.l2j.gameserver.model.zone.type.L2SwampZone;
-import net.sf.l2j.gameserver.model.zone.type.L2SkillZone;
-import net.sf.l2j.gameserver.model.zone.type.L2TownZone;
-import net.sf.l2j.gameserver.model.zone.type.L2WaterZone;
-import net.sf.l2j.gameserver.model.zone.type.L2ClanHallSiegeZone;
+import net.sf.l2j.gameserver.model.zone.type.*;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -157,10 +136,10 @@ public class ZoneManager
 
 							if (zoneType.equals("FishingZone"))
 								 temp = new L2FishingZone(zoneId);
-							if (zoneType.equals("ClanHallSiegeZone"))
-								 temp = new L2ClanHallSiegeZone(zoneId);
 							else if (zoneType.equals("ClanHallZone"))
 								 temp = new L2ClanHallZone(zoneId);
+							else if (zoneType.equals("PaganZone"))
+								 temp = new L2PaganZone(zoneId);
 							else if (zoneType.equals("CustomZone"))
 								 temp = new L2CustomZone(zoneId);
 							else if (zoneType.equals("PeaceZone"))
@@ -199,6 +178,8 @@ public class ZoneManager
 								temp = new L2WaterZone(zoneId);
 							else if (zoneType.equals("SkillZone"))
 								temp = new L2SkillZone(zoneId);
+							else if (zoneType.equals("ClanHallSiegeZone"))
+								 temp = new L2ClanHallSiegeZone(zoneId);
 
 
 							// Check for unknown type

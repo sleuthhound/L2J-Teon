@@ -760,18 +760,6 @@ Update npc set `type` = 'L2Npc' Where idTemplate = 13001;
 --
 -- Fortress of Resistance
 --
-
--- Correct the zone
-DELETE FROM `zone_vertices` WHERE `id`='11100';
-INSERT INTO `zone_vertices` (`id`, `order`, `x`, `y`) VALUES 
-	(11100, 0, 43648, 109416),
-	(11100, 1, 43081, 108840),
-	(11100, 2, 43658, 108274),
-	(11100, 3, 43887, 108507),
-	(11100, 4, 43642, 108749),
-	(11100, 5, 43640, 108940),
-	(11100, 6, 43882, 109186);
-
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'Partisan' WHERE `id` = '21';
 
@@ -827,32 +815,6 @@ INSERT IGNORE INTO teleport VALUES
 --
 -- Devastated Castle
 --
-
--- Correct the zone
-DELETE FROM `zone_vertices` WHERE `id`='11113';
-INSERT INTO `zone_vertices` (`id`, `order`, `x`, `y`) VALUES 
-	(11113, 0, 177212, -16508),
-	(11113, 1, 177128, -16712),
-	(11113, 2, 177127, -17867),
-	(11113, 3, 177502, -18854),
-	(11113, 4, 178338, -18921),
-	(11113, 5, 178560, -19061),
-	(11113, 6, 179642, -19063),
-	(11113, 7, 179778, -18766),
-	(11113, 8, 179780, -15346),
-	(11113, 9, 179698, -15177),
-	(11113, 10, 179355, -14604),
-	(11113, 11, 179027, -14623),
-	(11113, 12, 178949, -14665),
-	(11113, 13, 178763, -14995),
-	(11113, 14, 178465, -15039),
-	(11113, 15, 178213, -15040),
-	(11113, 16, 177875, -15015),
-	(11113, 17, 177625, -14601),
-	(11113, 18, 177322, -14601),
-	(11113, 19, 176888, -15331),
-	(11113, 20, 176888, -16422);
-
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'Devastated' WHERE `id` = '34';
 
@@ -878,40 +840,6 @@ INSERT IGNORE INTO teleport VALUES
 --
 -- Bandit Stronghold
 --
-
--- Correct the zone
-DELETE FROM `zone_vertices` WHERE `id`='11114';
-INSERT INTO `zone_vertices` (`id`, `order`, `x`, `y`) VALUES 
-	(11114, 0, 79854, -16869),
-	(11114, 1, 80531, -17189),
-	(11114, 2, 81166, -17194),
-	(11114, 3, 81458, -17324),
-	(11114, 4, 81834, -17750),
-	(11114, 5, 83222, -18068),
-	(11114, 6, 83518, -18117),
-	(11114, 7, 84091, -18243),
-	(11114, 8, 84795, -18174),
-	(11114, 9, 84940, -18365),
-	(11114, 10, 85134, -18437),
-	(11114, 11, 85214, -18436),
-	(11114, 12, 85601, -18122),
-	(11114, 13, 85648, -18080),
-	(11114, 14, 85571, -17871),
-	(11114, 15, 85433, -17683),
-	(11114, 16, 85686, -17177),
-	(11114, 17, 85627, -16086),
-	(11114, 18, 85285, -15722),
-	(11114, 19, 85053, -15521),
-	(11114, 20, 83779, -14815),
-	(11114, 21, 83487, -14661),
-	(11114, 22, 81961, -14463),
-	(11114, 23, 81646, -14411),
-	(11114, 24, 80781, -14395),
-	(11114, 25, 79911, -14638),
-	(11114, 26, 79463, -14995),
-	(11114, 27, 79442, -15877),
-	(11114, 28, 79799, -16195);
-
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'Bandit' WHERE `id` = '35';
 
@@ -997,37 +925,6 @@ INSERT IGNORE INTO teleport VALUES
 --
 -- Rainbow Springs Chateau
 --
-
--- Correct the zone
-DELETE FROM `zone_vertices` WHERE `id`='11141';
-INSERT INTO `zone_vertices` (`id`, `order`, `x`, `y`) VALUES 
-	(11141, 0, 141418, -124505),
-	(11141, 1, 140939, -124184),
-	(11141, 2, 140730, -124031),
-	(11141, 3, 140683, -123780),
-	(11141, 4, 140608, -123774),
-	(11141, 5, 139761, -123212),
-	(11141, 6, 139692, -123232),
-	(11141, 7, 138958, -124326),
-	(11141, 8, 138963, -124390),
-	(11141, 9, 139944, -125040),
-	(11141, 10, 140099, -125045),
-	(11141, 11, 140345, -124698),
-	(11141, 12, 140443, -124758),
-	(11141, 13, 140589, -124706),
-	(11141, 14, 141068, -125029),
-	(11141, 15, 141132, -125257),
-	(11141, 16, 141258, -125329),
-	(11141, 17, 141476, -125423),
-	(11141, 18, 141546, -125437),
-	(11141, 19, 141621, -125429),
-	(11141, 20, 141693, -125398),
-	(11141, 21, 141764, -125345),
-	(11141, 22, 141826, -125271),
-	(11141, 23, 141869, -125185),
-	(11141, 24, 141899, -124802),
-	(11141, 25, 141524, -124591);
-
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'HotSpring' WHERE `id` = '62';
 
@@ -1113,38 +1010,6 @@ INSERT IGNORE INTO teleport VALUES
 --
 -- Wild Beast Reserve
 --
-
--- Correct the zone
-DELETE FROM `zone_vertices` WHERE `id`='11142';
-INSERT INTO `zone_vertices` (`id`, `order`, `x`, `y`) VALUES 
-	(11142, 0, 55277, -93040),
-	(11142, 1, 55340, -93256),
-	(11142, 2, 55378, -93270),
-	(11142, 3, 55849, -93388),
-	(11142, 4, 55964, -93824),
-	(11142, 5, 55856, -94196),
-	(11142, 6, 56357, -94673),
-	(11142, 7, 56775, -94550),
-	(11142, 8, 58389, -94904),
-	(11142, 9, 58686, -95066),
-	(11142, 10, 59235, -94865),
-	(11142, 11, 59859, -94758),
-	(11142, 12, 60695, -94773),
-	(11142, 13, 61250, -93734),
-	(11142, 14, 61058, -93225),
-	(11142, 15, 60327, -92013),
-	(11142, 16, 59941, -91872),
-	(11142, 17, 59600, -91198),
-	(11142, 18, 58832, -90502),
-	(11142, 19, 58685, -90244),
-	(11142, 20, 57993, -90129),
-	(11142, 21, 57750, -90439),
-	(11142, 22, 56144, -91175),
-	(11142, 23, 55803, -91221),
-	(11142, 24, 55488, -91838),
-	(11142, 25, 55606, -92098),
-	(11142, 26, 55582, -92804);
-
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'BeastFarm' WHERE `id` = '63';
 
@@ -1236,64 +1101,20 @@ INSERT IGNORE INTO teleport VALUES
 --
 -- Fortress of the Dead
 --
-
--- Correct the zone
-DELETE FROM `zone_vertices` WHERE `id`='11143';
-INSERT INTO `zone_vertices` (`id`, `order`, `x`, `y`) VALUES 
-	(11143, 0, 56471, -27772),
-	(11143, 1, 56474, -29068),
-	(11143, 2, 56555, -29373),
-	(11143, 3, 57147, -30056),
-	(11143, 4, 57326, -29998),
-	(11143, 5, 57541, -29560),
-	(11143, 6, 57763, -29468),
-	(11143, 7, 58147, -29468),
-	(11143, 8, 58368, -29561),
-	(11143, 9, 58599, -29998),
-	(11143, 10, 58775, -30051),
-	(11143, 11, 59374, -29376),
-	(11143, 12, 59443, -29059),
-	(11143, 13, 59446, -25778),
-	(11143, 14, 59328, -25682),
-	(11143, 15, 58513, -25674),
-	(11143, 16, 58439, -25709),
-	(11143, 17, 57461, -25701),
-	(11143, 18, 57384, -25683),
-	(11143, 19, 56579, -25681),
-	(11143, 20, 56465, -25777),
-	(11143, 21, 56465, -27482);
-
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'DeadForest' WHERE `id` = '64';
 
--- Insert new NPCs
-INSERT IGNORE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-	(75007,21591,'Carrie',1,'Undead Matron',1,'Monster2.vampire_wizard',5.50,28.00,73,'female','L2ClanHallManager',40,4086,3059,13.43,3.09,40,43,30,21,20,10,0,0,1770,415,885,407,278,0,333,99,0,0,50,198,NULL,300,0,0,'LAST_HIT'),
-	(75008,21587,'Freddy',1,'Undead Butler',1,'Monster2.vampire_soldier_20_bi',10.00,29.00,72,'male','L2Doormen',40,4013,1565,13.43,3.09,40,43,30,21,20,10,0,0,1710,406,849,399,278,0,333,234,0,0,66,209,NULL,300,0,0,'LAST_HIT'),
-	(75009,21587,'Hannibal',1,'Undead Butler',1,'Monster2.vampire_soldier_20_bi',10.00,29.00,72,'male','L2Doormen',40,4013,1565,13.43,3.09,40,43,30,21,20,10,0,0,1710,406,849,399,278,0,333,234,0,0,66,209,NULL,300,0,0,'LAST_HIT'),
-	(75010,21587,'Jason',1,'Undead Butler',1,'Monster2.vampire_soldier_20_bi',10.00,29.00,72,'male','L2Doormen',40,4013,1565,13.43,3.09,40,43,30,21,20,10,0,0,1710,406,849,399,278,0,333,234,0,0,66,209,NULL,300,0,0,'LAST_HIT'),
-	(75011,21587,'Michael',1,'Undead Butler',1,'Monster2.vampire_soldier_20_bi',10.00,29.00,72,'male','L2Doormen',40,4013,1565,13.43,3.09,40,43,30,21,20,10,0,0,1710,406,849,399,278,0,333,234,0,0,66,209,NULL,300,0,0,'LAST_HIT'),
-	(75012,21587,'Matt',1,'Undead Butler',1,'Monster2.vampire_soldier_20_bi',10.00,29.00,72,'male','L2Doormen',40,4013,1565,13.43,3.09,40,43,30,21,20,10,0,0,1710,406,849,399,278,0,333,234,0,0,66,209,NULL,300,0,0,'LAST_HIT'),
-	(75013,21587,'Charles',1,'Undead Butler',1,'Monster2.vampire_soldier_20_bi',10.00,29.00,72,'male','L2Doormen',40,4013,1565,13.43,3.09,40,43,30,21,20,10,0,0,1710,406,849,399,278,0,333,234,0,0,66,209,NULL,300,0,0,'LAST_HIT');
-
--- Spawns
-INSERT IGNORE INTO `spawnlist` VALUES 
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,75007,58770,-27504,579,0,0,33264,60,0,'0'),
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,75008,57826,-29529,569,0,0,49467,60,0,'0'),
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,75009,57842,-29422,569,0,0,15850,60,0,'0'),
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,75010,57888,-26447,593,0,0,49152,60,0,'0'),
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,75011,57888,-26333,593,0,0,16838,60,0,'0'),
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,75012,56932,-27335,578,0,0,33140,60,0,'0'),
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,75013,57119,-27169,578,0,0,0,60,0,'0'),
-	(NULL,'Fortress of the Dead - Clan Hall NPC',1,35638,57022,-28268,607,0,0,48457,60,0,'0');
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '175007';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '275007';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '375007';
 
 -- Insert new shop ids
-INSERT IGNORE INTO merchant_shopids VALUES (175007,'75007');
-INSERT IGNORE INTO merchant_shopids VALUES (275007,'75007');
-INSERT IGNORE INTO merchant_shopids VALUES (375007,'75007');
+INSERT IGNORE INTO merchant_shopids VALUES (175007,'35640');
+INSERT IGNORE INTO merchant_shopids VALUES (275007,'35640');
+INSERT IGNORE INTO merchant_shopids VALUES (375007,'35640');
 
 -- Insert new buy lists
-DELETE FROM `merchant_buylists` WHERE `shop_id` like '%75007';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '%35640';
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,time) VALUES 
 	(6902,12900,175007,1,-1,0),
 	(1829,500,175007,2,5,1),
@@ -1418,9 +1239,3 @@ INSERT INTO `spawnlist` VALUES
 (NULL,'ch_fortress_of_dead','1','35641','58137','-29223','568','0','0','16500','0','0','0'),
 (NULL,'ch_fortress_of_dead','1','35642','58024','-26456','592','0','0','49000','0','0','0'),
 (NULL,'ch_fortress_of_dead','1','35642','58074','-26325','597','0','0','15732','0','0','0');
-
-
-Delete From spawnlist where id in
-(75002,75004,75005,75006,75008,75009,75010,75011,75012,75013,75015,75016);
-
--- 75008,75009,75010,75011,75012,75013,75015,75016

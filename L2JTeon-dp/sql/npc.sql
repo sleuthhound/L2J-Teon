@@ -6343,8 +6343,8 @@ insert  into npc values
 ('35414', 35414, 'Doom Trooper', 0, '', 0, 'Monster.skeleton_pikeman', '10.00', '28.00', '68', 'male', 'L2Monster', 80, '11118', '1251', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '462', '0', '2839', '449', '713', '364', '238', '0', '333', '301', '0', '0', '55', '170', 'gustav_clan', '1000', 1, '0', 'LAST_HIT'), 
 ('35415', 35415, 'Doom Warrior', 0, '', 0, 'Monster.skeleton_knight', '10.00', '25.00', '69', 'male', 'L2Monster', 40, '11353', '1285', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '476', '0', '2529', '459', '745', '373', '317', '150', '333', '71', '0', '0', '44', '176', 'gustav_clan', '1000', 1, '0', 'LAST_HIT'), 
 ('35416', 35416, 'Doom Knight', 0, '', 0, 'Monster.death_blader', '15.00', '45.00', '70', 'male', 'L2Monster', 40, '11586', '1319', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '490', '0', '2297', '469', '779', '381', '278', '150', '333', '1472', '0', '0', '110', '187', 'gustav_clan', '1000', 1, '0', 'LAST_HIT'), 
-('35417', 35417, 'Doorman of Hell', 0, '', 0, 'Monster.dwarf_ghost', '15.00', '45.00', '70', 'male', 'L2Monster', 40, '11586', '1319', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '490', '0', '2297', '469', '779', '381', '278', '150', '333', '1472', '0', '0', '88', '132', 'gustav_clan', '1000', 1, '0', 'LAST_HIT'), 
-('35418', 35418, 'Doorman of Hell', 0, '', 0, 'Monster.dwarf_ghost', '15.00', '45.00', '70', 'male', 'L2Monster', 40, '11586', '1319', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '490', '0', '2297', '469', '779', '381', '278', '150', '333', '1472', '0', '0', '88', '132', 'gustav_clan', '1000', 1, '0', 'LAST_HIT'), 
+('35417', 35417, 'Doorman of Hell', 0, '', 0, 'Monster.dwarf_ghost', '15.00', '45.00', '70', 'male', 'L2Doormen', 40, '11586', '1319', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '490', '0', '2297', '469', '779', '381', '278', '150', '333', '0', '0', '0', '88', '132', 'gustav_clan', '1000', 1, '0', 'LAST_HIT'), 
+('35418', 35418, 'Doorman of Hell', 0, '', 0, 'Monster.dwarf_ghost', '15.00', '45.00', '70', 'male', 'L2Doormen', 40, '11586', '1319', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '490', '0', '2297', '469', '779', '381', '278', '150', '333', '0', '0', '0', '88', '132', 'gustav_clan', '1000', 1, '0', 'LAST_HIT'), 
 ('35419', 35419, 'Hephaeston', 0, 'Wyvern Manager', 0, 'Monster.human_ghost', '10.00', '20.00', '70', 'male', 'L2WyvernManager', 40, '350000', '44', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '30', '2', '4', '40', '3', '31', '253', '0', '333', '0', '0', '0', '22', '55', null, '0', 0, '0', 'LAST_HIT'), 
 ('35420', 35420, 'Loken', 0, 'Messenger', 0, 'Monster.human_ghost', '8.00', '22.00', '70', 'male', 'L2Npc', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '74', '0', '0', '88', '0', null, '0', 1, '0', 'LAST_HIT'), 
 ('35421', 35421, 'Biggerstaff', 0, 'Steward', 0, 'Monster.elf_ghost', '7.00', '21.00', '70', 'male', 'L2Npc', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '88', '0', null, '0', 1, '0', 'LAST_HIT'), 
@@ -6631,7 +6631,6 @@ insert  into npc values
 ('13', 30391, 'Buffer', 1, 'Interlude Project', 1, 'NPC.a_common_peopleB_FHuman', '8.00', '20.50', '70', 'female', 'L2Npc', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '55', '132', '', '0', 1, '0', 'LAST_HIT'), 
 ('51', 30391, 'Buffer', 1, 'Interlude Project', 1, 'NPC.a_common_peopleB_FHuman', '8.00', '20.50', '70', 'female', 'L2NpcBuffer', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '55', '132', '', '0', 1, '0', 'LAST_HIT');
 
-
 DELETE FROM npc WHERE id = 22125;
 DELETE FROM npc WHERE id = 22127;
 DELETE FROM npc WHERE id = 22132;
@@ -6675,12 +6674,14 @@ UPDATE `npc` SET `collision_height` = '24' WHERE `id` IN (35513,35503,35504,3550
 UPDATE `npc` SET `collision_height` = '16' WHERE `id` IN (35507,35508);
 
 -- L2JTeon Updates Clan Halls Sieges Devastated Castle
-UPDATE `npc` SET `type` = 'L2CHSiegeMonster' WHERE `faction_id` = 'gustav_clan';
+UPDATE `npc` SET `type` = 'L2Monster' WHERE `faction_id` = 'gustav_clan';
 UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'gustav_clan';
 UPDATE `npc` SET `faction_id` = 'gustav_clan' WHERE `name` = 'Gustav';
 
 -- L2JTeon Updates Clan Halls Sieges Partisan
-UPDATE `npc` SET `type` = 'L2CHSiegeMonster' WHERE `faction_id` = 'partisan_clan';
+UPDATE `npc` SET `type` = 'L2Monster' WHERE `faction_id` = 'partisan_clan';
 UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'partisan_clan';
 
-UPDATE `npc` SET `type` = 'L2ClanHallSiegeInf' WHERE `id` IN (35437,35604,35627,35639);
+UPDATE `npc` SET `type` = 'L2SiegeCHManager' WHERE `id` IN (35437,35604,35627,35639,35420,35382);
+
+UPDATE `npc` SET `type` = 'L2ClanHallSiegeBoss' WHERE `id` IN (35375,35368,35410);

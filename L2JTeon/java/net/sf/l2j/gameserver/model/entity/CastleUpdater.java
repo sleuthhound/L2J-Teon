@@ -68,6 +68,10 @@ public class CastleUpdater implements Runnable
 		    else
 			warehouse.addItem("Castle", 6622, 2, null, null);
 		}
+		if (_runCount % 6 == 0)
+		{
+		    _clan.setReputationScore(_clan.getReputationScore() + 1, true);
+		}
 		_runCount++;
 		CastleUpdater cu = new CastleUpdater(_clan, _runCount);
 		ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
