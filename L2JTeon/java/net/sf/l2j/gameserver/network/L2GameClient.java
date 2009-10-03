@@ -58,14 +58,14 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
      * 
      * @author KenM
      */
-    public static enum ClientState 
+    public static enum GameClientState 
     {
 	CONNECTED,
 	AUTHED,
 	IN_GAME 
     };
 
-    public ClientState state;
+    public GameClientState state;
     // Info
     public String accountName;
     public SessionKey sessionId;
@@ -89,7 +89,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     public L2GameClient(MMOConnection<L2GameClient> con)
     {
 	super(con);
-	state = ClientState.CONNECTED;
+	state = GameClientState.CONNECTED;
 	_connectionStartTime = System.currentTimeMillis();
 	crypt = new GameCrypt();
 	_autoSaveInDB = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new AutoSaveTask(), 300000L, 900000L);
@@ -102,12 +102,12 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	return key;
     }
 
-    public ClientState getState()
+    public GameClientState getState()
     {
 	return state;
     }
 
-    public void setState(ClientState pState)
+    public void setState(GameClientState pState)
     {
 	state = pState;
     }

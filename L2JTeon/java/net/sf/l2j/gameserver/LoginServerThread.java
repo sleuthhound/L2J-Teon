@@ -50,7 +50,7 @@ import net.sf.l2j.gameserver.loginserverpackets.PlayerAuthResponse;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.network.L2GameClient.ClientState;
+import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.serverpackets.AuthLoginFail;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.loginserver.crypt.NewCrypt;
@@ -312,7 +312,7 @@ public class LoginServerThread extends Thread
 				}
 				PlayerInGame pig = new PlayerInGame(par.getAccount());
 				sendPacket(pig);
-				wcToRemove.gameClient.setState(ClientState.AUTHED);
+				wcToRemove.gameClient.setState(GameClientState.AUTHED);
 				wcToRemove.gameClient.setSessionId(wcToRemove.session);
 				CharSelectInfo cl = new CharSelectInfo(wcToRemove.account, wcToRemove.gameClient.getSessionId().playOkID1);
 				wcToRemove.gameClient.getConnection().sendPacket(cl);
