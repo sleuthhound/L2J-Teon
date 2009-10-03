@@ -21,9 +21,10 @@ package scripts.admin;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
-import net.sf.l2j.gameserver.instancemanager.BanditStrongholdSiege;
-import net.sf.l2j.gameserver.instancemanager.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -34,7 +35,7 @@ public class AdminClanHallSieges implements IAdminCommandHandler
     private static final String[] ADMIN_COMMANDS =
     {
         "admin_startfortresist", "admin_endfortresist", "admin_startdevastated", "admin_enddevastated"
-, "admin_startbandit", "admin_endbandit", "admin_startwildbeastfarm", "admin_endwildbeastfarm"
+, "admin_startbandit", "admin_endbandit", "admin_startwildbeastfarm", "admin_endwildbeastfarm", "admin_startfortress", "admin_endfortress"
     };
 
     private static final int REQUIRED_LEVEL = Config.GM_FORTSIEGE;
@@ -68,7 +69,6 @@ public class AdminClanHallSieges implements IAdminCommandHandler
         {
 		BanditStrongholdSiege.getInstance().endSiege(true);
                 activeChar.sendMessage("End Siege Bandit Stronghold Siege");
-
         } else if (command.startsWith("admin_startwildbeastfarm"))
         {
 		WildBeastFarmSiege.getInstance().startSiege();
@@ -77,6 +77,14 @@ public class AdminClanHallSieges implements IAdminCommandHandler
         {
 		WildBeastFarmSiege.getInstance().endSiege(true);
                 activeChar.sendMessage("End Siege Wild Beast Farm");
+        } else if (command.startsWith("admin_startfortress"))
+        {
+		FortressofTheDeadManager.getInstance().startSiege();
+                activeChar.sendMessage("Start Siege Fortress of The Dead");
+        } else if (command.startsWith("admin_endfortress"))
+        {
+		FortressofTheDeadManager.getInstance().endSiege(true);
+                activeChar.sendMessage("End Siege Fortress of The Dead");
         }
         return true;
     }
