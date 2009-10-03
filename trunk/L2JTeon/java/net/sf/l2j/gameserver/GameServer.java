@@ -110,10 +110,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.ChainAutomation.L2JTeonEventManager;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
-import net.sf.l2j.gameserver.network.TeonPacketHandler;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
-import net.sf.l2j.gameserver.network.L2GameClient.ClientState;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.scripting.CompiledScriptCache;
@@ -178,8 +176,6 @@ public class GameServer
     	L2JTeon.L2JTeon();
     	gameServer = this;
     	_log.finest("used mem:" + getUsedMemoryMB() + "MB");
-    	//Teon packet mapping
-    	TeonPacketHandler.getInstance();
     	Util.printSection("Database");
     	L2DatabaseFactory.getInstance();
     	_idFactory = IdFactory.getInstance();
@@ -476,12 +472,7 @@ public class GameServer
         _selectorThread.openServerSocket();
         _selectorThread.start();
         _log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
-        
-        Util.printSection("Teon Packet System");
-        _log.info("Loaded: "+TeonPacketHandler.getInstance().getPackets().get(ClientState.CONNECTED).size()+" Connection Packet(s).");
-        _log.info("Loaded: "+TeonPacketHandler.getInstance().getPackets().get(ClientState.AUTHED).size()+" Auth Packet(s).");
-        _log.info("Loaded: "+TeonPacketHandler.getInstance().getPackets().get(ClientState.IN_GAME).size()+" In Game Packet(s).");
-        _log.info("Loaded: "+TeonPacketHandler.getInstance().get2xOpPackets().get(0xd0).size()+" Double OpCode Packet(s).");
+
         // Start IRC Connection
         if (Config.IRC_LOAD)
         {
