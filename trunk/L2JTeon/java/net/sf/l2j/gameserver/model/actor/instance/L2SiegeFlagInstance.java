@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -39,7 +40,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	super(objectId, template);
 	_player = player;
 	_siege = SiegeManager.getInstance().getSiege(_player.getX(), _player.getY(), _player.getZ());
-	if ((_player.getClan() == null) || (_siege == null))
+	if ((_player.getClan() == null) || (_siege == null) && DevastatedCastleManager.getInstance().getIsInProgress())
 	{
 	    deleteMe();
 	} else
@@ -58,6 +59,8 @@ public class L2SiegeFlagInstance extends L2NpcInstance
     @Override
     public boolean isAttackable()
     {
+        if (DevastatedCastleManager.getInstance().getIsInProgress())
+            return true;
 	// Attackable during siege by attacker only
 	return (getCastle() != null) && (getCastle().getCastleId() > 0) && getCastle().getSiege().getIsInProgress();
     }
@@ -65,6 +68,8 @@ public class L2SiegeFlagInstance extends L2NpcInstance
     @Override
     public boolean isAutoAttackable(L2Character attacker)
     {
+        if (DevastatedCastleManager.getInstance().getIsInProgress())
+            return true;
 	// Attackable during siege by attacker only
 	return (attacker != null) && (attacker instanceof L2PcInstance) && (getCastle() != null) && (getCastle().getCastleId() > 0) && getCastle().getSiege().getIsInProgress();
     }

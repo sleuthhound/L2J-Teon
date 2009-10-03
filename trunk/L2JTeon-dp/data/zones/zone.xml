@@ -279,7 +279,7 @@
 	</zone>
 
 <!-- Clan hall zones -->
-	<zone id='11100' type='ClanHallZone' shape='Cuboid' minZ='-2000' maxZ='-1800'>
+	<zone id='11100' type='ClanHallZone' shape='NPoly' minZ='-2000' maxZ='-1800'>
 		<stat name='clanHallId' val='21'/>
 		<stat name='spawnX' val='43399'/>
 		<stat name='spawnY' val='108888'/>
@@ -357,13 +357,13 @@
 		<stat name='spawnY' val='146150'/>
 		<stat name='spawnZ' val='-3111'/>
 	</zone>
-	<zone id='11113' type='ClanHallZone' shape='Cuboid' minZ='0' maxZ='0'>
+	<zone id='11113' type='ClanHallZone' shape='NPoly' minZ='-2600' maxZ='-1700'>
 		<stat name='clanHallId' val='34'/>
-		<stat name='spawnX' val='178256'/>
-		<stat name='spawnY' val='-15714'/>
-		<stat name='spawnZ' val='-2263'/>
+		<stat name='spawnX' val='177937'/>
+		<stat name='spawnY' val='-18601'/>
+		<stat name='spawnZ' val='-2239'/>
 	</zone>
-	<zone id='11114' type='ClanHallZone' shape='Cuboid' minZ='-2000' maxZ='-1800'>
+	<zone id='11114' type='ClanHallZone' shape='NPoly' minZ='-2100' maxZ='-1400'>
 		<stat name='clanHallId' val='35'/>
 		<stat name='spawnX' val='80182'/>
 		<stat name='spawnY' val='-15484'/>
@@ -525,23 +525,23 @@
 		<stat name='spawnY' val='-143190'/>
 		<stat name='spawnZ' val='-1328'/>
 	</zone>
-	<zone id='11141' type='ClanHallZone' shape='NPoly' minZ='-2100' maxZ='-1100'>
+	<zone id='11141' type='ClanHallZone' shape='NPoly' minZ='-2100' maxZ='-1500'>
 		<stat name='clanHallId' val='62'/>
 		<stat name='spawnX' val='141002'/>
 		<stat name='spawnY' val='-124607'/>
-		<stat name='spawnZ' val='-1896'/>
+		<stat name='spawnZ' val='-1869'/>
 	</zone>
-	<zone id='11142' type='ClanHallZone' shape='NPoly' minZ='-1500' maxZ='-500'>
+	<zone id='11142' type='ClanHallZone' shape='NPoly' minZ='-1500' maxZ='-1200'>
 		<stat name='clanHallId' val='63'/>
-		<stat name='spawnX' val='58020'/>
-		<stat name='spawnY' val='-92943'/>
-		<stat name='spawnZ' val='-1360'/>
+		<stat name='spawnX' val='60525'/>
+		<stat name='spawnY' val='-94058'/>
+		<stat name='spawnZ' val='-1350'/>
 	</zone>
-	<zone id='11143' type='ClanHallZone' shape='NPoly' minZ='500' maxZ='1500'>
+	<zone id='11143' type='ClanHallZone' shape='NPoly' minZ='300' maxZ='800'>
 		<stat name='clanHallId' val='64'/>
-		<stat name='spawnX' val='57970'/>
-		<stat name='spawnY' val='-28572'/>
-		<stat name='spawnZ' val='569'/>
+		<stat name='spawnX' val='58127'/>
+		<stat name='spawnY' val='-27511'/>
+		<stat name='spawnZ' val='579'/>
 	</zone>
 
 <!-- Fortress zones -->
@@ -2281,13 +2281,11 @@
 		<stat name='skillLvl' val='1'/>
 	</zone>
 
-<!-- Fortress of Resistance -->
-	<zone id='70000' type='FortResistZone' shape='Cuboid' minZ='-2344' maxZ='-1544'>
+<!-- Clan halls Sieges zones -->
+	<zone id='11100' type='ClanHallSiegeZone' shape='NPoly' minZ='-2344' maxZ='-1544'>
 		<stat name='clanHallId' val='21'/>
 		<stat name="name" val="Fortress of Resistance"/>
 	</zone>
-
-<!-- Clan halls Sieges zones -->
 	<zone id='11141' type='ClanHallSiegeZone' shape='NPoly' minZ='-2100' maxZ='-1100'>
 		<stat name='clanHallId' val='62'/>
 		<stat name="name" val="Rainbow Springs"/>

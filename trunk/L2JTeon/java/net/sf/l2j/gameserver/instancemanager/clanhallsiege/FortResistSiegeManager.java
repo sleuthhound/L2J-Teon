@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -50,6 +51,7 @@ public class FortResistSiegeManager
 	private Calendar _siegeEndDate;
 	private Calendar _siegeDate;
 	private Map<Integer, DamageInfo> _clansDamageInfo;
+	private L2Clan _clan;
 
 	private static long NURKA_RESPAWN_TIME = 1209600000; //TODO Should it be in a config?
 	private static FortResistSiegeManager _instance;
@@ -240,6 +242,7 @@ public class FortResistSiegeManager
 				ClanHall clanhall = null;
 				clanhall = ClanHallManager.getInstance().getClanHallById(21);
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), clanIdMaxDamage);
+		    		_clan.setReputationScore(_clan.getReputationScore() + 1, true);
 			}
 		}
 		setNewSiegeDate();

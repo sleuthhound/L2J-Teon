@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.knownlist.MonsterKnownList;
@@ -109,6 +110,8 @@ public class L2MonsterInstance extends L2Attackable
     @Override
     public void onSpawn()
     {
+    	if (getNpcId() == 35410 || (getNpcId() == 35411 || (getNpcId() == 35412 || (getNpcId() == 35413 || (getNpcId() == 35414 || (getNpcId() == 35415 || (getNpcId() == 35416 || (getNpcId() == 35417 || (getNpcId() == 35418)))))))) && getIsInProgress())
+
 	super.onSpawn();
 	if (getTemplate().getMinionData() != null)
 	{
@@ -294,4 +297,8 @@ public class L2MonsterInstance extends L2Attackable
 	}
 	_minionList.clearRespawnList();
     }
+        public final boolean getIsInProgress()
+        {
+                return DevastatedCastleManager.getInstance().getIsInProgress();
+        }
 }

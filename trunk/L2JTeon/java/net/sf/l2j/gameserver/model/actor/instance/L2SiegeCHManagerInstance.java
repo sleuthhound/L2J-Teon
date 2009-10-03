@@ -18,8 +18,15 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.text.SimpleDateFormat;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2ClanMember;
+import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -85,23 +92,22 @@ public class L2SiegeCHManagerInstance extends L2NpcInstance
             html.replace("%objectId%",String.valueOf(getObjectId()));
             player.sendPacket(html);
             player.sendPacket(ActionFailed.STATIC_PACKET);
-	    }
-    	else
-        {
+            } else
+            {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             html.setFile("data/html/siege/clanhall/" + getTemplate().npcId + "-busy.htm");
             html.replace("%castlename%",getCastle().getName());
             html.replace("%objectId%",String.valueOf(getObjectId()));
             player.sendPacket(html);
             player.sendPacket(ActionFailed.STATIC_PACKET);
-        }
-	}
+        	}
+	  }
 
 	private boolean validateCondition(L2PcInstance player)
 	{
         if (FortResistSiegeManager.getInstance().getIsInProgress())
-            return false;       // Busy because of siege
-
-		return true;
-	}
+            //}
+            	return false;       // Busy because of siege
+	return true;
+    }
 }
