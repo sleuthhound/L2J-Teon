@@ -17,7 +17,7 @@ package ai.individual;
 import java.util.logging.Logger;
 
 import ai.group_template.L2AttackableAIScript;
-import net.sf.l2j.Config;
+import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -753,7 +753,7 @@ public class Zaken extends L2AttackableAIScript
             npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
             GrandBossManager.getInstance().setBossStatus(ZAKEN,DEAD);
             //time is 36hour	+/- 17hour
-            long respawnTime = Config.Interval_Of_Zaken_Spawn + Rnd.get(Config.Random_Of_Zaken_Spawn);
+            long respawnTime = ExternalConfig.Interval_Of_Zaken_Spawn + Rnd.get(ExternalConfig.Random_Of_Zaken_Spawn);
             startQuestTimer("zaken_unlock", respawnTime, null, null);
             cancelQuestTimer("1001", npc, null);
             cancelQuestTimer("1003", npc, null);

@@ -14,14 +14,19 @@
  */
 package net.sf.l2j.gameserver.model.zone.type;
 
+import java.util.Map;
 import javolution.util.FastMap;
+
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
+import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.util.L2FastList;
 
 /**
@@ -349,4 +354,43 @@ public class L2BossZone extends L2ZoneType
 	public void onReviveInside(L2Character character)
 	{
 	}
+	//these are methods that java calls to invoke scripts
+	public void broadcastPacket(L2GameServerPacket packet)
+	{
+		if (_characterList == null || _characterList.isEmpty())
+			return;
+		
+		for (L2Character character : _characterList.values())
+		{
+			if (character == null)
+				continue;
+			if (character instanceof L2PcInstance)
+			{
+				L2PcInstance player = (L2PcInstance) character;
+				if (player.isOnline() == 1)
+					player.sendPacket(packet);
+			}
+		}
+	}
+	//these are methods that java calls to invoke scripts
+	public void updateKnownList(L2NpcInstance npc)
+	{
+		if (_characterList == null || _characterList.isEmpty())
+			return;
+		
+		Map<Integer, L2PcInstance> npcKnownPlayers = npc.getKnownList().getKnownPlayers();
+		for (L2Character character : _characterList.values())
+		{
+			if (character == null)
+				continue;
+			if (character instanceof L2PcInstance)
+			{
+				L2PcInstance player = (L2PcInstance) character;
+				if (player.isOnline() == 1)
+					npcKnownPlayers.put(player.getObjectId(), player);
+			}
+		}
+		return;
+	}
+	//When the player has been annihilated, the player is banished from the lair.ç
 }

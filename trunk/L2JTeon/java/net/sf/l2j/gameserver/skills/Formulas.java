@@ -1078,18 +1078,6 @@ public final class Formulas
 			}
 		    }
 
-            if (player.isInsideZone(L2Character.ZONE_CASTLE) && player.getClan() != null)
-            {
-            	int castleIndex = player.getClan().getHasCastle();
-            	if (castleIndex > 0)
-            	{
-            		Castle castle = CastleManager.getInstance().getCastleById(castleIndex);
-            		if(castle != null)
-            			if (castle.getFunction(Castle.FUNC_RESTORE_HP) != null)
-            				hpRegenMultiplier *= 1+ castle.getFunction(Castle.FUNC_RESTORE_HP).getLvl()/100;
-            	}
-            }
-            
             if (player.isInsideZone(L2Character.ZONE_FORT) && player.getClan() != null)
             {
             	int fortIndex = player.getClan().getHasFort();
@@ -1176,18 +1164,6 @@ public final class Formulas
             		if(fort != null)
             			if (fort.getFunction(Fort.FUNC_RESTORE_MP) != null)
             				mpRegenMultiplier *= 1+ fort.getFunction(Fort.FUNC_RESTORE_MP).getLvl()/100;
-			}
-		    }
-
-            if (player.isInsideZone(L2Character.ZONE_CASTLE) && player.getClan() != null)
-            {
-            	int castleIndex = player.getClan().getHasCastle();
-            	if (castleIndex > 0)
-            	{
-            		Castle castle = CastleManager.getInstance().getCastleById(castleIndex);
-            		if(castle != null)
-            			if (castle.getFunction(Castle.FUNC_RESTORE_MP) != null)
-            				mpRegenMultiplier *= 1+ castle.getFunction(Castle.FUNC_RESTORE_MP).getLvl()/100;
 			}
 		    }
 		}

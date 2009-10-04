@@ -9,6 +9,7 @@ DELETE FROM spawnlist WHERE npc_templateid = 29028;
 DELETE FROM spawnlist WHERE npc_templateid = 29021;
 DELETE FROM spawnlist WHERE npc_templateid = 31759;
 DELETE FROM spawnlist WHERE npc_templateid = 31859;
+ 
 
 DELETE FROM teleport WHERE id IN ( 20001,20002 );
 INSERT INTO teleport VALUES
@@ -1239,3 +1240,20 @@ INSERT INTO `spawnlist` VALUES
 (NULL,'ch_fortress_of_dead','1','35641','58137','-29223','568','0','0','16500','0','0','0'),
 (NULL,'ch_fortress_of_dead','1','35642','58024','-26456','592','0','0','49000','0','0','0'),
 (NULL,'ch_fortress_of_dead','1','35642','58074','-26325','597','0','0','15732','0','0','0');
+
+
+
+DELETE FROM npc WHERE id = 29095;
+INSERT INTO `npc` VALUES
+(29095, 29095, "Gordon", 0, "Knight of Destruction", 0, "Monster3.Cruel_Rider", 43, 46.6, 80, "male", "L2RaidBoss", 40, 2289038, 2746, 362.02, 9.81, 60, 57, 73, 76, 70, 80, 3626219, 962159, 17006, 1310, 24162, 1789, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT");
+
+
+DELETE FROM `npcskills` Where `skillid` IN (5014,5015,5016,5017,5018,5019);
+REPLACE INTO `npcskills` VALUES
+(29050,5010,1),
+(29050,5013,1),
+(29051,5009,1),
+(29051,5013,1);
+REPLACE INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
+(12005,0,172176,-74106),
+(12005,1,176284,-90033);

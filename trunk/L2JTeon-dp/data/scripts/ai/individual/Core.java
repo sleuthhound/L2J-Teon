@@ -17,7 +17,7 @@ package ai.individual;
 import java.util.List;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
+import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -192,7 +192,7 @@ public class Core extends L2AttackableAIScript
             addSpawn(31842,18948,110166,-6397,0,false,900000);
             GrandBossManager.getInstance().setBossStatus(CORE,DEAD);
             //time is 60hour	+/- 23hour
-            long respawnTime = Config.Interval_Of_Core_Spawn + Rnd.get(Config.Random_Of_Core_Spawn);
+            long respawnTime = ExternalConfig.Interval_Of_Core_Spawn + Rnd.get(ExternalConfig.Random_Of_Core_Spawn);
             startQuestTimer("core_unlock", respawnTime, null, null);
             // also save the respawn time so that the info is maintained past reboots
             StatsSet info = GrandBossManager.getInstance().getStatsSet(CORE);

@@ -15,12 +15,13 @@
 package net.sf.l2j.gameserver.model.zone;
 
 import java.util.List;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import org.w3c.dom.Node;
 
 /**
  * Abstract base class for any zone type
@@ -338,5 +339,12 @@ public abstract class L2ZoneType
 	public FastMap<Integer, L2Character> getCharactersInside()
 	{
 		return _characterList;
+	}
+
+	/**
+	 * L2JTeon Maxi
+	 */
+	public void setSpawnLocs(Node node)
+	{
 	}
 }

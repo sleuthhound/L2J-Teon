@@ -14,10 +14,15 @@
  */
 package net.sf.l2j.gameserver.model.zone.type;
 
+import javolution.util.FastList;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
+import net.sf.l2j.util.Rnd;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
 /**
  * A Town zone
@@ -31,60 +36,57 @@ public class L2TownZone extends L2ZoneType
 	private int _redirectTownId;
 	private int _taxById;
 	private boolean _isPeaceZone;
-	private int[] _spawnLoc;
-
+	private FastList _spawnLocs;
 
 	public L2TownZone(int id)
 	{
 		super(id);
 
 		_taxById = 0;
-		_spawnLoc = new int[3];
-
+		_spawnLocs = new FastList();
 		// Default to Giran
 		_redirectTownId = 9;
-
 		// Default peace zone
 		_isPeaceZone = true;
 	}
 
 	@Override
-	public void setParameter(String name, String value)
+	public void setParameter(String s, String s1)
 	{
-		if (name.equals("name"))
-		{
-			_townName = value;
-		}
-		else if (name.equals("townId"))
-		{
-			_townId = Integer.parseInt(value);
-		}
-		else if (name.equals("redirectTownId"))
-		{
-			_redirectTownId = Integer.parseInt(value);
-		}
-		else if (name.equals("taxById"))
-		{
-			_taxById = Integer.parseInt(value);
-		}
-		else if (name.equals("spawnX"))
-		{
-			_spawnLoc[0] = Integer.parseInt(value);
-		}
-		else if (name.equals("spawnY"))
-		{
-			_spawnLoc[1] = Integer.parseInt(value);
-		}
-		else if (name.equals("spawnZ"))
-		{
-			_spawnLoc[2] = Integer.parseInt(value);
-		}
-		else if (name.equals("isPeaceZone"))
-		{
-			_isPeaceZone = Boolean.parseBoolean(value);
-		}
-		else super.setParameter(name, value);
+        if(s.equals("name"))
+            _townName = s1;
+        else
+        if(s.equals("townId"))
+            _townId = Integer.parseInt(s1);
+        else
+        if(s.equals("redirectTownId"))
+            _redirectTownId = Integer.parseInt(s1);
+        else
+        if(s.equals("taxById"))
+            _taxById = Integer.parseInt(s1);
+        else
+        if(s.equals("isPeaceZone"))
+            _isPeaceZone = Boolean.parseBoolean(s1);
+        else
+            super.setParameter(s, s1);
 	}
+
+	// L2JTeon Maxi
+    public void setSpawnLocs(Node node)
+    {
+        int ai[] = new int[3];
+        Node node1 = node.getAttributes().getNamedItem("X");
+        if(node1 != null)
+            ai[0] = Integer.parseInt(node1.getNodeValue());
+        node1 = node.getAttributes().getNamedItem("Y");
+        if(node1 != null)
+            ai[1] = Integer.parseInt(node1.getNodeValue());
+        node1 = node.getAttributes().getNamedItem("Z");
+        if(node1 != null)
+            ai[2] = Integer.parseInt(node1.getNodeValue());
+        if(ai != null)
+            _spawnLocs.add(ai);
+    }
 
 	@Override
 	protected void onEnter(L2Character character)
@@ -95,12 +97,8 @@ public class L2TownZone extends L2ZoneType
 			// Could also check if this town is in siege, or if any siege is going on
 			if (((L2PcInstance)character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
 				return;
-
-			//((L2PcInstance)character).sendMessage("You entered "+_townName);
 		}
-
 		if (_isPeaceZone && Config.ZONE_TOWN != 2) character.setInsideZone(L2Character.ZONE_PEACE, true);
-
 	}
 
 	@Override
@@ -108,18 +106,17 @@ public class L2TownZone extends L2ZoneType
 	{
 		// TODO: there should be no exit if there was possibly no enter
 		if (_isPeaceZone) character.setInsideZone(L2Character.ZONE_PEACE, false);
-
-		// if (character instanceof L2PcInstance)
-			//((L2PcInstance)character).sendMessage("You left "+_townName);
-
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 
 	/**
 	 * Returns this town zones name
@@ -155,18 +152,20 @@ public class L2TownZone extends L2ZoneType
 	 * @return
 	 */
 	public final int[] getSpawnLoc()
-    {
-    	return _spawnLoc;
-    }
+	{
+        int ai[] = new int[3];
+        ai = (int[])_spawnLocs.get(Rnd.get(_spawnLocs.size()));
+        return ai;
+	}
 
 	/**
 	 * Returns this town zones castle id
 	 * @return
 	 */
 	public final int getTaxById()
-    {
+	{
     	return _taxById;
-    }
+	}
 
 	public final boolean isPeaceZone()
 	{

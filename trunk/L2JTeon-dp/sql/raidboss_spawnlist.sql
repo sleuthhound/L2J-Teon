@@ -238,16 +238,3 @@ INSERT INTO `raidboss_spawnlist` VALUES
 (25524,1,144143,-5731,-4722,0,43200,129600,0,956490,3247), -- Flamestone Giant (76)
 (25527,1,3776,-6768,-3288,0,43200,129600,0,1532678,3718), -- Uruka (86)
 (29095,1,141569,-45908,-2387,1352,43200,129600,0,2289038,2746);-- Gordon (87) -- walking arround Goddard
-
-
---
--- Following mobs need their type checked, corrected & determined whether they actually belong in here
---
--- (29054,1,11882,-49216,-3008,0,43200,129600,0,1352750,1494), -- Benom (75) (spawn 1hr before siege in rune start)
--- (29056,1,102800,-126000,-2500,0,43200,129600,0,350000,9999), -- Ice Fairy Sirra (60) -- stats to be done (Spawn by Quest)
--- (29060,1,106000,-128000,-3000,0,43200,129600,0,350000,9999), -- Captain Of The Ice Queen's Royal Guard (59) -- stats to be done
--- (29062,1,-16382,-53450,-10432,0,43200,129600,0,400000,9999), -- High Priestess Van Halter (87) -- stats to be done (Spawn by Quest)
--- (29065,1,26528,-8244,-20,0,43200,129600,0,400000,9999), -- Sailren (87) -- stats to be done (Spawn by Quest)
--- (29095,1,000000,000000,000000,0,43200,129600,0,400000,9999); -- Gordon (87) -- walking arround Goddard
-
-

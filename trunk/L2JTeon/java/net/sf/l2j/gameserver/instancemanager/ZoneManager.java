@@ -154,8 +154,6 @@ public class ZoneManager
 								temp = new L2OlympiadStadiumZone(zoneId);
 							else if (zoneType.equals("CastleZone"))
 								temp = new L2CastleZone(zoneId);
-							else if (zoneType.equals("CastleTeleportZone"))
-								temp = new L2CastleTeleportZone(zoneId);
 							else if (zoneType.equals("FortZone"))
 								temp = new L2FortZone(zoneId);              
 							else if (zoneType.equals("DamageZone"))
@@ -180,7 +178,6 @@ public class ZoneManager
 								temp = new L2SkillZone(zoneId);
 							else if (zoneType.equals("ClanHallSiegeZone"))
 								 temp = new L2ClanHallSiegeZone(zoneId);
-
 
 							// Check for unknown type
 							if (temp == null)
@@ -311,6 +308,9 @@ public class ZoneManager
 
                             		temp.setParameter(name, val);
 								}
+								// L2JTeon add Maxi
+								if ("spawn".equalsIgnoreCase(cd.getNodeName()))
+									((L2ZoneType)(temp)).setSpawnLocs(cd);
 							}
 
 							// Skip checks for fishing zones & add to fishing zone manager
