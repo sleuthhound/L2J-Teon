@@ -74,28 +74,22 @@ public final class Config
     public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
     public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
     public static int MAX_ITEM_IN_PACKET;
-    /** Properties file for Bosses */
-    public static final String  ZAKEN_CONFIG_FILE = "./config/bosses/zaken.properties";
     /** Properties file for FourSepulchers */
-    public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";
-    /** Properties file for Character Configurations */
-    public static final String GRANDBOSS_CONFIG_FILE = "./config/bosses/Grandboss.properties";  
-    /** Properties file for L2J_JP Baium configuration */
-    public static final String  FWB_CONFIG_FILE              = "./config/bosses/baium.properties";
-    /** Properties file for L2J_JP High Priestess van Halter */
-    public static final String  HPH_CONFIG_FILE              = "./config/bosses/vanhalter.properties"; 
+    public static final String FS_CONFIG_FILE		= "./config/bosses/foursepulchers.properties";  
+    /** Properties file for Baium configuration */
+    public static final String  FWB_CONFIG_FILE		= "./config/bosses/baium.properties";
     /** L2J Teon Custom Properties File */
-    public static final String L2J_TEON_CUSTOM = "./config/custom/L2JTeonCustom.properties";
+    public static final String L2J_TEON_CUSTOM		= "./config/custom/L2JTeonCustom.properties";
     /** L2J Teon Event Mods Properties File */
-    public static final String L2JTEON_MODS = "./config/custom/L2JTeonMods.properties";
+    public static final String L2JTEON_MODS		= "./config/custom/L2JTeonMods.properties";
     /** Properties file for Feature Extensions*/
-    public static final String  FEATURE_CONFIG_FILE = "./config/custom/Feature.properties";
+    public static final String  FEATURE_CONFIG_FILE	= "./config/custom/Feature.properties";
     /** Properties file for General Configurations */
-    public static final String  GENERAL_CONFIG_FILE = "./config/custom/General.properties";
+    public static final String  GENERAL_CONFIG_FILE	= "./config/custom/General.properties";
     /** Properties file for Olympiad Extensions*/
-    public static final String  OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
+    public static final String  OLYMPIAD_FILE		= "./config/custom/Olympiad.properties";
     /** Properties file for Augment Configurations */
-    public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
+    public static final String AUGMENT_CONFIG_FILE	= "./config/custom/Augment.properties";
     
     /** Server and Datapack version */
     public static String SERVER_VERSION;
@@ -1447,89 +1441,18 @@ public final class Config
     /** L2J Teon Customizations -End * */
 	/** ************************************************** */
 
-    /** GrandBoss Settings **/
-    public static int Antharas_Wait_Time;
-    public static int Valakas_Wait_Time;
-    public static int Interval_Of_Antharas_Spawn;
-    public static int Random_Of_Antharas_Spawn;
-    public static int Interval_Of_Valakas_Spawn;
-    public static int Random_Of_Valakas_Spawn;
-    public static int Interval_Of_Baium_Spawn;
-    public static int Random_Of_Baium_Spawn;
-    public static int Interval_Of_Core_Spawn;
-    public static int Random_Of_Core_Spawn;
-    public static int Interval_Of_Orfen_Spawn;
-    public static int Random_Of_Orfen_Spawn;
-    public static int Interval_Of_QueenAnt_Spawn;
-    public static int Random_Of_QueenAnt_Spawn;
-    public static int Interval_Of_Zaken_Spawn;
-    public static int Random_Of_Zaken_Spawn;
-    public static int Interval_Of_Sailren_Spawn;
-    public static int Random_Of_Sailren_Spawn;
+	/***************************************************************************
+	* Baium Custom CONFIG                                     *
+	**************************************************************************/
+	public static int FWB_FIXINTERVALOFBAIUM;
+	public static int FWB_RANDOMINTERVALOFBAIUM;
+	public static int FWB_ACTIVITYTIMEOFBAIUM;
+	public static boolean FWB_MOVEATRANDOM;
+	public static int FWB_LIMITUNTILSLEEP;
+	/***************************************************************************
+	* Baium Custom CONFIG END                                 *
+	**************************************************************************/
 
-    /***************************************************************************
-     * Baium Custom CONFIG                                     *
-     **************************************************************************/
-    public static int FWB_FIXINTERVALOFBAIUM;
-    public static int FWB_RANDOMINTERVALOFBAIUM;
-    public static int FWB_ACTIVITYTIMEOFBAIUM;
-    public static boolean FWB_MOVEATRANDOM;
-    public static int FWB_LIMITUNTILSLEEP;
-    /***************************************************************************
-     * Baium Custom CONFIG END                                 *
-     **************************************************************************/
-
-    /***************************************************************************
-     * High Priestess van Halter Custom CONFIG                *
-     **************************************************************************/
-    public static int HPH_FIXINTERVALOFHALTER;
-    public static int HPH_RANDOMINTERVALOFHALTER;
-    public static int HPH_APPTIMEOFHALTER;
-    public static int HPH_ACTIVITYTIMEOFHALTER;
-    public static int HPH_FIGHTTIMEOFHALTER;
-    public static int HPH_CALLROYALGUARDHELPERCOUNT;
-    public static int HPH_CALLROYALGUARDHELPERINTERVAL;
-    public static int HPH_INTERVALOFDOOROFALTER;
-    public static int HPH_TIMEOFLOCKUPDOOROFALTAR;
-    /***************************************************************************
-     * High Priestess van Halter Custom CONFIG END            *
-     **************************************************************************/
-    /****************************************** 
-	/** Castle Settings -Begin                           **/
-	/** ************************************************** **/
-
-    public static long 		CS_TELE_FEE_RATIO;
-    public static int 		CS_TELE1_FEE;
-    public static int 		CS_TELE2_FEE;
-    public static long 		CS_MPREG_FEE_RATIO;
-    public static int 		CS_MPREG1_FEE;
-    public static int 		CS_MPREG2_FEE;
-    public static int 		CS_MPREG3_FEE;
-    public static int 		CS_MPREG4_FEE;
-    public static long 		CS_HPREG_FEE_RATIO;
-    public static int 		CS_HPREG1_FEE;
-    public static int 		CS_HPREG2_FEE;
-    public static int 		CS_HPREG3_FEE;
-    public static int 		CS_HPREG4_FEE;
-    public static int 		CS_HPREG5_FEE;
-    public static long 		CS_EXPREG_FEE_RATIO;
-    public static int 		CS_EXPREG1_FEE;
-    public static int 		CS_EXPREG2_FEE;
-    public static int 		CS_EXPREG3_FEE;
-    public static int 		CS_EXPREG4_FEE;
-    public static long 		CS_SUPPORT_FEE_RATIO;
-    public static int 		CS_SUPPORT1_FEE;
-    public static int 		CS_SUPPORT2_FEE;
-    public static int 		CS_SUPPORT3_FEE;
-    public static int 		CS_SUPPORT4_FEE;
-    public static List<String> CL_SET_SIEGE_TIME_LIST;
-    public static List<Integer> SIEGE_HOUR_LIST_MORNING;
-    public static List<Integer> SIEGE_HOUR_LIST_AFTERNOON;
-    
-    /** ************************************************** **/
-	/** Castle Settings -End                               **/
- 	/** ************************************************** **/
-    
     /** ************************************************** **/
 	/** Fortress Settings -Begin                           **/
 	/** ************************************************** **/
@@ -1555,31 +1478,20 @@ public final class Config
 	/** ************************************************** **/
 
     // Augment.properties Configs 
-    public static int AUGMENTATION_BASESTAT_CHANCE;  
-    public static int AUGMENTATION_NG_SKILL_CHANCE; 
-    public static int AUGMENTATION_NG_GLOW_CHANCE; 
-    public static int AUGMENTATION_MID_SKILL_CHANCE; 
-    public static int AUGMENTATION_MID_GLOW_CHANCE; 
-    public static int AUGMENTATION_HIGH_SKILL_CHANCE; 
-    public static int AUGMENTATION_HIGH_GLOW_CHANCE; 
-    public static int AUGMENTATION_TOP_SKILL_CHANCE; 
-    public static int AUGMENTATION_TOP_GLOW_CHANCE; 
-    
-    /** ************************************************** **/
-	/** Boss Settings -Begin                            **/
-	/** ************************************************** **/
+    public static int AUGMENTATION_BASESTAT_CHANCE;
+    public static int AUGMENTATION_NG_SKILL_CHANCE;
+    public static int AUGMENTATION_NG_GLOW_CHANCE;
+    public static int AUGMENTATION_MID_SKILL_CHANCE;
+    public static int AUGMENTATION_MID_GLOW_CHANCE;
+    public static int AUGMENTATION_HIGH_SKILL_CHANCE;
+    public static int AUGMENTATION_HIGH_GLOW_CHANCE;
+    public static int AUGMENTATION_TOP_SKILL_CHANCE;
+    public static int AUGMENTATION_TOP_GLOW_CHANCE;
+
     /** Multiplies stay time in boss room. */
     public static float RIFT_BOSS_ROOM_TIME_MUTIPLY;
- 	
-	/** Time limit of invade to lair of bosses after server restarted */
-	public static int TIMELIMITOFINVADE;
-	public static int TIME_IN_A_DAY_OF_OPEN_A_DOOR;
-	public static int TIME_OF_OPENING_A_DOOR;
-	/** ************************************************** **/
-	/** Boss Settings -End                              **/
-	/** ************************************************** **/
-    
-    /***************************************************************************
+
+	/***************************************************************************
 	 * sepulche Custom CONFIG
 	 **************************************************************************/
 	public static int		FS_TIME_ATTACK;
@@ -2323,31 +2235,6 @@ public final class Config
 	                FS_EXPREG_FEE_RATIO                                 = Long.parseLong(Feature.getProperty("FortressExpRegenerationFunctionFeeRatio", "86400000"));
 	                FS_EXPREG1_FEE                                      = Integer.parseInt(Feature.getProperty("FortressExpRegenerationFeeLvl1", "9000"));
 	                FS_EXPREG2_FEE                                      = Integer.parseInt(Feature.getProperty("FortressExpRegenerationFeeLvl2", "10000"));
-	                //
-	                	                CS_TELE_FEE_RATIO                                   = Long.parseLong(Feature.getProperty("CastleTeleportFunctionFeeRatio", "604800000"));
-	                CS_TELE1_FEE                                        = Integer.parseInt(Feature.getProperty("CastleTeleportFunctionFeeLvl1", "7000"));
-	                CS_TELE2_FEE                                        = Integer.parseInt(Feature.getProperty("CastleTeleportFunctionFeeLvl2", "14000"));
-	                CS_SUPPORT_FEE_RATIO                                = Long.parseLong(Feature.getProperty("CastleSupportFunctionFeeRatio", "86400000"));
-	                CS_SUPPORT1_FEE                                     = Integer.parseInt(Feature.getProperty("CastleSupportFeeLvl1", "7000"));
-	                CS_SUPPORT2_FEE                                     = Integer.parseInt(Feature.getProperty("CastleSupportFeeLvl2", "21000"));
-	                CS_SUPPORT3_FEE                                     = Integer.parseInt(Feature.getProperty("CastleSupportFeeLvl3", "37000"));
-	                CS_SUPPORT4_FEE                                     = Integer.parseInt(Feature.getProperty("CastleSupportFeeLvl4", "52000"));
-	                CS_MPREG_FEE_RATIO                                  = Long.parseLong(Feature.getProperty("CastleMpRegenerationFunctionFeeRatio", "86400000"));
-	                CS_MPREG1_FEE                                       = Integer.parseInt(Feature.getProperty("CastleMpRegenerationFeeLvl1", "2000"));
-	                CS_MPREG2_FEE                                       = Integer.parseInt(Feature.getProperty("CastleMpRegenerationFeeLvl2", "6500"));
-	                CS_MPREG3_FEE                                       = Integer.parseInt(Feature.getProperty("CastleMpRegenerationFeeLvl3", "13750"));
-	                CS_MPREG4_FEE                                       = Integer.parseInt(Feature.getProperty("CastleMpRegenerationFeeLvl4", "20000"));
-	                CS_HPREG_FEE_RATIO                                  = Long.parseLong(Feature.getProperty("CastleHpRegenerationFunctionFeeRatio", "86400000"));
-	                CS_HPREG1_FEE                                       = Integer.parseInt(Feature.getProperty("CastleHpRegenerationFeeLvl1", "1000"));
-	                CS_HPREG2_FEE                                       = Integer.parseInt(Feature.getProperty("CastleHpRegenerationFeeLvl2", "1500"));
-	                CS_HPREG3_FEE                                       = Integer.parseInt(Feature.getProperty("CastleHpRegenerationFeeLvl3", "2250"));
-	                CS_HPREG4_FEE                                      = Integer.parseInt(Feature.getProperty("CastleHpRegenerationFeeLvl14", "3270"));
-	                CS_HPREG5_FEE                                      = Integer.parseInt(Feature.getProperty("CastleHpRegenerationFeeLvl15", "5166"));
-	                CS_EXPREG_FEE_RATIO                                 = Long.parseLong(Feature.getProperty("CastleExpRegenerationFunctionFeeRatio", "86400000"));
-	                CS_EXPREG1_FEE                                      = Integer.parseInt(Feature.getProperty("CastleExpRegenerationFeeLvl1", "9000"));
-	                CS_EXPREG2_FEE                                      = Integer.parseInt(Feature.getProperty("CastleExpRegenerationFeeLvl2", "15000"));
-	                CS_EXPREG3_FEE                                      = Integer.parseInt(Feature.getProperty("CastleExpRegenerationFeeLvl3", "21000"));
-	                CS_EXPREG4_FEE                                      = Integer.parseInt(Feature.getProperty("CastleExpRegenerationFeeLvl4", "30000"));
 	                NPC_ATTACKABLE = Boolean.valueOf(Feature.getProperty("NpcAttackable", "False"));
 	                }
 	            catch (Exception e)
@@ -3250,140 +3137,6 @@ public final class Config
                 e.printStackTrace();
                 throw new Error("Failed to Load "+FWB_CONFIG_FILE+" File.");
             }
-            // High Priestess van Halter Custom Setting
-            try
-            {
-                Properties Settings   = new Properties();
-                InputStream is          = new FileInputStream(HPH_CONFIG_FILE);  
-                Settings.load(is);
-                is.close();
-
-                HPH_FIXINTERVALOFHALTER = Integer.parseInt(Settings.getProperty("FixIntervalOfHalter", "172800"));
-                if (HPH_FIXINTERVALOFHALTER < 300 || HPH_FIXINTERVALOFHALTER > 864000) HPH_FIXINTERVALOFHALTER = 172800;
-                HPH_RANDOMINTERVALOFHALTER = Integer.parseInt(Settings.getProperty("RandomIntervalOfHalter", "86400"));
-                if (HPH_RANDOMINTERVALOFHALTER < 300 || HPH_RANDOMINTERVALOFHALTER > 864000) HPH_RANDOMINTERVALOFHALTER = 86400;
-                HPH_APPTIMEOFHALTER = Integer.parseInt(Settings.getProperty("AppTimeOfHalter", "20"));
-                if (HPH_APPTIMEOFHALTER < 5 || HPH_APPTIMEOFHALTER > 60) HPH_APPTIMEOFHALTER = 20;
-                HPH_ACTIVITYTIMEOFHALTER = Integer.parseInt(Settings.getProperty("ActivityTimeOfHalter", "21600"));
-                if (HPH_ACTIVITYTIMEOFHALTER < 7200 || HPH_ACTIVITYTIMEOFHALTER > 86400) HPH_ACTIVITYTIMEOFHALTER = 21600;
-                HPH_FIGHTTIMEOFHALTER = Integer.parseInt(Settings.getProperty("FightTimeOfHalter", "7200"));
-                if (HPH_FIGHTTIMEOFHALTER < 7200 || HPH_FIGHTTIMEOFHALTER > 21600) HPH_FIGHTTIMEOFHALTER = 7200;
-                HPH_CALLROYALGUARDHELPERCOUNT = Integer.parseInt(Settings.getProperty("CallRoyalGuardHelperCount", "6"));
-                if (HPH_CALLROYALGUARDHELPERCOUNT < 1 || HPH_CALLROYALGUARDHELPERCOUNT > 6) HPH_CALLROYALGUARDHELPERCOUNT = 6;
-                HPH_CALLROYALGUARDHELPERINTERVAL = Integer.parseInt(Settings.getProperty("CallRoyalGuardHelperInterval", "10"));
-                if (HPH_CALLROYALGUARDHELPERINTERVAL < 1 || HPH_CALLROYALGUARDHELPERINTERVAL > 60) HPH_CALLROYALGUARDHELPERINTERVAL = 10;
-                HPH_INTERVALOFDOOROFALTER = Integer.parseInt(Settings.getProperty("IntervalOfDoorOfAlter", "5400"));
-                if (HPH_INTERVALOFDOOROFALTER < 60 || HPH_INTERVALOFDOOROFALTER > 5400) HPH_INTERVALOFDOOROFALTER = 5400;
-                HPH_TIMEOFLOCKUPDOOROFALTAR = Integer.parseInt(Settings.getProperty("TimeOfLockUpDoorOfAltar", "180"));
-                if (HPH_TIMEOFLOCKUPDOOROFALTAR < 60 || HPH_TIMEOFLOCKUPDOOROFALTAR > 600) HPH_TIMEOFLOCKUPDOOROFALTAR = 180;
-
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				throw new Error("Failed to Load " + HPH_CONFIG_FILE + " File.");
-			}
-			// GrandBoss Custom Setting
-			try
-			{
-		Properties grandbossSettings = new Properties();
-		InputStream is = new FileInputStream(new File(GRANDBOSS_CONFIG_FILE));
-		grandbossSettings.load(is);
-		is.close();
-             
-             Antharas_Wait_Time     = Integer.parseInt(grandbossSettings.getProperty("AntharasWaitTime","10"));
-             if (Antharas_Wait_Time < 3 || Antharas_Wait_Time > 60) Antharas_Wait_Time = 10;
-             Antharas_Wait_Time = Antharas_Wait_Time * 60000;
-			 
-             Valakas_Wait_Time     = Integer.parseInt(grandbossSettings.getProperty("ValakasWaitTime","10"));
-             if (Valakas_Wait_Time < 3 || Valakas_Wait_Time > 60) Valakas_Wait_Time = 10;
-             Valakas_Wait_Time = Valakas_Wait_Time * 60000;
-			 
-             Interval_Of_Antharas_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfAntharasSpawn","192"));
-             if (Interval_Of_Antharas_Spawn < 1 || Interval_Of_Antharas_Spawn > 192) Interval_Of_Antharas_Spawn = 192;
-             Interval_Of_Antharas_Spawn = Interval_Of_Antharas_Spawn * 3600000;
-			 
-             Random_Of_Antharas_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfAntharasSpawn","145"));
-             if (Random_Of_Antharas_Spawn < 1 || Random_Of_Antharas_Spawn > 192) Random_Of_Antharas_Spawn = 145;
-             Random_Of_Antharas_Spawn = Random_Of_Antharas_Spawn * 3600000;
-			 
-             Interval_Of_Valakas_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfValakasSpawn","192"));
-             if (Interval_Of_Valakas_Spawn < 1 || Interval_Of_Valakas_Spawn > 192) Interval_Of_Valakas_Spawn = 192;
-             Interval_Of_Valakas_Spawn = Interval_Of_Valakas_Spawn * 3600000;
-			 
-             Random_Of_Valakas_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfValakasSpawn","145"));
-             if (Random_Of_Valakas_Spawn < 1 || Random_Of_Valakas_Spawn > 192) Random_Of_Valakas_Spawn = 145;
-             Random_Of_Valakas_Spawn = Random_Of_Valakas_Spawn * 3600000;
-			 
-             Interval_Of_Baium_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfBaiumSpawn","121"));
-             if (Interval_Of_Baium_Spawn < 1 || Interval_Of_Baium_Spawn > 192) Interval_Of_Baium_Spawn = 121;
-             Interval_Of_Baium_Spawn = Interval_Of_Baium_Spawn * 3600000;
-			 
-             Random_Of_Baium_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfBaiumSpawn","8"));
-             if (Random_Of_Baium_Spawn < 1 || Random_Of_Baium_Spawn > 192) Random_Of_Baium_Spawn = 8;
-             Random_Of_Baium_Spawn = Random_Of_Baium_Spawn * 3600000;
-			 
-             Interval_Of_Core_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfCoreSpawn","27"));
-             if (Interval_Of_Core_Spawn < 1 || Interval_Of_Core_Spawn > 192) Interval_Of_Core_Spawn = 27;
-             Interval_Of_Core_Spawn = Interval_Of_Core_Spawn * 3600000;
-			 
-             Random_Of_Core_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfCoreSpawn","47"));
-             if (Random_Of_Core_Spawn < 1 || Random_Of_Core_Spawn > 192) Random_Of_Core_Spawn = 47;
-             Random_Of_Core_Spawn = Random_Of_Core_Spawn * 3600000;
-			 
-             Interval_Of_Orfen_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfOrfenSpawn","28"));
-             if (Interval_Of_Orfen_Spawn < 1 || Interval_Of_Orfen_Spawn > 192) Interval_Of_Orfen_Spawn = 28;
-             Interval_Of_Orfen_Spawn = Interval_Of_Orfen_Spawn * 3600000;
-			 
-             Random_Of_Orfen_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfOrfenSpawn","41"));
-             if (Random_Of_Orfen_Spawn < 1 || Random_Of_Orfen_Spawn > 192) Random_Of_Orfen_Spawn = 41;
-             Random_Of_Orfen_Spawn = Random_Of_Orfen_Spawn * 3600000;
-			 
-             Interval_Of_QueenAnt_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfQueenAntSpawn","19"));
-             if (Interval_Of_QueenAnt_Spawn < 1 || Interval_Of_QueenAnt_Spawn > 192) Interval_Of_QueenAnt_Spawn = 19;
-             Interval_Of_QueenAnt_Spawn = Interval_Of_QueenAnt_Spawn * 3600000;
-			 
-             Random_Of_QueenAnt_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfQueenAntSpawn","35"));
-             if (Random_Of_QueenAnt_Spawn < 1 || Random_Of_QueenAnt_Spawn > 192) Random_Of_QueenAnt_Spawn = 35;
-             Random_Of_QueenAnt_Spawn = Random_Of_QueenAnt_Spawn * 3600000;
-			 
-             Interval_Of_Zaken_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfZakenSpawn","19"));
-             if (Interval_Of_Zaken_Spawn < 1 || Interval_Of_Zaken_Spawn > 192) Interval_Of_Zaken_Spawn = 19;
-             Interval_Of_Zaken_Spawn = Interval_Of_Zaken_Spawn * 3600000;
-			 
-             Random_Of_Zaken_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfZakenSpawn","35"));
-             if (Random_Of_Zaken_Spawn < 1 || Random_Of_Zaken_Spawn > 192) Random_Of_Zaken_Spawn = 35;
-             Random_Of_Zaken_Spawn = Random_Of_Zaken_Spawn * 3600000;
-			 
-             Interval_Of_Sailren_Spawn     = Integer.parseInt(grandbossSettings.getProperty("IntervalOfSailrenSpawn","12"));
-             if (Interval_Of_Sailren_Spawn < 1 || Interval_Of_Sailren_Spawn > 192) Interval_Of_Sailren_Spawn = 12;
-             Interval_Of_Sailren_Spawn = Interval_Of_Sailren_Spawn * 3600000;
-			 
-             Random_Of_Sailren_Spawn     = Integer.parseInt(grandbossSettings.getProperty("RandomOfSailrenSpawn","24"));
-             if (Random_Of_Sailren_Spawn < 1 || Random_Of_Sailren_Spawn > 192) Random_Of_Sailren_Spawn = 24;
-             Random_Of_Sailren_Spawn = Random_Of_Sailren_Spawn * 3600000;
-
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				throw new Error("Failed to Load " + GRANDBOSS_CONFIG_FILE + " File.");
-			}
-			// Bosses config Custom Setting
-			try
-			{
-				Properties Settings = new Properties();
-				InputStream is = new FileInputStream(ZAKEN_CONFIG_FILE);
-				Settings.load(is);
-				is.close();
-                TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(Settings.getProperty("TimeInADayOfOpenADoor", "0"));
-                TIME_OF_OPENING_A_DOOR = Integer.parseInt(Settings.getProperty("TimeOfOpeningADoor", "2"));
-                TIMELIMITOFINVADE = Integer.parseInt(Settings.getProperty("TimeLimitOfInvade", "1800000"));
-
-
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				throw new Error("Failed to Load " + ZAKEN_CONFIG_FILE + " File.");
-			}
 		} else if (Server.serverMode == Server.MODE_LOGINSERVER)
 		{
 			_log.info("loading login config");
@@ -4114,16 +3867,6 @@ public final class Config
 	} else if (pName.equalsIgnoreCase("TradeChat"))
 	{
 	    DEFAULT_TRADE_CHAT = pValue;
-
-	} else if (pName.equalsIgnoreCase("TimeInADayOfOpenADoor"))
-	{
-	    TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(pValue);
-	} else if (pName.equalsIgnoreCase("TimeOfOpeningADoor"))
-	{
-	    TIME_OF_OPENING_A_DOOR = Integer.parseInt(pValue);
-	} else if (pName.equalsIgnoreCase("TimeLimitOfInvade"))
-	{
-	    TIMELIMITOFINVADE = Integer.parseInt(pValue);
 	} else if (pName.equalsIgnoreCase("TimeOfAttack"))
 	{
 	FS_TIME_ATTACK = Integer.parseInt(pValue);

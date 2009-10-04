@@ -17,7 +17,7 @@ package ai.individual;
 import java.util.List;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
+import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
@@ -312,7 +312,7 @@ public class Orfen extends L2AttackableAIScript
             npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
             GrandBossManager.getInstance().setBossStatus(ORFEN,DEAD);
             //time is 48hour	+/- 20hour
-            long respawnTime = Config.Interval_Of_Orfen_Spawn + Rnd.get(Config.Random_Of_Orfen_Spawn);
+            long respawnTime = ExternalConfig.Interval_Of_Orfen_Spawn + Rnd.get(ExternalConfig.Random_Of_Orfen_Spawn);
             this.startQuestTimer("orfen_unlock", respawnTime, null, null);
             // also save the respawn time so that the info is maintained past reboots
             StatsSet info = GrandBossManager.getInstance().getStatsSet(ORFEN);

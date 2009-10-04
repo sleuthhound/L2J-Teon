@@ -17,7 +17,7 @@ package ai.individual;
 import java.util.List;
 
 import javolution.util.FastList;
-import net.sf.l2j.Config;
+import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
@@ -235,7 +235,7 @@ public class QueenAnt extends L2AttackableAIScript
             npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
             GrandBossManager.getInstance().setBossStatus(QUEEN,DEAD);
             //time is 36hour	+/- 17hour
-            long respawnTime = Config.Interval_Of_QueenAnt_Spawn + Rnd.get(Config.Random_Of_QueenAnt_Spawn);
+            long respawnTime = ExternalConfig.Interval_Of_QueenAnt_Spawn + Rnd.get(ExternalConfig.Random_Of_QueenAnt_Spawn);
             startQuestTimer("queen_unlock", respawnTime, null, null);
             cancelQuestTimer("action", npc, null);
             // also save the respawn time so that the info is maintained past reboots

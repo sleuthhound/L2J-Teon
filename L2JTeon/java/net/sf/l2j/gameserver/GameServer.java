@@ -24,6 +24,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.Server;
 import net.sf.l2j.gameserver.OnlinePlayers;
@@ -516,6 +517,7 @@ public class GameServer
     	Util.printSection("Configs");
     	// Initialize config
     	Config.load();
+	ExternalConfig.loadconfig();
     	gameServer = new GameServer();
     	if (Config.IS_TELNET_ENABLED)
     	{

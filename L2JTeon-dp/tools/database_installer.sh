@@ -258,7 +258,6 @@ $MYG < ../sql/boxaccess.sql &> /dev/null
 $MYG < ../sql/boxes.sql &> /dev/null
 $MYG < ../sql/buff_templates.sql &> /dev/null
 $MYG < ../sql/castle.sql &> /dev/null
-$MYG < ../sql/castle_functions.sql &> /dev/null
 $MYG < ../sql/castle_door.sql &> /dev/null
 $MYG < ../sql/castle_doorupgrade.sql &> /dev/null
 $MYG < ../sql/castle_manor_procure.sql &> /dev/null

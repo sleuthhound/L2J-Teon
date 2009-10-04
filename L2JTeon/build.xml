@@ -28,14 +28,6 @@
     
     <path id="classpath">
         <fileset dir="${lib}">
-            <include name="c3p0-0.9.1.2.jar"/>
-            <include name="bsf.jar"/>
-            <include name="bsh-2.0b4.jar"/>
-        	<include name="commons-logging-1.1.jar"/>
-        	<include name="jython.jar"/>
-        	<include name="javolution.jar"/>
-        	<include name="mysql-connector-java-5.1.5-bin.jar"/>
-        	<include name="mmocore.jar"/>
 			<include name="*.jar"/>
         </fileset>
     </path>   

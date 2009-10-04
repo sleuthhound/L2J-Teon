@@ -134,7 +134,6 @@ public class Scripts
 		ItemHandler.getInstance().registerItemHandler(new JackpotSeed());
 		ItemHandler.getInstance().registerItemHandler(new ExtractableItems());
 		ItemHandler.getInstance().registerItemHandler(new SpecialXMas());
-		ItemHandler.getInstance().registerItemHandler(new SplendorKeys());
 		ItemHandler.getInstance().registerItemHandler(new SummonItems());
 		ItemHandler.getInstance().registerItemHandler(new BeastSpice());
 		ItemHandler.getInstance().registerItemHandler(new PrimevalPotions());

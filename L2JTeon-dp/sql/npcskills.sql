@@ -22059,3 +22059,6 @@ INSERT INTO `npcskills` VALUES
 ('35328','1230','28'),
 ('35340','1230','28'),
 ('35341','1230','28');
+
+-- Delete skills, control HotSprings.java
+DELETE FROM `npcskills` WHERE `skillid` IN (4551,4552,4553,4554);
