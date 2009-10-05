@@ -11,7 +11,7 @@ from net.sf.l2j.gameserver.datatables import SkillTable
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.import SystemMessageId
+from net.sf.l2j.gameserver.network	import SystemMessageId
 from net.sf.l2j.gameserver.serverpackets import ItemList;
 from net.sf.l2j.gameserver.serverpackets import NpcSay
 from net.sf.l2j.gameserver.serverpackets import SystemMessage
