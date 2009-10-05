@@ -2008,6 +2008,21 @@ public enum SystemMessageId
      * the Grand Olympiad.
      */
     YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD(1911),
+    /** 
+     * ID: 1895<br> 
+     * Message: $s1 is in an area which blocks summoning. 
+     */ 
+    S1_IN_SUMMON_BLOCKING_AREA(1895), 
+    /** 
+     * ID: 1896<br> 
+     * Message: $s1 has already been summoned. 
+     */ 
+    S1_ALREADY_SUMMONED(1896), 
+    /** 
+     * ID: 1897<br> 
+     * Message: $s1 is required for summoning. 
+     */ 
+    S1_REQUIRED_FOR_SUMMONING(1897), 
     /**
      * ID: 1898<br>
      * Message: $s1 is currently trading or operating a private store and
