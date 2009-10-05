@@ -1312,8 +1312,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		for (QuestState qs : _quests.values())
 		{
-		    int questId = qs.getQuest().getQuestIntId();
-			if ((questId>999) || (questId<1))
+			if (qs.getQuest().getQuestIntId()>=1999)
+				continue;
+
+			if (qs.isCompleted() && !Config.DEVELOPER)
 				continue;
 
 			if (!qs.isStarted() && !Config.DEVELOPER)
@@ -1325,76 +1327,44 @@ public final class L2PcInstance extends L2PlayableInstance
 		return quests.toArray(new Quest[quests.size()]);
 	}
 
-	/**
-	 * Return a table containing all QuestState to modify after a L2Attackable killing.<BR><BR>
-	 *
-	 * @param npcId The Identifier of the L2Attackable attacked
-	 *
-	 */
 	public QuestState[] getQuestsForAttacks(L2NpcInstance npc)
 	{
-		// Create a QuestState table that will contain all QuestState to modify
 		QuestState[] states = null;
 
-		// Go through the QuestState of the L2PcInstance quests
 		for (Quest quest : npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK))
 		{
-			// Check if the Identifier of the L2Attackable attck is needed for the current quest
 			if (getQuestState(quest.getName())!=null)
 			{
-				// Copy the current L2PcInstance QuestState in the QuestState table
 				if (states == null)
 					states = new QuestState[]{getQuestState(quest.getName())};
 				else
 					states = addToQuestStateArray(states, getQuestState(quest.getName()));
 			}
 		}
-
-		// Return a table containing all QuestState to modify
 		return states;
 	}
 
-	/**
-	 * Return a table containing all QuestState to modify after a L2Attackable killing.<BR><BR>
-	 *
-	 * @param npcId The Identifier of the L2Attackable killed
-	 *
-	 */
 	public QuestState[] getQuestsForKills(L2NpcInstance npc)
 	{
-		// Create a QuestState table that will contain all QuestState to modify
 		QuestState[] states = null;
 
-		// Go through the QuestState of the L2PcInstance quests
 		for (Quest quest : npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_KILL))
 		{
-			// Check if the Identifier of the L2Attackable killed is needed for the current quest
 			if (getQuestState(quest.getName())!=null)
 			{
-				// Copy the current L2PcInstance QuestState in the QuestState table
 				if (states == null)
 					states = new QuestState[]{getQuestState(quest.getName())};
 				else
 					states = addToQuestStateArray(states, getQuestState(quest.getName()));
 			}
 		}
-
-		// Return a table containing all QuestState to modify
 		return states;
 	}
 
-	/**
-	 * Return a table containing all QuestState from the table _quests in which the L2PcInstance must talk to the NPC.<BR><BR>
-	 *
-	 * @param npcId The Identifier of the NPC
-	 *
-	 */
 	public QuestState[] getQuestsForTalk(int npcId)
 	{
-		// Create a QuestState table that will contain all QuestState to modify
 		QuestState[] states = null;
 
-		// Go through the QuestState of the L2PcInstance quests
 		Quest[] quests = NpcTable.getInstance().getTemplate(npcId).getEventQuests(Quest.QuestEventType.ON_TALK);
 		if (quests != null)
 		{
@@ -1402,7 +1372,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if (quest != null)
 				{
-					// Copy the current L2PcInstance QuestState in the QuestState table
 					if (getQuestState(quest.getName())!=null)
 					{
 						if (states == null)
@@ -1414,7 +1383,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 
-		// Return a table containing all QuestState to modify
 		return states;
 	}
 
@@ -1447,7 +1415,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						for (QuestState state : states)
 						{
-							if ((state.getQuest().getQuestIntId() == qs.getQuest().getQuestIntId()))
+							if ((state.getQuest().getQuestIntId() == qs.getQuest().getQuestIntId()) && !qs.isCompleted())
 							{
 								if (qs.getQuest().notifyEvent(event, npc, this))
 									showQuestWindow(quest, State.getStateName(qs.getState()));
@@ -1471,15 +1439,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (content != null)
 		{
-			if (Config.DEBUG)
-				_log.fine("Showing quest window for quest "+questId+" state "+stateId+" html path: " + path);
-
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
 			npcReply.setHtml(content);
 			sendPacket(npcReply);
 		}
 
-		sendPacket( ActionFailed.STATIC_PACKET );
+		sendPacket( new ActionFailed() );
 	}
 
 	/**
