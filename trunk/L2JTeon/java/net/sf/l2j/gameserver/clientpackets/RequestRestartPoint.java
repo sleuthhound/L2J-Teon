@@ -244,22 +244,23 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			else
 				L2RaidEvent.hardFinish();
 		}
-		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-		if (castle != null && castle.getSiege().getIsInProgress())
-		{
-			//DeathFinalizer df = new DeathFinalizer(10000);
-			if (activeChar.getClan() != null && castle.getSiege().checkIsAttacker(activeChar.getClan()))
-			{
-				// Schedule respawn delay for attacker
-				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
-				if (castle.getSiege().getAttackerRespawnDelay() > 0)
-					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay()/1000 + " seconds");
-				return;
-			}
-		}
-		
-		// run immediatelly (no need to schedule)
-		new DeathTask(activeChar).run();
+        Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ()); 
+        if ((castle != null) && castle.getSiege().getIsInProgress()) 
+        { 
+        	// DeathFinalizer df = new DeathFinalizer(10000); 
+        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2); 
+        	if ((activeChar.getClan() != null) && castle.getSiege().checkIsAttacker(activeChar.getClan())) 
+        	{ 
+        		// Schedule respawn delay for attacker 
+        		ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
+        		if (castle.getSiege().getAttackerRespawnDelay() > 0) 
+        			sm.addString("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay() / 1000 + " seconds"); 
+        		activeChar.sendPacket(sm); 
+        		sm = null; 
+        		return; 
+        	} 
+        }
+        ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), 1); 
 	}
 	
 	/*
