@@ -66,30 +66,35 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, true);
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
+            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, true);
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
+            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));	
 		}
 		if (character instanceof L2PcInstance && DevastatedCastleManager.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, true);
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
+            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && WildBeastFarmSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, true);
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
+            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));			
 		}
 		if (character instanceof L2PcInstance && FortressofTheDeadManager.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, true);
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
+            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 	}
@@ -101,30 +106,35 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, false);
 			character.setInsideZone(L2Character.ZONE_SIEGE, false);
+            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false); 
 			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && DevastatedCastleManager.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, false);
 			character.setInsideZone(L2Character.ZONE_SIEGE, false);
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, false);
 			character.setInsideZone(L2Character.ZONE_SIEGE, false);
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && WildBeastFarmSiege.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, false);
 			character.setInsideZone(L2Character.ZONE_SIEGE, false);
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));			
 		}
 		if (character instanceof L2PcInstance && FortressofTheDeadManager.getInstance().getIsInProgress())
 		{
 			character.setInsideZone(L2Character.ZONE_PVP, false);
 			character.setInsideZone(L2Character.ZONE_SIEGE, false);
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2SiegeSummonInstance)
