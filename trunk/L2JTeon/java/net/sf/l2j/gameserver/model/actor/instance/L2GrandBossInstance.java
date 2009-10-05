@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.gameserver.ai.CtrlIntention; 
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -32,7 +31,6 @@ import net.sf.l2j.util.Rnd;
 public final class L2GrandBossInstance extends L2MonsterInstance
 {
     private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
-    private boolean _teleportedToNest; 
 
 	protected boolean _isInSocialAction = false;
 
@@ -61,23 +59,11 @@ public final class L2GrandBossInstance extends L2MonsterInstance
     @Override
 	protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
     
-    /** 
-     * Used by Orfen to set 'teleported' flag, when hp goes to <50% 
-     * @param flag 
-     */ 
-    public void setTeleported(boolean flag) 
-    { 
-    	_teleportedToNest = flag; 
-    } 
-    
-    public boolean getTeleported() 
-    { 
-    	return _teleportedToNest; 
-    }     
 
     @Override
 	public void onSpawn()
     {
+    	setIsRaid(true);
     	if (getNpcId() == 29028) // baium and valakas are all the time in passive mode, theirs attack AI handled in AI scripts
     		super.disableCoreAI(true);
     	super.onSpawn();
@@ -89,23 +75,7 @@ public final class L2GrandBossInstance extends L2MonsterInstance
      */
     @Override
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
-    {		// [L2J_JP ADD SANDMAN]
-        switch (getTemplate().npcId) 
-        {
-        case 29014: // Orfen 
-            if ((getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported()) 
-            {
-                clearAggroList(); 
-                getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE); 
-                teleToLocation(43577,15985,-4396, false); 
-                setTeleported(true); 
-                setCanReturnToSpawnPoint(false);   
-            }
-            break; 
-        default: 
-        }
-		if (IsInSocialAction() || isInvul())
-			return;
+    {
         super.reduceCurrentHp(damage, attacker, awake);
     }
 

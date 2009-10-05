@@ -42,6 +42,7 @@ public class Monastery extends L2AttackableAIScript
 		"name, why would you choose the path of darkness?!",
 		"name! How dare you defy the will of Einhasad!"
 	};
+
     public Monastery(int questId, String name, String descr)
     {
         super(questId, name, descr);
