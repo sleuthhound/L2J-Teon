@@ -20,7 +20,7 @@ import java.util.Vector;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2EventChecks;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
+//import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -111,7 +111,8 @@ public class L2EventManagerInstance extends L2NpcInstance
 		    {
 			player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
 			_awaitingplayers.add(player);
-			player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?"));
+			player.sendMessage("A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?");
+			//player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?"));
 		    } else
 		    {
 			String reason;
@@ -148,7 +149,8 @@ public class L2EventManagerInstance extends L2NpcInstance
 		    {
 			player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
 			_awaitingplayers.add(player);
-			player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?"));
+			player.sendMessage("A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?");
+			//player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?"));
 		    } else
 		    {
 			String reason;
