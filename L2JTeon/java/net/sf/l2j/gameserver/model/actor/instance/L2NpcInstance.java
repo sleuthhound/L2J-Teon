@@ -40,8 +40,6 @@ import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -1655,24 +1653,16 @@ public class L2NpcInstance extends L2Character
 	// to you" is returned
 	return "data/html/npcdefault.htm";
     }
-
+    
     /**
-     * Open a choose quest window on client with all quests available of the
-     * L2NpcInstance.<BR>
-     * <BR>
-     *
-     * <B><U> Actions</U> :</B><BR>
-     * <BR>
-     * <li>Send a Server->Client NpcHtmlMessage containing the text of the
-     * L2NpcInstance to the L2PcInstance </li>
-     * <BR>
-     * <BR>
-     *
-     * @param player
-     *                The L2PcInstance that talk with the L2NpcInstance
-     * @param quests
-     *                The table containing quests of the L2NpcInstance
-     *
+     * Open a choose quest window on client with all quests available of the L2NpcInstance.<BR><BR>
+     * 
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance </li><BR><BR>
+     * 
+     * @param player The L2PcInstance that talk with the L2NpcInstance
+     * @param quests The table containing quests of the L2NpcInstance
+     * 
      */
     public void showQuestChooseWindow(L2PcInstance player, Quest[] quests) 
     {
@@ -1836,7 +1826,7 @@ public class L2NpcInstance extends L2Character
             showQuestWindow(player, "");
         }
     }
-    
+
     /**
      * Open a Loto window on client with the text of the L2NpcInstance.<BR>
      * <BR>
@@ -2640,8 +2630,6 @@ public class L2NpcInstance extends L2Character
 	}
 	html.replace("%objectId%", String.valueOf(getObjectId()));
 	html.replace("%festivalMins%", SevenSignsFestival.getInstance().getTimeToNextFestivalStr());
-        html.replace("resistancetimeleft", FortResistSiegeManager.getInstance().getTimeLeft());
-        html.replace("devastatedtimeleft", DevastatedCastleManager.getInstance().getTimeLeft());
 	player.sendPacket(html);
 	// Send a Server->Client ActionFailed to the L2PcInstance in order to
 	// avoid that the client wait another packet
@@ -2663,14 +2651,13 @@ public class L2NpcInstance extends L2Character
      */
     public void showChatWindow(L2PcInstance player, String filename)
     {
-	// Send a Server->Client NpcHtmlMessage containing the text of the
-	// L2NpcInstance to the L2PcInstance
+	// Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance
 	NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 	html.setFile(filename);
-	html.replace("%objectId%", String.valueOf(getObjectId()));
+	html.replace("%objectId%",String.valueOf(getObjectId()));
 	player.sendPacket(html);
-	// Send a Server->Client ActionFailed to the L2PcInstance in order to
-	// avoid that the client wait another packet
+
+	// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 	player.sendPacket(new ActionFailed());
     }
 

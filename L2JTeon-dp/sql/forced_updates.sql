@@ -1257,3 +1257,6 @@ REPLACE INTO `npcskills` VALUES
 REPLACE INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
 (12005,0,172176,-74106),
 (12005,1,176284,-90033);
+
+
+UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (35375,35368,35410);

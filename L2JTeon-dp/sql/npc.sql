@@ -6698,4 +6698,4 @@ UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'partisan_clan';
 
 UPDATE `npc` SET `type` = 'L2SiegeCHManager' WHERE `id` IN (35437,35604,35627,35639,35420,35382);
 
-UPDATE `npc` SET `type` = 'L2ClanHallSiegeBoss' WHERE `id` IN (35375,35368,35410);
+UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (35375,35368,35410);

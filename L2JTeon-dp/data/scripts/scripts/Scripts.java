@@ -18,12 +18,14 @@ import java.util.logging.Logger;
 
 import scripts.admin.*;
 import scripts.items.*;
+import scripts.skills.*;
 import scripts.usercommand.*;
 import scripts.voicedcommand.*;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
+import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 
