@@ -305,12 +305,15 @@ public class GameServer
     	Util.printSection("Teleport");
     	TeleportLocationTable.getInstance();
     	LevelUpData.getInstance();
-        Util.printSection("RaidBosses GrandBosses");
-        GrandBossManager.getInstance();
+        Util.printSection("RaidBosses - GrandBosses");
         RaidBossPointsManager.init();
+        GrandBossManager.getInstance();
+        FourSepulchersManager.getInstance().init();
+        BaiumManager.getInstance().init();
+        Util.printSection("Dimensional Rift");
         DimensionalRiftManager.getInstance();
+        Util.printSection("Announcements");
         Announcements.getInstance();
-        EventDroplist.getInstance();
         /** Load Manor data */
         Util.printSection("Manor");
         L2Manor.getInstance();
@@ -323,9 +326,6 @@ public class GameServer
         PetitionManager.getInstance();
         // Init of a cursed weapon manager
         CursedWeaponsManager.getInstance();
-        FourSepulchersManager.getInstance().init();
-        BaiumManager.getInstance().init();
-        // VanHalterManager.getInstance().init(); // -.-"
         Util.printSection("Quests - Scripts");
         QuestManager.getInstance();
         
@@ -371,6 +371,8 @@ public class GameServer
         if (Config.ALLOW_AWAY_STATUS)
         	_log.info("Away System");
         AwayManager.getInstance();
+        Util.printSection("Event Drop");
+        EventDroplist.getInstance();
         if (Config.SAVE_DROPPED_ITEM)
         {
         	ItemsOnGroundManager.getInstance();
