@@ -8,5 +8,5 @@ REM # If you're not a x64 system user just leave                           #
 REM #======================================================================#
 REM set PATH="type here your path to java jdk/jre (including bin folder)"
 
-@java -Djava.util.logging.config.file=console.cfg -cp c3p0-0.9.1.2.jar;l2jteon.jar;mysql-connector-java-5.1.5-bin.jar net.sf.l2j.accountmanager.SQLAccountManager
+@java -Djava.util.logging.config.file=console.cfg -cp c3p0-0.9.1.2.jar;l2jteon.jar;mysql-connector-java-5.1.6-bin.jar net.sf.l2j.accountmanager.SQLAccountManager
 @pause
