@@ -927,7 +927,7 @@
 		<stat name='oustY' val='-90493'/>
 		<stat name='oustZ' val='-2914'/>
 	</zone>
-	<zone id="12005" type="BossZone" shape="Cuboid" minZ="-5130" maxZ="-2500">
+	<zone id="12005" type="BossZone" shape="Cuboid" minZ="-5140" maxZ="-2500">
 		<stat name='name' val='Lair of Frintezza'/>
 		<stat name="InvadeTime" val="1800000"/>
 	</zone>

@@ -9,10 +9,10 @@ from net.sf.l2j.gameserver.serverpackets import NpcSay
 
 MutationId ={   # Npc:[NewNpc,% for chance by shot,Type Message,nb message]
                 # if Quest_Drop = 5 => 5% by shot to change mob
-                21261:[21262,1,"Type1",5],      # 1st mutation Ol Mahum Transcender
-                21262:[21263,1,"Type1",5],      # 2st mutation Ol Mahum Transcender
-                21263:[21264,1,"Type1",5],      # 3rd mutation Ol Mahum Transcender
-                21258:[21259,100,"Type1",5],    # always mutation on atk Fallen Orc Shaman
+                # 21261:[21262,1,"Type1",5],      # 1st mutation Ol Mahum Transcender
+                # 21262:[21263,1,"Type1",5],      # 2st mutation Ol Mahum Transcender
+                # 21263:[21264,1,"Type1",5],      # 3rd mutation Ol Mahum Transcender
+                # 21258:[21259,100,"Type1",5],    # always mutation on atk Fallen Orc Shaman
                 20835:[21608,1,"Type1",5],      # zaken's seer to zaken's watchman
                 21608:[21609,1,"Type1",5],      # zaken's watchman
                 20832:[21602,1,"Type1",5],      # Zaken's pikeman
