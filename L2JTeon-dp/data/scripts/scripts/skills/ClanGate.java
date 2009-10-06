@@ -1,4 +1,4 @@
-package net.sf.l2j.gameserver.handler.skillhandlers;
+package scripts.skills;
 
 import java.util.Map;
 import javolution.util.FastMap;
