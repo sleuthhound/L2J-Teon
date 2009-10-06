@@ -27,7 +27,8 @@ public final class DlgAnswer extends L2GameClientPacket
     private static final String _C__C5_DLGANSWER = "[C] C5 DlgAnswer";
     private static Logger _log = Logger.getLogger(DlgAnswer.class.getName());
     private int _messageId;
-    private int _answer, _requesterId;
+    private int _answer; 
+    private int _requesterId;
 
     @Override
     protected void readImpl()
@@ -44,7 +45,7 @@ public final class DlgAnswer extends L2GameClientPacket
 	    _log.fine(getType() + ": Answer acepted. Message ID " + _messageId + ", asnwer " + _answer + ", + Requester ID "+_requesterId);
 	if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
 	    getClient().getActiveChar().reviveAnswer(_answer);
-	else if ((_messageId == 614) && Config.ALLOW_WEDDING)
+	else if ((_messageId == 1983) && Config.ALLOW_WEDDING)
 	    getClient().getActiveChar().EngageAnswer(_answer);
 	else if ((_messageId == 614) && L2EventManagerInstance._awaitingplayers.contains(getClient().getActiveChar()))
 	{
