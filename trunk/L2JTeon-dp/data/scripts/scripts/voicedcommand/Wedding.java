@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-//import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
+import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -221,8 +221,8 @@ public class Wedding implements IVoicedCommandHandler
 	}
 	// Since all looks fine we can engage them.
 	playerB.setEngageRequest(true, playerA.getObjectId());
-	//ConfirmDlg dlg = new ConfirmDlg(1983).addString(player.getName()+" is asking your hand in marriage. Would you like to accept the request and start a new relationship?");
-	//playerB.sendPackets(dlg);
+	ConfirmDlg dlg = new ConfirmDlg(1983).addString(playerA.getName()+" is asking your hand in marriage. Would you like to accept the request and start a new relationship?");
+	playerB.sendPacket(dlg);
 	//playerB.sendPacket(new ConfirmDlg(614, playerA.getName() + " is asking your hand in marriage. Would you like to accept the request and start a new relationship?"));
 	return true;
     }
