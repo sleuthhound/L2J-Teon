@@ -1261,7 +1261,5 @@ REPLACE INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
 
 UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (35375,35368,35410);
 
-DELETE FROM grandboss_data WHERE id = 29045;
-
 INSERT IGNORE INTO `grandboss_data` VALUES
 (29045, 0, 0, 0, 0, 0, 1216600, 11100, 0); -- Frintezza (85) 
