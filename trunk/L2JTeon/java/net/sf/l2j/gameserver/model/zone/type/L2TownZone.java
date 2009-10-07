@@ -31,28 +31,25 @@ import org.w3c.dom.Node;
  */
 public class L2TownZone extends L2ZoneType
 {
-	private String _townName;
-	private int _townId;
-	private int _redirectTownId;
-	private int _taxById;
-	private boolean _isPeaceZone;
-	private FastList _spawnLocs;
+    private String _townName;
+    private int _townId;
+    private int _redirectTownId;
+    private int _taxById;
+    private FastList<int[]> _spawnLocs;
+    private boolean _noPeace;
 
-	public L2TownZone(int id)
-	{
+    public L2TownZone(int id)
+    {
 		super(id);
+        _taxById = 0;
+        _spawnLocs = new FastList<int[]>();
+        _redirectTownId = 9;
+        _noPeace = false;
+    }
 
-		_taxById = 0;
-		_spawnLocs = new FastList();
-		// Default to Giran
-		_redirectTownId = 9;
-		// Default peace zone
-		_isPeaceZone = true;
-	}
-
-	@Override
+    @Override
 	public void setParameter(String s, String s1)
-	{
+    {
         if(s.equals("name"))
             _townName = s1;
         else
@@ -66,13 +63,13 @@ public class L2TownZone extends L2ZoneType
             _taxById = Integer.parseInt(s1);
         else
         if(s.equals("isPeaceZone"))
-            _isPeaceZone = Boolean.parseBoolean(s1);
+            _noPeace = Boolean.parseBoolean(s1);
         else
             super.setParameter(s, s1);
-	}
+    }
 
-	// L2JTeon Maxi
-    public void setSpawnLocs(Node node)
+    @Override
+	public void setSpawnLocs(Node node)
     {
         int ai[] = new int[3];
         Node node1 = node.getAttributes().getNamedItem("X");
@@ -88,87 +85,61 @@ public class L2TownZone extends L2ZoneType
             _spawnLocs.add(ai);
     }
 
-	@Override
+    @Override
 	protected void onEnter(L2Character character)
-	{
-		if (character instanceof L2PcInstance)
-		{
-			// PVP possible during siege, now for siege participants only
-			// Could also check if this town is in siege, or if any siege is going on
-			if (((L2PcInstance)character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
-				return;
-		}
-		if (_isPeaceZone && Config.ZONE_TOWN != 2) character.setInsideZone(L2Character.ZONE_PEACE, true);
-	}
+    {
+        if((character instanceof L2PcInstance) && ((L2PcInstance)character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
+            return;
+        if(!_noPeace && Config.ZONE_TOWN != 2)
+            character.setInsideZone(2, true);
+    }
 
-	@Override
+    @Override
 	protected void onExit(L2Character character)
-	{
-		// TODO: there should be no exit if there was possibly no enter
-		if (_isPeaceZone) character.setInsideZone(L2Character.ZONE_PEACE, false);
-	}
+    {
+        if(!_noPeace)
+            character.setInsideZone(2, false);
+    }
 
-	@Override
+    @Override
 	protected void onDieInside(L2Character character)
-	{
-	}
+    {
+    }
 
-	@Override
+    @Override
 	protected void onReviveInside(L2Character character)
-	{
-	}
+    {
+    }
 
-	/**
-	 * Returns this town zones name
-	 * @return
-	 */
-	@Deprecated
-	public String getName()
-	{
-		return _townName;
-	}
+    public String getName()
+    {
+        return _townName;
+    }
 
-	/**
-	 * Returns this zones town id (if any)
-	 * @return
-	 */
-	public int getTownId()
-	{
-		return _townId;
-	}
+    public int getTownId()
+    {
+        return _townId;
+    }
 
-	/**
-	 * Gets the id for this town zones redir town
-	 * @return
-	 */
-	@Deprecated
-	public int getRedirectTownId()
-	{
-		return _redirectTownId;
-	}
+    public int getRedirectTownId()
+    {
+        return _redirectTownId;
+    }
 
-	/**
-	 * Returns this zones spawn location
-	 * @return
-	 */
-	public final int[] getSpawnLoc()
-	{
+    public final int[] getSpawnLoc()
+    {
         int ai[] = new int[3];
         ai = (int[])_spawnLocs.get(Rnd.get(_spawnLocs.size()));
         return ai;
-	}
+    }
 
-	/**
-	 * Returns this town zones castle id
-	 * @return
-	 */
-	public final int getTaxById()
-	{
-    	return _taxById;
-	}
+    public final int getTaxById()
+    {
+        return _taxById;
+    }
 
-	public final boolean isPeaceZone()
-	{
-		return _isPeaceZone;
-	}
+    public final boolean isPeaceZone()
+    {
+        return _noPeace;
+    }
 }
