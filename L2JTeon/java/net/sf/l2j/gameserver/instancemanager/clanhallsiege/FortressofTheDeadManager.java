@@ -71,7 +71,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 	}
 	private FortressofTheDeadManager()
 	{
-		_log.info("SiegeManager of Bandits Stronghold");
+		_log.info("Fortress of The Dead");
 		long siegeDate = restoreSiegeDate(64);
 		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
