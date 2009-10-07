@@ -66,6 +66,7 @@
 </skill>
 <skill id="1403" levels="1" name="Summon Friend">
   <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="skillRadius" val="-1"/> 
   <set name="skillType" val="SUMMON_FRIEND"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="mpConsume" val="180"/>
@@ -73,6 +74,9 @@
   <set name="reuseDelay" val="20000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="isMagic" val="true"/> 
+  <set name="targetConsumeId" val="8615"/> 
+  <set name="targetConsumeCount" val="1"/> 
   <for>
   </for>
 </skill>
@@ -88,6 +92,9 @@
   <set name="reuseDelay" val="60000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="isMagic" val="true"/> 
+  <set name="targetConsumeId" val="8615"/> 
+  <set name="targetConsumeCount" val="1"/> 
   <for>
   </for>
 </skill>
@@ -660,14 +667,18 @@
   </for>
 </skill>
 <skill id="1429" levels="1" name="Gate Chant">
-  <set name="target" val="TARGET_PARTY_MEMBER"/>
-  <set name="skillType" val="SUMMON_FRIEND"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="mpConsume" val="180"/>
-  <set name="hitTime" val="15000"/>
-  <set name="reuseDelay" val="20000"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
+  <!-- Done by DJ MELERIX --> 
+ 	<set name="hitTime" val="15000"/> 
+ 	<set name="isMagic" val="true"/> 
+ 	<set name="itemConsumeCount" val="4"/> 
+ 	<set name="itemConsumeId" val="8615"/>
+ 	<set name="mpConsume" val="284"/> 
+ 	<set name="operateType" val="OP_ACTIVE"/> 
+  	<set name="reuseDelay" val="600000"/> 
+ 	<set name="power" val="0.0"/> 
+  	<set name="skillRadius" val="-1"/> 
+ 	<set name="skillType" val="SUMMON_FRIEND"/>
+ 	<set name="target" val="TARGET_PARTY"/> 
   <for>
   </for>
 </skill>
