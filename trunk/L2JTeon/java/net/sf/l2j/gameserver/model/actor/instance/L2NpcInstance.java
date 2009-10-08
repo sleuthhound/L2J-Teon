@@ -2630,6 +2630,7 @@ public class L2NpcInstance extends L2Character
 	}
 	html.replace("%objectId%", String.valueOf(getObjectId()));
 	html.replace("%festivalMins%", SevenSignsFestival.getInstance().getTimeToNextFestivalStr());
+        html.replace("resistancetimeleft", FortResistSiegeManager.getInstance().getTimeLeft()); 
 	player.sendPacket(html);
 	// Send a Server->Client ActionFailed to the L2PcInstance in order to
 	// avoid that the client wait another packet

@@ -101,8 +101,8 @@ public class L2AttackableAIScript extends QuestJython
 	}
 
 	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
-    { 
-    	if (caster == null) 
+	{
+    	if (caster == null)
     	{
     		return null;
     	}
@@ -110,7 +110,6 @@ public class L2AttackableAIScript extends QuestJython
     	{
     		return null;
     	}
-    	
     	L2Attackable attackable = (L2Attackable)npc; 
     	
     	int skillAggroPoints = skill.getAggroPoints();
@@ -123,7 +122,7 @@ public class L2AttackableAIScript extends QuestJython
     	
     	if ( attackable.isRaid() && attackable.hasAI() && (attackable.getAI().getIntention() == AI_INTENTION_ATTACK))
 		{
-			if ((skill.getMagicLevel() > caster.getLevel() ? skill.getMagicLevel()-10 : caster.getLevel()-8) > attackable.getLevel())
+			if ((skill.getMagicLevel() > caster.getLevel() ? skill.getMagicLevel()-10 : caster.getLevel() - 8) > attackable.getLevel())
 	    	{
 		        	if (skill.isMagic())
 					{
@@ -166,9 +165,8 @@ public class L2AttackableAIScript extends QuestJython
     
     public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
     { 
-    	L2Character originalAttackTarget = (isPet? attacker.getPet(): attacker);
-		if ( attacker.isInParty()
-				&& attacker.getParty().isInDimensionalRift())
+    	L2Character originalAttackTarget = (isPet ? attacker.getPet(): attacker);
+		if ( attacker.isInParty() && attacker.getParty().isInDimensionalRift())
 		{
 			byte riftType = attacker.getParty().getDimensionalRift().getType();
 			byte riftRoom = attacker.getParty().getDimensionalRift().getCurrentRoom();
@@ -186,11 +184,23 @@ public class L2AttackableAIScript extends QuestJython
     	
     	return null;
     }
-    
+
+    public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet) 
+    { 
+    	L2Character target = isPet ? player.getPet() : player;
+    	
+    	((L2Attackable) npc).addDamageHate(target, 0, 1);
+
+		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
+		if (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+    	return null; 
+    }
+/*
     public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet) 
     { 
     	return null; 
-    }
+    }*/
 
     public String onSpawn (L2NpcInstance npc) 
     { 
@@ -205,7 +215,7 @@ public class L2AttackableAIScript extends QuestJython
 	
 	    	L2Character originalAttacker = isPet? attacker.getPet(): attacker;
 	    	attackable.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, originalAttacker);
-	    	attackable.addDamageHate(originalAttacker, damage, (damage*100)/(attackable.getLevel()+7));
+	    	attackable.addDamageHate(originalAttacker, damage, (damage * 100) / (attackable.getLevel() + 7));
     	}
     	return null;
     }

@@ -36,11 +36,11 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 /**
  * @author Setekh
  */
-public class L2SiegeCHManagerInstance extends L2NpcInstance
+public class L2CHSiegeInstance extends L2NpcInstance
 {
 	//private static Logger _log = Logger.getLogger(L2SiegeNpcInstance.class.getName());
 
-	public L2SiegeCHManagerInstance(int objectID, L2NpcTemplate template)
+	public L2CHSiegeInstance(int objectID, L2NpcTemplate template)
 	{
 		super(objectID, template);
 	}
@@ -78,7 +78,7 @@ public class L2SiegeCHManagerInstance extends L2NpcInstance
 				showChatWindow(player);
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+	player.sendPacket(new ActionFailed());
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class L2SiegeCHManagerInstance extends L2NpcInstance
             html.replace("%siegedate%", FortResistSiegeManager.getInstance().getTimeLeft());
             html.replace("%objectId%",String.valueOf(getObjectId()));
             player.sendPacket(html);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
+	player.sendPacket(new ActionFailed());
             } else
             {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -99,15 +99,14 @@ public class L2SiegeCHManagerInstance extends L2NpcInstance
             html.replace("%castlename%",getCastle().getName());
             html.replace("%objectId%",String.valueOf(getObjectId()));
             player.sendPacket(html);
-            player.sendPacket(ActionFailed.STATIC_PACKET);
+	player.sendPacket(new ActionFailed());
         	}
 	  }
 
-	private boolean validateCondition(L2PcInstance player)
-	{
+    private boolean validateCondition(L2PcInstance player)
+    {
         if (FortResistSiegeManager.getInstance().getIsInProgress())
-            //}
-            	return false;       // Busy because of siege
+	    return false; // Busy because of siege
 	return true;
     }
 }

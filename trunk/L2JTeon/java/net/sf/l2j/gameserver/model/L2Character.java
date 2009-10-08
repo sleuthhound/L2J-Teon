@@ -6077,7 +6077,6 @@ public abstract class L2Character extends L2Object
 		if ((level > target.getLevel() + 8) && Config.RAID_FOSSILIZATION_PENALTY)
 		{
 		    L2Skill skill = SkillTable.getInstance().getInfo(4515, 1);
-		    SkillTable.getInstance().getInfo(4215, 1);
 		    if (skill != null)
 		    {
 			skill.getEffects(target, this);
@@ -7333,8 +7332,7 @@ public abstract class L2Character extends L2Object
 		    // Check Raidboss attack
 		    if (player.isRaid() && (getLevel() > player.getLevel() + 8) && Config.RAID_FOSSILIZATION_PENALTY)
 		    {
-			L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 1);
-			SkillTable.getInstance().getInfo(4215, 1);
+			L2Skill tempSkill = SkillTable.getInstance().getInfo(4215, 1);
 			if (tempSkill != null)
 			{
 			    tempSkill.getEffects(player, this);

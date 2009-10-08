@@ -27358,7 +27358,6 @@ INSERT INTO `droplist` VALUES
 (21427,8742,1,1,200,34), -- Abraxion
 (22142,8742,1,1,200,21); -- Triol's Layperson
 
-
 -- Ice Fairy Queen
 INSERT INTO `droplist` VALUES
 (29056,110,1,1,2,62500),
@@ -27374,7 +27373,25 @@ INSERT INTO `droplist` VALUES
 (29056,8180,1,1,4,330000),
 (29056,8348,14,17,3,130000);
 
+-- Gordon
+INSERT INTO `droplist` VALUES
+(29095, 6711, 15, 29, 2, 700000), -- Sealed Major Arcane Robe Part
+(29095, 6684, 1, 1, 2, 71428), -- Sealed Major Arcane Robe
+(29095, 6695, 3, 9, 3, 930000), -- Demon Splinter Blade
+(29095, 6371, 1, 1, 3, 23810), -- Demon Splinter
+(29095, 960, 1, 1, 4, 450000); -- Scroll: Enchant Armor (Grade S)
+
+-- Benom
+DELETE FROM `droplist` where `mobId`='29054';
+INSERT INTO `droplist` VALUES
+(29054,57,400000,700000,0,1000000),
+(29054,6688,2,4,1,500000),
+(29054,6674,1,1,2,200000),
+(29054,6701,5,20,3,500000),
+(29054,6702,1,3,4,500000);
+
 -- Sailren
+DELETE FROM `droplist` where `mobId`='29065';
 INSERT INTO `droplist` VALUES
 (29065,959,1,5,2,100000),
 (29065,960,1,5,2,100000),
@@ -27386,19 +27403,3 @@ INSERT INTO `droplist` VALUES
 (29065,9458,1,1,1,300000),
 (29065,9467,1,1,1,300000),
 (29065,10170,1,1,1,1000000);
-
--- Gordon
-INSERT INTO `droplist` VALUES
-(29095, 6711, 15, 29, 2, 700000), -- Sealed Major Arcane Robe Part
-(29095, 6684, 1, 1, 2, 71428), -- Sealed Major Arcane Robe
-(29095, 6695, 3, 9, 3, 930000), -- Demon Splinter Blade
-(29095, 6371, 1, 1, 3, 23810), -- Demon Splinter
-(29095, 960, 1, 1, 4, 450000); -- Scroll: Enchant Armor (Grade S)
-
-DELETE FROM `droplist` where `mobId`='29054';
-INSERT INTO `droplist` VALUES
-(29054,57,400000,700000,0,1000000),
-(29054,6688,2,4,1,500000),
-(29054,6674,1,1,2,200000),
-(29054,6701,5,20,3,500000),
-(29054,6702,1,3,4,500000);
