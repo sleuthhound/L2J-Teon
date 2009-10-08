@@ -11,10 +11,10 @@ SplendorId ={   # Npc:[NewNpc,% for chance by shot,ModeSpawn]
                 # Modespawn 2=> just add 1 spawn the news npc
                 # if Quest_Drop = 5 => 25% by shot to change mob
                 21521:[21522,5,1],      # Claw of Splendor
-                21524:[21525,5,1],      # Blade of Splendor
+                # 21524:[21525,5,1],      # Blade of Splendor
                 21527:[21528,5,1],      # Anger of Splendor
                 21537:[21538,5,1],      # Fang of Splendor
-                21539:[21540,100,2]     # Wailing of Splendor
+                # 21539:[21540,100,2]     # Wailing of Splendor
                 }
 
 # Main Quest Code

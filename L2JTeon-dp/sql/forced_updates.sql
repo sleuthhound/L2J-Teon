@@ -929,27 +929,17 @@ INSERT IGNORE INTO teleport VALUES
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'HotSpring' WHERE `id` = '62';
 
--- Insert new NPCs
-INSERT IGNORE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-	(75001,30146,'Galadriel',1,'Rainbow Springs Steward',1,'NPC.a_teleporter_FElf',8.50,23.50,70,'female','L2ClanHallManager',40,3862,3059,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT'),
-	(75002,30148,'Feliel',1,'Rainbow Springs Gatekeeper',1,'NPC.a_trader_FElf',8.00,24.00,70,'female','L2Doormen',40,3862,3059,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT'),
-	(75015,30148,'Eliade',1,'Rainbow Springs Gatekeeper',1,'NPC.a_trader_FElf',8.00,24.00,70,'female','L2Doormen',40,3862,3059,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT'),
-	(75016,30148,'D''Alorna',1,'Rainbow Springs Gatekeeper',1,'NPC.a_trader_FElf',8.00,24.00,70,'female','L2Doormen',40,3862,3059,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT');
-
--- Spawns
-INSERT IGNORE INTO `spawnlist` VALUES 
-	(NULL,'Hot Springs - Clan Hall NPC',1,75001,141107,-124320,-1869,0,0,42569,60,0,'0'),
-	(NULL,'Hot Springs - Clan Hall NPC',1,75002,141138,-124252,-1869,0,0,10721,60,0,'0'),
-	(NULL,'Hot Springs - Clan Hall NPC',1,75015,140768,-124356,-1869,0,0,26809,60,0,'0'),
-	(NULL,'Hot Springs - Clan Hall NPC',1,75016,141324,-124732,-1869,0,0,58383,60,0,'0');
-
 -- Insert new shop ids
-INSERT IGNORE INTO merchant_shopids VALUES (175001,'75001');
-INSERT IGNORE INTO merchant_shopids VALUES (275001,'75001');
-INSERT IGNORE INTO merchant_shopids VALUES (375001,'75001');
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '175001';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '275001';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '375001';
+
+INSERT IGNORE INTO merchant_shopids VALUES (175001,'35605');
+INSERT IGNORE INTO merchant_shopids VALUES (275001,'35605');
+INSERT IGNORE INTO merchant_shopids VALUES (375001,'35605');
 
 -- Insert new buy lists
-DELETE FROM `merchant_buylists` WHERE `shop_id` like '%75001';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '%35605';
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,time) VALUES 
 	(6902,12900,175001,1,-1,0),
 	(1829,500,175001,2,5,1),
@@ -1014,27 +1004,16 @@ INSERT IGNORE INTO teleport VALUES
 -- Clan Hall Changes
 UPDATE `clanhall` SET `location` = 'BeastFarm' WHERE `id` = '63';
 
--- Insert new NPCs
-INSERT IGNORE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-	(75003,31366,'Cole',1,'Beast Manager',1,'NPC.a_traderD_Mhuman',8.00,25.30,70,'male','L2ClanHallManager',40,3862,3059,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT'),
-	(75004,31537,'Tom',1,'Beast Keeper',1,'NPC.a_common_peopleC_Mhuman',10.00,24.00,70,'male','L2Doormen',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT'),
-	(75005,31537,'Richard',1,'Beast Keeper',1,'NPC.a_common_peopleC_Mhuman',10.00,24.00,70,'male','L2Doormen',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT'),
-	(75006,31537,'Harry',1,'Beast Keeper',1,'NPC.a_common_peopleC_Mhuman',10.00,24.00,70,'male','L2Doormen',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,55,132,NULL,0,1,0,'LAST_HIT');
-
--- Spawns
-INSERT IGNORE INTO `spawnlist` VALUES 
-	(NULL,'Beast Farm - Clan Hall NPC',1,75003,60916,-94279,-1350,0,0,27932,60,0,'0'),
-	(NULL,'Beast Farm - Clan Hall NPC',1,75004,55175,-93025,-1361,0,0,35782,60,0,'0'),
-	(NULL,'Beast Farm - Clan Hall NPC',1,75005,55577,-93235,-1359,0,0,15186,60,0,'0'),
-	(NULL,'Beast Farm - Clan Hall NPC',1,75006,59950,-94058,-1354,0,0,27391,60,0,'0');
-
 -- Insert new shop ids
-INSERT IGNORE INTO merchant_shopids VALUES (175003,'75003');
-INSERT IGNORE INTO merchant_shopids VALUES (275003,'75003');
-INSERT IGNORE INTO merchant_shopids VALUES (375003,'75003');
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '175003';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '275003';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '375003';
+INSERT IGNORE INTO merchant_shopids VALUES (175003,'35628');
+INSERT IGNORE INTO merchant_shopids VALUES (275003,'35628');
+INSERT IGNORE INTO merchant_shopids VALUES (375003,'35628');
 
 -- Insert new buy lists
-DELETE FROM `merchant_buylists` WHERE `shop_id` like '%75003';
+DELETE FROM `merchant_buylists` WHERE `shop_id` like '%35628';
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,time) VALUES 
 	(6902,12900,175003,1,-1,0),
 	(1829,500,175003,2,5,1),
@@ -1199,6 +1178,7 @@ INSERT INTO droplist VALUES
 
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (22124,22125,22126,22127,22129,22134,22135);
 
+DELETE from `spawnlist` WHERE `npc_templateid` IN(35604,35605,35602,35601,35603);
 -- Rainbow Springs CH spawnlist
 INSERT INTO `spawnlist` VALUES
 -- Messenger
@@ -1227,6 +1207,7 @@ INSERT INTO `spawnlist` VALUES
 -- Farm Manager
 (NULL,'ch_wild_beast','1','35628','60880','-94320','-1344','0','0','27000','0','0','0');
 
+DELETE from `spawnlist` WHERE `npc_templateid` IN(35638,35639,35640,35641,35642);
 -- Fortress of Dead
 INSERT INTO `spawnlist` VALUES
 -- Wyvern Manager
@@ -1261,5 +1242,25 @@ REPLACE INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
 
 UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (35375,35368,35410);
 
+DELETE FROM grandboss_data WHERE boss_id = 29045;
 INSERT IGNORE INTO `grandboss_data` VALUES
-(29045, 0, 0, 0, 0, 0, 1216600, 11100, 0); -- Frintezza (85) 
+(29045, 0, 0, 0, 0, 0, 1216600, 11100, 0); -- Frintezza (85)
+
+-- Deleting Schuttgart castle npc's incase that was custom spawned
+DELETE FROM `spawnlist` WHERE npc_templateid IN ( 35555,35556,35557,35559,35550,35548,35546,35545,35544 );
+
+-- Shuttgard Castle NPC's spawns --
+INSERT INTO `spawnlist` VALUES
+(NULL,'Schuttgart Castle',1,35555,77438,-153384,-429,0,0,16384,60,0,0),
+(NULL,'Schuttgart Castle',1,35557,77795,-153326,-514,0,0,14662,60,0,0),
+(NULL,'Schuttgart Castle',1,35559,77804,-147213,-480,0,0,26688,60,0,0),
+(NULL,'Schuttgart Castle',1,35550,77629,-150364,-357,0,0,6134,60,0,0),
+(NULL,'Schuttgart Castle',1,35550,77641,-150176,-353,0,0,27354,60,0,0),
+(NULL,'Schuttgart Castle',1,35550,77659,-151796,-545,0,0,46651,60,0,0),
+(NULL,'Schuttgart Castle',1,35548,77350,-149735,-353,0,0,57344,60,0,0),
+(NULL,'Schuttgart Castle',1,35548,77381,-149411,-353,0,0,16384,60,0,0),
+(NULL,'Schuttgart Castle',1,35546,77371,-149013,-353,0,0,55142,60,0,0),
+(NULL,'Schuttgart Castle',1,35545,77687,-150108,-353,0,0,21438,60,0,0),
+(NULL,'Schuttgart Castle',1,35544,77384,-151832,-545,0,0,58944,60,0,0);
+
+UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE `id` IN (35605,35640,35628,35605);
