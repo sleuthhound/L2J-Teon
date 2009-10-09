@@ -43,7 +43,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * @author: MHard
  * @author: Maxi(modified)
  * 
- * Rewritten by Setekh for L2J-Archid rev 990.
+ * Rewritten by Setekh
  */
 public class FortResistSiegeManager
 {

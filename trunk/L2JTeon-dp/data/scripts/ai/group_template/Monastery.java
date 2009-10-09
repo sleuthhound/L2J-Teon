@@ -48,6 +48,7 @@ public class Monastery extends L2AttackableAIScript
         super(questId, name, descr);
         registerMobs(mobs1);
         registerMobs(mobs2);
+        _isAttacked = false;
     }
  
     public String onAggroRangeEnter(L2NpcInstance npc, L2PcInstance player, boolean isPet)
@@ -72,6 +73,7 @@ public class Monastery extends L2AttackableAIScript
     					npc.setIsRunning(true);
     	    			((L2Attackable) npc).addDamageHate(player, 0, 999);
     	    			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
+				_isAttacked = true;
     	    			break;
     				}
     			}
@@ -86,7 +88,7 @@ public class Monastery extends L2AttackableAIScript
 	{
     	if (contains(mobs2,npc.getNpcId()))
     	{
-    		if (skill.getSkillType() == /*L2*//*L2Skill.*/SkillType.AGGDAMAGE && targets.length != 0)
+    		if (skill.getSkillType() == SkillType.AGGDAMAGE && targets.length != 0)
     		{
     			for (L2Object obj : targets)
     			{
@@ -95,6 +97,7 @@ public class Monastery extends L2AttackableAIScript
     					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text[Rnd.get(2)+1].replace("name", caster.getName())));
 	    				((L2Attackable) npc).addDamageHate(caster, 0, 999);
 	    				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, caster);
+            				_isAttacked = true;
 	    				break;
     				}
     			}
@@ -142,6 +145,7 @@ public class Monastery extends L2AttackableAIScript
     	    					npc.setIsRunning(true);
     	    	    			((L2Attackable) npc).addDamageHate(target, 0, 999);
     	    	    			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
+            				_isAttacked = true;
     	    	    			break;
     	    				}
     	    			}
@@ -159,6 +163,7 @@ public class Monastery extends L2AttackableAIScript
     		npc.setIsRunning(true);
     		((L2Attackable) npc).addDamageHate(player, 0, 999);
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
+            				_isAttacked = true;
     	}
     	return super.onSpellFinished(npc, player, skill);
     }
