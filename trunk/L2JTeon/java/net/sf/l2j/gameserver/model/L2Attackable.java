@@ -1030,16 +1030,6 @@ public class L2Attackable extends L2NpcInstance
 
         ai._hate += aggro;
         ai._damage += damage;
-/*
-		L2PcInstance targetPlayer = attacker.getActingPlayer();
-		if (targetPlayer != null && aggro == 0)
-		{
-			if (getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER) != null)
-			{
-				for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER))
-					quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
-			}
-		}*/
 
         // Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
         if (aggro > 0 && getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
