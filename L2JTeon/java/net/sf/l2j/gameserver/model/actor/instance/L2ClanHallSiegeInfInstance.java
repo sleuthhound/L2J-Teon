@@ -72,7 +72,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(new ActionFailed());
 	}
 	@Override	
 	public void onBypassFeedback(L2PcInstance player, String command)
@@ -339,7 +339,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 	}
 	public void showChatWindow/*showChatWindow*/(L2PcInstance player, int val)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(new ActionFailed());
 		long startSiege=0;
 		int npcId = getTemplate().getNpcId();
 		String filename;

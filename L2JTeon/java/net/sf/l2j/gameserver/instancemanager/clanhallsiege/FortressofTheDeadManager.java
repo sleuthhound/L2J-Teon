@@ -47,9 +47,7 @@ import org.apache.commons.logging.LogFactory;
 
 /*
  * Author: Maxi
- * 
  */
-
 public class FortressofTheDeadManager extends ClanHallSiege
 {
 	protected static Log					_log				= LogFactory.getLog(FortressofTheDeadManager.class.getName());
@@ -69,6 +67,15 @@ public class FortressofTheDeadManager extends ClanHallSiege
 			_instance = new FortressofTheDeadManager();
 		return _instance;
 	}
+
+	private class clanPlayersInfo
+	{
+		public String _clanName;
+		public L2SiegeFlagInstance _flag = null;
+		public L2MonsterInstance _mob = null;
+		public FastList<String> _players	= new FastList<String>();
+	} 
+
 	private FortressofTheDeadManager()
 	{
 		_log.info("Fortress of The Dead");
@@ -80,6 +87,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		// Schedule siege auto start
 		_startSiegeTask.schedule(1000);
 	}
+
 	public void startSiege()
 	{
 		if (GameServer._instanceOk)
@@ -122,6 +130,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 			_endSiegeTask.schedule(1000);
 		}
 	}
+
 	public void startSecondStep(L2Clan winner)
 	{
 		FastList<String> winPlayers = FortressofTheDeadManager.getInstance().getRegisteredPlayers(winner);
@@ -138,6 +147,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		anonce("Take place at the siege of his headquarters.",1);
 		ThreadPoolManager.getInstance().scheduleGeneral(new startFirstStep(), 5*60000);
 	}
+
 	public void endSiege(boolean par)
 	{
 		_mobControlTask.cancel();
@@ -575,12 +585,4 @@ public class FortressofTheDeadManager extends ClanHallSiege
 				schedule(3000);
 		}
 	};
-
-	private class clanPlayersInfo
-	{
-		public String _clanName;
-		public L2SiegeFlagInstance _flag = null;
-		public L2MonsterInstance _mob = null;
-		public FastList<String> _players	= new FastList<String>();
-	}
 }
