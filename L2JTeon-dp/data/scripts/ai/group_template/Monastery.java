@@ -58,6 +58,7 @@ public class Monastery extends L2AttackableAIScript
     	{
     		if (player.getActiveWeaponInstance() != null)
     		{
+			_isAttacked = true;
     			npc.setTarget(player);
     			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text[0]));
     			switch (npc.getNpcId())
@@ -74,7 +75,6 @@ public class Monastery extends L2AttackableAIScript
     					npc.setIsRunning(true);
     	    			((L2Attackable) npc).addDamageHate(player, 0, 999);
     	    			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
-				_isAttacked = true;
     	    			break;
     				}
     			}
