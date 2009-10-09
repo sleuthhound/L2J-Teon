@@ -238,7 +238,7 @@ class Quest (JQuest) :
    return htmltext
 
 
- def onAttack(self, npc, player, damage, isPet, skill) :
+ def onAttack(self, npc, player, damage, isPet) :
    st = player.getQuestState(qn)
    if not st:
      return
