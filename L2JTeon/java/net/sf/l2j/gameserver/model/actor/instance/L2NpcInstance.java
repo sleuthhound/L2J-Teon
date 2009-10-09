@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -2630,7 +2631,7 @@ public class L2NpcInstance extends L2Character
 	}
 	html.replace("%objectId%", String.valueOf(getObjectId()));
 	html.replace("%festivalMins%", SevenSignsFestival.getInstance().getTimeToNextFestivalStr());
-        html.replace("resistancetimeleft", FortResistSiegeManager.getInstance().getTimeLeft()); 
+    html.replace("resistancetimeleft", FortResistSiegeManager.getInstance().getTimeLeft()); 
 	player.sendPacket(html);
 	// Send a Server->Client ActionFailed to the L2PcInstance in order to
 	// avoid that the client wait another packet
