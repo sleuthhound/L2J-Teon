@@ -209,7 +209,6 @@ import net.sf.l2j.util.Rnd;
 /**
  * This class represents all player characters in the world. There is always a
  * client-thread connected to this (except if a player-store is activated upon logout).<BR>
- * <BR>
  *
  * @version $Revision: 1.66.2.41.2.33 $ $Date: 2005/04/11 10:06:09 $
  */
@@ -301,9 +300,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			for (L2CubicInstance cubic : getCubics().values())
 			{
 				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-				{
 					cubic.doAction(target);
-				}
 			}
 		}
 		
@@ -321,25 +318,17 @@ public final class L2PcInstance extends L2PlayableInstance
 			// cancel the recent fake-death protection instantly if the player attacks or casts spells
 			getPlayer().setRecentFakeDeath(false);
 			if (skill == null)
-			{
 				return;
-			}
 			if (!skill.isOffensive())
-			{
 				return;
-			}
 			L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
 			// the code doesn't now support multiple targets
-			if ((mainTarget == null) || !(mainTarget instanceof L2Character))
-			{
+			if (mainTarget == null || !(mainTarget instanceof L2Character))
 				return;
-			}
 			for (L2CubicInstance cubic : getCubics().values())
 			{
 				if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-				{
 					cubic.doAction((L2Character) mainTarget);
-				}
 			}
 		}
     }
@@ -353,17 +342,11 @@ public final class L2PcInstance extends L2PlayableInstance
     public void startForceBuff(L2Character target, L2Skill skill)
     {
     	if (!(target instanceof L2PcInstance))
-    	{
     		return;
-    	}
     	if (skill.getSkillType() != SkillType.FORCE_BUFF)
-    	{
     		return;
-    	}
     	if (_forceBuff == null)
-    	{
     		_forceBuff = new ForceBuff(this, (L2PcInstance) target, skill);
-    	}
     }
 
     private L2GameClient _client;
@@ -385,18 +368,15 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The Experience of the L2PcInstance before the last Death Penalty */
     private long _expBeforeDeath;
     /**
-     * The Karma of the L2PcInstance (if higher than 0, the name of the
-     * L2PcInstance appears in red)
+     * The Karma of the L2PcInstance (if higher than 0, the name of the L2PcInstance appears in red)
      */
     private int _karma;
     /**
-     * The number of player killed during a PvP (the player killed was PvP
-     * Flagged)
+     * The number of player killed during a PvP (the player killed was PvP Flagged)
      */
     private int _pvpKills;
     /**
-     * The PK counter of the L2PcInstance (= Number of non PvP Flagged
-     * player killed)
+     * The PK counter of the L2PcInstance (= Number of non PvP Flagged player killed)
      */
     private int _pkKills;
     /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
@@ -404,9 +384,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The Siege state of the L2PcInstance */
     private byte _siegeState = 0;
     private int _curWeightPenalty = 0;
-    private int _lastCompassZone; // the last compass zone update send to
-    // the
-    // client
+    private int _lastCompassZone; // the last compass zone update send to the client
     private byte _zoneValidateCounter = 4;
     private boolean _isIn7sDungeon = false;
     private boolean _inJail = false;
@@ -512,9 +490,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _hennaCON;
     /** The L2Summon of the L2PcInstance */
     private L2Summon _summon = null;
-    // apparently, a L2PcInstance CAN have both a summon AND a tamed beast
-    // at
-    // the same time!!
+    // apparently, a L2PcInstance CAN have both a summon AND a tamed beast at the same time!!
     private L2TamedBeastInstance _tamedBeast = null;
     // client radar
     // TODO: This needs to be better intergrated and saved/loaded
@@ -569,15 +545,13 @@ public final class L2PcInstance extends L2PlayableInstance
     // protects a char from agro mobs when getting up from fake death
     private long _recentFakeDeathEndTime = 0;
     /**
-     * The fists L2Weapon of the L2PcInstance (used when no weapon is
-     * equiped)
+     * The fists L2Weapon of the L2PcInstance (used when no weapon is equiped)
      */
     private L2Weapon _fistsWeaponItem;
     private final Map<Integer, String> _chars = new FastMap<Integer, String>();
     // private byte _updateKnownCounter = 0;
     /**
-     * The current higher Expertise of the L2PcInstance (None=0, D=1, C=2,
-     * B=3, A=4, S=5)
+     * The current higher Expertise of the L2PcInstance (None=0, D=1, C=2, B=3, A=4, S=5)
      */
     private int _expertiseIndex; // index in EXPERTISE_LEVELS
     private int _expertisePenalty = 0;
