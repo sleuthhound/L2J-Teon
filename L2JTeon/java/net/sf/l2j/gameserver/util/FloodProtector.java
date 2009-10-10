@@ -43,6 +43,8 @@ public class FloodProtector
 	// =========================================================
 	// Data Field
 	private FastMap<Integer, Integer[]> _floodClient;
+	// Enum  
+	private static final int PROTECTEDACTIONSIZE = 8; 
 	// =========================================================
 	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
     private static final int[] REUSEDELAY = new int[] 

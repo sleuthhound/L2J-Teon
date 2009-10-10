@@ -856,46 +856,47 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>,
 	}
     }
 
-    private void unknownPacketProtection(L2GameClient client)
-    {
-	if ((client.getActiveChar() != null) && client.checkUnknownPackets())
-	{
-	    punish(client);
-	    return;
+	private void unknownPacketProtection(L2GameClient client)   
+	{   
+		if(client.getActiveChar() != null && client.checkUnknownPackets())   
+		{   
+			punish(client);   
+			return;   
+		}   
+	}   
+	
+	private void punish(L2GameClient client)   
+	{   
+		switch(Config.UNKNOWN_PACKETS_PUNISHMENT)   
+		{   
+		case(1):   
+			if (client.getActiveChar() != null)   
+			{   
+				GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets.");   
+			}   
+		break;   
+		case(2):   
+			_log.warning("PacketProtection: " + client.toString() + " got kicked due flooding of unknown packets");   
+		if (client.getActiveChar() != null)    
+		{   
+			GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets and got kicked.");   
+			client.getActiveChar().sendMessage("You are will be kicked for unknown packet flooding, GM informed.");   
+			client.getActiveChar().closeNetConnection();   
+		}   
+		break;   
+		case(3):   
+			_log.warning("PacketProtection: " + client.toString() + " got banned due flooding of unknown packets");   
+		LoginServerThread.getInstance().sendAccessLevel(client.getAccountName(), -99);   
+		if(client.getActiveChar() != null)   
+		{   
+			GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets and got banned.");   
+			client.getActiveChar().sendMessage("You are banned for unknown packet flooding, GM informed.");   
+			client.getActiveChar().closeNetConnection();   
+		}   
+		break;   
+		}   
+		
 	}
-    }
-
-    private void punish(L2GameClient client)
-    {
-	switch (Config.UNKNOWN_PACKETS_PUNiSHMENT)
-	{
-	case 1:
-	    if (client.getActiveChar() != null)
-	    {
-		GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets.");
-	    }
-	    break;
-	case 2:
-	    _log.warning("PacketProtection: " + client.toString() + " got kicked due flooding of unknown packets");
-	    if (client.getActiveChar() != null)
-	    {
-		GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets and got kicked.");
-		client.getActiveChar().sendMessage("You are will be kicked for unknown packet flooding, GM informed.");
-		client.getActiveChar().closeNetConnection();
-	    }
-	    break;
-	case 3:
-	    _log.warning("PacketProtection: " + client.toString() + " got banned due flooding of unknown packets");
-	    LoginServerThread.getInstance().sendAccessLevel(client.getAccountName(), -99);
-	    if (client.getActiveChar() != null)
-	    {
-		GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets and got banned.");
-		client.getActiveChar().sendMessage("You are banned for unknown packet flooding, GM informed.");
-		client.getActiveChar().closeNetConnection();
-	    }
-	    break;
-	}
-    }
 
     // impl
     public L2GameClient create(MMOConnection<L2GameClient> con)

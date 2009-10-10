@@ -1328,7 +1328,7 @@ public final class Config
     /** Unknown Packet handler protection */
     public static boolean ENABLE_PACKET_PROTECTION;
     public static int MAX_UNKNOWN_PACKETS;
-    public static int UNKNOWN_PACKETS_PUNiSHMENT;
+    public static int UNKNOWN_PACKETS_PUNISHMENT;
     /** GM Audit ? */
     public static boolean GMAUDIT;
     // * Miscellaneous Customizations *//
@@ -2902,7 +2902,7 @@ public final class Config
 		GM_ADMIN_MENU_STYLE = L2JTeonCustom.getProperty("GMAdminMenuStyle", "modern");
 		ENABLE_PACKET_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("PacketProtection", "False"));
 		MAX_UNKNOWN_PACKETS = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsBeforeBan", "5"));
-		UNKNOWN_PACKETS_PUNiSHMENT = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsPunishment", "2"));
+		UNKNOWN_PACKETS_PUNISHMENT = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsPunishment", "2"));
 		GMAUDIT = Boolean.valueOf(L2JTeonCustom.getProperty("GMAudit", "True"));
 		// ********************//
 		/* Misc. Customizes. */
@@ -3427,7 +3427,7 @@ public final class Config
 	    MAX_UNKNOWN_PACKETS = Integer.parseInt(pValue);
 	} else if (pName.equalsIgnoreCase("UnknownPacketsPunishment"))
 	{
-	    UNKNOWN_PACKETS_PUNiSHMENT = Integer.parseInt(pValue);
+	    UNKNOWN_PACKETS_PUNISHMENT = Integer.parseInt(pValue);
 	} else if (pName.equalsIgnoreCase("ZoneTown"))
 	{
 	    ZONE_TOWN = Integer.parseInt(pValue);
