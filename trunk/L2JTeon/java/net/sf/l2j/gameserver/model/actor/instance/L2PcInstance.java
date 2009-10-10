@@ -11764,550 +11764,578 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private int GetRandomGroup()
     {
-	switch (_lure.getItemId())
-	{
-	case 7807: // green for beginners
-	case 7808: // purple for beginners
-	case 7809: // yellow for beginners
-	case 8486: // prize-winning for beginners
-	    return 0;
-	case 8485: // prize-winning luminous
-	case 8506: // green luminous
-	case 8509: // purple luminous
-	case 8512: // yellow luminous
-	    return 2;
-	default:
-	    return 1;
-	}
+    	switch (_lure.getItemId())
+    	{
+    	case 7807: // green for beginners
+    	case 7808: // purple for beginners
+    	case 7809: // yellow for beginners
+    	case 8486: // prize-winning for beginners
+    		return 0;
+    	case 8485: // prize-winning luminous
+    	case 8506: // green luminous
+    	case 8509: // purple luminous
+    	case 8512: // yellow luminous
+    		return 2;
+    	default:
+    		return 1;
+    	}
     }
 
     private int GetRandomFishType(int group)
     {
-	int check = Rnd.get(100);
-	int type = 1;
-	switch (group)
-	{
-	case 0: // fish for novices
-	    switch (_lure.getItemId())
-	    {
-	    case 7807: // green lure, preferred by fast-moving (nimble)
-		// fish (type 5)
-		if (check <= 54)
-		{
-		    type = 5;
-		} else if (check <= 77)
-		{
-		    type = 4;
-		} else
-		{
-		    type = 6;
-		}
-		break;
-	    case 7808: // purple lure, preferred by fat fish (type 4)
-		if (check <= 54)
-		{
-		    type = 4;
-		} else if (check <= 77)
-		{
-		    type = 6;
-		} else
-		{
-		    type = 5;
-		}
-		break;
-	    case 7809: // yellow lure, preferred by ugly fish (type 6)
-		if (check <= 54)
-		{
-		    type = 6;
-		} else if (check <= 77)
-		{
-		    type = 5;
-		} else
-		{
-		    type = 4;
-		}
-		break;
-	    case 8486: // prize-winning fishing lure for beginners
-		if (check <= 33)
-		{
-		    type = 4;
-		} else if (check <= 66)
-		{
-		    type = 5;
-		} else
-		{
-		    type = 6;
-		}
-		break;
-	    }
-	    break;
-	case 1: // normal fish
-	    switch (_lure.getItemId())
-	    {
-	    case 7610:
-	    case 7611:
-	    case 7612:
-	    case 7613:
-		type = 3;
-		break;
-	    case 6519: // all theese lures (green) are prefered by
-		// fast-moving (nimble) fish (type 1)
-	    case 8505:
-	    case 6520:
-	    case 6521:
-	    case 8507:
-		if (check <= 54)
-		{
-		    type = 1;
-		} else if (check <= 74)
-		{
-		    type = 0;
-		} else if (check <= 94)
-		{
-		    type = 2;
-		} else
-		{
-		    type = 3;
-		}
-		break;
-	    case 6522: // all theese lures (purple) are prefered by fat
-		// fish (type 0)
-	    case 8508:
-	    case 6523:
-	    case 6524:
-	    case 8510:
-		if (check <= 54)
-		{
-		    type = 0;
-		} else if (check <= 74)
-		{
-		    type = 1;
-		} else if (check <= 94)
-		{
-		    type = 2;
-		} else
-		{
-		    type = 3;
-		}
-		break;
-	    case 6525: // all theese lures (yellow) are prefered by
-		// ugly fish (type 2)
-	    case 8511:
-	    case 6526:
-	    case 6527:
-	    case 8513:
-		if (check <= 55)
-		{
-		    type = 2;
-		} else if (check <= 74)
-		{
-		    type = 1;
-		} else if (check <= 94)
-		{
-		    type = 0;
-		} else
-		{
-		    type = 3;
-		}
-		break;
-	    case 8484: // prize-winning fishing lure
-		if (check <= 33)
-		{
-		    type = 0;
-		} else if (check <= 66)
-		{
-		    type = 1;
-		} else
-		{
-		    type = 2;
-		}
-		break;
-	    }
-	    break;
-	case 2: // upper grade fish, luminous lure
-	    switch (_lure.getItemId())
-	    {
-	    case 8506: // green lure, preferred by fast-moving (nimble)
-		// fish (type 8)
-		if (check <= 54)
-		{
-		    type = 8;
-		} else if (check <= 77)
-		{
-		    type = 7;
-		} else
-		{
-		    type = 9;
-		}
-		break;
-	    case 8509: // purple lure, preferred by fat fish (type 7)
-		if (check <= 54)
-		{
-		    type = 7;
-		} else if (check <= 77)
-		{
-		    type = 9;
-		} else
-		{
-		    type = 8;
-		}
-		break;
-	    case 8512: // yellow lure, preferred by ugly fish (type 9)
-		if (check <= 54)
-		{
-		    type = 9;
-		} else if (check <= 77)
-		{
-		    type = 8;
-		} else
-		{
-		    type = 7;
-		}
-		break;
-	    case 8485: // prize-winning fishing lure
-		if (check <= 33)
-		{
-		    type = 7;
-		} else if (check <= 66)
-		{
-		    type = 8;
-		} else
-		{
-		    type = 9;
-		}
-		break;
-	    }
-	}
-	return type;
+    	int check = Rnd.get(100);
+    	int type = 1;
+    	switch (group)
+    	{
+    	case 0: // fish for novices
+    		switch (_lure.getItemId())
+    		{
+    		case 7807: // green lure, preferred by fast-moving (nimble) fish (type 5)
+    			if (check <= 54)
+    			{
+    				type = 5;
+    			} 
+    			else if (check <= 77)
+    			{
+    				type = 4;
+    			} 
+    			else
+    			{
+    				type = 6;
+    			}
+    			break;
+    		case 7808: // purple lure, preferred by fat fish (type 4)
+    			if (check <= 54)
+    			{
+    				type = 4;
+    			}
+    			else if (check <= 77)
+    			{
+    				type = 6;
+    			}
+    			else
+    			{
+    				type = 5;
+    			}
+    			break;
+    		case 7809: // yellow lure, preferred by ugly fish (type 6)
+    			if (check <= 54)
+    			{
+    				type = 6;
+    			}
+    			else if (check <= 77)
+    			{
+    				type = 5;
+    			}
+    			else
+    			{
+    				type = 4;
+    			}
+    			break;
+    		case 8486: // prize-winning fishing lure for beginners
+    			if (check <= 33)
+    			{
+    				type = 4;
+    			}
+    			else if (check <= 66)
+    			{
+    				type = 5;
+    			}
+    			else
+    			{
+    				type = 6;
+    			}
+    			break;
+    		}
+    		break;
+    	case 1: // normal fish
+    		switch (_lure.getItemId())
+    		{
+    		case 7610:
+    		case 7611:
+    		case 7612:
+    		case 7613:
+    			type = 3;
+    			break;
+    		case 6519: // all theese lures (green) are prefered by
+    			// fast-moving (nimble) fish (type 1)
+    		case 8505:
+    		case 6520:
+    		case 6521:
+    		case 8507:
+    			if (check <= 54)
+    			{
+    				type = 1;
+    			} 
+    			else if (check <= 74)
+    			{
+    				type = 0;
+    			}
+    			else if (check <= 94)
+    			{
+    				type = 2;
+    			}
+    			else
+    			{
+    				type = 3;
+    			}
+    			break;
+    		case 6522: // all theese lures (purple) are prefered by fat
+    			// fish (type 0)
+    		case 8508:
+    		case 6523:
+    		case 6524:
+    		case 8510:
+    			if (check <= 54)
+    			{
+    				type = 0;
+    			}
+    			else if (check <= 74)
+    			{
+    				type = 1;
+    			}
+    			else if (check <= 94)
+    			{
+    				type = 2;
+    			}
+    			else
+    			{
+    				type = 3;
+    			}
+    			break;
+    		case 6525: // all theese lures (yellow) are prefered by ugly fish (type 2)
+    		case 8511:
+    		case 6526:
+    		case 6527:
+    		case 8513:
+    			if (check <= 55)
+    			{
+    				type = 2;
+    			} 
+    			else if (check <= 74)
+    			{
+    				type = 1;
+    			} 
+    			else if (check <= 94)
+    			{
+    				type = 0;
+    			}
+    			else
+    			{
+    				type = 3;
+    			}
+    			break;
+    		case 8484: // prize-winning fishing lure
+    			if (check <= 33)
+    			{
+    				type = 0;
+    			} 
+    			else if (check <= 66)
+    			{
+    				type = 1;
+    			} 
+    			else
+    			{
+    				type = 2;
+    			}
+    			break;
+    		}
+    		break;
+    	case 2: // upper grade fish, luminous lure
+    		switch (_lure.getItemId())
+    		{
+    		case 8506: // green lure, preferred by fast-moving (nimble) fish (type 8)
+    			if (check <= 54)
+    			{
+    				type = 8;
+    			} 
+    			else if (check <= 77)
+    			{
+    				type = 7;
+    			} 
+    			else
+    			{
+    				type = 9;
+    			}
+    			break;
+    		case 8509: // purple lure, preferred by fat fish (type 7)
+    			if (check <= 54)
+    			{
+    				type = 7;
+    			}
+    			else if (check <= 77)
+    			{
+    				type = 9;
+    			}
+    			else
+    			{
+    				type = 8;
+    			}
+    			break;
+    		case 8512: // yellow lure, preferred by ugly fish (type 9)
+    			if (check <= 54)
+    			{
+    				type = 9;
+    			}
+    			else if (check <= 77)
+    			{
+    				type = 8;
+    			} 
+    			else
+    			{
+    				type = 7;
+    			}
+    			break;
+    		case 8485: // prize-winning fishing lure
+    			if (check <= 33)
+    			{
+    				type = 7;
+    			} 
+    			else if (check <= 66)
+    			{
+    				type = 8;
+    			} 
+    			else
+    			{
+    				type = 9;
+    			}
+    			break;
+    		}
+    	}
+    	return type;
     }
 
     private int GetRandomFishLvl()
     {
-	L2Effect[] effects = getAllEffects();
-	int skilllvl = getSkillLevel(1315);
-	for (L2Effect e : effects)
-	{
-	    if (e.getSkill().getId() == 2274)
-	    {
-		skilllvl = (int) e.getSkill().getPower(this);
-	    }
-	}
-	if (skilllvl <= 0)
-	{
-	    return 1;
-	}
-	int randomlvl = 0;
-	int check = Rnd.get(100);
-	if (check <= 50)
-	{
-	    randomlvl = skilllvl;
-	} else if (check <= 85)
-	{
-	    randomlvl = skilllvl - 1;
-	    if (randomlvl <= 0)
-	    {
-		randomlvl = 1;
-	    }
-	} else
-	{
-	    if (randomlvl > 27)
-	    {
-		randomlvl = 27;
-	    }
-	}
-	return randomlvl;
+    	L2Effect[] effects = getAllEffects();
+    	int skilllvl = getSkillLevel(1315);
+    	for (L2Effect e : effects)
+    	{
+    		if (e.getSkill().getId() == 2274)
+    		{
+    			skilllvl = (int) e.getSkill().getPower(this);
+    		}
+    	}
+    	if (skilllvl <= 0)
+    	{
+    		return 1;
+    	}
+    	int randomlvl = 0;
+    	int check = Rnd.get(100);
+    	if (check <= 50)
+    	{
+    		randomlvl = skilllvl;
+    	}
+    	else if (check <= 85)
+    	{
+    		randomlvl = skilllvl - 1;
+    		if (randomlvl <= 0)
+    		{
+    			randomlvl = 1;
+    		}
+    	}
+    	else
+    	{
+    		if (randomlvl > 27)
+    		{
+    			randomlvl = 27;
+    		}
+    	}
+    	return randomlvl;
     }
 
     public void StartFishCombat(boolean isNoob, boolean isUpperGrade)
     {
-	_fishCombat = new L2Fishing(this, _fish, isNoob, isUpperGrade);
+    	_fishCombat = new L2Fishing(this, _fish, isNoob, isUpperGrade);
     }
 
     public void EndFishing(boolean win)
     {
-	ExFishingEnd efe = new ExFishingEnd(win, this);
-	broadcastPacket(efe);
-	_fishing = false;
-	_fishx = 0;
-	_fishy = 0;
-	_fishz = 0;
-	broadcastUserInfo();
-	if (_fishCombat == null)
-	{
-	    sendPacket(new SystemMessage(SystemMessageId.BAIT_LOST_FISH_GOT_AWAY));
-	}
-	_fishCombat = null;
-	_lure = null;
-	// Ends fishing
-	sendPacket(new SystemMessage(SystemMessageId.REEL_LINE_AND_STOP_FISHING));
-	setIsImmobilized(false);
-	stopLookingForFishTask();
+    	ExFishingEnd efe = new ExFishingEnd(win, this);
+    	broadcastPacket(efe);
+    	_fishing = false;
+    	_fishx = 0;
+    	_fishy = 0;
+    	_fishz = 0;
+    	broadcastUserInfo();
+    	if (_fishCombat == null)
+    	{
+    		sendPacket(new SystemMessage(SystemMessageId.BAIT_LOST_FISH_GOT_AWAY));
+    	}
+    	_fishCombat = null;
+    	_lure = null;
+    	// Ends fishing
+    	sendPacket(new SystemMessage(SystemMessageId.REEL_LINE_AND_STOP_FISHING));
+    	setIsImmobilized(false);
+    	stopLookingForFishTask();
     }
 
     public L2Fishing GetFishCombat()
     {
-	return _fishCombat;
+    	return _fishCombat;
     }
 
     public int GetFishx()
     {
-	return _fishx;
+    	return _fishx;
     }
 
     public int GetFishy()
     {
-	return _fishy;
+    	return _fishy;
     }
 
     public int GetFishz()
     {
-	return _fishz;
+    	return _fishz;
     }
 
     public void SetLure(L2ItemInstance lure)
     {
-	_lure = lure;
+    	_lure = lure;
     }
 
     public L2ItemInstance GetLure()
     {
-	return _lure;
+    	return _lure;
     }
 
     public int GetInventoryLimit()
     {
-	int ivlim;
-	if (isGM())
-	{
-	    ivlim = Config.INVENTORY_MAXIMUM_GM;
-	} else if (getRace() == Race.dwarf)
-	{
-	    ivlim = Config.INVENTORY_MAXIMUM_DWARF;
-	} else
-	{
-	    ivlim = Config.INVENTORY_MAXIMUM_NO_DWARF;
-	}
-	ivlim += (int) getStat().calcStat(Stats.INV_LIM, 0, null, null);
-	return ivlim;
+    	int ivlim;
+    	if (isGM())
+    	{
+    		ivlim = Config.INVENTORY_MAXIMUM_GM;
+    	} 
+    	else if (getRace() == Race.dwarf)
+    	{
+    		ivlim = Config.INVENTORY_MAXIMUM_DWARF;
+    	} 
+    	else
+    	{
+    		ivlim = Config.INVENTORY_MAXIMUM_NO_DWARF;
+    	}
+    	ivlim += (int) getStat().calcStat(Stats.INV_LIM, 0, null, null);
+    	return ivlim;
     }
 
     public int GetWareHouseLimit()
     {
-	int whlim;
-	if (getRace() == Race.dwarf)
-	{
-	    whlim = Config.WAREHOUSE_SLOTS_DWARF;
-	} else
-	{
-	    whlim = Config.WAREHOUSE_SLOTS_NO_DWARF;
-	}
-	whlim += (int) getStat().calcStat(Stats.WH_LIM, 0, null, null);
-	return whlim;
+    	int whlim;
+    	if (getRace() == Race.dwarf)
+    	{
+    		whlim = Config.WAREHOUSE_SLOTS_DWARF;
+    	}
+    	else
+    	{
+    		whlim = Config.WAREHOUSE_SLOTS_NO_DWARF;
+    	}
+    	whlim += (int) getStat().calcStat(Stats.WH_LIM, 0, null, null);
+    	return whlim;
     }
 
     public int GetPrivateSellStoreLimit()
     {
-	int pslim;
-	if (getRace() == Race.dwarf)
-	{
-	    pslim = Config.MAX_PVTSTORE_SLOTS_DWARF;
-	} else
-	{
-	    pslim = Config.MAX_PVTSTORE_SLOTS_OTHER;
-	}
-	pslim += (int) getStat().calcStat(Stats.P_SELL_LIM, 0, null, null);
-	return pslim;
+    	int pslim;
+    	if (getRace() == Race.dwarf)
+    	{
+    		pslim = Config.MAX_PVTSTORE_SLOTS_DWARF;
+    	}
+    	else
+    	{
+    		pslim = Config.MAX_PVTSTORE_SLOTS_OTHER;
+    	}
+    	pslim += (int) getStat().calcStat(Stats.P_SELL_LIM, 0, null, null);
+    	return pslim;
     }
 
     public int GetPrivateBuyStoreLimit()
     {
-	int pblim;
-	if (getRace() == Race.dwarf)
-	{
-	    pblim = Config.MAX_PVTSTORE_SLOTS_DWARF;
-	} else
-	{
-	    pblim = Config.MAX_PVTSTORE_SLOTS_OTHER;
-	}
-	pblim += (int) getStat().calcStat(Stats.P_BUY_LIM, 0, null, null);
-	return pblim;
+    	int pblim;
+    	if (getRace() == Race.dwarf)
+    	{
+    		pblim = Config.MAX_PVTSTORE_SLOTS_DWARF;
+    	} 
+    	else
+    	{
+    		pblim = Config.MAX_PVTSTORE_SLOTS_OTHER;
+    	}
+    	pblim += (int) getStat().calcStat(Stats.P_BUY_LIM, 0, null, null);
+    	return pblim;
     }
 
     public int GetFreightLimit()
     {
-	return Config.FREIGHT_SLOTS + (int) getStat().calcStat(Stats.FREIGHT_LIM, 0, null, null);
+    	return Config.FREIGHT_SLOTS + (int) getStat().calcStat(Stats.FREIGHT_LIM, 0, null, null);
     }
 
     public int GetDwarfRecipeLimit()
     {
-	int recdlim = Config.DWARF_RECIPE_LIMIT;
-	recdlim += (int) getStat().calcStat(Stats.REC_D_LIM, 0, null, null);
-	return recdlim;
+    	int recdlim = Config.DWARF_RECIPE_LIMIT;
+    	recdlim += (int) getStat().calcStat(Stats.REC_D_LIM, 0, null, null);
+    	return recdlim;
     }
 
     public int GetCommonRecipeLimit()
     {
-	int recclim = Config.COMMON_RECIPE_LIMIT;
-	recclim += (int) getStat().calcStat(Stats.REC_C_LIM, 0, null, null);
-	return recclim;
+    	int recclim = Config.COMMON_RECIPE_LIMIT;
+    	recclim += (int) getStat().calcStat(Stats.REC_C_LIM, 0, null, null);
+    	return recclim;
     }
 
     public void setMountObjectID(int newID)
     {
-	_mountObjectID = newID;
+    	_mountObjectID = newID;
     }
 
     public int getMountObjectID()
     {
-	return _mountObjectID;
+    	return _mountObjectID;
     }
 
     private L2ItemInstance _lure = null;
 
     /**
      * Get the current skill in use or return null.<BR>
-     * <BR>
-     *
      */
     public SkillDat getCurrentSkill()
     {
-	return _currentSkill;
+    	return _currentSkill;
     }
 
     /**
      * Create a new SkillDat object and set the player _currentSkill.<BR>
-     * <BR>
-     *
      */
     public void setCurrentSkill(L2Skill currentSkill, boolean ctrlPressed, boolean shiftPressed)
     {
-	if (currentSkill == null)
-	{
-	    if (Config.DEBUG)
-	    {
-		_log.info("Setting current skill: NULL for " + getName() + ".");
-	    }
-	    _currentSkill = null;
-	    return;
-	}
-	if (Config.DEBUG)
-	{
-	    _log.info("Setting current skill: " + currentSkill.getName() + " (ID: " + currentSkill.getId() + ") for " + getName() + ".");
-	}
-	_currentSkill = new SkillDat(currentSkill, ctrlPressed, shiftPressed);
+    	if (currentSkill == null)
+    	{
+    		if (Config.DEBUG)
+    		{
+    			_log.info("Setting current skill: NULL for " + getName() + ".");
+    		}
+    		_currentSkill = null;
+    		return;
+    	}
+    	if (Config.DEBUG)
+    	{
+    		_log.info("Setting current skill: " + currentSkill.getName() + " (ID: " + currentSkill.getId() + ") for " + getName() + ".");
+    	}
+    	_currentSkill = new SkillDat(currentSkill, ctrlPressed, shiftPressed);
     }
 
     public SkillDat getQueuedSkill()
     {
-	return _queuedSkill;
+    	return _queuedSkill;
     }
 
     /**
      * Create a new SkillDat object and queue it in the player _queuedSkill.<BR>
-     * <BR>
-     *
      */
     public void setQueuedSkill(L2Skill queuedSkill, boolean ctrlPressed, boolean shiftPressed)
     {
-	if (queuedSkill == null)
-	{
-	    if (Config.DEBUG)
-	    {
-		_log.info("Setting queued skill: NULL for " + getName() + ".");
-	    }
-	    _queuedSkill = null;
-	    return;
-	}
-	if (Config.DEBUG)
-	{
-	    _log.info("Setting queued skill: " + queuedSkill.getName() + " (ID: " + queuedSkill.getId() + ") for " + getName() + ".");
-	}
-	_queuedSkill = new SkillDat(queuedSkill, ctrlPressed, shiftPressed);
+    	if (queuedSkill == null)
+    	{
+    		if (Config.DEBUG)
+    		{
+    			_log.info("Setting queued skill: NULL for " + getName() + ".");
+    		}
+    		_queuedSkill = null;
+    		return;
+    	}
+    	if (Config.DEBUG)
+    	{
+    		_log.info("Setting queued skill: " + queuedSkill.getName() + " (ID: " + queuedSkill.getId() + ") for " + getName() + ".");
+    	}
+    	_queuedSkill = new SkillDat(queuedSkill, ctrlPressed, shiftPressed);
     }
 
     public boolean isInJail()
     {
-	return _inJail;
+    	return _inJail;
     }
 
     public void setInJail(boolean state)
     {
-	_inJail = state;
+    	_inJail = state;
     }
 
     public void setInJail(boolean state, int delayInMinutes)
     {
-	_inJail = state;
-	_jailTimer = 0;
-	// Remove the task if any
-	stopJailTask(false);
-	if (_inJail)
-	{
-	    if (delayInMinutes > 0)
-	    {
-		_jailTimer = delayInMinutes * 60000L; // in millisec
-		// start the countdown
-		_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
-		sendMessage("You are in jail for " + delayInMinutes + " minutes.");
-	    }
-	    // Open a Html message to inform the player
-	    NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-	    String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_in.htm");
-	    if (jailInfos != null)
-	    {
-		htmlMsg.setHtml(jailInfos);
-	    } else
-	    {
-		htmlMsg.setHtml("<html><body>Administration have notice illigal Actions. You are Jailed</body></html>");
-	    }
-	    sendPacket(htmlMsg);
-	    teleToLocation(-114356, -249645, -2984, true); // Jail
-	} else
-	{
-	    // Open a Html message to inform the player
-	    NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-	    String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_out.htm");
-	    if (jailInfos != null)
-	    {
-		htmlMsg.setHtml(jailInfos);
-	    } else
-	    {
-		htmlMsg.setHtml("<html><body>You are free to go. Respect the Administration's rules</body></html>");
-	    }
-	    sendPacket(htmlMsg);
-	    teleToLocation(17836, 170178, -3507, true); // Floran
-	}
-	// store in database
-	storeCharBase();
+    	_inJail = state;
+    	_jailTimer = 0;
+    	// Remove the task if any
+    	stopJailTask(false);
+    	if (_inJail)
+    	{
+    		if (delayInMinutes > 0)
+    		{
+    			_jailTimer = delayInMinutes * 60000L; // in millisec
+    			// start the countdown
+    			_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
+    			sendMessage("You are in jail for " + delayInMinutes + " minutes.");
+    		}
+    		// Open a Html message to inform the player
+    		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
+    		String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_in.htm");
+    		if (jailInfos != null)
+    		{
+    			htmlMsg.setHtml(jailInfos);
+    		} 
+    		else
+    		{
+    			htmlMsg.setHtml("<html><body>Administration have notice illigal Actions. You are Jailed</body></html>");
+    		}
+    		sendPacket(htmlMsg);
+    		teleToLocation(-114356, -249645, -2984, true); // Jail
+    	} 
+    	else
+    	{
+    		// Open a Html message to inform the player
+    		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
+    		String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_out.htm");
+    		if (jailInfos != null)
+    		{
+    			htmlMsg.setHtml(jailInfos);
+    		} 
+    		else
+    		{
+    			htmlMsg.setHtml("<html><body>You are free to go. Respect the Administration's rules</body></html>");
+    		}
+    		sendPacket(htmlMsg);
+    		teleToLocation(17836, 170178, -3507, true); // Floran
+    	}
+    	// store in database
+    	storeCharBase();
     }
 
     public long getJailTimer()
     {
-	return _jailTimer;
+    	return _jailTimer;
     }
 
     public void setJailTimer(long time)
     {
-	_jailTimer = time;
+    	_jailTimer = time;
     }
 
     private void updateJailState()
     {
-	if (isInJail())
-	{
-	    // If jail time is elapsed, free the player
-	    if (_jailTimer > 0)
-	    {
-		// restart the countdown
-		_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
-		sendMessage("You are still in jail for " + Math.round(_jailTimer / 60000) + " minutes.");
-	    }
-	    // If player escaped, put him back in jail
-	    if (!isInsideZone(ZONE_JAIL))
-	    {
-		teleToLocation(-114356, -249645, -2984, true);
-	    }
-	}
+    	if (isInJail())
+    	{
+    		// If jail time is elapsed, free the player
+    		if (_jailTimer > 0)
+    		{
+    			// restart the countdown
+    			_jailTask = ThreadPoolManager.getInstance().scheduleGeneral(new JailTask(this), _jailTimer);
+    			sendMessage("You are still in jail for " + Math.round(_jailTimer / 60000) + " minutes.");
+    		}
+    		// If player escaped, put him back in jail
+    		if (!isInsideZone(ZONE_JAIL))
+    		{
+    			teleToLocation(-114356, -249645, -2984, true);
+    		}
+    	}
     }
 
     public void stopJailTask(boolean save)
@@ -12316,43 +12344,43 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 	    if (save)
 	    {
-		long delay = _jailTask.getDelay(TimeUnit.MILLISECONDS);
-		if (delay < 0)
-		{
-		    delay = 0;
-		}
-		setJailTimer(delay);
+	    	long delay = _jailTask.getDelay(TimeUnit.MILLISECONDS);
+	    	if (delay < 0)
+	    	{
+	    		delay = 0;
+	    	}
+	    	setJailTimer(delay);
 	    }
 	    _jailTask.cancel(false);
 	    _jailTask = null;
-	}
+		}
     }
 
     private class JailTask implements Runnable
     {
-	L2PcInstance _player;
-	protected long _startedAt;
+    	L2PcInstance _player;
+    	protected long _startedAt;
+    	
+    	protected JailTask(L2PcInstance player)
+    	{
+    		_player = player;
+    		_startedAt = System.currentTimeMillis();
+    	}
 
-	protected JailTask(L2PcInstance player)
-	{
-	    _player = player;
-	    _startedAt = System.currentTimeMillis();
-	}
-
-	public void run()
-	{
-	    _player.setInJail(false, 0);
-	}
+    	public void run()
+    	{
+    		_player.setInJail(false, 0);
+    	}
     }
 
     public void restoreHPMP()
     {
-	getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
+    	getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
     }
 
     public void restoreCP()
     {
-	getStatus().setCurrentCp(getMaxCp());
+    	getStatus().setCurrentCp(getMaxCp());
     }
 
     /**
@@ -12360,7 +12388,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public int getPowerGrade()
     {
-	return _powerGrade;
+    	return _powerGrade;
     }
 
     /**
@@ -12368,119 +12396,119 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setPowerGrade(int power)
     {
-	_powerGrade = power;
+    	_powerGrade = power;
     }
 
     public boolean isCursedWeaponEquiped()
     {
-	return _cursedWeaponEquipedId != 0;
+    	return _cursedWeaponEquipedId != 0;
     }
 
     public void setCursedWeaponEquipedId(int value)
     {
-	_cursedWeaponEquipedId = value;
+    	_cursedWeaponEquipedId = value;
     }
 
     public int getCursedWeaponEquipedId()
     {
-	return _cursedWeaponEquipedId;
+    	return _cursedWeaponEquipedId;
     }
 
     private boolean _charmOfCourage = false;
 
     public boolean getCharmOfCourage()
     {
-	return _charmOfCourage;
+    	return _charmOfCourage;
     }
 
     public void setCharmOfCourage(boolean val)
     {
-	_charmOfCourage = val;
-	sendPacket(new EtcStatusUpdate(this));
+    	_charmOfCourage = val;
+    	sendPacket(new EtcStatusUpdate(this));
     }
 
     public int getDeathPenaltyBuffLevel()
     {
-	return _deathPenaltyBuffLevel;
+    	return _deathPenaltyBuffLevel;
     }
 
     public void setDeathPenaltyBuffLevel(int level)
     {
-	_deathPenaltyBuffLevel = level;
+    	_deathPenaltyBuffLevel = level;
     }
 
     public void calculateDeathPenaltyBuffLevel(L2Character killer)
     {
-	if ((Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE) && !(killer instanceof L2PcInstance) && !(isGM()) && !(getCharmOfLuck() && ((killer instanceof L2GrandBossInstance) || (killer instanceof L2RaidBossInstance))))
-	{
-	    increaseDeathPenaltyBuffLevel();
-	}
+    	if ((Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE) && !(killer instanceof L2PcInstance) && !(isGM()) && !(getCharmOfLuck() && ((killer instanceof L2GrandBossInstance) || (killer instanceof L2RaidBossInstance))))
+    	{
+    		increaseDeathPenaltyBuffLevel();
+    	}
     }
 
     public void increaseDeathPenaltyBuffLevel()
     {
-	if (getDeathPenaltyBuffLevel() >= 15)
-	{
-	    return;
-	}
-	if (getDeathPenaltyBuffLevel() != 0)
-	{
-	    L2Skill skill = SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel());
-	    if (skill != null)
-	    {
-		removeSkill(skill, true);
-	    }
-	}
-	_deathPenaltyBuffLevel++;
-	addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
-	sendPacket(new EtcStatusUpdate(this));
-	SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
-	sm.addNumber(getDeathPenaltyBuffLevel());
-	sendPacket(sm);
+    	if (getDeathPenaltyBuffLevel() >= 15)
+    	{
+    		return;
+    	}
+    	if (getDeathPenaltyBuffLevel() != 0)
+    	{
+    		L2Skill skill = SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel());
+    		if (skill != null)
+    		{
+    			removeSkill(skill, true);
+    		}
+    	}
+		_deathPenaltyBuffLevel++;
+		addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
+		sendPacket(new EtcStatusUpdate(this));
+		SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
+		sm.addNumber(getDeathPenaltyBuffLevel());
+		sendPacket(sm);
     }
 
     public void reduceDeathPenaltyBuffLevel()
     {
-	if (getDeathPenaltyBuffLevel() <= 0)
-	{
-	    return;
-	}
-	L2Skill skill = SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel());
-	if (skill != null)
-	{
-	    removeSkill(skill, true);
-	}
-	_deathPenaltyBuffLevel--;
-	if (getDeathPenaltyBuffLevel() > 0)
-	{
-	    addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
-	    sendPacket(new EtcStatusUpdate(this));
-	    SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
-	    sm.addNumber(getDeathPenaltyBuffLevel());
-	    sendPacket(sm);
-	} else
-	{
-	    sendPacket(new EtcStatusUpdate(this));
-	    sendPacket(new SystemMessage(SystemMessageId.DEATH_PENALTY_LIFTED));
-	}
+    	if (getDeathPenaltyBuffLevel() <= 0)
+    	{
+    		return;
+    	}
+    	L2Skill skill = SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel());
+    	if (skill != null)
+    	{
+    		removeSkill(skill, true);
+    	}
+    	_deathPenaltyBuffLevel--;
+    	if (getDeathPenaltyBuffLevel() > 0)
+    	{
+    		addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
+    		sendPacket(new EtcStatusUpdate(this));
+    		SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
+    		sm.addNumber(getDeathPenaltyBuffLevel());
+    		sendPacket(sm);
+    	} 
+    	else
+    	{
+    		sendPacket(new EtcStatusUpdate(this));
+    		sendPacket(new SystemMessage(SystemMessageId.DEATH_PENALTY_LIFTED));
+    	}
     }
 
     public void restoreDeathPenaltyBuffLevel()
     {
-	L2Skill skill = SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel());
-	if (skill != null)
-	{
-	    removeSkill(skill, true);
-	}
-	if (getDeathPenaltyBuffLevel() > 0)
-	{
-	    addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
-	    // SystemMessage sm = new
-	    // SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
-	    // sm.addNumber(getDeathPenaltyBuffLevel());
-	    // sendPacket(sm);
-	}
-	// sendPacket(new EtcStatusUpdate(this));
+    	L2Skill skill = SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel());
+    	if (skill != null)
+    	{
+    		removeSkill(skill, true);
+    	}
+    	if (getDeathPenaltyBuffLevel() > 0)
+    	{
+    		addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
+    		// SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
+    		// sm.addNumber(getDeathPenaltyBuffLevel());
+    		// sendPacket(sm);
+    	}
+    	// sendPacket(new EtcStatusUpdate(this));
     }
 
     private final FastMap<Integer, TimeStamp> ReuseTimeStamps = new FastMap<Integer, TimeStamp>().setShared(true);
@@ -12525,11 +12553,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	    Date d = new Date();
 	    if (d.before(stamp))
 	    {
-		reuse -= d.getTime() - (stamp.getTime() - reuse);
-		return true;
+	    	reuse -= d.getTime() - (stamp.getTime() - reuse);
+	    	return true;
 	    }
 	    return false;
-	}
+		}
     }
 
     /**
@@ -12542,7 +12570,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public void addTimeStamp(int s, int r)
     {
-	ReuseTimeStamps.put(s, new TimeStamp(s, r));
+    	ReuseTimeStamps.put(s, new TimeStamp(s, r));
     }
 
     /**
@@ -12553,7 +12581,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void addTimeStamp(TimeStamp T)
     {
-	ReuseTimeStamps.put(T.getSkill(), T);
+    	ReuseTimeStamps.put(T.getSkill(), T);
     }
 
     /**
@@ -12564,7 +12592,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public void removeTimeStamp(int s)
     {
-	ReuseTimeStamps.remove(s);
+    	ReuseTimeStamps.remove(s);
     }	
     @Override
     public L2PcInstance getActingPlayer()
@@ -12575,25 +12603,25 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
     {
-	// Check if hit is missed
-	if (miss)
-	{
-	    sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
-	    return;
-	}
-	// Check if hit is critical
-	if (pcrit)
-	{
-	    sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
-	}
-	if (mcrit)
-	{
-	    sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_MAGIC));
-	}
-	SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
-	sm.addNumber(damage);
-	sendPacket(sm);
-	}
+    	// Check if hit is missed
+    	if (miss)
+    	{
+    		sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
+    		return;
+    	}
+    	// Check if hit is critical
+    	if (pcrit)
+    	{
+    		sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
+    	}
+    	if (mcrit)
+    	{
+    		sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_MAGIC));
+    	}
+    	SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
+    	sm.addNumber(damage);
+    	sendPacket(sm);
+    }
 
 	public boolean isInDangerArea()
     {
@@ -12625,15 +12653,15 @@ public final class L2PcInstance extends L2PlayableInstance
         sendPacket(sm);
     }
 
-	 public void restoreHP()  
-	 	{  
-	 	getStatus().setCurrentHp(getMaxHp());  
-	 	}  
+    public void restoreHP()  
+    {  
+    	getStatus().setCurrentHp(getMaxHp());  
+    }  
 
-	 	public void restoreMP() 
-	 	{ 
-	 	getStatus().setCurrentMp(getMaxMp()); 
-	 	} 
+    public void restoreMP() 
+    { 
+    	getStatus().setCurrentMp(getMaxMp()); 
+    } 
 
     /** Raid Event Parameters */
     public boolean inClanEvent = false;
@@ -12654,12 +12682,12 @@ public final class L2PcInstance extends L2PlayableInstance
     /** Raid Event Related Voids */
     public void setEventPoints(int points)
     {
-	_event_points = points;
+    	_event_points = points;
     }
 
     public int getEventPoints()
     {
-	return _event_points;
+    	return _event_points;
     }
 
     /**
@@ -12679,153 +12707,154 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setRaidParameters(L2PcInstance player, int type, int points, int npcId, int npcAm, int minPeople, int bufflist, int rewardLevel, L2Object effector, Vector<L2PcInstance> participatingPlayers)
     {
-	eventType = type;
-	eventPointsRequired = points;
-	eventNpcId = npcId;
-	eventNpcAmmount = npcAm;
-	eventMinPlayers = minPeople;
-	eventBufflist = bufflist;
-	eventRewardLevel = rewardLevel;
-	eventEffector = effector;
-	eventParticipatingPlayers = participatingPlayers;
+		eventType = type;
+		eventPointsRequired = points;
+		eventNpcId = npcId;
+		eventNpcAmmount = npcAm;
+		eventMinPlayers = minPeople;
+		eventBufflist = bufflist;
+		eventRewardLevel = rewardLevel;
+		eventEffector = effector;
+		eventParticipatingPlayers = participatingPlayers;
     }
 
     public void setRaidAnswear(int answer)
     {
-	if (this == null)
-	{
-	    return;
-	}
-	if (answer == 1)
-	{
-	    if (L2EventChecks.checkPlayer(this, eventType, eventPointsRequired, eventMinPlayers, eventParticipatingPlayers))
-	    {
-		L2RaidEvent event;
-		event = new L2RaidEvent(this, eventType, eventPointsRequired, eventNpcId, eventNpcAmmount, eventBufflist, eventRewardLevel, eventEffector, eventParticipatingPlayers);
-		sendMessage("You've choosen to continue the event with " + eventParticipatingPlayers + "online Member/s.");
-		try
-		{
-		    Thread.sleep(5000);
-		} catch (InterruptedException e)
-		{
-		    e.printStackTrace();
-		}
-		event.init();
-	    }
-	} else if (answer == 0)
-	{
-	    sendMessage("You don't want to continue with the Event.");
-	} else
-	{
-	    return;
-	}
+    	if (this == null)
+    	{
+    		return;
+    	}
+    	if (answer == 1)
+    	{
+    		if (L2EventChecks.checkPlayer(this, eventType, eventPointsRequired, eventMinPlayers, eventParticipatingPlayers))
+    		{
+    			L2RaidEvent event;
+    			event = new L2RaidEvent(this, eventType, eventPointsRequired, eventNpcId, eventNpcAmmount, eventBufflist, eventRewardLevel, eventEffector, eventParticipatingPlayers);
+    			sendMessage("You've choosen to continue the event with " + eventParticipatingPlayers + "online Member/s.");
+    			try
+    			{
+    				Thread.sleep(5000);
+    			} 
+    			catch (InterruptedException e)
+    			{
+    				e.printStackTrace();
+    			}
+    			event.init();
+    		}
+    	} 
+    	else if (answer == 0)
+    	{
+    		sendMessage("You don't want to continue with the Event.");
+    	} 
+    	else
+    	{
+    		return;
+    	}
     }
 
     @Override
     public ForceBuff getForceBuff()
     {
-	return _forceBuff;
+    	return _forceBuff;
     }
 
     @Override
     public void setForceBuff(ForceBuff fb)
     {
-	_forceBuff = fb;
+    	_forceBuff = fb;
     }
 
     /**
-     * check player skills and remove unlegit ones excludes cursed weapon
-     * skills
+     * check player skills and remove unlegit ones excludes cursed weapon skills
      */
     public void checkAllowedSkills()
     {
-	boolean foundskill = false;
-	if (!isGM())
-	{
-	    Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
-	    // loop through all skills of player
-	    for (L2Skill skill : getAllSkills())
-	    {
-		int skillid = skill.getId();
-		// int skilllevel = skill.getLevel();
-		foundskill = false;
-		// loop through all skills in players skilltree
-		for (L2SkillLearn temp : skillTree)
-		{
-		    // if the skill was found and the level is possible to
-		    // obtain for his class everything is ok
-		    if (temp.getId() == skillid)
-		    {
-			foundskill = true;
-		    }
-		}
-		// exclude noble skills
-		if (isNoble() && (skillid >= 325) && (skillid <= 327))
-		{
-		    foundskill = true;
-		}
-		if (isNoble() && (skillid >= 1323) && (skillid <= 1327))
-		{
-		    foundskill = true;
-		}
-		// exclude hero skills
-		if (isHero() && (skillid >= 395) && (skillid <= 396))
-		{
-		    foundskill = true;
-		}
-		if (isHero() && (skillid >= 1374) && (skillid <= 1376))
-		{
-		    foundskill = true;
-		}
-		if (isDonator() && Config.ALLOW_DONATORS_UNLEGIT_SKILLS)
-		{
-		    foundskill = true;
-		}
-		// exclude cursed weapon skills
-		if (isCursedWeaponEquiped() && (skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId()))
-		{
-		    foundskill = true;
-		}
-		// exclude clan skills
-		if ((getClan() != null) && (skillid >= 370) && (skillid <= 391))
-		{
-		    foundskill = true;
-		}
-		// exclude seal of ruler / build siege hq
-		if ((getClan() != null) && (skillid >= 246) && (skillid <= 247))
-		{
-		    if (getClan().getLeaderId() == getObjectId())
-		    {
-			foundskill = true;
-		    }
-		}
-		// exclude fishing skills and common skills + dwarfen craft
-		if ((skillid >= 1312) && (skillid <= 1322))
-		{
-		    foundskill = true;
-		}
-		if ((skillid >= 1368) && (skillid <= 1373))
-		{
-		    foundskill = true;
-		}
-		// exclude sa / enchant bonus / penality etc. skills
-		if ((skillid >= 3000) && (skillid < 7000))
-		{
-		    foundskill = true;
-		}
-		// Exclude Skills from AllowedSkills in options.properties
-		if (Config.ALLOWED_SKILLS_LIST.contains(skillid))
-		{
-		    foundskill = true;
-		}
-		// remove skill and do a lil log message
-		if (!foundskill)
-		{
-		    removeSkill(skill);
-		    sendMessage("Skill " + skill.getName() + " removed and gm informed!");
-		}
-	    }
-	}
+    	boolean foundskill = false;
+    	if (!isGM())
+    	{
+    		Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(getClassId());
+    		// loop through all skills of player
+    		for (L2Skill skill : getAllSkills())
+    		{
+    			int skillid = skill.getId();
+    			// int skilllevel = skill.getLevel();
+    			foundskill = false;
+    			// loop through all skills in players skilltree
+    			for (L2SkillLearn temp : skillTree)
+    			{
+    				// if the skill was found and the level is possible to obtain for his class everything is ok
+    				if (temp.getId() == skillid)
+    				{
+    					foundskill = true;
+    				}
+    			}
+    			// exclude noble skills
+    			if (isNoble() && (skillid >= 325) && (skillid <= 327))
+    			{
+    				foundskill = true;
+    			}
+    			if (isNoble() && (skillid >= 1323) && (skillid <= 1327))
+    			{
+    				foundskill = true;
+    			}
+    			// exclude hero skills
+    			if (isHero() && (skillid >= 395) && (skillid <= 396))
+    			{
+    				foundskill = true;
+    			}
+    			if (isHero() && (skillid >= 1374) && (skillid <= 1376))
+    			{
+    				foundskill = true;
+    			}
+    			if (isDonator() && Config.ALLOW_DONATORS_UNLEGIT_SKILLS)
+    			{
+    				foundskill = true;
+    			}
+    			// exclude cursed weapon skills
+    			if (isCursedWeaponEquiped() && (skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId()))
+    			{
+    				foundskill = true;
+    			}
+    			// exclude clan skills
+    			if ((getClan() != null) && (skillid >= 370) && (skillid <= 391))
+    			{
+    				foundskill = true;
+    			}
+    			// exclude seal of ruler / build siege hq
+    			if ((getClan() != null) && (skillid >= 246) && (skillid <= 247))
+    			{
+    				if (getClan().getLeaderId() == getObjectId())
+    				{
+    					foundskill = true;
+    				}
+    			}
+    			// exclude fishing skills and common skills + dwarfen craft
+    			if ((skillid >= 1312) && (skillid <= 1322))
+    			{
+    					foundskill = true;
+    			}
+    			if ((skillid >= 1368) && (skillid <= 1373))
+    			{
+    				foundskill = true;
+    			}
+    			// exclude sa / enchant bonus / penality etc. skills
+    			if ((skillid >= 3000) && (skillid < 7000))
+    			{
+    				foundskill = true;
+    			}
+    			// Exclude Skills from AllowedSkills in options.properties
+    			if (Config.ALLOWED_SKILLS_LIST.contains(skillid))
+    			{
+    				foundskill = true;
+    			}
+    			// remove skill and do a lil log message
+    			if (!foundskill)
+    			{
+    				removeSkill(skill);
+    				sendMessage("Skill " + skill.getName() + " removed and gm informed!");
+    			}
+    		}
+    	}
     }
 
     private int _announcecount;
@@ -12833,32 +12862,31 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void setAnnounces(int count)
     {
-	_announcecount = count;
+    	_announcecount = count;
     }
 
     public void increaseAnnounces()
     {
-	setAnnounces(getAnnounceCount() + 1);
+    	setAnnounces(getAnnounceCount() + 1);
     }
 
     public int getAnnounceCount()
     {
-	return _announcecount;
+    	return _announcecount;
     }
 
     /**
-     *
      * @return
      */
     public int setLastAnnounceDate()
     {
-	return _lastAnnounceDate = Calendar.DAY_OF_WEEK;
+    	return _lastAnnounceDate = Calendar.DAY_OF_WEEK;
     }
 
     public int setDelayForNextAnnounce()
     {
-	return 0;
-	// TODO: create a delay between announces.
+    	return 0;
+    	// TODO: create a delay between announces.
     }
     public void setIsCastingNow(boolean value)
     {
@@ -12870,19 +12898,17 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     *
      * @return
      */
     public int getLastAnnounceDate()
     {
-	return _lastAnnounceDate;
+    	return _lastAnnounceDate;
     }
 
     public int getRemainingAnnounces()
     {
-	return Config.NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY - getAnnounceCount();
+    	return Config.NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY - getAnnounceCount();
     }
-// }
 
 	public void dropItem(L2MonsterInstance npc, L2PcInstance player, int itemId, int count)
 	{
