@@ -465,8 +465,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _isKoof = false;
     private boolean _isNoob = false;
     /**
-     * The L2FolkInstance corresponding to the last Folk wich one the player
-     * talked.
+     * The L2FolkInstance corresponding to the last Folk wich one the player talked.
      */
     private L2FolkInstance _lastFolkNpc = null;
     /** Last NPC Id talked on a quest */
@@ -599,8 +598,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private final BlockList _blockList = new BlockList(this);
     private int _team = 0;
     /**
-     * lvl of alliance with ketra orcs or varka silenos, used in quests and
-     * aggro checks [-5,-1] varka, 0 neutral, [1,5] ketra
+     * lvl of alliance with ketra orcs or varka silenos, used in quests and aggro checks [-5,-1] varka, 0 neutral, [1,5] ketra
      */
     private int _alliedVarkaKetra = 0;
     /***********************************************************************
@@ -654,73 +652,73 @@ public final class L2PcInstance extends L2PlayableInstance
     /** Task for Herbs */
     public class HerbTask implements Runnable
     {
-	private final String _process;
-	private final int _itemId;
-	private final int _count;
-	private final L2Object _reference;
-	private final boolean _sendMessage;
-
-	HerbTask(String process, int itemId, int count, L2Object reference, boolean sendMessage)
-	{
-	    _process = process;
-	    _itemId = itemId;
-	    _count = count;
-	    _reference = reference;
-	    _sendMessage = sendMessage;
-	}
-
-	@SuppressWarnings("synthetic-access")
-	public void run()
-	{
-	    try
-	    {
-		addItem(_process, _itemId, _count, _reference, _sendMessage);
-	    } catch (Throwable t)
-	    {
-		_log.log(Level.WARNING, "", t);
-	    }
-	}
+		private final String _process;
+		private final int _itemId;
+		private final int _count;
+		private final L2Object _reference;
+		private final boolean _sendMessage;
+	
+		HerbTask(String process, int itemId, int count, L2Object reference, boolean sendMessage)
+		{
+		    _process = process;
+		    _itemId = itemId;
+		    _count = count;
+		    _reference = reference;
+		    _sendMessage = sendMessage;
+		}
+	
+		@SuppressWarnings("synthetic-access")
+		public void run()
+		{
+			try
+			{
+				addItem(_process, _itemId, _count, _reference, _sendMessage);
+		    } 
+			catch (Throwable t)
+			{
+				_log.log(Level.WARNING, "", t);
+			}
+		}
     }
 
     // Current force buff this caster is casting to a target
     protected ForceBuff _forceBuff;
 
     /**
-     * Skill casting information (used to queue when several skills are cast
-     * in a short time) *
+     * Skill casting information (used to queue when several skills are cast in a short time) *
      */
     public class SkillDat
     {
-	private final L2Skill _skill;
-	private final boolean _ctrlPressed;
-	private final boolean _shiftPressed;
+		private final L2Skill _skill;
+		private final boolean _ctrlPressed;
+		private final boolean _shiftPressed;
 
-	protected SkillDat(L2Skill skill, boolean ctrlPressed, boolean shiftPressed)
-	{
-	    _skill = skill;
-	    _ctrlPressed = ctrlPressed;
-	    _shiftPressed = shiftPressed;
-	}
-
-	public boolean isCtrlPressed()
-	{
-	    return _ctrlPressed;
-	}
-
-	public boolean isShiftPressed()
-	{
-	    return _shiftPressed;
-	}
-
-	public L2Skill getSkill()
-	{
-	    return _skill;
-	}
-
-	public int getSkillId()
-	{
-	    return getSkill() != null ? getSkill().getId() : -1;
-	}
+		protected SkillDat(L2Skill skill, boolean ctrlPressed, boolean shiftPressed)
+		{
+		    _skill = skill;
+		    _ctrlPressed = ctrlPressed;
+		    _shiftPressed = shiftPressed;
+		}
+	
+		public boolean isCtrlPressed()
+		{
+		    return _ctrlPressed;
+		}
+	
+		public boolean isShiftPressed()
+		{
+		    return _shiftPressed;
+		}
+	
+		public L2Skill getSkill()
+		{
+		    return _skill;
+		}
+	
+		public int getSkillId()
+		{
+		    return getSkill() != null ? getSkill().getId() : -1;
+		}
     }
 
     //summon friend 
@@ -783,87 +781,70 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public static L2PcInstance create(int objectId, L2PcTemplate template, String accountName, String name, byte hairStyle, byte hairColor, byte face, boolean sex)
     {
-	// Create a new L2PcInstance with an account name
-	PcAppearance app = new PcAppearance(face, hairColor, hairStyle, sex);
-	L2PcInstance player = new L2PcInstance(objectId, template, accountName, app);
-	// Set the name of the L2PcInstance
-	player.setName(name);
-	// Set the base class ID to that of the actual class ID.
-	player.setBaseClass(player.getClassId());
-	if (Config.ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE)
-	{
-	    player.setNewbie(true);
-	}
-	// Add the player in the characters table of the database
-	boolean ok = player.createDb();
-	if (!ok)
-	{
-	    return null;
-	}
-	return player;
+    	// Create a new L2PcInstance with an account name
+    	PcAppearance app = new PcAppearance(face, hairColor, hairStyle, sex);
+    	L2PcInstance player = new L2PcInstance(objectId, template, accountName, app);
+    	// Set the name of the L2PcInstance
+    	player.setName(name);
+    	// Set the base class ID to that of the actual class ID.
+    	player.setBaseClass(player.getClassId());
+    	if (Config.ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE)
+    		player.setNewbie(true);
+    	// Add the player in the characters table of the database
+    	boolean ok = player.createDb();
+    	if (!ok)
+    		return null;
+    	return player;
     }
 
     public static L2PcInstance createDummyPlayer(int objectId, String name)
     {
-	// Create a new L2PcInstance with an account name
-	L2PcInstance player = new L2PcInstance(objectId);
-	player.setName(name);
-	return player;
+    	// Create a new L2PcInstance with an account name
+    	L2PcInstance player = new L2PcInstance(objectId);
+    	player.setName(name);
+    	return player;
     }
 
     public String getAccountName()
     {
-	return getClient().getAccountName();
+    	return getClient().getAccountName();
     }
 
     public Map<Integer, String> getAccountChars()
     {
-	return _chars;
+    	return _chars;
     }
 
     public int getRelation(L2PcInstance target)
     {
-	int result = 0;
-	// karma and pvp may not be required
-	if (getPvpFlag() != 0)
-	{
+    	int result = 0;
+    	// karma and pvp may not be required
+    	if (getPvpFlag() != 0)
 	    result |= RelationChanged.RELATION_PVP_FLAG;
-	}
-	if (getKarma() > 0)
-	{
-	    result |= RelationChanged.RELATION_HAS_KARMA;
-	}
-	if (isClanLeader())
-	{
-	    result |= RelationChanged.RELATION_LEADER;
-	}
-	if (getSiegeState() != 0)
-	{
-	    result |= RelationChanged.RELATION_INSIEGE;
-	    if (getSiegeState() != target.getSiegeState())
-	    {
-		result |= RelationChanged.RELATION_ENEMY;
-	    } else
-	    {
-		result |= RelationChanged.RELATION_ALLY;
-	    }
-	    if (getSiegeState() == 1)
-	    {
-		result |= RelationChanged.RELATION_ATTACKER;
-	    }
-	}
-	if ((getClan() != null) && (target.getClan() != null))
-	{
-	    if ((target.getPledgeType() != L2Clan.SUBUNIT_ACADEMY) && target.getClan().isAtWarWith(getClan().getClanId()))
-	    {
-		result |= RelationChanged.RELATION_1SIDED_WAR;
-		if (getClan().isAtWarWith(target.getClan().getClanId()))
-		{
-		    result |= RelationChanged.RELATION_MUTUAL_WAR;
-		}
-	    }
-	}
-	return result;
+    	if (getKarma() > 0)
+    		result |= RelationChanged.RELATION_HAS_KARMA;
+    	if (isClanLeader())
+    		result |= RelationChanged.RELATION_LEADER;
+    	if (getSiegeState() != 0)
+    	{
+    		result |= RelationChanged.RELATION_INSIEGE;
+    		if (getSiegeState() != target.getSiegeState())
+    			result |= RelationChanged.RELATION_ENEMY;
+    		else
+    			result |= RelationChanged.RELATION_ALLY;
+    		if (getSiegeState() == 1)
+    			result |= RelationChanged.RELATION_ATTACKER;
+    	}
+    	if (getClan() != null && target.getClan() != null)
+    	{
+    		if (target.getPledgeType() != L2Clan.SUBUNIT_ACADEMY && target.getClan().isAtWarWith(getClan().getClanId()))
+    		{
+    			result |= RelationChanged.RELATION_1SIDED_WAR;
+    			if (getClan().isAtWarWith(target.getClan().getClanId()))
+    				result |= RelationChanged.RELATION_MUTUAL_WAR;
+    		}
+    	}
+    	return result;
     }
 
     /**
@@ -889,17 +870,17 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public static L2PcInstance load(int objectId)
     {
-	return restore(objectId);
+    	return restore(objectId);
     }
 
     private void initPcStatusUpdateValues()
     {
-	_cpUpdateInterval = getMaxCp() / 352.0;
-	_cpUpdateIncCheck = getMaxCp();
-	_cpUpdateDecCheck = getMaxCp() - _cpUpdateInterval;
-	_mpUpdateInterval = getMaxMp() / 352.0;
-	_mpUpdateIncCheck = getMaxMp();
-	_mpUpdateDecCheck = getMaxMp() - _mpUpdateInterval;
+		_cpUpdateInterval = getMaxCp() / 352.0;
+		_cpUpdateIncCheck = getMaxCp();
+		_cpUpdateDecCheck = getMaxCp() - _cpUpdateInterval;
+		_mpUpdateInterval = getMaxMp() / 352.0;
+		_mpUpdateIncCheck = getMaxMp();
+		_mpUpdateDecCheck = getMaxMp() - _mpUpdateInterval;
     }
 
     /**
@@ -928,29 +909,25 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private L2PcInstance(int objectId, L2PcTemplate template, String accountName, PcAppearance app)
     {
-	super(objectId, template);
-	getKnownList(); // init knownlist
-	getStat(); // init stats
-	getStatus(); // init status
-	super.initCharStatusUpdateValues();
-	initPcStatusUpdateValues();
-	_accountName = accountName;
-	_appearance = app;
-	// Create an AI
-	_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
-	// Create a L2Radar object
-	_radar = new L2Radar(this);
-	isInDangerArea = false;
-	// Retrieve from the database all skills of this L2PcInstance and add
-	// them to _skills
-	// Retrieve from the database all items of this L2PcInstance and add
-	// them to _inventory
-	getInventory().restore();
-	if (!Config.WAREHOUSE_CACHE)
-	{
-	    getWarehouse();
-	}
-	getFreight().restore();
+		super(objectId, template);
+		getKnownList(); // init knownlist
+		getStat(); // init stats
+		getStatus(); // init status
+		super.initCharStatusUpdateValues();
+		initPcStatusUpdateValues();
+		_accountName = accountName;
+		_appearance = app;
+		// Create an AI
+		_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
+		// Create a L2Radar object
+		_radar = new L2Radar(this);
+		isInDangerArea = false;
+		// Retrieve from the database all skills of this L2PcInstance and add them to _skills
+		// Retrieve from the database all items of this L2PcInstance and add them to _inventory
+		getInventory().restore();
+		if (!Config.WAREHOUSE_CACHE)
+		    getWarehouse();
+		getFreight().restore();
     }
 
     private L2PcInstance(int objectId)
