@@ -28,14 +28,10 @@ import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
-/**
-*
-* @author MHard L2EmuRT
-*/
 
-public class L2ClanHallSiegeInfInstance extends L2NpcInstance
+public class L2ClanHallSiegeInstance extends L2NpcInstance
 {
-	public L2ClanHallSiegeInfInstance(int objectId, L2NpcTemplate template)
+	public L2ClanHallSiegeInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
 	}
@@ -123,7 +119,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 					showChatWindow(player,3);
 					return;
 				}
-				if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
+				if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
 				{
 					showChatWindow(player,1);				
 					return;
@@ -169,7 +165,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 					showChatWindow(player,3);
 					return;
 				}
-				if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
+				if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
 				{
 					showChatWindow(player,1);				
 					return;
@@ -219,7 +215,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		else if (command.startsWith("UnRegister"))
 		{
 			L2Clan playerClan=player.getClan();
-			if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
+			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
 			{
 				_log.warning("Attention!!! player "+player.getName()+" use packet hack, try unregister clan.");				
 				return;
@@ -249,7 +245,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		else if (command.startsWith("PlayerList"))
 		{
 			L2Clan playerClan=player.getClan();
-			if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
+			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
 			{
 				return;
 			}
@@ -266,7 +262,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		else if (command.startsWith("addPlayer"))
 		{
 			L2Clan playerClan=player.getClan();
-			if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
+			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
 			{
 				return;
 			}
@@ -287,7 +283,7 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		else if (command.startsWith("removePlayer"))
 		{
 			L2Clan playerClan=player.getClan();
-			if ((playerClan==null)||(playerClan.getLeaderName()!=player.getName())||(playerClan.getLevel()<4))
+			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
 			{
 				return;
 			}
@@ -337,21 +333,21 @@ public class L2ClanHallSiegeInfInstance extends L2NpcInstance
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);		
 	}
-	public void showChatWindow/*showChatWindow*/(L2PcInstance player, int val)
+	public void showChatWindow(L2PcInstance player, int val)
 	{
 		player.sendPacket(new ActionFailed());
 		long startSiege=0;
 		int npcId = getTemplate().getNpcId();
 		String filename;
 		if (val==0)
-			filename = "data/html/default/" + npcId + ".htm";
+			filename = "data/html/siege/clanhall/" + npcId + ".htm";
 		else
-			filename = "data/html/default/" + npcId +"-"+val+ ".htm";
+			filename = "data/html/siege/clanhall/" + npcId +"-"+val+ ".htm";
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		if (npcId == 35382)
 		{
-			startSiege=FortResistSiegeManager.getInstance().getSiegeDate().getTimeInMillis();
+			startSiege = FortResistSiegeManager.getInstance().getSiegeDate().getTimeInMillis();
 		}
 		else if (npcId == 35437 || npcId == 35627)
 		{

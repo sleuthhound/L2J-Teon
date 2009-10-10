@@ -56,7 +56,7 @@ import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.zone.type.L2ClanHallSiegeZone;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.ExclusiveTask;
+import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
 
 /*
  * Author: Maxi

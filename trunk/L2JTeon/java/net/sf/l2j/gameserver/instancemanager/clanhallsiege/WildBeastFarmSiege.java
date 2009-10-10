@@ -39,11 +39,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.ExclusiveTask;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay2;
+import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

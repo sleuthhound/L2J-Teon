@@ -6695,6 +6695,6 @@ UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'gustav_clan';
 UPDATE `npc` SET `type` = 'L2Monster' WHERE `faction_id` = 'partisan_clan';
 UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'partisan_clan';
 
-UPDATE `npc` SET `type` = 'L2CHSiege' WHERE `id` IN (35437,35604,35627,35639,35420,35382);
+UPDATE `npc` SET `type` = 'L2ClanHallSiege' WHERE `id` IN (35437,35604,35627,35639,35420,35382);
 
-UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (35375,35368,35410);
+UPDATE `npc` SET `type` = 'L2SiegeBoss' WHERE `id` IN (35375,35368,35410);

@@ -1011,7 +1011,6 @@ public class L2Attackable extends L2NpcInstance
 			return;
         // Get the AggroInfo of the attacker L2Character from the _aggroList of the L2Attackable
         AggroInfo ai = getAggroListRP().get(attacker);
-
         if (ai == null)
         {
             ai = new AggroInfo(attacker);
