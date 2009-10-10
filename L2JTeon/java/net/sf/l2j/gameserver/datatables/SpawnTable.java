@@ -22,6 +22,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -80,6 +81,8 @@ public class SpawnTable
 		if (template1 != null)
 		{
 		    if (template1.type.equalsIgnoreCase("L2SiegeGuard"))
+		    {
+		    } else if (rset.getInt("npc_templateid") == 35369 || rset.getInt("npc_templateid") == 35368 || rset.getInt("npc_templateid") == 35370 || rset.getInt("npc_templateid") == 35371 || rset.getInt("npc_templateid") == 35372 || rset.getInt("npc_templateid") == 35373 || rset.getInt("npc_templateid") == 35374 || rset.getInt("npc_templateid") == 35375 || rset.getInt("npc_templateid") == 35376 || rset.getInt("npc_templateid") == 35377 || rset.getInt("npc_templateid") == 35378 || rset.getInt("npc_templateid") == 35379 || rset.getInt("npc_templateid") == 35380 || rset.getInt("npc_templateid") == 35381)
 		    {
 			// Don't spawn
 		    } else if (template1.type.equalsIgnoreCase("L2RaidBoss"))

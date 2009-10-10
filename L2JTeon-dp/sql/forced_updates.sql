@@ -850,9 +850,6 @@ UPDATE `npc` SET `type` = 'L2Doormen' WHERE `id` = '35434';
 UPDATE `npc` SET `type` = 'L2Doormen' WHERE `id` = '35435';
 UPDATE `npc` SET `type` = 'L2Doormen' WHERE `id` = '35436';
 
--- Spawn Changes
-UPDATE `spawnlist` SET `locx` = '85584', `locy` = '-18224', `locz` = '-1819' WHERE `id` = '58435';
-
 -- Insert new shop ids
 INSERT IGNORE INTO merchant_shopids VALUES (135438,'35438');
 INSERT IGNORE INTO merchant_shopids VALUES (235438,'35438');
@@ -1240,7 +1237,7 @@ REPLACE INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
 (12005,1,176284,-90033);
 
 
-UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (35375,35368,35410);
+UPDATE `npc` SET `type` = 'L2SiegeBoss' WHERE `id` IN (35375,35368,35410);
 
 DELETE FROM grandboss_data WHERE boss_id = 29045;
 INSERT IGNORE INTO `grandboss_data` VALUES
@@ -1264,3 +1261,5 @@ INSERT INTO `spawnlist` VALUES
 (NULL,'Schuttgart Castle',1,35544,77384,-151832,-545,0,0,58944,60,0,0);
 
 UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE `id` IN (35605,35640,35628,35605);
+
+DELETE FROM `npcskills` Where `skillid` IN (4551,4552,4553,4554);

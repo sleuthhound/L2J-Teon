@@ -42,14 +42,12 @@ public class Monastery extends L2AttackableAIScript
 		"name, why would you choose the path of darkness?!",
 		"name! How dare you defy the will of Einhasad!"
 	};
-	private static boolean _isAttacked = false;
 
     public Monastery(int questId, String name, String descr)
     {
         super(questId, name, descr);
         registerMobs(mobs1);
         registerMobs(mobs2);
-        _isAttacked = false;
     }
  
     public String onAggroRangeEnter(L2NpcInstance npc, L2PcInstance player, boolean isPet)
@@ -58,7 +56,6 @@ public class Monastery extends L2AttackableAIScript
     	{
     		if (player.getActiveWeaponInstance() != null)
     		{
-			_isAttacked = true;
     			npc.setTarget(player);
     			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text[0]));
     			switch (npc.getNpcId())
@@ -98,7 +95,6 @@ public class Monastery extends L2AttackableAIScript
     					npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text[Rnd.get(2)+1].replace("name", caster.getName())));
 	    				((L2Attackable) npc).addDamageHate(caster, 0, 999);
 	    				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, caster);
-            				_isAttacked = true;
 	    				break;
     				}
     			}
@@ -146,7 +142,6 @@ public class Monastery extends L2AttackableAIScript
     	    					npc.setIsRunning(true);
     	    	    			((L2Attackable) npc).addDamageHate(target, 0, 999);
     	    	    			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
-            				_isAttacked = true;
     	    	    			break;
     	    				}
     	    			}
@@ -164,7 +159,6 @@ public class Monastery extends L2AttackableAIScript
     		npc.setIsRunning(true);
     		((L2Attackable) npc).addDamageHate(player, 0, 999);
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player);
-            				_isAttacked = true;
     	}
     	return super.onSpellFinished(npc, player, skill);
     }

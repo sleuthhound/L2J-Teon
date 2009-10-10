@@ -106,12 +106,6 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 		
 		RaidBossSpawnManager.getInstance().updateStatus(this, true);
 
-    	if (getNpcId() == 35368 || (getNpcId() == 35368))
-    		FortResistSiegeManager.getInstance().endSiege(true);
-	else
-    	if (getNpcId() == 35410)
-    		DevastatedCastleManager.getInstance().endSiege(true);
-
 	return true;
     }
 
@@ -161,19 +155,6 @@ public final class L2RaidBossInstance extends L2MonsterInstance
     public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
     {
 	super.reduceCurrentHp(damage, attacker, awake);
-
-        if (this.getNpcId() == 35368 || (this.getNpcId() == 35375))
-		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!= null)
-				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
-			} else
-		{
-        if (this.getNpcId() == 35410)
-		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!= null)
-				DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
-			}
-		}
     }
 
     public void healFull()
