@@ -9262,11 +9262,12 @@ public final class L2PcInstance extends L2PlayableInstance
 	    {
 		SystemMessage msg = new SystemMessage(SystemMessageId.PLAYING_FOR_LONG_TIME);
 		L2PcInstance.this.sendPacket(msg);
-	    } else
-	    {
-		stopWarnUserTakeBreak();
 	    }
-	}
+	    else
+	    {
+	    	stopWarnUserTakeBreak();
+	    }
+	  }
     }
 
     class RentPetTask implements Runnable

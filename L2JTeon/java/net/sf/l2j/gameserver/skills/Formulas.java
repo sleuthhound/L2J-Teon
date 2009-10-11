@@ -59,74 +59,45 @@ import net.sf.l2j.util.Rnd;
  */
 public final class Formulas
 {
+
 	/** Regen Task period */
 	protected static final Logger _log = Logger.getLogger(L2Character.class.getName());
 	private static final int HP_REGENERATE_PERIOD = 3000; // 3 secs
+
 	public static final int MAX_STAT_VALUE = 100;
-	private static final double[] STRCompute = new double[] { 1.036, 34.845 }; // {1.016,
-	// 28.515};
-	// for
-	// C1
-	private static final double[] INTCompute = new double[] { 1.020, 31.375 }; // {1.020,
-	// 31.375};
-	// for
-	// C1
-	private static final double[] DEXCompute = new double[] { 1.009, 19.360 }; // {1.009,
-	// 19.360};
-	// for
-	// C1
-	private static final double[] WITCompute = new double[] { 1.050, 20.000 }; // {1.050,
-	// 20.000};
-	// for
-	// C1
-	private static final double[] CONCompute = new double[] { 1.030, 27.632 }; // {1.015,
-	// 12.488};
-	// for
-	// C1
-	private static final double[] MENCompute = new double[] { 1.010, -0.060 }; // {1.010,
-	// -0.060};
-	// for
-	// C1
-	protected static final double[] WITbonus = new double[MAX_STAT_VALUE];
-	protected static final double[] MENbonus = new double[MAX_STAT_VALUE];
-	protected static final double[] INTbonus = new double[MAX_STAT_VALUE];
-	protected static final double[] STRbonus = new double[MAX_STAT_VALUE];
-	protected static final double[] DEXbonus = new double[MAX_STAT_VALUE];
-	protected static final double[] CONbonus = new double[MAX_STAT_VALUE];
-	// These values are 100% matching retail tables, no need to change and
-	// no
-	// need add
-	// calculation into the stat bonus when accessing (not efficient),
-	// better to have everything precalculated and use values directly
-	// (saves
-	// CPU)
-	static
-	{
-		for (int i = 0; i < STRbonus.length; i++)
-		{
-			STRbonus[i] = Math.floor(Math.pow(STRCompute[0], i - STRCompute[1]) * 100 + .5d) / 100;
-		}
-		for (int i = 0; i < INTbonus.length; i++)
-		{
-			INTbonus[i] = Math.floor(Math.pow(INTCompute[0], i - INTCompute[1]) * 100 + .5d) / 100;
-		}
-		for (int i = 0; i < DEXbonus.length; i++)
-		{
-			DEXbonus[i] = Math.floor(Math.pow(DEXCompute[0], i - DEXCompute[1]) * 100 + .5d) / 100;
-		}
-		for (int i = 0; i < WITbonus.length; i++)
-		{
-			WITbonus[i] = Math.floor(Math.pow(WITCompute[0], i - WITCompute[1]) * 100 + .5d) / 100;
-		}
-		for (int i = 0; i < CONbonus.length; i++)
-		{
-			CONbonus[i] = Math.floor(Math.pow(CONCompute[0], i - CONCompute[1]) * 100 + .5d) / 100;
-		}
-		for (int i = 0; i < MENbonus.length; i++)
-		{
-			MENbonus[i] = Math.floor(Math.pow(MENCompute[0], i - MENCompute[1]) * 100 + .5d) / 100;
-		}
-	}
+
+    private static final double[] STRCompute = new double[]{1.036, 34.845}; //{1.016, 28.515}; for C1
+    private static final double[] INTCompute = new double[]{1.020, 31.375}; //{1.020, 31.375}; for C1
+    private static final double[] DEXCompute = new double[]{1.009, 19.360}; //{1.009, 19.360}; for C1
+    private static final double[] WITCompute = new double[]{1.050, 20.000}; //{1.050, 20.000}; for C1
+    private static final double[] CONCompute = new double[]{1.030, 27.632}; //{1.015, 12.488}; for C1
+    private static final double[] MENCompute = new double[]{1.010, -0.060}; //{1.010, -0.060}; for C1
+
+    protected static final double[] WITbonus = new double[MAX_STAT_VALUE];
+    protected static final double[] MENbonus = new double[MAX_STAT_VALUE];
+    protected static final double[] INTbonus = new double[MAX_STAT_VALUE];
+    protected static final double[] STRbonus = new double[MAX_STAT_VALUE];
+    protected static final double[] DEXbonus = new double[MAX_STAT_VALUE];
+    protected static final double[] CONbonus = new double[MAX_STAT_VALUE];
+
+    // These values are 100% matching retail tables, no need to change and no need add
+    // calculation into the stat bonus when accessing (not efficient),
+    // better to have everything precalculated and use values directly (saves CPU)
+    static
+    {
+        for (int i=0; i < STRbonus.length; i++)
+            STRbonus[i] = Math.floor(Math.pow(STRCompute[0], i - STRCompute[1]) *100 +.5d) /100;
+        for (int i=0; i < INTbonus.length; i++)
+            INTbonus[i] = Math.floor(Math.pow(INTCompute[0], i - INTCompute[1]) *100 +.5d) /100;
+        for (int i=0; i < DEXbonus.length; i++)
+            DEXbonus[i] = Math.floor(Math.pow(DEXCompute[0], i - DEXCompute[1]) *100 +.5d) /100;
+        for (int i=0; i < WITbonus.length; i++)
+            WITbonus[i] = Math.floor(Math.pow(WITCompute[0], i - WITCompute[1]) *100 +.5d) /100;
+        for (int i=0; i < CONbonus.length; i++)
+            CONbonus[i] = Math.floor(Math.pow(CONCompute[0], i - CONCompute[1]) *100 +.5d) /100;
+        for (int i=0; i < MENbonus.length; i++)
+            MENbonus[i] = Math.floor(Math.pow(MENCompute[0], i - MENCompute[1]) *100 +.5d) /100;
+    }
 
 	static class FuncAddLevel3 extends Func
 	{
@@ -135,10 +106,7 @@ public final class Formulas
 		static Func getInstance(Stats stat)
 		{
 			int pos = stat.ordinal();
-			if (_instancies[pos] == null)
-			{
-				_instancies[pos] = new FuncAddLevel3(stat);
-			}
+			if (_instancies[pos] == null) _instancies[pos] = new FuncAddLevel3(stat);
 			return _instancies[pos];
 		}
 
@@ -161,10 +129,7 @@ public final class Formulas
 		static Func getInstance(Stats stat)
 		{
 			int pos = stat.ordinal();
-			if (_instancies[pos] == null)
-			{
-				_instancies[pos] = new FuncMultLevelMod(stat);
-			}
+			if (_instancies[pos] == null) _instancies[pos] = new FuncMultLevelMod(stat);
 			return _instancies[pos];
 		}
 
@@ -185,22 +150,19 @@ public final class Formulas
 		static final FuncMultRegenResting[] _instancies = new FuncMultRegenResting[Stats.NUM_STATS];
 
 		/**
-		 * Return the Func object corresponding to the state concerned.<BR>
-		 * <BR>
+		 * Return the Func object corresponding to the state concerned.<BR><BR>
 		 */
 		static Func getInstance(Stats stat)
 		{
 			int pos = stat.ordinal();
-			if (_instancies[pos] == null)
-			{
-				_instancies[pos] = new FuncMultRegenResting(stat);
-			}
+
+			if (_instancies[pos] == null) _instancies[pos] = new FuncMultRegenResting(stat);
+
 			return _instancies[pos];
 		}
 
 		/**
-		 * Constructor of the FuncMultRegenResting.<BR>
-		 * <BR>
+		 * Constructor of the FuncMultRegenResting.<BR><BR>
 		 */
 		private FuncMultRegenResting(Stats pStat)
 		{
@@ -209,16 +171,13 @@ public final class Formulas
 		}
 
 		/**
-		 * Calculate the modifier of the state concerned.<BR>
-		 * <BR>
+		 * Calculate the modifier of the state concerned.<BR><BR>
 		 */
 		@Override
 		public void calc(Env env)
 		{
-			if (!cond.test(env))
-			{
-				return;
-			}
+			if (!cond.test(env)) return;
+
 			env.value *= 1.45;
 		}
 	}
@@ -263,7 +222,7 @@ public final class Formulas
 		{
 			double intb = INTbonus[env.player.getINT()];
 			double lvlb = env.player.getLevelMod();
-			env.value *= lvlb * lvlb * intb * intb;
+			env.value *= (lvlb * lvlb) * (intb * intb);
 		}
 	}
 
@@ -284,30 +243,15 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (env.player instanceof L2PcInstance)
-			{
-				L2PcInstance p = (L2PcInstance) env.player;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LFINGER) != null)
-				{
-					env.value -= 5;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RFINGER) != null)
-				{
-					env.value -= 5;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEAR) != null)
-				{
-					env.value -= 9;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null)
-				{
-					env.value -= 9;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null)
-				{
-					env.value -= 13;
-				}
-			}
+            if (env.player instanceof L2PcInstance)
+            {
+    			L2PcInstance p = (L2PcInstance) env.player;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LFINGER) != null) env.value -= 5;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RFINGER) != null) env.value -= 5;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEAR) != null) env.value -= 9;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null) env.value -= 9;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null) env.value -= 13;
+            }
 			env.value *= MENbonus[env.player.getMEN()] * env.player.getLevelMod();
 		}
 	}
@@ -330,34 +274,16 @@ public final class Formulas
 		public void calc(Env env)
 		{
 			if (env.player instanceof L2PcInstance)
-			{
-				L2PcInstance p = (L2PcInstance) env.player;
-				boolean hasMagePDef = (p.getClassId().isMage() || p.getClassId().getId() == 0x31); // orc
-																									// mystics
-																									// are
-																									// a
-				// special case
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_HEAD) != null)
-				{
-					env.value -= 12;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST) != null)
-				{
-					env.value -= hasMagePDef ? 15 : 31;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEGS) != null)
-				{
-					env.value -= hasMagePDef ? 8 : 18;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_GLOVES) != null)
-				{
-					env.value -= 8;
-				}
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_FEET) != null)
-				{
-					env.value -= 7;
-				}
-			}
+            {
+                L2PcInstance p = (L2PcInstance) env.player;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_HEAD) != null) env.value -= 12;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST) != null)
+    				env.value -= ((p.getClassId().isMage()) ? 15 : 31);
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEGS) != null)
+    				env.value -= ((p.getClassId().isMage()) ? 8 : 18);
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_GLOVES) != null) env.value -= 8;
+    			if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_FEET) != null) env.value -= 7;
+            }
 			env.value *= env.player.getLevelMod();
 		}
 	}
@@ -380,37 +306,8 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (!cond.test(env))
-			{
-				return;
-			}
-			// default is 40 and with bow should be 500
-			env.value += 460;
-		}
-	}
-
-	static class FuncCrossBowAtkRange extends Func
-	{
-		private static final FuncCrossBowAtkRange _fcb_instance = new FuncCrossBowAtkRange();
-
-		static Func getInstance()
-		{
-			return _fcb_instance;
-		}
-
-		private FuncCrossBowAtkRange()
-		{
-			super(Stats.POWER_ATTACK_RANGE, 0x10, null);
-			setCondition(new ConditionUsingItemType(L2WeaponType.CROSSBOW.mask()));
-		}
-
-		@Override
-		public void calc(Env env)
-		{
-			if (!cond.test(env))
-				return;
-			// default is 40 and with crossbow should be 200
-			env.value += 160;
+			if (!cond.test(env)) return;
+			env.value += 450;
 		}
 	}
 
@@ -432,13 +329,10 @@ public final class Formulas
 		public void calc(Env env)
 		{
 			L2Character p = env.player;
-			// [Square(DEX)]*6 + lvl + weapon hitbonus;
+			//[Square(DEX)]*6 + lvl + weapon hitbonus;
 			env.value += Math.sqrt(p.getDEX()) * 6;
 			env.value += p.getLevel();
-			if (p instanceof L2Summon)
-			{
-				env.value += p.getLevel() < 60 ? 4 : 5;
-			}
+			if( p instanceof L2Summon) env.value += (p.getLevel() < 60) ? 4 : 5;
 		}
 	}
 
@@ -460,7 +354,7 @@ public final class Formulas
 		public void calc(Env env)
 		{
 			L2Character p = env.player;
-			// [Square(DEX)]*6 + lvl;
+			//[Square(DEX)]*6 + lvl;
 			env.value += Math.sqrt(p.getDEX()) * 6;
 			env.value += p.getLevel();
 		}
@@ -484,43 +378,38 @@ public final class Formulas
 		public void calc(Env env)
 		{
 			L2Character p = env.player;
-			if (p instanceof L2Summon)
-			{
-				env.value = 40;
-			} else if ((p instanceof L2PcInstance) && (p.getActiveWeaponInstance() == null))
-			{
-				env.value = 40;
-			} else
+			if( p instanceof L2Summon) env.value = 40;
+			else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null) env.value = 40;
+			else
 			{
 				env.value *= DEXbonus[p.getDEX()];
 				env.value *= 10;
-				if (env.value > Config.MAX_RCRIT)
-				{
-					env.value = Config.MAX_RCRIT;
-				}
+				if(env.value > Config.MAX_RCRIT) 
+	                    env.value = Config.MAX_RCRIT;
+					
 			}
 		}
 	}
-
+	
 	static class FuncMAtkCritical extends Func
 	{
 		static final FuncMAtkCritical _fac_instance = new FuncMAtkCritical();
-
+	
 		static Func getInstance()
 		{
 			return _fac_instance;
 		}
-
+	
 		private FuncMAtkCritical()
 		{
 			super(Stats.MCRITICAL_RATE, 0x30, null);
 		}
-
+	
 		@Override
 		public void calc(Env env)
 		{
 			L2Character p = env.player;
-			if (p instanceof L2Summon)
+			if(p instanceof L2Summon)
 				env.value = 8;
 			else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null)
 				env.value = 8;
@@ -550,9 +439,6 @@ public final class Formulas
 		{
 			L2PcInstance p = (L2PcInstance) env.player;
 			env.value *= DEXbonus[p.getDEX()];
-			
-            if(env.value > Config.MAX_MCRIT_RATE)  
-                env.value = Config.MAX_MCRIT_RATE;  
 		}
 	}
 
@@ -617,12 +503,9 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			// L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
+			//			L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
 			L2PcInstance pc = (L2PcInstance) env.player;
-			if (pc != null)
-			{
-				env.value += pc.getHennaStatSTR();
-			}
+			if (pc != null) env.value += pc.getHennaStatSTR();
 		}
 	}
 
@@ -990,7 +873,6 @@ public final class Formulas
 			// cha.addStatFunc(FuncMultRegenResting.getInstance(Stats.REGENERATE_CP_RATE));
 			// cha.addStatFunc(FuncMultRegenResting.getInstance(Stats.REGENERATE_MP_RATE));
 			cha.addStatFunc(FuncBowAtkRange.getInstance());
-			cha.addStatFunc(FuncCrossBowAtkRange.getInstance());
 			// cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.POWER_ATTACK));
 			// cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.POWER_DEFENCE));
 			// cha.addStatFunc(FuncMultLevelMod.getInstance(Stats.MAGIC_DEFENCE));
@@ -1431,9 +1313,6 @@ public final class Formulas
 			{
 			case BOW:
 				stat = Stats.BOW_WPN_VULN;
-				break;
-			case CROSSBOW:
-				stat = Stats.CROSSBOW_WPN_VULN;
 				break;
 			case BLUNT:
 			case BIGBLUNT:
@@ -2127,8 +2006,7 @@ public final class Formulas
 		return multiplier;
 	}
 
-	public boolean calcSkillSuccess(L2Character attacker, L2Character target,
-	        L2Skill skill, boolean ss, boolean sps, boolean bss)
+	public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
 	{
 		SkillType type = skill.getSkillType();
 		if (target.isRaid() && ((type == SkillType.CONFUSION) || (type == SkillType.MUTE) || (type == SkillType.PARALYZE) || (type == SkillType.ROOT) || (type == SkillType.FEAR) || (type == SkillType.SLEEP) || (type == SkillType.STUN) || (type == SkillType.DEBUFF) || (type == SkillType.AGGDEBUFF)))
@@ -2308,6 +2186,7 @@ public final class Formulas
 	{
 		return STRbonus[activeChar.getSTR()];
 	}
+
     public static boolean calcPhysicalSkillEvasion(L2Character target, L2Skill skill)
     {
     	if (skill.isMagic() && skill.getSkillType() != SkillType.BLOW)

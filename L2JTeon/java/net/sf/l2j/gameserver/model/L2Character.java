@@ -314,7 +314,7 @@ public abstract class L2Character extends L2Object
      * @param template
      *                The L2CharTemplate to apply to the object
      */
-	public L2Character(int objectId, L2CharTemplate template)
+     public L2Character(int objectId, L2CharTemplate template)
 	{
 		super(objectId);
 		getKnownList();
@@ -327,9 +327,11 @@ public abstract class L2Character extends L2Object
 			// Copy the Standard Calcultors of the L2NPCInstance in _calculators
 			_calculators = NPC_STD_CALCULATOR;
 
-			// Copy the skills of the L2NPCInstance from its template to the L2Character Instance
-			// The skills list can be affected by spell effects so it's necessary to make a copy
-			// to avoid that a spell affecting a L2NPCInstance, affects others L2NPCInstance of the same type too.
+		       /* Copy the skills of the L2NPCInstance from its template to the L2Character Instance
+			* The skills list can be affected by spell effects so it's necessary to make a copy
+			* to avoid that a spell affecting a L2NPCInstance, affects others L2NPCInstance of the same type too.
+			*/
+
 			_skills = ((L2NpcTemplate)template).getSkills();
 			if (_skills != null)
 			{
@@ -422,9 +424,7 @@ public abstract class L2Character extends L2Object
     public void addAttackerToAttackByList(L2Character player)
     {
 	if ((player == null) || (player == this) || (getAttackByList() == null) || getAttackByList().contains(player))
-	{
 	    return;
-	}
 	getAttackByList().add(player);
     }
 
@@ -648,30 +648,34 @@ public abstract class L2Character extends L2Object
 	setIsTeleporting(true);
 	setTarget(null);
 	// Remove from world regions zones
-	getWorldRegion().removeFromZones(this);
+		if (getWorldRegion() != null)
+			getWorldRegion().removeFromZones(this);
+	// getWorldRegion().removeFromZones(this);
 	getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-	if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
-	{
-	    x += Rnd.get(-Config.RESPAWN_RANDOM_MAX_OFFSET, Config.RESPAWN_RANDOM_MAX_OFFSET);
-	    y += Rnd.get(-Config.RESPAWN_RANDOM_MAX_OFFSET, Config.RESPAWN_RANDOM_MAX_OFFSET);
+
+        if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
+        {
+            x += Rnd.get(-Config.RESPAWN_RANDOM_MAX_OFFSET, Config.RESPAWN_RANDOM_MAX_OFFSET);
+            y += Rnd.get(-Config.RESPAWN_RANDOM_MAX_OFFSET, Config.RESPAWN_RANDOM_MAX_OFFSET);
+        }
+
+        z += 5;
+
+		if (Config.DEBUG)
+            _log.fine("Teleporting to: " + x + ", " + y + ", " + z);
+
+		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
+		broadcastPacket(new TeleportToLocation(this, x, y, z));
+
+		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
+		getPosition().setXYZ(x, y, z);
+
+		decayMe();
+
+		if (!(this instanceof L2PcInstance))
+            onTeleported();
 	}
-	z += 5;
-	if (Config.DEBUG)
-	{
-	    _log.fine("Teleporting to: " + x + ", " + y + ", " + z);
-	}
-	// Send a Server->Client packet TeleportToLocationt to the L2Character
-	// AND to all L2PcInstance in the _KnownPlayers of the L2Character
-	broadcastPacket(new TeleportToLocation(this, x, y, z));
-	// Set the x,y,z position of the L2Object and if necessary modify its
-	// _worldRegion
-	getPosition().setXYZ(x, y, z);
-	decayMe();
-	if (!(this instanceof L2PcInstance))
-	{
-	    onTeleported();
-	}
-    }
+
 
     public void teleToLocation(int x, int y, int z)
     {
@@ -683,10 +687,7 @@ public abstract class L2Character extends L2Object
 	int x = loc.getX();
 	int y = loc.getY();
 	int z = loc.getZ();
-	if ((this instanceof L2PcInstance) && DimensionalRiftManager.getInstance().checkIfInRiftZone(getX(), getY(), getZ(), true)) // true
-	// ->
-	// ignore
-	// waiting room :)
+	if ((this instanceof L2PcInstance) && DimensionalRiftManager.getInstance().checkIfInRiftZone(getX(), getY(), getZ(), true)) // true -> ignore waiting room :)
 	{
 	    L2PcInstance player = (L2PcInstance) this;
 	    player.sendMessage("You have been sent to the waiting room.");
