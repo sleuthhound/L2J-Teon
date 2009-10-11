@@ -51,11 +51,8 @@ public class L2DoormenInstance extends L2NpcInstance
 
     public final ClanHall getClanHall()
     {
-        //_log.warning(this.getName()+" searching ch");
         if (_clanHall == null)
             _clanHall = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
-        //if (_ClanHall != null)
-        //    _log.warning(this.getName()+" found ch "+_ClanHall.getName());
         return _clanHall;
     }
 
@@ -233,22 +230,19 @@ public class L2DoormenInstance extends L2NpcInstance
                     str += owner.getName() + "</font> clan.<br>";
                     str += "I am sorry, but only the clan members who belong to the "
                         + owner.getName() + " clan can enter the clan hall.</body></html>";
-                }
-                else 
-	// str = "<html><body>" + getName() + ":<br1>Clan hall <font color=\"LEVEL\">"
-                    // + getClanHall().getName()
-                    // + "</font> have no owner clan.<br>You can rent it at auctioneers..</body></html>";
-				{
-					int ClanHallID = _clanHall.getId();
-					if (ClanHallID==21 ||ClanHallID==34 ||ClanHallID==35 ||ClanHallID==62 ||ClanHallID==63 ||ClanHallID==64)
-						str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName()
-
-						+ "</font> has no owner. <br> To seize this Hall clan, you must seize it.</body></html>";
-					else
-						str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName()
-						+ "</font> has no owner. <br> To purchase, go to the Auction.</body></html>";
-
-				}
+	}
+        else 
+	{
+	int ClanHallID = _clanHall.getId();
+	if (ClanHallID == 21 || ClanHallID == 34 || ClanHallID == 35 || ClanHallID == 62 || ClanHallID == 63 || ClanHallID == 64)
+	str = "<html><body>Clan Hall<font color=\"LEVEL\">"
+	+ getClanHall().getName()
+	+ "</font>has no owner. <br>To get this clan hall must visit the messenger</body></html>";
+	else
+	str = "<html><body>Clan Hall<font color=\"LEVEL\">"
+	+ getClanHall().getName()
+	+ "</font> has no owner. <br> To purchase, go to the Auction.</body></html>";
+		}
             }
             html.setHtml(str);
         }
