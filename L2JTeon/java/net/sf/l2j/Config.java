@@ -97,6 +97,8 @@ public final class Config
     public static String DATAPACK_VERSION;
     
     /** Start AltSettings.properties */
+	public static int MANA_POTION_RES;
+
     // Auto loots configs
     public static boolean AUTO_LOOT;
     public static boolean AUTO_LOOT_HERBS;
@@ -1652,6 +1654,8 @@ public final class Config
 		InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
 		altSettings.load(is);
 		is.close();
+	 	MANA_POTION_RES = Integer.parseInt(altSettings.getProperty("ManaPotionMPRes", "200"));
+		
 		ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "False"));
         SOUL_CRYSTAL_BREAK_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalBreakChance","10"));   
         SOUL_CRYSTAL_LEVEL_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalLevelChance", "32"));   

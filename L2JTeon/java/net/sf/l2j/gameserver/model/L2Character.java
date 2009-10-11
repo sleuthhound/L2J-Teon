@@ -2068,6 +2068,11 @@ public abstract class L2Character extends L2Object
     {
 	return _allSkillsDisabled || isImmobileUntilAttacked() || isStunned() || isSleeping() || isParalyzed() || isPetrified();
     }
+    
+	public final boolean isPotionsDisabled() 
+	{ 
+		return isStunned() || isSleeping() || isParalyzed(); 
+	}
 
     /**
      * Return true if the L2Character can't attack (stun, sleep,
