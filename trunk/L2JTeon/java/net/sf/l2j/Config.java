@@ -76,8 +76,6 @@ public final class Config
     public static int MAX_ITEM_IN_PACKET;
     /** Properties file for FourSepulchers */
     public static final String FS_CONFIG_FILE		= "./config/bosses/foursepulchers.properties";  
-    /** Properties file for Baium configuration */
-    public static final String  FWB_CONFIG_FILE		= "./config/bosses/baium.properties";
     /** L2J Teon Custom Properties File */
     public static final String L2J_TEON_CUSTOM		= "./config/custom/L2JTeonCustom.properties";
     /** L2J Teon Event Mods Properties File */
@@ -1442,18 +1440,6 @@ public final class Config
     /** ************************************************** */
     /** L2J Teon Customizations -End * */
 	/** ************************************************** */
-
-	/***************************************************************************
-	* Baium Custom CONFIG                                     *
-	**************************************************************************/
-	public static int FWB_FIXINTERVALOFBAIUM;
-	public static int FWB_RANDOMINTERVALOFBAIUM;
-	public static int FWB_ACTIVITYTIMEOFBAIUM;
-	public static boolean FWB_MOVEATRANDOM;
-	public static int FWB_LIMITUNTILSLEEP;
-	/***************************************************************************
-	* Baium Custom CONFIG END                                 *
-	**************************************************************************/
 
     /** ************************************************** **/
 	/** Fortress Settings -Begin                           **/
@@ -3114,33 +3100,6 @@ public final class Config
 				e.printStackTrace();
 				throw new Error("Failed to Load " + FS_CONFIG_FILE + " File.");
 			}
-            // Baium Custom Setting
-            try
-            {
-                Properties Settings   = new Properties();
-                InputStream is          = new FileInputStream(FWB_CONFIG_FILE);  
-                Settings.load(is);
-                is.close();
-                
-                FWB_FIXINTERVALOFBAIUM = Integer.parseInt(Settings.getProperty("FixIntervalOfBaium", "7200"));
-                if(FWB_FIXINTERVALOFBAIUM < 5 || FWB_FIXINTERVALOFBAIUM > 12960) FWB_FIXINTERVALOFBAIUM = 7200;
-                FWB_FIXINTERVALOFBAIUM = FWB_FIXINTERVALOFBAIUM * 60000;
-                FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(Settings.getProperty("RandomIntervalOfBaium", "5760"));
-                if(FWB_RANDOMINTERVALOFBAIUM < 5 || FWB_RANDOMINTERVALOFBAIUM > 12960) FWB_RANDOMINTERVALOFBAIUM = 5760;
-                FWB_RANDOMINTERVALOFBAIUM = FWB_RANDOMINTERVALOFBAIUM * 60000;
-                FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(Settings.getProperty("ActivityTimeOfBaium", "120"));
-                if(FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720) FWB_ACTIVITYTIMEOFBAIUM = 120;
-                FWB_ACTIVITYTIMEOFBAIUM = FWB_ACTIVITYTIMEOFBAIUM * 60000;
-                FWB_MOVEATRANDOM = Boolean.parseBoolean(Settings.getProperty("MoveAtRandom", "True"));
-                FWB_LIMITUNTILSLEEP = Integer.parseInt(Settings.getProperty("LimitUntilSleep", "30"));
-                if(FWB_LIMITUNTILSLEEP < 30 || FWB_LIMITUNTILSLEEP > 90) FWB_LIMITUNTILSLEEP = 30;
-                FWB_LIMITUNTILSLEEP = FWB_LIMITUNTILSLEEP * 60000;
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                throw new Error("Failed to Load "+FWB_CONFIG_FILE+" File.");
-            }
 		} else if (Server.serverMode == Server.MODE_LOGINSERVER)
 		{
 			_log.info("loading login config");
@@ -3913,22 +3872,6 @@ public final class Config
 	} else if (pName.equalsIgnoreCase("AugmentationTopGlowChance"))
 	{
 		AUGMENTATION_TOP_GLOW_CHANCE = Integer.parseInt(pValue);
-        // Baium Custom Setting
-	} else if (pName.equalsIgnoreCase("FixIntervalOfBaium"))
-	{
-		FWB_FIXINTERVALOFBAIUM = Integer.parseInt(pValue);
-	} else if (pName.equalsIgnoreCase("RandomIntervalOfBaium"))
-	{
-		FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(pValue);
-	} else if (pName.equalsIgnoreCase("ActivityTimeOfBaium"))
-	{
-		FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(pValue);
-	} else if (pName.equalsIgnoreCase("MoveAtRandom"))
-	{
-		FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue);
-	} else if (pName.equalsIgnoreCase("LimitUntilSleep"))
-	{
-		FWB_LIMITUNTILSLEEP = Integer.parseInt(pValue);
 	} else
 	{
 	    return false;

@@ -63,56 +63,56 @@ public class VanHalter extends L2AttackableAIScript
 {
 	// list of intruders.
 	@SuppressWarnings("unchecked")
-	protected Map<Integer, List<L2PcInstance>>	_bleedingPlayers	= new FastMap<Integer, List<L2PcInstance>>();
+	protected Map<Integer, List<L2PcInstance>> _bleedingPlayers = new FastMap<Integer, List<L2PcInstance>>();
 
 	// spawn data of monsters.
-	protected Map<Integer, L2Spawn>	_monsterSpawn	= new FastMap<Integer, L2Spawn>();
-	protected List<L2Spawn>	_royalGuardSpawn	= new FastList<L2Spawn>();
-	protected List<L2Spawn>	_royalGuardCaptainSpawn	= new FastList<L2Spawn>();
-	protected List<L2Spawn>	_royalGuardHelperSpawn	= new FastList<L2Spawn>();
-	protected List<L2Spawn>	_triolRevelationSpawn	= new FastList<L2Spawn>();
-	protected List<L2Spawn>	_triolRevelationAlive	= new FastList<L2Spawn>();
-	protected List<L2Spawn>	_guardOfAltarSpawn	= new FastList<L2Spawn>();
-	//L2Emu_Edit
-	protected List<L2Spawn>	_cameraMarkerSpawn	= new FastList<L2Spawn>();
-	//L2Emu_Edit
-	protected L2Spawn	_ritualOfferingSpawn	= null;
-	protected L2Spawn	_ritualSacrificeSpawn	= null;
-	protected L2Spawn	_vanHalterSpawn	= null;
+	protected Map<Integer, L2Spawn>	_monsterSpawn = new FastMap<Integer, L2Spawn>();
+	protected List<L2Spawn>	_royalGuardSpawn = new FastList<L2Spawn>();
+	protected List<L2Spawn>	_royalGuardCaptainSpawn = new FastList<L2Spawn>();
+	protected List<L2Spawn>	_royalGuardHelperSpawn = new FastList<L2Spawn>();
+	protected List<L2Spawn>	_triolRevelationSpawn = new FastList<L2Spawn>();
+	protected List<L2Spawn>	_triolRevelationAlive = new FastList<L2Spawn>();
+	protected List<L2Spawn>	_guardOfAltarSpawn = new FastList<L2Spawn>();
+
+	protected List<L2Spawn>	_cameraMarkerSpawn = new FastList<L2Spawn>();
+
+	protected L2Spawn _ritualOfferingSpawn = null;
+	protected L2Spawn _ritualSacrificeSpawn = null;
+	protected L2Spawn _vanHalterSpawn = null;
 
 	// instance of monsters.
-	protected List<L2NpcInstance>	_monsters		= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>	_royalGuard		= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>	_royalGuardCaptain	= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>	_royalGuardHepler	= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>	_triolRevelation	= new FastList<L2NpcInstance>();
-	protected List<L2NpcInstance>	_guardOfAltar	= new FastList<L2NpcInstance>();
-	//L2Emu_Edit
-	protected List<L2NpcInstance>	_cameraMarker	= new FastList<L2NpcInstance>();
-	//L2Emu_Edit
-	protected List<L2DoorInstance>	_doorOfAltar	= new FastList<L2DoorInstance>();
-	protected List<L2DoorInstance>	_doorOfSacrifice	= new FastList<L2DoorInstance>();
-	protected L2NpcInstance		_ritualOffering	= null;
-	protected L2NpcInstance		_ritualSacrifice	= null;
-	protected L2GrandBossInstance	_vanHalter		= null;
+	protected List<L2NpcInstance> _monsters = new FastList<L2NpcInstance>();
+	protected List<L2NpcInstance> _royalGuard = new FastList<L2NpcInstance>();
+	protected List<L2NpcInstance> _royalGuardCaptain = new FastList<L2NpcInstance>();
+	protected List<L2NpcInstance> _royalGuardHepler = new FastList<L2NpcInstance>();
+	protected List<L2NpcInstance> _triolRevelation = new FastList<L2NpcInstance>();
+	protected List<L2NpcInstance> _guardOfAltar = new FastList<L2NpcInstance>();
+
+	protected List<L2NpcInstance> _cameraMarker = new FastList<L2NpcInstance>();
+
+	protected List<L2DoorInstance> _doorOfAltar = new FastList<L2DoorInstance>();
+	protected List<L2DoorInstance> _doorOfSacrifice = new FastList<L2DoorInstance>();
+	protected L2NpcInstance _ritualOffering = null;
+	protected L2NpcInstance _ritualSacrifice = null;
+	protected L2GrandBossInstance _vanHalter = null;
 
 	// Task
-	protected ScheduledFuture<?>	_movieTask		= null;
-	protected ScheduledFuture<?>	_closeDoorOfAltarTask	= null;
-	protected ScheduledFuture<?>	_openDoorOfAltarTask	= null;
-	protected ScheduledFuture<?>	_lockUpDoorOfAltarTask	= null;
-	protected ScheduledFuture<?>	_callRoyalGuardHelperTask	= null;
-	protected ScheduledFuture<?>	_timeUpTask		= null;
-	protected ScheduledFuture<?>	_intervalTask	= null;
-	protected ScheduledFuture<?>	_halterEscapeTask	= null;
-	protected ScheduledFuture<?>	_setBleedTask	= null;
+	protected ScheduledFuture<?> _movieTask = null;
+	protected ScheduledFuture<?> _closeDoorOfAltarTask = null;
+	protected ScheduledFuture<?> _openDoorOfAltarTask = null;
+	protected ScheduledFuture<?> _lockUpDoorOfAltarTask = null;
+	protected ScheduledFuture<?> _callRoyalGuardHelperTask = null;
+	protected ScheduledFuture<?> _timeUpTask = null;
+	protected ScheduledFuture<?> _intervalTask = null;
+	protected ScheduledFuture<?> _halterEscapeTask = null;
+	protected ScheduledFuture<?> _setBleedTask = null;
 	
 	// state of High Priestess van Halter
-	boolean		_isLocked		= false;
-	boolean		_isHalterSpawned	= false;
-	boolean		_isSacrificeSpawned	= false;
-	boolean		_isCaptainSpawned	= false;
-	boolean		_isHelperCalled	= false;
+	boolean _isLocked = false;
+	boolean _isHalterSpawned = false;
+	boolean _isSacrificeSpawned = false;
+	boolean _isCaptainSpawned = false;
+	boolean _isHelperCalled = false;
 	
 	private static final byte NOTSPAWN = 0;
 	private static final byte INTERVAL = 1;
@@ -172,9 +172,9 @@ public class VanHalter extends L2AttackableAIScript
 		tempSpawn.setAmount(1);
 		tempSpawn.setRespawnDelay(60000);
 		SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
-		//L2Emu_Edit
+
 		_cameraMarkerSpawn.add(tempSpawn);
-		//L2Emu_Edit
+
 
 		template1 = NpcTable.getInstance().getTemplate(13018);
 		tempSpawn = new L2Spawn(template1);
@@ -185,9 +185,9 @@ public class VanHalter extends L2AttackableAIScript
 		tempSpawn.setAmount(1);
 		tempSpawn.setRespawnDelay(60000);
 		SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
-		//L2Emu_Edit
+
 		_cameraMarkerSpawn.add(tempSpawn);
-		//L2Emu_Edit
+
 
 		template1 = NpcTable.getInstance().getTemplate(13018);
 		tempSpawn = new L2Spawn(template1);
@@ -198,9 +198,9 @@ public class VanHalter extends L2AttackableAIScript
 		tempSpawn.setAmount(1);
 		tempSpawn.setRespawnDelay(60000);
 		SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
-		//L2Emu_Edit
+
 		_cameraMarkerSpawn.add(tempSpawn);
-		//L2Emu_Edit
+
 
 		template1 = NpcTable.getInstance().getTemplate(13018);
 		tempSpawn = new L2Spawn(template1);
@@ -211,9 +211,9 @@ public class VanHalter extends L2AttackableAIScript
 		tempSpawn.setAmount(1);
 		tempSpawn.setRespawnDelay(60000);
 		SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
-		//L2Emu_Edit
+
 		_cameraMarkerSpawn.add(tempSpawn);
-		//L2Emu_Edit
+
 
 		template1 = NpcTable.getInstance().getTemplate(13018);
 		tempSpawn = new L2Spawn(template1);
@@ -224,9 +224,9 @@ public class VanHalter extends L2AttackableAIScript
 		tempSpawn.setAmount(1);
 		tempSpawn.setRespawnDelay(60000);
 		SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
-		//L2Emu_Edit
+
 		_cameraMarkerSpawn.add(tempSpawn);
-		//L2Emu_Edit
+
 
 		}
 		catch (Exception e)
@@ -265,8 +265,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid between ? and ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid between ? and ? ORDER BY id");
 			statement.setInt(1, 22175);
 			statement.setInt(2, 22176);
 			ResultSet rset = statement.executeQuery();
@@ -351,8 +350,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid between ? and ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid between ? and ? ORDER BY id");
 			statement.setInt(1, 32058);
 			statement.setInt(2, 32068);
 			ResultSet rset = statement.executeQuery();
@@ -439,8 +437,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
 			statement.setInt(1, 22188);
 			ResultSet rset = statement.executeQuery();
 
@@ -525,8 +522,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
 			statement.setInt(1, 22191);
 			ResultSet rset = statement.executeQuery();
 
@@ -606,8 +602,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
 			statement.setInt(1, 32051);
 			ResultSet rset = statement.executeQuery();
 
@@ -690,8 +685,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
 			statement.setInt(1, 29062);
 			ResultSet rset = statement.executeQuery();
 
@@ -768,8 +762,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
 			statement.setInt(1, 32038);
 			ResultSet rset = statement.executeQuery();
 
@@ -847,8 +840,7 @@ public class VanHalter extends L2AttackableAIScript
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-			PreparedStatement statement = con
-					.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
+			PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
 			statement.setInt(1, 22195);
 			ResultSet rset = statement.executeQuery();
 
@@ -919,14 +911,14 @@ public class VanHalter extends L2AttackableAIScript
 
 	protected void spawnCameraMarker()
 	{
-		//L2Emu_Edit
+
 		if (!_cameraMarker.isEmpty())
 			deleteCameraMarker();
 
 		for (int i = 0; i <= _cameraMarkerSpawn.size(); i++)
 		{
 			_cameraMarker.add(_cameraMarkerSpawn.get(i).doSpawn());
-			//L2Emu_Edit
+
 			_cameraMarker.get(i).getSpawn().stopRespawn();
 			_cameraMarker.get(i).setIsImmobilized(true);
 		}
@@ -936,9 +928,9 @@ public class VanHalter extends L2AttackableAIScript
 	{
 		if (_cameraMarker.isEmpty())
 			return;
-		//L2Emu_Edit
+
 		for (int i = 0; i <= _cameraMarker.size(); i++)
-		//L2Emu_Edit
+
 		{
 			_cameraMarker.get(i).deleteMe();
 		}
@@ -1427,9 +1419,9 @@ public class VanHalter extends L2AttackableAIScript
 	// appearance movie.
 	private class Movie implements Runnable
 	{
-		private int					_distance	= 6502500;
-		private int					_taskId;
-		private List<L2PcInstance>	_players	= getPlayersInside();
+		private int _distance = 6502500;
+		private int _taskId;
+		private List<L2PcInstance> _players = getPlayersInside();
 
 		public Movie(int taskId)
 		{
@@ -1826,7 +1818,6 @@ public class VanHalter extends L2AttackableAIScript
 		}
 	}
 
-	// [L2J_JP ADD SANDMAN]
 	public void enterMovieMode(L2PcInstance player)
 	{
 		if (player == null) return;
@@ -1855,7 +1846,6 @@ public class VanHalter extends L2AttackableAIScript
 	{
 		player.sendPacket(new SpecialCamera(target.getObjectId(), dist, yaw, pitch, time, duration));
 	}
-	// L2JJP END
 
 	protected List<L2PcInstance> getPlayersInside()
 	{

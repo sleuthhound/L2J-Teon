@@ -201,6 +201,7 @@ abstract class DocumentBase
     {
 	NamedNodeMap attrs = n.getAttributes();
 	String name = attrs.getNamedItem("name").getNodeValue();
+//        String name = getValue(attrs.getNamedItem("name").getNodeValue().intern(), template); 
 	int time, count = 1;
 	if (attrs.getNamedItem("count") != null)
 	{
