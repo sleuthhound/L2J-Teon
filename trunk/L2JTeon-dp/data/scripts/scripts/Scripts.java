@@ -112,7 +112,7 @@ public class Scripts
 		ItemHandler.getInstance().registerItemHandler(new BeastSoulShot());
 		ItemHandler.getInstance().registerItemHandler(new BeastSpiritShot());
 		ItemHandler.getInstance().registerItemHandler(new ChestKey());
-		ItemHandler.getInstance().registerItemHandler(new PaganKeys());
+		ItemHandler.getInstance().registerItemHandler(new DungeonKeys());
 		ItemHandler.getInstance().registerItemHandler(new Maps());
 		ItemHandler.getInstance().registerItemHandler(new Potions());
 		ItemHandler.getInstance().registerItemHandler(new Recipes());

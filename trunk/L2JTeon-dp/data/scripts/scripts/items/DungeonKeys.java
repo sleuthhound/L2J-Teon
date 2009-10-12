@@ -30,18 +30,14 @@ import net.sf.l2j.util.Rnd;
 /**
  * @author  chris
  */
-public class PaganKeys implements IItemHandler
+public class DungeonKeys implements IItemHandler
 {
 	private static final int[] ITEM_IDS =
 	{
-		8273, 8274, 8275
+		8273, 8274, 8275, 8056
 	};
 	public static final int INTERACTION_DISTANCE = 100;
-	
-	/**
-	 * 
-	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.actor.L2Playable, net.sf.l2j.gameserver.model.L2ItemInstance)
-	 */
+
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
@@ -53,7 +49,7 @@ public class PaganKeys implements IItemHandler
 		if (!(target instanceof L2DoorInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+        		activeChar.sendPacket(new ActionFailed());
 			return;
 		}
 		L2DoorInstance door = (L2DoorInstance) target;
@@ -61,13 +57,13 @@ public class PaganKeys implements IItemHandler
 		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)))
 		{
 			activeChar.sendMessage("Too far.");
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+        		activeChar.sendPacket(new ActionFailed());
 			return;
 		}
 		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You cannot use the key now.");
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+        		activeChar.sendPacket(new ActionFailed());
 			return;
 		}
 		
@@ -78,6 +74,16 @@ public class PaganKeys implements IItemHandler
 		
 		switch (itemId)
 		{
+			case 8056: // Gate of Splendor
+				if (door.getDoorName().startsWith("Gate_of_Splendor"))
+				{
+					if (Rnd.get(100) < openChance)
+					{
+						activeChar.sendMessage("You opened Anterooms Door.");
+						door.openMe();
+						door.onOpen(); // Closes the door after 60sec
+					}
+				break;
 			case 8273: //AnteroomKey
 				if (door.getDoorName().startsWith("Anteroom"))
 				{
@@ -90,7 +96,6 @@ public class PaganKeys implements IItemHandler
 					}
 					else
 					{
-						//test with: activeChar.sendPacket(new SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR));
 						activeChar.sendMessage("You failed to open Anterooms Door.");
 						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
 						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
@@ -150,11 +155,7 @@ public class PaganKeys implements IItemHandler
 				break;
 		}
 	}
-	
-	/**
-	 * 
-	 * @see net.sf.l2j.gameserver.handler.IItemHandler#getItemIds()
-	 */
+
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;
