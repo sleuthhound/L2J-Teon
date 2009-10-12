@@ -646,10 +646,10 @@ UPDATE npc SET `type` = 'L2Npc' WHERE id IN
 ( 13001,31384,31385,31540,31686,31687,31859,21759 );
 
 Delete From spawnlist where npc_templateId in
-(29001,29014,29020,29022,22190);
+(29001,29006,29014,29020,29022,22190);
 
 Delete From npc where id in
-(29001,29002,29003,29004,29005,29006,29007,29008,29009,29010,29011,29012,29013,29014,29020,29021,29022,29023,29024,29025,29026,29027,29054,29095,29096,29097,29098);
+(29001,29002,29003,29004,29005,29007,29008,29009,29010,29011,29012,29013,29014,29020,29021,29022,29023,29024,29025,29026,29027,29054,29095,29096,29097,29098);
 
 INSERT INTO `npc` VALUES
 (29001,29001,'Queen Ant',0,'',0,'Monster.queen_ant',45,53,40,'female','L2GrandBoss',40,229898,667,495.04,2.14,60,57,73,76,70,80,2179536,140740,329,1615,77,655,278,0,3819,0,0,0,129,372,'queen_ant_clan',1000,0,0,'LAST_HIT'),
@@ -657,7 +657,6 @@ INSERT INTO `npc` VALUES
 (29003,29003,'Nurse Ant',0,'',0,'Monster.ant',26,15,35,'male','L2Monster',40,6320,446,170.64,1.84,40,43,30,41,20,10,0,1,947,678,889,275,278,0,333,0,0,0,44,143,'queen_ant_clan',700,0,0,'LAST_HIT'),
 (29004,29004,'Guard Ant',0,'',0,'Monster.ant',26,15,37,'male','L2Monster',40,6861,480,181.7,1.84,40,43,30,41,20,10,0,1,269,728,62,295,278,500,333,0,0,0,44,253,'queen_ant_clan',700,0,0,'LAST_HIT'),
 (29005,29005,'Royal Guard Ant',0,'',0,'Monster.ant',26,15,39,'male','L2Monster',40,11140,514,192.76,1.84,40,43,30,41,20,10,0,1,1827,780,2576,316,278,0,333,0,0,0,44,253,'queen_ant_clan',700,0,0,'LAST_HIT'),
-(29006,29006,'Core',0,'',0,'NPC.core',140,75,50,'male','L2GrandBoss',40,622493,575,649.74,1.53,60,57,73,76,70,80,2041407,153786,535,2226,500,904,278,0,3819,0,0,0,0,0,'curma_core_clan',2500,0,0,'LAST_HIT'),
 (29007,29007,'Death Knight',0,'',0,'Monster.death_knight',12,29,50,'male','L2Monster',40,21830,830,262.28,2.14,40,43,30,41,20,10,0,1,683,1113,195,452,278,1050,333,75,0,0,27,110,'curma_core_clan',2300,1,0,'LAST_HIT'),
 (29008,29008,'Doom Wraith',0,'',0,'Monster.death_blader',15,45,55,'male','L2Monster',40,25298,987,292.3,2.45,40,43,30,41,20,10,0,1,812,1288,2170,522,278,950,333,1472,0,0,100,230,'curma_core_clan',700,1,0,'LAST_HIT'),
 (29009,29009,'Dicor',0,'',0,'Monster.mandragora_b',12,25.5,47,'female','L2Monster',40,19819,738,243.32,2.14,40,43,30,41,20,10,0,1,577,1015,162,412,278,650,333,0,0,0,80,120,'curma_core_clan',800,0,0,'LAST_HIT'),
@@ -739,7 +738,6 @@ insert  into npc values
 ('29097', 29097, 'Splendor Disciple', 0, 'Raid Fighter', 0, 'Monster3.apostle_grail', '13.00', '47.00', '86', 'male', 'L2Monster', 40, '400000', '9999', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '0', '0', '9000', '5000', '6000', '6000', '300', '0', '333', '0', '0', '0', '88', '132', 'Anays', '800', 0, '0', 'LAST_HIT'), 
 ('29098', 29098, 'Splendor Worshiper', 0, 'Raid Fighter', 0, 'Monster3.apostle_grail_a', '13.00', '47.00', '86', 'male', 'L2Monster', 40, '400000', '9999', '13.43', '3.09', '40', '43', '30', '21', '20', '10', '0', '0', '9000', '5000', '6000', '6000', '300', '0', '333', '0', '0', '0', '88', '132', 'Anays', '800', 0, '0', 'LAST_HIT');
 
-
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (29020,29021,29022,29065,29069,29070,29014);
 UPDATE `npc` SET `aggro` = 800 WHERE `id` IN (29019,29028);
 UPDATE `npc` SET `hp` = '13090000', `mp` = '39960' WHERE `id` IN (29019);
@@ -753,10 +751,8 @@ UPDATE `npc` SET `hp` = '1532678', `mp` = '4255', `type` = 'L2GrandBoss', `level
 UPDATE `npc` SET `faction_id` = 'antharas_clan', `faction_range` = '1000' WHERE `id` IN (29019,29069,29070);
 UPDATE `npc` SET `faction_id` = 'baium_clan', `faction_range` = '1000' WHERE `id` IN (29020,29021);
 
-
 -- Update Npc 
 Update npc set `type` = 'L2Npc' Where idTemplate = 13001;
-
 
 --
 -- Fortress of Resistance
@@ -1219,12 +1215,9 @@ INSERT INTO `spawnlist` VALUES
 (NULL,'ch_fortress_of_dead','1','35642','58024','-26456','592','0','0','49000','0','0','0'),
 (NULL,'ch_fortress_of_dead','1','35642','58074','-26325','597','0','0','15732','0','0','0');
 
-
-
 DELETE FROM npc WHERE id = 29095;
 INSERT INTO `npc` VALUES
 (29095, 29095, "Gordon", 0, "Knight of Destruction", 0, "Monster3.Cruel_Rider", 43, 46.6, 80, "male", "L2RaidBoss", 40, 2289038, 2746, 362.02, 9.81, 60, 57, 73, 76, 70, 80, 3626219, 962159, 17006, 1310, 24162, 1789, 300, 0, 333, 0, 0, 0, 88, 132, "NULL", 0, 0, 0, "LAST_HIT");
-
 
 DELETE FROM `npcskills` Where `skillid` IN (5014,5015,5016,5017,5018,5019);
 REPLACE INTO `npcskills` VALUES
@@ -1235,7 +1228,6 @@ REPLACE INTO `npcskills` VALUES
 REPLACE INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
 (12005,0,172176,-74106),
 (12005,1,176284,-90033);
-
 
 UPDATE `npc` SET `type` = 'L2SiegeBoss' WHERE `id` IN (35375,35368,35410);
 
