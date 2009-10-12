@@ -79,8 +79,6 @@ import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.CustomZoneManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.ForceBuff;
@@ -5087,12 +5085,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	calculateDeathPenaltyBuffLevel(killer);
 	stopRentPet();
 	stopWaterTask();
-
-    	if (CustomZoneManager.getInstance().checkIfInZone("Lair of Baium", this))
-    	{
-    		BaiumManager.getInstance().checkAnnihilated();
-    	}
-		return true;
+	return true;
 	}
 
 
@@ -10763,27 +10756,6 @@ public final class L2PcInstance extends L2PlayableInstance
             sendMessage("Entering world in Message Refusal mode.");
 
 		revalidateZone(true);
-
-		// [L2J_JP ADD SANDMAN] Check of a restart prohibition area.
-		if(CustomZoneManager.getInstance().getZone(this) != null && !isGM())
-		{
-	    	String zn = CustomZoneManager.getInstance().getZone(this).getZoneName();
-
-	    	if (zn.equalsIgnoreCase("Lair of Baium"))
-    		{
-				if (System.currentTimeMillis() - getLastAccess() >= 600000)
-				{
-	        		if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
-	    			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-				}
-				else
-				{
-					// Player can restart inside lair, but can not awake Baium.
-	        		if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
-	        		BaiumManager.getInstance().addPlayerToLair(this);
-				}
-    			}
-    		}
 	}
 
     public long getLastAccess()

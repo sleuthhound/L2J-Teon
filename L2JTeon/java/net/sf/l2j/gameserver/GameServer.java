@@ -101,7 +101,6 @@ import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManag
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
-import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
 import net.sf.l2j.gameserver.lib.L2jConnect;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
@@ -309,7 +308,6 @@ public class GameServer
         RaidBossPointsManager.init();
         GrandBossManager.getInstance();
         FourSepulchersManager.getInstance().init();
-        BaiumManager.getInstance().init();
         Util.printSection("Dimensional Rift");
         DimensionalRiftManager.getInstance();
         Util.printSection("Announcements");

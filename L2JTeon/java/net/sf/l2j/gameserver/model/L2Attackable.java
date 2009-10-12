@@ -1790,18 +1790,14 @@ public class L2Attackable extends L2NpcInstance
 	// drop
 	// herbs
 	{
-	    boolean _hp = false;
-	    boolean _mp = false;
-	    boolean _spec = false;
+	boolean _hp = false;
+	boolean _mp = false;
+	boolean _spec = false;
 	    // ptk - patk type enhance
 	    int random = Rnd.get(1000); // note *10
-	    if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec) // &&
-	    // !_spec
-	    // useless
-	    // yet
+	    if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec) // && !_spec useless yet
 	    {
-		RewardItem item = new RewardItem(8612, 1); // Herb of
-		// Warrior
+		RewardItem item = new RewardItem(8612, 1); // Herb of Warrior
 		if (Config.AUTO_LOOT_HERBS || player.autoLootHerbs)
 		{
 		    player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
@@ -2710,7 +2706,10 @@ public class L2Attackable extends L2NpcInstance
 		sp = 0;
 	    }
 	}
-	int[] tmp = { (int) xp, (int) sp };
+	int[] tmp =
+	{
+	(int) xp, (int) sp
+	};
 	return tmp;
     }
 
@@ -2940,7 +2939,6 @@ public class L2Attackable extends L2NpcInstance
 				{
 					if (player.getParty().getCommandChannel().equals(_channel))
 					{
-						// if a player which is in first attacked CommandChannel, restart the timer ;)
 						_monster.setCommandChannelTimer(this);
 						_monster.setFirstCommandChannelAttacked(_channel);
 						ThreadPoolManager.getInstance().scheduleGeneral(this, 300000); // 5 min

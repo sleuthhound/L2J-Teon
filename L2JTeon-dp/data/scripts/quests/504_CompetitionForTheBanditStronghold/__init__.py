@@ -64,7 +64,7 @@ class Quest (JQuest) :
 					htmltext = "a3.htm"
 		else:
 			htmltext = None
-			npc.showMessageWindow(player,3)
+			npc.showChatWindow(player,3)
 		return htmltext
 
 	def onKill(self,npc,player,isPet): 

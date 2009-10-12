@@ -935,6 +935,10 @@
 		<stat name='name' val='Lair of Antharas'/>
 		<stat name='InvadeTime' val='1800000'/>
 	</zone>
+	<zone id='12007' type='BossZone' shape='NPoly' minZ='9967' maxZ='16301'>
+		<stat name='name' val='Lair of Baium'/>
+		<stat name='InvadeTime' val='1800000'/>
+	</zone>
 	<zone id='12008' type='BossZone' shape='NPoly' minZ='-2572' maxZ='5428'>
 		<stat name='name' val='Lair of Valakas'/>
 		<stat name='InvadeTime' val='1800000'/>
@@ -971,14 +975,6 @@
 		<stat name='InvadeTime' val='60000'/>
 	</zone>
 -->
-	<zone id='12007' type='CustomZone' shape='NPoly' minZ='9967' maxZ='16301'>
-		<stat name='name' val='Lair of Baium'/>
-		<stat name='flying' val='false'/>
-	</zone>
-	<zone id='12014' type='CustomZone' shape='Cuboid' minZ='-10730' maxZ='-10290'>
-		<stat name='name' val='Altar of Sacrifice'/>
-		<stat name='flying' val='false'/>
-	</zone>
 
 <!-- Peace Zones -->
 	<zone id='13001' type='PeaceZone' shape='NPoly' minZ='-3500' maxZ='-2000' /> <!-- Coliseum Entrance -->
