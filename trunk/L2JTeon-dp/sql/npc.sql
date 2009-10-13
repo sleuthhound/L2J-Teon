@@ -6647,16 +6647,9 @@ insert  into npc values
 ('13', 30391, 'Buffer', 1, 'Interlude Project', 1, 'NPC.a_common_peopleB_FHuman', '8.00', '20.50', '70', 'female', 'L2Npc', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '55', '132', '', '0', 1, '0', 'LAST_HIT'), 
 ('51', 30391, 'Buffer', 1, 'Interlude Project', 1, 'NPC.a_common_peopleB_FHuman', '8.00', '20.50', '70', 'female', 'L2NpcBuffer', 40, '3862', '1493', '11.85', '2.78', '40', '43', '30', '21', '20', '10', '0', '0', '1314', '470', '780', '382', '278', '0', '333', '0', '0', '0', '55', '132', '', '0', 1, '0', 'LAST_HIT');
 
-DELETE FROM npc WHERE id = 22125;
-DELETE FROM npc WHERE id = 22127;
-DELETE FROM npc WHERE id = 22132;
-DELETE FROM npc WHERE id = 22133;
-DELETE FROM npc WHERE id = 22134;
-DELETE FROM npc WHERE id = 22135;
-DELETE FROM npc WHERE id = 32008;
-DELETE FROM npc WHERE id = 32028;
+DELETE FROM npc WHERE id IN ( 22125,22127,22132,22133,22134,22135,32008,32028 );
 
-insert  into npc values 
+insert into npc values 
 (22125,22125,'Solina Lay Brother',0,'',0,'Monster3.solina_brother',20,25,78,'male','L2Monster',80,4664,2126,13.43,3.09,40,43,30,21,20,10,8326,911,2203,573,1220,485,278,500,333,8212,0,0,88,180,'monastery_clan',400,0,0,'LAST_HIT'),
 (22127,22127,'Silent Brother',0,'',0,'Monster3.solina_father',20,25,78,'male','L2Monster',80,4717,2168,13.43,3.09,40,43,30,21,20,10,8530,944,2695,571,1258,494,278,500,333,8212,0,0,88,180,'monastery_clan',400,0,0,'LAST_HIT'),
 (22132,22132,'Judge of Light',0,'',0,'Monster3.apostle_grail_a',20,43,78,'male','L2Monster',80,4858,2296,13.43,3.09,40,43,30,21,20,10,7432,851,2199,625,1373,521,278,200,333,8220,0,0,40,80,'monastery_clan',400,0,0,'LAST_HIT'),
@@ -6681,7 +6674,6 @@ UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12'
 
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` IN (13001,29055,31385,31540,32109);
 
-
 -- L2JTeon
 -- Npcs Castle rune, schuttgart fix collision height
 UPDATE `npc` SET `collision_height` = '24' WHERE `id` IN (35513,35503,35504,35505,35511,35509,35510,35548,35549,35557,35555);
@@ -6698,3 +6690,10 @@ UPDATE `npc` SET `faction_range` = '500' WHERE `faction_id` = 'partisan_clan';
 UPDATE `npc` SET `type` = 'L2ClanHallSiege' WHERE `id` IN (35437,35604,35627,35639,35420,35382);
 
 UPDATE `npc` SET `type` = 'L2SiegeBoss' WHERE `id` IN (35375,35368,35410);
+
+DELETE FROM npc WHERE id IN ( 32077,32078,32079 );
+
+insert into npc values 
+(32077,32077,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT'),
+(32078,32078,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT'),
+(32079,32079,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT');

@@ -1,15 +1,5 @@
 -- bosses --
-DELETE FROM spawnlist WHERE npc_templateid = 29019;
-DELETE FROM spawnlist WHERE npc_templateid = 29025;
-DELETE FROM spawnlist WHERE npc_templateid = 29066;
-DELETE FROM spawnlist WHERE npc_templateid = 29067;
-DELETE FROM spawnlist WHERE npc_templateid = 29068;
-DELETE FROM spawnlist WHERE npc_templateid = 29020;
-DELETE FROM spawnlist WHERE npc_templateid = 29028;
-DELETE FROM spawnlist WHERE npc_templateid = 29021;
-DELETE FROM spawnlist WHERE npc_templateid = 31759;
-DELETE FROM spawnlist WHERE npc_templateid = 31859;
- 
+DELETE FROM spawnlist WHERE npc_templateid IN ( 29019,29025,29066,29067,29068,29020,29028,29021,31759,31859 );
 
 DELETE FROM teleport WHERE id IN ( 20001,20002 );
 INSERT INTO teleport VALUES
@@ -1234,23 +1224,6 @@ UPDATE `npc` SET `type` = 'L2SiegeBoss' WHERE `id` IN (35375,35368,35410);
 DELETE FROM grandboss_data WHERE boss_id = 29045;
 INSERT IGNORE INTO `grandboss_data` VALUES
 (29045, 0, 0, 0, 0, 0, 1216600, 11100, 0); -- Frintezza (85)
-
--- Deleting Schuttgart castle npc's incase that was custom spawned
-DELETE FROM `spawnlist` WHERE npc_templateid IN ( 35555,35556,35557,35559,35550,35548,35546,35545,35544 );
-
--- Shuttgard Castle NPC's spawns --
-INSERT INTO `spawnlist` VALUES
-(NULL,'Schuttgart Castle',1,35555,77438,-153384,-429,0,0,16384,60,0,0),
-(NULL,'Schuttgart Castle',1,35557,77795,-153326,-514,0,0,14662,60,0,0),
-(NULL,'Schuttgart Castle',1,35559,77804,-147213,-480,0,0,26688,60,0,0),
-(NULL,'Schuttgart Castle',1,35550,77629,-150364,-357,0,0,6134,60,0,0),
-(NULL,'Schuttgart Castle',1,35550,77641,-150176,-353,0,0,27354,60,0,0),
-(NULL,'Schuttgart Castle',1,35550,77659,-151796,-545,0,0,46651,60,0,0),
-(NULL,'Schuttgart Castle',1,35548,77350,-149735,-353,0,0,57344,60,0,0),
-(NULL,'Schuttgart Castle',1,35548,77381,-149411,-353,0,0,16384,60,0,0),
-(NULL,'Schuttgart Castle',1,35546,77371,-149013,-353,0,0,55142,60,0,0),
-(NULL,'Schuttgart Castle',1,35545,77687,-150108,-353,0,0,21438,60,0,0),
-(NULL,'Schuttgart Castle',1,35544,77384,-151832,-545,0,0,58944,60,0,0);
 
 UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE `id` IN (35605,35640,35628,35605);
 

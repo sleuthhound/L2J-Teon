@@ -60,7 +60,6 @@ DROP TABLE IF EXISTS droplist;
 DROP TABLE IF EXISTS games;
 DROP TABLE IF EXISTS grandboss_data;
 DROP TABLE IF EXISTS grandboss_list;
-DROP TABLE IF EXISTS grandboss_intervallist;
 DROP TABLE IF EXISTS enchant_skill_trees;
 DROP TABLE IF EXISTS etcitem;
 DROP TABLE IF EXISTS fort_functions;

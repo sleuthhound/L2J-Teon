@@ -26,3 +26,5 @@ INSERT IGNORE INTO `grandboss_data` VALUES
 (29065, -123348, -248881, -15537, 44732, 0, 1532678, 4255, 0),   -- Sailren
 (29062, 0, 0, 0, 0, 0, 0, 0, 0),	-- High Priestess van Halter
 (29045, 0, 0, 0, 0, 0, 0, 0, 0);        -- Frintezza
+
+INSERT INTO `grandboss_data` VALUES (29054, 0, 0, 0, 0, 0, 1352750, 4519, 0);

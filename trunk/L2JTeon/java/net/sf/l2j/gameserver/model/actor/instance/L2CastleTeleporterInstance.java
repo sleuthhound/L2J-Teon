@@ -14,11 +14,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-/**
- * @author Kerberos
- *
- */
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
