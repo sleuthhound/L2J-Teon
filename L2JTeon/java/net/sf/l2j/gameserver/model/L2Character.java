@@ -60,6 +60,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
@@ -353,7 +354,8 @@ public abstract class L2Character extends L2Object
 			!(this instanceof L2GuardInstance) && !(this instanceof L2SiegeGuardInstance) &&
 			!(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance) &&
 			!(this instanceof L2DecoInstance) && !(this instanceof L2SiegeSummonInstance) &&
-			!(this instanceof L2PetInstance) && !(this instanceof L2SummonInstance))
+			!(this instanceof L2PetInstance) && !(this instanceof L2SummonInstance) &&
+			!(this instanceof L2SiegeFlagInstance))
 			setIsInvul(true);
 	}
 

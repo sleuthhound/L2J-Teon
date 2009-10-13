@@ -22,33 +22,39 @@ import net.sf.l2j.util.Rnd;
 /**
  * @author Maxi
  */
-public class DeluLizardmanSpecialCommander extends L2AttackableAIScript
+public class BrekaOrcOverlord extends L2AttackableAIScript
 {
-	private static final int LIZARDMAN = 21107;
+	private static final int BREKA = 20270;
 
 	private static boolean _FirstAttacked;
 
-	public DeluLizardmanSpecialCommander(int questId, String name, String descr)
+	public BrekaOrcOverlord(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
-		int[] mobs = {LIZARDMAN};
+		int[] mobs = {BREKA};
 		registerMobs(mobs);
 		_FirstAttacked = false;
 	}
 
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
-        if (npc.getNpcId() == LIZARDMAN)
-        {
-            if (_FirstAttacked)
-            {
-               if (Rnd.get(100) == 40)
-            	   npc.broadcastPacket(new NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Come on, Ill take you on!"));
-            }
-            else
+          if (npc.getNpcId() == BREKA)
+           {
+             if (_FirstAttacked)
+              {
+		   if (Rnd.get(100) == 50)
+            	   npc.broadcastPacket(new NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Extreme strength! ! ! !"));
+            		}// else
+            		{
+               		if (Rnd.get(100) == 50)
+            	   npc.broadcastPacket(new NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Humph, wanted to win me to be also in tender!"));
+            		}// else
+            		{
+               		if (Rnd.get(100) == 50)
+            	   npc.broadcastPacket(new NpcSay(npc.getObjectId(),0,npc.getNpcId(),"Haven't thought to use this unique skill for this small thing!"));
+            }// else
             {
                _FirstAttacked = true;
-           npc.broadcastPacket(new NpcSay(npc.getObjectId(),0,npc.getNpcId(),"How dare you interrupt a sacred duel! You must be taught a lesson!"));
 		}
         }
         return super.onAttack(npc, attacker, damage, isPet);
@@ -57,7 +63,7 @@ public class DeluLizardmanSpecialCommander extends L2AttackableAIScript
 	public String onKill(L2NpcInstance npc, L2PcInstance killer, boolean isPet)
 	{
         int npcId = npc.getNpcId();
-        if (npcId == LIZARDMAN)
+        if (npcId == BREKA)
         {
             _FirstAttacked = false;
         }
@@ -66,6 +72,6 @@ public class DeluLizardmanSpecialCommander extends L2AttackableAIScript
 
 	public static void main(String[] args)
 	{
-		new DeluLizardmanSpecialCommander(-1, "DeluLizardmanSpecialCommander", "ai");
+		new BrekaOrcOverlord(-1, "BrekaOrcOverlord", "ai");
 	}
 }
