@@ -674,11 +674,6 @@ public class Potions implements IItemHandler
 		return true;
 	}
 
-	private boolean isNegotov(L2PcInstance activeChar, Enum effectType, int itemId, int skillid)
-	{
-		return (isEffectReplaceable(activeChar, effectType, itemId) && isNegotov(activeChar, itemId, skillid));
-	}
-
 	public int[] getItemIds()
 	{
 		return ITEM_IDS;
