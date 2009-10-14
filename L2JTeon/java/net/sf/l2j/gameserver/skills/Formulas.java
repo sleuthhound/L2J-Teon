@@ -1209,21 +1209,21 @@ public final class Formulas
 		// skill
 		// was given to all classes. The values here try to be a compromise.
 		// They were originally added in a late C4 rev (2289).
-		if (target instanceof L2PcInstance)
-		{
-			L2Armor armor = ((L2PcInstance) target).getActiveChestArmorItem();
-			if (armor != null)
-			{
-				if (((L2PcInstance) target).isWearingHeavyArmor())
-				{
-					damage /= 1.2; // 2
-					// if(((L2PcInstance)target).isWearingLightArmor())
-					// damage /= 1.1; // 1.5
-					// if(((L2PcInstance)target).isWearingMagicArmor())
-					// damage /= 1; // 1.3
-				}
-			}
-		}
+		
+		L2Weapon weapon = attacker.getActiveWeaponItem();
+		if (target instanceof L2PcInstance && weapon != null && weapon.getItemType() == L2WeaponType.DAGGER && skill != null)   
+		{   
+			L2Armor armor = ((L2PcInstance) target).getActiveChestArmorItem();   
+			if (armor != null)   
+			{   
+				if (((L2PcInstance) target).isWearingHeavyArmor())   
+					damage /= Config.ALT_DAGGER_DMG_VS_HEAVY;   
+				if (((L2PcInstance) target).isWearingLightArmor())   
+					damage /= Config.ALT_DAGGER_DMG_VS_LIGHT;   
+				if (((L2PcInstance) target).isWearingMagicArmor())   
+					damage /= Config.ALT_DAGGER_DMG_VS_ROBE;   
+			}   
+		} 
 		return damage < 1 ? 1. : damage;
 	}
 
@@ -1402,21 +1402,6 @@ public final class Formulas
 				damage = 0;
 			}
 		}
-        
-		// Daggers alternative damages... 
-		if (target instanceof L2PcInstance && weapon != null && weapon.getItemType() == L2WeaponType.DAGGER && skill != null)   
-		{   
-			L2Armor armor = ((L2PcInstance) target).getActiveChestArmorItem();   
-			if (armor != null)   
-			{   
-				if (((L2PcInstance) target).isWearingHeavyArmor())   
-					damage /= Config.ALT_DAGGER_DMG_VS_HEAVY;   
-				if (((L2PcInstance) target).isWearingLightArmor())   
-					damage /= Config.ALT_DAGGER_DMG_VS_LIGHT;   
-				if (((L2PcInstance) target).isWearingMagicArmor())   
-					damage /= Config.ALT_DAGGER_DMG_VS_ROBE;   
-			}   
-		} 
 	 	
 		if (attacker instanceof L2NpcInstance)
 		{
