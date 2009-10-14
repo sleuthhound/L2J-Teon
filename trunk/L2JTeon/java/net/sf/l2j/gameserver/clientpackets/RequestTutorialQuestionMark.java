@@ -15,41 +15,31 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 
-/**
- * Appearing Packet Handler
- * <p>
- * <p>
- * 0000: 30
- * <p>
- * <p>
- * 
- * @version $Revision: 1.3.4.4 $ $Date: 2005/03/29 23:15:33 $
- */
-public final class Appearing extends L2GameClientPacket
+public class RequestTutorialQuestionMark extends L2GameClientPacket
 {
-    private static final String _C__30_APPEARING = "[C] 30 Appearing";
+	int _number = 0;
 
-    @Override
-    protected void readImpl()
-    {
-    }
+	protected void readImpl()
+	{
+		_number = readD();
+	}
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	return;
-	if (activeChar.isTeleporting())
-	activeChar.onTeleported();
-	sendPacket(new UserInfo(activeChar));
-    }
+		if(player == null)
+			return;
 
-    @Override
-    public String getType()
-    {
-	return _C__30_APPEARING;
-    }
+		QuestState qs = player.getQuestState("255_Tutorial");
+		if(qs != null)
+			qs.getQuest().notifyEvent("QM" + _number + "",null,player);
+	}
+
+	@Override
+	public String getType()
+	{
+		return "[C] 7d RequestTutorialQuestionMark";
+	}
 }

@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.SevenSigns;
@@ -51,12 +52,15 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.Die;
 import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;
@@ -117,71 +121,76 @@ public class EnterWorld extends L2GameClientPacket
 	if (L2World.getInstance().findObject(activeChar.getObjectId()) != null)
 	{
 	    if (Config.DEBUG)
-	    {
+
 		_log.warning("User already exist in OID map! User " + activeChar.getName() + " is character clone");
 		// activeChar.closeNetConnection();
 	    }
-	}
+
 	if (activeChar.isGM())
 	{
-	    if (Config.GM_STARTUP_INVULNERABLE && ((!Config.ALT_PRIVILEGES_ADMIN && (activeChar.getAccessLevel() >= Config.GM_GODMODE)) || (Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invul"))))
-	    {
-		activeChar.setIsInvul(true);
-	    }
-	    if (Config.GM_STARTUP_INVISIBLE && ((!Config.ALT_PRIVILEGES_ADMIN && (activeChar.getAccessLevel() >= Config.GM_GODMODE)) || (Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible"))))
-	    {
-		activeChar.getAppearance().setInvisible();
-	    }
-	    if (Config.GM_STARTUP_SILENCE && ((!Config.ALT_PRIVILEGES_ADMIN && (activeChar.getAccessLevel() >= Config.GM_MENU)) || (Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_silence"))))
-	    {
-		activeChar.setMessageRefusal(true);
-	    }
-	    if (Config.GM_STARTUP_AUTO_LIST && ((!Config.ALT_PRIVILEGES_ADMIN && (activeChar.getAccessLevel() >= Config.GM_MENU)) || (Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_gmliston"))))
-	    {
-		GmListTable.getInstance().addGm(activeChar, false);
-	    } else
-	    {
-		GmListTable.getInstance().addGm(activeChar, true);
-	    }
-	    if (Config.GM_NAME_COLOR_ENABLED)
-	    {
-		if (activeChar.getAccessLevel() >= 100)
-		{
-		    activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
-		} else if (activeChar.getAccessLevel() >= 75)
-		{
-		    activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
-		}
+        	if (Config.GM_STARTUP_INVULNERABLE
+        			&& (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE
+        			  || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invul")))
+        		activeChar.setIsInvul(true);
+
+            if (Config.GM_STARTUP_INVISIBLE
+                    && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE
+                      || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible")))
+                activeChar.getAppearance().setInvisible();
+
+            if (Config.GM_STARTUP_SILENCE
+                    && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU
+                      || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_silence")))
+                activeChar.setMessageRefusal(true);
+
+            if (Config.GM_STARTUP_AUTO_LIST
+                    && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU
+                      || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_gmliston")))
+            	GmListTable.getInstance().addGm(activeChar, false);
+            else
+            	GmListTable.getInstance().addGm(activeChar, true);
+
+            if (Config.GM_NAME_COLOR_ENABLED)
+            {
+                if (activeChar.getAccessLevel() >= 100)
+                    activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
+                else if (activeChar.getAccessLevel() >= 75)
+                    activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
+            }
 		if (Config.SHOW_GM_LOGIN)
 		{
 		    String name = activeChar.getName();
 		    String text = "GameMaster " + name + " Is Currently Online.";
 		    Announcements.getInstance().announceToAll(text);
-		}
-	    }
-	}
+                //}
+            }
+        }
+
 	if (Config.PLAYER_SPAWN_PROTECTION > 0)
-	{
 	    activeChar.setProtection(true);
-	}
-	activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+
+		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+
+		if(activeChar.getZ() < -15000 || activeChar.getZ() > 15000)
+		{
+			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			activeChar.setTarget(activeChar);
+			activeChar.teleToLocation(net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType.Town);
+		}
+
 	if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
-	{
 	    L2Event.restoreChar(activeChar);
-	} else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
-	{
+	 else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
 	    L2Event.restoreAndTeleChar(activeChar);
-	}
+
 	if (SevenSigns.getInstance().isSealValidationPeriod())
-	{
 	    sendPacket(new SignsSky());
-	}
-	// buff and status icons
-	if (Config.STORE_SKILL_COOLTIME)
-	{
+
+	if (Config.STORE_SKILL_COOLTIME) // buff and status icons
 	    activeChar.restoreEffects();
-	}
+
 	activeChar.sendPacket(new EtcStatusUpdate(activeChar));
+
 	// engage and notify Partner
 	if (Config.ALLOW_WEDDING)
 	{
@@ -201,6 +210,20 @@ public class EnterWorld extends L2GameClientPacket
 		}
 	    }
 	}
+/*
+	if (Config.ALLOW_WEDDING) // engage and notify Partner
+	{
+	    engage(activeChar);
+	    notifyPartner(activeChar, activeChar.getPartnerId());
+
+	    if (!activeChar.isMaried()) // Check if player is maried and remove if necessary Cupid's Bow
+		L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140); // Remove Cupid's Bow
+		if (item != null)
+		    activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
+		    activeChar.getInventory().updateDatabase(); // Log it
+		    _log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
+	}*/
+
 	if (activeChar.getAllEffects() != null)
 	{
 	    for (L2Effect e : activeChar.getAllEffects())
@@ -219,27 +242,28 @@ public class EnterWorld extends L2GameClientPacket
 	}
 	// apply augmentation boni for equipped items
 	for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
-	{
-	    if ((temp != null) && temp.isEquipped())
-	    {
-		temp.getAugmentation().applyBoni(activeChar);
-	    }
-	}
+	    if ((temp != null) && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
+
 	// Expand Skill
 	ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);
 	activeChar.sendPacket(esmc);
 	activeChar.getMacroses().sendUpdate();
 	// checkup and delete delayed donator rented items
 	if (Config.DONATOR_DELETE_RENTED_ITEMS)
-	{
 	    activeChar.donatorDeleteDelayedRentedItems();
-	}
 	// sends general packets
-	sendPacket(new UserInfo(activeChar));
-	sendPacket(new HennaInfo(activeChar));
-	sendPacket(new FriendList(activeChar));
-	sendPacket(new ItemList(activeChar, false));
-	sendPacket(new ShortCutInit(activeChar));
+        activeChar.getMacroses().sendUpdate();
+
+        sendPacket(new UserInfo(activeChar));
+
+        sendPacket(new HennaInfo(activeChar));
+
+        sendPacket(new FriendList(activeChar));
+
+        sendPacket(new ItemList(activeChar, false));
+
+        sendPacket(new ShortCutInit(activeChar));
+
 	SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
 	sendPacket(sm);
 	if (Config.SHOW_L2J_LICENSE)
@@ -264,31 +288,35 @@ public class EnterWorld extends L2GameClientPacket
 	    sm.addString(LoginServerThread.getInstance().getServerName());
 	    sendPacket(sm);
 	    if (Config.SERVER_VERSION != null)
-	    {
 		sm = new SystemMessage(SystemMessageId.S1_S2);
 		sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "   " + Config.SERVER_VERSION);
 		sendPacket(sm);
 		sm = new SystemMessage(SystemMessageId.S1_S2);
 		sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + Config.SERVER_BUILD_DATE);
 		sendPacket(sm);
-	    }
 	}
 	sm = null;
 	SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
+
 	Announcements.getInstance().showAnnouncements(activeChar);
+
 	CrownManager.getInstance().checkCrowns(activeChar);
+
+	Quest.playerEnter(activeChar);
+	activeChar.sendPacket(new QuestList());
+	loadTutorial(activeChar);
+
 	// restore info about chat ban
 	activeChar.checkBanChat(false);
+
 	// restore info about auto herbs loot
 	if (Config.ALLOW_AUTOHERBS_CMD)
-	{
 	    activeChar.getAutoLootHerbs();
-	}
+
 	// restore info about withdraw state
 	if (Config.ALLOW_WITHDRAW_CWH_CMD)
-	{
 	    activeChar.getCanWithdrawCWH();
-	}
+
 	// donator's "Hello!"
 	if (activeChar.isDonator())
 	{
@@ -315,8 +343,6 @@ public class EnterWorld extends L2GameClientPacket
 	    sm.addNumber(PLAYERS_ONLINE);
 	    sendPacket(sm);
 	}
-	Quest.playerEnter(activeChar);
-	activeChar.sendPacket(new QuestList());
 	// sends server news
 	String serverNews = HtmCache.getInstance().getHtm("data/html/servnews.htm");
 	if (serverNews != null)
@@ -357,40 +383,39 @@ public class EnterWorld extends L2GameClientPacket
 	{
 	    activeChar.setHero(true);
 	}
-	// set clan class
+
 	setPledgeClass(activeChar);
-	// add char to online characters
+
 	activeChar.setOnlineStatus(true);
-	// notify friend of charater login
+
 	notifyFriends(activeChar);
-	// notify clan of charater login
+
 	notifyClanMembers(activeChar);
-	// notify sponsor charater login
+
 	notifySponsorOrApprentice(activeChar);
-	// notify castle owner charater login
+
 	notifyCastleOwner(activeChar);
-	// player l2pcinstance enter
+
 	activeChar.onPlayerEnter();
-	// player l2pcinstance enter
+
+	TvTEvent.onLogin(activeChar);
+
+	PcColorTable.getInstance().process(activeChar);
+
 	checkCrown(activeChar);
-	/*
-	 * Commented out by Rayan: uneeded, all players independing on faction
-	 * are moved to stadia.
-	 *
-	 */
-	/*
-	 * if (activeChar.isNoob() &&
-	 * Olympiad.getInstance().playerInStadia(activeChar)) {
-	 * activeChar.teleToLocation(45356, 48939, -3060);
-	 * activeChar.sendMessage("You have been teleported Back to your Faction
-	 * Base."); }
-	 *
-	 * if (activeChar.isKoof() &&
-	 * Olympiad.getInstance().playerInStadia(activeChar)) {
-	 * activeChar.teleToLocation(12408, 16605, -4585);
-	 * activeChar.sendMessage("You have been teleported Back to your Faction
-	 * Base."); }
-	 */
+
+        // NPCBuffer
+        if (Config.NPCBUFFER_FEATURE_ENABLED) CharSchemesTable.getInstance().onPlayerLogin(activeChar.getObjectId());
+
+	if (VIP._playersVIP.contains(activeChar.getName()))
+	    VIP.addPlayerVIP(activeChar);
+
+	if (VIP._playersNotVIP.contains(activeChar.getName()))
+	    VIP.addPlayerNotVIP(activeChar);
+
+	if (CTF._savePlayers.contains(activeChar.getName()))
+	    CTF.addDisconnectedPlayer(activeChar);
+
 	if (Olympiad.getInstance().playerInStadia(activeChar))
 	{
 	    activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
@@ -400,15 +425,10 @@ public class EnterWorld extends L2GameClientPacket
 	{
 	    DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
 	}
-	if (!activeChar.isGM() && (activeChar.getSiegeState() < 2) && activeChar.isInsideZone(L2Character.ZONE_SIEGE))
+	if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
 	{
-	    // Attacker or spectator logging in to a siege zone. Actually
-	    // should
-	    // be checked for inside castle only?
-	    activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-	    activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
+	    activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
 	}
-	/** More configuration and checks on this later, Ahmed. */
 	if (Config.SET_LVL_ON_START && (activeChar.getLevel() >= 1) && (activeChar.getLevel() < 80))
 	{
 	    if (!Config.HIGH_LEVEL_ON_START_FOR_SUBCLASS && activeChar.isSubClassActive())
@@ -421,51 +441,39 @@ public class EnterWorld extends L2GameClientPacket
 	    activeChar.getStat().addExp(100000000);
 	    activeChar.getStat().addSp(99999999);
 	}
-	if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
-	{
-	    activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
-	}
 	if (activeChar.getClan() != null)
 	{
-	    activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
-
+		activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
 	    SiegeManager.getInstance().onEnterWorld(activeChar);
 	    FortSiegeManager.getInstance().onEnterWorld(activeChar);
-	    
-	    // Add message at connexion if clanHall not paid.
-	    // Possibly this is custom...
-	    ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
-	    if (clanHall != null)
-	    {
-		if (!clanHall.getPaid())
-		{
-		    activeChar.sendPacket(new SystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW));
-		}
-	    }
-	}
-	RegionBBSManager.getInstance().changeCommunityBoard();
-	/*
-	 * if(Config.GAMEGUARD_ENFORCE) - disabled by KenM will be reenabled
-	 * later activeChar.sendPacket(new GameGuardQuery());
-	 */
-	TvTEvent.onLogin(activeChar);
-	PcColorTable.getInstance().process(activeChar);
-        // NPCBuffer
-        if (Config.NPCBUFFER_FEATURE_ENABLED) CharSchemesTable.getInstance().onPlayerLogin(activeChar.getObjectId());
 
-	if (VIP._playersVIP.contains(activeChar.getName()))
-	{
-	    VIP.addPlayerVIP(activeChar);
+			for (Siege siege : SiegeManager.getInstance().getSieges())
+		    {
+		    	if (!siege.getIsInProgress()) continue;
+				if (siege.checkIsAttacker(activeChar.getClan()))
+		    		activeChar.setSiegeState((byte)1);
+				else if (siege.checkIsDefender(activeChar.getClan()))
+		    		activeChar.setSiegeState((byte)2);
+		    }
+			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
+			if(clanHall != null)
+			{
+				if(!clanHall.getPaid())
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW));
+				}
+			}
+		}
+
+		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && activeChar.isInsideZone(L2Character.ZONE_SIEGE))
+		{
+			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+            activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
+		}
+
+		RegionBBSManager.getInstance().changeCommunityBoard();
+		activeChar.sendPacket(new ActionFailed());
 	}
-	if (VIP._playersNotVIP.contains(activeChar.getName()))
-	{
-	    VIP.addPlayerNotVIP(activeChar);
-	}
-	if (CTF._savePlayers.contains(activeChar.getName()))
-	{
-	    CTF.addDisconnectedPlayer(activeChar);
-	}
-    }
 
     /**
      * @param activeChar
@@ -676,6 +684,13 @@ public class EnterWorld extends L2GameClientPacket
 	}
 	activeChar.setPledgeClass(pledgeClass);
     }
+	
+	private void loadTutorial(L2PcInstance player)
+	{
+		QuestState qs = player.getQuestState("255_Tutorial");
+    		if(qs != null)
+    			qs.getQuest().notifyEvent("UC", null, player);
+	}
 
     /*
      * (non-Javadoc)

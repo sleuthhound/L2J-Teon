@@ -236,12 +236,12 @@ public class L2DoormenInstance extends L2NpcInstance
 	int ClanHallID = _clanHall.getId();
 	if (ClanHallID == 21 || ClanHallID == 34 || ClanHallID == 35 || ClanHallID == 62 || ClanHallID == 63 || ClanHallID == 64)
 	str = "<html><body>Clan Hall<font color=\"LEVEL\">"
-	+ getClanHall().getName()
-	+ "</font>has no owner. <br>To get this clan hall must visit the messenger</body></html>";
+	 + getClanHall().getName()
+	 + "</font>has no owner. <br>To get this clan hall must visit the messenger</body></html>";
 	else
 	str = "<html><body>Clan Hall<font color=\"LEVEL\">"
-	+ getClanHall().getName()
-	+ "</font> has no owner. <br> To purchase, go to the Auction.</body></html>";
+	 + getClanHall().getName()
+	 + "</font> has no owner. <br> To purchase, go to the Auction.</body></html>";
 		}
             }
             html.setHtml(str);
