@@ -47,6 +47,10 @@ public final class DlgAnswer extends L2GameClientPacket
 	    getClient().getActiveChar().reviveAnswer(_answer);
 	else if ((_messageId == 1983) && Config.ALLOW_WEDDING)
 	    getClient().getActiveChar().EngageAnswer(_answer);
+    else if (_messageId == 1140 ) 
+        getClient().getActiveChar().gatesAnswer(_answer, 1); 
+    else if (_messageId == 1141) 
+        getClient().getActiveChar().gatesAnswer(_answer, 0); 
 	else if ((_messageId == 614) && L2EventManagerInstance._awaitingplayers.contains(getClient().getActiveChar()))
 	{
 	    getClient().getActiveChar().setRaidAnswear(_answer);
