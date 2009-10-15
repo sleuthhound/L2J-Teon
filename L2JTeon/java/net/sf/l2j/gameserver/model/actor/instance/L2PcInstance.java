@@ -253,8 +253,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public static final int STORE_PRIVATE_MANUFACTURE = 5;
     public static final int STORE_PRIVATE_PACKAGE_SELL = 8;
     /**
-     * The table containing all minimum level needed for each Expertise
-     * (None, D, C, B, A, S)
+     * The table containing all minimum level needed for each Expertise (None, D, C, B, A, S)
      */
     private static final int[] EXPERTISE_LEVELS = 
     { 
@@ -2413,146 +2412,128 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void regiveTemporarySkills()
     {
-	// Do not call this on enterworld or char load
-	// Add noble skills if noble
-	if (isNoble())
-	{
-	    setNoble(true);
-	}
-	// Add Hero skills if hero
-	if (isHero())
-	{
-	    setHero(true);
-	}
-	// Add clan skills
-	if ((getClan() != null) && (getClan().getReputationScore() >= 0))
-	{
-	    L2Skill[] skills = getClan().getAllSkills();
-	    for (L2Skill sk : skills)
-	    {
-		if (sk.getMinPledgeClass() <= getPledgeClass())
+		// Do not call this on enterworld or char load Add noble skills if noble
+		if (isNoble())
+		    setNoble(true);
+
+		// Add Hero skills if hero
+		if (isHero())
+		    setHero(true);
+
+		// Add clan skills
+		if ((getClan() != null) && (getClan().getReputationScore() >= 0))
 		{
-		    addSkill(sk, false);
+		    L2Skill[] skills = getClan().getAllSkills();
+		    for (L2Skill sk : skills)
+		    {
+		    	if (sk.getMinPledgeClass() <= getPledgeClass())
+		    		addSkill(sk, false);
+		    }
 		}
-	    }
-	}
-	// Reload passive skills from armors / jewels / weapons
-	getInventory().reloadEquippedItems();
+		// Reload passive skills from armors / jewels / weapons
+		getInventory().reloadEquippedItems();
     }
 
     /**
      * Give all available skills to the player.<br>
-     * <br>
-     *
      */
     public void giveAvailableSkills()
     {
-	int unLearnable = 0;
-	int skillCounter = 0;
-	// Get available skills
-	L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
-	while (skills.length > unLearnable)
-	{
-	    for (int i = 0; i < skills.length; i++)
-	    {
-		L2SkillLearn s = skills[i];
-		L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-		if ((sk == null) || !sk.getCanLearn(getClassId()) || (Config.ENABLE_NO_AUTOLEARN_LIST && Config.NO_AUTOLEARN_LIST.contains(sk.getId())))
+		int unLearnable = 0;
+		int skillCounter = 0;
+		// Get available skills
+		L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
+		while (skills.length > unLearnable)
 		{
-		    unLearnable++;
-		    continue;
+		    for (int i = 0; i < skills.length; i++)
+		    {
+		    	L2SkillLearn s = skills[i];
+		    	L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+		    	if (sk == null || !sk.getCanLearn(getClassId()) || Config.ENABLE_NO_AUTOLEARN_LIST && Config.NO_AUTOLEARN_LIST.contains(sk.getId()))
+		    	{
+		    		unLearnable++;
+		    		continue;
+		    	}
+		    	if (getSkillLevel(sk.getId()) == -1)
+		    		skillCounter++;
+
+		    	addSkill(sk, true);
+		    }
+		    // Get new available skills
+		    skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
 		}
-		if (getSkillLevel(sk.getId()) == -1)
-		{
-		    skillCounter++;
-		}
-		addSkill(sk, true);
-	    }
-	    // Get new available skills
-	    skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
-	}
-	sendMessage("You have learned " + skillCounter + " new skills.");
+		sendMessage("You have learned " + skillCounter + " new skills.");
     }
 
     /** Set the Experience value of the L2PcInstance. */
     public void setExp(long exp)
     {
-	getStat().setExp(exp);
+    	getStat().setExp(exp);
     }
 
     /**
      * Return the Race object of the L2PcInstance.<BR>
-     * <BR>
      */
     public Race getRace()
     {
-	if (!isSubClassActive())
-	{
-	    return getTemplate().race;
-	}
-	L2PcTemplate charTemp = CharTemplateTable.getInstance().getTemplate(_baseClass);
-	return charTemp.race;
+    	if (!isSubClassActive())
+    		return getTemplate().race;
+
+    	L2PcTemplate charTemp = CharTemplateTable.getInstance().getTemplate(_baseClass);
+    	return charTemp.race;
     }
 
     public L2Radar getRadar()
     {
-	return _radar;
+    	return _radar;
     }
 
     /** Return the SP amount of the L2PcInstance. */
     public int getSp()
     {
-	return getStat().getSp();
+    	return getStat().getSp();
     }
 
     /** Set the SP amount of the L2PcInstance. */
     public void setSp(int sp)
     {
-	super.getStat().setSp(sp);
+    	super.getStat().setSp(sp);
     }
 
     /**
-     * Return true if this L2PcInstance is a clan leader in ownership of the
-     * passed castle
+     * Return true if this L2PcInstance is a clan leader in ownership of the passed castle
      */
     public boolean isCastleLord(int castleId)
     {
-	L2Clan clan = getClan();
-	// player has clan and is the clan leader, check the castle info
-	if ((clan != null) && (clan.getLeader().getPlayerInstance() == this))
-	{
-	    // if the clan has a castle and it is actually the queried
-	    // castle,
-	    // return true
-	    Castle castle = CastleManager.getInstance().getCastleByOwner(clan);
-	    if ((castle != null) && (castle == CastleManager.getInstance().getCastleById(castleId)))
-	    {
-		return true;
-	    }
-	}
-	return false;
+		L2Clan clan = getClan();
+		// player has clan and is the clan leader, check the castle info
+		if (clan != null && clan.getLeader().getPlayerInstance() == this)
+		{
+		    // if the clan has a castle and it is actually the queried castle, return true
+		    Castle castle = CastleManager.getInstance().getCastleByOwner(clan);
+		    if ((castle != null) && (castle == CastleManager.getInstance().getCastleById(castleId)))
+		    	return true;
+		}
+		return false;
     }
 
     /**
      * Return the Clan Identifier of the L2PcInstance.<BR>
-     * <BR>
      */
     public int getClanId()
     {
-	return _clanId;
+    	return _clanId;
     }
 
     /**
      * Return the Clan Crest Identifier of the L2PcInstance or 0.<BR>
-     * <BR>
      */
     public int getClanCrestId()
     {
-	if ((_clan != null) && _clan.hasCrest())
-	{
-	    return _clan.getCrestId();
-	}
-	return 0;
+    	if (_clan != null && _clan.hasCrest())
+    		return _clan.getCrestId();
+
+    	return 0;
     }
 
     /**
@@ -2560,65 +2541,60 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public int getClanCrestLargeId()
     {
-	if ((_clan != null) && _clan.hasCrestLarge())
-	{
-	    return _clan.getCrestLargeId();
-	}
-	return 0;
+    	if (_clan != null && _clan.hasCrestLarge())
+    		return _clan.getCrestLargeId();
+    	
+    	return 0;
     }
 
     public long getClanJoinExpiryTime()
     {
-	return _clanJoinExpiryTime;
+    	return _clanJoinExpiryTime;
     }
 
     public void setClanJoinExpiryTime(long time)
     {
-	_clanJoinExpiryTime = time;
+    	_clanJoinExpiryTime = time;
     }
 
     public long getClanCreateExpiryTime()
     {
-	return _clanCreateExpiryTime;
+    	return _clanCreateExpiryTime;
     }
 
     public void setClanCreateExpiryTime(long time)
     {
-	_clanCreateExpiryTime = time;
+    	_clanCreateExpiryTime = time;
     }
 
     public void setOnlineTime(long time)
     {
-	_onlineTime = time;
-	_onlineBeginTime = System.currentTimeMillis();
+    	_onlineTime = time;
+    	_onlineBeginTime = System.currentTimeMillis();
     }
 
     /**
-     * Return the PcInventory Inventory of the L2PcInstance contained in
-     * _inventory.<BR>
-     * <BR>
+     * Return the PcInventory Inventory of the L2PcInstance contained in _inventory.<BR>
      */
     public PcInventory getInventory()
     {
-	return _inventory;
+    	return _inventory;
     }
 
     /**
      * Delete a ShortCut of the L2PcInstance _shortCuts.<BR>
-     * <BR>
      */
     public void removeItemFromShortCut(int objectId)
     {
-	_shortCuts.deleteShortCutByObjectId(objectId);
+    	_shortCuts.deleteShortCutByObjectId(objectId);
     }
 
     /**
      * Return true if the L2PcInstance is sitting.<BR>
-     * <BR>
      */
     public boolean isSitting()
     {
-	return _waitTypeSitting;
+    	return _waitTypeSitting;
     }
 
     /**
@@ -2626,31 +2602,30 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setIsSitting(boolean state)
     {
-	_waitTypeSitting = state;
+    	_waitTypeSitting = state;
     }
 
     /**
      * Sit down the L2PcInstance, set the AI Intention to AI_INTENTION_REST
      * and send a Server->Client ChangeWaitType packet (broadcast)<BR>
-     * <BR>
      */
     public void sitDown()
     {
 		// if ((isCastingNow() || isCastingSimultaneouslyNow()) && !_relax)
-	if (isCastingNow() && !_relax)
-	{
-	    sendMessage("Cannot sit while casting");
-	    return;
-	}
-	if (!_waitTypeSitting && !isAttackingDisabled() && !isOutOfControl() && !isImmobilized())
-	{
-	    breakAttack();
-	    setIsSitting(true);
-	    broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_SITTING));
-	    // Schedule a sit down task to wait for the animation to finish
-	    ThreadPoolManager.getInstance().scheduleGeneral(new SitDownTask(this), 2500);
-	    setIsParalyzed(true);
-	}
+		if (isCastingNow() && !_relax)
+		{
+		    sendMessage("Cannot sit while casting");
+		    return;
+		}
+		if (!_waitTypeSitting && !isAttackingDisabled() && !isOutOfControl() && !isImmobilized())
+		{
+		    breakAttack();
+		    setIsSitting(true);
+		    broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_SITTING));
+		    // Schedule a sit down task to wait for the animation to finish
+		    ThreadPoolManager.getInstance().scheduleGeneral(new SitDownTask(this), 2500);
+		    setIsParalyzed(true);
+		}
     }
 
     /**
@@ -2658,19 +2633,19 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     class SitDownTask implements Runnable
     {
-	L2PcInstance _player;
-
-	SitDownTask(L2PcInstance player)
-	{
-	    _player = player;
-	}
-
-	public void run()
-	{
-	    setIsSitting(true);
-	    _player.setIsParalyzed(false);
-	    _player.getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-	}
+		L2PcInstance _player;
+	
+		SitDownTask(L2PcInstance player)
+		{
+		    _player = player;
+		}
+	
+		public void run()
+		{
+		    setIsSitting(true);
+		    _player.setIsParalyzed(false);
+		    _player.getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
+		}
     }
 
     /**
@@ -2678,79 +2653,73 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     class StandUpTask implements Runnable
     {
-	L2PcInstance _player;
-
-	StandUpTask(L2PcInstance player)
-	{
-	    _player = player;
-	}
-
-	public void run()
-	{
-	    _player.setIsSitting(false);
-	    _player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-	}
+		L2PcInstance _player;
+	
+		StandUpTask(L2PcInstance player)
+		{
+		    _player = player;
+		}
+	
+		public void run()
+		{
+		    _player.setIsSitting(false);
+		    _player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		}
     }
 
     /**
      * Stand up the L2PcInstance, set the AI Intention to AI_INTENTION_IDLE
      * and send a Server->Client ChangeWaitType packet (broadcast)<BR>
-     * <BR>
      */
     public void standUp()
     {
-	if (L2Event.active && eventSitForced)
-	{
-	    sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
+		if (L2Event.active && eventSitForced)
+		    sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
 
-	} else if (isAway())
-	{
-	    sendMessage("You can't stand up if your Status is Away");
-	} else if (VIP._sitForced && _inEventVIP)
-	{
-	    sendMessage("You cannot stand up at this time in the event. Please wait until the event has begun.");
-	} else if (CTF._sitForced && _inEventCTF)
-	{
-	    sendMessage("The Admin/GM handle if you sit or stand in this match!");
-	} else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
-	{
-	    if (_relax)
-	    {
-		setRelax(false);
-		stopEffects(EffectType.RELAXING);
-	    }
-	    broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STANDING));
-	    // Schedule a stand up task to wait for the animation to
-	    // finish
-	    ThreadPoolManager.getInstance().scheduleGeneral(new StandUpTask(this), 2500);
-	}
+		else if (isAway())
+		    sendMessage("You can't stand up if your Status is Away");
+
+		else if (VIP._sitForced && _inEventVIP)
+		    sendMessage("You cannot stand up at this time in the event. Please wait until the event has begun.");
+
+		else if (CTF._sitForced && _inEventCTF)
+		    sendMessage("The Admin/GM handle if you sit or stand in this match!");
+
+		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
+		{
+		    if (_relax)
+		    {
+		    	setRelax(false);
+		    	stopEffects(EffectType.RELAXING);
+		    }
+		    broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STANDING));
+		    // Schedule a stand up task to wait for the animation to finish
+		    ThreadPoolManager.getInstance().scheduleGeneral(new StandUpTask(this), 2500);
+		}
     }
 
     /**
-     * Set the value of the _relax value. Must be true if using skill Relax
-     * and false if not.
+     * Set the value of the _relax value. Must be true if using skill Relax and false if not.
      */
     public void setRelax(boolean val)
     {
-	_relax = val;
+    	_relax = val;
     }
 
     /**
      * Return the PcWarehouse object of the L2PcInstance.<BR>
-     * <BR>
      */
     public PcWarehouse getWarehouse()
     {
-	if (_warehouse == null)
-	{
-	    _warehouse = new PcWarehouse(this);
-	    _warehouse.restore();
-	}
-	if (Config.WAREHOUSE_CACHE)
-	{
-	    WarehouseCacheManager.getInstance().addCacheTask(this);
-	}
-	return _warehouse;
+		if (_warehouse == null)
+		{
+		    _warehouse = new PcWarehouse(this);
+		    _warehouse.restore();
+		}
+		if (Config.WAREHOUSE_CACHE)
+		    WarehouseCacheManager.getInstance().addCacheTask(this);
+
+		return _warehouse;
     }
 
     /**
@@ -2758,56 +2727,50 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void clearWarehouse()
     {
-	if (_warehouse != null)
-	{
-	    _warehouse.deleteMe();
-	}
-	_warehouse = null;
+		if (_warehouse != null)
+		    _warehouse.deleteMe();
+
+		_warehouse = null;
     }
 
     /**
      * Return the PcFreight object of the L2PcInstance.<BR>
-     * <BR>
      */
     public PcFreight getFreight()
     {
-	return _freight;
+    	return _freight;
     }
 
     /**
      * Return the Identifier of the L2PcInstance.<BR>
-     * <BR>
      */
     public int getCharId()
     {
-	return _charId;
+    	return _charId;
     }
 
     /**
      * Set the Identifier of the L2PcInstance.<BR>
-     * <BR>
      */
     public void setCharId(int charId)
     {
-	_charId = charId;
+    	_charId = charId;
     }
 
     /**
      * Return the Adena amount of the L2PcInstance.<BR>
-     * <BR>
      */
     public int getAdena()
     {
-	return _inventory.getAdena();
+    	return _inventory.getAdena();
     }
 
     /**
      * Return the Ancient Adena amount of the L2PcInstance.<BR>
-     * <BR>
      */
     public int getAncientAdena()
     {
-	return _inventory.getAncientAdena();
+    	return _inventory.getAncientAdena();
     }
 
     /**
@@ -2827,37 +2790,37 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void addAdena(String process, int count, L2Object reference, boolean sendMessage)
     {
-	if (count > 0)
-	{
-	    if (_inventory.getAdena() == Integer.MAX_VALUE)
-	    {
-		sendMessage("You have reached the maximum amount of adena, please spend or deposit the adena so you may continue obtaining adena.");
-		return;
-	    } else if (_inventory.getAdena() >= Integer.MAX_VALUE - count)
-	    {
-		count = Integer.MAX_VALUE - _inventory.getAdena();
-		_inventory.addAdena(process, count, this, reference);
-	    } else if (_inventory.getAdena() < Integer.MAX_VALUE - count)
-	    {
-		_inventory.addAdena(process, count, this, reference);
-	    }
-	    if (sendMessage)
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ADENA);
-		sm.addNumber(count);
-		sendPacket(sm);
-	    }
-	    // Send update packet
-	    if (!Config.FORCE_INVENTORY_UPDATE)
-	    {
-		InventoryUpdate iu = new InventoryUpdate();
-		iu.addItem(_inventory.getAdenaInstance());
-		sendPacket(iu);
-	    } else
-	    {
-		sendPacket(new ItemList(this, false));
-	    }
-	}
+		if (count > 0)
+		{
+		    if (_inventory.getAdena() == Integer.MAX_VALUE)
+		    {
+		    	sendMessage("You have reached the maximum amount of adena, please spend or deposit the adena so you may continue obtaining adena.");
+		    	return;
+		    } 
+		    else if (_inventory.getAdena() >= Integer.MAX_VALUE - count)
+		    {
+		    	count = Integer.MAX_VALUE - _inventory.getAdena();
+		    	_inventory.addAdena(process, count, this, reference);
+		    } 
+		    else if (_inventory.getAdena() < Integer.MAX_VALUE - count)
+		    	_inventory.addAdena(process, count, this, reference);
+
+		    if (sendMessage)
+		    {
+		    	SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ADENA);
+		    	sm.addNumber(count);
+		    	sendPacket(sm);
+		    }
+		    // Send update packet
+		    if (!Config.FORCE_INVENTORY_UPDATE)
+		    {
+		    	InventoryUpdate iu = new InventoryUpdate();
+		    	iu.addItem(_inventory.getAdenaInstance());
+		    	sendPacket(iu);
+		    }
+		    else
+		    	sendPacket(new ItemList(this, false));
+		}
     }
 
     /**
@@ -2878,36 +2841,35 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean reduceAdena(String process, int count, L2Object reference, boolean sendMessage)
     {
-	if (count > getAdena())
-	{
-	    if (sendMessage)
-	    {
-		sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
-	    }
-	    return false;
-	}
-	if (count > 0)
-	{
-	    L2ItemInstance adenaItem = _inventory.getAdenaInstance();
-	    _inventory.reduceAdena(process, count, this, reference);
-	    // Send update packet
-	    if (!Config.FORCE_INVENTORY_UPDATE)
-	    {
-		InventoryUpdate iu = new InventoryUpdate();
-		iu.addItem(adenaItem);
-		sendPacket(iu);
-	    } else
-	    {
-		sendPacket(new ItemList(this, false));
-	    }
-	    if (sendMessage)
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ADENA);
-		sm.addNumber(count);
-		sendPacket(sm);
-	    }
-	}
-	return true;
+		if (count > getAdena())
+		{
+		    if (sendMessage)
+		    	sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+	
+		    return false;
+		}
+		if (count > 0)
+		{
+		    L2ItemInstance adenaItem = _inventory.getAdenaInstance();
+		    _inventory.reduceAdena(process, count, this, reference);
+		    // Send update packet
+		    if (!Config.FORCE_INVENTORY_UPDATE)
+		    {
+		    	InventoryUpdate iu = new InventoryUpdate();
+		    	iu.addItem(adenaItem);
+		    	sendPacket(iu);
+		    } 
+		    else
+		    	sendPacket(new ItemList(this, false));
+	
+		    if (sendMessage)
+		    {
+		    	SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ADENA);
+		    	sm.addNumber(count);
+		    	sendPacket(sm);
+		    }
+		}
+		return true;
     }
 
     /**
@@ -2927,26 +2889,25 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void addAncientAdena(String process, int count, L2Object reference, boolean sendMessage)
     {
-	if (sendMessage)
-	{
-	    SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-	    sm.addItemName(PcInventory.ANCIENT_ADENA_ID);
-	    sm.addNumber(count);
-	    sendPacket(sm);
-	}
-	if (count > 0)
-	{
-	    _inventory.addAncientAdena(process, count, this, reference);
-	    if (!Config.FORCE_INVENTORY_UPDATE)
-	    {
-		InventoryUpdate iu = new InventoryUpdate();
-		iu.addItem(_inventory.getAncientAdenaInstance());
-		sendPacket(iu);
-	    } else
-	    {
-		sendPacket(new ItemList(this, false));
-	    }
-	}
+		if (sendMessage)
+		{
+		    SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+		    sm.addItemName(PcInventory.ANCIENT_ADENA_ID);
+		    sm.addNumber(count);
+		    sendPacket(sm);
+		}
+		if (count > 0)
+		{
+		    _inventory.addAncientAdena(process, count, this, reference);
+		    if (!Config.FORCE_INVENTORY_UPDATE)
+		    {
+		    	InventoryUpdate iu = new InventoryUpdate();
+		    	iu.addItem(_inventory.getAncientAdenaInstance());
+		    	sendPacket(iu);
+		    } 
+		    else
+		    	sendPacket(new ItemList(this, false));
+		}
     }
 
     /**
@@ -2967,41 +2928,39 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean reduceAncientAdena(String process, int count, L2Object reference, boolean sendMessage)
     {
-	if (count > getAncientAdena())
-	{
-	    if (sendMessage)
-	    {
-		sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
-	    }
-	    return false;
-	}
-	if (count > 0)
-	{
-	    L2ItemInstance ancientAdenaItem = _inventory.getAncientAdenaInstance();
-	    _inventory.reduceAncientAdena(process, count, this, reference);
-	    if (!Config.FORCE_INVENTORY_UPDATE)
-	    {
-		InventoryUpdate iu = new InventoryUpdate();
-		iu.addItem(ancientAdenaItem);
-		sendPacket(iu);
-	    } else
-	    {
-		sendPacket(new ItemList(this, false));
-	    }
-	    if (sendMessage)
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-		sm.addNumber(count);
-		sm.addItemName(PcInventory.ANCIENT_ADENA_ID);
-		sendPacket(sm);
-	    }
-	}
-	return true;
+		if (count > getAncientAdena())
+		{
+		    if (sendMessage)
+		    	sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+
+		    return false;
+		}
+		if (count > 0)
+		{
+		    L2ItemInstance ancientAdenaItem = _inventory.getAncientAdenaInstance();
+		    _inventory.reduceAncientAdena(process, count, this, reference);
+		    if (!Config.FORCE_INVENTORY_UPDATE)
+		    {
+		    	InventoryUpdate iu = new InventoryUpdate();
+		    	iu.addItem(ancientAdenaItem);
+		    	sendPacket(iu);
+		    } 
+		    else
+		    	sendPacket(new ItemList(this, false));
+
+		    if (sendMessage)
+		    {
+		    	SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
+		    	sm.addNumber(count);
+		    	sm.addItemName(PcInventory.ANCIENT_ADENA_ID);
+		    	sendPacket(sm);
+		    }
+		}
+		return true;
     }
 
     /**
-     * Adds item to inventory and send a Server->Client InventoryUpdate
-     * packet to the L2PcInstance.
+     * Adds item to inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
      *
      * @param process :
      *                String Identifier of process triggering this action
@@ -3016,57 +2975,56 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void addItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
     {
-	if (item.getCount() > 0)
-	{
-	    // Sends message to client if requested
-	    if (sendMessage)
-	    {
-		if (item.getCount() > 1)
+		if (item.getCount() > 0)
 		{
-		    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-		    sm.addItemName(item.getItemId());
-		    sm.addNumber(item.getCount());
-		    sendPacket(sm);
-		} else if (item.getEnchantLevel() > 0)
-		{
-		    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_A_S1_S2);
-		    sm.addNumber(item.getEnchantLevel());
-		    sm.addItemName(item.getItemId());
-		    sendPacket(sm);
-		} else
-		{
-		    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
-		    sm.addItemName(item.getItemId());
-		    sendPacket(sm);
+		    // Sends message to client if requested
+		    if (sendMessage)
+		    {
+		    	if (item.getCount() > 1)
+		    	{
+		    		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
+		    		sm.addItemName(item.getItemId());
+		    		sm.addNumber(item.getCount());
+		    		sendPacket(sm);
+		    	} 
+				else if (item.getEnchantLevel() > 0)
+				{
+				    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_A_S1_S2);
+				    sm.addNumber(item.getEnchantLevel());
+				    sm.addItemName(item.getItemId());
+				    sendPacket(sm);
+				} 
+				else
+				{
+				    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
+				    sm.addItemName(item.getItemId());
+				    sendPacket(sm);
+				}
+		    }
+		    // Add the item to inventory
+		    L2ItemInstance newitem = _inventory.addItem(process, item, this, reference);
+		    // Send inventory update packet
+		    if (!Config.FORCE_INVENTORY_UPDATE)
+		    {
+		    	InventoryUpdate playerIU = new InventoryUpdate();
+		    	playerIU.addItem(newitem);
+		    	sendPacket(playerIU);
+		    } 
+		    else
+		    	sendPacket(new ItemList(this, false));
+
+		    // Update current load as well
+		    StatusUpdate su = new StatusUpdate(getObjectId());
+		    su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+		    sendPacket(su);
+		    // Cursed Weapon
+		    if (CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
+		    	CursedWeaponsManager.getInstance().activate(this, newitem);
+
+		    // If over capacity, trop the item
+		    if (!isGM() && !_inventory.validateCapacity(0))
+		    	dropItem("InvDrop", newitem, null, true);
 		}
-	    }
-	    // Add the item to inventory
-	    L2ItemInstance newitem = _inventory.addItem(process, item, this, reference);
-	    // Send inventory update packet
-	    if (!Config.FORCE_INVENTORY_UPDATE)
-	    {
-		InventoryUpdate playerIU = new InventoryUpdate();
-		playerIU.addItem(newitem);
-		sendPacket(playerIU);
-	    } else
-	    {
-		sendPacket(new ItemList(this, false));
-	    }
-	    // Update current load as well
-	    StatusUpdate su = new StatusUpdate(getObjectId());
-	    su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-	    sendPacket(su);
-	    // Cursed Weapon
-	    if (CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
-	    {
-		CursedWeaponsManager.getInstance().activate(this, newitem);
-	    }
-	    // If over capacity, trop the item
-	    if (!isGM() && !_inventory.validateCapacity(0))
-	    {
-		dropItem("InvDrop", newitem, null, true);
-	    }
-	}
     }
 
     /**
@@ -3088,103 +3046,94 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage)
     {
-	if (count > 0)
-	{
-	    // Sends message to client if requested
-	    if (sendMessage && ((!isCastingNow() && (ItemTable.getInstance().createDummyItem(itemId).getItemType() == L2EtcItemType.HERB)) || (ItemTable.getInstance().createDummyItem(itemId).getItemType() != L2EtcItemType.HERB)))
-	    {
-		if (count > 1)
-		{
-		    if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+    	if (count > 0)
+    	{
+    		// Sends message to client if requested
+		    if (sendMessage && ((!isCastingNow() && (ItemTable.getInstance().createDummyItem(itemId).getItemType() == L2EtcItemType.HERB)) || (ItemTable.getInstance().createDummyItem(itemId).getItemType() != L2EtcItemType.HERB)))
 		    {
-			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-			sm.addItemName(itemId);
-			sm.addNumber(count);
-			sendPacket(sm);
-		    } else
-		    {
-			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-			sm.addItemName(itemId);
-			sm.addNumber(count);
-			sendPacket(sm);
+		    	if (count > 1)
+		    	{
+		    		if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+		    		{
+		    			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+		    			sm.addItemName(itemId);
+		    			sm.addNumber(count);
+		    			sendPacket(sm);
+		    		} 
+		    		else
+		    		{
+		    			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
+		    			sm.addItemName(itemId);
+		    			sm.addNumber(count);
+		    			sendPacket(sm);
+		    		}
+		    	} 
+		    	else
+		    	{
+		    		if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+		    		{
+		    			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
+		    			sm.addItemName(itemId);
+		    			sendPacket(sm);
+		    		} 
+		    		else
+		    		{
+		    			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
+		    			sm.addItemName(itemId);
+		    			sendPacket(sm);
+		    		}
+		    	}
 		    }
-		} else
-		{
-		    if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+		    // Auto use herbs - autoloot
+		    if (ItemTable.getInstance().createDummyItem(itemId).getItemType() == L2EtcItemType.HERB) // If item is herb dont add it to iv :]
 		    {
-			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-			sm.addItemName(itemId);
-			sendPacket(sm);
-		    } else
+		    	if (!isCastingNow())
+		    	{
+		    		L2ItemInstance herb = new L2ItemInstance(_charId, itemId);
+		    		IItemHandler handler = ItemHandler.getInstance().getItemHandler(herb.getItemId());
+		    		if (handler == null)
+		    			_log.warning("No item handler registered for Herb - item ID " + herb.getItemId() + ".");
+
+		    		else
+		    		{
+		    			handler.useItem(this, herb);
+		    			if (_herbstask >= 100)
+		    				_herbstask -= 100;
+		    		}
+		    	} 
+		    	else
+		    	{
+		    		_herbstask += 100;
+		    		ThreadPoolManager.getInstance().scheduleAi(new HerbTask(process, itemId, count, reference, sendMessage), _herbstask);
+		    	}
+		    } 
+		    else
 		    {
-			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
-			sm.addItemName(itemId);
-			sendPacket(sm);
+		    	// Add the item to inventory
+		    	L2ItemInstance item = _inventory.addItem(process, itemId, count, this, reference);
+		    	// Send inventory update packet
+		    	if (!Config.FORCE_INVENTORY_UPDATE)
+		    	{
+		    		InventoryUpdate playerIU = new InventoryUpdate();
+		    		playerIU.addItem(item);
+		    		sendPacket(playerIU);
+		    	} 
+		    	else
+		    		sendPacket(new ItemList(this, false));
+
+		    	// Update current load as well
+		    	StatusUpdate su = new StatusUpdate(getObjectId());
+		    	su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+		    	sendPacket(su);
+		    	// Cursed Weapon
+		    	if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
+		    		CursedWeaponsManager.getInstance().activate(this, item);
+
+		    	// If over capacity, drop the item
+		    	if (!isGM() && !_inventory.validateCapacity(0))
+		    		dropItem("InvDrop", item, null, true);
 		    }
 		}
-	    }
-	    // Auto use herbs - autoloot
-	    if (ItemTable.getInstance().createDummyItem(itemId).getItemType() == L2EtcItemType.HERB) // If
-	    // item
-	    // is
-	    // herb
-	    // dont
-	    // add
-	    // it
-	    // to
-	    // iv
-	    // :]
-	    {
-		if (!isCastingNow())
-		{
-		    L2ItemInstance herb = new L2ItemInstance(_charId, itemId);
-		    IItemHandler handler = ItemHandler.getInstance().getItemHandler(herb.getItemId());
-		    if (handler == null)
-		    {
-			_log.warning("No item handler registered for Herb - item ID " + herb.getItemId() + ".");
-		    } else
-		    {
-			handler.useItem(this, herb);
-			if (_herbstask >= 100)
-			{
-			    _herbstask -= 100;
-			}
-		    }
-		} else
-		{
-		    _herbstask += 100;
-		    ThreadPoolManager.getInstance().scheduleAi(new HerbTask(process, itemId, count, reference, sendMessage), _herbstask);
-		}
-	    } else
-	    {
-		// Add the item to inventory
-		L2ItemInstance item = _inventory.addItem(process, itemId, count, this, reference);
-		// Send inventory update packet
-		if (!Config.FORCE_INVENTORY_UPDATE)
-		{
-		    InventoryUpdate playerIU = new InventoryUpdate();
-		    playerIU.addItem(item);
-		    sendPacket(playerIU);
-		} else
-		{
-		    sendPacket(new ItemList(this, false));
-		}
-		// Update current load as well
-		StatusUpdate su = new StatusUpdate(getObjectId());
-		su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-		sendPacket(su);
-		// Cursed Weapon
-		if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
-		{
-		    CursedWeaponsManager.getInstance().activate(this, item);
-		}
-		// If over capacity, drop the item
-		if (!isGM() && !_inventory.validateCapacity(0))
-		{
-		    dropItem("InvDrop", item, null, true);
-		}
-	    }
-	}
     }
 
     /**
@@ -3205,39 +3154,38 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean destroyItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
     {
-	int oldCount = item.getCount();
-	item = _inventory.destroyItem(process, item, this, reference);
-	if (item == null)
-	{
-	    if (sendMessage)
-	    {
-		sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
-	    }
-	    return false;
-	}
-	// Send inventory update packet
-	if (!Config.FORCE_INVENTORY_UPDATE)
-	{
-	    InventoryUpdate playerIU = new InventoryUpdate();
-	    playerIU.addItem(item);
-	    sendPacket(playerIU);
-	} else
-	{
-	    sendPacket(new ItemList(this, false));
-	}
-	// Update current load as well
-	StatusUpdate su = new StatusUpdate(getObjectId());
-	su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-	sendPacket(su);
-	// Sends message to client if requested
-	if (sendMessage)
-	{
-	    SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-	    sm.addNumber(oldCount);
-	    sm.addItemName(item.getItemId());
-	    sendPacket(sm);
-	}
-	return true;
+		int oldCount = item.getCount();
+		item = _inventory.destroyItem(process, item, this, reference);
+		if (item == null)
+		{
+		    if (sendMessage)
+		    	sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+
+		    return false;
+		}
+		// Send inventory update packet
+		if (!Config.FORCE_INVENTORY_UPDATE)
+		{
+		    InventoryUpdate playerIU = new InventoryUpdate();
+		    playerIU.addItem(item);
+		    sendPacket(playerIU);
+		} 
+		else
+		    sendPacket(new ItemList(this, false));
+
+		// Update current load as well
+		StatusUpdate su = new StatusUpdate(getObjectId());
+		su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+		sendPacket(su);
+		// Sends message to client if requested
+		if (sendMessage)
+		{
+		    SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
+		    sm.addNumber(oldCount);
+		    sm.addItemName(item.getItemId());
+		    sendPacket(sm);
+		}
+		return true;
     }
 
     /**
@@ -3259,41 +3207,41 @@ public final class L2PcInstance extends L2PlayableInstance
      *                about this action
      * @return boolean informing if the action was successfull
      */
+    
     @Override
     public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
     {
-	L2ItemInstance item = _inventory.getItemByObjectId(objectId);
-	if ((item == null) || (item.getCount() < count) || (_inventory.destroyItem(process, objectId, count, this, reference) == null))
-	{
-	    if (sendMessage)
-	    {
-		sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
-	    }
-	    return false;
-	}
-	// Send inventory update packet
-	if (!Config.FORCE_INVENTORY_UPDATE)
-	{
-	    InventoryUpdate playerIU = new InventoryUpdate();
-	    playerIU.addItem(item);
-	    sendPacket(playerIU);
-	} else
-	{
-	    sendPacket(new ItemList(this, false));
-	}
-	// Update current load as well
-	StatusUpdate su = new StatusUpdate(getObjectId());
-	su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-	sendPacket(su);
-	// Sends message to client if requested
-	if (sendMessage)
-	{
-	    SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-	    sm.addNumber(count);
-	    sm.addItemName(item.getItemId());
-	    sendPacket(sm);
-	}
-	return true;
+		L2ItemInstance item = _inventory.getItemByObjectId(objectId);
+		if (item == null || item.getCount() < count || (_inventory.destroyItem(process, objectId, count, this, reference) == null))
+		{
+		    if (sendMessage)
+		    	sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+
+		    return false;
+		}
+		// Send inventory update packet
+		if (!Config.FORCE_INVENTORY_UPDATE)
+		{
+		    InventoryUpdate playerIU = new InventoryUpdate();
+		    playerIU.addItem(item);
+		    sendPacket(playerIU);
+		} 
+		else
+		    sendPacket(new ItemList(this, false));
+
+		// Update current load as well
+		StatusUpdate su = new StatusUpdate(getObjectId());
+		su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+		sendPacket(su);
+		// Sends message to client if requested
+		if (sendMessage)
+		{
+		    SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
+		    sm.addNumber(count);
+		    sm.addItemName(item.getItemId());
+		    sendPacket(sm);
+		}
+		return true;
     }
 
     /**
@@ -3318,57 +3266,56 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean destroyItemWithoutTrace(String process, int objectId, int count, L2Object reference, boolean sendMessage)
     {
-	L2ItemInstance item = _inventory.getItemByObjectId(objectId);
-	if ((item == null) || (item.getCount() < count))
-	{
-	    if (sendMessage)
-	    {
-		sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
-	    }
-	    return false;
-	}
-	// Adjust item quantity
-	if (item.getCount() > count)
-	{
-	    synchronized (item)
-	    {
-		item.changeCountWithoutTrace(process, -count, this, reference);
-		item.setLastChange(L2ItemInstance.MODIFIED);
-		// could do also without saving, but let's save approx 1 of 10
-		if (GameTimeController.getGameTicks() % 10 == 0)
+		L2ItemInstance item = _inventory.getItemByObjectId(objectId);
+		if (item == null || item.getCount() < count)
 		{
-		    item.updateDatabase();
+		    if (sendMessage)
+		    	sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+
+		    return false;
 		}
-		_inventory.refreshWeight();
-	    }
-	} else
-	{
-	    // Destroy entire item and save to database
-	    _inventory.destroyItem(process, item, this, reference);
-	}
-	// Send inventory update packet
-	if (!Config.FORCE_INVENTORY_UPDATE)
-	{
-	    InventoryUpdate playerIU = new InventoryUpdate();
-	    playerIU.addItem(item);
-	    sendPacket(playerIU);
-	} else
-	{
-	    sendPacket(new ItemList(this, false));
-	}
-	// Update current load as well
-	StatusUpdate su = new StatusUpdate(getObjectId());
-	su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-	sendPacket(su);
-	// Sends message to client if requested
-	if (sendMessage)
-	{
-	    SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-	    sm.addNumber(count);
-	    sm.addItemName(item.getItemId());
-	    sendPacket(sm);
-	}
-	return true;
+		// Adjust item quantity
+		if (item.getCount() > count)
+		{
+		    synchronized (item)
+		    {
+		    	item.changeCountWithoutTrace(process, -count, this, reference);
+		    	item.setLastChange(L2ItemInstance.MODIFIED);
+		    	// could do also without saving, but let's save approx 1 of 10
+		    	if (GameTimeController.getGameTicks() % 10 == 0)
+		    		item.updateDatabase();
+
+			_inventory.refreshWeight();
+		    }
+		} 
+		else
+		{
+		    // Destroy entire item and save to database
+		    _inventory.destroyItem(process, item, this, reference);
+		}
+		// Send inventory update packet
+		if (!Config.FORCE_INVENTORY_UPDATE)
+		{
+		    InventoryUpdate playerIU = new InventoryUpdate();
+		    playerIU.addItem(item);
+		    sendPacket(playerIU);
+		} 
+		else
+		    sendPacket(new ItemList(this, false));
+
+		// Update current load as well
+		StatusUpdate su = new StatusUpdate(getObjectId());
+		su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+		sendPacket(su);
+		// Sends message to client if requested
+		if (sendMessage)
+		{
+		    SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
+		    sm.addNumber(count);
+		    sm.addItemName(item.getItemId());
+		    sendPacket(sm);
+		}
+		return true;
     }
 
     /**
