@@ -947,220 +947,196 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private L2PcInstance(int objectId)
     {
-	super(objectId, null);
-	getKnownList(); // init knownlist
-	getStat(); // init stats
-	getStatus(); // init status
-	isInDangerArea = false;
-	super.initCharStatusUpdateValues();
-	initPcStatusUpdateValues();
+		super(objectId, null);
+		getKnownList(); // init knownlist
+		getStat(); // init stats
+		getStatus(); // init status
+		isInDangerArea = false;
+		super.initCharStatusUpdateValues();
+		initPcStatusUpdateValues();
     }
 
     @Override
     public final PcKnownList getKnownList()
     {
-	if ((super.getKnownList() == null) || !(super.getKnownList() instanceof PcKnownList))
-	{
-	    setKnownList(new PcKnownList(this));
-	}
-	return (PcKnownList) super.getKnownList();
+    	if (super.getKnownList() == null || !(super.getKnownList() instanceof PcKnownList))
+    		setKnownList(new PcKnownList(this));
+    	
+		return (PcKnownList) super.getKnownList();
     }
 
     @Override
     public final PcStat getStat()
     {
-	if ((super.getStat() == null) || !(super.getStat() instanceof PcStat))
-	{
-	    setStat(new PcStat(this));
-	}
-	return (PcStat) super.getStat();
+		if (super.getStat() == null || !(super.getStat() instanceof PcStat))
+		    setStat(new PcStat(this));
+
+		return (PcStat) super.getStat();
     }
 
     @Override
     public final PcStatus getStatus()
     {
-	if ((super.getStatus() == null) || !(super.getStatus() instanceof PcStatus))
-	{
-	    setStatus(new PcStatus(this));
-	}
-	return (PcStatus) super.getStatus();
+		if (super.getStatus() == null || !(super.getStatus() instanceof PcStatus))
+		    setStatus(new PcStatus(this));
+
+		return (PcStatus) super.getStatus();
     }
 
     public final PcAppearance getAppearance()
     {
-	return _appearance;
+    	return _appearance;
     }
 
     /**
      * Return the base L2PcTemplate link to the L2PcInstance.<BR>
-     * <BR>
      */
     public final L2PcTemplate getBaseTemplate()
     {
-	return CharTemplateTable.getInstance().getTemplate(_baseClass);
+    	return CharTemplateTable.getInstance().getTemplate(_baseClass);
     }
 
     /** Return the L2PcTemplate link to the L2PcInstance. */
     @Override
     public final L2PcTemplate getTemplate()
     {
-	return (L2PcTemplate) super.getTemplate();
+    	return (L2PcTemplate) super.getTemplate();
     }
 
     public void setTemplate(ClassId newclass)
     {
-	super.setTemplate(CharTemplateTable.getInstance().getTemplate(newclass));
+    	super.setTemplate(CharTemplateTable.getInstance().getTemplate(newclass));
     }
 
     /**
      * Return the AI of the L2PcInstance (create it if necessary).<BR>
-     * <BR>
      */
     @Override
     public L2CharacterAI getAI()
     {
-	if (_ai == null)
-	{
-	    synchronized (this)
-	    {
 		if (_ai == null)
 		{
-		    _ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
+		    synchronized (this)
+		    {
+		    	if (_ai == null)
+		    		_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
+		    }
 		}
-	    }
-	}
-	return _ai;
+		return _ai;
     }
 
     /**
-     * Calculate a destination to explore the area and set the AI Intension
-     * to AI_INTENTION_MOVE_TO.<BR>
-     * <BR>
+     * Calculate a destination to explore the area and set the AI Intension to AI_INTENTION_MOVE_TO.<BR>
      */
     public void explore()
     {
-	if (!_exploring)
-	{
-	    return;
-	}
-	if (getMountType() == 2)
-	{
-	    return;
-	}
-	// Calculate the destination point (random)
-	int x = getX() + Rnd.nextInt(6000) - 3000;
-	int y = getY() + Rnd.nextInt(6000) - 3000;
-	if (x > Universe.MAX_X)
-	{
-	    x = Universe.MAX_X;
-	}
-	if (x < Universe.MIN_X)
-	{
-	    x = Universe.MIN_X;
-	}
-	if (y > Universe.MAX_Y)
-	{
-	    y = Universe.MAX_Y;
-	}
-	if (y < Universe.MIN_Y)
-	{
-	    y = Universe.MIN_Y;
-	}
-	int z = getZ();
-	L2CharPosition pos = new L2CharPosition(x, y, z, 0);
-	// Set the AI Intention to AI_INTENTION_MOVE_TO
-	getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
+		if (!_exploring)
+		    return;
+
+		if (getMountType() == 2)
+		    return;
+
+		// Calculate the destination point (random)
+		int x = getX() + Rnd.nextInt(6000) - 3000;
+		int y = getY() + Rnd.nextInt(6000) - 3000;
+		if (x > Universe.MAX_X)
+		    x = Universe.MAX_X;
+
+		if (x < Universe.MIN_X)
+		    x = Universe.MIN_X;
+
+		if (y > Universe.MAX_Y)
+		    y = Universe.MAX_Y;
+
+		if (y < Universe.MIN_Y)
+		    y = Universe.MIN_Y;
+
+		int z = getZ();
+		L2CharPosition pos = new L2CharPosition(x, y, z, 0);
+		// Set the AI Intention to AI_INTENTION_MOVE_TO
+		getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
     }
 
     /** Return the Level of the L2PcInstance. */
     @Override
     public final int getLevel()
     {
-	return getStat().getLevel();
+    	return getStat().getLevel();
     }
 
     /**
      * Return the _newbie state of the L2PcInstance.<BR>
-     * <BR>
      */
     public boolean isNewbie()
     {
-	return _newbie;
+    	return _newbie;
     }
 
     /**
      * Set the _newbie state of the L2PcInstance.<BR>
-     * <BR>
      *
      * @param isNewbie
      *                The Identifier of the _newbie state<BR>
-     *                <BR>
      *
      */
     public void setNewbie(boolean isNewbie)
     {
-	_newbie = isNewbie;
+    	_newbie = isNewbie;
     }
 
     public void setBaseClass(int baseClass)
     {
-	_baseClass = baseClass;
+    	_baseClass = baseClass;
     }
 
     public void setBaseClass(ClassId classId)
     {
-	_baseClass = classId.ordinal();
+    	_baseClass = classId.ordinal();
     }
 
     public boolean isInStoreMode()
     {
-	return getPrivateStoreType() > 0;
+    	return getPrivateStoreType() > 0;
     }
 
-    // public boolean isInCraftMode() { return (getPrivateStoreType() ==
-    // STORE_PRIVATE_MANUFACTURE); }
+    // public boolean isInCraftMode() { return (getPrivateStoreType() == STORE_PRIVATE_MANUFACTURE); }
     public boolean isInCraftMode()
     {
-	return _inCraftMode;
+    	return _inCraftMode;
     }
 
     public void isInCraftMode(boolean b)
     {
-	_inCraftMode = b;
+    	_inCraftMode = b;
     }
 
     /**
      * Manage Logout Task.<BR>
-     * <BR>
      */
     public void logout()
     {
-	closeNetConnection();
+    	closeNetConnection();
     }
 
     /**
-     * Return a table containing all Common L2RecipeList of the
-     * L2PcInstance.<BR>
-     * <BR>
+     * Return a table containing all Common L2RecipeList of the L2PcInstance.<BR>
      */
     public L2RecipeList[] getCommonRecipeBook()
     {
-	return _commonRecipeBook.values().toArray(new L2RecipeList[_commonRecipeBook.values().size()]);
+    	return _commonRecipeBook.values().toArray(new L2RecipeList[_commonRecipeBook.values().size()]);
     }
 
     /**
      * Return a table containing all Dwarf L2RecipeList of the L2PcInstance.<BR>
-     * <BR>
      */
     public L2RecipeList[] getDwarvenRecipeBook()
     {
-	return _dwarvenRecipeBook.values().toArray(new L2RecipeList[_dwarvenRecipeBook.values().size()]);
+    	return _dwarvenRecipeBook.values().toArray(new L2RecipeList[_dwarvenRecipeBook.values().size()]);
     }
 
     /**
      * Add a new L2RecipList to the table _commonrecipebook containing all
      * L2RecipeList of the L2PcInstance <BR>
-     * <BR>
      *
      * @param recipe
      *                The L2RecipeList to add to the _recipebook
@@ -1168,13 +1144,12 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void registerCommonRecipeList(L2RecipeList recipe)
     {
-	_commonRecipeBook.put(recipe.getId(), recipe);
+    	_commonRecipeBook.put(recipe.getId(), recipe);
     }
 
     /**
      * Add a new L2RecipList to the table _recipebook containing all
      * L2RecipeList of the L2PcInstance <BR>
-     * <BR>
      *
      * @param recipe
      *                The L2RecipeList to add to the _recipebook
@@ -1182,7 +1157,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void registerDwarvenRecipeList(L2RecipeList recipe)
     {
-	_dwarvenRecipeBook.put(recipe.getId(), recipe);
+    	_dwarvenRecipeBook.put(recipe.getId(), recipe);
     }
 
     /**
@@ -1195,23 +1170,20 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean hasRecipeList(int recipeId)
     {
-	if (_dwarvenRecipeBook.containsKey(recipeId))
-	{
-	    return true;
-	} else if (_commonRecipeBook.containsKey(recipeId))
-	{
-	    return true;
-	} else
-	{
-	    return false;
-	}
+		if (_dwarvenRecipeBook.containsKey(recipeId))
+			return true;
+		
+		else if (_commonRecipeBook.containsKey(recipeId))
+		    return true;
+
+		else
+			return false;
     }
 
     /**
      * Tries to remove a L2RecipList from the table _DwarvenRecipeBook or
      * from table _CommonRecipeBook, those table contain all L2RecipeList of
      * the L2PcInstance <BR>
-     * <BR>
      *
      * @param RecipeID
      *                The Identifier of the L2RecipeList to remove from the
@@ -1220,24 +1192,21 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void unregisterRecipeList(int recipeId)
     {
-	if (_dwarvenRecipeBook.containsKey(recipeId))
-	{
-	    _dwarvenRecipeBook.remove(recipeId);
-	} else if (_commonRecipeBook.containsKey(recipeId))
-	{
-	    _commonRecipeBook.remove(recipeId);
-	} else
-	{
-	    _log.warning("Attempted to remove unknown RecipeList: " + recipeId);
-	}
-	L2ShortCut[] allShortCuts = getAllShortCuts();
-	for (L2ShortCut sc : allShortCuts)
-	{
-	    if ((sc != null) && (sc.getId() == recipeId) && (sc.getType() == L2ShortCut.TYPE_RECIPE))
-	    {
-		deleteShortCut(sc.getSlot(), sc.getPage());
-	    }
-	}
+		if (_dwarvenRecipeBook.containsKey(recipeId))
+		    _dwarvenRecipeBook.remove(recipeId);
+
+		else if (_commonRecipeBook.containsKey(recipeId))
+		    _commonRecipeBook.remove(recipeId);
+
+		else
+		    _log.warning("Attempted to remove unknown RecipeList: " + recipeId);
+
+		L2ShortCut[] allShortCuts = getAllShortCuts();
+		for (L2ShortCut sc : allShortCuts)
+		{
+			if (sc != null && sc.getId() == recipeId && sc.getType() == L2ShortCut.TYPE_RECIPE)
+				deleteShortCut(sc.getSlot(), sc.getPage());
+		}
     }
 
 	/**
@@ -1275,7 +1244,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		_quests.put(qs.getQuestName(), qs);
 	}
 
-
 	/**
 	 * Remove a QuestState from the table _quest containing all quests began by the L2PcInstance.<BR><BR>
 	 *
@@ -1287,7 +1255,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		_quests.remove(quest);
 	}
 
-	private QuestState[] addToQuestStateArray(QuestState[] questStateArray, QuestState state) {
+	private QuestState[] addToQuestStateArray(QuestState[] questStateArray, QuestState state)
+	{
 		int len = questStateArray.length;
 		QuestState[] tmp = new QuestState[len+1];
 		for (int i=0; i < len; i++)
@@ -1442,17 +1411,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	/**
      * Return a table containing all L2ShortCut of the L2PcInstance.<BR>
-     * <BR>
      */
     public L2ShortCut[] getAllShortCuts()
     {
-	return _shortCuts.getAllShortCuts();
+    	return _shortCuts.getAllShortCuts();
     }
 
     /**
      * Return the L2ShortCut of the L2PcInstance corresponding to the
      * position (page-slot).<BR>
-     * <BR>
      *
      * @param slot
      *                The slot in wich the shortCuts is equiped
@@ -1462,54 +1429,49 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public L2ShortCut getShortCut(int slot, int page)
     {
-	return _shortCuts.getShortCut(slot, page);
+    	return _shortCuts.getShortCut(slot, page);
     }
 
     /**
      * Add a L2shortCut to the L2PcInstance _shortCuts<BR>
-     * <BR>
      */
     public void registerShortCut(L2ShortCut shortcut)
     {
-	_shortCuts.registerShortCut(shortcut);
+    	_shortCuts.registerShortCut(shortcut);
     }
 
     /**
      * Delete the L2ShortCut corresponding to the position (page-slot) from
      * the L2PcInstance _shortCuts.<BR>
-     * <BR>
      */
     public void deleteShortCut(int slot, int page)
     {
-	_shortCuts.deleteShortCut(slot, page);
+    	_shortCuts.deleteShortCut(slot, page);
     }
 
     /**
      * Add a L2Macro to the L2PcInstance _macroses<BR>
-     * <BR>
      */
     public void registerMacro(L2Macro macro)
     {
-	_macroses.registerMacro(macro);
+    	_macroses.registerMacro(macro);
     }
 
     /**
      * Delete the L2Macro corresponding to the Identifier from the
      * L2PcInstance _macroses.<BR>
-     * <BR>
      */
     public void deleteMacro(int id)
     {
-	_macroses.deleteMacro(id);
+    	_macroses.deleteMacro(id);
     }
 
     /**
      * Return all L2Macro of the L2PcInstance.<BR>
-     * <BR>
      */
     public MacroList getMacroses()
     {
-	return _macroses;
+    	return _macroses;
     }
 
     /**
@@ -1519,7 +1481,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setSiegeState(byte siegeState)
     {
-	_siegeState = siegeState;
+    	_siegeState = siegeState;
     }
 
     /**
@@ -1529,16 +1491,15 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public byte getSiegeState()
     {
-	return _siegeState;
+    	return _siegeState;
     }
 
     /**
      * Set the PvP Flag of the L2PcInstance.<BR>
-     * <BR>
      */
     public void setPvpFlag(int pvpFlag)
     {
-	_pvpFlag = (byte) pvpFlag;
+    	_pvpFlag = (byte) pvpFlag;
     }
 
     public byte getPvpFlag()
@@ -1548,81 +1509,77 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void revalidateZone(boolean force)
     {
-	// Cannot validate if not in a world region (happens during teleport)
-	if (getWorldRegion() == null)
-	{
-	    return;
-	}
-	// This function is called very often from movement code
-	if (force)
-	{
-	    _zoneValidateCounter = 4;
-	} else
-	{
-	    _zoneValidateCounter--;
-	    if (_zoneValidateCounter < 0)
-	    {
-		_zoneValidateCounter = 4;
-	    } else
-	    {
-		return;
-	    }
-	}
-	getWorldRegion().revalidateZones(this);
-    	
-        if (Config.ALLOW_WATER)
-            checkWaterState();
-	if (isInsideZone(ZONE_SIEGE))
-	{
-	    if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
-	    {
-		return;
-	    }
-	    _lastCompassZone = ExSetCompassZoneCode.SIEGEWARZONE2;
-	    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SIEGEWARZONE2);
-	    sendPacket(cz);
-	} else if (isInsideZone(ZONE_PVP))
-	{
-	    if (_lastCompassZone == ExSetCompassZoneCode.PVPZONE)
-	    {
-		return;
-	    }
-	    _lastCompassZone = ExSetCompassZoneCode.PVPZONE;
-	    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PVPZONE);
-	    sendPacket(cz);
-	} else if (isIn7sDungeon())
-	{
-	    if (_lastCompassZone == ExSetCompassZoneCode.SEVENSIGNSZONE)
-	    {
-		return;
-	    }
-	    _lastCompassZone = ExSetCompassZoneCode.SEVENSIGNSZONE;
-	    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SEVENSIGNSZONE);
-	    sendPacket(cz);
-	} else if (isInsideZone(ZONE_PEACE))
-	{
-	    if (_lastCompassZone == ExSetCompassZoneCode.PEACEZONE)
-	    {
-		return;
-	    }
-	    _lastCompassZone = ExSetCompassZoneCode.PEACEZONE;
-	    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PEACEZONE);
-	    sendPacket(cz);
-	} else
-	{
-	    if (_lastCompassZone == ExSetCompassZoneCode.GENERALZONE)
-	    {
-		return;
-	    }
-	    if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
-	    {
-		updatePvPStatus();
-	    }
-	    _lastCompassZone = ExSetCompassZoneCode.GENERALZONE;
-	    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.GENERALZONE);
-	    sendPacket(cz);
-	}
+		// Cannot validate if not in a world region (happens during teleport)
+		if (getWorldRegion() == null)
+		    return;
+
+		// This function is called very often from movement code
+		if (force)
+		    _zoneValidateCounter = 4;
+
+		else
+		{
+		    _zoneValidateCounter--;
+		    if (_zoneValidateCounter < 0)
+		    	_zoneValidateCounter = 4;
+
+		    else
+		    	return;
+		}
+		getWorldRegion().revalidateZones(this);
+	    	
+		if (Config.ALLOW_WATER)
+			checkWaterState();
+		if (isInsideZone(ZONE_SIEGE))
+		{
+		    if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
+		    	return;
+
+		    _lastCompassZone = ExSetCompassZoneCode.SIEGEWARZONE2;
+		    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SIEGEWARZONE2);
+		    sendPacket(cz);
+		} 
+		else if (isInsideZone(ZONE_PVP))
+		{
+		    if (_lastCompassZone == ExSetCompassZoneCode.PVPZONE)
+		    	return;
+
+		    _lastCompassZone = ExSetCompassZoneCode.PVPZONE;
+		    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PVPZONE);
+		    sendPacket(cz);
+		} 
+		else if (isIn7sDungeon())
+		{
+			if (_lastCompassZone == ExSetCompassZoneCode.SEVENSIGNSZONE)
+				return;
+
+			_lastCompassZone = ExSetCompassZoneCode.SEVENSIGNSZONE;
+			ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.SEVENSIGNSZONE);
+			sendPacket(cz);
+		} 
+		else if (isInsideZone(ZONE_PEACE))
+		{
+		    if (_lastCompassZone == ExSetCompassZoneCode.PEACEZONE)
+		    	return;
+
+		    _lastCompassZone = ExSetCompassZoneCode.PEACEZONE;
+		    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.PEACEZONE);
+		    sendPacket(cz);
+		} 
+		else
+		{
+		    if (_lastCompassZone == ExSetCompassZoneCode.GENERALZONE)
+		    	return;
+
+		    if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2)
+		    	updatePvPStatus();
+
+		    _lastCompassZone = ExSetCompassZoneCode.GENERALZONE;
+		    ExSetCompassZoneCode cz = new ExSetCompassZoneCode(ExSetCompassZoneCode.GENERALZONE);
+		    sendPacket(cz);
+		}
     }
+    
 	public boolean dismount()
 	{
 	    if (setMountType(0))
@@ -1639,75 +1596,68 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /**
      * Return true if the L2PcInstance can Craft Dwarven Recipes.<BR>
-     * <BR>
      */
     public boolean hasDwarvenCraft()
     {
-	return getSkillLevel(L2Skill.SKILL_CREATE_DWARVEN) >= 1;
+    	return getSkillLevel(L2Skill.SKILL_CREATE_DWARVEN) >= 1;
     }
 
     public int getDwarvenCraft()
     {
-	return getSkillLevel(L2Skill.SKILL_CREATE_DWARVEN);
+    	return getSkillLevel(L2Skill.SKILL_CREATE_DWARVEN);
     }
 
     /**
      * Return true if the L2PcInstance can Craft Dwarven Recipes.<BR>
-     * <BR>
      */
     public boolean hasCommonCraft()
     {
-	return getSkillLevel(L2Skill.SKILL_CREATE_COMMON) >= 1;
+    	return getSkillLevel(L2Skill.SKILL_CREATE_COMMON) >= 1;
     }
 
     public int getCommonCraft()
     {
-	return getSkillLevel(L2Skill.SKILL_CREATE_COMMON);
+    	return getSkillLevel(L2Skill.SKILL_CREATE_COMMON);
     }
 
     /**
      * Return the PK counter of the L2PcInstance.<BR>
-     * <BR>
      */
     public int getPkKills()
     {
-	return _pkKills;
+    	return _pkKills;
     }
 
     /**
      * Set the PK counter of the L2PcInstance.<BR>
-     * <BR>
      */
     public void setPkKills(int pkKills)
     {
-	_pkKills = pkKills;
+    	_pkKills = pkKills;
     }
 
     /**
      * Return the _deleteTimer of the L2PcInstance.<BR>
-     * <BR>
      */
     public long getDeleteTimer()
     {
-	return _deleteTimer;
+    	return _deleteTimer;
     }
 
     /**
      * Set the _deleteTimer of the L2PcInstance.<BR>
-     * <BR>
      */
     public void setDeleteTimer(long deleteTimer)
     {
-	_deleteTimer = deleteTimer;
+    	_deleteTimer = deleteTimer;
     }
 
     /**
      * Return the current weight of the L2PcInstance.<BR>
-     * <BR>
      */
     public int getCurrentLoad()
     {
-	return _inventory.getTotalWeight();
+    	return _inventory.getTotalWeight();
     }
 
     /**
@@ -1715,111 +1665,103 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public long getLastRecomUpdate()
     {
-	return _lastRecomUpdate;
+    	return _lastRecomUpdate;
     }
 
     public void setLastRecomUpdate(long date)
     {
-	_lastRecomUpdate = date;
+    	_lastRecomUpdate = date;
     }
 
     /**
      * Return the number of recommandation obtained by the L2PcInstance.<BR>
-     * <BR>
      */
     public int getRecomHave()
     {
-	return _recomHave;
+    	return _recomHave;
     }
 
     /**
      * Increment the number of recommandation obtained by the L2PcInstance
      * (Max : 255).<BR>
-     * <BR>
      */
     protected void incRecomHave()
     {
-	if (_recomHave < 255)
-	{
-	    _recomHave++;
-	}
+		if (_recomHave < 255)
+		    _recomHave++;
     }
 
     /**
-     * Set the number of recommandation obtained by the L2PcInstance (Max :
-     * 255).<BR>
-     * <BR>
+     * Set the number of recommandation obtained by the L2PcInstance (Max : 255).<BR>
      */
     public void setRecomHave(int value)
     {
-	if (value > 255)
-	{
-	    _recomHave = 255;
-	} else if (value < 0)
-	{
-	    _recomHave = 0;
-	} else
-	{
-	    _recomHave = value;
-	}
+		if (value > 255)
+		    _recomHave = 255;
+
+		else if (value < 0)
+		    _recomHave = 0;
+
+		else
+		    _recomHave = value;
     }
 
     /**
      * Return the number of recommandation that the L2PcInstance can give.<BR>
-     * <BR>
      */
     public int getRecomLeft()
     {
-	return _recomLeft;
+    	return _recomLeft;
     }
 
     /**
-     * Increment the number of recommandation that the L2PcInstance can
-     * give.<BR>
-     * <BR>
+     * Increment the number of recommandation that the L2PcInstance can give.<BR>
      */
     protected void decRecomLeft()
     {
-	if (_recomLeft > 0)
-	{
-	    _recomLeft--;
-	}
+		if (_recomLeft > 0)
+		{
+		    _recomLeft--;
+		}
     }
 
     public void giveRecom(L2PcInstance target)
     {
-	if (Config.ALT_RECOMMEND)
-	{
-	    java.sql.Connection con = null;
-	    try
-	    {
-		con = L2DatabaseFactory.getInstance().getConnection();
-		PreparedStatement statement = con.prepareStatement(ADD_CHAR_RECOM);
-		statement.setInt(1, getObjectId());
-		statement.setInt(2, target.getObjectId());
-		statement.execute();
-		statement.close();
-	    } catch (Exception e)
-	    {
-		_log.warning("could not update char recommendations:" + e);
-	    } finally
-	    {
-		try
+		if (Config.ALT_RECOMMEND)
 		{
-		    con.close();
-		} catch (Exception e)
-		{
+		    java.sql.Connection con = null;
+		    try
+		    {
+				con = L2DatabaseFactory.getInstance().getConnection();
+				PreparedStatement statement = con.prepareStatement(ADD_CHAR_RECOM);
+				statement.setInt(1, getObjectId());
+				statement.setInt(2, target.getObjectId());
+				statement.execute();
+				statement.close();
+		    } 
+		    catch (Exception e)
+		    {
+		    	_log.warning("could not update char recommendations:" + e);
+		    } 
+		    finally
+		    {
+		    	try
+		    	{
+		    		con.close();
+		    	} 
+		    	catch (Exception e)
+		    	{
+		    	}
+		    }
 		}
-	    }
-	}
-	target.incRecomHave();
-	decRecomLeft();
-	_recomChars.add(target.getObjectId());
+		target.incRecomHave();
+		decRecomLeft();
+		_recomChars.add(target.getObjectId());
     }
 
     public boolean canRecom(L2PcInstance target)
     {
-	return !_recomChars.contains(target.getObjectId());
+    	return !_recomChars.contains(target.getObjectId());
     }
 
     /**
@@ -1829,56 +1771,50 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setExpBeforeDeath(long exp)
     {
-	_expBeforeDeath = exp;
+    	_expBeforeDeath = exp;
     }
 
     public long getExpBeforeDeath()
     {
-	return _expBeforeDeath;
+    	return _expBeforeDeath;
     }
 
     /**
      * Return the Karma of the L2PcInstance.<BR>
-     * <BR>
      */
     public int getKarma()
     {
-	return _karma;
+    	return _karma;
     }
 
     /**
      * Set the Karma of the L2PcInstance and send a Server->Client packet
      * StatusUpdate (broadcast).<BR>
-     * <BR>
      */
     public void setKarma(int karma)
     {
-	if (karma < 0)
-	{
-	    karma = 0;
-	}
-	if ((_karma == 0) && (karma > 0))
-	{
-	    for (L2Object object : getKnownList().getKnownObjects().values())
-	    {
-		if ((object == null) || !(object instanceof L2GuardInstance))
+		if (karma < 0)
+		    karma = 0;
+
+		if (_karma == 0 && karma > 0)
 		{
-		    continue;
-		}
-		if (((L2GuardInstance) object).getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+		    for (L2Object object : getKnownList().getKnownObjects().values())
+		    {
+		    	if ((object == null) || !(object instanceof L2GuardInstance))
+		    		continue;
+
+		    	if (((L2GuardInstance) object).getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+		    		((L2GuardInstance) object).getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
+		    }
+		} 
+		else if (_karma > 0 && karma == 0)
 		{
-		    ((L2GuardInstance) object).getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
+		    // Send a Server->Client StatusUpdate packet with Karma and PvP
+		    // Flag to the L2PcInstance and all L2PcInstance to inform (broadcast)
+		    setKarmaFlag(0);
 		}
-	    }
-	} else if ((_karma > 0) && (karma == 0))
-	{
-	    // Send a Server->Client StatusUpdate packet with Karma and PvP
-	    // Flag to the L2PcInstance and all L2PcInstance to inform
-	    // (broadcast)
-	    setKarmaFlag(0);
-	}
-	_karma = karma;
-	broadcastKarma();
+		_karma = karma;
+		broadcastKarma();
     }
 
     /**
@@ -1887,381 +1823,364 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public int getMaxLoad()
     {
-	double lm = 0.48;
-	switch (getCON())
-	{
-	case 1:
-	    lm = 0.46;
-	    break;
-	case 11:
-	    lm = 0.61;
-	    break;
-	case 21:
-	    lm = 0.82;
-	    break;
-	case 2:
-	    lm = 0.47;
-	    break;
-	case 12:
-	    lm = 0.63;
-	    break;
-	case 22:
-	    lm = 0.85;
-	    break;
-	case 3:
-	    lm = 0.48;
-	    break;
-	case 13:
-	    lm = 0.65;
-	    break;
-	case 23:
-	    lm = 0.87;
-	    break;
-	case 4:
-	    lm = 0.50;
-	    break;
-	case 14:
-	    lm = 0.67;
-	    break;
-	case 24:
-	    lm = 0.90;
-	    break;
-	case 5:
-	    lm = 0.51;
-	    break;
-	case 15:
-	    lm = 0.69;
-	    break;
-	case 25:
-	    lm = 0.93;
-	    break;
-	case 6:
-	    lm = 0.53;
-	    break;
-	case 16:
-	    lm = 0.71;
-	    break;
-	case 26:
-	    lm = 0.95;
-	    break;
-	case 7:
-	    lm = 0.54;
-	    break;
-	case 17:
-	    lm = 0.73;
-	    break;
-	case 27:
-	    lm = 0.98;
-	    break;
-	case 8:
-	    lm = 0.56;
-	    break;
-	case 18:
-	    lm = 0.75;
-	    break;
-	case 28:
-	    lm = 1.01;
-	    break;
-	case 9:
-	    lm = 0.58;
-	    break;
-	case 19:
-	    lm = 0.77;
-	    break;
-	case 29:
-	    lm = 1.04;
-	    break;
-	case 10:
-	    lm = 0.59;
-	    break;
-	case 20:
-	    lm = 0.80;
-	    break;
-	case 30:
-	    lm = 1.07;
-	    break;
-	case 31:
-	    lm = 1.10;
-	    break;
-	case 41:
-	    lm = 1.48;
-	    break;
-	case 51:
-	    lm = 2.00;
-	    break;
-	case 32:
-	    lm = 1.14;
-	    break;
-	case 42:
-	    lm = 1.53;
-	    break;
-	case 52:
-	    lm = 2.06;
-	    break;
-	case 33:
-	    lm = 1.17;
-	    break;
-	case 43:
-	    lm = 1.58;
-	    break;
-	case 53:
-	    lm = 2.12;
-	    break;
-	case 34:
-	    lm = 1.21;
-	    break;
-	case 44:
-	    lm = 1.62;
-	    break;
-	case 54:
-	    lm = 2.18;
-	    break;
-	case 35:
-	    lm = 1.24;
-	    break;
-	case 45:
-	    lm = 1.67;
-	    break;
-	case 55:
-	    lm = 2.25;
-	    break;
-	case 36:
-	    lm = 1.28;
-	    break;
-	case 46:
-	    lm = 1.72;
-	    break;
-	case 56:
-	    lm = 2.31;
-	    break;
-	case 37:
-	    lm = 1.32;
-	    break;
-	case 47:
-	    lm = 1.77;
-	    break;
-	case 57:
-	    lm = 2.38;
-	    break;
-	case 38:
-	    lm = 1.36;
-	    break;
-	case 48:
-	    lm = 1.83;
-	    break;
-	case 58:
-	    lm = 2.45;
-	    break;
-	case 39:
-	    lm = 1.40;
-	    break;
-	case 49:
-	    lm = 1.88;
-	    break;
-	case 59:
-	    lm = 2.53;
-	    break;
-	case 40:
-	    lm = 1.44;
-	    break;
-	case 50:
-	    lm = 1.94;
-	    break;
-	default:
-	    lm = 2.53;
-	}
-	return (int) calcStat(Stats.MAX_LOAD, (int) Math.round(lm * 69000.0), this, null) + Config.ADD_MAX_LOAD;
+    	double lm = 0.48;
+    	switch (getCON())
+    	{
+    	case 1:
+    		lm = 0.46;
+    		break;
+		case 11:
+		    lm = 0.61;
+		    break;
+		case 21:
+		    lm = 0.82;
+		    break;
+		case 2:
+		    lm = 0.47;
+		    break;
+		case 12:
+		    lm = 0.63;
+		    break;
+		case 22:
+		    lm = 0.85;
+		    break;
+		case 3:
+		    lm = 0.48;
+		    break;
+		case 13:
+		    lm = 0.65;
+		    break;
+		case 23:
+		    lm = 0.87;
+		    break;
+		case 4:
+		    lm = 0.50;
+		    break;
+		case 14:
+		    lm = 0.67;
+		    break;
+		case 24:
+		    lm = 0.90;
+		    break;
+		case 5:
+		    lm = 0.51;
+		    break;
+		case 15:
+		    lm = 0.69;
+		    break;
+		case 25:
+		    lm = 0.93;
+		    break;
+		case 6:
+		    lm = 0.53;
+		    break;
+		case 16:
+		    lm = 0.71;
+		    break;
+		case 26:
+		    lm = 0.95;
+		    break;
+		case 7:
+		    lm = 0.54;
+		    break;
+		case 17:
+		    lm = 0.73;
+		    break;
+		case 27:
+		    lm = 0.98;
+		    break;
+		case 8:
+		    lm = 0.56;
+		    break;
+		case 18:
+		    lm = 0.75;
+		    break;
+		case 28:
+		    lm = 1.01;
+		    break;
+		case 9:
+		    lm = 0.58;
+		    break;
+		case 19:
+		    lm = 0.77;
+		    break;
+		case 29:
+		    lm = 1.04;
+		    break;
+		case 10:
+		    lm = 0.59;
+		    break;
+		case 20:
+		    lm = 0.80;
+		    break;
+		case 30:
+		    lm = 1.07;
+		    break;
+		case 31:
+		    lm = 1.10;
+		    break;
+		case 41:
+		    lm = 1.48;
+		    break;
+		case 51:
+		    lm = 2.00;
+		    break;
+		case 32:
+		    lm = 1.14;
+		    break;
+		case 42:
+		    lm = 1.53;
+		    break;
+		case 52:
+		    lm = 2.06;
+		    break;
+		case 33:
+		    lm = 1.17;
+		    break;
+		case 43:
+		    lm = 1.58;
+		    break;
+		case 53:
+		    lm = 2.12;
+		    break;
+		case 34:
+		    lm = 1.21;
+		    break;
+		case 44:
+		    lm = 1.62;
+		    break;
+		case 54:
+		    lm = 2.18;
+		    break;
+		case 35:
+		    lm = 1.24;
+		    break;
+		case 45:
+		    lm = 1.67;
+		    break;
+		case 55:
+		    lm = 2.25;
+		    break;
+		case 36:
+		    lm = 1.28;
+		    break;
+		case 46:
+		    lm = 1.72;
+		    break;
+		case 56:
+		    lm = 2.31;
+		    break;
+		case 37:
+		    lm = 1.32;
+		    break;
+		case 47:
+		    lm = 1.77;
+		    break;
+		case 57:
+		    lm = 2.38;
+		    break;
+		case 38:
+		    lm = 1.36;
+		    break;
+		case 48:
+		    lm = 1.83;
+		    break;
+		case 58:
+		    lm = 2.45;
+		    break;
+		case 39:
+		    lm = 1.40;
+		    break;
+		case 49:
+		    lm = 1.88;
+		    break;
+		case 59:
+		    lm = 2.53;
+		    break;
+		case 40:
+		    lm = 1.44;
+		    break;
+		case 50:
+		    lm = 1.94;
+		    break;
+		default:
+		    lm = 2.53;
+		}
+    	return (int) calcStat(Stats.MAX_LOAD, (int) Math.round(lm * 69000.0), this, null) + Config.ADD_MAX_LOAD;
     }
 
     public int getExpertisePenalty()
     {
-	return _expertisePenalty;
+    	return _expertisePenalty;
     }
 
     public int getWeightPenalty()
     {
-	if (_dietMode)
-	{
-	    return 0;
-	}
-	return _curWeightPenalty;
+		if (_dietMode)
+		{
+		    return 0;
+		}
+		return _curWeightPenalty;
     }
 
     /**
      * Update the overloaded status of the L2PcInstance.<BR>
-     * <BR>
      */
     public void refreshOverloaded()
     {
-	if (!Config.DISABLE_WEIGHT_PENALTIES)
-	{
-	    int maxLoad = getMaxLoad();
-	    if (maxLoad > 0)
-	    {
-		setIsOverloaded(getCurrentLoad() > maxLoad);
-		int weightproc = getCurrentLoad() * 1000 / maxLoad;
-		int newWeightPenalty;
-		if ((weightproc < 500) || _dietMode)
+		if (!Config.DISABLE_WEIGHT_PENALTIES)
 		{
-		    newWeightPenalty = 0;
-		} else if (weightproc < 666)
-		{
-		    newWeightPenalty = 1;
-		} else if (weightproc < 800)
-		{
-		    newWeightPenalty = 2;
-		} else if (weightproc < 1000)
-		{
-		    newWeightPenalty = 3;
-		} else
-		{
-		    newWeightPenalty = 4;
-		}
-		if (_curWeightPenalty != newWeightPenalty)
-		{
-		    _curWeightPenalty = newWeightPenalty;
-		    if ((newWeightPenalty > 0) && !_dietMode)
+		    int maxLoad = getMaxLoad();
+		    if (maxLoad > 0)
 		    {
-			super.addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
-		    } else
-		    {
-			super.removeSkill(getKnownSkill(4270));
+		    	setIsOverloaded(getCurrentLoad() > maxLoad);
+		    	int weightproc = getCurrentLoad() * 1000 / maxLoad;
+		    	int newWeightPenalty;
+		    	if (weightproc < 500 || _dietMode)
+		    		newWeightPenalty = 0;
+
+		    	else if (weightproc < 666)
+		    		newWeightPenalty = 1;
+
+		    	else if (weightproc < 800)
+		    		newWeightPenalty = 2;
+
+		    	else if (weightproc < 1000)
+		    		newWeightPenalty = 3;
+
+		    	else
+		    		newWeightPenalty = 4;
+
+		    	if (_curWeightPenalty != newWeightPenalty)
+		    	{
+		    		_curWeightPenalty = newWeightPenalty;
+		    		if (newWeightPenalty > 0 && !_dietMode)
+		    			super.addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
+
+		    		else
+		    			super.removeSkill(getKnownSkill(4270));
+
+		    		sendPacket(new EtcStatusUpdate(this));
+		    		Broadcast.toKnownPlayers(this, new CharInfo(this));
+		    	}
 		    }
-		    sendPacket(new EtcStatusUpdate(this));
-		    Broadcast.toKnownPlayers(this, new CharInfo(this));
 		}
-	    }
-	}
     }
 
     public void refreshExpertisePenalty()
     {
-	if (!Config.DISABLE_GRADE_PENALTIES)
-	{
-	    int newPenalty = 0;
-	    for (L2ItemInstance item : getInventory().getItems())
-	    {
-		if ((item != null) && item.isEquipped())
+		if (!Config.DISABLE_GRADE_PENALTIES)
 		{
-		    int crystaltype = item.getItem().getCrystalType();
-		    if (crystaltype > newPenalty)
+			int newPenalty = 0;
+			for (L2ItemInstance item : getInventory().getItems())
+			{
+				if ((item != null) && item.isEquipped())
+				{
+					int crystaltype = item.getItem().getCrystalType();
+					if (crystaltype > newPenalty)
+						newPenalty = crystaltype;
+				}
+			}
+			newPenalty = newPenalty - getExpertiseIndex();
+			if (newPenalty <= 0)
+				newPenalty = 0;
+
+		    if (getExpertisePenalty() != newPenalty)
 		    {
-			newPenalty = crystaltype;
+		    	_expertisePenalty = newPenalty;
+		    	if (newPenalty > 0)
+		    		super.addSkill(SkillTable.getInstance().getInfo(4267, 1)); // level used to be newPenalty
+
+		    	else
+		    		super.removeSkill(getKnownSkill(4267));
+
+		    	sendPacket(new EtcStatusUpdate(this));
 		    }
 		}
-	    }
-	    newPenalty = newPenalty - getExpertiseIndex();
-	    if (newPenalty <= 0)
-	    {
-		newPenalty = 0;
-	    }
-	    if (getExpertisePenalty() != newPenalty)
-	    {
-		_expertisePenalty = newPenalty;
-		if (newPenalty > 0)
-		{
-		    super.addSkill(SkillTable.getInstance().getInfo(4267, 1)); // level
-		    // used
-		    // to
-		    // be
-		    // newPenalty
-		} else
-		{
-		    super.removeSkill(getKnownSkill(4267));
-		}
-		sendPacket(new EtcStatusUpdate(this));
-	    }
-	}
     }
 
     public void checkIfWeaponIsAllowed()
     {
-	// Override for Gamemasters
-	if (isGM())
-	{
-	    return;
-	}
-	// Iterate through all effects currently on the character.
-	for (L2Effect currenteffect : getAllEffects())
-	{
-	    L2Skill effectSkill = currenteffect.getSkill();
-	    
-        if (currenteffect.getSkill().isToggle())   
-            currenteffect.exit();   
-	    // Ignore all buff skills that are party related (ie. songs, dances)
-	    // while still remaining weapon dependant on cast though.
-        else if (!effectSkill.isOffensive() && !((effectSkill.getTargetType() == SkillTargetType.TARGET_PARTY) && (effectSkill.getSkillType() == SkillType.BUFF)))
-	    {
-		// Check to rest to assure current effect meets weapon requirements.
-		if (!effectSkill.getWeaponDependancy(this))
+		// Override for Gamemasters
+		if (isGM())
+		    return;
+
+		// Iterate through all effects currently on the character.
+		for (L2Effect currenteffect : getAllEffects())
 		{
-		    sendMessage(effectSkill.getName() + " cannot be used with this weapon.");
-		    if (Config.DEBUG)
+		    L2Skill effectSkill = currenteffect.getSkill();
+		    
+	        if (currenteffect.getSkill().isToggle())   
+	            currenteffect.exit();   
+		    // Ignore all buff skills that are party related (ie. songs, dances)
+		    // while still remaining weapon dependant on cast though.
+	        else if (!effectSkill.isOffensive() && !((effectSkill.getTargetType() == SkillTargetType.TARGET_PARTY) && (effectSkill.getSkillType() == SkillType.BUFF)))
 		    {
-			_log.info("   | Skill " + effectSkill.getName() + " has been disabled for (" + getName() + "); Reason: Incompatible Weapon Type.");
+	        	// Check to rest to assure current effect meets weapon requirements.
+	        	if (!effectSkill.getWeaponDependancy(this))
+	        	{
+	        		sendMessage(effectSkill.getName() + " cannot be used with this weapon.");
+	        		if (Config.DEBUG)
+	        			_log.info("   | Skill " + effectSkill.getName() + " has been disabled for (" + getName() + "); Reason: Incompatible Weapon Type.");
+
+	        		currenteffect.exit();
+	        	}
 		    }
-		    currenteffect.exit();
+	        continue;
 		}
-	    }
-	    continue;
-	}
     }
 
     public void checkSSMatch(L2ItemInstance equipped, L2ItemInstance unequipped)
     {
-	if (unequipped == null)
-	{
-	    return;
-	}
-	if ((unequipped.getItem().getType2() == L2Item.TYPE2_WEAPON) && (equipped == null ? true : equipped.getItem().getCrystalType() != unequipped.getItem().getCrystalType()))
-	{
-	    for (L2ItemInstance ss : getInventory().getItems())
-	    {
-		int _itemId = ss.getItemId();
-		if ((((_itemId >= 2509) && (_itemId <= 2514)) || ((_itemId >= 3947) && (_itemId <= 3952)) || ((_itemId <= 1804) && (_itemId >= 1808)) || (_itemId == 5789) || (_itemId == 5790) || (_itemId == 1835)) && (ss.getItem().getCrystalType() == unequipped.getItem().getCrystalType()))
+		if (unequipped == null)
+		    return;
+
+		if ((unequipped.getItem().getType2() == L2Item.TYPE2_WEAPON) && (equipped == null ? true : equipped.getItem().getCrystalType() != unequipped.getItem().getCrystalType()))
 		{
-		    sendPacket(new ExAutoSoulShot(_itemId, 0));
-		    SystemMessage sm = new SystemMessage(SystemMessageId.AUTO_USE_OF_S1_CANCELLED);
-		    sm.addString(ss.getItemName());
-		    sendPacket(sm);
+		    for (L2ItemInstance ss : getInventory().getItems())
+		    {
+		    	int _itemId = ss.getItemId();
+		    	if (((_itemId >= 2509 && _itemId <= 2514) || 
+		    			(_itemId >= 3947 && _itemId <= 3952) || 
+		    			(_itemId <= 1804 && _itemId >= 1808) || 
+		    			_itemId == 5789 || _itemId == 5790 || _itemId == 1835) && 
+		    			ss.getItem().getCrystalType() == unequipped.getItem().getCrystalType())
+				{
+		    		sendPacket(new ExAutoSoulShot(_itemId, 0));
+		    		SystemMessage sm = new SystemMessage(SystemMessageId.AUTO_USE_OF_S1_CANCELLED);
+				    sm.addString(ss.getItemName());
+				    sendPacket(sm);
+				}
+		    }
 		}
-	    }
-	}
     }
 
     /**
-     * Return the the PvP Kills of the L2PcInstance (Number of player killed
-     * during a PvP).<BR>
-     * <BR>
+     * Return the the PvP Kills of the L2PcInstance (Number of player killed during a PvP).<BR>
      */
     public int getPvpKills()
     {
-	return _pvpKills;
+    	return _pvpKills;
     }
 
     /**
-     * Set the the PvP Kills of the L2PcInstance (Number of player killed
-     * during a PvP).<BR>
-     * <BR>
+     * Set the the PvP Kills of the L2PcInstance (Number of player killed during a PvP).<BR>
      */
     public void setPvpKills(int pvpKills)
     {
-	_pvpKills = pvpKills;
+    	_pvpKills = pvpKills;
     }
 
     /**
-     * Return the ClassId object of the L2PcInstance contained in
-     * L2PcTemplate.<BR>
-     * <BR>
+     * Return the ClassId object of the L2PcInstance contained in L2PcTemplate.<BR>
      */
     public ClassId getClassId()
     {
-	return getTemplate().classId;
+    	return getTemplate().classId;
     }
 
     /**
      * Set the template of the L2PcInstance.<BR>
-     * <BR>
      *
      * @param Id
      *                The Identifier of the L2PcTemplate to set to the
@@ -2270,76 +2189,69 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setClassId(int Id)
     {
-	if ((getLvlJoinedAcademy() != 0) && (_clan != null) && (PlayerClass.values()[Id].getLevel() == ClassLevel.Third))
-	{
-	    if (getLvlJoinedAcademy() <= 16)
-	    {
-		_clan.setReputationScore(_clan.getReputationScore() + 400, true);
-	    } else if (getLvlJoinedAcademy() >= 39)
-	    {
-		_clan.setReputationScore(_clan.getReputationScore() + 170, true);
-	    } else
-	    {
-		_clan.setReputationScore(_clan.getReputationScore() + 400 - (getLvlJoinedAcademy() - 16) * 10, true);
-	    }
-	    _clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
-	    setLvlJoinedAcademy(0);
-	    // oust pledge member from the academy, cuz he has finished his
-	    // 2nd
-	    // class transfer
-	    SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_EXPELLED);
-	    msg.addString(getName());
-	    _clan.broadcastToOnlineMembers(msg);
-	    _clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()));
-	    _clan.removeClanMember(getName(), 0);
-	    sendPacket(new SystemMessage(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED));
-	    // receive graduation gift
-	    getInventory().addItem("Gift", 8181, 1, this, null); // give
-	    // academy
-	    // circlet
-	    getInventory().updateDatabase(); // update database
-	}
-	if (isSubClassActive())
-	{
-	    getSubClasses().get(_classIndex).setClassId(Id);
-	}
-	doCast(SkillTable.getInstance().getInfo(5103, 1));
-	setClassTemplate(Id);
-    }
+		if (getLvlJoinedAcademy() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
+		{
+		    if (getLvlJoinedAcademy() <= 16)
+			_clan.setReputationScore(_clan.getReputationScore() + 400, true);
 
+		    else if (getLvlJoinedAcademy() >= 39)
+			_clan.setReputationScore(_clan.getReputationScore() + 170, true);
+
+		    else
+			_clan.setReputationScore(_clan.getReputationScore() + 400 - (getLvlJoinedAcademy() - 16) * 10, true);
+
+		    _clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
+		    setLvlJoinedAcademy(0);
+		    // oust pledge member from the academy, cuz he has finished his 2nd class transfer
+		    SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_EXPELLED);
+		    msg.addString(getName());
+		    _clan.broadcastToOnlineMembers(msg);
+		    _clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()));
+		    _clan.removeClanMember(getName(), 0);
+		    sendPacket(new SystemMessage(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED));
+		    // receive graduation gift
+		    getInventory().addItem("Gift", 8181, 1, this, null); // give academy circlet
+		    getInventory().updateDatabase(); // update database
+		}
+		if (isSubClassActive())
+		    getSubClasses().get(_classIndex).setClassId(Id);
+
+		doCast(SkillTable.getInstance().getInfo(5103, 1));
+		setClassTemplate(Id);
+    }
+	
     /** Return the Experience of the L2PcInstance. */
     public long getExp()
     {
-	return getStat().getExp();
+    	return getStat().getExp();
     }
-
+	
     public void setActiveEnchantItem(L2ItemInstance scroll)
     {
-        // If we dont have a Enchant Item, we are not enchanting.   
-        if (scroll == null)   
-            setIsEnchanting(false);  
-	_activeEnchantItem = scroll;
+    	// If we dont have a Enchant Item, we are not enchanting.   
+    	if (scroll == null)   
+    		setIsEnchanting(false);  
+    	_activeEnchantItem = scroll;
     }
-
+	
     public L2ItemInstance getActiveEnchantItem()
     {
-	return _activeEnchantItem;
+    	return _activeEnchantItem;
     }
-    
+	    
     public void setIsEnchanting(boolean val)   
     {   
     	_isEnchanting = val;   
     } 
-    
+	    
     public boolean isEnchanting()  
     {  
     	return _isEnchanting;  
     }
-
+	
     /**
      * Set the fists weapon of the L2PcInstance (used when no weapon is
      * equiped).<BR>
-     * <BR>
      *
      * @param weaponItem
      *                The fists L2Weapon to set to the L2PcInstance
@@ -2347,79 +2259,82 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setFistsWeaponItem(L2Weapon weaponItem)
     {
-	_fistsWeaponItem = weaponItem;
+    	_fistsWeaponItem = weaponItem;
     }
-
+	
     /**
-     * Return the fists weapon of the L2PcInstance (used when no weapon is
-     * equiped).<BR>
-     * <BR>
+     * Return the fists weapon of the L2PcInstance (used when no weapon is equiped).<BR>
      */
     public L2Weapon getFistsWeaponItem()
     {
-	return _fistsWeaponItem;
+    	return _fistsWeaponItem;
     }
-
+	
     /**
-     * Return the fists weapon of the L2PcInstance Class (used when no
-     * weapon is equiped).<BR>
-     * <BR>
+     * Return the fists weapon of the L2PcInstance Class (used when no weapon is equiped).<BR>
      */
     public L2Weapon findFistsWeaponItem(int classId)
     {
-	L2Weapon weaponItem = null;
-	if ((classId >= 0x00) && (classId <= 0x09))
-	{
-	    // human fighter fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(246);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x0a) && (classId <= 0x11))
-	{
-	    // human mage fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(251);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x12) && (classId <= 0x18))
-	{
-	    // elven fighter fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(244);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x19) && (classId <= 0x1e))
-	{
-	    // elven mage fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(249);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x1f) && (classId <= 0x25))
-	{
-	    // dark elven fighter fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(245);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x26) && (classId <= 0x2b))
-	{
-	    // dark elven mage fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(250);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x2c) && (classId <= 0x30))
-	{
-	    // orc fighter fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(248);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x31) && (classId <= 0x34))
-	{
-	    // orc mage fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(252);
-	    weaponItem = (L2Weapon) temp;
-	} else if ((classId >= 0x35) && (classId <= 0x39))
-	{
-	    // dwarven fists
-	    L2Item temp = ItemTable.getInstance().getTemplate(247);
-	    weaponItem = (L2Weapon) temp;
-	}
-	return weaponItem;
+    	L2Weapon weaponItem = null;
+    	if (classId >= 0x00 && classId <= 0x09)
+    	{
+    		// human fighter fists
+    		L2Item temp = ItemTable.getInstance().getTemplate(246);
+    		weaponItem = (L2Weapon) temp;
+    	} 
+    	else if (classId >= 0x0a && classId <= 0x11)
+		{
+		    // human mage fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(251);
+		    weaponItem = (L2Weapon) temp;
+		} 
+    	else if (classId >= 0x12 && classId <= 0x18)
+		{
+		    // elven fighter fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(244);
+		    weaponItem = (L2Weapon) temp;
+		} 
+    	else if (classId >= 0x19 && classId <= 0x1e)
+		{
+		    // elven mage fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(249);
+		    weaponItem = (L2Weapon) temp;
+		}
+    	else if (classId >= 0x1f && classId <= 0x25)
+		{
+		    // dark elven fighter fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(245);
+		    weaponItem = (L2Weapon) temp;
+		} 
+    	else if (classId >= 0x26 && classId <= 0x2b)
+		{
+		    // dark elven mage fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(250);
+		    weaponItem = (L2Weapon) temp;
+		} 
+    	else if (classId >= 0x2c && classId <= 0x30)
+		{
+		    // orc fighter fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(248);
+		    weaponItem = (L2Weapon) temp;
+		} 
+    	else if (classId >= 0x31 && classId <= 0x34)
+		{
+		    // orc mage fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(252);
+		    weaponItem = (L2Weapon) temp;
+		}
+    	else if (classId >= 0x35 && classId <= 0x39)
+		{
+		    // dwarven fists
+		    L2Item temp = ItemTable.getInstance().getTemplate(247);
+		    weaponItem = (L2Weapon) temp;
+		}
+		return weaponItem;
     }
 
     /**
      * Give Expertise skill of this level and remove beginner Lucky skill.<BR>
-     * <BR>
      *
      * <B><U> Actions</U> :</B><BR>
      * <BR>
@@ -2427,91 +2342,74 @@ public final class L2PcInstance extends L2PlayableInstance
      * <li>If L2PcInstance Level is 5, remove beginner Lucky skill </li>
      * <li>Add the Expertise skill corresponding to its Expertise level</li>
      * <li>Update the overloaded status of the L2PcInstance</li>
-     * <BR>
-     * <BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T give
      * other free skills (SP needed = 0)</B></FONT><BR>
-     * <BR>
      *
      */
     public void rewardSkills()
     {
-	// Get the Level of the L2PcInstance
-	int lvl = getLevel();
-	// Remove beginner Lucky skill
-	if (lvl == 10)
-	{
-	    L2Skill skill = SkillTable.getInstance().getInfo(194, 1);
-	    skill = removeSkill(skill);
-	    if (Config.DEBUG && (skill != null))
-	    {
-		_log.fine("removed skill 'Lucky' from " + getName());
-	    }
-	}
-	// Calculate the current higher Expertise of the L2PcInstance
-	for (int i = 0; i < EXPERTISE_LEVELS.length; i++)
-	{
-	    if (lvl >= EXPERTISE_LEVELS[i])
-	    {
-		setExpertiseIndex(i);
-	    }
-	}
-	// Add the Expertise skill corresponding to its Expertise level
-	if (getExpertiseIndex() > 0)
-	{
-	    L2Skill skill = SkillTable.getInstance().getInfo(239, getExpertiseIndex());
-	    addSkill(skill, true);
-	    if (Config.DEBUG)
-	    {
-		_log.fine("awarded " + getName() + " with new expertise.");
-	    }
-	} else
-	{
-	    if (Config.DEBUG)
-	    {
-		_log.fine("No skills awarded at lvl: " + lvl);
-	    }
-	}
-	// Active skill dwarven craft
-	if ((getSkillLevel(1321) < 1) && (getRace() == Race.dwarf))
-	{
-	    L2Skill skill = SkillTable.getInstance().getInfo(1321, 1);
-	    addSkill(skill, true);
-	}
-	// Active skill common craft
-	if (getSkillLevel(1322) < 1)
-	{
-	    L2Skill skill = SkillTable.getInstance().getInfo(1322, 1);
-	    addSkill(skill, true);
-	}
-	for (int i = 0; i < COMMON_CRAFT_LEVELS.length; i++)
-	{
-	    if ((lvl >= COMMON_CRAFT_LEVELS[i]) && (getSkillLevel(1320) < i + 1))
-	    {
-		L2Skill skill = SkillTable.getInstance().getInfo(1320, (i + 1));
-		addSkill(skill, true);
-	    }
-	}
-	// Auto-Learn skills if activated
-	if (Config.AUTO_LEARN_SKILLS)
-	{
-	    giveAvailableSkills();
-	}
-	sendSkillList();
-	// This function gets called on login, so not such a bad place to check
-	// weight
-	refreshOverloaded(); // Update the overloaded status of the
-	// L2PcInstance
-	refreshExpertisePenalty(); // Update the expertise status of the
-	// L2PcInstance
+		// Get the Level of the L2PcInstance
+		int lvl = getLevel();
+		// Remove beginner Lucky skill
+		if (lvl == 10)
+		{
+		    L2Skill skill = SkillTable.getInstance().getInfo(194, 1);
+		    skill = removeSkill(skill);
+		    if (Config.DEBUG && skill != null)
+		    	_log.fine("removed skill 'Lucky' from " + getName());
+		}
+		// Calculate the current higher Expertise of the L2PcInstance
+		for (int i = 0; i < EXPERTISE_LEVELS.length; i++)
+		{
+		    if (lvl >= EXPERTISE_LEVELS[i])
+		    	setExpertiseIndex(i);
+		}
+		// Add the Expertise skill corresponding to its Expertise level
+		if (getExpertiseIndex() > 0)
+		{
+		    L2Skill skill = SkillTable.getInstance().getInfo(239, getExpertiseIndex());
+		    addSkill(skill, true);
+		    if (Config.DEBUG)
+		    	_log.fine("awarded " + getName() + " with new expertise.");
+		}
+		else
+		{
+		    if (Config.DEBUG)
+		    	_log.fine("No skills awarded at lvl: " + lvl);
+		}
+		// Active skill dwarven craft
+		if (getSkillLevel(1321) < 1 && getRace() == Race.dwarf)
+		{
+		    L2Skill skill = SkillTable.getInstance().getInfo(1321, 1);
+		    addSkill(skill, true);
+		}
+		// Active skill common craft
+		if (getSkillLevel(1322) < 1)
+		{
+		    L2Skill skill = SkillTable.getInstance().getInfo(1322, 1);
+		    addSkill(skill, true);
+		}
+		for (int i = 0; i < COMMON_CRAFT_LEVELS.length; i++)
+		{
+		    if (lvl >= COMMON_CRAFT_LEVELS[i] && getSkillLevel(1320) < i + 1)
+		    {
+		    	L2Skill skill = SkillTable.getInstance().getInfo(1320, (i + 1));
+		    	addSkill(skill, true);
+		    }
+		}
+		// Auto-Learn skills if activated
+		if (Config.AUTO_LEARN_SKILLS)
+		    giveAvailableSkills();
+
+		sendSkillList();
+		// This function gets called on login, so not such a bad place to check weight
+		refreshOverloaded(); // Update the overloaded status of the L2PcInstance
+		refreshExpertisePenalty(); // Update the expertise status of the L2PcInstance
     }
 
     /**
-     * Regive all skills which aren't saved to database, like Noble, Hero,
-     * Clan Skills<BR>
-     * <BR>
-     *
+     * Regive all skills which aren't saved to database, like Noble, Hero, Clan Skills<BR>
      */
     private void regiveTemporarySkills()
     {
