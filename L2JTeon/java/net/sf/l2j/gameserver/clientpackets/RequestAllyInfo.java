@@ -19,33 +19,31 @@ import net.sf.l2j.gameserver.serverpackets.AllyInfo;
 /**
  * This class ...
  * 
- * @version $Revision: 1479 $ $Date: 2005-11-09 00:47:42 +0100 (mer., 09 nov.
- *          2005) $
+ * @version $Revision: 1479 $ $Date: 2005-11-09 00:47:42 +0100 (mer., 09 nov. 2005) $
  */
 public final class RequestAllyInfo extends L2GameClientPacket
 {
-    private static final String _C__8E_REQUESTALLYINFO = "[C] 8E RequestAllyInfo";
+	private static final String _C__8E_REQUESTALLYINFO = "[C] 8E RequestAllyInfo";
 
-    @Override
-    public void readImpl()
-    {
-    }
+	@Override
+	public void readImpl()
+	{
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	AllyInfo ai = new AllyInfo(getClient().getActiveChar());
-	sendPacket(ai);
-    }
+	@Override
+	protected void runImpl()
+	{
+		AllyInfo ai = new AllyInfo(getClient().getActiveChar());
+		sendPacket(ai);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__8E_REQUESTALLYINFO;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__8E_REQUESTALLYINFO;
+	}
 }

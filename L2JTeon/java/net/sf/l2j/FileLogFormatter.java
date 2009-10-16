@@ -27,19 +27,18 @@ import javolution.text.TextBuilder;
  */
 public class FileLogFormatter extends Formatter
 {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
-     */
+	/*
+	 * (non-Javadoc)
+	 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
+	 */
 	private static final String CRLF = "\r\n";
 	private static final String _ = "\t";
-    private SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss,SSS");
+	private SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss,SSS");
 
-    @Override
-    public String format(LogRecord record)
-    {
-    	TextBuilder output = new TextBuilder();
-    	return output.append(dateFmt.format(new Date(record.getMillis()))).append(_).append(record.getLevel().getName()).append(_).append(record.getThreadID()).append(_).append(record.getLoggerName()).append(_).append(record.getMessage()).append(CRLF).toString();
-    }
+	@Override
+	public String format(LogRecord record)
+	{
+		TextBuilder output = new TextBuilder();
+		return output.append(dateFmt.format(new Date(record.getMillis()))).append(_).append(record.getLevel().getName()).append(_).append(record.getThreadID()).append(_).append(record.getLoggerName()).append(_).append(record.getMessage()).append(CRLF).toString();
+	}
 }

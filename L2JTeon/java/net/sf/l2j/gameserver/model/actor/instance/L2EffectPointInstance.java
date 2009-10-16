@@ -21,21 +21,22 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2EffectPointInstance extends L2NpcInstance
 {
-    private L2Character _owner;
+	private L2Character _owner;
 
-    public L2EffectPointInstance(int objectId, L2NpcTemplate template, L2Character owner)
-    {
-    	super(objectId, template);
-    	_owner = owner;
-    }
-    
-    public L2Character getOwner()
-    {
-    	return _owner;
-    }
-    
-    /**
+	public L2EffectPointInstance(int objectId, L2NpcTemplate template, L2Character owner)
+	{
+		super(objectId, template);
+		_owner = owner;
+	}
+
+	public L2Character getOwner()
+	{
+		return _owner;
+	}
+
+	/**
 	 * this is called when a player interacts with this NPC
+	 * 
 	 * @param player
 	 */
 	@Override
@@ -44,12 +45,13 @@ public class L2EffectPointInstance extends L2NpcInstance
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(new ActionFailed());
 	}
-	
+
 	@Override
-    public void onActionShift(L2GameClient client)
-    {
-        L2PcInstance player = client.getActiveChar();
-        if (player == null) return;
-        player.sendPacket(new ActionFailed());
-    }
+	public void onActionShift(L2GameClient client)
+	{
+		L2PcInstance player = client.getActiveChar();
+		if (player == null)
+			return;
+		player.sendPacket(new ActionFailed());
+	}
 }

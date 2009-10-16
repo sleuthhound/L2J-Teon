@@ -35,245 +35,239 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class Npcbuffer
 {
-    public class BuffGroup
-    {
-
-        @SuppressWarnings("unchecked")
+	public class BuffGroup
+	{
+		@SuppressWarnings("unchecked")
 		public void addSkill(int t, int f)
-        {
-            entries.add(new int[] {
-                t, f
-            });
-        }
+		{
+			entries.add(new int[] { t, f });
+		}
 
-        public void setCost(int t, int f)
-        {
-            itemId = t;
-            itemCount = f;
-        }
+		public void setCost(int t, int f)
+		{
+			itemId = t;
+			itemCount = f;
+		}
 
-        public int nId;
-        public int itemId;
-        public int itemCount;
-        @SuppressWarnings("unchecked")
+		public int nId;
+		public int itemId;
+		public int itemCount;
+		@SuppressWarnings("unchecked")
 		public List entries;
 
-        @SuppressWarnings("unchecked")
+		@SuppressWarnings("unchecked")
 		public BuffGroup(int id)
-        {
-            nId = id;
-            entries = new FastList();
-        }
-    }
+		{
+			nId = id;
+			entries = new FastList();
+		}
+	}
 
+	public Npcbuffer()
+	{
+		bInitialized = false;
+	}
 
-    public Npcbuffer()
-    {
-        bInitialized = false;
-    }
+	public static Npcbuffer getInstance()
+	{
+		if (i == null)
+			i = new Npcbuffer();
+		return i;
+	}
 
-    public static Npcbuffer getInstance()
-    {
-        if(i == null)
-            i = new Npcbuffer();
-        return i;
-    }
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public static Map buffs()
-    {
-        return buffs;
-    }
+	{
+		return buffs;
+	}
 
-    public void engineInit()
-    {
-        loadBuffs();
-    }
+	public void engineInit()
+	{
+		loadBuffs();
+	}
 
-    public void reload(L2PcInstance client)
-    {
-        loadBuffs();
-        client.sendMessage((new StringBuilder("Buffer reload: entries ")).append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
-    }
+	public void reload(L2PcInstance client)
+	{
+		loadBuffs();
+		client.sendMessage((new StringBuilder("Buffer reload: entries ")).append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
+	}
 
-    public void useRestore(L2BuffInstance jj, L2PcInstance client, String type, String after)
-    {
-        if(type.equalsIgnoreCase("mp"))
-        {
-            if(client.getAdena() < mp_restore)
-            {
-                jj.showChatWnd(client, after, mp_restore, 57);
-                return;
-            }
-            client.setCurrentMp(client.getMaxMp());
-            client.reduceAdena("getrestore", mp_restore, jj, true);
-        }
-        if(type.equalsIgnoreCase("hp"))
-        {
-            if(client.getAdena() < hp_restore)
-            {
-                jj.showChatWnd(client, after, hp_restore, 57);
-                return;
-            }
-            client.setCurrentHp(client.getMaxHp());
-            client.reduceAdena("getrestore", hp_restore, jj, true);
-        }
-        if(type.equalsIgnoreCase("cp"))
-        {
-            if(client.getAdena() < cp_restore)
-            {
-                jj.showChatWnd(client, after, cp_restore, 57);
-                return;
-            }
-            client.setCurrentCp(client.getMaxCp());
-            client.reduceAdena("getrestore", cp_restore, jj, true);
-        }
-        jj.showChatWnd(client, after);
-    }
+	public void useRestore(L2BuffInstance jj, L2PcInstance client, String type, String after)
+	{
+		if (type.equalsIgnoreCase("mp"))
+		{
+			if (client.getAdena() < mp_restore)
+			{
+				jj.showChatWnd(client, after, mp_restore, 57);
+				return;
+			}
+			client.setCurrentMp(client.getMaxMp());
+			client.reduceAdena("getrestore", mp_restore, jj, true);
+		}
+		if (type.equalsIgnoreCase("hp"))
+		{
+			if (client.getAdena() < hp_restore)
+			{
+				jj.showChatWnd(client, after, hp_restore, 57);
+				return;
+			}
+			client.setCurrentHp(client.getMaxHp());
+			client.reduceAdena("getrestore", hp_restore, jj, true);
+		}
+		if (type.equalsIgnoreCase("cp"))
+		{
+			if (client.getAdena() < cp_restore)
+			{
+				jj.showChatWnd(client, after, cp_restore, 57);
+				return;
+			}
+			client.setCurrentCp(client.getMaxCp());
+			client.reduceAdena("getrestore", cp_restore, jj, true);
+		}
+		jj.showChatWnd(client, after);
+	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public void useBuff(L2BuffInstance jj, L2PcInstance client, String st, String after)
-    {
-        if(!bInitialized)
-        {
-            jj.showChatErrWnd(client, after, client.isGM() ? "buffer is not initialized." : "Come back later.");
-            return;
-        }
-        BuffGroup buff = (BuffGroup)buffs().get(Integer.valueOf(Integer.parseInt(st)));
-        if(buff == null)
-        {
-            jj.showChatErrWnd(client, after, client.isGM() ? (new StringBuilder("template ")).append(st).append(" is null.").toString() : "Come back later.");
-            return;
-        }
-        L2ItemInstance item = client.getInventory().getItemByItemId(buff.itemId);
-        if(item == null || item.getCount() < buff.itemCount)
-        {
-            jj.showChatWnd(client, after, buff.itemCount, buff.itemId);
-            return;
-        }
-        if(buff.itemId == 57)
-            client.reduceAdena("getbuff", buff.itemCount, jj, true);
-        else
-            client.destroyItem("getbuff", item.getObjectId(), buff.itemCount, jj, true);
-        int ef[];
-        for(Iterator iterator = buff.entries.iterator(); iterator.hasNext(); affect(jj, client, ef))
-            ef = (int[])iterator.next();
+	{
+		if (!bInitialized)
+		{
+			jj.showChatErrWnd(client, after, client.isGM() ? "buffer is not initialized." : "Come back later.");
+			return;
+		}
+		BuffGroup buff = (BuffGroup) buffs().get(Integer.valueOf(Integer.parseInt(st)));
+		if (buff == null)
+		{
+			jj.showChatErrWnd(client, after, client.isGM() ? (new StringBuilder("template ")).append(st).append(" is null.").toString() : "Come back later.");
+			return;
+		}
+		L2ItemInstance item = client.getInventory().getItemByItemId(buff.itemId);
+		if (item == null || item.getCount() < buff.itemCount)
+		{
+			jj.showChatWnd(client, after, buff.itemCount, buff.itemId);
+			return;
+		}
+		if (buff.itemId == 57)
+			client.reduceAdena("getbuff", buff.itemCount, jj, true);
+		else
+			client.destroyItem("getbuff", item.getObjectId(), buff.itemCount, jj, true);
+		int ef[];
+		for (Iterator iterator = buff.entries.iterator(); iterator.hasNext(); affect(jj, client, ef))
+			ef = (int[]) iterator.next();
+		client.updateEffectIcons();
+		jj.showChatWnd(client, after);
+	}
 
-        client.updateEffectIcons();
-        jj.showChatWnd(client, after);
-    }
+	public void affect(L2BuffInstance jj, L2PcInstance client, int effect[])
+	{
+		L2Skill skill = SkillTable.getInstance().getInfo(effect[0], effect[1]);
+		if (skill != null)
+		{
+			cae(client, skill);
+			skill.getEffects(jj, client);
+			client.sendPacket((new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT)).addSkillName(effect[0], effect[1]));
+		}
+		else
+		{
+			client.sendMessage(client.isGM() ? (new StringBuilder("null skill ")).append(effect[0]).append(" lv").append(effect[1]).toString() : "You are not able to receive this effect.");
+		}
+	}
 
-    public void affect(L2BuffInstance jj, L2PcInstance client, int effect[])
-    {
-        L2Skill skill = SkillTable.getInstance().getInfo(effect[0], effect[1]);
-        if(skill != null)
-        {
-            cae(client, skill);
-            skill.getEffects(jj, client);
-            client.sendPacket((new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT)).addSkillName(effect[0], effect[1]));
-        } else
-        {
-            client.sendMessage(client.isGM() ? (new StringBuilder("null skill ")).append(effect[0]).append(" lv").append(effect[1]).toString() : "You are not able to receive this effect.");
-        }
-    }
+	private void cae(L2PcInstance client, L2Skill skill)
+	{
+		L2Effect al2effect[];
+		int k = (al2effect = client.getAllEffects()).length;
+		for (int j = 0; j < k; j++)
+		{
+			L2Effect ef = al2effect[j];
+			if (ef.getSkill().getId() == skill.getId())
+				ef.exit();
+		}
+	}
 
-    private void cae(L2PcInstance client, L2Skill skill)
-    {
-        L2Effect al2effect[];
-        int k = (al2effect = client.getAllEffects()).length;
-        for(int j = 0; j < k; j++)
-        {
-            L2Effect ef = al2effect[j];
-            if(ef.getSkill().getId() == skill.getId())
-                ef.exit();
-        }
-
-    }
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	private void loadBuffs()
-    {
-        LineNumberReader lnr;
-        BuffGroup buffGroup;
-        buffs = new FastMap();
-        buffs_mul = new FastMap();
-        mp_restore = 1001;
-        cp_restore = 1001;
-        hp_restore = 1001;
-        String ln = null;
-        lnr = null;
-        buffGroup = null;
-        try
-        {
-            lnr = new LineNumberReader(new BufferedReader(new FileReader(new File("config/npcbuffer.properties"))));
-            while((ln = lnr.readLine()) != null) 
-            {
-                if(ln.trim().length() == 0 || ln.startsWith("//"))
-                    continue;
-                if(ln.startsWith("@param"))
-                {
-                    String h[] = ln.split(" ");
-                    if(h[1].equalsIgnoreCase("cp_restore"))
-                        cp_restore = Integer.parseInt(h[2]);
-                    if(h[1].equalsIgnoreCase("hp_restore"))
-                        hp_restore = Integer.parseInt(h[2]);
-                    if(h[1].equalsIgnoreCase("mp_restore"))
-                        mp_restore = Integer.parseInt(h[2]);
-                    continue;
-                }
-                if(ln.contains("//"))
-                {
-                    ln = ln.split("//")[0];
-                    ln = ln.replaceAll(" ", "");
-                    if(ln.trim().length() < 1)
-                        continue;
-                    ln = ln.replaceAll("\t", "");
-                }
-                String t[] = ln.split(";");
-                for(int c = 0; c < t.length; c++)
-                {
-                    String e = t[c];
-                    if(e.contains("="))
-                    {
-                        if(e.split("=")[0].contains("entry"))
-                        {
-                            int entryId = Integer.parseInt(e.split("=")[1]);
-                            buffGroup = new BuffGroup(entryId);
-                        }
-                        if(e.split("=")[0].contains("cost"))
-                        {
-                            String t2 = e.split("=")[1];
-                            t2 = t2.substring(1, t2.length() - 1);
-                            buffGroup.setCost(Integer.parseInt(t2.split(",")[0]), Integer.parseInt(t2.split(",")[1]));
-                        }
-                    } else
-                    {
-                        buffGroup.addSkill(Integer.parseInt(e.split(",")[0]), Integer.parseInt(e.split(",")[1]));
-                    }
-                }
-
-                if(buffGroup != null)
-                    buffs.put(Integer.valueOf(buffGroup.nId), buffGroup);
-            }
-        }
+	{
+		LineNumberReader lnr;
+		BuffGroup buffGroup;
+		buffs = new FastMap();
+		buffs_mul = new FastMap();
+		mp_restore = 1001;
+		cp_restore = 1001;
+		hp_restore = 1001;
+		String ln = null;
+		lnr = null;
+		buffGroup = null;
+		try
+		{
+			lnr = new LineNumberReader(new BufferedReader(new FileReader(new File("config/npcbuffer.properties"))));
+			while ((ln = lnr.readLine()) != null)
+			{
+				if (ln.trim().length() == 0 || ln.startsWith("//"))
+					continue;
+				if (ln.startsWith("@param"))
+				{
+					String h[] = ln.split(" ");
+					if (h[1].equalsIgnoreCase("cp_restore"))
+						cp_restore = Integer.parseInt(h[2]);
+					if (h[1].equalsIgnoreCase("hp_restore"))
+						hp_restore = Integer.parseInt(h[2]);
+					if (h[1].equalsIgnoreCase("mp_restore"))
+						mp_restore = Integer.parseInt(h[2]);
+					continue;
+				}
+				if (ln.contains("//"))
+				{
+					ln = ln.split("//")[0];
+					ln = ln.replaceAll(" ", "");
+					if (ln.trim().length() < 1)
+						continue;
+					ln = ln.replaceAll("\t", "");
+				}
+				String t[] = ln.split(";");
+				for (int c = 0; c < t.length; c++)
+				{
+					String e = t[c];
+					if (e.contains("="))
+					{
+						if (e.split("=")[0].contains("entry"))
+						{
+							int entryId = Integer.parseInt(e.split("=")[1]);
+							buffGroup = new BuffGroup(entryId);
+						}
+						if (e.split("=")[0].contains("cost"))
+						{
+							String t2 = e.split("=")[1];
+							t2 = t2.substring(1, t2.length() - 1);
+							buffGroup.setCost(Integer.parseInt(t2.split(",")[0]), Integer.parseInt(t2.split(",")[1]));
+						}
+					}
+					else
+					{
+						buffGroup.addSkill(Integer.parseInt(e.split(",")[0]), Integer.parseInt(e.split(",")[1]));
+					}
+				}
+				if (buffGroup != null)
+					buffs.put(Integer.valueOf(buffGroup.nId), buffGroup);
+			}
+		}
 		catch (Exception e)
-        {
-            e.printStackTrace();
-            bInitialized = false;
-        }
+		{
+			e.printStackTrace();
+			bInitialized = false;
+		}
+		bInitialized = true;
+		System.out.println((new StringBuilder("Buffer reload: entries ")).append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
+		return;
+	}
 
-        bInitialized = true;
-        System.out.println((new StringBuilder("Buffer reload: entries ")).append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
-        return;
-    }
-
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	private static Map buffs;
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	private Map buffs_mul;
-    private int mp_restore;
-    private int cp_restore;
-    private int hp_restore;
-    private static Npcbuffer i;
-    private boolean bInitialized;
+	private int mp_restore;
+	private int cp_restore;
+	private int hp_restore;
+	private static Npcbuffer i;
+	private boolean bInitialized;
 }

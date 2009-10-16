@@ -22,90 +22,92 @@ import java.util.List;
  * This class is made to create packets with any format
  * 
  * @author Maktakien
- * 
  */
 public class AdminForgePacket extends L2GameServerPacket
 {
-    private List<Part> _parts = new ArrayList<Part>();
+	private List<Part> _parts = new ArrayList<Part>();
 
-    private class Part
-    {
-	public byte b;
-	public String str;
-
-	public Part(byte bb, String string)
+	private class Part
 	{
-	    b = bb;
-	    str = string;
+		public byte b;
+		public String str;
+
+		public Part(byte bb, String string)
+		{
+			b = bb;
+			str = string;
+		}
 	}
-    }
 
-    public AdminForgePacket()
-    {
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-	for (Part p : _parts)
+	public AdminForgePacket()
 	{
-	    generate(p.b, p.str);
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return "[S] -1 AdminForge";
-    }
-
-    /**
-     * @param b
-     * @param string
-     */
-    public boolean generate(byte b, String string)
-    {
-	// TODO Auto-generated method stub
-	if ((b == 'C') || (b == 'c'))
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
 	{
-	    writeC(Integer.decode(string));
-	    return true;
-	} else if ((b == 'D') || (b == 'd'))
-	{
-	    writeD(Integer.decode(string));
-	    return true;
-	} else if ((b == 'H') || (b == 'h'))
-	{
-	    writeH(Integer.decode(string));
-	    return true;
-	} else if ((b == 'F') || (b == 'f'))
-	{
-	    writeF(Double.parseDouble(string));
-	    return true;
-	} else if ((b == 'S') || (b == 's'))
-	{
-	    writeS(string);
-	    return true;
-	} else if ((b == 'B') || (b == 'b') || (b == 'X') || (b == 'x'))
-	{
-	    writeB(new BigInteger(string).toByteArray());
-	    return true;
+		for (Part p : _parts)
+		{
+			generate(p.b, p.str);
+		}
 	}
-	return false;
-    }
 
-    public void addPart(byte b, String string)
-    {
-	_parts.add(new Part(b, string));
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return "[S] -1 AdminForge";
+	}
+
+	/**
+	 * @param b
+	 * @param string
+	 */
+	public boolean generate(byte b, String string)
+	{
+		// TODO Auto-generated method stub
+		if ((b == 'C') || (b == 'c'))
+		{
+			writeC(Integer.decode(string));
+			return true;
+		}
+		else if ((b == 'D') || (b == 'd'))
+		{
+			writeD(Integer.decode(string));
+			return true;
+		}
+		else if ((b == 'H') || (b == 'h'))
+		{
+			writeH(Integer.decode(string));
+			return true;
+		}
+		else if ((b == 'F') || (b == 'f'))
+		{
+			writeF(Double.parseDouble(string));
+			return true;
+		}
+		else if ((b == 'S') || (b == 's'))
+		{
+			writeS(string);
+			return true;
+		}
+		else if ((b == 'B') || (b == 'b') || (b == 'X') || (b == 'x'))
+		{
+			writeB(new BigInteger(string).toByteArray());
+			return true;
+		}
+		return false;
+	}
+
+	public void addPart(byte b, String string)
+	{
+		_parts.add(new Part(b, string));
+	}
 }

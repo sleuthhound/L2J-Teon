@@ -19,44 +19,44 @@ package net.sf.l2j.gameserver.datatables;
 
 public class PcColorContainer
 {
-    private int _color;
-    private long _regTime;
-    private long _time;
+	private int _color;
+	private long _regTime;
+	private long _time;
 
-    public PcColorContainer(int color, long regTime, long time)
-    {
-	_color = color;
-	_regTime = regTime;
-	_time = time;
-    }
+	public PcColorContainer(int color, long regTime, long time)
+	{
+		_color = color;
+		_regTime = regTime;
+		_time = time;
+	}
 
-    /**
-     * Returns the color
-     * 
-     * @return int
-     */
-    public int getColor()
-    {
-	return _color;
-    }
+	/**
+	 * Returns the color
+	 * 
+	 * @return int
+	 */
+	public int getColor()
+	{
+		return _color;
+	}
 
-    /**
-     * Returns the time when the color was registered
-     * 
-     * @return long
-     */
-    public long getRegTime()
-    {
-	return _regTime;
-    }
+	/**
+	 * Returns the time when the color was registered
+	 * 
+	 * @return long
+	 */
+	public long getRegTime()
+	{
+		return _regTime;
+	}
 
-    /**
-     * Returns the time when the color should be deleted
-     * 
-     * @return long
-     */
-    public long getTime()
-    {
-	return _time;
-    }
+	/**
+	 * Returns the time when the color should be deleted
+	 * 
+	 * @return long
+	 */
+	public long getTime()
+	{
+		return _time;
+	}
 }

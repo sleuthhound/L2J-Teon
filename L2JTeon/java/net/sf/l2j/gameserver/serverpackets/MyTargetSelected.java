@@ -15,7 +15,6 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * 
  * <p>
  * sample bf 73 5d 30 49 01 00
  * <p>
@@ -42,39 +41,35 @@ package net.sf.l2j.gameserver.serverpackets;
  */
 public class MyTargetSelected extends L2GameServerPacket
 {
-    private static final String _S__BF_MYTARGETSELECTED = "[S] a6 MyTargetSelected";
-    private int _objectId;
-    private int _color;
+	private static final String _S__BF_MYTARGETSELECTED = "[S] a6 MyTargetSelected";
+	private int _objectId;
+	private int _color;
 
-    /**
-     * @param int
-     *                objectId of the target
-     * @param int
-     *                level difference to the target. name color is
-     *                calculated from that
-     */
-    public MyTargetSelected(int objectId, int color)
-    {
-	_objectId = objectId;
-	_color = color;
-    }
+	/**
+	 * @param int objectId of the target
+	 * @param int level difference to the target. name color is calculated from that
+	 */
+	public MyTargetSelected(int objectId, int color)
+	{
+		_objectId = objectId;
+		_color = color;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0xa6);
-	writeD(_objectId);
-	writeH(_color);
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0xa6);
+		writeD(_objectId);
+		writeH(_color);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__BF_MYTARGETSELECTED;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__BF_MYTARGETSELECTED;
+	}
 }

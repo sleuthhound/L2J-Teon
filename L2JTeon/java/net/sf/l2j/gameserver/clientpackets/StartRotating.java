@@ -23,34 +23,33 @@ import net.sf.l2j.gameserver.serverpackets.BeginRotation;
  */
 public final class StartRotating extends L2GameClientPacket
 {
-    private static final String _C__4A_STARTROTATING = "[C] 4A StartRotating";
-    private int _degree;
-    private int _side;
+	private static final String _C__4A_STARTROTATING = "[C] 4A StartRotating";
+	private int _degree;
+	private int _side;
 
-    @Override
-    protected void readImpl()
-    {
-	_degree = readD();
-	_side = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_degree = readD();
+		_side = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	if (getClient().getActiveChar() == null)
-	    return;
-	BeginRotation br = new BeginRotation(getClient().getActiveChar().getObjectId(), _degree, _side, 0);
-	getClient().getActiveChar().broadcastPacket(br);
-    }
+	@Override
+	protected void runImpl()
+	{
+		if (getClient().getActiveChar() == null)
+			return;
+		BeginRotation br = new BeginRotation(getClient().getActiveChar().getObjectId(), _degree, _side, 0);
+		getClient().getActiveChar().broadcastPacket(br);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__4A_STARTROTATING;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__4A_STARTROTATING;
+	}
 }

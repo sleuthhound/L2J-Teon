@@ -24,43 +24,43 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
  */
 public final class DlgAnswer extends L2GameClientPacket
 {
-    private static final String _C__C5_DLGANSWER = "[C] C5 DlgAnswer";
-    private static Logger _log = Logger.getLogger(DlgAnswer.class.getName());
-    private int _messageId;
-    private int _answer; 
-    private int _requesterId;
+	private static final String _C__C5_DLGANSWER = "[C] C5 DlgAnswer";
+	private static Logger _log = Logger.getLogger(DlgAnswer.class.getName());
+	private int _messageId;
+	private int _answer;
+	private int _requesterId;
 
-    @Override
-    protected void readImpl()
-    {
-	_messageId = readD();
-	_answer = readD();
-	_requesterId  = readD();
-    }
-
-    @Override
-    public void runImpl()
-    {
-	if (Config.DEBUG)
-	    _log.fine(getType() + ": Answer acepted. Message ID " + _messageId + ", asnwer " + _answer + ", + Requester ID "+_requesterId);
-	if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
-	    getClient().getActiveChar().reviveAnswer(_answer);
-	else if ((_messageId == 1983) && Config.ALLOW_WEDDING)
-	    getClient().getActiveChar().EngageAnswer(_answer);
-    else if (_messageId == 1140 ) 
-        getClient().getActiveChar().gatesAnswer(_answer, 1); 
-    else if (_messageId == 1141) 
-        getClient().getActiveChar().gatesAnswer(_answer, 0); 
-	else if ((_messageId == 614) && L2EventManagerInstance._awaitingplayers.contains(getClient().getActiveChar()))
+	@Override
+	protected void readImpl()
 	{
-	    getClient().getActiveChar().setRaidAnswear(_answer);
-	    L2EventManagerInstance._awaitingplayers.remove(getClient().getActiveChar());
+		_messageId = readD();
+		_answer = readD();
+		_requesterId = readD();
 	}
-    }
 
-    @Override
-    public String getType()
-    {
-	return _C__C5_DLGANSWER;
-    }
+	@Override
+	public void runImpl()
+	{
+		if (Config.DEBUG)
+			_log.fine(getType() + ": Answer acepted. Message ID " + _messageId + ", asnwer " + _answer + ", + Requester ID " + _requesterId);
+		if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
+			getClient().getActiveChar().reviveAnswer(_answer);
+		else if ((_messageId == 1983) && Config.ALLOW_WEDDING)
+			getClient().getActiveChar().EngageAnswer(_answer);
+		else if (_messageId == 1140)
+			getClient().getActiveChar().gatesAnswer(_answer, 1);
+		else if (_messageId == 1141)
+			getClient().getActiveChar().gatesAnswer(_answer, 0);
+		else if ((_messageId == 614) && L2EventManagerInstance._awaitingplayers.contains(getClient().getActiveChar()))
+		{
+			getClient().getActiveChar().setRaidAnswear(_answer);
+			L2EventManagerInstance._awaitingplayers.remove(getClient().getActiveChar());
+		}
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__C5_DLGANSWER;
+	}
 }

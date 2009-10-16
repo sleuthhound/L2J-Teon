@@ -19,36 +19,36 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectSilenceMagicPhysical extends L2Effect
 {
-    public EffectSilenceMagicPhysical(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectSilenceMagicPhysical(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return L2Effect.EffectType.SILENCE_MAGIC_PHYSICAL;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return L2Effect.EffectType.SILENCE_MAGIC_PHYSICAL;
+	}
 
-    @Override
-    public void onStart()
-    {
-	getEffected().startMuted();
-	getEffected().startPsychicalMuted();
-    }
+	@Override
+	public void onStart()
+	{
+		getEffected().startMuted();
+		getEffected().startPsychicalMuted();
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	getEffected().stopMuted(this);
-	getEffected().stopPsychicalMuted(this);
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		getEffected().stopMuted(this);
+		getEffected().stopPsychicalMuted(this);
+		return false;
+	}
 
-    @Override
-    public void onExit()
-    {
-	getEffected().stopMuted(this);
-	getEffected().stopPsychicalMuted(this);
-    }
+	@Override
+	public void onExit()
+	{
+		getEffected().stopMuted(this);
+		getEffected().stopPsychicalMuted(this);
+	}
 }

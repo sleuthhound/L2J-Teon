@@ -19,33 +19,33 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectStunSelf extends L2Effect
 {
-    public EffectStunSelf(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectStunSelf(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.STUN_SELF;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.STUN_SELF;
+	}
 
-    @Override
-    public void onStart()
-    {
-	getEffector().startStunning();
-    }
+	@Override
+	public void onStart()
+	{
+		getEffector().startStunning();
+	}
 
-    @Override
-    public void onExit()
-    {
-	getEffector().stopStunning(this);
-    }
+	@Override
+	public void onExit()
+	{
+		getEffector().stopStunning(this);
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	// just stop this effect
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
+	}
 }

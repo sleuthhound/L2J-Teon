@@ -18,7 +18,6 @@ import net.sf.l2j.loginserver.L2LoginClient;
 import com.l2jserver.mmocore.network.SendablePacket;
 
 /**
- * 
  * @author KenM
  */
 public abstract class L2LoginServerPacket extends SendablePacket<L2LoginClient>

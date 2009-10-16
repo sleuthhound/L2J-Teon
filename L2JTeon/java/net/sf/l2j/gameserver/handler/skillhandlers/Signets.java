@@ -31,28 +31,25 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
  *
  *  Animation packets still needed
  */
-public class Signets implements ISkillHandler {
+public class Signets implements ISkillHandler
+{
+	private static final SkillType[] SKILL_IDS = { SkillType.SIGNET };
 
-    private static final SkillType[] SKILL_IDS = {SkillType.SIGNET};
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	{
+		if (!(activeChar instanceof L2PcInstance))
+			return;
+		L2WorldRegion region = activeChar.getWorldRegion();
+		L2DynamicZone zone = new L2DynamicZone(region, activeChar, skill);
+		zone.setZone(new ZoneCylinder(activeChar.getX(), activeChar.getY(), activeChar.getZ() - 200, activeChar.getZ() + 200, skill.getSkillRadius()));
+		region.addZone(zone);
+		for (L2Character c : activeChar.getKnownList().getKnownCharacters())
+			zone.revalidateInZone(c);
+		zone.revalidateInZone(activeChar);
+	}
 
-    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets) {
-
-    	if (!(activeChar instanceof L2PcInstance))
-            return;
-
-        L2WorldRegion region = activeChar.getWorldRegion();
-        L2DynamicZone zone = new L2DynamicZone(region, activeChar, skill);
-		zone.setZone(new ZoneCylinder(activeChar.getX(),activeChar.getY(), activeChar.getZ()-200,
-				activeChar.getZ()+200, skill.getSkillRadius()));
-
-        region.addZone(zone);
-        for(L2Character c : activeChar.getKnownList().getKnownCharacters())
-        	zone.revalidateInZone(c);
-        zone.revalidateInZone(activeChar);
-    }
-
-    public SkillType[] getSkillIds() 
-    {
-        return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

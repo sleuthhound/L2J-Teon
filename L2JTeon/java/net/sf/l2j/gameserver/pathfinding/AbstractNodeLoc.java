@@ -15,18 +15,17 @@
 package net.sf.l2j.gameserver.pathfinding;
 
 /**
- * 
  * @author -Nemesiss-
  */
 public abstract class AbstractNodeLoc
 {
-    public abstract int getX();
+	public abstract int getX();
 
-    public abstract int getY();
+	public abstract int getY();
 
-    public abstract short getZ();
+	public abstract short getZ();
 
-    public abstract short getNodeX();
+	public abstract short getNodeX();
 
-    public abstract short getNodeY();
+	public abstract short getNodeY();
 }

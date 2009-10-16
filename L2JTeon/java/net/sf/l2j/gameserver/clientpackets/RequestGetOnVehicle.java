@@ -27,42 +27,41 @@ import net.sf.l2j.util.Point3D;
  */
 public final class RequestGetOnVehicle extends L2GameClientPacket
 {
-    private static final String _C__5C_GETONVEHICLE = "[C] 5C GetOnVehicle";
-    private int _id, _x, _y, _z;
+	private static final String _C__5C_GETONVEHICLE = "[C] 5C GetOnVehicle";
+	private int _id, _x, _y, _z;
 
-    @Override
-    protected void readImpl()
-    {
-	_id = readD();
-	_x = readD();
-	_y = readD();
-	_z = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_id = readD();
+		_x = readD();
+		_y = readD();
+		_z = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	L2BoatInstance boat = BoatManager.getInstance().GetBoat(_id);
-	if (boat == null)
-	    return;
-	GetOnVehicle Gon = new GetOnVehicle(activeChar, boat, _x, _y, _z);
-	activeChar.setInBoatPosition(new Point3D(_x, _y, _z));
-	activeChar.getPosition().setXYZ(boat.getPosition().getX(), boat.getPosition().getY(), boat.getPosition().getZ());
-	activeChar.broadcastPacket(Gon);
-	activeChar.revalidateZone(true);
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		L2BoatInstance boat = BoatManager.getInstance().GetBoat(_id);
+		if (boat == null)
+			return;
+		GetOnVehicle Gon = new GetOnVehicle(activeChar, boat, _x, _y, _z);
+		activeChar.setInBoatPosition(new Point3D(_x, _y, _z));
+		activeChar.getPosition().setXYZ(boat.getPosition().getX(), boat.getPosition().getY(), boat.getPosition().getZ());
+		activeChar.broadcastPacket(Gon);
+		activeChar.revalidateZone(true);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__5C_GETONVEHICLE;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__5C_GETONVEHICLE;
+	}
 }

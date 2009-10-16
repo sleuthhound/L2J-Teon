@@ -28,9 +28,8 @@ final class EffectBestowSkill extends L2Effect
 	{
 		super(env, template);
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.model.L2Effect#getEffectType()
 	 */
 	@Override
@@ -38,9 +37,8 @@ final class EffectBestowSkill extends L2Effect
 	{
 		return EffectType.BUFF;
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.model.L2Effect#onStart()
 	 */
 	@Override
@@ -54,9 +52,8 @@ final class EffectBestowSkill extends L2Effect
 		}
 		return;
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
@@ -64,9 +61,8 @@ final class EffectBestowSkill extends L2Effect
 	{
 		getEffected().removeSkill(getSkill().getTriggeredId());
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.model.L2Effect#onActionTime()
 	 */
 	@Override

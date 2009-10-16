@@ -19,8 +19,8 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
  * A peaceful zone
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2PeaceZone extends L2ZoneType
 {
@@ -42,9 +42,12 @@ public class L2PeaceZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

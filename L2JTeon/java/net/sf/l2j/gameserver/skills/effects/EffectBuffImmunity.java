@@ -19,36 +19,35 @@ import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * @author schursin (L2JOneo Dev Team)
- * 
  */
 final class EffectBuffImmunity extends L2Effect
 {
-    public EffectBuffImmunity(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectBuffImmunity(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.BUFFIMMUNITY;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.BUFFIMMUNITY;
+	}
 
-    @Override
-    public void onStart()
-    {
-	getEffected().setBuffImmunity(true);
-    }
+	@Override
+	public void onStart()
+	{
+		getEffected().setBuffImmunity(true);
+	}
 
-    @Override
-    public void onExit()
-    {
-	getEffected().setBuffImmunity(false);
-    }
+	@Override
+	public void onExit()
+	{
+		getEffected().setBuffImmunity(false);
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }

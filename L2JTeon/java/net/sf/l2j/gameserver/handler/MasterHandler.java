@@ -20,9 +20,8 @@ import net.sf.l2j.gameserver.handler.chathandlers.*;
 import net.sf.l2j.gameserver.handler.skillhandlers.*;
 
 /**
-* @Author nBd 
-* ---> Stefoulis15 <--- idiot
-*/
+ * @Author nBd ---> Stefoulis15 <--- idiot
+ */
 public class MasterHandler
 {
 	private static Logger _log = Logger.getLogger(MasterHandler.class.getName());
@@ -41,43 +40,44 @@ public class MasterHandler
 		ChatHandler.getInstance().registerChatHandler(new ChatTell());
 		ChatHandler.getInstance().registerChatHandler(new ChatTrade());
 	}
-	
+
 	private static void loadSkillHandlers()
 	{
-	SkillHandler.getInstance().registerSkillHandler(new Blow());
-	SkillHandler.getInstance().registerSkillHandler(new Pdam());
-	SkillHandler.getInstance().registerSkillHandler(new Mdam());
-	SkillHandler.getInstance().registerSkillHandler(new CpDam());
-	SkillHandler.getInstance().registerSkillHandler(new Manadam());
-	SkillHandler.getInstance().registerSkillHandler(new Heal());
-	SkillHandler.getInstance().registerSkillHandler(new CombatPointHeal());
-	SkillHandler.getInstance().registerSkillHandler(new ManaHeal());
-	SkillHandler.getInstance().registerSkillHandler(new BalanceLife());
-	SkillHandler.getInstance().registerSkillHandler(new Charge());
-	SkillHandler.getInstance().registerSkillHandler(new Continuous());
-	SkillHandler.getInstance().registerSkillHandler(new Resurrect());
-	SkillHandler.getInstance().registerSkillHandler(new Spoil());
-	SkillHandler.getInstance().registerSkillHandler(new Sweep());
-	SkillHandler.getInstance().registerSkillHandler(new StrSiegeAssault());
-	SkillHandler.getInstance().registerSkillHandler(new SummonFriend());
-	SkillHandler.getInstance().registerSkillHandler(new SummonTreasureKey());
-	SkillHandler.getInstance().registerSkillHandler(new Disablers());
-	SkillHandler.getInstance().registerSkillHandler(new Recall());
-	SkillHandler.getInstance().registerSkillHandler(new SiegeFlag());
-	SkillHandler.getInstance().registerSkillHandler(new TakeCastle());
-	SkillHandler.getInstance().registerSkillHandler(new Unlock());
-	SkillHandler.getInstance().registerSkillHandler(new DrainSoul());
-	SkillHandler.getInstance().registerSkillHandler(new Craft());
-	SkillHandler.getInstance().registerSkillHandler(new Fishing());
-	SkillHandler.getInstance().registerSkillHandler(new FishingSkill());
-	SkillHandler.getInstance().registerSkillHandler(new BeastFeed());
-	SkillHandler.getInstance().registerSkillHandler(new DeluxeKey());
-	SkillHandler.getInstance().registerSkillHandler(new Sow());
-	SkillHandler.getInstance().registerSkillHandler(new Harvest());
-	SkillHandler.getInstance().registerSkillHandler(new Signets());
-	SkillHandler.getInstance().registerSkillHandler(new GetPlayer());
-        SkillHandler.getInstance().registerSkillHandler(new GiveSp());
+		SkillHandler.getInstance().registerSkillHandler(new Blow());
+		SkillHandler.getInstance().registerSkillHandler(new Pdam());
+		SkillHandler.getInstance().registerSkillHandler(new Mdam());
+		SkillHandler.getInstance().registerSkillHandler(new CpDam());
+		SkillHandler.getInstance().registerSkillHandler(new Manadam());
+		SkillHandler.getInstance().registerSkillHandler(new Heal());
+		SkillHandler.getInstance().registerSkillHandler(new CombatPointHeal());
+		SkillHandler.getInstance().registerSkillHandler(new ManaHeal());
+		SkillHandler.getInstance().registerSkillHandler(new BalanceLife());
+		SkillHandler.getInstance().registerSkillHandler(new Charge());
+		SkillHandler.getInstance().registerSkillHandler(new Continuous());
+		SkillHandler.getInstance().registerSkillHandler(new Resurrect());
+		SkillHandler.getInstance().registerSkillHandler(new Spoil());
+		SkillHandler.getInstance().registerSkillHandler(new Sweep());
+		SkillHandler.getInstance().registerSkillHandler(new StrSiegeAssault());
+		SkillHandler.getInstance().registerSkillHandler(new SummonFriend());
+		SkillHandler.getInstance().registerSkillHandler(new SummonTreasureKey());
+		SkillHandler.getInstance().registerSkillHandler(new Disablers());
+		SkillHandler.getInstance().registerSkillHandler(new Recall());
+		SkillHandler.getInstance().registerSkillHandler(new SiegeFlag());
+		SkillHandler.getInstance().registerSkillHandler(new TakeCastle());
+		SkillHandler.getInstance().registerSkillHandler(new Unlock());
+		SkillHandler.getInstance().registerSkillHandler(new DrainSoul());
+		SkillHandler.getInstance().registerSkillHandler(new Craft());
+		SkillHandler.getInstance().registerSkillHandler(new Fishing());
+		SkillHandler.getInstance().registerSkillHandler(new FishingSkill());
+		SkillHandler.getInstance().registerSkillHandler(new BeastFeed());
+		SkillHandler.getInstance().registerSkillHandler(new DeluxeKey());
+		SkillHandler.getInstance().registerSkillHandler(new Sow());
+		SkillHandler.getInstance().registerSkillHandler(new Harvest());
+		SkillHandler.getInstance().registerSkillHandler(new Signets());
+		SkillHandler.getInstance().registerSkillHandler(new GetPlayer());
+		SkillHandler.getInstance().registerSkillHandler(new GiveSp());
 	}
+
 	public static void load()
 	{
 		_log.config("Loading Handlers...");
@@ -86,4 +86,3 @@ public class MasterHandler
 		_log.config("Handlers Loaded...");
 	}
 }
-

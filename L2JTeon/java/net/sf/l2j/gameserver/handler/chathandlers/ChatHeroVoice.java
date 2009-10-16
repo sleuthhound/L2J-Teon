@@ -23,8 +23,8 @@ import net.sf.l2j.gameserver.util.FloodProtector;
 
 /**
  * A chat handler
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class ChatHeroVoice implements IChatHandler
 {
@@ -32,6 +32,7 @@ public class ChatHeroVoice implements IChatHandler
 
 	/**
 	 * Handle chat type 'hero voice'
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
@@ -43,9 +44,7 @@ public class ChatHeroVoice implements IChatHandler
 				activeChar.sendMessage("Action failed. Heroes are only able to speak in the global channel once every 10 seconds.");
 				return;
 			}
-
 			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
 				if (!BlockList.isBlocked(player, activeChar))
@@ -58,6 +57,7 @@ public class ChatHeroVoice implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	public int[] getChatTypeList()

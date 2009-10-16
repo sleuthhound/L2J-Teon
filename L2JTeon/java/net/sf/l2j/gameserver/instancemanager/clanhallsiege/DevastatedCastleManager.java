@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package net.sf.l2j.gameserver.instancemanager.clanhallsiege;
 
 import java.sql.Connection;
@@ -61,23 +60,21 @@ import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
 /*
  * Author: Maxi
  */
-
 public class DevastatedCastleManager
 {
-	private static DevastatedCastleManager	_instance;
+	private static DevastatedCastleManager _instance;
 	private boolean _isInProgress = false;
 	private Calendar _siegeEndDate;
 	private Calendar _siegeDate;
 	private Map<Integer, DamageInfo> _clansDamageInfo;
 	private L2Clan _clan;
-
-	private static long GUSTAV_RESPAWN_TIME = 1209600000; //TODO Should it be in a config?
+	private static long GUSTAV_RESPAWN_TIME = 1209600000; // TODO Should it be in a config?
 	private static Log _log = LogFactory.getLog(DevastatedCastleManager.class.getName());
 	private ArrayList _monsters;
 	private ArrayList _spawns;
 	private boolean _removeMobs = true;
-	private boolean	_registrationPeriod	= false;
-	private int _clanCounter		= 0;
+	private boolean _registrationPeriod = false;
+	private int _clanCounter = 0;
 
 	private class DamageInfo
 	{
@@ -101,13 +98,11 @@ public class DevastatedCastleManager
 			PreparedStatement statement = con.prepareStatement("SELECT siege_data FROM clanhall_siege WHERE id=?");
 			statement.setInt(1, 34);
 			ResultSet rs = statement.executeQuery();
-			
-			while(rs.next())
+			while (rs.next())
 			{
 				_siegeDate = Calendar.getInstance();
 				_siegeDate.setTimeInMillis(rs.getLong("siege_data"));
 			}
-
 			rs.close();
 			statement.close();
 		}
@@ -157,21 +152,21 @@ public class DevastatedCastleManager
 				e.printStackTrace();
 			}
 			_siegeDate.setTimeInMillis(System.currentTimeMillis() + GUSTAV_RESPAWN_TIME);
-			_log.info("Gustav next spawn is: "+getTimeLeft());
+			_log.info("Gustav next spawn is: " + getTimeLeft());
 		}
 	}
 
 	private DevastatedCastleManager()
 	{
-        _monsters = new ArrayList();
-        _spawns = new ArrayList();
-	_isInProgress = false;
-	_removeMobs = true;
-	restoreSiegeDate();
-	_clansDamageInfo = new HashMap<Integer, DamageInfo>();
-	_startSiegeTask.execute();
-	_log.info("Devastated Castle Siege: initiated.");
-	_log.info("Devastated Castle Siege: Gustav next spawn: " + getTimeLeft());
+		_monsters = new ArrayList();
+		_spawns = new ArrayList();
+		_isInProgress = false;
+		_removeMobs = true;
+		restoreSiegeDate();
+		_clansDamageInfo = new HashMap<Integer, DamageInfo>();
+		_startSiegeTask.execute();
+		_log.info("Devastated Castle Siege: initiated.");
+		_log.info("Devastated Castle Siege: Gustav next spawn: " + getTimeLeft());
 	}
 
 	public final boolean getIsInProgress()
@@ -181,9 +176,9 @@ public class DevastatedCastleManager
 
 	public final Calendar getSiegeDate()
 	{
-		return _siegeDate;	
+		return _siegeDate;
 	}
-	
+
 	public final String getTimeLeft()
 	{
 		return _siegeDate.getTime().toString();
@@ -193,39 +188,34 @@ public class DevastatedCastleManager
 	{
 		_isInProgress = true;
 		_removeMobs = false;
-		
-		if(!_clansDamageInfo.isEmpty())
+		if (!_clansDamageInfo.isEmpty())
 			_clansDamageInfo.clear();
-
 		_siegeEndDate = Calendar.getInstance();
 		_siegeEndDate.add(Calendar.MINUTE, 60);
 		_endSiegeTask.execute();
-		
 		ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(21);
-		
-		if(!ClanHallManager.getInstance().isFree(clanhall.getId()))
+		if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
 		{
 			ClanTable.getInstance().getClan(clanhall.getOwnerId()).broadcastClanStatus();
 			ClanHallManager.getInstance().setFree(clanhall.getId());
-        		clanhall.banishForeigners();
-        		clanhall.spawnDoor();
+			clanhall.banishForeigners();
+			clanhall.spawnDoor();
 			ClosedDoor(1);
 		}
-
 		try
-        {
-            fillMonsters();
-            spawnMonsters();
-        }
-        catch (Exception e)
-        {
-        	_log.warn("Gustav spawn fails: " + e.getMessage(), e);
-        }
-        finally
-        {
-        	_log.info("Spawning Gustav.");
-        		_log.info("Siege of Devastated castle has begun!");
-        	}
+		{
+			fillMonsters();
+			spawnMonsters();
+		}
+		catch (Exception e)
+		{
+			_log.warn("Gustav spawn fails: " + e.getMessage(), e);
+		}
+		finally
+		{
+			_log.info("Spawning Gustav.");
+			_log.info("Siege of Devastated castle has begun!");
+		}
 	}
 
 	public void endSiege(boolean type)
@@ -242,8 +232,8 @@ public class DevastatedCastleManager
 				{
 					if (damageInfo._damage > tempMaxDamage)
 					{
-						tempMaxDamage=damageInfo._damage;
-						clanIdMaxDamage=damageInfo._clan;
+						tempMaxDamage = damageInfo._damage;
+						clanIdMaxDamage = damageInfo._clan;
 					}
 				}
 			}
@@ -251,15 +241,15 @@ public class DevastatedCastleManager
 			{
 				ClanHall clanhall = null;
 				clanhall = ClanHallManager.getInstance().getClanHallById(34);
-        			clanhall.banishForeigners();
-        			clanhall.spawnDoor();
+				clanhall.banishForeigners();
+				clanhall.spawnDoor();
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), clanIdMaxDamage);
-		    		_clan.setReputationScore(_clan.getReputationScore() + 600, true);
+				_clan.setReputationScore(_clan.getReputationScore() + 600, true);
 				deleteMe();
 				ClosedDoor(2);
 				setUnspawn();
 			}
-        		_log.info("Siege of Devastated castle has begun!");
+			_log.info("Siege of Devastated castle has begun!");
 		}
 		setNewSiegeDate();
 		_startSiegeTask.execute();
@@ -276,7 +266,6 @@ public class DevastatedCastleManager
 			clanDamage = new DamageInfo();
 			clanDamage._clan = clan;
 			clanDamage._damage += damage;
-
 			_clansDamageInfo.put(clan.getClanId(), clanDamage);
 		}
 	}
@@ -301,7 +290,6 @@ public class DevastatedCastleManager
 			schedule(timeRemaining);
 		}
 	};
-
 	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
 	{
 		@Override
@@ -312,9 +300,7 @@ public class DevastatedCastleManager
 				cancel();
 				return;
 			}
-
 			final long timeRemaining = getSiegeDate().getTimeInMillis() - System.currentTimeMillis();
-
 			if (timeRemaining <= 0)
 			{
 				startSiege();
@@ -325,89 +311,86 @@ public class DevastatedCastleManager
 		}
 	};
 
-    private static class MonsterLocation
-    {
+	private static class MonsterLocation
+	{
+		private int getId()
+		{
+			return _id;
+		}
 
-        private int getId()
-        {
-            return _id;
-        }
+		private int getX()
+		{
+			return _x;
+		}
 
-        private int getX()
-        {
-            return _x;
-        }
+		private int getY()
+		{
+			return _y;
+		}
 
-        private int getY()
-        {
-            return _y;
-        }
+		private int getZ()
+		{
+			return _z;
+		}
 
-        private int getZ()
-        {
-            return _z;
-        }
+		private int getHeading()
+		{
+			return _heading;
+		}
 
-        private int getHeading()
-        {
-            return _heading;
-        }
+		private int _id;
+		private int _x;
+		private int _y;
+		private int _z;
+		private int _heading;
 
-        private int _id;
-        private int _x;
-        private int _y;
-        private int _z;
-        private int _heading;
+		private MonsterLocation(int id, int x, int y, int z, int heading)
+		{
+			_id = id;
+			_x = x;
+			_y = y;
+			_z = z;
+			_heading = heading;
+		}
+	}
 
-        private MonsterLocation(int id, int x, int y, int z, int heading)
-        {
-            _id = id;
-            _x = x;
-            _y = y;
-            _z = z;
-            _heading = heading;
-        }
+	public void spawnMonsters()
+	{
+		for (Iterator ite = _monsters.iterator(); ite.hasNext();)
+		{
+			MonsterLocation ml = (MonsterLocation) ite.next();
+			try
+			{
+				L2NpcTemplate template;
+				L2Spawn sp;
+				template = NpcTable.getInstance().getTemplate(ml.getId());
+				sp = new L2Spawn(template);
+				sp.setAmount(1);
+				sp.setLocx(ml.getX());
+				sp.setLocy(ml.getY());
+				sp.setLocz(ml.getZ());
+				sp.setHeading(ml.getHeading());
+				sp.setRespawnDelay(300);
+				sp.setLocation(0);
+				sp.init();
+				_spawns.add(sp);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
 
-    }
-
-    public void spawnMonsters()
-    {
-        for(Iterator ite = _monsters.iterator(); ite.hasNext();)
-        {
-            MonsterLocation ml = (MonsterLocation)ite.next();
-            try
-            {
-            L2NpcTemplate template;
-            L2Spawn sp;
-
-                template = NpcTable.getInstance().getTemplate(ml.getId());
-                sp = new L2Spawn(template);
-                sp.setAmount(1);
-                sp.setLocx(ml.getX());
-                sp.setLocy(ml.getY());
-                sp.setLocz(ml.getZ());
-                sp.setHeading(ml.getHeading());
-                sp.setRespawnDelay(300);
-                sp.setLocation(0);
-                sp.init();
-                _spawns.add(sp);
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void addMonster(int id, int x, int y, int z, int heading)
-    {
-        _monsters.add(new MonsterLocation(id, x, y, z, heading));
-    }
+	private void addMonster(int id, int x, int y, int z, int heading)
+	{
+		_monsters.add(new MonsterLocation(id, x, y, z, heading));
+	}
 
 	public void deleteMe()
 	{
-	_removeMobs = true;
-	deleteMe();
+		_removeMobs = true;
+		deleteMe();
 	}
 
 	public final boolean getRemoveMobs()
@@ -764,7 +747,7 @@ public class DevastatedCastleManager
 
 	public void ClosedDoor(int val)
 	{
-		if (val==1)
+		if (val == 1)
 		{
 			DoorTable.getInstance().getDoor(25170001).closeMe();
 			DoorTable.getInstance().getDoor(25170002).closeMe();
@@ -773,7 +756,7 @@ public class DevastatedCastleManager
 			DoorTable.getInstance().getDoor(25170005).closeMe();
 			DoorTable.getInstance().getDoor(25170006).closeMe();
 		}
-		else if (val==2)
+		else if (val == 2)
 		{
 			DoorTable.getInstance().getDoor(25170001).closeMe();
 			DoorTable.getInstance().getDoor(25170002).closeMe();
@@ -785,15 +768,15 @@ public class DevastatedCastleManager
 		}
 	}
 
-    public void despawnMobs()
-    {
-    	setUnspawn();
-    }
-
-    public void setUnspawn()
+	public void despawnMobs()
 	{
-    	despawnMobs();
-    	_monsters.clear();
-	deleteMe();
+		setUnspawn();
+	}
+
+	public void setUnspawn()
+	{
+		despawnMobs();
+		_monsters.clear();
+		deleteMe();
 	}
 }

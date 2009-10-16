@@ -21,35 +21,34 @@ import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 
 public class StaticObject extends L2GameServerPacket
 {
-    private static final String _S__99_StaticObjectPacket = "[S] 99 StaticObjectPacket";
-    private L2StaticObjectInstance _staticObject;
+	private static final String _S__99_StaticObjectPacket = "[S] 99 StaticObjectPacket";
+	private L2StaticObjectInstance _staticObject;
 
-    /**
-     * [S]0x99 StaticObjectPacket dd
-     * 
-     * @param _
-     */
-    public StaticObject(L2StaticObjectInstance StaticObject)
-    {
-	_staticObject = StaticObject; // staticObjectId
-    }
+	/**
+	 * [S]0x99 StaticObjectPacket dd
+	 * 
+	 * @param _
+	 */
+	public StaticObject(L2StaticObjectInstance StaticObject)
+	{
+		_staticObject = StaticObject; // staticObjectId
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x99);
-	writeD(_staticObject.getStaticObjectId()); // staticObjectId
-	writeD(_staticObject.getObjectId()); // objectId
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x99);
+		writeD(_staticObject.getStaticObjectId()); // staticObjectId
+		writeD(_staticObject.getObjectId()); // objectId
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__99_StaticObjectPacket;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__99_StaticObjectPacket;
+	}
 }

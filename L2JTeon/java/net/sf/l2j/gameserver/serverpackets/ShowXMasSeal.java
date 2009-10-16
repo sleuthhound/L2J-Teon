@@ -15,32 +15,31 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * 
  * @author devScarlet & mrTJO
  */
 public class ShowXMasSeal extends L2GameServerPacket
 {
-    private static final String _S__F2_SHOWXMASSEAL = "[S] F2 ShowXMasSeal";
-    private int _item;
+	private static final String _S__F2_SHOWXMASSEAL = "[S] F2 ShowXMasSeal";
+	private int _item;
 
-    public ShowXMasSeal(int item)
-    {
-	_item = item;
-    }
+	public ShowXMasSeal(int item)
+	{
+		_item = item;
+	}
 
-    @Override
-    protected void writeImpl()
-    {
-	writeC(0xF2);
-	writeD(_item);
-    }
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xF2);
+		writeD(_item);
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__F2_SHOWXMASSEAL;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__F2_SHOWXMASSEAL;
+	}
 }

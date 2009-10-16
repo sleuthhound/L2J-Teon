@@ -18,28 +18,25 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- * @author mkizub
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * @author mkizub TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
  */
 final class EffectBuff extends L2Effect
 {
-    public EffectBuff(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectBuff(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.BUFF;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.BUFF;
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	// just stop this effect
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
+	}
 }

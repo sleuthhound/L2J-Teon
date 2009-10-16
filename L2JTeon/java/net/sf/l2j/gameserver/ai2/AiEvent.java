@@ -18,29 +18,29 @@ import net.sf.l2j.gameserver.model.L2Character;
 
 public class AiEvent
 {
-    private AiEventType _type;
-    private L2Character _source;
-    private L2Character _target;
+	private AiEventType _type;
+	private L2Character _source;
+	private L2Character _target;
 
-    public AiEvent(AiEventType type, L2Character source, L2Character target)
-    {
-	_type = type;
-	_source = source;
-	_target = target;
-    }
+	public AiEvent(AiEventType type, L2Character source, L2Character target)
+	{
+		_type = type;
+		_source = source;
+		_target = target;
+	}
 
-    public AiEventType getType()
-    {
-	return _type;
-    }
+	public AiEventType getType()
+	{
+		return _type;
+	}
 
-    public L2Character getSource()
-    {
-	return _source;
-    }
+	public L2Character getSource()
+	{
+		return _source;
+	}
 
-    public L2Character getTarget()
-    {
-	return _target;
-    }
+	public L2Character getTarget()
+	{
+		return _target;
+	}
 }

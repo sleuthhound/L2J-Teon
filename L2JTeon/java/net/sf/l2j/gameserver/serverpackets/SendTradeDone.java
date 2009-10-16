@@ -21,29 +21,28 @@ package net.sf.l2j.gameserver.serverpackets;
  */
 public class SendTradeDone extends L2GameServerPacket
 {
-    private static final String _S__32_SENDTRADEDONE = "[S] 22 SendTradeDone";
-    private int _num;
+	private static final String _S__32_SENDTRADEDONE = "[S] 22 SendTradeDone";
+	private int _num;
 
-    public SendTradeDone(int num)
-    {
-	_num = num;
-    }
+	public SendTradeDone(int num)
+	{
+		_num = num;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x22);
-	writeD(_num);
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x22);
+		writeD(_num);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__32_SENDTRADEDONE;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__32_SENDTRADEDONE;
+	}
 }

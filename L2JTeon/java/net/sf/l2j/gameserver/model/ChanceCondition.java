@@ -18,25 +18,24 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.util.Rnd;
 
 /**
- *
- * @author  kombat/crion
+ * @author kombat/crion
  */
 public final class ChanceCondition
 {
-	public static final int	EVT_HIT						= 1;
-	public static final int	EVT_CRIT					= 2;
-	public static final int	EVT_CAST					= 4;
-	public static final int	EVT_PHYSICAL				= 8;
-	public static final int	EVT_MAGIC					= 16;
-	public static final int	EVT_MAGIC_GOOD				= 32;
-	public static final int	EVT_MAGIC_OFFENSIVE			= 64;
-	public static final int	EVT_ATTACKED				= 128;
-	public static final int	EVT_ATTACKED_HIT			= 256;
-	public static final int	EVT_ATTACKED_CRIT			= 512;
-	public static final int	EVT_HIT_BY_SKILL			= 1024;
-	public static final int	EVT_HIT_BY_OFFENSIVE_SKILL	= 2048;
-	public static final int	EVT_HIT_BY_GOOD_MAGIC		= 4096;
-    public static final int EVT_EVADED_HIT 				= 8192; 
+	public static final int EVT_HIT = 1;
+	public static final int EVT_CRIT = 2;
+	public static final int EVT_CAST = 4;
+	public static final int EVT_PHYSICAL = 8;
+	public static final int EVT_MAGIC = 16;
+	public static final int EVT_MAGIC_GOOD = 32;
+	public static final int EVT_MAGIC_OFFENSIVE = 64;
+	public static final int EVT_ATTACKED = 128;
+	public static final int EVT_ATTACKED_HIT = 256;
+	public static final int EVT_ATTACKED_CRIT = 512;
+	public static final int EVT_HIT_BY_SKILL = 1024;
+	public static final int EVT_HIT_BY_OFFENSIVE_SKILL = 2048;
+	public static final int EVT_HIT_BY_GOOD_MAGIC = 4096;
+	public static final int EVT_EVADED_HIT = 8192;
 
 	public static enum TriggerType
 	{
@@ -66,10 +65,9 @@ public final class ChanceCondition
 		ON_HIT_BY_OFFENSIVE_SKILL(2048),
 		// A good skill was casted on you
 		ON_HIT_BY_GOOD_MAGIC(4096),
-        // Evading melee attack 
-        ON_EVADED_HIT(8192); 
-
-		private int	_mask;
+		// Evading melee attack
+		ON_EVADED_HIT(8192);
+		private int _mask;
 
 		private TriggerType(int mask)
 		{
@@ -82,9 +80,8 @@ public final class ChanceCondition
 		}
 	}
 
-	private TriggerType	_triggerType;
-
-	private int			_chance;
+	private TriggerType _triggerType;
+	private int _chance;
 
 	private ChanceCondition(TriggerType trigger, int chance)
 	{
@@ -102,7 +99,8 @@ public final class ChanceCondition
 				return new ChanceCondition(trigger, chance);
 		}
 		catch (Exception e)
-		{}
+		{
+		}
 		return null;
 	}
 

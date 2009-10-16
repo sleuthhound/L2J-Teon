@@ -27,150 +27,147 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class ForumsBBSManager extends BaseBBSManager
 {
-    private static Logger _log = Logger.getLogger(ForumsBBSManager.class.getName());
-    private Map<Integer, Forum> _root;
-    private List<Forum> _table;
-    private static ForumsBBSManager _instance;
-    private int _lastid = 1;
+	private static Logger _log = Logger.getLogger(ForumsBBSManager.class.getName());
+	private Map<Integer, Forum> _root;
+	private List<Forum> _table;
+	private static ForumsBBSManager _instance;
+	private int _lastid = 1;
 
-    /**
-     * @return
-     */
-    public static ForumsBBSManager getInstance()
-    {
-	if (_instance == null)
+	/**
+	 * @return
+	 */
+	public static ForumsBBSManager getInstance()
 	{
-	    _instance = new ForumsBBSManager();
-	    _instance.load();
+		if (_instance == null)
+		{
+			_instance = new ForumsBBSManager();
+			_instance.load();
+		}
+		return _instance;
 	}
-	return _instance;
-    }
 
-    public ForumsBBSManager()
-    {
-	_root = new FastMap<Integer, Forum>();
-	_table = new FastList<Forum>();
-    }
-
-    public void addForum(Forum ff)
-    {
-	_table.add(ff);
-	if (ff.getID() > _lastid)
+	public ForumsBBSManager()
 	{
-	    _lastid = ff.getID();
+		_root = new FastMap<Integer, Forum>();
+		_table = new FastList<Forum>();
 	}
-    }
 
-    /**
+	public void addForum(Forum ff)
+	{
+		_table.add(ff);
+		if (ff.getID() > _lastid)
+		{
+			_lastid = ff.getID();
+		}
+	}
+
+	/**
      * 
      */
-    private void load()
-    {
-	java.sql.Connection con = null;
-	try
+	private void load()
 	{
-	    con = L2DatabaseFactory.getInstance().getConnection();
-	    PreparedStatement statement = con.prepareStatement("SELECT forum_id FROM forums WHERE forum_type=0");
-	    ResultSet result = statement.executeQuery();
-	    while (result.next())
-	    {
-		Forum f = new Forum(Integer.parseInt(result.getString("forum_id")), null);
-		_root.put(Integer.parseInt(result.getString("forum_id")), f);
-	    }
-	    result.close();
-	    statement.close();
-	} catch (Exception e)
-	{
-	    _log.warning("data error on Forum (root): " + e);
-	    e.printStackTrace();
-	} finally
-	{
-	    try
-	    {
-		con.close();
-	    } catch (Exception e)
-	    {
-	    }
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT forum_id FROM forums WHERE forum_type=0");
+			ResultSet result = statement.executeQuery();
+			while (result.next())
+			{
+				Forum f = new Forum(Integer.parseInt(result.getString("forum_id")), null);
+				_root.put(Integer.parseInt(result.getString("forum_id")), f);
+			}
+			result.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warning("data error on Forum (root): " + e);
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String,
-     *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
-     */
-    @Override
-    public void parsecmd(String command, L2PcInstance activeChar)
-    {
-	// TODO Auto-generated method stub
-    }
-
-    /**
-     * @param string
-     * @return
-     */
-    public Forum getForumByName(String Name)
-    {
-	for (Forum f : _table)
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
+	 */
+	@Override
+	public void parsecmd(String command, L2PcInstance activeChar)
 	{
-	    if (f.getName().equals(Name))
-	    {
-		return f;
-	    }
+		// TODO Auto-generated method stub
 	}
-	return null;
-    }
 
-    /**
-     * @param name
-     * @param forumByName
-     * @return
-     */
-    public Forum createNewForum(String name, Forum parent, int type, int perm, int oid)
-    {
-	Forum forum;
-	forum = new Forum(name, parent, type, perm, oid);
-	forum.insertindb();
-	return forum;
-    }
-
-    /**
-     * @return
-     */
-    public int getANewID()
-    {
-	_lastid++;
-	return _lastid;
-    }
-
-    /**
-     * @param idf
-     * @return
-     */
-    public Forum getForumByID(int idf)
-    {
-	for (Forum f : _table)
+	/**
+	 * @param string
+	 * @return
+	 */
+	public Forum getForumByName(String Name)
 	{
-	    if (f.getID() == idf)
-	    {
-		return f;
-	    }
+		for (Forum f : _table)
+		{
+			if (f.getName().equals(Name))
+			{
+				return f;
+			}
+		}
+		return null;
 	}
-	return null;
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsewrite(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String,
-     *      java.lang.String,
-     *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
-     */
-    @Override
-    public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
-    {
-	// TODO Auto-generated method stub
-    }
+	/**
+	 * @param name
+	 * @param forumByName
+	 * @return
+	 */
+	public Forum createNewForum(String name, Forum parent, int type, int perm, int oid)
+	{
+		Forum forum;
+		forum = new Forum(name, parent, type, perm, oid);
+		forum.insertindb();
+		return forum;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getANewID()
+	{
+		_lastid++;
+		return _lastid;
+	}
+
+	/**
+	 * @param idf
+	 * @return
+	 */
+	public Forum getForumByID(int idf)
+	{
+		for (Forum f : _table)
+		{
+			if (f.getID() == idf)
+			{
+				return f;
+			}
+		}
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsewrite(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
+	 */
+	@Override
+	public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
+	{
+		// TODO Auto-generated method stub
+	}
 }

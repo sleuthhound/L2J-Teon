@@ -23,16 +23,15 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 /**
  * @author Advi
- * 
  */
 public class ItemLogFormatter extends Formatter
 {
-    private static final String CRLF = "\r\n";
-    private SimpleDateFormat dateFmt = new SimpleDateFormat("dd MMM H:mm:ss");
+	private static final String CRLF = "\r\n";
+	private SimpleDateFormat dateFmt = new SimpleDateFormat("dd MMM H:mm:ss");
 
-    @Override
-    public String format(LogRecord record)
-    {
+	@Override
+	public String format(LogRecord record)
+	{
 		TextBuilder output = new TextBuilder();
 		output.append('[');
 		output.append(dateFmt.format(new Date(record.getMillis())));
@@ -52,17 +51,16 @@ public class ItemLogFormatter extends Formatter
 				if (item.getEnchantLevel() > 0)
 					output.append("+" + item.getEnchantLevel() + " ");
 				output.append(item.getItem().getName());
-			output.append("(" + item.getCount() + ")");
+				output.append("(" + item.getCount() + ")");
 			}
 			// else if (p instanceof L2PcInstance)
 			// output.append(((L2PcInstance)p).getName());
 			else
 				output.append(p.toString()/*
-				 * + ":" +
-				 * ((L2Object)p).getObjectId()
-				 */);
+										 * + ":" + ((L2Object)p).getObjectId()
+										 */);
 		}
 		output.append(CRLF);
 		return output.toString();
-    }
+	}
 }

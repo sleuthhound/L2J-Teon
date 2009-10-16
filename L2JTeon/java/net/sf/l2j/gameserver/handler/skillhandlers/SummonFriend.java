@@ -22,9 +22,8 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-//import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP; 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance; //import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -32,45 +31,34 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * @authors BiTi, Sami
- *
  */
 public class SummonFriend implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(SummonFriend.class.getName());
-	private static final SkillType[] SKILL_IDS =
-	{
-		SkillType.SUMMON_FRIEND
-	};
+	// private static Logger _log = Logger.getLogger(SummonFriend.class.getName());
+	private static final SkillType[] SKILL_IDS = { SkillType.SUMMON_FRIEND };
 
 	public static boolean checkSummonerStatus(L2PcInstance summonerChar)
 	{
 		if (summonerChar == null)
 			return false;
-
 		if (summonerChar.isInOlympiadMode())
 		{
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
 			return false;
 		}
-
 		if (summonerChar.inObserverMode())
 		{
 			return false;
 		}
-
-/*		if (!TvTEvent.onEscapeUse(summonerChar.getObjectId()))
+		/*
+		 * if (!TvTEvent.onEscapeUse(summonerChar.getObjectId())) { summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING)); return false; }
+		 */
+		// Check if player is in VIP Event
+		if (summonerChar._inEventVIP && VIP._started)
 		{
-			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
-			return false;			
-		} */
-		
-        // Check if player is in VIP Event 
-		if (summonerChar._inEventVIP && VIP._started) 
-		{ 
-			summonerChar.sendMessage(""); 
-			return false; 
-		} 
-		
+			summonerChar.sendMessage("");
+			return false;
+		}
 		if (summonerChar.isInsideZone(L2Character.ZONE_NOSUMMONFRIEND))
 		{
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
@@ -83,7 +71,6 @@ public class SummonFriend implements ISkillHandler
 	{
 		if (targetChar == null)
 			return false;
-
 		if (targetChar.isAlikeDead())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
@@ -91,7 +78,6 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(sm);
 			return false;
 		}
-
 		if (targetChar.isInStoreMode())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED);
@@ -99,7 +85,6 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(sm);
 			return false;
 		}
-
 		if (targetChar.isRooted() || targetChar.isInCombat())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED);
@@ -107,31 +92,24 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(sm);
 			return false;
 		}
-
 		if (targetChar.isInOlympiadMode())
 		{
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD));
 			return false;
 		}
-
 		if (targetChar.isFestivalParticipant())
 		{
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
 			return false;
 		}
-
 		if (targetChar.inObserverMode())
 		{
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
 			return false;
 		}
-
-/*		if (!TvTEvent.onEscapeUse(targetChar.getObjectId()))
-		{
-			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
-			return false;			
-		} */
-
+		/*
+		 * if (!TvTEvent.onEscapeUse(targetChar.getObjectId())) { summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING)); return false; }
+		 */
 		if (targetChar.isInsideZone(L2Character.ZONE_NOSUMMONFRIEND))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IN_SUMMON_BLOCKING_AREA);
@@ -139,7 +117,6 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(sm);
 			return false;
 		}
-
 		// on retail character can enter 7s dungeon with summon friend,
 		// but will be teleported away by mobs
 		// because currently this is not working in L2J we do not allowing summoning
@@ -151,7 +128,7 @@ public class SummonFriend implements ISkillHandler
 				if (targetCabal != SevenSigns.getInstance().getCabalHighestScore())
 				{
 					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
-					return false;					
+					return false;
 				}
 			}
 			else
@@ -159,24 +136,21 @@ public class SummonFriend implements ISkillHandler
 				if (targetCabal == SevenSigns.CABAL_NULL)
 				{
 					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
-					return false;					
+					return false;
 				}
 			}
 		}
-
-		return true;	
+		return true;
 	}
 
 	public static void teleToTarget(L2PcInstance targetChar, L2PcInstance summonerChar, L2Skill summonSkill)
 	{
 		if (targetChar == null || summonerChar == null || summonSkill == null)
 			return;
-
 		if (!checkSummonerStatus(summonerChar))
 			return;
 		if (!checkTargetStatus(targetChar, summonerChar))
 			return;
-
 		int itemConsumeId = summonSkill.getTargetConsumeId();
 		int itemConsumeCount = summonSkill.getTargetConsume();
 		if (itemConsumeId != 0 && itemConsumeCount != 0)
@@ -184,9 +158,9 @@ public class SummonFriend implements ISkillHandler
 			String ItemName = ItemTable.getInstance().getTemplate(itemConsumeId).getName();
 			if (targetChar.getInventory().getInventoryItemCount(itemConsumeId, 0) < itemConsumeCount)
 			{
-    			SystemMessage sm = new SystemMessage(SystemMessageId.S1_REQUIRED_FOR_SUMMONING);
-    			sm.addString(ItemName);
-    			targetChar.sendPacket(sm);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_REQUIRED_FOR_SUMMONING);
+				sm.addString(ItemName);
+				targetChar.sendPacket(sm);
 				return;
 			}
 			targetChar.getInventory().destroyItemByItemId("Consume", itemConsumeId, itemConsumeCount, summonerChar, targetChar);
@@ -198,7 +172,6 @@ public class SummonFriend implements ISkillHandler
 	}
 
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.ISkillHandler#useSkill(net.sf.l2j.gameserver.model.L2Character, net.sf.l2j.gameserver.model.L2Skill, net.sf.l2j.gameserver.model.L2Object[])
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
@@ -206,42 +179,37 @@ public class SummonFriend implements ISkillHandler
 		if (!(activeChar instanceof L2PcInstance))
 			return; // currently not implemented for others
 		L2PcInstance activePlayer = (L2PcInstance) activeChar;
-		
 		if (!checkSummonerStatus(activePlayer))
 			return;
-		
 		try
 		{
-			for (L2Character target: (L2Character[]) targets)
+			for (L2Character target : (L2Character[]) targets)
 			{
 				if (activeChar == target)
 					continue;
-				
 				if (target instanceof L2PcInstance)
 				{
 					L2PcInstance targetPlayer = (L2PcInstance) target;
-					
 					if (!checkTargetStatus(targetPlayer, activePlayer))
 						continue;
-										
 					if (!Util.checkIfInRange(0, activeChar, target, false))
 					{
-						if(!targetPlayer.teleportRequest(activePlayer, skill))
+						if (!targetPlayer.teleportRequest(activePlayer, skill))
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.S1_ALREADY_SUMMONED);
 							sm.addString(target.getName());
 							activePlayer.sendPacket(sm);
 							continue;
 						}
-						if (skill.getId() == 1403) //summon friend
+						if (skill.getId() == 1403) // summon friend
 						{
 							// Send message
-			        		ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
-			        		confirm.addString(activeChar.getName());
-			        		confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-			        		confirm.addTime(30000);
-			        		confirm.addRequesterId(activePlayer.getCharId());
-			        		target.sendPacket(confirm);
+							ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
+							confirm.addString(activeChar.getName());
+							confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+							confirm.addTime(30000);
+							confirm.addRequesterId(activePlayer.getCharId());
+							target.sendPacket(confirm);
 						}
 						else
 						{
@@ -254,15 +222,14 @@ public class SummonFriend implements ISkillHandler
 		}
 		catch (Exception e)
 		{
-            if (Config.DEBUG)
-            {
-                e.printStackTrace();
-            }
+			if (Config.DEBUG)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
 	public SkillType[] getSkillIds()

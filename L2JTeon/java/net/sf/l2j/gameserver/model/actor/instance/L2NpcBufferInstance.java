@@ -29,14 +29,12 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.util.Rnd;
 
-
 /**
  * L2NpcBufferInstance
  * 
- * @author KidZor & VaGo 
+ * @author KidZor & VaGo
  * @Special Thx to FbiAgent
  */
-
 public class L2NpcBufferInstance extends L2NpcInstance
 {
 	private class BuffTask implements Runnable
@@ -54,7 +52,7 @@ public class L2NpcBufferInstance extends L2NpcInstance
 			_me = me;
 			_task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(this, 100, 100);
 		}
-		
+
 		public void addBuff(L2PcInstance playerInstance, int skillId, int skillLevel)
 		{
 			synchronized (_playerInstances)
@@ -68,32 +66,27 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		public void run()
 		{
 			boolean abort = false;
-
 			synchronized (_buffing)
 			{
 				abort = _buffing;
 				_buffing = true;
 			}
-			
 			if (abort)
 				return;
-			
 			try
 			{
 				Thread.sleep(1);
 			}
 			catch (InterruptedException ie)
-			{}
-
+			{
+			}
 			int index = -1;
 			L2PcInstance playerInstance = null;
 			int skillId = 0;
 			int skillLevel = 0;
-
 			synchronized (_playerInstances)
 			{
 				index = _skillIds.size() - 1;
-
 				if (index != -1)
 				{
 					index = Rnd.get(_skillIds.size());
@@ -102,26 +95,19 @@ public class L2NpcBufferInstance extends L2NpcInstance
 					skillLevel = _skillLevels.get(index);
 				}
 			}
-				
 			if (index == -1)
 				return;
-
 			L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
-				
 			if (playerInstance != null && skill != null)
 			{
-				//if (_me.isInsideRadius(playerInstance.getX(), playerInstance.getY(), skill.getCastRange(), true))
-				//continue;
-
+				// if (_me.isInsideRadius(playerInstance.getX(), playerInstance.getY(), skill.getCastRange(), true))
+				// continue;
 				int skillTime = Formulas.getInstance().calcMAtkSpd(_me, skill, skill.getHitTime());
-				
 				if (skill.isDance())
 					_me.broadcastPacket(new MagicSkillUser(_me, _me, skillId, skillLevel, skillTime, 0));
 				else
 					_me.broadcastPacket(new MagicSkillUser(_me, playerInstance, skillId, skillLevel, skillTime, 0));
-					
 				long continueTime = System.currentTimeMillis() + skillTime;
-
 				while (continueTime >= System.currentTimeMillis())
 				{
 					try
@@ -129,11 +115,10 @@ public class L2NpcBufferInstance extends L2NpcInstance
 						Thread.sleep(1);
 					}
 					catch (InterruptedException ie)
-					{}
+					{
+					}
 				}
-					
 				L2Effect[] effects = playerInstance.getAllEffects();
-
 				if (effects != null)
 				{
 					for (L2Effect e : effects)
@@ -145,19 +130,16 @@ public class L2NpcBufferInstance extends L2NpcInstance
 						}
 					}
 				}
-
 				skill.getEffects(playerInstance, playerInstance);
 			}
 			else
 				System.out.println("NpcBuffer warning(" + getNpcId() + " at " + getX() + ", " + getY() + ", " + getZ() + "): Skill or Player null!");
-				
 			synchronized (_playerInstances)
 			{
 				_playerInstances.remove(index);
 				_skillIds.remove(index);
 				_skillLevels.remove(index);
 			}
-			
 			synchronized (_buffing)
 			{
 				_buffing = false;
@@ -173,7 +155,7 @@ public class L2NpcBufferInstance extends L2NpcInstance
 			}
 		}
 	}
-	
+
 	private BuffTask _buffTaskInstance = null;
 
 	public L2NpcBufferInstance(int objectId, L2NpcTemplate template)
@@ -190,7 +172,6 @@ public class L2NpcBufferInstance extends L2NpcInstance
 			pom = "" + npcId;
 		else
 			pom = npcId + "-" + val;
-		
 		return "data/html/mods/buffer/" + pom + ".htm";
 	}
 
@@ -203,112 +184,103 @@ public class L2NpcBufferInstance extends L2NpcInstance
 	}
 
 	@Override
-    public void onBypassFeedback(L2PcInstance playerInstance, String command)
-    {
-    	if (playerInstance == null)
-    		return;
-    	int npcId = getNpcId();
-    	if (command.startsWith("npc_buffer_heal"))
-    	{
-        	if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
-            {
-            	_log.warning("[NPC Buffer]Player "+playerInstance.getName()+" has performed a buff request too fast");
-    			playerInstance.sendMessage("You have performed a buff request too fast.");
-            	return;
-            }
-    		if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
-    		{
-    			playerInstance.sendMessage("You can't do that in combat!!!");
-    		}
-    		else
-    		{
+	public void onBypassFeedback(L2PcInstance playerInstance, String command)
+	{
+		if (playerInstance == null)
+			return;
+		int npcId = getNpcId();
+		if (command.startsWith("npc_buffer_heal"))
+		{
+			if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
+			{
+				_log.warning("[NPC Buffer]Player " + playerInstance.getName() + " has performed a buff request too fast");
+				playerInstance.sendMessage("You have performed a buff request too fast.");
+				return;
+			}
+			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
+			{
+				playerInstance.sendMessage("You can't do that in combat!!!");
+			}
+			else
+			{
 				playerInstance.setCurrentCp(playerInstance.getMaxCp());
 				playerInstance.setCurrentHp(playerInstance.getMaxHp());
 				playerInstance.setCurrentMp(playerInstance.getMaxMp());
-    		}
+			}
 		}
-    	if (command.startsWith("npc_buffer_cancel"))
-    	{
-        	if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
-            {
-            	_log.warning("[NPC Buffer]Player "+playerInstance.getName()+" has performed a buff request too fast");
-    			playerInstance.sendMessage("You have performed a buff request too fast.");
-            	return;
-            }
-    		if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
-    		{
-    			playerInstance.sendMessage("You can't do that!!!");
-    		}
-    		else
-    		{
-    			removeAllBuffs(playerInstance);
-    		}
+		if (command.startsWith("npc_buffer_cancel"))
+		{
+			if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
+			{
+				_log.warning("[NPC Buffer]Player " + playerInstance.getName() + " has performed a buff request too fast");
+				playerInstance.sendMessage("You have performed a buff request too fast.");
+				return;
+			}
+			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
+			{
+				playerInstance.sendMessage("You can't do that!!!");
+			}
+			else
+			{
+				removeAllBuffs(playerInstance);
+			}
 		}
-    	if (command.startsWith("npc_buffer_buff"))
-        {
-        	if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
-            {
-            	_log.warning("[NPC Buffer]Player "+playerInstance.getName()+" has performed a buff request too fast");
-    			playerInstance.sendMessage("You have performed a buff request too fast.");
-    			return;
-            }
-    		String[] params = command.split(" ");
-       		int skillId = Integer.parseInt(params[1]);
-       		int[] skillInfos = NpcBufferSkillIdsTable.getInstance().getSkillInfo(npcId, skillId);
-       		
-       		if (skillInfos == null)
-       		{
-       			System.out.println("NpcBuffer warning(" + npcId + " at " + getX() + ", " + getY() + ", " + getZ() + "): Player " + playerInstance.getName() + " tried to use skill(" + skillId + ") not assigned to npc buffer!");
-       			return;
-       		}
+		if (command.startsWith("npc_buffer_buff"))
+		{
+			if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
+			{
+				_log.warning("[NPC Buffer]Player " + playerInstance.getName() + " has performed a buff request too fast");
+				playerInstance.sendMessage("You have performed a buff request too fast.");
+				return;
+			}
+			String[] params = command.split(" ");
+			int skillId = Integer.parseInt(params[1]);
+			int[] skillInfos = NpcBufferSkillIdsTable.getInstance().getSkillInfo(npcId, skillId);
+			if (skillInfos == null)
+			{
+				System.out.println("NpcBuffer warning(" + npcId + " at " + getX() + ", " + getY() + ", " + getZ() + "): Player " + playerInstance.getName() + " tried to use skill(" + skillId + ") not assigned to npc buffer!");
+				return;
+			}
+			int skillLevel = skillInfos[0];
+			int skillFeeId = skillInfos[1];
+			int skillFeeAmount = skillInfos[2];
+			if (skillFeeId != 0) // take some item?
+			{
+				if (skillFeeAmount == 0)
+				{
+					System.out.println("NpcBuffer warning(" + npcId + " at " + getX() + ", " + getY() + ", " + getZ() + "): Fee amount of skill(" + skillId + ") fee id(" + skillFeeId + ") is 0!");
+					return;
+				}
+				L2ItemInstance itemInstance = playerInstance.getInventory().getItemByItemId(skillFeeId);
+				if (itemInstance == null || (!itemInstance.isStackable() && playerInstance.getInventory().getInventoryItemCount(skillFeeId, -1) < skillFeeAmount))
+				{
+					playerInstance.sendMessage("You do not have enought items!");
+					return;
+				}
+				if (itemInstance.isStackable())
+				{
+					if (!playerInstance.destroyItemByItemId("Npc Buffer", skillFeeId, skillFeeAmount, playerInstance.getTarget(), true))
+					{
+						playerInstance.sendMessage("You do not have enought items!");
+						return;
+					}
+				}
+				else
+				{
+					for (int i = 0; i < skillFeeAmount; i++)
+						playerInstance.destroyItemByItemId("Npc Buffer", skillFeeId, 1, playerInstance.getTarget(), true);
+				}
+			}
+			L2Skill skill;
+			skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+			skill.getEffects(playerInstance, playerInstance);
+		}
+		showChatWindow(playerInstance, 0);
+	}
 
-     		int skillLevel = skillInfos[0];
-     		int skillFeeId = skillInfos[1];
-     		int skillFeeAmount = skillInfos[2];
-
-     		if (skillFeeId != 0) // take some item?
-     		{
-     			if (skillFeeAmount == 0)
-     			{
-     				System.out.println("NpcBuffer warning(" + npcId + " at " + getX() + ", " + getY() + ", " + getZ() + "): Fee amount of skill(" + skillId + ") fee id(" + skillFeeId + ") is 0!");
-     				return;
-     			}
-     	        
-     			L2ItemInstance itemInstance = playerInstance.getInventory().getItemByItemId(skillFeeId);
-
-     			if (itemInstance == null || (!itemInstance.isStackable() && playerInstance.getInventory().getInventoryItemCount(skillFeeId, -1) < skillFeeAmount))
-     			{
-     				playerInstance.sendMessage("You do not have enought items!");
-     				return;
-     			}
-
-     			if (itemInstance.isStackable())
-     			{
-     				if (!playerInstance.destroyItemByItemId("Npc Buffer", skillFeeId, skillFeeAmount, playerInstance.getTarget(), true))
-     				{
-     					playerInstance.sendMessage("You do not have enought items!");
-     					return;
-     				}
-     			}
-     			else
-     			{
-     				for (int i=0;i<skillFeeAmount;i++)
-     					playerInstance.destroyItemByItemId("Npc Buffer", skillFeeId, 1, playerInstance.getTarget(), true);
-     			}
-     		}
-     		
-            L2Skill skill;
-            skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
-            skill.getEffects(playerInstance, playerInstance);
-        }
-
-    	showChatWindow(playerInstance, 0);
-    }
-	
 	@SuppressWarnings("null")
 	private void removeAllBuffs(L2PcInstance player)
 	{
-
 		if (player != null)
 		{
 			player.stopAllEffects();
@@ -319,6 +291,4 @@ public class L2NpcBufferInstance extends L2NpcInstance
 			player.sendMessage("Your buffs could not be removed.");
 		}
 	}
-	
-	
 }

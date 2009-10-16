@@ -30,36 +30,34 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class Charge implements ISkillHandler
 {
-    static Logger _log = Logger.getLogger(Charge.class.getName());
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance,
-     *      net.sf.l2j.gameserver.model.L2ItemInstance)
-     */
-    private static final SkillType[] SKILL_IDS = {/* SkillType.CHARGE */};
+	static Logger _log = Logger.getLogger(Charge.class.getName());
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
+	 */
+	private static final SkillType[] SKILL_IDS = {/* SkillType.CHARGE */};
 
-    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-    {
-	for (int index = 0; index < targets.length; index++)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-	    if (!(targets[index] instanceof L2PcInstance))
-		continue;
-	    L2PcInstance target = (L2PcInstance) targets[index];
-	    skill.getEffects(activeChar, target);
+		for (int index = 0; index < targets.length; index++)
+		{
+			if (!(targets[index] instanceof L2PcInstance))
+				continue;
+			L2PcInstance target = (L2PcInstance) targets[index];
+			skill.getEffects(activeChar, target);
+		}
+		// self Effect :]
+		L2Effect effect = activeChar.getFirstEffect(skill.getId());
+		if ((effect != null) && effect.isSelfEffect())
+		{
+			// Replace old effect with new one.
+			effect.exit();
+		}
+		skill.getEffectsSelf(activeChar);
 	}
-	// self Effect :]
-	L2Effect effect = activeChar.getFirstEffect(skill.getId());
-	if ((effect != null) && effect.isSelfEffect())
-	{
-	    // Replace old effect with new one.
-	    effect.exit();
-	}
-	skill.getEffectsSelf(activeChar);
-    }
 
-    public SkillType[] getSkillIds()
-    {
-	return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

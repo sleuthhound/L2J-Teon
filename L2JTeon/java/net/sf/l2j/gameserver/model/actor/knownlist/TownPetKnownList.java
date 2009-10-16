@@ -22,44 +22,44 @@ import net.sf.l2j.gameserver.model.actor.instance.L2TownPetInstance;
 
 public class TownPetKnownList extends AttackableKnownList
 {
-    // =========================================================
-    // Data Field
-    // =========================================================
-    // Constructor
-    public TownPetKnownList(L2TownPetInstance activeChar)
-    {
-	super(activeChar);
-    }
+	// =========================================================
+	// Data Field
+	// =========================================================
+	// Constructor
+	public TownPetKnownList(L2TownPetInstance activeChar)
+	{
+		super(activeChar);
+	}
 
-    // =========================================================
-    // Method - Public
-    @Override
-    public boolean addKnownObject(L2Object object)
-    {
-	return addKnownObject(object, null);
-    }
+	// =========================================================
+	// Method - Public
+	@Override
+	public boolean addKnownObject(L2Object object)
+	{
+		return addKnownObject(object, null);
+	}
 
-    @Override
-    public boolean addKnownObject(L2Object object, L2Character dropper)
-    {
-	if (!super.addKnownObject(object, dropper))
-	    return false;
-	if (getActiveChar().getHomeX() == 0)
-	    getActiveChar().getHomeLocation();
-	// Set the L2TownPetInstance Intention to AI_INTENTION_ACTIVE if the
-	// state was AI_INTENTION_IDLE
-	if ((object instanceof L2PcInstance) && (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE))
-	    getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-	return true;
-    }
+	@Override
+	public boolean addKnownObject(L2Object object, L2Character dropper)
+	{
+		if (!super.addKnownObject(object, dropper))
+			return false;
+		if (getActiveChar().getHomeX() == 0)
+			getActiveChar().getHomeLocation();
+		// Set the L2TownPetInstance Intention to AI_INTENTION_ACTIVE if the
+		// state was AI_INTENTION_IDLE
+		if ((object instanceof L2PcInstance) && (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE))
+			getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
+		return true;
+	}
 
-    // =========================================================
-    // Method - Private
-    // =========================================================
-    // Property - Public
-    @Override
-    public final L2TownPetInstance getActiveChar()
-    {
-	return (L2TownPetInstance) super.getActiveChar();
-    }
+	// =========================================================
+	// Method - Private
+	// =========================================================
+	// Property - Public
+	@Override
+	public final L2TownPetInstance getActiveChar()
+	{
+		return (L2TownPetInstance) super.getActiveChar();
+	}
 }

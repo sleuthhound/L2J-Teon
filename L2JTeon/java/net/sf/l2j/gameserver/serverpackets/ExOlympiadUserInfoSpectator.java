@@ -20,50 +20,48 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * This class ...
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- * 
  * @author godson
  */
 public class ExOlympiadUserInfoSpectator extends L2GameServerPacket
 {
-    // chcdSddddd
-    private static final String _S__FE_29_OLYMPIADUSERINFOSPECTATOR = "[S] FE:29 OlympiadUserInfoSpectator";
-    private static int _side;
-    private static L2PcInstance _player;
+	// chcdSddddd
+	private static final String _S__FE_29_OLYMPIADUSERINFOSPECTATOR = "[S] FE:29 OlympiadUserInfoSpectator";
+	private static int _side;
+	private static L2PcInstance _player;
 
-    /**
-     * @param _player
-     * @param _side
-     *                (1 = right, 2 = left)
-     */
-    public ExOlympiadUserInfoSpectator(L2PcInstance player, int side)
-    {
-	_player = player;
-	_side = side;
-    }
+	/**
+	 * @param _player
+	 * @param _side
+	 *            (1 = right, 2 = left)
+	 */
+	public ExOlympiadUserInfoSpectator(L2PcInstance player, int side)
+	{
+		_player = player;
+		_side = side;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0xfe);
-	writeH(0x29);
-	writeC(_side);
-	writeD(_player.getObjectId());
-	writeS(_player.getName());
-	writeD(_player.getClassId().getId());
-	writeD((int) _player.getCurrentHp());
-	writeD(_player.getMaxHp());
-	writeD((int) _player.getCurrentCp());
-	writeD(_player.getMaxCp());
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x29);
+		writeC(_side);
+		writeD(_player.getObjectId());
+		writeS(_player.getName());
+		writeD(_player.getClassId().getId());
+		writeD((int) _player.getCurrentHp());
+		writeD(_player.getMaxHp());
+		writeD((int) _player.getCurrentCp());
+		writeD(_player.getMaxCp());
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__FE_29_OLYMPIADUSERINFOSPECTATOR;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__FE_29_OLYMPIADUSERINFOSPECTATOR;
+	}
 }

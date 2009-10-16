@@ -30,111 +30,105 @@ import org.w3c.dom.Node;
 
 /**
  * @author Luis Arias
- *
  */
 public class FaenorWorldDataParser extends FaenorParser
 {
-    static Logger _log = Logger.getLogger(FaenorWorldDataParser.class.getName());
-    //Script Types
-    private final static String PET_DATA = "PetData";
+	static Logger _log = Logger.getLogger(FaenorWorldDataParser.class.getName());
+	// Script Types
+	private final static String PET_DATA = "PetData";
 
-    @Override
+	@Override
 	public void parseScript(Node eventNode, ScriptContext context)
-    {
-        if (Config.DEBUG) 
-            _log.info("Parsing WorldData");
+	{
+		if (Config.DEBUG)
+			_log.info("Parsing WorldData");
+		for (Node node = eventNode.getFirstChild(); node != null; node = node.getNextSibling())
+		{
+			if (isNodeName(node, PET_DATA))
+			{
+				parsePetData(node, context);
+			}
+		}
+	}
 
-        for (Node node = eventNode.getFirstChild(); node != null; node = node.getNextSibling()) {
+	public class PetData
+	{
+		public int petId;
+		public int levelStart;
+		public int levelEnd;
+		Map<String, String> statValues;
 
-            if (isNodeName(node, PET_DATA))
-            {
-                parsePetData(node, context);
-            }
-        }
-    }
+		public PetData()
+		{
+			statValues = new FastMap<String, String>();
+		}
+	}
 
-    public class PetData
-    {
-        public int petId;
-        public int levelStart;
-        public int levelEnd;
-        Map<String, String> statValues;
-        public PetData()
-        {
-            statValues = new FastMap<String, String>();
-        }
-    }
+	private void parsePetData(Node petNode, ScriptContext context)
+	{
+		// if (Config.DEBUG) _log.info("Parsing PetData.");
+		PetData petData = new PetData();
+		try
+		{
+			petData.petId = getInt(attribute(petNode, "ID"));
+			int[] levelRange = IntList.parse(attribute(petNode, "Levels"));
+			petData.levelStart = levelRange[0];
+			petData.levelEnd = levelRange[1];
+			for (Node node = petNode.getFirstChild(); node != null; node = node.getNextSibling())
+			{
+				if (isNodeName(node, "Stat"))
+				{
+					parseStat(node, petData);
+				}
+			}
+			_bridge.addPetData(context, petData.petId, petData.levelStart, petData.levelEnd, petData.statValues);
+		}
+		catch (Exception e)
+		{
+			petData.petId = -1;
+			_log.warning("Error in pet Data parser.");
+			e.printStackTrace();
+		}
+	}
 
-    private void parsePetData(Node petNode, ScriptContext context)
-    {
-        //if (Config.DEBUG) _log.info("Parsing PetData.");
+	private void parseStat(Node stat, PetData petData)
+	{
+		// if (Config.DEBUG) _log.info("Parsing Pet Statistic.");
+		try
+		{
+			String statName = attribute(stat, "Name");
+			for (Node node = stat.getFirstChild(); node != null; node = node.getNextSibling())
+			{
+				if (isNodeName(node, "Formula"))
+				{
+					String formula = parseForumla(node);
+					petData.statValues.put(statName, formula);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			petData.petId = -1;
+			System.err.println("ERROR(parseStat):" + e.getMessage());
+		}
+	}
 
-        PetData petData = new PetData();
+	private String parseForumla(Node formulaNode)
+	{
+		return formulaNode.getTextContent().trim();
+	}
 
-        try
-        {
-            petData.petId       = getInt(attribute(petNode, "ID"));
-            int[] levelRange    = IntList.parse(attribute(petNode, "Levels"));
-            petData.levelStart  = levelRange[0];
-            petData.levelEnd    = levelRange[1];
-
-            for (Node node = petNode.getFirstChild(); node != null; node = node.getNextSibling())
-            {
-                if (isNodeName(node, "Stat"))
-                {
-                    parseStat(node, petData);
-                }
-            }
-            _bridge.addPetData(context, petData.petId, petData.levelStart, petData.levelEnd, petData.statValues);
-        }
-        catch (Exception e)
-        {
-            petData.petId = -1;
-            _log.warning("Error in pet Data parser.");
-            e.printStackTrace();
-        }
-    }
-
-    private void parseStat(Node stat, PetData petData)
-    {
-        //if (Config.DEBUG) _log.info("Parsing Pet Statistic.");
-
-        try
-        {
-            String statName     = attribute(stat, "Name");
-
-            for (Node node = stat.getFirstChild(); node != null; node = node.getNextSibling())
-            {
-                if (isNodeName(node, "Formula"))
-                {
-                    String formula = parseForumla(node);
-                    petData.statValues.put(statName, formula);
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            petData.petId = -1;
-            System.err.println("ERROR(parseStat):" + e.getMessage());
-        }
-    }
-
-    private String parseForumla(Node formulaNode)
-    {
-        return formulaNode.getTextContent().trim();
-    }
-
-    static class FaenorWorldDataParserFactory extends ParserFactory
-    {
-        @Override
+	static class FaenorWorldDataParserFactory extends ParserFactory
+	{
+		@Override
 		public Parser create()
-        {
-            return(new FaenorWorldDataParser());
-        }
-    }
+		{
+			return (new FaenorWorldDataParser());
+		}
+	}
 
-    static
-    {
-        ScriptEngine.parserFactories.put(getParserName("WorldData"), new FaenorWorldDataParserFactory());
-    }
+	static
+	{
+		ScriptEngine.parserFactories.put(getParserName("WorldData"), new FaenorWorldDataParserFactory());
+	}
 }

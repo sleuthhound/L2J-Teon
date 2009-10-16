@@ -24,48 +24,48 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillNeedCharge extends L2Skill
 {
-    final int numCharges;
-    final int chargeSkillId;
+	final int numCharges;
+	final int chargeSkillId;
 
-    public L2SkillNeedCharge(StatsSet set)
-    {
-	super(set);
-	numCharges = set.getInteger("num_charges", getLevel());
-	chargeSkillId = set.getInteger("charge_skill_id");
-    }
+	public L2SkillNeedCharge(StatsSet set)
+	{
+		super(set);
+		numCharges = set.getInteger("num_charges", getLevel());
+		chargeSkillId = set.getInteger("charge_skill_id");
+	}
 
-    @Override
-    public void useSkill(L2Character activeChar, L2Object[] targets)
-    {
-	if (activeChar.isAlikeDead())
+	@Override
+	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
-	    return;
+		if (activeChar.isAlikeDead())
+		{
+			return;
+		}
+		// get the effect
+		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
+		if ((effect == null) || (effect.numCharges < numCharges))
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(getId());
+			activeChar.sendPacket(sm);
+			return;
+		}
+		// decrease?
+		effect.numCharges -= numCharges;
+		// update icons
+		activeChar.updateEffectIcons();
+		// maybe exit? no charge
+		if (effect.numCharges == 0)
+		{
+			effect.exit();
+		}
+		// apply effects
+		if (hasEffects())
+		{
+			for (int index = 0; index < targets.length; index++)
+			{
+				getEffects(activeChar, (L2Character) targets[index]);
+			}
+		}
 	}
-	// get the effect
-	EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
-	if ((effect == null) || (effect.numCharges < numCharges))
-	{
-	    SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-	    sm.addSkillName(getId());
-	    activeChar.sendPacket(sm);
-	    return;
-	}
-	// decrease?
-	effect.numCharges -= numCharges;
-	// update icons
-	activeChar.updateEffectIcons();
-	// maybe exit? no charge
-	if (effect.numCharges == 0)
-	{
-	    effect.exit();
-	}
-	// apply effects
-	if (hasEffects())
-	{
-	    for (int index = 0; index < targets.length; index++)
-	    {
-		getEffects(activeChar, (L2Character) targets[index]);
-	    }
-	}
-    }
 }

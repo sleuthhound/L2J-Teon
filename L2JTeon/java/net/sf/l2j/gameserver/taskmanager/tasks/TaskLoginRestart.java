@@ -23,40 +23,39 @@ import net.sf.l2j.gameserver.taskmanager.TaskTypes;
 import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
 
 /**
- * 
  * @author Noctarius
  */
 public class TaskLoginRestart extends Task
 {
-    private static final Logger _log = Logger.getLogger(TaskRecom.class.getName());
-    private static final String NAME = "LoginRestart";
+	private static final Logger _log = Logger.getLogger(TaskRecom.class.getName());
+	private static final String NAME = "LoginRestart";
 
-    /**
-     * @see net.sf.l2j.gameserver.taskmanager.Task#getName()
-     */
-    @Override
-    public String getName()
-    {
-	return NAME;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.taskmanager.Task#getName()
+	 */
+	@Override
+	public String getName()
+	{
+		return NAME;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.taskmanager.Task#onTimeElapsed(net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask)
-     */
-    @Override
-    public void onTimeElapsed(ExecutedTask task)
-    {
-	if (!Config.LOGIN_RESTART_BY_TIME)
-	    return;
-	LoginServerThread.getInstance().sendLoginRestart();
-	_log.config("LoginRestart Global Task: launched.");
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.taskmanager.Task#onTimeElapsed(net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask)
+	 */
+	@Override
+	public void onTimeElapsed(ExecutedTask task)
+	{
+		if (!Config.LOGIN_RESTART_BY_TIME)
+			return;
+		LoginServerThread.getInstance().sendLoginRestart();
+		_log.config("LoginRestart Global Task: launched.");
+	}
 
-    @Override
-    public void initializate()
-    {
-	int restartTime = Config.LOGIN_RESTART_TIME * 60000;
-	super.initializate();
-	TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, String.valueOf(restartTime), String.valueOf(restartTime), "");
-    }
+	@Override
+	public void initializate()
+	{
+		int restartTime = Config.LOGIN_RESTART_TIME * 60000;
+		super.initializate();
+		TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, String.valueOf(restartTime), String.valueOf(restartTime), "");
+	}
 }

@@ -20,37 +20,35 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2World;
 
 /**
- * 
  * @author DaRkRaGe
- * 
  */
 public class FactionPlayers
 {
-    private static FactionPlayers _instance;
+	private static FactionPlayers _instance;
 
-    class AnnounceFaction implements Runnable
-    {
-	public void run()
+	class AnnounceFaction implements Runnable
 	{
-	    Announcements.getInstance().announceToAll(Config.KOOFS_NAME_TEAM + L2World.getInstance().getAllkoofPlayersCount() + " || " + Config.NOOBS_NAME_TEAM + L2World.getInstance().getAllnoobPlayersCount());
-	    ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceFaction(), Config.FACTION_ANNOUNCE_TIME);
+		public void run()
+		{
+			Announcements.getInstance().announceToAll(Config.KOOFS_NAME_TEAM + L2World.getInstance().getAllkoofPlayersCount() + " || " + Config.NOOBS_NAME_TEAM + L2World.getInstance().getAllnoobPlayersCount());
+			ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceFaction(), Config.FACTION_ANNOUNCE_TIME);
+		}
 	}
-    }
 
-    public static FactionPlayers getInstance()
-    {
-	if (_instance == null)
+	public static FactionPlayers getInstance()
 	{
-	    _instance = new FactionPlayers();
+		if (_instance == null)
+		{
+			_instance = new FactionPlayers();
+		}
+		return _instance;
 	}
-	return _instance;
-    }
 
-    private FactionPlayers()
-    {
-	if (Config.FACTION_ANNOUNCE_TIME > 0)
+	private FactionPlayers()
 	{
-	    ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceFaction(), Config.FACTION_ANNOUNCE_TIME);
+		if (Config.FACTION_ANNOUNCE_TIME > 0)
+		{
+			ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceFaction(), Config.FACTION_ANNOUNCE_TIME);
+		}
 	}
-    }
 }

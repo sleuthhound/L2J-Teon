@@ -23,78 +23,80 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
- * 
  * @author KenM
  */
 public final class RequestJoinSiege extends L2GameClientPacket
 {
-    private static final String _C__A4_RequestJoinSiege = "[C] a4 RequestJoinSiege";
-    // private static Logger _log =
-    // Logger.getLogger(RequestJoinSiege.class.getName());
-    private int _castleId;
-    private int _isAttacker;
-    private int _isJoining;
+	private static final String _C__A4_RequestJoinSiege = "[C] a4 RequestJoinSiege";
+	// private static Logger _log =
+	// Logger.getLogger(RequestJoinSiege.class.getName());
+	private int _castleId;
+	private int _isAttacker;
+	private int _isJoining;
 
-    @Override
-    protected void readImpl()
-    {
-	_castleId = readD();
-	_isAttacker = readD();
-	_isJoining = readD();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	if (!activeChar.isClanLeader())
-	    return;
-	if (_castleId < 100)
+	@Override
+	protected void readImpl()
 	{
-	    Castle castle = CastleManager.getInstance().getCastleById(_castleId);
-	    if (castle == null)
-		return;
-	    if (_isJoining == 1)
-	    {
-		if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
-		{
-		    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
-		    return;
-		}
-		if (_isAttacker == 1)
-		    castle.getSiege().registerAttacker(activeChar);
-		else
-		    castle.getSiege().registerDefender(activeChar);
-	    } else
-		castle.getSiege().removeSiegeClan(activeChar);
-	    castle.getSiege().listRegisterClan(activeChar);
-	} else
-	{
-	    Fort fort = FortManager.getInstance().getFortById(_castleId);
-	    if (fort == null)
-		return;
-	    if (_isJoining == 1)
-	    {
-		if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
-		{
-		    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
-		    return;
-		}
-		if (_isAttacker == 1)
-		    fort.getSiege().registerAttacker(activeChar);
-		else
-		    fort.getSiege().registerDefender(activeChar);
-	    } else
-		fort.getSiege().removeSiegeClan(activeChar);
-	    fort.getSiege().listRegisterClan(activeChar);
+		_castleId = readD();
+		_isAttacker = readD();
+		_isJoining = readD();
 	}
-    }
 
-    @Override
-    public String getType()
-    {
-	return _C__A4_RequestJoinSiege;
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		if (!activeChar.isClanLeader())
+			return;
+		if (_castleId < 100)
+		{
+			Castle castle = CastleManager.getInstance().getCastleById(_castleId);
+			if (castle == null)
+				return;
+			if (_isJoining == 1)
+			{
+				if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
+					return;
+				}
+				if (_isAttacker == 1)
+					castle.getSiege().registerAttacker(activeChar);
+				else
+					castle.getSiege().registerDefender(activeChar);
+			}
+			else
+				castle.getSiege().removeSiegeClan(activeChar);
+			castle.getSiege().listRegisterClan(activeChar);
+		}
+		else
+		{
+			Fort fort = FortManager.getInstance().getFortById(_castleId);
+			if (fort == null)
+				return;
+			if (_isJoining == 1)
+			{
+				if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
+					return;
+				}
+				if (_isAttacker == 1)
+					fort.getSiege().registerAttacker(activeChar);
+				else
+					fort.getSiege().registerDefender(activeChar);
+			}
+			else
+				fort.getSiege().removeSiegeClan(activeChar);
+			fort.getSiege().listRegisterClan(activeChar);
+		}
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__A4_RequestJoinSiege;
+	}
 }

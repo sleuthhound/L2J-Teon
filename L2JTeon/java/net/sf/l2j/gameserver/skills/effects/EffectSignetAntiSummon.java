@@ -26,56 +26,49 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author Forsaiken
  */
-
 public class EffectSignetAntiSummon extends EffectSignet
 {
-    public EffectSignetAntiSummon(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
-    
-    @Override
-    public EffectType getEffectType()
-    {
-        return EffectType.SIGNET_GROUND;
-    }
-    
-    @Override
-    public boolean onActionTime()
-    {
-        int mpConsume = getSkill().getMpConsume();
-        
-        L2PcInstance caster = (L2PcInstance)getEffected();
-        
-        for (L2Character cha : zone.getCharactersInZone())
-        {
-            if (cha == null)
-                continue;
-            
-            if (cha instanceof L2PlayableInstance)
-            {
-                L2PcInstance owner = null;
-                
-                if (cha instanceof L2Summon)
-                    owner = ((L2Summon)cha).getOwner();
-                else
-                    owner = (L2PcInstance)cha;
-                
-                if (owner != null && owner.getPet() != null)
-                {
-                    if (mpConsume > caster.getCurrentMp())
-                    {
-                        caster.sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
-                        return false;
-                    }
-                    else
-                        caster.reduceCurrentMp(mpConsume);
-                    
-                    owner.getPet().unSummon(owner);
-                    owner.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, caster);
-                }
-            }
-        }
-        return true;
-    }
+	public EffectSignetAntiSummon(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
+
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.SIGNET_GROUND;
+	}
+
+	@Override
+	public boolean onActionTime()
+	{
+		int mpConsume = getSkill().getMpConsume();
+		L2PcInstance caster = (L2PcInstance) getEffected();
+		for (L2Character cha : zone.getCharactersInZone())
+		{
+			if (cha == null)
+				continue;
+			if (cha instanceof L2PlayableInstance)
+			{
+				L2PcInstance owner = null;
+				if (cha instanceof L2Summon)
+					owner = ((L2Summon) cha).getOwner();
+				else
+					owner = (L2PcInstance) cha;
+				if (owner != null && owner.getPet() != null)
+				{
+					if (mpConsume > caster.getCurrentMp())
+					{
+						caster.sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
+						return false;
+					}
+					else
+						caster.reduceCurrentMp(mpConsume);
+					owner.getPet().unSummon(owner);
+					owner.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, caster);
+				}
+			}
+		}
+		return true;
+	}
 }

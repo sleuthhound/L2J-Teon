@@ -22,70 +22,66 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
 /**
- * @author Administrator
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * @author Administrator TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
  */
 public final class RequestRecipeShopMakeItem extends L2GameClientPacket
 {
-    private static final String _C__AF_REQUESTRECIPESHOPMAKEITEM = "[C] B6 RequestRecipeShopMakeItem";
-    // private static Logger _log =
-    // Logger.getLogger(RequestSellItem.class.getName());
-    private int _id;
-    private int _recipeId;
-    @SuppressWarnings("unused")
-    private int _unknow;
+	private static final String _C__AF_REQUESTRECIPESHOPMAKEITEM = "[C] B6 RequestRecipeShopMakeItem";
+	// private static Logger _log =
+	// Logger.getLogger(RequestSellItem.class.getName());
+	private int _id;
+	private int _recipeId;
+	@SuppressWarnings("unused")
+	private int _unknow;
 
-    @Override
-    protected void readImpl()
-    {
-	_id = readD();
-	_recipeId = readD();
-	_unknow = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_id = readD();
+		_recipeId = readD();
+		_unknow = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	L2PcInstance manufacturer = (L2PcInstance) L2World.getInstance().findObject(_id);
-	if (manufacturer == null)
-	    return;
-	if (activeChar.getPrivateStoreType() != 0)
+	@Override
+	protected void runImpl()
 	{
-	    activeChar.sendMessage("Cannot make items while trading");
-	    return;
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		L2PcInstance manufacturer = (L2PcInstance) L2World.getInstance().findObject(_id);
+		if (manufacturer == null)
+			return;
+		if (activeChar.getPrivateStoreType() != 0)
+		{
+			activeChar.sendMessage("Cannot make items while trading");
+			return;
+		}
+		if (manufacturer.getPrivateStoreType() != 5)
+		{
+			// activeChar.sendMessage("Cannot make items while trading");
+			return;
+		}
+		if (activeChar.isInCraftMode() || manufacturer.isInCraftMode())
+		{
+			activeChar.sendMessage("Currently in Craft Mode");
+			return;
+		}
+		if (manufacturer.isInDuel() || activeChar.isInDuel())
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
+			return;
+		}
+		if (Util.checkIfInRange(150, activeChar, manufacturer, true))
+			RecipeController.getInstance().requestManufactureItem(manufacturer, _recipeId, activeChar);
 	}
-	if (manufacturer.getPrivateStoreType() != 5)
-	{
-	    // activeChar.sendMessage("Cannot make items while trading");
-	    return;
-	}
-	if (activeChar.isInCraftMode() || manufacturer.isInCraftMode())
-	{
-	    activeChar.sendMessage("Currently in Craft Mode");
-	    return;
-	}
-	if (manufacturer.isInDuel() || activeChar.isInDuel())
-	{
-	    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
-	    return;
-	}
-	if (Util.checkIfInRange(150, activeChar, manufacturer, true))
-	    RecipeController.getInstance().requestManufactureItem(manufacturer, _recipeId, activeChar);
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__AF_REQUESTRECIPESHOPMAKEITEM;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__AF_REQUESTRECIPESHOPMAKEITEM;
+	}
 }

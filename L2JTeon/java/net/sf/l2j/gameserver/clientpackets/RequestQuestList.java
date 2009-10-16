@@ -23,31 +23,30 @@ import net.sf.l2j.gameserver.serverpackets.QuestList;
  */
 public final class RequestQuestList extends L2GameClientPacket
 {
-    private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
+	private static final String _C__63_REQUESTQUESTLIST = "[C] 63 RequestQuestList";
 
-    // private static Logger _log =
-    // Logger.getLogger(RequestQuestList.class.getName());
-    @Override
-    protected void readImpl()
-    {
-	// trigger
-    }
+	// private static Logger _log =
+	// Logger.getLogger(RequestQuestList.class.getName());
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	QuestList ql = new QuestList();
-	sendPacket(ql);
-    }
+	@Override
+	protected void runImpl()
+	{
+		QuestList ql = new QuestList();
+		sendPacket(ql);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__63_REQUESTQUESTLIST;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__63_REQUESTQUESTLIST;
+	}
 }

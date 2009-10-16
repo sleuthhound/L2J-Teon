@@ -24,6 +24,7 @@ public class ChatAlliance implements IChatHandler
 
 	/**
 	 * Handle chat type 'alliance'
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
@@ -37,6 +38,7 @@ public class ChatAlliance implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	public int[] getChatTypeList()

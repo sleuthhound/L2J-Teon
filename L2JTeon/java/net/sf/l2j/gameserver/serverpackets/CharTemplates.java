@@ -25,53 +25,52 @@ import net.sf.l2j.gameserver.templates.L2PcTemplate;
  */
 public class CharTemplates extends L2GameServerPacket
 {
-    // dddddddddddddddddddd
-    private static final String _S__23_CHARTEMPLATES = "[S] 23 CharTemplates";
-    private List<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
+	// dddddddddddddddddddd
+	private static final String _S__23_CHARTEMPLATES = "[S] 23 CharTemplates";
+	private List<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
 
-    public void addChar(L2PcTemplate template)
-    {
-	_chars.add(template);
-    }
-
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x17);
-	writeD(_chars.size());
-	for (L2PcTemplate temp : _chars)
+	public void addChar(L2PcTemplate template)
 	{
-	    writeD(temp.race.ordinal());
-	    writeD(temp.classId.getId());
-	    writeD(0x46);
-	    writeD(temp.baseSTR);
-	    writeD(0x0a);
-	    writeD(0x46);
-	    writeD(temp.baseDEX);
-	    writeD(0x0a);
-	    writeD(0x46);
-	    writeD(temp.baseCON);
-	    writeD(0x0a);
-	    writeD(0x46);
-	    writeD(temp.baseINT);
-	    writeD(0x0a);
-	    writeD(0x46);
-	    writeD(temp.baseWIT);
-	    writeD(0x0a);
-	    writeD(0x46);
-	    writeD(temp.baseMEN);
-	    writeD(0x0a);
+		_chars.add(template);
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__23_CHARTEMPLATES;
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x17);
+		writeD(_chars.size());
+		for (L2PcTemplate temp : _chars)
+		{
+			writeD(temp.race.ordinal());
+			writeD(temp.classId.getId());
+			writeD(0x46);
+			writeD(temp.baseSTR);
+			writeD(0x0a);
+			writeD(0x46);
+			writeD(temp.baseDEX);
+			writeD(0x0a);
+			writeD(0x46);
+			writeD(temp.baseCON);
+			writeD(0x0a);
+			writeD(0x46);
+			writeD(temp.baseINT);
+			writeD(0x0a);
+			writeD(0x46);
+			writeD(temp.baseWIT);
+			writeD(0x0a);
+			writeD(0x46);
+			writeD(temp.baseMEN);
+			writeD(0x0a);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__23_CHARTEMPLATES;
+	}
 }

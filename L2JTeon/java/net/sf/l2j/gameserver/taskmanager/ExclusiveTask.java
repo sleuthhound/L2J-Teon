@@ -24,26 +24,25 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 public abstract class ExclusiveTask
 {
 	private final boolean _returnIfAlreadyRunning;
-	
 	private Future<?> _future;
 	private boolean _isRunning;
 	private Thread _currentThread;
-	
+
 	protected ExclusiveTask(boolean returnIfAlreadyRunning)
 	{
 		_returnIfAlreadyRunning = returnIfAlreadyRunning;
 	}
-	
+
 	protected ExclusiveTask()
 	{
 		this(false);
 	}
-	
+
 	public synchronized boolean isScheduled()
 	{
 		return _future != null;
 	}
-	
+
 	public synchronized final void cancel()
 	{
 		if (_future != null)
@@ -52,26 +51,24 @@ public abstract class ExclusiveTask
 			_future = null;
 		}
 	}
-	
+
 	public synchronized final void schedule(long delay)
 	{
 		cancel();
-
-        _future = ThreadPoolManager.getInstance().scheduleEffect(_runnable, delay);
+		_future = ThreadPoolManager.getInstance().scheduleEffect(_runnable, delay);
 	}
-	
+
 	public synchronized final void execute()
 	{
 		ThreadPoolManager.getInstance().executeTask(_runnable);
 	}
-	
+
 	public synchronized final void scheduleAtFixedRate(long delay, long period)
 	{
 		cancel();
-
-        _future = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(_runnable, delay, period);
+		_future = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(_runnable, delay, period);
 	}
-	
+
 	private final Runnable _runnable = new Runnable()
 	{
 		@Override
@@ -90,28 +87,23 @@ public abstract class ExclusiveTask
 			}
 		}
 	};
-	
+
 	protected abstract void onElapsed();
-	
+
 	private synchronized boolean tryLock()
 	{
 		if (_returnIfAlreadyRunning)
 			return !_isRunning;
-		
 		_currentThread = Thread.currentThread();
-		
 		for (;;)
 		{
 			try
 			{
 				notifyAll();
-				
 				if (_currentThread != Thread.currentThread())
 					return false;
-				
 				if (!_isRunning)
 					return true;
-				
 				wait();
 			}
 			catch (InterruptedException e)
@@ -119,7 +111,7 @@ public abstract class ExclusiveTask
 			}
 		}
 	}
-	
+
 	private synchronized void unlock()
 	{
 		_isRunning = false;

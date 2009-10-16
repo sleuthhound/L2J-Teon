@@ -33,5 +33,5 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
  */
 public interface SpawnListener
 {
-    public void npcSpawned(L2NpcInstance npc);
+	public void npcSpawned(L2NpcInstance npc);
 }

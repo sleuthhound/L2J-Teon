@@ -22,8 +22,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * An olympiad stadium
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2OlympiadStadiumZone extends L2ZoneType
 {
@@ -41,19 +41,19 @@ public class L2OlympiadStadiumZone extends L2ZoneType
 		{
 			_stadiumId = Integer.parseInt(value);
 		}
-		else super.setParameter(name, value);
+		else
+			super.setParameter(name, value);
 	}
 
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		character.setInsideZone(L2Character.ZONE_PVP, true);
-        character.setInsideZone(L2Character.ZONE_NOLANDING, false);  
-        character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
-
+		character.setInsideZone(L2Character.ZONE_NOLANDING, false);
+		character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 		if (character instanceof L2PcInstance)
 		{
-			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 	}
 
@@ -61,23 +61,27 @@ public class L2OlympiadStadiumZone extends L2ZoneType
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(L2Character.ZONE_PVP, false);
-        character.setInsideZone(L2Character.ZONE_NOLANDING, true);  
-        character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false); 
-
+		character.setInsideZone(L2Character.ZONE_NOLANDING, true);
+		character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 		if (character instanceof L2PcInstance)
 		{
-			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
+	protected void onReviveInside(L2Character character)
+	{
+	}
 
 	/**
 	 * Returns this zones stadium id (if any)
+	 * 
 	 * @return
 	 */
 	public int getStadiumId()

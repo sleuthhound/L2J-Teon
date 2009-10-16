@@ -25,23 +25,19 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * another type of damage zone with skills
- *
- * @author  kerberos
+ * 
+ * @author kerberos
  */
 public class L2PoisonZone extends L2ZoneType
 {
 	private int _skillId;
-
 	private Future<?> _task;
-
 	private int _chance;
-
 	private int _initialDelay;
 
 	public L2PoisonZone(int id)
 	{
 		super(id);
-
 		// Setup default skill
 		_skillId = 4070;
 		_chance = 100;
@@ -63,7 +59,8 @@ public class L2PoisonZone extends L2ZoneType
 		{
 			_initialDelay = Integer.parseInt(value);
 		}
-		else super.setParameter(name, value);
+		else
+			super.setParameter(name, value);
 	}
 
 	@Override
@@ -89,6 +86,7 @@ public class L2PoisonZone extends L2ZoneType
 	{
 		return _skillId;
 	}
+
 	protected Collection<L2Character> getCharacterList()
 	{
 		return _characterList.values();
@@ -97,6 +95,7 @@ public class L2PoisonZone extends L2ZoneType
 	class ApplySkill implements Runnable
 	{
 		private L2PoisonZone _poisonZone;
+
 		ApplySkill(L2PoisonZone zone)
 		{
 			_poisonZone = zone;
@@ -108,21 +107,24 @@ public class L2PoisonZone extends L2ZoneType
 			{
 				if (temp != null && !temp.isDead())
 				{
-                    L2Effect[] effects = temp.getAllEffects();
-                    for (L2Effect e : effects)
-                    {
-                    	if (e.getSkill().getId() != getSkillId())
-                    		e.getSkill().getEffects(temp, temp);
-                    }
+					L2Effect[] effects = temp.getAllEffects();
+					for (L2Effect e : effects)
+					{
+						if (e.getSkill().getId() != getSkillId())
+							e.getSkill().getEffects(temp, temp);
+					}
 				}
 			}
 		}
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

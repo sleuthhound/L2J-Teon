@@ -22,25 +22,24 @@ import net.sf.l2j.Config;
 
 /**
  * This class ...
- *
+ * 
  * @version $Revision: 1.1.4.5 $ $Date: 2005/03/27 15:30:09 $
  */
 public class VoicedCommandHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
-	
 	private Map<String, IVoicedCommandHandler> _datatable;
-	
+
 	public static VoicedCommandHandler getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	private VoicedCommandHandler()
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
 	}
-	
+
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)
 	{
 		String[] ids = handler.getVoicedCommandList();
@@ -51,7 +50,7 @@ public class VoicedCommandHandler
 			_datatable.put(ids[i], handler);
 		}
 	}
-	
+
 	public IVoicedCommandHandler getVoicedCommandHandler(String voicedCommand)
 	{
 		String command = voicedCommand;
@@ -63,7 +62,7 @@ public class VoicedCommandHandler
 			_log.fine("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
 		return _datatable.get(command);
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -71,7 +70,7 @@ public class VoicedCommandHandler
 	{
 		return _datatable.size();
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

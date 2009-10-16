@@ -22,8 +22,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * A jail zone
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2JailZone extends L2ZoneType
 {
@@ -39,8 +39,8 @@ public class L2JailZone extends L2ZoneType
 		{
 			character.setInsideZone(L2Character.ZONE_JAIL, true);
 			character.setInsideZone(L2Character.ZONE_PVP, true);
-            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
-			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
+			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 	}
 
@@ -51,15 +51,18 @@ public class L2JailZone extends L2ZoneType
 		{
 			character.setInsideZone(L2Character.ZONE_JAIL, false);
 			character.setInsideZone(L2Character.ZONE_PVP, false);
-            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false); 
-			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
+			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

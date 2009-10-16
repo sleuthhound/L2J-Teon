@@ -17,42 +17,39 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * sample
- * 
- * format d
+ * sample format d
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class ChairSit extends L2GameServerPacket
 {
-    private static final String _S__e1_CHAIRSIT = "[S] e1 ChairSit";
-    private L2PcInstance _activeChar;
-    private int _staticObjectId;
+	private static final String _S__e1_CHAIRSIT = "[S] e1 ChairSit";
+	private L2PcInstance _activeChar;
+	private int _staticObjectId;
 
-    /**
+	/**
      */
-    public ChairSit(L2PcInstance player, int staticObjectId)
-    {
-	_activeChar = player;
-	_staticObjectId = staticObjectId;
-    }
+	public ChairSit(L2PcInstance player, int staticObjectId)
+	{
+		_activeChar = player;
+		_staticObjectId = staticObjectId;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0xe1);
-	writeD(_activeChar.getObjectId());
-	writeD(_staticObjectId);
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0xe1);
+		writeD(_activeChar.getObjectId());
+		writeD(_staticObjectId);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__e1_CHAIRSIT;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__e1_CHAIRSIT;
+	}
 }

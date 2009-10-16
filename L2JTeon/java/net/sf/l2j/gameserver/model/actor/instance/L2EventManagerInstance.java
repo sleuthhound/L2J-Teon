@@ -30,190 +30,195 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2EventManagerInstance extends L2NpcInstance
 {
-    // Local Variables Definition
-    // --------------------------
-    /** Number of Current Events */
-    public static int _currentEvents = 0;
-    /** Players from which we're waiting an answer */
-    public static Vector<L2PcInstance> _awaitingplayers = new Vector<L2PcInstance>();
-    /** Players that will finally get inside the Event */
-    public static Vector<L2PcInstance> _finalPlayers = new Vector<L2PcInstance>();
+	// Local Variables Definition
+	// --------------------------
+	/** Number of Current Events */
+	public static int _currentEvents = 0;
+	/** Players from which we're waiting an answer */
+	public static Vector<L2PcInstance> _awaitingplayers = new Vector<L2PcInstance>();
+	/** Players that will finally get inside the Event */
+	public static Vector<L2PcInstance> _finalPlayers = new Vector<L2PcInstance>();
 
-    public L2EventManagerInstance(int objectId, L2NpcTemplate template)
-    {
-	super(objectId, template);
-    }
-
-    @Override
-    public void onBypassFeedback(L2PcInstance player, String command)
-    {
-	player.sendPacket(new ActionFailed());
-	StringTokenizer st = new StringTokenizer(command, " ");
-	String actualCommand = st.nextToken();
-	_finalPlayers = new Vector<L2PcInstance>();
-	if (actualCommand.equalsIgnoreCase("iEvent"))
+	public L2EventManagerInstance(int objectId, L2NpcTemplate template)
 	{
-	    try
-	    {
-		/* Type:1- Single //2- Clan //3- Party */
-		int type = Integer.parseInt(st.nextToken());
-		/* Required Event Points needed to participate */
-		int eventPoints = Integer.parseInt(st.nextToken());
-		/* NpcId of the Event mobs */
-		int npcId = Integer.parseInt(st.nextToken());
-		/* Number of NPcs */
-		int npcAm = Integer.parseInt(st.nextToken());
-		/* Minimum number of needed persons players to participate */
-		int minPeople = Integer.parseInt(st.nextToken());
-		/* Minimum level to participate */
-		int minLevel = Integer.parseInt(st.nextToken());
-		/* Buff List to apply */
-		int bufflist = Integer.parseInt(st.nextToken());
-		/* Level of The Prize to Hand out */
-		int prizeLevel = Integer.parseInt(st.nextToken());
-		if (player == null)
+		super(objectId, template);
+	}
+
+	@Override
+	public void onBypassFeedback(L2PcInstance player, String command)
+	{
+		player.sendPacket(new ActionFailed());
+		StringTokenizer st = new StringTokenizer(command, " ");
+		String actualCommand = st.nextToken();
+		_finalPlayers = new Vector<L2PcInstance>();
+		if (actualCommand.equalsIgnoreCase("iEvent"))
 		{
-		    return;
+			try
+			{
+				/* Type:1- Single //2- Clan //3- Party */
+				int type = Integer.parseInt(st.nextToken());
+				/* Required Event Points needed to participate */
+				int eventPoints = Integer.parseInt(st.nextToken());
+				/* NpcId of the Event mobs */
+				int npcId = Integer.parseInt(st.nextToken());
+				/* Number of NPcs */
+				int npcAm = Integer.parseInt(st.nextToken());
+				/* Minimum number of needed persons players to participate */
+				int minPeople = Integer.parseInt(st.nextToken());
+				/* Minimum level to participate */
+				int minLevel = Integer.parseInt(st.nextToken());
+				/* Buff List to apply */
+				int bufflist = Integer.parseInt(st.nextToken());
+				/* Level of The Prize to Hand out */
+				int prizeLevel = Integer.parseInt(st.nextToken());
+				if (player == null)
+				{
+					return;
+				}
+				setTarget(player);
+				if (_currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS)
+				{
+					player.sendMessage("There's alredy " + _currentEvents + " events in progress. " + "Wait untill one of them ends to get into another one.");
+					return;
+				}
+				if (L2EventChecks.usualChecks(player, minLevel))
+					_finalPlayers.add(player);
+				else
+					return;
+				// If the player has passed the checks, then continue.
+				switch (type)
+				{
+					// Case Clan Events.
+					case 2:
+					{
+						if (player.getClan() == null)
+						{
+							player.sendMessage("You Don't have a Clan!");
+							return;
+						}
+						L2PcInstance[] onlineclanMembers = player.getClan().getOnlineMembers("");
+						for (L2PcInstance member : onlineclanMembers)
+						{
+							boolean eligible = true;
+							if (member == null)
+								continue;
+							if (!L2EventChecks.usualChecks(member, minLevel))
+								eligible = false;
+							if (eligible && !_finalPlayers.contains(member))
+								_finalPlayers.add(member);
+						}
+						if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
+						{
+							player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
+							_awaitingplayers.add(player);
+							ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName() + " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?");
+							player.sendPacket(dlg);
+							// player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?"));
+						}
+						else
+						{
+							String reason;
+							if (_finalPlayers.size() > 1)
+								reason = ": Only 1 Clan Member Online.";
+							else if (_finalPlayers.size() < minPeople)
+								reason = ": Not enough members online to participate.";
+							else
+								reason = ".";
+							player.sendMessage("Cannot participate" + reason);
+						}
+						break;
+					}
+						// Case Party Events.
+					case 3:
+					{
+						if (player.getParty() == null)
+						{
+							player.sendMessage("You DON'T have a Party!");
+							return;
+						}
+						List<L2PcInstance> partyMembers = player.getParty().getPartyMembers();
+						for (L2PcInstance member : partyMembers)
+						{
+							boolean eligible = true;
+							if (member == null)
+								continue;
+							if (!L2EventChecks.usualChecks(member, minLevel))
+								eligible = false;
+							if (eligible && !_finalPlayers.contains(member))
+								_finalPlayers.add(member);
+						}
+						if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
+						{
+							player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
+							_awaitingplayers.add(player);
+							ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName() + " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?");
+							player.sendPacket(dlg);
+							// player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?"));
+						}
+						else
+						{
+							String reason;
+							if (_finalPlayers.size() > 1)
+								reason = ": Only 1 Party Member.";
+							else if (_finalPlayers.size() < minPeople)
+								reason = ": Not enough members to participate.";
+							else
+								reason = ".";
+							player.sendMessage("Cannot participate" + reason);
+						}
+						break;
+					}
+					default:
+					{
+						player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
+						player.setRaidAnswear(1);
+					}
+				}
+				return;
+			}
+			catch (Exception e)
+			{
+				_log.warning("L2EventManagerInstance: Error while getting html command");
+				e.printStackTrace();
+			}
 		}
-		setTarget(player);
-		if (_currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS)
+		super.onBypassFeedback(player, command);
+	}
+
+	@Override
+	public String getHtmlPath(int npcId, int val)
+	{
+		String pom = "";
+		if (val == 0)
 		{
-		    player.sendMessage("There's alredy " + _currentEvents + " events in progress. " + "Wait untill one of them ends to get into another one.");
-		    return;
+			pom = "" + npcId;
 		}
-		if (L2EventChecks.usualChecks(player, minLevel))
-		    _finalPlayers.add(player);
 		else
-		    return;
-		// If the player has passed the checks, then continue.
-		switch (type)
 		{
-		// Case Clan Events.
-		case 2:
-		{
-		    if (player.getClan() == null)
-		    {
-			player.sendMessage("You Don't have a Clan!");
-			return;
-		    }
-		    L2PcInstance[] onlineclanMembers = player.getClan().getOnlineMembers("");
-		    for (L2PcInstance member : onlineclanMembers)
-		    {
-			boolean eligible = true;
-			if (member == null)
-			    continue;
-			if (!L2EventChecks.usualChecks(member, minLevel))
-			    eligible = false;
-			if (eligible && !_finalPlayers.contains(member))
-			    _finalPlayers.add(member);
-		    }
-		    if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
-		    {
-			player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
-			_awaitingplayers.add(player);
-			ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName()+" A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?");
-			player.sendPacket(dlg);
-			//player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?"));
-		    } else
-		    {
-			String reason;
-			if (_finalPlayers.size() > 1)
-			    reason = ": Only 1 Clan Member Online.";
-			else if (_finalPlayers.size() < minPeople)
-			    reason = ": Not enough members online to participate.";
-			else
-			    reason = ".";
-			player.sendMessage("Cannot participate" + reason);
-		    }
-		    break;
+			pom = npcId + "-" + val;
 		}
-		    // Case Party Events.
-		case 3:
-		{
-		    if (player.getParty() == null)
-		    {
-			player.sendMessage("You DON'T have a Party!");
-			return;
-		    }
-		    List<L2PcInstance> partyMembers = player.getParty().getPartyMembers();
-		    for (L2PcInstance member : partyMembers)
-		    {
-			boolean eligible = true;
-			if (member == null)
-			    continue;
-			if (!L2EventChecks.usualChecks(member, minLevel))
-			    eligible = false;
-			if (eligible && !_finalPlayers.contains(member))
-			    _finalPlayers.add(member);
-		    }
-		    if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
-		    {
-			player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
-			_awaitingplayers.add(player);
-			ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName()+" A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?");
-			player.sendPacket(dlg);
-			//player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?"));
-		    } else
-		    {
-			String reason;
-			if (_finalPlayers.size() > 1)
-			    reason = ": Only 1 Party Member.";
-			else if (_finalPlayers.size() < minPeople)
-			    reason = ": Not enough members to participate.";
-			else
-			    reason = ".";
-			player.sendMessage("Cannot participate" + reason);
-		    }
-		    break;
-		}
-		default:
-		{
-		    player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
-		    player.setRaidAnswear(1);
-		}
-		}
-		return;
-	    } catch (Exception e)
-	    {
-		_log.warning("L2EventManagerInstance: Error while getting html command");
-		e.printStackTrace();
-	    }
+		return "data/html/mods/raidevent/" + pom + ".htm";
 	}
-	super.onBypassFeedback(player, command);
-    }
 
-    @Override
-    public String getHtmlPath(int npcId, int val)
-    {
-	String pom = "";
-	if (val == 0)
+	public static boolean addEvent()
 	{
-	    pom = "" + npcId;
-	} else
-	{
-	    pom = npcId + "-" + val;
+		if (_currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS)
+			return false;
+		else
+		{
+			_currentEvents += 1;
+			return true;
+		}
 	}
-	return "data/html/mods/raidevent/" + pom + ".htm";
-    }
 
-    public static boolean addEvent()
-    {
-	if (_currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS)
-	    return false;
-	else
+	public static boolean removeEvent()
 	{
-	    _currentEvents += 1;
-	    return true;
+		if (_currentEvents > 0)
+		{
+			_currentEvents -= 1;
+			return true;
+		}
+		else
+			return false;
 	}
-    }
-
-    public static boolean removeEvent()
-    {
-	if (_currentEvents > 0)
-	{
-	    _currentEvents -= 1;
-	    return true;
-	} else
-	    return false;
-    }
 }

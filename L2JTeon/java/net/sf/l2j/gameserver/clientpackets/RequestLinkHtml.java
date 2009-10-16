@@ -23,35 +23,35 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  */
 public final class RequestLinkHtml extends L2GameClientPacket
 {
-    private static Logger _log = Logger.getLogger(RequestLinkHtml.class.getName());
-    private static final String REQUESTLINKHTML__C__20 = "[C] 20 RequestLinkHtml";
-    private String _link;
+	private static Logger _log = Logger.getLogger(RequestLinkHtml.class.getName());
+	private static final String REQUESTLINKHTML__C__20 = "[C] 20 RequestLinkHtml";
+	private String _link;
 
-    @Override
-    protected void readImpl()
-    {
-	_link = readS();
-    }
-
-    @Override
-    public void runImpl()
-    {
-	L2PcInstance actor = getClient().getActiveChar();
-	if (actor == null)
-	    return;
-	if (_link.contains("..") || !_link.contains(".htm"))
+	@Override
+	protected void readImpl()
 	{
-	    _log.warning("[RequestLinkHtml] hack? link contains prohibited characters: '" + _link + "', skipped");
-	    return;
+		_link = readS();
 	}
-	NpcHtmlMessage msg = new NpcHtmlMessage(0);
-	msg.setFile(_link);
-	sendPacket(msg);
-    }
 
-    @Override
-    public String getType()
-    {
-	return REQUESTLINKHTML__C__20;
-    }
+	@Override
+	public void runImpl()
+	{
+		L2PcInstance actor = getClient().getActiveChar();
+		if (actor == null)
+			return;
+		if (_link.contains("..") || !_link.contains(".htm"))
+		{
+			_log.warning("[RequestLinkHtml] hack? link contains prohibited characters: '" + _link + "', skipped");
+			return;
+		}
+		NpcHtmlMessage msg = new NpcHtmlMessage(0);
+		msg.setFile(_link);
+		sendPacket(msg);
+	}
+
+	@Override
+	public String getType()
+	{
+		return REQUESTLINKHTML__C__20;
+	}
 }

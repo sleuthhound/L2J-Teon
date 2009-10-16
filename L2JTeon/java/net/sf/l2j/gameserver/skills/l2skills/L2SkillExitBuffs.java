@@ -25,56 +25,56 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillExitBuffs extends L2Skill
 {
-    final int numCharges;
-    final int chargeSkillId;
-    final String exitBuffs;
+	final int numCharges;
+	final int chargeSkillId;
+	final String exitBuffs;
 
-    public L2SkillExitBuffs(StatsSet set)
-    {
-	super(set);
-	numCharges = set.getInteger("num_charges", getLevel());
-	chargeSkillId = set.getInteger("charge_skill_id");
-	exitBuffs = set.getString("exitBuffs");
-    }
+	public L2SkillExitBuffs(StatsSet set)
+	{
+		super(set);
+		numCharges = set.getInteger("num_charges", getLevel());
+		chargeSkillId = set.getInteger("charge_skill_id");
+		exitBuffs = set.getString("exitBuffs");
+	}
 
-    @Override
-    public void useSkill(L2Character activeChar, L2Object[] targets)
-    {
-	if (activeChar.isAlikeDead())
+	@Override
+	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
-	    return;
-	}
-	// get the effect
-	EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
-	if ((effect == null) || (effect.numCharges < numCharges))
-	{
-	    SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-	    sm.addSkillName(getId());
-	    activeChar.sendPacket(sm);
-	    return;
-	}
-	// decrease?
-	effect.numCharges -= numCharges;
-	// update icons
-	activeChar.updateEffectIcons();
-	// maybe exit? no charge
-	if (effect.numCharges == 0)
-	{
-	    effect.exit();
-	}
-	// what skills we need to debaff?
-	String[] buffList = exitBuffs.split(";");
-	// debaff it
-	for (L2Effect Effect : activeChar.getAllEffects())
-	{
-	    int effectId = Effect.getSkill().getId();
-	    for (String buffItem : buffList)
-	    {
-		if (Integer.parseInt(buffItem) == effectId)
+		if (activeChar.isAlikeDead())
 		{
-		    Effect.exit();
+			return;
 		}
-	    }
+		// get the effect
+		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
+		if ((effect == null) || (effect.numCharges < numCharges))
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+			sm.addSkillName(getId());
+			activeChar.sendPacket(sm);
+			return;
+		}
+		// decrease?
+		effect.numCharges -= numCharges;
+		// update icons
+		activeChar.updateEffectIcons();
+		// maybe exit? no charge
+		if (effect.numCharges == 0)
+		{
+			effect.exit();
+		}
+		// what skills we need to debaff?
+		String[] buffList = exitBuffs.split(";");
+		// debaff it
+		for (L2Effect Effect : activeChar.getAllEffects())
+		{
+			int effectId = Effect.getSkill().getId();
+			for (String buffItem : buffList)
+			{
+				if (Integer.parseInt(buffItem) == effectId)
+				{
+					Effect.exit();
+				}
+			}
+		}
 	}
-    }
 }

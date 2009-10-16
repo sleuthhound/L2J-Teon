@@ -20,13 +20,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- * @author demonia
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * @author demonia TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
  */
-final class EffectImmobilePetBuff extends L2Effect {
-     private L2Summon _pet;
+final class EffectImmobilePetBuff extends L2Effect
+{
+	private L2Summon _pet;
 
 	public EffectImmobilePetBuff(Env env, EffectTemplate template)
 	{
@@ -41,29 +39,28 @@ final class EffectImmobilePetBuff extends L2Effect {
 
 	/** Notify started */
 	@Override
-	public void onStart() {
+	public void onStart()
+	{
 		_pet = null;
-
-		if (getEffected() instanceof L2Summon
-			    && getEffector() instanceof L2PcInstance
-				&& ((L2Summon)getEffected()).getOwner() == getEffector())
+		if (getEffected() instanceof L2Summon && getEffector() instanceof L2PcInstance && ((L2Summon) getEffected()).getOwner() == getEffector())
 		{
-			_pet = (L2Summon)getEffected();
+			_pet = (L2Summon) getEffected();
 			_pet.setIsImmobilized(true);
 		}
 	}
 
 	/** Notify exited */
 	@Override
-	public void onExit() {
+	public void onExit()
+	{
 		if (_pet != null)
 			_pet.setIsImmobilized(false);
 	}
 
 	@Override
 	public boolean onActionTime()
-    {
-    	// just stop this effect
-    	return false;
-    }
+	{
+		// just stop this effect
+		return false;
+	}
 }

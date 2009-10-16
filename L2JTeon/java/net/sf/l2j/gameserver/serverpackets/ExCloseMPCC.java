@@ -15,36 +15,30 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * 
- * @author chris_00
- * 
- * close the CommandChannel Information window
- * 
+ * @author chris_00 close the CommandChannel Information window
  */
 public class ExCloseMPCC extends L2GameServerPacket
 {
-    private static final String _S__FE_26_EXCLOSEMPCC = "[S] FE:26 ExCloseMPCC";
+	private static final String _S__FE_26_EXCLOSEMPCC = "[S] FE:26 ExCloseMPCC";
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-	writeC(0xfe);
-	writeH(0x26);
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x26);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__FE_26_EXCLOSEMPCC;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__FE_26_EXCLOSEMPCC;
+	}
 }

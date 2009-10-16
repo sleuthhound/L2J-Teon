@@ -26,50 +26,51 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillCharge extends L2Skill
 {
-    final int numCharges;
+	final int numCharges;
 
-    public L2SkillCharge(StatsSet set)
-    {
-	super(set);
-	numCharges = set.getInteger("num_charges", getLevel());
-    }
-
-    @Override
-    public void useSkill(L2Character caster, L2Object[] targets)
-    {
-	if (caster.isAlikeDead())
-	    return;
-	// get the effect
-	EffectCharge effect = (EffectCharge) caster.getFirstEffect(this);
-	if (effect != null)
+	public L2SkillCharge(StatsSet set)
 	{
-	    if (effect.numCharges < numCharges)
-	    {
-		effect.numCharges++;
-		if (caster instanceof L2PcInstance)
-		{
-		    caster.sendPacket(new EtcStatusUpdate((L2PcInstance) caster));
-		    SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-		    sm.addNumber(effect.numCharges);
-		    caster.sendPacket(sm);
-		}
-	    } else
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_MAXIMUM);
-		caster.sendPacket(sm);
-	    }
-	    return;
+		super(set);
+		numCharges = set.getInteger("num_charges", getLevel());
 	}
-	getEffects(caster, caster);
-	// effect self :]
-	// L2Effect seffect = caster.getEffect(getId());
-	// TODO ?? this is always null due to a return in the if block above!
-	// if (effect != null && seffect.isSelfEffect())
-	// {
-	// Replace old effect with new one.
-	// seffect.exit();
-	// }
-	// cast self effect if any
-	getEffectsSelf(caster);
-    }
+
+	@Override
+	public void useSkill(L2Character caster, L2Object[] targets)
+	{
+		if (caster.isAlikeDead())
+			return;
+		// get the effect
+		EffectCharge effect = (EffectCharge) caster.getFirstEffect(this);
+		if (effect != null)
+		{
+			if (effect.numCharges < numCharges)
+			{
+				effect.numCharges++;
+				if (caster instanceof L2PcInstance)
+				{
+					caster.sendPacket(new EtcStatusUpdate((L2PcInstance) caster));
+					SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
+					sm.addNumber(effect.numCharges);
+					caster.sendPacket(sm);
+				}
+			}
+			else
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_MAXIMUM);
+				caster.sendPacket(sm);
+			}
+			return;
+		}
+		getEffects(caster, caster);
+		// effect self :]
+		// L2Effect seffect = caster.getEffect(getId());
+		// TODO ?? this is always null due to a return in the if block above!
+		// if (effect != null && seffect.isSelfEffect())
+		// {
+		// Replace old effect with new one.
+		// seffect.exit();
+		// }
+		// cast self effect if any
+		getEffectsSelf(caster);
+	}
 }

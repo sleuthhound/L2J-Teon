@@ -29,81 +29,80 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public final class AnswerTradeRequest extends L2GameClientPacket
 {
-    private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
-    // private static Logger _log =
-    // Logger.getLogger(AnswerTradeRequest.class.getName());
-    private int _response;
+	private static final String _C__40_ANSWERTRADEREQUEST = "[C] 40 AnswerTradeRequest";
+	// private static Logger _log =
+	// Logger.getLogger(AnswerTradeRequest.class.getName());
+	private int _response;
 
-    @Override
-    protected void readImpl()
-    {
-	_response = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_response = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance player = getClient().getActiveChar();
-	if (player == null)
-	    return;
-	if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
+	@Override
+	protected void runImpl()
 	{
-	    player.sendMessage("Transactions are disable for your Access Level");
-	    sendPacket(new ActionFailed());
-	    return;
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
+		{
+			player.sendMessage("Transactions are disable for your Access Level");
+			sendPacket(new ActionFailed());
+			return;
+		}
+		// DaRkRaGe's Faction Engine [L2JOneo]
+		L2PcInstance player2 = player.getActiveRequester();
+		if (player2.isNoob() && player.isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS)
+		{
+			player.sendMessage("You Cant Trade with enemy Faction");
+			return;
+		}
+		if (player2.isKoof() && player.isNoob() && Config.ENABLE_FACTION_KOOFS_NOOBS)
+		{
+			player.sendMessage("You Cant Trade with enemy Faction");
+			return;
+		}
+		L2PcInstance partner = player.getActiveRequester();
+		if ((partner == null) || (L2World.getInstance().findObject(partner.getObjectId()) == null))
+		{
+			// Trade partner not found, cancel trade
+			player.sendPacket(new SendTradeDone(0));
+			SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+			player.sendPacket(msg);
+			player.setActiveRequester(null);
+			player.setAllowTrade(true);
+			partner.setAllowTrade(true);
+			player.sendPacket(new ActionFailed());
+			return;
+		}
+		if (_response == 1 && !partner.isRequestExpired())
+		{
+			player.startTrade(partner);
+			partner.setAllowTrade(true);
+			player.setAllowTrade(true);
+		}
+		else
+		{
+			SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);
+			msg.addString(player.getName());
+			partner.sendPacket(msg);
+			player.sendPacket(new ActionFailed());
+			player.setAllowTrade(true);
+		}
+		// Clears requesting status
+		player.setActiveRequester(null);
+		partner.onTransactionResponse();
 	}
-	// DaRkRaGe's Faction Engine [L2JOneo]
-	L2PcInstance player2 = player.getActiveRequester();
-	if (player2.isNoob() && player.isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS)
-	{
-	    player.sendMessage("You Cant Trade with enemy Faction");
-	    return;
-	}
-	if (player2.isKoof() && player.isNoob() && Config.ENABLE_FACTION_KOOFS_NOOBS)
-	{
-	    player.sendMessage("You Cant Trade with enemy Faction");
-	    return;
-	}
-	L2PcInstance partner = player.getActiveRequester();
-	if ((partner == null) || (L2World.getInstance().findObject(partner.getObjectId()) == null))
-	{
-	    // Trade partner not found, cancel trade
-	    player.sendPacket(new SendTradeDone(0));
-	    SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-	    player.sendPacket(msg);
-	    player.setActiveRequester(null);
-        player.setAllowTrade(true);  
-        partner.setAllowTrade(true);  
-        player.sendPacket(new ActionFailed());  
-        return; 
-	}
-    if (_response == 1 && !partner.isRequestExpired())   
-    {
-        player.startTrade(partner);   
-        partner.setAllowTrade(true);   
-        player.setAllowTrade(true);   
-    }
-	else
-	{
-	    SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);
-	    msg.addString(player.getName());
-	    partner.sendPacket(msg);
-        player.sendPacket(new ActionFailed()); 
-        player.setAllowTrade(true);  
-	}
-	// Clears requesting status
-	player.setActiveRequester(null);
-	partner.onTransactionResponse();
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__40_ANSWERTRADEREQUEST;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__40_ANSWERTRADEREQUEST;
+	}
 }

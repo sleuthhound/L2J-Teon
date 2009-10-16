@@ -23,42 +23,42 @@ import net.sf.l2j.gameserver.model.L2Character;
  */
 public final class RequestTargetCanceld extends L2GameClientPacket
 {
-    private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
-    // private static Logger _log =
-    // Logger.getLogger(RequestTargetCanceld.class.getName());
-    private int _unselect;
+	private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
+	// private static Logger _log =
+	// Logger.getLogger(RequestTargetCanceld.class.getName());
+	private int _unselect;
 
-    @Override
-    protected void readImpl()
-    {
-	_unselect = readH();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	L2Character activeChar = getClient().getActiveChar();
-	if (activeChar != null)
+	@Override
+	protected void readImpl()
 	{
-	    if (_unselect == 0)
-	    {
-		if (activeChar.isCastingNow() && activeChar.canAbortCast())
-		    activeChar.abortCast();
-		else if (activeChar.getTarget() != null)
-		    activeChar.setTarget(null);
-	    } else if (activeChar.getTarget() != null)
-		activeChar.setTarget(null);
+		_unselect = readH();
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__37_REQUESTTARGETCANCELD;
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2Character activeChar = getClient().getActiveChar();
+		if (activeChar != null)
+		{
+			if (_unselect == 0)
+			{
+				if (activeChar.isCastingNow() && activeChar.canAbortCast())
+					activeChar.abortCast();
+				else if (activeChar.getTarget() != null)
+					activeChar.setTarget(null);
+			}
+			else if (activeChar.getTarget() != null)
+				activeChar.setTarget(null);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__37_REQUESTTARGETCANCELD;
+	}
 }

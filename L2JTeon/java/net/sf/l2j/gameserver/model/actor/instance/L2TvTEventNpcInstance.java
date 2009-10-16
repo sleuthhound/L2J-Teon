@@ -23,58 +23,59 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2TvTEventNpcInstance extends L2NpcInstance
 {
-    public L2TvTEventNpcInstance(int objectId, L2NpcTemplate template)
-    {
-	super(objectId, template);
-    }
-
-    @Override
-    public void showChatWindow(L2PcInstance playerInstance, int val)
-    {
-	if (playerInstance == null)
-	    return;
-	if (TvTEvent.isParticipating())
+	public L2TvTEventNpcInstance(int objectId, L2NpcTemplate template)
 	{
-	    String htmFile = "data/html/mods/tournament/";
-	    if (!TvTEvent.isPlayerParticipant(playerInstance.getName()))
-		htmFile += "TournamentParticipation";
-	    else
-		htmFile += "TournamentRemoveParticipation";
-	    htmFile += ".htm";
-	    String htmContent = HtmCache.getInstance().getHtm(htmFile);
-	    if (htmContent != null)
-	    {
-		int[] teamsPlayerCounts = TvTEvent.getTeamsPlayerCounts();
-		NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-		npcHtmlMessage.setHtml(htmContent);
-		npcHtmlMessage.replace("%objectId%", String.valueOf(getObjectId()));
-		npcHtmlMessage.replace("%team1name%", Config.TVT_EVENT_TEAM_1_NAME);
-		npcHtmlMessage.replace("%team1playercount%", String.valueOf(teamsPlayerCounts[0]));
-		npcHtmlMessage.replace("%team2name%", Config.TVT_EVENT_TEAM_2_NAME);
-		npcHtmlMessage.replace("%team2playercount%", String.valueOf(teamsPlayerCounts[1]));
-		playerInstance.sendPacket(npcHtmlMessage);
-	    }
-	} else if (TvTEvent.isStarting() || TvTEvent.isStarted())
-	{
-	    String htmFile = "data/html/mods/tournament/TournamentEventStatus.htm";
-	    String htmContent = HtmCache.getInstance().getHtm(htmFile);
-	    if (htmContent != null)
-	    {
-		int[] teamsPlayerCounts = TvTEvent.getTeamsPlayerCounts();
-		int[] teamsPointsCounts = TvTEvent.getTeamsPoints();
-		NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
-		npcHtmlMessage.setHtml(htmContent);
-		// npcHtmlMessage.replace("%objectId%",
-		// String.valueOf(getObjectId()));
-		npcHtmlMessage.replace("%team1name%", Config.TVT_EVENT_TEAM_1_NAME);
-		npcHtmlMessage.replace("%team1playercount%", String.valueOf(teamsPlayerCounts[0]));
-		npcHtmlMessage.replace("%team1points%", String.valueOf(teamsPointsCounts[0]));
-		npcHtmlMessage.replace("%team2name%", Config.TVT_EVENT_TEAM_2_NAME);
-		npcHtmlMessage.replace("%team2playercount%", String.valueOf(teamsPlayerCounts[1]));
-		npcHtmlMessage.replace("%team2points%", String.valueOf(teamsPointsCounts[1]));
-		playerInstance.sendPacket(npcHtmlMessage);
-	    }
+		super(objectId, template);
 	}
-	playerInstance.sendPacket(new ActionFailed());
-    }
+
+	@Override
+	public void showChatWindow(L2PcInstance playerInstance, int val)
+	{
+		if (playerInstance == null)
+			return;
+		if (TvTEvent.isParticipating())
+		{
+			String htmFile = "data/html/mods/tournament/";
+			if (!TvTEvent.isPlayerParticipant(playerInstance.getName()))
+				htmFile += "TournamentParticipation";
+			else
+				htmFile += "TournamentRemoveParticipation";
+			htmFile += ".htm";
+			String htmContent = HtmCache.getInstance().getHtm(htmFile);
+			if (htmContent != null)
+			{
+				int[] teamsPlayerCounts = TvTEvent.getTeamsPlayerCounts();
+				NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
+				npcHtmlMessage.setHtml(htmContent);
+				npcHtmlMessage.replace("%objectId%", String.valueOf(getObjectId()));
+				npcHtmlMessage.replace("%team1name%", Config.TVT_EVENT_TEAM_1_NAME);
+				npcHtmlMessage.replace("%team1playercount%", String.valueOf(teamsPlayerCounts[0]));
+				npcHtmlMessage.replace("%team2name%", Config.TVT_EVENT_TEAM_2_NAME);
+				npcHtmlMessage.replace("%team2playercount%", String.valueOf(teamsPlayerCounts[1]));
+				playerInstance.sendPacket(npcHtmlMessage);
+			}
+		}
+		else if (TvTEvent.isStarting() || TvTEvent.isStarted())
+		{
+			String htmFile = "data/html/mods/tournament/TournamentEventStatus.htm";
+			String htmContent = HtmCache.getInstance().getHtm(htmFile);
+			if (htmContent != null)
+			{
+				int[] teamsPlayerCounts = TvTEvent.getTeamsPlayerCounts();
+				int[] teamsPointsCounts = TvTEvent.getTeamsPoints();
+				NpcHtmlMessage npcHtmlMessage = new NpcHtmlMessage(getObjectId());
+				npcHtmlMessage.setHtml(htmContent);
+				// npcHtmlMessage.replace("%objectId%",
+				// String.valueOf(getObjectId()));
+				npcHtmlMessage.replace("%team1name%", Config.TVT_EVENT_TEAM_1_NAME);
+				npcHtmlMessage.replace("%team1playercount%", String.valueOf(teamsPlayerCounts[0]));
+				npcHtmlMessage.replace("%team1points%", String.valueOf(teamsPointsCounts[0]));
+				npcHtmlMessage.replace("%team2name%", Config.TVT_EVENT_TEAM_2_NAME);
+				npcHtmlMessage.replace("%team2playercount%", String.valueOf(teamsPlayerCounts[1]));
+				npcHtmlMessage.replace("%team2points%", String.valueOf(teamsPointsCounts[1]));
+				playerInstance.sendPacket(npcHtmlMessage);
+			}
+		}
+		playerInstance.sendPacket(new ActionFailed());
+	}
 }

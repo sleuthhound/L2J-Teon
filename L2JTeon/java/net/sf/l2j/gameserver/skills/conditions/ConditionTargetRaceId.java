@@ -23,18 +23,18 @@ import net.sf.l2j.gameserver.skills.Env;
  */
 public class ConditionTargetRaceId extends Condition
 {
-    private final FastList<Integer> _raceIds;
+	private final FastList<Integer> _raceIds;
 
-    public ConditionTargetRaceId(FastList<Integer> raceId)
-    {
-	_raceIds = raceId;
-    }
+	public ConditionTargetRaceId(FastList<Integer> raceId)
+	{
+		_raceIds = raceId;
+	}
 
-    @Override
-    public boolean testImpl(Env env)
-    {
-	if (!(env.target instanceof L2NpcInstance))
-	    return false;
-	return (_raceIds.contains(((L2NpcInstance) env.target).getTemplate().race.ordinal()));
-    }
+	@Override
+	public boolean testImpl(Env env)
+	{
+		if (!(env.target instanceof L2NpcInstance))
+			return false;
+		return (_raceIds.contains(((L2NpcInstance) env.target).getTemplate().race.ordinal()));
+	}
 }

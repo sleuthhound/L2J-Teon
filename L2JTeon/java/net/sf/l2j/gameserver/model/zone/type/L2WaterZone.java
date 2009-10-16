@@ -28,42 +28,36 @@ public class L2WaterZone extends L2ZoneType
 	{
 		super(id);
 	}
-	
+
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		character.setInsideZone(L2Character.ZONE_WATER, true);
-		
 		if (character instanceof L2PcInstance)
 		{
-				((L2PcInstance) character).broadcastUserInfo();
+			((L2PcInstance) character).broadcastUserInfo();
 		}
 		else if (character instanceof L2NpcInstance)
 		{
 			Collection<L2PcInstance> plrs = character.getKnownList().getKnownPlayers().values();
-			//synchronized (character.getKnownList().getKnownPlayers())
+			// synchronized (character.getKnownList().getKnownPlayers())
 			{
 				for (L2PcInstance player : plrs)
 					player.sendPacket(new NpcInfo((L2NpcInstance) character, player));
 			}
 		}
-		
 		/*
-		 * if (character instanceof L2PcInstance) {
-		 * ((L2PcInstance)character).sendMessage("You entered water!"); }
+		 * if (character instanceof L2PcInstance) { ((L2PcInstance)character).sendMessage("You entered water!"); }
 		 */
 	}
-	
+
 	@Override
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(L2Character.ZONE_WATER, false);
-		
-		/*if (character instanceof L2PcInstance)
-		{
-			((L2PcInstance)character).sendMessage("You exited water!");
-		}*/
-
+		/*
+		 * if (character instanceof L2PcInstance) { ((L2PcInstance)character).sendMessage("You exited water!"); }
+		 */
 		// TODO: update to only send speed status when that packet is known
 		if (character instanceof L2PcInstance)
 		{
@@ -72,24 +66,24 @@ public class L2WaterZone extends L2ZoneType
 		else if (character instanceof L2NpcInstance)
 		{
 			Collection<L2PcInstance> plrs = character.getKnownList().getKnownPlayers().values();
-			//synchronized (character.getKnownList().getKnownPlayers())
+			// synchronized (character.getKnownList().getKnownPlayers())
 			{
 				for (L2PcInstance player : plrs)
 					player.sendPacket(new NpcInfo((L2NpcInstance) character, player));
 			}
 		}
 	}
-	
+
 	@Override
 	public void onDieInside(L2Character character)
 	{
 	}
-	
+
 	@Override
 	public void onReviveInside(L2Character character)
 	{
 	}
-	
+
 	public int getWaterZ()
 	{
 		return getZone().getHighZ();

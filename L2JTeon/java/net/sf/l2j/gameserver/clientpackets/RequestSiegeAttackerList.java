@@ -28,39 +28,40 @@ import net.sf.l2j.gameserver.serverpackets.FortSiegeAttackerList;
  */
 public final class RequestSiegeAttackerList extends L2GameClientPacket
 {
-    private static final String _C__A2_RequestSiegeAttackerList = "[C] a2 RequestSiegeAttackerList";
-    //private static Logger _log = Logger.getLogger(RequestJoinParty.class.getName());
-    private int _castleId;
+	private static final String _C__A2_RequestSiegeAttackerList = "[C] a2 RequestSiegeAttackerList";
+	// private static Logger _log = Logger.getLogger(RequestJoinParty.class.getName());
+	private int _castleId;
 
-    @Override
-    protected void readImpl()
-    {
-	_castleId = readD();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	if (_castleId < 100)
+	@Override
+	protected void readImpl()
 	{
-	    Castle castle = CastleManager.getInstance().getCastleById(_castleId);
-	    if (castle == null)
-		return;
-	    SiegeAttackerList sal = new SiegeAttackerList(castle);
-	    sendPacket(sal);
-	} else
-	{
-	    Fort fort = FortManager.getInstance().getFortById(_castleId);
-	    if (fort == null)
-		return;
-	    FortSiegeAttackerList sal = new FortSiegeAttackerList(fort);
-	    sendPacket(sal);
+		_castleId = readD();
 	}
-    }
 
-    @Override
-    public String getType()
-    {
-	return _C__A2_RequestSiegeAttackerList;
-    }
+	@Override
+	protected void runImpl()
+	{
+		if (_castleId < 100)
+		{
+			Castle castle = CastleManager.getInstance().getCastleById(_castleId);
+			if (castle == null)
+				return;
+			SiegeAttackerList sal = new SiegeAttackerList(castle);
+			sendPacket(sal);
+		}
+		else
+		{
+			Fort fort = FortManager.getInstance().getFortById(_castleId);
+			if (fort == null)
+				return;
+			FortSiegeAttackerList sal = new FortSiegeAttackerList(fort);
+			sendPacket(sal);
+		}
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__A2_RequestSiegeAttackerList;
+	}
 }

@@ -21,24 +21,24 @@ package net.sf.l2j.gameserver.serverpackets;
  */
 public class MagicSkillCanceld extends L2GameServerPacket
 {
-    private static final String _S__5B_MAGICSKILLCANCELD = "[S] 49 MagicSkillCanceld";
-    private int _objectId;
+	private static final String _S__5B_MAGICSKILLCANCELD = "[S] 49 MagicSkillCanceld";
+	private int _objectId;
 
-    public MagicSkillCanceld(int objectId)
-    {
-	_objectId = objectId;
-    }
+	public MagicSkillCanceld(int objectId)
+	{
+		_objectId = objectId;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x49);
-	writeD(_objectId);
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x49);
+		writeD(_objectId);
+	}
 
-    @Override
-    public String getType()
-    {
-	return _S__5B_MAGICSKILLCANCELD;
-    }
+	@Override
+	public String getType()
+	{
+		return _S__5B_MAGICSKILLCANCELD;
+	}
 }

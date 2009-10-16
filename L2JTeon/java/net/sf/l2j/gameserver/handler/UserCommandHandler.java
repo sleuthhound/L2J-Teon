@@ -22,25 +22,24 @@ import net.sf.l2j.Config;
 
 /**
  * This class ...
- *
+ * 
  * @version $Revision: 1.1.2.1.2.5 $ $Date: 2005/03/27 15:30:09 $
  */
 public class UserCommandHandler
 {
 	private static Logger _log = Logger.getLogger(UserCommandHandler.class.getName());
-	
 	private Map<Integer, IUserCommandHandler> _datatable;
-	
+
 	public static UserCommandHandler getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	private UserCommandHandler()
 	{
 		_datatable = new FastMap<Integer, IUserCommandHandler>();
 	}
-	
+
 	public void registerUserCommandHandler(IUserCommandHandler handler)
 	{
 		int[] ids = handler.getUserCommandList();
@@ -51,14 +50,14 @@ public class UserCommandHandler
 			_datatable.put(Integer.valueOf(ids[i]), handler);
 		}
 	}
-	
+
 	public IUserCommandHandler getUserCommandHandler(int userCommand)
 	{
 		if (Config.DEBUG)
 			_log.fine("getting handler for user command: " + userCommand);
 		return _datatable.get(Integer.valueOf(userCommand));
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -66,7 +65,7 @@ public class UserCommandHandler
 	{
 		return _datatable.size();
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

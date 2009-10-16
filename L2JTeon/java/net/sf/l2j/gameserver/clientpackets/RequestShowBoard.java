@@ -24,41 +24,34 @@ import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
  */
 public final class RequestShowBoard extends L2GameClientPacket
 {
-    private static final String _C__57_REQUESTSHOWBOARD = "[C] 57 RequestShowBoard";
-    @SuppressWarnings("unused")
-    private int _unknown;
+	private static final String _C__57_REQUESTSHOWBOARD = "[C] 57 RequestShowBoard";
+	@SuppressWarnings("unused")
+	private int _unknown;
 
-    /**
-     * packet type id 0x57
-     * 
-     * sample
-     * 
-     * 57 01 00 00 00 // unknown (always 1?)
-     * 
-     * format: cd
-     * 
-     * @param decrypt
-     */
-    @Override
-    protected void readImpl()
-    {
-	_unknown = readD();
-    }
+	/**
+	 * packet type id 0x57 sample 57 01 00 00 00 // unknown (always 1?) format: cd
+	 * 
+	 * @param decrypt
+	 */
+	@Override
+	protected void readImpl()
+	{
+		_unknown = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	CommunityBoard.getInstance().handleCommands(getClient(), Config.BBS_DEFAULT);
-    }
+	@Override
+	protected void runImpl()
+	{
+		CommunityBoard.getInstance().handleCommands(getClient(), Config.BBS_DEFAULT);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__57_REQUESTSHOWBOARD;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__57_REQUESTSHOWBOARD;
+	}
 }

@@ -22,25 +22,24 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 
 /**
  * This class ...
- *
- * @Author Stefoulis15
  * 
+ * @Author Stefoulis15
  * @version $Revision: 1.1.4.4 $ $Date: 2005/04/03 15:55:06 $
  */
 public class SkillHandler
 {
 	private Map<L2Skill.SkillType, ISkillHandler> _datatable;
-	
+
 	public static SkillHandler getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	private SkillHandler()
 	{
 		_datatable = new TreeMap<L2Skill.SkillType, ISkillHandler>();
 	}
-	
+
 	public void registerSkillHandler(ISkillHandler handler)
 	{
 		SkillType[] types = handler.getSkillIds();
@@ -49,12 +48,12 @@ public class SkillHandler
 			_datatable.put(t, handler);
 		}
 	}
-	
+
 	public ISkillHandler getSkillHandler(SkillType skillType)
 	{
 		return _datatable.get(skillType);
 	}
-	
+
 	/**
 	 * @return
 	 */
@@ -62,7 +61,7 @@ public class SkillHandler
 	{
 		return _datatable.size();
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

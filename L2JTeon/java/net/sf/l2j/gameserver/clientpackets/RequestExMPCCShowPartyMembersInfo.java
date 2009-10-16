@@ -21,30 +21,30 @@ package net.sf.l2j.gameserver.clientpackets;
  */
 public final class RequestExMPCCShowPartyMembersInfo extends L2GameClientPacket
 {
-    private static final String _C__D0_26_REQUESTMPCCSHOWPARTYMEMBERINFO = "[C] D0:26 RequestExMPCCShowPartyMembersInfo";
-    private int _unk;
+	private static final String _C__D0_26_REQUESTMPCCSHOWPARTYMEMBERINFO = "[C] D0:26 RequestExMPCCShowPartyMembersInfo";
+	private int _unk;
 
-    @Override
-    protected void readImpl()
-    {
-	_unk = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_unk = readD();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-	System.out.println("C6: RequestExMPCCShowPartyMembersInfo. unk: " + _unk);
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 */
+	@Override
+	protected void runImpl()
+	{
+		System.out.println("C6: RequestExMPCCShowPartyMembersInfo. unk: " + _unk);
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__D0_26_REQUESTMPCCSHOWPARTYMEMBERINFO;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__D0_26_REQUESTMPCCSHOWPARTYMEMBERINFO;
+	}
 }

@@ -18,26 +18,25 @@ import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**
  * @author -Wooden-
- * 
  */
 public class PlayerLogout extends ClientBasePacket
 {
-    private String _account;
+	private String _account;
 
-    /**
-     * @param decrypt
-     */
-    public PlayerLogout(byte[] decrypt)
-    {
-	super(decrypt);
-	_account = readS();
-    }
+	/**
+	 * @param decrypt
+	 */
+	public PlayerLogout(byte[] decrypt)
+	{
+		super(decrypt);
+		_account = readS();
+	}
 
-    /**
-     * @return Returns the account.
-     */
-    public String getAccount()
-    {
-	return _account;
-    }
+	/**
+	 * @return Returns the account.
+	 */
+	public String getAccount()
+	{
+		return _account;
+	}
 }

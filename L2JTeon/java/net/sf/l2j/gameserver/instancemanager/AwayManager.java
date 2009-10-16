@@ -30,13 +30,12 @@ import net.sf.l2j.gameserver.serverpackets.SocialAction;
 
 /**
  * @author Michiru
- *
  */
 public final class AwayManager
 {
-	private static final Log				_log	= LogFactory.getLog(AwayManager.class.getName());
-	private static AwayManager				_instance;
-	private Map<L2PcInstance, RestoreData>	_awayPlayers;
+	private static final Log _log = LogFactory.getLog(AwayManager.class.getName());
+	private static AwayManager _instance;
+	private Map<L2PcInstance, RestoreData> _awayPlayers;
 
 	public static final AwayManager getInstance()
 	{
@@ -50,9 +49,9 @@ public final class AwayManager
 
 	private final class RestoreData
 	{
-		private final String	_originalTitle;
-		private final int		_originalTitleColor;
-		private final boolean	_sitForced;
+		private final String _originalTitle;
+		private final int _originalTitleColor;
+		private final boolean _sitForced;
 
 		public RestoreData(L2PcInstance activeChar)
 		{
@@ -106,9 +105,8 @@ public final class AwayManager
 
 	class setPlayerAwayTask implements Runnable
 	{
-
-		private final L2PcInstance	_activeChar;
-		private final String		_awayText;
+		private final L2PcInstance _activeChar;
+		private final String _awayText;
 
 		setPlayerAwayTask(L2PcInstance activeChar, String awayText)
 		{
@@ -122,9 +120,7 @@ public final class AwayManager
 				return;
 			if (_activeChar.isAttackingNow() || _activeChar.isCastingNow())
 				return;
-
 			_awayPlayers.put(_activeChar, new RestoreData(_activeChar));
-
 			_activeChar.disableAllSkills();
 			_activeChar.abortAttack();
 			_activeChar.abortCast();
@@ -157,8 +153,7 @@ public final class AwayManager
 
 	class setPlayerBackTask implements Runnable
 	{
-
-		private final L2PcInstance	_activeChar;
+		private final L2PcInstance _activeChar;
 
 		setPlayerBackTask(L2PcInstance activeChar)
 		{

@@ -19,17 +19,14 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
- * 
- * An Env object is just a class to pass parameters to a calculator such as
- * L2PcInstance, L2ItemInstance, Initial value.
- * 
+ * An Env object is just a class to pass parameters to a calculator such as L2PcInstance, L2ItemInstance, Initial value.
  */
 public final class Env
 {
-	public L2Character	player;
-	public L2Character	target;
-	public L2ItemInstance	item;
-	public L2Skill	skill;
-	public double	value;
-	public boolean	skillMastery = false;
+	public L2Character player;
+	public L2Character target;
+	public L2ItemInstance item;
+	public L2Skill skill;
+	public double value;
+	public boolean skillMastery = false;
 }

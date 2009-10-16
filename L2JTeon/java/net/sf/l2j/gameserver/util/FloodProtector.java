@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.GameTimeController;
 
 /**
  * Flood protector
- *
+ * 
  * @author durgus
  */
 public class FloodProtector
@@ -43,23 +43,11 @@ public class FloodProtector
 	// =========================================================
 	// Data Field
 	private FastMap<Integer, Integer[]> _floodClient;
-	// Enum  
-	private static final int PROTECTEDACTIONSIZE = 8; 
+	// Enum
+	private static final int PROTECTEDACTIONSIZE = 8;
 	// =========================================================
 	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
-    private static final int[] REUSEDELAY = new int[] 
-                                                    {  
-    	Config.USEITEM_DELAY,  
-    	Config.ROLLDICE_DELAY,  
-    	Config.FIREWORK_DELAY,  
-    	Config.ITEMPETSUMMON_DELAY,  
-    	Config.HEROVOICE_DELAY, 
-    	Config.UNKNOWN_PACKET_DELAY,  
-    	Config.SUBCLASS_DELAY,
-        Config.MULTISELL_DELAY,
-        Config.BANKING_DELAY,
-        Config.BYPASS_DELAY
-                                                    }; 	// protected actions
+	private static final int[] REUSEDELAY = new int[] { Config.USEITEM_DELAY, Config.ROLLDICE_DELAY, Config.FIREWORK_DELAY, Config.ITEMPETSUMMON_DELAY, Config.HEROVOICE_DELAY, Config.UNKNOWN_PACKET_DELAY, Config.SUBCLASS_DELAY, Config.MULTISELL_DELAY, Config.BANKING_DELAY, Config.BYPASS_DELAY }; // protected actions
 	public static final int PROTECTED_USEITEM = 0;
 	public static final int PROTECTED_ROLLDICE = 1;
 	public static final int PROTECTED_FIREWORK = 2;
@@ -69,7 +57,7 @@ public class FloodProtector
 	public static final int PROTECTED_SUBCLASS = 6;
 	public static final int PROTECTED_MULTISELL = 7;
 	public static final int PROTECTED_BANKING_SYSTEM = 8;
-        public static final int PROTECTED_BYPASS = 9;
+	public static final int PROTECTED_BYPASS = 9;
 	public static final int PROTECTED_NPCBUFFER = (int) 0.2;
 
 	// =========================================================
@@ -81,9 +69,8 @@ public class FloodProtector
 	}
 
 	/**
-	 * Add a new player to the flood protector (should be done for all players
-	 * when they enter the world)
-	 *
+	 * Add a new player to the flood protector (should be done for all players when they enter the world)
+	 * 
 	 * @param playerObjId
 	 */
 	public void registerNewPlayer(int playerObjId)
@@ -99,9 +86,8 @@ public class FloodProtector
 	}
 
 	/**
-	 * Remove a player from the flood protector (should be done if player loggs
-	 * off)
-	 *
+	 * Remove a player from the flood protector (should be done if player loggs off)
+	 * 
 	 * @param playerObjId
 	 */
 	public void removePlayer(int playerObjId)
@@ -111,7 +97,7 @@ public class FloodProtector
 
 	/**
 	 * Return the size of the flood protector
-	 *
+	 * 
 	 * @return size
 	 */
 	public int getSize()
@@ -121,7 +107,7 @@ public class FloodProtector
 
 	/**
 	 * Try to perform the requested action
-	 *
+	 * 
 	 * @param playerObjId
 	 * @param action
 	 * @return true if the action may be performed

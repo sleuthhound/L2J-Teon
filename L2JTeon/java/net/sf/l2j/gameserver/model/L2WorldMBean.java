@@ -14,25 +14,24 @@
  */
 package net.sf.l2j.gameserver.model;
 
-
 /**
- * interface for JMX Administration
- * 
- * Use to retrieve information about the L2World
+ * interface for JMX Administration Use to retrieve information about the L2World
  */
 public interface L2WorldMBean
 {
-    /**
-     * Get the count of all visible objects in world.<br><br>
-     * 
-     * @return count off all L2World objects
-     */
-    public int getAllVisibleObjectsCount();
-    
-    /**
-     * Return how many players are online.<BR><BR>
-     * 
-     * @return number of online players.
-     */
-    public int getAllPlayersCount();
+	/**
+	 * Get the count of all visible objects in world.<br>
+	 * <br>
+	 * 
+	 * @return count off all L2World objects
+	 */
+	public int getAllVisibleObjectsCount();
+
+	/**
+	 * Return how many players are online.<BR>
+	 * <BR>
+	 * 
+	 * @return number of online players.
+	 */
+	public int getAllPlayersCount();
 }

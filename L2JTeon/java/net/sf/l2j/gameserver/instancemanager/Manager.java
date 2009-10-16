@@ -16,11 +16,11 @@ package net.sf.l2j.gameserver.instancemanager;
 
 public class Manager
 {
-    public static void reloadAll()
-    {
-	AuctionManager.getInstance().reload();
-	DimensionalRiftManager.getInstance().reload();
-	CursedWeaponsManager.getInstance().reload();
-	MercTicketManager.getInstance().reload();
-    }
+	public static void reloadAll()
+	{
+		AuctionManager.getInstance().reload();
+		DimensionalRiftManager.getInstance().reload();
+		CursedWeaponsManager.getInstance().reload();
+		MercTicketManager.getInstance().reload();
+	}
 }

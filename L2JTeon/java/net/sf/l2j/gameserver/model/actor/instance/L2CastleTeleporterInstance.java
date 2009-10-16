@@ -41,8 +41,8 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	L2ZoneManager _zoneManager;
 
 	/**
-	* @param template
-	*/
+	 * @param template
+	 */
 	public L2CastleTeleporterInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -53,7 +53,6 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	{
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken(); // Get actual command
-
 		if (actualCommand.equalsIgnoreCase("tele"))
 		{
 			doTeleport(player);
@@ -83,25 +82,27 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 
 	private void doTeleport(L2PcInstance player)
 	{
-		try {
-			InputStream is              = new FileInputStream(new File(Config.SIEGE_CONFIGURATION_FILE));
-			Properties siegeSettings    = new Properties();
+		try
+		{
+			InputStream is = new FileInputStream(new File(Config.SIEGE_CONFIGURATION_FILE));
+			Properties siegeSettings = new Properties();
 			siegeSettings.load(is);
 			is.close();
-
 			long delay = Integer.decode(siegeSettings.getProperty("DefenderRespawn", "30000"));
-
 			Castle castle = CastleManager.getInstance().getCastle(player.getX(), player.getY(), player.getZ());
 			if (castle != null && castle.getSiege().getIsInProgress())
 				delay = castle.getSiege().getDefenderRespawnDelay();
 			if (delay > 480000)
 				delay = 480000;
 			setTask(true);
-			ThreadPoolManager.getInstance().scheduleGeneral(new oustAllPlayers(), delay );
-		} catch (Exception e) {
-            e.printStackTrace();
-        }
+			ThreadPoolManager.getInstance().scheduleGeneral(new oustAllPlayers(), delay);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
+
 	void oustAllPlayers()
 	{
 		getCastle().oustAllPlayers();
@@ -113,11 +114,11 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		{
 			try
 			{
-				NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of "+ getCastle().getName()+" castle will be teleported to the inner castle.");
+				NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of " + getCastle().getName() + " castle will be teleported to the inner castle.");
 				int region = MapRegionTable.getInstance().getMapRegion(getX(), getY());
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 				{
-					if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY()))
+					if (region == MapRegionTable.getInstance().getMapRegion(player.getX(), player.getY()))
 					{
 						player.sendPacket(cs);
 					}
@@ -133,24 +134,23 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	}
 
 	/**
-	* this is called when a player interacts with this NPC
-	* @param player
-	*/
+	 * this is called when a player interacts with this NPC
+	 * 
+	 * @param player
+	 */
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) return;
-
+		if (!canTarget(player))
+			return;
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
-
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
 		}

@@ -25,14 +25,14 @@ import org.apache.commons.logging.LogFactory;
 import net.sf.l2j.L2DatabaseFactory;
 
 /*
-* Author: MHard
-*/
+ * Author: MHard
+ */
 public abstract class ClanHallSiege
 {
 	protected static Log _log = LogFactory.getLog(ClanHallSiege.class.getName());
 	private Calendar _siegeDate;
-	public Calendar _siegeEndDate;	
-	private boolean _isInProgress = false;	
+	public Calendar _siegeEndDate;
+	private boolean _isInProgress = false;
 
 	public long restoreSiegeDate(int ClanHallId)
 	{
@@ -44,10 +44,8 @@ public abstract class ClanHallSiege
 			PreparedStatement statement = con.prepareStatement("SELECT siege_data FROM clanhall_siege WHERE id=?");
 			statement.setInt(1, ClanHallId);
 			ResultSet rs = statement.executeQuery();
-
 			if (rs.next())
 				res = rs.getLong("siege_data");
-
 			rs.close();
 			statement.close();
 		}
@@ -69,10 +67,11 @@ public abstract class ClanHallSiege
 		}
 		return res;
 	}
-	public void setNewSiegeDate(long siegeDate, int ClanHallId ,int hour)
+
+	public void setNewSiegeDate(long siegeDate, int ClanHallId, int hour)
 	{
-		Calendar tmpDate=Calendar.getInstance();
-		if (siegeDate<=System.currentTimeMillis())
+		Calendar tmpDate = Calendar.getInstance();
+		if (siegeDate <= System.currentTimeMillis())
 		{
 			tmpDate.setTimeInMillis(System.currentTimeMillis());
 			tmpDate.add(Calendar.DAY_OF_MONTH, 3);
@@ -80,7 +79,6 @@ public abstract class ClanHallSiege
 			tmpDate.set(Calendar.HOUR_OF_DAY, hour);
 			tmpDate.set(Calendar.MINUTE, 0);
 			tmpDate.set(Calendar.SECOND, 0);
-
 			setSiegeDate(tmpDate);
 			Connection con = null;
 			try
@@ -110,20 +108,24 @@ public abstract class ClanHallSiege
 			}
 		}
 	}
+
 	public final Calendar getSiegeDate()
 	{
-		return _siegeDate;	
+		return _siegeDate;
 	}
+
 	public final void setSiegeDate(Calendar par)
 	{
 		_siegeDate = par;
 	}
+
 	public final boolean getIsInProgress()
 	{
 		return _isInProgress;
 	}
+
 	public final void setIsInProgress(boolean par)
 	{
 		_isInProgress = par;
-	}	
+	}
 }

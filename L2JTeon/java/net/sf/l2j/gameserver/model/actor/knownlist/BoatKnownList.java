@@ -20,32 +20,31 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * @author Maktakien
- * 
  */
 public class BoatKnownList extends CharKnownList
 {
-    /**
-     * @param activeChar
-     */
-    public BoatKnownList(L2Character activeChar)
-    {
-	super(activeChar);
-	// TODO Auto-generated constructor stub
-    }
+	/**
+	 * @param activeChar
+	 */
+	public BoatKnownList(L2Character activeChar)
+	{
+		super(activeChar);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
-    public int getDistanceToForgetObject(L2Object object)
-    {
-	if (!(object instanceof L2PcInstance))
-	    return 0;
-	return 8000;
-    }
+	@Override
+	public int getDistanceToForgetObject(L2Object object)
+	{
+		if (!(object instanceof L2PcInstance))
+			return 0;
+		return 8000;
+	}
 
-    @Override
-    public int getDistanceToWatchObject(L2Object object)
-    {
-	if (!(object instanceof L2PcInstance))
-	    return 0;
-	return 4000;
-    }
+	@Override
+	public int getDistanceToWatchObject(L2Object object)
+	{
+		if (!(object instanceof L2PcInstance))
+			return 0;
+		return 4000;
+	}
 }

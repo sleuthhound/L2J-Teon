@@ -29,20 +29,19 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class FortSiegeGuardManager
 {
-	
 	private static final Logger _log = Logger.getLogger(FortSiegeGuardManager.class.getName());
-	
 	private Fort _fort;
 	protected FastMap<Integer, FastList<L2Spawn>> _siegeGuards = new FastMap<Integer, FastList<L2Spawn>>();
 	protected FastList<L2Spawn> _siegeGuardsSpawns;
-	
+
 	public FortSiegeGuardManager(Fort fort)
 	{
 		_fort = fort;
 	}
-	
+
 	/**
-	 * Spawn guards.<BR><BR>
+	 * Spawn guards.<BR>
+	 * <BR>
 	 */
 	public void spawnSiegeGuard()
 	{
@@ -54,8 +53,8 @@ public class FortSiegeGuardManager
 				for (L2Spawn spawnDat : monsterList)
 				{
 					spawnDat.doSpawn();
-						spawnDat.stopRespawn();
-						spawnDat.startRespawn();
+					spawnDat.stopRespawn();
+					spawnDat.startRespawn();
 				}
 			}
 		}
@@ -65,16 +64,16 @@ public class FortSiegeGuardManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Unspawn guards.<BR><BR>
+	 * Unspawn guards.<BR>
+	 * <BR>
 	 */
 	public void unspawnSiegeGuard()
 	{
 		try
 		{
 			FastList<L2Spawn> monsterList = getSiegeGuardSpawn().get(getFort().getFortId());
-			
 			if (monsterList != null)
 			{
 				for (L2Spawn spawnDat : monsterList)
@@ -90,9 +89,10 @@ public class FortSiegeGuardManager
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Load guards.<BR><BR>
+	 * Load guards.<BR>
+	 * <BR>
 	 */
 	void loadSiegeGuard()
 	{
@@ -104,7 +104,6 @@ public class FortSiegeGuardManager
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM fort_siege_guards Where fortId = ? ");
 			statement.setInt(1, getFort().getFortId());
 			ResultSet rs = statement.executeQuery();
-			
 			L2Spawn spawn1;
 			L2NpcTemplate template1;
 			_siegeGuardsSpawns = new FastList<L2Spawn>();
@@ -123,7 +122,6 @@ public class FortSiegeGuardManager
 					spawn1.setHeading(rs.getInt("heading"));
 					spawn1.setRespawnDelay(rs.getInt("respawnDelay"));
 					spawn1.setLocation(0);
-					
 					_siegeGuardsSpawns.add(spawn1);
 				}
 				else
@@ -153,12 +151,12 @@ public class FortSiegeGuardManager
 			}
 		}
 	}
-	
+
 	public final Fort getFort()
 	{
 		return _fort;
 	}
-	
+
 	public final FastMap<Integer, FastList<L2Spawn>> getSiegeGuardSpawn()
 	{
 		return _siegeGuards;

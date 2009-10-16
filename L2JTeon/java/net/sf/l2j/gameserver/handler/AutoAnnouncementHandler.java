@@ -34,19 +34,16 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 /**
- * Auto Announcment Handler
- *
- * Automatically send announcment
- * at a set time interval.
- *
+ * Auto Announcment Handler Automatically send announcment at a set time interval.
+ * 
  * @author chief
  */
 public class AutoAnnouncementHandler
 {
-	protected static Log								_log						= LogFactory.getLog(AutoAnnouncementHandler.class.getName());
-	private static AutoAnnouncementHandler				_instance;
-	private static final long							DEFAULT_ANNOUNCEMENT_DELAY	= 180000;														// 3 mins by default
-	protected Map<Integer, AutoAnnouncementInstance>	_registeredAnnouncements;
+	protected static Log _log = LogFactory.getLog(AutoAnnouncementHandler.class.getName());
+	private static AutoAnnouncementHandler _instance;
+	private static final long DEFAULT_ANNOUNCEMENT_DELAY = 180000; // 3 mins by default
+	protected Map<Integer, AutoAnnouncementInstance> _registeredAnnouncements;
 
 	protected AutoAnnouncementHandler()
 	{
@@ -60,22 +57,16 @@ public class AutoAnnouncementHandler
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-
 			statement = con.prepareStatement("SELECT * FROM auto_announcements ORDER BY id");
 			rs = statement.executeQuery();
-
 			while (rs.next())
 			{
 				numLoaded++;
-
 				registerGlobalAnnouncement(rs.getInt("id"), rs.getString("announcement"), rs.getLong("delay"));
-
 			}
-
 			statement.close();
 			_log.info("L2GameServer: Loaded " + numLoaded + " Auto Announcements.");
 		}
@@ -95,18 +86,15 @@ public class AutoAnnouncementHandler
 	}
 
 	/**
-	 *
 	 * @param activeChar
 	 */
 	public void listAutoAnnouncements(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-
 		TextBuilder replyMSG = new TextBuilder("<html><body>");
 		replyMSG.append("<table width=260><tr>");
 		replyMSG.append("<td width=40></td>");
-		replyMSG
-				.append("<button value=\"Main\" action=\"bypass -h admin_admin\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br>");
+		replyMSG.append("<button value=\"Main\" action=\"bypass -h admin_admin\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br>");
 		replyMSG.append("<td width=180><center>Auto Announcement Menu</center></td>");
 		replyMSG.append("<td width=40></td>");
 		replyMSG.append("</tr></table>");
@@ -118,39 +106,30 @@ public class AutoAnnouncementHandler
 		replyMSG.append("<center>Note: Time in Seconds 60s = 1 min.</center>");
 		replyMSG.append("<br><br>");
 		replyMSG.append("<center><table><tr><td>");
-		replyMSG
-				.append("<button value=\"Add\" action=\"bypass -h admin_add_autoannouncement $delay $new_autoannouncement\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td>");
+		replyMSG.append("<button value=\"Add\" action=\"bypass -h admin_add_autoannouncement $delay $new_autoannouncement\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td><td>");
 		replyMSG.append("</td></tr></table></center>");
 		replyMSG.append("<br>");
-
 		for (AutoAnnouncementInstance announcementInst : AutoAnnouncementHandler.getInstance().values())
 		{
-			replyMSG.append("<table width=260><tr><td width=220>[" + announcementInst.getDefaultDelay() + "s] " + announcementInst.getDefaultTexts().toString()
-					+ "</td><td width=40>");
-			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_autoannouncement " + announcementInst.getDefaultId()
-					+ "\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
+			replyMSG.append("<table width=260><tr><td width=220>[" + announcementInst.getDefaultDelay() + "s] " + announcementInst.getDefaultTexts().toString() + "</td><td width=40>");
+			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_autoannouncement " + announcementInst.getDefaultId() + "\" width=60 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
 		}
-
 		replyMSG.append("</body></html>");
-
 		adminReply.setHtml(replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public static AutoAnnouncementHandler getInstance()
 	{
 		if (_instance == null)
 			_instance = new AutoAnnouncementHandler();
-
 		return _instance;
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public int size()
@@ -160,10 +139,10 @@ public class AutoAnnouncementHandler
 
 	/**
 	 * Registers a globally active autoannouncement.<BR>
-	 *
 	 * Returns the associated auto announcement instance.
-	 *
-	 * @param String announcementTexts
+	 * 
+	 * @param String
+	 *            announcementTexts
 	 * @param int announcementDelay (-1 = default delay)
 	 * @return AutoAnnouncementInstance announcementInst
 	 */
@@ -174,10 +153,10 @@ public class AutoAnnouncementHandler
 
 	/**
 	 * Registers a NON globally-active auto announcement <BR>
-	 *
 	 * Returns the associated auto chat instance.
-	 *
-	 * @param String announcementTexts
+	 * 
+	 * @param String
+	 *            announcementTexts
 	 * @param int announcementDelay (-1 = default delay)
 	 * @return AutoAnnouncementInstance announcementInst
 	 */
@@ -189,7 +168,6 @@ public class AutoAnnouncementHandler
 	public AutoAnnouncementInstance registerAnnouncment(String announcementTexts, long announcementDelay)
 	{
 		int nextId = nextAutoAnnouncmentId();
-
 		Connection con = null;
 		try
 		{
@@ -198,9 +176,7 @@ public class AutoAnnouncementHandler
 			statement.setInt(1, nextId);
 			statement.setString(2, announcementTexts);
 			statement.setLong(3, announcementDelay);
-
 			statement.executeUpdate();
-
 			statement.close();
 		}
 		catch (Exception e)
@@ -215,7 +191,6 @@ public class AutoAnnouncementHandler
 			}
 			catch (Exception e)
 			{
-
 			}
 		}
 		return registerAnnouncement(nextId, announcementTexts, announcementDelay);
@@ -223,28 +198,21 @@ public class AutoAnnouncementHandler
 
 	public int nextAutoAnnouncmentId()
 	{
-
 		int nextId = 0;
-
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet rs = null;
-
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-
 			statement = con.prepareStatement("SELECT id FROM auto_announcements ORDER BY id");
 			rs = statement.executeQuery();
-
 			while (rs.next())
 			{
 				if (rs.getInt("id") > nextId)
 					nextId = rs.getInt("id");
 			}
-
 			statement.close();
-
 			nextId++;
 		}
 		catch (Exception e)
@@ -264,7 +232,6 @@ public class AutoAnnouncementHandler
 	}
 
 	/**
-	 *
 	 * @param id
 	 * @param announcementTexts
 	 * @param chatDelay
@@ -273,22 +240,17 @@ public class AutoAnnouncementHandler
 	private final AutoAnnouncementInstance registerAnnouncement(int id, String announcementTexts, long chatDelay)
 	{
 		AutoAnnouncementInstance announcementInst = null;
-
 		if (chatDelay < 0)
 			chatDelay = DEFAULT_ANNOUNCEMENT_DELAY;
-
 		if (_registeredAnnouncements.containsKey(id))
 			announcementInst = _registeredAnnouncements.get(id);
 		else
 			announcementInst = new AutoAnnouncementInstance(id, announcementTexts, chatDelay);
-
 		_registeredAnnouncements.put(id, announcementInst);
-
 		return announcementInst;
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public Collection<AutoAnnouncementInstance> values()
@@ -298,14 +260,13 @@ public class AutoAnnouncementHandler
 
 	/**
 	 * Removes and cancels ALL auto announcement for the given announcement id.
-	 *
+	 * 
 	 * @param int Id
 	 * @return boolean removedSuccessfully
 	 */
 	public boolean removeAnnouncement(int id)
 	{
 		AutoAnnouncementInstance announcementInst = _registeredAnnouncements.get(id);
-
 		Connection con = null;
 		try
 		{
@@ -327,34 +288,30 @@ public class AutoAnnouncementHandler
 			}
 			catch (Exception e)
 			{
-
 			}
 		}
-
 		return removeAnnouncement(announcementInst);
 	}
 
 	/**
 	 * Removes and cancels ALL auto announcement for the given announcement instance.
-	 *
-	 * @param AutoAnnouncementInstance announcementInst
+	 * 
+	 * @param AutoAnnouncementInstance
+	 *            announcementInst
 	 * @return boolean removedSuccessfully
 	 */
 	public boolean removeAnnouncement(AutoAnnouncementInstance announcementInst)
 	{
 		if (announcementInst == null)
 			return false;
-
 		_registeredAnnouncements.remove(announcementInst.getDefaultId());
 		announcementInst.setActive(false);
-
 		return true;
 	}
 
 	/**
-	 * Returns the associated auto announcement instance either by the given announcement ID
-	 * or object ID.
-	 *
+	 * Returns the associated auto announcement instance either by the given announcement ID or object ID.
+	 * 
 	 * @param int id
 	 * @return AutoAnnouncementInstance announcementInst
 	 */
@@ -364,9 +321,8 @@ public class AutoAnnouncementHandler
 	}
 
 	/**
-	 * Sets the active state of all auto announcement instances to that specified,
-	 * and cancels the scheduled chat task if necessary.
-	 *
+	 * Sets the active state of all auto announcement instances to that specified, and cancels the scheduled chat task if necessary.
+	 * 
 	 * @param boolean isActive
 	 */
 	public void setAutoAnnouncementActive(boolean isActive)
@@ -380,18 +336,15 @@ public class AutoAnnouncementHandler
 	 */
 	public class AutoAnnouncementInstance
 	{
-		private long			_defaultDelay	= DEFAULT_ANNOUNCEMENT_DELAY;
-		private String			_defaultTexts;
-		private boolean			_defaultRandom	= false;
-		private Integer			_defaultId;
-
-		private boolean			_isActive;
-
+		private long _defaultDelay = DEFAULT_ANNOUNCEMENT_DELAY;
+		private String _defaultTexts;
+		private boolean _defaultRandom = false;
+		private Integer _defaultId;
+		private boolean _isActive;
 		@SuppressWarnings("unchecked")
-		public ScheduledFuture	_chatTask;
+		public ScheduledFuture _chatTask;
 
 		/**
-		 *
 		 * @param id
 		 * @param announcementTexts
 		 * @param announcementDelay
@@ -401,12 +354,10 @@ public class AutoAnnouncementHandler
 			_defaultId = id;
 			_defaultTexts = announcementTexts;
 			_defaultDelay = (announcementDelay * 1000);
-
 			setActive(true);
 		}
 
 		/**
-		 *
 		 * @return
 		 */
 		public boolean isActive()
@@ -415,7 +366,6 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @return
 		 */
 		public boolean isDefaultRandom()
@@ -424,7 +374,6 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @return
 		 */
 		public long getDefaultDelay()
@@ -433,7 +382,6 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @return
 		 */
 		public String getDefaultTexts()
@@ -442,7 +390,6 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @return
 		 */
 		public Integer getDefaultId()
@@ -451,7 +398,6 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @param delayValue
 		 */
 		public void setDefaultChatDelay(long delayValue)
@@ -460,7 +406,6 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @param textsValue
 		 */
 		public void setDefaultChatTexts(String textsValue)
@@ -469,7 +414,6 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @param randValue
 		 */
 		public void setDefaultRandom(boolean randValue)
@@ -478,16 +422,13 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 *
 		 * @param activeValue
 		 */
 		public void setActive(boolean activeValue)
 		{
 			if (_isActive == activeValue)
 				return;
-
 			_isActive = activeValue;
-
 			if (isActive())
 			{
 				AutoAnnouncementRunner acr = new AutoAnnouncementRunner(_defaultId);
@@ -500,15 +441,15 @@ public class AutoAnnouncementHandler
 		}
 
 		/**
-		 * Auto Announcement Runner
-		 * <BR><BR>
+		 * Auto Announcement Runner <BR>
+		 * <BR>
 		 * Represents the auto announcement scheduled task for each announcement instance.
-		 *
+		 * 
 		 * @author chief
 		 */
 		private class AutoAnnouncementRunner implements Runnable
 		{
-			protected int	id;
+			protected int id;
 
 			protected AutoAnnouncementRunner(int pId)
 			{
@@ -518,14 +459,10 @@ public class AutoAnnouncementHandler
 			public synchronized void run()
 			{
 				AutoAnnouncementInstance announcementInst = _registeredAnnouncements.get(id);
-
 				String text;
-
 				text = announcementInst.getDefaultTexts();
-
 				if (text == null)
 					return;
-
 				Announcements.getInstance().announceToAll(text);
 			}
 		}

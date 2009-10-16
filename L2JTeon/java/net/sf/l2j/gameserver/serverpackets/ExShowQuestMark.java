@@ -15,37 +15,36 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * 
  * @author Luca Baldi
  */
 public class ExShowQuestMark extends L2GameServerPacket
 {
-    private int _questId;
+	private int _questId;
 
-    public ExShowQuestMark(int questId)
-    {
-	_questId = questId;
-    }
+	public ExShowQuestMark(int questId)
+	{
+		_questId = questId;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-	// TODO Auto-generated method stub
-	writeC(0xfe);
-	writeH(0x1a);
-	writeD(_questId);
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		// TODO Auto-generated method stub
+		writeC(0xfe);
+		writeH(0x1a);
+		writeD(_questId);
+	}
 }

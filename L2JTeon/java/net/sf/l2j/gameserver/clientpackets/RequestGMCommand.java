@@ -32,74 +32,73 @@ import net.sf.l2j.gameserver.serverpackets.GMViewWarehouseWithdrawList;
  */
 public final class RequestGMCommand extends L2GameClientPacket
 {
-    private static final String _C__6E_REQUESTGMCOMMAND = "[C] 6e RequestGMCommand";
-    static Logger _log = Logger.getLogger(RequestGMCommand.class.getName());
-    private String _targetName;
-    private int _command;
+	private static final String _C__6E_REQUESTGMCOMMAND = "[C] 6e RequestGMCommand";
+	static Logger _log = Logger.getLogger(RequestGMCommand.class.getName());
+	private String _targetName;
+	private int _command;
 
-    @Override
-    protected void readImpl()
-    {
-	_targetName = readS();
-	_command = readD();
-	// _unknown = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_targetName = readS();
+		_command = readD();
+		// _unknown = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	// prevent non gm or low level GMs from vieweing player stuff
-	if (!getClient().getActiveChar().isGM() || (getClient().getActiveChar().getAccessLevel() < Config.GM_ALTG_MIN_LEVEL))
-	    return;
-	L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
-	// player name was incorrect?
-	if (player == null)
-	    return;
-	switch (_command)
+	@Override
+	protected void runImpl()
 	{
-	case 1: // player status
-	{
-	    sendPacket(new GMViewCharacterInfo(player));
-	    break;
+		// prevent non gm or low level GMs from vieweing player stuff
+		if (!getClient().getActiveChar().isGM() || (getClient().getActiveChar().getAccessLevel() < Config.GM_ALTG_MIN_LEVEL))
+			return;
+		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
+		// player name was incorrect?
+		if (player == null)
+			return;
+		switch (_command)
+		{
+			case 1: // player status
+			{
+				sendPacket(new GMViewCharacterInfo(player));
+				break;
+			}
+			case 2: // player clan
+			{
+				if (player.getClan() != null)
+					sendPacket(new GMViewPledgeInfo(player.getClan(), player));
+				break;
+			}
+			case 3: // player skills
+			{
+				sendPacket(new GMViewSkillInfo(player));
+				break;
+			}
+			case 4: // player quests
+			{
+				sendPacket(new GMViewQuestList(player));
+				break;
+			}
+			case 5: // player inventory
+			{
+				sendPacket(new GMViewItemList(player));
+				break;
+			}
+			case 6: // player warehouse
+			{
+				// gm warehouse view to be implemented
+				sendPacket(new GMViewWarehouseWithdrawList(player));
+				break;
+			}
+		}
 	}
-	case 2: // player clan
-	{
-	    if (player.getClan() != null)
-		sendPacket(new GMViewPledgeInfo(player.getClan(), player));
-	    break;
-	}
-	case 3: // player skills
-	{
-	    sendPacket(new GMViewSkillInfo(player));
-	    break;
-	}
-	case 4: // player quests
-	{
-	    sendPacket(new GMViewQuestList(player));
-	    break;
-	}
-	case 5: // player inventory
-	{
-	    sendPacket(new GMViewItemList(player));
-	    break;
-	}
-	case 6: // player warehouse
-	{
-	    // gm warehouse view to be implemented
-	    sendPacket(new GMViewWarehouseWithdrawList(player));
-	    break;
-	}
-	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__6E_REQUESTGMCOMMAND;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__6E_REQUESTGMCOMMAND;
+	}
 }

@@ -20,8 +20,8 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
  * another type of zone where your speed is changed
- *
- * @author  kerberos
+ * 
+ * @author kerberos
  */
 public class L2SwampZone extends L2ZoneType
 {
@@ -30,7 +30,6 @@ public class L2SwampZone extends L2ZoneType
 	public L2SwampZone(int id)
 	{
 		super(id);
-
 		// Setup default speed reduce (in %)
 		_move_bonus = -50;
 	}
@@ -42,7 +41,8 @@ public class L2SwampZone extends L2ZoneType
 		{
 			_move_bonus = Integer.parseInt(value);
 		}
-		else super.setParameter(name, value);
+		else
+			super.setParameter(name, value);
 	}
 
 	@Override
@@ -71,9 +71,12 @@ public class L2SwampZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

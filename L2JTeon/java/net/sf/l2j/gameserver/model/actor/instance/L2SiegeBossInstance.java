@@ -33,99 +33,90 @@ import net.sf.l2j.util.Rnd;
  */
 public final class L2SiegeBossInstance extends L2MonsterInstance
 {
-    private static final int RAIDBOSS_MAINTENANCE_INTERVAL = 30000;
+	private static final int RAIDBOSS_MAINTENANCE_INTERVAL = 30000;
 
-    public L2SiegeBossInstance(int objectId, L2NpcTemplate template)
-    {
-	super(objectId, template);
-    }
-
-    @Override
-    public void onSpawn()
-    {
-    	super.onSpawn();
-    }
-
-    @Override
-    protected int getMaintenanceInterval()
-    {
-	return RAIDBOSS_MAINTENANCE_INTERVAL;
-    }
-
-    /**
-     * Spawn all minions at a regular interval Also if boss is too far from
-     * home location at the time of this check, teleport it home
-     * 
-     */
-    @Override
-    protected void manageMinions()
-    {
-	_minionList.spawnMinions();
-	_minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
+	public L2SiegeBossInstance(int objectId, L2NpcTemplate template)
 	{
-	    public void run()
-	    {
-		// teleport raid boss home if it's too far from home
-		// location
-		L2Spawn bossSpawn = getSpawn();
-		if (!isInsideRadius(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), 5000, true, false))
-		{
-		    teleToLocation(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), true);
-		    healFull(); // prevents minor exploiting with it
-		}
-		_minionList.maintainMinions();
-	    }
-	}, 60000, getMaintenanceInterval() + Rnd.get(5000));
-    }
+		super(objectId, template);
+	}
 
-    /**
-     * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.
-     */
-    @Override
-    public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
-    {
-	super.reduceCurrentHp(damage, attacker, awake);
-	
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+	}
+
+	@Override
+	protected int getMaintenanceInterval()
+	{
+		return RAIDBOSS_MAINTENANCE_INTERVAL;
+	}
+
+	/**
+	 * Spawn all minions at a regular interval Also if boss is too far from home location at the time of this check, teleport it home
+	 */
+	@Override
+	protected void manageMinions()
+	{
+		_minionList.spawnMinions();
+		_minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
+		{
+			public void run()
+			{
+				// teleport raid boss home if it's too far from home
+				// location
+				L2Spawn bossSpawn = getSpawn();
+				if (!isInsideRadius(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), 5000, true, false))
+				{
+					teleToLocation(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), true);
+					healFull(); // prevents minor exploiting with it
+				}
+				_minionList.maintainMinions();
+			}
+		}, 60000, getMaintenanceInterval() + Rnd.get(5000));
+	}
+
+	/**
+	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.
+	 */
+	@Override
+	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
+	{
+		super.reduceCurrentHp(damage, attacker, awake);
 		if (this.getNpcId() == 35410)
 		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!= null)
-				DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
+			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
+				DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
 		}
-    }
+	}
 
-    public void reduceCurrentHp(L2Character attacker, int damage, boolean awake)
-    {
-	super.reduceCurrentHp(damage, attacker, awake);
-
+	public void reduceCurrentHp(L2Character attacker, int damage, boolean awake)
+	{
+		super.reduceCurrentHp(damage, attacker, awake);
 		if (this.getNpcId() == 35368)
 		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!=null)
-				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
+			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
+				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
+		}
 	}
-    }
 
-    @Override
-    public boolean doDie(L2Character killer)
-    {
-	if (!super.doDie(killer))
-
-	    return false;
-
-    	if (getNpcId() == 35368 && FortResistSiegeManager.getInstance().getIsInProgress()) // Bloody Lord Nurka 
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
+		if (getNpcId() == 35368 && FortResistSiegeManager.getInstance().getIsInProgress()) // Bloody Lord Nurka
 			FortResistSiegeManager.getInstance().endSiege(true);
-	else
-    	if (getNpcId() == 35410 && DevastatedCastleManager.getInstance().getIsInProgress()) // Gustav
-    				DevastatedCastleManager.getInstance().endSiege(true);
-	else
-        if (getNpcId() == 35629 && FortressofTheDeadManager.getInstance().getIsInProgress()) // Lidia von Hellmann
-        				FortressofTheDeadManager.getInstance().endSiege(true);
-	return true;
+		else if (getNpcId() == 35410 && DevastatedCastleManager.getInstance().getIsInProgress()) // Gustav
+			DevastatedCastleManager.getInstance().endSiege(true);
+		else if (getNpcId() == 35629 && FortressofTheDeadManager.getInstance().getIsInProgress()) // Lidia von Hellmann
+			FortressofTheDeadManager.getInstance().endSiege(true);
+		return true;
+	}
 
-     }
-
-    public void healFull()
-    {
-	super.setCurrentHp(super.getMaxHp());
-	super.setCurrentMp(super.getMaxMp());
-    }
+	public void healFull()
+	{
+		super.setCurrentHp(super.getMaxHp());
+		super.setCurrentMp(super.getMaxMp());
+	}
 }

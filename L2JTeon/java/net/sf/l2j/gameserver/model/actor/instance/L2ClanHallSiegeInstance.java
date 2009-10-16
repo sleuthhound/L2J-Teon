@@ -35,23 +35,21 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 	{
 		super(objectId, template);
 	}
+
 	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (!canTarget(player))
 			return;
-
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance
 			// player
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
-
 			// Send a Server->Client packet ValidateLocation to correct the
 			// L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
@@ -64,13 +62,14 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 			else
-				showChatWindow(player,0);
+				showChatWindow(player, 0);
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
 		player.sendPacket(new ActionFailed());
 	}
-	@Override	
+
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (command.startsWith("Chat"))
@@ -98,7 +97,6 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			catch (IndexOutOfBoundsException ioobe)
 			{
 			}
-
 			if (quest.length() == 0)
 				showQuestWindow(player);
 			else
@@ -106,123 +104,121 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		}
 		else if (command.startsWith("Registration"))
 		{
-			L2Clan playerClan=player.getClan();
+			L2Clan playerClan = player.getClan();
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			String str;
 			str = "<html><body>Newspaper!<br>";
-
-			switch(getTemplate().getNpcId())
+			switch (getTemplate().getNpcId())
 			{
-			case 35437:
-				if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
-				{
-					showChatWindow(player,3);
-					return;
-				}
-				if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
-				{
-					showChatWindow(player,1);				
-					return;
-				}
-				if (BanditStrongholdSiege.getInstance().clanhall.getOwnerClan()==playerClan)
-				{
-					str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-					str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
-				}
-				else
-				{
-					if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
+				case 35437:
+					if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+					{
+						showChatWindow(player, 3);
+						return;
+					}
+					if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+					{
+						showChatWindow(player, 1);
+						return;
+					}
+					if (BanditStrongholdSiege.getInstance().clanhall.getOwnerClan() == playerClan)
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
 						str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
 					}
 					else
 					{
-						int res=BanditStrongholdSiege.getInstance().registerClanOnSiege(player,playerClan);
-						if (res==0)				
+						if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
 						{
-							str += "Your clan : <font color=\"LEVEL\">"+player.getClan().getName()+"</font>, successfully registered for the siege clan hall.<br>";
-							str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
-							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
+							str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+							str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
+							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
 						}
-						else if (res==1)
+						else
 						{
-							str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
-							str += "Come back when you're done.";				
-						}
-						else if (res==2)
-						{
-							str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
-							str += "Next time be more powerful";				
+							int res = BanditStrongholdSiege.getInstance().registerClanOnSiege(player, playerClan);
+							if (res == 0)
+							{
+								str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
+								str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
+								str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
+							}
+							else if (res == 1)
+							{
+								str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
+								str += "Come back when you're done.";
+							}
+							else if (res == 2)
+							{
+								str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
+								str += "Next time be more powerful";
+							}
 						}
 					}
-				}
-				break;
-			case 35627:
-				if(!WildBeastFarmSiege.getInstance().isRegistrationPeriod())
-				{
-					showChatWindow(player,3);
-					return;
-				}
-				if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
-				{
-					showChatWindow(player,1);				
-					return;
-				}
-				if (WildBeastFarmSiege.getInstance().clanhall.getOwnerClan()==playerClan)
-				{
-					str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-					str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
-				}
-				else
-				{
-					if (WildBeastFarmSiege.getInstance().isClanOnSiege(playerClan))
+					break;
+				case 35627:
+					if (!WildBeastFarmSiege.getInstance().isRegistrationPeriod())
+					{
+						showChatWindow(player, 3);
+						return;
+					}
+					if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+					{
+						showChatWindow(player, 1);
+						return;
+					}
+					if (WildBeastFarmSiege.getInstance().clanhall.getOwnerClan() == playerClan)
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
 						str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
 					}
 					else
 					{
-						int res=WildBeastFarmSiege.getInstance().registerClanOnSiege(player,playerClan);
-						if (res==0)				
+						if (WildBeastFarmSiege.getInstance().isClanOnSiege(playerClan))
 						{
-							str += "Your clan : <font color=\"LEVEL\">"+player.getClan().getName()+"</font>, successfully registered for the siege clan hall.<br>";
-							str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
-							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
+							str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+							str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
+							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
 						}
-						else if (res==1)
+						else
 						{
-							str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
-							str += "Come back when you're done.";				
-						}
-						else if (res==2)
-						{
-							str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
-							str += "Next time be more raztoropny.";				
+							int res = WildBeastFarmSiege.getInstance().registerClanOnSiege(player, playerClan);
+							if (res == 0)
+							{
+								str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
+								str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
+								str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
+							}
+							else if (res == 1)
+							{
+								str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
+								str += "Come back when you're done.";
+							}
+							else if (res == 2)
+							{
+								str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
+								str += "Next time be more raztoropny.";
+							}
 						}
 					}
-				}
-				break;				
+					break;
 			}
-
 			str += "</body></html>";
 			html.setHtml(str);
 			html.replace("%objectId%", String.valueOf(getObjectId()));
-			player.sendPacket(html);			
+			player.sendPacket(html);
 		}
 		else if (command.startsWith("UnRegister"))
 		{
-			L2Clan playerClan=player.getClan();
-			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
+			L2Clan playerClan = player.getClan();
+			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
 			{
-				_log.warning("Attention!!! player "+player.getName()+" use packet hack, try unregister clan.");				
+				_log.warning("Attention!!! player " + player.getName() + " use packet hack, try unregister clan.");
 				return;
 			}
-			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showChatWindow(player,3);
+				showChatWindow(player, 3);
 				return;
 			}
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -232,117 +228,119 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 				if (BanditStrongholdSiege.getInstance().unRegisterClan(playerClan))
 				{
 					str = "<html><body>Newspaper!<br>";
-					str += "Your clan : <font color=\"LEVEL\">"+player.getClan().getName()+"</font>, successfully removed from the register at the siege clan hall.<br>";
+					str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully removed from the register at the siege clan hall.<br>";
 					str += "</body></html>";
 					html.setHtml(str);
 					html.replace("%objectId%", String.valueOf(getObjectId()));
-					player.sendPacket(html);			
+					player.sendPacket(html);
 				}
 			}
 			else
-				_log.warning("Attention!!! player "+player.getName()+" use packet hack, try unregister clan.");
+				_log.warning("Attention!!! player " + player.getName() + " use packet hack, try unregister clan.");
 		}
 		else if (command.startsWith("PlayerList"))
 		{
-			L2Clan playerClan=player.getClan();
-			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
+			L2Clan playerClan = player.getClan();
+			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
 			{
 				return;
 			}
-			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showChatWindow(player,3);
+				showChatWindow(player, 3);
 				return;
 			}
 			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
 			{
-				showPlayersList(playerClan,player);			
+				showPlayersList(playerClan, player);
 			}
 		}
 		else if (command.startsWith("addPlayer"))
 		{
-			L2Clan playerClan=player.getClan();
-			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
+			L2Clan playerClan = player.getClan();
+			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
 			{
 				return;
 			}
-			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showChatWindow(player,3);
+				showChatWindow(player, 3);
 				return;
 			}
-			String 	val = command.substring(10);
-			if (playerClan.getClanMember(val)==null)
+			String val = command.substring(10);
+			if (playerClan.getClanMember(val) == null)
 				return;
-			BanditStrongholdSiege.getInstance().addPlayer(playerClan,val);
+			BanditStrongholdSiege.getInstance().addPlayer(playerClan, val);
 			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
 			{
-				showPlayersList(playerClan,player);			
+				showPlayersList(playerClan, player);
 			}
 		}
 		else if (command.startsWith("removePlayer"))
 		{
-			L2Clan playerClan=player.getClan();
-			if ((playerClan==null) || (playerClan.getLeaderName()!=player.getName()) || (playerClan.getLevel()<4))
+			L2Clan playerClan = player.getClan();
+			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
 			{
 				return;
 			}
-			if(!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
 			{
-				showChatWindow(player,3);
+				showChatWindow(player, 3);
 				return;
 			}
-			String 	val = command.substring(13);
-			if (playerClan.getClanMember(val)!=null)
+			String val = command.substring(13);
+			if (playerClan.getClanMember(val) != null)
 			{
-				BanditStrongholdSiege.getInstance().removePlayer(playerClan,val);
+				BanditStrongholdSiege.getInstance().removePlayer(playerClan, val);
 			}
 			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
 			{
-				showPlayersList(playerClan,player);			
+				showPlayersList(playerClan, player);
 			}
 		}
 	}
-	public void showPlayersList(L2Clan playerClan,L2PcInstance player)
+
+	public void showPlayersList(L2Clan playerClan, L2PcInstance player)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		String str;
 		str = "<html><body>Newspaper!<br>";
-		str += "Your clan : <font color=\"LEVEL\">"+player.getClan().getName()+"</font>. select participants for the siege.<br><br>";
+		str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>. select participants for the siege.<br><br>";
 		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";
 		str += "<table width=280 border=0 bgcolor=\"000000\"><tr><td width=170 align=center>Register bathrooms</td><td width=110 align=center>Action</td></tr></table>";
 		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";
 		str += "<table width=280 border=0>";
 		for (String temp : BanditStrongholdSiege.getInstance().getRegisteredPlayers(playerClan))
 		{
-			str += "<tr><td width=170>"+temp+"</td><td width=110 align=center><a action=\"bypass -h npc_%objectId%_removePlayer "+temp+"\"> Remove</a></td></tr>";			
+			str += "<tr><td width=170>" + temp + "</td><td width=110 align=center><a action=\"bypass -h npc_%objectId%_removePlayer " + temp + "\"> Remove</a></td></tr>";
 		}
-		str += "</table>";		
+		str += "</table>";
 		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";
 		str += "<table width=280 border=0 bgcolor=\"000000\"><tr><td width=170 align=center>Clan Members</td><td width=110 align=center>Action</td></tr></table>";
-		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";		
-		str += "<table width=280 border=0>";		
+		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";
+		str += "<table width=280 border=0>";
 		for (L2ClanMember temp : playerClan.getMembers())
 		{
 			if (!BanditStrongholdSiege.getInstance().getRegisteredPlayers(playerClan).contains(temp.getName()))
-				str += "<tr><td width=170>"+temp.getName()+"</td><td width=110 align=center><a action=\"bypass -h npc_%objectId%_addPlayer "+temp.getName()+"\"> Add</a></td></tr>";					
+				str += "<tr><td width=170>" + temp.getName() + "</td><td width=110 align=center><a action=\"bypass -h npc_%objectId%_addPlayer " + temp.getName() + "\"> Add</a></td></tr>";
 		}
-		str += "</table>";		
+		str += "</table>";
 		str += "</body></html>";
 		html.setHtml(str);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
-		player.sendPacket(html);		
+		player.sendPacket(html);
 	}
+
 	public void showChatWindow(L2PcInstance player, int val)
 	{
 		player.sendPacket(new ActionFailed());
-		long startSiege=0;
+		long startSiege = 0;
 		int npcId = getTemplate().getNpcId();
 		String filename;
-		if (val==0)
+		if (val == 0)
 			filename = "data/html/siege/clanhall/" + npcId + ".htm";
 		else
-			filename = "data/html/siege/clanhall/" + npcId +"-"+val+ ".htm";
+			filename = "data/html/siege/clanhall/" + npcId + "-" + val + ".htm";
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		if (npcId == 35382)
@@ -354,48 +352,46 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			ClanHall clanhall = null;
 			String clans = "";
 			clans += "<table width=280 border=0>";
-			int clanCount=0;
-
-			switch(npcId)
+			int clanCount = 0;
+			switch (npcId)
 			{
-			case 35437:
-				clanhall = ClanHallManager.getInstance().getClanHallById(35);
-				startSiege=BanditStrongholdSiege.getInstance().getSiegeDate().getTimeInMillis();
-				for (String a : BanditStrongholdSiege.getInstance().getRegisteredClans())
-				{
-					clanCount++;
-					clans+="<tr><td><font color=\"LEVEL\">"+a+"</font>  (Number :"+BanditStrongholdSiege.getInstance().getPlayersCount(a)+"people.)</td></tr>";
-				}
-				break;
-			case 35627:
-				clanhall = ClanHallManager.getInstance().getClanHallById(63);
-				startSiege=WildBeastFarmSiege.getInstance().getSiegeDate().getTimeInMillis();
-				for (String a : WildBeastFarmSiege.getInstance().getRegisteredClans())
-				{
-					clanCount++;
-					clans+="<tr><td><font color=\"LEVEL\">"+a+"</font>  (Number :"+BanditStrongholdSiege.getInstance().getPlayersCount(a)+"people.)</td></tr>";
-				}
-				break;				
+				case 35437:
+					clanhall = ClanHallManager.getInstance().getClanHallById(35);
+					startSiege = BanditStrongholdSiege.getInstance().getSiegeDate().getTimeInMillis();
+					for (String a : BanditStrongholdSiege.getInstance().getRegisteredClans())
+					{
+						clanCount++;
+						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
+					}
+					break;
+				case 35627:
+					clanhall = ClanHallManager.getInstance().getClanHallById(63);
+					startSiege = WildBeastFarmSiege.getInstance().getSiegeDate().getTimeInMillis();
+					for (String a : WildBeastFarmSiege.getInstance().getRegisteredClans())
+					{
+						clanCount++;
+						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
+					}
+					break;
 			}
-			while (clanCount<5)
+			while (clanCount < 5)
 			{
-				clans+="<tr><td><font color=\"LEVEL\">**Not logged**</font>  (Quantity : people.)</td></tr>";
+				clans += "<tr><td><font color=\"LEVEL\">**Not logged**</font>  (Quantity : people.)</td></tr>";
 				clanCount++;
 			}
-			clans+= "</table>";
-			html.replace("%clan%", String.valueOf(clans));			
+			clans += "</table>";
+			html.replace("%clan%", String.valueOf(clans));
 			L2Clan clan = clanhall.getOwnerClan();
 			String clanName;
-			if (clan==null)
-				clanName="NPC";
+			if (clan == null)
+				clanName = "NPC";
 			else
-				clanName=clan.getName();
+				clanName = clan.getName();
 			html.replace("%clanname%", String.valueOf(clanName));
 		}
-		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		html.replace("%SiegeDate%", String.valueOf(format.format(startSiege)));		
-		html.replace("%objectId%", String.valueOf(getObjectId()));		
+		html.replace("%SiegeDate%", String.valueOf(format.format(startSiege)));
+		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
 

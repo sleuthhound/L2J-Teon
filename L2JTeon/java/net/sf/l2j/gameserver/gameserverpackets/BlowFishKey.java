@@ -22,42 +22,41 @@ import javax.crypto.Cipher;
 
 /**
  * @author -Wooden-
- * 
  */
 public class BlowFishKey extends GameServerBasePacket
 {
-    private static Logger _log = Logger.getLogger(BlowFishKey.class.getName());
+	private static Logger _log = Logger.getLogger(BlowFishKey.class.getName());
 
-    /**
-     * @param blowfishKey
-     * @param publicKey
-     */
-    public BlowFishKey(byte[] blowfishKey, RSAPublicKey publicKey)
-    {
-	writeC(0x00);
-	byte[] encrypted = null;
-	try
+	/**
+	 * @param blowfishKey
+	 * @param publicKey
+	 */
+	public BlowFishKey(byte[] blowfishKey, RSAPublicKey publicKey)
 	{
-	    Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
-	    rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
-	    encrypted = rsaCipher.doFinal(blowfishKey);
-	} catch (GeneralSecurityException e)
-	{
-	    _log.severe("Error While encrypting blowfish key for transmision (Crypt error)");
-	    e.printStackTrace();
+		writeC(0x00);
+		byte[] encrypted = null;
+		try
+		{
+			Cipher rsaCipher = Cipher.getInstance("RSA/ECB/nopadding");
+			rsaCipher.init(Cipher.ENCRYPT_MODE, publicKey);
+			encrypted = rsaCipher.doFinal(blowfishKey);
+		}
+		catch (GeneralSecurityException e)
+		{
+			_log.severe("Error While encrypting blowfish key for transmision (Crypt error)");
+			e.printStackTrace();
+		}
+		writeD(encrypted.length);
+		writeB(encrypted);
 	}
-	writeD(encrypted.length);
-	writeB(encrypted);
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
-     */
-    @Override
-    public byte[] getContent() throws IOException
-    {
-	return getBytes();
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+	 */
+	@Override
+	public byte[] getContent() throws IOException
+	{
+		return getBytes();
+	}
 }

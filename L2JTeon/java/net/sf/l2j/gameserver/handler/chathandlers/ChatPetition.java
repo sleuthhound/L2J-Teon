@@ -22,8 +22,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * A chat handler
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class ChatPetition implements IChatHandler
 {
@@ -31,6 +31,7 @@ public class ChatPetition implements IChatHandler
 
 	/**
 	 * Handle chat type 'petition player'
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
@@ -40,12 +41,12 @@ public class ChatPetition implements IChatHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
 			return;
 		}
-
 		PetitionManager.getInstance().sendActivePetitionMessage(activeChar, text);
 	}
 
 	/**
 	 * Returns the chat types registered to this handler
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	public int[] getChatTypeList()

@@ -14,48 +14,47 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
-import net.sf.l2j.gameserver.ai.CtrlIntention; 
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * @author -Nemesiss-
- * 
  */
 public class EffectRemoveTarget extends L2Effect
 {
-    public EffectRemoveTarget(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectRemoveTarget(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.REMOVE_TARGET;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.REMOVE_TARGET;
+	}
 
-    /** Notify started */
-    @Override
-    public void onStart()
-    {
-	getEffected().setTarget(null);
-	getEffected().abortAttack();
-	getEffected().abortCast();
-    getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, getEffector()); 
-    }
+	/** Notify started */
+	@Override
+	public void onStart()
+	{
+		getEffected().setTarget(null);
+		getEffected().abortAttack();
+		getEffected().abortCast();
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, getEffector());
+	}
 
-    /** Notify exited */
-    @Override
-    public void onExit()
-    {
-	// nothing
-    }
+	/** Notify exited */
+	@Override
+	public void onExit()
+	{
+		// nothing
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	// nothing
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		// nothing
+		return false;
+	}
 }

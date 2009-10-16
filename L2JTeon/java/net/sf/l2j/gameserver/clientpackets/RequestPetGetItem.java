@@ -28,41 +28,41 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
  */
 public final class RequestPetGetItem extends L2GameClientPacket
 {
-    // private static Logger _log =
-    // Logger.getLogger(RequestPetGetItem.class.getName());
-    private static final String _C__8f_REQUESTPETGETITEM = "[C] 8F RequestPetGetItem";
-    private int _objectId;
+	// private static Logger _log =
+	// Logger.getLogger(RequestPetGetItem.class.getName());
+	private static final String _C__8f_REQUESTPETGETITEM = "[C] 8F RequestPetGetItem";
+	private int _objectId;
 
-    @Override
-    protected void readImpl()
-    {
-	_objectId = readD();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	L2World world = L2World.getInstance();
-	L2ItemInstance item = (L2ItemInstance) world.findObject(_objectId);
-	if ((item == null) || (getClient().getActiveChar() == null))
-	    return;
-	if (getClient().getActiveChar().getPet() instanceof L2SummonInstance)
+	@Override
+	protected void readImpl()
 	{
-	    sendPacket(new ActionFailed());
-	    return;
+		_objectId = readD();
 	}
-	L2PetInstance pet = (L2PetInstance) getClient().getActiveChar().getPet();
-	if ((pet == null) || pet.isDead() || pet.isOutOfControl())
-	{
-	    sendPacket(new ActionFailed());
-	    return;
-	}
-	pet.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, item);
-    }
 
-    @Override
-    public String getType()
-    {
-	return _C__8f_REQUESTPETGETITEM;
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2World world = L2World.getInstance();
+		L2ItemInstance item = (L2ItemInstance) world.findObject(_objectId);
+		if ((item == null) || (getClient().getActiveChar() == null))
+			return;
+		if (getClient().getActiveChar().getPet() instanceof L2SummonInstance)
+		{
+			sendPacket(new ActionFailed());
+			return;
+		}
+		L2PetInstance pet = (L2PetInstance) getClient().getActiveChar().getPet();
+		if ((pet == null) || pet.isDead() || pet.isOutOfControl())
+		{
+			sendPacket(new ActionFailed());
+			return;
+		}
+		pet.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, item);
+	}
+
+	@Override
+	public String getType()
+	{
+		return _C__8f_REQUESTPETGETITEM;
+	}
 }

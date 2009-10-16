@@ -20,74 +20,71 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class TopBBSManager extends BaseBBSManager
 {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String,
-     *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
-     */
-    @Override
-    public void parsecmd(String command, L2PcInstance activeChar)
-    {
-	if (command.equals("_bbstop"))
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsecmd(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
+	 */
+	@Override
+	public void parsecmd(String command, L2PcInstance activeChar)
 	{
-	    String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/index.htm");
-	    if (content == null)
-	    {
-		content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/index.htm' </center></body></html>";
-	    }
-	    separateAndSend(content, activeChar);
-	} else if (command.equals("_bbshome"))
-	{
-	    String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/index.htm");
-	    if (content == null)
-	    {
-		content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/index.htm' </center></body></html>";
-	    }
-	    separateAndSend(content, activeChar);
-	} else if (command.startsWith("_bbstop;"))
-	{
-	    StringTokenizer st = new StringTokenizer(command, ";");
-	    st.nextToken();
-	    int idp = Integer.parseInt(st.nextToken());
-	    String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/" + idp + ".htm");
-	    if (content == null)
-	    {
-		content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/" + idp + ".htm' </center></body></html>";
-	    }
-	    separateAndSend(content, activeChar);
-	} else
-	{
-	    String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/favorites.htm");
-	    if (content == null)
-	    {
-		content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/favorites.htm' </center></body></html>";
-	    }
-	    separateAndSend(content, activeChar);
+		if (command.equals("_bbstop"))
+		{
+			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/index.htm");
+			if (content == null)
+			{
+				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/index.htm' </center></body></html>";
+			}
+			separateAndSend(content, activeChar);
+		}
+		else if (command.equals("_bbshome"))
+		{
+			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/index.htm");
+			if (content == null)
+			{
+				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/index.htm' </center></body></html>";
+			}
+			separateAndSend(content, activeChar);
+		}
+		else if (command.startsWith("_bbstop;"))
+		{
+			StringTokenizer st = new StringTokenizer(command, ";");
+			st.nextToken();
+			int idp = Integer.parseInt(st.nextToken());
+			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/" + idp + ".htm");
+			if (content == null)
+			{
+				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/" + idp + ".htm' </center></body></html>";
+			}
+			separateAndSend(content, activeChar);
+		}
+		else
+		{
+			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/favorites.htm");
+			if (content == null)
+			{
+				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/favorites.htm' </center></body></html>";
+			}
+			separateAndSend(content, activeChar);
+		}
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsewrite(java.lang.String,
-     *      java.lang.String, java.lang.String, java.lang.String,
-     *      java.lang.String,
-     *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
-     */
-    @Override
-    public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
-    {
-	// TODO Auto-generated method stub
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.communitybbs.Manager.BaseBBSManager#parsewrite(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
+	 */
+	@Override
+	public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
+	{
+		// TODO Auto-generated method stub
+	}
 
-    private static TopBBSManager _instance = new TopBBSManager();
+	private static TopBBSManager _instance = new TopBBSManager();
 
-    /**
-     * @return
-     */
-    public static TopBBSManager getInstance()
-    {
-	return _instance;
-    }
+	/**
+	 * @return
+	 */
+	public static TopBBSManager getInstance()
+	{
+		return _instance;
+	}
 }

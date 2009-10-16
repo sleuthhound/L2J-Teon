@@ -28,16 +28,15 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * This class stores references to all online game masters. (access level > 100)
- *
+ * 
  * @version $Revision: 1.2.2.1.2.7 $ $Date: 2005/04/05 19:41:24 $
  */
 public class GmListTable
 {
-	private final static Log				_log	= LogFactory.getLog(GmListTable.class.getName());
-	private static GmListTable				_instance;
-
+	private final static Log _log = LogFactory.getLog(GmListTable.class.getName());
+	private static GmListTable _instance;
 	/** Set(L2PcInstance>) containing all the GM in game */
-	private FastMap<L2PcInstance, Boolean>	_gmList;
+	private FastMap<L2PcInstance, Boolean> _gmList;
 
 	public static GmListTable getInstance()
 	{
@@ -83,7 +82,6 @@ public class GmListTable
 	{
 		if (_log.isDebugEnabled() || Config.DEBUG)
 			_log.debug("added gm: " + player.getName());
-
 		_gmList.put(player, hidden);
 	}
 
@@ -91,12 +89,12 @@ public class GmListTable
 	{
 		if (_log.isDebugEnabled() || Config.DEBUG)
 			_log.debug("deleted gm: " + player.getName());
-
 		_gmList.remove(player);
 	}
 
 	/**
 	 * GM will be displayed on clients gmlist
+	 * 
 	 * @param player
 	 */
 	public void showGm(L2PcInstance player)
@@ -108,6 +106,7 @@ public class GmListTable
 
 	/**
 	 * GM will no longer be displayed on clients gmlist
+	 * 
 	 * @param player
 	 */
 	public void hideGm(L2PcInstance player)
@@ -124,7 +123,6 @@ public class GmListTable
 			if (includeHidden || !b)
 				return true;
 		}
-
 		return false;
 	}
 
@@ -132,20 +130,19 @@ public class GmListTable
 	{
 		if (!isGmOnline(player.isGM()))
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW); //There are not any GMs that are providing customer service currently.
+			SystemMessage sm = new SystemMessage(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW); // There are not any GMs that are providing customer service currently.
 			player.sendPacket(sm);
 		}
 		else
 		{
 		}
-			SystemMessage sm = new SystemMessage(SystemMessageId.GM_LIST);
+		SystemMessage sm = new SystemMessage(SystemMessageId.GM_LIST);
+		player.sendPacket(sm);
+		for (String name : getAllGmNames(player.isGM()))
+		{
+			sm = new SystemMessage(SystemMessageId.GM_S1);
+			sm.addString(name);
 			player.sendPacket(sm);
-			
-            for (String name : getAllGmNames(player.isGM()))
-            {
-				sm = new SystemMessage(SystemMessageId.GM_S1);
-				sm.addString(name);
-				player.sendPacket(sm);
 		}
 	}
 
@@ -161,9 +158,9 @@ public class GmListTable
 	{
 		for (L2PcInstance gm : getInstance().getAllGms(true))
 		{
-			//L2EMU_ADD
-			if (gm != null)//prevents a NPE.
-			//L2EMU_ADD
+			// L2EMU_ADD
+			if (gm != null)// prevents a NPE.
+				// L2EMU_ADD
 				gm.sendPacket(SystemMessage.sendString(message));
 		}
 	}

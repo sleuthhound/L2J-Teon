@@ -28,29 +28,29 @@ import net.sf.l2j.util.Rnd;
  */
 public class GetPlayer implements ISkillHandler
 {
-    private static final SkillType[] SKILL_IDS = { SkillType.GET_PLAYER };
+	private static final SkillType[] SKILL_IDS = { SkillType.GET_PLAYER };
 
-    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-    {
-	if (activeChar.isAlikeDead())
-	    return;
-	for (L2Object target : targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-	    if (target instanceof L2PcInstance)
-	    {
-		L2PcInstance trg = (L2PcInstance) target;
-		if (trg.isAlikeDead())
-		    continue;
-		// trg.teleToLocation(activeChar.getX(), activeChar.getY(),
-		// activeChar.getZ(), true);
-		trg.setXYZ(activeChar.getX() + Rnd.get(-10, 10), activeChar.getY() + Rnd.get(-10, 10), activeChar.getZ());
-		trg.sendPacket(new ValidateLocation(trg));
-	    }
+		if (activeChar.isAlikeDead())
+			return;
+		for (L2Object target : targets)
+		{
+			if (target instanceof L2PcInstance)
+			{
+				L2PcInstance trg = (L2PcInstance) target;
+				if (trg.isAlikeDead())
+					continue;
+				// trg.teleToLocation(activeChar.getX(), activeChar.getY(),
+				// activeChar.getZ(), true);
+				trg.setXYZ(activeChar.getX() + Rnd.get(-10, 10), activeChar.getY() + Rnd.get(-10, 10), activeChar.getZ());
+				trg.sendPacket(new ValidateLocation(trg));
+			}
+		}
 	}
-    }
 
-    public SkillType[] getSkillIds()
-    {
-	return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

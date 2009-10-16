@@ -29,69 +29,72 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
  */
 public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 {
-    private static final Logger _log = Logger.getLogger(L2GameClientPacket.class.getName());
+	private static final Logger _log = Logger.getLogger(L2GameClientPacket.class.getName());
 
-    @Override
-    protected boolean read()
-    {
-	try
+	@Override
+	protected boolean read()
 	{
-	    readImpl();
-	    return true;
-	} catch (Throwable t)
-	{
-	    _log.severe("Client: " + getClient().toString() + " - Failed reading: " + getType() + " - L2J Server Version: " + Config.SERVER_VERSION + " - DP Revision: " + Config.DATAPACK_VERSION);
-	    t.printStackTrace();
-	}
-	return false;
-    }
-
-    protected abstract void readImpl();
-
-    @Override
-    public void run()
-    {
-	try
-	{
-	    // flood protection
-	    if (GameTimeController.getGameTicks() - getClient().packetsSentStartTick > 10)
-	    {
-		getClient().packetsSentStartTick = GameTimeController.getGameTicks();
-		getClient().packetsSentInSec = 0;
-	    } else
-	    {
-		getClient().packetsSentInSec++;
-		if (getClient().packetsSentInSec > 12)
+		try
 		{
-		    sendPacket(new ActionFailed());
-		    return;
+			readImpl();
+			return true;
 		}
-	    }
-	    runImpl();
-	    if ((this instanceof MoveBackwardToLocation) || (this instanceof AttackRequest) || (this instanceof RequestMagicSkillUse))
-	    // could include pickup and talk too, but less is better
-	    {
-		// Removes onspawn protection - player has faster computer than
-		// average
-		if (getClient().getActiveChar() != null)
-		    getClient().getActiveChar().onActionRequest();
-	    }
-	} catch (Throwable t)
-	{
-	    _log.severe("Client: " + getClient().toString() + " - Failed running: " + getType() + " - L2J Server Version: " + Config.SERVER_VERSION + " - DP Revision: " + Config.DATAPACK_VERSION);
-	    t.printStackTrace();
+		catch (Throwable t)
+		{
+			_log.severe("Client: " + getClient().toString() + " - Failed reading: " + getType() + " - L2J Server Version: " + Config.SERVER_VERSION + " - DP Revision: " + Config.DATAPACK_VERSION);
+			t.printStackTrace();
+		}
+		return false;
 	}
-    }
 
-    protected abstract void runImpl();
+	protected abstract void readImpl();
 
-    protected final void sendPacket(L2GameServerPacket gsp)
-    {
-	getClient().sendPacket(gsp);
-    }
+	@Override
+	public void run()
+	{
+		try
+		{
+			// flood protection
+			if (GameTimeController.getGameTicks() - getClient().packetsSentStartTick > 10)
+			{
+				getClient().packetsSentStartTick = GameTimeController.getGameTicks();
+				getClient().packetsSentInSec = 0;
+			}
+			else
+			{
+				getClient().packetsSentInSec++;
+				if (getClient().packetsSentInSec > 12)
+				{
+					sendPacket(new ActionFailed());
+					return;
+				}
+			}
+			runImpl();
+			if ((this instanceof MoveBackwardToLocation) || (this instanceof AttackRequest) || (this instanceof RequestMagicSkillUse))
+			// could include pickup and talk too, but less is better
+			{
+				// Removes onspawn protection - player has faster computer than
+				// average
+				if (getClient().getActiveChar() != null)
+					getClient().getActiveChar().onActionRequest();
+			}
+		}
+		catch (Throwable t)
+		{
+			_log.severe("Client: " + getClient().toString() + " - Failed running: " + getType() + " - L2J Server Version: " + Config.SERVER_VERSION + " - DP Revision: " + Config.DATAPACK_VERSION);
+			t.printStackTrace();
+		}
+	}
 
-    /**
-     * @return A String with this packet name for debuging purposes
-     */
-    public abstract String getType();
+	protected abstract void runImpl();
+
+	protected final void sendPacket(L2GameServerPacket gsp)
+	{
+		getClient().sendPacket(gsp);
+	}
+
+	/**
+	 * @return A String with this packet name for debuging purposes
+	 */
+	public abstract String getType();
 }

@@ -21,29 +21,28 @@ package net.sf.l2j.gameserver.serverpackets;
  */
 public class SendTradeRequest extends L2GameServerPacket
 {
-    private static final String _S__73_SENDTRADEREQUEST = "[S] 5e SendTradeRequest";
-    private int _senderID;
+	private static final String _S__73_SENDTRADEREQUEST = "[S] 5e SendTradeRequest";
+	private int _senderID;
 
-    public SendTradeRequest(int senderID)
-    {
-	_senderID = senderID;
-    }
+	public SendTradeRequest(int senderID)
+	{
+		_senderID = senderID;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x5e);
-	writeD(_senderID);
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x5e);
+		writeD(_senderID);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__73_SENDTRADEREQUEST;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__73_SENDTRADEREQUEST;
+	}
 }

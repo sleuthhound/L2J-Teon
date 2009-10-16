@@ -24,37 +24,35 @@ import net.sf.l2j.gameserver.serverpackets.PackageSendableList;
  */
 public final class RequestPackageSendableItemList extends L2GameClientPacket
 {
-    private static final String _C_9E_REQUESTPACKAGESENDABLEITEMLIST = "[C] 9E RequestPackageSendableItemList";
-    private int _objectID;
+	private static final String _C_9E_REQUESTPACKAGESENDABLEITEMLIST = "[C] 9E RequestPackageSendableItemList";
+	private int _objectID;
 
-    @Override
-    protected void readImpl()
-    {
-	_objectID = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_objectID = readD();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    public void runImpl()
-    {
-	/*
-	 * L2PcInstance target = (L2PcInstance)
-	 * L2World.getInstance().findObject(_objectID); if(target == null)
-	 * return;
+	/**
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
-	L2ItemInstance[] items = getClient().getActiveChar().getInventory().getAvailableItems(true);
-	// build list...
-	sendPacket(new PackageSendableList(items, _objectID));
-    }
+	@Override
+	public void runImpl()
+	{
+		/*
+		 * L2PcInstance target = (L2PcInstance) L2World.getInstance().findObject(_objectID); if(target == null) return;
+		 */
+		L2ItemInstance[] items = getClient().getActiveChar().getInventory().getAvailableItems(true);
+		// build list...
+		sendPacket(new PackageSendableList(items, _objectID));
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C_9E_REQUESTPACKAGESENDABLEITEMLIST;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C_9E_REQUESTPACKAGESENDABLEITEMLIST;
+	}
 }

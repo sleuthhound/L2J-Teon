@@ -31,53 +31,50 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class CombatPointHeal implements ISkillHandler
 {
-    // private static Logger _log =
-    // Logger.getLogger(CombatPointHeal.class.getName());
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance,
-     *      net.sf.l2j.gameserver.model.L2ItemInstance)
-     */
-    private static final SkillType[] SKILL_IDS = { SkillType.COMBATPOINTHEAL };
+	// private static Logger _log =
+	// Logger.getLogger(CombatPointHeal.class.getName());
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
+	 */
+	private static final SkillType[] SKILL_IDS = { SkillType.COMBATPOINTHEAL };
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance,
-     *      net.sf.l2j.gameserver.model.L2ItemInstance)
-     */
-    public void useSkill(L2Character actChar, L2Skill skill, L2Object[] targets)
-    {
-	//check for other effects
-	try
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
+	 */
+	public void useSkill(L2Character actChar, L2Skill skill, L2Object[] targets)
 	{
-	    ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
-	    if (handler != null)
-		handler.useSkill(actChar, skill, targets);
-	} catch (Exception e)
-	{
+		// check for other effects
+		try
+		{
+			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
+			if (handler != null)
+				handler.useSkill(actChar, skill, targets);
+		}
+		catch (Exception e)
+		{
+		}
+		// L2Character activeChar = actChar;
+		L2Character target = null;
+		for (int index = 0; index < targets.length; index++)
+		{
+			target = (L2Character) targets[index];
+			double cp = skill.getPower();
+			// int cLev = activeChar.getLevel();
+			// hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
+			sm.addNumber((int) cp);
+			target.sendPacket(sm);
+			target.setCurrentCp(cp + target.getCurrentCp());
+			StatusUpdate sump = new StatusUpdate(target.getObjectId());
+			sump.addAttribute(StatusUpdate.CUR_CP, (int) target.getCurrentCp());
+			target.sendPacket(sump);
+		}
 	}
-	// L2Character activeChar = actChar;
-	L2Character target = null;
-	for (int index = 0; index < targets.length; index++)
-	{
-	    target = (L2Character) targets[index];
-	    double cp = skill.getPower();
-	    // int cLev = activeChar.getLevel();
-	    // hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
-	    SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
-	    sm.addNumber((int) cp);
-	    target.sendPacket(sm);
-	    target.setCurrentCp(cp + target.getCurrentCp());
-	    StatusUpdate sump = new StatusUpdate(target.getObjectId());
-	    sump.addAttribute(StatusUpdate.CUR_CP, (int) target.getCurrentCp());
-	    target.sendPacket(sump);
-	}
-    }
 
-    public SkillType[] getSkillIds()
-    {
-	return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

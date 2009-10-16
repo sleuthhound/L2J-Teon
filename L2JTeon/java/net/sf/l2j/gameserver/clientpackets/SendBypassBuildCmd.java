@@ -27,47 +27,46 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public final class SendBypassBuildCmd extends L2GameClientPacket
 {
-    private static final String _C__5B_SENDBYPASSBUILDCMD = "[C] 5b SendBypassBuildCmd";
-    public final static int GM_MESSAGE = 9;
-    public final static int ANNOUNCEMENT = 10;
-    private String _command;
+	private static final String _C__5B_SENDBYPASSBUILDCMD = "[C] 5b SendBypassBuildCmd";
+	public final static int GM_MESSAGE = 9;
+	public final static int ANNOUNCEMENT = 10;
+	private String _command;
 
-    @Override
-    protected void readImpl()
-    {
-	_command = readS();
-	if (_command != null)
-	    _command = _command.trim();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_" + _command))
-	    return;
-	if (!activeChar.isGM() && !"gm".equalsIgnoreCase(_command))
+	@Override
+	protected void readImpl()
 	{
-	    Util.handleIllegalPlayerAction(activeChar, "Warning!! Non-gm character " + activeChar.getName() + " requests gm bypass handler, hack?", Config.DEFAULT_PUNISH);
-	    return;
+		_command = readS();
+		if (_command != null)
+			_command = _command.trim();
 	}
-	IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler("admin_" + _command);
-	if (ach != null)
-	{
-	    ach.useAdminCommand("admin_" + _command, activeChar);
-	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__5B_SENDBYPASSBUILDCMD;
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_" + _command))
+			return;
+		if (!activeChar.isGM() && !"gm".equalsIgnoreCase(_command))
+		{
+			Util.handleIllegalPlayerAction(activeChar, "Warning!! Non-gm character " + activeChar.getName() + " requests gm bypass handler, hack?", Config.DEFAULT_PUNISH);
+			return;
+		}
+		IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler("admin_" + _command);
+		if (ach != null)
+		{
+			ach.useAdminCommand("admin_" + _command, activeChar);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__5B_SENDBYPASSBUILDCMD;
+	}
 }

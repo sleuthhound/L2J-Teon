@@ -20,43 +20,40 @@ import java.util.logging.Logger;
  * Format: (ch) dd
  * 
  * @author -Wooden-
- * 
  */
 public class RequestDismissPartyRoom extends L2GameClientPacket
 {
-    private static Logger _log = Logger.getLogger(RequestDismissPartyRoom.class.getName());
-    private static final String _C__D0_02_REQUESTDISMISSPARTYROOM = "[C] D0:02 RequestDismissPartyRoom";
-    private int _data1;
-    private int _data2;
+	private static Logger _log = Logger.getLogger(RequestDismissPartyRoom.class.getName());
+	private static final String _C__D0_02_REQUESTDISMISSPARTYROOM = "[C] D0:02 RequestDismissPartyRoom";
+	private int _data1;
+	private int _data2;
 
-    @Override
-    protected void readImpl()
-    {
-	_data1 = readD();
-	_data2 = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_data1 = readD();
+		_data2 = readD();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-	// TODO Auto-generated method stub
-	_log.info("This packet is not well known : RequestDismissPartyRoom");
-	_log.info("Data received: d:" + _data1 + " d:" + _data2);
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 */
+	@Override
+	protected void runImpl()
+	{
+		// TODO Auto-generated method stub
+		_log.info("This packet is not well known : RequestDismissPartyRoom");
+		_log.info("Data received: d:" + _data1 + " d:" + _data2);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__D0_02_REQUESTDISMISSPARTYROOM;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__D0_02_REQUESTDISMISSPARTYROOM;
+	}
 }

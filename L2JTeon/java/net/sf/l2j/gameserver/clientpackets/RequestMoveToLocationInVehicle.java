@@ -26,73 +26,72 @@ import net.sf.l2j.util.Point3D;
 
 public final class RequestMoveToLocationInVehicle extends L2GameClientPacket
 {
-    private final Point3D _pos = new Point3D(0, 0, 0);
-    private final Point3D _origin_pos = new Point3D(0, 0, 0);
-    private int _boatId;
+	private final Point3D _pos = new Point3D(0, 0, 0);
+	private final Point3D _origin_pos = new Point3D(0, 0, 0);
+	private int _boatId;
 
-    public TaskPriority getPriority()
-    {
-	return TaskPriority.PR_HIGH;
-    }
-
-    /**
-     * @param buf
-     * @param client
-     */
-    @Override
-    protected void readImpl()
-    {
-	int _x, _y, _z;
-	_boatId = readD(); // objectId of boat
-	_x = readD();
-	_y = readD();
-	_z = readD();
-	_pos.setXYZ(_x, _y, _z);
-	_x = readD();
-	_y = readD();
-	_z = readD();
-	_origin_pos.setXYZ(_x, _y, _z);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	else if (activeChar.isAttackingNow() && (activeChar.getActiveWeaponItem() != null) && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
+	public TaskPriority getPriority()
 	{
-	    activeChar.sendPacket(new ActionFailed());
-	} else
-	{
-	    if (!activeChar.isInBoat())
-	    {
-		activeChar.setInBoat(true);
-	    }
-	    L2BoatInstance boat = BoatManager.getInstance().GetBoat(_boatId);
-	    activeChar.setBoat(boat);
-	    activeChar.setInBoatPosition(_pos);
-	    activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO_IN_A_BOAT, new L2CharPosition(_pos.getX(), _pos.getY(), _pos.getZ(), 0), new L2CharPosition(_origin_pos.getX(), _origin_pos.getY(), _origin_pos.getZ(), 0));
+		return TaskPriority.PR_HIGH;
 	}
-    }
 
-    /**
-     * @return
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	/**
+	 * @param buf
+	 * @param client
+	 */
+	@Override
+	protected void readImpl()
+	{
+		int _x, _y, _z;
+		_boatId = readD(); // objectId of boat
+		_x = readD();
+		_y = readD();
+		_z = readD();
+		_pos.setXYZ(_x, _y, _z);
+		_x = readD();
+		_y = readD();
+		_z = readD();
+		_origin_pos.setXYZ(_x, _y, _z);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 */
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		else if (activeChar.isAttackingNow() && (activeChar.getActiveWeaponItem() != null) && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
+		{
+			activeChar.sendPacket(new ActionFailed());
+		}
+		else
+		{
+			if (!activeChar.isInBoat())
+			{
+				activeChar.setInBoat(true);
+			}
+			L2BoatInstance boat = BoatManager.getInstance().GetBoat(_boatId);
+			activeChar.setBoat(boat);
+			activeChar.setInBoatPosition(_pos);
+			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO_IN_A_BOAT, new L2CharPosition(_pos.getX(), _pos.getY(), _pos.getZ(), 0), new L2CharPosition(_origin_pos.getX(), _origin_pos.getY(), _origin_pos.getZ(), 0));
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

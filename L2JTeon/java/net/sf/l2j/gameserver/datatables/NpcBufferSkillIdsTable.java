@@ -26,24 +26,19 @@ import net.sf.l2j.L2DatabaseFactory;
 public class NpcBufferSkillIdsTable
 {
 	private static NpcBufferSkillIdsTable _instance = null;
-
 	private Map<Integer, NpcBufferSkills> _buffers = new FastMap<Integer, NpcBufferSkills>();
 
 	private NpcBufferSkillIdsTable()
 	{
 		Connection con = null;
 		int skillCount = 0;
-
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-
 			PreparedStatement statement = con.prepareStatement("SELECT `npc_id`,`skill_id`,`skill_level`,`skill_fee_id`,`skill_fee_amount` FROM `npc_buffer` ORDER BY `npc_id` ASC");
 			ResultSet rset = statement.executeQuery();
-
 			int lastNpcId = 0;
 			NpcBufferSkills skills = null;
-
 			while (rset.next())
 			{
 				int npcId = rset.getInt("npc_id");
@@ -51,22 +46,18 @@ public class NpcBufferSkillIdsTable
 				int skillLevel = rset.getInt("skill_level");
 				int skillFeeId = rset.getInt("skill_fee_id");
 				int skillFeeAmount = rset.getInt("skill_fee_amount");
-
 				if (npcId != lastNpcId)
 				{
 					if (lastNpcId != 0)
 						_buffers.put(lastNpcId, skills);
-
 					skills = new NpcBufferSkills(npcId);
 					skills.addSkill(skillId, skillLevel, skillFeeId, skillFeeAmount);
 				}
 				else
 					skills.addSkill(skillId, skillLevel, skillFeeId, skillFeeAmount);
-
 				lastNpcId = npcId;
 				skillCount++;
 			}
-			
 			_buffers.put(lastNpcId, skills);
 			rset.close();
 			statement.close();
@@ -77,9 +68,14 @@ public class NpcBufferSkillIdsTable
 		}
 		finally
 		{
-			try{con.close();}catch(Exception e){}
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
-
 		System.out.println("NpcBufferSkillIdsTable: Loaded " + _buffers.size() + " buffers and " + skillCount + " skills.");
 	}
 
@@ -87,9 +83,9 @@ public class NpcBufferSkillIdsTable
 	{
 		if (_instance == null)
 			_instance = new NpcBufferSkillIdsTable();
-
 		return _instance;
 	}
+
 	/** Reloads npc buffer **/
 	public static void reload()
 	{
@@ -99,10 +95,8 @@ public class NpcBufferSkillIdsTable
 	public int[] getSkillInfo(int npcId, int skillId)
 	{
 		NpcBufferSkills skills = _buffers.get(npcId);
-		
 		if (skills == null)
 			return null;
-
 		return skills.getSkillInfo(skillId);
 	}
 }

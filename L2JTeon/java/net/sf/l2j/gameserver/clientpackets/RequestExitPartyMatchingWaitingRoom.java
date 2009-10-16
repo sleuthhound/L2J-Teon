@@ -18,35 +18,33 @@ package net.sf.l2j.gameserver.clientpackets;
  * Format: (ch) this is just a trigger : no data
  * 
  * @author -Wooden-
- * 
  */
-public final class RequestExitPartyMatchingWaitingRoom extends
-	L2GameClientPacket
+public final class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacket
 {
-    private static final String _C__D0_17_REQUESTEXITPARTYMATCHINGWAITINGROOM = "[C] D0:17 RequestExitPartyMatchingWaitingRoom";
+	private static final String _C__D0_17_REQUESTEXITPARTYMATCHINGWAITINGROOM = "[C] D0:17 RequestExitPartyMatchingWaitingRoom";
 
-    @Override
-    protected void readImpl()
-    {
-	// trigger
-    }
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-	// TODO
-	System.out.println("C5: RequestExitPartyMatchingWaitingRoom");
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 */
+	@Override
+	protected void runImpl()
+	{
+		// TODO
+		System.out.println("C5: RequestExitPartyMatchingWaitingRoom");
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__D0_17_REQUESTEXITPARTYMATCHINGWAITINGROOM;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__D0_17_REQUESTEXITPARTYMATCHINGWAITINGROOM;
+	}
 }

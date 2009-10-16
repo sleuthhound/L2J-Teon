@@ -30,7 +30,6 @@ public class QuestTimer
 		{
 			if (this == null || !getIsActive())
 				return;
-			
 			try
 			{
 				if (!getIsRepeating())
@@ -42,7 +41,7 @@ public class QuestTimer
 			}
 		}
 	}
-	
+
 	// =========================================================
 	// Data Field
 	private boolean _isActive = true;
@@ -52,7 +51,7 @@ public class QuestTimer
 	private L2PcInstance _player;
 	private boolean _isRepeating;
 	private ScheduledFuture<?> _schedular;
-	
+
 	// =========================================================
 	// Constructor
 	public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player, boolean repeating)
@@ -67,35 +66,38 @@ public class QuestTimer
 		else
 			_schedular = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTimerTask(), time); // Prepare auto end task
 	}
-	
+
 	public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player)
 	{
 		this(quest, name, time, npc, player, false);
 	}
-	
+
 	public QuestTimer(QuestState qs, String name, long time)
 	{
 		this(qs.getQuest(), name, time, null, qs.getPlayer(), false);
 	}
-	
+
 	// =========================================================
 	// Method - Public
 	public void cancel()
 	{
 		_isActive = false;
-		
 		if (_schedular != null)
 			_schedular.cancel(false);
-		
 		getQuest().removeQuestTimer(this);
 	}
-	
+
 	/**
 	 * public method to compare if this timer matches with the key attributes passed.
-	 * @param quest : Quest instance to which the timer is attached
-	 * @param name : Name of the timer
-	 * @param npc : Npc instance attached to the desired timer (null if no npc attached)
-	 * @param player : Player instance attached to the desired timer (null if no player attached)
+	 * 
+	 * @param quest
+	 *            : Quest instance to which the timer is attached
+	 * @param name
+	 *            : Name of the timer
+	 * @param npc
+	 *            : Npc instance attached to the desired timer (null if no npc attached)
+	 * @param player
+	 *            : Player instance attached to the desired timer (null if no player attached)
 	 */
 	public boolean isMatch(Quest quest, String name, L2NpcInstance npc, L2PcInstance player)
 	{
@@ -105,39 +107,39 @@ public class QuestTimer
 			return false;
 		return ((npc == getNpc()) && (player == getPlayer()));
 	}
-	
+
 	// =========================================================
 	// Property - Public
 	public final boolean getIsActive()
 	{
 		return _isActive;
 	}
-	
+
 	public final boolean getIsRepeating()
 	{
 		return _isRepeating;
 	}
-	
+
 	public final Quest getQuest()
 	{
 		return _quest;
 	}
-	
+
 	public final String getName()
 	{
 		return _name;
 	}
-	
+
 	public final L2NpcInstance getNpc()
 	{
 		return _npc;
 	}
-	
+
 	public final L2PcInstance getPlayer()
 	{
 		return _player;
 	}
-	
+
 	@Override
 	public final String toString()
 	{
