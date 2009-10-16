@@ -244,6 +244,10 @@ public final class UseItem extends L2GameClientPacket
 	    {
 		return;
 	    }
+		if (activeChar.isInOlympiadMode() && (item.isHeroitem() || item.isOlyRestrictedItem()))
+		{
+			return;
+		}
 	    // Don't allow weapon/shield hero equipment during Olimpia
 	    if (activeChar.isInOlympiadMode() && ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND)) && (((item.getItemId() >= 6611) && (item.getItemId() <= 6621)) || (item.getItemId() == 6842) || (Config.ENABLE_OLY_WEAPON_ENCH && (item.getEnchantLevel() > Config.MAX_OLY_WEAPON_ENCH))))
 	    {

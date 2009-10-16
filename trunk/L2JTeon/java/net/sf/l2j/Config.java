@@ -188,6 +188,19 @@ public final class Config
     public static long ALT_OLY_IWAIT;
     public static long ALT_OLY_WPERIOD;
     public static long ALT_OLY_VPERIOD;
+    
+    // More Olympiad Configs!!!
+	public static int ALT_OLY_CLASSED;
+	public static int ALT_OLY_NONCLASSED;
+	public static int ALT_OLY_BATTLE_REWARD_ITEM;
+	public static int ALT_OLY_CLASSED_RITEM_C;
+	public static int ALT_OLY_NONCLASSED_RITEM_C;
+	public static int ALT_OLY_COMP_RITEM;
+	public static int ALT_OLY_GP_PER_POINT;
+	public static int ALT_OLY_MIN_POINT_FOR_EXCH;
+	public static int ALT_OLY_HERO_POINTS;
+	public static String ALT_OLY_RESTRICTED_ITEMS;
+	public static List<Integer> LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
    
     // Lottery configs
     public static int ALT_LOTTERY_PRIZE;
@@ -1711,6 +1724,21 @@ public final class Config
 		ALT_OLY_IWAIT = Long.parseLong(altSettings.getProperty("AltOlyIWait", "300")) * 1000;
 		ALT_OLY_WPERIOD = Long.parseLong(altSettings.getProperty("AltOlyWPeriod", "604800")) * 1000;
 		ALT_OLY_VPERIOD = Long.parseLong(altSettings.getProperty("AltOlyVPeriod", "86400")) * 1000;
+        ALT_OLY_CLASSED	= Integer.parseInt(altSettings.getProperty("AltOlyClassedParticipants","5"));
+        ALT_OLY_NONCLASSED = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedParticipants","9"));
+        ALT_OLY_BATTLE_REWARD_ITEM = Integer.parseInt(altSettings.getProperty("AltOlyBattleRewItem","6651"));
+        ALT_OLY_CLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyClassedRewItemCount","50"));
+        ALT_OLY_NONCLASSED_RITEM_C = Integer.parseInt(altSettings.getProperty("AltOlyNonClassedRewItemCount","30"));
+        ALT_OLY_COMP_RITEM = Integer.parseInt(altSettings.getProperty("AltOlyCompRewItem","6651"));
+        ALT_OLY_GP_PER_POINT = Integer.parseInt(altSettings.getProperty("AltOlyGPPerPoint","1000"));
+        ALT_OLY_MIN_POINT_FOR_EXCH = Integer.parseInt(altSettings.getProperty("AltOlyMinPointForExchange","50"));
+        ALT_OLY_HERO_POINTS = Integer.parseInt(altSettings.getProperty("AltOlyHeroPoints","300"));
+        ALT_OLY_RESTRICTED_ITEMS = altSettings.getProperty("AltOlyRestrictedItems","0");
+		LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
+		for (String id : ALT_OLY_RESTRICTED_ITEMS.split(","))
+		{
+			LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
+		}
 		ALT_LOTTERY_PRIZE = Integer.parseInt(altSettings.getProperty("AltLotteryPrize", "50000"));
 		ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(altSettings.getProperty("AltLotteryTicketPrice", "2000"));
 		ALT_LOTTERY_5_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery5NumberRate", "0.6"));

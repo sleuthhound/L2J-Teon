@@ -580,6 +580,11 @@ public final class L2ItemInstance extends L2Object
     {
 	return isConsumable() ? (int) (_priceSell * Config.RATE_CONSUMABLE_COST) : _priceSell;
     }
+    
+	public boolean isOlyRestrictedItem()
+    {
+        return Config.LIST_OLY_RESTRICTED_ITEMS.contains(_itemId);
+    }
 
     /**
      * Sets the price of the item for selling <U><I>Remark :</I></U> If

@@ -153,6 +153,7 @@ import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
+import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfoSpectator;
 import net.sf.l2j.gameserver.serverpackets.ExSetCompassZoneCode;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -396,6 +397,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _OlympiadStart = false;
     private int _olympiadGameId = -1;
     private int _olympiadSide = -1;
+	public int dmgDealt = 0;
     /** Duel */
     private boolean _isInDuel = false;
     private int _duelState = Duel.DUELSTATE_NODUEL;
@@ -3976,38 +3978,28 @@ public final class L2PcInstance extends L2PlayableInstance
 		    PartySmallWindowUpdate update = new PartySmallWindowUpdate(this);
 		    getParty().broadcastToPartyMembers(this, update);
 		}
-		if (isInOlympiadMode())
-		{
-		    // TODO: implement new OlympiadUserInfo
-			Collection<L2PcInstance> plrs = getKnownList().getKnownPlayers().values();   
-			//synchronized (getKnownList().getKnownPlayers())   
-			{ 
-				for (L2PcInstance player : plrs)   
-				{   
-					if (player.getOlympiadGameId() == getOlympiadGameId() && player.isOlympiadStart())   
-					{   
-						if (Config.DEBUG)   
-							_log.fine("Send status for Olympia window of "   
-									+ getObjectId() + "(" + getName() + ") to "   
-									+ player.getObjectId() + "("   
-									+ player.getName() + "). CP: "   
-									+ getCurrentCp() + " HP: " + getCurrentHp()   
-									+ " MP: " + getCurrentMp());   
-						player.sendPacket(new ExOlympiadUserInfo(this));   
+        if (isInOlympiadMode())
+        {
+        	Collection<L2PcInstance> plrs = getKnownList().getKnownPlayers().values();
+			{
+				for (L2PcInstance player : plrs)
+				{
+					if (player.getOlympiadGameId() == getOlympiadGameId()
+					        && player.isOlympiadStart())
+					{
+						player.sendPacket(new ExOlympiadUserInfoSpectator(this, 1));
 					}
 				}
 			}
-			if(Olympiad.getInstance().getSpectators(_olympiadGameId) != null && this.isOlympiadStart())   
-			{
-				for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
-				{
-					if (spectator == null)
-						continue;
-
-					spectator.sendPacket(new ExOlympiadUserInfo(this)); 
-				}
-		    }
-		}
+            if(Olympiad.getInstance().getSpectators(_olympiadGameId) != null && this.isOlympiadStart())
+            {
+                for(L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
+                {
+                    if (spectator == null) continue;
+                    spectator.sendPacket(new ExOlympiadUserInfoSpectator(this, getOlympiadSide()));
+                }
+            }
+        }
 		if (isInDuel())
 		{
 		    ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
@@ -10727,7 +10719,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	super.onTeleported();
 	// Force a revalidation
 	revalidateZone(true);
-	if (Config.PLAYER_SPAWN_PROTECTION > 0)
+	if (Config.PLAYER_SPAWN_PROTECTION > 0 && !isInOlympiadMode())
 	{
 	    setProtection(true);
 	}
@@ -12277,6 +12269,13 @@ public final class L2PcInstance extends L2PlayableInstance
     	{
     		sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_MAGIC));
     	}
+		if (isInOlympiadMode() &&
+        		target instanceof L2PcInstance &&
+        		((L2PcInstance)target).isInOlympiadMode() &&
+        		((L2PcInstance)target).getOlympiadGameId() == getOlympiadGameId())
+        {
+        	dmgDealt += damage;
+        }
     	SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
     	sm.addNumber(damage);
     	sendPacket(sm);
