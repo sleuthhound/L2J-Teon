@@ -418,21 +418,18 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					case 0x79:
 						msg = new RequestPrivateStoreBuy();
 						break;
-					// case 0x7a:
-					// // ReviveReply
-					// break;
-					// case 0x7b:
-					// // RequestTutorialLinkHtml
-					// break;
-					// case 0x7c:
-					// msg = new RequestTutorialPassCmdToServer();
-					// break;
-					// case 0x7d:
-					// msg = new RequestTutorialQuestionMark();
-					// break;
-					// case 0x7e:
-					// // RequestTutorialClientEvent
-					// break;
+					case 0x7b:
+						msg = new RequestTutorialLinkHtml();
+						break;
+					case 0x7c:
+						msg = new RequestTutorialPassCmdToServer();
+						break;
+					case 0x7d:
+						msg = new RequestTutorialQuestionMark();
+						break;
+					case 0x7e:
+						msg = new RequestTutorialClientEvent();
+						break;
 					case 0x7f:
 						msg = new RequestPetition();
 						break;

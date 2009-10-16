@@ -2412,28 +2412,22 @@
 	</zone>
 
 <!-- Clan halls Sieges zones -->
-	<zone id='11100' type='ClanHallSiegeZone' shape='NPoly' minZ='-2344' maxZ='-1544'>
-		<stat name='clanHallId' val='21'/>
+	<zone id='111000' type='ClanHallSiegeZone' shape='Cuboid' minZ='-2312' maxZ='-204'>
 		<stat name='name' val='Fortress of Resistance'/>
 	</zone>
-	<zone id='11141' type='ClanHallSiegeZone' shape='NPoly' minZ='-2100' maxZ='-1100'>
-		<stat name='clanHallId' val='62'/>
+	<zone id='111001' type='ClanHallSiegeZone' shape='NPoly' minZ='-2100' maxZ='-1100'>
 		<stat name='name' val='Rainbow Springs'/>
 	</zone>
-	<zone id='11142' type='ClanHallSiegeZone' shape='NPoly' minZ='-1500' maxZ='-500'>
-		<stat name='clanHallId' val='63'/>
+	<zone id='111002' type='ClanHallSiegeZone' shape='NPoly' minZ='-1500' maxZ='-500'>
 		<stat name='name' val='Beast Farm'/>
 	</zone>
-	<zone id='11143' type='ClanHallSiegeZone' shape='NPoly' minZ='500' maxZ='1500'>
-		<stat name='clanHallId' val='64'/>
+	<zone id='111003' type='ClanHallSiegeZone' shape='NPoly' minZ='500' maxZ='1500'>
 		<stat name='name' val='Fortress of the Dead'/>
 	</zone>
-	<zone id='11113' type='ClanHallSiegeZone' shape='Cuboid' minZ='-2600' maxZ='-1700'>
-		<stat name='clanHallId' val='34'/>
+	<zone id='111004' type='ClanHallSiegeZone' shape='Cuboid' minZ='-2600' maxZ='-1700'>
 		<stat name='name' val='Devastated Castle'/>
 	</zone>
-	<zone id='11114' type='ClanHallSiegeZone' shape='Cuboid' minZ='-2000' maxZ='-1800'>
-		<stat name='clanHallId' val='35'/>
+	<zone id='111005' type='ClanHallSiegeZone' shape='Cuboid' minZ='-2000' maxZ='-1800'>
 		<stat name='name' val='Bandit Stronghold'/>
 	</zone>
 

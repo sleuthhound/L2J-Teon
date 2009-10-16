@@ -16,11 +16,10 @@ package net.sf.l2j.gameserver.serverpackets;
 
 public class TutorialCloseHtml extends L2GameServerPacket
 {
-	@SuppressWarnings("unused")
-	private static final String _S__TutorialCloseHtml = "[S] A7 TutorialCloseHtml";
+	private static final String _S__a3_TUTORIALCLOSEHTML = "[S] a3 TutorialCloseHtml";
 
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
 		writeC(0xa3);
 	}
@@ -28,6 +27,6 @@ public class TutorialCloseHtml extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return "[S] A7 TutorialCloseHtml";
+		return _S__a3_TUTORIALCLOSEHTML;
 	}
-}
+} 

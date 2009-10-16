@@ -16,23 +16,25 @@ package net.sf.l2j.gameserver.serverpackets;
 
 public class TutorialEnableClientEvent extends L2GameServerPacket
 {
-	private int _event = 0;
+	private static final String _S__a2_TUTORIALENABLECLIENTEVENT = "[S] a2 TutorialEnableClientEvent";
+	private int _eventId = 0;
 
 	public TutorialEnableClientEvent(int event)
 	{
-		_event = event;
+		_eventId = event;
 	}
 
+
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
-		writeC(0xA2);
-		writeD(_event);
+		writeC(0xa2);
+		writeD(_eventId);
 	}
 
 	@Override
 	public String getType()
 	{
-		return "[S] A2 TutorialEnableClientEvent";
+		return _S__a2_TUTORIALENABLECLIENTEVENT;
 	}
-}
+} 
