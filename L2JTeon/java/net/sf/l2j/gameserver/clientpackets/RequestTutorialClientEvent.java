@@ -14,26 +14,33 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.quest.QuestState;
+
 public class RequestTutorialClientEvent extends L2GameClientPacket
 {
-	@SuppressWarnings("unused")
-	private static final String _C__CF_REQUEST_TUTORIAL_CLIENT_EVENT = "[C] CF RequestTutorialClientEvent";
-	int event = 0;
+	private static final String _C__7e_REQUESTTUTORIALCLIENTEVENT = "[C] 7e RequestTutorialClientEvent";
+	int eventId = 0;
 
-	@Override
 	protected void readImpl()
 	{
-		event = readD();
+		eventId = readD();
 	}
 
-	@Override
-	public void runImpl()
+	protected void runImpl()
 	{
+		L2PcInstance player = getClient().getActiveChar();
+
+		if(player == null)
+			return;
+
+		QuestState qs = player.getQuestState("255_Tutorial");
+		if(qs != null)
+			qs.getQuest().notifyEvent("CE" + eventId + "",null,player);
 	}
 
-	@Override
 	public String getType()
 	{
-		return "[C] 7E RequestTutorialClientEvent";
+		return _C__7e_REQUESTTUTORIALCLIENTEVENT;
 	}
 }

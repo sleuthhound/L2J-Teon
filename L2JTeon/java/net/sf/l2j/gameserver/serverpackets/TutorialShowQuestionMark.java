@@ -21,11 +21,10 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 
 	public TutorialShowQuestionMark(int blink)
 	{
-		_blink = blink; // this influences the blinking frequancy :S
+		_blink = blink; //this influences the blinking frequancy :S
 	}
 
-	/*
-	 * (non-Javadoc)
+	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
@@ -33,10 +32,10 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 	{
 		writeC(0xa1);
 		writeD(_blink);
+
 	}
 
-	/*
-	 * (non-Javadoc)
+	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
@@ -44,4 +43,5 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 	{
 		return _S__A1_TUTORIALSHOWQUESTIONMARK;
 	}
+
 }
