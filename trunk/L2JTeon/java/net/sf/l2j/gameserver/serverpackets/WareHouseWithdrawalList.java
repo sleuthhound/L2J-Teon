@@ -26,83 +26,82 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class WareHouseWithdrawalList extends L2GameServerPacket
 {
-    public static final int PRIVATE = 1;
-    public static final int CLAN = 2;
-    public static final int CASTLE = 3; // not sure
-    public static final int FREIGHT = 4; // not sure
-    private static Logger _log = Logger.getLogger(WareHouseWithdrawalList.class.getName());
-    private static final String _S__54_WAREHOUSEWITHDRAWALLIST = "[S] 42 WareHouseWithdrawalList";
-    private L2PcInstance _activeChar;
-    private int _playerAdena;
-    private L2ItemInstance[] _items;
-    private int _whType;
+	public static final int PRIVATE = 1;
+	public static final int CLAN = 2;
+	public static final int CASTLE = 3; // not sure
+	public static final int FREIGHT = 4; // not sure
+	private static Logger _log = Logger.getLogger(WareHouseWithdrawalList.class.getName());
+	private static final String _S__54_WAREHOUSEWITHDRAWALLIST = "[S] 42 WareHouseWithdrawalList";
+	private L2PcInstance _activeChar;
+	private int _playerAdena;
+	private L2ItemInstance[] _items;
+	private int _whType;
 
-    public WareHouseWithdrawalList(L2PcInstance player, int type)
-    {
-	_activeChar = player;
-	_whType = type;
-	_playerAdena = _activeChar.getAdena();
-	if (_activeChar.getActiveWarehouse() == null)
+	public WareHouseWithdrawalList(L2PcInstance player, int type)
 	{
-	    // Something went wrong!
-	    _log.warning("error while sending withdraw request to: " + _activeChar.getName());
-	    return;
+		_activeChar = player;
+		_whType = type;
+		_playerAdena = _activeChar.getAdena();
+		if (_activeChar.getActiveWarehouse() == null)
+		{
+			// Something went wrong!
+			_log.warning("error while sending withdraw request to: " + _activeChar.getName());
+			return;
+		}
+		_items = _activeChar.getActiveWarehouse().getItems();
+		if (Config.DEBUG)
+		{
+			for (L2ItemInstance item : _items)
+			{
+				_log.fine("item:" + item.getItem().getName() + " type1:" + item.getItem().getType1() + " type2:" + item.getItem().getType2());
+			}
+		}
 	}
-	_items = _activeChar.getActiveWarehouse().getItems();
-	if (Config.DEBUG)
-	{
-	    for (L2ItemInstance item : _items)
-	    {
-		_log.fine("item:" + item.getItem().getName() + " type1:" + item.getItem().getType1() + " type2:" + item.getItem().getType2());
-	    }
-	}
-    }
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x42);
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x42);
+		/*
+		 * 0x01-Private Warehouse 0x02-Clan Warehouse 0x03-Castle Warehouse 0x04-Warehouse
+		 */
+		writeH(_whType);
+		writeD(_playerAdena);
+		writeH(_items.length);
+		for (L2ItemInstance item : _items)
+		{
+			writeH(item.getItem().getType1()); // item type1 //unconfirmed,
+			// works
+			writeD(0x00); // unconfirmed, works
+			writeD(item.getItemId()); // unconfirmed, works
+			writeD(item.getCount()); // unconfirmed, works
+			writeH(item.getItem().getType2()); // item type2 //unconfirmed,
+			// works
+			writeH(0x00); // ?
+			writeD(item.getItem().getBodyPart()); // ?
+			writeH(item.getEnchantLevel()); // enchant level -confirmed
+			writeH(0x00); // ?
+			writeH(0x00); // ?
+			writeD(item.getObjectId()); // item id - confimed
+			if (item.isAugmented())
+			{
+				writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
+				writeD(item.getAugmentation().getAugmentationId() >> 16);
+			}
+			else
+			{
+				writeQ(0x00);
+			}
+		}
+	}
+
 	/*
-	 * 0x01-Private Warehouse 0x02-Clan Warehouse 0x03-Castle Warehouse
-	 * 0x04-Warehouse
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
-	writeH(_whType);
-	writeD(_playerAdena);
-	writeH(_items.length);
-	for (L2ItemInstance item : _items)
+	@Override
+	public String getType()
 	{
-	    writeH(item.getItem().getType1()); // item type1 //unconfirmed,
-	    // works
-	    writeD(0x00); // unconfirmed, works
-	    writeD(item.getItemId()); // unconfirmed, works
-	    writeD(item.getCount()); // unconfirmed, works
-	    writeH(item.getItem().getType2()); // item type2 //unconfirmed,
-	    // works
-	    writeH(0x00); // ?
-	    writeD(item.getItem().getBodyPart()); // ?
-	    writeH(item.getEnchantLevel()); // enchant level -confirmed
-	    writeH(0x00); // ?
-	    writeH(0x00); // ?
-	    writeD(item.getObjectId()); // item id - confimed
-	    if (item.isAugmented())
-	    {
-		writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
-		writeD(item.getAugmentation().getAugmentationId() >> 16);
-	    } else
-	    {
-		writeQ(0x00);
-	    }
+		return _S__54_WAREHOUSEWITHDRAWALLIST;
 	}
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__54_WAREHOUSEWITHDRAWALLIST;
-    }
 }

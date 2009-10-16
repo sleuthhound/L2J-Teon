@@ -22,33 +22,34 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2BlacksmithInstance extends L2FolkInstance
 {
-    public L2BlacksmithInstance(int objectId, L2NpcTemplate template)
-    {
-	super(objectId, template);
-    }
-
-    @Override
-    public void onBypassFeedback(L2PcInstance player, String command)
-    {
-	if (command.startsWith("multisell"))
+	public L2BlacksmithInstance(int objectId, L2NpcTemplate template)
 	{
-	    int listId = Integer.parseInt(command.substring(9).trim());
-	    L2Multisell.getInstance().SeparateAndSend(listId, player, false, getCastle().getTaxRate());
+		super(objectId, template);
 	}
-	super.onBypassFeedback(player, command);
-    }
 
-    @Override
-    public String getHtmlPath(int npcId, int val)
-    {
-	String pom = "";
-	if (val == 0)
+	@Override
+	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-	    pom = "" + npcId;
-	} else
-	{
-	    pom = npcId + "-" + val;
+		if (command.startsWith("multisell"))
+		{
+			int listId = Integer.parseInt(command.substring(9).trim());
+			L2Multisell.getInstance().SeparateAndSend(listId, player, false, getCastle().getTaxRate());
+		}
+		super.onBypassFeedback(player, command);
 	}
-	return "data/html/blacksmith/" + pom + ".htm";
-    }
+
+	@Override
+	public String getHtmlPath(int npcId, int val)
+	{
+		String pom = "";
+		if (val == 0)
+		{
+			pom = "" + npcId;
+		}
+		else
+		{
+			pom = npcId + "-" + val;
+		}
+		return "data/html/blacksmith/" + pom + ".htm";
+	}
 }

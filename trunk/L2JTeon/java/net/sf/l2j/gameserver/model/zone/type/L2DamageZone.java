@@ -23,8 +23,8 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
  * A damage zone
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2DamageZone extends L2ZoneType
 {
@@ -35,7 +35,6 @@ public class L2DamageZone extends L2ZoneType
 	public L2DamageZone(int id)
 	{
 		super(id);
-
 		// Setup default damage
 		_damageHPPerSec = 200;
 		_damageMPPerSec = 0;
@@ -52,7 +51,8 @@ public class L2DamageZone extends L2ZoneType
 		{
 			_damageMPPerSec = Integer.parseInt(value);
 		}
-		else super.setParameter(name, value);
+		else
+			super.setParameter(name, value);
 	}
 
 	@Override
@@ -92,6 +92,7 @@ public class L2DamageZone extends L2ZoneType
 	class ApplyDamage implements Runnable
 	{
 		private L2DamageZone _dmgZone;
+
 		ApplyDamage(L2DamageZone zone)
 		{
 			_dmgZone = zone;
@@ -113,9 +114,12 @@ public class L2DamageZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

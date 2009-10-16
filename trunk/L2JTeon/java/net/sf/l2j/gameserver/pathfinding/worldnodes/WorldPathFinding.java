@@ -24,59 +24,56 @@ import net.sf.l2j.gameserver.pathfinding.Node;
 import net.sf.l2j.gameserver.pathfinding.PathFinding;
 
 /**
- * 
  * @author -Nemesiss-
  */
 public class WorldPathFinding extends PathFinding
 {
-    // private static Logger _log =
-    // Logger.getLogger(WorldPathFinding.class.getName());
-    private static WorldPathFinding _instance;
-    @SuppressWarnings("unused")
-    private static Map<Short, ByteBuffer> _pathNodes = new FastMap<Short, ByteBuffer>();
-    private static Map<Short, IntBuffer> _pathNodesIndex = new FastMap<Short, IntBuffer>();
+	// private static Logger _log =
+	// Logger.getLogger(WorldPathFinding.class.getName());
+	private static WorldPathFinding _instance;
+	@SuppressWarnings("unused")
+	private static Map<Short, ByteBuffer> _pathNodes = new FastMap<Short, ByteBuffer>();
+	private static Map<Short, IntBuffer> _pathNodesIndex = new FastMap<Short, IntBuffer>();
 
-    public static WorldPathFinding getInstance()
-    {
-	if (_instance == null)
-	    _instance = new WorldPathFinding();
-	return _instance;
-    }
+	public static WorldPathFinding getInstance()
+	{
+		if (_instance == null)
+			_instance = new WorldPathFinding();
+		return _instance;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.pathfinding.PathFinding#PathNodesExist(short)
-     */
-    @Override
-    public boolean pathNodesExist(short regionoffset)
-    {
-	return _pathNodesIndex.containsKey(regionoffset);
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#PathNodesExist(short)
+	 */
+	@Override
+	public boolean pathNodesExist(short regionoffset)
+	{
+		return _pathNodesIndex.containsKey(regionoffset);
+	}
 
-    // TODO! [Nemesiss]
-    /**
-     * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int,
-     *      short, int, int, short)
-     */
-    @Override
-    public List<AbstractNodeLoc> findPath(int gx, int gy, short z, int gtx, int gtz, short tz)
-    {
-	return null;
-    }
+	// TODO! [Nemesiss]
+	/**
+	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
+	 */
+	@Override
+	public List<AbstractNodeLoc> findPath(int gx, int gy, short z, int gtx, int gtz, short tz)
+	{
+		return null;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.pathfinding.PathFinding#ReadNeighbors(short,
-     *      short)
-     */
-    @Override
-    public Node[] readNeighbors(short node_x, short node_y, int idx)
-    {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.pathfinding.PathFinding#ReadNeighbors(short, short)
+	 */
+	@Override
+	public Node[] readNeighbors(short node_x, short node_y, int idx)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    // Private
-    private WorldPathFinding()
-    {
-	// TODO! {Nemesiss] Load PathNodes.
-    }
+	// Private
+	private WorldPathFinding()
+	{
+		// TODO! {Nemesiss] Load PathNodes.
+	}
 }

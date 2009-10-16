@@ -23,90 +23,83 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneForm;
  */
 public class ZoneFourangle extends L2ZoneForm
 {
-    private final int _z1;
-    private final int _z2;
-    private Area _area = null;
-    private final GeneralPath p;
+	private final int _z1;
+	private final int _z2;
+	private Area _area = null;
+	private final GeneralPath p;
 
-    public ZoneFourangle(final int x1, final int y1, final int z1, final int z2)
-    {
-        p = new GeneralPath();
-        _area = new Area();
-        p.moveTo(x1, y1);
-        _z1 = z1;
-        _z2 = z2;
-    }
+	public ZoneFourangle(final int x1, final int y1, final int z1, final int z2)
+	{
+		p = new GeneralPath();
+		_area = new Area();
+		p.moveTo(x1, y1);
+		_z1 = z1;
+		_z2 = z2;
+	}
 
-    public void add(final int _x, final int _y)
-    {
-        p.lineTo(_x, _y);
-    }
+	public void add(final int _x, final int _y)
+	{
+		p.lineTo(_x, _y);
+	}
 
-    public void done()
-    {
-        p.closePath();
-        _area.add(new Area(p));
-    }
+	public void done()
+	{
+		p.closePath();
+		_area.add(new Area(p));
+	}
 
-    /**
-     * @return Returns the area.
-     */
-    public Area getArea()
-    {
-        return _area;
-    }
+	/**
+	 * @return Returns the area.
+	 */
+	public Area getArea()
+	{
+		return _area;
+	}
 
-    @Override
-    public double getDistanceToZone(final int x, final int y)
-    {
-        final double _x = _area.getBounds().getCenterX();
-        final double _y = _area.getBounds().getCenterY();
-        return MathLib.sqrt(MathLib.pow(_x - x, 2) + MathLib.pow(_y - y, 2));
-    }
+	@Override
+	public double getDistanceToZone(final int x, final int y)
+	{
+		final double _x = _area.getBounds().getCenterX();
+		final double _y = _area.getBounds().getCenterY();
+		return MathLib.sqrt(MathLib.pow(_x - x, 2) + MathLib.pow(_y - y, 2));
+	}
 
-    @Override
-    public int getHighZ()
-    {
-        return _z2;
-    }
+	@Override
+	public int getHighZ()
+	{
+		return _z2;
+	}
 
-    /*
-     * getLowZ() / getHighZ() - These two functions were added to cope with the
-     * demand of the new fishing algorithms, wich are now able to correctly
-     * place the hook in the water, thanks to getHighZ(). getLowZ() was added,
-     * considering potential future modifications.
-     */
+	/*
+	 * getLowZ() / getHighZ() - These two functions were added to cope with the demand of the new fishing algorithms, wich are now able to correctly place the hook in the water, thanks to getHighZ(). getLowZ() was added, considering potential future modifications.
+	 */
+	@Override
+	public int getLowZ()
+	{
+		return _z1;
+	}
 
-    @Override
-    public int getLowZ()
-    {
-        return _z1;
-    }
+	@Override
+	public boolean intersectsRectangle(final int ax1, final int ax2, final int ay1, final int ay2)
+	{
+		final GeneralPath _tmp = new GeneralPath();
+		_tmp.moveTo(ax1, ay1);
+		_tmp.quadTo(ax1, ay1, ax2, ay2);
+		_tmp.closePath();
+		if (_area.intersects(_tmp.getBounds2D()))
+			return true;
+		else
+			return false;
+	}
 
-    @Override
-    public boolean intersectsRectangle(final int ax1, final int ax2,
-            final int ay1, final int ay2)
-    {
-        final GeneralPath _tmp = new GeneralPath();
-        _tmp.moveTo(ax1, ay1);
-        _tmp.quadTo(ax1, ay1, ax2, ay2);
-        _tmp.closePath();
-
-        if (_area.intersects(_tmp.getBounds2D()))
-            return true;
-        else
-            return false;
-    }
-
-    @Override
-    public boolean isInsideZone(final int x, final int y, final int z)
-    {
-        if (z < _z1 || z > _z2)
-            return false;
-
-        if (_area.contains(x, y))
-            return true;
-        else
-            return false;
-    }
+	@Override
+	public boolean isInsideZone(final int x, final int y, final int z)
+	{
+		if (z < _z1 || z > _z2)
+			return false;
+		if (_area.contains(x, y))
+			return true;
+		else
+			return false;
+	}
 }

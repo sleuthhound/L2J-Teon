@@ -18,11 +18,11 @@ import net.sf.l2j.gameserver.network.SystemChatChannelId;
 
 public class CreatureSay2 extends L2GameServerPacket
 {
-	private static final String	_S__4A_CreatureSay2	= "[S] 4A CreatureSay2 [ddss]";
-	private int					_objectId;
-	private SystemChatChannelId	_channel;
-	private String				_charName;
-	private String				_text;
+	private static final String _S__4A_CreatureSay2 = "[S] 4A CreatureSay2 [ddss]";
+	private int _objectId;
+	private SystemChatChannelId _channel;
+	private String _charName;
+	private String _text;
 
 	/**
 	 * @param _characters
@@ -39,14 +39,14 @@ public class CreatureSay2 extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x4a);
-
 		writeD(_objectId);
 		writeD(_channel.getId());
 		writeS(_charName);
 		writeS(_text);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.l2emuproject.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

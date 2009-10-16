@@ -23,39 +23,39 @@ import java.util.Map;
  */
 public class PackageToList extends L2GameServerPacket
 {
-    private static final String _S__C2_PACKAGETOLIST = "[S] C2 PackageToList";
-    private Map<Integer, String> _players;
+	private static final String _S__C2_PACKAGETOLIST = "[S] C2 PackageToList";
+	private Map<Integer, String> _players;
 
-    // Lecter : i put a char list here, but i'm unsure these really are Pc.
-    // I
-    // duno how freight work tho...
-    public PackageToList(Map<Integer, String> players)
-    {
-	_players = players;
-    }
-
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-	writeC(0xC2);
-	writeD(_players.size());
-	for (int objId : _players.keySet())
+	// Lecter : i put a char list here, but i'm unsure these really are Pc.
+	// I
+	// duno how freight work tho...
+	public PackageToList(Map<Integer, String> players)
 	{
-	    writeD(objId); // you told me char id, i guess this was object
-	    // id?
-	    writeS(_players.get(objId));
+		_players = players;
 	}
-    }
 
-    /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__C2_PACKAGETOLIST;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xC2);
+		writeD(_players.size());
+		for (int objId : _players.keySet())
+		{
+			writeD(objId); // you told me char id, i guess this was object
+			// id?
+			writeS(_players.get(objId));
+		}
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__C2_PACKAGETOLIST;
+	}
 }

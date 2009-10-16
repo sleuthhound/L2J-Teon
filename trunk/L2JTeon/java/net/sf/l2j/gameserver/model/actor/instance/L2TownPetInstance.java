@@ -32,141 +32,140 @@ import net.sf.l2j.util.Rnd;
 
 public final class L2TownPetInstance extends L2Attackable
 {
-    private boolean _isInvul;
-    private int _homeX;
-    private int _homeY;
-    private int _homeZ;
-    private static final int RETURN_INTERVAL = 1;
+	private boolean _isInvul;
+	private int _homeX;
+	private int _homeY;
+	private int _homeZ;
+	private static final int RETURN_INTERVAL = 1;
 
-    public L2TownPetInstance(int objectId, L2NpcTemplate template)
-    {
-	super(objectId, template);
-	getKnownList(); // init knownlist
-	ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new ReturnTask(), RETURN_INTERVAL, RETURN_INTERVAL + Rnd.nextInt(1));
-    }
-
-    public class ReturnTask implements Runnable
-    {
-	public void run()
+	public L2TownPetInstance(int objectId, L2NpcTemplate template)
 	{
-	    if (getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
-	    {
-		returnHome();
-	    }
+		super(objectId, template);
+		getKnownList(); // init knownlist
+		ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new ReturnTask(), RETURN_INTERVAL, RETURN_INTERVAL + Rnd.nextInt(1));
 	}
-    }
 
-    @Override
-    public final TownPetKnownList getKnownList()
-    {
-	if ((super.getKnownList() == null) || !(super.getKnownList() instanceof TownPetKnownList))
+	public class ReturnTask implements Runnable
 	{
-	    setKnownList(new TownPetKnownList(this));
+		public void run()
+		{
+			if (getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+			{
+				returnHome();
+			}
+		}
 	}
-	return (TownPetKnownList) super.getKnownList();
-    }
 
-    @Override
-    public boolean isAutoAttackable(L2Character attacker)
-    {
-	return false;
-    }
-
-    @Override
-    public boolean isAttackable()
-    {
-	return false;
-    }
-
-    /**
-     * Sets home location of townpet. pet will always try to return to this
-     * location.
-     */
-    public void getHomeLocation()
-    {
-	_homeX = getX();
-	_homeY = getY();
-	_homeZ = getZ();
-	if (Config.DEBUG)
+	@Override
+	public final TownPetKnownList getKnownList()
 	{
-	    _log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof TownPetKnownList))
+		{
+			setKnownList(new TownPetKnownList(this));
+		}
+		return (TownPetKnownList) super.getKnownList();
 	}
-    }
 
-    public int getHomeX()
-    {
-	return _homeX;
-    }
-
-    public int getHomeY()
-    {
-	return _homeY;
-    }
-
-    public void returnHome()
-    {
-	if (!isInsideRadius(_homeX, _homeY, 2, false))
+	@Override
+	public boolean isAutoAttackable(L2Character attacker)
 	{
-	    if (Config.DEBUG)
-	    {
-		_log.fine(getObjectId() + ": moving hometo" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-	    }
-	    getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_homeX, _homeY, _homeZ, 0));
+		return false;
 	}
-    }
 
-    @Override
-    public void onSpawn()
-    {
-	_homeX = getX();
-	_homeY = getY();
-	_homeZ = getZ();
-	if (Config.DEBUG)
+	@Override
+	public boolean isAttackable()
 	{
-	    _log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+		return false;
 	}
-	// check the region where this mob is, do not activate the AI if region
-	// is inactive.
-	L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
-	if ((region != null) && !region.isActive())
+
+	/**
+	 * Sets home location of townpet. pet will always try to return to this location.
+	 */
+	public void getHomeLocation()
 	{
-	    ((L2AttackableAI) getAI()).stopAITask();
+		_homeX = getX();
+		_homeY = getY();
+		_homeZ = getZ();
+		if (Config.DEBUG)
+		{
+			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+		}
 	}
-    }
 
-    @Override
-    public boolean isAggressive()
-    {
-	return false;
-    }
-
-    @Override
-    public boolean isInvul()
-    {
-	return _isInvul;
-    }
-
-    public void setInvul(boolean isInvul)
-    {
-	_isInvul = isInvul;
-    }
-
-    @Override
-    public boolean hasRandomAnimation()
-    {
-	return Config.MAX_NPC_ANIMATION > 0;
-    }
-
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-	if (getObjectId() != player.getTargetId())
+	public int getHomeX()
 	{
-	    player.setTarget(this);
-	    MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-	    player.sendPacket(my);
-	    player.sendPacket(new ValidateLocation(this));
-	    player.sendPacket(new ActionFailed());
+		return _homeX;
 	}
-    }
+
+	public int getHomeY()
+	{
+		return _homeY;
+	}
+
+	public void returnHome()
+	{
+		if (!isInsideRadius(_homeX, _homeY, 2, false))
+		{
+			if (Config.DEBUG)
+			{
+				_log.fine(getObjectId() + ": moving hometo" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+			}
+			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_homeX, _homeY, _homeZ, 0));
+		}
+	}
+
+	@Override
+	public void onSpawn()
+	{
+		_homeX = getX();
+		_homeY = getY();
+		_homeZ = getZ();
+		if (Config.DEBUG)
+		{
+			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+		}
+		// check the region where this mob is, do not activate the AI if region
+		// is inactive.
+		L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
+		if ((region != null) && !region.isActive())
+		{
+			((L2AttackableAI) getAI()).stopAITask();
+		}
+	}
+
+	@Override
+	public boolean isAggressive()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isInvul()
+	{
+		return _isInvul;
+	}
+
+	public void setInvul(boolean isInvul)
+	{
+		_isInvul = isInvul;
+	}
+
+	@Override
+	public boolean hasRandomAnimation()
+	{
+		return Config.MAX_NPC_ANIMATION > 0;
+	}
+
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (getObjectId() != player.getTargetId())
+		{
+			player.setTarget(this);
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
+			player.sendPacket(my);
+			player.sendPacket(new ValidateLocation(this));
+			player.sendPacket(new ActionFailed());
+		}
+	}
 }

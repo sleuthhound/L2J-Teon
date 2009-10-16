@@ -23,42 +23,42 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectCharge extends L2Effect
 {
-    public int numCharges;
+	public int numCharges;
 
-    public EffectCharge(Env env, EffectTemplate template)
-    {
-	super(env, template);
-	numCharges = 1;
-	if (env.target instanceof L2PcInstance)
+	public EffectCharge(Env env, EffectTemplate template)
 	{
-	    env.target.sendPacket(new EtcStatusUpdate((L2PcInstance) env.target));
-	    SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-	    sm.addNumber(numCharges);
-	    getEffected().sendPacket(sm);
+		super(env, template);
+		numCharges = 1;
+		if (env.target instanceof L2PcInstance)
+		{
+			env.target.sendPacket(new EtcStatusUpdate((L2PcInstance) env.target));
+			SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
+			sm.addNumber(numCharges);
+			getEffected().sendPacket(sm);
+		}
 	}
-    }
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.CHARGE;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.CHARGE;
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	// ignore
-	return true;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		// ignore
+		return true;
+	}
 
-    @Override
-    public int getLevel()
-    {
-	return numCharges;
-    }
+	@Override
+	public int getLevel()
+	{
+		return numCharges;
+	}
 
-    public void addNumCharges(int i)
-    {
-	numCharges = numCharges + i;
-    }
+	public void addNumCharges(int i)
+	{
+		numCharges = numCharges + i;
+	}
 }

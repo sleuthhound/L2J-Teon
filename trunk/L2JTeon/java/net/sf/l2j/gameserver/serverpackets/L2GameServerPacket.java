@@ -20,37 +20,37 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 import com.l2jserver.mmocore.network.SendablePacket;
 
 /**
- * 
  * @author KenM
  */
 public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 {
-    private static final Logger _log = Logger.getLogger(L2GameServerPacket.class.getName());
+	private static final Logger _log = Logger.getLogger(L2GameServerPacket.class.getName());
 
-    /**
-     * @see com.l2jserver.mmocore.network.SendablePacket#write()
-     */
-    @Override
-    protected void write()
-    {
-	try
+	/**
+	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 */
+	@Override
+	protected void write()
 	{
-	    writeImpl();
-	} catch (Throwable t)
-	{
-	    _log.severe("Client: " + getClient().toString() + " - Failed writing: " + getType() + " - L2J Server Version: " + Config.SERVER_VERSION + " - DP Revision: " + Config.DATAPACK_VERSION);
-	    t.printStackTrace();
+		try
+		{
+			writeImpl();
+		}
+		catch (Throwable t)
+		{
+			_log.severe("Client: " + getClient().toString() + " - Failed writing: " + getType() + " - L2J Server Version: " + Config.SERVER_VERSION + " - DP Revision: " + Config.DATAPACK_VERSION);
+			t.printStackTrace();
+		}
 	}
-    }
 
-    public void runImpl()
-    {
-    }
+	public void runImpl()
+	{
+	}
 
-    protected abstract void writeImpl();
+	protected abstract void writeImpl();
 
-    /**
-     * @return A String with this packet name for debuging purposes
-     */
-    public abstract String getType();
+	/**
+	 * @return A String with this packet name for debuging purposes
+	 */
+	public abstract String getType();
 }

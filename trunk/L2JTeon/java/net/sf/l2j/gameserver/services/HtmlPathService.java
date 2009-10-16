@@ -16,13 +16,12 @@ package net.sf.l2j.gameserver.services;
 
 /**
  * This Class Manages HTML PATHS to Avoid Typos. <br>
- * 
  */
 public class HtmlPathService
 {
-    public static String _serviceName = HtmlPathService.class.getName().toString();
-    /**
-     * returns announcer npc html path
-     */
-    public final static String ANNOUNCER_NPC_HTML_PATH = "data/html/mods/npc_announcer/";
+	public static String _serviceName = HtmlPathService.class.getName().toString();
+	/**
+	 * returns announcer npc html path
+	 */
+	public final static String ANNOUNCER_NPC_HTML_PATH = "data/html/mods/npc_announcer/";
 }

@@ -23,29 +23,29 @@ import net.sf.l2j.gameserver.instancemanager.DuelManager;
  */
 public final class RequestDuelSurrender extends L2GameClientPacket
 {
-    private static final String _C__D0_30_REQUESTDUELSURRENDER = "[C] D0:30 RequestDuelSurrender";
+	private static final String _C__D0_30_REQUESTDUELSURRENDER = "[C] D0:30 RequestDuelSurrender";
 
-    @Override
-    protected void readImpl()
-    {
-	// trigger
-    }
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-	DuelManager.getInstance().doSurrender(getClient().getActiveChar());
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+	 */
+	@Override
+	protected void runImpl()
+	{
+		DuelManager.getInstance().doSurrender(getClient().getActiveChar());
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__D0_30_REQUESTDUELSURRENDER;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__D0_30_REQUESTDUELSURRENDER;
+	}
 }

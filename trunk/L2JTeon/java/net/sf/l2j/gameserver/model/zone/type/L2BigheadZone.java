@@ -20,8 +20,8 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
  * Bighead zones give entering players big heads
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2BigheadZone extends L2ZoneType
 {
@@ -44,7 +44,7 @@ public class L2BigheadZone extends L2ZoneType
 	{
 		if (character instanceof L2PcInstance)
 		{
-			character.stopAbnormalEffect((short)0x2000);
+			character.stopAbnormalEffect((short) 0x2000);
 		}
 	}
 
@@ -59,5 +59,4 @@ public class L2BigheadZone extends L2ZoneType
 	{
 		onEnter(character);
 	}
-
 }

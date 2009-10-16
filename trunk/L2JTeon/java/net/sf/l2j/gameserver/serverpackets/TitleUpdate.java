@@ -17,38 +17,37 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * 
  * @author devScarlet
  */
 public class TitleUpdate extends L2GameServerPacket
 {
-    private static final String _S__CC_TITLE_UPDATE = "[S] cc TitleUpdate";
-    private String _title;
-    private int _objectId;
+	private static final String _S__CC_TITLE_UPDATE = "[S] cc TitleUpdate";
+	private String _title;
+	private int _objectId;
 
-    public TitleUpdate(L2PcInstance cha)
-    {
-	_objectId = cha.getObjectId();
-	_title = cha.getTitle();
-    }
+	public TitleUpdate(L2PcInstance cha)
+	{
+		_objectId = cha.getObjectId();
+		_title = cha.getTitle();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-	writeC(0xcc);
-	writeD(_objectId);
-	writeS(_title);
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xcc);
+		writeD(_objectId);
+		writeS(_title);
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__CC_TITLE_UPDATE;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__CC_TITLE_UPDATE;
+	}
 }

@@ -25,40 +25,39 @@ import net.sf.l2j.gameserver.serverpackets.PartyMatchDetail;
  */
 public final class RequestPartyMatchDetail extends L2GameClientPacket
 {
-    private static final String _C__71_REQUESTPARTYMATCHDETAIL = "[C] 71 RequestPartyMatchDetail";
-    // private static Logger _log =
-    // Logger.getLogger(RequestPartyMatchDetail.class.getName());
-    private int _objectId;
-    @SuppressWarnings("unused")
-    private int _unk1;
+	private static final String _C__71_REQUESTPARTYMATCHDETAIL = "[C] 71 RequestPartyMatchDetail";
+	// private static Logger _log =
+	// Logger.getLogger(RequestPartyMatchDetail.class.getName());
+	private int _objectId;
+	@SuppressWarnings("unused")
+	private int _unk1;
 
-    @Override
-    protected void readImpl()
-    {
-	_objectId = readD();
-	// TODO analyse value unk1
-	_unk1 = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_objectId = readD();
+		// TODO analyse value unk1
+		_unk1 = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	// TODO: this packet is currently for starting auto join
-	L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_objectId);
-	if (player == null)
-	    return;
-	PartyMatchDetail details = new PartyMatchDetail(player);
-	sendPacket(details);
-    }
+	@Override
+	protected void runImpl()
+	{
+		// TODO: this packet is currently for starting auto join
+		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_objectId);
+		if (player == null)
+			return;
+		PartyMatchDetail details = new PartyMatchDetail(player);
+		sendPacket(details);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__71_REQUESTPARTYMATCHDETAIL;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__71_REQUESTPARTYMATCHDETAIL;
+	}
 }

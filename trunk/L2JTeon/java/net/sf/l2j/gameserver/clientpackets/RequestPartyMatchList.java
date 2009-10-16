@@ -24,69 +24,69 @@ import net.sf.l2j.Config;
  */
 public class RequestPartyMatchList extends L2GameClientPacket
 {
-    private static final String _C__70_REQUESTPARTYMATCHLIST = "[C] 70 RequestPartyMatchList";
-    private static Logger _log = Logger.getLogger(RequestPartyMatchList.class.getName());
-    private int _status;
-    @SuppressWarnings("unused")
-    private int _unk1;
-    @SuppressWarnings("unused")
-    private int _unk2;
-    @SuppressWarnings("unused")
-    private int _unk3;
-    @SuppressWarnings("unused")
-    private int _unk4;
-    @SuppressWarnings("unused")
-    private String _unk5;
+	private static final String _C__70_REQUESTPARTYMATCHLIST = "[C] 70 RequestPartyMatchList";
+	private static Logger _log = Logger.getLogger(RequestPartyMatchList.class.getName());
+	private int _status;
+	@SuppressWarnings("unused")
+	private int _unk1;
+	@SuppressWarnings("unused")
+	private int _unk2;
+	@SuppressWarnings("unused")
+	private int _unk3;
+	@SuppressWarnings("unused")
+	private int _unk4;
+	@SuppressWarnings("unused")
+	private String _unk5;
 
-    @Override
-    protected void readImpl()
-    {
-	_status = readD();
-	// TODO analyse values _unk1-unk5
-	/*
-	 * _unk1 = readD(); _unk2 = readD(); _unk3 = readD(); _unk4 = readD();
-	 * _unk5 = readS();
-	 */
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	if (_status == 1)
+	@Override
+	protected void readImpl()
 	{
-	    // window is open fill the list
-	    // actually the client should get automatic updates for the list
-	    // for now we only fill it once
-	    // Collection<L2PcInstance> players =
-	    // L2World.getInstance().getAllPlayers();
-	    // L2PcInstance[] allPlayers = players.toArray(new
-	    // L2PcInstance[players.size()]);
-	    // L2PcInstance[] empty = new L2PcInstance[]
-	    {
-	    }
-	    ;
-	    // PartyMatchList matchList = new PartyMatchList(empty);
-	    // sendPacket(matchList);
-	} else if (_status == 3)
-	{
-	    // client does not need any more updates
-	    if (Config.DEBUG)
-		_log.fine("PartyMatch window was closed.");
-	} else
-	{
-	    if (Config.DEBUG)
-		_log.fine("party match status: " + _status);
+		_status = readD();
+		// TODO analyse values _unk1-unk5
+		/*
+		 * _unk1 = readD(); _unk2 = readD(); _unk3 = readD(); _unk4 = readD(); _unk5 = readS();
+		 */
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__70_REQUESTPARTYMATCHLIST;
-    }
+	@Override
+	protected void runImpl()
+	{
+		if (_status == 1)
+		{
+			// window is open fill the list
+			// actually the client should get automatic updates for the list
+			// for now we only fill it once
+			// Collection<L2PcInstance> players =
+			// L2World.getInstance().getAllPlayers();
+			// L2PcInstance[] allPlayers = players.toArray(new
+			// L2PcInstance[players.size()]);
+			// L2PcInstance[] empty = new L2PcInstance[]
+			{
+			}
+			;
+			// PartyMatchList matchList = new PartyMatchList(empty);
+			// sendPacket(matchList);
+		}
+		else if (_status == 3)
+		{
+			// client does not need any more updates
+			if (Config.DEBUG)
+				_log.fine("PartyMatch window was closed.");
+		}
+		else
+		{
+			if (Config.DEBUG)
+				_log.fine("party match status: " + _status);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__70_REQUESTPARTYMATCHLIST;
+	}
 }

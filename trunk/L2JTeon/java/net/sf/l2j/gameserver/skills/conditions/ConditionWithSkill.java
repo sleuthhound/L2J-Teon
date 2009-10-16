@@ -17,23 +17,22 @@ package net.sf.l2j.gameserver.skills.conditions;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- * 
  * @author Steuf
  */
 public class ConditionWithSkill extends Condition
 {
-    private final boolean _skill;
+	private final boolean _skill;
 
-    public ConditionWithSkill(boolean skill)
-    {
-	_skill = skill;
-    }
+	public ConditionWithSkill(boolean skill)
+	{
+		_skill = skill;
+	}
 
-    @Override
-    public boolean testImpl(Env env)
-    {
-	if (!_skill && (env.skill != null))
-	    return false;
-	return true;
-    }
+	@Override
+	public boolean testImpl(Env env)
+	{
+		if (!_skill && (env.skill != null))
+			return false;
+		return true;
+	}
 }

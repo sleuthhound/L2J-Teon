@@ -20,41 +20,40 @@ import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * @author kerberos_20
- * 
  */
 public class EffectCharmOfLuck extends L2Effect
 {
-    public EffectCharmOfLuck(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectCharmOfLuck(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.CHARM_OF_LUCK;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.CHARM_OF_LUCK;
+	}
 
-    /** Notify started */
-    @Override
-    public void onStart()
-    {
-	if (getEffected() instanceof L2PlayableInstance)
-	    ((L2PlayableInstance) getEffected()).startCharmOfLuck();
-    }
+	/** Notify started */
+	@Override
+	public void onStart()
+	{
+		if (getEffected() instanceof L2PlayableInstance)
+			((L2PlayableInstance) getEffected()).startCharmOfLuck();
+	}
 
-    /** Notify exited */
-    @Override
-    public void onExit()
-    {
-	if (getEffected() instanceof L2PlayableInstance)
-	    ((L2PlayableInstance) getEffected()).stopCharmOfLuck(this);
-    }
+	/** Notify exited */
+	@Override
+	public void onExit()
+	{
+		if (getEffected() instanceof L2PlayableInstance)
+			((L2PlayableInstance) getEffected()).stopCharmOfLuck(this);
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	// just stop this effect
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
+	}
 }

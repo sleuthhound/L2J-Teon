@@ -25,38 +25,37 @@ import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
  */
 public final class RequestPledgeMemberList extends L2GameClientPacket
 {
-    private static final String _C__3C_REQUESTPLEDGEMEMBERLIST = "[C] 3C RequestPledgeMemberList";
+	private static final String _C__3C_REQUESTPLEDGEMEMBERLIST = "[C] 3C RequestPledgeMemberList";
 
-    // private static Logger _log =
-    // Logger.getLogger(RequestPledgeMemberList.class.getName());
-    @Override
-    protected void readImpl()
-    {
-	// trigger
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	L2Clan clan = activeChar.getClan();
-	if (clan != null)
+	// private static Logger _log =
+	// Logger.getLogger(RequestPledgeMemberList.class.getName());
+	@Override
+	protected void readImpl()
 	{
-	    PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan, activeChar);
-	    activeChar.sendPacket(pm);
+		// trigger
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__3C_REQUESTPLEDGEMEMBERLIST;
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		L2Clan clan = activeChar.getClan();
+		if (clan != null)
+		{
+			PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan, activeChar);
+			activeChar.sendPacket(pm);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__3C_REQUESTPLEDGEMEMBERLIST;
+	}
 }

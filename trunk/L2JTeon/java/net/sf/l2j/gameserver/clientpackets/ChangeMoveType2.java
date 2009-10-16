@@ -23,35 +23,34 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class ChangeMoveType2 extends L2GameClientPacket
 {
-    private static final String _C__1C_CHANGEMOVETYPE2 = "[C] 1C ChangeMoveType2";
-    private boolean _typeRun;
+	private static final String _C__1C_CHANGEMOVETYPE2 = "[C] 1C ChangeMoveType2";
+	private boolean _typeRun;
 
-    @Override
-    protected void readImpl()
-    {
-	_typeRun = readD() == 1;
-    }
+	@Override
+	protected void readImpl()
+	{
+		_typeRun = readD() == 1;
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance player = getClient().getActiveChar();
-	if (player == null)
-	    return;
-	if (_typeRun)
-	    player.setRunning();
-	else
-	    player.setWalking();
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+		if (_typeRun)
+			player.setRunning();
+		else
+			player.setWalking();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__1C_CHANGEMOVETYPE2;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__1C_CHANGEMOVETYPE2;
+	}
 }

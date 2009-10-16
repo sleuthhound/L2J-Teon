@@ -22,34 +22,34 @@ import net.sf.l2j.gameserver.skills.Env;
  */
 final class EffectInvul extends L2Effect
 {
-    public EffectInvul(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectInvul(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.INVUL;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.INVUL;
+	}
 
-    /** Notify started */
-    @Override
-    public void onStart()
-    {
-	getEffected().setIsInvul(true);
-    }
+	/** Notify started */
+	@Override
+	public void onStart()
+	{
+		getEffected().setIsInvul(true);
+	}
 
-    /** Notify exited */
-    @Override
-    public void onExit()
-    {
-	getEffected().setIsInvul(false);
-    }
+	/** Notify exited */
+	@Override
+	public void onExit()
+	{
+		getEffected().setIsInvul(false);
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }

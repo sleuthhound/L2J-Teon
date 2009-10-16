@@ -19,24 +19,22 @@ import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 
 /**
  * @author -Wooden-
- * 
  */
 public class KickPlayer extends ServerBasePacket
 {
-    public KickPlayer(String account)
-    {
-	writeC(0x04);
-	writeS(account);
-    }
+	public KickPlayer(String account)
+	{
+		writeC(0x04);
+		writeS(account);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.loginserver.serverpackets.ServerBasePacket#getContent()
-     */
-    @Override
-    public byte[] getContent() throws IOException
-    {
-	return getBytes();
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.loginserver.serverpackets.ServerBasePacket#getContent()
+	 */
+	@Override
+	public byte[] getContent() throws IOException
+	{
+		return getBytes();
+	}
 }

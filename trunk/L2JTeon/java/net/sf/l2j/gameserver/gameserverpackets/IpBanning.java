@@ -25,10 +25,11 @@ public class IpBanning extends GameServerBasePacket
 	{
 		writeC(0x07);
 		writeS(ip);
-		writeD((int)duration);
+		writeD((int) duration);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
 	 */
 	@Override
@@ -36,5 +37,4 @@ public class IpBanning extends GameServerBasePacket
 	{
 		return getBytes();
 	}
-
 }

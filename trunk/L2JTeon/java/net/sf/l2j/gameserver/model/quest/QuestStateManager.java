@@ -38,19 +38,19 @@ public class QuestStateManager
 			}
 		}
 	}
-	
+
 	// =========================================================
 	// Data Field
 	private static QuestStateManager _instance;
 	private List<QuestState> _questStates = new FastList<QuestState>();
-	
+
 	// =========================================================
 	// Constructor
 	public QuestStateManager()
 	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTimerTask(), 60000);
 	}
-	
+
 	// =========================================================
 	// Method - Public
 	/**
@@ -62,7 +62,7 @@ public class QuestStateManager
 		if (qs == null)
 			qs = new QuestState(quest, player, state);
 	}
-	
+
 	/**
 	 * Remove all QuestState for all player instance that does not exist
 	 */
@@ -77,7 +77,7 @@ public class QuestStateManager
 			}
 		}
 	}
-	
+
 	// =========================================================
 	// Method - Private
 	/**
@@ -87,7 +87,7 @@ public class QuestStateManager
 	{
 		qs = null;
 	}
-	
+
 	// =========================================================
 	// Property - Public
 	public static final QuestStateManager getInstance()
@@ -96,7 +96,7 @@ public class QuestStateManager
 			_instance = new QuestStateManager();
 		return _instance;
 	}
-	
+
 	/**
 	 * Return QuestState for specified player instance
 	 */
@@ -106,12 +106,10 @@ public class QuestStateManager
 		{
 			if (getQuestStates().get(i).getPlayer() != null && getQuestStates().get(i).getPlayer().getObjectId() == player.getObjectId())
 				return getQuestStates().get(i);
-			
 		}
-		
 		return null;
 	}
-	
+
 	/**
 	 * Return all QuestState
 	 */

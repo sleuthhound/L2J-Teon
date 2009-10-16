@@ -18,25 +18,23 @@ import java.io.IOException;
 
 /**
  * @author -Wooden-
- * 
  */
 public class ChangeAccessLevel extends GameServerBasePacket
 {
-    public ChangeAccessLevel(String player, int access)
-    {
-	writeC(0x04);
-	writeD(access);
-	writeS(player);
-    }
+	public ChangeAccessLevel(String player, int access)
+	{
+		writeC(0x04);
+		writeD(access);
+		writeS(player);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
-     */
-    @Override
-    public byte[] getContent() throws IOException
-    {
-	return getBytes();
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+	 */
+	@Override
+	public byte[] getContent() throws IOException
+	{
+		return getBytes();
+	}
 }

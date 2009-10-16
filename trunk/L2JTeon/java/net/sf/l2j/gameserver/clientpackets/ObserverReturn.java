@@ -23,35 +23,34 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class ObserverReturn extends L2GameClientPacket
 {
-    private static final String OBSRETURN__C__04 = "[C] b8 ObserverReturn";
+	private static final String OBSRETURN__C__04 = "[C] b8 ObserverReturn";
 
-    // private static Logger _log =
-    // Logger.getLogger(Action.class.getName());
-    @Override
-    protected void readImpl()
-    {
-    }
+	// private static Logger _log =
+	// Logger.getLogger(Action.class.getName());
+	@Override
+	protected void readImpl()
+	{
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	if (activeChar.inObserverMode())
-	    activeChar.leaveObserverMode();
-	// activeChar.teleToLocation(activeChar.getObsX(), activeChar.getObsY(),
-	// activeChar.getObsZ());
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		if (activeChar.inObserverMode())
+			activeChar.leaveObserverMode();
+		// activeChar.teleToLocation(activeChar.getObsX(), activeChar.getObsY(),
+		// activeChar.getObsZ());
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return OBSRETURN__C__04;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return OBSRETURN__C__04;
+	}
 }

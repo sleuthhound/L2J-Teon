@@ -24,191 +24,191 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class TvTEventTeam
 {
-    /** The name of the team<br> */
-    private final String _name;
-    /** The team spot coordinated<br> */
-    private int[] _coordinates = new int[3];
-    /** The points of the team<br> */
-    private short _points;
-    /** Name and instance of all participated players in FastMap<br> */
-    private Map<String, L2PcInstance> _participatedPlayers = new FastMap<String, L2PcInstance>();
-    /** Name of all participated players in Vector<br> */
-    private Vector<String> _participatedPlayerNames = new Vector<String>();
+	/** The name of the team<br> */
+	private final String _name;
+	/** The team spot coordinated<br> */
+	private int[] _coordinates = new int[3];
+	/** The points of the team<br> */
+	private short _points;
+	/** Name and instance of all participated players in FastMap<br> */
+	private Map<String, L2PcInstance> _participatedPlayers = new FastMap<String, L2PcInstance>();
+	/** Name of all participated players in Vector<br> */
+	private Vector<String> _participatedPlayerNames = new Vector<String>();
 
-    /**
-     * C'tor initialize the team<br>
-     * <br>
-     * 
-     * @param name
-     *                <br>
-     * @param coordinates
-     *                <br>
-     */
-    public TvTEventTeam(String name, int[] coordinates)
-    {
-	_name = name;
-	_coordinates = coordinates;
-	_points = 0;
-    }
-
-    /**
-     * Adds a player to the team<br>
-     * <br>
-     * 
-     * @param playerInstance
-     *                <br>
-     * @return boolean<br>
-     */
-    public boolean addPlayer(L2PcInstance playerInstance)
-    {
-	if (playerInstance == null)
+	/**
+	 * C'tor initialize the team<br>
+	 * <br>
+	 * 
+	 * @param name
+	 * <br>
+	 * @param coordinates
+	 * <br>
+	 */
+	public TvTEventTeam(String name, int[] coordinates)
 	{
-	    return false;
+		_name = name;
+		_coordinates = coordinates;
+		_points = 0;
 	}
-	synchronized (_participatedPlayers)
+
+	/**
+	 * Adds a player to the team<br>
+	 * <br>
+	 * 
+	 * @param playerInstance
+	 * <br>
+	 * @return boolean<br>
+	 */
+	public boolean addPlayer(L2PcInstance playerInstance)
 	{
-	    String playerName = playerInstance.getName();
-	    _participatedPlayers.put(playerName, playerInstance);
-	    if (!_participatedPlayerNames.contains(playerName))
-	    {
-		_participatedPlayerNames.add(playerName);
-	    }
+		if (playerInstance == null)
+		{
+			return false;
+		}
+		synchronized (_participatedPlayers)
+		{
+			String playerName = playerInstance.getName();
+			_participatedPlayers.put(playerName, playerInstance);
+			if (!_participatedPlayerNames.contains(playerName))
+			{
+				_participatedPlayerNames.add(playerName);
+			}
+		}
+		return true;
 	}
-	return true;
-    }
 
-    /**
-     * Removes a player from the team<br>
-     * <br>
-     * 
-     * @param playerName
-     *                <br>
-     */
-    public void removePlayer(String playerName)
-    {
-	synchronized (_participatedPlayers)
+	/**
+	 * Removes a player from the team<br>
+	 * <br>
+	 * 
+	 * @param playerName
+	 * <br>
+	 */
+	public void removePlayer(String playerName)
 	{
-	    _participatedPlayers.remove(playerName);
-	    _participatedPlayerNames.remove(playerName);
+		synchronized (_participatedPlayers)
+		{
+			_participatedPlayers.remove(playerName);
+			_participatedPlayerNames.remove(playerName);
+		}
 	}
-    }
 
-    /**
-     * Increases the points of the team<br>
-     */
-    public void increasePoints()
-    {
-	_points++;
-    }
-
-    /**
-     * Cleanup the team and make it ready for adding players again<br>
-     */
-    public void cleanMe()
-    {
-	_participatedPlayers.clear();
-	_participatedPlayerNames.clear();
-	_participatedPlayers = new FastMap<String, L2PcInstance>();
-	_participatedPlayerNames = new Vector<String>();
-	_points = 0;
-    }
-
-    /**
-     * Is given player in this team?<br>
-     * <br>
-     * 
-     * @param playerName
-     *                <br>
-     * @return boolean<br>
-     */
-    public boolean containsPlayer(String playerName)
-    {
-	boolean containsPlayer;
-	synchronized (_participatedPlayers)
+	/**
+	 * Increases the points of the team<br>
+	 */
+	public void increasePoints()
 	{
-	    containsPlayer = _participatedPlayerNames.contains(playerName);
+		_points++;
 	}
-	return containsPlayer;
-    }
 
-    /**
-     * Returns the name of the team<br>
-     * <br>
-     * 
-     * @return String<br>
-     */
-    public String getName()
-    {
-	return _name;
-    }
-
-    /**
-     * Returns the coordinates of the team spot<br>
-     * <br>
-     * 
-     * @return int[]<br>
-     */
-    public int[] getCoordinates()
-    {
-	return _coordinates;
-    }
-
-    /**
-     * Returns the points of the team<br>
-     * <br>
-     * 
-     * @return short<br>
-     */
-    public short getPoints()
-    {
-	return _points;
-    }
-
-    /**
-     * Returns name and instance of all participated players in FastMap<br>
-     * <br>
-     * 
-     * @return Map<String, L2PcInstance><br>
-     */
-    public Map<String, L2PcInstance> getParticipatedPlayers()
-    {
-	Map<String, L2PcInstance> participatedPlayers = null;
-	synchronized (_participatedPlayers)
+	/**
+	 * Cleanup the team and make it ready for adding players again<br>
+	 */
+	public void cleanMe()
 	{
-	    participatedPlayers = _participatedPlayers;
+		_participatedPlayers.clear();
+		_participatedPlayerNames.clear();
+		_participatedPlayers = new FastMap<String, L2PcInstance>();
+		_participatedPlayerNames = new Vector<String>();
+		_points = 0;
 	}
-	return participatedPlayers;
-    }
 
-    /**
-     * Returns name of all participated players in Vector<br>
-     * <br>
-     * 
-     * @return Vector<String><br>
-     */
-    public Vector<String> getParticipatedPlayerNames()
-    {
-	Vector<String> participatedPlayerNames = null;
-	synchronized (_participatedPlayers)
+	/**
+	 * Is given player in this team?<br>
+	 * <br>
+	 * 
+	 * @param playerName
+	 * <br>
+	 * @return boolean<br>
+	 */
+	public boolean containsPlayer(String playerName)
 	{
-	    participatedPlayerNames = _participatedPlayerNames;
+		boolean containsPlayer;
+		synchronized (_participatedPlayers)
+		{
+			containsPlayer = _participatedPlayerNames.contains(playerName);
+		}
+		return containsPlayer;
 	}
-	return participatedPlayerNames;
-    }
 
-    /**
-     * Returns player count of this team<br>
-     * <br>
-     * 
-     * @return int<br>
-     */
-    public int getParticipatedPlayerCount()
-    {
-	int participatedPlayerCount;
-	synchronized (_participatedPlayers)
+	/**
+	 * Returns the name of the team<br>
+	 * <br>
+	 * 
+	 * @return String<br>
+	 */
+	public String getName()
 	{
-	    participatedPlayerCount = _participatedPlayers.size();
+		return _name;
 	}
-	return participatedPlayerCount;
-    }
+
+	/**
+	 * Returns the coordinates of the team spot<br>
+	 * <br>
+	 * 
+	 * @return int[]<br>
+	 */
+	public int[] getCoordinates()
+	{
+		return _coordinates;
+	}
+
+	/**
+	 * Returns the points of the team<br>
+	 * <br>
+	 * 
+	 * @return short<br>
+	 */
+	public short getPoints()
+	{
+		return _points;
+	}
+
+	/**
+	 * Returns name and instance of all participated players in FastMap<br>
+	 * <br>
+	 * 
+	 * @return Map<String, L2PcInstance><br>
+	 */
+	public Map<String, L2PcInstance> getParticipatedPlayers()
+	{
+		Map<String, L2PcInstance> participatedPlayers = null;
+		synchronized (_participatedPlayers)
+		{
+			participatedPlayers = _participatedPlayers;
+		}
+		return participatedPlayers;
+	}
+
+	/**
+	 * Returns name of all participated players in Vector<br>
+	 * <br>
+	 * 
+	 * @return Vector<String><br>
+	 */
+	public Vector<String> getParticipatedPlayerNames()
+	{
+		Vector<String> participatedPlayerNames = null;
+		synchronized (_participatedPlayers)
+		{
+			participatedPlayerNames = _participatedPlayerNames;
+		}
+		return participatedPlayerNames;
+	}
+
+	/**
+	 * Returns player count of this team<br>
+	 * <br>
+	 * 
+	 * @return int<br>
+	 */
+	public int getParticipatedPlayerCount()
+	{
+		int participatedPlayerCount;
+		synchronized (_participatedPlayers)
+		{
+			participatedPlayerCount = _participatedPlayers.size();
+		}
+		return participatedPlayerCount;
+	}
 }

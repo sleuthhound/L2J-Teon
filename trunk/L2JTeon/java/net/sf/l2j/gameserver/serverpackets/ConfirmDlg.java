@@ -17,29 +17,24 @@ package net.sf.l2j.gameserver.serverpackets;
 import java.util.Vector;
 
 /**
- * @author kombat
- * Format: cd d[d s/d/dd/ddd]
+ * @author kombat Format: cd d[d s/d/dd/ddd]
  */
 public class ConfirmDlg extends L2GameServerPacket
 {
 	private static final String _S__ED_CONFIRMDLG = "[S] ed ConfirmDlg";
 	private int _messageId;
-
 	private int _skillLvL = 1;
-
 	private static final int TYPE_ZONE_NAME = 7;
 	private static final int TYPE_SKILL_NAME = 4;
 	private static final int TYPE_ITEM_NAME = 3;
 	private static final int TYPE_NPC_NAME = 2;
 	private static final int TYPE_NUMBER = 1;
 	private static final int TYPE_TEXT = 0;
-
 	private Vector<Integer> _types = new Vector<Integer>();
 	private Vector<Object> _values = new Vector<Object>();
+	private int _time = 0;
+	private int _requesterId = 0;
 
-    private int _time = 0; 
-    private int _requesterId = 0;
-    
 	public ConfirmDlg(int messageId)
 	{
 		_messageId = messageId;
@@ -76,7 +71,7 @@ public class ConfirmDlg extends L2GameServerPacket
 	public ConfirmDlg addZoneName(int x, int y, int z)
 	{
 		_types.add(new Integer(TYPE_ZONE_NAME));
-		int[] coord = {x, y, z};
+		int[] coord = { x, y, z };
 		_values.add(coord);
 		return this;
 	}
@@ -94,60 +89,57 @@ public class ConfirmDlg extends L2GameServerPacket
 		return this;
 	}
 
-    public ConfirmDlg addTime(int time) 
-    { 
-    	_time = time; 
-    	return this; 
-    } 
-    
-    public ConfirmDlg addRequesterId(int id) 
-    { 
-    	_requesterId = id; 
-    	return this; 
-    } 
- 	
+	public ConfirmDlg addTime(int time)
+	{
+		_time = time;
+		return this;
+	}
+
+	public ConfirmDlg addRequesterId(int id)
+	{
+		_requesterId = id;
+		return this;
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xed);
 		writeD(_messageId);
-
-        if (_types != null && _types.size() > 0) 
-        {
+		if (_types != null && _types.size() > 0)
+		{
 			writeD(_types.size());
 			for (int i = 0; i < _types.size(); i++)
 			{
 				int t = _types.get(i).intValue();
-
 				writeD(t);
-
 				switch (t)
 				{
 					case TYPE_TEXT:
 					{
-						writeS( (String)_values.get(i));
+						writeS((String) _values.get(i));
 						break;
 					}
 					case TYPE_NUMBER:
 					case TYPE_NPC_NAME:
 					case TYPE_ITEM_NAME:
 					{
-						int t1 = ((Integer)_values.get(i)).intValue();
+						int t1 = ((Integer) _values.get(i)).intValue();
 						writeD(t1);
 						break;
 					}
 					case TYPE_SKILL_NAME:
 					{
-						int t1 = ((Integer)_values.get(i)).intValue();
+						int t1 = ((Integer) _values.get(i)).intValue();
 						writeD(t1); // Skill Id
 						writeD(_skillLvL); // Skill lvl
 						break;
 					}
 					case TYPE_ZONE_NAME:
 					{
-						int t1 = ((int[])_values.get(i))[0];
-						int t2 = ((int[])_values.get(i))[1];
-						int t3 = ((int[])_values.get(i))[2];
+						int t1 = ((int[]) _values.get(i))[0];
+						int t2 = ((int[]) _values.get(i))[1];
+						int t3 = ((int[]) _values.get(i))[2];
 						writeD(t1);
 						writeD(t2);
 						writeD(t3);
@@ -169,7 +161,8 @@ public class ConfirmDlg extends L2GameServerPacket
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override

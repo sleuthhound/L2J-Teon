@@ -20,7 +20,6 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author L2JHardCode
  */
-
 public class EffectImmobileUntilAttacked extends L2Effect
 {
 	public EffectImmobileUntilAttacked(Env env, EffectTemplate template)

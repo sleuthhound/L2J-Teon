@@ -30,131 +30,133 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminCommandHandler
 {
-    private static Logger _log = Logger.getLogger(AdminCommandHandler.class.getName());
-    private static AdminCommandHandler _instance;
-    private Map<String, IAdminCommandHandler> _datatable;
-    // Alt privileges setting
-    private static Logger _priviLog = Logger.getLogger("AltPrivilegesAdmin");
-    private static FastMap<String, Integer> _privileges;
+	private static Logger _log = Logger.getLogger(AdminCommandHandler.class.getName());
+	private static AdminCommandHandler _instance;
+	private Map<String, IAdminCommandHandler> _datatable;
+	// Alt privileges setting
+	private static Logger _priviLog = Logger.getLogger("AltPrivilegesAdmin");
+	private static FastMap<String, Integer> _privileges;
 	public static final String GROUP_MANAGESERVER = "ManageServer";
 
-    public static AdminCommandHandler getInstance()
-    {
-	if (_instance == null)
+	public static AdminCommandHandler getInstance()
 	{
-	    _instance = new AdminCommandHandler();
-	}
-	return _instance;
-    }
-
-    private AdminCommandHandler()
-    {
-	_datatable = new FastMap<String, IAdminCommandHandler>();
-    }
-
-    public void registerAdminCommandHandler(IAdminCommandHandler handler)
-    {
-	String[] ids = handler.getAdminCommandList();
-	for (int i = 0; i < ids.length; i++)
-	{
-	    if (Config.DEBUG)
-		_log.fine("Adding handler for command " + ids[i]);
-	    _datatable.put(ids[i], handler);
-	}
-    }
-
-    public IAdminCommandHandler getAdminCommandHandler(String adminCommand)
-    {
-	String command = adminCommand;
-	if (adminCommand.indexOf(" ") != -1)
-	{
-	    command = adminCommand.substring(0, adminCommand.indexOf(" "));
-	}
-	if (Config.DEBUG)
-	    _log.fine("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
-	return _datatable.get(command);
-    }
-
-    /**
-     * @return
-     */
-    public int size()
-    {
-	return _datatable.size();
-    }
-
-    public final void setPrivilegeValue(L2PcInstance player, String adminCommand, int newValue)
-    {
-	// Only a GM can execute an admin command
-	if (!player.isGM())
-	    return;
-	if (_privileges == null)
-	    _privileges = new FastMap<String, Integer>();
-	if (_privileges.containsKey(adminCommand))
-	{
-	    _privileges.remove(adminCommand);
-	}
-	_privileges.put(adminCommand, newValue);
-    }
-
-    public final boolean checkPrivileges(L2PcInstance player, String adminCommand)
-    {
-	// Only a GM can execute a admin command
-	if (!player.isGM())
-	    return false;
-	// Skip special privileges handler?
-	if (!Config.ALT_PRIVILEGES_ADMIN || Config.EVERYBODY_HAS_ADMIN_RIGHTS)
-	    return true;
-	if (_privileges == null)
-	    _privileges = new FastMap<String, Integer>();
-	String command = adminCommand;
-	if (adminCommand.indexOf(" ") != -1)
-	{
-	    command = adminCommand.substring(0, adminCommand.indexOf(" "));
-	}
-	// The command not exists
-	if (!_datatable.containsKey(command))
-	    return false;
-	int requireLevel = 0;
-	if (!_privileges.containsKey(command))
-	{
-	    // Try to loaded the command config
-	    boolean isLoaded = false;
-	    try
-	    {
-		Properties Settings = new Properties();
-		InputStream is = new FileInputStream(Config.COMMAND_PRIVILEGES_FILE);
-		Settings.load(is);
-		is.close();
-		String stringLevel = Settings.getProperty(command);
-		if (stringLevel != null)
+		if (_instance == null)
 		{
-		    isLoaded = true;
-		    requireLevel = Integer.parseInt(stringLevel);
+			_instance = new AdminCommandHandler();
 		}
-	    } catch (Exception e)
-	    {
-	    }
-	    // Secure level?
-	    if (!isLoaded)
-	    {
-		if (Config.ALT_PRIVILEGES_SECURE_CHECK)
+		return _instance;
+	}
+
+	private AdminCommandHandler()
+	{
+		_datatable = new FastMap<String, IAdminCommandHandler>();
+	}
+
+	public void registerAdminCommandHandler(IAdminCommandHandler handler)
+	{
+		String[] ids = handler.getAdminCommandList();
+		for (int i = 0; i < ids.length; i++)
 		{
-		    _priviLog.info("The command '" + command + "' haven't got a entry in the configuration file. The command cannot be executed!!");
-		    return false;
+			if (Config.DEBUG)
+				_log.fine("Adding handler for command " + ids[i]);
+			_datatable.put(ids[i], handler);
 		}
-		requireLevel = Config.ALT_PRIVILEGES_DEFAULT_LEVEL;
-	    }
-	    _privileges.put(command, requireLevel);
-	} else
-	{
-	    requireLevel = _privileges.get(command);
 	}
-	if (player.getAccessLevel() < requireLevel)
+
+	public IAdminCommandHandler getAdminCommandHandler(String adminCommand)
 	{
-	    _priviLog.warning("<GM>" + player.getName() + ": have not access level to execute the command '" + command + "'");
-	    return false;
+		String command = adminCommand;
+		if (adminCommand.indexOf(" ") != -1)
+		{
+			command = adminCommand.substring(0, adminCommand.indexOf(" "));
+		}
+		if (Config.DEBUG)
+			_log.fine("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
+		return _datatable.get(command);
 	}
-	return true;
-    }
+
+	/**
+	 * @return
+	 */
+	public int size()
+	{
+		return _datatable.size();
+	}
+
+	public final void setPrivilegeValue(L2PcInstance player, String adminCommand, int newValue)
+	{
+		// Only a GM can execute an admin command
+		if (!player.isGM())
+			return;
+		if (_privileges == null)
+			_privileges = new FastMap<String, Integer>();
+		if (_privileges.containsKey(adminCommand))
+		{
+			_privileges.remove(adminCommand);
+		}
+		_privileges.put(adminCommand, newValue);
+	}
+
+	public final boolean checkPrivileges(L2PcInstance player, String adminCommand)
+	{
+		// Only a GM can execute a admin command
+		if (!player.isGM())
+			return false;
+		// Skip special privileges handler?
+		if (!Config.ALT_PRIVILEGES_ADMIN || Config.EVERYBODY_HAS_ADMIN_RIGHTS)
+			return true;
+		if (_privileges == null)
+			_privileges = new FastMap<String, Integer>();
+		String command = adminCommand;
+		if (adminCommand.indexOf(" ") != -1)
+		{
+			command = adminCommand.substring(0, adminCommand.indexOf(" "));
+		}
+		// The command not exists
+		if (!_datatable.containsKey(command))
+			return false;
+		int requireLevel = 0;
+		if (!_privileges.containsKey(command))
+		{
+			// Try to loaded the command config
+			boolean isLoaded = false;
+			try
+			{
+				Properties Settings = new Properties();
+				InputStream is = new FileInputStream(Config.COMMAND_PRIVILEGES_FILE);
+				Settings.load(is);
+				is.close();
+				String stringLevel = Settings.getProperty(command);
+				if (stringLevel != null)
+				{
+					isLoaded = true;
+					requireLevel = Integer.parseInt(stringLevel);
+				}
+			}
+			catch (Exception e)
+			{
+			}
+			// Secure level?
+			if (!isLoaded)
+			{
+				if (Config.ALT_PRIVILEGES_SECURE_CHECK)
+				{
+					_priviLog.info("The command '" + command + "' haven't got a entry in the configuration file. The command cannot be executed!!");
+					return false;
+				}
+				requireLevel = Config.ALT_PRIVILEGES_DEFAULT_LEVEL;
+			}
+			_privileges.put(command, requireLevel);
+		}
+		else
+		{
+			requireLevel = _privileges.get(command);
+		}
+		if (player.getAccessLevel() < requireLevel)
+		{
+			_priviLog.warning("<GM>" + player.getName() + ": have not access level to execute the command '" + command + "'");
+			return false;
+		}
+		return true;
+	}
 }

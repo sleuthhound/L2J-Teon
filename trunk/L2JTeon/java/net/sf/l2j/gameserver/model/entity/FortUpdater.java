@@ -23,34 +23,35 @@ import net.sf.l2j.gameserver.model.L2Clan;
  */
 public class FortUpdater implements Runnable
 {
-    protected static Logger _log = Logger.getLogger(FortUpdater.class.getName());
-    private L2Clan _clan;
-    private int _runCount = 0;
+	protected static Logger _log = Logger.getLogger(FortUpdater.class.getName());
+	private L2Clan _clan;
+	private int _runCount = 0;
 
-    public FortUpdater(L2Clan clan, int runCount)
-    {
-	_clan = clan;
-	_runCount = runCount;
-    }
-
-    public void run()
-    {
-	try
+	public FortUpdater(L2Clan clan, int runCount)
 	{
-	    // Increment Reputation every 6 hour 
-	    if (_clan.getHasFort() > 0)
-	    {
-		if (_runCount % 6 == 0)
-		{
-		    _clan.setReputationScore(_clan.getReputationScore() + 1, true);
-		}
-		_runCount++;
-		FortUpdater cu = new FortUpdater(_clan, _runCount);
-		ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
-	    }
-	} catch (Throwable e)
-	{
-	    e.printStackTrace();
+		_clan = clan;
+		_runCount = runCount;
 	}
-    }
+
+	public void run()
+	{
+		try
+		{
+			// Increment Reputation every 6 hour
+			if (_clan.getHasFort() > 0)
+			{
+				if (_runCount % 6 == 0)
+				{
+					_clan.setReputationScore(_clan.getReputationScore() + 1, true);
+				}
+				_runCount++;
+				FortUpdater cu = new FortUpdater(_clan, _runCount);
+				ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
+			}
+		}
+		catch (Throwable e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

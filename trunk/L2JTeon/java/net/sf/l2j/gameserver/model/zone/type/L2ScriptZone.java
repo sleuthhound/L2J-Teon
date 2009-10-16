@@ -18,11 +18,9 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
- * A scripted zone...
- * Creation of such a zone should require somekind
- * of jython script reference which can handle onEnter() / onExit()
- *
- * @author  durgus
+ * A scripted zone... Creation of such a zone should require somekind of jython script reference which can handle onEnter() / onExit()
+ * 
+ * @author durgus
  */
 public class L2ScriptZone extends L2ZoneType
 {
@@ -42,9 +40,12 @@ public class L2ScriptZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

@@ -23,20 +23,19 @@ public final class L2SkillMagicOnGround extends L2Skill
 {
 	public int effectNpcId;
 	public int triggerEffectId;
-	
-    public L2SkillMagicOnGround(StatsSet set)
-    {
-        super(set);
-        effectNpcId = set.getInteger("effectNpcId", -1);
-        triggerEffectId = set.getInteger("triggerEffectId", -1);
-    }
-    
-    @Override
+
+	public L2SkillMagicOnGround(StatsSet set)
+	{
+		super(set);
+		effectNpcId = set.getInteger("effectNpcId", -1);
+		triggerEffectId = set.getInteger("triggerEffectId", -1);
+	}
+
+	@Override
 	public void useSkill(L2Character caster, L2Object[] targets)
-    {
-        if (caster.isAlikeDead())
-            return;
-        
-        getEffectsSelf(caster);
-    }
+	{
+		if (caster.isAlikeDead())
+			return;
+		getEffectsSelf(caster);
+	}
 }

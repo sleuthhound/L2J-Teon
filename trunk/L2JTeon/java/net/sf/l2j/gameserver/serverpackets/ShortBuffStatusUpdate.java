@@ -16,35 +16,34 @@ package net.sf.l2j.gameserver.serverpackets;
 
 public class ShortBuffStatusUpdate extends L2GameServerPacket
 {
-    private static final String _S__F4_SHORTBUFFSTATUSUPDATE = "[S] F4 ShortBuffStatusUpdate";
-    private int _skillId;
-    private int _skillLvl;
-    private int _duration;
+	private static final String _S__F4_SHORTBUFFSTATUSUPDATE = "[S] F4 ShortBuffStatusUpdate";
+	private int _skillId;
+	private int _skillLvl;
+	private int _duration;
 
-    public ShortBuffStatusUpdate(int skillId, int skillLvl, int duration)
-    {
-	_skillId = skillId;
-	_skillLvl = skillLvl;
-	_duration = duration;
-    }
+	public ShortBuffStatusUpdate(int skillId, int skillLvl, int duration)
+	{
+		_skillId = skillId;
+		_skillLvl = skillLvl;
+		_duration = duration;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0xF4);
-	writeD(_skillId);
-	writeD(_skillLvl);
-	writeD(_duration);
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0xF4);
+		writeD(_skillId);
+		writeD(_skillLvl);
+		writeD(_duration);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__F4_SHORTBUFFSTATUSUPDATE;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__F4_SHORTBUFFSTATUSUPDATE;
+	}
 }

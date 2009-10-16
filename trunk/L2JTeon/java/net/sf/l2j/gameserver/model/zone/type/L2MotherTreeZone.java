@@ -23,8 +23,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * A mother-trees zone
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2MotherTreeZone extends L2ZoneType
 {
@@ -33,40 +33,40 @@ public class L2MotherTreeZone extends L2ZoneType
 		super(id);
 	}
 
-    @Override
-    protected void onEnter(L2Character character)
-    {
-	if (character instanceof L2PcInstance)
+	@Override
+	protected void onEnter(L2Character character)
 	{
-	    L2PcInstance player = (L2PcInstance) character;
-	    if (player.isInParty())
-	    {
-		for (L2PcInstance member : player.getParty().getPartyMembers())
-		    if (member.getRace() != Race.elf)
-			return;
-	    }
-	    player.setInsideZone(L2Character.ZONE_MOTHERTREE, true);
-	    player.sendPacket(new SystemMessage(SystemMessageId.ENTER_SHADOW_MOTHER_TREE));
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance) character;
+			if (player.isInParty())
+			{
+				for (L2PcInstance member : player.getParty().getPartyMembers())
+					if (member.getRace() != Race.elf)
+						return;
+			}
+			player.setInsideZone(L2Character.ZONE_MOTHERTREE, true);
+			player.sendPacket(new SystemMessage(SystemMessageId.ENTER_SHADOW_MOTHER_TREE));
+		}
 	}
-    }
 
-    @Override
-    protected void onExit(L2Character character)
-    {
-	if ((character instanceof L2PcInstance) && character.isInsideZone(L2Character.ZONE_MOTHERTREE))
+	@Override
+	protected void onExit(L2Character character)
 	{
-	    character.setInsideZone(L2Character.ZONE_MOTHERTREE, false);
-	    ((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
+		if ((character instanceof L2PcInstance) && character.isInsideZone(L2Character.ZONE_MOTHERTREE))
+		{
+			character.setInsideZone(L2Character.ZONE_MOTHERTREE, false);
+			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
+		}
 	}
-    }
 
-    @Override
-    protected void onDieInside(L2Character character)
-    {
-    }
+	@Override
+	protected void onDieInside(L2Character character)
+	{
+	}
 
-    @Override
-    protected void onReviveInside(L2Character character)
-    {
-    }
+	@Override
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

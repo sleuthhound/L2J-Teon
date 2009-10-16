@@ -20,8 +20,8 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
  * The Monster Derby Track Zone
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2DerbyTrackZone extends L2ZoneType
 {
@@ -37,7 +37,7 @@ public class L2DerbyTrackZone extends L2ZoneType
 		{
 			character.setInsideZone(L2Character.ZONE_MONSTERTRACK, true);
 			character.setInsideZone(L2Character.ZONE_PEACE, true);
-            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true); 
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 		}
 	}
 
@@ -48,14 +48,17 @@ public class L2DerbyTrackZone extends L2ZoneType
 		{
 			character.setInsideZone(L2Character.ZONE_MONSTERTRACK, false);
 			character.setInsideZone(L2Character.ZONE_PEACE, false);
-            character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false); 
+			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 		}
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
-
+	protected void onReviveInside(L2Character character)
+	{
+	}
 }

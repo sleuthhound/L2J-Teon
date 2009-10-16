@@ -25,62 +25,61 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListSell;
  */
 public final class RequestPrivateStoreManageSell extends L2GameClientPacket
 {
-    private static final String _C__73_REQUESTPRIVATESTOREMANAGESELL = "[C] 73 RequestPrivateStoreManageSell";
+	private static final String _C__73_REQUESTPRIVATESTOREMANAGESELL = "[C] 73 RequestPrivateStoreManageSell";
 
-    // private static Logger _log =
-    // Logger.getLogger(RequestPrivateStoreManage.class.getName());
-    @Override
-    protected void readImpl()
-    {
-    }
+	// private static Logger _log =
+	// Logger.getLogger(RequestPrivateStoreManage.class.getName());
+	@Override
+	protected void readImpl()
+	{
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance player = getClient().getActiveChar();
-	if (player == null)
+	@Override
+	protected void runImpl()
 	{
-	    return;
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+		{
+			return;
+		}
+		// Player shouldn't be able to set stores if he/she is alike dead (dead
+		// or fake death)
+		if (player.isAlikeDead())
+		{
+			sendPacket(new ActionFailed());
+			return;
+		}
+		if (player.isInOlympiadMode())
+		{
+			sendPacket(new ActionFailed());
+			return;
+		}
+		if (player.getMountType() != 0)
+		{
+			return;
+		}
+		if ((player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL) || (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL + 1) || (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL))
+		{
+			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+		}
+		if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_NONE)
+		{
+			if (player.isSitting())
+			{
+				player.standUp();
+			}
+			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_SELL + 1);
+			player.sendPacket(new PrivateStoreManageListSell(player));
+		}
 	}
-	// Player shouldn't be able to set stores if he/she is alike dead (dead
-	// or fake death)
-	if (player.isAlikeDead())
-	{
-	    sendPacket(new ActionFailed());
-	    return;
-	}
-	if (player.isInOlympiadMode())
-	{
-	    sendPacket(new ActionFailed());
-	    return;
-	}
-	if (player.getMountType() != 0)
-	{
-	    return;
-	}
-	if ((player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL) || (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL + 1) || (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL))
-	{
-	    player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-	}
-	if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_NONE)
-	{
-	    if (player.isSitting())
-	    {
-		player.standUp();
-	    }
-	    player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_SELL + 1);
-	    player.sendPacket(new PrivateStoreManageListSell(player));
-	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__73_REQUESTPRIVATESTOREMANAGESELL;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__73_REQUESTPRIVATESTOREMANAGESELL;
+	}
 }

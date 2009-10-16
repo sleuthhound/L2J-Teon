@@ -23,61 +23,59 @@ import net.sf.l2j.gameserver.serverpackets.DeleteObject;
 
 public class RaceManagerKnownList extends NpcKnownList
 {
-    // =========================================================
-    // Data Field
-    // =========================================================
-    // Constructor
-    public RaceManagerKnownList(L2RaceManagerInstance activeChar)
-    {
-	super(activeChar);
-    }
-
-    // =========================================================
-    // Method - Public
-    @Override
-    public boolean addKnownObject(L2Object object)
-    {
-	return addKnownObject(object, null);
-    }
-
-    @Override
-    public boolean addKnownObject(L2Object object, L2Character dropper)
-    {
-	if (!super.addKnownObject(object, dropper))
-	    return false;
-	/*
-	 * DONT KNOW WHY WE NEED THIS WHEN RACE MANAGER HAS A METHOD THAT
-	 * BROADCAST TO ITS KNOW PLAYERS if (object instanceof L2PcInstance) {
-	 * if (packet != null) ((L2PcInstance) object).sendPacket(packet); }
-	 */
-	return true;
-    }
-
-    @Override
-    public boolean removeKnownObject(L2Object object)
-    {
-	if (!super.removeKnownObject(object))
-	    return false;
-	if (object instanceof L2PcInstance)
+	// =========================================================
+	// Data Field
+	// =========================================================
+	// Constructor
+	public RaceManagerKnownList(L2RaceManagerInstance activeChar)
 	{
-	    // System.out.println("Sending delete monsrac info.");
-	    DeleteObject obj = null;
-	    for (int i = 0; i < 8; i++)
-	    {
-		obj = new DeleteObject(MonsterRace.getInstance().getMonsters()[i]);
-		((L2PcInstance) object).sendPacket(obj);
-	    }
+		super(activeChar);
 	}
-	return true;
-    }
 
-    // =========================================================
-    // Method - Private
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2RaceManagerInstance getActiveChar()
-    {
-	return (L2RaceManagerInstance) super.getActiveChar();
-    }
+	// =========================================================
+	// Method - Public
+	@Override
+	public boolean addKnownObject(L2Object object)
+	{
+		return addKnownObject(object, null);
+	}
+
+	@Override
+	public boolean addKnownObject(L2Object object, L2Character dropper)
+	{
+		if (!super.addKnownObject(object, dropper))
+			return false;
+		/*
+		 * DONT KNOW WHY WE NEED THIS WHEN RACE MANAGER HAS A METHOD THAT BROADCAST TO ITS KNOW PLAYERS if (object instanceof L2PcInstance) { if (packet != null) ((L2PcInstance) object).sendPacket(packet); }
+		 */
+		return true;
+	}
+
+	@Override
+	public boolean removeKnownObject(L2Object object)
+	{
+		if (!super.removeKnownObject(object))
+			return false;
+		if (object instanceof L2PcInstance)
+		{
+			// System.out.println("Sending delete monsrac info.");
+			DeleteObject obj = null;
+			for (int i = 0; i < 8; i++)
+			{
+				obj = new DeleteObject(MonsterRace.getInstance().getMonsters()[i]);
+				((L2PcInstance) object).sendPacket(obj);
+			}
+		}
+		return true;
+	}
+
+	// =========================================================
+	// Method - Private
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2RaceManagerInstance getActiveChar()
+	{
+		return (L2RaceManagerInstance) super.getActiveChar();
+	}
 }

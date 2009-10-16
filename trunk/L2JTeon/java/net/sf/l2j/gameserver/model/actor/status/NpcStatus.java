@@ -19,41 +19,41 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 
 public class NpcStatus extends CharStatus
 {
-    // =========================================================
-    // Data Field
-    // =========================================================
-    // Constructor
-    public NpcStatus(L2NpcInstance activeChar)
-    {
-	super(activeChar);
-    }
+	// =========================================================
+	// Data Field
+	// =========================================================
+	// Constructor
+	public NpcStatus(L2NpcInstance activeChar)
+	{
+		super(activeChar);
+	}
 
-    // =========================================================
-    // Method - Public
-    @Override
-    public final void reduceHp(double value, L2Character attacker)
-    {
-	reduceHp(value, attacker, true);
-    }
+	// =========================================================
+	// Method - Public
+	@Override
+	public final void reduceHp(double value, L2Character attacker)
+	{
+		reduceHp(value, attacker, true);
+	}
 
-    @Override
-    public final void reduceHp(double value, L2Character attacker, boolean awake)
-    {
-	if (getActiveChar().isDead())
-	    return;
-	// Add attackers to npc's attacker list
-	if (attacker != null)
-	    getActiveChar().addAttackerToAttackByList(attacker);
-	super.reduceHp(value, attacker, awake);
-    }
+	@Override
+	public final void reduceHp(double value, L2Character attacker, boolean awake)
+	{
+		if (getActiveChar().isDead())
+			return;
+		// Add attackers to npc's attacker list
+		if (attacker != null)
+			getActiveChar().addAttackerToAttackByList(attacker);
+		super.reduceHp(value, attacker, awake);
+	}
 
-    // =========================================================
-    // Method - Private
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2NpcInstance getActiveChar()
-    {
-	return (L2NpcInstance) super.getActiveChar();
-    }
+	// =========================================================
+	// Method - Private
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2NpcInstance getActiveChar()
+	{
+		return (L2NpcInstance) super.getActiveChar();
+	}
 }

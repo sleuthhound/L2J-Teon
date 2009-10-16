@@ -28,32 +28,33 @@ import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
  */
 public class TaskOlympiadSave extends Task
 {
-    private static final Logger _log = Logger.getLogger(TaskOlympiadSave.class.getName());
-    public static final String NAME = "OlympiadSave";
+	private static final Logger _log = Logger.getLogger(TaskOlympiadSave.class.getName());
+	public static final String NAME = "OlympiadSave";
 
-    @Override
-    public String getName()
-    {
-	return NAME;
-    }
-
-    @Override
-    public void onTimeElapsed(ExecutedTask task)
-    {
-	try
+	@Override
+	public String getName()
 	{
-	    Olympiad.getInstance().save();
-	    _log.info("Olympiad System: Data updated successfully.");
-	} catch (Exception e)
-	{
-	    _log.warning("Olympiad System: Failed to save Olympiad configuration: " + e);
+		return NAME;
 	}
-    }
 
-    @Override
-    public void initializate()
-    {
-	super.initializate();
-	TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "900000", "1800000", "");
-    }
+	@Override
+	public void onTimeElapsed(ExecutedTask task)
+	{
+		try
+		{
+			Olympiad.getInstance().save();
+			_log.info("Olympiad System: Data updated successfully.");
+		}
+		catch (Exception e)
+		{
+			_log.warning("Olympiad System: Failed to save Olympiad configuration: " + e);
+		}
+	}
+
+	@Override
+	public void initializate()
+	{
+		super.initializate();
+		TaskManager.addUniqueTask(NAME, TaskTypes.TYPE_FIXED_SHEDULED, "900000", "1800000", "");
+	}
 }

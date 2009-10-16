@@ -22,20 +22,19 @@ import net.sf.l2j.Config;
 
 /**
  * This class handles all chat handlers
- *
+ * 
  * @Author Stefoulis15
  */
 public class ChatHandler
 {
 	private static Logger _log = Logger.getLogger(ChatHandler.class.getName());
-	
 	private FastMap<Integer, IChatHandler> _datatable;
-	
+
 	public static ChatHandler getInstance()
 	{
 		return SingletonHolder._instance;
 	}
-	
+
 	/**
 	 * Singleton constructor
 	 */
@@ -43,9 +42,10 @@ public class ChatHandler
 	{
 		_datatable = new FastMap<Integer, IChatHandler>();
 	}
-	
+
 	/**
 	 * Register a new chat handler
+	 * 
 	 * @param handler
 	 */
 	public void registerChatHandler(IChatHandler handler)
@@ -58,9 +58,10 @@ public class ChatHandler
 			_datatable.put(ids[i], handler);
 		}
 	}
-	
+
 	/**
 	 * Get the chat handler for the given chat type
+	 * 
 	 * @param chatType
 	 * @return
 	 */
@@ -68,16 +69,17 @@ public class ChatHandler
 	{
 		return _datatable.get(chatType);
 	}
-	
+
 	/**
 	 * Returns the size
+	 * 
 	 * @return
 	 */
 	public int size()
 	{
 		return _datatable.size();
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

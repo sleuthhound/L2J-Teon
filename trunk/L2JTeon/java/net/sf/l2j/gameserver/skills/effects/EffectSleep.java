@@ -18,43 +18,40 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- * @author mkizub
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * @author mkizub TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
  */
 final class EffectSleep extends L2Effect
 {
-    public EffectSleep(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectSleep(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.SLEEP;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.SLEEP;
+	}
 
-    /** Notify started */
-    @Override
-    public void onStart()
-    {
-	getEffected().startSleeping();
-    }
+	/** Notify started */
+	@Override
+	public void onStart()
+	{
+		getEffected().startSleeping();
+	}
 
-    /** Notify exited */
-    @Override
-    public void onExit()
-    {
-	getEffected().stopSleeping(this);
-    }
+	/** Notify exited */
+	@Override
+	public void onExit()
+	{
+		getEffected().stopSleeping(this);
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	getEffected().stopSleeping(this);
-	// just stop this effect
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		getEffected().stopSleeping(this);
+		// just stop this effect
+		return false;
+	}
 }

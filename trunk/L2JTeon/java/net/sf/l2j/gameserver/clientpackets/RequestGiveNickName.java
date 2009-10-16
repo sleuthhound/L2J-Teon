@@ -28,79 +28,80 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class RequestGiveNickName extends L2GameClientPacket
 {
-    private static final String _C__55_REQUESTGIVENICKNAME = "[C] 55 RequestGiveNickName";
-    static Logger _log = Logger.getLogger(RequestGiveNickName.class.getName());
-    private String _target;
-    private String _title;
+	private static final String _C__55_REQUESTGIVENICKNAME = "[C] 55 RequestGiveNickName";
+	static Logger _log = Logger.getLogger(RequestGiveNickName.class.getName());
+	private String _target;
+	private String _title;
 
-    @Override
-    protected void readImpl()
-    {
-	_target = readS();
-	_title = readS();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	// Noblesse can bestow a title to themselves
-	if (activeChar.isNoble() && _target.matches(activeChar.getName()))
+	@Override
+	protected void readImpl()
 	{
-	    activeChar.setTitle(_title);
-	    SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
-	    activeChar.sendPacket(sm);
-	    activeChar.broadcastTitleInfo();
+		_target = readS();
+		_title = readS();
 	}
-	// Can the player change/give a title?
-	else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) == L2Clan.CP_CL_GIVE_TITLE)
+
+	@Override
+	protected void runImpl()
 	{
-	    if (activeChar.getClan().getLevel() < 3)
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE);
-		activeChar.sendPacket(sm);
-		sm = null;
-		return;
-	    }
-	    L2ClanMember member1 = activeChar.getClan().getClanMember(_target);
-	    if (member1 != null)
-	    {
-		L2PcInstance member = member1.getPlayerInstance();
-		if (member != null)
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		// Noblesse can bestow a title to themselves
+		if (activeChar.isNoble() && _target.matches(activeChar.getName()))
 		{
-		    // is target from the same clan?
-		    member.setTitle(_title);
-		    SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
-		    member.sendPacket(sm);
-		    member.broadcastTitleInfo();
-		    sm = null;
-		} else
-		{
-		    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-		    sm.addString("Target needs to be online to get a title");
-		    activeChar.sendPacket(sm);
-		    sm = null;
+			activeChar.setTitle(_title);
+			SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
+			activeChar.sendPacket(sm);
+			activeChar.broadcastTitleInfo();
 		}
-	    } else
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-		sm.addString("Target does not belong to your clan");
-		activeChar.sendPacket(sm);
-		sm = null;
-	    }
+		// Can the player change/give a title?
+		else if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) == L2Clan.CP_CL_GIVE_TITLE)
+		{
+			if (activeChar.getClan().getLevel() < 3)
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE);
+				activeChar.sendPacket(sm);
+				sm = null;
+				return;
+			}
+			L2ClanMember member1 = activeChar.getClan().getClanMember(_target);
+			if (member1 != null)
+			{
+				L2PcInstance member = member1.getPlayerInstance();
+				if (member != null)
+				{
+					// is target from the same clan?
+					member.setTitle(_title);
+					SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
+					member.sendPacket(sm);
+					member.broadcastTitleInfo();
+					sm = null;
+				}
+				else
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+					sm.addString("Target needs to be online to get a title");
+					activeChar.sendPacket(sm);
+					sm = null;
+				}
+			}
+			else
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+				sm.addString("Target does not belong to your clan");
+				activeChar.sendPacket(sm);
+				sm = null;
+			}
+		}
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__55_REQUESTGIVENICKNAME;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__55_REQUESTGIVENICKNAME;
+	}
 }

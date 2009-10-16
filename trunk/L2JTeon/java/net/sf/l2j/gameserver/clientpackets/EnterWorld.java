@@ -87,619 +87,564 @@ import net.sf.l2j.gameserver.util.FloodProtector;
  * <p>
  * packet format rev656 cbdddd
  * <p>
- *
+ * 
  * @version $Revision: 1.16.2.1.2.7 $ $Date: 2005/03/29 23:15:33 $
  */
 public class EnterWorld extends L2GameClientPacket
 {
-    private static final String _C__03_ENTERWORLD = "[C] 03 EnterWorld";
-    private static Logger _log = Logger.getLogger(EnterWorld.class.getName());
+	private static final String _C__03_ENTERWORLD = "[C] 03 EnterWorld";
+	private static Logger _log = Logger.getLogger(EnterWorld.class.getName());
 
-    public TaskPriority getPriority()
-    {
-	return TaskPriority.PR_URGENT;
-    }
-
-    @Override
-    protected void readImpl()
-    {
-	// this is just a trigger packet. it has no content
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
+	public TaskPriority getPriority()
 	{
-	    _log.warning("EnterWorld failed! activeChar is null...");
-	    getClient().closeNow();
-	    return;
+		return TaskPriority.PR_URGENT;
 	}
-	// Register in flood protector
-	FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());
-	if (L2World.getInstance().findObject(activeChar.getObjectId()) != null)
+
+	@Override
+	protected void readImpl()
 	{
-	    if (Config.DEBUG)
+		// this is just a trigger packet. it has no content
+	}
 
-		_log.warning("User already exist in OID map! User " + activeChar.getName() + " is character clone");
-		// activeChar.closeNetConnection();
-	    }
-
-	if (activeChar.isGM())
+	@Override
+	protected void runImpl()
 	{
-        	if (Config.GM_STARTUP_INVULNERABLE
-        			&& (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE
-        			  || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invul")))
-        		activeChar.setIsInvul(true);
-
-            if (Config.GM_STARTUP_INVISIBLE
-                    && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE
-                      || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible")))
-                activeChar.getAppearance().setInvisible();
-
-            if (Config.GM_STARTUP_SILENCE
-                    && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU
-                      || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_silence")))
-                activeChar.setMessageRefusal(true);
-
-            if (Config.GM_STARTUP_AUTO_LIST
-                    && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU
-                      || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_gmliston")))
-            	GmListTable.getInstance().addGm(activeChar, false);
-            else
-            	GmListTable.getInstance().addGm(activeChar, true);
-
-            if (Config.GM_NAME_COLOR_ENABLED)
-            {
-                if (activeChar.getAccessLevel() >= 100)
-                    activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
-                else if (activeChar.getAccessLevel() >= 75)
-                    activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
-            }
-		if (Config.SHOW_GM_LOGIN)
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
 		{
-		    String name = activeChar.getName();
-		    String text = "GameMaster " + name + " Is Currently Online.";
-		    Announcements.getInstance().announceToAll(text);
-                //}
-            }
-        }
-
-	if (Config.PLAYER_SPAWN_PROTECTION > 0)
-	    activeChar.setProtection(true);
-
+			_log.warning("EnterWorld failed! activeChar is null...");
+			getClient().closeNow();
+			return;
+		}
+		// Register in flood protector
+		FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());
+		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null)
+		{
+			if (Config.DEBUG)
+				_log.warning("User already exist in OID map! User " + activeChar.getName() + " is character clone");
+			// activeChar.closeNetConnection();
+		}
+		if (activeChar.isGM())
+		{
+			if (Config.GM_STARTUP_INVULNERABLE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invul")))
+				activeChar.setIsInvul(true);
+			if (Config.GM_STARTUP_INVISIBLE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible")))
+				activeChar.getAppearance().setInvisible();
+			if (Config.GM_STARTUP_SILENCE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_silence")))
+				activeChar.setMessageRefusal(true);
+			if (Config.GM_STARTUP_AUTO_LIST && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_gmliston")))
+				GmListTable.getInstance().addGm(activeChar, false);
+			else
+				GmListTable.getInstance().addGm(activeChar, true);
+			if (Config.GM_NAME_COLOR_ENABLED)
+			{
+				if (activeChar.getAccessLevel() >= 100)
+					activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
+				else if (activeChar.getAccessLevel() >= 75)
+					activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
+			}
+			if (Config.SHOW_GM_LOGIN)
+			{
+				String name = activeChar.getName();
+				String text = "GameMaster " + name + " Is Currently Online.";
+				Announcements.getInstance().announceToAll(text);
+				// }
+			}
+		}
+		if (Config.PLAYER_SPAWN_PROTECTION > 0)
+			activeChar.setProtection(true);
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-
-		if(activeChar.getZ() < -15000 || activeChar.getZ() > 15000)
+		if (activeChar.getZ() < -15000 || activeChar.getZ() > 15000)
 		{
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			activeChar.setTarget(activeChar);
 			activeChar.teleToLocation(net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType.Town);
 		}
-
-	if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
-	    L2Event.restoreChar(activeChar);
-	 else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
-	    L2Event.restoreAndTeleChar(activeChar);
-
-	if (SevenSigns.getInstance().isSealValidationPeriod())
-	    sendPacket(new SignsSky());
-
-	if (Config.STORE_SKILL_COOLTIME) // buff and status icons
-	    activeChar.restoreEffects();
-
-	activeChar.sendPacket(new EtcStatusUpdate(activeChar));
-
-	// engage and notify Partner
-	if (Config.ALLOW_WEDDING)
-	{
-	    engage(activeChar);
-	    notifyPartner(activeChar, activeChar.getPartnerId());
-	    // Check if player is maried and remove if necessary Cupid's Bow
-	    if (!activeChar.isMaried())
-	    {
-		L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140);
-		// Remove Cupid's Bow
-		if (item != null)
+		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
+			L2Event.restoreChar(activeChar);
+		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
+			L2Event.restoreAndTeleChar(activeChar);
+		if (SevenSigns.getInstance().isSealValidationPeriod())
+			sendPacket(new SignsSky());
+		if (Config.STORE_SKILL_COOLTIME) // buff and status icons
+			activeChar.restoreEffects();
+		activeChar.sendPacket(new EtcStatusUpdate(activeChar));
+		// engage and notify Partner
+		if (Config.ALLOW_WEDDING)
 		{
-		    activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
-		    activeChar.getInventory().updateDatabase();
-		    // Log it
-		    _log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
-		}
-	    }
-	}
-/*
-	if (Config.ALLOW_WEDDING) // engage and notify Partner
-	{
-	    engage(activeChar);
-	    notifyPartner(activeChar, activeChar.getPartnerId());
-
-	    if (!activeChar.isMaried()) // Check if player is maried and remove if necessary Cupid's Bow
-		L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140); // Remove Cupid's Bow
-		if (item != null)
-		    activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
-		    activeChar.getInventory().updateDatabase(); // Log it
-		    _log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
-	}*/
-
-	if (activeChar.getAllEffects() != null)
-	{
-	    for (L2Effect e : activeChar.getAllEffects())
-	    {
-		if (e.getEffectType() == L2Effect.EffectType.HEAL_OVER_TIME)
-		{
-		    activeChar.stopEffects(L2Effect.EffectType.HEAL_OVER_TIME);
-		    activeChar.removeEffect(e);
-		}
-		if (e.getEffectType() == L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME)
-		{
-		    activeChar.stopEffects(L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME);
-		    activeChar.removeEffect(e);
-		}
-	    }
-	}
-	// apply augmentation boni for equipped items
-	for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
-	    if ((temp != null) && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
-
-	// Expand Skill
-	ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);
-	activeChar.sendPacket(esmc);
-	activeChar.getMacroses().sendUpdate();
-	// checkup and delete delayed donator rented items
-	if (Config.DONATOR_DELETE_RENTED_ITEMS)
-	    activeChar.donatorDeleteDelayedRentedItems();
-	// sends general packets
-        activeChar.getMacroses().sendUpdate();
-
-        sendPacket(new UserInfo(activeChar));
-
-        sendPacket(new HennaInfo(activeChar));
-
-        sendPacket(new FriendList(activeChar));
-
-        sendPacket(new ItemList(activeChar, false));
-
-        sendPacket(new ShortCutInit(activeChar));
-
-	SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
-	sendPacket(sm);
-	if (Config.SHOW_L2J_LICENSE)
-	{
-	    sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString(getText("VGhpcyBzZXJ2ZXIgaXMgcnVubmluZyB0aGUgTDJKT25lbyBkaXN0cmlidXRpb24gb2YgTDJqLg=="));
-	    sendPacket(sm);
-	    sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString(getText("TDJKT25lbyBEZXYgVGVhbTpEYVJrUmFHZSwgc2NodXJzaW4sIEFobWVkLA=="));
-	    sm.addString(getText("bmVvRGV2aWwsIFNseWNlciwgQmFvcmMsIFZpY2UsIEV6RXJhbCwgTGlxdWlkSWNlLg=="));
-	    sendPacket(sm);
-	    sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString(getText("TDJKIHdhcyBmb3VuZGVkIGJ5IEwyQ2hlZiBhbmQgdGhlIEwySiBUZWFtLg=="));
-	    sm.addString(getText("IEwySiB0ZWFtLg=="));
-	    sendPacket(sm);
-	    sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString(getText("VmlzaXQgaHR0cDovL3d3dy5sMmpzZXJ2ZXIuY29t"));
-	    sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
-	    sendPacket(sm);
-	    sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString(getText("V2VsY29tZSB0byA="));
-	    sm.addString(LoginServerThread.getInstance().getServerName());
-	    sendPacket(sm);
-	    if (Config.SERVER_VERSION != null)
-		sm = new SystemMessage(SystemMessageId.S1_S2);
-		sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "   " + Config.SERVER_VERSION);
-		sendPacket(sm);
-		sm = new SystemMessage(SystemMessageId.S1_S2);
-		sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + Config.SERVER_BUILD_DATE);
-		sendPacket(sm);
-	}
-	sm = null;
-	SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
-
-	Announcements.getInstance().showAnnouncements(activeChar);
-
-	CrownManager.getInstance().checkCrowns(activeChar);
-
-	Quest.playerEnter(activeChar);
-	activeChar.sendPacket(new QuestList());
-	loadTutorial(activeChar);
-
-	// restore info about chat ban
-	activeChar.checkBanChat(false);
-
-	// restore info about auto herbs loot
-	if (Config.ALLOW_AUTOHERBS_CMD)
-	    activeChar.getAutoLootHerbs();
-
-	// restore info about withdraw state
-	if (Config.ALLOW_WITHDRAW_CWH_CMD)
-	    activeChar.getCanWithdrawCWH();
-
-	// donator's "Hello!"
-	if (activeChar.isDonator())
-	{
-	    activeChar.getAppearance().setNameColor(Config.DONATOR_NAME_COLOR);
-	    activeChar.sendMessage("Welcome " + activeChar.getName() + " to our L][ Server!");
-	    activeChar.sendMessage("Enjoy your Stay Donator!");
-	}
-	// Faction Engine by DaRkRaGe
-	if (activeChar.isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS)
-	{
-	    activeChar.getAppearance().setNameColor(Config.KOOFS_NAME_COLOR);
-	    activeChar.sendMessage("Welcome " + activeChar.getName() + " u Are fighiting for " + Config.KOOFS_NAME_TEAM + "  Faction");
-	}
-	if (activeChar.isNoob() && Config.ENABLE_FACTION_KOOFS_NOOBS)
-	{
-	    activeChar.getAppearance().setNameColor(Config.NOOBS_NAME_COLOR);
-	    activeChar.sendMessage("Welcome " + activeChar.getName() + " u Are fighiting for " + Config.NOOBS_NAME_TEAM + " Faction");
-	}
-	if (Config.ONLINE_PLAYERS_AT_STARTUP)
-	{
-	    int PLAYERS_ONLINE = L2World.getInstance().getAllPlayers().size() + Config.PLAYERS_ONLINE_TRICK;
-	    sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString("Players online: ");
-	    sm.addNumber(PLAYERS_ONLINE);
-	    sendPacket(sm);
-	}
-	// sends server news
-	String serverNews = HtmCache.getInstance().getHtm("data/html/servnews.htm");
-	if (serverNews != null)
-	{
-	    WindowService.sendWindow(activeChar, "data/html/", "servnews.htm");
-	}
-	// check any poending petitions
-	PetitionManager.getInstance().checkPetitionMessages(activeChar);
-	// sends welcome htm if enabled.
-	if (Config.SHOW_HTML_WELCOME)
-	{
-	    WindowService.sendWindow(activeChar, "data/html/", "TeonInfo.htm");
-	}
-	// sends newbie htm if enabled.
-	if (Config.SHOW_HTML_NEWBIE && (activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE))
-	{
-	    WindowService.sendWindow(activeChar, "data/html/", "newbie.htm");
-	}
-	// check player for unlegit skills
-	if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-	{
-	    activeChar.checkAllowedSkills();
-	}
-	// send user info again .. just like the real client
-	// sendPacket(ui);
-	if ((activeChar.getClanId() != 0) && (activeChar.getClan() != null))
-	{
-	    sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
-	    sendPacket(new PledgeStatusChanged(activeChar.getClan()));
-	}
-	// no broadcast needed since the player will already spawn dead to
-	// others
-	if (activeChar.isAlikeDead())
-	{
-	    sendPacket(new Die(activeChar));
-	}
-	if ((Hero.getInstance().getHeroes() != null) && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
-	{
-	    activeChar.setHero(true);
-	}
-
-	setPledgeClass(activeChar);
-
-	activeChar.setOnlineStatus(true);
-
-	notifyFriends(activeChar);
-
-	notifyClanMembers(activeChar);
-
-	notifySponsorOrApprentice(activeChar);
-
-	notifyCastleOwner(activeChar);
-
-	activeChar.onPlayerEnter();
-
-	TvTEvent.onLogin(activeChar);
-
-	PcColorTable.getInstance().process(activeChar);
-
-	checkCrown(activeChar);
-
-        // NPCBuffer
-        if (Config.NPCBUFFER_FEATURE_ENABLED) CharSchemesTable.getInstance().onPlayerLogin(activeChar.getObjectId());
-
-	if (VIP._playersVIP.contains(activeChar.getName()))
-	    VIP.addPlayerVIP(activeChar);
-
-	if (VIP._playersNotVIP.contains(activeChar.getName()))
-	    VIP.addPlayerNotVIP(activeChar);
-
-	if (CTF._savePlayers.contains(activeChar.getName()))
-	    CTF.addDisconnectedPlayer(activeChar);
-
-	if (Olympiad.getInstance().playerInStadia(activeChar))
-	{
-	    activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-	    activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadium");
-	}
-	if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
-	{
-	    DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
-	}
-	if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
-	{
-	    activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
-	}
-	if (Config.SET_LVL_ON_START && (activeChar.getLevel() >= 1) && (activeChar.getLevel() < 80))
-	{
-	    if (!Config.HIGH_LEVEL_ON_START_FOR_SUBCLASS && activeChar.isSubClassActive())
-		return;
-	    activeChar.getStat().addExp(840000000);
-	    activeChar.getStat().addExp(840000000);
-	    activeChar.getStat().addExp(840000000);
-	    activeChar.getStat().addExp(840000000);
-	    activeChar.getStat().addExp(840000000);
-	    activeChar.getStat().addExp(100000000);
-	    activeChar.getStat().addSp(99999999);
-	}
-	if (activeChar.getClan() != null)
-	{
-		activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
-	    SiegeManager.getInstance().onEnterWorld(activeChar);
-	    FortSiegeManager.getInstance().onEnterWorld(activeChar);
-
-			for (Siege siege : SiegeManager.getInstance().getSieges())
-		    {
-		    	if (!siege.getIsInProgress()) continue;
-				if (siege.checkIsAttacker(activeChar.getClan()))
-		    		activeChar.setSiegeState((byte)1);
-				else if (siege.checkIsDefender(activeChar.getClan()))
-		    		activeChar.setSiegeState((byte)2);
-		    }
-			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
-			if(clanHall != null)
+			engage(activeChar);
+			notifyPartner(activeChar, activeChar.getPartnerId());
+			// Check if player is maried and remove if necessary Cupid's Bow
+			if (!activeChar.isMaried())
 			{
-				if(!clanHall.getPaid())
+				L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140);
+				// Remove Cupid's Bow
+				if (item != null)
+				{
+					activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
+					activeChar.getInventory().updateDatabase();
+					// Log it
+					_log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
+				}
+			}
+		}
+		/*
+		 * if (Config.ALLOW_WEDDING) // engage and notify Partner { engage(activeChar); notifyPartner(activeChar, activeChar.getPartnerId()); if (!activeChar.isMaried()) // Check if player is maried and remove if necessary Cupid's Bow L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140); // Remove Cupid's Bow if (item != null) activeChar.destroyItem("Removing Cupid's Bow", item,
+		 * activeChar, true); activeChar.getInventory().updateDatabase(); // Log it _log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed."); }
+		 */
+		if (activeChar.getAllEffects() != null)
+		{
+			for (L2Effect e : activeChar.getAllEffects())
+			{
+				if (e.getEffectType() == L2Effect.EffectType.HEAL_OVER_TIME)
+				{
+					activeChar.stopEffects(L2Effect.EffectType.HEAL_OVER_TIME);
+					activeChar.removeEffect(e);
+				}
+				if (e.getEffectType() == L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME)
+				{
+					activeChar.stopEffects(L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME);
+					activeChar.removeEffect(e);
+				}
+			}
+		}
+		// apply augmentation boni for equipped items
+		for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
+			if ((temp != null) && temp.isEquipped())
+				temp.getAugmentation().applyBoni(activeChar);
+		// Expand Skill
+		ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);
+		activeChar.sendPacket(esmc);
+		activeChar.getMacroses().sendUpdate();
+		// checkup and delete delayed donator rented items
+		if (Config.DONATOR_DELETE_RENTED_ITEMS)
+			activeChar.donatorDeleteDelayedRentedItems();
+		// sends general packets
+		activeChar.getMacroses().sendUpdate();
+		sendPacket(new UserInfo(activeChar));
+		sendPacket(new HennaInfo(activeChar));
+		sendPacket(new FriendList(activeChar));
+		sendPacket(new ItemList(activeChar, false));
+		sendPacket(new ShortCutInit(activeChar));
+		SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
+		sendPacket(sm);
+		if (Config.SHOW_L2J_LICENSE)
+		{
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString(getText("VGhpcyBzZXJ2ZXIgaXMgcnVubmluZyB0aGUgTDJKT25lbyBkaXN0cmlidXRpb24gb2YgTDJqLg=="));
+			sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString(getText("TDJKT25lbyBEZXYgVGVhbTpEYVJrUmFHZSwgc2NodXJzaW4sIEFobWVkLA=="));
+			sm.addString(getText("bmVvRGV2aWwsIFNseWNlciwgQmFvcmMsIFZpY2UsIEV6RXJhbCwgTGlxdWlkSWNlLg=="));
+			sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString(getText("TDJKIHdhcyBmb3VuZGVkIGJ5IEwyQ2hlZiBhbmQgdGhlIEwySiBUZWFtLg=="));
+			sm.addString(getText("IEwySiB0ZWFtLg=="));
+			sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString(getText("VmlzaXQgaHR0cDovL3d3dy5sMmpzZXJ2ZXIuY29t"));
+			sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
+			sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString(getText("V2VsY29tZSB0byA="));
+			sm.addString(LoginServerThread.getInstance().getServerName());
+			sendPacket(sm);
+			if (Config.SERVER_VERSION != null)
+				sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "   " + Config.SERVER_VERSION);
+			sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + Config.SERVER_BUILD_DATE);
+			sendPacket(sm);
+		}
+		sm = null;
+		SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
+		Announcements.getInstance().showAnnouncements(activeChar);
+		CrownManager.getInstance().checkCrowns(activeChar);
+		Quest.playerEnter(activeChar);
+		activeChar.sendPacket(new QuestList());
+		loadTutorial(activeChar);
+		// restore info about chat ban
+		activeChar.checkBanChat(false);
+		// restore info about auto herbs loot
+		if (Config.ALLOW_AUTOHERBS_CMD)
+			activeChar.getAutoLootHerbs();
+		// restore info about withdraw state
+		if (Config.ALLOW_WITHDRAW_CWH_CMD)
+			activeChar.getCanWithdrawCWH();
+		// donator's "Hello!"
+		if (activeChar.isDonator())
+		{
+			activeChar.getAppearance().setNameColor(Config.DONATOR_NAME_COLOR);
+			activeChar.sendMessage("Welcome " + activeChar.getName() + " to our L][ Server!");
+			activeChar.sendMessage("Enjoy your Stay Donator!");
+		}
+		// Faction Engine by DaRkRaGe
+		if (activeChar.isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS)
+		{
+			activeChar.getAppearance().setNameColor(Config.KOOFS_NAME_COLOR);
+			activeChar.sendMessage("Welcome " + activeChar.getName() + " u Are fighiting for " + Config.KOOFS_NAME_TEAM + "  Faction");
+		}
+		if (activeChar.isNoob() && Config.ENABLE_FACTION_KOOFS_NOOBS)
+		{
+			activeChar.getAppearance().setNameColor(Config.NOOBS_NAME_COLOR);
+			activeChar.sendMessage("Welcome " + activeChar.getName() + " u Are fighiting for " + Config.NOOBS_NAME_TEAM + " Faction");
+		}
+		if (Config.ONLINE_PLAYERS_AT_STARTUP)
+		{
+			int PLAYERS_ONLINE = L2World.getInstance().getAllPlayers().size() + Config.PLAYERS_ONLINE_TRICK;
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString("Players online: ");
+			sm.addNumber(PLAYERS_ONLINE);
+			sendPacket(sm);
+		}
+		// sends server news
+		String serverNews = HtmCache.getInstance().getHtm("data/html/servnews.htm");
+		if (serverNews != null)
+		{
+			WindowService.sendWindow(activeChar, "data/html/", "servnews.htm");
+		}
+		// check any poending petitions
+		PetitionManager.getInstance().checkPetitionMessages(activeChar);
+		// sends welcome htm if enabled.
+		if (Config.SHOW_HTML_WELCOME)
+		{
+			WindowService.sendWindow(activeChar, "data/html/", "TeonInfo.htm");
+		}
+		// sends newbie htm if enabled.
+		if (Config.SHOW_HTML_NEWBIE && (activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE))
+		{
+			WindowService.sendWindow(activeChar, "data/html/", "newbie.htm");
+		}
+		// check player for unlegit skills
+		if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
+		{
+			activeChar.checkAllowedSkills();
+		}
+		// send user info again .. just like the real client
+		// sendPacket(ui);
+		if ((activeChar.getClanId() != 0) && (activeChar.getClan() != null))
+		{
+			sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
+			sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+		}
+		// no broadcast needed since the player will already spawn dead to
+		// others
+		if (activeChar.isAlikeDead())
+		{
+			sendPacket(new Die(activeChar));
+		}
+		if ((Hero.getInstance().getHeroes() != null) && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
+		{
+			activeChar.setHero(true);
+		}
+		setPledgeClass(activeChar);
+		activeChar.setOnlineStatus(true);
+		notifyFriends(activeChar);
+		notifyClanMembers(activeChar);
+		notifySponsorOrApprentice(activeChar);
+		notifyCastleOwner(activeChar);
+		activeChar.onPlayerEnter();
+		TvTEvent.onLogin(activeChar);
+		PcColorTable.getInstance().process(activeChar);
+		checkCrown(activeChar);
+		// NPCBuffer
+		if (Config.NPCBUFFER_FEATURE_ENABLED)
+			CharSchemesTable.getInstance().onPlayerLogin(activeChar.getObjectId());
+		if (VIP._playersVIP.contains(activeChar.getName()))
+			VIP.addPlayerVIP(activeChar);
+		if (VIP._playersNotVIP.contains(activeChar.getName()))
+			VIP.addPlayerNotVIP(activeChar);
+		if (CTF._savePlayers.contains(activeChar.getName()))
+			CTF.addDisconnectedPlayer(activeChar);
+		if (Olympiad.getInstance().playerInStadia(activeChar))
+		{
+			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadium");
+		}
+		if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
+		{
+			DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
+		}
+		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
+		}
+		if (Config.SET_LVL_ON_START && (activeChar.getLevel() >= 1) && (activeChar.getLevel() < 80))
+		{
+			if (!Config.HIGH_LEVEL_ON_START_FOR_SUBCLASS && activeChar.isSubClassActive())
+				return;
+			activeChar.getStat().addExp(840000000);
+			activeChar.getStat().addExp(840000000);
+			activeChar.getStat().addExp(840000000);
+			activeChar.getStat().addExp(840000000);
+			activeChar.getStat().addExp(840000000);
+			activeChar.getStat().addExp(100000000);
+			activeChar.getStat().addSp(99999999);
+		}
+		if (activeChar.getClan() != null)
+		{
+			activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
+			SiegeManager.getInstance().onEnterWorld(activeChar);
+			FortSiegeManager.getInstance().onEnterWorld(activeChar);
+			for (Siege siege : SiegeManager.getInstance().getSieges())
+			{
+				if (!siege.getIsInProgress())
+					continue;
+				if (siege.checkIsAttacker(activeChar.getClan()))
+					activeChar.setSiegeState((byte) 1);
+				else if (siege.checkIsDefender(activeChar.getClan()))
+					activeChar.setSiegeState((byte) 2);
+			}
+			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
+			if (clanHall != null)
+			{
+				if (!clanHall.getPaid())
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW));
 				}
 			}
 		}
-
 		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && activeChar.isInsideZone(L2Character.ZONE_SIEGE))
 		{
 			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-            activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
+			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
 		}
-
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		activeChar.sendPacket(new ActionFailed());
 	}
 
-    /**
-     * @param activeChar
-     */
-    private void engage(L2PcInstance cha)
-    {
-	int _chaid = cha.getObjectId();
-	for (Couple cl : CoupleManager.getInstance().getCouples())
+	/**
+	 * @param activeChar
+	 */
+	private void engage(L2PcInstance cha)
 	{
-	    if ((cl.getPlayer1Id() == _chaid) || (cl.getPlayer2Id() == _chaid))
-	    {
-		if (cl.getMaried())
+		int _chaid = cha.getObjectId();
+		for (Couple cl : CoupleManager.getInstance().getCouples())
 		{
-		    cha.setMaried(true);
+			if ((cl.getPlayer1Id() == _chaid) || (cl.getPlayer2Id() == _chaid))
+			{
+				if (cl.getMaried())
+				{
+					cha.setMaried(true);
+				}
+				cha.setCoupleId(cl.getId());
+				if (cl.getPlayer1Id() == _chaid)
+				{
+					cha.setPartnerId(cl.getPlayer2Id());
+				}
+				else
+				{
+					cha.setPartnerId(cl.getPlayer1Id());
+				}
+			}
 		}
-		cha.setCoupleId(cl.getId());
-		if (cl.getPlayer1Id() == _chaid)
+	}
+
+	/**
+	 * @param activeChar
+	 *            partnerid
+	 */
+	private void notifyPartner(L2PcInstance cha, int partnerId)
+	{
+		if (cha.getPartnerId() != 0)
 		{
-		    cha.setPartnerId(cl.getPlayer2Id());
-		} else
-		{
-		    cha.setPartnerId(cl.getPlayer1Id());
+			L2PcInstance partner;
+			partner = (L2PcInstance) L2World.getInstance().findObject(cha.getPartnerId());
+			if (partner != null)
+			{
+				partner.sendMessage("Your Partner has logged in");
+			}
+			partner = null;
 		}
-	    }
 	}
-    }
 
-    /**
-     * @param activeChar
-     *                partnerid
-     */
-    private void notifyPartner(L2PcInstance cha, int partnerId)
-    {
-	if (cha.getPartnerId() != 0)
+	/**
+	 * @param activeChar
+	 */
+	private void notifyFriends(L2PcInstance cha)
 	{
-	    L2PcInstance partner;
-	    partner = (L2PcInstance) L2World.getInstance().findObject(cha.getPartnerId());
-	    if (partner != null)
-	    {
-		partner.sendMessage("Your Partner has logged in");
-	    }
-	    partner = null;
-	}
-    }
-
-    /**
-     * @param activeChar
-     */
-    private void notifyFriends(L2PcInstance cha)
-    {
-	java.sql.Connection con = null;
-	try
-	{
-	    con = L2DatabaseFactory.getInstance().getConnection();
-	    PreparedStatement statement;
-	    statement = con.prepareStatement("SELECT friend_name FROM character_friends WHERE char_id=?");
-	    statement.setInt(1, cha.getObjectId());
-	    ResultSet rset = statement.executeQuery();
-	    L2PcInstance friend;
-	    String friendName;
-	    SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
-	    sm.addString(cha.getName());
-	    while (rset.next())
-	    {
-		friendName = rset.getString("friend_name");
-		friend = L2World.getInstance().getPlayer(friendName);
-		if (friend != null) // friend logged in.
+		java.sql.Connection con = null;
+		try
 		{
-		    friend.sendPacket(new FriendList(friend));
-		    friend.sendPacket(sm);
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement;
+			statement = con.prepareStatement("SELECT friend_name FROM character_friends WHERE char_id=?");
+			statement.setInt(1, cha.getObjectId());
+			ResultSet rset = statement.executeQuery();
+			L2PcInstance friend;
+			String friendName;
+			SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
+			sm.addString(cha.getName());
+			while (rset.next())
+			{
+				friendName = rset.getString("friend_name");
+				friend = L2World.getInstance().getPlayer(friendName);
+				if (friend != null) // friend logged in.
+				{
+					friend.sendPacket(new FriendList(friend));
+					friend.sendPacket(sm);
+				}
+			}
+			sm = null;
+			rset.close();
+			statement.close();
 		}
-	    }
-	    sm = null;
-	    rset.close();
-	    statement.close();
-	} catch (Exception e)
-	{
-	    _log.warning("could not restore friend data:" + e);
-	} finally
-	{
-	    try
-	    {
-		con.close();
-	    } catch (Exception e)
-	    {
-	    }
-	}
-    }
-
-    /**
-     * @param activeChar
-     */
-    private void notifyClanMembers(L2PcInstance activeChar)
-    {
-	L2Clan clan = activeChar.getClan();
-	if (clan != null)
-	{
-	    clan.getClanMember(activeChar.getName()).setPlayerInstance(activeChar);
-	    SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_LOGGED_IN);
-	    msg.addString(activeChar.getName());
-	    clan.broadcastToOtherOnlineMembers(msg, activeChar);
-	    msg = null;
-	    clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
-	}
-    }
-
-    /**
-     * @param activeChar
-     */
-    private void notifyCastleOwner(L2PcInstance activeChar)
-    {
-	if (Config.ANNOUNCE_CASTLE_LORDS)
-	{
-	    L2Clan clan = activeChar.getClan();
-	    if (clan != null)
-	    {
-		if (clan.getHasCastle() > 0)
+		catch (Exception e)
 		{
-		    Castle castle = CastleManager.getInstance().getCastleById(clan.getHasCastle());
-		    if ((castle != null) && (activeChar.getObjectId() == clan.getLeaderId()))
-		    {
-			Announcements.getInstance().announceToAll("Castle Lord " + activeChar.getName() + " Of " + castle.getName() + " Castle Is Currently Online.");
-		    }
+			_log.warning("could not restore friend data:" + e);
 		}
-	    }
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
 	}
-    }
 
-    /**
-     * @param activeChar
-     */
-    private void checkCrown(L2PcInstance activeChar)
-    {
-	if (activeChar.isClanLeader() && (activeChar.getClan().getHasCastle() != 0))
+	/**
+	 * @param activeChar
+	 */
+	private void notifyClanMembers(L2PcInstance activeChar)
 	{
-	    if ((activeChar.getInventory().getItemByItemId(6841) == null) && activeChar.getInventory().validateCapacity(1))
-	    {
-		activeChar.getInventory().addItem("Crown", 6841, 1, activeChar, null);
-		activeChar.getInventory().updateDatabase();
-	    }
-	} else
-	{
-	    if (activeChar.getInventory().getItemByItemId(6841) != null)
-	    {
-		activeChar.getInventory().destroyItemByItemId("Crown", 6841, 1, activeChar, null);
-	    }
+		L2Clan clan = activeChar.getClan();
+		if (clan != null)
+		{
+			clan.getClanMember(activeChar.getName()).setPlayerInstance(activeChar);
+			SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_LOGGED_IN);
+			msg.addString(activeChar.getName());
+			clan.broadcastToOtherOnlineMembers(msg, activeChar);
+			msg = null;
+			clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
+		}
 	}
-    }
 
-    /**
-     * @param activeChar
-     */
-    private void notifySponsorOrApprentice(L2PcInstance activeChar)
-    {
-	if (activeChar.getSponsor() != 0)
+	/**
+	 * @param activeChar
+	 */
+	private void notifyCastleOwner(L2PcInstance activeChar)
 	{
-	    L2PcInstance sponsor = (L2PcInstance) L2World.getInstance().findObject(activeChar.getSponsor());
-	    if (sponsor != null)
-	    {
-		SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_APPRENTICE_S1_HAS_LOGGED_IN);
-		msg.addString(activeChar.getName());
-		sponsor.sendPacket(msg);
-	    }
-	} else if (activeChar.getApprentice() != 0)
-	{
-	    L2PcInstance apprentice = (L2PcInstance) L2World.getInstance().findObject(activeChar.getApprentice());
-	    if (apprentice != null)
-	    {
-		SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_SPONSOR_S1_HAS_LOGGED_IN);
-		msg.addString(activeChar.getName());
-		apprentice.sendPacket(msg);
-	    }
+		if (Config.ANNOUNCE_CASTLE_LORDS)
+		{
+			L2Clan clan = activeChar.getClan();
+			if (clan != null)
+			{
+				if (clan.getHasCastle() > 0)
+				{
+					Castle castle = CastleManager.getInstance().getCastleById(clan.getHasCastle());
+					if ((castle != null) && (activeChar.getObjectId() == clan.getLeaderId()))
+					{
+						Announcements.getInstance().announceToAll("Castle Lord " + activeChar.getName() + " Of " + castle.getName() + " Castle Is Currently Online.");
+					}
+				}
+			}
+		}
 	}
-    }
 
-    /**
-     * @param string
-     * @return
-     * @throws UnsupportedEncodingException
-     */
-    private String getText(String string)
-    {
-	try
+	/**
+	 * @param activeChar
+	 */
+	private void checkCrown(L2PcInstance activeChar)
 	{
-	    String result = new String(Base64.decode(string), "UTF-8");
-	    return result;
-	} catch (UnsupportedEncodingException e)
-	{
-	    // huh, UTF-8 is not supported? :)
-	    return null;
+		if (activeChar.isClanLeader() && (activeChar.getClan().getHasCastle() != 0))
+		{
+			if ((activeChar.getInventory().getItemByItemId(6841) == null) && activeChar.getInventory().validateCapacity(1))
+			{
+				activeChar.getInventory().addItem("Crown", 6841, 1, activeChar, null);
+				activeChar.getInventory().updateDatabase();
+			}
+		}
+		else
+		{
+			if (activeChar.getInventory().getItemByItemId(6841) != null)
+			{
+				activeChar.getInventory().destroyItemByItemId("Crown", 6841, 1, activeChar, null);
+			}
+		}
 	}
-    }
 
-    private void setPledgeClass(L2PcInstance activeChar)
-    {
-	int pledgeClass = 0;
-	if (activeChar.getClan() != null)
+	/**
+	 * @param activeChar
+	 */
+	private void notifySponsorOrApprentice(L2PcInstance activeChar)
 	{
-	    pledgeClass = activeChar.getClan().getClanMember(activeChar.getObjectId()).calculatePledgeClass(activeChar);
+		if (activeChar.getSponsor() != 0)
+		{
+			L2PcInstance sponsor = (L2PcInstance) L2World.getInstance().findObject(activeChar.getSponsor());
+			if (sponsor != null)
+			{
+				SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_APPRENTICE_S1_HAS_LOGGED_IN);
+				msg.addString(activeChar.getName());
+				sponsor.sendPacket(msg);
+			}
+		}
+		else if (activeChar.getApprentice() != 0)
+		{
+			L2PcInstance apprentice = (L2PcInstance) L2World.getInstance().findObject(activeChar.getApprentice());
+			if (apprentice != null)
+			{
+				SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_SPONSOR_S1_HAS_LOGGED_IN);
+				msg.addString(activeChar.getName());
+				apprentice.sendPacket(msg);
+			}
+		}
 	}
-	if (activeChar.isNoble() && (pledgeClass < 5))
+
+	/**
+	 * @param string
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	private String getText(String string)
 	{
-	    pledgeClass = 5;
+		try
+		{
+			String result = new String(Base64.decode(string), "UTF-8");
+			return result;
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			// huh, UTF-8 is not supported? :)
+			return null;
+		}
 	}
-	if (activeChar.isHero())
+
+	private void setPledgeClass(L2PcInstance activeChar)
 	{
-	    pledgeClass = 8;
+		int pledgeClass = 0;
+		if (activeChar.getClan() != null)
+		{
+			pledgeClass = activeChar.getClan().getClanMember(activeChar.getObjectId()).calculatePledgeClass(activeChar);
+		}
+		if (activeChar.isNoble() && (pledgeClass < 5))
+		{
+			pledgeClass = 5;
+		}
+		if (activeChar.isHero())
+		{
+			pledgeClass = 8;
+		}
+		activeChar.setPledgeClass(pledgeClass);
 	}
-	activeChar.setPledgeClass(pledgeClass);
-    }
-	
+
 	private void loadTutorial(L2PcInstance player)
 	{
 		QuestState qs = player.getQuestState("255_Tutorial");
-    		if(qs != null)
-    			qs.getQuest().notifyEvent("UC", null, player);
+		if (qs != null)
+			qs.getQuest().notifyEvent("UC", null, player);
 	}
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__03_ENTERWORLD;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__03_ENTERWORLD;
+	}
 }

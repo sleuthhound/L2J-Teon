@@ -19,33 +19,31 @@ import javolution.util.FastList;
 
 /**
  * @author -Wooden-
- * 
  */
 public class PlayerInGame extends GameServerBasePacket
 {
-    public PlayerInGame(String player)
-    {
-	writeC(0x02);
-	writeH(1);
-	writeS(player);
-    }
+	public PlayerInGame(String player)
+	{
+		writeC(0x02);
+		writeH(1);
+		writeS(player);
+	}
 
-    public PlayerInGame(FastList<String> players)
-    {
-	writeC(0x02);
-	writeH(players.size());
-	for (String pc : players)
-	    writeS(pc);
-    }
+	public PlayerInGame(FastList<String> players)
+	{
+		writeC(0x02);
+		writeH(players.size());
+		for (String pc : players)
+			writeS(pc);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
-     */
-    @Override
-    public byte[] getContent() throws IOException
-    {
-	return getBytes();
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.gameserverpackets.GameServerBasePacket#getContent()
+	 */
+	@Override
+	public byte[] getContent() throws IOException
+	{
+		return getBytes();
+	}
 }

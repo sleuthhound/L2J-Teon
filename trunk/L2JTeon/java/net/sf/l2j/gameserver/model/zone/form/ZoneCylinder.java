@@ -18,9 +18,8 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneForm;
 
 /**
  * A primitive circular zone
- *
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class ZoneCylinder extends L2ZoneForm
 {
@@ -32,14 +31,15 @@ public class ZoneCylinder extends L2ZoneForm
 		_y = y;
 		_z1 = z1;
 		_z2 = z2;
-		_rad  = rad;
-		_radS = rad*rad;
+		_rad = rad;
+		_radS = rad * rad;
 	}
 
 	@Override
 	public boolean isInsideZone(int x, int y, int z)
 	{
-		if ( (Math.pow(_x-x, 2) + Math.pow(_y-y, 2)) > _radS || z < _z1 || z > _z2) return false;
+		if ((Math.pow(_x - x, 2) + Math.pow(_y - y, 2)) > _radS || z < _z1 || z > _z2)
+			return false;
 		return true;
 	}
 
@@ -47,26 +47,32 @@ public class ZoneCylinder extends L2ZoneForm
 	public boolean intersectsRectangle(int ax1, int ax2, int ay1, int ay2)
 	{
 		// Circles point inside the rectangle?
-		if (_x > ax1 && _x < ax2 && _y > ay1 && _y < ay2) return true;
-
+		if (_x > ax1 && _x < ax2 && _y > ay1 && _y < ay2)
+			return true;
 		// Any point of the rectangle intersecting the Circle?
-		if ( (Math.pow(ax1-_x, 2) + Math.pow(ay1-_y, 2)) < _radS ) return true;
-		if ( (Math.pow(ax1-_x, 2) + Math.pow(ay2-_y, 2)) < _radS ) return true;
-		if ( (Math.pow(ax2-_x, 2) + Math.pow(ay1-_y, 2)) < _radS ) return true;
-		if ( (Math.pow(ax2-_x, 2) + Math.pow(ay2-_y, 2)) < _radS ) return true;
-
+		if ((Math.pow(ax1 - _x, 2) + Math.pow(ay1 - _y, 2)) < _radS)
+			return true;
+		if ((Math.pow(ax1 - _x, 2) + Math.pow(ay2 - _y, 2)) < _radS)
+			return true;
+		if ((Math.pow(ax2 - _x, 2) + Math.pow(ay1 - _y, 2)) < _radS)
+			return true;
+		if ((Math.pow(ax2 - _x, 2) + Math.pow(ay2 - _y, 2)) < _radS)
+			return true;
 		// Collision on any side of the rectangle?
 		if (_x > ax1 && _x < ax2)
 		{
-			if (Math.abs(_y-ay2) < _rad) return true;
-			if (Math.abs(_y-ay1) < _rad) return true;
+			if (Math.abs(_y - ay2) < _rad)
+				return true;
+			if (Math.abs(_y - ay1) < _rad)
+				return true;
 		}
 		if (_y > ay1 && _y < ay2)
 		{
-			if (Math.abs(_x-ax2) < _rad) return true;
-			if (Math.abs(_x-ax1) < _rad) return true;
+			if (Math.abs(_x - ax2) < _rad)
+				return true;
+			if (Math.abs(_x - ax1) < _rad)
+				return true;
 		}
-
 		return false;
 	}
 
@@ -74,17 +80,16 @@ public class ZoneCylinder extends L2ZoneForm
 	public double getDistanceToZone(int x, int y)
 	{
 		// Since we aren't given a z coordinate to test against
-		//	we just use the minimum z coordinate to prevent the
-		//	function from saying we aren't in the zone because
-		//	of a bad z coordinate.
+		// we just use the minimum z coordinate to prevent the
+		// function from saying we aren't in the zone because
+		// of a bad z coordinate.
 		if (isInsideZone(x, y, _z1))
-			return 0;	// If you are inside the zone distance to zone is 0.
-		return (Math.sqrt( (Math.pow(_x-x, 2) + Math.pow(_y-y, 2)) ) - _rad);
+			return 0; // If you are inside the zone distance to zone is 0.
+		return (Math.sqrt((Math.pow(_x - x, 2) + Math.pow(_y - y, 2))) - _rad);
 	}
 
-	/* getLowZ() / getHighZ() - These two functions were added to cope with the demand of the new
-	 * fishing algorithms, wich are now able to correctly place the hook in the water, thanks to getHighZ().
-	 * getLowZ() was added, considering potential future modifications.
+	/*
+	 * getLowZ() / getHighZ() - These two functions were added to cope with the demand of the new fishing algorithms, wich are now able to correctly place the hook in the water, thanks to getHighZ(). getLowZ() was added, considering potential future modifications.
 	 */
 	@Override
 	public int getLowZ()

@@ -26,47 +26,47 @@ import net.sf.l2j.gameserver.serverpackets.AllyCrest;
  */
 public final class RequestAllyCrest extends L2GameClientPacket
 {
-    private static final String _C__88_REQUESTALLYCREST = "[C] 88 RequestAllyCrest";
-    private static Logger _log = Logger.getLogger(RequestAllyCrest.class.getName());
-    private int _crestId;
+	private static final String _C__88_REQUESTALLYCREST = "[C] 88 RequestAllyCrest";
+	private static Logger _log = Logger.getLogger(RequestAllyCrest.class.getName());
+	private int _crestId;
 
-    /**
-     * packet type id 0x88 format: cd
-     * 
-     * @param rawPacket
-     */
-    @Override
-    protected void readImpl()
-    {
-	_crestId = readD();
-    }
-
-    @Override
-    protected void runImpl()
-    {
+	/**
+	 * packet type id 0x88 format: cd
+	 * 
+	 * @param rawPacket
+	 */
+	@Override
+	protected void readImpl()
 	{
-	    if (_crestId == 0)
-		return;
-	    if (Config.DEBUG)
-		_log.fine("allycrestid " + _crestId + " requested");
-	    byte[] data = CrestCache.getInstance().getAllyCrest(_crestId);
-	    if (data != null)
-	    {
-		AllyCrest ac = new AllyCrest(_crestId, data);
-		sendPacket(ac);
-	    } else if (Config.DEBUG)
-		_log.fine("allycrest is missing:" + _crestId);
+		_crestId = readD();
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__88_REQUESTALLYCREST;
-    }
+	@Override
+	protected void runImpl()
+	{
+		{
+			if (_crestId == 0)
+				return;
+			if (Config.DEBUG)
+				_log.fine("allycrestid " + _crestId + " requested");
+			byte[] data = CrestCache.getInstance().getAllyCrest(_crestId);
+			if (data != null)
+			{
+				AllyCrest ac = new AllyCrest(_crestId, data);
+				sendPacket(ac);
+			}
+			else if (Config.DEBUG)
+				_log.fine("allycrest is missing:" + _crestId);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__88_REQUESTALLYCREST;
+	}
 }

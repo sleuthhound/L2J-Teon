@@ -25,8 +25,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * A chat handler
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class ChatTell implements IChatHandler
 {
@@ -34,18 +34,17 @@ public class ChatTell implements IChatHandler
 
 	/**
 	 * Handle chat type 'tell'
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
 	{
 		// Return if no target is set
-		if (target == null) return;
-
+		if (target == null)
+			return;
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 		L2PcInstance receiver = null;
-
 		receiver = L2World.getInstance().getPlayer(target);
-
 		if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
 		{
 			if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
@@ -58,11 +57,10 @@ public class ChatTell implements IChatHandler
 				activeChar.sendMessage("Player is chat banned.");
 				return;
 			}
-
 			if (!receiver.getMessageRefusal())
 			{
 				receiver.sendPacket(cs);
-				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  type, "->" + receiver.getName(), text));
+				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), type, "->" + receiver.getName(), text));
 			}
 			else
 			{
@@ -80,6 +78,7 @@ public class ChatTell implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	public int[] getChatTypeList()

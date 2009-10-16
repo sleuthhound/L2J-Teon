@@ -18,58 +18,57 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc;
 
 /**
- * 
  * @author -Nemesiss-
  */
 public class GeoNodeLoc extends AbstractNodeLoc
 {
-    private final short _x;
-    private final short _y;
-    private final short _z;
+	private final short _x;
+	private final short _y;
+	private final short _z;
 
-    public GeoNodeLoc(short x, short y, short z)
-    {
-	_x = x;
-	_y = y;
-	_z = z;
-    }
+	public GeoNodeLoc(short x, short y, short z)
+	{
+		_x = x;
+		_y = y;
+		_z = z;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc#getX()
-     */
-    @Override
-    public int getX()
-    {
-	return L2World.MAP_MIN_X + _x * 128 + 48;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc#getX()
+	 */
+	@Override
+	public int getX()
+	{
+		return L2World.MAP_MIN_X + _x * 128 + 48;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc#getY()
-     */
-    @Override
-    public int getY()
-    {
-	return L2World.MAP_MIN_Y + _y * 128 + 48;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc#getY()
+	 */
+	@Override
+	public int getY()
+	{
+		return L2World.MAP_MIN_Y + _y * 128 + 48;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc#getZ()
-     */
-    @Override
-    public short getZ()
-    {
-	return _z;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc#getZ()
+	 */
+	@Override
+	public short getZ()
+	{
+		return _z;
+	}
 
-    @Override
-    public short getNodeX()
-    {
-	return _x;
-    }
+	@Override
+	public short getNodeX()
+	{
+		return _x;
+	}
 
-    @Override
-    public short getNodeY()
-    {
-	return _y;
-    }
+	@Override
+	public short getNodeY()
+	{
+		return _y;
+	}
 }

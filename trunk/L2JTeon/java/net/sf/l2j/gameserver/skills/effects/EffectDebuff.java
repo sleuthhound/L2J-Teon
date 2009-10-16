@@ -19,7 +19,6 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectDebuff extends L2Effect
 {
-
 	public EffectDebuff(Env env, EffectTemplate template)
 	{
 		super(env, template);

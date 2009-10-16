@@ -19,8 +19,8 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
  * A fishing zone
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class L2FishingZone extends L2ZoneType
 {
@@ -40,14 +40,17 @@ public class L2FishingZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onDieInside(L2Character character) {}
+	protected void onDieInside(L2Character character)
+	{
+	}
 
 	@Override
-	protected void onReviveInside(L2Character character) {}
+	protected void onReviveInside(L2Character character)
+	{
+	}
 
-	/* getWaterZ() this added function returns the Z value for the water surface.
-	 * In effect this simply returns the upper Z value of the zone. This required
-	 * some modification of L2ZoneForm, and zone form extentions.
+	/*
+	 * getWaterZ() this added function returns the Z value for the water surface. In effect this simply returns the upper Z value of the zone. This required some modification of L2ZoneForm, and zone form extentions.
 	 */
 	public int getWaterZ()
 	{

@@ -28,11 +28,9 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author NB4L1
  */
-
 public class L2SkillZone
 {
 	private static final Log _log = LogFactory.getLog(L2SkillZone.class.getName());
-	
 	private final L2PcInstance _caster;
 	private final L2WorldRegion _region;
 	private final L2Skill _triggerSkill;
@@ -41,8 +39,7 @@ public class L2SkillZone
 	private final int _triggeredCount;
 	private final int _triggeredDelay;
 	private final boolean _standAlone;
-	
-	
+
 	public L2SkillZone(L2PcInstance caster, L2Skill skill1, L2Skill skill2, int count, int delay, boolean standAlone)
 	{
 		_caster = caster;
@@ -51,71 +48,59 @@ public class L2SkillZone
 		_triggeredSkill = skill2;
 		_triggeredCount = count;
 		_triggeredDelay = delay;
-		
 		// does the caster have to cast druing the whole time, or it just makes the zone?
 		// symbol of ... - just makes the zone
 		// aoe spells - casting during the whole time...
 		_standAlone = standAlone;
-		
 		ThreadPoolManager.getInstance().scheduleGeneral(new ZoneCheck(_triggeredCount), _triggeredDelay);
 	}
-	
+
 	private class ZoneCheck implements Runnable
 	{
 		private int _count;
-		
+
 		public ZoneCheck(int count)
 		{
 			@SuppressWarnings("unused")
 			int _count = count;
 		}
-		
+
 		private void regionCheck(L2WorldRegion reg)
 		{
 			Iterator<L2PlayableInstance> playables = reg.iterateAllPlayers();
-			
-			while(playables.hasNext())
+			while (playables.hasNext())
 			{
 				L2PlayableInstance activeChar = playables.next();
-				
 				checkOnPlayer(activeChar);
 			}
 		}
-		
+
 		private void checkOnPlayer(L2PlayableInstance activeChar)
 		{
 			// Check for the actual position... to apply/remove effect... or to deal damage, etc
 		}
-		
+
 		private boolean shouldContinue()
 		{
 			// more check needed for conditions about caster... etc
-			
 			_count--;
-			
 			if (!_standAlone)
 			{
-				if (!_caster.isCastingNow() || _caster.getCurrentSkill() == null ||
-					_triggerSkill.getId() != _caster.getCurrentSkill().getSkillId())
+				if (!_caster.isCastingNow() || _caster.getCurrentSkill() == null || _triggerSkill.getId() != _caster.getCurrentSkill().getSkillId())
 				{
 					return false;
 				}
 			}
-			
 			return (_count > 0);
 		}
-		
+
 		public void run()
 		{
-			//global things
-			
-			
+			// global things
 			// effects
 			regionCheck(_region);
-			
 			for (L2WorldRegion neighbour : _region.getSurroundingRegions())
 				regionCheck(neighbour);
-			
 			// scheduling
 			if (shouldContinue())
 			{

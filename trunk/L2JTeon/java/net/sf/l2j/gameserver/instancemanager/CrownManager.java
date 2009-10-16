@@ -25,13 +25,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 
 /**
- * @author evill33t
- * Reworked by NB4L1
+ * @author evill33t Reworked by NB4L1
  */
 public class CrownManager
 {
-	private static final Log	_log	= LogFactory.getLog(CrownManager.class.getName());
-	private static CrownManager	_instance;
+	private static final Log _log = LogFactory.getLog(CrownManager.class.getName());
+	private static CrownManager _instance;
 
 	public static final CrownManager getInstance()
 	{
@@ -49,7 +48,6 @@ public class CrownManager
 	{
 		if (clan == null)
 			return;
-
 		for (L2ClanMember member : clan.getMembers())
 		{
 			if (member != null && member.isOnline() && member.getPlayerInstance() != null)
@@ -63,35 +61,30 @@ public class CrownManager
 	{
 		if (activeChar == null)
 			return;
-
 		boolean isLeader = false;
 		int crownId = -1;
-
 		L2Clan activeCharClan = activeChar.getClan();
-		//L2EMU_EDIT_BEGIN
+		// L2EMU_EDIT_BEGIN
 		L2ClanMember activeCharClanLeader;
 		if (activeCharClan != null)
 			activeCharClanLeader = activeChar.getClan().getLeader();
 		else
 			activeCharClanLeader = null;
-		//L2EMU_EDIT_END
+		// L2EMU_EDIT_END
 		if (activeCharClan != null)
 		{
 			Castle activeCharCastle = CastleManager.getInstance().getCastleByOwner(activeCharClan);
-
 			if (activeCharCastle != null)
 			{
 				crownId = CrownTable.getCrownId(activeCharCastle.getCastleId());
 			}
-
-			//L2EMU_EDIT
+			// L2EMU_EDIT
 			if (activeCharClanLeader != null && activeCharClanLeader.getObjectId() == activeChar.getObjectId())
-			//L2EMU_EDIT
+			// L2EMU_EDIT
 			{
 				isLeader = true;
 			}
 		}
-
 		if (crownId > 0)
 		{
 			if (isLeader && activeChar.getInventory().getItemByItemId(6841) == null)
@@ -99,14 +92,12 @@ public class CrownManager
 				activeChar.addItem("Crown", 6841, 1, activeChar, true);
 				activeChar.getInventory().updateDatabase();
 			}
-
 			if (activeChar.getInventory().getItemByItemId(crownId) == null)
 			{
 				activeChar.addItem("Crown", crownId, 1, activeChar, true);
 				activeChar.getInventory().updateDatabase();
 			}
 		}
-
 		boolean alreadyFoundCirclet = false;
 		boolean alreadyFoundCrown = false;
 		for (L2ItemInstance item : activeChar.getInventory().getItems())
@@ -132,7 +123,6 @@ public class CrownManager
 						}
 					}
 				}
-
 				activeChar.destroyItem("Removing Crown", item, activeChar, true);
 				activeChar.getInventory().updateDatabase();
 			}

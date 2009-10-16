@@ -33,142 +33,141 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
- * @author _drunk_
- * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * @author _drunk_ TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
  */
 public class SiegeFlag implements ISkillHandler
 {
-    // private static Logger _log =
-    // Logger.getLogger(SiegeFlag.class.getName());
-    private static final SkillType[] SKILL_IDS = { SkillType.SIEGEFLAG };
+	// private static Logger _log =
+	// Logger.getLogger(SiegeFlag.class.getName());
+	private static final SkillType[] SKILL_IDS = { SkillType.SIEGEFLAG };
 
-    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-    {
-	if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
-	    return;
-	L2PcInstance player = (L2PcInstance) activeChar;
-	if ((player.getClan() == null) || (player.getClan().getLeaderId() != player.getObjectId()))
-	    return;
-	Castle castle = CastleManager.getInstance().getCastle(player);
-	Fort fort = FortManager.getInstance().getFort(player);
-	if ((castle == null) && (fort == null) && getIsInProgress())
-	    return;
-	if (castle != null && getIsInProgress())
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-	    if (!checkIfOkToPlaceFlag(player, castle, true))
-		return;
-	    try
-	    {
-		// Spawn a new flag
-		L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062));
-		flag.setTitle(player.getClan().getName());
-		flag.setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-		flag.setHeading(player.getHeading());
-		flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-		castle.getSiege().getFlag(player.getClan()).add(flag);
-	    } catch (Exception e)
-	    {
-		player.sendMessage("Error placing flag:" + e);
-	    }
+		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+			return;
+		L2PcInstance player = (L2PcInstance) activeChar;
+		if ((player.getClan() == null) || (player.getClan().getLeaderId() != player.getObjectId()))
+			return;
+		Castle castle = CastleManager.getInstance().getCastle(player);
+		Fort fort = FortManager.getInstance().getFort(player);
+		if ((castle == null) && (fort == null) && getIsInProgress())
+			return;
+		if (castle != null && getIsInProgress())
+		{
+			if (!checkIfOkToPlaceFlag(player, castle, true))
+				return;
+			try
+			{
+				// Spawn a new flag
+				L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062));
+				flag.setTitle(player.getClan().getName());
+				flag.setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+				flag.setHeading(player.getHeading());
+				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
+				castle.getSiege().getFlag(player.getClan()).add(flag);
+			}
+			catch (Exception e)
+			{
+				player.sendMessage("Error placing flag:" + e);
+			}
+		}
+		if (fort != null && getIsInProgress())
+		{
+			if (!checkIfOkToPlaceFlag(player, fort, true))
+				return;
+			try
+			{
+				// Spawn a new flag
+				L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062));
+				flag.setTitle(player.getClan().getName());
+				flag.setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+				flag.setHeading(player.getHeading());
+				flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
+				fort.getSiege().getFlag(player.getClan()).add(flag);
+			}
+			catch (Exception e)
+			{
+				player.sendMessage("Error placing flag:" + e);
+			}
+		}
 	}
-	if (fort != null && getIsInProgress())
+
+	public SkillType[] getSkillIds()
 	{
-	    if (!checkIfOkToPlaceFlag(player, fort, true))
-		return;
-	    try
-	    {
-		// Spawn a new flag
-		L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062));
-		flag.setTitle(player.getClan().getName());
-		flag.setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-		flag.setHeading(player.getHeading());
-		flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-		fort.getSiege().getFlag(player.getClan()).add(flag);
-	    } catch (Exception e)
-	    {
-		player.sendMessage("Error placing flag:" + e);
-	    }
+		return SKILL_IDS;
 	}
-    }
 
-    public SkillType[] getSkillIds()
-    {
-	return SKILL_IDS;
-    }
-
-    /**
-     * Return true if character clan place a flag<BR>
-     * <BR>
-     * 
-     * @param activeChar
-     *                The L2Character of the character placing the flag
-     * @param isCheckOnly
-     *                if false, it will send a notification to the player
-     *                telling him why it failed
-     */
-    public static boolean checkIfOkToPlaceFlag(L2Character activeChar, boolean isCheckOnly)
-    {
-	Castle castle = CastleManager.getInstance().getCastle(activeChar);
-	Fort fort = FortManager.getInstance().getFort(activeChar);
-	if ((castle == null) && (fort == null))
-	    return false;
-	if (castle != null)
-	    return checkIfOkToPlaceFlag(activeChar, castle, isCheckOnly);
-	else
-	    return checkIfOkToPlaceFlag(activeChar, fort, isCheckOnly);
-    }
-
-    public static boolean checkIfOkToPlaceFlag(L2Character activeChar, Castle castle, boolean isCheckOnly)
-    {
-	if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
-	    return false;
-	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-	L2PcInstance player = (L2PcInstance) activeChar;
-	if ((castle == null) || (castle.getCastleId() <= 0))
-	    sm.addString("You must be on castle ground to place a flag");
-	else if (!castle.getSiege().getIsInProgress())
-	    sm.addString("You can only place a flag during a siege.");
-	else if (castle.getSiege().getAttackerClan(player.getClan()) == null)
-	    sm.addString("You must be an attacker to place a flag");
-	else if ((player.getClan() == null) || !player.isClanLeader())
-	    sm.addString("You must be a clan leader to place a flag");
-	else if (castle.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= SiegeManager.getInstance().getFlagMaxCount())
-	    sm.addString("You have already placed the maximum number of flags possible");
-	else
-	    return true;
-	if (!isCheckOnly)
+	/**
+	 * Return true if character clan place a flag<BR>
+	 * <BR>
+	 * 
+	 * @param activeChar
+	 *            The L2Character of the character placing the flag
+	 * @param isCheckOnly
+	 *            if false, it will send a notification to the player telling him why it failed
+	 */
+	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, boolean isCheckOnly)
 	{
-	    player.sendPacket(sm);
+		Castle castle = CastleManager.getInstance().getCastle(activeChar);
+		Fort fort = FortManager.getInstance().getFort(activeChar);
+		if ((castle == null) && (fort == null))
+			return false;
+		if (castle != null)
+			return checkIfOkToPlaceFlag(activeChar, castle, isCheckOnly);
+		else
+			return checkIfOkToPlaceFlag(activeChar, fort, isCheckOnly);
 	}
-	return false;
-    }
 
-    public static boolean checkIfOkToPlaceFlag(L2Character activeChar, Fort fort, boolean isCheckOnly)
-    {
-	if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
-	    return false;
-	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-	L2PcInstance player = (L2PcInstance) activeChar;
-	if ((fort == null) || (fort.getFortId() <= 0))
-	    sm.addString("You must be on fort ground to place a flag");
-	else if (!fort.getSiege().getIsInProgress())
-	    sm.addString("You can only place a flag during a siege.");
-	else if (fort.getSiege().getAttackerClan(player.getClan()) == null)
-	    sm.addString("You must be an attacker to place a flag");
-	else if ((player.getClan() == null) || !player.isClanLeader())
-	    sm.addString("You must be a clan leader to place a flag");
-	else if (fort.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= SiegeManager.getInstance().getFlagMaxCount())
-	    sm.addString("You have already placed the maximum number of flags possible");
-	else
-	    return true;
-	if (!isCheckOnly)
+	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, Castle castle, boolean isCheckOnly)
 	{
-	    player.sendPacket(sm);
+		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+			return false;
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+		L2PcInstance player = (L2PcInstance) activeChar;
+		if ((castle == null) || (castle.getCastleId() <= 0))
+			sm.addString("You must be on castle ground to place a flag");
+		else if (!castle.getSiege().getIsInProgress())
+			sm.addString("You can only place a flag during a siege.");
+		else if (castle.getSiege().getAttackerClan(player.getClan()) == null)
+			sm.addString("You must be an attacker to place a flag");
+		else if ((player.getClan() == null) || !player.isClanLeader())
+			sm.addString("You must be a clan leader to place a flag");
+		else if (castle.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= SiegeManager.getInstance().getFlagMaxCount())
+			sm.addString("You have already placed the maximum number of flags possible");
+		else
+			return true;
+		if (!isCheckOnly)
+		{
+			player.sendPacket(sm);
+		}
+		return false;
 	}
-	return false;
-    }
+
+	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, Fort fort, boolean isCheckOnly)
+	{
+		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+			return false;
+		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+		L2PcInstance player = (L2PcInstance) activeChar;
+		if ((fort == null) || (fort.getFortId() <= 0))
+			sm.addString("You must be on fort ground to place a flag");
+		else if (!fort.getSiege().getIsInProgress())
+			sm.addString("You can only place a flag during a siege.");
+		else if (fort.getSiege().getAttackerClan(player.getClan()) == null)
+			sm.addString("You must be an attacker to place a flag");
+		else if ((player.getClan() == null) || !player.isClanLeader())
+			sm.addString("You must be a clan leader to place a flag");
+		else if (fort.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= SiegeManager.getInstance().getFlagMaxCount())
+			sm.addString("You have already placed the maximum number of flags possible");
+		else
+			return true;
+		if (!isCheckOnly)
+		{
+			player.sendPacket(sm);
+		}
+		return false;
+	}
+
 	public final boolean getIsInProgress()
 	{
 		return DevastatedCastleManager.getInstance().getIsInProgress();

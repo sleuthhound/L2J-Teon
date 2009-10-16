@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.datatables;
 
 public class dbmanager
 {
-
 	public static void reloadAll()
 	{
 		ItemTable.reload();

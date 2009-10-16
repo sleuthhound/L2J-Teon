@@ -24,35 +24,34 @@ import net.sf.l2j.gameserver.serverpackets.PrivateStoreMsgBuy;
  */
 public final class SetPrivateStoreMsgBuy extends L2GameClientPacket
 {
-    private static final String _C__94_SETPRIVATESTOREMSGBUY = "[C] 94 SetPrivateStoreMsgBuy";
-    // private static Logger _log =
-    // Logger.getLogger(SetPrivateStoreMsgBuy.class.getName());
-    private String _storeMsg;
+	private static final String _C__94_SETPRIVATESTOREMSGBUY = "[C] 94 SetPrivateStoreMsgBuy";
+	// private static Logger _log =
+	// Logger.getLogger(SetPrivateStoreMsgBuy.class.getName());
+	private String _storeMsg;
 
-    @Override
-    protected void readImpl()
-    {
-	_storeMsg = readS();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_storeMsg = readS();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance player = getClient().getActiveChar();
-	if ((player == null) || (player.getBuyList() == null))
-	    return;
-	player.getBuyList().setTitle(_storeMsg);
-	player.sendPacket(new PrivateStoreMsgBuy(player));
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if ((player == null) || (player.getBuyList() == null))
+			return;
+		player.getBuyList().setTitle(_storeMsg);
+		player.sendPacket(new PrivateStoreMsgBuy(player));
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__94_SETPRIVATESTOREMSGBUY;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__94_SETPRIVATESTOREMSGBUY;
+	}
 }

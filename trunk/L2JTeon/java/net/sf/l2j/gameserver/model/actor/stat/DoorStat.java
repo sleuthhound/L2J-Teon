@@ -18,31 +18,31 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 
 public class DoorStat extends CharStat
 {
-    // =========================================================
-    // Data Field
-    // =========================================================
-    // Constructor
-    public DoorStat(L2DoorInstance activeChar)
-    {
-	super(activeChar);
-	setLevel((byte) 1);
-    }
+	// =========================================================
+	// Data Field
+	// =========================================================
+	// Constructor
+	public DoorStat(L2DoorInstance activeChar)
+	{
+		super(activeChar);
+		setLevel((byte) 1);
+	}
 
-    // =========================================================
-    // Method - Public
-    // =========================================================
-    // Method - Private
-    // =========================================================
-    // Property - Public
-    @Override
-    public L2DoorInstance getActiveChar()
-    {
-	return (L2DoorInstance) super.getActiveChar();
-    }
+	// =========================================================
+	// Method - Public
+	// =========================================================
+	// Method - Private
+	// =========================================================
+	// Property - Public
+	@Override
+	public L2DoorInstance getActiveChar()
+	{
+		return (L2DoorInstance) super.getActiveChar();
+	}
 
-    @Override
-    public final byte getLevel()
-    {
-	return 1;
-    }
+	@Override
+	public final byte getLevel()
+	{
+		return 1;
+	}
 }

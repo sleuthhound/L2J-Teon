@@ -25,13 +25,12 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class manages all Grand Bosses.
- *
+ * 
  * @version $Revision: 1.0.0.0 $ $Date: 2006/06/16 $
  */
 public final class L2GrandBossInstance extends L2MonsterInstance
 {
-    private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
-
+	private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
 	protected boolean _isInSocialAction = false;
 
 	public boolean IsInSocialAction()
@@ -44,61 +43,61 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 		_isInSocialAction = value;
 	}
 
-
-     /**
-     * Constructor for L2GrandBossInstance. This represent all grandbosses.
-     * 
-     * @param objectId ID of the instance
-     * @param template L2NpcTemplate of the instance
-     */
+	/**
+	 * Constructor for L2GrandBossInstance. This represent all grandbosses.
+	 * 
+	 * @param objectId
+	 *            ID of the instance
+	 * @param template
+	 *            L2NpcTemplate of the instance
+	 */
 	public L2GrandBossInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
 	}
 
-    @Override
-	protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
-    
+	@Override
+	protected int getMaintenanceInterval()
+	{
+		return BOSS_MAINTENANCE_INTERVAL;
+	}
 
-    @Override
+	@Override
 	public void onSpawn()
-    {
-    	setIsRaid(true);
-    	if (getNpcId() == 29028) // baium and valakas are all the time in passive mode, theirs attack AI handled in AI scripts
-    		super.disableCoreAI(true);
-    	super.onSpawn();
-    }
+	{
+		setIsRaid(true);
+		if (getNpcId() == 29028) // baium and valakas are all the time in passive mode, theirs attack AI handled in AI scripts
+			super.disableCoreAI(true);
+		super.onSpawn();
+	}
 
-    /**
-     * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR>
-     *
-     */
-    @Override
+	/**
+	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR>
+	 * <BR>
+	 */
+	@Override
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
-    {
-        super.reduceCurrentHp(damage, attacker, awake);
-    }
+	{
+		super.reduceCurrentHp(damage, attacker, awake);
+	}
 
-    /**
-     * 
-     * @see net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance#doDie(net.sf.l2j.gameserver.model.L2Character)
-     */
-    @Override
-    public boolean doDie(L2Character killer)
+	/**
+	 * @see net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance#doDie(net.sf.l2j.gameserver.model.L2Character)
+	 */
+	@Override
+	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
 			return false;
 		L2PcInstance player = null;
-		
 		if (killer instanceof L2PcInstance)
 			player = (L2PcInstance) killer;
 		else if (killer instanceof L2Summon)
 			player = ((L2Summon) killer).getOwner();
-		
 		if (player != null)
 		{
 			broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
-	        if (player.getParty() != null)
+			if (player.getParty() != null)
 			{
 				for (L2PcInstance member : player.getParty().getPartyMembers())
 				{

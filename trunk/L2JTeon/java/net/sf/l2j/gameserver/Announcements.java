@@ -44,183 +44,188 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class Announcements
 {
-    private static Logger _log = Logger.getLogger(Announcements.class.getName());
-    private static Announcements _instance;
-    private List<String> _announcements = new FastList<String>();
-    private List<List<Object>> _eventAnnouncements = new FastList<List<Object>>();
+	private static Logger _log = Logger.getLogger(Announcements.class.getName());
+	private static Announcements _instance;
+	private List<String> _announcements = new FastList<String>();
+	private List<List<Object>> _eventAnnouncements = new FastList<List<Object>>();
 
-    public Announcements()
-    {
-	loadAnnouncements();
-    }
-
-    public static Announcements getInstance()
-    {
-	if (_instance == null)
+	public Announcements()
 	{
-	    _instance = new Announcements();
+		loadAnnouncements();
 	}
-	return _instance;
-    }
 
-    public void loadAnnouncements()
-    {
-	_announcements.clear();
-	File file = new File(Config.DATAPACK_ROOT, "data/announcements.txt");
-	if (file.exists())
+	public static Announcements getInstance()
 	{
-	    readFromDisk(file);
-	} else
-	{
-	    _log.config("data/announcements.txt doesn't exist");
-	}
-    }
-
-    public void showAnnouncements(L2PcInstance activeChar)
-    {
-	for (int i = 0; i < _announcements.size(); i++)
-	{
-	    CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), _announcements.get(i));
-	    activeChar.sendPacket(cs);
-	}
-	for (int i = 0; i < _eventAnnouncements.size(); i++)
-	{
-	    List<Object> entry = _eventAnnouncements.get(i);
-	    DateRange validDateRange = (DateRange) entry.get(0);
-	    String[] msg = (String[]) entry.get(1);
-	    Date currentDate = new Date();
-	    if (!validDateRange.isValid() || validDateRange.isWithinRange(currentDate))
-	    {
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-		for (int j = 0; j < msg.length; j++)
+		if (_instance == null)
 		{
-		    sm.addString(msg[j]);
+			_instance = new Announcements();
 		}
-		activeChar.sendPacket(sm);
-	    }
+		return _instance;
 	}
-    }
 
-    public void addEventAnnouncement(DateRange validDateRange, String[] msg)
-    {
-	List<Object> entry = new FastList<Object>();
-	entry.add(validDateRange);
-	entry.add(msg);
-	_eventAnnouncements.add(entry);
-    }
-
-    public void listAnnouncements(L2PcInstance activeChar)
-    {
-	String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
-	NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-	adminReply.setHtml(content);
-	TextBuilder replyMSG = new TextBuilder("<br>");
-	for (int i = 0; i < _announcements.size(); i++)
+	public void loadAnnouncements()
 	{
-	    replyMSG.append("<table width=260><tr><td width=220>" + _announcements.get(i) + "</td><td width=40>");
-	    replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement " + i + "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
-	}
-	adminReply.replace("%announces%", replyMSG.toString());
-	activeChar.sendPacket(adminReply);
-    }
-
-    public void addAnnouncement(String text)
-    {
-	_announcements.add(text);
-	saveToDisk();
-    }
-
-    public void delAnnouncement(int line)
-    {
-	_announcements.remove(line);
-	saveToDisk();
-    }
-
-    private void readFromDisk(File file)
-    {
-	LineNumberReader lnr = null;
-	try
-	{
-	    int i = 0;
-	    String line = null;
-	    lnr = new LineNumberReader(new FileReader(file));
-	    while ((line = lnr.readLine()) != null)
-	    {
-		StringTokenizer st = new StringTokenizer(line, "\n\r");
-		if (st.hasMoreTokens())
+		_announcements.clear();
+		File file = new File(Config.DATAPACK_ROOT, "data/announcements.txt");
+		if (file.exists())
 		{
-		    String announcement = st.nextToken();
-		    _announcements.add(announcement);
-		    i++;
+			readFromDisk(file);
 		}
-	    }
-	    _log.config("Announcements: Loaded " + i + " Announcements.");
-	} catch (IOException e1)
-	{
-	    _log.log(Level.SEVERE, "Error reading announcements", e1);
-	} finally
-	{
-	    try
-	    {
-		lnr.close();
-	    } catch (Exception e2)
-	    {
-		// nothing
-	    }
+		else
+		{
+			_log.config("data/announcements.txt doesn't exist");
+		}
 	}
-    }
 
-    private void saveToDisk()
-    {
-	File file = new File("data/announcements.txt");
-	FileWriter save = null;
-	try
+	public void showAnnouncements(L2PcInstance activeChar)
 	{
-	    save = new FileWriter(file);
-	    for (int i = 0; i < _announcements.size(); i++)
-	    {
-		save.write(_announcements.get(i));
-		save.write("\r\n");
-	    }
-	    save.flush();
-	    save.close();
-	    save = null;
-	} catch (IOException e)
-	{
-	    _log.warning("saving the announcements file has failed: " + e);
+		for (int i = 0; i < _announcements.size(); i++)
+		{
+			CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), _announcements.get(i));
+			activeChar.sendPacket(cs);
+		}
+		for (int i = 0; i < _eventAnnouncements.size(); i++)
+		{
+			List<Object> entry = _eventAnnouncements.get(i);
+			DateRange validDateRange = (DateRange) entry.get(0);
+			String[] msg = (String[]) entry.get(1);
+			Date currentDate = new Date();
+			if (!validDateRange.isValid() || validDateRange.isWithinRange(currentDate))
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+				for (int j = 0; j < msg.length; j++)
+				{
+					sm.addString(msg[j]);
+				}
+				activeChar.sendPacket(sm);
+			}
+		}
 	}
-    }
 
-    public void announceToAll(String text)
-    {
-	CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
-	for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+	public void addEventAnnouncement(DateRange validDateRange, String[] msg)
 	{
-	    player.sendPacket(cs);
+		List<Object> entry = new FastList<Object>();
+		entry.add(validDateRange);
+		entry.add(msg);
+		_eventAnnouncements.add(entry);
 	}
-    }
 
-    public void announceToAll(SystemMessage sm)
-    {
-	for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+	public void listAnnouncements(L2PcInstance activeChar)
 	{
-	    player.sendPacket(sm);
+		String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		adminReply.setHtml(content);
+		TextBuilder replyMSG = new TextBuilder("<br>");
+		for (int i = 0; i < _announcements.size(); i++)
+		{
+			replyMSG.append("<table width=260><tr><td width=220>" + _announcements.get(i) + "</td><td width=40>");
+			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement " + i + "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
+		}
+		adminReply.replace("%announces%", replyMSG.toString());
+		activeChar.sendPacket(adminReply);
 	}
-    }
 
-    // Method fo handling announcements from admin
-    public void handleAnnounce(String command, int lengthToTrim)
-    {
-	try
+	public void addAnnouncement(String text)
 	{
-	    // Announce string to everyone on server
-	    String text = command.substring(lengthToTrim);
-	    Announcements.getInstance().announceToAll(text);
+		_announcements.add(text);
+		saveToDisk();
 	}
-	// No body cares!
-	catch (StringIndexOutOfBoundsException e)
+
+	public void delAnnouncement(int line)
 	{
-	    // empty message.. ignore
+		_announcements.remove(line);
+		saveToDisk();
 	}
-    }
+
+	private void readFromDisk(File file)
+	{
+		LineNumberReader lnr = null;
+		try
+		{
+			int i = 0;
+			String line = null;
+			lnr = new LineNumberReader(new FileReader(file));
+			while ((line = lnr.readLine()) != null)
+			{
+				StringTokenizer st = new StringTokenizer(line, "\n\r");
+				if (st.hasMoreTokens())
+				{
+					String announcement = st.nextToken();
+					_announcements.add(announcement);
+					i++;
+				}
+			}
+			_log.config("Announcements: Loaded " + i + " Announcements.");
+		}
+		catch (IOException e1)
+		{
+			_log.log(Level.SEVERE, "Error reading announcements", e1);
+		}
+		finally
+		{
+			try
+			{
+				lnr.close();
+			}
+			catch (Exception e2)
+			{
+				// nothing
+			}
+		}
+	}
+
+	private void saveToDisk()
+	{
+		File file = new File("data/announcements.txt");
+		FileWriter save = null;
+		try
+		{
+			save = new FileWriter(file);
+			for (int i = 0; i < _announcements.size(); i++)
+			{
+				save.write(_announcements.get(i));
+				save.write("\r\n");
+			}
+			save.flush();
+			save.close();
+			save = null;
+		}
+		catch (IOException e)
+		{
+			_log.warning("saving the announcements file has failed: " + e);
+		}
+	}
+
+	public void announceToAll(String text)
+	{
+		CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		{
+			player.sendPacket(cs);
+		}
+	}
+
+	public void announceToAll(SystemMessage sm)
+	{
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		{
+			player.sendPacket(sm);
+		}
+	}
+
+	// Method fo handling announcements from admin
+	public void handleAnnounce(String command, int lengthToTrim)
+	{
+		try
+		{
+			// Announce string to everyone on server
+			String text = command.substring(lengthToTrim);
+			Announcements.getInstance().announceToAll(text);
+		}
+		// No body cares!
+		catch (StringIndexOutOfBoundsException e)
+		{
+			// empty message.. ignore
+		}
+	}
 }

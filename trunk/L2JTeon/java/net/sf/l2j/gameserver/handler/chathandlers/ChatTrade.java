@@ -23,8 +23,8 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 
 /**
  * A chat handler
- *
- * @author  durgus
+ * 
+ * @author durgus
  */
 public class ChatTrade implements IChatHandler
 {
@@ -32,17 +32,17 @@ public class ChatTrade implements IChatHandler
 
 	/**
 	 * Handle chat type 'trade'
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
 	{
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-
 		if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") || (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-					player.sendPacket(cs);
+				player.sendPacket(cs);
 			}
 		}
 		else if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("limited"))
@@ -50,7 +50,7 @@ public class ChatTrade implements IChatHandler
 			int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY()))
+				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(), player.getY()))
 				{
 					player.sendPacket(cs);
 				}
@@ -60,6 +60,7 @@ public class ChatTrade implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
 	public int[] getChatTypeList()

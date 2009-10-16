@@ -18,42 +18,42 @@ import net.sf.l2j.util.RandomIntGenerator;
 
 public class Rnd
 {
-	public static final double get()	// get random number from 0 to 1
+	public static final double get() // get random number from 0 to 1
 	{
 		return RandomIntGenerator.getInstance().getSecureRandom().nextDouble();
 	}
 
 	public static final int get(int n) // get random number from 0 to n-1
 	{
-		return (int)(RandomIntGenerator.getInstance().getSecureRandom().nextDouble()*n);
+		return (int) (RandomIntGenerator.getInstance().getSecureRandom().nextDouble() * n);
 	}
 
-	public static final int get(int min, int max)  // get random number from min to max (not max-1 !)
+	public static final int get(int min, int max) // get random number from min to max (not max-1 !)
 	{
-        return min + (int)Math.floor(RandomIntGenerator.getInstance().getSecureRandom().nextDouble()*(max - min + 1));
+		return min + (int) Math.floor(RandomIntGenerator.getInstance().getSecureRandom().nextDouble() * (max - min + 1));
 	}
-	
-	public static final int nextInt(int n)  
+
+	public static final int nextInt(int n)
 	{
-		return (int)Math.floor(RandomIntGenerator.getInstance().getSecureRandom().nextDouble()*n);
+		return (int) Math.floor(RandomIntGenerator.getInstance().getSecureRandom().nextDouble() * n);
 	}
-	
-	public static final double nextDouble()  
+
+	public static final double nextDouble()
 	{
 		return RandomIntGenerator.getInstance().getSecureRandom().nextDouble();
 	}
-	
-	public static final double nextGaussian()  
+
+	public static final double nextGaussian()
 	{
 		return RandomIntGenerator.getInstance().getSecureRandom().nextGaussian();
 	}
-	
-	public static final boolean nextBoolean()  
+
+	public static final boolean nextBoolean()
 	{
 		return RandomIntGenerator.getInstance().getSecureRandom().nextBoolean();
 	}
-	
-	public static final void nextBytes(byte [] array)
+
+	public static final void nextBytes(byte[] array)
 	{
 		RandomIntGenerator.getInstance().getSecureRandom().nextBytes(array);
 	}

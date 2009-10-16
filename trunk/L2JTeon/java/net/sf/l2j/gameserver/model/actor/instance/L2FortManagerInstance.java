@@ -33,12 +33,10 @@ import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
- * Fortress Foreman implementation used for:
- * Area Teleports, Support Magic, Clan Warehouse, Exp Loss Reduction
+ * Fortress Foreman implementation used for: Area Teleports, Support Magic, Clan Warehouse, Exp Loss Reduction
  */
 public class L2FortManagerInstance extends L2MerchantInstance
 {
-	
 	protected static final int COND_ALL_FALSE = 0;
 	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
 	protected static final int COND_OWNER = 2;
@@ -60,19 +58,15 @@ public class L2FortManagerInstance extends L2MerchantInstance
 	{
 		if (!canTarget(player))
 			return;
-
 		player.setLastFolkNPC(this);
-
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
-
 			// Send a Server->Client packet ValidateLocation to correct the zL2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
 		}
@@ -91,7 +85,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
-	    player.sendPacket(new ActionFailed());
+		player.sendPacket(new ActionFailed());
 	}
 
 	@Override
@@ -104,20 +98,17 @@ public class L2FortManagerInstance extends L2MerchantInstance
 		int condition = validateCondition(player);
 		if (condition <= COND_ALL_FALSE)
 			return;
-
 		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
 		else if (condition == COND_OWNER)
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
 			String actualCommand = st.nextToken(); // Get actual command
-
 			String val = "";
 			if (st.countTokens() >= 1)
 			{
 				val = st.nextToken();
 			}
-
 			if (actualCommand.equalsIgnoreCase("banish_foreigner"))
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CS_DISMISS) == L2Clan.CP_CS_DISMISS)
@@ -200,9 +191,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						while (st.hasMoreTokens())
 							getFort().openCloseDoor(player, Integer.parseInt(st.nextToken()), open);
 					}
-
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/fortress/" + getTemplate().npcId	+ "-d.htm");
+					html.setFile("data/html/fortress/" + getTemplate().npcId + "-d.htm");
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					html.replace("%npcname%", getName());
 					player.sendPacket(html);
@@ -233,8 +223,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 					if (getFort().getFunction(Fort.FUNC_TELEPORT) == null)
 						html.setFile("data/html/fortress/foreman-nac.htm");
 					else
-						html.setFile("data/html/fortress/"+ getNpcId()+ "-t"
-								+ getFort().getFunction(Fort.FUNC_TELEPORT).getLvl()+ ".htm");
+						html.setFile("data/html/fortress/" + getNpcId() + "-t" + getFort().getFunction(Fort.FUNC_TELEPORT).getLvl() + ".htm");
 					sendHtmlMessage(player, html);
 				}
 				else if (val.equalsIgnoreCase("support"))
@@ -244,9 +233,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						html.setFile("data/html/fortress/foreman-nac.htm");
 					else
 					{
-						html.setFile("data/html/fortress/support"
-								+ getFort().getFunction(Fort.FUNC_SUPPORT).getLvl()+ ".htm");
-						html.replace("%mp%", String.valueOf((int)getCurrentMp()));
+						html.setFile("data/html/fortress/support" + getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() + ".htm");
+						html.replace("%mp%", String.valueOf((int) getCurrentMp()));
 					}
 					sendHtmlMessage(player, html);
 				}
@@ -326,16 +314,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										cost = Config.FS_HPREG2_FEE;
 										break;
 								}
-
-								html.replace("%cost%", String.valueOf(cost)
-										+ "</font>Adena /"
-										+ String.valueOf(Config.FS_HPREG_FEE_RATIO
-												/ 1000 / 60 / 60 / 24)
-										+ " Day</font>)");
-								html.replace("%use%", "Provides additional HP recovery for clan members in the fortress.<font color=\"00FFFF\">"
-										+ String.valueOf(percent) + "%</font>");
-								html.replace("%apply%", "recovery hp "
-										+ String.valueOf(percent));
+								html.replace("%cost%", String.valueOf(cost) + "</font>Adena /" + String.valueOf(Config.FS_HPREG_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
+								html.replace("%use%", "Provides additional HP recovery for clan members in the fortress.<font color=\"00FFFF\">" + String.valueOf(percent) + "%</font>");
+								html.replace("%apply%", "recovery hp " + String.valueOf(percent));
 								sendHtmlMessage(player, html);
 								return;
 							}
@@ -356,15 +337,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										cost = Config.FS_MPREG2_FEE;
 										break;
 								}
-								html.replace("%cost%", String.valueOf(cost)
-										+ "</font>Adena /"
-										+ String.valueOf(Config.FS_MPREG_FEE_RATIO
-												/ 1000 / 60 / 60 / 24)
-										+ " Day</font>)");
-								html.replace("%use%", "Provides additional MP recovery for clan members in the fortress.<font color=\"00FFFF\">"
-										+ String.valueOf(percent) + "%</font>");
-								html.replace("%apply%", "recovery mp "
-										+ String.valueOf(percent));
+								html.replace("%cost%", String.valueOf(cost) + "</font>Adena /" + String.valueOf(Config.FS_MPREG_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
+								html.replace("%use%", "Provides additional MP recovery for clan members in the fortress.<font color=\"00FFFF\">" + String.valueOf(percent) + "%</font>");
+								html.replace("%apply%", "recovery mp " + String.valueOf(percent));
 								sendHtmlMessage(player, html);
 								return;
 							}
@@ -385,15 +360,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										cost = Config.FS_EXPREG2_FEE;
 										break;
 								}
-								html.replace("%cost%", String.valueOf(cost)
-										+ "</font>Adena /"
-										+ String.valueOf(Config.FS_EXPREG_FEE_RATIO
-												/ 1000 / 60 / 60 / 24)
-										+ " Day</font>)");
-								html.replace("%use%", "Restores the Exp of any clan member who is resurrected in the fortress.<font color=\"00FFFF\">"
-										+ String.valueOf(percent) + "%</font>");
-								html.replace("%apply%", "recovery exp "
-										+ String.valueOf(percent));
+								html.replace("%cost%", String.valueOf(cost) + "</font>Adena /" + String.valueOf(Config.FS_EXPREG_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
+								html.replace("%use%", "Restores the Exp of any clan member who is resurrected in the fortress.<font color=\"00FFFF\">" + String.valueOf(percent) + "%</font>");
+								html.replace("%apply%", "recovery exp " + String.valueOf(percent));
 								sendHtmlMessage(player, html);
 								return;
 							}
@@ -412,8 +381,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										if (getFort().getFunction(Fort.FUNC_RESTORE_HP).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
-											html.replace("%val%", String.valueOf(val)
-													+ "%");
+											html.replace("%val%", String.valueOf(val) + "%");
 											sendHtmlMessage(player, html);
 											return;
 										}
@@ -456,8 +424,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										if (getFort().getFunction(Fort.FUNC_RESTORE_MP).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
-											html.replace("%val%", String.valueOf(val)
-													+ "%");
+											html.replace("%val%", String.valueOf(val) + "%");
 											sendHtmlMessage(player, html);
 											return;
 										}
@@ -500,8 +467,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										if (getFort().getFunction(Fort.FUNC_RESTORE_EXP).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
-											html.replace("%val%", String.valueOf(val)
-													+ "%");
+											html.replace("%val%", String.valueOf(val) + "%");
 											sendHtmlMessage(player, html);
 											return;
 										}
@@ -537,16 +503,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						String mp = "[<a action=\"bypass -h npc_%objectId%_manage recovery edit_mp 40\">40%</a>][<a action=\"bypass -h npc_%objectId%_manage recovery edit_mp 50\">50%</a>]";
 						if (getFort().getFunction(Fort.FUNC_RESTORE_HP) != null)
 						{
-							html.replace("%hp_recovery%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_HP).getLvl())
-									+ "%</font> (<font color=\"FFAABB\">"
-									+ String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_HP).getLease())
-									+ "</font>Adena /"
-									+ String.valueOf(Config.FS_HPREG_FEE_RATIO
-											/ 1000 / 60 / 60 / 24) + " Day)");
-							html.replace("%hp_period%", "Withdraw the fee for the next time at "
-									+ format.format(getFort().getFunction(Fort.FUNC_RESTORE_HP).getEndTime()));
-							html.replace("%change_hp%", "[<a action=\"bypass -h npc_%objectId%_manage recovery hp_cancel\">Deactivate</a>]"
-									+ hp);
+							html.replace("%hp_recovery%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_HP).getLvl()) + "%</font> (<font color=\"FFAABB\">" + String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_HP).getLease()) + "</font>Adena /" + String.valueOf(Config.FS_HPREG_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
+							html.replace("%hp_period%", "Withdraw the fee for the next time at " + format.format(getFort().getFunction(Fort.FUNC_RESTORE_HP).getEndTime()));
+							html.replace("%change_hp%", "[<a action=\"bypass -h npc_%objectId%_manage recovery hp_cancel\">Deactivate</a>]" + hp);
 						}
 						else
 						{
@@ -556,16 +515,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						}
 						if (getFort().getFunction(Fort.FUNC_RESTORE_EXP) != null)
 						{
-							html.replace("%exp_recovery%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_EXP).getLvl())
-									+ "%</font> (<font color=\"FFAABB\">"
-									+ String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_EXP).getLease())
-									+ "</font>Adena /"
-									+ String.valueOf(Config.FS_EXPREG_FEE_RATIO
-											/ 1000 / 60 / 60 / 24) + " Day)");
-							html.replace("%exp_period%", "Withdraw the fee for the next time at "
-									+ format.format(getFort().getFunction(Fort.FUNC_RESTORE_EXP).getEndTime()));
-							html.replace("%change_exp%", "[<a action=\"bypass -h npc_%objectId%_manage recovery exp_cancel\">Deactivate</a>]"
-									+ exp);
+							html.replace("%exp_recovery%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_EXP).getLvl()) + "%</font> (<font color=\"FFAABB\">" + String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_EXP).getLease()) + "</font>Adena /" + String.valueOf(Config.FS_EXPREG_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
+							html.replace("%exp_period%", "Withdraw the fee for the next time at " + format.format(getFort().getFunction(Fort.FUNC_RESTORE_EXP).getEndTime()));
+							html.replace("%change_exp%", "[<a action=\"bypass -h npc_%objectId%_manage recovery exp_cancel\">Deactivate</a>]" + exp);
 						}
 						else
 						{
@@ -575,16 +527,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						}
 						if (getFort().getFunction(Fort.FUNC_RESTORE_MP) != null)
 						{
-							html.replace("%mp_recovery%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_MP).getLvl())
-									+ "%</font> (<font color=\"FFAABB\">"
-									+ String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_MP).getLease())
-									+ "</font>Adena /"
-									+ String.valueOf(Config.FS_MPREG_FEE_RATIO
-											/ 1000 / 60 / 60 / 24) + " Day)");
-							html.replace("%mp_period%", "Withdraw the fee for the next time at "
-									+ format.format(getFort().getFunction(Fort.FUNC_RESTORE_MP).getEndTime()));
-							html.replace("%change_mp%", "[<a action=\"bypass -h npc_%objectId%_manage recovery mp_cancel\">Deactivate</a>]"
-									+ mp);
+							html.replace("%mp_recovery%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_MP).getLvl()) + "%</font> (<font color=\"FFAABB\">" + String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_MP).getLease()) + "</font>Adena /" + String.valueOf(Config.FS_MPREG_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
+							html.replace("%mp_period%", "Withdraw the fee for the next time at " + format.format(getFort().getFunction(Fort.FUNC_RESTORE_MP).getEndTime()));
+							html.replace("%change_mp%", "[<a action=\"bypass -h npc_%objectId%_manage recovery mp_cancel\">Deactivate</a>]" + mp);
 						}
 						else
 						{
@@ -637,14 +582,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										cost = Config.FS_SUPPORT2_FEE;
 										break;
 								}
-								html.replace("%cost%", String.valueOf(cost)
-										+ "</font>Adena /"
-										+ String.valueOf(Config.FS_SUPPORT_FEE_RATIO
-												/ 1000 / 60 / 60 / 24)
-										+ " Day</font>)");
+								html.replace("%cost%", String.valueOf(cost) + "</font>Adena /" + String.valueOf(Config.FS_SUPPORT_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
 								html.replace("%use%", "Enables the use of supplementary magic.");
-								html.replace("%apply%", "other support "
-										+ String.valueOf(stage));
+								html.replace("%apply%", "other support " + String.valueOf(stage));
 								sendHtmlMessage(player, html);
 								return;
 							}
@@ -665,15 +605,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										cost = Config.FS_TELE2_FEE;
 										break;
 								}
-								html.replace("%cost%", String.valueOf(cost)
-										+ "</font>Adena /"
-										+ String.valueOf(Config.FS_TELE_FEE_RATIO
-												/ 1000 / 60 / 60 / 24)
-										+ " Day</font>)");
-								html.replace("%use%", "Teleports clan members in a fort to the target <font color=\"00FFFF\">Stage "
-										+ String.valueOf(stage)
-										+ "</font> staging area");
-								html.replace("%apply%", "other tele "+ String.valueOf(stage));
+								html.replace("%cost%", String.valueOf(cost) + "</font>Adena /" + String.valueOf(Config.FS_TELE_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day</font>)");
+								html.replace("%use%", "Teleports clan members in a fort to the target <font color=\"00FFFF\">Stage " + String.valueOf(stage) + "</font> staging area");
+								html.replace("%apply%", "other tele " + String.valueOf(stage));
 								sendHtmlMessage(player, html);
 								return;
 							}
@@ -692,7 +626,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										if (getFort().getFunction(Fort.FUNC_TELEPORT).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
-											html.replace("%val%", "Stage "	+ String.valueOf(val));
+											html.replace("%val%", "Stage " + String.valueOf(val));
 											sendHtmlMessage(player, html);
 											return;
 										}
@@ -735,8 +669,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 										if (getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
-											html.replace("%val%", "Stage "
-													+ String.valueOf(val));
+											html.replace("%val%", "Stage " + String.valueOf(val));
 											sendHtmlMessage(player, html);
 											return;
 										}
@@ -772,17 +705,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						String support = "[<a action=\"bypass -h npc_%objectId%_manage other edit_support 1\">Level 1</a>][<a action=\"bypass -h npc_%objectId%_manage other edit_support 2\">Level 2</a>]";
 						if (getFort().getFunction(Fort.FUNC_TELEPORT) != null)
 						{
-							html.replace("%tele%", "Stage "
-									+ String.valueOf(getFort().getFunction(Fort.FUNC_TELEPORT).getLvl())
-									+ "</font> (<font color=\"FFAABB\">"
-									+ String.valueOf(getFort().getFunction(Fort.FUNC_TELEPORT).getLease())
-									+ "</font>Adena /"
-									+ String.valueOf(Config.FS_TELE_FEE_RATIO
-											/ 1000 / 60 / 60 / 24) + " Day)");
-							html.replace("%tele_period%", "Withdraw the fee for the next time at "
-									+ format.format(getFort().getFunction(Fort.FUNC_TELEPORT).getEndTime()));
-							html.replace("%change_tele%", "[<a action=\"bypass -h npc_%objectId%_manage other tele_cancel\">Deactivate</a>]"
-									+ tele);
+							html.replace("%tele%", "Stage " + String.valueOf(getFort().getFunction(Fort.FUNC_TELEPORT).getLvl()) + "</font> (<font color=\"FFAABB\">" + String.valueOf(getFort().getFunction(Fort.FUNC_TELEPORT).getLease()) + "</font>Adena /" + String.valueOf(Config.FS_TELE_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
+							html.replace("%tele_period%", "Withdraw the fee for the next time at " + format.format(getFort().getFunction(Fort.FUNC_TELEPORT).getEndTime()));
+							html.replace("%change_tele%", "[<a action=\"bypass -h npc_%objectId%_manage other tele_cancel\">Deactivate</a>]" + tele);
 						}
 						else
 						{
@@ -792,17 +717,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						}
 						if (getFort().getFunction(Fort.FUNC_SUPPORT) != null)
 						{
-							html.replace("%support%", "Stage "
-									+ String.valueOf(getFort().getFunction(Fort.FUNC_SUPPORT).getLvl())
-									+ "</font> (<font color=\"FFAABB\">"
-									+ String.valueOf(getFort().getFunction(Fort.FUNC_SUPPORT).getLease())
-									+ "</font>Adena /"
-									+ String.valueOf(Config.FS_SUPPORT_FEE_RATIO
-											/ 1000 / 60 / 60 / 24) + " Day)");
-							html.replace("%support_period%", "Withdraw the fee for the next time at "
-									+ format.format(getFort().getFunction(Fort.FUNC_SUPPORT).getEndTime()));
-							html.replace("%change_support%", "[<a action=\"bypass -h npc_%objectId%_manage other support_cancel\">Deactivate</a>]"
-									+ support);
+							html.replace("%support%", "Stage " + String.valueOf(getFort().getFunction(Fort.FUNC_SUPPORT).getLvl()) + "</font> (<font color=\"FFAABB\">" + String.valueOf(getFort().getFunction(Fort.FUNC_SUPPORT).getLease()) + "</font>Adena /" + String.valueOf(Config.FS_SUPPORT_FEE_RATIO / 1000 / 60 / 60 / 24) + " Day)");
+							html.replace("%support_period%", "Withdraw the fee for the next time at " + format.format(getFort().getFunction(Fort.FUNC_SUPPORT).getEndTime()));
+							html.replace("%change_support%", "[<a action=\"bypass -h npc_%objectId%_manage other support_cancel\">Deactivate</a>]" + support);
 						}
 						else
 						{
@@ -835,7 +752,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 				L2Skill skill;
 				if (val == "")
 					return;
-
 				try
 				{
 					int skill_id = Integer.parseInt(val);
@@ -850,20 +766,20 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						if (st.countTokens() >= 1)
 							skill_lvl = Integer.parseInt(st.nextToken());
 						skill = SkillTable.getInstance().getInfo(skill_id, skill_lvl);
-							player.doCast(skill);
+						player.doCast(skill);
 						{
 							if (!((skill.getMpConsume() + skill.getMpInitialConsume()) > this.getCurrentMp()))
 								this.doCast(skill);
 							else
 							{
 								html.setFile("data/html/fortress/support-no_mana.htm");
-								html.replace("%mp%", String.valueOf((int)getCurrentMp()));
+								html.replace("%mp%", String.valueOf((int) getCurrentMp()));
 								sendHtmlMessage(player, html);
 								return;
 							}
 						}
 						html.setFile("data/html/fortress/support-done.htm");
-						html.replace("%mp%", String.valueOf((int)getCurrentMp()));
+						html.replace("%mp%", String.valueOf((int) getCurrentMp()));
 						sendHtmlMessage(player, html);
 					}
 					catch (Exception e)
@@ -882,9 +798,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				if (getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() == 0)
 					return;
-				html.setFile("data/html/fortress/support"
-						+ getFort().getFunction(Fort.FUNC_SUPPORT).getLvl()	+ ".htm");
-				html.replace("%mp%", String.valueOf((int)getStatus().getCurrentMp()));
+				html.setFile("data/html/fortress/support" + getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() + ".htm");
+				html.replace("%mp%", String.valueOf((int) getStatus().getCurrentMp()));
 				sendHtmlMessage(player, html);
 			}
 			else if (actualCommand.equalsIgnoreCase("goto"))
@@ -899,9 +814,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 
 	private void showMessageWindow(L2PcInstance player)
 	{
-	    player.sendPacket(new ActionFailed());
+		player.sendPacket(new ActionFailed());
 		String filename = "data/html/fortress/foreman-no.htm";
-
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
 		{
@@ -910,7 +824,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			else if (condition == COND_OWNER) // Clan owns Fortress
 				filename = "data/html/fortress/foreman.htm"; // Owner message window
 		}
-
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -928,15 +841,13 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			if (player.reduceAdena("Teleport", list.getPrice(), this, true))
 			{
 				if (Config.DEBUG)
-					_log.warning("Teleporting player " + player.getName()
-							+ " for Fortress to new location: " + list.getLocX()
-							+ ":" + list.getLocY() + ":" + list.getLocZ());
+					_log.warning("Teleporting player " + player.getName() + " for Fortress to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
 				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
 			}
 		}
 		else
 			_log.warning("No teleport destination with id:" + val);
-	    player.sendPacket(new ActionFailed());
+		player.sendPacket(new ActionFailed());
 	}
 
 	protected int validateCondition(L2PcInstance player)

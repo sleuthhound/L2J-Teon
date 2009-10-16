@@ -21,106 +21,106 @@ package net.sf.l2j.gameserver.model;
  */
 public class L2TeleportLocation
 {
-    private int _teleId;
-    private int _locX;
-    private int _locY;
-    private int _locZ;
-    private int _price;
-    private boolean _forNoble;
+	private int _teleId;
+	private int _locX;
+	private int _locY;
+	private int _locZ;
+	private int _price;
+	private boolean _forNoble;
 
-    /**
-     * @param id
-     */
-    public void setTeleId(int id)
-    {
-	_teleId = id;
-    }
+	/**
+	 * @param id
+	 */
+	public void setTeleId(int id)
+	{
+		_teleId = id;
+	}
 
-    /**
-     * @param locX
-     */
-    public void setLocX(int locX)
-    {
-	_locX = locX;
-    }
+	/**
+	 * @param locX
+	 */
+	public void setLocX(int locX)
+	{
+		_locX = locX;
+	}
 
-    /**
-     * @param locY
-     */
-    public void setLocY(int locY)
-    {
-	_locY = locY;
-    }
+	/**
+	 * @param locY
+	 */
+	public void setLocY(int locY)
+	{
+		_locY = locY;
+	}
 
-    /**
-     * @param locZ
-     */
-    public void setLocZ(int locZ)
-    {
-	_locZ = locZ;
-    }
+	/**
+	 * @param locZ
+	 */
+	public void setLocZ(int locZ)
+	{
+		_locZ = locZ;
+	}
 
-    /**
-     * @param price
-     */
-    public void setPrice(int price)
-    {
-	_price = price;
-    }
+	/**
+	 * @param price
+	 */
+	public void setPrice(int price)
+	{
+		_price = price;
+	}
 
-    /**
-     * @param val
-     */
-    public void setIsForNoble(boolean val)
-    {
-	_forNoble = val;
-    }
+	/**
+	 * @param val
+	 */
+	public void setIsForNoble(boolean val)
+	{
+		_forNoble = val;
+	}
 
-    /**
-     * @return
-     */
-    public int getTeleId()
-    {
-	return _teleId;
-    }
+	/**
+	 * @return
+	 */
+	public int getTeleId()
+	{
+		return _teleId;
+	}
 
-    /**
-     * @return
-     */
-    public int getLocX()
-    {
-	return _locX;
-    }
+	/**
+	 * @return
+	 */
+	public int getLocX()
+	{
+		return _locX;
+	}
 
-    /**
-     * @return
-     */
-    public int getLocY()
-    {
-	return _locY;
-    }
+	/**
+	 * @return
+	 */
+	public int getLocY()
+	{
+		return _locY;
+	}
 
-    /**
-     * @return
-     */
-    public int getLocZ()
-    {
-	return _locZ;
-    }
+	/**
+	 * @return
+	 */
+	public int getLocZ()
+	{
+		return _locZ;
+	}
 
-    /**
-     * @return
-     */
-    public int getPrice()
-    {
-	return _price;
-    }
+	/**
+	 * @return
+	 */
+	public int getPrice()
+	{
+		return _price;
+	}
 
-    /**
-     * @return
-     */
-    public boolean getIsForNoble()
-    {
-	return _forNoble;
-    }
+	/**
+	 * @return
+	 */
+	public boolean getIsForNoble()
+	{
+		return _forNoble;
+	}
 }

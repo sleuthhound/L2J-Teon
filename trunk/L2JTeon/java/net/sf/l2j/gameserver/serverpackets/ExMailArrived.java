@@ -23,35 +23,33 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ExMailArrived extends L2GameServerPacket
 {
-    private static final String _S__FE_2D_EXMAILARRIVED = "[S] FE:2D ExMailArrived";
-    @SuppressWarnings("unused")
-    private L2PcInstance _activeChar;
+	private static final String _S__FE_2D_EXMAILARRIVED = "[S] FE:2D ExMailArrived";
+	@SuppressWarnings("unused")
+	private L2PcInstance _activeChar;
 
-    public ExMailArrived(L2PcInstance character)
-    {
-	_activeChar = character;
-    }
+	public ExMailArrived(L2PcInstance character)
+	{
+		_activeChar = character;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-	writeC(0xfe);
-	writeH(0x2d);
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x2d);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__FE_2D_EXMAILARRIVED;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__FE_2D_EXMAILARRIVED;
+	}
 }

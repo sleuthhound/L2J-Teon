@@ -74,21 +74,27 @@ public class GameStatusThread extends Thread
 	private PrintWriter _print;
 	private BufferedReader _read;
 	private int _uptime;
-	
+
 	private void telnetOutput(int type, String text)
 	{
 		if (Config.DEVELOPER)
 		{
-			if (type == 1) System.out.println("TELNET | " + text);
-			else if (type == 2) System.out.print("TELNET | " + text);
-			else if (type == 3) System.out.print(text); 
-			else if (type == 4) System.out.println(text);
-			else System.out.println("TELNET | " + text); 
+			if (type == 1)
+				System.out.println("TELNET | " + text);
+			else if (type == 2)
+				System.out.print("TELNET | " + text);
+			else if (type == 3)
+				System.out.print(text);
+			else if (type == 4)
+				System.out.println(text);
+			else
+				System.out.println("TELNET | " + text);
 		}
 		else
 		{
 			// only print output if the message is rejected
-			if (type == 5) System.out.println("TELNET | " + text); 
+			if (type == 5)
+				System.out.println("TELNET | " + text);
 		}
 	}
 
@@ -100,8 +106,8 @@ public class GameStatusThread extends Thread
 		String clientStringIP = ClientIP.getHostAddress();
 		telnetOutput(1, "Connection from: " + clientStringIP);
 		// read and loop thru list of IPs, compare with newIP
-		if (Config.DEVELOPER) telnetOutput(2, "");
-		
+		if (Config.DEVELOPER)
+			telnetOutput(2, "");
 		try
 		{
 			Properties telnetSettings = new Properties();
@@ -109,7 +115,8 @@ public class GameStatusThread extends Thread
 			telnetSettings.load(telnetIS);
 			telnetIS.close();
 			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
-			if (Config.DEVELOPER) telnetOutput(3, "Comparing ip to list..."); 
+			if (Config.DEVELOPER)
+				telnetOutput(3, "Comparing ip to list...");
 			// compare
 			String ipToCompare = null;
 			for (String ip : HostList.split(","))
@@ -117,20 +124,24 @@ public class GameStatusThread extends Thread
 				if (!result)
 				{
 					ipToCompare = InetAddress.getByName(ip).getHostAddress();
-					if (clientStringIP.equals(ipToCompare)) result = true; 
-					if (Config.DEVELOPER) telnetOutput(3, clientStringIP + " = " + ipToCompare + "(" + ip + ") = " + result); 
+					if (clientStringIP.equals(ipToCompare))
+						result = true;
+					if (Config.DEVELOPER)
+						telnetOutput(3, clientStringIP + " = " + ipToCompare + "(" + ip + ") = " + result);
 				}
 			}
-		} 
+		}
 		catch (IOException e)
 		{
-			if (Config.DEVELOPER) telnetOutput(4, ""); 
+			if (Config.DEVELOPER)
+				telnetOutput(4, "");
 			telnetOutput(1, "Error: " + e);
 		}
-		if (Config.DEVELOPER) telnetOutput(4, "Allow IP: " + result); 
+		if (Config.DEVELOPER)
+			telnetOutput(4, "Allow IP: " + result);
 		return result;
 	}
-	
+
 	public GameStatusThread(Socket client, int uptime, String StatusPW) throws IOException
 	{
 		_cSocket = client;
@@ -151,7 +162,7 @@ public class GameStatusThread extends Thread
 				_print.println("Disconnected...");
 				_print.flush();
 				_cSocket.close();
-			} 
+			}
 			else
 			{
 				if (tmpLine.compareTo(StatusPW) != 0)
@@ -160,7 +171,7 @@ public class GameStatusThread extends Thread
 					_print.println("Disconnected...");
 					_print.flush();
 					_cSocket.close();
-				} 
+				}
 				else
 				{
 					_print.println("Password Correct!");
@@ -170,7 +181,7 @@ public class GameStatusThread extends Thread
 					start();
 				}
 			}
-		} 
+		}
 		else
 		{
 			telnetOutput(5, "Connection attempt from " + client.getInetAddress().getHostAddress() + " rejected.");
@@ -179,7 +190,7 @@ public class GameStatusThread extends Thread
 	}
 
 	@Override
-	@SuppressWarnings({ "deprecation", "null", "static-access" })
+	@SuppressWarnings( { "deprecation", "null", "static-access" })
 	public void run()
 	{
 		String _usrCommand = "";
@@ -218,7 +229,7 @@ public class GameStatusThread extends Thread
 					_print.println("jail <player> [time]");
 					_print.println("unjail <player>");
 					_print.println("quit                - closes telnet session.");
-				} 
+				}
 				else if (_usrCommand.equals("help debug"))
 				{
 					_print.println("The following is a list of all available debug commands: ");
@@ -226,7 +237,7 @@ public class GameStatusThread extends Thread
 					_print.println("PacketTP            - prints info about the General Packet ThreadPool");
 					_print.println("IOPacketTP          - prints info about the I/O Packet ThreadPool");
 					_print.println("GeneralTP           - prints info about the General ThreadPool");
-				} 
+				}
 				else if (_usrCommand.equals("info"))
 				{
 					_print.flush();
@@ -247,7 +258,7 @@ public class GameStatusThread extends Thread
 					_print.println("");
 					_print.println("Thank You for chosing us!");
 					_print.println("-Oneo Dev Team-");
-				} 
+				}
 				else if (_usrCommand.equals("status"))
 				{
 					int playerCount = 0, objectCount = 0;
@@ -267,34 +278,35 @@ public class GameStatusThread extends Thread
 					int AICount = 0;
 					for (L2Object obj : L2World.getInstance().getAllVisibleObjects())
 					{
-						if (obj == null) continue; 
+						if (obj == null)
+							continue;
 						if (obj instanceof L2Character)
-							if (((L2Character) obj).hasAI()) 
-								AICount++; 
+							if (((L2Character) obj).hasAI())
+								AICount++;
 						if (obj instanceof L2ItemInstance)
 						{
 							if (((L2ItemInstance) obj).getLocation() == L2ItemInstance.ItemLocation.VOID)
-								itemVoidCount++; 
+								itemVoidCount++;
 							else
-								itemCount++; 
-						} 
+								itemCount++;
+						}
 						else if (obj instanceof L2MonsterInstance)
 						{
 							monsterCount++;
 							minionCount += ((L2MonsterInstance) obj).getTotalSpawnedMinionsInstances();
 							minionsGroupCount += ((L2MonsterInstance) obj).getTotalSpawnedMinionsGroups();
-						} 
-						else if (obj instanceof L2NpcInstance) 
-							npcCount++; 
-						else if (obj instanceof L2PcInstance) 
-							pcCount++; 
-						else if (obj instanceof L2Summon) 
-							summonCount++; 
-						else if (obj instanceof L2DoorInstance) 
-							doorCount++; 
-						else if (obj instanceof L2Character) 
-							charCount++; 
-					}		    
+						}
+						else if (obj instanceof L2NpcInstance)
+							npcCount++;
+						else if (obj instanceof L2PcInstance)
+							pcCount++;
+						else if (obj instanceof L2Summon)
+							summonCount++;
+						else if (obj instanceof L2DoorInstance)
+							doorCount++;
+						else if (obj instanceof L2Character)
+							charCount++;
+					}
 					_print.println("Server Status: ");
 					_print.println("  --->  Player Count: " + playerCount + "/" + max);
 					_print.println("  +-->  Object Count: " + objectCount);
@@ -315,7 +327,7 @@ public class GameStatusThread extends Thread
 					_print.println("  --->       Threads: " + Thread.activeCount());
 					_print.println("  RAM Used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576); // 1024 * 1024 = 1048576
 					_print.flush();
-				} 
+				}
 				else if (_usrCommand.equals("performance"))
 				{
 					for (String line : ThreadPoolManager.getInstance().getStats())
@@ -323,7 +335,7 @@ public class GameStatusThread extends Thread
 						_print.println(line);
 					}
 					_print.flush();
-				} 
+				}
 				else if (_usrCommand.equals("purge"))
 				{
 					ThreadPoolManager.getInstance().purge();
@@ -334,12 +346,12 @@ public class GameStatusThread extends Thread
 						_print.println(line);
 					}
 					_print.flush();
-				} 
+				}
 				else if (_usrCommand.startsWith("geo_load"))
 				{
 					String[] v = _usrCommand.substring(9).split(" ");
 					if (v.length != 2)
-						_print.println("Usage: geo_load <regionX> <regionY>"); 
+						_print.println("Usage: geo_load <regionX> <regionY>");
 					else
 					{
 						try
@@ -348,21 +360,21 @@ public class GameStatusThread extends Thread
 							byte ry = Byte.parseByte(v[1]);
 							boolean result = GeoEngine.loadGeodataFile(rx, ry);
 							if (result)
-								_print.println("GeoEngine: File for region [" + rx + "," + ry + "] loaded succesfuly"); 
+								_print.println("GeoEngine: File for region [" + rx + "," + ry + "] loaded succesfuly");
 							else
-								_print.println("GeoEngine: File for region [" + rx + "," + ry + "] couldn't be loaded"); 
-						} 
+								_print.println("GeoEngine: File for region [" + rx + "," + ry + "] couldn't be loaded");
+						}
 						catch (Exception e)
 						{
 							_print.println("You have to write numbers of regions <regionX> <regionY>");
 						}
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("geo_unload"))
 				{
 					String[] v = _usrCommand.substring(11).split(" ");
 					if (v.length != 2)
-						_print.println("Usage: geo_unload <regionX> <regionY>"); 
+						_print.println("Usage: geo_unload <regionX> <regionY>");
 					else
 					{
 						try
@@ -371,13 +383,13 @@ public class GameStatusThread extends Thread
 							byte ry = Byte.parseByte(v[1]);
 							GeoEngine.unloadGeodata(rx, ry);
 							_print.println("GeoEngine: File for region [" + rx + "," + ry + "] unloaded.");
-						} 
+						}
 						catch (Exception e)
 						{
 							_print.println("You have to write numbers of regions <regionX> <regionY>");
 						}
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("announce"))
 				{
 					try
@@ -385,7 +397,7 @@ public class GameStatusThread extends Thread
 						_usrCommand = _usrCommand.substring(9);
 						Announcements.getInstance().announceToAll(_usrCommand);
 						_print.println("Announcement Sent!");
-					} 
+					}
 					catch (StringIndexOutOfBoundsException e)
 					{
 						_print.println("Please Enter Some Text To Announce!");
@@ -406,15 +418,15 @@ public class GameStatusThread extends Thread
 							reciever.sendPacket(cs);
 							_print.println("Telnet Priv->" + name + ": " + message);
 							_print.println("Message Sent!");
-						} 
+						}
 						else
 							_print.println("Unable To Find Username: " + name);
-					} 
+					}
 					catch (StringIndexOutOfBoundsException e)
 					{
 						_print.println("Please Enter Some Text!");
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("gmchat"))
 				{
 					try
@@ -423,12 +435,12 @@ public class GameStatusThread extends Thread
 						CreatureSay cs = new CreatureSay(0, 9, "Telnet GM Broadcast from " + _cSocket.getInetAddress().getHostAddress(), _usrCommand);
 						GmListTable.broadcastToGMs(cs);
 						_print.println("Your Message Has Been Sent To " + getOnlineGMS() + " GM(s).");
-					} 
+					}
 					catch (StringIndexOutOfBoundsException e)
 					{
 						_print.println("Please Enter Some Text To Announce!");
 					}
-				} 
+				}
 				else if (_usrCommand.equals("gmlist"))
 				{
 					int igm = 0;
@@ -440,19 +452,11 @@ public class GameStatusThread extends Thread
 					}
 					_print.println("There are currently " + igm + " GM(s) online...");
 					if (gmList != "")
-						_print.println(gmList); 
+						_print.println(gmList);
 				}
 				/*
-				 * else if (_usrCommand.startsWith("unblock")) { try {
-				 * _usrCommand = _usrCommand.substring(8); if
-				 * (LoginServer.getInstance().unblockIp(_usrCommand)) {
-				 * _log.warning("IP removed via TELNET by host: " +
-				 * _csocket.getInetAddress().getHostAddress());
-				 * _print.println("The IP " + _usrCommand + " has been removed
-				 * from the hack protection list!"); } else { _print.println("IP
-				 * not found in hack protection list..."); } //TODO: with packet }
-				 * catch (StringIndexOutOfBoundsException e) {
-				 * _print.println("Please Enter the IP to Unblock!"); } }
+				 * else if (_usrCommand.startsWith("unblock")) { try { _usrCommand = _usrCommand.substring(8); if (LoginServer.getInstance().unblockIp(_usrCommand)) { _log.warning("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress()); _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!"); } else { _print.println("IP not found in hack
+				 * protection list..."); } //TODO: with packet } catch (StringIndexOutOfBoundsException e) { _print.println("Please Enter the IP to Unblock!"); } }
 				 */
 				else if (_usrCommand.startsWith("kick"))
 				{
@@ -466,12 +470,12 @@ public class GameStatusThread extends Thread
 							player.logout();
 							_print.println("Player kicked");
 						}
-					} 
+					}
 					catch (StringIndexOutOfBoundsException e)
 					{
 						_print.println("Please enter player name to kick");
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("shutdown"))
 				{
 					try
@@ -480,16 +484,16 @@ public class GameStatusThread extends Thread
 						Shutdown.getInstance().startTelnetShutdown(_cSocket.getInetAddress().getHostAddress(), val, false);
 						_print.println("Server Will Shutdown In " + val + " Seconds!");
 						_print.println("Type \"abort\" To Abort Shutdown!");
-					} 
+					}
 					catch (StringIndexOutOfBoundsException e)
 					{
 						_print.println("Please Enter * amount of seconds to shutdown!");
-					} 
+					}
 					catch (Exception NumberFormatException)
 					{
 						_print.println("Numbers Only!");
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("restart"))
 				{
 					try
@@ -498,27 +502,26 @@ public class GameStatusThread extends Thread
 						Shutdown.getInstance().startTelnetShutdown(_cSocket.getInetAddress().getHostAddress(), val, true);
 						_print.println("Server Will Restart In " + val + " Seconds!");
 						_print.println("Type \"abort\" To Abort Restart!");
-					} 
+					}
 					catch (StringIndexOutOfBoundsException e)
 					{
 						_print.println("Please Enter * amount of seconds to restart!");
-					} 
+					}
 					catch (Exception NumberFormatException)
 					{
 						_print.println("Numbers Only!");
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("abort"))
 				{
 					Shutdown.getInstance().telnetAbort(_cSocket.getInetAddress().getHostAddress());
 					_print.println("OK! - Shutdown/Restart Aborted.");
-				} 
+				}
 				else if (_usrCommand.equals("quit"))
 				{ /*
-				 * Do Nothing :p - Just here to save us from the
-				 * "Command Not Understood" Text
+				 * Do Nothing :p - Just here to save us from the "Command Not Understood" Text
 				 */
-				} 
+				}
 				else if (_usrCommand.startsWith("give"))
 				{
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(5));
@@ -538,11 +541,11 @@ public class GameStatusThread extends Thread
 							player.sendPacket(iu);
 							_print.println("ok");
 						}
-					} 
+					}
 					catch (Exception e)
 					{
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("jail"))
 				{
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(5));
@@ -553,10 +556,10 @@ public class GameStatusThread extends Thread
 						try
 						{
 							delay = Integer.parseInt(st.nextToken());
-						} 
+						}
 						catch (NumberFormatException nfe)
 						{
-						} 
+						}
 						catch (NoSuchElementException nsee)
 						{
 						}
@@ -565,17 +568,18 @@ public class GameStatusThread extends Thread
 						{
 							playerObj.setInJail(true, delay);
 							_print.println("Character " + playerObj.getName() + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
-						} 
+						}
 						else
-							jailOfflinePlayer(playerObj.getName(), delay); 
-					} 
+							jailOfflinePlayer(playerObj.getName(), delay);
+					}
 					catch (NoSuchElementException nsee)
 					{
 						_print.println("Specify a character name.");
-					} 
+					}
 					catch (Exception e)
 					{
-						if (Config.DEBUG) e.printStackTrace(); 
+						if (Config.DEBUG)
+							e.printStackTrace();
 					}
 				}
 				else if (_usrCommand.startsWith("unjail"))
@@ -589,7 +593,7 @@ public class GameStatusThread extends Thread
 							playerObj.stopJailTask(false);
 							playerObj.setInJail(false, 0);
 							_print.println("Character " + playerObj.getName() + " removed from jail");
-						} 
+						}
 						else
 						{
 							unjailOfflinePlayer(playerObj.getName());
@@ -601,7 +605,8 @@ public class GameStatusThread extends Thread
 					}
 					catch (Exception e)
 					{
-						if (Config.DEBUG) e.printStackTrace(); 
+						if (Config.DEBUG)
+							e.printStackTrace();
 					}
 				}
 				else if (_usrCommand.startsWith("debug") && (_usrCommand.length() > 6))
@@ -617,10 +622,7 @@ public class GameStatusThread extends Thread
 						else if (dbg.equals("ai"))
 						{
 							/*
-							 * _print.println("AITaskManagerStats");
-							 * for(String line :
-							 * AITaskManager.getInstance().getStats()) {
-							 * _print.println(line); }
+							 * _print.println("AITaskManagerStats"); for(String line : AITaskManager.getInstance().getStats()) { _print.println(line); }
 							 */
 						}
 						else if (dbg.equals("aiflush"))
@@ -684,7 +686,7 @@ public class GameStatusThread extends Thread
 							out.close();
 							fos.close();
 						}
-					} 
+					}
 					catch (Exception e)
 					{
 					}
@@ -700,7 +702,7 @@ public class GameStatusThread extends Thread
 							_print.print("Reloading multisell... ");
 							L2Multisell.getInstance().reload();
 							_print.print("done\n");
-						} 
+						}
 						else if (type.equals("skill"))
 						{
 							_print.print("Reloading skills... ");
@@ -712,7 +714,7 @@ public class GameStatusThread extends Thread
 							_print.print("Reloading npc templates... ");
 							NpcTable.getInstance().reloadAllNpc();
 							_print.print("done\n");
-						} 
+						}
 						else if (type.equals("html"))
 						{
 							_print.print("Reloading html cache... ");
@@ -730,7 +732,7 @@ public class GameStatusThread extends Thread
 							_print.print("Reloading instance managers... ");
 							Manager.reloadAll();
 							_print.print("done\n");
-						} 
+						}
 						else if (type.equals("zone"))
 						{
 							_print.print("Reloading zone tables... ");
@@ -743,11 +745,11 @@ public class GameStatusThread extends Thread
 							// ZoneManager.getInstance().reload();
 							_print.print("done\n");
 						}
-					} 
+					}
 					catch (Exception e)
 					{
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("gamestat"))
 				{
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(9));
@@ -760,7 +762,7 @@ public class GameStatusThread extends Thread
 							for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 							{
 								if (player.getPrivateStoreType() == 0)
-									continue; 
+									continue;
 								TradeList list = null;
 								String content = "";
 								if (player.getPrivateStoreType() == 1) // sell
@@ -773,7 +775,7 @@ public class GameStatusThread extends Thread
 									content = player.getName() + ";" + "sell;" + player.getX() + ";" + player.getY() + ";" + content;
 									_print.println(content);
 									continue;
-								} 
+								}
 								else if (player.getPrivateStoreType() == 3) // buy
 								{
 									list = player.getBuyList();
@@ -787,11 +789,11 @@ public class GameStatusThread extends Thread
 								}
 							}
 						}
-					} 
+					}
 					catch (Exception e)
 					{
 					}
-				} 
+				}
 				else if (_usrCommand.startsWith("extreload"))
 				{
 					String[] args = _usrCommand.split("\\s+");
@@ -801,10 +803,10 @@ public class GameStatusThread extends Thread
 						{
 							DynamicExtension.getInstance().reload(args[i]);
 						}
-					} 
+					}
 					else
 						DynamicExtension.getInstance().reload();
-				} 
+				}
 				else if (_usrCommand.startsWith("extinit"))
 				{
 					String[] args = _usrCommand.split("\\s+");
@@ -814,10 +816,10 @@ public class GameStatusThread extends Thread
 						{
 							_print.print(DynamicExtension.getInstance().initExtension(args[i]) + "\r\n");
 						}
-					} 
+					}
 					else
-						_print.print(DynamicExtension.getInstance().initExtensions()); 
-				} 
+						_print.print(DynamicExtension.getInstance().initExtensions());
+				}
 				else if (_usrCommand.startsWith("extunload"))
 				{
 					String[] args = _usrCommand.split("\\s+");
@@ -827,10 +829,10 @@ public class GameStatusThread extends Thread
 						{
 							_print.print(DynamicExtension.getInstance().unloadExtension(args[i]) + "\r\n");
 						}
-					} 
+					}
 					else
-						_print.print(DynamicExtension.getInstance().unloadExtensions()); 
-				} 
+						_print.print(DynamicExtension.getInstance().unloadExtensions());
+				}
 				else if (_usrCommand.startsWith("extlist"))
 				{
 					for (String e : DynamicExtension.getInstance().getExtensions())
@@ -845,34 +847,34 @@ public class GameStatusThread extends Thread
 					{
 						String[] args = _usrCommand.substring(3).split("\\s+");
 						if (args.length == 1)
-							o = DynamicExtension.getInstance().get(args[0], null); 
+							o = DynamicExtension.getInstance().get(args[0], null);
 						else
-							o = DynamicExtension.getInstance().get(args[0], args[1]); 
+							o = DynamicExtension.getInstance().get(args[0], args[1]);
 					}
 					catch (Exception ex)
 					{
 						_print.print(ex.toString() + "\r\n");
 					}
 					if (o != null)
-						_print.print(o.toString() + "\r\n"); 
-				} 
+						_print.print(o.toString() + "\r\n");
+				}
 				else if (_usrCommand.length() > 0)
 				{
 					try
 					{
 						String[] args = _usrCommand.split("\\s+");
 						if (args.length == 1)
-							DynamicExtension.getInstance().set(args[0], null, null); 
+							DynamicExtension.getInstance().set(args[0], null, null);
 						else if (args.length == 2)
-							DynamicExtension.getInstance().set(args[0], null, args[1]); 
+							DynamicExtension.getInstance().set(args[0], null, args[1]);
 						else
-							DynamicExtension.getInstance().set(args[0], args[1], args[2]); 
-					} 
+							DynamicExtension.getInstance().set(args[0], args[1], args[2]);
+					}
 					catch (Exception ex)
 					{
 						_print.print(ex.toString());
 					}
-				} 
+				}
 				else if (_usrCommand.length() == 0)
 				{ /*
 				 * Do Nothing Again - Same reason as the quit part
@@ -888,7 +890,7 @@ public class GameStatusThread extends Thread
 				_cSocket.close();
 			}
 			telnetOutput(1, "Connection from " + _cSocket.getInetAddress().getHostAddress() + " was closed by client.");
-		} 
+		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
@@ -901,33 +903,33 @@ public class GameStatusThread extends Thread
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
-		    PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
-		    statement.setInt(1, -114356);
-		    statement.setInt(2, -249645);
-		    statement.setInt(3, -2984);
-		    statement.setInt(4, 1);
-		    statement.setLong(5, delay * 60000L);
-		    statement.setString(6, name);
-		    statement.execute();
-		    int count = statement.getUpdateCount();
-		    statement.close();
-		    if (count == 0)
-		    	_print.println("Character not found!"); 
-		    else
-		    	_print.println("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!")); 
-		} 
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
+			statement.setInt(1, -114356);
+			statement.setInt(2, -249645);
+			statement.setInt(3, -2984);
+			statement.setInt(4, 1);
+			statement.setLong(5, delay * 60000L);
+			statement.setString(6, name);
+			statement.execute();
+			int count = statement.getUpdateCount();
+			statement.close();
+			if (count == 0)
+				_print.println("Character not found!");
+			else
+				_print.println("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
+		}
 		catch (SQLException se)
 		{
 			_print.println("SQLException while jailing player");
 			if (Config.DEBUG)
-				se.printStackTrace(); 
-		} 
+				se.printStackTrace();
+		}
 		finally
 		{
 			try
 			{
 				con.close();
-			} 
+			}
 			catch (Exception e)
 			{
 			}
@@ -939,34 +941,34 @@ public class GameStatusThread extends Thread
 		Connection con = null;
 		try
 		{
-		    con = L2DatabaseFactory.getInstance().getConnection();
-		    PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
-		    statement.setInt(1, 17836);
-		    statement.setInt(2, 170178);
-		    statement.setInt(3, -3507);
-		    statement.setInt(4, 0);
-		    statement.setLong(5, 0);
-		    statement.setString(6, name);
-		    statement.execute();
-		    int count = statement.getUpdateCount();
-		    statement.close();
-		    if (count == 0)
-		    	_print.println("Character not found!"); 
-		    else
-		    	_print.println("Character " + name + " set free."); 
-		} 
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?, in_jail=?, jail_timer=? WHERE char_name=?");
+			statement.setInt(1, 17836);
+			statement.setInt(2, 170178);
+			statement.setInt(3, -3507);
+			statement.setInt(4, 0);
+			statement.setLong(5, 0);
+			statement.setString(6, name);
+			statement.execute();
+			int count = statement.getUpdateCount();
+			statement.close();
+			if (count == 0)
+				_print.println("Character not found!");
+			else
+				_print.println("Character " + name + " set free.");
+		}
 		catch (SQLException se)
 		{
 			_print.println("SQLException while jailing player");
 			if (Config.DEBUG)
-				se.printStackTrace(); 
-		} 
+				se.printStackTrace();
+		}
 		finally
 		{
 			try
 			{
 				con.close();
-			} 
+			}
 			catch (Exception e)
 			{
 			}

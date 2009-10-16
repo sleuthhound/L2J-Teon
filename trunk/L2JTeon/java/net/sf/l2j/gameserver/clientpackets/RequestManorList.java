@@ -22,38 +22,37 @@ import net.sf.l2j.gameserver.serverpackets.ExSendManorList;
  * Format: ch c (id) 0xD0 h (subid) 0x08
  * 
  * @author l3x
- * 
  */
 public class RequestManorList extends L2GameClientPacket
 {
-    private static final String _C__FE_08_REQUESTMANORLIST = "[S] FE:08 RequestManorList";
+	private static final String _C__FE_08_REQUESTMANORLIST = "[S] FE:08 RequestManorList";
 
-    @Override
-    protected void readImpl()
-    {
-    }
+	@Override
+	protected void readImpl()
+	{
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance player = getClient().getActiveChar();
-	FastList<String> manorsName = new FastList<String>();
-	manorsName.add("gludio");
-	manorsName.add("dion");
-	manorsName.add("giran");
-	manorsName.add("oren");
-	manorsName.add("aden");
-	manorsName.add("innadril");
-	manorsName.add("goddard");
-	manorsName.add("rune");
-	manorsName.add("schuttgart");
-	ExSendManorList manorlist = new ExSendManorList(manorsName);
-	player.sendPacket(manorlist);
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		FastList<String> manorsName = new FastList<String>();
+		manorsName.add("gludio");
+		manorsName.add("dion");
+		manorsName.add("giran");
+		manorsName.add("oren");
+		manorsName.add("aden");
+		manorsName.add("innadril");
+		manorsName.add("goddard");
+		manorsName.add("rune");
+		manorsName.add("schuttgart");
+		ExSendManorList manorlist = new ExSendManorList(manorsName);
+		player.sendPacket(manorlist);
+	}
 
-    @Override
-    public String getType()
-    {
-	return _C__FE_08_REQUESTMANORLIST;
-    }
+	@Override
+	public String getType()
+	{
+		return _C__FE_08_REQUESTMANORLIST;
+	}
 }

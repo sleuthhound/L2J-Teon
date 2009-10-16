@@ -23,48 +23,47 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class CreatureSay extends L2GameServerPacket
 {
-    // ddSS
-    private static final String _S__4A_CREATURESAY = "[S] 4A CreatureSay";
-    private int _objectId;
-    private int _textType;
-    private String _charName;
-    private String _text;
+	// ddSS
+	private static final String _S__4A_CREATURESAY = "[S] 4A CreatureSay";
+	private int _objectId;
+	private int _textType;
+	private String _charName;
+	private String _text;
 
-    /**
-     * @param _characters
-     */
-    public CreatureSay(int objectId, int messageType, String charName, String text)
-    {
-	_objectId = objectId;
-	_textType = messageType;
-	_charName = charName;
-	_text = text;
-	// setLifeTime(0);
-    }
-
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x4a);
-	writeD(_objectId);
-	writeD(_textType);
-	writeS(_charName);
-	writeS(_text);
-	L2PcInstance _pci = getClient().getActiveChar();
-	if (_pci != null)
+	/**
+	 * @param _characters
+	 */
+	public CreatureSay(int objectId, int messageType, String charName, String text)
 	{
-	    _pci.broadcastSnoop(_textType, _charName, _text);
+		_objectId = objectId;
+		_textType = messageType;
+		_charName = charName;
+		_text = text;
+		// setLifeTime(0);
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__4A_CREATURESAY;
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x4a);
+		writeD(_objectId);
+		writeD(_textType);
+		writeS(_charName);
+		writeS(_text);
+		L2PcInstance _pci = getClient().getActiveChar();
+		if (_pci != null)
+		{
+			_pci.broadcastSnoop(_textType, _charName, _text);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__4A_CREATURESAY;
+	}
 }

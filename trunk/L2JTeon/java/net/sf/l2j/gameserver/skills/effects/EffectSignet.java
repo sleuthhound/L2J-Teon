@@ -35,17 +35,13 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillMagicOnGround;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.util.Point3D;
 
-
 /**
  * @author Forsaiken
  */
-
 public class EffectSignet extends L2Effect
 {
 	static Logger _log = Logger.getLogger(EffectSignet.class.getName());
-
 	private L2Spawn _spawn;
-
 	protected L2SignetZone zone;
 
 	public EffectSignet(Env env, EffectTemplate template)
@@ -59,13 +55,9 @@ public class EffectSignet extends L2Effect
 		int x = getEffected().getX();
 		int y = getEffected().getY();
 		int z = getEffected().getZ();
-
-		if (getEffected() instanceof L2PcInstance
-				&& getSkill().getTargetType() == SkillTargetType.TARGET_SIGNET_GROUND)
+		if (getEffected() instanceof L2PcInstance && getSkill().getTargetType() == SkillTargetType.TARGET_SIGNET_GROUND)
 		{
-			Point3D wordPosition = ((L2PcInstance) getEffected())
-					.getCurrentSkillWorldPosition();
-
+			Point3D wordPosition = ((L2PcInstance) getEffected()).getCurrentSkillWorldPosition();
 			if (wordPosition != null)
 			{
 				x = wordPosition.getX();
@@ -73,9 +65,7 @@ public class EffectSignet extends L2Effect
 				z = wordPosition.getZ();
 			}
 		}
-
-		L2NpcTemplate template = NpcTable.getInstance().getTemplate(
-				((L2SkillMagicOnGround) getSkill()).effectNpcId);
+		L2NpcTemplate template = NpcTable.getInstance().getTemplate(((L2SkillMagicOnGround) getSkill()).effectNpcId);
 		if (template != null)
 		{
 			try
@@ -90,37 +80,25 @@ public class EffectSignet extends L2Effect
 				SpawnTable.getInstance().addNewSpawn(_spawn, false);
 				_spawn.init();
 				_spawn.stopRespawn();
-			} catch (Throwable e)
+			}
+			catch (Throwable e)
 			{
 				e.printStackTrace();
 			}
 		}
-
 		L2WorldRegion region = getEffected().getWorldRegion();
-
-		L2Skill skill = SkillTable.getInstance()
-				.getInfo(((L2SkillMagicOnGround) getSkill()).triggerEffectId,
-						getLevel());
-
+		L2Skill skill = SkillTable.getInstance().getInfo(((L2SkillMagicOnGround) getSkill()).triggerEffectId, getLevel());
 		if (skill == null)
 		{
-			_log.warning("EffectSignet: Could not get the tigger effect "
-					+ ((L2SkillMagicOnGround) getSkill()).triggerEffectId);
+			_log.warning("EffectSignet: Could not get the tigger effect " + ((L2SkillMagicOnGround) getSkill()).triggerEffectId);
 			onExit();
 			return;
 		}
-
-		zone = new L2SignetZone(region, getEffected(), !getSkill()
-				.isOffensive(), getSkill().getId(), skill);
-
-		zone.setZone(new ZoneCylinder(x, y, z - 200, z + 200, getSkill()
-				.getSkillRadius()));
-
+		zone = new L2SignetZone(region, getEffected(), !getSkill().isOffensive(), getSkill().getId(), skill);
+		zone.setZone(new ZoneCylinder(x, y, z - 200, z + 200, getSkill().getSkillRadius()));
 		region.addZone(zone);
-
 		for (L2Character c : getEffected().getKnownList().getKnownCharacters())
 			zone.revalidateInZone(c);
-
 		zone.revalidateInZone(getEffected());
 	}
 
@@ -132,7 +110,6 @@ public class EffectSignet extends L2Effect
 			_spawn.getLastSpawn().deleteMe();
 			SpawnTable.getInstance().deleteSpawn(_spawn, false);
 		}
-
 		if (zone != null)
 			zone.remove();
 	}
@@ -147,17 +124,13 @@ public class EffectSignet extends L2Effect
 	public boolean onActionTime()
 	{
 		int mpConsume = getSkill().getMpConsume();
-
 		if (mpConsume > getEffected().getCurrentMp())
 		{
-			getEffected()
-					.sendPacket(
-							new SystemMessage(
-									SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
+			getEffected().sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 			return false;
-		} else
+		}
+		else
 			getEffected().reduceCurrentMp(mpConsume);
-
 		return true;
 	}
 }

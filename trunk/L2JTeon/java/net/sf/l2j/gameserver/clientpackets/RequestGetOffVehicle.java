@@ -21,41 +21,39 @@ import net.sf.l2j.gameserver.serverpackets.GetOffVehicle;
 
 /**
  * @author Maktakien
- * 
  */
 public final class RequestGetOffVehicle extends L2GameClientPacket
 {
-    private int _id, _x, _y, _z;
+	private int _id, _x, _y, _z;
 
-    @Override
-    protected void readImpl()
-    {
-	_id = readD();
-	_x = readD();
-	_y = readD();
-	_z = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_id = readD();
+		_x = readD();
+		_y = readD();
+		_z = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	L2BoatInstance boat = BoatManager.getInstance().GetBoat(_id);
-	GetOffVehicle Gon = new GetOffVehicle(activeChar, boat, _x, _y, _z);
-	activeChar.broadcastPacket(Gon);
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		L2BoatInstance boat = BoatManager.getInstance().GetBoat(_id);
+		GetOffVehicle Gon = new GetOffVehicle(activeChar, boat, _x, _y, _z);
+		activeChar.broadcastPacket(Gon);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	// TODO Auto-generated method stub
-	return "[S] 5d GetOffVehicle";
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		// TODO Auto-generated method stub
+		return "[S] 5d GetOffVehicle";
+	}
 }

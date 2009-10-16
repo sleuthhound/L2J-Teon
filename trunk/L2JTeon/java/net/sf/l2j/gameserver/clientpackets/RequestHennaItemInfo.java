@@ -27,42 +27,41 @@ import net.sf.l2j.gameserver.templates.L2Henna;
  */
 public final class RequestHennaItemInfo extends L2GameClientPacket
 {
-    private static final String _C__BB_RequestHennaItemInfo = "[C] bb RequestHennaItemInfo";
-    // private static Logger _log =
-    // Logger.getLogger(RequestHennaItemInfo.class.getName());
-    private int _symbolId;
+	private static final String _C__BB_RequestHennaItemInfo = "[C] bb RequestHennaItemInfo";
+	// private static Logger _log =
+	// Logger.getLogger(RequestHennaItemInfo.class.getName());
+	private int _symbolId;
 
-    // format cd
-    /**
-     * packet type id 0xbb format: cd
-     * 
-     * @param decrypt
-     */
-    @Override
-    protected void readImpl()
-    {
-	_symbolId = readD();
-    }
+	// format cd
+	/**
+	 * packet type id 0xbb format: cd
+	 * 
+	 * @param decrypt
+	 */
+	@Override
+	protected void readImpl()
+	{
+		_symbolId = readD();
+	}
 
-    @Override
-    protected void runImpl()
-    {
-	L2PcInstance activeChar = getClient().getActiveChar();
-	if (activeChar == null)
-	    return;
-	L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
-	if (template != null)
-	    activeChar.sendPacket(new HennaItemInfo(new L2HennaInstance(template), activeChar));
-    }
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
+		if (template != null)
+			activeChar.sendPacket(new HennaItemInfo(new L2HennaInstance(template), activeChar));
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__BB_RequestHennaItemInfo;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__BB_RequestHennaItemInfo;
+	}
 }

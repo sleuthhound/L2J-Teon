@@ -18,36 +18,35 @@ import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**
  * @author -Wooden-
- * 
  */
 public class ChangeAccessLevel extends ClientBasePacket
 {
-    private int _level;
-    private String _account;
+	private int _level;
+	private String _account;
 
-    /**
-     * @param decrypt
-     */
-    public ChangeAccessLevel(byte[] decrypt)
-    {
-	super(decrypt);
-	_level = readD();
-	_account = readS();
-    }
+	/**
+	 * @param decrypt
+	 */
+	public ChangeAccessLevel(byte[] decrypt)
+	{
+		super(decrypt);
+		_level = readD();
+		_account = readS();
+	}
 
-    /**
-     * @return Returns the account.
-     */
-    public String getAccount()
-    {
-	return _account;
-    }
+	/**
+	 * @return Returns the account.
+	 */
+	public String getAccount()
+	{
+		return _account;
+	}
 
-    /**
-     * @return Returns the level.
-     */
-    public int getLevel()
-    {
-	return _level;
-    }
+	/**
+	 * @return Returns the level.
+	 */
+	public int getLevel()
+	{
+		return _level;
+	}
 }

@@ -21,44 +21,43 @@ import net.sf.l2j.gameserver.skills.effects.EffectSpellForce;
 
 /**
  * @author kombat
- *
  */
 public class ConditionForceBuff extends Condition
 {
-    private static int BATTLE_FORCE = 5104;
-    private static int SPELL_FORCE = 5105;
-    private int _battleForces;
-    private int _spellForces;
+	private static int BATTLE_FORCE = 5104;
+	private static int SPELL_FORCE = 5105;
+	private int _battleForces;
+	private int _spellForces;
 
-    public ConditionForceBuff(int[] forces)
-    {
-	_battleForces = forces[0];
-	_spellForces = forces[1];
-    }
-
-    public ConditionForceBuff(int battle, int spell)
-    {
-	_battleForces = battle;
-	_spellForces = spell;
-    }
-
-    @Override
-    public boolean testImpl(Env env)
-    {
-	int neededBattle = _battleForces;
-	if (neededBattle > 0)
+	public ConditionForceBuff(int[] forces)
 	{
-	    L2Effect battleForce = env.player.getFirstEffect(BATTLE_FORCE);
-	    if (!(battleForce instanceof EffectBattleForce) || (((EffectBattleForce) battleForce).forces < neededBattle))
-		return false;
+		_battleForces = forces[0];
+		_spellForces = forces[1];
 	}
-	int neededSpell = _spellForces;
-	if (neededSpell > 0)
+
+	public ConditionForceBuff(int battle, int spell)
 	{
-	    L2Effect spellForce = env.player.getFirstEffect(SPELL_FORCE);
-	    if (!(spellForce instanceof EffectSpellForce) || (((EffectSpellForce) spellForce).forces < neededSpell))
-		return false;
+		_battleForces = battle;
+		_spellForces = spell;
 	}
-	return true;
-    }
+
+	@Override
+	public boolean testImpl(Env env)
+	{
+		int neededBattle = _battleForces;
+		if (neededBattle > 0)
+		{
+			L2Effect battleForce = env.player.getFirstEffect(BATTLE_FORCE);
+			if (!(battleForce instanceof EffectBattleForce) || (((EffectBattleForce) battleForce).forces < neededBattle))
+				return false;
+		}
+		int neededSpell = _spellForces;
+		if (neededSpell > 0)
+		{
+			L2Effect spellForce = env.player.getFirstEffect(SPELL_FORCE);
+			if (!(spellForce instanceof EffectSpellForce) || (((EffectSpellForce) spellForce).forces < neededSpell))
+				return false;
+		}
+		return true;
+	}
 }

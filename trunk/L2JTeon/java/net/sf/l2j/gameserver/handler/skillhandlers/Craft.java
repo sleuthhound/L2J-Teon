@@ -31,35 +31,31 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class Craft implements ISkillHandler
 {
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance,
-     *      net.sf.l2j.gameserver.model.L2ItemInstance)
-     */
-    private static final SkillType[] SKILL_IDS = { SkillType.COMMON_CRAFT, SkillType.DWARVEN_CRAFT };
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
+	 */
+	private static final SkillType[] SKILL_IDS = { SkillType.COMMON_CRAFT, SkillType.DWARVEN_CRAFT };
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance,
-     *      net.sf.l2j.gameserver.model.L2ItemInstance)
-     */
-    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-    {
-	if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
-	    return;
-	L2PcInstance player = (L2PcInstance) activeChar;
-	if (player.getPrivateStoreType() != 0)
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
+	 */
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-	    player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_CREATED_WHILE_ENGAGED_IN_TRADING));
-	    return;
+		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+			return;
+		L2PcInstance player = (L2PcInstance) activeChar;
+		if (player.getPrivateStoreType() != 0)
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_CREATED_WHILE_ENGAGED_IN_TRADING));
+			return;
+		}
+		RecipeController.getInstance().requestBookOpen(player, skill.getSkillType() == SkillType.DWARVEN_CRAFT ? true : false);
 	}
-	RecipeController.getInstance().requestBookOpen(player, skill.getSkillType() == SkillType.DWARVEN_CRAFT ? true : false);
-    }
 
-    public SkillType[] getSkillIds()
-    {
-	return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

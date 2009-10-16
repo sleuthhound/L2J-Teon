@@ -16,14 +16,13 @@ package net.sf.l2j.gameserver.serverpackets;
 
 /**
  * @author Kerberos
- *
  */
 public class ExShowScreenMessage extends L2GameServerPacket
 {
 	private String _text;
 	private int _time;
 
-	public ExShowScreenMessage (String text, int time)
+	public ExShowScreenMessage(String text, int time)
 	{
 		_text = text;
 		_time = time;
@@ -40,22 +39,16 @@ public class ExShowScreenMessage extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x39);
-
 		writeD(0x01);
 		writeD(-1);
 		writeD(0x02);
 		writeD(0x00);
 		writeD(0x00);
 		writeD(0x00);
-
 		writeD(0);
 		writeD(0);
-
 		writeD(_time);
-
 		writeD(1);
-
 		writeS(_text);
 	}
-
 }

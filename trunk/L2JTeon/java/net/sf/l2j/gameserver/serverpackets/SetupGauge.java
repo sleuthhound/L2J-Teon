@@ -15,44 +15,41 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * 
- * 
  * sample 0000: 85 00 00 00 00 f0 1a 00 00
  * 
  * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class SetupGauge extends L2GameServerPacket
 {
-    private static final String _S__85_SETUPGAUGE = "[S] 6d SetupGauge";
-    public static final int BLUE = 0;
-    public static final int RED = 1;
-    public static final int CYAN = 2;
-    private int _dat1;
-    private int _time;
+	private static final String _S__85_SETUPGAUGE = "[S] 6d SetupGauge";
+	public static final int BLUE = 0;
+	public static final int RED = 1;
+	public static final int CYAN = 2;
+	private int _dat1;
+	private int _time;
 
-    public SetupGauge(int dat1, int time)
-    {
-	_dat1 = dat1;// color 0-blue 1-red 2-cyan 3-
-	_time = time;
-    }
+	public SetupGauge(int dat1, int time)
+	{
+		_dat1 = dat1;// color 0-blue 1-red 2-cyan 3-
+		_time = time;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x6d);
-	writeD(_dat1);
-	writeD(_time);
-	writeD(_time); // c2
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x6d);
+		writeD(_dat1);
+		writeD(_time);
+		writeD(_time); // c2
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__85_SETUPGAUGE;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__85_SETUPGAUGE;
+	}
 }

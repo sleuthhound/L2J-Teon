@@ -19,37 +19,36 @@ import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * @author The_Joker
- * 
  */
 public class EffectInterrupt extends L2Effect
 {
-    public EffectInterrupt(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
+	public EffectInterrupt(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-	return L2Effect.EffectType.INTERRUPT;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return L2Effect.EffectType.INTERRUPT;
+	}
 
-    @Override
-    public void onStart()
-    {
-	getEffected().abortCast();
-    }
+	@Override
+	public void onStart()
+	{
+		getEffected().abortCast();
+	}
 
-    @Override
-    public void onExit()
-    {
-	// nothing
-    }
+	@Override
+	public void onExit()
+	{
+		// nothing
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-	// nothing
-	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		// nothing
+		return false;
+	}
 }

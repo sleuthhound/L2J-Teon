@@ -26,42 +26,40 @@ import com.l2jserver.mmocore.network.MMOConnection;
 import com.l2jserver.mmocore.network.ReceivablePacket;
 
 /**
- * 
  * @author KenM
  */
-public class SelectorHelper implements IMMOExecutor<L2LoginClient>,
-	IClientFactory<L2LoginClient>, IAcceptFilter
+public class SelectorHelper implements IMMOExecutor<L2LoginClient>, IClientFactory<L2LoginClient>, IAcceptFilter
 {
-    private ThreadPoolExecutor _generalPacketsThreadPool;
+	private ThreadPoolExecutor _generalPacketsThreadPool;
 
-    public SelectorHelper()
-    {
-	_generalPacketsThreadPool = new ThreadPoolExecutor(4, 6, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
-    }
+	public SelectorHelper()
+	{
+		_generalPacketsThreadPool = new ThreadPoolExecutor(4, 6, 15L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+	}
 
-    /**
-     * @see com.l2jserver.mmocore.network.IMMOExecutor#execute(com.l2jserver.mmocore.network.ReceivablePacket)
-     */
-    public void execute(ReceivablePacket<L2LoginClient> packet)
-    {
-	_generalPacketsThreadPool.execute(packet);
-    }
+	/**
+	 * @see com.l2jserver.mmocore.network.IMMOExecutor#execute(com.l2jserver.mmocore.network.ReceivablePacket)
+	 */
+	public void execute(ReceivablePacket<L2LoginClient> packet)
+	{
+		_generalPacketsThreadPool.execute(packet);
+	}
 
-    /**
-     * @see com.l2jserver.mmocore.network.IClientFactory#create(com.l2jserver.mmocore.network.MMOConnection)
-     */
-    public L2LoginClient create(MMOConnection<L2LoginClient> con)
-    {
-	L2LoginClient client = new L2LoginClient(con);
-	client.sendPacket(new Init(client));
-	return client;
-    }
+	/**
+	 * @see com.l2jserver.mmocore.network.IClientFactory#create(com.l2jserver.mmocore.network.MMOConnection)
+	 */
+	public L2LoginClient create(MMOConnection<L2LoginClient> con)
+	{
+		L2LoginClient client = new L2LoginClient(con);
+		client.sendPacket(new Init(client));
+		return client;
+	}
 
-    /**
-     * @see com.l2jserver.mmocore.network.IAcceptFilter#accept(java.nio.channels.SocketChannel)
-     */
-    public boolean accept(SocketChannel sc)
-    {
-	return !LoginController.getInstance().isBannedAddress(sc.socket().getInetAddress());
-    }
+	/**
+	 * @see com.l2jserver.mmocore.network.IAcceptFilter#accept(java.nio.channels.SocketChannel)
+	 */
+	public boolean accept(SocketChannel sc)
+	{
+		return !LoginController.getInstance().isBannedAddress(sc.socket().getInetAddress());
+	}
 }

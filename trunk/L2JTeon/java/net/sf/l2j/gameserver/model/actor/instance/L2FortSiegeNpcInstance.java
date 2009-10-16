@@ -24,61 +24,61 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2FortSiegeNpcInstance extends L2FolkInstance
 {
-    // private static Logger _log =
-    // Logger.getLogger(L2SiegeNpcInstance.class.getName());
-    public L2FortSiegeNpcInstance(int objectID, L2NpcTemplate template)
-    {
-	super(objectID, template);
-    }
-
-    @Override
-    public void onBypassFeedback(L2PcInstance player, String command)
-    {
-	if (player == null)
-	    return;
-	super.onBypassFeedback(player, command);
-    }
-
-    /**
-     * this is called when a player interacts with this NPC
-     * 
-     * @param player
-     */
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-	player.sendPacket(new ActionFailed());
-	player.setTarget(this);
-	player.sendPacket(new MyTargetSelected(getObjectId(), -15));
-	if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-	    showSiegeInfoWindow(player);
-    }
-
-    /**
-     * If siege is in progress shows the Busy HTML<BR>
-     * else Shows the SiegeInfo window
-     * 
-     * @param player
-     */
-    public void showSiegeInfoWindow(L2PcInstance player)
-    {
-	if (validateCondition(player))
-	    getFort().getSiege().listRegisterClan(player);
-	else
+	// private static Logger _log =
+	// Logger.getLogger(L2SiegeNpcInstance.class.getName());
+	public L2FortSiegeNpcInstance(int objectID, L2NpcTemplate template)
 	{
-	    NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-	    html.setFile("data/html/fortsiege/" + getTemplate().npcId + "-busy.htm");
-	    html.replace("%fortname%", getFort().getName());
-	    html.replace("%objectId%", String.valueOf(getObjectId()));
-	    player.sendPacket(html);
-	    player.sendPacket(new ActionFailed());
+		super(objectID, template);
 	}
-    }
 
-    private boolean validateCondition(L2PcInstance player)
-    {
-	if (getFort().getSiege().getIsInProgress())
-	    return false; // Busy because of siege
-	return true;
-    }
+	@Override
+	public void onBypassFeedback(L2PcInstance player, String command)
+	{
+		if (player == null)
+			return;
+		super.onBypassFeedback(player, command);
+	}
+
+	/**
+	 * this is called when a player interacts with this NPC
+	 * 
+	 * @param player
+	 */
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		player.sendPacket(new ActionFailed());
+		player.setTarget(this);
+		player.sendPacket(new MyTargetSelected(getObjectId(), -15));
+		if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+			showSiegeInfoWindow(player);
+	}
+
+	/**
+	 * If siege is in progress shows the Busy HTML<BR>
+	 * else Shows the SiegeInfo window
+	 * 
+	 * @param player
+	 */
+	public void showSiegeInfoWindow(L2PcInstance player)
+	{
+		if (validateCondition(player))
+			getFort().getSiege().listRegisterClan(player);
+		else
+		{
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setFile("data/html/fortsiege/" + getTemplate().npcId + "-busy.htm");
+			html.replace("%fortname%", getFort().getName());
+			html.replace("%objectId%", String.valueOf(getObjectId()));
+			player.sendPacket(html);
+			player.sendPacket(new ActionFailed());
+		}
+	}
+
+	private boolean validateCondition(L2PcInstance player)
+	{
+		if (getFort().getSiege().getIsInProgress())
+			return false; // Busy because of siege
+		return true;
+	}
 }

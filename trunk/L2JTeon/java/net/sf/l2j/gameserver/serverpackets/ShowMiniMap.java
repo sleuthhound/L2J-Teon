@@ -17,40 +17,37 @@ package net.sf.l2j.gameserver.serverpackets;
 import net.sf.l2j.gameserver.SevenSigns;
 
 /**
- * sample
- * 
- * format d
+ * sample format d
  * 
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class ShowMiniMap extends L2GameServerPacket
 {
-    private static final String _S__B6_SHOWMINIMAP = "[S] 9d ShowMiniMap";
-    private int _mapId;
+	private static final String _S__B6_SHOWMINIMAP = "[S] 9d ShowMiniMap";
+	private int _mapId;
 
-    /**
+	/**
      */
-    public ShowMiniMap(int mapId)
-    {
-	_mapId = mapId;
-    }
+	public ShowMiniMap(int mapId)
+	{
+		_mapId = mapId;
+	}
 
-    @Override
-    protected final void writeImpl()
-    {
-	writeC(0x9d);
-	writeD(_mapId);
-	writeD(SevenSigns.getInstance().getCurrentPeriod());
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x9d);
+		writeD(_mapId);
+		writeD(SevenSigns.getInstance().getCurrentPeriod());
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__B6_SHOWMINIMAP;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__B6_SHOWMINIMAP;
+	}
 }

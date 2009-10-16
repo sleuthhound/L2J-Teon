@@ -16,47 +16,46 @@ package net.sf.l2j.gameserver.serverpackets;
 
 /**
  * Format: (ch)ddddd
- * 
  */
 public class ExConfirmVariationRefiner extends L2GameServerPacket
 {
-    private static final String _S__FE_53_EXCONFIRMVARIATIONREFINER = "[S] FE:53 ExConfirmVariationRefiner";
-    private int _refinerItemObjId;
-    private int _lifestoneItemId;
-    private int _gemstoneItemId;
-    private int _gemstoneCount;
-    private int _unk2;
+	private static final String _S__FE_53_EXCONFIRMVARIATIONREFINER = "[S] FE:53 ExConfirmVariationRefiner";
+	private int _refinerItemObjId;
+	private int _lifestoneItemId;
+	private int _gemstoneItemId;
+	private int _gemstoneCount;
+	private int _unk2;
 
-    public ExConfirmVariationRefiner(int refinerItemObjId, int lifeStoneId, int gemstoneItemId, int gemstoneCount)
-    {
-	_refinerItemObjId = refinerItemObjId;
-	_lifestoneItemId = lifeStoneId;
-	_gemstoneItemId = gemstoneItemId;
-	_gemstoneCount = gemstoneCount;
-	_unk2 = 1;
-    }
+	public ExConfirmVariationRefiner(int refinerItemObjId, int lifeStoneId, int gemstoneItemId, int gemstoneCount)
+	{
+		_refinerItemObjId = refinerItemObjId;
+		_lifestoneItemId = lifeStoneId;
+		_gemstoneItemId = gemstoneItemId;
+		_gemstoneCount = gemstoneCount;
+		_unk2 = 1;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
-	writeC(0xfe);
-	writeH(0x53);
-	writeD(_refinerItemObjId);
-	writeD(_lifestoneItemId);
-	writeD(_gemstoneItemId);
-	writeD(_gemstoneCount);
-	writeD(_unk2);
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xfe);
+		writeH(0x53);
+		writeD(_refinerItemObjId);
+		writeD(_lifestoneItemId);
+		writeD(_gemstoneItemId);
+		writeD(_gemstoneCount);
+		writeD(_unk2);
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _S__FE_53_EXCONFIRMVARIATIONREFINER;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _S__FE_53_EXCONFIRMVARIATIONREFINER;
+	}
 }

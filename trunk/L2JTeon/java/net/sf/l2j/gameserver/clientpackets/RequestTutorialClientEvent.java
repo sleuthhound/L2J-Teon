@@ -16,24 +16,24 @@ package net.sf.l2j.gameserver.clientpackets;
 
 public class RequestTutorialClientEvent extends L2GameClientPacket
 {
-    @SuppressWarnings("unused")
-    private static final String _C__CF_REQUEST_TUTORIAL_CLIENT_EVENT = "[C] CF RequestTutorialClientEvent";
-    int event = 0;
+	@SuppressWarnings("unused")
+	private static final String _C__CF_REQUEST_TUTORIAL_CLIENT_EVENT = "[C] CF RequestTutorialClientEvent";
+	int event = 0;
 
-    @Override
-    protected void readImpl()
-    {
-	event = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		event = readD();
+	}
 
-    @Override
-    public void runImpl()
-    {
-    }
+	@Override
+	public void runImpl()
+	{
+	}
 
-    @Override
-    public String getType()
-    {
-	return "[C] 7E RequestTutorialClientEvent";
-    }
+	@Override
+	public String getType()
+	{
+		return "[C] 7E RequestTutorialClientEvent";
+	}
 }

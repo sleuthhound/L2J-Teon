@@ -27,74 +27,80 @@ import net.sf.l2j.L2DatabaseFactory;
  */
 public class CharNameTable
 {
-    private static Logger _log = Logger.getLogger(CharNameTable.class.getName());
-    private static CharNameTable _instance;
+	private static Logger _log = Logger.getLogger(CharNameTable.class.getName());
+	private static CharNameTable _instance;
 
-    public static CharNameTable getInstance()
-    {
-	if (_instance == null)
+	public static CharNameTable getInstance()
 	{
-	    _instance = new CharNameTable();
+		if (_instance == null)
+		{
+			_instance = new CharNameTable();
+		}
+		return _instance;
 	}
-	return _instance;
-    }
 
-    public boolean doesCharNameExist(String name)
-    {
-	boolean result = true;
-	java.sql.Connection con = null;
-	try
+	public boolean doesCharNameExist(String name)
 	{
-	    con = L2DatabaseFactory.getInstance().getConnection();
-	    PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
-	    statement.setString(1, name);
-	    ResultSet rset = statement.executeQuery();
-	    result = rset.next();
-	    rset.close();
-	    statement.close();
-	} catch (SQLException e)
-	{
-	    _log.warning("could not check existing charname:" + e.getMessage());
-	} finally
-	{
-	    try
-	    {
-		con.close();
-	    } catch (Exception e)
-	    {
-	    }
+		boolean result = true;
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT account_name FROM characters WHERE char_name=?");
+			statement.setString(1, name);
+			ResultSet rset = statement.executeQuery();
+			result = rset.next();
+			rset.close();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.warning("could not check existing charname:" + e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		return result;
 	}
-	return result;
-    }
 
-    public int accountCharNumber(String account)
-    {
-	java.sql.Connection con = null;
-	int number = 0;
-	try
+	public int accountCharNumber(String account)
 	{
-	    con = L2DatabaseFactory.getInstance().getConnection();
-	    PreparedStatement statement = con.prepareStatement("SELECT COUNT(char_name) FROM characters WHERE account_name=?");
-	    statement.setString(1, account);
-	    ResultSet rset = statement.executeQuery();
-	    while (rset.next())
-	    {
-		number = rset.getInt(1);
-	    }
-	    rset.close();
-	    statement.close();
-	} catch (SQLException e)
-	{
-	    _log.warning("could not check existing char number:" + e.getMessage());
-	} finally
-	{
-	    try
-	    {
-		con.close();
-	    } catch (Exception e)
-	    {
-	    }
+		java.sql.Connection con = null;
+		int number = 0;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT COUNT(char_name) FROM characters WHERE account_name=?");
+			statement.setString(1, account);
+			ResultSet rset = statement.executeQuery();
+			while (rset.next())
+			{
+				number = rset.getInt(1);
+			}
+			rset.close();
+			statement.close();
+		}
+		catch (SQLException e)
+		{
+			_log.warning("could not check existing char number:" + e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
+		}
+		return number;
 	}
-	return number;
-    }
 }

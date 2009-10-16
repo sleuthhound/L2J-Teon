@@ -25,64 +25,62 @@ import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.util.Rnd;
 
 /**
- * @author littlecrow
- * 
- * Implementation of the Confusion Effect
+ * @author littlecrow Implementation of the Confusion Effect
  */
 final class EffectConfusion extends L2Effect
 {
-    public EffectConfusion(Env env, EffectTemplate template)
-    {
-	super(env, template);
-    }
-
-    @Override
-    public EffectType getEffectType()
-    {
-	return EffectType.CONFUSION;
-    }
-
-    /** Notify started */
-    @Override
-    public void onStart()
-    {
-	getEffected().startConfused();
-	onActionTime();
-    }
-
-    /** Notify exited */
-    @Override
-    public void onExit()
-    {
-	getEffected().stopConfused(this);
-    }
-
-    @Override
-    public boolean onActionTime()
-    {
-	if (Config.DEBUG)
-	    System.out.println(getEffected());
-	List<L2Character> targetList = new FastList<L2Character>();
-	// Getting the possible targets
-	for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
+	public EffectConfusion(Env env, EffectTemplate template)
 	{
-	    if (obj == null)
-		continue;
-	    if ((obj instanceof L2Character) && (obj != getEffected()))
-		targetList.add((L2Character) obj);
+		super(env, template);
 	}
-	// if there is no target, exit function
-	if (targetList.size() == 0)
+
+	@Override
+	public EffectType getEffectType()
 	{
-	    return true;
+		return EffectType.CONFUSION;
 	}
-	// Choosing randomly a new target
-	int nextTargetIdx = Rnd.nextInt(targetList.size());
-	L2Object target = targetList.get(nextTargetIdx);
-	// Attacking the target
-	// getEffected().setTarget(target);
-	getEffected().setTarget(target);
-	getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
-	return true;
-    }
+
+	/** Notify started */
+	@Override
+	public void onStart()
+	{
+		getEffected().startConfused();
+		onActionTime();
+	}
+
+	/** Notify exited */
+	@Override
+	public void onExit()
+	{
+		getEffected().stopConfused(this);
+	}
+
+	@Override
+	public boolean onActionTime()
+	{
+		if (Config.DEBUG)
+			System.out.println(getEffected());
+		List<L2Character> targetList = new FastList<L2Character>();
+		// Getting the possible targets
+		for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
+		{
+			if (obj == null)
+				continue;
+			if ((obj instanceof L2Character) && (obj != getEffected()))
+				targetList.add((L2Character) obj);
+		}
+		// if there is no target, exit function
+		if (targetList.size() == 0)
+		{
+			return true;
+		}
+		// Choosing randomly a new target
+		int nextTargetIdx = Rnd.nextInt(targetList.size());
+		L2Object target = targetList.get(nextTargetIdx);
+		// Attacking the target
+		// getEffected().setTarget(target);
+		getEffected().setTarget(target);
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
+		return true;
+	}
 }

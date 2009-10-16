@@ -20,23 +20,22 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author Forsaiken
  */
-
 public class EffectSignetEffect extends L2Effect
 {
 	public EffectSignetEffect(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-	
+
 	@Override
 	public EffectType getEffectType()
 	{
 		return EffectType.SIGNET_EFFECT;
 	}
-	
+
 	@Override
 	public boolean onActionTime()
-    {
-    	return true;
-    }
+	{
+		return true;
+	}
 }

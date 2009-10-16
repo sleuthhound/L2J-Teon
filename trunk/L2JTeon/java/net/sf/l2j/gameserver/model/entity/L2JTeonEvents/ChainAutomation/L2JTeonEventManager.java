@@ -18,39 +18,39 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 
 /**
- * This class organizes and calls upon the L2J Teon Event Chains which are part
- * of the L2J Teon Event Automation System.<br>
+ * This class organizes and calls upon the L2J Teon Event Chains which are part of the L2J Teon Event Automation System.<br>
  * Part of the L2J Event Automation System.<br>
  * 
  * @author Ahmed
  */
 public class L2JTeonEventManager
 {
-    private static L2JTeonEventManager _instance;
+	private static L2JTeonEventManager _instance;
 
-    public static L2JTeonEventManager getInstance()
-    {
-	if (_instance == null)
+	public static L2JTeonEventManager getInstance()
 	{
-	    System.out.println("Initializing L2JTeon Event Manager");
-	    _instance = new L2JTeonEventManager();
+		if (_instance == null)
+		{
+			System.out.println("Initializing L2JTeon Event Manager");
+			_instance = new L2JTeonEventManager();
+		}
+		return _instance;
 	}
-	return _instance;
-    }
 
-    public L2JTeonEventManager()
-    {
-	init();
-    }
-
-    public void init()
-    {
-	if (!TvTEvent.EventInProgress)
+	public L2JTeonEventManager()
 	{
-	    System.out.println("L2J Teon Event Manager has started the L2J Teon Task Manager.");
-	    ThreadPoolManager.getInstance().scheduleGeneral(new L2JTeonEventChainOne(), 0);
-	} else if (TvTEvent.EventInProgress)
-	    System.out.println("L2J Teon Event Manager is waiting for an event in progress before starting another cycle.");
-	return;
-    }
+		init();
+	}
+
+	public void init()
+	{
+		if (!TvTEvent.EventInProgress)
+		{
+			System.out.println("L2J Teon Event Manager has started the L2J Teon Task Manager.");
+			ThreadPoolManager.getInstance().scheduleGeneral(new L2JTeonEventChainOne(), 0);
+		}
+		else if (TvTEvent.EventInProgress)
+			System.out.println("L2J Teon Event Manager is waiting for an event in progress before starting another cycle.");
+		return;
+	}
 }

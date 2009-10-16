@@ -12,7 +12,6 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 package net.sf.l2j.gameserver.instancemanager.clanhallsiege;
 
 import java.util.Calendar;
@@ -38,7 +37,6 @@ import org.apache.commons.logging.LogFactory;
  * Author: MHard
  * Author: Maxi
  */
-
 public class FortResistSiegeManager extends ClanHallSiege
 {
 	protected static Log _log = LogFactory.getLog(FortResistSiegeManager.class.getName());
@@ -64,8 +62,8 @@ public class FortResistSiegeManager extends ClanHallSiege
 		long siegeDate = restoreSiegeDate(21);
 		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
-		setSiegeDate(tmpDate);	
-		setNewSiegeDate(siegeDate,21,22);
+		setSiegeDate(tmpDate);
+		setNewSiegeDate(siegeDate, 21, 22);
 		// Schedule siege auto start
 		_startSiegeTask.schedule(1000);
 	}
@@ -90,7 +88,6 @@ public class FortResistSiegeManager extends ClanHallSiege
 			schedule(timeRemaining);
 		}
 	};
-
 	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
 	{
 		@Override
@@ -101,7 +98,6 @@ public class FortResistSiegeManager extends ClanHallSiege
 				cancel();
 				return;
 			}
-
 			final long timeRemaining = getSiegeDate().getTimeInMillis() - System.currentTimeMillis();
 			if (timeRemaining <= 0)
 			{
@@ -123,31 +119,29 @@ public class FortResistSiegeManager extends ClanHallSiege
 			_siegeEndDate.add(Calendar.MINUTE, 30);
 			_endSiegeTask.schedule(1000);
 		}
-
 		try
-        {
-            L2NpcTemplate template1;
-            L2Spawn tempSpawn;
-
-            template1 = NpcTable.getInstance().getTemplate(35368); // bloody lord nurka
-            tempSpawn = new L2Spawn(template1);
-            tempSpawn.setLocx(44525);
-            tempSpawn.setLocy(108867);
-            tempSpawn.setLocz(-2020);
-            tempSpawn.setHeading(16384);
-            tempSpawn.setAmount(1);
-            tempSpawn.spawnOne();
-            SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
-            tempSpawn.stopRespawn();
-        			}
-        		catch (Exception e)
-        		{
-        		_log.warn("Nurka spawn fails: " + e.getMessage(), e);
-        	}
-        	finally
-             {
-        	_log.info("Spawning Nurka.");
-           }
+		{
+			L2NpcTemplate template1;
+			L2Spawn tempSpawn;
+			template1 = NpcTable.getInstance().getTemplate(35368); // bloody lord nurka
+			tempSpawn = new L2Spawn(template1);
+			tempSpawn.setLocx(44525);
+			tempSpawn.setLocy(108867);
+			tempSpawn.setLocz(-2020);
+			tempSpawn.setHeading(16384);
+			tempSpawn.setAmount(1);
+			tempSpawn.spawnOne();
+			SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
+			tempSpawn.stopRespawn();
+		}
+		catch (Exception e)
+		{
+			_log.warn("Nurka spawn fails: " + e.getMessage(), e);
+		}
+		finally
+		{
+			_log.info("Spawning Nurka.");
+		}
 	}
 
 	public void endSiege(boolean type)
@@ -161,10 +155,10 @@ public class FortResistSiegeManager extends ClanHallSiege
 			{
 				if (damageInfo != null)
 				{
-					if (damageInfo._damage>tempMaxDamage)
+					if (damageInfo._damage > tempMaxDamage)
 					{
-						tempMaxDamage=damageInfo._damage;
-						clanIdMaxDamage=damageInfo._clan;
+						tempMaxDamage = damageInfo._damage;
+						clanIdMaxDamage = damageInfo._clan;
 					}
 				}
 			}
@@ -175,21 +169,20 @@ public class FortResistSiegeManager extends ClanHallSiege
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), clanIdMaxDamage);
 			}
 		}
-		setNewSiegeDate(getSiegeDate().getTimeInMillis(),21,22);
+		setNewSiegeDate(getSiegeDate().getTimeInMillis(), 21, 22);
 		_startSiegeTask.schedule(1000);
 	}
 
-	public void addSiegeDamage(L2Clan clan,long damage)
+	public void addSiegeDamage(L2Clan clan, long damage)
 	{
-		DamageInfo clanDamage =_clansDamageInfo.get(clan.getClanId());
+		DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
 		if (clanDamage != null)
 			clanDamage._damage += damage;
 		else
 		{
 			clanDamage = new DamageInfo();
-			clanDamage._clan=clan;
+			clanDamage._clan = clan;
 			clanDamage._damage += damage;
-
 			_clansDamageInfo.put(clan.getClanId(), clanDamage);
 		}
 	}

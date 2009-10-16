@@ -23,40 +23,40 @@ import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
  */
 public final class CharacterRestore extends L2GameClientPacket
 {
-    private static final String _C__62_CHARACTERRESTORE = "[C] 62 CharacterRestore";
-    // private static Logger _log =
-    // Logger.getLogger(CharacterRestore.class.getName());
-    // cd
-    private int _charSlot;
+	private static final String _C__62_CHARACTERRESTORE = "[C] 62 CharacterRestore";
+	// private static Logger _log =
+	// Logger.getLogger(CharacterRestore.class.getName());
+	// cd
+	private int _charSlot;
 
-    @Override
-    protected void readImpl()
-    {
-	_charSlot = readD();
-    }
-
-    @Override
-    protected void runImpl()
-    {
-	try
+	@Override
+	protected void readImpl()
 	{
-	    getClient().markRestoredChar(_charSlot);
-	} catch (Exception e)
-	{
+		_charSlot = readD();
 	}
-	CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1, 0);
-	sendPacket(cl);
-	getClient().setCharSelection(cl.getCharInfo());
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-	return _C__62_CHARACTERRESTORE;
-    }
+	@Override
+	protected void runImpl()
+	{
+		try
+		{
+			getClient().markRestoredChar(_charSlot);
+		}
+		catch (Exception e)
+		{
+		}
+		CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1, 0);
+		sendPacket(cl);
+		getClient().setCharSelection(cl.getCharInfo());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__62_CHARACTERRESTORE;
+	}
 }

@@ -21,29 +21,29 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectRecoverForce extends L2Effect
 {
-    public EffectRecoverForce(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
+	public EffectRecoverForce(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-        return EffectType.SIGNET_EFFECT;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.SIGNET_EFFECT;
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-        if (getEffected() instanceof L2PcInstance)
-        {
-            EffectCharge effect = (EffectCharge)getEffected().getFirstEffect(EffectType.CHARGE);
-            if (effect != null)
-            {
-                effect.addNumCharges(1);
-                getEffected().sendPacket(new EtcStatusUpdate((L2PcInstance)getEffected()));
-            }
-        }
-        return true;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		if (getEffected() instanceof L2PcInstance)
+		{
+			EffectCharge effect = (EffectCharge) getEffected().getFirstEffect(EffectType.CHARGE);
+			if (effect != null)
+			{
+				effect.addNumCharges(1);
+				getEffected().sendPacket(new EtcStatusUpdate((L2PcInstance) getEffected()));
+			}
+		}
+		return true;
+	}
 }
