@@ -2026,15 +2026,18 @@ new Stadia(-114413, -213241, -3331)
 					checkWeaponArmor(player, wpn);
 				}
 
-				//Remove shot automation
-				Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
-				for (int itemId : activeSoulShots.values())
+				if(!Config.OLYMPIAD_ALLOW_AUTO_SS)
 				{
- 					player.removeAutoSoulShot(itemId);
-					ExAutoSoulShot atk = new ExAutoSoulShot(itemId, 0);
-					player.sendPacket(atk);
+					//Remove shot automation
+					Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
+					for (int itemId : activeSoulShots.values())
+					{
+						player.removeAutoSoulShot(itemId);
+						ExAutoSoulShot atk = new ExAutoSoulShot(itemId, 0);
+						player.sendPacket(atk);
+					}
+					player.sendSkillList(); 
 				}
-				player.sendSkillList(); 
     		  }
     		  catch (Exception e) {}
     		}
@@ -2385,18 +2388,26 @@ new Stadia(-114413, -213241, -3331)
                 
                 if (!player.isMageClass())
                 {
-                	skill = SkillTable.getInstance().getInfo(1086, 1);
-                    skill.getEffects(player, player);
-                    sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-                    sm.addSkillName(1086);
-                    player.sendPacket(sm);
+                    if(Config.OLYMPIAD_GIVE_HASTE_FIGHTERS) 
+                    {
+	                	skill = SkillTable.getInstance().getInfo(1086, Config.OLYMPIAD_HASTE_LVL);
+	                    skill.getEffects(player, player);
+	                    sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+	                    sm.addSkillName(1086);
+	                    player.sendPacket(sm);
+                    }
                 
-                }else{
-                	skill = SkillTable.getInstance().getInfo(1085, 1);
-                    skill.getEffects(player, player);
-                    sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-                    sm.addSkillName(1085);
-                    player.sendPacket(sm);
+                }
+                else
+                {
+                    if(Config.OLYMPIAD_GIVE_ACUMEN_MAGES) 
+                    {
+	                	skill = SkillTable.getInstance().getInfo(1085, Config.OLYMPIAD_ACUMEN_LVL);
+	                    skill.getEffects(player, player);
+	                    sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+	                    sm.addSkillName(1085);
+	                    player.sendPacket(sm);
+                    }
                 }
     		  } catch (Exception e) { }
      		}
