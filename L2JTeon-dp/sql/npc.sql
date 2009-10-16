@@ -6697,3 +6697,6 @@ insert into npc values
 (32077,32077,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT'),
 (32078,32078,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT'),
 (32079,32079,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT');
+
+INSERT INTO npc VALUES
+(36402, 36402, "Olympiad Host", 0, "", 0, "LineageNPC.a_fighterguild_master_Mhuman", 8, 23.5, 1, "male", "L2OlympiadManager", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "", 0, 0, 0, "LAST_HIT");
