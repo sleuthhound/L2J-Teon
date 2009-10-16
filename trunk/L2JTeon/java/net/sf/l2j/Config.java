@@ -2180,42 +2180,44 @@ public final class Config
 		General.load(is);
 		is.close();
 	                
-                FAILD_FAKEDEATH = Boolean.parseBoolean(General.getProperty("FaildFakeDeath", "True"));
-                /** L2J NPC Buffer by House  */
-                NPCBUFFER_FEATURE_ENABLED				= Boolean.valueOf(General.getProperty("NPCBufferEnabled", "False"));		
-                NPCBUFFER_MAX_SCHEMES					= Integer.parseInt(General.getProperty("NPCBufferMaxSchemesPerChar", "4"));
-                NPCBUFFER_MAX_SKILLS					= Integer.parseInt(General.getProperty("NPCBufferMaxSkllsperScheme", "24"));
-                NPCBUFFER_STORE_SCHEMES					= Boolean.valueOf(General.getProperty("NPCBufferStoreSchemes", "True"));
-                NPCBUFFER_STATIC_BUFF_COST				= Integer.parseInt(General.getProperty("NPCBufferStaticCostPerBuff", "-1"));
+		FAILD_FAKEDEATH = Boolean.parseBoolean(General.getProperty("FaildFakeDeath", "True"));
+		/** L2J NPC Buffer by House  */
+		NPCBUFFER_FEATURE_ENABLED				= Boolean.valueOf(General.getProperty("NPCBufferEnabled", "False"));		
+		NPCBUFFER_MAX_SCHEMES					= Integer.parseInt(General.getProperty("NPCBufferMaxSchemesPerChar", "4"));
+		NPCBUFFER_MAX_SKILLS					= Integer.parseInt(General.getProperty("NPCBufferMaxSkllsperScheme", "24"));
+		NPCBUFFER_STORE_SCHEMES					= Boolean.valueOf(General.getProperty("NPCBufferStoreSchemes", "True"));
+		NPCBUFFER_STATIC_BUFF_COST				= Integer.parseInt(General.getProperty("NPCBufferStaticCostPerBuff", "-1"));
 		
-	    } catch (Exception e)
+	    } 
+	    catch (Exception e)
 	    {
-		e.printStackTrace();
-		throw new Error("Failed to Load " + OLYMPIAD_FILE + " File.");
+	    	e.printStackTrace();
+	    	throw new Error("Failed to Load " + OLYMPIAD_FILE + " File.");
 	    }
 	            
-	            // Olympiad Config File
-	            try
-	            {
-		Properties OlympiadSettings = new Properties();
-		InputStream is = new FileInputStream(new File(OLYMPIAD_FILE));
-		OlympiadSettings.load(is);
-		is.close();
-			OLYMPIAD_ALLOW_AUTO_SS                              = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadAllowAutoSS","True"));
-			OLYMPIAD_GIVE_ACUMEN_MAGES                          = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadGiveAcumenMages","False"));
-			OLYMPIAD_GIVE_HASTE_FIGHTERS                        = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadGiveHasteFighters","True"));
-			OLYMPIAD_ACUMEN_LVL                                 = Integer.parseInt(OlympiadSettings.getProperty("OlympiadAcumenLvl", "1"));
-			OLYMPIAD_HASTE_LVL                                  = Integer.parseInt(OlympiadSettings.getProperty("OlympiadHasteLvl", "2"));
-		
-	    } catch (Exception e)
+	    // Olympiad Config File
+	    try
 	    {
-		e.printStackTrace();
-		throw new Error("Failed to Load " + OLYMPIAD_FILE + " File.");
+	    	Properties OlympiadSettings = new Properties();
+	    	InputStream is = new FileInputStream(new File(OLYMPIAD_FILE));
+	    	OlympiadSettings.load(is);
+	    	is.close();
+	    	OLYMPIAD_ALLOW_AUTO_SS = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadAllowAutoSS","True"));
+			OLYMPIAD_GIVE_ACUMEN_MAGES = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadGiveAcumenMages","False"));
+			OLYMPIAD_GIVE_HASTE_FIGHTERS = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadGiveHasteFighters","True"));
+			OLYMPIAD_ACUMEN_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadAcumenLvl", "1"));
+			OLYMPIAD_HASTE_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadHasteLvl", "2"));
+		
+	    } 
+	    catch (Exception e)
+	    {
+	    	e.printStackTrace();
+	    	throw new Error("Failed to Load " + OLYMPIAD_FILE + " File.");
 	    }
 	            
-	            // Feature Config File
-	            try
-	            {
+	    // Feature Config File
+	    try
+	    {
 		Properties Feature = new Properties();
 		InputStream is = new FileInputStream(new File(FEATURE_CONFIG_FILE));
 		Feature.load(is);
