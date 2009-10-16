@@ -307,6 +307,7 @@ public class Olympiad
     protected static L2FastList<StatsSet> _heroesToBe;
     protected static L2FastList<L2PcInstance> _nonClassBasedRegisters;
     protected static Map<Integer, L2FastList<L2PcInstance>> _classBasedRegisters;
+    protected static Map<String, L2PcInstance> _IPRegisters;
 
     private static final String OLYMPIAD_DATA_FILE = "config/olympiad.properties";
     public static final String OLYMPIAD_HTML_FILE = "data/html/olympiad/";
@@ -599,6 +600,11 @@ new Stadia(-114413, -213241, -3331)
     	_nonClassBasedRegisters = new L2FastList<L2PcInstance>();
         _classBasedRegisters = new FastMap<Integer, L2FastList<L2PcInstance>>();
 
+        if (Config.DISABLE_OLY_DUALBOX)
+        {
+            _IPRegisters = new FastMap<String, L2PcInstance>();
+        }
+        
         _compStart = Calendar.getInstance();
         _compStart.set(Calendar.HOUR_OF_DAY, COMP_START);
         _compStart.set(Calendar.MINUTE, COMP_MIN);
@@ -760,6 +766,28 @@ new Stadia(-114413, -213241, -3331)
         	
         }
         
+        if (Config.DISABLE_OLY_DUALBOX)
+        {
+            if (_IPRegisters.containsKey(noble.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress()))
+            {
+                L2PcInstance classed = _IPRegisters.get(noble.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress());
+                if (classed != null)
+                {
+                    noble.sendMessage("Dual box is not allowed on Olympiad.");
+                    return false;
+                } 
+                else
+                {
+                    _IPRegisters.remove(noble.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress());
+                    _IPRegisters.put(noble.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress(), noble);
+                }
+            } 
+            else
+            {
+                _IPRegisters.put(noble.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress(), noble);
+            }
+        }
+        
         if (classBased && getNoblePoints(noble.getObjectId()) < 3)
         {
             noble.sendMessage("Cant register when you have less than 3 points");
@@ -860,6 +888,11 @@ new Stadia(-114413, -213241, -3331)
             return false;
         }
 
+        if (Config.DISABLE_OLY_DUALBOX)
+        {
+            _IPRegisters.remove(noble.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress());
+        }
+        
         if (_nonClassBasedRegisters.contains(noble))
             _nonClassBasedRegisters.remove(noble);
         else
@@ -1672,6 +1705,11 @@ new Stadia(-114413, -213241, -3331)
     		_olympiadInstances.clear();
             _classBasedRegisters.clear();
             _nonClassBasedRegisters.clear();
+            
+            if (Config.DISABLE_OLY_DUALBOX)
+            {
+                _IPRegisters.clear();
+            }
 
             _battleStarted = false;
     		//_compStarted = false;
