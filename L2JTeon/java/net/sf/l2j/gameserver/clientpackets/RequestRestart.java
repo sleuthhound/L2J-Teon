@@ -63,6 +63,11 @@ public final class RequestRestart extends L2GameClientPacket
 			player.sendMessage("You cant logout in olympiad mode");
 			return;
 		}
+        if(player.getActiveEnchantItem() != null) 
+        { 
+            player.sendMessage("You cant logout while enchanting!"); 
+            return; 
+        }
 		player.getInventory().updateDatabase();
 		if (player.getPrivateStoreType() != 0)
 		{

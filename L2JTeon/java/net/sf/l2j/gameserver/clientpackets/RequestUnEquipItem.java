@@ -73,7 +73,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			activeChar.sendMessage("Your status does not allow you to do that.");
 			return;
 		}
-		if (activeChar.isAttackingNow() || activeChar.isCastingNow())
+		if (activeChar.isCastingNow())
 			return;
 		// Remove augmentation boni
 		if ((item != null) && item.isAugmented())
@@ -102,10 +102,9 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			iu.addModifiedItem(unequiped[i]);
 		}
 		activeChar.sendPacket(iu);
-		activeChar.abortAttack();
+        // On retail you don't stop hitting if unequip something. REOMVED: activeChar.abortAttack(); 
 		activeChar.broadcastUserInfo();
-		// this can be 0 if the user pressed the right mousebutton twice very
-		// fast
+		// this can be 0 if the user pressed the right mousebutton twice very fast
 		if (unequiped.length > 0)
 		{
 			SystemMessage sm = null;
