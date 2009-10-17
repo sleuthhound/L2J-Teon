@@ -148,7 +148,7 @@ public final class RequestActionUse extends L2GameClientPacket
 						// if L2PcInstance is in Olympia and the match isn't
 						// already start, send a Server->Client packet
 						// ActionFailed
-						activeChar.sendPacket(new ActionFailed());
+						activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
 					if ((activeChar.getAccessLevel() < Config.GM_PEACEATTACK) && activeChar.isInsidePeaceZone(pet, target))

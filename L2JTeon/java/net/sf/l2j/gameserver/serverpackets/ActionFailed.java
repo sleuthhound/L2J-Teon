@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver.serverpackets;
 public final class ActionFailed extends L2GameServerPacket
 {
 	private static final String _S__35_ACTIONFAILED = "[S] 25 ActionFailed";
-	public static L2GameServerPacket STATIC_PACKET;
+	public static final ActionFailed        STATIC_PACKET           = new ActionFailed();
 
 	@Override
 	protected void writeImpl()

@@ -220,7 +220,7 @@ public class L2Clan
 	{
 		if (activeChar.isRiding() || activeChar.isFlying())
 		{
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (!getLeader().isOnline())

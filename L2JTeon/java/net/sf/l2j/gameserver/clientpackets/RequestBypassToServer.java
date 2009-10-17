@@ -66,7 +66,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_BYPASS))
 		{
 			activeChar.sendMessage("You Cannot Bypass That Fast. Try Again in a few Second(s)!");
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		try
