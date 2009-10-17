@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2WarehouseInstance; 
 import net.sf.l2j.gameserver.model.item.ItemContainer;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -91,6 +92,17 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 		{
 			player.sendPacket(new ActionFailed());
 		}
+		
+	    L2WarehouseInstance target = null; 
+	                         
+	    if (player.getActiveEnchantItem() != null && target instanceof L2WarehouseInstance) 
+	    {
+	        player.setAccessLevel(-100);
+	        player.setAccountAccesslevel(-100);
+	        Util.handleIllegalPlayerAction(player,"Player "+player.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+	        return; 
+	    }
+	    
 		if (player.getActiveEnchantItem() != null)
 		{
 			player.setAccessLevel(-100);
