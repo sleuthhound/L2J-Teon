@@ -90,7 +90,6 @@ public final class Config
 	public static String SERVER_BUILD_DATE;
 	public static String DATAPACK_VERSION;
 	/** Start AltSettings.properties */
-	public static int MANA_POTION_RES;
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
 	public static boolean AUTO_LOOT_HERBS;
@@ -1190,6 +1189,8 @@ public final class Config
 	/** Code implementation by: Meyknho */
 	public static String ALLOWED_SKILLS; // List of Skills that are allowed for all Classes if CHECK_SKILLS_ON_ENTER = true
 	public static FastList<Integer> ALLOWED_SKILLS_LIST = new FastList<Integer>();
+	// Mana Potion Custom Regeneration
+	public static int MANA_POTION_RES;
 	/**
 	 * Allows the Administrator/Owner the ability to change the default coordinates of ALL characters making them all at the same spawn point.
 	 */
@@ -1517,7 +1518,6 @@ public final class Config
 				InputStream is = new FileInputStream(new File(ALT_SETTINGS_FILE));
 				altSettings.load(is);
 				is.close();
-				MANA_POTION_RES = Integer.parseInt(altSettings.getProperty("ManaPotionMPRes", "200"));
 				ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "False"));
 				SOUL_CRYSTAL_BREAK_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalBreakChance", "10"));
 				SOUL_CRYSTAL_LEVEL_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalLevelChance", "32"));
@@ -2782,6 +2782,7 @@ public final class Config
 				{
 					ALLOWED_SKILLS_LIST.add(Integer.parseInt(id.trim()));
 				}
+				MANA_POTION_RES = Integer.parseInt(L2JTeonCustom.getProperty("ManaPotionMPRes", "200")); // Mana Potion Custom Regeneration
 				SPAWN_CHAR = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomSpawn", "False"));
 				SPAWN_X = Integer.parseInt(L2JTeonCustom.getProperty("SpawnX", ""));
 				SPAWN_Y = Integer.parseInt(L2JTeonCustom.getProperty("SpawnY", ""));
