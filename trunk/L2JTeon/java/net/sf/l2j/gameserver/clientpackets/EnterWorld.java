@@ -411,7 +411,7 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
 		}
 		RegionBBSManager.getInstance().changeCommunityBoard();
-		activeChar.sendPacket(new ActionFailed());
+		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	/**

@@ -94,7 +94,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 		{
 			if (activeChar.getTeleMode() == 1)
 				activeChar.setTeleMode(0);
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
 			return;
 		}
@@ -102,11 +102,11 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 		// without geodata is
 		// disabled
 		{
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else if (activeChar.isAttackingNow() && (activeChar.getActiveWeaponItem() != null) && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
 		{
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
 		{
@@ -116,7 +116,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 			// distance
 			if (activeChar.isOutOfControl() || (dx * dx + dy * dy > 98010000)) // 9900*9900
 			{
-				activeChar.sendPacket(new ActionFailed());
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_targetX, _targetY, _targetZ, 0));
