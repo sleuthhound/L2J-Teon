@@ -533,6 +533,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private L2ItemInstance _arrowItem;
 	// Used for protection after teleport
 	private long _protectEndTime = 0;
+    public boolean isSpawnProtected() { return (_protectEndTime > 0); } 
 	// protects a char from agro mobs when getting up from fake death
 	private long _recentFakeDeathEndTime = 0;
 	/**
