@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.network;
 
 import java.nio.ByteBuffer;
+import java.sql.Time;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.logging.Logger;
 import net.sf.l2j.Config;
