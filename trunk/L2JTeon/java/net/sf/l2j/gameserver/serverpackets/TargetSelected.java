@@ -15,49 +15,53 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 /**
- * format ddddd sample 0000: 39 0b 07 10 48 3e 31 10 48 3a f6 00 00 91 5b 00 9...H>1.H:....[. 0010: 00 4c f1 ff ff .L...
+ * format ddddd
+ * 
+ * sample 0000: 39 0b 07 10 48 3e 31 10 48 3a f6 00 00 91 5b 00 9...H>1.H:....[.
+ * 0010: 00 4c f1 ff ff .L...
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class TargetSelected extends L2GameServerPacket
 {
-	private static final String _S__39_TARGETSELECTED = "[S] 29 TargetSelected";
-	private int _objectId;
-	private int _targetObjId;
-	private int _x;
-	private int _y;
-	private int _z;
+    private static final String _S__39_TARGETSELECTED = "[S] 29 TargetSelected";
+    private int _objectId;
+    private int _targetObjId;
+    private int _x;
+    private int _y;
+    private int _z;
 
-	/**
-	 * @param _characters
-	 */
-	public TargetSelected(int objectId, int targetId, int x, int y, int z)
-	{
-		_objectId = objectId;
-		_targetObjId = targetId;
-		_x = x;
-		_y = y;
-		_z = z;
-	}
+    /**
+     * @param _characters
+     */
+    public TargetSelected(int objectId, int targetId, int x, int y, int z)
+    {
+	_objectId = objectId;
+	_targetObjId = targetId;
+	_x = x;
+	_y = y;
+	_z = z;
+    }
 
-	@Override
-	protected final void writeImpl()
-	{
-		writeC(0x29);
-		writeD(_objectId);
-		writeD(_targetObjId);
-		writeD(_x);
-		writeD(_y);
-		writeD(_z);
-	}
+    @Override
+    protected final void writeImpl()
+    {
+	writeC(0x29);
+	writeD(_objectId);
+	writeD(_targetObjId);
+	writeD(_x);
+	writeD(_y);
+	writeD(_z);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		return _S__39_TARGETSELECTED;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+     */
+    @Override
+    public String getType()
+    {
+	return _S__39_TARGETSELECTED;
+    }
 }

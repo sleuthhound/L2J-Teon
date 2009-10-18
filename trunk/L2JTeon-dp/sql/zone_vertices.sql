@@ -9726,10 +9726,6 @@ INSERT INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
 (11164,0,68480,-97536),
 (11164,1,75520,-92224);
 
-INSERT INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
-(111000,0,41463,106067),
-(111000,1,49241,114650);
-
 DELETE FROM `zone_vertices` WHERE `id`='11100';
 INSERT INTO `zone_vertices` (`id`, `order`, `x`, `y`) VALUES 
 (11100, 0, 43648, 109416),
@@ -9886,3 +9882,23 @@ INSERT INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
 (30100,1,-16600,-36620),
 (30100,2,-16600,-36925),
 (30100,3,-16100,-36925);
+
+INSERT INTO `zone_vertices` (`id`,`order`,`x`,`y`) VALUES
+-- Fortress of Resistance
+(111000,0,41463,106067),
+(111000,1,49241,114650),
+-- Devastated Castle
+(111004,0,175102,-20791),
+(111004,1,183243,-13675),
+-- Bandit Stronghold
+(111005,0,73630,-2280),
+(111005,1,89056,-13342),
+-- Rainbow Springs
+(111001,0,136507,-126708),
+(111001,1,143822,-121419),
+-- Beast Farm
+(111002,0,51776,-101600),
+(111002,1,65519,-91320),
+-- Fortress of the Dead
+(111003,0,51472,-31543),
+(111003,1,62249,-18324);

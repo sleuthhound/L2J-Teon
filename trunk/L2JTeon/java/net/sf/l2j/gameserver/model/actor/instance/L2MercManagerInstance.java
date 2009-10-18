@@ -71,7 +71,7 @@ public final class L2MercManagerInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public final class L2MercManagerInstance extends L2FolkInstance
 	{
 		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
 			return;
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		int condition = validateCondition(player);
 		if (condition <= COND_ALL_FALSE)
 			return;

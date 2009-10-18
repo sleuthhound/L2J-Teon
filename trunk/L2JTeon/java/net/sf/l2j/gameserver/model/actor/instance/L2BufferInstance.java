@@ -229,7 +229,7 @@ public class L2BufferInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -248,7 +248,7 @@ public class L2BufferInstance extends L2FolkInstance
 			html.setHtml(tb.toString());
 			sendHtmlMessage(player, html);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)

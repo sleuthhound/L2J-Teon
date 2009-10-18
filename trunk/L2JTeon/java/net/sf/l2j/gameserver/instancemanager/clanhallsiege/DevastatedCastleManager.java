@@ -249,7 +249,7 @@ public class DevastatedCastleManager
 				ClosedDoor(2);
 				setUnspawn();
 			}
-			_log.info("Siege of Devastated castle has begun!");
+			_log.info("Finish Siege of Devastated Castle");
 		}
 		setNewSiegeDate();
 		_startSiegeTask.execute();

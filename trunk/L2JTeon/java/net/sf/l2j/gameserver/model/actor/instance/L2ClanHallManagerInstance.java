@@ -732,7 +732,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
@@ -745,7 +745,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
 	private void showMessageWindow(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/clanHallManager/chamberlain-no.htm";
 		int condition = validateCondition(player);
 		if (condition == COND_OWNER)
@@ -791,14 +791,14 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
 	private void showVaultWindowDeposit(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setActiveWarehouse(player.getClan().getWarehouse());
 		player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); // Or Clan Hall??
 	}
 
 	private void showVaultWindowWithdraw(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setActiveWarehouse(player.getClan().getWarehouse());
 		player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN)); // Or Clan Hall ??
 	}
@@ -827,7 +827,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 		{
 			_log.warning("No teleport destination with id:" + val);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void showBuyWindow(L2PcInstance player, int val)
@@ -849,7 +849,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 			_log.warning("possible client hacker: " + player.getName() + " attempting to buy from GM shop! < Ban him!");
 			_log.warning("buylist id:" + val);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void revalidateDeco(L2PcInstance player)

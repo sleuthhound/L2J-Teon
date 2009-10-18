@@ -450,7 +450,7 @@ public class L2DoorInstance extends L2Character
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -493,7 +493,7 @@ public class L2DoorInstance extends L2Character
 		{
 			// ATTACK the mob without moving?
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override

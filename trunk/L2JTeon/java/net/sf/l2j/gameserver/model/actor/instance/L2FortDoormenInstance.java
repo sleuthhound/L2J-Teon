@@ -155,12 +155,12 @@ public class L2FortDoormenInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	public void showMessageWindow(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/FortDoormen/" + getTemplate().npcId + "-no.htm";
 		int condition = validateCondition(player);
 		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)

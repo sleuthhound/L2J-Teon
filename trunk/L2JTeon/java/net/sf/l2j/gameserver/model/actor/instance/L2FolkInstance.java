@@ -112,7 +112,7 @@ public class L2FolkInstance extends L2NpcInstance
 		{
 			player.sendPacket(asl);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	/**
@@ -194,7 +194,7 @@ public class L2FolkInstance extends L2NpcInstance
 		{
 			player.sendPacket(esl);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -256,7 +256,7 @@ public class L2FolkInstance extends L2NpcInstance
 					}
 					text += "</body></html>";
 					insertObjectIdAndShowChatWindow(player, text);
-					player.sendPacket(new ActionFailed());
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}
 			}
 			else

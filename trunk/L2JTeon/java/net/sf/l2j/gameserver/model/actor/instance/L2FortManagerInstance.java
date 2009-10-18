@@ -85,7 +85,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -814,7 +814,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 
 	private void showMessageWindow(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/fortress/foreman-no.htm";
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
@@ -847,7 +847,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 		}
 		else
 			_log.warning("No teleport destination with id:" + val);
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	protected int validateCondition(L2PcInstance player)

@@ -73,7 +73,7 @@ public class L2MerchantInstance extends L2FolkInstance
 		else
 		{
 			_log.warning("no buylist with id:" + val);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 
@@ -96,7 +96,7 @@ public class L2MerchantInstance extends L2FolkInstance
 			_log.warning("possible client hacker: " + player.getName() + " attempting to buy from GM shop! < Ban him!");
 			_log.warning("buylist id:" + val);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void showSellWindow(L2PcInstance player)
@@ -106,7 +106,7 @@ public class L2MerchantInstance extends L2FolkInstance
 		player.sendPacket(new SellList(player));
 		if (Config.DEBUG)
 			_log.fine("Showing sell window");
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -267,6 +267,6 @@ public class L2MerchantInstance extends L2FolkInstance
 			html.setHtml(html1.toString());
 			player.sendPacket(html);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

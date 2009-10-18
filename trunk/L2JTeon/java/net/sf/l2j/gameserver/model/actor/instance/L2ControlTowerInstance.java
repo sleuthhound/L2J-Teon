@@ -83,7 +83,7 @@ public class L2ControlTowerInstance extends L2NpcInstance
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-				player.sendPacket(new ActionFailed());
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 	}

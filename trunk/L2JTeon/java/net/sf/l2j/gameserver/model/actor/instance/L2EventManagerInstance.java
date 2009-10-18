@@ -47,7 +47,7 @@ public class L2EventManagerInstance extends L2NpcInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken();
 		_finalPlayers = new Vector<L2PcInstance>();
