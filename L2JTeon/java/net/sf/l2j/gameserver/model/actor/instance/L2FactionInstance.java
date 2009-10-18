@@ -47,7 +47,7 @@ public class L2FactionInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken();
 		String val = "";
@@ -109,7 +109,7 @@ public class L2FactionInstance extends L2FolkInstance
 			if (player.isNoble())
 			{
 				player.sendMessage("You have allready nobless status.");
-				player.sendPacket(new ActionFailed());
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			else
 			{
@@ -163,14 +163,14 @@ public class L2FactionInstance extends L2FolkInstance
 			if (player.isKoof())
 			{
 				player.sendMessage("You are allready a " + Config.KOOFS_NAME_TEAM + " faction.");
-				player.sendPacket(new ActionFailed());
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			else
 			{
 				if (player.isNoob())
 				{
 					player.sendMessage("You Cant Change Faction.");
-					player.sendPacket(new ActionFailed());
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}
 				else
 				{
@@ -179,7 +179,7 @@ public class L2FactionInstance extends L2FolkInstance
 					// if (getkoofs > getnoobs)
 					{
 						// player.sendMessage("It is more " + Config.KOOF_NAME_TEAM + " members online.");
-						// player.sendPacket(new ActionFailed());
+						// player.sendPacket(ActionFailed.STATIC_PACKET);
 						// } else
 						// {
 						player.setKoof(true);
@@ -241,14 +241,14 @@ public class L2FactionInstance extends L2FolkInstance
 			if (player.isNoob())
 			{
 				player.sendMessage("You are allready a " + Config.NOOBS_NAME_TEAM + " faction.");
-				player.sendPacket(new ActionFailed());
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			else
 			{
 				if (player.isKoof())
 				{
 					player.sendMessage("You cant change faction.");
-					player.sendPacket(new ActionFailed());
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}
 				else
 				{
@@ -259,7 +259,7 @@ public class L2FactionInstance extends L2FolkInstance
 					// if (getnoobs > getkoofs)
 					{
 						// player.sendMessage("It is more " + Config.NOOB_NAME_TEAM + " members online.");
-						// player.sendPacket(new ActionFailed());
+						// player.sendPacket(ActionFailed.STATIC_PACKET);
 						// } else
 						// {
 						player.setNoob(true);
@@ -336,12 +336,12 @@ public class L2FactionInstance extends L2FolkInstance
 			broadcastPacket(sa);
 			player.setLastFolkNPC(this);
 			showMessageWindow(player);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
 		{
 			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 

@@ -47,7 +47,7 @@ public class L2FortSiegeNpcInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setTarget(this);
 		player.sendPacket(new MyTargetSelected(getObjectId(), -15));
 		if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
@@ -71,7 +71,7 @@ public class L2FortSiegeNpcInstance extends L2FolkInstance
 			html.replace("%fortname%", getFort().getName());
 			html.replace("%objectId%", String.valueOf(getObjectId()));
 			player.sendPacket(html);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 

@@ -108,7 +108,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
@@ -249,7 +249,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					_log.warning("player: " + player.getName() + " attempting to buy from chamberlain that don't have buylist!");
 					_log.warning("buylist id:" + buy);
 				}
-				player.sendPacket(new ActionFailed());
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			else if (actualCommand.equalsIgnoreCase("manage_siege_defender"))
 			{
@@ -404,7 +404,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 				// manor_menu_select?ask=X&state=Y&time=X
 				if (CastleManorManager.getInstance().isUnderMaintenance())
 				{
-					player.sendPacket(new ActionFailed());
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 					player.sendPacket(new SystemMessage(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE));
 					return;
 				}
@@ -512,7 +512,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 
 	private void showMessageWindow(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/chamberlain/chamberlain-no.htm";
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
@@ -551,7 +551,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		}
 		else
 			_log.warning("No teleport destination with id:" + val);
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	protected int validateCondition(L2PcInstance player)

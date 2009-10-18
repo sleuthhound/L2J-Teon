@@ -35,8 +35,6 @@ import net.sf.l2j.util.Rnd;
  */
 public class L2MonsterInstance extends L2Attackable
 {
-	// private static Logger _log =
-	// Logger.getLogger(L2MonsterInstance.class.getName());
 	protected final MinionList _minionList;
 	@SuppressWarnings( { "unchecked" })
 	protected ScheduledFuture _minionMaintainTask = null;
@@ -99,8 +97,7 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public void onSpawn()
 	{
-		if (getNpcId() == 35410 || (getNpcId() == 35411 || (getNpcId() == 35412 || (getNpcId() == 35413 || (getNpcId() == 35414 || (getNpcId() == 35415 || (getNpcId() == 35416 || (getNpcId() == 35417 || (getNpcId() == 35418)))))))) && getIsInProgress())
-			super.onSpawn();
+		super.onSpawn();
 		if (getTemplate().getMinionData() != null)
 		{
 			try
@@ -283,10 +280,5 @@ public class L2MonsterInstance extends L2Attackable
 			getSpawnedMinions().remove(minion);
 		}
 		_minionList.clearRespawnList();
-	}
-
-	public final boolean getIsInProgress()
-	{
-		return DevastatedCastleManager.getInstance().getIsInProgress();
 	}
 }

@@ -215,7 +215,7 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 					// Send a Server->Client ActionFailed to the
 					// L2PcInstance in
 					// order to avoid that the client wait another packet
-					player.sendPacket(new ActionFailed());
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 					// Set the L2PcInstance Intention to AI_INTENTION_IDLE
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, null);
 				}

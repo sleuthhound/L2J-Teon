@@ -146,7 +146,7 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 
 	private void showMessageWindow(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/wyvernmanager/wyvernmanager-no-fort.htm";
 		if (getClanHall() != null)
 			filename = "data/html/wyvernmanager/wyvernmanager-clan-no.htm";

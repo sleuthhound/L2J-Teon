@@ -90,6 +90,6 @@ public final class L2ObservationInstance extends L2FolkInstance
 			ItemList il = new ItemList(player, false);
 			player.sendPacket(il);
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

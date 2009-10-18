@@ -51,7 +51,7 @@ public class L2BuffInstance extends L2NpcInstance
 			client.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 			if (!isInsideRadius(client, 150, false, false))
 			{
-				client.sendPacket(new ActionFailed());
+				client.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			else
 			{
@@ -99,7 +99,7 @@ public class L2BuffInstance extends L2NpcInstance
 			bFail = false;
 		}
 		if (bFail)
-			client.sendPacket(new ActionFailed());
+			client.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	public void onActionShift(L2GameClient game)
