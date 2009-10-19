@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -155,19 +156,10 @@ public class ScrollOfEscape implements IItemHandler
 	    _activeChar.setIsIn7sDungeon(false);
 	    try
 	    {
-		if (((_itemId == 1830) || (_itemId == 5859)) && (CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)) // escape
-		// to
-		// castle if
-		// own's one
+		if (((_itemId == 1830) || (_itemId == 5859)) && (CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)) // escape to castle if own's one
 		{
 		    _activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Castle);
-		} else if (((_itemId == 1829) || (_itemId == 5858)) && (_activeChar.getClan() != null) && (ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null)) // escape
-		// to
-		// clan
-		// hall
-		// if
-		// own's
-		// one
+		} else if (((_itemId == 1829) || (_itemId == 5858)) && (_activeChar.getClan() != null) && (ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null)) // escape to clan hall if own's one
 		{
 		    _activeChar.teleToLocation(MapRegionTable.TeleportWhereType.ClanHall);
 		} else if (_itemId == 5858) // do nothing
@@ -196,14 +188,10 @@ public class ScrollOfEscape implements IItemHandler
 			switch (_itemId)
 			{
 			case 7117:
-			    _activeChar.teleToLocation(-84318, 244579, -3730, true); // Talking
-			    // Island
+			    _activeChar.teleToLocation(-84318, 244579, -3730, true); // Talking Island
 			    break;
 			case 7554:
-			    _activeChar.teleToLocation(-84318, 244579, -3730, true); // Talking
-			    // Island
-			    // quest
-			    // scroll
+			    _activeChar.teleToLocation(-84318, 244579, -3730, true); // Talking Island quest scroll
 			    break;
 			case 7118:
 			    if (_activeChar.isKoof())
@@ -215,10 +203,7 @@ public class ScrollOfEscape implements IItemHandler
 			    }
 			    break;
 			case 7555:
-			    _activeChar.teleToLocation(46934, 51467, -2977, true); // Elven
-			    // Village
-			    // quest
-			    // scroll
+			    _activeChar.teleToLocation(46934, 51467, -2977, true); // Elven Village quest scroll
 			    break;
 			case 7119:
 			    if (_activeChar.isNoob())

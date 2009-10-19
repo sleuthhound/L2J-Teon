@@ -19,6 +19,7 @@ import javolution.util.FastList;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.gameserver.model.zone.type.L2TownZone;
 
 public class TownManager
@@ -149,11 +150,13 @@ public class TownManager
 	 * @param z
 	 * @return
 	 */
-	public final L2TownZone getTown(int x, int y, int z)
+	public final static L2TownZone getTown(int x, int y, int z)
 	{
-		for (L2TownZone temp : _towns)
-			if (temp.isInsideZone(x, y, z))
-				return temp;
+	    	for (L2ZoneType temp : ZoneManager.getInstance().getZones(x, y, z))
+	        {
+	        	if (temp instanceof L2TownZone)
+	        		return (L2TownZone) temp;
+	        }
 		return null;
 	}
 }

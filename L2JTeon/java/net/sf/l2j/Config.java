@@ -2642,7 +2642,7 @@ public final class Config
 				REBIRTH_SKILL10 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill10", "0"));
 				REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL10", "0"));
 				CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
-				ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "OneoDevTeam");
+				ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
 				ADD_MAX_LOAD = Integer.parseInt(L2JTeonCustom.getProperty("WeightLimit", "0"));
 				CUSTOM_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("CustomRunSpeed", "0"));
 				KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepBuffsOnDeath", "False"));
@@ -2713,7 +2713,7 @@ public final class Config
 				// ********************//
 				/* Announcements */
 				// ********************//
-				SHOW_HTML_WELCOME = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowOneoInfo", "True"));
+				SHOW_HTML_WELCOME = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowTeonInfo", "True"));
 				SHOW_GM_LOGIN = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowGMLogin", "False"));
 				SHOW_L2J_LICENSE = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowL2JLicense", "False"));
 				SHOW_HTML_NEWBIE = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowHTMLNewbie", "False"));
