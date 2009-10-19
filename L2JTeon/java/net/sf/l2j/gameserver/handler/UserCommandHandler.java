@@ -20,11 +20,6 @@ import java.util.logging.Logger;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.2.1.2.5 $ $Date: 2005/03/27 15:30:09 $
- */
 public class UserCommandHandler
 {
 	private static Logger _log = Logger.getLogger(UserCommandHandler.class.getName());
@@ -58,9 +53,6 @@ public class UserCommandHandler
 		return _datatable.get(Integer.valueOf(userCommand));
 	}
 
-	/**
-	 * @return
-	 */
 	public int size()
 	{
 		return _datatable.size();

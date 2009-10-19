@@ -49,20 +49,25 @@ import org.w3c.dom.Node;
 public class ZoneManager
 {
 	private static final Logger _log = Logger.getLogger(ZoneManager.class.getName());
+        private static ZoneManager _instance;
 
 	private final FastMap<Integer, L2ZoneType> _zones = new FastMap<Integer,L2ZoneType>();
-	
+
 	public static final ZoneManager getInstance()
 	{
-		return SingletonHolder._instance;
+                if (_instance == null)
+ 	                {
+	                        _instance = new ZoneManager();
+	                }
+	                return _instance;
 	}
-	
+
 	// =========================================================
 	// Data Field
-	
+
 	// =========================================================
 	// Constructor
-	private ZoneManager()
+	public ZoneManager()
 	{
 		load();
 	}
@@ -345,10 +350,15 @@ public class ZoneManager
 									}
 								}
 							}
-							
-							// Special managers for granbosses...
-							if (temp instanceof L2BossZone)
-								GrandBossManager.getInstance().addZone((L2BossZone) temp);
+							// Special managers for arenas, towns... 
+					if (temp instanceof L2ArenaZone)
+						ArenaManager.getInstance().addArena((L2ArenaZone) temp);
+							else if (temp instanceof L2TownZone)
+							TownManager.getInstance().addTown((L2TownZone) temp);
+								else if (temp instanceof L2OlympiadStadiumZone)
+					OlympiadStadiaManager.getInstance().addStadium((L2OlympiadStadiumZone) temp);
+						else if (temp instanceof L2BossZone)
+							GrandBossManager.getInstance().addZone((L2BossZone) temp);
 							
 							// Increase the counter
 							zoneCount++;
@@ -448,11 +458,5 @@ public class ZoneManager
 				temp.add(zone);
 		}
 		return temp;
-	}
-	
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
-	{
-		protected static final ZoneManager _instance = new ZoneManager();
 	}
 }

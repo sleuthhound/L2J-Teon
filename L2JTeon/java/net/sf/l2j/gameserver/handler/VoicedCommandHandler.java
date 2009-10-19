@@ -20,11 +20,6 @@ import java.util.logging.Logger;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.4.5 $ $Date: 2005/03/27 15:30:09 $
- */
 public class VoicedCommandHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
@@ -63,9 +58,6 @@ public class VoicedCommandHandler
 		return _datatable.get(command);
 	}
 
-	/**
-	 * @return
-	 */
 	public int size()
 	{
 		return _datatable.size();

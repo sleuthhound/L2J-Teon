@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package scripts.skills;
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
