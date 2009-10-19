@@ -70,12 +70,12 @@ public class L2OlympiadStadiumZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onDieInside(L2Character character)
+	public void onDieInside(L2Character character)
 	{
 	}
 
 	@Override
-	protected void onReviveInside(L2Character character)
+	public void onReviveInside(L2Character character)
 	{
 	}
 

@@ -72,7 +72,7 @@ public class L2SignetZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onDieInside(L2Character character)
+	public void onDieInside(L2Character character)
 	{
 		if (character == _owner && _toRemoveOnOwnerExit > 0)
 			_owner.stopSkillEffects(_toRemoveOnOwnerExit);
@@ -81,7 +81,7 @@ public class L2SignetZone extends L2ZoneType
 	}
 
 	@Override
-	protected void onReviveInside(L2Character character)
+	public void onReviveInside(L2Character character)
 	{
 		if (!_isOffensive)
 			_skill.getEffects(_owner, character);

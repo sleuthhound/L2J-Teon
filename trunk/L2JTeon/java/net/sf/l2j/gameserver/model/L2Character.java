@@ -5882,9 +5882,12 @@ public abstract class L2Character extends L2Object
 		}
 		if (attacker instanceof L2Character)
 		{
-			return (TownManager.getInstance().getTown(target.getX(), target.getY(), target.getZ()) != null) || ((L2Character) attacker).isInsideZone(ZONE_PEACE);
+			return (TownManager.getTown(target.getX(), target.getY(), target.getZ()) != null || ((L2Character)attacker).isInsideZone(ZONE_PEACE));
+
+			/*return (TownManager.getInstance().getTown(target.getX(), target.getY(), target.getZ()) != null) || ((L2Character) attacker).isInsideZone(ZONE_PEACE);*/
 		}
-		return (TownManager.getInstance().getTown(target.getX(), target.getY(), target.getZ()) != null) || (TownManager.getInstance().getTown(attacker.getX(), attacker.getY(), attacker.getZ()) != null);
+		return (TownManager.getInstance().getTown(target.getX(), target.getY(), target.getZ()) != null ||
+				TownManager.getInstance().getTown(attacker.getX(), attacker.getY(), attacker.getZ()) != null);
 	}
 
 	/**

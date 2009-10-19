@@ -69,7 +69,6 @@ import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.AutoAnnouncementHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
-import net.sf.l2j.gameserver.handler.MasterHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
@@ -406,7 +405,6 @@ public class GameServer
 		SkillHandler.getInstance();
 		UserCommandHandler.getInstance();
 		VoicedCommandHandler.getInstance();
-		MasterHandler.load();
 		_log.info("AutoChatHandler : Loaded " + _autoChatHandler.size() + " handlers in total.");
 		_log.info("AutoSpawnHandler : Loaded " + _autoSpawnHandler.size() + " handlers in total.");
 		AutoAnnouncementHandler.getInstance();

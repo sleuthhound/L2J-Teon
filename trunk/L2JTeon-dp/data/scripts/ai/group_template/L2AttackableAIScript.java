@@ -197,9 +197,6 @@ public class L2AttackableAIScript extends QuestJython
 		// Set the intention to the L2Attackable to AI_INTENTION_ACTIVE
 		if (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-/*
-		npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, originalAttackTarget, 1);
-			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);*/
     	return null; 
     }
 
