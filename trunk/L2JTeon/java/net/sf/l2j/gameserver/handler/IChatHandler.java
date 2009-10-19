@@ -18,24 +18,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Interface for chat handlers
- * 
  * @author durgus
  */
 public interface IChatHandler
 {
-	/**
-	 * Handles a specific type of chat messages
-	 * 
-	 * @param type
-	 * @param activeChar
-	 * @param target
-	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text);
 
-	/**
-	 * Returns a list of all chat types registered to this handler
-	 * 
-	 * @return
-	 */
 	public int[] getChatTypeList();
 }

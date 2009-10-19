@@ -16,18 +16,16 @@ package net.sf.l2j.gameserver.handler;
 
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
+import net.sf.l2j.gameserver.handler.skillhandlers.*;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 
-/**
- * This class ...
- * 
- * @Author Stefoulis15
- * @version $Revision: 1.1.4.4 $ $Date: 2005/04/03 15:55:06 $
- */
 public class SkillHandler
 {
+	private static Logger _log = Logger.getLogger(SkillHandler.class.getName());
+
 	private Map<L2Skill.SkillType, ISkillHandler> _datatable;
 
 	public static SkillHandler getInstance()
@@ -38,6 +36,11 @@ public class SkillHandler
 	private SkillHandler()
 	{
 		_datatable = new TreeMap<L2Skill.SkillType, ISkillHandler>();
+        	registerSkillHandler(new StrSiegeAssault());
+        	registerSkillHandler(new SummonFriend());
+        	registerSkillHandler(new SiegeFlag());
+        	registerSkillHandler(new TakeCastle());
+        	_log.config("SkillHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerSkillHandler(ISkillHandler handler)
@@ -54,9 +57,6 @@ public class SkillHandler
 		return _datatable.get(skillType);
 	}
 
-	/**
-	 * @return
-	 */
 	public int size()
 	{
 		return _datatable.size();

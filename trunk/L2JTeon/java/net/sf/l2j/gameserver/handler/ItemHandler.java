@@ -17,52 +17,25 @@ package net.sf.l2j.gameserver.handler;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * This class manages handlers of items
- * 
- * @version $Revision: 1.1.5.0 $ $Date: 2009/08/25 19:36:00 $
- */
 public class ItemHandler
 {
 	private Map<Integer, IItemHandler> _datatable;
 
-	/**
-	 * Create ItemHandler if doesn't exist and returns ItemHandler
-	 * 
-	 * @return ItemHandler
-	 */
 	public static ItemHandler getInstance()
 	{
 		return SingletonHolder._instance;
 	}
 
-	/**
-	 * Returns the number of elements contained in datatable
-	 * 
-	 * @return int : Size of the datatable
-	 */
 	public int size()
 	{
 		return _datatable.size();
 	}
 
-	/**
-	 * Constructor of ItemHandler
-	 */
 	private ItemHandler()
 	{
 		_datatable = new TreeMap<Integer, IItemHandler>();
 	}
 
-	/**
-	 * Adds handler of item type in <I>datatable</I>.<BR>
-	 * <BR>
-	 * <B><I>Concept :</I></U><BR>
-	 * This handler is put in <I>datatable</I> Map &lt;Integer ; IItemHandler &gt; for each ID corresponding to an item type (existing in classes of package itemhandlers) sets as key of the Map.
-	 * 
-	 * @param handler
-	 *            (IItemHandler)
-	 */
 	public void registerItemHandler(IItemHandler handler)
 	{
 		// Get all ID corresponding to the item type of the handler
@@ -74,13 +47,6 @@ public class ItemHandler
 		}
 	}
 
-	/**
-	 * Returns the handler of the item
-	 * 
-	 * @param itemId
-	 *            : int designating the itemID
-	 * @return IItemHandler
-	 */
 	public IItemHandler getItemHandler(int itemId)
 	{
 		return _datatable.get(new Integer(itemId));

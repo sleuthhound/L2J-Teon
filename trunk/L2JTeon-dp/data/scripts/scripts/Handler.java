@@ -176,13 +176,9 @@ public class Handler
 		SkillHandler.getInstance().registerSkillHandler(new Resurrect());
 		SkillHandler.getInstance().registerSkillHandler(new Spoil());
 		SkillHandler.getInstance().registerSkillHandler(new Sweep());
-		SkillHandler.getInstance().registerSkillHandler(new StrSiegeAssault());
-		SkillHandler.getInstance().registerSkillHandler(new SummonFriend());
 		SkillHandler.getInstance().registerSkillHandler(new SummonTreasureKey());
 		SkillHandler.getInstance().registerSkillHandler(new Disablers());
 		SkillHandler.getInstance().registerSkillHandler(new Recall());
-		SkillHandler.getInstance().registerSkillHandler(new SiegeFlag());
-		SkillHandler.getInstance().registerSkillHandler(new TakeCastle());
 		SkillHandler.getInstance().registerSkillHandler(new Unlock());
 		SkillHandler.getInstance().registerSkillHandler(new DrainSoul());
 		SkillHandler.getInstance().registerSkillHandler(new Craft());
