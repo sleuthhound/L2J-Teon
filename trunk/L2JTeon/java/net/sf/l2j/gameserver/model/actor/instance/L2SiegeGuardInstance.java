@@ -156,7 +156,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 				}
 				else
 				{
-					player.sendPacket(new ActionFailed());
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}
 			}
 			if (!isAutoAttackable(player))

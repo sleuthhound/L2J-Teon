@@ -165,7 +165,7 @@ public final class L2TownPetInstance extends L2Attackable
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
 			player.sendPacket(new ValidateLocation(this));
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 }

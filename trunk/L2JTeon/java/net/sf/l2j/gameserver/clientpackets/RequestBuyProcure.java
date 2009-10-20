@@ -81,7 +81,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 		L2Object target = player.getTarget();
 		if (_count < 1)
 		{
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		long subTotal = 0;

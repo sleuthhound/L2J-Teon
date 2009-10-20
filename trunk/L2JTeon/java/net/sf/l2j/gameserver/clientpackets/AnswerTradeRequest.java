@@ -49,7 +49,7 @@ public final class AnswerTradeRequest extends L2GameClientPacket
 		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		// DaRkRaGe's Faction Engine [L2JOneo]
@@ -74,7 +74,7 @@ public final class AnswerTradeRequest extends L2GameClientPacket
 			player.setActiveRequester(null);
 			player.setAllowTrade(true);
 			partner.setAllowTrade(true);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (_response == 1 && !partner.isRequestExpired())
@@ -88,7 +88,7 @@ public final class AnswerTradeRequest extends L2GameClientPacket
 			SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);
 			msg.addString(player.getName());
 			partner.sendPacket(msg);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			player.setAllowTrade(true);
 		}
 		// Clears requesting status

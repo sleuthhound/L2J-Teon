@@ -42,7 +42,7 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 
 	private void showRetrieveWindow(L2PcInstance player)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setActiveWarehouse(player.getWarehouse());
 		if (player.getActiveWarehouse().getSize() == 0)
 		{

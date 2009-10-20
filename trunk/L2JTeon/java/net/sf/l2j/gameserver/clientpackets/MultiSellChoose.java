@@ -81,7 +81,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL))
 		{
 			player.sendMessage("You Cannot Buy That Fast. Try Again in 10 Second(s)!");
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		for (MultiSellEntry entry : list.getEntries())
@@ -100,7 +100,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		boolean maintainItemFound = false;
 		if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL))
 			player.sendMessage("You Cannot Buy That Fast. Try Again in 10 Second(s)!");
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		// given the template entry and information about maintaining
 		// enchantment and applying taxes
 		// re-create the instance of the entry that will be used for this

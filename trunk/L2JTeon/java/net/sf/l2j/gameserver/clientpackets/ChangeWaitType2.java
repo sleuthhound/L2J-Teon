@@ -46,7 +46,7 @@ public final class ChangeWaitType2 extends L2GameClientPacket
 		{
 			if (player.isOutOfControl())
 			{
-				player.sendPacket(new ActionFailed());
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			if (player.getMountType() != 0) // prevent sit/stand if you

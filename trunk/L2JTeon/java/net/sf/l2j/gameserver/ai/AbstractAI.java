@@ -466,7 +466,7 @@ abstract class AbstractAI implements Ctrl
 	protected void clientActionFailed()
 	{
 		if (_actor instanceof L2PcInstance)
-			_actor.sendPacket(new ActionFailed());
+			_actor.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	/**
@@ -512,7 +512,7 @@ abstract class AbstractAI implements Ctrl
 			_accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
 			if (!_actor.isMoving())
 			{
-				_actor.sendPacket(new ActionFailed());
+				_actor.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			// Send a Server->Client packet MoveToPawn/CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
@@ -531,7 +531,7 @@ abstract class AbstractAI implements Ctrl
 		}
 		else
 		{
-			_actor.sendPacket(new ActionFailed());
+			_actor.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 
@@ -557,7 +557,7 @@ abstract class AbstractAI implements Ctrl
 		}
 		else
 		{
-			_actor.sendPacket(new ActionFailed());
+			_actor.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 
@@ -579,7 +579,7 @@ abstract class AbstractAI implements Ctrl
 		}
 		else
 		{
-			_actor.sendPacket(new ActionFailed());
+			_actor.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 

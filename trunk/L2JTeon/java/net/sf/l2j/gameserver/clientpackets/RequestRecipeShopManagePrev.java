@@ -45,7 +45,7 @@ public final class RequestRecipeShopManagePrev extends L2GameClientPacket
 		// or fake death)
 		if (player.isAlikeDead())
 		{
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (!(player.getTarget() instanceof L2PcInstance))

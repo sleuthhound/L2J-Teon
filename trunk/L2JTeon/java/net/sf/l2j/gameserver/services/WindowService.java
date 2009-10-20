@@ -48,7 +48,7 @@ public class WindowService
 		target.sendPacket(reply);
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
-		target.sendPacket(new ActionFailed());
+		target.sendPacket(ActionFailed.STATIC_PACKET);
 		if (Config.DEVELOPER)
 			_log.info("WindowService: Sending Window: " + filename + " for player: " + target.getName() + " in path: " + path);
 	}

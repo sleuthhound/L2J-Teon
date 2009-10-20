@@ -90,7 +90,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 		}
 		if (player.isDead())
 		{
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		
 	    L2WarehouseInstance target = null; 

@@ -172,7 +172,7 @@ public class L2PlayerAI extends L2CharacterAI
 
 	private void actionFailed()
 	{
-		_actor.sendPacket(new ActionFailed());
+		_actor.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void thinkAttack()

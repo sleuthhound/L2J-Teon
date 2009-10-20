@@ -46,7 +46,7 @@ public class L2RebirthInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken();
 		String val = "";
@@ -194,12 +194,12 @@ public class L2RebirthInstance extends L2FolkInstance
 			broadcastPacket(sa);
 			player.setLastFolkNPC(this);
 			showMessageWindow(player);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
 		{
 			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 

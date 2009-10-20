@@ -141,7 +141,7 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 				showMessageWindow(player);
 			}
 		}
-		player.sendPacket(new ActionFailed());
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void showMessageWindow(L2PcInstance player)

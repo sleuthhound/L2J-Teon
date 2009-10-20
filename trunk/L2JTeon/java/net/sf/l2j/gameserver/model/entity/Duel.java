@@ -261,7 +261,7 @@ public class Duel
 	 */
 	private void stopFighting()
 	{
-		ActionFailed af = new ActionFailed();
+		ActionFailed af = ActionFailed.STATIC_PACKET;
 		if (_partyDuel)
 		{
 			for (L2PcInstance temp : _playerA.getParty().getPartyMembers())

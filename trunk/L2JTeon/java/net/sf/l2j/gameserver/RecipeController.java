@@ -312,21 +312,21 @@ public class RecipeController
 			if (_player.isAlikeDead())
 			{
 				_player.sendMessage("Dead people don't craft.");
-				_player.sendPacket(new ActionFailed());
+				_player.sendPacket(ActionFailed.STATIC_PACKET);
 				abort();
 				return;
 			}
 			if (_target.isAlikeDead())
 			{
 				_target.sendMessage("Dead customers can't use manufacture.");
-				_target.sendPacket(new ActionFailed());
+				_target.sendPacket(ActionFailed.STATIC_PACKET);
 				abort();
 				return;
 			}
 			if (_target.isProcessingTransaction())
 			{
 				_target.sendMessage("You are busy.");
-				_target.sendPacket(new ActionFailed());
+				_target.sendPacket(ActionFailed.STATIC_PACKET);
 				abort();
 				return;
 			}
@@ -336,7 +336,7 @@ public class RecipeController
 				{
 					_target.sendMessage("Manufacturer " + _player.getName() + " is busy.");
 				}
-				_player.sendPacket(new ActionFailed());
+				_player.sendPacket(ActionFailed.STATIC_PACKET);
 				abort();
 				return;
 			}
@@ -344,7 +344,7 @@ public class RecipeController
 			if ((_recipeList == null) || (_recipeList.getRecipes().length == 0))
 			{
 				_player.sendMessage("No such recipe");
-				_player.sendPacket(new ActionFailed());
+				_player.sendPacket(ActionFailed.STATIC_PACKET);
 				abort();
 				return;
 			}
@@ -353,7 +353,7 @@ public class RecipeController
 			if (_recipeList.getLevel() > _skillLevel)
 			{
 				_player.sendMessage("Need skill level " + _recipeList.getLevel());
-				_player.sendPacket(new ActionFailed());
+				_player.sendPacket(ActionFailed.STATIC_PACKET);
 				abort();
 				return;
 			}

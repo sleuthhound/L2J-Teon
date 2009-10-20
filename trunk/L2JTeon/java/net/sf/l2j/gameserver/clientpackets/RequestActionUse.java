@@ -75,13 +75,13 @@ public final class RequestActionUse extends L2GameClientPacket
 		// dont do anything if player is dead
 		if (activeChar.isAlikeDead())
 		{
-			getClient().sendPacket(new ActionFailed());
+			getClient().sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		// don't do anything if player is confused
 		if (activeChar.isOutOfControl())
 		{
-			getClient().sendPacket(new ActionFailed());
+			getClient().sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		L2Summon pet = activeChar.getPet();
@@ -300,7 +300,7 @@ public final class RequestActionUse extends L2GameClientPacket
 			case 37:
 				if (activeChar.isAlikeDead())
 				{
-					getClient().sendPacket(new ActionFailed());
+					getClient().sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 				if (activeChar.getPrivateStoreType() != 0)
@@ -350,7 +350,7 @@ public final class RequestActionUse extends L2GameClientPacket
 				// dead (dead or fake death)
 				if (activeChar.isAlikeDead())
 				{
-					getClient().sendPacket(new ActionFailed());
+					getClient().sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 				if (activeChar.getPrivateStoreType() != 0)
