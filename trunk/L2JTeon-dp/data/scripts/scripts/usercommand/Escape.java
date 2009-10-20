@@ -51,7 +51,7 @@ public class Escape implements IUserCommandHandler
 	{
 	if (!TvTEvent.onEscapeUse(activeChar.getName()))
 	{
-	    activeChar.sendPacket(new ActionFailed());
+	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    return false;
 	}
 	if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isInOlympiadMode())
@@ -64,7 +64,7 @@ public class Escape implements IUserCommandHandler
 	// Check if player is in VIP Event
 	if (activeChar._inEventVIP && VIP._started)
 	{
-	    activeChar.sendPacket(new ActionFailed());
+	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    return false;
 	}
 	// Check to see if the player is in a festival.

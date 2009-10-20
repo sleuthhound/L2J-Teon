@@ -22,7 +22,6 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -61,7 +60,7 @@ public class ScrollOfEscape implements IItemHandler
 	L2PcInstance activeChar = (L2PcInstance) playable;
 	if (!TvTEvent.onEscapeUse(activeChar.getName()))
 	{
-	    activeChar.sendPacket(new ActionFailed());
+	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	if (activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isAllSkillsDisabled())
@@ -73,13 +72,13 @@ public class ScrollOfEscape implements IItemHandler
 	}
 	if (activeChar._inEventVIP && VIP._started)
 	{
-	    playable.sendPacket(new ActionFailed());
+	    playable.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 
         if (GrandBossManager.getInstance().getZone(activeChar) != null && !activeChar.isGM())
         {
-            activeChar.sendPacket(new ActionFailed());
+            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SCROLL_OF_ESCAPE_INSIDE_BOSS_ZONE));
             return;
         }

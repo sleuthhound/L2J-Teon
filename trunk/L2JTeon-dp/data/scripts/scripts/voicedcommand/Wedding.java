@@ -317,7 +317,7 @@ public class Wedding implements IVoicedCommandHandler
 	    return false;
 	} else if (!TvTEvent.onEscapeUse(playerA.getName()))
 	{
-	    playerA.sendPacket(new ActionFailed());
+	    playerA.sendPacket(ActionFailed.STATIC_PACKET);
 	    return false;
 	} else if (playerA.isCursedWeaponEquiped())
 	{

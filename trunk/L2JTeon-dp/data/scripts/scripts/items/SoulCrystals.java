@@ -54,14 +54,14 @@ public class SoulCrystals implements IItemHandler
 	    SystemMessage sm = new SystemMessage(SystemMessageId.INCORRECT_TARGET);
 	    activeChar.sendPacket(sm);
 	    // Send a Server->Client packet ActionFailed to the L2PcInstance
-	    ActionFailed af = new ActionFailed();
+	    ActionFailed af = ActionFailed.STATIC_PACKET;
 	    activeChar.sendPacket(af);
 	    return;
 	}
 	// u can use soul crystal only when target hp goes below 50%
 	if (((L2MonsterInstance) target).getCurrentHp() > ((L2MonsterInstance) target).getMaxHp() / 2.0)
 	{
-	    ActionFailed af = new ActionFailed();
+	    ActionFailed af = ActionFailed.STATIC_PACKET;
 	    activeChar.sendPacket(af);
 	    return;
 	}

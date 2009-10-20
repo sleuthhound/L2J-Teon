@@ -49,7 +49,7 @@ public class DungeonKeys implements IItemHandler
 		if (!(target instanceof L2DoorInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-        		activeChar.sendPacket(new ActionFailed());
+        		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		L2DoorInstance door = (L2DoorInstance) target;
@@ -57,13 +57,13 @@ public class DungeonKeys implements IItemHandler
 		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)))
 		{
 			activeChar.sendMessage("Too far.");
-        		activeChar.sendPacket(new ActionFailed());
+        		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You cannot use the key now.");
-        		activeChar.sendPacket(new ActionFailed());
+        		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		
