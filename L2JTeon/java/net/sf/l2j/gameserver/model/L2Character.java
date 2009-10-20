@@ -1706,25 +1706,20 @@ public abstract class L2Character extends L2Object
 	/** Sets HP, MP and CP and revives the L2Character. */
 	public void doRevive()
 	{
+		if (!isDead()) return;
 		if (!isTeleporting())
 		{
 			setIsPendingRevive(false);
+
 			// Check if player is in faction or in jail
 			if ((this instanceof L2PcInstance) && ((L2PcInstance) this).isInJail())
-			{
 				teleToLocation(-114597, -249447, -2986);
-			}
 			else
-			{
 				if ((this instanceof L2PcInstance) && (((L2PcInstance) this).isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS))
-				{
 					teleToLocation(146334, 25767, -2013);
-				}
 				if ((this instanceof L2PcInstance) && (((L2PcInstance) this).isNoob() && Config.ENABLE_FACTION_KOOFS_NOOBS))
-				{
 					teleToLocation(59669, -42221, -2992);
-				}
-			}
+
 			if ((this instanceof L2PcInstance) && (((L2PcInstance) this).isImmobilized() || ((L2PcInstance) this).isParalyzed() || ((L2PcInstance) this).isPetrified() || ((L2PcInstance) this).isRooted() || ((L2PcInstance) this).isSleeping() || ((L2PcInstance) this).isStunned()))
 			{
 				stopEffects(L2Effect.EffectType.PARALYZE);
@@ -1824,9 +1819,7 @@ public abstract class L2Character extends L2Object
 			synchronized (this)
 			{
 				if (_ai == null)
-				{
 					_ai = new L2CharacterAI(new AIAccessor());
-				}
 			}
 		}
 		return _ai;
@@ -1836,9 +1829,7 @@ public abstract class L2Character extends L2Object
 	{
 		L2CharacterAI oldAI = getAI();
 		if ((oldAI != null) && (oldAI != newAI) && (oldAI instanceof L2AttackableAI))
-		{
 			((L2AttackableAI) oldAI).stopAITask();
-		}
 		_ai = newAI;
 	}
 
@@ -1869,9 +1860,7 @@ public abstract class L2Character extends L2Object
 	public final List<L2Character> getAttackByList()
 	{
 		if (_attackByList == null)
-		{
 			_attackByList = new FastList<L2Character>();
-		}
 		return _attackByList;
 	}
 
@@ -2212,9 +2201,7 @@ public abstract class L2Character extends L2Object
 	public CharKnownList getKnownList()
 	{
 		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof CharKnownList))
-		{
 			setKnownList(new CharKnownList(this));
-		}
 		return (CharKnownList) super.getKnownList();
 	}
 
@@ -2235,9 +2222,7 @@ public abstract class L2Character extends L2Object
 	public CharStatus getStatus()
 	{
 		if (_status == null)
-		{
 			_status = new CharStatus(this);
-		}
 		return _status;
 	}
 
@@ -2287,9 +2272,7 @@ public abstract class L2Character extends L2Object
 	public final void setWalking()
 	{
 		if (isRunning())
-		{
 			setIsRunning(false);
-		}
 	}
 
 	/** Task lauching the function enableSkill() */
@@ -2350,9 +2333,7 @@ public abstract class L2Character extends L2Object
 				onHitTimer(_hitTarget, _damage, _crit, _miss, _soulshot, _shld);
 				// check augmentation skill effect
 				if ((getAugmentationSkillType() == 0) || (getAugmentationSkillType() == 1))
-				{
 					useAugmentationSkill();
-				}
 			}
 			catch (Throwable e)
 			{
@@ -2564,19 +2545,15 @@ public abstract class L2Character extends L2Object
 	public final void addEffect(L2Effect newEffect)
 	{
 		if (newEffect == null)
-		{
 			return;
-		}
+
 		synchronized (this)
 		{
 			if (_effects == null)
-			{
 				_effects = new FastTable<L2Effect>();
-			}
+
 			if (_stackedEffects == null)
-			{
 				_stackedEffects = new FastMap<String, List<L2Effect>>();
-			}
 		}
 		synchronized (_effects)
 		{
@@ -2586,9 +2563,7 @@ public abstract class L2Character extends L2Object
 				// we have immunity to buff / debuffs
 				SkillType typeSkill = newEffect.getSkill().getSkillType();
 				if ((typeSkill == L2Skill.SkillType.BUFF) || (typeSkill == L2Skill.SkillType.DEBUFF))
-				{
 					return;
-				}
 			}
 			L2Effect tempEffect = null;
 			// Make sure there's no same effect previously
@@ -2596,17 +2571,21 @@ public abstract class L2Character extends L2Object
 			{
 				if ((_effects.get(i).getSkill().getId() == newEffect.getSkill().getId()) && (_effects.get(i).getEffectType() == newEffect.getEffectType()))
 				{
-					// Started scheduled timer needs to be canceled. There
-					// could
-					// be a nicer fix...
+					// Started scheduled timer needs to be canceled. There could be a nicer fix...
 					newEffect.stopEffectTask();
 					return;
 				}
 			}
 			// Remove first Buff if number of buffs > 19
 			L2Skill tempskill = newEffect.getSkill();
-			if ((getBuffCount() > getMaxBuffCount()) && !doesStack(tempskill) && ((tempskill.getSkillType() == L2Skill.SkillType.BUFF) || (tempskill.getSkillType() == L2Skill.SkillType.DEBUFF) || (tempskill.getSkillType() == L2Skill.SkillType.REFLECT) || (tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT) || (tempskill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT))
-					&& !((tempskill.getId() > 4360) && (tempskill.getId() < 4367)))
+			if ((getBuffCount() > getMaxBuffCount()) && 
+				!doesStack(tempskill) && 
+				((tempskill.getSkillType() == L2Skill.SkillType.BUFF) || 
+				(tempskill.getSkillType() == L2Skill.SkillType.DEBUFF) || 
+				(tempskill.getSkillType() == L2Skill.SkillType.REFLECT) || 
+				(tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT) || 
+				(tempskill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT))
+				&& !((tempskill.getId() > 4360) && (tempskill.getId() < 4367)))
 			{
 				removeFirstBuff(tempskill.getId());
 			}
@@ -2786,59 +2765,51 @@ public abstract class L2Character extends L2Object
 	public final void removeEffect(L2Effect effect)
 	{
 		if ((effect == null) || (_effects == null))
-		{
 			return;
-		}
+
 		synchronized (_effects)
 		{
 			if (effect.getStackType() == "none")
-			{
-				// Remove Func added by this effect from the L2Character
-				// Calculator
+				// Remove Func added by this effect from the L2Character Calculator
 				removeStatsOwner(effect);
-			}
+
 			else
 			{
 				if (_stackedEffects == null)
-				{
 					return;
-				}
-				// Get the list of all stacked effects corresponding to the
-				// stack type of the L2Effect to add
+
+				// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
 				List<L2Effect> stackQueue = _stackedEffects.get(effect.getStackType());
+
 				if ((stackQueue == null) || (stackQueue.size() < 1))
-				{
 					return;
-				}
-				// Get the Identifier of the first stacked effect of the Stack
-				// group selected
+
+				// Get the Identifier of the first stacked effect of the Stack group selected
 				L2Effect frontEffect = stackQueue.get(0);
+
 				// Remove the effect from the Stack Group
 				boolean removed = stackQueue.remove(effect);
+
 				if (removed)
 				{
-					// Check if the first stacked effect was the effect to
-					// remove
+					// Check if the first stacked effect was the effect to remove
 					if (frontEffect == effect)
 					{
-						// Remove all its Func objects from the L2Character
-						// calculator set
+						// Remove all its Func objects from the L2Character calculator set
 						removeStatsOwner(effect);
+
 						// Check if there's another effect in the Stack Group
 						if (stackQueue.size() > 0)
 						{
-							// Add its list of Funcs to the Calculator set
-							// of
-							// the L2Character
+							// Add its list of Funcs to the Calculator set of the L2Character
 							for (int i = 0; i < _effects.size(); i++)
 							{
 								if (_effects.get(i) == stackQueue.get(0))
 								{
-									// Add its list of Funcs to the
-									// Calculator
-									// set of the L2Character
-									addStatFuncs(_effects.get(i).getStatFuncs());
-									// Set the effect to In Use
+							// Add its list of Funcs to the Calculator set of the L2Character
+								addStatFuncs(_effects.get(i).getStatFuncs());
+
+								// Set the effect to In Use
 									_effects.get(i).setInUse(true);
 									break;
 								}
@@ -2857,11 +2828,7 @@ public abstract class L2Character extends L2Object
 					}
 				}
 			}
-			// Remove the active skill L2effect from _effects of the
-			// L2Character
-			// The Integer key of _effects is the L2Skill Identifier that
-			// has
-			// created the effect
+			// Remove the active skill L2effect from _effects of the L2Character The Integer key of _effects is the L2Skill Identifier that has created the effect
 			for (int i = 0; i < _effects.size(); i++)
 			{
 				if (_effects.get(i) == effect)
@@ -2871,8 +2838,7 @@ public abstract class L2Character extends L2Object
 				}
 			}
 		}
-		// Update active skills in progress (In Use and Not In Use because
-		// stacked) icones on client
+		// Update active skills in progress (In Use and Not In Use because stacked) icones on client
 		updateEffectIcons();
 	}
 
@@ -2903,7 +2869,6 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void startFakeDeath()
 	{
-		// [L2J_JP ADD START]
 		setIsFallsdown(true);
 		if (Config.FAILD_FAKEDEATH)
 		{
@@ -2925,7 +2890,7 @@ public abstract class L2Character extends L2Object
 				}
 				// If L2RaidBoss in getAttackByList(), Fake Death will have failed.
 				if (isRaid)
-				{
+					{
 					setIsFakeDeath(false);
 				}
 				else
@@ -2971,8 +2936,8 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			else
-			// attacked from aggressive monster
 			{
+			// attacked from aggressive monster
 				if (Rnd.get(100) >= 75) // fails at 25%.
 					setIsFakeDeath(false);
 			}
@@ -3100,16 +3065,12 @@ public abstract class L2Character extends L2Object
 		// Get all active skills effects in progress on the L2Character
 		L2Effect[] effects = getAllEffects();
 		if (effects == null)
-		{
 			return;
-		}
+
 		// Go through all active skills effects
 		for (L2Effect e : effects)
 		{
-			if (e != null)
-			{
-				e.exit(true);
-			}
+			if (e != null) e.exit(true);
 		}
 		if (this instanceof L2PcInstance)
 			((L2PcInstance) this).updateAndBroadcastStatus(2);
@@ -3126,13 +3087,9 @@ public abstract class L2Character extends L2Object
 	public final void stopConfused(L2Effect effect)
 	{
 		if (effect == null)
-		{
 			stopEffects(L2Effect.EffectType.CONFUSION);
-		}
 		else
-		{
 			removeEffect(effect);
-		}
 		setIsConfused(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
@@ -3182,17 +3139,14 @@ public abstract class L2Character extends L2Object
 		// Get all active skills effects in progress on the L2Character
 		L2Effect[] effects = getAllEffects();
 		if (effects == null)
-		{
 			return;
-		}
+
 		// Go through all active skills effects
 		for (L2Effect e : effects)
 		{
 			// Stop active skills effects of the selected type
 			if (e.getEffectType() == type)
-			{
 				e.exit();
-			}
 		}
 	}
 
@@ -3234,13 +3188,9 @@ public abstract class L2Character extends L2Object
 	public final void stopFear(L2Effect effect)
 	{
 		if (effect == null)
-		{
 			stopEffects(L2Effect.EffectType.FEAR);
-		}
 		else
-		{
 			removeEffect(effect);
-		}
 		setIsAfraid(false);
 		updateAbnormalEffect();
 	}
@@ -3256,13 +3206,9 @@ public abstract class L2Character extends L2Object
 	public final void stopMuted(L2Effect effect)
 	{
 		if (effect == null)
-		{
 			stopEffects(L2Effect.EffectType.MUTE);
-		}
 		else
-		{
 			removeEffect(effect);
-		}
 		setIsMuted(false);
 		updateAbnormalEffect();
 	}
@@ -3270,13 +3216,9 @@ public abstract class L2Character extends L2Object
 	public final void stopPsychicalMuted(L2Effect effect)
 	{
 		if (effect == null)
-		{
 			stopEffects(L2Effect.EffectType.PSYCHICAL_MUTE);
-		}
 		else
-		{
 			removeEffect(effect);
-		}
 		setIsPsychicalMuted(false);
 		updateAbnormalEffect();
 	}
@@ -3292,13 +3234,9 @@ public abstract class L2Character extends L2Object
 	public final void stopRooting(L2Effect effect)
 	{
 		if (effect == null)
-		{
 			stopEffects(L2Effect.EffectType.ROOT);
-		}
 		else
-		{
 			removeEffect(effect);
-		}
 		setIsRooted(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
@@ -3315,13 +3253,9 @@ public abstract class L2Character extends L2Object
 	public final void stopSleeping(L2Effect effect)
 	{
 		if (effect == null)
-		{
 			stopEffects(L2Effect.EffectType.SLEEP);
-		}
 		else
-		{
 			removeEffect(effect);
-		}
 		setIsSleeping(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
@@ -3332,10 +3266,8 @@ public abstract class L2Character extends L2Object
 		if (effect == null)
 			stopEffects(L2Effect.EffectType.IMMOBILEUNTILATTACKED);
 		else
-		{
 			removeEffect(effect);
 			stopSkillEffects(effect.getSkill().getNegateId());
-		}
 		setIsImmobileUntilAttacked(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
@@ -3352,13 +3284,9 @@ public abstract class L2Character extends L2Object
 	public final void stopStunning(L2Effect effect)
 	{
 		if (effect == null)
-		{
 			stopEffects(L2Effect.EffectType.STUN);
-		}
 		else
-		{
 			removeEffect(effect);
-		}
 		setIsStunned(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
@@ -3438,9 +3366,7 @@ public abstract class L2Character extends L2Object
 			{
 				L2Effect effect = effects[i];
 				if (effect == null)
-				{
 					continue;
-				}
 				if ((effect.getEffectType() == L2Effect.EffectType.CHARGE) && (player != null))
 				{
 					// handled by EtcStatusUpdate
@@ -3449,33 +3375,21 @@ public abstract class L2Character extends L2Object
 				if (effect.getInUse())
 				{
 					if (mi != null)
-					{
 						effect.addIcon(mi);
-					}
 					if (ps != null)
-					{
 						effect.addPartySpelledIcon(ps);
-					}
 					if (os != null)
-					{
 						effect.addOlympiadSpelledIcon(os);
-					}
 				}
 			}
 		}
 		// Send the packets if needed
 		if (mi != null)
-		{
 			sendPacket(mi);
-		}
+
 		if ((ps != null) && (player != null))
 		{
-			// summon info only needs to go to the owner, not to the whole
-			// party
-			// player info: if in party, send to all party members except
-			// one's
-			// self.
-			// if not in party, send to self.
+			// summon info only needs to go to the owner, not to the whole party player info: if in party, send to all party members except one's self. if not in party, send to self.
 			if (player.isInParty() && (summon == null))
 			{
 				player.getParty().broadcastToPartyMembers(player, ps);
@@ -3522,33 +3436,19 @@ public abstract class L2Character extends L2Object
 	{
 		int ae = _AbnormalEffects;
 		if (isStunned())
-		{
 			ae |= ABNORMAL_EFFECT_STUN;
-		}
 		if (isRooted())
-		{
 			ae |= ABNORMAL_EFFECT_ROOT;
-		}
 		if (isSleeping())
-		{
 			ae |= ABNORMAL_EFFECT_SLEEP;
-		}
 		if (isConfused())
-		{
 			ae |= ABNORMAL_EFFECT_CONFUSED;
-		}
 		if (isMuted())
-		{
 			ae |= ABNORMAL_EFFECT_MUTED;
-		}
 		if (isAfraid())
-		{
 			ae |= ABNORMAL_EFFECT_AFRAID;
-		}
 		if (isPsychicalMuted())
-		{
 			ae |= ABNORMAL_EFFECT_MUTED;
-		}
 		return ae;
 	}
 
@@ -3568,9 +3468,7 @@ public abstract class L2Character extends L2Object
 		FastTable<L2Effect> effects = _effects;
 		// If no effect found, return EMPTY_EFFECTS
 		if ((effects == null) || effects.isEmpty())
-		{
 			return EMPTY_EFFECTS;
-		}
 		// Return all effects in progress in a table
 		int ArraySize = effects.size();
 		L2Effect[] effectArray = new L2Effect[ArraySize];
@@ -3584,7 +3482,6 @@ public abstract class L2Character extends L2Object
 		}
 		return effectArray;
 	}
-
 	/**
 	 * Return L2Effect in progress on the L2Character corresponding to the L2Skill Identifier.<BR>
 	 * <BR>
@@ -3600,9 +3497,7 @@ public abstract class L2Character extends L2Object
 	{
 		FastTable<L2Effect> effects = _effects;
 		if (effects == null)
-		{
 			return null;
-		}
 		L2Effect e;
 		L2Effect eventNotInUse = null;
 		for (int i = 0; i < effects.size(); i++)
@@ -3611,13 +3506,9 @@ public abstract class L2Character extends L2Object
 			if (e.getSkill().getId() == index)
 			{
 				if (e.getInUse())
-				{
 					return e;
-				}
 				else
-				{
 					eventNotInUse = e;
-				}
 			}
 		}
 		return eventNotInUse;
@@ -3638,9 +3529,7 @@ public abstract class L2Character extends L2Object
 	{
 		FastTable<L2Effect> effects = _effects;
 		if (effects == null)
-		{
 			return null;
-		}
 		L2Effect e;
 		L2Effect eventNotInUse = null;
 		for (int i = 0; i < effects.size(); i++)
@@ -3649,13 +3538,9 @@ public abstract class L2Character extends L2Object
 			if (e.getSkill() == skill)
 			{
 				if (e.getInUse())
-				{
 					return e;
-				}
 				else
-				{
 					eventNotInUse = e;
-				}
 			}
 		}
 		return eventNotInUse;
@@ -3677,9 +3562,7 @@ public abstract class L2Character extends L2Object
 	{
 		FastTable<L2Effect> effects = _effects;
 		if (effects == null)
-		{
 			return null;
-		}
 		L2Effect e;
 		L2Effect eventNotInUse = null;
 		for (int i = 0; i < effects.size(); i++)
@@ -3688,13 +3571,9 @@ public abstract class L2Character extends L2Object
 			if (e.getEffectType() == tp)
 			{
 				if (e.getInUse())
-				{
 					return e;
-				}
 				else
-				{
 					eventNotInUse = e;
-				}
 			}
 		}
 		return eventNotInUse;
@@ -3820,23 +3699,28 @@ public abstract class L2Character extends L2Object
 
 	/** Table containing all skillId that are disabled */
 	protected List<Integer> _disabledSkills;
+
 	private boolean _allSkillsDisabled;
-	// private int _flyingRunSpeed;
-	// private int _floatingWalkSpeed;
-	// private int _flyingWalkSpeed;
-	// private int _floatingRunSpeed;
+
 	/** Movement data of this L2Character */
 	protected MoveData _move;
+
 	/** Orientation of the L2Character */
 	private int _heading;
+
 	/** L2Charcater targeted by the L2Character */
 	private L2Object _target;
+
 	// setted by the start of casting, in game ticks
 	private int _castEndTime;
+
 	private int _castInterruptTime;
+
 	// setted by the start of attack, in game ticks
 	private int _attackEndTime;
+
 	private int _attacking;
+
 	private int _disableBowAttackEndTime;
 	/**
 	 * Table of calculators containing all standard NPC calculator (ex : ACCURACY_COMBAT, EVASION_RATE
@@ -3848,8 +3732,9 @@ public abstract class L2Character extends L2Object
 	}
 	protected L2CharacterAI _ai;
 	/** Future Skill Cast */
-	@SuppressWarnings("unchecked")
+
 	protected Future _skillCast;
+
 	/** Char Coords from Client */
 	private int _clientX;
 	private int _clientY;
@@ -3870,9 +3755,8 @@ public abstract class L2Character extends L2Object
 	public void addNotifyQuestOfDeath(QuestState qs)
 	{
 		if ((qs == null) || _NotifyQuestOfDeathList.contains(qs))
-		{
 			return;
-		}
+
 		_NotifyQuestOfDeathList.add(qs);
 	}
 
@@ -3883,9 +3767,8 @@ public abstract class L2Character extends L2Object
 	public final List<QuestState> getNotifyQuestOfDeath()
 	{
 		if (_NotifyQuestOfDeathList == null)
-		{
 			_NotifyQuestOfDeathList = new FastList<QuestState>();
-		}
+
 		return _NotifyQuestOfDeathList;
 	}
 
@@ -3909,11 +3792,9 @@ public abstract class L2Character extends L2Object
 	public final synchronized void addStatFunc(Func f)
 	{
 		if (f == null)
-		{
 			return;
-		}
-		// Check if Calculator set is linked to the standard Calculator set of
-		// NPC
+
+		// Check if Calculator set is linked to the standard Calculator set of NPC
 		if (_calculators == NPC_STD_CALCULATOR)
 		{
 			// Create a copy of the standard NPC Calculator set
@@ -3921,17 +3802,13 @@ public abstract class L2Character extends L2Object
 			for (int i = 0; i < Stats.NUM_STATS; i++)
 			{
 				if (NPC_STD_CALCULATOR[i] != null)
-				{
 					_calculators[i] = new Calculator(NPC_STD_CALCULATOR[i]);
-				}
 			}
 		}
 		// Select the Calculator of the affected state in the Calculator set
 		int stat = f.stat.ordinal();
 		if (_calculators[stat] == null)
-		{
 			_calculators[stat] = new Calculator();
-		}
 		// Add the Func to the calculator corresponding to the state
 		_calculators[stat].addFunc(f);
 	}
@@ -3986,21 +3863,15 @@ public abstract class L2Character extends L2Object
 	public final synchronized void removeStatFunc(Func f)
 	{
 		if (f == null)
-		{
 			return;
-		}
 		// Select the Calculator of the affected state in the Calculator set
 		int stat = f.stat.ordinal();
 		if (_calculators[stat] == null)
-		{
 			return;
-		}
 		// Remove the Func object from the Calculator
 		_calculators[stat].removeFunc(f);
 		if (_calculators[stat].size() == 0)
-		{
 			_calculators[stat] = null;
-		}
 		// If possible, free the memory and just create a link on
 		// NPC_STD_CALCULATOR
 		if (this instanceof L2NpcInstance)
@@ -4009,14 +3880,10 @@ public abstract class L2Character extends L2Object
 			for (; i < Stats.NUM_STATS; i++)
 			{
 				if (!Calculator.equalsCals(_calculators[i], NPC_STD_CALCULATOR[i]))
-				{
 					break;
-				}
 			}
 			if (i >= Stats.NUM_STATS)
-			{
 				_calculators = NPC_STD_CALCULATOR;
-			}
 		}
 	}
 

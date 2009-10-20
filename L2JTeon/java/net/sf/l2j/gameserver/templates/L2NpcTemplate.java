@@ -64,6 +64,8 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public final int absorbLevel;
 	public final AbsorbCrystalType absorbType;
 	public Race race;
+	public boolean isQuestMonster; 	// doesn't include all mobs that are involved in
+	// quests, just plain quest monsters for preventing champion spawn
 
 	public static enum AbsorbCrystalType
 	{
@@ -76,14 +78,21 @@ public final class L2NpcTemplate extends L2CharTemplate
 	}
 
 	private final StatsSet _npcStatsSet;
+
 	/** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate */
 	private final FastList<L2DropCategory> _categories = new FastList<L2DropCategory>();
+
 	/** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate */
 	private final List<L2MinionData> _minions = new FastList<L2MinionData>(0);
+
 	private List<ClassId> _teachInfo;
+
 	private Map<Integer, L2Skill> _skills;
+
 	private Map<Stats, Double> _vulnerabilities;
+
 	// contains a list of quests for each event type (questStart, questAttack, questKill, etc)
+
 	private Map<Quest.QuestEventType, Quest[]> _questEvents;
 
 	/**
@@ -102,6 +111,10 @@ public final class L2NpcTemplate extends L2CharTemplate
 		name = set.getString("name");
 		serverSideName = set.getBool("serverSideName");
 		title = set.getString("title");
+		if (title.equalsIgnoreCase("Quest Monster"))
+			isQuestMonster = true;
+		else
+			isQuestMonster = false;
 		serverSideTitle = set.getBool("serverSideTitle");
 		sex = set.getString("sex");
 		level = set.getByte("level");

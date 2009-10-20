@@ -28,7 +28,7 @@ public class L2JTeon
 	public static void L2JTeon()
 	{
 		_log.info("------------------------------------------------------------------");
-		_log.info("                  Developers: Maxi56, Meyknho                     ");
+		_log.info("                  Developers: Maxi56, Meyknho, danielmwx          ");
 		_log.info("------------------------------------------------------------------");
 		_log.info("       #      # # #    ###     # # #  # # #    ####   #   #       ");
 		_log.info("       #          #     #        #    #       #    #  ##  #       ");
