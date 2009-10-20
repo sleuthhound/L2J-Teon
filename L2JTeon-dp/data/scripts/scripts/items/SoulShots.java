@@ -63,7 +63,7 @@ public class SoulShots implements IItemHandler
         if (activeChar.isParalyzed())
         {
         	activeChar.sendMessage("You Cannot Use Soulshots While You Are Paralyzed!");
-        	activeChar.sendPacket(new ActionFailed());
+        	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
         	return;
         }
 

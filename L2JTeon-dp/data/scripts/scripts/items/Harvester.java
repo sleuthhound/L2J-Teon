@@ -45,13 +45,13 @@ public class Harvester implements IItemHandler
 	if ((_activeChar.getTarget() == null) || !(_activeChar.getTarget() instanceof L2MonsterInstance))
 	{
 	    _activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-	    _activeChar.sendPacket(new ActionFailed());
+	    _activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	_target = (L2MonsterInstance) _activeChar.getTarget();
 	if ((_target == null) || !_target.isDead())
 	{
-	    _activeChar.sendPacket(new ActionFailed());
+	    _activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	L2Skill skill = SkillTable.getInstance().getInfo(2098, 1); //harvesting skill

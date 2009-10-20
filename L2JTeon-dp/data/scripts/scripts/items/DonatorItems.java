@@ -49,14 +49,14 @@ public class DonatorItems implements IItemHandler
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setHtml("<html><head><body>Donator Items Are Disabled</body></html>");
 		activeChar.sendPacket(html);
-		activeChar.sendPacket(new ActionFailed());
+		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    } else
 	    {
 		NpcHtmlMessage itemReply = new NpcHtmlMessage(5);
 		itemReply.setHtml(content);
 		activeChar.sendPacket(itemReply);
 	    }
-	    activeChar.sendPacket(new ActionFailed());
+	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
     }
 

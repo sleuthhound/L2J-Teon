@@ -57,7 +57,7 @@ public class Scrolls implements IItemHandler
 	}
 	if (activeChar.isAllSkillsDisabled())
 	{
-	    activeChar.sendPacket(new ActionFailed());
+	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	if (activeChar.isInOlympiadMode())

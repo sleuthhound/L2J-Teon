@@ -94,18 +94,18 @@ public class Potions implements IItemHandler
 
       /*  if (!TvTEvent.onPotionUse(activeChar.getName(), itemId))
         {
-        	activeChar.sendPacket(new ActionFailed());
+        	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}*/
         if (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS)
         {
-        	activeChar.sendPacket(new ActionFailed());
+        	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
         	return;
         }
     
         if (activeChar._inEventVIP && VIP._started && !Config.VIP_EVENT_POTIONS_ALLOWED)
         {
-        	activeChar.sendPacket(new ActionFailed());
+        	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
         	return;
         }
 
@@ -117,7 +117,7 @@ public class Potions implements IItemHandler
 
 		if (activeChar.isPotionsDisabled())
 		{
-			ActionFailed af = new ActionFailed();
+			ActionFailed af = ActionFailed.STATIC_PACKET;
 			activeChar.sendPacket(af);
 			return;
 		}
@@ -638,7 +638,7 @@ public class Potions implements IItemHandler
 	{
 		if (activeChar.isAllSkillsDisabled())
 		{
-			ActionFailed af = new ActionFailed();
+			ActionFailed af = ActionFailed.STATIC_PACKET;
 			activeChar.sendPacket(af);
 			return false;
 		}

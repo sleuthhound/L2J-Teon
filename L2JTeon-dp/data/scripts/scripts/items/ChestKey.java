@@ -46,7 +46,7 @@ public class ChestKey implements IItemHandler
 	if (!(target instanceof L2ChestInstance) || (target == null))
 	{
 	    activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-	    activeChar.sendPacket(new ActionFailed());
+	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	} else
 	{
 	    L2ChestInstance chest = (L2ChestInstance) target;
@@ -58,7 +58,7 @@ public class ChestKey implements IItemHandler
 		    activeChar.sendMessage("DEBUG: isInteracted(): " + (chest.isInteracted() ? "true" : "false"));
 		}
 		activeChar.sendMessage("The chest is empty.");
-		activeChar.sendPacket(new ActionFailed());
+		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		return;
 	    }
 	    // activeChar.sendMessage("Opening Chest with ChestKey item

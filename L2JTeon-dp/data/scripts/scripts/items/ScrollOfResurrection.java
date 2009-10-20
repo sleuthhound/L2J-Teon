@@ -58,7 +58,7 @@ public class ScrollOfResurrection implements IItemHandler
         if (activeChar.isInOlympiadMode() || activeChar.inObserverMode())
         {
         	activeChar.sendMessage("You Cannot Use This Item In Olympiad Mode!");
-        	activeChar.sendPacket(new ActionFailed());
+        	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
         	return;
         }
 

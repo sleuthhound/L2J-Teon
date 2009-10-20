@@ -70,7 +70,7 @@ public class BlessedSpiritShot implements IItemHandler
         if (activeChar.isParalyzed())
         {
         	activeChar.sendMessage("You Cannot Use Soulshots While You Are Paralyzed!");
-        	activeChar.sendPacket(new ActionFailed());
+        	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
         	return;
         }
 	// Check if Blessed Spiritshot is already active (it can be charged over

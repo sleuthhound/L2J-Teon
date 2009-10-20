@@ -40,12 +40,12 @@ public class Recall implements ISkillHandler
 		{
 			if (!TvTEvent.onEscapeUse(((L2PcInstance) activeChar).getName()))
 			{
-				((L2PcInstance) activeChar).sendPacket(new ActionFailed());
+				((L2PcInstance) activeChar).sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			if (((L2PcInstance) activeChar)._inEventVIP && VIP._started)
 			{
-				((L2PcInstance) activeChar).sendPacket(new ActionFailed());
+				((L2PcInstance) activeChar).sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			if (((L2PcInstance) activeChar).isInOlympiadMode())
@@ -76,7 +76,7 @@ public class Recall implements ISkillHandler
 					// Check to see if player is in VIP Event
 					if (targetChar._inEventVIP && VIP._started && !Config.VIP_EVENT_SUMMON_BY_ITEM_ALLOWED)
 					{
-						targetChar.sendPacket(new ActionFailed());
+						targetChar.sendPacket(ActionFailed.STATIC_PACKET);
 						continue;
 					}
 					// Check to see if player is in jail

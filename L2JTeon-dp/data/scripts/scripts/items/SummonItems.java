@@ -67,18 +67,18 @@ public class SummonItems implements IItemHandler
 	}
 	if (activeChar._inEventVIP && VIP._started && !Config.VIP_EVENT_SUMMON_BY_ITEM_ALLOWED)
 	{
-	    playable.sendPacket(new ActionFailed());
+	    playable.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	if (Config.DISABLE_SUMMON_IN_COMBAT && (activeChar.getPvpFlag() > 0))
 	{
 	    activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT));
-	    playable.sendPacket(new ActionFailed());
+	    playable.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	if (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_SUMMON)
 	{
-	    activeChar.sendPacket(new ActionFailed());
+	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	    return;
 	}
 	if (activeChar.inObserverMode())
