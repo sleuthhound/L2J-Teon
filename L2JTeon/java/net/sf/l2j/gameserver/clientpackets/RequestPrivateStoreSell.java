@@ -109,12 +109,12 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (storePlayer.getAdena() < _price)
 		{
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			storePlayer.sendMessage("You have not enough adena, canceling PrivateBuy.");
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
@@ -122,7 +122,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		}
 		if (!storeList.PrivateStoreSell(player, _items, _price))
 		{
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			_log.warning("PrivateStore sell has failed due to invalid list or request. Player: " + player.getName() + ", Private store of: " + storePlayer.getName());
 			return;
 		}
@@ -136,7 +136,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 			if ((storePlayer.isNoob() && player.isKoof()) || (storePlayer.isKoof() && player.isNoob()))
 			{
 				player.sendMessage("You cant sell on enemy Faction");
-				sendPacket(new ActionFailed());
+				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}

@@ -146,7 +146,7 @@ public final class RequestWearItem extends L2GameClientPacket
 		// Check if the quantity of Item to Wear
 		if ((_count < 1) || (_listId >= 1000000))
 		{
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		// Total Price of the Try On

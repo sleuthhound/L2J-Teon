@@ -94,14 +94,14 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 			if ((storePlayer.isNoob() && player.isKoof()) || (storePlayer.isKoof() && player.isNoob()))
 			{
 				player.sendMessage("You cant buy from enemy Faction");
-				sendPacket(new ActionFailed());
+				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}
 		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		// FIXME: this check should be (and most probabliy is) done in the
@@ -141,7 +141,7 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		if (player.getAdena() < priceTotal)
 		{
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
@@ -155,7 +155,7 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		}
 		if (!storeList.PrivateStoreBuy(player, _items, (int) priceTotal))
 		{
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			_log.warning("PrivateStore buy has failed due to invalid list or request. Player: " + player.getName() + ", Private store of: " + storePlayer.getName());
 			return;
 		}

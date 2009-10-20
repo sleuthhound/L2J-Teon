@@ -48,13 +48,13 @@ public final class RequestStopPledgeWar extends L2GameClientPacket
 		if (clan == null)
 		{
 			player.sendMessage("No such clan.");
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (!playerClan.isAtWarWith(clan.getClanId()))
 		{
 			player.sendMessage("You aren't at war with this clan.");
-			player.sendPacket(new ActionFailed());
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		// Check if player who does the request has the correct rights to do it
@@ -71,7 +71,7 @@ public final class RequestStopPledgeWar extends L2GameClientPacket
 		// if(leader != null && leader.isOnline() == 0)
 		// {
 		// player.sendMessage("Clan leader isn't online.");
-		// player.sendPacket(new ActionFailed());
+		// player.sendPacket(ActionFailed.STATIC_PACKET);
 		// return;
 		// }
 		// if (leader.isProcessingRequest())

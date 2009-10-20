@@ -76,7 +76,7 @@ public final class AttackRequest extends L2GameClientPacket
 			}
 			else
 			{
-				sendPacket(new ActionFailed());
+				sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 	}

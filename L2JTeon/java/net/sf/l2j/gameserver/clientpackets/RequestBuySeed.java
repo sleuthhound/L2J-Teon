@@ -82,7 +82,7 @@ public class RequestBuySeed extends L2GameClientPacket
 			return;
 		if (_count < 1)
 		{
-			sendPacket(new ActionFailed());
+			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		L2Object target = player.getTarget();
