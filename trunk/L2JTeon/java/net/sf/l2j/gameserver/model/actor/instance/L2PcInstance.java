@@ -9550,6 +9550,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		_isDonator = value;
 	}
 	
+	// By: Meyknho
 	public int getDonator()
 	{
 		int value = 1;
