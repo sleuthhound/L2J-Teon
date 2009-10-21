@@ -9549,6 +9549,19 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_isDonator = value;
 	}
+	
+	public int getDonator()
+	{
+		int value = 1;
+		if (_isDonator == true)
+		{
+			return value = 1;
+		}
+		else
+		{
+			return value = 0;
+		}
+	}
 
 	// Faction Koofs and Noobs by DaRkRaGe
 	public void setKoof(boolean value)

@@ -1,4 +1,4 @@
 Welcome L2JTeon Project Interlude
-Developers: Maxi56, Meyknho.
+Developers: Maxi56, Meyknho and DanielMWX.
 Forum: http://l2jteon.servegame.com
 Updates: http://www.assembla.com/spaces/L2JTeon/stream
