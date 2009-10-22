@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.ai.L2DoorAI;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -330,6 +331,12 @@ public class L2DoorInstance extends L2Character
 		/*
 		 * if (DevastatedCastleManager.getInstance().getClosedDoor()) return true;
 		 */
+	int ClanHallID = _clanHall.getId();
+	if (ClanHallID == 34 && DevastatedCastleManager.getInstance().getIsInProgress()) return true;
+
+	if (ClanHallID == 64 && FortressofTheDeadManager.getInstance().getIsInProgress()) return true;
+
+
 		// Attackable during siege by attacker only
 		boolean isCastle = (getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress() && getCastle().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan()));
 		boolean isFort = (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress() && getFort().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan()));

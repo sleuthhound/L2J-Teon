@@ -76,7 +76,7 @@ public class L2DoormenInstance extends L2NpcInstance
                     getClanHall().openCloseDoors(true);
                     player.sendPacket(new NpcHtmlMessage(getObjectId(),
                         "<html><body>You have <font color=\"FF9955\">opened</font> the clan hall door.<br>Outsiders may enter the clan hall while the door is open. Please close it when you've finished your business.<br><center><button value=\"Close\" action=\"bypass -h npc_"
-                       + getObjectId() + "_close_doors\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>"));
+                       + getObjectId() + "_close_doors\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
                 }
                 else if (condition == COND_CASTLE_OWNER)
                 {
@@ -116,7 +116,7 @@ public class L2DoormenInstance extends L2NpcInstance
                     getClanHall().openCloseDoors(false);
                     player.sendPacket(new NpcHtmlMessage(getObjectId(),
                         "<html><body>You have <font color=\"FF9955\">closed</font> the clan hall door.<br>Good day!<br><center><button value=\"To Beginning\" action=\"bypass -h npc_"
-                        + getObjectId() + "_Chat\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>"));
+                        + getObjectId() + "_Chat\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
                 }
                 else if (condition == COND_CASTLE_OWNER)
                 {
@@ -217,8 +217,8 @@ public class L2DoormenInstance extends L2NpcInstance
             {
                 str = "<html><body>Greetings!<br><br><font color=\"00FFFF\">" + ClanTable.getInstance().getClan(getClanHall().getOwnerId()).getName()
                     + "</font> I am honored to serve your clan.<br>How may i assist you?<br>";
-                str += "<center><br><button value=\"Open Door\" action=\"bypass -h npc_%objectId%_open_doors\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"><br>";
-                str += "<button value=\"Close Door\" action=\"bypass -h npc_%objectId%_close_doors\" width=80 height=27 back=\"L2UI_CT1.Button_DF_Down\" fore=\"L2UI_CT1.Button_DF\"></center></body></html>";
+                str += "<center><br><button value=\"Open Door\" action=\"bypass -h npc_%objectId%_open_doors\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br>";
+                str += "<button value=\"Close Door\" action=\"bypass -h npc_%objectId%_close_doors\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>";
             }
             else
             {
@@ -235,9 +235,9 @@ public class L2DoormenInstance extends L2NpcInstance
 	{
 	int ClanHallID = _clanHall.getId();
 	if (ClanHallID == 21 || ClanHallID == 34 || ClanHallID == 35 || ClanHallID == 62 || ClanHallID == 63 || ClanHallID == 64)
-	str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName() + "</font>has no owner. <br> To get this clan hall must visit the messenger</body></html>";
+	str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName() + "</font> has no owner. <br> To get this clan hall must visit the messenger</body></html>";
 	else
-	str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName() + "</font>has no owner. <br> To purchase, go to the Auction.</body></html>";
+	str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName() + "</font> has no owner. <br> To purchase, go to the Auction.</body></html>";
 		}
             }
             html.setHtml(str);
