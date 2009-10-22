@@ -201,7 +201,7 @@ public class SummonFriend implements ISkillHandler
 							activePlayer.sendPacket(sm);
 							continue;
 						}
-						if (skill.getId() == 1403) // summon friend
+					/*	if (skill.getId() == 1403) // summon friend
 						{
 							// Send message
 							ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
@@ -210,7 +210,7 @@ public class SummonFriend implements ISkillHandler
 							confirm.addTime(30000);
 							confirm.addRequesterId(activePlayer.getCharId());
 							target.sendPacket(confirm);
-						}
+						} */
 						else
 						{
 							teleToTarget(targetPlayer, activePlayer, skill);
@@ -228,7 +228,6 @@ public class SummonFriend implements ISkillHandler
 			}
 		}
 	}
-
 	/**
 	 * @see net.sf.l2j.gameserver.handler.ISkillHandler#getSkillIds()
 	 */
