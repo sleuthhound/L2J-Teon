@@ -19,8 +19,10 @@ import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.datatables.SkillTable; 
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
+import net.sf.l2j.gameserver.model.L2Skill; 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
@@ -58,7 +60,7 @@ public class Escape implements IUserCommandHandler
 	{
 	    return false;
 	}
-        int unstuckTimer = (activeChar.getAccessLevel() >=REQUIRED_LEVEL? 5000 : Config.UNSTUCK_INTERVAL*1000 );
+        int unstuckTimer = (activeChar.getAccessLevel() >= REQUIRED_LEVEL? 1000 : Config.UNSTUCK_INTERVAL * 1000 );
 		// int unstuckTimer = (activeChar.getAccessLevel() ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 	// int unstuckTimer = activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 5000 : Config.UNSTUCK_INTERVAL * 1000;
 	// Check if player is in VIP Event
@@ -95,14 +97,42 @@ public class Escape implements IUserCommandHandler
 	}
 
   
-        if (GrandBossManager.getInstance().getZone(activeChar) != null && !activeChar.isGM())
-        {
-            activeChar.sendMessage("You may not use an escape command in a Boss Zone.");
-            return false;
-        }
+    if (GrandBossManager.getInstance().getZone(activeChar) != null && !activeChar.isGM())
+    {
+        activeChar.sendMessage("You may not use an escape command in a Boss Zone.");
+        return false;
+    }
 
-	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-	sm.addString("After " + unstuckTimer / 60000 + " min. you be returned to near village.");
+    if(activeChar.getAccessLevel() >= REQUIRED_LEVEL) 
+    {
+        L2Skill GM_escape = SkillTable.getInstance().getInfo(2100, 1); // 1 second escape 
+        if (GM_escape != null)
+        {
+            activeChar.doCast(GM_escape); 
+            activeChar.sendMessage("You use Escape: 1 second."); 
+            return true; 
+        }
+   	}
+    else if(Config.UNSTUCK_INTERVAL == 300) 
+    {
+        L2Skill escape = SkillTable.getInstance().getInfo(2099, 1); // 5 minutes escape 
+        
+        if (escape != null) 
+        {
+            activeChar.doCast(escape); 
+            return true; 
+        }
+    }
+    else 
+    {
+        if (Config.UNSTUCK_INTERVAL > 100) 
+        {
+            activeChar.sendMessage("You use Escape: " + unstuckTimer / 60000 + " minutes."); 
+        }
+        else 
+            activeChar.sendMessage("You use Escape: " + unstuckTimer / 1000 + " seconds."); 
+    }
+        
 	activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 	// SoE Animation section
 	activeChar.setTarget(activeChar);
