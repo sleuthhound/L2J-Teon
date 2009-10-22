@@ -304,7 +304,7 @@ INSERT INTO `armor` VALUES
  ('565','Dark Dragon Boots','feet','true','none','1130','damascus','b','0','-1','44','0','0','804000','107','true','true','true','true','0','0'),
  ('566','Elven Vagian Boots','feet','true','none','1150','mithril','b','0','-1','41','0','0','519000','69','true','true','true','true','0','0'),
  ('567','Dark Vagian Boots','feet','true','none','1130','mithril','b','0','-1','44','0','0','804000','107','true','true','true','true','0','0'),
- ('568','Composite Boots','feet','true','none','200','fine_steel','b','0','-1','41','0','0','519000','69','true','true','true','true','0','0'),
+ ('568','Composite Boots','feet','true','none','200','fine_steel','c','0','-1','41','0','0','519000','69','true','true','true','true','0','0'),
  ('569','Hell Boots','feet','true','none','1130','blood_steel','b','0','-1','44','0','0','804000','107','true','true','true','true','0','0'),
  ('570','Art of Boots','feet','true','none','1150','chrysolite','b','0','-1','41','0','0','519000','69','true','true','true','true','0','0'),
  ('571','Masterpiece Boots','feet','true','none','1130','oriharukon','b','0','-1','44','0','0','804000','107','true','true','true','true','0','0'),

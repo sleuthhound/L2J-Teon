@@ -191,6 +191,8 @@ public class Handler
 		SkillHandler.getInstance().registerSkillHandler(new Signets());
 		SkillHandler.getInstance().registerSkillHandler(new GetPlayer());
 		SkillHandler.getInstance().registerSkillHandler(new GiveSp());
+		SkillHandler.getInstance().registerSkillHandler(new ZakenPlayer());
+		SkillHandler.getInstance().registerSkillHandler(new ZakenSelf());
 	}
 
 	private static void loadUserHandlers()
