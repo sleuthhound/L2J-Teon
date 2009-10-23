@@ -36,11 +36,42 @@ public class SkillHandler
 	private SkillHandler()
 	{
 		_datatable = new TreeMap<L2Skill.SkillType, ISkillHandler>();
-        	registerSkillHandler(new StrSiegeAssault());
-        	registerSkillHandler(new SummonFriend());
-        	registerSkillHandler(new SiegeFlag());
-        	registerSkillHandler(new TakeCastle());
-        	_log.config("SkillHandler: Loaded " + _datatable.size() + " handlers.");
+		registerSkillHandler(new Blow());
+		registerSkillHandler(new Pdam());
+		registerSkillHandler(new Mdam());
+		registerSkillHandler(new CpDam());
+		registerSkillHandler(new Manadam());
+		registerSkillHandler(new Heal());
+		registerSkillHandler(new CombatPointHeal());
+		registerSkillHandler(new ManaHeal());
+		registerSkillHandler(new BalanceLife());
+		registerSkillHandler(new Charge());
+		registerSkillHandler(new Continuous());
+		registerSkillHandler(new Resurrect());
+		registerSkillHandler(new Spoil());
+		registerSkillHandler(new Sweep());
+		registerSkillHandler(new SummonTreasureKey());
+		registerSkillHandler(new Disablers());
+		registerSkillHandler(new Recall());
+		registerSkillHandler(new Unlock());
+		registerSkillHandler(new DrainSoul());
+		registerSkillHandler(new Craft());
+		registerSkillHandler(new Fishing());
+		registerSkillHandler(new FishingSkill());
+		registerSkillHandler(new BeastFeed());
+		registerSkillHandler(new DeluxeKey());
+		registerSkillHandler(new Sow());
+		registerSkillHandler(new Harvest());
+		registerSkillHandler(new Signets());
+		registerSkillHandler(new GetPlayer());
+		registerSkillHandler(new GiveSp());
+		registerSkillHandler(new ZakenPlayer());
+		registerSkillHandler(new ZakenSelf());
+    	registerSkillHandler(new StrSiegeAssault());
+    	registerSkillHandler(new SummonFriend());
+    	registerSkillHandler(new SiegeFlag());
+    	registerSkillHandler(new TakeCastle());
+    	_log.config("SkillHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerSkillHandler(ISkillHandler handler)
