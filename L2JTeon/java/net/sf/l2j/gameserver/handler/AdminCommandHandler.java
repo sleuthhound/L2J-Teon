@@ -21,6 +21,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.*;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
@@ -50,6 +51,68 @@ public class AdminCommandHandler
 	private AdminCommandHandler()
 	{
 		_datatable = new FastMap<String, IAdminCommandHandler>();
+		registerAdminCommandHandler(new AdminAdmin());
+		registerAdminCommandHandler(new AdminInvul());
+		registerAdminCommandHandler(new AdminDelete());
+		registerAdminCommandHandler(new AdminKill());
+		registerAdminCommandHandler(new AdminTarget());
+		registerAdminCommandHandler(new AdminShop());
+		registerAdminCommandHandler(new AdminAnnouncements());
+		registerAdminCommandHandler(new AdminAutoAnnouncements());
+		registerAdminCommandHandler(new AdminCreateItem());
+		registerAdminCommandHandler(new AdminHeal());
+		registerAdminCommandHandler(new AdminHelpPage());
+		registerAdminCommandHandler(new AdminShutdown());
+		registerAdminCommandHandler(new AdminSpawn());
+		registerAdminCommandHandler(new AdminSkill());
+		registerAdminCommandHandler(new AdminExpSp());
+		registerAdminCommandHandler(new AdminEventEngine());
+		registerAdminCommandHandler(new AdminGmChat());
+		registerAdminCommandHandler(new AdminEditChar());
+		registerAdminCommandHandler(new AdminGm());
+		registerAdminCommandHandler(new AdminTeleport());
+		registerAdminCommandHandler(new AdminRepairChar());
+		registerAdminCommandHandler(new AdminChangeAccessLevel());
+		registerAdminCommandHandler(new AdminBan());
+		registerAdminCommandHandler(new AdminPolymorph());
+		registerAdminCommandHandler(new AdminBanChat());
+		registerAdminCommandHandler(new AdminKick());
+		registerAdminCommandHandler(new AdminMonsterRace());
+		registerAdminCommandHandler(new AdminEditNpc());
+		registerAdminCommandHandler(new AdminEditPrivs());
+		registerAdminCommandHandler(new AdminFightCalculator());
+		registerAdminCommandHandler(new AdminMenu());
+		registerAdminCommandHandler(new AdminSiege());
+		registerAdminCommandHandler(new AdminFort());
+		registerAdminCommandHandler(new AdminClanHallSieges());
+		registerAdminCommandHandler(new AdminPathNode());
+		registerAdminCommandHandler(new AdminPetition());
+		registerAdminCommandHandler(new AdminPForge());
+		registerAdminCommandHandler(new AdminBBS());
+		registerAdminCommandHandler(new AdminEffects());
+		registerAdminCommandHandler(new AdminDoorControl());
+		registerAdminCommandHandler(new AdminTest());
+		registerAdminCommandHandler(new AdminEnchant());
+		registerAdminCommandHandler(new AdminMobGroup());
+		registerAdminCommandHandler(new AdminRes());
+		registerAdminCommandHandler(new AdminMammon());
+		registerAdminCommandHandler(new AdminUnblockIp());
+		registerAdminCommandHandler(new AdminPledge());
+		registerAdminCommandHandler(new AdminRideWyvern());
+		registerAdminCommandHandler(new AdminReload());
+		registerAdminCommandHandler(new AdminLogin());
+		registerAdminCommandHandler(new AdminCache());
+		registerAdminCommandHandler(new AdminLevel());
+		registerAdminCommandHandler(new AdminQuest());
+		registerAdminCommandHandler(new AdminZone());
+		registerAdminCommandHandler(new AdminDonator());
+		registerAdminCommandHandler(new AdminCTFEngine());
+		registerAdminCommandHandler(new AdminCursedWeapons());
+		registerAdminCommandHandler(new AdminGeodata());
+		registerAdminCommandHandler(new AdminGeoEditor());
+		registerAdminCommandHandler(new AdminManor());
+		registerAdminCommandHandler(new AdminMassRecall());
+	_log.config("Loaded " + AdminCommandHandler.getInstance().size() + " AdminCommandHandlers");
 	}
 
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)
