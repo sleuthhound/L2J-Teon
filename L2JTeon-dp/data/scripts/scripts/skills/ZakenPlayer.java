@@ -14,8 +14,6 @@
  */
 package scripts.skills;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -26,7 +24,6 @@ import net.sf.l2j.util.Rnd;
 
 public class ZakenPlayer implements ISkillHandler
 {
-    private static Logger _log = Logger.getLogger(ZakenPlayer.class.getName());
     private static final SkillType[] SKILL_IDS = { SkillType.ZAKENPLAYER };
 
     public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
