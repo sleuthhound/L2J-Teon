@@ -21,8 +21,11 @@ import java.util.logging.Logger;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2ClassMasterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.base.ClassLevel;
+import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
@@ -165,7 +168,19 @@ public class PcStat extends PlayableStat
 			return false;
 		}
 		boolean levelIncreased = super.addLevel(value);
-		if (levelIncreased)
+		
+		/** Remote Class By Daniemwx **/
+		if(Config.ALLOW_REMOTE_CLASS_MASTERS) 
+		 	{ 
+		 	ClassLevel lvlnow = PlayerClass.values()[getActiveChar().getClassId().getId()].getLevel(); 
+		 	if(getLevel() >= 20 && lvlnow == ClassLevel.First) 
+		 	L2ClassMasterInstance.ClassMaster.onAction(getActiveChar()); 
+		 	else if(getLevel() >= 40 && lvlnow == ClassLevel.Second) 
+		 	L2ClassMasterInstance.ClassMaster.onAction(getActiveChar()); 
+		 	else if(getLevel() >= 76 && lvlnow == ClassLevel.Third) 
+		 	L2ClassMasterInstance.ClassMaster.onAction(getActiveChar());
+		 	}
+		 	if (levelIncreased)
 		{
 			/**
 			 * If there are no characters on the server, the bonuses will be applied to the first character that becomes level 6 and end if this character reaches level 25 or above. If the first character that becomes level 6 is deleted, the rest of the characters may not receive the new character bonus If the first character to become level 6 loses a level, and the player makes another character

@@ -1008,6 +1008,8 @@ public final class Config
 	public static boolean AWAY_ALLOW_INTERFERENCE;
 	public static boolean AWAY_PLAYER_TAKE_AGGRO;
 	public static boolean AWAY_PEACE_ZONE;
+	/** Remote class Master By Danielmwx **/
+	public static boolean ALLOW_REMOTE_CLASS_MASTERS;
 	/**
 	 * Config option allowing server administrators/owners the ability to set a title for new players.
 	 */
@@ -2580,6 +2582,8 @@ public final class Config
 				AWAY_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("AwayTimer", "30"));
 				BACK_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("BackTimer", "30"));
 				AWAY_PEACE_ZONE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayOnlyInPeaceZone", "False"));
+				/** Remote Class Master by Danielmwx **/
+				ALLOW_REMOTE_CLASS_MASTERS = Boolean.valueOf(L2JTeonCustom.getProperty("AllowRemoteClassMasters", "False"));
 				ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("TradeOffCommand", "False"));
 				ONLINE_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("OnlineVCommand", "False"));
 				// **************************//
