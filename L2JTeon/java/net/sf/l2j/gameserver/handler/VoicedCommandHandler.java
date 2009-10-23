@@ -18,8 +18,13 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.*;
+
+/**
+ * @author Maxi56
+ */
 public class VoicedCommandHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
@@ -33,6 +38,22 @@ public class VoicedCommandHandler
 	private VoicedCommandHandler()
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
+		registerVoicedCommandHandler(new stats());
+		if (Config.ALLOW_WEDDING)
+			registerVoicedCommandHandler(new Wedding());
+		if (Config.BANKING_SYSTEM_ENABLED)
+			registerVoicedCommandHandler(new Banking());
+		if(Config.ONLINE_VOICE_COMMAND)
+			registerVoicedCommandHandler(new OnlinePlayers());
+		if(Config.ALLOW_TRADEOFF_VOICE_COMMAND)
+			registerVoicedCommandHandler(new tradeoff());
+		if (Config.ALLOW_AWAY_STATUS)
+			registerVoicedCommandHandler(new Away());
+		if(Config.VIP_EVENT_ENABLED)
+			registerVoicedCommandHandler(new JoinVIP());
+			registerVoicedCommandHandler(new PlayersWithdrawCWH());
+			registerVoicedCommandHandler(new version());
+		_log.config("Loaded " + VoicedCommandHandler.getInstance().size() + " VoicedHandlers");
 	}
 
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)

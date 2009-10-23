@@ -14,14 +14,10 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public interface IUserCommandHandler
 {
-	public static Logger _log = Logger.getLogger(IUserCommandHandler.class.getName());
-
 	public boolean useUserCommand(int id, L2PcInstance activeChar);
 
 	public int[] getUserCommandList();
