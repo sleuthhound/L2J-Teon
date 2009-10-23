@@ -17,19 +17,11 @@ package scripts;
 import java.util.logging.Logger;
 
 import scripts.admin.*;
-import scripts.chats.*;
 import scripts.items.*;
-//import scripts.skills.*;
-import scripts.usercommand.*;
-import scripts.voicedcommand.*;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
-import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
-//import net.sf.l2j.gameserver.handler.SkillHandler;
-import net.sf.l2j.gameserver.handler.UserCommandHandler;
-import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 
 /**
  * @author  Maxi
@@ -104,21 +96,6 @@ public class Handler
 	_log.config("Loaded " + AdminCommandHandler.getInstance().size() + " AdminCommandHandlers");
 	}
 
-	private static void loadChatHandlers()
-	{
-		ChatHandler.getInstance().registerChatHandler(new ChatAll());
-		ChatHandler.getInstance().registerChatHandler(new ChatAlliance());
-		ChatHandler.getInstance().registerChatHandler(new ChatClan());
-		ChatHandler.getInstance().registerChatHandler(new ChatHeroVoice());
-		ChatHandler.getInstance().registerChatHandler(new ChatParty());
-		ChatHandler.getInstance().registerChatHandler(new ChatPartyRoomAll());
-		ChatHandler.getInstance().registerChatHandler(new ChatPartyRoomCommander());
-		ChatHandler.getInstance().registerChatHandler(new ChatPetition());
-		ChatHandler.getInstance().registerChatHandler(new ChatShout());
-		ChatHandler.getInstance().registerChatHandler(new ChatTell());
-		ChatHandler.getInstance().registerChatHandler(new ChatTrade());
-	}
-
 	private static void loadItemHandlers()
 	{
 		ItemHandler.getInstance().registerItemHandler(new ScrollOfEscape());
@@ -159,47 +136,6 @@ public class Handler
 		ItemHandler.getInstance().registerItemHandler(new ScrollsValakas());
 		_log.config("Loaded " + ItemHandler.getInstance().size() + " ItemHandlers");
 	}
-
-/*	private static void loadSkillHandlers()
-	{
-	}*/
-
-	private static void loadUserHandlers()
-	{
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ClanPenalty());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ClanWarsList());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new DisMount());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Escape());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Loc());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Mount());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new PartyInfo());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Time());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new OlympiadStat());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelLeave());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelDelete());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelListUpdate());
-		_log.config("Loaded " + UserCommandHandler.getInstance().size() + " UserHandlers");
-	}
-	
-	private static void loadVoicedHandlers()
-	{
-		VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new stats());
-		if (Config.ALLOW_WEDDING)
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Wedding());
-		if (Config.BANKING_SYSTEM_ENABLED)
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Banking());
-		if(Config.ONLINE_VOICE_COMMAND)
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new OnlinePlayers());
-		if(Config.ALLOW_TRADEOFF_VOICE_COMMAND)
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new tradeoff());
-		if (Config.ALLOW_AWAY_STATUS)
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new Away());
-		if(Config.VIP_EVENT_ENABLED)
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new JoinVIP());
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new PlayersWithdrawCWH());
-			VoicedCommandHandler.getInstance().registerVoicedCommandHandler(new version());
-		_log.config("Loaded " + VoicedCommandHandler.getInstance().size() + " VoicedHandlers");
-	}
 	
 	/**
 	 * @param args
@@ -208,11 +144,7 @@ public class Handler
 	{
 		_log.config("Loading Handlers...");
 		loadAdminHandlers();
-		loadChatHandlers();
 		loadItemHandlers();
-		//loadSkillHandlers();
-		loadUserHandlers();
-		loadVoicedHandlers();
 		_log.config("Handlers Loaded...");
 	}
 }
