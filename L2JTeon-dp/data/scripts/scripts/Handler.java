@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import scripts.admin.*;
 import scripts.chats.*;
 import scripts.items.*;
-import scripts.skills.*;
+//import scripts.skills.*;
 import scripts.usercommand.*;
 import scripts.voicedcommand.*;
 
@@ -27,7 +27,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
-import net.sf.l2j.gameserver.handler.SkillHandler;
+//import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 
@@ -160,40 +160,9 @@ public class Handler
 		_log.config("Loaded " + ItemHandler.getInstance().size() + " ItemHandlers");
 	}
 
-	private static void loadSkillHandlers()
+/*	private static void loadSkillHandlers()
 	{
-		SkillHandler.getInstance().registerSkillHandler(new Blow());
-		SkillHandler.getInstance().registerSkillHandler(new Pdam());
-		SkillHandler.getInstance().registerSkillHandler(new Mdam());
-		SkillHandler.getInstance().registerSkillHandler(new CpDam());
-		SkillHandler.getInstance().registerSkillHandler(new Manadam());
-		SkillHandler.getInstance().registerSkillHandler(new Heal());
-		SkillHandler.getInstance().registerSkillHandler(new CombatPointHeal());
-		SkillHandler.getInstance().registerSkillHandler(new ManaHeal());
-		SkillHandler.getInstance().registerSkillHandler(new BalanceLife());
-		SkillHandler.getInstance().registerSkillHandler(new Charge());
-		SkillHandler.getInstance().registerSkillHandler(new Continuous());
-		SkillHandler.getInstance().registerSkillHandler(new Resurrect());
-		SkillHandler.getInstance().registerSkillHandler(new Spoil());
-		SkillHandler.getInstance().registerSkillHandler(new Sweep());
-		SkillHandler.getInstance().registerSkillHandler(new SummonTreasureKey());
-		SkillHandler.getInstance().registerSkillHandler(new Disablers());
-		SkillHandler.getInstance().registerSkillHandler(new Recall());
-		SkillHandler.getInstance().registerSkillHandler(new Unlock());
-		SkillHandler.getInstance().registerSkillHandler(new DrainSoul());
-		SkillHandler.getInstance().registerSkillHandler(new Craft());
-		SkillHandler.getInstance().registerSkillHandler(new Fishing());
-		SkillHandler.getInstance().registerSkillHandler(new FishingSkill());
-		SkillHandler.getInstance().registerSkillHandler(new BeastFeed());
-		SkillHandler.getInstance().registerSkillHandler(new DeluxeKey());
-		SkillHandler.getInstance().registerSkillHandler(new Sow());
-		SkillHandler.getInstance().registerSkillHandler(new Harvest());
-		SkillHandler.getInstance().registerSkillHandler(new Signets());
-		SkillHandler.getInstance().registerSkillHandler(new GetPlayer());
-		SkillHandler.getInstance().registerSkillHandler(new GiveSp());
-		SkillHandler.getInstance().registerSkillHandler(new ZakenPlayer());
-		SkillHandler.getInstance().registerSkillHandler(new ZakenSelf());
-	}
+	}*/
 
 	private static void loadUserHandlers()
 	{
@@ -241,7 +210,7 @@ public class Handler
 		loadAdminHandlers();
 		loadChatHandlers();
 		loadItemHandlers();
-		loadSkillHandlers();
+		//loadSkillHandlers();
 		loadUserHandlers();
 		loadVoicedHandlers();
 		_log.config("Handlers Loaded...");
