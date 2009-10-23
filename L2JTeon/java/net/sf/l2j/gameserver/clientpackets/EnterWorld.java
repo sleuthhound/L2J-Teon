@@ -46,7 +46,10 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2ClassMasterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.ClassLevel;
+import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Couple;
@@ -412,6 +415,17 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		
+		if(Config.ALLOW_REMOTE_CLASS_MASTERS)
+			{
+			ClassLevel lvlnow = PlayerClass.values()[activeChar.getClassId().getId()].getLevel();
+			if(activeChar.getLevel() >= 20 && lvlnow == ClassLevel.First)
+			L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+			else if(activeChar.getLevel() >= 40 && lvlnow == ClassLevel.Second)
+			L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+			else if(activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
+			L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+			}
 	}
 
 	/**

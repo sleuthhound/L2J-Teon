@@ -14,21 +14,21 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+
+import javolution.text.TextBuilder;
 
 /**
  * This class ...
@@ -37,9 +37,13 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2ClassMasterInstance extends L2FolkInstance
 {
-	// private static Logger _log =
-	// Logger.getLogger(L2ClassMasterInstance.class.getName());
+	// private static Logger _log = Logger.getLogger(L2ClassMasterInstance.class.getName());
 	private static final int[] SECONDN_CLASS_IDS = { 2, 3, 5, 6, 9, 8, 12, 13, 14, 16, 17, 20, 21, 23, 24, 27, 28, 30, 33, 34, 36, 37, 40, 41, 43, 46, 48, 51, 52, 55, 57 };
+	public static L2ClassMasterInstance ClassMaster = new L2ClassMasterInstance(31228, NpcTable.getInstance().getTemplate(31228));
+	static
+	{
+		L2World.getInstance().storeObject(ClassMaster);
+	}
 
 	/**
 	 * @param template
@@ -52,105 +56,72 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
-			return;
-		// Check if the L2PcInstance already target the L2NpcInstance
-		if (getObjectId() != player.getTargetId())
+		if (Config.DEBUG)
+			_log.fine("ClassMaster activated");
+		ClassId classId = player.getClassId();
+		int jobLevel = 0;
+		int level = player.getLevel();
+		ClassLevel lvl = PlayerClass.values()[classId.getId()].getLevel();
+		switch (lvl)
 		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
+			case First:
+				jobLevel = 1;
+				break;
+			case Second:
+				jobLevel = 2;
+				break;
+			case Third:
+				jobLevel = 3;
+				break;
+			default:
+				jobLevel = 4;
+		}
+		if (player.isGM())
+			showChatWindowChooseClass(player);
+		else if (((level >= 20 && jobLevel == 1) || (level >= 40 && jobLevel == 2)) && Config.ALLOW_CLASS_MASTERS)
+			showChatWindow(player, classId.getId());
+		else if (level >= 76 && Config.ALLOW_CLASS_MASTERS && classId.getId() < 88)
+		{
+			for (int i = 0; i < SECONDN_CLASS_IDS.length; i++)
+			{
+				if (classId.getId() == SECONDN_CLASS_IDS[i])
+				{
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					TextBuilder sb = new TextBuilder();
+					sb.append("<html><body<table width=200>");
+					sb.append("<tr><td><center>" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + " Class Master:</center></td></tr>");
+					sb.append("<tr><td><br></td></tr>");
+					sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (88 + i) + "\">Advance to " + CharTemplateTable.getClassNameById(88 + i) + "</a></td></tr>");
+					sb.append("<tr><td><br></td></tr>");
+					sb.append("</table></body></html>");
+					html.setHtml(sb.toString());
+					player.sendPacket(html);
+					break;
+				}
+			}
 		}
 		else
 		{
-			if (!canInteract(player))
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			TextBuilder sb = new TextBuilder();
+			sb.append("<html><body>");
+			switch (jobLevel)
 			{
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-				return;
-			}
-			if (Config.DEBUG)
-			{
-				_log.fine("ClassMaster activated");
-			}
-			ClassId classId = player.getClassId();
-			int jobLevel = 0;
-			int level = player.getLevel();
-			ClassLevel lvl = PlayerClass.values()[classId.getId()].getLevel();
-			switch (lvl)
-			{
-				case First:
-					jobLevel = 1;
+				case 1:
+					sb.append("Come back here when you reach level 20 to change your class.<br>");
 					break;
-				case Second:
-					jobLevel = 2;
+				case 2:
+					sb.append("Come back here when you reach level 40 to change your class.<br>");
 					break;
-				default:
-					jobLevel = 3;
+				case 3:
+					sb.append("There are no more class changes for you.<br>");
+					break;
 			}
-			if (!Config.ALLOW_CLASS_MASTERS)
-			{
-				jobLevel = 3;
-			}
-			if (player.isGM())
-			{
-				showChatWindowChooseClass(player);
-			}
-			else if ((level >= 20) && Config.ALLOW_CLASS_FIRST && (jobLevel == 1))
-			{
-				showChatWindow(player, classId.getId());
-			}
-			else if ((level >= 40) && Config.ALLOW_CLASS_SECOND && (jobLevel == 2))
-			{
-				showChatWindow(player, classId.getId());
-			}
-			else if ((level >= 76) && Config.ALLOW_CLASS_THIRD && (classId.getId() < 88))
-			{
-				for (int i = 0; i < SECONDN_CLASS_IDS.length; i++)
-				{
-					if (classId.getId() == SECONDN_CLASS_IDS[i])
-					{
-						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-						TextBuilder sb = new TextBuilder();
-						sb.append("<html><body<table width=200>");
-						sb.append("<tr><td><center>" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + " Class Master:</center></td></tr>");
-						sb.append("<tr><td><br></td></tr>");
-						sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (88 + i) + "\">Advance to " + CharTemplateTable.getClassNameById(88 + i) + "</a></td></tr>");
-						sb.append("<tr><td><br></td></tr>");
-						sb.append("</table></body></html>");
-						html.setHtml(sb.toString());
-						player.sendPacket(html);
-						break;
-					}
-				}
-			}
-			else
-			{
-				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				TextBuilder sb = new TextBuilder();
-				sb.append("<html><body>");
-				switch (jobLevel)
-				{
-					case 1:
-						sb.append("Come back here when you reach level 20 to change your class.<br>");
-						break;
-					case 2:
-						sb.append("Come back here when you reach level 40 to change your class.<br>");
-						break;
-					case 3:
-						sb.append("There are no class changes for you any more.<br>");
-						break;
-				}
-				for (Quest q : Quest.findAllEvents())
-				{
-					sb.append("Event: <a action=\"bypass -h Quest " + q.getName() + "\">" + q.getDescr() + "</a><br>");
-				}
-				sb.append("</body></html>");
-				html.setHtml(sb.toString());
-				player.sendPacket(html);
-			}
+			for (Quest q : Quest.findAllEvents())
+				sb.append("Event: <a action=\"bypass -h Quest " + q.getName() + "\">" + q.getDescr() + "</a><br>");
+			sb.append("</body></html>");
+			html.setHtml(sb.toString());
+			player.sendPacket(html);
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -206,33 +177,16 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 				changeClass(player, val);
 				player.rewardSkills();
 				if (val >= 88)
-				{
-					player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system
-					// sound
-					// 3rd
-					// occupation
-				}
+					player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system sound 3rd occupation
 				else
-				{
-					player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // system
-					// sound
-					// for
-					// 1st
-					// and
-					// 2nd
-					// occupation
-				}
+					player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // system sound for 1st and 2nd occupation
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				TextBuilder sb = new TextBuilder();
 				sb.append("<html><body>");
-				sb.append("You have Change Your Class to <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + "</font>.");
+				sb.append("You have now become a <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + "</font>.");
 				sb.append("</body></html>");
 				html.setHtml(sb.toString());
 				player.sendPacket(html);
-				if (Config.AUTO_LEARN_SKILLS)
-				{
-					player.giveAvailableSkills();
-				}
 				return;
 			}
 			switch (lvlnow)
@@ -250,9 +204,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 					jobLevel = 4;
 			}
 			if (jobLevel == 4)
-			{
 				return; // no more job changes
-			}
 			ClassLevel lvlnext = PlayerClass.values()[val].getLevel();
 			switch (lvlnext)
 			{
@@ -270,52 +222,27 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			}
 			// prevents changing between same level jobs
 			if (newJobLevel != jobLevel + 1)
-			{
 				return;
-			}
-			if ((level < 20) && (newJobLevel > 1))
-			{
+			if (level < 20 && newJobLevel > 1)
 				return;
-			}
-			if ((level < 40) && (newJobLevel > 2))
-			{
+			if (level < 40 && newJobLevel > 2)
 				return;
-			}
-			if ((level < 75) && (newJobLevel > 3))
-			{
+			if (level < 75 && newJobLevel > 3)
 				return;
-				// -- prevention ends
-			}
+			// -- prevention ends
 			changeClass(player, val);
 			player.rewardSkills();
 			if (val >= 88)
-			{
-				player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system
-				// sound
-				// 3rd
-				// occupation
-			}
+				player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system sound 3rd occupation
 			else
-			{
-				player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // system
-				// sound
-				// for
-				// 1st
-				// and
-				// 2nd
-				// occupation
-			}
+				player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // system sound for 1st and 2nd occupation
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
 			sb.append("<html><body>");
-			sb.append("You have Change Your Class to <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + "</font>.");
+			sb.append("You have now become a <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + "</font>.");
 			sb.append("</body></html>");
 			html.setHtml(sb.toString());
 			player.sendPacket(html);
-			if (Config.AUTO_LEARN_SKILLS)
-			{
-				player.giveAvailableSkills();
-			}
 		}
 		else
 		{
@@ -330,7 +257,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		sb.append("<html>");
 		sb.append("<body>");
 		sb.append("<table width=200>");
-		sb.append("<tr><td><center>Admin Class Managment:</center></td></tr>");
+		sb.append("<tr><td><center>GM Class Master:</center></td></tr>");
 		sb.append("<tr><td><br></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_baseClass\">Base Classes.</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_1stClass\">1st Classes.</a></td></tr>");
@@ -352,12 +279,12 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		sb.append("<html>");
 		sb.append("<body>");
 		sb.append("<table width=200>");
-		sb.append("<tr><td><center>Admin Class Managment:</center></td></tr>");
+		sb.append("<tr><td><center>GM Class Master:</center></td></tr>");
 		sb.append("<tr><td><br></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 1\">Advance to " + CharTemplateTable.getClassNameById(1) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 4\">Advance to " + CharTemplateTable.getClassNameById(4) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 7\">Advance to " + CharTemplateTable.getClassNameById(7) + "</a></td></tr>");
-		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 10\">Advance to " + CharTemplateTable.getClassNameById(11) + "</a></td></tr>");
+		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 11\">Advance to " + CharTemplateTable.getClassNameById(11) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 15\">Advance to " + CharTemplateTable.getClassNameById(15) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 19\">Advance to " + CharTemplateTable.getClassNameById(19) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 22\">Advance to " + CharTemplateTable.getClassNameById(22) + "</a></td></tr>");
@@ -387,7 +314,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		sb.append("<html>");
 		sb.append("<body>");
 		sb.append("<table width=200>");
-		sb.append("<tr><td><center>Admin Class Managment:</center></td></tr>");
+		sb.append("<tr><td><center>GM Class Master:</center></td></tr>");
 		sb.append("<tr><td><br></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 2\">Advance to " + CharTemplateTable.getClassNameById(2) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 3\">Advance to " + CharTemplateTable.getClassNameById(3) + "</a></td></tr>");
@@ -435,7 +362,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		sb.append("<html>");
 		sb.append("<body>");
 		sb.append("<table width=200>");
-		sb.append("<tr><td><center>Admin Class Managment:</center></td></tr>");
+		sb.append("<tr><td><center>GM Class Master:</center></td></tr>");
 		sb.append("<tr><td><br></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 88\">Advance to " + CharTemplateTable.getClassNameById(88) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 89\">Advance to " + CharTemplateTable.getClassNameById(89) + "</a></td></tr>");
@@ -483,10 +410,10 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		sb.append("<html>");
 		sb.append("<body>");
 		sb.append("<table width=200>");
-		sb.append("<tr><td><center>Admin Class Managment:</center></td></tr>");
+		sb.append("<tr><td><center>GM Class Master:</center></td></tr>");
 		sb.append("<tr><td><br></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 0\">Advance to " + CharTemplateTable.getClassNameById(0) + "</a></td></tr>");
-		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 11\">Advance to " + CharTemplateTable.getClassNameById(10) + "</a></td></tr>");
+		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 10\">Advance to " + CharTemplateTable.getClassNameById(10) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 18\">Advance to " + CharTemplateTable.getClassNameById(18) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 25\">Advance to " + CharTemplateTable.getClassNameById(25) + "</a></td></tr>");
 		sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class 31\">Advance to " + CharTemplateTable.getClassNameById(31) + "</a></td></tr>");
@@ -505,18 +432,12 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 	private void changeClass(L2PcInstance player, int val)
 	{
 		if (Config.DEBUG)
-		{
 			_log.fine("Changing class to ClassId:" + val);
-		}
 		player.setClassId(val);
 		if (player.isSubClassActive())
-		{
 			player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
-		}
 		else
-		{
 			player.setBaseClass(player.getActiveClass());
-		}
 		player.broadcastUserInfo();
 	}
 }
