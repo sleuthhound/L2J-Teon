@@ -22,6 +22,9 @@ import net.sf.l2j.gameserver.handler.skillhandlers.*;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 
+/**
+ * @author Maxi56
+ */
 public class SkillHandler
 {
 	private static Logger _log = Logger.getLogger(SkillHandler.class.getName());

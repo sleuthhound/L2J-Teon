@@ -18,8 +18,13 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.*;
+
+/**
+ * @author Maxi56
+ */
 public class UserCommandHandler
 {
 	private static Logger _log = Logger.getLogger(UserCommandHandler.class.getName());
@@ -33,6 +38,19 @@ public class UserCommandHandler
 	private UserCommandHandler()
 	{
 		_datatable = new FastMap<Integer, IUserCommandHandler>();
+		UserCommandHandler.getInstance().registerUserCommandHandler(new ClanPenalty());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new ClanWarsList());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new DisMount());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new Escape());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new Loc());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new Mount());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new PartyInfo());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new Time());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new OlympiadStat());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelLeave());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelDelete());
+		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelListUpdate());
+		_log.config("Loaded " + UserCommandHandler.getInstance().size() + " UserHandlers");
 	}
 
 	public void registerUserCommandHandler(IUserCommandHandler handler)
