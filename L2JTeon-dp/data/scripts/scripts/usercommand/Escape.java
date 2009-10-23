@@ -168,9 +168,7 @@ public class Escape implements IUserCommandHandler
 	    _activeChar.enableAllSkills();
 	    try
 	    {
-	    if (_activeChar.isGM())
-	    	_activeChar.teleToLocation(17724, 110385, -6660);
-	    else if (_activeChar.isKoof())
+	    if (_activeChar.isKoof())
 			_activeChar.teleToLocation(146334, 25767, -2013);
 		else if (_activeChar.isNoob())
 			_activeChar.teleToLocation(59669, -42221, -2992);
