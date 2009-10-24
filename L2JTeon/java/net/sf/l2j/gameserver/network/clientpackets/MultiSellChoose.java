@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.item.PcInventory;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -37,7 +36,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
-import net.sf.l2j.gameserver.util.FloodProtector;
 
 public class MultiSellChoose extends L2GameClientPacket
 {
@@ -79,12 +77,6 @@ public class MultiSellChoose extends L2GameClientPacket
 		{
 			return;
 		}
-		if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL))
-		{
-			player.sendMessage("You Cannot Buy That Fast. Try Again in 10 Second(s)!");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
 		for (MultiSellEntry entry : list.getEntries())
 		{
 			if (entry.getEntryId() == _entryId)
@@ -99,9 +91,6 @@ public class MultiSellChoose extends L2GameClientPacket
 	{
 		PcInventory inv = player.getInventory();
 		boolean maintainItemFound = false;
-		if (!FloodProtector.getInstance().tryPerformAction(player.getObjectId(), FloodProtector.PROTECTED_MULTISELL))
-			player.sendMessage("You Cannot Buy That Fast. Try Again in 10 Second(s)!");
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 		// given the template entry and information about maintaining
 		// enchantment and applying taxes
 		// re-create the instance of the entry that will be used for this

@@ -43,7 +43,7 @@ public final class Config
 	public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
 	public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
 	public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
-	public static final String FLOODPROTECTOR_CONFIG_FILE = "./config/FloodProtector.properties";
+	public static final String FLOODPROTECTOR_CONFIG_FILE = "./config/custom/FloodProtector.properties";
 	public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
 	public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
 	public static final String IRC_FILE = "./config/irc.properties";
@@ -244,18 +244,6 @@ public final class Config
 	public static int CH_FRONT1_FEE;
 	public static int CH_FRONT2_FEE;
 	/** The End clanhall.properties */
-	/** Start FloodProtector.properties */
-	public static int USEITEM_DELAY;
-	public static int ROLLDICE_DELAY;
-	public static int FIREWORK_DELAY;
-	public static int ITEMPETSUMMON_DELAY;
-	public static int HEROVOICE_DELAY;
-	public static int UNKNOWN_PACKET_DELAY;
-	public static int SUBCLASS_DELAY;
-	public static int MULTISELL_DELAY;
-	public static int BANKING_DELAY;
-	public static int BYPASS_DELAY;
-	/** The End FloodProtector.properties */
 	/** Start GMAcess.properties */
 	// GM access level
 	public static int GM_ACCESSLEVEL;
@@ -931,6 +919,7 @@ public final class Config
 	/** Maximum Allowed subclasses for a player. */
 	public static int MAX_SUBCLASSES;
 	public static boolean NPC_ATTACKABLE;
+	@SuppressWarnings("unchecked")
 	public static List INVUL_NPC_LIST;
 	/** Low Level Protection System. */
 	public static int PLAYER_PROTECTION_SYSTEM;
@@ -1692,16 +1681,9 @@ public final class Config
 				InputStream is = new FileInputStream(new File(FLOODPROTECTOR_CONFIG_FILE));
 				FloodProtector.load(is);
 				is.close();
-				USEITEM_DELAY = Integer.parseInt(FloodProtector.getProperty("UseItemDelay", "4"));
-				ROLLDICE_DELAY = Integer.parseInt(FloodProtector.getProperty("RollDiceDelay", "42"));
-				FIREWORK_DELAY = Integer.parseInt(FloodProtector.getProperty("FireWorkDelay", "42"));
-				ITEMPETSUMMON_DELAY = Integer.parseInt(FloodProtector.getProperty("ItemPetSummonDelay", "16"));
-				HEROVOICE_DELAY = Integer.parseInt(FloodProtector.getProperty("HeroChatDelay", "100"));
-				UNKNOWN_PACKET_DELAY = Integer.parseInt(FloodProtector.getProperty("UnknownPacketDelay", "15"));
-				SUBCLASS_DELAY = Integer.parseInt(FloodProtector.getProperty("SubClassDelay", "100"));
-				MULTISELL_DELAY = Integer.parseInt(FloodProtector.getProperty("MultisellDelay", "100"));
-				BANKING_DELAY = Integer.parseInt(FloodProtector.getProperty("BankingDelay", "100"));
-				BYPASS_DELAY = Integer.parseInt(FloodProtector.getProperty("ByPassDelay", "4"));
+				
+				// Flood Tipos
+				
 			}
 			catch (Exception e)
 			{

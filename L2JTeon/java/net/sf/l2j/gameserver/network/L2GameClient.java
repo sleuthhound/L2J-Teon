@@ -38,7 +38,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.util.EventData;
 
 import com.l2jserver.mmocore.network.MMOClient;
@@ -463,7 +462,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	public boolean checkUnknownPackets()
 	{
-		if (this.getActiveChar() != null && !FloodProtector.getInstance().tryPerformAction(this.getActiveChar().getObjectId(), FloodProtector.PROTECTED_UNKNOWNPACKET))
+		if (this.getActiveChar() != null )
 		{
 			unknownPacketCount++;
 			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS)
