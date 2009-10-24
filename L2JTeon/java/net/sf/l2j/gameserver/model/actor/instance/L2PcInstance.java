@@ -11820,6 +11820,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		return this;
 	}
 
+	/**
+ 	* @param hacking_tool
+ 	*/
+ 	public void sendPacket(SystemMessageId hacking_tool)
+ 	{
+ 	sendMessage("Please try again after closing unnecessary programs!");
+ 	}
+
 	@Override
 	public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
