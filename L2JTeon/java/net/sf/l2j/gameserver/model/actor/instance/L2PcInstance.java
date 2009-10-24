@@ -200,6 +200,7 @@ import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
+import net.sf.l2j.gameserver.util.FloodProtectors;
 import net.sf.l2j.util.Point3D;
 import net.sf.l2j.util.Rnd;
 
@@ -381,6 +382,37 @@ public final class L2PcInstance extends L2PlayableInstance
 	private boolean _inJail = false;
 	private long _jailTimer = 0;
 	private ScheduledFuture<?> _jailTask;
+	
+	/** PunishLevel by Danielmwx **/
+	private PunishLevel _punishLevel = PunishLevel.NONE; // TODO Clean up, delete old methods and add this one...
+	private long _punishTimer = 0;
+	private ScheduledFuture<?> _punishTask;
+
+	public enum PunishLevel
+	{
+		NONE(0, ""), CHAT(1, "chat banned"), JAIL(2, "jailed"), CHAR(3, "banned"), ACC(4, "banned");
+		private int punValue;
+		private String punString;
+
+		PunishLevel(int value, String string)
+		{
+			punValue = value;
+			punString = string;
+		}
+
+		public int value()
+		{
+			return punValue;
+		}
+
+		public String string()
+		{
+			return punString;
+		}
+	}
+
+	private final FloodProtectors _floodProtectors = new FloodProtectors(this);
+	
 	/** character away mode **/
 	private boolean _isAway = false;
 	public int _originalTitleColorAway;
@@ -9173,6 +9205,18 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
+	public L2Object _saymode = null;
+
+	public L2Object getSayMode()
+	{
+		return _saymode;
+	}
+
+	public void setSayMode(L2Object say)
+	{
+		_saymode = say;
+	}
+
 	public boolean isChatBanned()
 	{
 		return _chatBanned;
@@ -12198,5 +12242,236 @@ public final class L2PcInstance extends L2PlayableInstance
 			_gatesRequest.getDoor().closeMe();
 		}
 		_gatesRequest.setTarget(null);
+	}
+	/**
+	 * returns punishment level of player
+	 * 
+	 * @return
+	 */
+	public PunishLevel getPunishLevel()
+	{
+		return _punishLevel;
+	}
+
+	/**
+	 * @return True if player is jailed
+	 */
+	@Deprecated
+	public boolean isInJail_()
+	{
+		return _punishLevel == PunishLevel.JAIL;
+	}
+
+	// TODO clean up please...
+	/**
+	 * @return True if player is chat banned
+	 */
+	@Deprecated
+	public boolean isChatBanned_()
+	{
+		return _punishLevel == PunishLevel.CHAT;
+	}
+
+	public void setPunishLevel(int state)
+	{
+		switch (state)
+		{
+			case 0:
+			{
+				_punishLevel = PunishLevel.NONE;
+				break;
+			}
+			case 1:
+			{
+				_punishLevel = PunishLevel.CHAT;
+				break;
+			}
+			case 2:
+			{
+				_punishLevel = PunishLevel.JAIL;
+				break;
+			}
+			case 3:
+			{
+				_punishLevel = PunishLevel.CHAR;
+				break;
+			}
+			case 4:
+			{
+				_punishLevel = PunishLevel.ACC;
+				break;
+			}
+		}
+	}
+
+	/**
+	 * Sets punish level for player based on delay
+	 * 
+	 * @param state
+	 * @param delayInMinutes
+	 *            0 - Indefinite
+	 */
+	public void setPunishLevel(PunishLevel state, int delayInMinutes)
+	{
+		long delayInMilliseconds = delayInMinutes * 60000L;
+		switch (state)
+		{
+			case NONE: // Remove Punishments
+			{
+				switch (_punishLevel)
+				{
+					case CHAT:
+					{
+						_punishLevel = state;
+						stopPunishTask(true);
+						sendPacket(new EtcStatusUpdate(this));
+						sendMessage("Your Chat ban has been lifted");
+						break;
+					}
+					case JAIL:
+					{
+						_punishLevel = state;
+						// Open a Html message to inform the player
+						NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
+						String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_out.htm");
+						if (jailInfos != null)
+							htmlMsg.setHtml(jailInfos);
+						else
+							htmlMsg.setHtml("<html><body>You are free for now, respect server rules!</body></html>");
+						sendPacket(htmlMsg);
+						stopPunishTask(true);
+						teleToLocation(17836, 170178, -3507, true); // Floran
+						break;
+					}
+				}
+				break;
+			}
+			case CHAT: // Chat Ban
+			{
+				_punishLevel = state;
+				_punishTimer = 0;
+				sendPacket(new EtcStatusUpdate(this));
+				// Remove the task if any
+				stopPunishTask(false);
+				if (delayInMinutes > 0)
+				{
+					_punishTimer = delayInMilliseconds;
+					// start the countdown
+					_punishTask = ThreadPoolManager.getInstance().scheduleGeneral(new PunishTask(this), _punishTimer);
+					sendMessage("You are chat banned for " + delayInMinutes + " minutes.");
+				}
+				else
+					sendMessage("You have been chat banned");
+				break;
+			}
+			case JAIL: // Jail Player
+			{
+				_punishLevel = state;
+				_punishTimer = 0;
+				// Remove the task if any
+				stopPunishTask(false);
+				if (delayInMinutes > 0)
+				{
+					_punishTimer = delayInMilliseconds;
+					// start the countdown
+					_punishTask = ThreadPoolManager.getInstance().scheduleGeneral(new PunishTask(this), _punishTimer);
+					sendMessage("You are in jail for " + delayInMinutes + " minutes.");
+				}
+				// Open a Html message to inform the player
+				NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
+				String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_in.htm");
+				if (jailInfos != null)
+					htmlMsg.setHtml(jailInfos);
+				else
+					htmlMsg.setHtml("<html><body>You have been put in jail by an admin.</body></html>");
+				sendPacket(htmlMsg);
+				setInstanceId(0);
+				teleToLocation(-114356, -249645, -2984, false); // Jail
+				break;
+			}
+			case CHAR: // Ban Character
+			case ACC: // Ban Account
+			default:
+			{
+				_punishLevel = state;
+				break;
+			}
+		}
+		// store in database
+		storeCharBase();
+	}
+
+	public long getPunishTimer()
+	{
+		return _punishTimer;
+	}
+
+	public void setPunishTimer(long time)
+	{
+		_punishTimer = time;
+	}
+
+	@Deprecated
+	@SuppressWarnings("unused")
+	private void updatePunishState()// TODO Next clean up this shood be active
+	{
+		if (getPunishLevel() != PunishLevel.NONE)
+		{
+			// If punish timer exists, restart punishtask.
+			if (_punishTimer > 0)
+			{
+				_punishTask = ThreadPoolManager.getInstance().scheduleGeneral(new PunishTask(this), _punishTimer);
+				sendMessage("You are still " + getPunishLevel().string() + " for " + Math.round(_punishTimer / 60000) + " minutes.");
+			}
+			if (getPunishLevel() == PunishLevel.JAIL)
+			{
+				// If player escaped, put him back in jail
+				if (!isInsideZone(ZONE_JAIL))
+					teleToLocation(-114356, -249645, -2984, true);
+			}
+		}
+	}
+
+	public void stopPunishTask(boolean save)
+	{
+		if (_punishTask != null)
+		{
+			if (save)
+			{
+				long delay = _punishTask.getDelay(TimeUnit.MILLISECONDS);
+				if (delay < 0)
+					delay = 0;
+				setPunishTimer(delay);
+			}
+			_punishTask.cancel(false);
+			_punishTask = null;
+		}
+	}
+
+	private class PunishTask implements Runnable
+	{
+		L2PcInstance _player;
+		protected long _startedAt;
+
+		protected PunishTask(L2PcInstance player)
+		{
+			_player = player;
+			_startedAt = System.currentTimeMillis();
+		}
+
+		public void run()
+		{
+			_player.setPunishLevel(PunishLevel.NONE, 0);
+		}
+	}
+
+	public FloodProtectors getFloodProtectors()
+	{
+		return _floodProtectors;
+	}
+
+	public void systemSendMessage(SystemMessageId id)
+	{
+		sendPacket(new SystemMessage(id));
 	}
 }
