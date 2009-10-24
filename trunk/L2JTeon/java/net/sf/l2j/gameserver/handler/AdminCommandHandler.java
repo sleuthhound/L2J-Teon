@@ -112,7 +112,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminGeoEditor());
 		registerAdminCommandHandler(new AdminManor());
 		registerAdminCommandHandler(new AdminMassRecall());
-	_log.config("Loaded " + AdminCommandHandler.getInstance().size() + " AdminCommandHandlers");
+    	_log.config("AdminCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)

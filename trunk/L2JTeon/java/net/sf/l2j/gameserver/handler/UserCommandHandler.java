@@ -50,7 +50,7 @@ public class UserCommandHandler
 		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelLeave());
 		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelDelete());
 		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelListUpdate());
-		_log.config("Loaded " + UserCommandHandler.getInstance().size() + " UserHandlers");
+    	_log.config("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerUserCommandHandler(IUserCommandHandler handler)

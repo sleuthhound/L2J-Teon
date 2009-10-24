@@ -78,7 +78,7 @@ public class ItemHandler
 		registerItemHandler(new BeastSpice());
 		registerItemHandler(new PrimevalPotions());
 		registerItemHandler(new ScrollsValakas());
-		_log.config("Loaded " + ItemHandler.getInstance().size() + " ItemHandlers");
+    	_log.config("ItemHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerItemHandler(IItemHandler handler)
