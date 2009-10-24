@@ -1010,6 +1010,8 @@ public final class Config
 	public static boolean AWAY_PEACE_ZONE;
 	/** Remote class Master By Danielmwx **/
 	public static boolean ALLOW_REMOTE_CLASS_MASTERS;
+	/** L2Walker protectio Master By Danielmwx **/
+	public static boolean   ALLOW_L2WALKER_PROTECTION;
 	/**
 	 * Config option allowing server administrators/owners the ability to set a title for new players.
 	 */
@@ -1466,6 +1468,7 @@ public final class Config
 	 * 
 	 * @see CONFIGURATION_FILE (propertie file) for configuring your server.
 	 */
+	@SuppressWarnings("unchecked")
 	public static void load()
 	{
 		if (Server.serverMode == Server.MODE_GAMESERVER)
@@ -2584,6 +2587,9 @@ public final class Config
 				AWAY_PEACE_ZONE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayOnlyInPeaceZone", "False"));
 				/** Remote Class Master by Danielmwx **/
 				ALLOW_REMOTE_CLASS_MASTERS = Boolean.valueOf(L2JTeonCustom.getProperty("AllowRemoteClassMasters", "False"));
+				/** L2Walker Protection by Danielmwx **/
+				ALLOW_L2WALKER_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("L2WalkerProtection", "False"));
+				
 				ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("TradeOffCommand", "False"));
 				ONLINE_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("OnlineVCommand", "False"));
 				// **************************//
