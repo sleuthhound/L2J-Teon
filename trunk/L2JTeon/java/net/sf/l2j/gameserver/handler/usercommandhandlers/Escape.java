@@ -75,14 +75,14 @@ public class Escape implements IUserCommandHandler
 	    return false;
 	}
 	// Check to see if the player is in faction.
-	//if (Config.ENABLE_FACTION_KOOFS_NOOBS)
-	//{
-	//    if (activeChar.isNoob() || activeChar.isKoof())
-	//    {
-	//	activeChar.sendMessage("You may not use an escape command in Faction mode.");
-	//	return false;
-	//   }
-	//}
+	if (Config.ENABLE_FACTION_KOOFS_NOOBS)
+	{
+	    if (activeChar.isNoob() || activeChar.isKoof())
+	    {
+		activeChar.sendMessage("You may not use an escape command in Faction mode.");
+		return false;
+	   }
+	}
 	// Check to see if player is in jail
 	if (activeChar.isInJail())
 	{
