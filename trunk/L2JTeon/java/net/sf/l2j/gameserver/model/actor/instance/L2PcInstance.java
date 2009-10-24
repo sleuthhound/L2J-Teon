@@ -200,7 +200,6 @@ import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
-import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.util.Point3D;
 import net.sf.l2j.util.Rnd;
 
@@ -9557,6 +9556,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	// By: Meyknho
 	public int getDonator()
 	{
+		@SuppressWarnings("unused")
 		int value = 1;
 		if (_isDonator == true)
 		{
@@ -10882,8 +10882,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			// Close the connection with the client
 			closeNetConnection();
-			// remove from flood protector
-			FloodProtector.getInstance().removePlayer(getObjectId());
+			
 			if (getClanId() > 0)
 			{
 				getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);

@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.util.Rnd;
 
 /**
@@ -191,12 +190,6 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		int npcId = getNpcId();
 		if (command.startsWith("npc_buffer_heal"))
 		{
-			if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
-			{
-				_log.warning("[NPC Buffer]Player " + playerInstance.getName() + " has performed a buff request too fast");
-				playerInstance.sendMessage("You have performed a buff request too fast.");
-				return;
-			}
 			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
 			{
 				playerInstance.sendMessage("You can't do that in combat!!!");
@@ -210,12 +203,6 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		}
 		if (command.startsWith("npc_buffer_cancel"))
 		{
-			if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
-			{
-				_log.warning("[NPC Buffer]Player " + playerInstance.getName() + " has performed a buff request too fast");
-				playerInstance.sendMessage("You have performed a buff request too fast.");
-				return;
-			}
 			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
 			{
 				playerInstance.sendMessage("You can't do that!!!");
@@ -227,12 +214,6 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		}
 		if (command.startsWith("npc_buffer_buff"))
 		{
-			if (!FloodProtector.getInstance().tryPerformAction(playerInstance.getObjectId(), FloodProtector.PROTECTED_NPCBUFFER))
-			{
-				_log.warning("[NPC Buffer]Player " + playerInstance.getName() + " has performed a buff request too fast");
-				playerInstance.sendMessage("You have performed a buff request too fast.");
-				return;
-			}
 			String[] params = command.split(" ");
 			int skillId = Integer.parseInt(params[1]);
 			int[] skillInfos = NpcBufferSkillIdsTable.getInstance().getSkillInfo(npcId, skillId);

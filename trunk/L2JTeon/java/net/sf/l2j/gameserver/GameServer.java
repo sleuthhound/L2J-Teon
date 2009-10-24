@@ -116,7 +116,6 @@ import net.sf.l2j.gameserver.scripting.CompiledScriptCache;
 import net.sf.l2j.gameserver.scripting.L2ScriptEngineManager;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
-import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.util.Util;
 
@@ -453,7 +452,6 @@ public class GameServer
 		{
 			_log.log(Level.WARNING, "DynamicExtension could not be loaded and initialized", ex);
 		}
-		FloodProtector.getInstance();
 		L2Manor.getInstance();
 		// maxMemory is the upper limit the jvm can use, totalMemory the size of
 		// the current allocation pool, freeMemory the unused memory in the

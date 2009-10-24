@@ -20,10 +20,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.util.FloodProtector;
 
 /**
  * This class ...
@@ -41,13 +38,7 @@ public class Firework implements IItemHandler
 			return; // prevent Class cast exception
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
-		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_FIREWORK))
-		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			sm.addItemName(itemId);
-			activeChar.sendPacket(sm);
-			return;
-		}
+		
 		/*
 		 * Elven Firecracker
 		 */

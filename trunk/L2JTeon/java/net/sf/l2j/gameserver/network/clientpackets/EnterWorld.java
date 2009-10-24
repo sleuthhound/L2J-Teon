@@ -81,7 +81,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.services.WindowService;
-import net.sf.l2j.gameserver.util.FloodProtector;
 
 /**
  * Enter World Packet Handler
@@ -120,8 +119,6 @@ public class EnterWorld extends L2GameClientPacket
 			getClient().closeNow();
 			return;
 		}
-		// Register in flood protector
-		FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());
 		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null)
 		{
 			if (Config.DEBUG)
