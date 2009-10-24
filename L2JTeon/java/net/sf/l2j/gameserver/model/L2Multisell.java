@@ -25,7 +25,7 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.MultiSellList;
+import net.sf.l2j.gameserver.network.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
@@ -85,7 +85,7 @@ public class L2Multisell
 	 * enchantment level. For example: If the player has a crystal staff +1 and a crystal staff +3 and goes to exchange it at the mammon, the list should have all exchange possibilities for the +1 staff, followed by all possibilities for the +3 staff. * If false, then any level ingredient will be considered equal and product will always be at +0 3) apply taxes: Uses the "taxIngredient" entry in
 	 * order to add a certain amount of adena to the ingredients
 	 * 
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#runImpl()
+	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#runImpl()
 	 */
 	private MultiSellListContainer generateMultiSell(int listId, boolean inventoryOnly, L2PcInstance player, double taxRate)
 	{

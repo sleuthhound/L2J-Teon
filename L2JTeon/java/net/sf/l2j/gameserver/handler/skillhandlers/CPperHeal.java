@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 
 /**
  * @author -Nemesiss-

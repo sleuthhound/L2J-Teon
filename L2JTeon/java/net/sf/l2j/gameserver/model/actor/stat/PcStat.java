@@ -29,11 +29,11 @@ import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
+import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 
 public class PcStat extends PlayableStat
 {

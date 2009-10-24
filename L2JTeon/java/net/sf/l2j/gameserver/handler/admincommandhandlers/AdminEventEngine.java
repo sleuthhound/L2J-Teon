@@ -35,13 +35,13 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.serverpackets.CharInfo;
-import net.sf.l2j.gameserver.serverpackets.ItemList;
-import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.serverpackets.PlaySound;
-import net.sf.l2j.gameserver.serverpackets.Revive;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
+import net.sf.l2j.gameserver.network.serverpackets.ItemList;
+import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
+import net.sf.l2j.gameserver.network.serverpackets.Revive;
+import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
+import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 
 /**
  * This class handles following admin commands: - admin = shows menu

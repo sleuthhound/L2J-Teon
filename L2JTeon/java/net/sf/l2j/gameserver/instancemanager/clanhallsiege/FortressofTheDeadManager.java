@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
 import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
-import net.sf.l2j.gameserver.serverpackets.CreatureSay2;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay2;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 

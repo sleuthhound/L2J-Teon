@@ -36,8 +36,8 @@ import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
-import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
+import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.util.EventData;
 

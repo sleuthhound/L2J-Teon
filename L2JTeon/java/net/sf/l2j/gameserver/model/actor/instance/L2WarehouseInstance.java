@@ -20,11 +20,11 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.item.PcFreight;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.PackageToList;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.WareHouseDepositList;
-import net.sf.l2j.gameserver.serverpackets.WareHouseWithdrawalList;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.PackageToList;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.WareHouseDepositList;
+import net.sf.l2j.gameserver.network.serverpackets.WareHouseWithdrawalList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**

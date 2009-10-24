@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
+import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
 
 /**
  * This class ...

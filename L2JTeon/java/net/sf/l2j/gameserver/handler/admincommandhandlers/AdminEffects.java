@@ -30,20 +30,20 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.GmAudit;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.CharInfo;
-import net.sf.l2j.gameserver.serverpackets.Earthquake;
-import net.sf.l2j.gameserver.serverpackets.ExRedSky;
-import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
-import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
-import net.sf.l2j.gameserver.serverpackets.NpcInfo;
-import net.sf.l2j.gameserver.serverpackets.PlaySound;
-import net.sf.l2j.gameserver.serverpackets.SignsSky;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.serverpackets.StopMove;
-import net.sf.l2j.gameserver.serverpackets.SunRise;
-import net.sf.l2j.gameserver.serverpackets.SunSet;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
+import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
+import net.sf.l2j.gameserver.network.serverpackets.ExRedSky;
+import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
+import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
+import net.sf.l2j.gameserver.network.serverpackets.SignsSky;
+import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
+import net.sf.l2j.gameserver.network.serverpackets.StopMove;
+import net.sf.l2j.gameserver.network.serverpackets.SunRise;
+import net.sf.l2j.gameserver.network.serverpackets.SunSet;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 
 /**
  * This class handles following admin commands: <li>invis/invisible/vis/visible = makes yourself invisible or visible <li>earthquake = causes an earthquake of a given intensity and duration around you <li>bighead/shrinkhead = changes head size <li>gmspeed = temporary Super Haste effect. <li>para/unpara = paralyze/remove paralysis from target <li>para_all/unpara_all = same as para/unpara, affects
