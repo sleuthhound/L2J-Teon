@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Furya-IL</name>
+	<name>L2JTeon</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,4 +16,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.jem.beaninfo.BeanInfoNature</nature>
 	</natures>
+	<linkedResources> 
+18	 	                <link> 
+19	 	                        <name>classes</name> 
+20	 	                        <type>2</type> 
+21	 	                        <location>build/classes</location> 
+22	 	                </link> 
+23	 	        </linkedResources> 
 </projectDescription>
