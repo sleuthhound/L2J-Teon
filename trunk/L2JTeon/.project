@@ -17,10 +17,10 @@
 		<nature>org.eclipse.jem.beaninfo.BeanInfoNature</nature>
 	</natures>
 	<linkedResources> 
-18	 	                <link> 
-19	 	                        <name>classes</name> 
-20	 	                        <type>2</type> 
-21	 	                        <location>build/classes</location> 
-22	 	                </link> 
-23	 	        </linkedResources> 
+	 	                <link> 
+	 	                        <name>classes</name> 
+	 	                        <type>2</type> 
+	 	                        <location>build/classes</location> 
+	 	                </link> 
+	 	        </linkedResources> 
 </projectDescription>

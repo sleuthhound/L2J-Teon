@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.NpcSay;
+import net.sf.l2j.gameserver.network.serverpackets.NpcSay;
 import net.sf.l2j.util.Rnd;
 
 public class SummonMinions extends L2AttackableAIScript
