@@ -31,7 +31,7 @@
   <property name="build.dist.doc" location="${build.dist}/doc"/>
   <property name="properties-file" location="${build.dist.game}/config/l2jdp-version.properties"/>
 
-    <target name="init"
+    <target name="init" depends="clean"
       description="Create the output directories. Do nothing if dirs were already created">
       <mkdir dir="${build}"/>
       <mkdir dir="${build.dist}"/>
@@ -67,6 +67,8 @@
       <sync todir="${build.dist.sql}">
          <fileset dir="${basedir}/sql">
             <include name="*.*"/>
+            <include name="experimental/*.*"/>
+            <include name="updates/*.*"/>
          </fileset>
       </sync>
       <sync todir="${build.dist.tools}">
@@ -125,14 +127,7 @@
 </concat>
     </target>
 
-    <target name="clean" 
-      description="Deletes the whole build space and existing packages.">
+	<target name="clean" description="Remove the output directories">
       <delete dir="${build}"/>
-    </target>
-
-  <target name="distclean" 
-      description="Deletes the datapack distribution ZIP file only, preserving synchronized build files.">
-    <delete file="${build}/L2JTeon_DataPack.zip"/>
-      <delete file="${build}/L2JTeon_DataPack-nocompress.zip"/>
     </target>
 </project>
