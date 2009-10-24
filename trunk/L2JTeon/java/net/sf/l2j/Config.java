@@ -27,6 +27,9 @@ import java.util.logging.Logger;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import net.sf.l2j.gameserver.util.FloodProtectorConfig;
+import net.sf.l2j.gameserver.util.StringUtil;
+
 /**
  * This class containce global server configuration.<br>
  * It has static final fields initialized from configuration files.<br>
@@ -89,6 +92,25 @@ public final class Config
 	public static String SERVER_VERSION;
 	public static String SERVER_BUILD_DATE;
 	public static String DATAPACK_VERSION;
+	
+	// FLOODPROTECTOR_CONFIG_FILE BY DANIELMWX
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_USE_ITEM = new FloodProtectorConfig("UseItemFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_ROLL_DICE = new FloodProtectorConfig("RollDiceFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_FIREWORK = new FloodProtectorConfig("FireworkFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_ITEM_PET_SUMMON = new FloodProtectorConfig("ItemPetSummonFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_HERO_VOICE = new FloodProtectorConfig("HeroVoiceFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_SUBCLASS = new FloodProtectorConfig("SubclassFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_DROP_ITEM = new FloodProtectorConfig("DropItemFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_SERVER_BYPASS = new FloodProtectorConfig("ServerBypassFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_UNK_PACKETS = new FloodProtectorConfig("UnkPacketsFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_BUFFER = new FloodProtectorConfig("BufferFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_CRAFT = new FloodProtectorConfig("CraftFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_MULTISELL = new FloodProtectorConfig("MultiSellFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_BANKING_SYSTEM = new FloodProtectorConfig("BankingSystemFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_WEREHOUSE = new FloodProtectorConfig("WerehouseFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_MISC = new FloodProtectorConfig("MiscFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_CHAT = new FloodProtectorConfig("ChatFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_GLOBAL = new FloodProtectorConfig("GlobalFloodProtector");
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
@@ -1681,16 +1703,14 @@ public final class Config
 				InputStream is = new FileInputStream(new File(FLOODPROTECTOR_CONFIG_FILE));
 				FloodProtector.load(is);
 				is.close();
-				
-				// Flood Tipos
-				
+				loadFloodProtectorConfigs(FloodProtector);
+				_log.info("# " + FLOODPROTECTOR_CONFIG_FILE + " Sucessfully LOADED #");
 			}
 			catch (Exception e)
 			{
 				e.printStackTrace();
 				throw new Error("Failed to Load " + FLOODPROTECTOR_CONFIG_FILE + " File.");
 			}
-			// access levels
 			try
 			{
 				Properties gmSettings = new Properties();
@@ -4017,6 +4037,35 @@ public final class Config
 			return false;
 		}
 		return true;
+	}
+	
+	private static void loadFloodProtectorConfigs(final Properties properties)
+	{
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_USE_ITEM, "UseItem", "4");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_ROLL_DICE, "RollDice", "42");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_FIREWORK, "Firework", "42");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_ITEM_PET_SUMMON, "ItemPetSummon", "16");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_HERO_VOICE, "HeroVoice", "100");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_SUBCLASS, "Subclass", "20");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_DROP_ITEM, "DropItem", "10");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_SERVER_BYPASS, "ServerBypass", "5");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_UNK_PACKETS, "UnkPackets", "5");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_BUFFER, "Buffer", "5");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_CRAFT, "Craft", "10");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_MULTISELL, "MultiSell", "30");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_WEREHOUSE, "Werehouse", "10");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_MISC, "Misc", "10");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_CHAT, "Chat", "10");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_GLOBAL, "Global", "500");
+	}
+
+	private static void loadFloodProtectorConfig(final Properties properties, final FloodProtectorConfig config, final String configString, final String defaultInterval)
+	{
+		config.FLOOD_PROTECTION_INTERVAL = Integer.parseInt(properties.getProperty(StringUtil.concat("FloodProtector", configString, "Interval"), defaultInterval));
+		config.LOG_FLOODING = Boolean.parseBoolean(properties.getProperty(StringUtil.concat("FloodProtector", configString, "LogFlooding"), "False"));
+		config.PUNISHMENT_LIMIT = Integer.parseInt(properties.getProperty(StringUtil.concat("FloodProtector", configString, "PunishmentLimit"), "0"));
+		config.PUNISHMENT_TYPE = properties.getProperty(StringUtil.concat("FloodProtector", configString, "PunishmentType"), "none");
+		config.PUNISHMENT_TIME = Integer.parseInt(properties.getProperty(StringUtil.concat("FloodProtector", configString, "PunishmentTime"), "0"));
 	}
 
 	/*
