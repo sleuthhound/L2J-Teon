@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.MonsterRace;
 import net.sf.l2j.gameserver.ThreadPoolManager;

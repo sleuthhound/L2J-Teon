@@ -18,9 +18,19 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.handler.usercommandhandlers.*;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ChannelDelete;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ChannelLeave;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ChannelListUpdate;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanPenalty;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanWarsList;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.DisMount;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Escape;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.OlympiadStat;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
 
 /**
  * @author Maxi56
@@ -50,7 +60,7 @@ public class UserCommandHandler
 		registerUserCommandHandler(new ChannelLeave());
 		registerUserCommandHandler(new ChannelDelete());
 		registerUserCommandHandler(new ChannelListUpdate());
-    	_log.config("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");
+		_log.config("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerUserCommandHandler(IUserCommandHandler handler)

@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;

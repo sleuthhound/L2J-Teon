@@ -19,32 +19,28 @@ import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * This class allows a player to type in the command .joinvip and join the vip
- * event.
- * 
+ * This class allows a player to type in the command .joinvip and join the vip event.
  * 
  * @author DaRkRaGe
  */
 public class version implements IVoicedCommandHandler
 {
-    private static String[] VOICED_COMMANDS = { "version" };
+	private static String[] VOICED_COMMANDS = { "version" };
 
-    public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-    {
-	if (command.equalsIgnoreCase("version"))
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-	    activeChar.sendMessage("L2JOneo Rev " + Config.SERVER_VERSION + " http://www.oneodevteam.com");
+		if (command.equalsIgnoreCase("version"))
+		{
+			activeChar.sendMessage("L2JOneo Rev " + Config.SERVER_VERSION + " http://www.oneodevteam.com");
+		}
+		return true;
 	}
-	return true;
-    }
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
 	 */
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;
 	}
-	
 }

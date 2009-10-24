@@ -19,33 +19,28 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Support for /dismount command.
+ * 
  * @author Micht
  */
 public class DisMount implements IUserCommandHandler
 {
-	private static final int[] COMMAND_IDS =
-	{
-		62
-	};
-	
+	private static final int[] COMMAND_IDS = { 62 };
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
 	 */
 	public synchronized boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-	if (id != COMMAND_IDS[0])
-	    return false;
-	if (activeChar.isRentedPet())
-
-	    activeChar.stopRentPet();
-	 else if (activeChar.isMounted())
-            activeChar.dismount();
-	return true;
-    }
+		if (id != COMMAND_IDS[0])
+			return false;
+		if (activeChar.isRentedPet())
+			activeChar.stopRentPet();
+		else if (activeChar.isMounted())
+			activeChar.dismount();
+		return true;
+	}
 
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#getUserCommandList()
 	 */
 	public int[] getUserCommandList()

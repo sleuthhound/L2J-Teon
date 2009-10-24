@@ -22,6 +22,7 @@ import java.io.LineNumberReader;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
+
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.idfactory.IdFactory;

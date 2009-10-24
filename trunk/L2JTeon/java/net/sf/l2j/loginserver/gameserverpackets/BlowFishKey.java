@@ -17,7 +17,9 @@ package net.sf.l2j.loginserver.gameserverpackets;
 import java.security.GeneralSecurityException;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.logging.Logger;
+
 import javax.crypto.Cipher;
+
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**

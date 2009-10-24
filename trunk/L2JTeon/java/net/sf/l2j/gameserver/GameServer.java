@@ -27,15 +27,14 @@ import net.sf.l2j.Config;
 import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.Server;
-import net.sf.l2j.gameserver.OnlinePlayers;
 import net.sf.l2j.gameserver.cache.ChatFilterCache;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
 import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
 import net.sf.l2j.gameserver.datatables.AugmentationData;
-import net.sf.l2j.gameserver.datatables.BufferSkillsTable;
 import net.sf.l2j.gameserver.datatables.BuffTemplateTable;
+import net.sf.l2j.gameserver.datatables.BufferSkillsTable;
 import net.sf.l2j.gameserver.datatables.CharNameTable;
 import net.sf.l2j.gameserver.datatables.CharSchemesTable;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
@@ -77,22 +76,22 @@ import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.AwayManager;
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.FortManager;
-import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
-import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
+import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
-import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
+import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
@@ -119,9 +118,10 @@ import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.status.Status;
+import net.sf.l2j.util.Util;
+
 import com.l2jserver.mmocore.network.SelectorServerConfig;
 import com.l2jserver.mmocore.network.SelectorThread;
-import net.sf.l2j.util.Util;
 
 /**
  * This class ...
@@ -328,8 +328,8 @@ public class GameServer
 		{
 			_log.info("Loading Server Scripts");
 			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
-            if (!Config.ALT_DEV_NO_QUESTS)
-            	L2ScriptEngineManager.getInstance().executeScriptList(scripts);
+			if (!Config.ALT_DEV_NO_QUESTS)
+				L2ScriptEngineManager.getInstance().executeScriptList(scripts);
 		}
 		catch (IOException ioe)
 		{

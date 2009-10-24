@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.SevenSignsFestival;
@@ -25,9 +26,9 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
+import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
@@ -84,11 +85,11 @@ public final class Logout extends L2GameClientPacket
 			player.sendMessage("You cant logout in olympiad mode");
 			return;
 		}
-        if(player.getActiveEnchantItem() != null) 
-        { 
-            player.sendMessage("You cant logout while enchanting!"); 
-            return; 
-        }
+		if (player.getActiveEnchantItem() != null)
+		{
+			player.sendMessage("You cant logout while enchanting!");
+			return;
+		}
 		// Prevent player from logging out if they are a festival participant
 		// and it is in progress, otherwise notify party members that the player
 		// is not longer a participant.

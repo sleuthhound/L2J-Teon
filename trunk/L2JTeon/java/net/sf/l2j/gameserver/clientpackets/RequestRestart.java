@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
@@ -63,11 +64,11 @@ public final class RequestRestart extends L2GameClientPacket
 			player.sendMessage("You cant logout in olympiad mode");
 			return;
 		}
-        if(player.getActiveEnchantItem() != null) 
-        { 
-            player.sendMessage("You cant logout while enchanting!"); 
-            return; 
-        }
+		if (player.getActiveEnchantItem() != null)
+		{
+			player.sendMessage("You cant logout while enchanting!");
+			return;
+		}
 		player.getInventory().updateDatabase();
 		if (player.getPrivateStoreType() != 0)
 		{

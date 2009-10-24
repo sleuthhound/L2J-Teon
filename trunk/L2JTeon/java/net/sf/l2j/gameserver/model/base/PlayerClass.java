@@ -36,6 +36,7 @@ import static net.sf.l2j.gameserver.model.base.PlayerRace.Dwarf;
 import static net.sf.l2j.gameserver.model.base.PlayerRace.Human;
 import static net.sf.l2j.gameserver.model.base.PlayerRace.LightElf;
 import static net.sf.l2j.gameserver.model.base.PlayerRace.Orc;
+
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Set;

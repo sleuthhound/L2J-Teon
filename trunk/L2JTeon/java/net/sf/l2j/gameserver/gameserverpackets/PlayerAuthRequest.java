@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.gameserverpackets;
 
 import java.io.IOException;
+
 import net.sf.l2j.gameserver.LoginServerThread.SessionKey;
 
 /**

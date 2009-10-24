@@ -22,10 +22,9 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance; //import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -201,16 +200,10 @@ public class SummonFriend implements ISkillHandler
 							activePlayer.sendPacket(sm);
 							continue;
 						}
-					/*	if (skill.getId() == 1403) // summon friend
-						{
-							// Send message
-							ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId());
-							confirm.addString(activeChar.getName());
-							confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-							confirm.addTime(30000);
-							confirm.addRequesterId(activePlayer.getCharId());
-							target.sendPacket(confirm);
-						} */
+						/*
+						 * if (skill.getId() == 1403) // summon friend { // Send message ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId()); confirm.addString(activeChar.getName()); confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ()); confirm.addTime(30000); confirm.addRequesterId(activePlayer.getCharId());
+						 * target.sendPacket(confirm); }
+						 */
 						else
 						{
 							teleToTarget(targetPlayer, activePlayer, skill);
@@ -228,6 +221,7 @@ public class SummonFriend implements ISkillHandler
 			}
 		}
 	}
+
 	/**
 	 * @see net.sf.l2j.gameserver.handler.ISkillHandler#getSkillIds()
 	 */

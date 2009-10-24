@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
 import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;

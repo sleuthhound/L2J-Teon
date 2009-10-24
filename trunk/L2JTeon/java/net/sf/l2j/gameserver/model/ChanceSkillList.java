@@ -15,7 +15,6 @@
 package net.sf.l2j.gameserver.model;
 
 import javolution.util.FastMap;
-
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;

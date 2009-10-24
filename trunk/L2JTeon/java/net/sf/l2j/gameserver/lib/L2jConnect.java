@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+
 import net.sf.l2j.Config;
 
 public class L2jConnect

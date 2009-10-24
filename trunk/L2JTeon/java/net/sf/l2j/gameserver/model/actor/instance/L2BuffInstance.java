@@ -16,19 +16,19 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Iterator;
 import java.util.StringTokenizer;
+
 import javolution.text.TextBuilder;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Multisell;
-import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.model.entity.Npcbuffer;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2BuffInstance extends L2NpcInstance
 {

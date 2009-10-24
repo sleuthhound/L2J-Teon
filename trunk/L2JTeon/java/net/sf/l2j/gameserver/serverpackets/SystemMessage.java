@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.Vector;
+
 import net.sf.l2j.gameserver.network.SystemMessageId;
 
 /**

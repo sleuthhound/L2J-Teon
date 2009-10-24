@@ -108,6 +108,7 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 	/**
 	 * This method forces guard to return to home location previously set
 	 */
+	@Override
 	public void returnHome()
 	{
 		if (!isInsideRadius(_homeX, _homeY, 40, false))

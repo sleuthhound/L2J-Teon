@@ -14,63 +14,47 @@
  */
 package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
+import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 
 /**
- * 
- *
- * 
- * this class...
- * shows the amount of online players to anyone who calls it.
+ * this class... shows the amount of online players to anyone who calls it.
  */
 public class OnlinePlayers implements IVoicedCommandHandler
 {
-
-	private static final String[] VOICED_COMMANDS = {"online"};
+	private static final String[] VOICED_COMMANDS = { "online" };
 
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.startsWith("online"))
 		{
-		showPlayers(activeChar, target);		
+			showPlayers(activeChar, target);
 		}
-		
 		return true;
-
 	}
-
-
 
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;
 	}
 
-
-    public void showPlayers (L2PcInstance player, String target)
+	public void showPlayers(L2PcInstance player, String target)
 	{
- 
 		{
-			
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("======<Players Online>======");
 			player.sendPacket(sm);
-           	sm = new SystemMessage(SystemMessageId.S1_S2);	
-           	sm.addString("players online!");
-           	sm.addNumber(L2World.getInstance().getAllPlayers().size());
-           	player.sendPacket(sm);
+			sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString("players online!");
+			sm.addNumber(L2World.getInstance().getAllPlayers().size());
+			player.sendPacket(sm);
 			sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("=======================");
 			player.sendPacket(sm);
-			
 		}
 	}
-
-
-
 }

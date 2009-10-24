@@ -14,10 +14,10 @@
  */
 package net.sf.l2j.util;
 
+import java.security.SecureRandom;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.security.SecureRandom;
 
 public class RandomIntGenerator
 {

@@ -21,31 +21,30 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.serverpackets.ShowXMasSeal;
 
 /**
- * 
  * @author devScarlet & mrTJO
  */
 public class SpecialXMas implements IItemHandler
 {
-    private static int[] _itemIds = { 5555 };
+	private static int[] _itemIds = { 5555 };
 
-    public void useItem(L2PlayableInstance playable, L2ItemInstance item)
-    {
-	if (!(playable instanceof L2PcInstance))
-	    return;
-	L2PcInstance activeChar = (L2PcInstance) playable;
-	int itemId = item.getItemId();
-	if (itemId == 5555) // Token of Love
+	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-	    ShowXMasSeal SXS = new ShowXMasSeal(5555);
-	    activeChar.broadcastPacket(SXS);
+		if (!(playable instanceof L2PcInstance))
+			return;
+		L2PcInstance activeChar = (L2PcInstance) playable;
+		int itemId = item.getItemId();
+		if (itemId == 5555) // Token of Love
+		{
+			ShowXMasSeal SXS = new ShowXMasSeal(5555);
+			activeChar.broadcastPacket(SXS);
+		}
 	}
-    }
 
-    /**
-     * @see net.sf.l2j.gameserver.handler.IItemHandler#getItemIds()
-     */
-    public int[] getItemIds()
-    {
-	return _itemIds;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.handler.IItemHandler#getItemIds()
+	 */
+	public int[] getItemIds()
+	{
+		return _itemIds;
+	}
 }

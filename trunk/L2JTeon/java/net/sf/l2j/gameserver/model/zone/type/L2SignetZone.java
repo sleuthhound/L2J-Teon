@@ -15,10 +15,9 @@
 package net.sf.l2j.gameserver.model.zone.type;
 
 import javolution.util.FastList;
-
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
-import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**

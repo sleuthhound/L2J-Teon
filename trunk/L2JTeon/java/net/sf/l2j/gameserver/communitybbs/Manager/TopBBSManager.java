@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.communitybbs.Manager;
 
 import java.util.StringTokenizer;
+
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 

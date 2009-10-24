@@ -15,8 +15,9 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.Map;
-import net.sf.l2j.gameserver.model.olympiad.Olympiad;
+
 import net.sf.l2j.gameserver.model.entity.Hero;
+import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**

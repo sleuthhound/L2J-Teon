@@ -25,8 +25,9 @@
 package net.sf.l2j.util;
 
 import java.text.SimpleDateFormat;
-import javolution.text.TextBuilder;
 import java.util.Date;
+
+import javolution.text.TextBuilder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

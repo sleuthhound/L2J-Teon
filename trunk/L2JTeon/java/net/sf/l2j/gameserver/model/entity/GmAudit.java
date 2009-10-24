@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model.entity;
 
 import java.sql.PreparedStatement;
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 

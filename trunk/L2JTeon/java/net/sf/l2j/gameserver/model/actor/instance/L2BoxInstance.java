@@ -34,6 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Set;
+
 import javolution.util.FastList;
 import javolution.util.FastSet;
 import net.sf.l2j.L2DatabaseFactory;

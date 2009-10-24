@@ -19,39 +19,38 @@ import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * VoicedCommand ".autoherbs" Handler Allow player to select: use autoloot of
- * Herbs or not
- * 
- * Syntax : .autoherbs_on/off Author : Sergey V Chursin
+ * VoicedCommand ".autoherbs" Handler Allow player to select: use autoloot of Herbs or not Syntax : .autoherbs_on/off Author : Sergey V Chursin
  */
 public class AutoLootHerbs implements IVoicedCommandHandler
 {
-    private static final String[] VOICED_COMMANDS = { "autoherbs_on", "autoherbs_off" };
+	private static final String[] VOICED_COMMANDS = { "autoherbs_on", "autoherbs_off" };
 
-    public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
-    {
-	// is command enabled?
-	if (!Config.ALLOW_AUTOHERBS_CMD)
-	    return false;
-	// check command syntax and do work
-	if (command.startsWith("autoherbs_on"))
+	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-	    activeChar.setAutoLootHerbs(1);
-	} else if (command.startsWith("autoherbs_off"))
-	{ // auto loot off
-	    activeChar.setAutoLootHerbs(0);
-	} else
-	{ // show cmd syntax
-	    activeChar.sendMessage("AutoHerbs Syntax:");
-	    activeChar.sendMessage("  Enable auto loot herbs: .autoherbs_on");
-	    activeChar.sendMessage("  Disable auto loot herbs: .autoherbs_off");
+		// is command enabled?
+		if (!Config.ALLOW_AUTOHERBS_CMD)
+			return false;
+		// check command syntax and do work
+		if (command.startsWith("autoherbs_on"))
+		{
+			activeChar.setAutoLootHerbs(1);
+		}
+		else if (command.startsWith("autoherbs_off"))
+		{ // auto loot off
+			activeChar.setAutoLootHerbs(0);
+		}
+		else
+		{ // show cmd syntax
+			activeChar.sendMessage("AutoHerbs Syntax:");
+			activeChar.sendMessage("  Enable auto loot herbs: .autoherbs_on");
+			activeChar.sendMessage("  Disable auto loot herbs: .autoherbs_off");
+		}
+		// work's done - exit
+		return true;
 	}
-	// work's done - exit
-	return true;
-    }
 
-    public String[] getVoicedCommandList()
-    {
-	return VOICED_COMMANDS;
-    }
+	public String[] getVoicedCommandList()
+	{
+		return VOICED_COMMANDS;
+	}
 }

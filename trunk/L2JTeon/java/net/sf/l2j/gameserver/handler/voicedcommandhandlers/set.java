@@ -23,15 +23,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class set implements IVoicedCommandHandler
 {
-	private static final String[] VOICED_COMMANDS =
-	{
-		"set name",
-		"set home",
-		"set group"
-	};
-	
+	private static final String[] VOICED_COMMANDS = { "set name", "set home", "set group" };
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
@@ -47,16 +41,12 @@ public class set implements IVoicedCommandHandler
 					pc.setClanPrivileges(n);
 					activeChar.sendMessage("Your clan privileges have been set to " + n + " by " + activeChar.getName());
 				}
-				
 			}
-			
 		}
-		
 		return true;
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
 	 */
 	public String[] getVoicedCommandList()

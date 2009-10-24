@@ -18,14 +18,15 @@ import java.io.UnsupportedEncodingException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Logger;
+
 import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.CharSchemesTable;
@@ -38,9 +39,9 @@ import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -415,17 +416,16 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-		
-		if(Config.ALLOW_REMOTE_CLASS_MASTERS)
-			{
+		if (Config.ALLOW_REMOTE_CLASS_MASTERS)
+		{
 			ClassLevel lvlnow = PlayerClass.values()[activeChar.getClassId().getId()].getLevel();
-			if(activeChar.getLevel() >= 20 && lvlnow == ClassLevel.First)
-			L2ClassMasterInstance.ClassMaster.onAction(activeChar);
-			else if(activeChar.getLevel() >= 40 && lvlnow == ClassLevel.Second)
-			L2ClassMasterInstance.ClassMaster.onAction(activeChar);
-			else if(activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
-			L2ClassMasterInstance.ClassMaster.onAction(activeChar);
-			}
+			if (activeChar.getLevel() >= 20 && lvlnow == ClassLevel.First)
+				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+			else if (activeChar.getLevel() >= 40 && lvlnow == ClassLevel.Second)
+				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+			else if (activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
+				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+		}
 	}
 
 	/**

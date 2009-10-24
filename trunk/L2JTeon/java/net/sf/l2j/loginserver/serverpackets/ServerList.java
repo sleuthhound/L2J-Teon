@@ -17,6 +17,7 @@ package net.sf.l2j.loginserver.serverpackets;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.GameServerTable;

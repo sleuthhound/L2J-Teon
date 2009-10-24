@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
@@ -107,6 +108,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	/**
 	 * This method forces guard to return to home location previously set
 	 */
+	@Override
 	public void returnHome()
 	{
 		if (!isInsideRadius(_homeX, _homeY, 40, false))

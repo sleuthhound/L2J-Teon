@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -102,7 +103,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			iu.addModifiedItem(unequiped[i]);
 		}
 		activeChar.sendPacket(iu);
-        // On retail you don't stop hitting if unequip something. REOMVED: activeChar.abortAttack(); 
+		// On retail you don't stop hitting if unequip something. REOMVED: activeChar.abortAttack();
 		activeChar.broadcastUserInfo();
 		// this can be 0 if the user pressed the right mousebutton twice very fast
 		if (unequiped.length > 0)

@@ -16,9 +16,11 @@ package net.sf.l2j.gameserver.datatables;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2NpcWalkerNode;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

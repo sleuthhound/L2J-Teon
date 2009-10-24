@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.util.List;
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.cache.HtmCache;

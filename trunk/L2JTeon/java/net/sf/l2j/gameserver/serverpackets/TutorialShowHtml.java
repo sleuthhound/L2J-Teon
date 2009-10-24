@@ -24,7 +24,8 @@ public class TutorialShowHtml extends L2GameServerPacket
 		_html = html;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
@@ -34,7 +35,8 @@ public class TutorialShowHtml extends L2GameServerPacket
 		writeS(_html);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
@@ -42,5 +44,4 @@ public class TutorialShowHtml extends L2GameServerPacket
 	{
 		return _S__A0_TUTORIALSHOWHTML;
 	}
-
 }

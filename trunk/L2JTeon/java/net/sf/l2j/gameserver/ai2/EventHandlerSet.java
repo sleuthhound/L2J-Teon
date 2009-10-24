@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.ai2;
 
 import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.TaskPriority;
 

@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.logging.Logger;
+
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;

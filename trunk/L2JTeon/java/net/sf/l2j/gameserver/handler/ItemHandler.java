@@ -14,19 +14,53 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.logging.Logger;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.handler.itemhandlers.*;
+import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpice;
+import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.BlessedSpiritShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.Book;
+import net.sf.l2j.gameserver.handler.itemhandlers.CharChangePotions;
+import net.sf.l2j.gameserver.handler.itemhandlers.ChestKey;
+import net.sf.l2j.gameserver.handler.itemhandlers.CrystalCarol;
+import net.sf.l2j.gameserver.handler.itemhandlers.DonatorItems;
+import net.sf.l2j.gameserver.handler.itemhandlers.DungeonKeys;
+import net.sf.l2j.gameserver.handler.itemhandlers.EnchantScrolls;
+import net.sf.l2j.gameserver.handler.itemhandlers.EnergyStone;
+import net.sf.l2j.gameserver.handler.itemhandlers.ExtractableItems;
+import net.sf.l2j.gameserver.handler.itemhandlers.Firework;
+import net.sf.l2j.gameserver.handler.itemhandlers.FishShots;
+import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
+import net.sf.l2j.gameserver.handler.itemhandlers.JackpotSeed;
+import net.sf.l2j.gameserver.handler.itemhandlers.Maps;
+import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
+import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
+import net.sf.l2j.gameserver.handler.itemhandlers.Potions;
+import net.sf.l2j.gameserver.handler.itemhandlers.PrimevalPotions;
+import net.sf.l2j.gameserver.handler.itemhandlers.Recipes;
+import net.sf.l2j.gameserver.handler.itemhandlers.Remedy;
+import net.sf.l2j.gameserver.handler.itemhandlers.RollingDice;
+import net.sf.l2j.gameserver.handler.itemhandlers.ScrollOfEscape;
+import net.sf.l2j.gameserver.handler.itemhandlers.ScrollOfResurrection;
+import net.sf.l2j.gameserver.handler.itemhandlers.Scrolls;
+import net.sf.l2j.gameserver.handler.itemhandlers.ScrollsValakas;
+import net.sf.l2j.gameserver.handler.itemhandlers.Seed;
+import net.sf.l2j.gameserver.handler.itemhandlers.SevenSignsRecord;
+import net.sf.l2j.gameserver.handler.itemhandlers.SoulCrystals;
+import net.sf.l2j.gameserver.handler.itemhandlers.SoulShots;
+import net.sf.l2j.gameserver.handler.itemhandlers.SpecialXMas;
+import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 
 /**
- * @author  Maxi
+ * @author Maxi
  */
 public class ItemHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
-
 	private Map<Integer, IItemHandler> _datatable;
 
 	public static ItemHandler getInstance()
@@ -78,7 +112,7 @@ public class ItemHandler
 		registerItemHandler(new BeastSpice());
 		registerItemHandler(new PrimevalPotions());
 		registerItemHandler(new ScrollsValakas());
-    	_log.config("ItemHandler: Loaded " + _datatable.size() + " handlers.");
+		_log.config("ItemHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerItemHandler(IItemHandler handler)

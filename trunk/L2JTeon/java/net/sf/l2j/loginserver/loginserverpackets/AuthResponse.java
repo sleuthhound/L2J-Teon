@@ -15,6 +15,7 @@
 package net.sf.l2j.loginserver.loginserverpackets;
 
 import java.io.IOException;
+
 import net.sf.l2j.loginserver.GameServerTable;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 

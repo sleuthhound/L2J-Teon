@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Stack;
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 

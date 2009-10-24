@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -152,11 +153,11 @@ public class TownManager
 	 */
 	public final static L2TownZone getTown(int x, int y, int z)
 	{
-	    	for (L2ZoneType temp : ZoneManager.getInstance().getZones(x, y, z))
-	        {
-	        	if (temp instanceof L2TownZone)
-	        		return (L2TownZone) temp;
-	        }
+		for (L2ZoneType temp : ZoneManager.getInstance().getZones(x, y, z))
+		{
+			if (temp instanceof L2TownZone)
+				return (L2TownZone) temp;
+		}
 		return null;
 	}
 }

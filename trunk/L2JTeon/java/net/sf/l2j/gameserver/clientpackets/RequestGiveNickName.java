@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
