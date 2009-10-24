@@ -38,18 +38,18 @@ public class UserCommandHandler
 	private UserCommandHandler()
 	{
 		_datatable = new FastMap<Integer, IUserCommandHandler>();
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ClanPenalty());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ClanWarsList());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new DisMount());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Escape());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Loc());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Mount());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new PartyInfo());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new Time());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new OlympiadStat());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelLeave());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelDelete());
-		UserCommandHandler.getInstance().registerUserCommandHandler(new ChannelListUpdate());
+		registerUserCommandHandler(new ClanPenalty());
+		registerUserCommandHandler(new ClanWarsList());
+		registerUserCommandHandler(new DisMount());
+		registerUserCommandHandler(new Escape());
+		registerUserCommandHandler(new Loc());
+		registerUserCommandHandler(new Mount());
+		registerUserCommandHandler(new PartyInfo());
+		registerUserCommandHandler(new Time());
+		registerUserCommandHandler(new OlympiadStat());
+		registerUserCommandHandler(new ChannelLeave());
+		registerUserCommandHandler(new ChannelDelete());
+		registerUserCommandHandler(new ChannelListUpdate());
     	_log.config("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
