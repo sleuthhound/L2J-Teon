@@ -53,7 +53,7 @@ public class VoicedCommandHandler
 			registerVoicedCommandHandler(new JoinVIP());
 			registerVoicedCommandHandler(new PlayersWithdrawCWH());
 			registerVoicedCommandHandler(new version());
-		_log.config("Loaded " + VoicedCommandHandler.getInstance().size() + " VoicedHandlers");
+	    	_log.config("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)
