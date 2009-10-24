@@ -172,7 +172,7 @@ public class GameServer
 	{
 		// Prints General System Info+
 		Util.printSection("L2JTeon-Info");
-		L2JTeon.L2JTeon();
+		L2JTeon.showinfo();
 		gameServer = this;
 		_log.finest("used mem:" + getUsedMemoryMB() + "MB");
 		Util.printSection("Database");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>L2JTeon</name>
+	<name>Furya-IL</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -12,13 +12,8 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.jem.beaninfo.BeanInfoNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>classes</name>
-			<type>2</type>
-			<location>E:/svn_repository/L2JTeon/build/classes</location>
-		</link>
-	</linkedResources>
 </projectDescription>

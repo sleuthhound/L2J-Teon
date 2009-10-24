@@ -25,7 +25,7 @@ public class L2JTeon
 	/**
 	 * L2JTeon Info
 	 */
-	public static void L2JTeon()
+	public static final void showinfo()
 	{
 		_log.info("------------------------------------------------------------------");
 		_log.info("              Developers: Maxi56, Meyknho, DanielMWX              ");
