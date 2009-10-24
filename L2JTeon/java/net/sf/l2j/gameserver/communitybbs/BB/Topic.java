@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.communitybbs.BB;
 
 import java.sql.PreparedStatement;
 import java.util.logging.Logger;
+
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.communitybbs.Manager.TopicBBSManager;
 

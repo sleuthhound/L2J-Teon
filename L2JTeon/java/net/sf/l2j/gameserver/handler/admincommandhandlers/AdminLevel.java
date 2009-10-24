@@ -23,80 +23,49 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 
 public class AdminLevel implements IAdminCommandHandler
 {
-    private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
+	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
+	private static final String[][] ADMIN_COMMANDS = { { "admin_remlevel", // remove level amount from your target
+			"Remove amount of levels from your target (player or pet).", "Usage: addlevel <num>", "Options:", "num - amount of levels to add/remove", }, { "admin_addlevel", // add a level amount to your target
+			"Add a level amount to your target (player or pet).", "Usage: addlevel <num>", "Options:", "num - amount of levels to add/remove", }, { "admin_setlevel", // set level of your target
+			"Set level of your target (player or pet).", "Usage: setlevel <num>", "Options:", "num - level to set", } };
 
-    private static final String[][] ADMIN_COMMANDS = {
-    	{"admin_remlevel",                                 // remove level amount from your target
-    		
-    		"Remove amount of levels from your target (player or pet).",
-    		"Usage: addlevel <num>",
-    		"Options:",
-    		"num - amount of levels to add/remove",
-     	},
-    	{"admin_addlevel",                                 // add a level amount to your target
-    		
-    		"Add a level amount to your target (player or pet).",
-    		"Usage: addlevel <num>",
-    		"Options:",
-    		"num - amount of levels to add/remove",
-     	},
-    	{"admin_setlevel",                                 // set level of your target
-    		
-    		"Set level of your target (player or pet).",
-    		"Usage: setlevel <num>",
-    		"Options:",
-    		"num - level to set",
-     	} 	
-    };
-
-
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-        if (activeChar == null) return false;
-
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (activeChar.getAccessLevel() < REQUIRED_LEVEL) return false;
-
-        StringTokenizer st = new StringTokenizer(command, " ");
-        
-        String cmd = st.nextToken();  // get command
-
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (activeChar == null)
+			return false;
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
+				return false;
+		StringTokenizer st = new StringTokenizer(command, " ");
+		String cmd = st.nextToken(); // get command
 		if (cmd.equals("admin_addlevel") || cmd.equals("admin_setlevel") || cmd.equals("admin_remlevel"))
-        {
+		{
 			int reslevel = 0;
 			int curlevel = 0;
 			long xpcur = 0;
 			long xpres = 0;
 			int lvl = 0;
-			
 			try
 			{
 				lvl = Integer.parseInt(st.nextToken());
-				
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 			}
-			
 			L2PlayableInstance target;
-			
 			if (activeChar.getTarget() instanceof L2PlayableInstance && lvl > 0)
 			{
-				target = (L2PlayableInstance)activeChar.getTarget();
-			
+				target = (L2PlayableInstance) activeChar.getTarget();
 				curlevel = target.getLevel();
-			
-				reslevel = cmd.equals("admin_addlevel")?(curlevel + lvl):cmd.equals("admin_remlevel")?(curlevel - lvl):lvl;
-
+				reslevel = cmd.equals("admin_addlevel") ? (curlevel + lvl) : cmd.equals("admin_remlevel") ? (curlevel - lvl) : lvl;
 				try
 				{
 					xpcur = target.getStat().getExp();
 					xpres = target.getStat().getExpForLevel(reslevel);
-					
 					if (xpcur > xpres)
 						target.getStat().removeExp(xpcur - xpres);
 					else
 						target.getStat().addExp(xpres - xpcur);
-					
 				}
 				catch (Exception e)
 				{
@@ -105,31 +74,34 @@ public class AdminLevel implements IAdminCommandHandler
 			}
 			else
 			{
-				showAdminCommandHelp(activeChar,cmd);
+				showAdminCommandHelp(activeChar, cmd);
 			}
-        }
-        return true;
-    }
+		}
+		return true;
+	}
 
 	/**
-	 * Show tips about command usage and syntax. 
-	 * @param command admin command name
-	 */    
+	 * Show tips about command usage and syntax.
+	 * 
+	 * @param command
+	 *            admin command name
+	 */
 	private void showAdminCommandHelp(L2PcInstance activeChar, String command)
 	{
-		for (String[] element : ADMIN_COMMANDS) {
+		for (String[] element : ADMIN_COMMANDS)
+		{
 			if (command.equals(element[0]))
 			{
-				for (int k=1; k < element.length; k++)
+				for (int k = 1; k < element.length; k++)
 					activeChar.sendMessage(element[k]);
 			}
 		}
 	}
-	
+
 	public String[] getAdminCommandList()
 	{
 		String[] _adminCommandsOnly = new String[ADMIN_COMMANDS.length];
-		for (int i=0; i < ADMIN_COMMANDS.length; i++)
+		for (int i = 0; i < ADMIN_COMMANDS.length; i++)
 		{
 			_adminCommandsOnly[i] = ADMIN_COMMANDS[i][0];
 		}

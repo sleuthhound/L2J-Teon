@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.idfactory.IdFactory;

@@ -15,11 +15,11 @@
 package net.sf.l2j.gameserver.model.entity;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.item.ItemContainer;
 
 /**

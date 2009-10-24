@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -22,72 +23,72 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.GmAudit;
 
 /**
- * This class handles following admin commands: - invul = turns invulnerability
- * on/off
+ * This class handles following admin commands: - invul = turns invulnerability on/off
  * 
  * @version $Revision: 1.2.4.4 $ $Date: 2007/07/31 10:06:02 $
  */
 public class AdminInvul implements IAdminCommandHandler
 {
-    private static Logger _log = Logger.getLogger(AdminInvul.class.getName());
-    private static final String[] ADMIN_COMMANDS = { "admin_invul", "admin_setinvul" };
-    private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
+	private static Logger _log = Logger.getLogger(AdminInvul.class.getName());
+	private static final String[] ADMIN_COMMANDS = { "admin_invul", "admin_setinvul" };
+	private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-	if (!Config.ALT_PRIVILEGES_ADMIN)
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-	    if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-	    {
-		return false;
-	    }
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+		{
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+			{
+				return false;
+			}
+		}
+		new GmAudit(activeChar.getName(), activeChar.getObjectId(), (activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target"), command);
+		if (command.equals("admin_invul"))
+		{
+			handleInvul(activeChar);
+		}
+		if (command.equals("admin_setinvul"))
+		{
+			L2Object target = activeChar.getTarget();
+			if (target instanceof L2PcInstance)
+			{
+				handleInvul((L2PcInstance) target);
+			}
+		}
+		return true;
 	}
-	new GmAudit(activeChar.getName(), activeChar.getObjectId(), (activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target"), command);
-	if (command.equals("admin_invul"))
-	{
-	    handleInvul(activeChar);
-	}
-	if (command.equals("admin_setinvul"))
-	{
-	    L2Object target = activeChar.getTarget();
-	    if (target instanceof L2PcInstance)
-	    {
-		handleInvul((L2PcInstance) target);
-	    }
-	}
-	return true;
-    }
 
-    public String[] getAdminCommandList()
-    {
-	return ADMIN_COMMANDS;
-    }
-
-    private boolean checkLevel(int level)
-    {
-	return level >= REQUIRED_LEVEL;
-    }
-
-    private void handleInvul(L2PcInstance activeChar)
-    {
-	String text;
-	if (activeChar.isInvul())
+	public String[] getAdminCommandList()
 	{
-	    activeChar.setIsInvul(false);
-	    text = activeChar.getName() + " is now mortal";
-	    if (Config.DEBUG)
-	    {
-		_log.fine("GM: Gm removed invul mode from character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
-	    }
-	} else
-	{
-	    activeChar.setIsInvul(true);
-	    text = activeChar.getName() + " is now invulnerable";
-	    if (Config.DEBUG)
-	    {
-		_log.fine("GM: Gm activated invul mode for character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
-	    }
+		return ADMIN_COMMANDS;
 	}
-	activeChar.sendMessage(text);
-    }
+
+	private boolean checkLevel(int level)
+	{
+		return level >= REQUIRED_LEVEL;
+	}
+
+	private void handleInvul(L2PcInstance activeChar)
+	{
+		String text;
+		if (activeChar.isInvul())
+		{
+			activeChar.setIsInvul(false);
+			text = activeChar.getName() + " is now mortal";
+			if (Config.DEBUG)
+			{
+				_log.fine("GM: Gm removed invul mode from character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
+			}
+		}
+		else
+		{
+			activeChar.setIsInvul(true);
+			text = activeChar.getName() + " is now invulnerable";
+			if (Config.DEBUG)
+			{
+				_log.fine("GM: Gm activated invul mode for character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
+			}
+		}
+		activeChar.sendMessage(text);
+	}
 }

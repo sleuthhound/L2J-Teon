@@ -18,9 +18,16 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
-
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.*;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Away;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Banking;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.JoinVIP;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.OnlinePlayers;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayersWithdrawCWH;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.tradeoff;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.version;
 
 /**
  * @author Maxi56
@@ -43,17 +50,17 @@ public class VoicedCommandHandler
 			registerVoicedCommandHandler(new Wedding());
 		if (Config.BANKING_SYSTEM_ENABLED)
 			registerVoicedCommandHandler(new Banking());
-		if(Config.ONLINE_VOICE_COMMAND)
+		if (Config.ONLINE_VOICE_COMMAND)
 			registerVoicedCommandHandler(new OnlinePlayers());
-		if(Config.ALLOW_TRADEOFF_VOICE_COMMAND)
+		if (Config.ALLOW_TRADEOFF_VOICE_COMMAND)
 			registerVoicedCommandHandler(new tradeoff());
 		if (Config.ALLOW_AWAY_STATUS)
 			registerVoicedCommandHandler(new Away());
-		if(Config.VIP_EVENT_ENABLED)
+		if (Config.VIP_EVENT_ENABLED)
 			registerVoicedCommandHandler(new JoinVIP());
-			registerVoicedCommandHandler(new PlayersWithdrawCWH());
-			registerVoicedCommandHandler(new version());
-	    	_log.config("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
+		registerVoicedCommandHandler(new PlayersWithdrawCWH());
+		registerVoicedCommandHandler(new version());
+		_log.config("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)

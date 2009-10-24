@@ -27,39 +27,39 @@ import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
- * @author  l3x
+ * @author l3x
  */
 public class Harvester implements IItemHandler
 {
-    private static final int[] ITEM_IDS = { /* Harvester */5125 };
-    L2PcInstance _activeChar;
-    L2MonsterInstance _target;
+	private static final int[] ITEM_IDS = { /* Harvester */5125 };
+	L2PcInstance _activeChar;
+	L2MonsterInstance _target;
 
-    public void useItem(L2PlayableInstance playable, L2ItemInstance _item)
-    {
-	if (!(playable instanceof L2PcInstance))
-	    return;
-	if (CastleManorManager.getInstance().isDisabled())
-	    return;
-	_activeChar = (L2PcInstance) playable;
-	if ((_activeChar.getTarget() == null) || !(_activeChar.getTarget() instanceof L2MonsterInstance))
+	public void useItem(L2PlayableInstance playable, L2ItemInstance _item)
 	{
-	    _activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-	    _activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-	    return;
+		if (!(playable instanceof L2PcInstance))
+			return;
+		if (CastleManorManager.getInstance().isDisabled())
+			return;
+		_activeChar = (L2PcInstance) playable;
+		if ((_activeChar.getTarget() == null) || !(_activeChar.getTarget() instanceof L2MonsterInstance))
+		{
+			_activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		_target = (L2MonsterInstance) _activeChar.getTarget();
+		if ((_target == null) || !_target.isDead())
+		{
+			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		L2Skill skill = SkillTable.getInstance().getInfo(2098, 1); // harvesting skill
+		_activeChar.useMagic(skill, false, false);
 	}
-	_target = (L2MonsterInstance) _activeChar.getTarget();
-	if ((_target == null) || !_target.isDead())
-	{
-	    _activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-	    return;
-	}
-	L2Skill skill = SkillTable.getInstance().getInfo(2098, 1); //harvesting skill
-	_activeChar.useMagic(skill, false, false);
-    }
 
-    public int[] getItemIds()
-    {
-	return ITEM_IDS;
-    }
+	public int[] getItemIds()
+	{
+		return ITEM_IDS;
+	}
 }

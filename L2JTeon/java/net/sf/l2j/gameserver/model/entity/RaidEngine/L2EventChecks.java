@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.entity.RaidEngine;
 
 import java.util.Vector;
+
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 

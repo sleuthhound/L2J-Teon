@@ -19,6 +19,7 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.security.interfaces.RSAPrivateKey;
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.crypt.LoginCrypt;
 import net.sf.l2j.loginserver.crypt.ScrambledKeyPair;
@@ -28,6 +29,7 @@ import net.sf.l2j.loginserver.serverpackets.PlayFail;
 import net.sf.l2j.loginserver.serverpackets.LoginFail.LoginFailReason;
 import net.sf.l2j.loginserver.serverpackets.PlayFail.PlayFailReason;
 import net.sf.l2j.util.Rnd;
+
 import com.l2jserver.mmocore.network.MMOClient;
 import com.l2jserver.mmocore.network.MMOConnection;
 

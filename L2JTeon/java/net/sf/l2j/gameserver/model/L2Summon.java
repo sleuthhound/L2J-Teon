@@ -15,10 +15,10 @@
 package net.sf.l2j.gameserver.model;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SummonAI;
-import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -27,8 +27,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.SummonKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.SummonStat;
 import net.sf.l2j.gameserver.model.actor.status.SummonStatus;
-import net.sf.l2j.gameserver.model.item.PetInventory;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.model.item.PetInventory;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
@@ -477,15 +477,16 @@ public abstract class L2Summon extends L2PlayableInstance
 		return null;
 	}
 
-    /** 
-      * Return True if the L2Summon is invulnerable or if the summoner is in spawn protection.<BR><BR> 
-      */ 
-     @Override 
-     public boolean isInvul() 
-     {
-    	 return _isInvul  || _isTeleporting ||  getOwner().isSpawnProtected(); 
-     }
- 	
+	/**
+	 * Return True if the L2Summon is invulnerable or if the summoner is in spawn protection.<BR>
+	 * <BR>
+	 */
+	@Override
+	public boolean isInvul()
+	{
+		return _isInvul || _isTeleporting || getOwner().isSpawnProtected();
+	}
+
 	/**
 	 * Return the L2Party object of its L2PcInstance owner or null.<BR>
 	 * <BR>
@@ -680,6 +681,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	/**
 	 * @return Returns the showSummonAnimation.
 	 */
+	@Override
 	public boolean isShowSummonAnimation()
 	{
 		return _showSummonAnimation;
@@ -689,6 +691,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	 * @param showSummonAnimation
 	 *            The showSummonAnimation to set.
 	 */
+	@Override
 	public void setShowSummonAnimation(boolean showSummonAnimation)
 	{
 		_showSummonAnimation = showSummonAnimation;

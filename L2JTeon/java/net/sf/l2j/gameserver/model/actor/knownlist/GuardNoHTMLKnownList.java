@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.knownlist;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;

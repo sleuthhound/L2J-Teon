@@ -34,8 +34,8 @@ import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.util.Rnd;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.util.Rnd;
 
 /**
  * @author Steuf

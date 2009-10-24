@@ -14,8 +14,8 @@
  */
 package net.sf.l2j.gameserver.model;
 
-import net.sf.l2j.gameserver.model.item.PcInventory;
 import net.sf.l2j.gameserver.model.item.Inventory;
+import net.sf.l2j.gameserver.model.item.PcInventory;
 
 /**
  * Used to Store data sent to Client for Character Selection screen.

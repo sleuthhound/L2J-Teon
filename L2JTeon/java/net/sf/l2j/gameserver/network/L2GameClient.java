@@ -23,6 +23,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -39,6 +40,7 @@ import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.util.FloodProtector;
 import net.sf.l2j.util.EventData;
+
 import com.l2jserver.mmocore.network.MMOClient;
 import com.l2jserver.mmocore.network.MMOConnection;
 
@@ -459,8 +461,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 	}
 
-	public boolean checkUnknownPackets()  
-	{  
+	public boolean checkUnknownPackets()
+	{
 		if (this.getActiveChar() != null && !FloodProtector.getInstance().tryPerformAction(this.getActiveChar().getObjectId(), FloodProtector.PROTECTED_UNKNOWNPACKET))
 		{
 			unknownPacketCount++;

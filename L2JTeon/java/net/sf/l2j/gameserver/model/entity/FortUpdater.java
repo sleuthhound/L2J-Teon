@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.entity;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 

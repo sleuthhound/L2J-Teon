@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.ai2;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.TaskPriority;
 

@@ -26,7 +26,9 @@ import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Logger;
+
 import javax.crypto.Cipher;
+
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 import javolution.util.FastCollection.Record;

@@ -35,7 +35,9 @@ import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
+
 import javax.imageio.ImageIO;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 

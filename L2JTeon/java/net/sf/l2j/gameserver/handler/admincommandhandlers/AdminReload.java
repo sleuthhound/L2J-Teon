@@ -34,73 +34,68 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminReload implements IAdminCommandHandler
 {
-	private static final String[]	ADMIN_COMMANDS	=
-													{ "admin_reload" };
+	private static final String[] ADMIN_COMMANDS = { "admin_reload" };
 
 	@SuppressWarnings("static-access")
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-
 		if (command.startsWith("admin_reload"))
 		{
 			sendReloadPage(activeChar);
 			StringTokenizer st = new StringTokenizer(command);
 			st.nextToken();
-
 			try
 			{
 				String type = st.nextToken();
-
-				if(type.equals("multisell"))
+				if (type.equals("multisell"))
 				{
 					L2Multisell.getInstance().reload();
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("Multisell reloaded.");
 				}
-				else if(type.startsWith("teleport"))
+				else if (type.startsWith("teleport"))
 				{
 					TeleportLocationTable.getInstance().reloadAll();
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("Teleport location table reloaded.");
 				}
-				else if(type.startsWith("skill"))
+				else if (type.startsWith("skill"))
 				{
 					SkillTable.getInstance().reload();
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("Skills reloaded.");
 				}
-				else if(type.equals("npc"))
+				else if (type.equals("npc"))
 				{
 					NpcTable.getInstance().reloadAllNpc();
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("Npcs reloaded.");
 				}
-				else if(type.startsWith("htm"))
+				else if (type.startsWith("htm"))
 				{
 					HtmCache.getInstance().reload();
 					sendReloadPage(activeChar);
-					activeChar.sendMessage("Cache[HTML]: " + HtmCache.getInstance().getMemoryUsage()  + " megabytes on " + HtmCache.getInstance().getLoadedFiles() + " files loaded");
+					activeChar.sendMessage("Cache[HTML]: " + HtmCache.getInstance().getMemoryUsage() + " megabytes on " + HtmCache.getInstance().getLoadedFiles() + " files loaded");
 				}
-				else if(type.startsWith("item"))
+				else if (type.startsWith("item"))
 				{
 					ItemTable.getInstance().reload();
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("Item templates reloaded");
 				}
-				else if(type.startsWith("instancemanager"))
+				else if (type.startsWith("instancemanager"))
 				{
 					Manager.reloadAll();
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("All instance manager has been reloaded");
 				}
-				else if(type.startsWith("npcwalkers"))
+				else if (type.startsWith("npcwalkers"))
 				{
 					NpcWalkerRoutesTable.getInstance().load();
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("All NPC walker routes have been reloaded");
-					
 				}
-				else if(type.startsWith("npcbuffers"))
+				else if (type.startsWith("npcbuffers"))
 				{
 					dbmanager.reloadAll();
 					sendReloadPage(activeChar);
@@ -112,7 +107,7 @@ public class AdminReload implements IAdminCommandHandler
 					sendReloadPage(activeChar);
 					activeChar.sendMessage("Server Config Reloaded.");
 				}
-				else if(type.equals("dbs"))
+				else if (type.equals("dbs"))
 				{
 					dbmanager.reloadAll();
 					sendReloadPage(activeChar);
@@ -136,6 +131,7 @@ public class AdminReload implements IAdminCommandHandler
 
 	/**
 	 * send reload page
+	 * 
 	 * @param admin
 	 */
 	private void sendReloadPage(L2PcInstance activeChar)

@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.util.logging.Logger;
+
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -29,7 +31,6 @@ import net.sf.l2j.gameserver.serverpackets.ExEnchantSkillList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import java.util.logging.Logger;
 
 public class L2FolkInstance extends L2NpcInstance
 {

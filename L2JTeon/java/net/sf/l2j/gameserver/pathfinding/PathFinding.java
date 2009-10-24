@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.pathfinding;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 import net.sf.l2j.gameserver.pathfinding.utils.BinaryNodeHeap;

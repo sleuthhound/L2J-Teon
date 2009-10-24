@@ -27,6 +27,7 @@ public class L2SkillZone extends L2ZoneType
 		super(id);
 	}
 
+	@Override
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("skillId"))
@@ -39,6 +40,7 @@ public class L2SkillZone extends L2ZoneType
 			super.setParameter(name, value);
 	}
 
+	@Override
 	protected void onEnter(L2Character character)
 	{
 		if (((character instanceof L2PcInstance) || (character instanceof L2SummonInstance)) && (!_onSiege || _onSiege && character.isInsideZone(4)))
@@ -49,6 +51,7 @@ public class L2SkillZone extends L2ZoneType
 		}
 	}
 
+	@Override
 	protected void onExit(L2Character character)
 	{
 		if ((character instanceof L2PcInstance) || (character instanceof L2SummonInstance))
@@ -59,11 +62,13 @@ public class L2SkillZone extends L2ZoneType
 		}
 	}
 
+	@Override
 	public void onDieInside(L2Character character)
 	{
 		onExit(character);
 	}
 
+	@Override
 	public void onReviveInside(L2Character character)
 	{
 		onEnter(character);

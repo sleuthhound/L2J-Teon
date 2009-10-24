@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.ai.CtrlIntention;

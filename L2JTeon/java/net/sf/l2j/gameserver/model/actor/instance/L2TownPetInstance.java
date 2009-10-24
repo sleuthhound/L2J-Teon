@@ -102,6 +102,7 @@ public final class L2TownPetInstance extends L2Attackable
 		return _homeY;
 	}
 
+	@Override
 	public void returnHome()
 	{
 		if (!isInsideRadius(_homeX, _homeY, 2, false))

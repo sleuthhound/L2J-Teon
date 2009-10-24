@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.skills;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.item.Item;
@@ -28,6 +29,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 

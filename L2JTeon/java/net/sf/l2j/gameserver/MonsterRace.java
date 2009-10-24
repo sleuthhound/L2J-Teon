@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver;
 
 import java.lang.reflect.Constructor;
+
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;

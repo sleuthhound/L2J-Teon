@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.serverpackets.SocialAction;
 
 /**
  * @author DaRkRaGe
- *
  */
 public class HeroCustomItem implements IItemHandler
 {
@@ -43,7 +42,8 @@ public class HeroCustomItem implements IItemHandler
 			{
 				activeChar.sendMessage("U Allready have Hero Status.");
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			} else
+			}
+			else
 			{
 				activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 16));
 				activeChar.setHero(true);

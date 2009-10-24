@@ -30,7 +30,7 @@ import java.io.InputStreamReader;
  */
 public class Base64
 {
-	/*  P U B L I C F I E L D S */
+	/* P U B L I C F I E L D S */
 	/** No options specified. Value is zero. */
 	public final static int NO_OPTIONS = 0;
 	/** Specify encoding. */
@@ -43,7 +43,7 @@ public class Base64
 	 * Don't break lines when encoding (violates strict Base64 specification)
 	 */
 	public final static int DONT_BREAK_LINES = 8;
-	/*  P R I V A T E F I E L D S */
+	/* P R I V A T E F I E L D S */
 	/** Maximum line length (76) of Base64 output. */
 	private final static int MAX_LINE_LENGTH = 76;
 	/** The equals sign (=) as a byte. */
@@ -132,7 +132,7 @@ public class Base64
 	{
 	}
 
-	/*  E N C O D I N G M E T H O D S */
+	/* E N C O D I N G M E T H O D S */
 	// /**
 	// * Encodes the first three bytes of array <var>threeBytes</var>
 	// * and returns a four-byte array in Base64 notation.
@@ -530,7 +530,7 @@ public class Base64
 		// end else: don't compress
 	} // end encodeBytes
 
-	/*  D E C O D I N G M E T H O D S */
+	/* D E C O D I N G M E T H O D S */
 	// /**
 	// * Decodes the first four bytes of array <var>fourBytes</var>
 	// * and returns an array up to three bytes long with the
@@ -814,7 +814,7 @@ public class Base64
 		return obj;
 	} // end decodeObject
 
-	/*  I N N E R C L A S S I N P U T S T R E A M */
+	/* I N N E R C L A S S I N P U T S T R E A M */
 	/**
 	 * A {@link Base64#InputStream} will read data from another {@link java.io.InputStream}, given in the constructor, and encode/decode to/from Base64 notation on the fly.
 	 * 
@@ -1021,7 +1021,7 @@ public class Base64
 		} // end read
 	} // end inner class InputStream
 
-	/*  I N N E R C L A S S O U T P U T S T R E A M */
+	/* I N N E R C L A S S O U T P U T S T R E A M */
 	/**
 	 * A {@link Base64#OutputStream} will write data to another {@link java.io.OutputStream}, given in the constructor, and encode/decode to/from Base64 notation on the fly.
 	 * 

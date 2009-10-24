@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 

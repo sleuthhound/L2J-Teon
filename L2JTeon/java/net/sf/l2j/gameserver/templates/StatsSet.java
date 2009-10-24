@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.templates;
 
 import java.util.Map;
+
 import javolution.util.FastMap;
 
 /**

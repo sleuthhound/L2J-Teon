@@ -15,16 +15,15 @@
 package net.sf.l2j.gameserver.model.zone.type;
 
 import java.util.Map;
-import javolution.util.FastMap;
 
-import net.sf.l2j.gameserver.ThreadPoolManager;
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.util.L2FastList;
@@ -328,6 +327,7 @@ public class L2BossZone extends L2ZoneType
 	}
 
 	// these are methods that java calls to invoke scripts
+	@Override
 	public void broadcastPacket(L2GameServerPacket packet)
 	{
 		if (_characterList == null || _characterList.isEmpty())

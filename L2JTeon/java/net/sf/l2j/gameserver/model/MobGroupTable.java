@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.Map;
+
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 

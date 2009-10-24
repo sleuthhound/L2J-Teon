@@ -33,67 +33,69 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminDelete implements IAdminCommandHandler
 {
-    // private static Logger _log =
-    // Logger.getLogger(AdminDelete.class.getName());
-    private static final String[] ADMIN_COMMANDS = { "admin_delete" };
-    private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
+	// private static Logger _log =
+	// Logger.getLogger(AdminDelete.class.getName());
+	private static final String[] ADMIN_COMMANDS = { "admin_delete" };
+	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-	if (!Config.ALT_PRIVILEGES_ADMIN)
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-	    if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-	    {
-		return false;
-	    }
-	}
-	if (command.equals("admin_delete"))
-	{
-	    handleDelete(activeChar);
-	}
-	String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
-	new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
-	return true;
-    }
-
-    public String[] getAdminCommandList()
-    {
-	return ADMIN_COMMANDS;
-    }
-
-    private boolean checkLevel(int level)
-    {
-	return level >= REQUIRED_LEVEL;
-    }
-
-    // TODO: add possibility to delete any L2Object (except L2PcInstance)
-    private void handleDelete(L2PcInstance activeChar)
-    {
-	L2Object obj = activeChar.getTarget();
-	if ((obj != null) && (obj instanceof L2NpcInstance))
-	{
-	    L2NpcInstance target = (L2NpcInstance) obj;
-	    target.deleteMe();
-	    L2Spawn spawn = target.getSpawn();
-	    if (spawn != null)
-	    {
-		spawn.stopRespawn();
-		if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()))
+		if (!Config.ALT_PRIVILEGES_ADMIN)
 		{
-		    RaidBossSpawnManager.getInstance().deleteSpawn(spawn, true);
-		} else
-		{
-		    SpawnTable.getInstance().deleteSpawn(spawn, true);
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+			{
+				return false;
+			}
 		}
-	    }
-	    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString("Deleted " + target.getName() + " from " + target.getObjectId() + ".");
-	    activeChar.sendPacket(sm);
-	} else
-	{
-	    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-	    sm.addString("Incorrect target.");
-	    activeChar.sendPacket(sm);
+		if (command.equals("admin_delete"))
+		{
+			handleDelete(activeChar);
+		}
+		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
+		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
+		return true;
 	}
-    }
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
+
+	private boolean checkLevel(int level)
+	{
+		return level >= REQUIRED_LEVEL;
+	}
+
+	// TODO: add possibility to delete any L2Object (except L2PcInstance)
+	private void handleDelete(L2PcInstance activeChar)
+	{
+		L2Object obj = activeChar.getTarget();
+		if ((obj != null) && (obj instanceof L2NpcInstance))
+		{
+			L2NpcInstance target = (L2NpcInstance) obj;
+			target.deleteMe();
+			L2Spawn spawn = target.getSpawn();
+			if (spawn != null)
+			{
+				spawn.stopRespawn();
+				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()))
+				{
+					RaidBossSpawnManager.getInstance().deleteSpawn(spawn, true);
+				}
+				else
+				{
+					SpawnTable.getInstance().deleteSpawn(spawn, true);
+				}
+			}
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString("Deleted " + target.getName() + " from " + target.getObjectId() + ".");
+			activeChar.sendPacket(sm);
+		}
+		else
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+			sm.addString("Incorrect target.");
+			activeChar.sendPacket(sm);
+		}
+	}
 }

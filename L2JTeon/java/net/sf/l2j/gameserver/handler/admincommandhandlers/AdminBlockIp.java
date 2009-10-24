@@ -23,83 +23,79 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-
 /**
  * This class handles following admin commands:
  * <ul>
- * 	<li>admin_unblockip</li>
+ * <li>admin_unblockip</li>
  * </ul>
- *
+ * 
  * @version $Revision: 1.3.2.6.2.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminBlockIp implements IAdminCommandHandler
 {
+	private static final Logger _log = Logger.getLogger(AdminTeleport.class.getName());
+	private static final String[] ADMIN_COMMANDS = { "admin_banip", "admin_unblockip" };
 
-    private static final Logger _log = Logger.getLogger(AdminTeleport.class.getName());
+	/*
+	 * (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, net.sf.l2j.gameserver.model.L2PcInstance)
+	 */
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (command.startsWith("admin_banip"))
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			st.nextToken();
+			try
+			{
+				String ip = st.nextToken();
+				String duration = st.nextToken();
+				BanIp(activeChar, ip, Integer.parseInt(duration));
+			}
+			catch (Exception e)
+			{
+				activeChar.sendMessage("Usage: //banip ip duration");
+			}
+		}
+		else if (command.startsWith("admin_unblockip "))
+		{
+			try
+			{
+				String ipAddress = command.substring(16);
+				if (unblockIp(ipAddress, activeChar))
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+					sm.addString("Removed IP " + ipAddress + " from blocklist!");
+					activeChar.sendPacket(sm);
+				}
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{
+				// Send syntax to the user
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+				sm.addString("Usage mode: //unblockip <ip>");
+				activeChar.sendPacket(sm);
+			}
+		}
+		return true;
+	}
 
-    private static final String[] ADMIN_COMMANDS = {
-        "admin_banip", "admin_unblockip"
-    };
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#useAdminCommand(java.lang.String, net.sf.l2j.gameserver.model.L2PcInstance)
-     */
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-    	if (command.startsWith("admin_banip"))
-    	{
-    		StringTokenizer st = new StringTokenizer(command);
-    		st.nextToken();
+	private boolean unblockIp(String ipAddress, L2PcInstance activeChar)
+	{
+		// LoginServerThread.getInstance().unBlockip(ipAddress);
+		_log.warning("IP removed by GM " + activeChar.getName());
+		return true;
+	}
 
-    		try
-    		{
-    			String ip = st.nextToken();
-        		String duration = st.nextToken();
-        		BanIp(activeChar,ip,Integer.parseInt(duration));
-    		}catch(Exception e){activeChar.sendMessage("Usage: //banip ip duration");}
-    		
-    	}
-    	else if (command.startsWith("admin_unblockip "))
-        {
-            try
-            {
-                String ipAddress = command.substring(16);
-                if (unblockIp(ipAddress, activeChar))
-                {
-                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                    sm.addString("Removed IP " + ipAddress + " from blocklist!");
-                    activeChar.sendPacket(sm);
-                }
-            }
-            catch (StringIndexOutOfBoundsException e)
-            {
-                // Send syntax to the user
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                sm.addString("Usage mode: //unblockip <ip>");
-                activeChar.sendPacket(sm);
-            }
-        }
-
-        return true;
-    }
-
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
-
-
-    private boolean unblockIp(String ipAddress, L2PcInstance activeChar)
-    {
-    	//LoginServerThread.getInstance().unBlockip(ipAddress);
-        _log.warning("IP removed by GM " + activeChar.getName());
-        return true;
-    }
-    private boolean BanIp(L2PcInstance activeChar, String ip, int duration)
-    {
-    	LoginServerThread.getInstance().sendIpBan(ip, duration * 60000L);
-    	activeChar.sendMessage("Ip: "+ip+". baned for "+duration / 60000L+" minutes.");
-    	return true;
-    }
-
+	private boolean BanIp(L2PcInstance activeChar, String ip, int duration)
+	{
+		LoginServerThread.getInstance().sendIpBan(ip, duration * 60000L);
+		activeChar.sendMessage("Ip: " + ip + ". baned for " + duration / 60000L + " minutes.");
+		return true;
+	}
 }

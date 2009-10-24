@@ -20,9 +20,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+import net.sf.l2j.L2DatabaseFactory;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import net.sf.l2j.L2DatabaseFactory;
 
 /*
  * Author: MHard

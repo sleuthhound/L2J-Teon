@@ -15,19 +15,20 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.text.SimpleDateFormat;
+
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
-import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2ClanMember;
 
 public class L2ClanHallSiegeInstance extends L2NpcInstance
 {
@@ -331,6 +332,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		player.sendPacket(html);
 	}
 
+	@Override
 	public void showChatWindow(L2PcInstance player, int val)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);

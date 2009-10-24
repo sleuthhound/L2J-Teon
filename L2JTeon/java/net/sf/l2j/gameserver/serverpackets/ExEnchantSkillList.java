@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.List;
+
 import javolution.util.FastList;
 
 public class ExEnchantSkillList extends L2GameServerPacket

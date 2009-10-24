@@ -15,13 +15,12 @@
 package net.sf.l2j.gameserver.model.zone.type;
 
 import javolution.util.FastList;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.util.Rnd;
-import org.w3c.dom.NamedNodeMap;
+
 import org.w3c.dom.Node;
 
 /**
@@ -125,7 +124,7 @@ public class L2TownZone extends L2ZoneType
 	public final int[] getSpawnLoc()
 	{
 		int ai[] = new int[3];
-		ai = (int[]) _spawnLocs.get(Rnd.get(_spawnLocs.size()));
+		ai = _spawnLocs.get(Rnd.get(_spawnLocs.size()));
 		return ai;
 	}
 

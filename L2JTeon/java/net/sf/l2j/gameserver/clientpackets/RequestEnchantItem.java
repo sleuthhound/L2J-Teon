@@ -352,33 +352,30 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			if (activeChar.getLevel() >= Config.DWARF_ENCHANT_MIN_LEVEL)
 				rndValue -= Config.DWARF_ENCHANT_BONUS;
 		}
-        if (Config.ENCHANT_MAX_WEAPON > 0)
-        {
-            if (item.getItem().getType2() == L2Item.TYPE2_WEAPON && item.getEnchantLevel() >= Config.ENCHANT_MAX_WEAPON) 
-            {
-                    activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
-                    return;
-            }
-        }
-         
-        if (Config.ENCHANT_MAX_ARMOR > 0)
-        {
-            if (item.getItem().getType2() == L2Item.TYPE2_SHIELD_ARMOR && item.getEnchantLevel() >= Config.ENCHANT_MAX_ARMOR) 
-            {
-                    activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
-                    return;
-            }
-        }
-         
-        if (Config.ENCHANT_MAX_JEWELRY > 0)
-        {
-            if (item.getItem().getType2() == L2Item.TYPE2_ACCESSORY && item.getEnchantLevel() >= Config.ENCHANT_MAX_JEWELRY)
-            {
-                    activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
-                    return;
-            }
-        }
-	        
+		if (Config.ENCHANT_MAX_WEAPON > 0)
+		{
+			if (item.getItem().getType2() == L2Item.TYPE2_WEAPON && item.getEnchantLevel() >= Config.ENCHANT_MAX_WEAPON)
+			{
+				activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
+				return;
+			}
+		}
+		if (Config.ENCHANT_MAX_ARMOR > 0)
+		{
+			if (item.getItem().getType2() == L2Item.TYPE2_SHIELD_ARMOR && item.getEnchantLevel() >= Config.ENCHANT_MAX_ARMOR)
+			{
+				activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
+				return;
+			}
+		}
+		if (Config.ENCHANT_MAX_JEWELRY > 0)
+		{
+			if (item.getItem().getType2() == L2Item.TYPE2_ACCESSORY && item.getEnchantLevel() >= Config.ENCHANT_MAX_JEWELRY)
+			{
+				activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
+				return;
+			}
+		}
 		if (rndValue < chance)
 		{
 			synchronized (item)

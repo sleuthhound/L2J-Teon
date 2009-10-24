@@ -69,8 +69,8 @@ import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
-import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
+import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -152,7 +152,6 @@ import net.sf.l2j.gameserver.serverpackets.ExDuelUpdateUserInfo;
 import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
-import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfoSpectator;
 import net.sf.l2j.gameserver.serverpackets.ExSetCompassZoneCode;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
@@ -533,7 +532,12 @@ public final class L2PcInstance extends L2PlayableInstance
 	private L2ItemInstance _arrowItem;
 	// Used for protection after teleport
 	private long _protectEndTime = 0;
-    public boolean isSpawnProtected() { return (_protectEndTime > 0); } 
+
+	public boolean isSpawnProtected()
+	{
+		return (_protectEndTime > 0);
+	}
+
 	// protects a char from agro mobs when getting up from fake death
 	private long _recentFakeDeathEndTime = 0;
 	/**
@@ -9549,7 +9553,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_isDonator = value;
 	}
-	
+
 	// By: Meyknho
 	public int getDonator()
 	{

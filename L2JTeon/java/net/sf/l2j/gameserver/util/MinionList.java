@@ -27,6 +27,7 @@ package net.sf.l2j.gameserver.util;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;

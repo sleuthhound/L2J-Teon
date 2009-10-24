@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.L2Character;

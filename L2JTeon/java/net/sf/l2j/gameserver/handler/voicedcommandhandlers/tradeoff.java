@@ -17,18 +17,13 @@ package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-
 public class tradeoff implements IVoicedCommandHandler
 {
-	private static final String[] VOICED_COMMANDS =
-	{ 
-		"tradeoff" 
-	};
-
+	private static final String[] VOICED_COMMANDS = { "tradeoff" };
 
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-		if(command.startsWith("tradeoff"))
+		if (command.startsWith("tradeoff"))
 		{
 			try
 			{
@@ -44,9 +39,9 @@ public class tradeoff implements IVoicedCommandHandler
 					activeChar.sendMessage("Trade refusal disabled");
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				if(activeChar.getTradeRefusal())
+				if (activeChar.getTradeRefusal())
 				{
 					activeChar.setTradeRefusal(false);
 					activeChar.sendMessage("Trade refusal disabled");
@@ -59,7 +54,8 @@ public class tradeoff implements IVoicedCommandHandler
 			}
 		}
 		return true;
-   }
+	}
+
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

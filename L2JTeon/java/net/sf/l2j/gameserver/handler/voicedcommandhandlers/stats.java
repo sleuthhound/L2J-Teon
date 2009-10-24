@@ -28,13 +28,9 @@ import net.sf.l2j.gameserver.util.StringUtil;
  */
 public class stats implements IVoicedCommandHandler
 {
-	private static final String[] VOICED_COMMANDS =
-	{
-		"stats"
-	};
-	
+	private static final String[] VOICED_COMMANDS = { "stats" };
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
@@ -45,45 +41,25 @@ public class stats implements IVoicedCommandHandler
 			if (pc != null)
 			{
 				NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-                                final StringBuilder replyMSG = StringUtil.startAppend(
-                                        300 + pc.kills.size() * 50,
-                                        "<html><body>" +
-                                        "<center><font color=\"LEVEL\">[ L2J EVENT ENGINE ]</font></center><br>" +
-                                        "<br>Statistics for player <font color=\"LEVEL\">",
-                                        pc.getName(),
-                                        "</font><br>" +
-                                        "Total kills <font color=\"FF0000\">",
-                                        String.valueOf(pc.kills.size()),
-                                        "</font><br>" +
-                                        "<br>Detailed list: <br>"
-                                        );
-				
+				final StringBuilder replyMSG = StringUtil.startAppend(300 + pc.kills.size() * 50, "<html><body>" + "<center><font color=\"LEVEL\">[ L2J EVENT ENGINE ]</font></center><br>" + "<br>Statistics for player <font color=\"LEVEL\">", pc.getName(), "</font><br>" + "Total kills <font color=\"FF0000\">", String.valueOf(pc.kills.size()), "</font><br>" + "<br>Detailed list: <br>");
 				Iterator<String> it = pc.kills.iterator();
-
-                                while (it.hasNext()) {
-                                    StringUtil.append(replyMSG,
-                                            "<font color=\"FF0000\">",
-                                            it.next(),
-                                            "</font><br>");
+				while (it.hasNext())
+				{
+					StringUtil.append(replyMSG, "<font color=\"FF0000\">", it.next(), "</font><br>");
 				}
-                                
 				replyMSG.append("</body></html>");
-				
 				adminReply.setHtml(replyMSG.toString());
 				activeChar.sendPacket(adminReply);
 			}
-			
 		}
 		return true;
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
 	 */
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;
 	}
-	
 }

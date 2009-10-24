@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model.actor.knownlist;
 
 import java.util.Collection;
 import java.util.Map;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Character;

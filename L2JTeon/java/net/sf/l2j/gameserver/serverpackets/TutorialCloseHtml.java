@@ -29,4 +29,4 @@ public class TutorialCloseHtml extends L2GameServerPacket
 	{
 		return _S__a3_TUTORIALCLOSEHTML;
 	}
-} 
+}

@@ -27,6 +27,7 @@ package net.sf.l2j.gameserver.idfactory;
 import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
+
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.util.PrimeFinder;
 

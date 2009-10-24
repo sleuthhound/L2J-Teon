@@ -22,23 +22,24 @@ public class RequestTutorialClientEvent extends L2GameClientPacket
 	private static final String _C__7e_REQUESTTUTORIALCLIENTEVENT = "[C] 7e RequestTutorialClientEvent";
 	int eventId = 0;
 
+	@Override
 	protected void readImpl()
 	{
 		eventId = readD();
 	}
 
+	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-
-		if(player == null)
+		if (player == null)
 			return;
-
 		QuestState qs = player.getQuestState("255_Tutorial");
-		if(qs != null)
-			qs.getQuest().notifyEvent("CE" + eventId + "",null,player);
+		if (qs != null)
+			qs.getQuest().notifyEvent("CE" + eventId + "", null, player);
 	}
 
+	@Override
 	public String getType()
 	{
 		return _C__7e_REQUESTTUTORIALCLIENTEVENT;

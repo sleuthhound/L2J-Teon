@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -118,6 +119,7 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	 * Notify the L2GuardInstance to return to its home location (AI_INTENTION_MOVE_TO) and clear its _aggroList.<BR>
 	 * <BR>
 	 */
+	@Override
 	public void returnHome()
 	{
 		if (!isInsideRadius(_homeX, _homeY, 150, false))

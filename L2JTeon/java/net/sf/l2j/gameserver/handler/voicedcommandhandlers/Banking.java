@@ -21,20 +21,14 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 
 /**
  * This class trades Gold Bars for Adena and vice versa.
- *
+ * 
  * @author Ahmed
  */
 public class Banking implements IVoicedCommandHandler
 {
-	private static final String[] _voicedCommands =
-	{
-		"bank",
-		"withdraw",
-		"deposit"
-	};
-	
+	private static final String[] _voicedCommands = { "bank", "withdraw", "deposit" };
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(java.lang.String, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
@@ -77,9 +71,8 @@ public class Banking implements IVoicedCommandHandler
 		}
 		return true;
 	}
-	
+
 	/**
-	 * 
 	 * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
 	 */
 	public String[] getVoicedCommandList()

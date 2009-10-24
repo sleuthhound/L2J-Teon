@@ -15,11 +15,13 @@
 package net.sf.l2j.loginserver;
 
 import java.nio.ByteBuffer;
+
 import net.sf.l2j.loginserver.L2LoginClient.LoginClientState;
 import net.sf.l2j.loginserver.clientpackets.AuthGameGuard;
 import net.sf.l2j.loginserver.clientpackets.RequestAuthLogin;
 import net.sf.l2j.loginserver.clientpackets.RequestServerList;
 import net.sf.l2j.loginserver.clientpackets.RequestServerLogin;
+
 import com.l2jserver.mmocore.network.IPacketHandler;
 import com.l2jserver.mmocore.network.ReceivablePacket;
 

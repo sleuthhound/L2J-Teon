@@ -28,6 +28,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.Map;
+
 import javolution.util.FastMap;
 
 /**

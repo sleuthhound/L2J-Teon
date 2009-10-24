@@ -29,15 +29,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
  */
 public class DayNightSpawnManager
 {
-
 	private static Logger _log = Logger.getLogger(DayNightSpawnManager.class.getName());
-
 	private static Map<L2Spawn, L2NpcInstance> _dayCreatures;
 	private static Map<L2Spawn, L2NpcInstance> _nightCreatures;
 	private static Map<L2Spawn, L2RaidBossInstance> _bosses;
 
-	// private static int _currentState;  // 0 = Day, 1 = Night
-	
+	// private static int _currentState; // 0 = Day, 1 = Night
 	public static DayNightSpawnManager getInstance()
 	{
 		return SingletonHolder._instance;
@@ -48,7 +45,6 @@ public class DayNightSpawnManager
 		_dayCreatures = new FastMap<L2Spawn, L2NpcInstance>();
 		_nightCreatures = new FastMap<L2Spawn, L2NpcInstance>();
 		_bosses = new FastMap<L2Spawn, L2RaidBossInstance>();
-
 		_log.info("DayNightSpawnManager: Day/Night handler initialised");
 	}
 
@@ -91,11 +87,7 @@ public class DayNightSpawnManager
 	}
 
 	/*
-	 * Manage Spawn/Respawn
-	 * Arg 1 : Map with L2NpcInstanceInstance must be unspawned
-	 * Arg 2 : Map with L2NpcInstanceInstance must be spawned
-	 * Arg 3 : String for log info for unspawned L2NpcInstanceInstance
-	 * Arg 4 : String for log info for spawned L2NpcInstanceInstance
+	 * Manage Spawn/Respawn Arg 1 : Map with L2NpcInstanceInstance must be unspawned Arg 2 : Map with L2NpcInstanceInstance must be spawned Arg 3 : String for log info for unspawned L2NpcInstanceInstance Arg 4 : String for log info for spawned L2NpcInstanceInstance
 	 */
 	private void spawnCreatures(Map<L2Spawn, L2NpcInstance> UnSpawnCreatures, Map<L2Spawn, L2NpcInstance> SpawnCreatures, String UnspawnLogInfo, String SpawnLogInfo)
 	{
@@ -108,15 +100,13 @@ public class DayNightSpawnManager
 				{
 					if (dayCreature == null)
 						continue;
-
 					dayCreature.getSpawn().stopRespawn();
 					dayCreature.deleteMe();
 					i++;
 				}
 				if (Config.DEBUG)
-				_log.info("DayNightSpawnManager: Deleted " + i + " " + UnspawnLogInfo + " creatures");
+					_log.info("DayNightSpawnManager: Deleted " + i + " " + UnspawnLogInfo + " creatures");
 			}
-
 			int i = 0;
 			L2NpcInstance creature = null;
 			for (L2Spawn spawnDat : SpawnCreatures.keySet())
@@ -126,7 +116,6 @@ public class DayNightSpawnManager
 					creature = spawnDat.doSpawn();
 					if (creature == null)
 						continue;
-
 					SpawnCreatures.remove(spawnDat);
 					SpawnCreatures.put(spawnDat, creature);
 					creature.setCurrentHp(creature.getMaxHp());
@@ -142,7 +131,6 @@ public class DayNightSpawnManager
 					creature = SpawnCreatures.get(spawnDat);
 					if (creature == null)
 						continue;
-					
 					creature.getSpawn().startRespawn();
 					if (creature.isDecayed())
 						creature.setDecayed(false);
@@ -155,7 +143,7 @@ public class DayNightSpawnManager
 				i++;
 			}
 			if (Config.DEBUG)
-			_log.info("DayNightSpawnManager: Spawning " + i + " " + SpawnLogInfo + " creatures");
+				_log.info("DayNightSpawnManager: Spawning " + i + " " + SpawnLogInfo + " creatures");
 		}
 		catch (Exception e)
 		{
@@ -167,7 +155,6 @@ public class DayNightSpawnManager
 	{
 		if (_nightCreatures.isEmpty() && _dayCreatures.isEmpty())
 			return;
-
 		switch (mode)
 		{
 			case 0:
@@ -213,7 +200,6 @@ public class DayNightSpawnManager
 			for (L2Spawn spawn : _bosses.keySet())
 			{
 				L2RaidBossInstance boss = _bosses.get(spawn);
-
 				if (boss == null && mode == 1)
 				{
 					boss = (L2RaidBossInstance) spawn.doSpawn();
@@ -222,10 +208,8 @@ public class DayNightSpawnManager
 					_bosses.put(spawn, boss);
 					continue;
 				}
-
 				if (boss == null && mode == 0)
 					continue;
-
 				if (boss.getNpcId() == 25328 && boss.getRaidStatus().equals(RaidBossSpawnManager.StatusEnum.ALIVE))
 					handleHellmans(boss, mode);
 				return;
@@ -256,20 +240,17 @@ public class DayNightSpawnManager
 	{
 		if (_bosses.containsKey(spawnDat))
 			return _bosses.get(spawnDat);
-
 		if (GameTimeController.getInstance().isNowNight())
 		{
 			L2RaidBossInstance raidboss = (L2RaidBossInstance) spawnDat.doSpawn();
 			_bosses.put(spawnDat, raidboss);
-
 			return raidboss;
 		}
 		else
 			_bosses.put(spawnDat, null);
-
 		return null;
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

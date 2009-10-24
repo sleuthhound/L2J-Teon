@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.lib;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.logging.Logger;
+
 import net.sf.l2j.L2DatabaseFactory;
 
 public class SqlUtils

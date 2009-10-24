@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;

@@ -22,6 +22,7 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
 	private static final String _C__7b_REQUESTTUTORIALLINKHTML = "[C] 7b RequestTutorialLinkHtml";
 	String _bypass;
 
+	@Override
 	protected void readImpl()
 	{
 		_bypass = readS();
@@ -29,13 +30,12 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
 
 	@Override
 	protected void runImpl()
-	{ 
+	{
 		L2PcInstance player = getClient().getActiveChar();
-		if(player == null)
+		if (player == null)
 			return;
-
 		QuestState qs = player.getQuestState("255_Tutorial");
-		if(qs != null)
+		if (qs != null)
 			qs.getQuest().notifyEvent(_bypass, null, player);
 	}
 
@@ -44,4 +44,4 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
 	{
 		return _C__7b_REQUESTTUTORIALLINKHTML;
 	}
-} 
+}

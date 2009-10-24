@@ -15,7 +15,9 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
+
 import java.util.concurrent.Future;
+
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;

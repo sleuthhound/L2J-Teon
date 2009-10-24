@@ -15,6 +15,7 @@
 package net.sf.l2j.loginserver.gameserverpackets;
 
 import java.util.logging.Logger;
+
 import net.sf.l2j.loginserver.GameServerTable;
 import net.sf.l2j.loginserver.GameServerTable.GameServerInfo;
 import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;

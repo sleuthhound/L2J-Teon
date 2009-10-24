@@ -17,7 +17,9 @@ package net.sf.l2j.loginserver.clientpackets;
 import java.net.InetAddress;
 import java.security.GeneralSecurityException;
 import java.util.logging.Logger;
+
 import javax.crypto.Cipher;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.HackingException;
 import net.sf.l2j.loginserver.L2LoginClient;

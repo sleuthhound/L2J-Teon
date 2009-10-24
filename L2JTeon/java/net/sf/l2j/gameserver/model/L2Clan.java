@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -310,7 +311,7 @@ public class L2Clan
 		player.setPledgeClass(member.calculatePledgeClass(player));
 		player.sendPacket(new PledgeShowMemberListUpdate(player));
 		player.sendPacket(new UserInfo(player));
-                CrownManager.getInstance().checkCrowns(player);
+		CrownManager.getInstance().checkCrowns(player);
 		// No need of restarting for get Clan Skills
 		player.rewardSkills();
 	}

@@ -25,43 +25,43 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 /**
  * @author DaRkRaGe [L2JOneo]
- * 
  */
 public class DonatorItems implements IItemHandler
 {
-    private static final int[] ITEM_IDS = { 6392, 6393 };
+	private static final int[] ITEM_IDS = { 6392, 6393 };
 
-    public void useItem(L2PlayableInstance playable, L2ItemInstance item)
-    {
-	if (Config.DONATOR_ITEMS)
+	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-	    if (!(playable instanceof L2PcInstance))
-	    {
-		return;
-	    }
-	    L2PcInstance activeChar = (L2PcInstance) playable;
-	    int itemId = item.getItemId();
-	    String filename = "data/html/mods/donator/" + itemId + ".htm";
-	    String content = HtmCache.getInstance().getHtm(filename);
-	    playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-	    if (content == null)
-	    {
-		NpcHtmlMessage html = new NpcHtmlMessage(1);
-		html.setHtml("<html><head><body>Donator Items Are Disabled</body></html>");
-		activeChar.sendPacket(html);
-		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-	    } else
-	    {
-		NpcHtmlMessage itemReply = new NpcHtmlMessage(5);
-		itemReply.setHtml(content);
-		activeChar.sendPacket(itemReply);
-	    }
-	    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		if (Config.DONATOR_ITEMS)
+		{
+			if (!(playable instanceof L2PcInstance))
+			{
+				return;
+			}
+			L2PcInstance activeChar = (L2PcInstance) playable;
+			int itemId = item.getItemId();
+			String filename = "data/html/mods/donator/" + itemId + ".htm";
+			String content = HtmCache.getInstance().getHtm(filename);
+			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
+			if (content == null)
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(1);
+				html.setHtml("<html><head><body>Donator Items Are Disabled</body></html>");
+				activeChar.sendPacket(html);
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			}
+			else
+			{
+				NpcHtmlMessage itemReply = new NpcHtmlMessage(5);
+				itemReply.setHtml(content);
+				activeChar.sendPacket(itemReply);
+			}
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		}
 	}
-    }
 
-    public int[] getItemIds()
-    {
-	return ITEM_IDS;
-    }
+	public int[] getItemIds()
+	{
+		return ITEM_IDS;
+	}
 }

@@ -26,41 +26,34 @@ import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 
 /**
  * @author Maxi [L2JTeon]
- *
  */
 public class PrimevalPotions implements IItemHandler
 {
-	private static final int[] ITEM_IDS = { 8786, 8787};
+	private static final int[] ITEM_IDS = { 8786, 8787 };
+
 	/*
-    public PrimevalPotions()
-    {
-		ItemHandler.getInstance().registerItemHandler(this);
-    }*/
-
-
+	 * public PrimevalPotions() { ItemHandler.getInstance().registerItemHandler(this); }
+	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
-   	{
+	{
 		L2PcInstance activeChar;
 		if (playable instanceof L2PcInstance)
-			activeChar = (L2PcInstance)playable;
+			activeChar = (L2PcInstance) playable;
 		else if (playable instanceof L2PetInstance)
-			activeChar = ((L2PetInstance)playable).getOwner();
+			activeChar = ((L2PetInstance) playable).getOwner();
 		else
 			return;
-
 		if (activeChar.isAllSkillsDisabled())
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
 		int itemId = item.getItemId();
-
-	   	if (itemId >= 8786 && itemId <= 8787)
-	   	{
-	   		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+		if (itemId >= 8786 && itemId <= 8787)
+		{
+			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 				return;
-	   		switch(itemId)
+			switch (itemId)
 			{
 				case 8786: // Primeval Potion
 					activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2305, 1, 1, 0));
@@ -69,21 +62,20 @@ public class PrimevalPotions implements IItemHandler
 				case 8787: // Sprigant's Fruit
 					activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2305, 1, 1, 0));
 					useScroll(activeChar, 2305, 1);
-					break;	
+					break;
 				default:
 					break;
 			}
-	   		return;
-	   	}
-
+			return;
+		}
 		// for the rest, there are no extra conditions
 		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			return;
-   	}
+	}
 
-	public void useScroll(L2PcInstance activeChar, int magicId,int level)
+	public void useScroll(L2PcInstance activeChar, int magicId, int level)
 	{
-		L2Skill skill = SkillTable.getInstance().getInfo(magicId,level);
+		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
 		if (skill != null)
 			activeChar.doCast(skill);
 	}
@@ -92,5 +84,4 @@ public class PrimevalPotions implements IItemHandler
 	{
 		return ITEM_IDS;
 	}
-
 }
