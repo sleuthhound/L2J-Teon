@@ -23,8 +23,8 @@ import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList;
 import net.sf.l2j.gameserver.model.actor.poly.ObjectPoly;
 import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
 import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.GetItem;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.GetItem;
 
 /**
  * Mother class of all objects in the world wich ones is it possible to interact (PC, NPC, Item...)<BR>

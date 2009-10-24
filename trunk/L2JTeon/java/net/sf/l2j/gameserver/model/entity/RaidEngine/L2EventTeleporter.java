@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.Ride;
+import net.sf.l2j.gameserver.network.serverpackets.Ride;
 
 public class L2EventTeleporter implements Runnable
 {

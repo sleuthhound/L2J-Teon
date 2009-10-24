@@ -25,8 +25,8 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.clientpackets.*;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
+import net.sf.l2j.gameserver.network.clientpackets.*;
 import net.sf.l2j.util.Util;
 
 import com.l2jserver.mmocore.network.IClientFactory;

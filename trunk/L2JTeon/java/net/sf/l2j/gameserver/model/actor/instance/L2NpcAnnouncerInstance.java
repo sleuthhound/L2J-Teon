@@ -19,7 +19,7 @@ import java.util.Calendar;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.services.HtmlPathService;
 import net.sf.l2j.gameserver.services.WindowService;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;

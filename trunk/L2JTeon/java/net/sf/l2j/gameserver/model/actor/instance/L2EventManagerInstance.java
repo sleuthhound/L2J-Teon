@@ -20,8 +20,8 @@ import java.util.Vector;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2EventChecks;
-import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**

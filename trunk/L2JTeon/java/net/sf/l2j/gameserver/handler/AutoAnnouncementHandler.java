@@ -27,7 +27,7 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Fort;
-import net.sf.l2j.gameserver.serverpackets.Ride;
+import net.sf.l2j.gameserver.network.serverpackets.Ride;
 
 /**
  *
