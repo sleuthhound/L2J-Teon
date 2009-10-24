@@ -5,7 +5,7 @@ from net.sf.l2j.gameserver.ai import CtrlIntention
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.serverpackets import NpcSay
+from net.sf.l2j.gameserver.network.serverpackets import NpcSay
 
 MutationId ={   # Npc:[NewNpc,% for chance by shot,Type Message,nb message]
                 # if Quest_Drop = 5 => 5% by shot to change mob

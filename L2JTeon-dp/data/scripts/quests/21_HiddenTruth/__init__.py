@@ -7,7 +7,7 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.model import L2CharPosition
-from net.sf.l2j.gameserver.serverpackets import CreatureSay
+from net.sf.l2j.gameserver.network.serverpackets import CreatureSay
 
 qn = "21_HiddenTruth"
 

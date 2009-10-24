@@ -4,7 +4,7 @@ from net.sf.l2j.gameserver.model.quest          import State
 from net.sf.l2j.gameserver.model.quest          import QuestState
 from net.sf.l2j.gameserver.model.quest.jython   import QuestJython as JQuest
 from net.sf.l2j.util                            import Rnd
-from net.sf.l2j.gameserver.serverpackets        import CreatureSay
+from net.sf.l2j.gameserver.network.serverpackets        import CreatureSay
 
 qn = "335_TheSongOfTheHunter"
 

@@ -4,7 +4,7 @@ from net.sf.l2j.gameserver.ai import CtrlIntention
 from net.sf.l2j.gameserver.model import L2CharPosition
 from net.sf.l2j.gameserver.model.actor.instance import L2NpcInstance
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.serverpackets import NpcSay
+from net.sf.l2j.gameserver.network.serverpackets import NpcSay
 
 # flee onAttack (current version is rather fear than retreat)
 # ToDo: find a way to check position instead of using a timer to stop fleeing
