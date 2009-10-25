@@ -238,35 +238,30 @@ public final class RequestActionUse extends L2GameClientPacket
 						activeChar.sendPacket(msg);
 						msg = null;
 					}
-					else if (activeChar.isInCombat() || activeChar.getPvpFlag() != 0 || activeChar.getKarma() >= 0)
+					else if (activeChar.isInCombat())
 					{
-						// A strider cannot be ridden while in
-						// battle
+						// A strider cannot be ridden while in battle
 						SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
 						activeChar.sendPacket(msg);
 						msg = null;
 					}
 					else if (activeChar.isSitting() || activeChar.isMoving() || activeChar.isInsideZone(L2Character.ZONE_WATER))
 					{
-						// A strider can be ridden only when
-						// standing
+						// A strider can be ridden only when standing
 						SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING);
 						activeChar.sendPacket(msg);
 						msg = null;
 					}
 					else if (activeChar.isFishing())
 					{
-						// You can't mount, dismount, break
-						// and drop items while fishing
+						// You can't mount, dismount, break and drop items while fishing
 						SystemMessage msg = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_2);
 						activeChar.sendPacket(msg);
 						msg = null;
 					}
 					else if (activeChar.isCursedWeaponEquiped())
 					{
-						// You can't mount, dismount,
-						// break and drop items while
-						// weilding a cursed weapon
+						// You can't mount, dismount, break and drop items while weilding a cursed weapon
 						SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
 						activeChar.sendPacket(msg);
 					}
