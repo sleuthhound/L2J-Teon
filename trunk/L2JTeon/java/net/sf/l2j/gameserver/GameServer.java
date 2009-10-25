@@ -295,9 +295,14 @@ public class GameServer
 		FortResistSiegeManager.getInstance();
 		BanditStrongholdSiege.getInstance();
 		WildBeastFarmSiege.getInstance();
-		FortResistSiegeManager.getInstance();
-		FortressofTheDeadManager.getInstance();
-		DevastatedCastleManager.getInstance();
+		if (Config.DEVASTATED_CASTLE_ENABLED)
+		{
+			DevastatedCastleManager.getInstance();
+		}
+		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
+		{
+			FortressofTheDeadManager.getInstance();
+		}
 		Util.printSection("Teleport");
 		TeleportLocationTable.getInstance();
 		LevelUpData.getInstance();
