@@ -2813,6 +2813,8 @@ public class L2NpcInstance extends L2Character
 	{
 		if (player == null)
 			return;
+		if (!player.getFloodProtectors().getSubclass().tryPerformAction("buffer"))
+			return;
 		// Blessing of protection - author kerberos_20. Used codes from Rayan - L2Emu project.
 		int player_level = player.getLevel();
 		// Select the player

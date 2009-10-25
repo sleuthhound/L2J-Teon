@@ -17,6 +17,8 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.Vector;
 import java.util.concurrent.ScheduledFuture;
 
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.NpcBufferSkillIdsTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -190,6 +192,11 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		int npcId = getNpcId();
 		if (command.startsWith("npc_buffer_heal"))
 		{
+			if (!playerInstance.getFloodProtectors().getBuffer().tryPerformAction("npc_buffer_heal"))
+			{
+				playerInstance.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
 			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
 			{
 				playerInstance.sendMessage("You can't do that in combat!!!");
@@ -203,6 +210,11 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		}
 		if (command.startsWith("npc_buffer_cancel"))
 		{
+			if (!playerInstance.getFloodProtectors().getBuffer().tryPerformAction("npc_buffer_cancel"))
+			{
+				playerInstance.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
 			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
 			{
 				playerInstance.sendMessage("You can't do that!!!");
@@ -214,6 +226,11 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		}
 		if (command.startsWith("npc_buffer_buff"))
 		{
+			if (!playerInstance.getFloodProtectors().getBuffer().tryPerformAction("npc_buffer_buff"))
+			{
+				playerInstance.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
 			String[] params = command.split(" ");
 			int skillId = Integer.parseInt(params[1]);
 			int[] skillInfos = NpcBufferSkillIdsTable.getInstance().getSkillInfo(npcId, skillId);

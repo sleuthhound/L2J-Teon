@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 /**
@@ -36,8 +37,13 @@ public class ChatHeroVoice implements IChatHandler
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
 	{
-		if (activeChar.isHero())
+		if (activeChar.isHero() || activeChar.isGM ())
 		{
+			if (!activeChar.getFloodProtectors().getHeroVoice().tryPerformAction("hero voice") && !activeChar.isGM())
+			{
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
 			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{

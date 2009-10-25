@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.item.PcInventory;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -89,6 +90,11 @@ public class MultiSellChoose extends L2GameClientPacket
 
 	private void doExchange(L2PcInstance player, MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantment)
 	{
+		if (!player.getFloodProtectors().getMultisell().tryPerformAction("multisell"))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		PcInventory inv = player.getInventory();
 		boolean maintainItemFound = false;
 		// given the template entry and information about maintaining

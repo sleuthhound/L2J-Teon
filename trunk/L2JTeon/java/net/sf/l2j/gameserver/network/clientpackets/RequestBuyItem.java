@@ -82,6 +82,13 @@ public final class RequestBuyItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
+		
+		if (!player.getFloodProtectors().getMisc().tryPerformAction("misc"))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
 		if (player == null)
 		{
 			return;

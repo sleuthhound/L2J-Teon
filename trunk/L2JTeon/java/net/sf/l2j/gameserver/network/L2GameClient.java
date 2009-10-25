@@ -460,15 +460,13 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 	}
 
-	public boolean checkUnknownPackets()
+	public boolean checkUnknownPackets() // TODO flood protector rework.
 	{
-		if (this.getActiveChar() != null )
+		if (this.getActiveChar() != null && !this.getActiveChar().getFloodProtectors().getWnk().tryPerformAction("unknownPacketCount"))
 		{
 			unknownPacketCount++;
 			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS)
-			{
 				return true;
-			}
 			else
 				return false;
 		}

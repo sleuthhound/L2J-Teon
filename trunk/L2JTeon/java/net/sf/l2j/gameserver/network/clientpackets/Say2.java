@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.cache.ChatFilterCache;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class is describes Say2 packet
@@ -84,6 +85,15 @@ public final class Say2 extends L2GameClientPacket
 		}
 		// getting char instance
 		L2PcInstance activeChar = getClient().getActiveChar();
+		
+		if (activeChar != null && activeChar instanceof L2PcInstance)
+		{
+			if (!activeChar.getFloodProtectors().getChat().tryPerformAction("chat"))
+			{
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
+			}
+		}
 		if (_text.length() >= 100)
 		{
 			_log.warning("Max input limit exceeded.");

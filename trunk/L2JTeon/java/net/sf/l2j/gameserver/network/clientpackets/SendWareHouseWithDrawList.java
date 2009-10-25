@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.item.ItemContainer;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -83,6 +84,11 @@ public final class SendWareHouseWithDrawList extends L2GameClientPacket
 		if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
+			return;
+		}
+		if (!player.getFloodProtectors().getWerehouse().tryPerformAction("werehouse"))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		// Alt game - Karma punishment

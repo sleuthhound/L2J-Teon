@@ -17,6 +17,8 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
@@ -59,6 +61,13 @@ public final class RequestBypassToServer extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
+		
+		if (!activeChar.getFloodProtectors().getServerBypass().tryPerformAction("_command"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
 		if (activeChar == null)
 		{
 			return;

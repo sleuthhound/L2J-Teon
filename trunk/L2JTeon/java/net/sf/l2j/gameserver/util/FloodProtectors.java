@@ -14,13 +14,15 @@
  */
 package  net.sf.l2j.gameserver.util;
 
+import net.sf.l2j.gameserver.util.FloodProtectorAction;
+
 import  net.sf.l2j.Config;
 import  net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Collection of flood protectors for single player.
  * 
- * @author fordfrog
+ * @author fordfrog edit Danielmwx
  */
 public final class FloodProtectors
 {
