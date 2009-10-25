@@ -60,7 +60,7 @@ public class Mount implements IUserCommandHandler
 				SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_IN_BATLLE_CANT_BE_RIDDEN);
 				activeChar.sendPacket(msg);
 			}
-			else if (activeChar.isInCombat())
+			else if (activeChar.isInCombat() || activeChar.getPvpFlag() != 0)
 			{
 				// A pet cannot be ridden while player is in battle.
 				SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);

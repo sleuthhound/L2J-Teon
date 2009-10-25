@@ -28,21 +28,12 @@ public class Rnd
 		return _rnd.nextFloat();
 	}
 
-	/**
-	 * Gets a random number from 0(inclusive) to n(exclusive)
-	 * 
-	 * @param n
-	 *            The superior limit (exclusive)
-	 * @return A number from 0 to n-1
-	 */
 	public static final int get(int n)
 	{
 		return (int) Math.floor(_rnd.nextDouble() * n);
 	}
 
 	public static final int get(int min, int max) // get random number
-	// from
-	// min to max (not max-1 !)
 	{
 		return min + (int) Math.floor(_rnd.nextDouble() * (max - min + 1));
 	}

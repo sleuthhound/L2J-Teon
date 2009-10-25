@@ -77,7 +77,7 @@ public class L2DoormenInstance extends L2NpcInstance
 				{
 					getClanHall().openCloseDoors(true);
 					player.sendPacket(new NpcHtmlMessage(getObjectId(), "<html><body>You have <font color=\"FF9955\">opened</font> the clan hall door.<br>Outsiders may enter the clan hall while the door is open. Please close it when you've finished your business.<br><center><button value=\"Close\" action=\"bypass -h npc_" + getObjectId()
-							+ "_close_doors\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
+							+ "_close_doors\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
 				}
 				else if (condition == COND_CASTLE_OWNER)
 				{
@@ -113,7 +113,7 @@ public class L2DoormenInstance extends L2NpcInstance
 				if (condition == COND_HALL_OWNER)
 				{
 					getClanHall().openCloseDoors(false);
-					player.sendPacket(new NpcHtmlMessage(getObjectId(), "<html><body>You have <font color=\"FF9955\">closed</font> the clan hall door.<br>Good day!<br><center><button value=\"To Beginning\" action=\"bypass -h npc_" + getObjectId() + "_Chat\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
+					player.sendPacket(new NpcHtmlMessage(getObjectId(), "<html><body>You have <font color=\"FF9955\">closed</font> the clan hall door.<br>Good day!<br><center><button value=\"To Beginning\" action=\"bypass -h npc_" + getObjectId() + "_Chat\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
 				}
 				else if (condition == COND_CASTLE_OWNER)
 				{
@@ -205,8 +205,8 @@ public class L2DoormenInstance extends L2NpcInstance
 			if (condition == COND_HALL_OWNER)
 			{
 				str = "<html><body>Greetings!<br><br><font color=\"00FFFF\">" + ClanTable.getInstance().getClan(getClanHall().getOwnerId()).getName() + "</font> I am honored to serve your clan.<br>How may i assist you?<br>";
-				str += "<center><br><button value=\"Open Door\" action=\"bypass -h npc_%objectId%_open_doors\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br>";
-				str += "<button value=\"Close Door\" action=\"bypass -h npc_%objectId%_close_doors\" width=80 height=27 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>";
+				str += "<center><br><button value=\"Open Door\" action=\"bypass -h npc_%objectId%_open_doors\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br>";
+				str += "<button value=\"Close Door\" action=\"bypass -h npc_%objectId%_close_doors\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>";
 			}
 			else
 			{

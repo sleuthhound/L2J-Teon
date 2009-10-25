@@ -38,6 +38,15 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 	@Override
 	public void onSpawn()
 	{
+		if (getNpcId() == 35368) // Bloody Lord Nurka
+			FortResistSiegeManager.getInstance().startSiege();
+		else if (getNpcId() == 35410) // Gustav
+			DevastatedCastleManager.getInstance().startSiege();
+		else if (getNpcId() == 35629) // Lidia von Hellmann
+			FortressofTheDeadManager.getInstance().startSiege();
+/*		if (getNpcId() == 35368 && FortResistSiegeManager.getInstance().startSiege())
+		if (getNpcId() == 35629 && FortressofTheDeadManager.getInstance().startSiege())
+		if (getNpcId() == 35410 && DevastatedCastleManager.getInstance().startSiege())*/
 		super.onSpawn();
 	}
 
@@ -71,20 +80,29 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 		}, 60000, getMaintenanceInterval() + Rnd.get(5000));
 	}
 
-	/**
-	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.
-	 */
-	@Override
-	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
-	{
-		super.reduceCurrentHp(damage, attacker, awake);
-		if (this.getNpcId() == 35410)
-		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
-				DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
-		}
-	}
+    /**
+     * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR>
+     */
+    @Override
+    public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
+    {
+        super.reduceCurrentHp(damage, attacker, awake);
 
+        if (this.getNpcId() == 35368)
+		{
+			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!= null)
+				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
+			} else
+		{
+        if (this.getNpcId() == 35410)
+		{
+			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).getClan()!= null)
+				DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance)attacker).getClan(), damage);
+			}
+		}
+    }
+
+/*
 	public void reduceCurrentHp(L2Character attacker, int damage, boolean awake)
 	{
 		super.reduceCurrentHp(damage, attacker, awake);
@@ -93,7 +111,7 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
 				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
 		}
-	}
+	}*/
 
 	@Override
 	public boolean doDie(L2Character killer)

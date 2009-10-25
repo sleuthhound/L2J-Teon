@@ -46,7 +46,8 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.scripting.ManagedScript;
 import net.sf.l2j.gameserver.scripting.ScriptManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.util.Rnd;
+import net.sf.l2j.gameserver.util.Rnd;
+//import net.sf.l2j.util.Rnd;
 
 /**
  * @author Luis Arias
@@ -70,6 +71,97 @@ public class Quest extends ManagedScript
 	// In fact, protected will typically be considered private thus breaking the scripts.
 	// Leave this as public as a workaround.
 	public int[] questItemIds = null;
+
+	protected final static String NO_QUEST = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
+	protected final static String QUEST_DONE = "<html><body>This quest has already been completed.</body></html>";
+	protected final static String SOUND_QUEST_START = "ItemSound.quest_accept";
+	protected final static String SOUND_QUEST_MIDDLE = "ItemSound.quest_middle";
+	protected final static String SOUND_QUEST_DONE ="ItemSound.quest_finish";
+	protected final static String SOUND_ITEM_GET = "ItemSound.quest_itemget";
+	protected final static String SOUND_GIVEUP = "ItemSound.quest_giveup";
+	protected final static String SOUND_TUTORIAL = "ItemSound.quest_tutorial";
+	protected final static String SOUND_JACKPOT = "ItemSound.quest_jackpot";
+	protected final static String SOUND_HORROR2 = "SkillSound5.horror_02";
+	protected final static String SOUND_BEFORE_BATTLE = "Itemsound.quest_before_battle";
+	protected final static String SOUND_FANFARE_MIDDLE = "ItemSound.quest_fanfare_middle";
+	protected final static String SOUND_FANFARE2 = "ItemSound.quest_fanfare_2";
+	protected final static String SOUND_BROKEN_KEY = "ItemSound2.broken_key";
+	protected final static String SOUND_ENCHANT_SUCESS = "ItemSound3.sys_enchant_sucess";
+	protected final static String SOUND_ENCHANT_FAILED = "ItemSound3.sys_enchant_failed";
+	protected final static String SOUND_ED_CHIMES05 = "AmdSound.ed_chimes_05";
+	protected final static String SOUND_ARMOR_WOOD_3 = "ItemSound.armor_wood_3";
+	protected final static String SOUND_ITEM_DROP_EQUIP_ARMOR_CLOTH = "ItemSound.item_drop_equip_armor_cloth";
+	
+	
+	protected final static byte CREATED = State.CREATED;
+	protected final static byte STARTED = State.STARTED;
+	protected final static byte COMPLETED = State.COMPLETED;	
+	
+	boolean altMethodCall = false;
+
+	protected static class Drop
+	{
+		public int condition;
+		public int maxcount;
+		public int chance;
+
+		public FastList<Short> itemList = new FastList<Short>();
+
+		public Drop(Integer _condition, Integer _maxcount, Integer _chance)
+		{
+			condition = _condition;
+			maxcount = _maxcount;
+			chance = _chance;
+		}
+
+		public Drop addItem(Short item)
+		{
+			itemList.add(item);
+			return this;
+		}
+	}
+
+	protected static class DropChance
+	{
+		private final int item_id, chance;
+		private int base_count = 0;
+
+		public DropChance(int _item_id, int _chance)
+		{
+			item_id = _item_id;
+			while(_chance > 100)
+			{
+				_chance -= 100;
+				base_count++;
+			}
+			chance = _chance;
+		}
+
+		public int getItemId()
+		{
+			return item_id;
+		}
+
+		public int getChance()
+		{
+			return chance;
+		}
+
+		public boolean chance()
+		{
+			return Rnd.calcChance(chance);
+		}
+
+		public int getBaseCount()
+		{
+			return base_count;
+		}
+
+		public int getRewardCount()
+		{
+			return getBaseCount() + (chance() ? 1 : 0);
+		}
+	}
 
 	/**
 	 * Return collection view of the values contains in the allEventS
@@ -97,13 +189,11 @@ public class Quest extends ManagedScript
 		_name = name;
 		_descr = descr;
 		if (questId != 0)
-		{
 			QuestManager.getInstance().addQuest(Quest.this);
-		}
 		else
-		{
 			_allEventsS.put(name, this);
-		}
+		if (Config.DEBUG)
+			_log.info("Loaded Script: " + name);
 		init_LoadGlobalData();
 	}
 
@@ -432,7 +522,14 @@ public class Quest extends ManagedScript
 		String res = null;
 		try
 		{
-			res = onKill(npc, killer, isPet);
+			if (altMethodCall)
+			{
+				QuestState st = killer.getQuestState(getName());
+				if (st != null)
+					res = onKill(npc, st);
+			}
+			else
+				res = onKill(npc, killer, isPet);
 		}
 		catch (Exception e)
 		{
@@ -446,7 +543,10 @@ public class Quest extends ManagedScript
 		String res = null;
 		try
 		{
-			res = onTalk(npc, qs.getPlayer());
+			if (altMethodCall)
+				res = onTalk(npc, qs);
+			else
+				res = onTalk(npc, qs.getPlayer());
 		}
 		catch (Exception e)
 		{
@@ -681,12 +781,22 @@ public class Quest extends ManagedScript
 		return null;
 	}
 
+	public String onKill(L2NpcInstance npc, QuestState qs)
+	{
+		return null;
+	}
+
 	public String onKill(L2NpcInstance npc, L2PcInstance killer, boolean isPet)
 	{
 		return null;
 	}
 
 	public String onTalk(L2NpcInstance npc, L2PcInstance talker)
+	{
+		return null;
+	}
+
+	public String onTalk(L2NpcInstance npc, QuestState st)
 	{
 		return null;
 	}
@@ -790,13 +900,10 @@ public class Quest extends ManagedScript
 	 */
 	public boolean showResult(L2PcInstance player, String res)
 	{
-		// if (res == null || res.equals(""))
 		if (res == null || res.isEmpty() || player == null)
 			return true;
 		if (res.endsWith(".htm"))
-		{
 			showHtmlFile(player, res);
-		}
 		else if (res.startsWith("<html>"))
 		{
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
@@ -806,9 +913,7 @@ public class Quest extends ManagedScript
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
-		{
 			player.sendMessage(res);
-		}
 		return false;
 	}
 
@@ -1262,9 +1367,7 @@ public class Quest extends ManagedScript
 		{
 			L2NpcTemplate t = NpcTable.getInstance().getTemplate(npcId);
 			if (t != null)
-			{
 				t.addQuestEvent(eventType, this);
-			}
 			return t;
 		}
 		catch (Exception e)
@@ -1282,6 +1385,7 @@ public class Quest extends ManagedScript
 	 */
 	public L2NpcTemplate addStartNpc(int npcId)
 	{
+		addTalkId(npcId);
 		return addEventId(npcId, Quest.QuestEventType.QUEST_START);
 	}
 
@@ -1331,6 +1435,12 @@ public class Quest extends ManagedScript
 		return addEventId(killId, Quest.QuestEventType.ON_KILL);
 	}
 
+	public void addKillId(int[] killIds)
+	{
+		for (int id: killIds)
+			addKillId(id);
+	}	
+	
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Talk Events.<BR>
 	 * <BR>
@@ -1344,6 +1454,12 @@ public class Quest extends ManagedScript
 		return addEventId(talkId, Quest.QuestEventType.ON_TALK);
 	}
 
+	public void addTalkId(int[] talkIds)
+	{
+		for (int id: talkIds)
+			addTalkId(id);
+	}	
+	
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Spawn Events.<BR>
 	 * <BR>
@@ -1637,10 +1753,14 @@ public class Quest extends ManagedScript
 			L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
 			if (template != null)
 			{
-				// Sometimes, even if the quest script specifies some xyz (for example npc.getX() etc) by the time the code
-				// reaches here, xyz have become 0! Also, a questdev might have purposely set xy to 0,0...however,
-				// the spawn code is coded such that if x=y=0, it looks into location for the spawn loc! This will NOT work
-				// with quest spawns! For both of the above cases, we need a fail-safe spawn. For this, we use the
+				// Sometimes, even if the quest script specifies some xyz (for
+				// example npc.getX() etc) by the time the code
+				// reaches here, xyz have become 0! Also, a questdev might have
+				// purposely set xy to 0,0...however,
+				// the spawn code is coded such that if x=y=0, it looks into
+				// location for the spawn loc! This will NOT work
+				// with quest spawns! For both of the above cases, we need a
+				// fail-safe spawn. For this, we use the
 				// default spawn location, which is at the player's loc.
 				if ((x == 0) && (y == 0))
 				{
@@ -1652,16 +1772,14 @@ public class Quest extends ManagedScript
 					int offset;
 					offset = Rnd.get(2); // Get the direction of the offset
 					if (offset == 0)
-					{
 						offset = -1;
-					} // make offset negative
+					// make offset negative
 					offset *= Rnd.get(50, 100);
 					x += offset;
 					offset = Rnd.get(2); // Get the direction of the offset
 					if (offset == 0)
-					{
 						offset = -1;
-					} // make offset negative
+					// make offset negative
 					offset *= Rnd.get(50, 100);
 					y += offset;
 				}
@@ -1752,5 +1870,45 @@ public class Quest extends ManagedScript
 	public boolean getOnEnterWorld()
 	{
 		return _onEnterWorld;
+	}
+	
+
+	protected boolean isIntInArray(int i, int[] ia)
+	{
+		for (int v : ia)
+			if (i == v)
+				return true;
+		return false;
+	}
+	
+	protected void addQuestItem(int item)
+	{
+		if (questItemIds == null)
+			questItemIds = new int[] { item };
+		else
+		{
+			int []newarr = new int[questItemIds.length+1];
+			System.arraycopy(questItemIds, 0, newarr, 0, questItemIds.length);
+			newarr[questItemIds.length] = item;
+			questItemIds = newarr;
+		}
+	}
+	
+	protected void addQuestItem(int []items)
+	{
+		if (questItemIds == null)
+			questItemIds = items;
+		else
+		{
+			int []newarr = new int[questItemIds.length + items.length];
+			System.arraycopy(questItemIds, 0, newarr, 0, questItemIds.length);
+			System.arraycopy(items, 0, newarr, questItemIds.length, items.length);
+			questItemIds = newarr;
+		}
+	}	
+
+	public void setAltMethodCall(boolean altMethodCall)
+	{
+		this.altMethodCall = altMethodCall;
 	}
 }

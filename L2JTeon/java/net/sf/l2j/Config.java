@@ -1391,7 +1391,11 @@ public final class Config
 	public static int FS_TIME_WARMUP;
 	public static int FS_PARTY_MEMBER_COUNT;
 	/*******************************************
-	 * /** **************************************************
+	/** ClanHallSiege Settings **/
+	/** ************************************************** **/
+	public static boolean DEVASTATED_CASTLE_ENABLED;
+	public static boolean FORTRESS_OF_THE_DEAD_ENABLED;
+	/** **************************************************
 	 **/
 	/** General Settings -Begin **/
 	/** ************************************************** **/
@@ -2046,6 +2050,12 @@ public final class Config
 				InputStream is = new FileInputStream(new File(GENERAL_CONFIG_FILE));
 				General.load(is);
 				is.close();
+				/** Devastated Castle */
+				DEVASTATED_CASTLE_ENABLED = Boolean.valueOf(General.getProperty("DevastatedCastleEnabled", "False"));
+				/** Fortress of The Dead */
+				FORTRESS_OF_THE_DEAD_ENABLED = Boolean.valueOf(General.getProperty("FortressofTheDeadEnabled", "False"));
+
+
 				FAILD_FAKEDEATH = Boolean.parseBoolean(General.getProperty("FaildFakeDeath", "True"));
 				/** L2J NPC Buffer by House */
 				NPCBUFFER_FEATURE_ENABLED = Boolean.valueOf(General.getProperty("NPCBufferEnabled", "False"));

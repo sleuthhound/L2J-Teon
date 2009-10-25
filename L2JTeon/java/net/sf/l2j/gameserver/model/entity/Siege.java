@@ -1062,14 +1062,12 @@ public class Siege
 				break;
 			default:
 				players = getPlayersInZone();
-		}
-		;
+		};
+
 		for (L2PcInstance player : players)
 		{
 			if (player.isGM() || player.isInJail())
-			{
 				continue;
-			}
 			player.teleToLocation(teleportWhere);
 		}
 	}
@@ -1085,12 +1083,7 @@ public class Siege
 	 */
 	private void addAttacker(int clanId)
 	{
-		getAttackerClans().add(new L2SiegeClan(clanId, SiegeClanType.ATTACKER)); // Add
-		// registered
-		// attacker
-		// to
-		// attacker
-		// list
+		getAttackerClans().add(new L2SiegeClan(clanId, SiegeClanType.ATTACKER)); // Add registered attacker to attacker list
 	}
 
 	/**
@@ -1102,12 +1095,7 @@ public class Siege
 	 */
 	private void addDefender(int clanId)
 	{
-		getDefenderClans().add(new L2SiegeClan(clanId, SiegeClanType.DEFENDER)); // Add
-		// registered
-		// defender
-		// to
-		// defender
-		// list
+		getDefenderClans().add(new L2SiegeClan(clanId, SiegeClanType.DEFENDER)); // Add registered defender to defender list
 	}
 
 	/**

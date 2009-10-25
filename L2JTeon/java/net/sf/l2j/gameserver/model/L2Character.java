@@ -1706,8 +1706,8 @@ public abstract class L2Character extends L2Object
 	/** Sets HP, MP and CP and revives the L2Character. */
 	public void doRevive()
 	{
-		if (!isDead())
-			return;
+		/*if (!isDead())
+			return;*/
 		if (!isTeleporting())
 		{
 			setIsPendingRevive(false);
