@@ -16,8 +16,6 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
@@ -410,14 +408,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 					sm.addNumber(item.getEnchantLevel());
 					sm.addItemName(item.getItemId());
 					activeChar.sendPacket(sm);
-				}
-				
-				if (!activeChar.getFloodProtectors().getWerehouse().tryPerformAction("werehouse"))
-				{
-					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
-				
+				}			
 				item.setEnchantLevel(item.getEnchantLevel() + 1);
 				item.updateDatabase();
 			}
