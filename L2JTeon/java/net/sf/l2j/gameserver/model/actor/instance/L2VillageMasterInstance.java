@@ -284,6 +284,14 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					break;
 				case 4: // Add Subclass - Action (Subclass 4 x[x])
 					boolean allowAddition = true;
+					
+					if (!player.getFloodProtectors().getSubclass().tryPerformAction("add subclass"))
+					{
+						player.sendMessage("Don't change sub classes so rapidly, please wait.");
+						player.sendPacket(ActionFailed.STATIC_PACKET);
+						return;
+					}
+					
 					/*
 					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice.
 					 */
@@ -372,6 +380,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					/*
 					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice. Note: paramOne = classIndex
 					 */
+					if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
+					{
+						player.sendMessage("Don't change sub classes so rapidly, please wait.");
+						player.sendPacket(ActionFailed.STATIC_PACKET);
+						return;
+					}
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
@@ -406,6 +420,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					/*
 					 * Warning: the information about this subclass will be removed from the subclass list even if false!
 					 */
+					if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
+					{
+						player.sendMessage("Don't change sub classes so rapidly, please wait.");
+						player.sendPacket(ActionFailed.STATIC_PACKET);
+						return;
+					}
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));

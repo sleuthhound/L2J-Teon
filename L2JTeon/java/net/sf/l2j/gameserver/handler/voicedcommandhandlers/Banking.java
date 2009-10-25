@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -33,6 +35,11 @@ public class Banking implements IVoicedCommandHandler
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
+		if (!activeChar.getFloodProtectors().getBankingSystem().tryPerformAction("BankingSystem"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return false;
+		}
 		if (command.equalsIgnoreCase("bank"))
 		{
 			activeChar.sendMessage(".deposit (" + Config.BANKING_SYSTEM_ADENA + " Adena = " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar) / .withdraw (" + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar = " + Config.BANKING_SYSTEM_ADENA + " Adena)");

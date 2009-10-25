@@ -18,6 +18,8 @@ import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -55,6 +57,13 @@ public final class RequestDestroyItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
+		
+		if (!activeChar.getFloodProtectors().getMisc().tryPerformAction("misc"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
 		if (activeChar == null)
 			return;
 		if (_count <= 0)

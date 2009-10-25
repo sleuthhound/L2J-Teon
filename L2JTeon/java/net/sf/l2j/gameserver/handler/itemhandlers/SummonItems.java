@@ -57,6 +57,11 @@ public class SummonItems implements IItemHandler
 			return;
 		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
+		if (!activeChar.getFloodProtectors().getItemPetSummon().tryPerformAction("summon items"))
+		{
+			playable.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));

@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -38,6 +40,51 @@ public class Firework implements IItemHandler
 			return; // prevent Class cast exception
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
+		if (activeChar.isInOlympiadMode())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar.inObserverMode())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar.isSitting())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar.isAway())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar.isConfused())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar.isStunned())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar.isDead())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar.isAlikeDead())
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (!activeChar.getFloodProtectors().getFirework().tryPerformAction("firework"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		
 		/*
 		 * Elven Firecracker

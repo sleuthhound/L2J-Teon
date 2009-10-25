@@ -60,6 +60,12 @@ public final class AttackRequest extends L2GameClientPacket
 			target = activeChar.getTarget();
 		else
 			target = L2World.getInstance().findObject(_objectId);
+		// Update next commit
+		// if (!activeChar.getFloodProtectors().getActionMwx().tryPerformAction("_objectId"))
+		// {
+		//	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		//	return;
+		// }
 		if (target == null)
 			return;
 		if (activeChar.getTarget() != target)

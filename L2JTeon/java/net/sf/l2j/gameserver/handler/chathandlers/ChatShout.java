@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.handler.chathandlers;
 
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IChatHandler;
@@ -37,6 +39,11 @@ public class ChatShout implements IChatHandler
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
 	{
+		if (!activeChar.getFloodProtectors().getGlobal().tryPerformAction("global"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 		if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("on") || (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
 		{

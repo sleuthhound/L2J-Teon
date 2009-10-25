@@ -16,6 +16,8 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import java.util.logging.Logger;
 
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -60,6 +62,13 @@ public final class RequestDropItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
+		
+		if (!activeChar.getFloodProtectors().getDropItem().tryPerformAction("drop"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		
 		if (activeChar == null || activeChar.isDead())
 		{
 			return;

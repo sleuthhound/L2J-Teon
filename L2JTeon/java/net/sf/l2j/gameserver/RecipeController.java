@@ -192,6 +192,11 @@ public class RecipeController
 
 	public synchronized void requestMakeItem(L2PcInstance player, int recipeListId)
 	{
+		if (!player.getFloodProtectors().getCraft().tryPerformAction("craft"))
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		if (player.isInDuel())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));

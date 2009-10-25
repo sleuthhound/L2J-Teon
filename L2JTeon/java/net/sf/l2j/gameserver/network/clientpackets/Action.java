@@ -64,6 +64,12 @@ public final class Action extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
+		// Update next commit
+		// if (!activeChar.getFloodProtectors().getActionMWX().tryPerformAction("_objectId"))
+		// {
+		//	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		//	return;
+		// }
 		L2Object obj;
 		if (activeChar.getTargetId() == _objectId)
 			obj = activeChar.getTarget();
