@@ -22047,3 +22047,17 @@ INSERT INTO `npcskills` VALUES
 ('35328','1230','28'),
 ('35340','1230','28'),
 ('35341','1230','28');
+
+-- Delete skills, control HotSprings.java
+DELETE FROM `npcskills` WHERE `skillid` IN (4551,4552,4553,4554);
+
+-- Delete skills, control Zaken.java
+DELETE FROM `npcskills` WHERE `skillid` IN (4216,4217,4222);
+
+-- Frintezza
+DELETE FROM `npcskills` Where `skillid` IN (5014,5015,5016,5017,5018,5019);
+REPLACE INTO `npcskills` VALUES
+(29050,5010,1),
+(29050,5013,1),
+(29051,5009,1),
+(29051,5013,1);
