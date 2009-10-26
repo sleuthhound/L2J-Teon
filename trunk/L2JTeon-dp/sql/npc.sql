@@ -6672,7 +6672,7 @@ UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31365';
 UPDATE `npc` SET `runspd` = '50', `walkspd` = '50' WHERE `id` = '32070';
 UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12' WHERE `id` = '32072';
 
-UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` IN (13001,29055,31385,31540,32109);
+UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` IN (13001,31385,31540,32109);
 
 -- L2JTeon
 -- Npcs Castle rune, schuttgart fix collision height
@@ -6697,3 +6697,5 @@ insert into npc values
 (32077,32077,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT'),
 (32078,32078,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT'),
 (32079,32079,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT');
+
+UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (29096,25523,35410);

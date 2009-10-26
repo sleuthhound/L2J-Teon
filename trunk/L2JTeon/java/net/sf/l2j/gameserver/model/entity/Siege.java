@@ -138,47 +138,27 @@ public class Siege
 				long timeRemaining = _siegeEndDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
 				if (timeRemaining > 3600000)
 				{
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 3600000); // Prepare
-					// task
-					// for
-					// 1 hr
-					// left.
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 3600000); // Prepare task for 1 hr left.
 				}
 				else if ((timeRemaining <= 3600000) && (timeRemaining > 600000))
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getCastle().getName() + " siege conclusion.", true);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 600000); // Prepare
-					// task
-					// for
-					// 10 minute left.
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 600000); // Prepare task for 10 minute left.
 				}
 				else if ((timeRemaining <= 600000) && (timeRemaining > 300000))
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getCastle().getName() + " siege conclusion.", true);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 300000); // Prepare
-					// task
-					// for 5 minute
-					// left.
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 300000); // Prepare task for 5 minute left.
 				}
 				else if ((timeRemaining <= 300000) && (timeRemaining > 10000))
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getCastle().getName() + " siege conclusion.", true);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 10000); // Prepare
-					// task
-					// for
-					// 10
-					// seconds
-					// count
-					// down
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 10000); // Prepare task for 10 seconds count down
 				}
 				else if ((timeRemaining <= 10000) && (timeRemaining > 0))
 				{
 					announceToPlayer(getCastle().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) left!", true);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining); // Prepare
-					// task for
-					// second
-					// count
-					// down
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining); // Prepare task for second count down
 				}
 				else
 				{
@@ -211,62 +191,34 @@ public class Siege
 				long timeRemaining = getSiegeDate().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
 				if (timeRemaining > 86400000)
 				{
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 86400000); // Prepare
-					// task
-					// for
-					// 24
-					// before siege start to
-					// end registration
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 86400000); // Prepare task for 24 before siege start to end registration
 				}
 				else if ((timeRemaining <= 86400000) && (timeRemaining > 13600000))
 				{
 					announceToPlayer("The registration term for " + getCastle().getName() + " has ended.", false);
 					_isRegistrationOver = true;
 					clearSiegeWaitingClan();
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 13600000); // Prepare
-					// task
-					// for
-					// 1 hr left before
-					// siege start.
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 13600000); // Prepare task for 1 hr left before siege start.
 				}
 				else if ((timeRemaining <= 13600000) && (timeRemaining > 600000))
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getCastle().getName() + " siege begin.", false);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 600000); // Prepare
-					// task
-					// for 10 minute
-					// left.
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 600000); // Prepare task for 10 minute left.
 				}
 				else if ((timeRemaining <= 600000) && (timeRemaining > 300000))
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getCastle().getName() + " siege begin.", false);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 300000); // Prepare
-					// task
-					// for
-					// 5
-					// minute
-					// left.
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 300000); // Prepare task for 5 minute left.
 				}
 				else if ((timeRemaining <= 300000) && (timeRemaining > 10000))
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getCastle().getName() + " siege begin.", false);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 10000); // Prepare
-					// task
-					// for
-					// 10
-					// seconds
-					// count
-					// down
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 10000); // Prepare task for 10 seconds count down
 				}
 				else if ((timeRemaining <= 10000) && (timeRemaining > 0))
 				{
 					announceToPlayer(getCastle().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) to start!", false);
-					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining); // Prepare
-					// task
-					// for
-					// second
-					// count
-					// down
+					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining); // Prepare task for second count down
 				}
 				else
 				{
@@ -291,9 +243,7 @@ public class Siege
 	private List<L2ControlTowerInstance> _controlTowers = new FastList<L2ControlTowerInstance>();
 	private Castle[] _castle;
 	private boolean _isInProgress = false;
-	private boolean _isNormalSide = true; // true = Atk is Atk, false =
-	// Atk is
-	// Def
+	private boolean _isNormalSide = true; // true = Atk is Atk, false = Atk is Def
 	protected boolean _isRegistrationOver = false;
 	protected Calendar _siegeEndDate;
 	private SiegeGuardManager _siegeGuardManager;
@@ -323,34 +273,20 @@ public class Siege
 			{
 				announceToPlayer("The siege of " + getCastle().getName() + " has ended in a draw.", false);
 			}
-			removeFlags(); // Removes all flags. Note: Remove flag before
-			// teleporting players
-			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport
-			// to
-			// the
-			// second closest
-			// town
-			teleportPlayer(Siege.TeleportWhoType.DefenderNotOwner, MapRegionTable.TeleportWhereType.Town); // Teleport
-			// to
-			// the
-			// second closest
-			// town
-			teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town); // Teleport
-			// to
-			// the
-			// second closest
-			// town
-			_isInProgress = false; // Flag so that siege instance can be
-			// started
+			removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
+			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town);
+			// Teleport to the second closest town
+			teleportPlayer(Siege.TeleportWhoType.DefenderNotOwner, MapRegionTable.TeleportWhereType.Town);
+			// Teleport to the second closest town
+			teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);
+			// Teleport to the second closest town
+			_isInProgress = false; // Flag so that siege instance can be started
 			updatePlayerSiegeStateFlags(true);
 			saveCastleSiege(); // Save castle specific data
 			clearSiegeClan(); // Clear siege clan from db
 			removeArtifact(); // Remove artifact from this castle
-			removeControlTower(); // Remove all control tower from this
-			// castle
-			_siegeGuardManager.unspawnSiegeGuard(); // Remove all spawned
-			// siege
-			// guard from this castle
+			removeControlTower(); // Remove all control tower from this castle
+			_siegeGuardManager.unspawnSiegeGuard(); // Remove all spawned siege guard from this castle
 			if (getCastle().getOwnerId() > 0)
 			{
 				_siegeGuardManager.removeMercs();
@@ -422,10 +358,8 @@ public class Siege
 			if (getCastle().getOwnerId() > 0)
 			{
 				int allyId = ClanTable.getInstance().getClan(getCastle().getOwnerId()).getAllyId();
-				if (getDefenderClans().size() == 0) // If defender doesn't
-				// exist
-				// (Pc vs Npc)
-				// and only an alliance attacks
+				if (getDefenderClans().size() == 0)
+				// If defender doesn't exist (Pc vs Npc) and only an alliance attacks
 				{
 					// The player's clan is in an alliance
 					if (allyId != 0)
@@ -479,16 +413,10 @@ public class Siege
 						}
 					}
 				}
-				teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.SiegeFlag); // Teleport
-				// to
-				// the
-				// second
-				// closest
-				// town
-				teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town); // Teleport
-				// to
-				// the second
-				// closest town
+				teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.SiegeFlag);
+				// Teleport to the second closest town
+				teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);
+				// Teleport to the second closest town
 				removeDefenderFlags(); // Removes defenders' flags
 				getCastle().removeUpgrade(); // Remove all castle upgrade
 				getCastle().spawnDoor(true); // Respawn door to castle but
@@ -522,38 +450,25 @@ public class Siege
 				return;
 			}
 			_isNormalSide = true; // Atk is now atk
-			_isInProgress = true; // Flag so that same siege instance
-			// cannot
-			// be started again
+			_isInProgress = true; // Flag so that same siege instance cannot be started again
 			loadSiegeClan(); // Load siege clan from db
 			updatePlayerSiegeStateFlags(false);
-			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport
-			// to
-			// the
-			// closest town
-			// teleportPlayer(Siege.TeleportWhoType.Spectator,
-			// MapRegionTable.TeleportWhereType.Town); // Teleport to the
-			// second
-			// closest town
+			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town);
+			// Teleport to the closest town teleportPlayer(Siege.TeleportWhoType.Spectator,
+			// MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
 			spawnArtifact(getCastle().getCastleId()); // Spawn artifact
-			spawnControlTower(getCastle().getCastleId()); // Spawn control
-			// tower
+			spawnControlTower(getCastle().getCastleId()); // Spawn control tower
 			getCastle().spawnDoor(); // Spawn door
 			spawnSiegeGuard(); // Spawn siege guard
-			MercTicketManager.getInstance().deleteTickets(getCastle().getCastleId()); // remove
-			// the
-			// tickets
-			// from
-			// the
-			// ground
+			MercTicketManager.getInstance().deleteTickets(getCastle().getCastleId());
+			// remove the tickets from the ground
 			_defenderRespawnDelayPenalty = 0; // Reset respawn delay
 			getCastle().getZone().updateZoneStatusForCharactersInside();
 			// Schedule a task to prepare auto siege end
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, SiegeManager.getInstance().getSiegeLength());
-			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(getCastle()), 1000); // Prepare
-			// auto end
-			// task
+			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(getCastle()), 1000);
+			// Prepare auto end task
 			announceToPlayer("The siege of " + getCastle().getName() + " has started!", false);
 			SiegeManager.getInstance().addSiege(this);
 		}
@@ -847,9 +762,7 @@ public class Siege
 		List<L2PcInstance> players = new FastList<L2PcInstance>();
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
-			// quick check from player states, which don't include siege
-			// number
-			// however
+			// quick check from player states, which don't include siege number however
 			if (!player.isInsideZone(L2Character.ZONE_SIEGE) || (player.getSiegeState() != 0))
 			{
 				continue;
@@ -865,12 +778,8 @@ public class Siege
 	/** Control Tower was skilled */
 	public void killedCT(L2NpcInstance ct)
 	{
-		_defenderRespawnDelayPenalty += SiegeManager.getInstance().getControlTowerLosePenalty(); // Add
-		// respawn
-		// penalty
-		// to
-		// defenders for each control
-		// tower lose
+		_defenderRespawnDelayPenalty += SiegeManager.getInstance().getControlTowerLosePenalty();
+		// Add respawn penalty to defenders for each control tower lose
 	}
 
 	/** Remove the flag that was killed */
@@ -1122,12 +1031,8 @@ public class Siege
 	 */
 	private void addDefenderWaiting(int clanId)
 	{
-		getDefenderWaitingClans().add(new L2SiegeClan(clanId, SiegeClanType.DEFENDER_PENDING)); // Add
-		// registered
-		// defender
-		// to
-		// defender
-		// list
+		getDefenderWaitingClans().add(new L2SiegeClan(clanId, SiegeClanType.DEFENDER_PENDING));
+		// Add registered defender to defender list
 	}
 
 	/**

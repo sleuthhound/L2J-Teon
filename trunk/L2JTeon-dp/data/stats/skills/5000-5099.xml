@@ -119,186 +119,209 @@
   </for>
 </skill>
 <skill id="5008" levels="5" name="Frintezza's Songs">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1 - Frintezza's Concert Hall Melody        Music that makes you feel oh so good inside.
-      Lvl 2 - Frintezza's Rampaging Opus en masse    Consecutive Dash + Portrait Replay Performance
-      Lvl 3 - Frintezza Power Encore                 Attack/Speed Performance
-      Lvl 4 - Mournful Chorale Prelude               Instantly decreases the effect of HP regeneration magic.
-      Lvl 5 - Hypnotic Mazurka                       Instantly immobilizes the target by making it dance involuntarily.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!--
+  Lvl 1: Frintezza's Concert Hall Melody (Music that makes you feel oh so good inside).
+  Lvl 2: Frintezza's Rampaging Opus en masse (Consecutive Dash + Portrait Replay Performance).
+  Lvl 3: Frintezza Power Encore (Attack/Speed Performance).
+  Lvl 4: Mournful Chorale Prelude (Instantly decreases the effect of HP regeneration magic).
+  Lvl 5: Hypnotic Mazurka (Instantly immobilizes the target by making it dance involuntarily).
+  -->
+  <table name="#isMagic"> true false false true true </table>
+  <!-- Update by rocknow -->
+  <table name="#RegHp">10000 0 0 0 0</table>
+  <table name="#RunSpd">1 80 1 1 1</table>
+  <table name="#Atk">1 1 1.3 1 1</table>
+  <table name="#GainHp">1 1 1 0.5 1</table>
+  <table name="#Def">1 1 1 1 0.5</table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="#isMagic"/>
   <for>
+    <effect name="Buff" time="25" val="0">
+      <add order="0x40" stat="regHp" val="#RegHp"/>
+      <add order="0x40" stat="runSpd" val="#RunSpd"/>
+      <mul order="0x30" stat="pAtk" val="#Atk"/>
+      <mul order="0x30" stat="pAtkSpd" val="#Atk"/>
+      <mul order="0x30" stat="gainHp" val="#GainHp"/>
+      <mul order="0x30" stat="pDef" val="#Def"/>
+      <mul order="0x30" stat="mDef" val="#Def"/>
+      <mul order="0x30" stat="rEvas" val="#Def"/>
+    </effect>
   </for>
 </skill>
 <skill id="5009" levels="1" name="Frintezza's Ghostly Fighter">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      A portrait ghost that can make physical attacks.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <!-- Lvl 1: A portrait ghost that can make physical attacks. -->
+  <!-- Update by rocknow -->
+  <set name="power" val="300"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="150"/>
+  <set name="effectRange" val="650"/>
+  <set name="hitTime" val="2500"/>
+  <set name="reuseDelay" val="4000"/>
 </skill>
 <skill id="5010" levels="1" name="Frintezza's Ghostly Mage">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      A portrait ghost that can make magical attacks.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <!-- Lvl 1: A portrait ghost that can make magical attacks. -->
+  <!-- Update by rocknow -->
+  <set name="power" val="400"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+  <set name="effectRange" val="1000"/>
+  <set name="hitTime" val="2500"/>
+  <set name="reuseDelay" val="4000"/>
+  <set name="isMagic" val="true"/>
 </skill>
 <skill id="5011" levels="1" name="Frintezza's Bomber Ghost">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      A portrait ghost who can create a suicide explosion.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <!-- Lvl 1: A portrait ghost who can create a suicide explosion. -->
+  <!-- Update by rocknow -->
+  <set name="power" val="2000"/>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="skillRadius" val="100"/>
+  <set name="hitTime" val="1000"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="false"/>
+  <set name="isSuicideAttack" val="true"/>
+  <set name="element" val="0"/>
+  <set name="elementPower" val="20"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <cond>
+    <player hp="10"/>
+  </cond>
 </skill>
 <skill id="5012" levels="1" name="Breath of Scarlet">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Instantly immobilizes.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!-- Lvl 1: Instantly immobilizes. -->
+  <!-- Update by rocknow -->
+  <set name="magicLvl" val="85"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="4000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="isDebuff" val="true"/>
+  <set name="skillType" val="ROOT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
   <for>
+    <effect name="Root" time="20" val="0" stackOrder="1" stackType="Root"/>
   </for>
 </skill>
 <skill id="5013" levels="1" name="Frintezza Ghost Drain">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Portrait ghost drains HP.
--->
-  <set name="element" val="6"/> <!-- Dark -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <!-- Lvl 1: Portrait ghost drains HP. -->
+  <!-- Update by rocknow -->
+  <set name="element" val="5"/>
+  <set name="power" val="200"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DRAIN"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
+  <set name="reuseDelay" val="5000"/>
+  <set name="isMagic" val="true"/>
+  <set name="absorbPart" val="0.8"/>
 </skill>
 <skill id="5014" levels="3" name="Frintezza's Daemon Attack">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1 - Demon 1 general attack.
-      Lvl 2 - Demon 2 general attack.
-      Lvl 3 - Demon 3 general attack.
--->
+  <!--
+  Lvl 1: Demon 1 general attack.
+  Lvl 2: Demon 2 general attack.
+  Lvl 3: Demon 3 general attack.
+  -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="castRange" val="150"/>
+  <set name="hitTime" val="1300"/>
 </skill>
 <skill id="5015" levels="6" name="Frintezza's Daemon Charge">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1 - Demon 1 charge.
-      Lvl 2 - Demon 2 charge.
-      Lvl 3 - Demon 3 charge.
-      Lvl 4 - Demon 1 slow charge.
-      Lvl 5 - Demon 2 slow charge.
-      Lvl 6 - Demon 3 slow charge.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!--
+  Lvl 1: Demon 1 charge.
+  Lvl 2: Demon 2 charge.
+  Lvl 3: Demon 3 charge.
+  Lvl 4: Demon 1 slow charge.
+  Lvl 5: Demon 2 slow charge.
+  Lvl 6: Demon 3 slow charge.
+  -->
+  <!-- Update by rocknow -->
+  <table name="#SRadius">300 300 400 400 400 400</table>
+  <table name="#Power">1000 1500 2000 3000 3500 4000</table>
+  <set name="hitTime" val="1500"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="#Power"/>
+  <set name="reuseDelay" val="5000"/>
+  <set name="skillRadius" val="#SRadius"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="target" val="TARGET_AREA"/>
   <for>
+    <effect name="Debuff" time="25" val="0">
   </for>
 </skill>
 <skill id="5016" levels="1" name="Yoke of Scarlet">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Instantly immobilizes.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!-- Lvl 1: Instantly Immobilizes. -->
+  <!-- Update by rocknow -->
+  <set name="magicLvl" val="99"/>
+  <set name="target" val="TARGET_AREA"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+  <set name="effectRange" val="1000"/>
+  <set name="hitTime" val="3000"/>
+  <set name="reuseDelay" val="5000"/>
+  <set name="isDebuff" val="true"/>
   <for>
+    <effect name="Debuff" time="25" val="0">
+      <mul order="0x30" stat="pDef" val="0.5"/>
+      <mul order="0x30" stat="mDef" val="0.5"/>
+      <mul order="0x30" stat="rEvas" val="0.5"/>
+    </effect>
   </for>
 </skill>
 <skill id="5017" levels="1" name="Frintezza's Daemon Morph">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Demon 1 metamorphosis.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!-- Lvl 1: Demon 1 metamorphosis. -->
+  <!-- Update by rocknow -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="1000"/>
   <for>
+    <effect name="Buff" time="18000" val="0">
+      <mul order="0x30" stat="pAtk" val="1.2"/>
+      <mul order="0x30" stat="mAtk" val="1.2"/>
+      <mul order="0x30" stat="pDef" val="1.3"/>
+      <mul order="0x30" stat="mDef" val="1.3"/>
+    </effect>
   </for>
 </skill>
 <skill id="5018" levels="2" name="Frintezza's Daemon Field">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1 - Demon 2 magic field.
-      Lvl 2 - Demon 3 magic field.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <!--
+  Lvl 1: Demon 2 magic field.
+  Lvl 2: Demon 3 magic field.
+  -->
+  <!-- Update by rocknow -->
+  <table name="#Power">10000 20000</table>
+  <set name="power" val="#Power"/>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="7000"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="skillRadius" val="700"/>
 </skill>
 <skill id="5019" levels="1" name="Frintezza's Daemon Drain">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Demon 3 HP drain range.
--->
-  <set name="element" val="6"/> <!-- Dark -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <!-- Lvl 1: Demon 3 HP drain range. -->
+  <!-- Update by rocknow -->
+  <set name="element" val="5"/>
+  <set name="power" val="2000"/>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="skillType" val="DRAIN"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="6000"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="skillRadius" val="700"/>
+  <set name="absorbPart" val="0.8"/>
 </skill>
 <skill id="5020" levels="1" name="Forced Action">
 <!--
@@ -744,18 +767,21 @@
   </for>
 </skill>
 <skill id="5053" levels="12" name="Castle DD Water">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      none
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <table name="#mpConsume"> 7 10 14 18 23 28 33 35 37 38 39 39 </table>
+  <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
+  <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="element" val="1"/> <!-- Water -->
+  <set name="reuseDelay" val="3000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+  <set name="effectRange" val="2100"/>
 </skill>
 <skill id="5054" levels="12" name="Castle Self AE Water">
 <!--
@@ -912,18 +938,21 @@
   </for>
 </skill>
 <skill id="5065" levels="12" name="Castle DD Unholy">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      none
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <table name="#mpConsume"> 7 10 14 18 23 28 33 35 37 38 39 39 </table>
+  <table name="#power"> 18 26 38 52 68 85 102 110 116 122 126 129 </table>
+  <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="element" val="5"/> <!-- Unholy -->
+  <set name="reuseDelay" val="3000"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="1500"/>
+  <set name="effectRange" val="2100"/>
 </skill>
 <skill id="5066" levels="12" name="Castle Self AE Unholy">
 <!--
@@ -1121,38 +1150,33 @@
   </for>
 </skill>
 <skill id="5076" levels="15" name="Death Penalty">
-<!--
-  Description(s):
-      Lvl [1-15] - Combat ability is decreased due to death.  Effect [1-15].
--->
-  <table name="#power"> 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 </table> 
-  <table name="#pAtk"> 1 0.958 0.907 0.856 0.805 0.754 0.703 0.652 0.601 0.550 0.499 0.448 0.397 0.356 0.305 0.254 </table> 
-  <table name="#mAtk"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table> 
-  <table name="#pDef"> 1 0.969 0.942 0.915 0.888 0.861 0.834 0.807 0.780 0.753 0.726 0.699 0.672 0.645 0.618 0.591 </table> 
-  <table name="#mDef"> 1 0.965 0.929 0.893 0.857 0.821 0.785 0.749 0.713 0.677 0.641 0.605 0.569 0.553 0.497 0.461 </table> 
-  <table name="#pAtkSpd"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table> 
-  <table name="#mAtkSpd"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table> 
-  <table name="#runSpd"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table> 
-  <table name="#rEvas"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table> 
-  <table name="#cAtk"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table> 
-  <table name="#accCombat"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table> 
-  <set name="power" val="#power"/> 
-  <set name="target" val="TARGET_SELF"/> 
-  <set name="skillType" val="BUFF"/> 
-  <set name="operateType" val="OP_PASSIVE"/> 
-  <set name="castRange" val="-1"/>
-  <for> 
-    <mul order="0x50" stat="pAtk" val="#pAtk"/> 
-    <mul order="0x50" stat="mAtk" val="#mAtk"/> 
-    <mul order="0x50" stat="pDef" val="#pDef"/> 
-    <mul order="0x50" stat="mDef" val="#mDef"/> 
-    <mul order="0x50" stat="pAtkSpd" val="#pAtkSpd"/> 
-    <mul order="0x50" stat="mAtkSpd" val="#mAtkSpd"/> 
-    <mul order="0x50" stat="runSpd" val="#runSpd"/> 
-    <mul order="0x50" stat="rEvas" val="#rEvas"/> 
-    <mul order="0x50" stat="cAtk" val="#cAtk"/> 
-    <mul order="0x50" stat="accCombat" val="#accCombat"/> 
-  </for>  
+  <table name="#power"> 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 </table>
+  <table name="#pAtk"> 1 0.958 0.907 0.856 0.805 0.754 0.703 0.652 0.601 0.550 0.499 0.448 0.397 0.356 0.305 0.254 </table>
+  <table name="#mAtk"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
+  <table name="#pDef"> 1 0.969 0.942 0.915 0.888 0.861 0.834 0.807 0.780 0.753 0.726 0.699 0.672 0.645 0.618 0.591 </table>
+  <table name="#mDef"> 1 0.965 0.929 0.893 0.857 0.821 0.785 0.749 0.713 0.677 0.641 0.605 0.569 0.553 0.497 0.461 </table>
+  <table name="#pAtkSpd"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
+  <table name="#mAtkSpd"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
+  <table name="#runSpd"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
+  <table name="#rEvas"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
+  <table name="#cAtk"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
+  <table name="#accCombat"> 1 0.949 0.898 0.847 0.796 0.745 0.694 0.643 0.592 0.591 0.540 0.489 0.438 0.387 0.336 0.285 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <for>
+    <mul order="0x50" stat="pAtk" val="#pAtk"/>
+    <mul order="0x50" stat="mAtk" val="#mAtk"/>
+    <mul order="0x50" stat="pDef" val="#pDef"/>
+    <mul order="0x50" stat="mDef" val="#mDef"/>
+    <mul order="0x50" stat="pAtkSpd" val="#pAtkSpd"/>
+    <mul order="0x50" stat="mAtkSpd" val="#mAtkSpd"/>
+    <mul order="0x50" stat="runSpd" val="#runSpd"/>
+    <mul order="0x50" stat="rEvas" val="#rEvas"/>
+    <mul order="0x50" stat="cAtk" val="#cAtk"/>
+    <mul order="0x50" stat="accCombat" val="#accCombat"/>
+  </for>
 </skill>
 <skill id="5077" levels="1" name="NPC Remove Death Penalty">
 <!--
@@ -1211,45 +1235,52 @@
   </for>
 </skill>
 <skill id="5081" levels="4" name="Silence">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-4 - Blocks the ability to use physical skills.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume"> 75 75 75 20 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="magicLvl" val="80"/>
+  <set name="power" val="40"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="60000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="200"/>
   <for>
+    <effect count="1" name="PsychicalMute" time="30" val="0"/>
   </for>
 </skill>
 <skill id="5082" levels="4" name="NPC Spinning, Slashing Trick">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-4 - none
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <table name="#mpConsume"> 60 60 60 5 </table>
+  <set name="magicLvl" val="80"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="2112"/>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="skillRadius" val="150"/>
+  <set name="reuseDelay" val="6000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
 </skill>
 <skill id="5083" levels="4" name="Shock">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl 1-4 - Temporarily gets thrown into a state of shock and immobilized.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume"> 93 93 93 5 </table>
+  <set name="magicLvl" val="80"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="1704"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="6000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="effectType" val="STUN"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isDebuff" val="true"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="200"/>
   <for>
+    <effect name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="5084" levels="4" name="NPC Blinding Blow">
