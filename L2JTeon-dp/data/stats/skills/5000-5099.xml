@@ -256,7 +256,7 @@
   <set name="skillType" val="PDAM"/>
   <set name="target" val="TARGET_AREA"/>
   <for>
-    <effect name="Debuff" time="25" val="0">
+    <effect name="Debuff" time="25" val="0"/>
   </for>
 </skill>
 <skill id="5016" levels="1" name="Yoke of Scarlet">
