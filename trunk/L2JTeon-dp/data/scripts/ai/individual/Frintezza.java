@@ -477,7 +477,7 @@ public class Frintezza extends L2AttackableAIScript
 			{
 				if (pc.isDead())
 				{
-					pc.sendMessage("...12");
+					pc.sendMessage("is dead");
 				}
 				else if (!Util.checkIfInRange(700, npc, pc, true))
 				{
@@ -507,7 +507,7 @@ public class Frintezza extends L2AttackableAIScript
 					}
 					else if (_PlayersInside.size() > 45)
 					{
-						pc.sendMessage("...15");
+						pc.sendMessage("The number of challenges have been full, so can not enter.");
 					}
 					else
 					{
@@ -1207,7 +1207,7 @@ public class Frintezza extends L2AttackableAIScript
 		}
 		else if (event.equalsIgnoreCase("room_final"))
 		{
-			_Zone.broadcastPacket(new NpcSay(npc.getObjectId(),1,npc.getNpcId(),"超過時間限制，挑戰失敗！"));
+			_Zone.broadcastPacket(new NpcSay(npc.getObjectId(),1,npc.getNpcId(),"Exceeded his time limit, challenge failed!"));
 			_Zone.oustAllPlayers();
 			this.cancelQuestTimers("waiting");
 			this.cancelQuestTimers("frintezza_despawn");
@@ -1291,7 +1291,7 @@ public class Frintezza extends L2AttackableAIScript
 				}
 				else if (player.getQuestState("frintezza").getQuestItemsCount(8073) == 0)
 				{
-					htmltext = "<html><body>...19<br><font color=LEVEL>...20</font>...21</body></html>";
+					htmltext = "<html><body>You dont have required item.</body></html>";
 				}
 				else
 				{
@@ -1314,7 +1314,7 @@ public class Frintezza extends L2AttackableAIScript
 				{
 					if (mem.isDead())
 					{
-						htmltext = "<html><body>...28<br>...29"+mem.getName()+"...30</body></html>";
+						htmltext = "<html><body>killed there in your party"+mem.getName()+".</body></html>";
 						return htmltext;
 					}
 				}

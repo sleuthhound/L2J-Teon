@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,6 +22,7 @@ import java.util.Collection;
 import javolution.util.FastList;
 import ai.group_template.L2AttackableAIScript;
 
+import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
@@ -30,8 +31,9 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
-import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+// import net.sf.l2j.gameserver.model.actor.instance.L2DecoyInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.QuestTimer;
 import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
@@ -42,6 +44,10 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Rnd;
 
+/**
+ * Valakas AI
+ * @author Kerberos
+ */
 public class Valakas extends L2AttackableAIScript
 {
 	private int i_ai0 = 0;
@@ -117,7 +123,7 @@ public class Valakas extends L2AttackableAIScript
     		            {
     		            }
     				}
-    			},(long)100);
+    			},100L);
                 startQuestTimer("1003", 60000, valakas, null, true);
             }
         }
@@ -132,31 +138,32 @@ public class Valakas extends L2AttackableAIScript
             L2GrandBossInstance valakas = (L2GrandBossInstance) addSpawn(VALAKAS,loc_x,loc_y,loc_z,heading,false,0);
             GrandBossManager.getInstance().addBoss(valakas);
             final L2NpcInstance _valakas = valakas;
+            final int _status = status;
             ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 				public void run()
 				{
 					try
 		            {
 			            _valakas.setCurrentHpMp(hp,mp);
-						_valakas.setIsInvul(true);
+			            if (_status != FIGHTING) _valakas.setIsInvul(true);
 		                _valakas.setRunning();
 		            }
 		            catch (Throwable e)
 		            {
 		            }
 				}
-			},(long)100);
+			},100L);
 
             startQuestTimer("1003", 60000, valakas, null, true);
             if (status == WAITING)
             {
                 // Start timer to lock entry after 30 minutes
-                startQuestTimer("1001",1800000, valakas, null);
+                startQuestTimer("1001",ExternalConfig.Valakas_Wait_Time, valakas, null);
             }
             else if (status == FIGHTING)
             {
                 // Start repeating timer to check for inactivity
-                startQuestTimer("valakas_despawn",60000, valakas, null, true);
+                startQuestTimer("1002",60000, valakas, null, true);
                 valakas.setIsInvul(false);
             }
         }
@@ -170,6 +177,9 @@ public class Valakas extends L2AttackableAIScript
 			if (event.equalsIgnoreCase("1001"))
             {
                 npc.teleToLocation(212852,-114842,-1632);
+            	// delete me once animations available
+            	GrandBossManager.getInstance().setBossStatus(VALAKAS,FIGHTING);
+            	//
                 i_quest1 = System.currentTimeMillis();
                 final L2NpcInstance _valakas = npc;
                 ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
@@ -183,7 +193,7 @@ public class Valakas extends L2AttackableAIScript
     		            {
     		            }
     				}
-    			},(long)1);
+    			},1L);
                 startQuestTimer("1004",2000, npc, null);
             }
             else if (event.equalsIgnoreCase("1002"))
@@ -303,7 +313,8 @@ public class Valakas extends L2AttackableAIScript
             }
             else if (event.equalsIgnoreCase("1110"))
             {
-            	GrandBossManager.getInstance().setBossStatus(VALAKAS,FIGHTING);
+            	// uncoment me once animations available
+            	//GrandBossManager.getInstance().setBossStatus(VALAKAS,FIGHTING);
             	startQuestTimer("1002",60000, npc, null, true);
             	npc.setIsInvul(false);
             	getRandomSkill(npc);
@@ -351,6 +362,9 @@ public class Valakas extends L2AttackableAIScript
                 }
                 cancelQuestTimer("1002", npc, null);
                 startQuestTimer("remove_players",900000, null, null);
+                // delete me once animations available
+                GrandBossManager.getInstance().setBossStatus(VALAKAS,DEAD);
+                //
             }
         }
         else
@@ -369,7 +383,7 @@ public class Valakas extends L2AttackableAIScript
         return super.onAdvEvent(event, npc, player);
 	}
 
-	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
+	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet, L2Skill skill)
 	{
 		if (npc.isInvul())
 		{
@@ -434,7 +448,6 @@ public class Valakas extends L2AttackableAIScript
 			}
 
 		}
-		L2Skill skill = null; // TODO: attack handler require skill
 		int i1 = 0;
 		if (skill == null)
 		{
@@ -952,8 +965,9 @@ public class Valakas extends L2AttackableAIScript
     	startQuestTimer("1111",500, npc, null);
         npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),2000,130,-1,0,10000));
         npc.broadcastPacket(new PlaySound(1, "B03_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
-        GrandBossManager.getInstance().setBossStatus(VALAKAS,DEAD);
-        long respawnTime = ((192 + Rnd.get(145) ) * 3600000);
+        // uncoment me once animations available 
+        //GrandBossManager.getInstance().setBossStatus(VALAKAS,DEAD);
+        long respawnTime = (long)ExternalConfig.Interval_Of_Valakas_Spawn + Rnd.get(ExternalConfig.Random_Of_Valakas_Spawn);
         this.startQuestTimer("valakas_unlock", respawnTime, null, null);
         // also save the respawn time so that the info is maintained past reboots
         StatsSet info = GrandBossManager.getInstance().getStatsSet(VALAKAS);
@@ -964,7 +978,7 @@ public class Valakas extends L2AttackableAIScript
 
 	public void getRandomSkill(L2NpcInstance npc)
 	{
-		if (npc.isInvul())
+		if (npc.isInvul() || npc.isCastingNow())
 		{
 			return;
 		}
@@ -1268,14 +1282,17 @@ public class Valakas extends L2AttackableAIScript
 			if (timer != null)
 				timer.cancel();
 			npc.getAI().setIntention(AI_INTENTION_IDLE);
+			npc.setIsCastingNow(true);
 			npc.setTarget(target);
 			npc.doCast(skill);
+			
 		}
 		else
 		{
 			if (timer == null)
 				startQuestTimer("1003", 500, npc, null, true);
 			npc.getAI().setIntention(AI_INTENTION_FOLLOW, target, null);
+			npc.setIsCastingNow(false);
 		}
 	}
 	public void broadcastSpawn(L2NpcInstance npc)
@@ -1304,15 +1321,10 @@ public class Valakas extends L2AttackableAIScript
 		{
 			for (L2Object obj : objs)
 			{
-				if (obj instanceof L2PcInstance)
+				if (obj instanceof L2PcInstance || obj instanceof L2Summon)
 				{
 					if (Util.checkIfInRange(5000, npc, obj, true) && !((L2Character) obj).isDead() && !((L2Character) obj).isAlikeDead())
-						result.add((L2PcInstance) obj);
-				}
-				if (obj instanceof L2Summon)
-				{
-					if (Util.checkIfInRange(5000, npc, obj, true) && !((L2Character) obj).isDead() && !((L2Character) obj).isAlikeDead())
-						result.add((L2Summon) obj);
+						result.add((L2Character) obj);
 				}
 			}
 		}

@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.model.quest.QuestTimer;
 import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
+import net.sf.l2j.gameserver.network.serverpackets.NpcSay;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
@@ -83,12 +84,18 @@ public class Baium extends L2AttackableAIScript
 	private static final int LIVE_BAIUM = 29020;
 	private static final int ARCHANGEL = 29021;
 	private static FastList<L2Attackable> _Minions = new FastList<L2Attackable>();
-	private final static int ANGEL_LOCATION[][] = {  // fixed archangel spawnloc
-			{ 113004, 16209, 10076, 60242 }, { 114053, 16642, 10076, 4411 },
-			{ 114563, 17184, 10076, 49241 }, { 116356, 16402, 10076, 31109 },
-			{ 115015, 16393, 10076, 32760 }, { 115481, 15335, 10076, 16241 },
-			{ 114680, 15407, 10051, 32485 }, { 114886, 14437, 10076, 16868 },
-			{ 115391, 17593, 10076, 55346 }, { 115245, 17558, 10076, 35536 } };
+	// location of arcangels.
+	private final static int ANGEL_LOCATION[][] = {
+			{ 113004, 16209, 10076, 60242 },
+			{ 114053, 16642, 10076, 4411 },
+			{ 114563, 17184, 10076, 49241 },
+			{ 116356, 16402, 10076, 31109 },
+			{ 115015, 16393, 10076, 32760 },
+			{ 115481, 15335, 10076, 16241 },
+			{ 114680, 15407, 10051, 32485 },
+			{ 114886, 14437, 10076, 16868 },
+			{ 115391, 17593, 10076, 55346 },
+			{ 115245, 17558, 10076, 35536 } };
 	//Baium status tracking
 	private static final byte ASLEEP = 0;  // baium is in the stone version, waiting to be woken up.  Entry is unlocked
 	private static final byte AWAKE = 1;   // baium is awake and fighting.  Entry is locked.
@@ -127,7 +134,7 @@ public class Baium extends L2AttackableAIScript
             {
                 // the time has already expired while the server was offline.  Delete the saved time and
                 // immediately spawn the stone-baium.  Also the state need not be changed from ASLEEP
-                addSpawn(STONE_BAIUM,115213,16623,10080,41740,false,0);
+                addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);
                 GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM,ASLEEP);
             }
         }
@@ -162,7 +169,7 @@ public class Baium extends L2AttackableAIScript
 			},100L);
         }
         else
-            addSpawn(STONE_BAIUM,115213,16623,10080,41740,false,0);
+            addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);
 	}
 
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
@@ -170,7 +177,7 @@ public class Baium extends L2AttackableAIScript
         if (event.equalsIgnoreCase("baium_unlock"))
         {
             GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM,ASLEEP);
-            addSpawn(STONE_BAIUM,115213,16623,10080,41740,false,0);
+            addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);
         }
         else if (event.equalsIgnoreCase("skill_range") && npc != null)
         {
@@ -184,6 +191,7 @@ public class Baium extends L2AttackableAIScript
         {
             if (npc.getNpcId() == LIVE_BAIUM)
             {
+		npc.broadcastPacket(new NpcSay(npc.getObjectId(),1,npc.getNpcId(),"Don't obstruct my sleep! Die!"));
                 npc.broadcastPacket(new SocialAction(npc.getObjectId(),1));
                 npc.broadcastPacket(new Earthquake(npc.getX(), npc.getY(), npc.getZ(),40,5));
                 // start monitoring baium's inactivity
@@ -191,7 +199,8 @@ public class Baium extends L2AttackableAIScript
                 startQuestTimer("baium_despawn", 60000, npc, null, true);
                 startQuestTimer("skill_range", 500, npc, null, true);
                 final L2NpcInstance baium = npc;
-                ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+                ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+		{
     				public void run()
     				{
     					try
@@ -224,7 +233,7 @@ public class Baium extends L2AttackableAIScript
                 if (_LastAttackVsBaiumTime + 1800000 < System.currentTimeMillis())
                 {
                     npc.deleteMe();   // despawn the live-baium
-                    addSpawn(STONE_BAIUM,115213,16623,10080,41740,false,0);  // spawn stone-baium
+                    addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);  // spawn stone-baium
                     GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM,ASLEEP);    // mark that Baium is not awake any more
                     _Zone.oustAllPlayers();
                     cancelQuestTimer("baium_despawn", npc, null);
