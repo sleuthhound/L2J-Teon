@@ -88,6 +88,8 @@ public final class Config
 	public static final String OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
 	/** Properties file for Augment Configurations */
 	public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
+	/** Properties file for Custon Configurations */
+	public static final String DEV_CONFIG_FILE = "./config/custom/Dev.properties";
 	/** Server and Datapack version */
 	public static String SERVER_VERSION;
 	public static String SERVER_BUILD_DATE;
@@ -1380,6 +1382,13 @@ public final class Config
 	public static int AUGMENTATION_HIGH_GLOW_CHANCE;
 	public static int AUGMENTATION_TOP_SKILL_CHANCE;
 	public static int AUGMENTATION_TOP_GLOW_CHANCE;
+	
+	public static float SK_FIG;
+	public static float SK_MAG;
+	public static float AP_FIG;
+	public static float CP_MAG;
+	public static float M_TK;
+	
 	/** Multiplies stay time in boss room. */
 	public static float RIFT_BOSS_ROOM_TIME_MUTIPLY;
 	/***************************************************************************
@@ -2157,6 +2166,25 @@ public final class Config
 			{
 				e.printStackTrace();
 				throw new Error("Failed to Load " + AUGMENT_CONFIG_FILE + " File.");
+			}
+			try
+			{
+				Properties Dev = new Properties();
+				InputStream is = new FileInputStream(new File(DEV_CONFIG_FILE));
+				Dev.load(is);
+				is.close();
+				
+				SK_FIG = Float.parseFloat(Dev.getProperty("Skfig", "1.0"));
+				SK_MAG = Float.parseFloat(Dev.getProperty("Skmag", "1.0"));
+				AP_FIG = Float.parseFloat(Dev.getProperty("Apfig", "1.0"));
+				CP_MAG = Float.parseFloat(Dev.getProperty("Cpmag", "1.0"));
+				M_TK = Float.parseFloat(Dev.getProperty("Mtk", "1.0"));
+			}
+			
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error("Failed to Load " + DEV_CONFIG_FILE + " File.");
 			}
 			/*
 			 * Load L2J Server Version Properties file (if exists)

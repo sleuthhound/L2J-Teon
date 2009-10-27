@@ -333,7 +333,7 @@ public class CharStat
 			attack += skill.getPower();
 		}
 		// Calculate modifiers Magic Attack
-		return (int) calcStat(Stats.MAGIC_ATTACK, attack, target, skill);
+		return (int) ((int) calcStat(Stats.MAGIC_ATTACK, attack, target, skill) * Config.M_TK);
 	}
 
 	/**
@@ -350,9 +350,12 @@ public class CharStat
 		{
 			bonusSpdAtk = Config.CHAMPION_SPD_ATK;
 		}
-		double val = calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().baseMAtkSpd * bonusSpdAtk, null, null);
-		val /= _activeChar.getArmourExpertisePenalty();
-		return (int) val;
+		double val = calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().baseMAtkSpd * bonusSpdAtk, null, null) / Config.CP_MAG ;
+	     val /= _activeChar.getArmourExpertisePenalty();
+	     if (val > Config.MAX_MATK_SPEED / Config.CP_MAG)
+	       val = Config.MAX_MATK_SPEED / Config.CP_MAG;
+	    return (int) val;
+
 	}
 
 	/**
@@ -503,7 +506,10 @@ public class CharStat
 		{
 			bonusAtk = Config.CHAMPION_SPD_ATK;
 		}
-		return (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().basePAtkSpd * bonusAtk, null, null) / _activeChar.getArmourExpertisePenalty());
+		int val = (int) ((calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().basePAtkSpd * bonusAtk, null, null) / _activeChar.getArmourExpertisePenalty()) / Config.AP_FIG );
+		   if (val > Config.MAX_PATK_SPEED / Config.AP_FIG  )
+		     val = (int) (Config.MAX_PATK_SPEED / Config.AP_FIG );
+		   return val;
 	}
 
 	/** Return the PAtk Modifier against undead. */

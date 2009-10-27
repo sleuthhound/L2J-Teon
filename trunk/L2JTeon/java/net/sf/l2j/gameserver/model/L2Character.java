@@ -1471,7 +1471,7 @@ public abstract class L2Character extends L2Object
 		_castInterruptTime = -2 + GameTimeController.getGameTicks() + hitTime / GameTimeController.MILLIS_IN_TICK;
 		// Init the reuse time of the skill
 		int reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
-		reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
+		reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() / Config.SK_MAG : getPAtkSpd() / Config.SK_FIG );
 		// Potions Reuse
 		if (skill.isPotion())
 		{
@@ -6999,15 +6999,7 @@ public abstract class L2Character extends L2Object
 
 	public int getMAtkSpd()
 	{
-		int _matkspd = getStat().getMAtkSpd();
-		if (Config.MAX_MATK_SPEED > 0)
-		{
-			if (_matkspd > Config.MAX_MATK_SPEED)
-			{
-				return Config.MAX_MATK_SPEED;
-			}
-		}
-		return _matkspd;
+		return (int) (getStat().getMAtkSpd() * Config.CP_MAG );
 	}
 
 	public int getMaxMp()
@@ -7082,15 +7074,7 @@ public abstract class L2Character extends L2Object
 
 	public int getPAtkSpd()
 	{
-		int _patkspd = getStat().getPAtkSpd();
-		if (Config.MAX_PATK_SPEED > 0)
-		{
-			if (_patkspd > Config.MAX_PATK_SPEED)
-			{
-				return Config.MAX_PATK_SPEED;
-			}
-		}
-		return _patkspd;
+		return (int) (getStat().getPAtkSpd() * Config.AP_FIG );
 	}
 
 	public double getPAtkUndead(L2Character target)
