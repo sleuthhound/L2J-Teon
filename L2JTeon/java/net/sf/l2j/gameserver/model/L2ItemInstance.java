@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -1286,31 +1287,29 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public final void dropMe(L2Character dropper, int x, int y, int z)
 	{
-		if (Config.ASSERT)
-		{
-			assert getPosition().getWorldRegion() == null;
-		}
+		if (Config.ASSERT) assert getPosition().getWorldRegion() == null;
+
+        if (Config.GEODATA > 0)
+        {
+                Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
+                x = dropDest.getX();
+                y = dropDest.getY();
+                z = dropDest.getZ();
+        }
 		synchronized (this)
 		{
-			// Set the x,y,z position of the L2ItemInstance dropped and
-			// update
-			// its _worldregion
+			// Set the x,y,z position of the L2ItemInstance dropped and update its _worldregion
 			setIsVisible(true);
 			getPosition().setWorldPosition(x, y, z);
 			getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
-			// Add the L2ItemInstance dropped to _visibleObjects of its
-			// L2WorldRegion
+			// Add the L2ItemInstance dropped to _visibleObjects of its L2WorldRegion
 			getPosition().getWorldRegion().addVisibleObject(this);
 		}
 		setDropTime(System.currentTimeMillis());
 		// this can synchronize on others instancies, so it's out of
-		// synchronized, to avoid deadlocks
-		// Add the L2ItemInstance dropped in the world as a visible object
+		// synchronized, to avoid deadlocks Add the L2ItemInstance dropped in the world as a visible object
 		L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), dropper);
-		if (Config.SAVE_DROPPED_ITEM)
-		{
-			ItemsOnGroundManager.getInstance().save(this);
-		}
+		if (Config.SAVE_DROPPED_ITEM) ItemsOnGroundManager.getInstance().save(this);
 	}
 
 	/**
@@ -1318,18 +1317,12 @@ public final class L2ItemInstance extends L2Object
 	 */
 	private void updateInDb()
 	{
-		if (Config.ASSERT)
-		{
-			assert _existsInDb;
-		}
-		if (_wear)
-		{
-			return;
-		}
-		if (_storedInDb)
-		{
-			return;
-		}
+		if (Config.ASSERT) assert _existsInDb;
+
+		if (_wear) return;
+
+		if (_storedInDb) return;
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -1373,13 +1366,11 @@ public final class L2ItemInstance extends L2Object
 	private void insertIntoDb()
 	{
 		if (_wear)
-		{
 			return;
-		}
+
 		if (Config.ASSERT)
-		{
 			assert !_existsInDb && (getObjectId() != 0);
-		}
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -1424,18 +1415,15 @@ public final class L2ItemInstance extends L2Object
 	private void removeFromDb()
 	{
 		if (_wear)
-		{
 			return;
-		}
+
 		if (Config.ASSERT)
-		{
 			assert _existsInDb;
-		}
+
 		// delete augmentation data
 		if (isAugmented())
-		{
 			_augmentation.deleteAugmentationData();
-		}
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -1533,21 +1521,14 @@ public final class L2ItemInstance extends L2Object
 	public void restoreInitCount()
 	{
 		if (_decrease)
-		{
 			_count = _initCount;
-		}
 	}
 
 	public void setTime(int time)
 	{
-		if (time > 0)
-		{
-			_time = time;
-		}
-		else
-		{
+		if (time > 0) _time = time;
+		else 
 			_time = 0;
-		}
 	}
 
 	public int getTime()

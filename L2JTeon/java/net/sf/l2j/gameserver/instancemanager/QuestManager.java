@@ -28,28 +28,22 @@ import net.sf.l2j.gameserver.scripting.ScriptManager;
 public class QuestManager extends ScriptManager<Quest>
 {
 	protected static final Logger _log = Logger.getLogger(QuestManager.class.getName());
-	// =========================================================
-	private static QuestManager _instance;
 
 	public static final QuestManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("Initializing QuestManager");
-			_instance = new QuestManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
-
 	// =========================================================
+	
 	// =========================================================
 	// Data Field
 	private Map<String, Quest> _quests = new FastMap<String, Quest>();
-
+	
 	// =========================================================
 	// Constructor
-	public QuestManager()
+	private QuestManager()
 	{
+		_log.info("Initializing QuestManager");
 	}
 
 	// =========================================================
@@ -63,13 +57,11 @@ public class QuestManager extends ScriptManager<Quest>
 		}
 		return q.reload();
 	}
-
+	
 	/**
 	 * Reloads a the quest given by questId.<BR>
 	 * <B>NOTICE: Will only work if the quest name is equal the quest folder name</B>
-	 * 
-	 * @param questId
-	 *            The id of the quest to be reloaded
+	 * @param questId The id of the quest to be reloaded
 	 * @return true if reload was successful, false otherwise
 	 */
 	public final boolean reload(int questId)
@@ -141,14 +133,21 @@ public class QuestManager extends ScriptManager<Quest>
 			throw new IllegalArgumentException("Quest argument cannot be null");
 		}
 		Quest old = _quests.get(newQuest.getName());
-		/**
-		 * FIXME: unloading the old quest at this point is a tad too late. the new quest has already initialized itself and read the data, starting an unpredictable number of tasks with that data. The old quest will now save data which will never be read. However, requesting the newQuest to re-read the data is not necessarily a good option, since the newQuest may have already started timers,
-		 * spawned NPCs or taken any other action which it might re-take by re-reading the data. the current solution properly closes the running tasks of the old quest but ignores the data; perhaps the least of all evils...
-		 */
+		
+		// FIXME: unloading the old quest at this point is a tad too late.
+		// the new quest has already initialized itself and read the data, starting
+		// an unpredictable number of tasks with that data.  The old quest will now
+		// save data which will never be read.
+		// However, requesting the newQuest to re-read the data is not necessarily a 
+		// good option, since the newQuest may have already started timers, spawned NPCs
+		// or taken any other action which it might re-take by re-reading the data. 
+		// the current solution properly closes the running tasks of the old quest but
+		// ignores the data; perhaps the least of all evils...
 		if (old != null)
 		{
 			old.unload();
 			_log.info("Replaced: (" + old.getName() + ") with a new version (" + newQuest.getName() + ")");
+
 		}
 		_quests.put(newQuest.getName(), newQuest);
 	}
@@ -184,5 +183,11 @@ public class QuestManager extends ScriptManager<Quest>
 	public String getScriptManagerName()
 	{
 		return "QuestManager";
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final QuestManager _instance = new QuestManager();
 	}
 }

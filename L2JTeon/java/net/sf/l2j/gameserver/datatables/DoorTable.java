@@ -37,7 +37,9 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 public class DoorTable
 {
 	private static Logger _log = Logger.getLogger(DoorTable.class.getName());
+
 	private Map<Integer, L2DoorInstance> _staticItems;
+
 	private static DoorTable _instance;
 
 	public static DoorTable getInstance()
@@ -60,7 +62,6 @@ public class DoorTable
 
 	public void respawn()
 	{
-		// L2DoorInstance[] currentDoors = getDoors();
 		_staticItems = null;
 		_instance = null;
 		_instance = new DoorTable();
@@ -73,24 +74,28 @@ public class DoorTable
 		{
 			File doorData = new File(Config.DATAPACK_ROOT, "data/door.csv");
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(doorData)));
+
 			String line = null;
 			_log.warning("Searching clan halls doors:");
+
 			while ((line = lnr.readLine()) != null)
 			{
 				if (line.trim().length() == 0 || line.startsWith("#"))
 					continue;
+
 				L2DoorInstance door = parseList(line);
 				_staticItems.put(door.getDoorId(), door);
-				door.spawnMe(door.getX(), door.getY(), door.getZ());
+				door.spawnMe(door.getX(), door.getY(),door.getZ());
 				ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(), door.getY(), 500);
 				if (clanhall != null)
 				{
-					clanhall.getDoors().add(door);
-					door.setClanHall(clanhall);
-					if (Config.DEBUG)
-						_log.warning("door " + door.getDoorName() + " attached to ch " + clanhall.getName());
+				    clanhall.getDoors().add(door);
+				    door.setClanHall(clanhall);
+                    if (Config.DEBUG)
+                        _log.warning("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
 				}
 			}
+
 			_log.config("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");
 		}
 		catch (FileNotFoundException e)
@@ -105,19 +110,14 @@ public class DoorTable
 		}
 		finally
 		{
-			try
-			{
-				lnr.close();
-			}
-			catch (Exception e1)
-			{ /* ignore problems */
-			}
+			try { lnr.close(); } catch (Exception e1) { /* ignore problems */ }
 		}
 	}
 
 	public static L2DoorInstance parseList(String line)
 	{
 		StringTokenizer st = new StringTokenizer(line, ";");
+
 		String name = st.nextToken();
 		int id = Integer.parseInt(st.nextToken());
 		int x = Integer.parseInt(st.nextToken());
@@ -133,35 +133,38 @@ public class DoorTable
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
 		boolean unlockable = false;
+
 		if (st.hasMoreTokens())
 			unlockable = Boolean.parseBoolean(st.nextToken());
-		if (rangeXMin > rangeXMax)
-			_log.severe("Error in door data, ID:" + id);
-		if (rangeYMin > rangeYMax)
-			_log.severe("Error in door data, ID:" + id);
-		if (rangeZMin > rangeZMax)
-			_log.severe("Error in door data, ID:" + id);
+
+		if (rangeXMin > rangeXMax) _log.severe("Error in door data, ID:"+id);
+		if (rangeYMin > rangeYMax) _log.severe("Error in door data, ID:"+id);
+		if (rangeZMin > rangeZMax) _log.severe("Error in door data, ID:"+id);
 		int collisionRadius; // (max) radius for movement checks
 		if ((rangeXMax - rangeXMin) > (rangeYMax - rangeYMin))
 			collisionRadius = rangeYMax - rangeYMin;
 		else
 			collisionRadius = rangeXMax - rangeXMin;
+
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
 		npcDat.set("level", 0);
 		npcDat.set("jClass", "door");
+
 		npcDat.set("baseSTR", 0);
 		npcDat.set("baseCON", 0);
 		npcDat.set("baseDEX", 0);
 		npcDat.set("baseINT", 0);
 		npcDat.set("baseWIT", 0);
 		npcDat.set("baseMEN", 0);
+
 		npcDat.set("baseShldDef", 0);
 		npcDat.set("baseShldRate", 0);
 		npcDat.set("baseAccCombat", 38);
 		npcDat.set("baseEvasRate", 38);
 		npcDat.set("baseCritRate", 38);
-		// npcDat.set("name", "");
+
+		//npcDat.set("name", "");
 		npcDat.set("collision_radius", collisionRadius);
 		npcDat.set("collision_height", rangeZMax - rangeZMin);
 		npcDat.set("sex", "male");
@@ -187,8 +190,9 @@ public class DoorTable
 		npcDat.set("baseMpReg", 3.e-3f);
 		npcDat.set("basePDef", pdef);
 		npcDat.set("baseMDef", mdef);
+
 		L2CharTemplate template = new L2CharTemplate(npcDat);
-		L2DoorInstance door = new L2DoorInstance(IdFactory.getInstance().getNextId(), template, id, name, unlockable);
+		L2DoorInstance door = new L2DoorInstance(IdFactory.getInstance().getNextId(),template, id, name, unlockable);
 		door.setRange(rangeXMin, rangeYMin, rangeZMin, rangeXMax, rangeYMax, rangeZMax);
 		try
 		{
@@ -236,13 +240,11 @@ public class DoorTable
 			// Garden of Eva (every 7 minutes)
 			if (doorInst.getDoorName().startsWith("goe"))
 				doorInst.setAutoActionDelay(420000);
+
 			// Tower of Insolence (every 5 minutes)
 			else if (doorInst.getDoorName().startsWith("aden_tower"))
 				doorInst.setAutoActionDelay(300000);
-		/*
-		 * TODO: check which are automatic // devils (every 5 minutes) else if (doorInst.getDoorName().startsWith("pirate_isle")) doorInst.setAutoActionDelay(300000); // Cruma Tower (every 20 minutes) else if (doorInst.getDoorName().startsWith("cruma")) doorInst.setAutoActionDelay(1200000); // Coral Garden Gate (every 15 minutes) else if (doorInst.getDoorName().startsWith("Coral_garden"))
-		 * doorInst.setAutoActionDelay(900000); // Normil's cave (every 5 minutes) else if (doorInst.getDoorName().startsWith("Normils_cave")) doorInst.setAutoActionDelay(300000); // Normil's Garden (every 15 minutes) else if (doorInst.getDoorName().startsWith("Normils_garden")) doorInst.setAutoActionDelay(900000);
-		 */
+
 	}
 
 	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
@@ -261,16 +263,14 @@ public class DoorTable
 		{
 			return false;
 		}
+
 		for (L2DoorInstance doorInst : getDoors())
 		{
 			if (doorInst.getMapRegion() != region)
 				continue;
 			if (doorInst.getXMax() == 0)
 				continue;
-			// line segment goes through box
-			// heavy approximation disabling some shooting angles especially near 2-piece doors
-			// but most calculations should stop short
-			// phase 1, x
+
 			if (x <= doorInst.getXMax() && tx >= doorInst.getXMin() || tx <= doorInst.getXMax() && x >= doorInst.getXMin())
 			{
 				// phase 2, y

@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -18,8 +18,7 @@ import java.util.Map;
 
 /**
  * Format: ch ddd [ddd]
- * 
- * @author KenM
+ * @author  KenM
  */
 public class ExGetBossRecord extends L2GameServerPacket
 {
@@ -36,7 +35,7 @@ public class ExGetBossRecord extends L2GameServerPacket
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
 	protected void writeImpl()
@@ -50,16 +49,16 @@ public class ExGetBossRecord extends L2GameServerPacket
 			writeD(0x00);
 			writeD(0x00);
 			writeD(0x00);
-			writeD(0x00);
+			writeD(0x00);			
 		}
 		else
 		{
-			writeD(_bossRecordInfo.size()); // list size
+			writeD(_bossRecordInfo.size()); //list size
 			for (int bossId : _bossRecordInfo.keySet())
 			{
 				writeD(bossId);
 				writeD(_bossRecordInfo.get(bossId));
-				writeD(0x00); // ??
+				writeD(0x00); //??
 			}
 		}
 	}

@@ -385,6 +385,7 @@ public class L2Clan
 		if (exMember.isOnline())
 		{
 			L2PcInstance player = exMember.getPlayerInstance();
+                        player.setTitle("");
 			player.setApprentice(0);
 			player.setSponsor(0);
 			if (player.isClanLeader())

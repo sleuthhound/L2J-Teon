@@ -3353,13 +3353,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	public boolean dropItem(String process, L2ItemInstance item, L2Object reference, boolean sendMessage)
 	{
 		item = _inventory.dropItem(process, item, this, reference);
+
 		if (item == null)
 		{
 			if (sendMessage)
 				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
 			return false;
 		}
+
 		item.dropMe(this, getClientX() + Rnd.get(50) - 25, getClientY() + Rnd.get(50) - 25, getClientZ() + 20);
+
 		if (Config.AUTODESTROY_ITEM_AFTER > 0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
 		{
 			if (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM || !item.isEquipable())
@@ -3367,7 +3370,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		if (Config.DESTROY_DROPPED_PLAYER_ITEM)
 		{
-			if (!item.isEquipable() || (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM))
+			if (!item.isEquipable() || (item.isEquipable()  && Config.DESTROY_EQUIPABLE_PLAYER_ITEM ))
 				item.setProtected(false);
 			else
 				item.setProtected(true);
@@ -3422,27 +3425,31 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		L2ItemInstance invitem = _inventory.getItemByObjectId(objectId);
 		L2ItemInstance item = _inventory.dropItem(process, objectId, count, this, reference);
+
 		if (item == null)
 		{
 			if (sendMessage)
 				sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
 			return null;
 		}
+
 		item.dropMe(this, x, y, z);
+
 		if (Config.AUTODESTROY_ITEM_AFTER > 0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
 		{
-			if ((item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM) || !item.isEquipable())
+			if ( (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM) || !item.isEquipable())
 				ItemsAutoDestroy.getInstance().addItem(item);
 		}
 		if (Config.DESTROY_DROPPED_PLAYER_ITEM)
 		{
-			if (!item.isEquipable() || (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM))
+			if (!item.isEquipable() || (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM ))
 				item.setProtected(false);
 			else
 				item.setProtected(true);
 		}
 		else
 			item.setProtected(true);
+
 		// Send inventory update packet
 		if (!Config.FORCE_INVENTORY_UPDATE)
 		{
@@ -3451,11 +3458,15 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendPacket(playerIU);
 		}
 		else
+		{
 			sendPacket(new ItemList(this, false));
+		}
+
 		// Update current load as well
 		StatusUpdate su = new StatusUpdate(getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
 		sendPacket(su);
+
 		// Sends message to client if requested
 		if (sendMessage)
 		{
@@ -4498,12 +4509,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	private void onDieDropItem(L2Character killer)
 	{
 		if (atEvent || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || (killer == null))
-		{
 			return;
-		}
+
 		if ((getKarma() <= 0) && (killer instanceof L2PcInstance) && (((L2PcInstance) killer).getClan() != null) && (getClan() != null) && ((L2PcInstance) killer).getClan().isAtWarWith(getClanId()))
-		// ||
-		// this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId()))
+		// || this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId()))
 		{
 			return;
 		}
@@ -4512,12 +4521,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			boolean isKarmaDrop = false;
 			boolean isKillerNpc = killer instanceof L2NpcInstance;
 			int pkLimit = Config.KARMA_PK_LIMIT;
+
 			int dropEquip = 0;
 			int dropEquipWeapon = 0;
 			int dropItem = 0;
 			int dropLimit = 0;
 			int dropPercent = 0;
-			if ((getKarma() > 0) && (getPkKills() >= pkLimit))
+
+			if (getKarma() > 0 && getPkKills() >= pkLimit)
 			{
 				isKarmaDrop = true;
 				dropPercent = Config.KARMA_RATE_DROP;
@@ -4526,7 +4537,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				dropItem = Config.KARMA_RATE_DROP_ITEM;
 				dropLimit = Config.KARMA_DROP_LIMIT;
 			}
-			else if (isKillerNpc && (getLevel() > 4) && !isFestivalParticipant())
+			else if (isKillerNpc && getLevel() > 4 && !isFestivalParticipant())
 			{
 				dropPercent = Config.PLAYER_RATE_DROP;
 				dropEquip = Config.PLAYER_RATE_DROP_EQUIP;
