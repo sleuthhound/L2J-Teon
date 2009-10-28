@@ -488,14 +488,25 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	public void dissolveClan(L2PcInstance player, int clanId)
 	{
 		if (Config.DEBUG)
-		{
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested dissolve a clan from " + getObjectId() + "(" + getName() + ")");
-		}
+
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
 			return;
 		}
+		/*  
+		* Until proper clan leader change support is done, this is a little 
+		* exploit fix (leader, while fliying wyvern changes clan leader and the new leader 
+		* can ride the wyvern too) 
+		* DrHouse 
+		*/ 
+		if (player.isFlying()) 
+		{ 
+			player.sendMessage("Please, stop flying"); 
+			return; 
+		}
+
 		L2Clan clan = player.getClan();
 		if (clan.getAllyId() != 0)
 		{
@@ -582,6 +593,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.INVITED_USER_NOT_ONLINE));
 			return;
+		}
+		if (player.isFlying()) 
+		{ 
+			player.sendMessage("Please, stop flying"); 
+			return; 
 		}
 		clan.setNewLeader(member, player);
 	}

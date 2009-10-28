@@ -4215,10 +4215,9 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Return true if the L2Character is attacking.<BR>
-	 * <BR>
+	 * Return True if the L2Character is attacking.<BR><BR>
 	 */
-	public final boolean isAttackingNow()
+	public boolean isAttackingNow()
 	{
 		return _attackEndTime > GameTimeController.getGameTicks();
 	}
@@ -5494,14 +5493,14 @@ public abstract class L2Character extends L2Object
 	{
 		if (isAttackingNow())
 		{
-			// Abort the attack of the L2Character and send Server->Client
-			// ActionFailed packet
+			// Abort the attack of the L2Character and send Server->Client ActionFailed packet
 			abortAttack();
+
 			if (this instanceof L2PcInstance)
 			{
-				// TODO Remove sendPacket because it's always done in
-				// abortAttack
+				// TODO Remove sendPacket because it's always done in abortAttack
 				sendPacket(ActionFailed.STATIC_PACKET);
+
 				// Send a system message
 				sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
 			}
@@ -5517,9 +5516,9 @@ public abstract class L2Character extends L2Object
 		// damage can only cancel magical skills
 		if (isCastingNow() && canAbortCast() && (getLastSkillCast() != null) && getLastSkillCast().isMagic())
 		{
-			// Abort the cast of the L2Character and send Server->Client
-			// MagicSkillCanceld/ActionFailed packet.
+			// Abort the cast of the L2Character and send Server->Client MagicSkillCanceld/ActionFailed packet.
 			abortCast();
+
 			if (this instanceof L2PcInstance)
 			{
 				// Send a system message

@@ -41,6 +41,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FortSiegeGuardInstance;
+import net.sf.l2j.util.Point3D;
 
 /**
  * @author -Nemesiss-
@@ -108,59 +109,61 @@ public class GeoEngine extends GeoData
 		return "bx: " + getBlock(gx) + " by: " + getBlock(gy) + " cx: " + getCell(gx) + " cy: " + getCell(gy) + "  region offset: " + getRegionOffset(gx, gy);
 	}
 
-	/**
-	 * @see net.sf.l2j.gameserver.GeoData#canSeeTarget(net.sf.l2j.gameserver.model.L2Object, net.sf.l2j.gameserver.model.L2Object)
-	 */
-	@Override
-	public boolean canSeeTarget(L2Object cha, L2Object target)
-	{
-		// To be able to see over fences and give the player the viewpoint
-		// game client has, all coordinates are lifted 45 from ground.
-		// Because of layer selection in LOS algorithm (it selects -45 there
-		// and some layers can be very close...) do not change this without
-		// changing the LOS code.
-		// Basically the +45 is character height. Raid bosses are naturally
-		// higher,
-		// dwarves shorter, but this should work relatively well.
-		// If this is going to be improved, use e.g.
-		// ((L2Character)cha).getTemplate().collisionHeight
-		int z = cha.getZ() + 45;
-		if (cha instanceof L2SiegeGuardInstance && cha instanceof L2FortSiegeGuardInstance)
-			z += 30; // well they don't move closer to balcony fence at the
-		// moment :(
-		int z2 = target.getZ() + 45;
-		if (!(target instanceof L2DoorInstance) && DoorTable.getInstance().checkIfDoorsBetween(cha.getX(), cha.getY(), z, target.getX(), target.getY(), z2))
-			return false;
-		if (target instanceof L2DoorInstance)
-			return true; // door coordinates are hinge coords..
-		if (target instanceof L2SiegeGuardInstance && target instanceof L2FortSiegeGuardInstance)
-			z2 += 30; // well they don't move closer to balcony fence at the
-		// moment :(
-		if (cha.getZ() >= target.getZ())
-			return canSeeTarget(cha.getX(), cha.getY(), z, target.getX(), target.getY(), z2);
-		else
-			return canSeeTarget(target.getX(), target.getY(), z2, cha.getX(), cha.getY(), z);
-	}
+    @Override
+    public boolean canSeeTarget(L2Object cha, Point3D target)
+    {
+    	if (DoorTable.getInstance().checkIfDoorsBetween(cha.getX(),cha.getY(),cha.getZ(),target.getX(),target.getY(),target.getZ()))
+    		return false;
+    	if(cha.getZ() >= target.getZ())
+    		return canSeeTarget(cha.getX(),cha.getY(),cha.getZ(),target.getX(),target.getY(),target.getZ());
+    	else
+    		return canSeeTarget(target.getX(),target.getY(),target.getZ(), cha.getX(),cha.getY(),cha.getZ());
 
-	/**
-	 * @see net.sf.l2j.gameserver.GeoData#canSeeTargetDebug(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, net.sf.l2j.gameserver.model.L2Object)
-	 */
-	@Override
-	public boolean canSeeTargetDebug(L2PcInstance gm, L2Object target)
-	{
-		// comments: see above
-		int z = gm.getZ() + 45;
-		int z2 = target.getZ() + 45;
-		if (target instanceof L2DoorInstance)
-		{
-			gm.sendMessage("door always true");
-			return true; // door coordinates are hinge coords..
-		}
-		if (gm.getZ() >= target.getZ())
-			return canSeeDebug(gm, (gm.getX() - L2World.MAP_MIN_X) >> 4, (gm.getY() - L2World.MAP_MIN_Y) >> 4, z, (target.getX() - L2World.MAP_MIN_X) >> 4, (target.getY() - L2World.MAP_MIN_Y) >> 4, z2);
-		else
-			return canSeeDebug(gm, (target.getX() - L2World.MAP_MIN_X) >> 4, (target.getY() - L2World.MAP_MIN_Y) >> 4, z2, (gm.getX() - L2World.MAP_MIN_X) >> 4, (gm.getY() - L2World.MAP_MIN_Y) >> 4, z);
-	}
+    }
+
+    @Override
+    public boolean canSeeTarget(L2Object cha, L2Object target)
+    {
+    	// To be able to see over fences and give the player the viewpoint
+    	// game client has, all coordinates are lifted 45 from ground.
+    	// Because of layer selection in LOS algorithm (it selects -45 there
+    	// and some layers can be very close...) do not change this without
+    	// changing the LOS code.
+    	// Basically the +45 is character height. Raid bosses are naturally higher,
+    	// dwarves shorter, but this should work relatively well.
+    	// If this is going to be improved, use e.g.
+    	// ((L2Character)cha).getTemplate().collisionHeight
+    	int z = cha.getZ()+45;
+    	if(cha instanceof L2SiegeGuardInstance && cha instanceof L2FortSiegeGuardInstance) z += 30; // well they don't move closer to balcony fence at the moment :(
+    	int z2 = target.getZ()+45;
+    	if (!(target instanceof L2DoorInstance)
+    			&& DoorTable.getInstance().checkIfDoorsBetween(cha.getX(),cha.getY(),z,target.getX(),target.getY(),z2))
+    		return false;
+    	if(target instanceof L2DoorInstance) return true; // door coordinates are hinge coords..
+    	if(target instanceof L2SiegeGuardInstance && target instanceof L2FortSiegeGuardInstance) z2 += 30; // well they don't move closer to balcony fence at the moment :(
+    	if(cha.getZ() >= target.getZ())
+    		return canSeeTarget(cha.getX(),cha.getY(),z,target.getX(),target.getY(),z2);
+    	else
+    		return canSeeTarget(target.getX(),target.getY(),z2, cha.getX(),cha.getY(),z);
+    }
+
+    @Override
+    public boolean canSeeTargetDebug(L2PcInstance gm, L2Object target)
+    {
+    	// comments: see above
+    	int z = gm.getZ()+45;
+    	int z2 = target.getZ()+45;
+    	if(target instanceof L2DoorInstance)
+    	{
+    		gm.sendMessage("door always true");
+    		return true; // door coordinates are hinge coords..
+    	}
+
+    	if(gm.getZ() >= target.getZ())
+    		return canSeeDebug(gm,(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,z,(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,z2);
+    	else
+    		return canSeeDebug(gm,(target.getX() - L2World.MAP_MIN_X) >> 4,(target.getY() - L2World.MAP_MIN_Y) >> 4,z2,(gm.getX() - L2World.MAP_MIN_X) >> 4,(gm.getY() - L2World.MAP_MIN_Y) >> 4,z);
+    }
 
 	/**
 	 * @see net.sf.l2j.gameserver.GeoData#getNSWE(int, int, int)
@@ -212,10 +215,24 @@ public class GeoEngine extends GeoData
 		}
 	}
 
-	// Private Methods
-	private boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
+	@Override
+	public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
+	{
+		return canSee((x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z,(tx - L2World.MAP_MIN_X) >> 4,(ty - L2World.MAP_MIN_Y) >> 4,tz);
+	}
+	/*private boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
 	{
 		return canSee((x - L2World.MAP_MIN_X) >> 4, (y - L2World.MAP_MIN_Y) >> 4, z, (tx - L2World.MAP_MIN_X) >> 4, (ty - L2World.MAP_MIN_Y) >> 4, tz);
+	}*/
+
+	public boolean hasGeo(int x, int y)
+	{
+		int gx = (x - L2World.MAP_MIN_X) >> 4;
+		int gy = (y - L2World.MAP_MIN_Y) >> 4;
+		short region = getRegionOffset(gx,gy);
+		if (_geodata.get(region) != null)
+			return false;
+		return true;
 	}
 
 	private static boolean canSee(int x, int y, double z, int tx, int ty, int tz)

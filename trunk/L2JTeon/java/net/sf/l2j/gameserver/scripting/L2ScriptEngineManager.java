@@ -42,35 +42,33 @@ import javax.script.SimpleScriptContext;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 
-import com.l2jserver.script.jython.JythonScriptEngine;
+//import com.l2jserver.script.jython.JythonScriptEngine;
 
 /**
  * Caches script engines and provides funcionality for executing and managing scripts.<BR>
- * 
- * @author KenM
+ *
+ * @author  KenM
  */
 public final class L2ScriptEngineManager
 {
-	private static final Logger _log;
-	private static final L2ScriptEngineManager INSTANCE;
-	public final static File SCRIPT_FOLDER;
-	static
-	{
-		_log = Logger.getLogger(L2ScriptEngineManager.class.getName());
-		SCRIPT_FOLDER = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts");
-		INSTANCE = new L2ScriptEngineManager();
-	}
 
+	private static final Logger _log = Logger.getLogger(L2ScriptEngineManager.class.getName());
+	
+	public final static File SCRIPT_FOLDER = new File(Config.DATAPACK_ROOT.getAbsolutePath(), "data/scripts");
+	
 	public static L2ScriptEngineManager getInstance()
 	{
-		return INSTANCE;
+		return SingletonHolder._instance;
 	}
-
+	
 	private final Map<String, ScriptEngine> _nameEngines = new FastMap<String, ScriptEngine>();
 	private final Map<String, ScriptEngine> _extEngines = new FastMap<String, ScriptEngine>();
 	private final List<ScriptManager<?>> _scriptManagers = new LinkedList<ScriptManager<?>>();
+	
 	private final CompiledScriptCache _cache;
+	
 	private File _currentLoadingScript;
+	
 	// Configs
 	// TODO move to config file
 	/**
@@ -78,22 +76,25 @@ public final class L2ScriptEngineManager
 	 * Apply only when executing script from files.<BR>
 	 */
 	private final boolean VERBOSE_LOADING = false;
+	
 	/**
 	 * If the script engine supports compilation the script is compiled before execution.<BR>
 	 */
 	private final boolean ATTEMPT_COMPILATION = true;
+	
 	/**
 	 * Use Compiled Scripts Cache.<BR>
 	 * Only works if ATTEMPT_COMPILATION is true.<BR>
 	 * DISABLED DUE ISSUES (if a superclass file changes subclasses are not recompiled where they should)
 	 */
 	private final boolean USE_COMPILED_CACHE = false;
+	
 	/**
 	 * Clean an previous error log(if such exists) for the script being loaded before trying to load.<BR>
 	 * Apply only when executing script from files.<BR>
 	 */
 	private final boolean PURGE_ERROR_LOG = true;
-
+	
 	private L2ScriptEngineManager()
 	{
 		ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
@@ -107,6 +108,7 @@ public final class L2ScriptEngineManager
 			_cache = null;
 		}
 		_log.info("Initializing Script Engine Manager");
+		
 		for (ScriptEngineFactory factory : factories)
 		{
 			try
@@ -116,22 +118,28 @@ public final class L2ScriptEngineManager
 				for (String name : factory.getNames())
 				{
 					ScriptEngine existentEngine = _nameEngines.get(name);
+					
 					if (existentEngine != null)
 					{
 						double engineVer = Double.parseDouble(factory.getEngineVersion());
 						double existentEngVer = Double.parseDouble(existentEngine.getFactory().getEngineVersion());
+						
 						if (engineVer <= existentEngVer)
 						{
 							continue;
 						}
 					}
+					
 					reg = true;
 					_nameEngines.put(name, engine);
 				}
+				
 				if (reg)
 				{
-					_log.info("Script Engine: " + factory.getEngineName() + " " + factory.getEngineVersion() + " - Language: " + factory.getLanguageName() + " - Language Version: " + factory.getLanguageVersion());
+					_log.info("Script Engine: " + factory.getEngineName() + " " + factory.getEngineVersion() + " - Language: "
+							+ factory.getLanguageName() + " - Language Version: " + factory.getLanguageVersion());
 				}
+				
 				for (String ext : factory.getExtensions())
 				{
 					if (!ext.equals("java") || factory.getLanguageName().equals("java"))
@@ -146,12 +154,14 @@ public final class L2ScriptEngineManager
 				e.printStackTrace();
 			}
 		}
+		
 		this.preConfigure();
 	}
-
+	
 	private void preConfigure()
 	{
 		// java class path
+		
 		// Jython sys.path
 		String dataPackDirForwardSlashes = SCRIPT_FOLDER.getPath().replaceAll("\\\\", "/");
 		String configScript = "import sys;sys.path.insert(0,'" + dataPackDirForwardSlashes + "');";
@@ -164,17 +174,17 @@ public final class L2ScriptEngineManager
 			_log.severe("Failed preconfiguring jython: " + e.getMessage());
 		}
 	}
-
+	
 	private ScriptEngine getEngineByName(String name)
 	{
 		return _nameEngines.get(name);
 	}
-
+	
 	private ScriptEngine getEngineByExtension(String ext)
 	{
 		return _extEngines.get(ext);
 	}
-
+	
 	public void executeScriptList(File list) throws IOException
 	{
 		if (list.isFile())
@@ -182,12 +192,15 @@ public final class L2ScriptEngineManager
 			LineNumberReader lnr = new LineNumberReader(new InputStreamReader(new FileInputStream(list)));
 			String line;
 			File file;
+			
 			while ((line = lnr.readLine()) != null)
 			{
 				String[] parts = line.trim().split("#");
+				
 				if (parts.length > 0 && !parts[0].startsWith("#") && parts[0].length() > 0)
 				{
 					line = parts[0];
+					
 					if (line.endsWith("/**"))
 					{
 						line = line.substring(0, line.length() - 3);
@@ -196,7 +209,9 @@ public final class L2ScriptEngineManager
 					{
 						line = line.substring(0, line.length() - 2);
 					}
+					
 					file = new File(SCRIPT_FOLDER, line);
+					
 					if (file.isDirectory() && parts[0].endsWith("/**"))
 					{
 						this.executeAllScriptsInDirectory(file, true, 32);
@@ -218,7 +233,8 @@ public final class L2ScriptEngineManager
 					}
 					else
 					{
-						_log.warning("Failed loading: (" + file.getCanonicalPath() + ") @ " + list.getName() + ":" + lnr.getLineNumber() + " - Reason: doesnt exists or is not a file.");
+						_log.warning("Failed loading: (" + file.getCanonicalPath() + ") @ " + list.getName() + ":" + lnr.getLineNumber()
+								+ " - Reason: doesnt exists or is not a file.");
 					}
 				}
 			}
@@ -229,17 +245,17 @@ public final class L2ScriptEngineManager
 			throw new IllegalArgumentException("Argument must be an file containing a list of scripts to be loaded");
 		}
 	}
-
+	
 	public void executeAllScriptsInDirectory(File dir)
 	{
 		this.executeAllScriptsInDirectory(dir, false, 0);
 	}
-
+	
 	public void executeAllScriptsInDirectory(File dir, boolean recurseDown, int maxDepth)
 	{
 		this.executeAllScriptsInDirectory(dir, recurseDown, maxDepth, 0);
 	}
-
+	
 	private void executeAllScriptsInDirectory(File dir, boolean recurseDown, int maxDepth, int currentDepth)
 	{
 		if (dir.isDirectory())
@@ -279,7 +295,7 @@ public final class L2ScriptEngineManager
 					catch (ScriptException e)
 					{
 						this.reportScriptFileError(file, e);
-						// e.printStackTrace();
+						//e.printStackTrace();
 					}
 				}
 			}
@@ -289,12 +305,12 @@ public final class L2ScriptEngineManager
 			throw new IllegalArgumentException("The argument directory either doesnt exists or is not an directory.");
 		}
 	}
-
+	
 	public CompiledScriptCache getCompiledScriptCache() throws IOException
 	{
 		return _cache;
 	}
-
+	
 	public CompiledScriptCache loadCompiledScriptCache()
 	{
 		if (USE_COMPILED_CACHE)
@@ -340,7 +356,7 @@ public final class L2ScriptEngineManager
 		}
 		return null;
 	}
-
+	
 	public void executeScript(File file) throws ScriptException, FileNotFoundException
 	{
 		String name = file.getName();
@@ -354,6 +370,7 @@ public final class L2ScriptEngineManager
 		{
 			throw new ScriptException("Script file (" + name + ") doesnt has an extension that identifies the ScriptEngine to be used.");
 		}
+		
 		ScriptEngine engine = this.getEngineByExtension(extension);
 		if (engine == null)
 		{
@@ -364,7 +381,7 @@ public final class L2ScriptEngineManager
 			this.executeScript(engine, file);
 		}
 	}
-
+	
 	public void executeScript(String engineName, File file) throws FileNotFoundException, ScriptException
 	{
 		ScriptEngine engine = this.getEngineByName(engineName);
@@ -377,14 +394,16 @@ public final class L2ScriptEngineManager
 			this.executeScript(engine, file);
 		}
 	}
-
+	
 	public void executeScript(ScriptEngine engine, File file) throws FileNotFoundException, ScriptException
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+		
 		if (VERBOSE_LOADING)
 		{
 			_log.info("Loading Script: " + file.getAbsolutePath());
 		}
+		
 		if (PURGE_ERROR_LOG)
 		{
 			String name = file.getAbsolutePath() + ".error.log";
@@ -394,6 +413,7 @@ public final class L2ScriptEngineManager
 				errorLog.delete();
 			}
 		}
+		
 		if (engine instanceof Compilable && ATTEMPT_COMPILATION)
 		{
 			ScriptContext context = new SimpleScriptContext();
@@ -401,7 +421,8 @@ public final class L2ScriptEngineManager
 			context.setAttribute(ScriptEngine.FILENAME, file.getName(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("classpath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
 			context.setAttribute("sourcepath", SCRIPT_FOLDER.getAbsolutePath(), ScriptContext.ENGINE_SCOPE);
-			context.setAttribute(JythonScriptEngine.JYTHON_ENGINE_INSTANCE, engine, ScriptContext.ENGINE_SCOPE);
+			//context.setAttribute(JythonScriptEngine.JYTHON_ENGINE_INSTANCE, engine, ScriptContext.ENGINE_SCOPE);
+			
 			this.setCurrentLoadingScript(file);
 			ScriptContext ctx = engine.getContext();
 			try
@@ -445,9 +466,10 @@ public final class L2ScriptEngineManager
 				engine.getContext().removeAttribute(ScriptEngine.FILENAME, ScriptContext.ENGINE_SCOPE);
 				engine.getContext().removeAttribute("mainClass", ScriptContext.ENGINE_SCOPE);
 			}
+			
 		}
 	}
-
+	
 	public static String getClassForFile(File script)
 	{
 		String path = script.getAbsolutePath();
@@ -459,12 +481,12 @@ public final class L2ScriptEngineManager
 		}
 		return null;
 	}
-
+	
 	public ScriptContext getScriptContext(ScriptEngine engine)
 	{
 		return engine.getContext();
 	}
-
+	
 	public ScriptContext getScriptContext(String engineName)
 	{
 		ScriptEngine engine = this.getEngineByName(engineName);
@@ -477,7 +499,7 @@ public final class L2ScriptEngineManager
 			return this.getScriptContext(engine);
 		}
 	}
-
+	
 	public Object eval(ScriptEngine engine, String script, ScriptContext context) throws ScriptException
 	{
 		if (engine instanceof Compilable && ATTEMPT_COMPILATION)
@@ -491,12 +513,12 @@ public final class L2ScriptEngineManager
 			return context != null ? engine.eval(script, context) : engine.eval(script);
 		}
 	}
-
+	
 	public Object eval(String engineName, String script) throws ScriptException
 	{
 		return this.eval(engineName, script, null);
 	}
-
+	
 	public Object eval(String engineName, String script, ScriptContext context) throws ScriptException
 	{
 		ScriptEngine engine = this.getEngineByName(engineName);
@@ -509,12 +531,12 @@ public final class L2ScriptEngineManager
 			return this.eval(engine, script, context);
 		}
 	}
-
+	
 	public Object eval(ScriptEngine engine, String script) throws ScriptException
 	{
 		return this.eval(engine, script, null);
 	}
-
+	
 	public void reportScriptFileError(File script, ScriptException e)
 	{
 		String dir = script.getParent();
@@ -529,15 +551,18 @@ public final class L2ScriptEngineManager
 				{
 					file.createNewFile();
 				}
+				
 				fos = new FileOutputStream(file);
-				String errorHeader = "Error on: " + file.getCanonicalPath() + "\r\nLine: " + e.getLineNumber() + " - Column: " + e.getColumnNumber() + "\r\n\r\n";
+				String errorHeader = "Error on: " + file.getCanonicalPath() + "\r\nLine: " + e.getLineNumber() + " - Column: "
+						+ e.getColumnNumber() + "\r\n\r\n";
 				fos.write(errorHeader.getBytes());
 				fos.write(e.getMessage().getBytes());
 				_log.warning("Failed executing script: " + script.getAbsolutePath() + ". See " + file.getName() + " for details.");
 			}
 			catch (IOException ioe)
 			{
-				_log.warning("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage() + "Additionally failed when trying to write an error report on script directory. Reason: " + ioe.getMessage());
+				_log.warning("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
+						+ "Additionally failed when trying to write an error report on script directory. Reason: " + ioe.getMessage());
 				ioe.printStackTrace();
 			}
 			finally
@@ -553,39 +578,46 @@ public final class L2ScriptEngineManager
 		}
 		else
 		{
-			_log.warning("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage() + "Additionally failed when trying to write an error report on script directory.");
+			_log.warning("Failed executing script: " + script.getAbsolutePath() + "\r\n" + e.getMessage()
+					+ "Additionally failed when trying to write an error report on script directory.");
 		}
 	}
-
+	
 	public void registerScriptManager(ScriptManager<?> manager)
 	{
 		_scriptManagers.add(manager);
 	}
-
+	
 	public void removeScriptManager(ScriptManager<?> manager)
 	{
 		_scriptManagers.remove(manager);
 	}
-
+	
 	public List<ScriptManager<?>> getScriptManagers()
 	{
 		return _scriptManagers;
+		
 	}
-
+	
 	/**
-	 * @param currentLoadingScript
-	 *            The currentLoadingScript to set.
+	 * @param currentLoadingScript The currentLoadingScript to set.
 	 */
 	protected void setCurrentLoadingScript(File currentLoadingScript)
 	{
 		_currentLoadingScript = currentLoadingScript;
 	}
-
+	
 	/**
 	 * @return Returns the currentLoadingScript.
 	 */
 	protected File getCurrentLoadingScript()
 	{
 		return _currentLoadingScript;
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final L2ScriptEngineManager _instance = new L2ScriptEngineManager();
 	}
 }

@@ -3,20 +3,21 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package ai.individual;
 
+import ai.group_template.L2AttackableAIScript;
+
 import java.util.concurrent.Future;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -27,19 +28,23 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.ExShowScreenMessage;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import ai.group_template.L2AttackableAIScript;
+
+/**
+ * Ice Fairy Sirra AI
+ * @author Kerberos
+ */
 
 public class IceFairySirra extends L2AttackableAIScript
 {
-	protected static Logger _log = Logger.getLogger(IceFairySirra.class.getName());
 	private static final int STEWARD = 32029;
 	private static final int SILVER_HEMOCYTE = 8057;
 	private static L2BossZone _freyasZone;
@@ -67,7 +72,9 @@ public class IceFairySirra extends L2AttackableAIScript
 			return;
 		}
 		_freyasZone.setZoneEnabled(false);
-		findTemplate(STEWARD).setBusy(false);
+		L2NpcInstance steward = findTemplate(STEWARD);
+		if (steward != null)
+			steward.setBusy(false);
 		openGates();
 	}
 
@@ -203,13 +210,13 @@ public class IceFairySirra extends L2AttackableAIScript
 		else
 			cleanUp();
 	}
-	public void screenMessage(L2PcInstance player, String text)
+	public void screenMessage(L2PcInstance player, String text, int time)
 	{
 		if (player.getParty() != null)
 		{
 			for (L2PcInstance pc : player.getParty().getPartyMembers())
 			{
-				pc.sendMessage(text);
+				pc.sendPacket(new ExShowScreenMessage(text,time));
 			}
 		}
 		else
@@ -287,7 +294,7 @@ public class IceFairySirra extends L2AttackableAIScript
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(npc.getObjectId()));
         player.sendPacket(html);
-        player.sendPacket( new ActionFailed() );
+        player.sendPacket( ActionFailed.STATIC_PACKET );
 	}
 
 	public String onFirstTalk (L2NpcInstance npc, L2PcInstance player)
@@ -322,7 +329,7 @@ public class IceFairySirra extends L2AttackableAIScript
 						destroyItems(player);
 						player.getInventory().addItem("Scroll",8379,3,player,null);
 						npc.setBusy(true);
-						screenMessage(player,"Steward: Please wait a moment.");
+						screenMessage(player,"Steward: Please wait a moment.",100000);
 						filename = getHtmlPath(3);
 					}
 					else
@@ -354,26 +361,26 @@ public class IceFairySirra extends L2AttackableAIScript
 		else if (event.equalsIgnoreCase("Party_Port"))
         {
 			teleportInside(player);
-			screenMessage(player,"Steward: Please restore the Queen's appearance!");
+			screenMessage(player,"Steward: Please restore the Queen's appearance!",10000);
 			startQuestTimer("30MinutesRemaining",300000,null,player);
         }
 		else if (event.equalsIgnoreCase("30MinutesRemaining"))
         {
-			screenMessage(player,"30 minute(s) are remaining.");
+			screenMessage(player,"30 minute(s) are remaining.",10000);
 			startQuestTimer("20minutesremaining",600000,null,player);
         }
 		else if (event.equalsIgnoreCase("20MinutesRemaining"))
         {
-			screenMessage(player,"20 minute(s) are remaining.");
+			screenMessage(player,"20 minute(s) are remaining.",10000);
 			startQuestTimer("10minutesremaining",600000,null,player);
         }
 		else if (event.equalsIgnoreCase("10MinutesRemaining"))
         {
-			screenMessage(player,"Steward: Waste no time! Please hurry!");
+			screenMessage(player,"Steward: Waste no time! Please hurry!",10000);
         }
 		else if (event.equalsIgnoreCase("End"))
         {
-			screenMessage(player,"Steward: Was it indeed too much to ask.");
+			screenMessage(player,"Steward: Was it indeed too much to ask.",10000);
 			cleanUp();
         }
 		return super.onAdvEvent(event, npc, player);
