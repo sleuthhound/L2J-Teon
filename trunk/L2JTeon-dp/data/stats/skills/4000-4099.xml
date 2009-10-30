@@ -697,13 +697,18 @@
   </for>
 </skill>
 <skill id="4044" levels="1" name="Partisan Heal">
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
+  <set name="mpInitialConsume" val="2"/>
+  <set name="mpConsume" val="8"/>
+  <set name="power" val="50.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="10000"/>
   <set name="hitTime" val="5000"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="aggroPoints" val="100"/>
+  <set name="skillType" val="HEAL"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <set name="aggroPoints" val="50"/>
   <for>
   </for>
 </skill>
