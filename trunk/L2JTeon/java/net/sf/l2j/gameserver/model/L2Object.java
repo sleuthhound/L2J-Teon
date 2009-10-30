@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList;
 import net.sf.l2j.gameserver.model.actor.poly.ObjectPoly;
 import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.GetItem;
@@ -176,26 +177,23 @@ public abstract class L2Object
 	 * @param player
 	 *            Player that pick up the item
 	 */
-	public final void pickupMe(L2Character player) // NOTE: Should move
-	// this
-	// function into
-	// L2ItemInstance because it
-	// does not apply to
-	// L2Character
+	public final void pickupMe(L2Character player) // NOTE: Should move this function into L2ItemInstance because it does not apply to L2Character
 	{
-		if (Config.ASSERT)
-			assert this instanceof L2ItemInstance;
-		if (Config.ASSERT)
-			assert getPosition().getWorldRegion() != null;
+		if (Config.ASSERT) assert this instanceof L2ItemInstance;
+		if (Config.ASSERT) assert getPosition().getWorldRegion() != null;
+
 		L2WorldRegion oldregion = getPosition().getWorldRegion();
+
 		// Create a server->client GetItem packet to pick up the L2ItemInstance
 		GetItem gi = new GetItem((L2ItemInstance) this, player.getObjectId());
 		player.broadcastPacket(gi);
+
 		synchronized (this)
 		{
 			_isVisible = false;
 			getPosition().setWorldRegion(null);
 		}
+
 		// if this item is a mercenary ticket, remove the spawns!
 		if (this instanceof L2ItemInstance)
 		{
@@ -205,7 +203,24 @@ public abstract class L2Object
 				MercTicketManager.getInstance().removeTicket((L2ItemInstance) this);
 				ItemsOnGroundManager.getInstance().removeObject(this);
 			}
-		}
+
+			if (itemId == 57 || itemId == 6353)
+        		{
+        		QuestState qs = null;
+        		if (player instanceof L2Summon)
+        		{
+        			qs = ((L2Summon)player).getOwner().getQuestState("255_Tutorial");
+            		if (qs != null)
+            			qs.getQuest().notifyEvent("CE"+itemId+"",null,((L2Summon)player).getOwner());
+        		}
+        		else if (player instanceof L2PcInstance)
+        		{
+        			qs = ((L2PcInstance)player).getQuestState("255_Tutorial");
+            		if (qs != null)
+            			qs.getQuest().notifyEvent("CE"+itemId+"",null,(L2PcInstance)player);
+        		}
+        	}
+        }
 		// this can synchronize on others instancies, so it's out of
 		// synchronized, to avoid deadlocks
 		// Remove the L2ItemInstance from the world
@@ -236,56 +251,57 @@ public abstract class L2Object
 	 */
 	public final void spawnMe()
 	{
-		if (Config.ASSERT)
-			assert (getPosition().getWorldRegion() == null) && (getPosition().getWorldPosition().getX() != 0) && (getPosition().getWorldPosition().getY() != 0) && (getPosition().getWorldPosition().getZ() != 0);
+		if (Config.ASSERT) assert (getPosition().getWorldRegion() == null) && (getPosition().getWorldPosition().getX() != 0) && (getPosition().getWorldPosition().getY() != 0) && (getPosition().getWorldPosition().getZ() != 0);
+
 		synchronized (this)
 		{
-			// Set the x,y,z position of the L2Object spawn and update its
-			// _worldregion
+			// Set the x,y,z position of the L2Object spawn and update its _worldregion
 			_isVisible = true;
 			getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
+
 			// Add the L2Object spawn in the _allobjects of L2World
 			L2World.getInstance().storeObject(this);
-			// Add the L2Object spawn to _visibleObjects and if necessary to
-			// _allplayers of its L2WorldRegion
+
+			// Add the L2Object spawn to _visibleObjects and if necessary to _allplayers of its L2WorldRegion
 			getPosition().getWorldRegion().addVisibleObject(this);
 		}
+
 		// this can synchronize on others instancies, so it's out of
 		// synchronized, to avoid deadlocks
 		// Add the L2Object spawn in the world as a visible object
 		L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), null);
+
 		onSpawn();
 	}
 
 	public final void spawnMe(int x, int y, int z)
 	{
-		if (Config.ASSERT)
-			assert getPosition().getWorldRegion() == null;
+		if (Config.ASSERT) assert getPosition().getWorldRegion() == null;
+
 		synchronized (this)
 		{
-			// Set the x,y,z position of the L2Object spawn and update its
-			// _worldregion
+			// Set the x,y,z position of the L2Object spawn and update its _worldregion
 			_isVisible = true;
-			if (x > L2World.MAP_MAX_X)
-				x = L2World.MAP_MAX_X - 5000;
-			if (x < L2World.MAP_MIN_X)
-				x = L2World.MAP_MIN_X + 5000;
-			if (y > L2World.MAP_MAX_Y)
-				y = L2World.MAP_MAX_Y - 5000;
-			if (y < L2World.MAP_MIN_Y)
-				y = L2World.MAP_MIN_Y + 5000;
+			if (x > L2World.MAP_MAX_X) x = L2World.MAP_MAX_X - 5000;
+			if (x < L2World.MAP_MIN_X) x = L2World.MAP_MIN_X + 5000;
+			if (y > L2World.MAP_MAX_Y) y = L2World.MAP_MAX_Y - 5000;
+			if (y < L2World.MAP_MIN_Y) y = L2World.MAP_MIN_Y + 5000;
+
 			getPosition().setWorldPosition(x, y, z);
 			getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
+
 			// Add the L2Object spawn in the _allobjects of L2World
 			L2World.getInstance().storeObject(this);
-			// Add the L2Object spawn to _visibleObjects and if necessary to
-			// _allplayers of its L2WorldRegion
+
+			// Add the L2Object spawn to _visibleObjects and if necessary to _allplayers of its L2WorldRegion
 			getPosition().getWorldRegion().addVisibleObject(this);
 		}
+
 		// this can synchronize on others instancies, so it's out of
 		// synchronized, to avoid deadlocks
 		// Add the L2Object spawn in the world as a visible object
 		L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), null);
+
 		onSpawn();
 	}
 

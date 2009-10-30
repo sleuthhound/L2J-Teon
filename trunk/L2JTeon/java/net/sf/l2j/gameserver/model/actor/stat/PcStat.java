@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.ClassLevel;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.model.base.PlayerClass;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -182,6 +183,9 @@ public class PcStat extends PlayableStat
 		}
 		if (levelIncreased)
 		{
+        		QuestState qs = getActiveChar().getQuestState("255_Tutorial"); 
+        			if (qs != null)
+        				qs.getQuest().notifyEvent("CE40", null, getActiveChar());
 			/**
 			 * If there are no characters on the server, the bonuses will be applied to the first character that becomes level 6 and end if this character reaches level 25 or above. If the first character that becomes level 6 is deleted, the rest of the characters may not receive the new character bonus If the first character to become level 6 loses a level, and the player makes another character
 			 * level 6, the bonus will be applied to only the first character to achieve level 6. If the character loses a level after reaching level 25, the character may not receive the bonus.
