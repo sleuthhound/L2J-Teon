@@ -170,8 +170,8 @@ public class GameServer
 	public GameServer() throws Exception
 	{
 		// Prints General System Info+
-		Util.printSection("L2JTeon-Info");
-		L2JTeon.showinfo();
+		Util.printSection("L2JTeon Info");
+		L2JTeon.info();
 		gameServer = this;
 		_log.finest("used mem:" + getUsedMemoryMB() + "MB");
 		Util.printSection("Database");

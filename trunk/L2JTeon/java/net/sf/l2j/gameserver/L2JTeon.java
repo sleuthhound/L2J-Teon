@@ -20,12 +20,13 @@ import net.sf.l2j.Config;
 
 public class L2JTeon
 {
-	private static final Logger _log = Logger.getLogger(GameServer.class.getName());
+	private static final Logger _log = Logger.getLogger(L2JTeon.class.getName());
 
 	/**
 	 * L2JTeon Info
 	 */
-	public static final void showinfo()
+	public static void info()
+
 	{
 		_log.info("------------------------------------------------------------------");
 		_log.info("              Developers: Maxi56, Meyknho, DanielMWX              ");

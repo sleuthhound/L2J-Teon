@@ -53,16 +53,18 @@ public class ScrollOfEscape implements IItemHandler
 	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
-			return;
+		if (!(playable instanceof L2PcInstance)) return;
+
 		L2PcInstance activeChar = (L2PcInstance) playable;
+
 		if (!TvTEvent.onEscapeUse(activeChar.getName()))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if (activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isAllSkillsDisabled())
-			return;
+
+		if (checkConditions(activeChar)) return;
+
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
@@ -107,8 +109,7 @@ public class ScrollOfEscape implements IItemHandler
 		// SoE Animation section
 		activeChar.setTarget(activeChar);
 		// Modified by Tempy - 28 Jul 05 \\
-		// Check if this is a blessed scroll, if it is then shorten the cast
-		// time.
+		// Check if this is a blessed scroll, if it is then shorten the cast time.
 		int itemId = item.getItemId();
 		int escapeSkill = (itemId == 1538) || (itemId == 5858) || (itemId == 5859) || (itemId == 3958) ? 2036 : 2013;
 		if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
@@ -334,6 +335,11 @@ public class ScrollOfEscape implements IItemHandler
 					e.printStackTrace();
 			}
 		}
+	}
+
+	private static boolean checkConditions(L2PcInstance actor) 
+	{ 
+		return actor.isStunned() || actor.isSleeping() || actor.isParalyzed() || actor.isFakeDeath() || actor.isTeleporting() || actor.isMuted() || actor.isAlikeDead() || actor.isAllSkillsDisabled(); 
 	}
 
 	public int[] getItemIds()
