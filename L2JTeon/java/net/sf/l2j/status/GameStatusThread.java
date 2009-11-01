@@ -152,7 +152,7 @@ public class GameStatusThread extends Thread
 		if (isValidIP(client))
 		{
 			telnetOutput(1, client.getInetAddress().getHostAddress() + " accepted.");
-			_print.println("Welcome To The L2JOneo Telnet Administration Sesion.");
+			_print.println("Welcome To The L2JTeon Telnet Administration Sesion.");
 			_print.println("Please Insert Your Password!");
 			_print.print("Password: ");
 			_print.flush();
@@ -176,7 +176,7 @@ public class GameStatusThread extends Thread
 				else
 				{
 					_print.println("Password Correct!");
-					_print.println("[L2JOneo Administration Sesion Started]");
+					_print.println("[L2JTeon Administration Sesion Started]");
 					_print.print("");
 					_print.flush();
 					start();
@@ -242,23 +242,13 @@ public class GameStatusThread extends Thread
 				else if (_usrCommand.equals("info"))
 				{
 					_print.flush();
-					_print.println("This L2JOneo distribution of L2J is lead by this team:");
+					_print.println("This L2JTeon distribution of L2J is lead by this team:");
 					_print.println("");
-					_print.println("DaRkRaGe - Java Specialist/Datapack Developer");
-					_print.println("Schursin - Java Specialist/Datapack Developer");
-					_print.println("Ahmed - Java Specialist/Datapack Developer");
-					_print.println("neoDevil - Java Specialist/Datapack Developer");
-					_print.println("Slycer - Java Specialist/Datapack Developer");
-					_print.println("Baorc - Java Specialist/Datapack Developer");
-					_print.println("Vice - Java Specialist/Datapack Developer");
-					_print.println("EzEral - Geodata Developer/Datapack Developer");
-					_print.println("LiquidIce - Datapack Developer");
-					_print.println("theREALizzy - Datapack Developer");
-					_print.println("For more info and support contact us on our wepage: www.oneodevteam.com");
+					_print.println("For more info and support contact us on our wepage: http://l2jteon.servegame.com/");
 					_print.println("");
 					_print.println("");
 					_print.println("Thank You for chosing us!");
-					_print.println("-Oneo Dev Team-");
+					_print.println("-L2JTeon-");
 				}
 				else if (_usrCommand.equals("status"))
 				{

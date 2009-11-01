@@ -37,10 +37,30 @@ import net.sf.l2j.util.L2FastList;
  */
 public class GrandBossManager
 {
-	/*
-	 * ========================================================= This class handles all Grand Bosses: <ul> <li>22215-22217 Tyrannosaurus</li> <li>25333-25338 Anakazel</li> <li>29001 Queen Ant</li> <li>29006 Core</li> <li>29014 Orfen</li> <li>29019 Antharas</li> <li>29020 Baium</li> <li>29022 Zaken</li> <li>29028 Valakas</li> <li>29045 Frintezza</li> <li>29046-29047 Scarlet van Halisha</li> </ul>
-	 * It handles the saving of hp, mp, location, and status of all Grand Bosses. It also manages the zones associated with the Grand Bosses. NOTE: The current version does NOT spawn the Grand Bosses, it just stores and retrieves the values on reboot/startup, for AI scripts to utilize as needed.
-	 */
+	/* =========================================================
+	 * This class handles all Grand Bosses:
+	 * <ul>
+	 * <li>22215-22217  Tyrannosaurus</li>
+	 * <li>25333-25338  Anakazel</li>
+	 * <li>29001        Queen Ant</li>
+	 * <li>29006        Core</li>
+	 * <li>29014        Orfen</li>
+	 * <li>29019        Antharas</li>
+	 * <li>29020        Baium</li>
+	 * <li>29022        Zaken</li>
+	 * <li>29028        Valakas</li>
+	 * <li>29045        Frintezza</li>
+	 * <li>29046-29047  Scarlet van Halisha</li>
+	 * </ul>
+	 *
+	 * It handles the saving of hp, mp, location, and status
+	 * of all Grand Bosses. It also manages the zones associated
+	 * with the Grand Bosses.
+	 * NOTE: The current version does NOT spawn the Grand Bosses,
+	 * it just stores and retrieves the values on reboot/startup,
+	 * for AI scripts to utilize as needed.
+	*/
+
 	/**
 	 * DELETE FROM grandboss_list
 	 */
