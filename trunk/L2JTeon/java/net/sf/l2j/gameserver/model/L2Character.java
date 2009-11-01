@@ -310,9 +310,13 @@ public abstract class L2Character extends L2Object
 			_calculators = new Calculator[Stats.NUM_STATS];
 			Formulas.getInstance().addFuncsToNewCharacter(this);
 		}
-		if (!(this instanceof L2PcInstance) && !(this instanceof L2MonsterInstance) && !(this instanceof L2GuardInstance) && !(this instanceof L2SiegeGuardInstance) && !(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance) && !(this instanceof L2DecoInstance) && !(this instanceof L2SiegeSummonInstance) && !(this instanceof L2PetInstance)
-				&& !(this instanceof L2SummonInstance) && !(this instanceof L2SiegeFlagInstance))
-			setIsInvul(true);
+		if (!(this instanceof L2PcInstance) && !(this instanceof L2MonsterInstance)
+		&& !(this instanceof L2GuardInstance) && !(this instanceof L2SiegeGuardInstance)
+		&& !(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance)
+		&& !(this instanceof L2DecoInstance) && !(this instanceof L2SiegeSummonInstance)
+		&& !(this instanceof L2PetInstance) && !(this instanceof L2SummonInstance)
+		&& !(this instanceof L2SiegeFlagInstance))
+		setIsInvul(true);
 	}
 
 	protected void initCharStatusUpdateValues()

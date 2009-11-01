@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -388,5 +389,15 @@ public class GrandBossManager
 	public L2FastList<L2BossZone> getZones()
 	{
 		return _zones;
+	}
+
+	public long getInterval(int bossId)
+	{
+		long interval = this.getStatsSet(bossId).getLong("respawn_time") - Calendar.getInstance().getTimeInMillis();
+
+		if(interval < 0)
+			return 0;
+		else
+			return interval;
 	}
 }
