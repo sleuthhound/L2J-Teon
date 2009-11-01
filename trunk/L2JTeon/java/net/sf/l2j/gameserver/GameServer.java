@@ -93,6 +93,7 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
@@ -310,6 +311,7 @@ public class GameServer
 		RaidBossPointsManager.init();
 		GrandBossManager.getInstance();
 		FourSepulchersManager.getInstance().init();
+		VanHalterManager.getInstance().init();
 		Util.printSection("Dimensional Rift");
 		DimensionalRiftManager.getInstance();
 		Util.printSection("Announcements");
