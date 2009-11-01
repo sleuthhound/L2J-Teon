@@ -12005,10 +12005,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void setRaidAnswear(int answer)
 	{
-		if (this == null)
-		{
-			return;
-		}
+		if (this == null) return;
+
 		if (answer == 1)
 		{
 			if (L2EventChecks.checkPlayer(this, eventType, eventPointsRequired, eventMinPlayers, eventParticipatingPlayers))
@@ -12069,69 +12067,43 @@ public final class L2PcInstance extends L2PlayableInstance
 				{
 					// if the skill was found and the level is possible to obtain for his class everything is ok
 					if (temp.getId() == skillid)
-					{
 						foundskill = true;
-					}
 				}
 				// exclude noble skills
 				if (isNoble() && (skillid >= 325) && (skillid <= 327))
-				{
 					foundskill = true;
-				}
 				if (isNoble() && (skillid >= 1323) && (skillid <= 1327))
-				{
 					foundskill = true;
-				}
 				// exclude hero skills
 				if (isHero() && (skillid >= 395) && (skillid <= 396))
-				{
 					foundskill = true;
-				}
 				if (isHero() && (skillid >= 1374) && (skillid <= 1376))
-				{
 					foundskill = true;
-				}
 				if (isDonator() && Config.ALLOW_DONATORS_UNLEGIT_SKILLS)
-				{
 					foundskill = true;
-				}
 				// exclude cursed weapon skills
 				if (isCursedWeaponEquiped() && (skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId()))
-				{
 					foundskill = true;
-				}
 				// exclude clan skills
 				if ((getClan() != null) && (skillid >= 370) && (skillid <= 391))
-				{
 					foundskill = true;
-				}
 				// exclude seal of ruler / build siege hq
 				if ((getClan() != null) && (skillid >= 246) && (skillid <= 247))
 				{
 					if (getClan().getLeaderId() == getObjectId())
-					{
 						foundskill = true;
-					}
 				}
 				// exclude fishing skills and common skills + dwarfen craft
 				if ((skillid >= 1312) && (skillid <= 1322))
-				{
 					foundskill = true;
-				}
 				if ((skillid >= 1368) && (skillid <= 1373))
-				{
 					foundskill = true;
-				}
 				// exclude sa / enchant bonus / penality etc. skills
 				if ((skillid >= 3000) && (skillid < 7000))
-				{
 					foundskill = true;
-				}
 				// Exclude Skills from AllowedSkills in options.properties
 				if (Config.ALLOWED_SKILLS_LIST.contains(skillid))
-				{
 					foundskill = true;
-				}
 				// remove skill and do a lil log message
 				if (!foundskill)
 				{
@@ -12177,9 +12149,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setIsCastingNow(boolean value)
 	{
 		if (value == false)
-		{
 			_currentSkill = null;
-		}
+
 		super.setIsCastingNow(value);
 	}
 

@@ -22052,7 +22052,7 @@ INSERT INTO `npcskills` VALUES
 DELETE FROM `npcskills` WHERE `skillid` IN (4551,4552,4553,4554);
 
 -- Delete skills, control Zaken.java
-DELETE FROM `npcskills` WHERE `skillid` IN (4216,4217,4222);
+DELETE FROM `npcskills` WHERE `skillid` IN (4216,4217,4222,4578);
 
 -- Frintezza
 DELETE FROM `npcskills` Where `skillid` IN (5014,5015,5016,5017,5018,5019);

@@ -1140,25 +1140,6 @@ INSERT IGNORE INTO teleport VALUES
 -- This is completely OPTIONAL and may be safely ignored.
 UPDATE `clanhall` SET `Grade` = '3' WHERE `id` IN ('21', '34', '35', '62', '63', '64');
 
--- Behemoth Dragon drops Update
-DELETE FROM droplist WHERE mobId = 29069;
-INSERT INTO droplist VALUES
-(29069,8600,4,36,0,700000),
-(29069,8601,4,36,1,700000),
-(29069,8602,4,36,2,700000),
-(29069,8603,4,36,3,700000),
-(29069,8604,4,36,4,700000),
-(29069,8605,4,36,5,700000),
-(29069,8606,4,36,6,700000),
-(29069,8607,4,36,7,700000),
-(29069,8608,4,36,8,700000),
-(29069,8609,4,36,9,700000),
-(29069,8610,4,36,10,700000),
-(29069,8611,4,36,11,700000),
-(29069,8612,4,36,12,700000),
-(29069,8613,4,36,13,700000),
-(29069,8614,4,36,14,700000);
-
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (22124,22125,22126,22127,22129,22134,22135);
 
 DELETE from `spawnlist` WHERE `npc_templateid` IN(35604,35605,35602,35601,35603);
@@ -1257,3 +1238,60 @@ INSERT INTO npc (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTi
 (29049, 29049, 'Evil Spirit', 0, '', 0, 'Monster3.Evilate', 20.00, 56.00, 87, 'male', 'L2Monster', 70, 250000, 9999, 414.12, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 2600, 2350, 1600, 2045, 253, 6000, 333, 0, 0, 0, 0, 0, 'frintezza_clan', 6000, 0, 0,'LAST_HIT'),
 (29050, 29050, 'Breath of Halisha', 0, '', 0, 'Monster3.portrait_spirit', 10.00, 20.00, 85, 'male', 'L2Monster', 40, 18060, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 2600, 2350, 1600, 2045, 253, 6000, 333, 0, 0, 0, 55, 66, 'frintezza_clan', 6000, 0, 0,'LAST_HIT'),
 (29051, 29051, 'Breath of Halisha', 0, '', 0, 'Monster3.portrait_spirit_winged', 10.00, 20.00, 85, 'male', 'L2Monster', 40, 18060, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 30, 2, 2600, 2350, 1600, 2045, 253, 6000, 333, 0, 0, 0, 55, 66, 'frintezza_clan', 6000, 0, 0,'LAST_HIT');
+
+-- Update Npc
+Update npc set `type` = "L2GrandBoss", rhand = 8208, aggro = 0 where id = 29062;
+Update npc set rhand = 8208, aggro = 0 where id = 29063;
+Update npc set rhand = 8207, lhand = 8207, aggro = 0 where id = 29064;
+Update npc set faction_id = "VANHALTER", faction_range = 1800 where id in (22191,22192,22193,29062);
+Update npc set `type` = "L2Monster", walkspd = 0, runspd = 0, aggro = 500 where id in (32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068);
+Update npc set collision_radius = 8, collision_height = 22, walkspd = 0, runspd = 0, aggro = 0 where id = 29059;
+
+-- Update minions
+Delete From minions where boss_id in (29062,22188,22191);
+INSERT INTO minions
+  (boss_id, minion_id, amount_min, amount_max)
+VALUES
+  ("29062", "29063", "1", "1"),
+  ("29062", "29064", "3", "3"),
+  ("22188", "22189", "4", "4"),
+  ("22188", "22190", "1", "1"),
+  ("22191", "22192", "1", "1"),
+  ("22191", "22193", "1", "1");
+
+-- Update spawnlist
+Delete From raidboss_spawnlist where boss_id = 29062;
+Delete From spawnlist where npc_templateId in
+(22175,22176,22188,22189,22190,22191,22192,22193,22195,29062,29063,29064,32038,32051,32058,32059,32060,32061,32062,32063,32064,32065,32066,32067,32068);
+
+-- Sailren
+DELETE FROM `droplist` where `mobId`='29065';
+INSERT INTO `droplist` VALUES
+(29065, 57,100000,160000,1,1000000),
+(29065, 959, 1, 5, 2, 450000), -- Scroll: Enchant Weapon (Grade S)
+(29065, 960, 1, 5, 2, 450000), -- Scroll: Enchant Armor (Grade S)
+(29065, 6680, 1, 1, 4, 71428), -- Sealed Draconic Leather Armor
+(29095, 6707, 15, 29, 4, 700000), -- Sealed Draconic Leather Armor Part
+(29065, 6367, 1, 1, 3, 23810), -- Angel Slayer
+(29065, 6691, 3, 9, 3, 930000), -- Angel Slayer Blade
+(29065, 6577, 1, 2, 2, 450000), -- Blessed Scroll: Enchant Weapon (Grade S)
+(29065, 6578, 1, 10, 2, 450000); -- Blessed Scroll: Enchant Armor (Grade S)
+
+-- Behemoth Dragon drops Update
+DELETE FROM droplist WHERE mobId = 29069;
+INSERT INTO droplist VALUES
+(29069,8600,4,36,0,700000),
+(29069,8601,4,36,1,700000),
+(29069,8602,4,36,2,700000),
+(29069,8603,4,36,3,700000),
+(29069,8604,4,36,4,700000),
+(29069,8605,4,36,5,700000),
+(29069,8606,4,36,6,700000),
+(29069,8607,4,36,7,700000),
+(29069,8608,4,36,8,700000),
+(29069,8609,4,36,9,700000),
+(29069,8610,4,36,10,700000),
+(29069,8611,4,36,11,700000),
+(29069,8612,4,36,12,700000),
+(29069,8613,4,36,13,700000),
+(29069,8614,4,36,14,700000);
