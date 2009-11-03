@@ -167,6 +167,42 @@ public final class UseItem extends L2GameClientPacket
 		// Items that cannot be used
 		if (itemId == 57)
 			return;
+		
+        L2Weapon curwep = activeChar.getActiveWeaponItem();
+        if (curwep != null)
+        {
+            if ((curwep.getItemType() == L2WeaponType.DUAL) && (item.getItemType() == L2WeaponType.NONE))
+                { 
+                    activeChar.sendMessage("You are not allowed to do this.");
+                    return; 
+                }
+            else if ((curwep.getItemType() == L2WeaponType.BOW) && (item.getItemType() == L2WeaponType.NONE))
+            { 
+                activeChar.sendMessage("You are not allowed to do this.");
+                return; 
+            }
+            else if ((curwep.getItemType() == L2WeaponType.BIGBLUNT) && (item.getItemType() == L2WeaponType.NONE))
+            { 
+                activeChar.sendMessage("You are not allowed to do this.");
+                return; 
+            }
+            else if ((curwep.getItemType() == L2WeaponType.BIGSWORD) && (item.getItemType() == L2WeaponType.NONE))
+            { 
+                activeChar.sendMessage("You are not allowed to do this.");
+                return; 
+            }
+            else if ((curwep.getItemType() == L2WeaponType.POLE) && (item.getItemType() == L2WeaponType.NONE))
+            { 
+                activeChar.sendMessage("You are not allowed to do this.");
+                return; 
+            }
+            else if ((curwep.getItemType() == L2WeaponType.DUALFIST) && (item.getItemType() == L2WeaponType.NONE))
+            { 
+                activeChar.sendMessage("You are not allowed to do this.");
+                return; 
+            }
+        }
+
 		if (activeChar.isFishing() && ((itemId < 6535) || (itemId > 6540)))
 		{
 			// You cannot do anything else while fishing
