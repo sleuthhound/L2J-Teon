@@ -56,7 +56,7 @@ public class L2BuffInstance extends L2NpcInstance
 			else
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile((new StringBuilder("data/html/buffer-by-maxi/buffer/main.htm").toString()));
+				html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/main.htm").toString()));
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				client.sendPacket(html);
 			}
@@ -159,7 +159,7 @@ public class L2BuffInstance extends L2NpcInstance
 	public void showChatWnd(L2PcInstance client, String id)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile((new StringBuilder("data/html/maxi/buffer/").append(id.equals("-1") ? "main" : (new StringBuilder("main-")).append(id).toString()).append(".htm").toString()));
+		html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/").append(id.equals("-1") ? "main" : (new StringBuilder("main-")).append(id).toString()).append(".htm").toString()));
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%after%", id);
 		if (id.endsWith("_repl"))
@@ -177,7 +177,7 @@ public class L2BuffInstance extends L2NpcInstance
 	public void showChatWnd(L2PcInstance client, String id, int count, int item)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile((new StringBuilder("data/html/maxi/buffer/main-notenought.htm").toString()));
+		html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/main-notenought.htm").toString()));
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%after%", id);
 		html.replace("%count%", String.valueOf(count));
@@ -188,7 +188,7 @@ public class L2BuffInstance extends L2NpcInstance
 	public void showChatErrWnd(L2PcInstance client, String after, String text)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile((new StringBuilder("data/html/maxi/buffer/main-err.htm").toString()));
+		html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/main-err.htm").toString()));
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%text%", text);
 		html.replace("%after%", after);
