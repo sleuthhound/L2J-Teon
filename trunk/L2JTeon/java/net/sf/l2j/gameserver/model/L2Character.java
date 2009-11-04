@@ -1686,8 +1686,7 @@ public abstract class L2Character extends L2Object
 				}
 			}
 		}
-		// Send the Server->Client packet StatusUpdate with current HP and MP to
-		// all other L2PcInstance to inform
+		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
 		broadcastStatusUpdate();
 		// Notify L2Character AI
 		getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
@@ -1763,15 +1762,11 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Check if the active L2Skill can be casted.<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
+	 * Check if the active L2Skill can be casted.<BR><BR>
+	 * <B><U> Actions</U> :</B><BR><BR>
 	 * <li>Check if the L2Character can cast (ex : not sleeping...)</li> <li>Check if the target is correct</li> <li>Notify the AI with AI_INTENTION_CAST and target</li> <BR>
 	 * <BR>
-	 * 
-	 * @param skill
-	 *            The L2Skill to use
+	 * @param skill The L2Skill to use
 	 */
 	protected void useMagic(L2Skill skill)
 	{
