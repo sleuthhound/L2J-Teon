@@ -94,6 +94,10 @@ public final class FloodProtectors
 	 * Chat Global Flood Protector.
 	 */
 	private final FloodProtectorAction _global;
+	/**
+	 * Potion Flood Protector.
+	 */	
+	private final FloodProtectorAction _potion;
 
 	/**
 	 * Creates new instance of FloodProtectors.
@@ -121,6 +125,7 @@ public final class FloodProtectors
 		_misc = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_MISC);
 		_chat = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_CHAT);
 		_global = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_GLOBAL);
+		_potion = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_POTION);
 	}
 
 	/**
@@ -291,5 +296,14 @@ public final class FloodProtectors
 	public FloodProtectorAction getGlobal()
 	{
 		return _global;
+	}
+	/**
+	 * Returns {@link #_potion}.
+	 * 
+	 * @return {@link #_potion}
+	 */
+	public FloodProtectorAction getPotion()
+	{
+		return _potion;
 	}
 }

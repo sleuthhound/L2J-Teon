@@ -1483,10 +1483,6 @@ public abstract class L2Character extends L2Object
 			{
 				reuseDelay = Config.ELIXIRS_REUSE_DELAY;
 			}
-			else
-			{
-				reuseDelay = Config.POTIONS_REUSE_DELAY;
-			}
 			if (reuseDelay > 0)
 			{
 				disableSkill(skill.getId(), reuseDelay);
