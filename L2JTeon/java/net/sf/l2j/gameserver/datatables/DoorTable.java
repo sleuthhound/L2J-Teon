@@ -245,6 +245,12 @@ public class DoorTable
 			else if (doorInst.getDoorName().startsWith("aden_tower"))
 				doorInst.setAutoActionDelay(300000);
 
+                        // Cruma Tower (every 20 minutes)
+                        else if (doorInst.getDoorName().startsWith("cruma"))
+                                doorInst.setAutoActionDelay(1200000);
+
+
+
 	}
 
 	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)

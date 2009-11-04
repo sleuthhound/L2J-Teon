@@ -2829,4 +2829,10 @@ public class L2NpcInstance extends L2Character
 		L2Skill skill = SkillTable.getInstance().getInfo(5182, 1);
 		doCast(skill);
 	}
+
+	public void addDamageHate(L2PcInstance target, int i, int i1)
+	{
+		L2Attackable npc = (L2Attackable) this;
+		npc.addDamageHate(target, i, i1);
+	}
 }
