@@ -113,6 +113,8 @@ public final class Config
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_MISC = new FloodProtectorConfig("MiscFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_CHAT = new FloodProtectorConfig("ChatFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_GLOBAL = new FloodProtectorConfig("GlobalFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_POTION = new FloodProtectorConfig("PotionFloodProtector");
+	
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
@@ -1255,8 +1257,6 @@ public final class Config
 	public static boolean FLYING_WYVERN_DURING_SIEGE;
 	/** Life Crystal needed to learn clan skill */
 	public static boolean LIFE_CRYSTAL_NEEDED;
-	/** Config for reuse delay of potions (in seconds). */
-	public static int POTIONS_REUSE_DELAY;
 	/** Config for reuse delay of potions Elixirs (in seconds). */
 	public static int ELIXIRS_REUSE_DELAY;
 	/** Remove Castle circlets after clan lose his castle? - default True */
@@ -2860,7 +2860,6 @@ public final class Config
 				FLYING_WYVERN_DURING_SIEGE = Boolean.parseBoolean(L2JTeonCustom.getProperty("FlyingWyvernDuringSiege", "False"));
 				ES_SP_BOOK_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnchantSkillSpBookNeeded", "True"));
 				LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("LifeCrystalNeeded", "True"));
-				POTIONS_REUSE_DELAY = Integer.parseInt(L2JTeonCustom.getProperty("PotionsDelay", "0")) * 1000;
 				ELIXIRS_REUSE_DELAY = Integer.parseInt(L2JTeonCustom.getProperty("ElixirsDelay", "0")) * 1000;
 				REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(L2JTeonCustom.getProperty("RemoveCastleCirclets", "True"));
 				ENABLE_WAREHOUSESORTING_CLAN = Boolean.valueOf(L2JTeonCustom.getProperty("EnableWarehouseSortingClan", "False"));
@@ -4095,6 +4094,7 @@ public final class Config
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_MISC, "Misc", "10");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_CHAT, "Chat", "10");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_GLOBAL, "Global", "500");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_POTION, "Potion", "10");
 	}
 
 	private static void loadFloodProtectorConfig(final Properties properties, final FloodProtectorConfig config, final String configString, final String defaultInterval)
