@@ -82,6 +82,12 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			activeChar.setActiveEnchantItem(null);
 			return;
 		}
+		if (activeChar.getActiveTradeList() != null)
+		{
+			activeChar.cancelActiveTrade();
+			activeChar.sendMessage("Your trade canceled");
+			return;
+		}
 		if (item.isWear())
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to enchant a weared Item", IllegalPlayerAction.PUNISH_KICK);
