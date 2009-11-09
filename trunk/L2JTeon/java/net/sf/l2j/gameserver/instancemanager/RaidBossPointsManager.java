@@ -32,8 +32,9 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * @author Kerberos
- */
+  * @author Kerberos
+  */
+
 public class RaidBossPointsManager
 {
 	private final static Logger _log = Logger.getLogger(RaidBossPointsManager.class.getName());

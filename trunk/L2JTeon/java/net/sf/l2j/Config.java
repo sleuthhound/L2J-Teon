@@ -947,6 +947,18 @@ public final class Config
 	public static boolean NPC_ATTACKABLE;
 	@SuppressWarnings("unchecked")
 	public static List INVUL_NPC_LIST;
+	public static int RAID_RANKING_1ST;
+	public static int RAID_RANKING_2ND;
+	public static int RAID_RANKING_3RD;
+	public static int RAID_RANKING_4TH;
+	public static int RAID_RANKING_5TH;
+	public static int RAID_RANKING_6TH;
+	public static int RAID_RANKING_7TH;
+	public static int RAID_RANKING_8TH;
+	public static int RAID_RANKING_9TH;
+	public static int RAID_RANKING_10TH;
+	public static int RAID_RANKING_UP_TO_50TH;
+	public static int RAID_RANKING_UP_TO_100TH;
 	/** Low Level Protection System. */
 	public static int PLAYER_PROTECTION_SYSTEM;
 	/** Alternatives damages for daggers */
@@ -2138,6 +2150,18 @@ public final class Config
 				FS_EXPREG1_FEE = Integer.parseInt(Feature.getProperty("FortressExpRegenerationFeeLvl1", "9000"));
 				FS_EXPREG2_FEE = Integer.parseInt(Feature.getProperty("FortressExpRegenerationFeeLvl2", "10000"));
 				NPC_ATTACKABLE = Boolean.valueOf(Feature.getProperty("NpcAttackable", "False"));
+				RAID_RANKING_1ST = Integer.parseInt(Feature.getProperty("1stRaidRankingPoints", "1250"));
+				RAID_RANKING_2ND = Integer.parseInt(Feature.getProperty("2ndRaidRankingPoints", "900"));
+				RAID_RANKING_3RD = Integer.parseInt(Feature.getProperty("3rdRaidRankingPoints", "700"));
+				RAID_RANKING_4TH = Integer.parseInt(Feature.getProperty("4thRaidRankingPoints", "600"));
+				RAID_RANKING_5TH = Integer.parseInt(Feature.getProperty("5thRaidRankingPoints", "450"));
+				RAID_RANKING_6TH = Integer.parseInt(Feature.getProperty("6thRaidRankingPoints", "350"));
+				RAID_RANKING_7TH = Integer.parseInt(Feature.getProperty("7thRaidRankingPoints", "300"));
+				RAID_RANKING_8TH = Integer.parseInt(Feature.getProperty("8thRaidRankingPoints", "200"));
+				RAID_RANKING_9TH = Integer.parseInt(Feature.getProperty("9thRaidRankingPoints", "150"));
+				RAID_RANKING_10TH = Integer.parseInt(Feature.getProperty("10thRaidRankingPoints", "100"));
+				RAID_RANKING_UP_TO_50TH = Integer.parseInt(Feature.getProperty("UpTo50thRaidRankingPoints", "25"));
+				RAID_RANKING_UP_TO_100TH = Integer.parseInt(Feature.getProperty("UpTo100thRaidRankingPoints", "12"));
 			}
 			catch (Exception e)
 			{

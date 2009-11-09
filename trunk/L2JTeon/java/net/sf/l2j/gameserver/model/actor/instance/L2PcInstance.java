@@ -5579,7 +5579,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			_sponsor = 0;
 			return;
 		}
-		if (!clan.isMember(getName()))
+		if (!clan.isMember(getObjectId()))
 		{
 			// char has been kicked from clan
 			setClan(null);
@@ -5702,6 +5702,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (wpn.isWear())
 			{
 				return false;
+                        }
+                        // Remove augementation bonus on unequip
+                        if (wpn.isAugmented())
+                        {
+                                wpn.getAugmentation().removeBonus(this);
 			}
 			L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
@@ -7670,49 +7675,39 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		// Check if the attacker is not in the same clan
-		if ((getClan() != null) && (attacker != null) && getClan().isMember(attacker.getName()))
-		{
+		if (getClan() != null && attacker != null && getClan().isMember(attacker.getObjectId()))
 			return false;
-		}
+
 		if ((attacker instanceof L2PlayableInstance) && isInsideZone(ZONE_PEACE))
-		{
 			return false;
-		}
+
 		// Check if the L2PcInstance has Karma
 		if ((getKarma() > 0) || (getPvpFlag() > 0))
-		{
 			return true;
-		}
+
 		// Check if the attacker is a L2PcInstance
 		if (attacker instanceof L2PcInstance)
 		{
-			// is AutoAttackable if both players are in the same duel and
-			// the
-			// duel is still going on
+			// is AutoAttackable if both players are in the same duel and the duel is still going on
 			if ((getDuelState() == Duel.DUELSTATE_DUELLING) && (getDuelId() == ((L2PcInstance) attacker).getDuelId()))
 			{
 				return true;
 			}
 			// Check if the L2PcInstance is in an arena or a siege area
 			if (isInsideZone(ZONE_PVP) && ((L2PcInstance) attacker).isInsideZone(ZONE_PVP))
-			{
 				return true;
-			}
+
 			if (getClan() != null)
 			{
 				Siege siege = SiegeManager.getInstance().getSiege(getX(), getY(), getZ());
 				if (siege != null)
 				{
-					// Check if a siege is in progress and if attacker and
-					// the
-					// L2PcInstance aren't in the Defender clan
+					// Check if a siege is in progress and if attacker and the L2PcInstance aren't in the Defender clan
 					if (siege.checkIsDefender(((L2PcInstance) attacker).getClan()) && siege.checkIsDefender(getClan()))
 					{
 						return false;
 					}
-					// Check if a siege is in progress and if attacker and
-					// the
-					// L2PcInstance aren't in the Attacker clan
+					// Check if a siege is in progress and if attacker and the L2PcInstance aren't in the Attacker clan
 					if (siege.checkIsAttacker(((L2PcInstance) attacker).getClan()) && siege.checkIsAttacker(getClan()))
 					{
 						return false;

@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.taskmanager.tasks.TaskCleanUp;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskJython;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskLoginRestart;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskOlympiadSave;
+import net.sf.l2j.gameserver.taskmanager.tasks.TaskRaidPointsReset;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskRecom;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskRestart;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskSevenSignsUpdate;
@@ -168,6 +169,7 @@ public final class TaskManager
 		registerTask(new TaskCleanUp());
 		registerTask(new TaskJython());
 		registerTask(new TaskOlympiadSave());
+		registerTask(new TaskRaidPointsReset());
 		registerTask(new TaskRecom());
 		registerTask(new TaskRestart());
 		registerTask(new TaskSevenSignsUpdate());
