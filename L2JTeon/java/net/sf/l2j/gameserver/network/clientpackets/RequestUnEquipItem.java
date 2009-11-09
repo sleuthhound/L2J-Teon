@@ -76,10 +76,10 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		}
 		if (activeChar.isCastingNow())
 			return;
-		// Remove augmentation boni
+		// Remove augmentation bonus
 		if ((item != null) && item.isAugmented())
 		{
-			item.getAugmentation().removeBoni(activeChar);
+			item.getAugmentation().removeBonus(activeChar);
 		}
 		// remove skill of cupid's bow
 		if ((item != null) && item.isCupidBow())

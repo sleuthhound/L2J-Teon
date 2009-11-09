@@ -380,7 +380,7 @@ public class CursedWeapon
 		saveData();
 		// Change player stats
 		_player.setCursedWeaponEquipedId(_itemId);
-		_player.setKarma(9000000);
+		_player.setKarma(9999999);
 		_player.setPkKills(0);
 		if (_player.isInParty())
 		{

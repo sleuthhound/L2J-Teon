@@ -36,7 +36,7 @@ import net.sf.l2j.util.Rnd;
 
 public final class RequestEnchantItem extends L2GameClientPacket
 {
-	protected static final Logger _log = Logger.getLogger(Inventory.class.getName());
+	protected static final Logger _log = Logger.getLogger(RequestEnchantItem.class.getName());
 	private static final String _C__58_REQUESTENCHANTITEM = "[C] 58 RequestEnchantItem";
 	private static final int[] ENCHANT_SCROLLS = { 729, 730, 947, 948, 951, 952, 955, 956, 959, 960 };
 	private static final int[] CRYSTAL_SCROLLS = { 731, 732, 949, 950, 953, 954, 957, 958, 961, 962 };
@@ -54,9 +54,8 @@ public final class RequestEnchantItem extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if ((activeChar == null) || (_objectId == 0))
-		{
 			return;
-		}
+
 		if (activeChar.isProcessingTransaction())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
@@ -74,8 +73,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 		{
 			return;
 		}
-		// can't enchant rods, hero weapons and shadow items, donator rented
-		// items
+		// can't enchant rods, hero weapons and shadow items, donator rented items
 		if ((item.getItem().getItemType() == L2WeaponType.ROD) || (!Config.ENCHANT_HERO_WEAPONS && (item.getItemId() >= 6611) && (item.getItemId() <= 6621)) || ((item.getItemId() >= 7816) && (item.getItemId() <= 7831)) || item.isShadowItem() || item.isDonatorRented())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));

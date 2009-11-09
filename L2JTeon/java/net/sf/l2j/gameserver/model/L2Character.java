@@ -5846,14 +5846,12 @@ public abstract class L2Character extends L2Object
 		{
 			// Replace oldSkill by newSkill or Add the newSkill
 			oldSkill = _skills.put(newSkill.getId(), newSkill);
-			// If an old skill has been replaced, remove all its Func
-			// objects
+			// If an old skill has been replaced, remove all its Func objects
 			if (oldSkill != null)
 			{
 				removeStatsOwner(oldSkill);
 			}
-			// Add Func objects of newSkill to the calculator set of the
-			// L2Character
+			// Add Func objects of newSkill to the calculator set of the L2Character
 			addStatFuncs(newSkill.getStatFuncs(null, this));
 			if (oldSkill != null && _chanceSkills != null)
 			{

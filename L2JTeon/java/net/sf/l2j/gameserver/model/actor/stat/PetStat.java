@@ -121,7 +121,6 @@ public class PetStat extends SummonStat
 		return getActiveChar().getPetData().getPetFeedNormal();
 	}
 
-	@Override
 	public void setLevel(byte value)
 	{
 		getActiveChar().stopFeed();

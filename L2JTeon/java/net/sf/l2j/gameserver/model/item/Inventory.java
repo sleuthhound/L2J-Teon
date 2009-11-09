@@ -227,6 +227,9 @@ public abstract class Inventory extends ItemContainer
 			if (it instanceof L2Weapon)
 			{
 				passiveSkill = ((L2Weapon) it).getSkill();
+				// Remove augmentation bonuses on unequip
+				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
+				   item.getAugmentation().removeBonus((L2PcInstance)getOwner());
 				enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
 				if ((it.getItemId() == 9140) || (it.getItemId() == 9141))
 				{
@@ -236,6 +239,7 @@ public abstract class Inventory extends ItemContainer
 				}
 			}
 			else if (it instanceof L2Armor)
+
 				passiveSkill = ((L2Armor) it).getSkill();
 			if (passiveSkill != null)
 			{
@@ -263,7 +267,12 @@ public abstract class Inventory extends ItemContainer
 			L2Item it = item.getItem();
 			if (it instanceof L2Weapon)
 			{
-				passiveSkill = ((L2Weapon) it).getSkill();
+                // Apply augmentation bonuses on equip
+                if (item.isAugmented() && getOwner() instanceof L2PcInstance)
+                    item.getAugmentation().applyBonus((L2PcInstance)getOwner());
+
+			    passiveSkill = ((L2Weapon) it).getSkill();
+
 				if (item.getEnchantLevel() >= 4)
 					enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
 				if ((it.getItemId() == 9140) || (it.getItemId() == 9141))
@@ -274,6 +283,7 @@ public abstract class Inventory extends ItemContainer
 				}
 			}
 			else if (it instanceof L2Armor)
+
 				passiveSkill = ((L2Armor) it).getSkill();
 			if (passiveSkill != null)
 			{
@@ -433,11 +443,6 @@ public abstract class Inventory extends ItemContainer
 		}
 	}
 
-	/*
-	 * final class FormalWearListener implements PaperdollListener { public void notifyUnequiped(int slot, L2ItemInstance item) { if (!(getOwner() != null && getOwner() instanceof L2PcInstance)) return; L2PcInstance owner = (L2PcInstance)getOwner(); if (item.getItemId() == 6408) owner.setIsWearingFormalWear(false); } public void notifyEquiped(int slot, L2ItemInstance item) { if (!(getOwner() !=
-	 * null && getOwner() instanceof L2PcInstance)) return; L2PcInstance owner = (L2PcInstance)getOwner(); // If player equip Formal Wear unequip weapons and abort cast/attack if (item.getItemId() == 6408) { owner.setIsWearingFormalWear(true); if (owner.isCastingNow()) owner.abortCast(); if (owner.isAttackingNow()) owner.abortAttack(); setPaperdollItem(PAPERDOLL_LHAND, null);
-	 * setPaperdollItem(PAPERDOLL_RHAND, null); setPaperdollItem(PAPERDOLL_LRHAND, null); } else { if (!owner.isWearingFormalWear()) return; // Don't let weapons be equipped if player is wearing Formal Wear if (slot == PAPERDOLL_LHAND || slot == PAPERDOLL_RHAND || slot == PAPERDOLL_LRHAND) { setPaperdollItem(slot, null); } } } }
-	 */
 	/**
 	 * Constructor of the inventory
 	 */
@@ -482,9 +487,8 @@ public abstract class Inventory extends ItemContainer
 		synchronized (item)
 		{
 			if (!_items.contains(item))
-			{
 				return null;
-			}
+
 			removeItem(item);
 			item.setOwnerId(process, 0, actor, reference);
 			item.setLocation(ItemLocation.VOID);
@@ -513,8 +517,10 @@ public abstract class Inventory extends ItemContainer
 	public L2ItemInstance dropItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByObjectId(objectId);
+
 		if (item == null)
 			return null;
+
 		// Adjust item quantity and create new instance to drop
 		if (item.getCount() > count)
 		{
@@ -652,13 +658,9 @@ public abstract class Inventory extends ItemContainer
 		if (item != null)
 		{
 			if (item.getAugmentation() != null)
-			{
 				return item.getAugmentation().getAugmentationId();
-			}
 			else
-			{
 				return 0;
-			}
 		}
 		return 0;
 	}

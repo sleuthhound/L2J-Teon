@@ -249,11 +249,7 @@ public final class UseItem extends L2GameClientPacket
 			{
 				return;
 			}
-			/*
-			 * Since c5 you can equip weapon again // Don't allow weapon/shield equipment if wearing formal wear if (activeChar.isWearingFormalWear() && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND)) { SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR); activeChar.sendPacket(sm); return; }
-			 */
-			// Don't allow weapon/shield equipment if a cursed weapon is
-			// equiped
+			// Don't allow weapon/shield equipment if a cursed weapon is equiped
 			if (activeChar.isCursedWeaponEquiped() && ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND) || (itemId == 6408)))
 			// Don't allow to put formal wear
 			{
@@ -290,9 +286,9 @@ public final class UseItem extends L2GameClientPacket
 					sm.addItemName(itemId);
 				}
 				activeChar.sendPacket(sm);
-				// Remove augementation boni on unequip
+				// Remove augementation bonus on unequip
 				if (item.isAugmented())
-					item.getAugmentation().removeBoni(activeChar);
+					item.getAugmentation().removeBonus(activeChar);
 				// remove cupid's bow skills
 				if (item.isCupidBow())
 				{
@@ -313,18 +309,17 @@ public final class UseItem extends L2GameClientPacket
 			{
 				int tempBodyPart = item.getItem().getBodyPart();
 				L2ItemInstance tempItem = activeChar.getInventory().getPaperdollItemByL2ItemId(tempBodyPart);
-				// remove augmentation stats for replaced items
-				// currently weapons only..
+				// remove augmentation stats for replaced items currently weapons only..
 				if ((tempItem != null) && tempItem.isAugmented())
-					tempItem.getAugmentation().removeBoni(activeChar);
+					tempItem.getAugmentation().removeBonus(activeChar);
 				else if (tempBodyPart == 0x4000)
 				{
 					L2ItemInstance tempItem2 = activeChar.getInventory().getPaperdollItem(7);
 					if ((tempItem2 != null) && tempItem2.isAugmented())
-						tempItem2.getAugmentation().removeBoni(activeChar);
+						tempItem2.getAugmentation().removeBonus(activeChar);
 					tempItem2 = activeChar.getInventory().getPaperdollItem(8);
 					if ((tempItem2 != null) && tempItem2.isAugmented())
-						tempItem2.getAugmentation().removeBoni(activeChar);
+						tempItem2.getAugmentation().removeBonus(activeChar);
 				}
 				// check if the item replaces a wear-item
 				if ((tempItem != null) && tempItem.isWear())
@@ -367,22 +362,17 @@ public final class UseItem extends L2GameClientPacket
 				activeChar.sendPacket(sm);
 				// Apply augementation boni on equip
 				if (item.isAugmented())
-					item.getAugmentation().applyBoni(activeChar);
+					item.getAugmentation().applyBonus(activeChar);
 				if (item.isCupidBow())
 				{
 					if (item.getItemId() == 9140)
-					{
 						activeChar.addSkill(SkillTable.getInstance().getInfo(3261, 1));
-					}
 					else
-					{
 						activeChar.addSkill(SkillTable.getInstance().getInfo(3260, 0));
 						activeChar.addSkill(SkillTable.getInstance().getInfo(3262, 0));
-					}
 				}
 				items = activeChar.getInventory().equipItemAndRecord(item);
-				// Consume mana - will start a task if required; returns if item
-				// is not a shadow item
+				// Consume mana - will start a task if required; returns if item is not a shadow item
 				item.decreaseMana(false);
 			}
 			sm = null;
@@ -401,15 +391,12 @@ public final class UseItem extends L2GameClientPacket
 			int itemid = item.getItemId();
 			// _log.finest("item not equipable id:"+ item.getItemId());
 			if (itemid == 4393)
-			{
 				activeChar.sendPacket(new ShowCalculator(4393));
-			}
 			else if ((weaponItem != null) && (weaponItem.getItemType() == L2WeaponType.ROD) && (((itemid >= 6519) && (itemid <= 6527)) || ((itemid >= 7610) && (itemid <= 7613)) || ((itemid >= 7807) && (itemid <= 7809)) || ((itemid >= 8484) && (itemid <= 8486)) || ((itemid >= 8505) && (itemid <= 8513))))
 			{
 				activeChar.getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, item);
 				activeChar.broadcastUserInfo();
-				// Send a Server->Client packet ItemList to this
-				// L2PcINstance to update left hand equipement
+				// Send a Server->Client packet ItemList to this L2PcINstance to update left hand equipement
 				ItemList il = new ItemList(activeChar, false);
 				sendPacket(il);
 				return;
@@ -423,7 +410,6 @@ public final class UseItem extends L2GameClientPacket
 					handler.useItem(activeChar, item);
 			}
 		}
-		// }
 	}
 
 	@Override

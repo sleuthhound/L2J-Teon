@@ -43,7 +43,6 @@ public class PcStat extends PlayableStat
 	// Data Field
 	private int _oldMaxHp; // stats watch
 	private int _oldMaxMp; // stats watch
-	private int _oldMaxCp; // stats watch
 
 	// =========================================================
 	// Constructor
@@ -58,28 +57,12 @@ public class PcStat extends PlayableStat
 	public boolean addExp(long value)
 	{
 		L2PcInstance activeChar = getActiveChar();
-		// Set new karma
-		if (!activeChar.isCursedWeaponEquiped() && (activeChar.getKarma() > 0) && (activeChar.isGM() || !activeChar.isInsideZone(L2Character.ZONE_PVP)))
-		{
-			int karmaLost = activeChar.calculateKarmaLost(value);
-			if (karmaLost > 0)
-			{
-				activeChar.setKarma(activeChar.getKarma() - karmaLost);
-			}
-		}
-		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP
-		// and is in party, don't give Xp
+		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
 		if (getActiveChar().isGM() && (getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP) && getActiveChar().isInParty())
-		{
 			return false;
-		}
-		if (!super.addExp(value))
-		{
-			return false;
-		}
-		/*
-		 * Micht : Use of UserInfo for C5 StatusUpdate su = new StatusUpdate(activeChar.getObjectId()); su.addAttribute(StatusUpdate.EXP, getExp()); activeChar.sendPacket(su);
-		 */
+
+		if (!super.addExp(value)) return false;
+
 		activeChar.sendPacket(new UserInfo(activeChar));
 		return true;
 	}
@@ -102,46 +85,41 @@ public class PcStat extends PlayableStat
 	public boolean addExpAndSp(long addToExp, int addToSp)
 	{
 		float ratioTakenByPet = 0;
-		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP
-		// and is in party, don't give Xp/Sp
+		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp/Sp
 		L2PcInstance activeChar = getActiveChar();
 		if (activeChar.isGM() && (activeChar.getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP) && activeChar.isInParty())
-		{
 			return false;
-		}
-		// if this player has a pet that takes from the owner's Exp, give the
-		// pet Exp now
+
+		// if this player has a pet that takes from the owner's Exp, give the pet Exp now
 		if (activeChar.getPet() instanceof L2PetInstance)
 		{
 			L2PetInstance pet = (L2PetInstance) activeChar.getPet();
+
 			ratioTakenByPet = pet.getPetData().getOwnerExpTaken();
-			// only give exp/sp to the pet by taking from the owner if the
-			// pet
-			// has a non-zero, positive ratio
-			// allow possible customizations that would have the pet earning
-			// more than 100% of the owner's exp/sp
+
+			// only give exp/sp to the pet by taking from the owner if the pet has a non-zero, positive ratio
+			// allow possible customizations that would have the pet earning more than 100% of the owner's exp/sp
 			if ((ratioTakenByPet > 0) && !pet.isDead())
-			{
 				pet.addExpAndSp((long) (addToExp * ratioTakenByPet), (int) (addToSp * ratioTakenByPet));
-			}
-			// now adjust the max ratio to avoid the owner earning negative
-			// exp/sp
+
+			// now adjust the max ratio to avoid the owner earning negative exp/sp
 			if (ratioTakenByPet > 1)
-			{
 				ratioTakenByPet = 1;
-			}
+
 			addToExp = (long) (addToExp * (1 - ratioTakenByPet));
+
 			addToSp = (int) (addToSp * (1 - ratioTakenByPet));
 		}
+
 		if (!super.addExpAndSp(addToExp, addToSp))
-		{
 			return false;
-		}
+
 		// Send a Server->Client System Message to the L2PcInstance
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
 		sm.addNumber((int) addToExp);
 		sm.addNumber(addToSp);
 		getActiveChar().sendPacket(sm);
+
 		return true;
 	}
 
@@ -149,9 +127,8 @@ public class PcStat extends PlayableStat
 	public boolean removeExpAndSp(long addToExp, int addToSp)
 	{
 		if (!super.removeExpAndSp(addToExp, addToSp))
-		{
 			return false;
-		}
+
 		// Send a Server->Client System Message to the L2PcInstance
 		SystemMessage sm = new SystemMessage(SystemMessageId.EXP_DECREASED_BY_S1);
 		sm.addNumber((int) addToExp);
@@ -165,11 +142,10 @@ public class PcStat extends PlayableStat
 	@Override
 	public final boolean addLevel(byte value)
 	{
-		if (getLevel() + value > Experience.MAX_LEVEL - 1)
-		{
-			return false;
-		}
+		if (getLevel() + value > Experience.MAX_LEVEL - 1) return false;
+
 		boolean levelIncreased = super.addLevel(value);
+
 		/** Remote Class By Daniemwx **/
 		if (Config.ALLOW_REMOTE_CLASS_MASTERS)
 		{
@@ -187,8 +163,13 @@ public class PcStat extends PlayableStat
         			if (qs != null)
         				qs.getQuest().notifyEvent("CE40", null, getActiveChar());
 			/**
-			 * If there are no characters on the server, the bonuses will be applied to the first character that becomes level 6 and end if this character reaches level 25 or above. If the first character that becomes level 6 is deleted, the rest of the characters may not receive the new character bonus If the first character to become level 6 loses a level, and the player makes another character
-			 * level 6, the bonus will be applied to only the first character to achieve level 6. If the character loses a level after reaching level 25, the character may not receive the bonus.
+			 * If there are no characters on the server,
+			 * the bonuses will be applied to the first character that becomes level 6 and end if this
+			 * character reaches level 25 or above. If the first character that becomes level 6 is deleted,
+			 * the rest of the characters may not receive the new character bonus If the first character
+			 * to become level 6 loses a level, and the player makes another character
+			 * level 6, the bonus will be applied to only the first character to achieve level 6.
+			 * If the character loses a level after reaching level 25, the character may not receive the bonus.
 			 */
 			if (!Config.ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE)
 			{
@@ -212,11 +193,9 @@ public class PcStat extends PlayableStat
 							statement1.close();
 							getActiveChar().setNewbie(true);
 							if (Config.DEBUG)
-							{
 								_log.info("New newbie character: " + getActiveChar().getCharId());
-							}
-						}
-						;
+						};
+
 						rset.close();
 						statement.close();
 					}
@@ -234,47 +213,41 @@ public class PcStat extends PlayableStat
 						{
 						}
 					}
-				}
-				;
+				};
+
 				if ((getActiveChar().getLevel() >= 25) && getActiveChar().isNewbie())
 				{
 					getActiveChar().setNewbie(false);
 					if (Config.DEBUG)
-					{
 						_log.info("Newbie character ended: " + getActiveChar().getCharId());
-					}
-				}
-				;
-			}
-			;
+				};
+			};
+
 			getActiveChar().setCurrentCp(getMaxCp());
 			getActiveChar().broadcastPacket(new SocialAction(getActiveChar().getObjectId(), 15));
 			getActiveChar().sendPacket(new SystemMessage(SystemMessageId.YOU_INCREASED_YOUR_LEVEL));
 		}
+
 		getActiveChar().rewardSkills(); // Give Expertise skill of this level
 		if (getActiveChar().getClan() != null)
 		{
 			getActiveChar().getClan().updateClanMember(getActiveChar());
 			getActiveChar().getClan().broadcastToOnlineMembers(new PledgeShowMemberListUpdate(getActiveChar()));
 		}
-		if (getActiveChar().isInParty())
-		{
-			getActiveChar().getParty().recalculatePartyLevel(); // Recalculate
-			// the party
-			// level
-		}
+		// Recalculate the party level
+		if (getActiveChar().isInParty()) getActiveChar().getParty().recalculatePartyLevel();
+
 		StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
 		su.addAttribute(StatusUpdate.LEVEL, getLevel());
 		su.addAttribute(StatusUpdate.MAX_CP, getMaxCp());
 		su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 		su.addAttribute(StatusUpdate.MAX_MP, getMaxMp());
 		getActiveChar().sendPacket(su);
-		// Update the overloaded status of the L2PcInstance
-		getActiveChar().refreshOverloaded();
-		// Update the expertise status of the L2PcInstance
-		getActiveChar().refreshExpertisePenalty();
-		// Send a Server->Client packet UserInfo to the L2PcInstance
-		getActiveChar().sendPacket(new UserInfo(getActiveChar()));
+
+		
+		getActiveChar().refreshOverloaded(); // Update the overloaded status of the L2PcInstance
+		getActiveChar().refreshExpertisePenalty(); // Update the expertise status of the L2PcInstance
+		getActiveChar().sendPacket(new UserInfo(getActiveChar())); // Send a Server->Client packet UserInfo to the L2PcInstance
 		return levelIncreased;
 	}
 
@@ -291,13 +264,12 @@ public class PcStat extends PlayableStat
 	@Override
 	public boolean addSp(int value)
 	{
-		if (!super.addSp(value))
-		{
-			return false;
-		}
+		if (!super.addSp(value)) return false;
+
 		StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
 		su.addAttribute(StatusUpdate.SP, getSp());
 		getActiveChar().sendPacket(su);
+
 		return true;
 	}
 
@@ -321,9 +293,7 @@ public class PcStat extends PlayableStat
 	public final long getExp()
 	{
 		if (getActiveChar().isSubClassActive())
-		{
 			return getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).getExp();
-		}
 		return super.getExp();
 	}
 
@@ -331,40 +301,29 @@ public class PcStat extends PlayableStat
 	public final void setExp(long value)
 	{
 		if (getActiveChar().isSubClassActive())
-		{
 			getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).setExp(value);
-		}
 		else
-		{
 			super.setExp(value);
-		}
 	}
 
 	@Override
-	public final byte getLevel()
+	public final /*byte*/int getLevel()
 	{
 		if (getActiveChar().isSubClassActive())
-		{
 			return getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).getLevel();
-		}
 		return super.getLevel();
 	}
 
 	@Override
-	public final void setLevel(byte value)
+	public final void setLevel(/*byte*/int value)
 	{
 		if (value > Experience.MAX_LEVEL - 1)
-		{
 			value = Experience.MAX_LEVEL - 1;
-		}
+
 		if (getActiveChar().isSubClassActive())
-		{
 			getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).setLevel(value);
-		}
 		else
-		{
 			super.setLevel(value);
-		}
 	}
 
 	@Override
@@ -375,15 +334,10 @@ public class PcStat extends PlayableStat
 		if (val != _oldMaxHp)
 		{
 			_oldMaxHp = val;
-			// Launch a regen task if the new Max HP is higher than the old
-			// one
+			// Launch a regen task if the new Max HP is higher than the old one
 			if (getActiveChar().getStatus().getCurrentHp() != val)
-			{
-				getActiveChar().getStatus().setCurrentHp(getActiveChar().getStatus().getCurrentHp()); // trigger
-				// start
-				// of
-				// regeneration
-			}
+				getActiveChar().getStatus().setCurrentHp(getActiveChar().getStatus().getCurrentHp());
+				// trigger start of regeneration
 		}
 		return val;
 	}
@@ -393,33 +347,14 @@ public class PcStat extends PlayableStat
 	{
 		// Get the Max MP (base+modifier) of the L2PcInstance
 		int val = super.getMaxMp();
+
 		if (val != _oldMaxMp)
 		{
 			_oldMaxMp = val;
-			// Launch a regen task if the new Max MP is higher than the old
-			// one
+			// Launch a regen task if the new Max MP is higher than the old one
 			if (getActiveChar().getStatus().getCurrentMp() != val)
-			{
-				getActiveChar().getStatus().setCurrentMp(getActiveChar().getStatus().getCurrentMp()); // trigger
-				// start
-				// of
-				// regeneration
-			}
-		}
-		return val;
-	}
-
-	@Override
-	public final int getMaxCp()
-	{
-		int val = super.getMaxCp();
-		if (val != _oldMaxCp)
-		{
-			_oldMaxCp = val;
-			if (getActiveChar().getStatus().getCurrentCp() != val)
-			{
-				getActiveChar().getStatus().setCurrentCp(getActiveChar().getStatus().getCurrentCp());
-			}
+				getActiveChar().getStatus().setCurrentMp(getActiveChar().getStatus().getCurrentMp());
+				// trigger start of regeneration
 		}
 		return val;
 	}
@@ -428,9 +363,7 @@ public class PcStat extends PlayableStat
 	public final int getSp()
 	{
 		if (getActiveChar().isSubClassActive())
-		{
 			return getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).getSp();
-		}
 		return super.getSp();
 	}
 
@@ -438,12 +371,8 @@ public class PcStat extends PlayableStat
 	public final void setSp(int value)
 	{
 		if (getActiveChar().isSubClassActive())
-		{
 			getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).setSp(value);
-		}
 		else
-		{
 			super.setSp(value);
-		}
 	}
 }

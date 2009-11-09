@@ -2120,31 +2120,29 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void setClassId(int Id)
 	{
-		if (getLvlJoinedAcademy() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
-		{
-			if (getLvlJoinedAcademy() <= 16)
-				_clan.setReputationScore(_clan.getReputationScore() + 400, true);
-			else if (getLvlJoinedAcademy() >= 39)
-				_clan.setReputationScore(_clan.getReputationScore() + 170, true);
-			else
-				_clan.setReputationScore(_clan.getReputationScore() + 400 - (getLvlJoinedAcademy() - 16) * 10, true);
-			_clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
-			setLvlJoinedAcademy(0);
-			// oust pledge member from the academy, cuz he has finished his 2nd class transfer
-			SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_EXPELLED);
-			msg.addString(getName());
-			_clan.broadcastToOnlineMembers(msg);
-			_clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()));
-			_clan.removeClanMember(getName(), 0);
-			sendPacket(new SystemMessage(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED));
-			// receive graduation gift
-			getInventory().addItem("Gift", 8181, 1, this, null); // give academy circlet
-			getInventory().updateDatabase(); // update database
-		}
-		if (isSubClassActive())
-			getSubClasses().get(_classIndex).setClassId(Id);
-		doCast(SkillTable.getInstance().getInfo(5103, 1));
-		setClassTemplate(Id);
+	     if (getLvlJoinedAcademy() != 0 && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
+	     {
+		if (getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore() + 400, true);
+		else if (getLvlJoinedAcademy() >= 39) _clan.setReputationScore(_clan.getReputationScore() + 170, true);
+		else _clan.setReputationScore(_clan.getReputationScore() + 400 - (getLvlJoinedAcademy() - 16) * 10, true);
+		_clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_clan));
+		setLvlJoinedAcademy(0);
+		// oust pledge member from the academy, cuz he has finished his 2nd class transfer
+		SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_EXPELLED);
+		msg.addString(getName());
+		_clan.broadcastToOnlineMembers(msg);
+		_clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()));
+		_clan.removeClanMember(getName(), 0);
+		sendPacket(new SystemMessage(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED));
+
+		// receive graduation gift
+		getInventory().addItem("Gift", 8181, 1, this, null); // give academy circlet
+		getInventory().updateDatabase(); // update database
+	     }
+	     if (isSubClassActive())
+		getSubClasses().get(_classIndex).setClassId(Id);
+	     doCast(SkillTable.getInstance().getInfo(5103, 1));
+	     setClassTemplate(Id);
 	}
 
 	/** Return the Experience of the L2PcInstance. */
@@ -2392,6 +2390,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		if (!isSubClassActive())
 			return getTemplate().race;
+
 		L2PcTemplate charTemp = CharTemplateTable.getInstance().getTemplate(_baseClass);
 		return charTemp.race;
 	}
@@ -5704,11 +5703,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				return false;
 			}
-			// Remove augementation boni on unequip
-			if (wpn.isAugmented())
-			{
-				wpn.getAugmentation().removeBoni(this);
-			}
 			L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (int i = 0; i < unequiped.length; i++)
@@ -6347,21 +6341,15 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (activeClassId != player.getBaseClass())
 					{
 						for (SubClass subClass : player.getSubClasses().values())
-						{
 							if (subClass.getClassId() == activeClassId)
-							{
 								player._classIndex = subClass.getClassIndex();
-							}
-						}
 					}
 				}
 				if ((player.getClassIndex() == 0) && (activeClassId != player.getBaseClass()))
 				{
 					// Subclass in use but doesn't exist in DB -
 					// a possible restart-while-modifysubclass cheat has
-					// been
-					// attempted.
-					// Switching to use base class
+					// been attempted. Switching to use base class
 					player.setClassId(player.getBaseClass());
 					_log.warning("Player " + player.getName() + " reverted to base class. Possibly has tried a relogin exploit while subclassing.");
 				}
@@ -6517,8 +6505,8 @@ public final class L2PcInstance extends L2PlayableInstance
 				subClass.setExp(rset.getLong("exp"));
 				subClass.setSp(rset.getInt("sp"));
 				subClass.setClassIndex(rset.getInt("class_index"));
-				// Enforce the correct indexing of _subClasses against their
-				// class indexes.
+
+				// Enforce the correct indexing of _subClasses against their class indexes.
 				player.getSubClasses().put(subClass.getClassIndex(), subClass);
 			}
 			statement.close();
@@ -6546,29 +6534,25 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	private void restoreCharData()
 	{
-		// Retrieve from the database all skills of this L2PcInstance and add
-		// them to _skills.
+		// Retrieve from the database all skills of this L2PcInstance and add them to _skills.
 		restoreSkills();
-		// Retrieve from the database all macroses of this L2PcInstance and add
-		// them to _macroses.
+
+		// Retrieve from the database all macroses of this L2PcInstance and add them to _macroses.
 		_macroses.restore();
-		// Retrieve from the database all shortCuts of this L2PcInstance and add
-		// them to _shortCuts.
+
+		// Retrieve from the database all shortCuts of this L2PcInstance and add them to _shortCuts.
 		_shortCuts.restore();
-		// Retrieve from the database all henna of this L2PcInstance and add
-		// them to _henna.
+
+		// Retrieve from the database all henna of this L2PcInstance and add them to _henna.
 		restoreHenna();
-		// Retrieve from the database all recom data of this L2PcInstance and
-		// add to _recomChars.
+
+		// Retrieve from the database all recom data of this L2PcInstance and add to _recomChars.
 		if (Config.ALT_RECOMMEND)
-		{
 			restoreRecom();
-		}
+
 		// Retrieve from the database the recipe book of this L2PcInstance.
 		if (!isSubClassActive())
-		{
 			restoreRecipeBook();
-		}
 	}
 
 	/**
@@ -6576,16 +6560,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	private void storeRecipeBook()
 	{
-		// If the player is on a sub-class don't even attempt to store a recipe
-		// book.
+		// If the player is on a sub-class don't even attempt to store a recipe book.
 		if (isSubClassActive())
-		{
 			return;
-		}
+
 		if ((getCommonRecipeBook().length == 0) && (getDwarvenRecipeBook().length == 0))
-		{
 			return;
-		}
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -6681,9 +6662,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		// update client coords, if these look like true
 		if (isInsideRadius(getClientX(), getClientY(), 1000, true))
-		{
 			setXYZ(getClientX(), getClientY(), getClientZ());
-		}
+
 		storeCharBase();
 		storeCharSub();
 		storeEffect();
@@ -6693,18 +6673,20 @@ public final class L2PcInstance extends L2PlayableInstance
 	private void storeCharBase()
 	{
 		java.sql.Connection con = null;
+
 		try
 		{
-			// Get the exp, level, and sp of base class to store in base
-			// table
+			// Get the exp, level, and sp of base class to store in base table
 			int currentClassIndex = getClassIndex();
 			_classIndex = 0;
 			long exp = getStat().getExp();
 			int level = getStat().getLevel();
 			int sp = getStat().getSp();
 			_classIndex = currentClassIndex;
+
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
+
 			// Update base class
 			statement = con.prepareStatement(UPDATE_CHARACTER);
 			statement.setInt(1, level);
@@ -6738,9 +6720,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(29, getClanId());
 			statement.setInt(30, getMaxLoad());
 			statement.setInt(31, getRace().ordinal());
-			// if (!isSubClassActive())
-			// else
-			// statement.setInt(30, getBaseTemplate().race.ordinal());
 			statement.setInt(32, getClassId().getId());
 			statement.setLong(33, getDeleteTimer());
 			statement.setString(34, getTitle());
@@ -6750,11 +6729,12 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(38, getClanPrivileges());
 			statement.setInt(39, getWantsPeace());
 			statement.setInt(40, getBaseClass());
+
 			long totalOnlineTime = _onlineTime;
+
 			if (_onlineBeginTime > 0)
-			{
 				totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
-			}
+
 			statement.setLong(41, totalOnlineTime);
 			statement.setInt(42, isInJail() ? 1 : 0);
 			statement.setLong(43, getJailTimer());
@@ -6777,6 +6757,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(60, isKoof() ? 1 : 0);
 			statement.setInt(61, isNoob() ? 1 : 0);
 			statement.setInt(62, getObjectId());
+
 			statement.execute();
 			statement.close();
 		}
@@ -6838,9 +6819,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	private void storeEffect()
 	{
 		if (!Config.STORE_SKILL_COOLTIME)
-		{
 			return;
-		}
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -6954,28 +6934,20 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public L2Skill addSkill(L2Skill newSkill, boolean store)
 	{
-		// Add a skill to the L2PcInstance _skills and its Func objects to the
-		// calculator set of the L2PcInstance
+		// Add a skill to the L2PcInstance _skills and its Func objects to the calculator set of the L2PcInstance
 		L2Skill oldSkill = super.addSkill(newSkill);
-		// Add or update a L2PcInstance skill in the character_skills table of
-		// the database
-		if (store)
-		{
-			storeSkill(newSkill, oldSkill, -1);
-		}
+
+		// Add or update a L2PcInstance skill in the character_skills table of the database
+		if (store) storeSkill(newSkill, oldSkill, -1);
+
 		return oldSkill;
 	}
-
 	public L2Skill removeSkill(L2Skill skill, boolean store)
 	{
 		if (store)
-		{
 			return removeSkill(skill);
-		}
 		else
-		{
 			return super.removeSkill(skill);
-		}
 	}
 
 	/**
@@ -7001,17 +6973,17 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public L2Skill removeSkill(L2Skill skill)
 	{
-		// Remove a skill from the L2Character and its Func objects from
-		// calculator set of the L2Character
+		// Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
 		L2Skill oldSkill = super.removeSkill(skill);
+
 		java.sql.Connection con = null;
+
 		try
 		{
-			// Remove or update a L2PcInstance skill from the
-			// character_skills
-			// table of the database
+			// Remove or update a L2PcInstance skill from the character_skills table of the database
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
+
 			if (oldSkill != null)
 			{
 				statement = con.prepareStatement(DELETE_SKILL_FROM_CHAR);
@@ -7037,12 +7009,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		L2ShortCut[] allShortCuts = getAllShortCuts();
+
 		for (L2ShortCut sc : allShortCuts)
 		{
 			if ((sc != null) && (skill != null) && (sc.getId() == skill.getId()) && (sc.getType() == L2ShortCut.TYPE_SKILL))
-			{
 				deleteShortCut(sc.getSlot(), sc.getPage());
-			}
 		}
 		return oldSkill;
 	}
@@ -7055,15 +7026,17 @@ public final class L2PcInstance extends L2PlayableInstance
 	private void storeSkill(L2Skill newSkill, L2Skill oldSkill, int newClassIndex)
 	{
 		int classIndex = _classIndex;
+
 		if (newClassIndex > -1)
-		{
 			classIndex = newClassIndex;
-		}
+
 		java.sql.Connection con = null;
+
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
+
 			if ((oldSkill != null) && (newSkill != null))
 			{
 				statement = con.prepareStatement(UPDATE_CHARACTER_SKILL_LEVEL);
@@ -7135,8 +7108,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					// Create a L2Skill object for each record
 					L2Skill skill = SkillTable.getInstance().getInfo(id, level);
 					// Add the L2Skill object to the L2Character _skills and
-					// its
-					// Func objects to the calculator set of the L2Character
+					// its Func objects to the calculator set of the L2Character
 					super.addSkill(skill);
 				}
 				rset.close();
@@ -7198,14 +7170,20 @@ public final class L2PcInstance extends L2PlayableInstance
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
 			ResultSet rset;
+
 			/**
-			 * Restore Type 0 These skill were still in effect on the character upon logout. Some of which were self casted and might still have had a long reuse delay which also is restored.
-			 */
+			*  Restore Type 0
+			*  These skill were still in effect on the character
+			*  upon logout. Some of which were self casted and
+			*  might still have had a long reuse delay which also
+			*  is restored.
+			*/
 			statement = con.prepareStatement(RESTORE_SKILL_SAVE);
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getClassIndex());
 			statement.setInt(3, 0);
 			rset = statement.executeQuery();
+
 			while (rset.next())
 			{
 				int skillId = rset.getInt("skill_id");
@@ -7213,26 +7191,23 @@ public final class L2PcInstance extends L2PlayableInstance
 				int effectCount = rset.getInt("effect_count");
 				int effectCurTime = rset.getInt("effect_cur_time");
 				long reuseDelay = rset.getLong("reuse_delay");
+
 				// Just incase the admin minipulated this table incorrectly :x
-				if ((skillId == -1) || (effectCount == -1) || (effectCurTime == -1) || (reuseDelay < 0))
-				{
-					continue;
-				}
+				if (skillId == -1 || effectCount == -1 || effectCurTime == -1 || reuseDelay < 0) continue;
+
 				L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
 				ISkillHandler IHand = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 				if (IHand != null)
-				{
 					IHand.useSkill(this, skill, targets);
-				}
 				else
-				{
 					skill.useSkill(this, targets);
-				}
+
 				if (reuseDelay > 10)
 				{
 					disableSkill(skillId, reuseDelay);
 					addTimeStamp(new TimeStamp(skillId, reuseDelay));
 				}
+
 				for (L2Effect effect : getAllEffects())
 				{
 					if (effect.getSkill().getId() == skillId)
@@ -7244,27 +7219,31 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			rset.close();
 			statement.close();
+
 			/**
-			 * Restore Type 1 The remaning skills lost effect upon logout but were still under a high reuse delay.
+			 * Restore Type 1
+			 * The remaning skills lost effect upon logout but
+			 * were still under a high reuse delay.
 			 */
 			statement = con.prepareStatement(RESTORE_SKILL_SAVE);
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getClassIndex());
 			statement.setInt(3, 1);
 			rset = statement.executeQuery();
+
 			while (rset.next())
 			{
 				int skillId = rset.getInt("skill_id");
 				long reuseDelay = rset.getLong("reuse_delay");
-				if (reuseDelay <= 0)
-				{
-					continue;
-				}
+
+				if (reuseDelay <= 0) continue;
+
 				disableSkill(skillId, reuseDelay);
 				addTimeStamp(new TimeStamp(skillId, reuseDelay));
 			}
 			rset.close();
 			statement.close();
+
 			statement = con.prepareStatement(DELETE_SKILL_SAVE);
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getClassIndex());
@@ -7295,6 +7274,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private void restoreHenna()
 	{
 		java.sql.Connection con = null;
+
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -7302,22 +7282,25 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(1, getObjectId());
 			statement.setInt(2, getClassIndex());
 			ResultSet rset = statement.executeQuery();
+
 			for (int i = 0; i < 3; i++)
-			{
 				_henna[i] = null;
-			}
+
 			while (rset.next())
 			{
 				int slot = rset.getInt("slot");
+
 				if ((slot < 1) || (slot > 3))
-				{
-					continue;
-				}
+                    			continue;
+
 				int symbol_id = rset.getInt("symbol_id");
+
 				L2HennaInstance sym = null;
+
 				if (symbol_id != 0)
 				{
 					L2Henna tpl = HennaTable.getInstance().getTemplate(symbol_id);
+
 					if (tpl != null)
 					{
 						sym = new L2HennaInstance(tpl);
@@ -7325,6 +7308,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					}
 				}
 			}
+
 			rset.close();
 			statement.close();
 		}
@@ -9645,19 +9629,22 @@ public final class L2PcInstance extends L2PlayableInstance
 	public boolean addSubClass(int classId, int classIndex)
 	{
 		if ((getTotalSubClasses() == Config.MAX_SUBCLASSES) || (classIndex == 0))
-		{
 			return false;
-		}
+
 		if (getSubClasses().containsKey(classIndex))
-		{
 			return false;
-		}
-		// Note: Never change _classIndex in any method other than
-		// setActiveClass().
+
+		// Note: Never change _classIndex in any method other than setActiveClass().
+
 		SubClass newClass = new SubClass();
 		newClass.setClassId(classId);
 		newClass.setClassIndex(classIndex);
+		newClass.setLevel(getLevel());
+		newClass.setExp(getExp());
+		newClass.setSp(getSp());
+
 		java.sql.Connection con = null;
+
 		try
 		{
 			// Store the basic info about this new sub-class.
@@ -9669,6 +9656,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.setInt(4, newClass.getSp());
 			statement.setInt(5, newClass.getLevel());
 			statement.setInt(6, newClass.getClassIndex()); // <-- Added
+
 			statement.execute();
 			statement.close();
 		}
@@ -9689,35 +9677,36 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		// Commit after database INSERT incase exception is thrown.
 		getSubClasses().put(newClass.getClassIndex(), newClass);
+
 		if (Config.DEBUG)
-		{
 			_log.info(getName() + " added class ID " + classId + " as a sub class at index " + classIndex + ".");
-		}
+
 		ClassId subTemplate = ClassId.values()[classId];
 		Collection<L2SkillLearn> skillTree = SkillTreeTable.getInstance().getAllowedSkills(subTemplate);
+
 		if (skillTree == null)
-		{
 			return true;
-		}
+
 		Map<Integer, L2Skill> prevSkillList = new FastMap<Integer, L2Skill>();
+
 		for (L2SkillLearn skillInfo : skillTree)
 		{
-			if (skillInfo.getMinLevel() <= 40)
+			if (skillInfo.getMinLevel() <= 15)
 			{
 				L2Skill prevSkill = prevSkillList.get(skillInfo.getId());
 				L2Skill newSkill = SkillTable.getInstance().getInfo(skillInfo.getId(), skillInfo.getLevel());
-				if ((prevSkill != null) && (prevSkill.getLevel() > newSkill.getLevel()))
-				{
+
+				if (prevSkill != null && (prevSkill.getLevel() > newSkill.getLevel()))
 					continue;
-				}
+
 				prevSkillList.put(newSkill.getId(), newSkill);
 				storeSkill(newSkill, prevSkill, classIndex);
 			}
 		}
+
 		if (Config.DEBUG)
-		{
 			_log.info(getName() + " was given " + getAllSkills().length + " skills for their new sub class.");
-		}
+
 		return true;
 	}
 
@@ -9802,9 +9791,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	public Map<Integer, SubClass> getSubClasses()
 	{
 		if (_subClasses == null)
-		{
 			_subClasses = new FastMap<Integer, SubClass>();
-		}
+
 		return _subClasses;
 	}
 
@@ -9831,12 +9819,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	private void setClassTemplate(int classId)
 	{
 		_activeClass = classId;
+
 		L2PcTemplate t = CharTemplateTable.getInstance().getTemplate(classId);
+
 		if (t == null)
 		{
 			_log.severe("Missing template for classId: " + classId);
 			throw new Error();
 		}
+
 		// Set the template of the L2PcInstance
 		setTemplate(t);
 	}
@@ -9850,39 +9841,19 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean setActiveClass(int classIndex)
 	{
-		L2ItemInstance rhand = getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-		if (rhand != null)
-		{
-			L2ItemInstance[] unequipped = getInventory().unEquipItemInBodySlotAndRecord(rhand.getItem().getBodyPart());
-			InventoryUpdate iu = new InventoryUpdate();
-			for (L2ItemInstance element : unequipped)
-				iu.addModifiedItem(element);
-			sendPacket(iu);
-		}
-		L2ItemInstance lhand = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
-		if (lhand != null)
-		{
-			L2ItemInstance[] unequipped = getInventory().unEquipItemInBodySlotAndRecord(lhand.getItem().getBodyPart());
-			InventoryUpdate iu = new InventoryUpdate();
-			for (L2ItemInstance element : unequipped)
-				iu.addModifiedItem(element);
-			sendPacket(iu);
-		}
-		L2ItemInstance under = getInventory().getPaperdollItem(Inventory.PAPERDOLL_UNDER);
-		if (under != null)
-		{
-			L2ItemInstance[] unequipped = getInventory().unEquipItemInBodySlotAndRecord(under.getItem().getBodyPart());
-			InventoryUpdate iu = new InventoryUpdate();
-			for (L2ItemInstance element : unequipped)
-				iu.addModifiedItem(element);
-			sendPacket(iu);
-		}
+		for (L2ItemInstance temp : getInventory().getAugmentedItems())
+			if (temp != null && temp.isEquipped()) temp.getAugmentation().removeBonus(this);
+
 		// Delete a force buff upon class change.
 		if (_forceBuff != null)
 			abortCast();
-		/*
-		 * 1. Call store() before modifying _classIndex to avoid skill effects rollover. 2. Register the correct _classId against applied 'classIndex'.
-		 */
+
+		for(L2Character character : getKnownList().getKnownCharacters())
+		{
+			if(character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+				character.abortCast();
+		}
+
 		store();
 		if (classIndex == 0)
 		{
@@ -9901,18 +9872,25 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		_classIndex = classIndex;
+
 		if (isInParty())
-		{
 			getParty().recalculatePartyLevel();
-		}
 		/*
-		 * Update the character's change in class status. 1. Remove any active cubics from the player. 2. Renovate the characters table in the database with the new class info, storing also buff/effect data. 3. Remove all existing skills. 4. Restore all the learned skills for the current class from the database. 5. Restore effect/buff data for the new class. 6. Restore henna data for the class,
-		 * applying the new stat modifiers while removing existing ones. 7. Reset HP/MP/CP stats and send Server->Client character status packet to reflect changes. 8. Restore shortcut data related to this class. 9. Resend a class change animation effect to broadcast to all nearby players. 10.Unsummon any active servitor from the player.
+		 * Update the character's change in class status.
+		 * 1. Remove any active cubics from the player.
+		 * 2. Renovate the characters table in the database with the new class info, storing also buff/effect data.
+		 * 3. Remove all existing skills.
+		 * 4. Restore all the learned skills for the current class from the database.
+		 * 5. Restore effect/buff data for the new class.
+		 * 6. Restore henna data for the class, applying the new stat modifiers while removing existing ones.
+		 * 7. Reset HP/MP/CP stats and send Server->Client character status packet to reflect changes.
+		 * 8. Restore shortcut data related to this class.
+		 * 9. Resend a class change animation effect to broadcast to all nearby players.
+		 * 10.Unsummon any active servitor from the player.
 		 */
 		if ((getPet() != null) && (getPet() instanceof L2SummonInstance))
-		{
 			getPet().unSummon(this);
-		}
+
 		if (getCubics().size() > 0)
 		{
 			for (L2CubicInstance cubic : getCubics().values())
@@ -9922,16 +9900,18 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			getCubics().clear();
 		}
+
 		for (L2Skill oldSkill : getAllSkills())
 		{
 			super.removeSkill(oldSkill);
 		}
+
 		// Yesod: Rebind CursedWeapon passive.
 		if (isCursedWeaponEquiped())
-		{
 			CursedWeaponsManager.getInstance().givePassive(_cursedWeaponEquipedId);
-		}
+
 		stopAllEffects();
+
 		if (isSubClassActive())
 		{
 			_dwarvenRecipeBook.clear();
@@ -9947,41 +9927,34 @@ public final class L2PcInstance extends L2PlayableInstance
 		regiveTemporarySkills();
 		rewardSkills();
 		if (Config.RESTORE_EFFECTS_ON_SUBCLASS_CHANGE)
-		{
 			restoreEffects();
-		}
 		sendPacket(new EtcStatusUpdate(this));
+
 		// if player has quest 422: Repent Your Sins, remove it
 		QuestState st = getQuestState("422_RepentYourSins");
+
 		if (st != null)
 		{
 			st.exitQuest(true);
 		}
+
 		for (int i = 0; i < 3; i++)
-		{
 			_henna[i] = null;
-		}
+
 		restoreHenna();
 		sendPacket(new HennaInfo(this));
+
 		if (getCurrentHp() > getMaxHp())
-		{
 			setCurrentHp(getMaxHp());
-		}
 		if (getCurrentMp() > getMaxMp())
-		{
 			setCurrentMp(getMaxMp());
-		}
 		if (getCurrentCp() > getMaxCp())
-		{
 			setCurrentCp(getMaxCp());
-		}
 		broadcastUserInfo();
 		refreshOverloaded();
 		refreshExpertisePenalty();
 		// Clear resurrect xp calculation
 		setExpBeforeDeath(0);
-		// _macroses.restore();
-		// _macroses.sendUpdate();
 		_shortCuts.restore();
 		sendPacket(new ShortCutInit(this));
 		broadcastPacket(new SocialAction(getObjectId(), 15));
@@ -10002,22 +9975,17 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void startWarnUserTakeBreak()
 	{
 		if (_taskWarnUserTakeBreak == null)
-		{
 			_taskWarnUserTakeBreak = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new WarnUserTakeBreak(), 7200000, 7200000);
-		}
 	}
 
 	public void stopRentPet()
 	{
 		if (_taskRentPet != null)
 		{
-			// if the rent of a wyvern expires while over a flying zone, tp
-			// to
-			// down before unmounting
+			// if the rent of a wyvern expires while over a flying zone, tp to down before unmounting
 			if (checkLandingState() && (getMountType() == 2))
-			{
 				teleToLocation(MapRegionTable.TeleportWhereType.Town);
-			}
+
 			if (setMountType(0)) // this should always be true now, since we teleported already
 			{
 				_taskRentPet.cancel(true);
@@ -10032,17 +10000,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void startRentPet(int seconds)
 	{
 		if (_taskRentPet == null)
-		{
 			_taskRentPet = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RentPetTask(), seconds * 1000L, seconds * 1000L);
-		}
 	}
 
 	public boolean isRentedPet()
 	{
 		if (_taskRentPet != null)
-		{
 			return true;
-		}
+
 		return false;
 	}
 
@@ -10051,6 +10016,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (_taskWater != null)
 		{
 			_taskWater.cancel(false);
+
 			_taskWater = null;
 			sendPacket(new SetupGauge(2, 0));
 		}
@@ -10061,6 +10027,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (!isDead() && (_taskWater == null))
 		{
 			int timeinwater = (int) calcStat(Stats.BREATH, 60000, this, null);
+
 			sendPacket(new SetupGauge(2, timeinwater));
 			_taskWater = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new WaterTask(), timeinwater, 1000);
 		}
@@ -10069,9 +10036,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	public boolean isInWater()
 	{
 		if (_taskWater != null)
-		{
 			return true;
-		}
+
 		return false;
 	}
 
@@ -10086,6 +10052,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void onPlayerEnter()
 	{
 		startWarnUserTakeBreak();
+
 		if (SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod())
 		{
 			if (!isGM() && isIn7sDungeon() && SevenSigns.getInstance().getPlayerCabal(this) != SevenSigns.getInstance().getCabalHighestScore())
@@ -10125,13 +10092,15 @@ public final class L2PcInstance extends L2PlayableInstance
 		Calendar check = Calendar.getInstance();
 		check.setTimeInMillis(_lastRecomUpdate);
 		check.add(Calendar.DAY_OF_MONTH, 1);
+
 		Calendar min = Calendar.getInstance();
+
 		_recomHave = recsHave;
 		_recomLeft = recsLeft;
+
 		if ((getStat().getLevel() < 10) || check.after(min))
-		{
 			return;
-		}
+
 		restartRecom();
 	}
 
@@ -10147,6 +10116,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				statement.setInt(1, getObjectId());
 				statement.execute();
 				statement.close();
+
 				_recomChars.clear();
 			}
 			catch (Exception e)
@@ -10179,17 +10149,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			_recomLeft = 9;
 			_recomHave -= 3;
 		}
-		if (_recomHave < 0)
-		{
-			_recomHave = 0;
-		}
-		// If we have to update last update time, but it's now before 13, we
-		// should set it to yesterday
+		if (_recomHave < 0) _recomHave = 0;
+
+		// If we have to update last update time, but it's now before 13, we should set it to yesterday
 		Calendar update = Calendar.getInstance();
-		if (update.get(Calendar.HOUR_OF_DAY) < 13)
-		{
-			update.add(Calendar.DAY_OF_MONTH, -1);
-		}
+		if (update.get(Calendar.HOUR_OF_DAY) < 13) update.add(Calendar.DAY_OF_MONTH, -1);
 		update.set(Calendar.HOUR_OF_DAY, 13);
 		_lastRecomUpdate = update.getTimeInMillis();
 	}
@@ -10202,12 +10166,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		sendPacket(new EtcStatusUpdate(this));
 		_reviveRequested = 0;
 		_revivePower = 0;
+
 		if (isInParty() && getParty().isInDimensionalRift())
 		{
 			if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
-			{
 				getParty().getDimensionalRift().memberRessurected(this);
-			}
 		}
 	}
 
@@ -10226,41 +10189,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (_revivePet == Pet)
 			{
-				Reviver.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection
-				// is
-				// already
-				// been
-				// proposed.
+				Reviver.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
 			}
 			else
 			{
 				if (Pet)
-				{
-					Reviver.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_RES)); // A
-					// pet
-					// cannot
-					// be
-					// resurrected
-					// while it's
-					// owner is in
-					// the process
-					// of
-					// resurrecting.
-				}
+					Reviver.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_RES)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
 				else
-				{
-					Reviver.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While
-					// a
-					// pet is
-					// attempting
-					// to
-					// resurrect,
-					// it cannot
-					// help in
-					// resurrecting
-					// its
-					// master.
-				}
+					Reviver.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
 			}
 			return;
 		}
@@ -10268,13 +10204,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			_reviveRequested = 1;
 			if (skill == null)
-			{
 				_revivePower = 100;
-			}
 			else
-			{
 				_revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getWIT());
-			}
 			_revivePet = Pet;
 			ConfirmDlg dlg = new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId());
 			sendPacket(dlg.addString(Reviver.getName()).addString(((int) _revivePower) + " %"));
@@ -10284,32 +10216,22 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void reviveAnswer(int answer)
 	{
 		if ((_reviveRequested != 1) || (!isDead() && !_revivePet) || (_revivePet && (getPet() != null) && !getPet().isDead()))
-		{
 			return;
-		}
 		if (answer == 1)
 		{
 			if (!_revivePet)
 			{
 				if (_revivePower != 0)
-				{
 					doRevive(_revivePower);
-				}
 				else
-				{
 					doRevive();
-				}
 			}
 			else if (getPet() != null)
 			{
 				if (_revivePower != 0)
-				{
 					getPet().doRevive(_revivePower);
-				}
 				else
-				{
 					getPet().doRevive();
-				}
 			}
 		}
 		_reviveRequested = 0;

@@ -85,6 +85,12 @@ public final class RequestActionUse extends L2GameClientPacket
 			getClient().sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+	        // don't do anything if player is casting
+	        if (activeChar.isCastingNow())
+	        {
+	        	getClient().sendPacket(ActionFailed.STATIC_PACKET);
+	            return;
+	        }
 		L2Summon pet = activeChar.getPet();
 		L2Object target = activeChar.getTarget();
 		if (Config.DEBUG)
