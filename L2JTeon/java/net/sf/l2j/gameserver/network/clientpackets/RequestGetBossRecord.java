@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ExGetBossRecord;
 /**
  * Format: (ch) d
  * @author  -Wooden-
- *
  */
 public class RequestGetBossRecord extends L2GameClientPacket
 {

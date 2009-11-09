@@ -22,7 +22,7 @@ import java.util.Map;
  */
 public class ExGetBossRecord extends L2GameServerPacket
 {
-	private static final String _S__FE_33_EXGETBOSSRECORD = "[S] FE:34 ExGetBossRecord";
+	private static final String _S__FE_33_EXGETBOSSRECORD = "[S] FE:33 ExGetBossRecord";
 	private Map<Integer, Integer> _bossRecordInfo;
 	private int _ranking;
 	private int _totalPoints;
@@ -40,8 +40,8 @@ public class ExGetBossRecord extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xfe);
-		writeH(0x34);
+		writeC(0xFE);
+		writeH(0x33);
 		writeD(_ranking);
 		writeD(_totalPoints);
 		if (_bossRecordInfo == null)

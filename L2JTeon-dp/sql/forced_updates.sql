@@ -1296,3 +1296,8 @@ INSERT INTO droplist VALUES
 (29069,8613,4,36,13,700000),
 (29069,8614,4,36,14,700000);
 
+-- varka area faction update 
+UPDATE `npc` SET `faction_Id` = "varka_others", `faction_range` = '300' WHERE (`faction_Id` = "varka" AND `id` NOT IN (21350, 21351, 21353, 21354, 21355, 21357, 21358, 21360, 21361, 21362, 21369, 21370, 21364, 21365, 21366, 21368, 21371, 21372, 21373, 21374, 21375));
+
+-- ketra area faction update
+UPDATE `npc` SET `faction_Id` = "ketra_others", `faction_range` = '300' WHERE (`faction_Id` = "ketra" AND `id` NOT IN (21324, 21325, 21327, 21328, 21329, 21331, 21332, 21334, 21335, 21336, 21338, 21339, 21340, 21342, 21343, 21344, 21345, 21346, 21347, 21348, 21349));

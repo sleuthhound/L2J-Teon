@@ -655,13 +655,12 @@ public class L2Clan
 	}
 
 	/**
-	 * @param player
-	 *            name
+	 * @param player name
 	 * @return
 	 */
-	public boolean isMember(String name)
+	public boolean isMember(int id)
 	{
-		return name == null ? false : _members.containsKey(name);
+		return (id == 0 ? false :_members.containsKey(id));
 	}
 
 	public void updateClanInDB()
