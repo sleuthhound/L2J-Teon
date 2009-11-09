@@ -1,8 +1,8 @@
 ######################################################################################################
-#                                           L2jOneo Pathnode                                         #
+#                                           L2jTeon Pathnode                                         #
 #                                                                                                    #
 #                                      All files are integral part                                   # 
-#                                        part of l2jOneo server.                                     #
+#                                        part of l2jTeon server.                                     #
 #                                                                                                    #
 #                                                                                                    #
 #                                       To make geodata  working                                     #
@@ -12,7 +12,7 @@
 #                                                                                                    #
 #                                      Current link to Pathnode files:                               #
 #                                                                                                    #
-#http://tools.assembla.com/oneoteam/browser/Geodata_Pathnode_development/L2JOneo_Pathnode_development#
+#      http://my-trac.assembla.com/L2JTeon/browser/Branch/GeoData%20and%20PathFinding/pathnode       #
 #                                                                                                    #
 ######################################################################################################
 
