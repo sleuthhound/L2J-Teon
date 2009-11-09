@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.entity.Npcbuffer;
+import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
@@ -98,6 +99,21 @@ public class L2BuffInstance extends L2NpcInstance
 			L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(st.nextToken()), client, false, 0.0D);
 			bFail = false;
 		}
+		else if (command.startsWith("Quest"))
+		{
+			String quest = "";
+			try
+			{
+				quest = command.substring(5).trim();
+			}
+			catch (IndexOutOfBoundsException ioobe)
+			{
+			}
+			if (quest.length() == 0)
+				showQuestWindow(client);
+			else
+				showQuestWindow(client, quest);
+		}
 		if (bFail)
 			client.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -111,7 +127,7 @@ public class L2BuffInstance extends L2NpcInstance
 			TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">Buffer Information</font></center>");
 			html1.append("<br><br><br>");
 			html1.append((new StringBuilder("<br1><a action=\"bypass -h npc_")).append(getObjectId()).append("_reload\">Reload buff.txt</a>").toString());
-			html1.append((new StringBuilder("<br1><a action=\"bypass -h npc_")).append(getObjectId()).append("_storefavs\">Force to save fav.txt</a>").toString());
+			html1.append((new StringBuilder("<br1><a action=\"bypass -h npc_")).append(getObjectId()).append("_storefavs\">Force to save fav.txt</a><br>").toString());
 			html1.append("<br1><a action=\"bypass -h admin_kill\">Kill</a>");
 			html1.append("<br1><a action=\"bypass -h admin_delete\">Delete</a>");
 			html1.append("Respawn Time: " + (getSpawn() != null ? getSpawn().getRespawnDelay() / 1000 + "  Seconds<br>" : "?  Seconds<br>"));

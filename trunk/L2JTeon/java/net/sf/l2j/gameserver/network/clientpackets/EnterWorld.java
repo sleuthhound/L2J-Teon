@@ -209,10 +209,10 @@ public class EnterWorld extends L2GameClientPacket
 				}
 			}
 		}
-		// apply augmentation boni for equipped items
+		// apply augmentation bonus for equipped items
 		for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
 			if ((temp != null) && temp.isEquipped())
-				temp.getAugmentation().applyBoni(activeChar);
+				temp.getAugmentation().applyBonus(activeChar);
 		// Expand Skill
 		ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);
 		activeChar.sendPacket(esmc);

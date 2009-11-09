@@ -79,9 +79,9 @@ public final class L2Augmentation
 			}
 		}
 
-		public void applyBoni(L2PcInstance player)
+		public void applyBonus(L2PcInstance player)
 		{
-			// make sure the boni are not applyed twice..
+			// make sure the Bonus are not applyed twice..
 			if (_active)
 				return;
 			for (int i = 0; i < _stats.length; i++)
@@ -89,9 +89,9 @@ public final class L2Augmentation
 			_active = true;
 		}
 
-		public void removeBoni(L2PcInstance player)
+		public void removeBonus(L2PcInstance player)
 		{
-			// make sure the boni is not removed twice
+			// make sure the Bonus is not removed twice
 			if (!_active)
 				return;
 			((L2Character) player).removeStatsOwner(this);
@@ -183,13 +183,13 @@ public final class L2Augmentation
 	}
 
 	/**
-	 * Applys the boni to the player.
+	 * Applys the Bonus to the player.
 	 * 
 	 * @param player
 	 */
-	public void applyBoni(L2PcInstance player)
+	public void applyBonus(L2PcInstance player)
 	{
-		_boni.applyBoni(player);
+		_boni.applyBonus(player);
 		// add the skill if any
 		if (_skill != null)
 		{
@@ -199,13 +199,13 @@ public final class L2Augmentation
 	}
 
 	/**
-	 * Removes the augmentation boni from the player.
+	 * Removes the augmentation Bonus from the player.
 	 * 
 	 * @param player
 	 */
-	public void removeBoni(L2PcInstance player)
+	public void removeBonus(L2PcInstance player)
 	{
-		_boni.removeBoni(player);
+		_boni.removeBonus(player);
 		// remove the skill if any
 		if (_skill != null)
 		{

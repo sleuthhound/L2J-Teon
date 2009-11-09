@@ -79,6 +79,7 @@ import org.w3c.dom.Node;
 abstract class DocumentBase
 {
 	static Logger _log = Logger.getLogger(DocumentBase.class.getName());
+
 	private File _file;
 	protected Map<String, String[]> _tables;
 
@@ -137,36 +138,26 @@ abstract class DocumentBase
 	{
 		Condition condition = null;
 		n = n.getFirstChild();
-		if (n == null)
-			return;
+		if (n == null) return;
 		if ("cond".equalsIgnoreCase(n.getNodeName()))
 		{
 			condition = parseCondition(n.getFirstChild(), template);
 			Node msg = n.getAttributes().getNamedItem("msg");
-			if ((condition != null) && (msg != null))
-				condition.setMessage(msg.getNodeValue());
+			if ((condition != null) && (msg != null)) condition.setMessage(msg.getNodeValue());
 			n = n.getNextSibling();
 		}
 		for (; n != null; n = n.getNextSibling())
 		{
-			if ("add".equalsIgnoreCase(n.getNodeName()))
-				attachFunc(n, template, "Add", condition);
-			else if ("sub".equalsIgnoreCase(n.getNodeName()))
-				attachFunc(n, template, "Sub", condition);
-			else if ("mul".equalsIgnoreCase(n.getNodeName()))
-				attachFunc(n, template, "Mul", condition);
-			else if ("div".equalsIgnoreCase(n.getNodeName()))
-				attachFunc(n, template, "Div", condition);
-			else if ("set".equalsIgnoreCase(n.getNodeName()))
-				attachFunc(n, template, "Set", condition);
-			else if ("enchant".equalsIgnoreCase(n.getNodeName()))
-				attachFunc(n, template, "Enchant", condition);
-			else if ("skill".equalsIgnoreCase(n.getNodeName()))
-				attachSkill(n, template, condition);
+			if ("add".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Add", condition);
+			else if ("sub".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Sub", condition);
+			else if ("mul".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Mul", condition);
+			else if ("div".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Div", condition);
+			else if ("set".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Set", condition);
+			else if ("enchant".equalsIgnoreCase(n.getNodeName())) attachFunc(n, template, "Enchant", condition);
+			else if ("skill".equalsIgnoreCase(n.getNodeName())) attachSkill(n, template, condition);
 			else if ("effect".equalsIgnoreCase(n.getNodeName()))
 			{
-				if (template instanceof EffectTemplate)
-					throw new RuntimeException("Nested effects");
+				if (template instanceof EffectTemplate) throw new RuntimeException("Nested effects");
 				attachEffect(n, template, condition);
 			}
 		}
@@ -180,12 +171,9 @@ abstract class DocumentBase
 		int ord = Integer.decode(getValue(order, template));
 		Condition applayCond = parseCondition(n.getFirstChild(), template);
 		FuncTemplate ft = new FuncTemplate(attachCond, applayCond, name, stat, ord, lambda);
-		if (template instanceof L2Item)
-			((L2Item) template).attach(ft);
-		else if (template instanceof L2Skill)
-			((L2Skill) template).attach(ft);
-		else if (template instanceof EffectTemplate)
-			((EffectTemplate) template).attach(ft);
+		if (template instanceof L2Item) ((L2Item) template).attach(ft);
+		else if (template instanceof L2Skill) ((L2Skill) template).attach(ft);
+		else if (template instanceof EffectTemplate) ((EffectTemplate) template).attach(ft);
 	}
 
 	protected void attachLambdaFunc(Node n, Object template, LambdaCalc calc)

@@ -41,7 +41,7 @@ public class DoorStat extends CharStat
 	}
 
 	@Override
-	public final byte getLevel()
+	public final /*byte*/int getLevel()
 	{
 		return 1;
 	}
