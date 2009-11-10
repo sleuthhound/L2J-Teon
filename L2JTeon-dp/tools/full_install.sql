@@ -55,6 +55,8 @@ DROP TABLE IF EXISTS custom_npc;
 DROP TABLE IF EXISTS custom_spawnlist;
 DROP TABLE IF EXISTS custom_teleport;
 DROP TABLE IF EXISTS custom_weapon;
+DROP TABLE IF EXISTS ctf;
+DROP TABLE IF EXISTS ctf_teams;
 DROP TABLE IF EXISTS dimensional_rift;
 DROP TABLE IF EXISTS droplist;
 DROP TABLE IF EXISTS games;
