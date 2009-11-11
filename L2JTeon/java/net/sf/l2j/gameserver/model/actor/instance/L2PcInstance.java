@@ -124,6 +124,7 @@ import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2EventChecks;
@@ -367,6 +368,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * The number of player killed during a PvP (the player killed was PvP Flagged)
 	 */
 	private int _pvpKills;
+    /** The hexadecimal Color of players name (white is 0xFFFFFF) */
+    private int _nameColor;
+
+    /** The hexadecimal Color of players title (white is 0xFFFFFF) */
+    private int _titleColor;
 	/**
 	 * The PK counter of the L2PcInstance (= Number of non PvP Flagged player killed)
 	 */
@@ -606,12 +612,15 @@ public final class L2PcInstance extends L2PlayableInstance
 	public boolean atEvent = false;
 	/** CTF Engine parameters */
 	public String _teamNameCTF;
-	public String _teamNameHaveFlagCTF;
-	public int _originalKarmaCTF;
+	public String _teamNameHaveFlagCTF, _originalTitleCTF;
+    public int _originalNameColorCTF, _originalKarmaCTF;
 	public long _lastKilledTimeCTF;
 	public boolean _inEventCTF = false;
 	public boolean _haveFlagCTF = false;
 	public Future<?> _posCheckerCTF = null;
+    /** DM Engine parameters */
+    public int _originalNameColorDM, _originalKarmaDM;
+    public boolean _inEventDM = false;
 	/** VIP parameters */
 	public boolean _isVIP = false;
 	public boolean _inEventVIP = false;
@@ -935,6 +944,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		super.initCharStatusUpdateValues();
 		initPcStatusUpdateValues();
 		_accountName = accountName;
+        _nameColor = 0xFFFFFF;
+        _titleColor = 0xFFFF77;
 		_appearance = app;
 		// Create an AI
 		_ai = new L2PlayerAI(new L2PcInstance.AIAccessor());
@@ -2589,6 +2600,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("You cannot stand up at this time in the event. Please wait until the event has begun.");
 		else if (CTF._sitForced && _inEventCTF)
 			sendMessage("The Admin/GM handle if you sit or stand in this match!");
+		else if (DM._sitForced && _inEventDM)
+			sendMessage("The Admin/GM handle if you sit or stand in this match!");
 		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
 		{
 			if (_relax)
@@ -3608,6 +3621,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+		if (_inEventDM && DM._started && !Config.DM_ALLOW_INTERFERENCE)
+		{
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}			
 		// Away Sys
 		if (isAway() && !Config.AWAY_ALLOW_INTERFERENCE)
 		{
@@ -3642,7 +3660,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			else
 			{
 				// Check if this L2PcInstance is autoAttackable
-				if (isAutoAttackable(player) || (player._inEventVIP && VIP._started))
+				if (isAutoAttackable(player)|| (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started))
 				{
 					// Player with lvl < 21 can't attack a cursed weapon holder
 					// And a cursed weapon holder can't attack players with lvl < 21
@@ -4403,6 +4421,23 @@ public final class L2PcInstance extends L2PlayableInstance
 							}, 2000);
 						}
 					}
+					if (((L2PcInstance)killer)._inEventDM && _inEventDM)
+					{
+						if (DM._teleport || DM._started)
+						{
+							DM.setPlayerKillsCount((L2PcInstance)killer , DM.playerKillsCount((L2PcInstance)killer)+1);
+							
+							sendMessage("You will be revived and teleported to spot in 20 seconds!");
+							ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+							{
+								public void run()
+								{
+                                    teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+                                    doRevive();
+								}
+							},20000);
+						}
+					}
 				}
 			}
 			// Clear resurrect xp calculation
@@ -4507,7 +4542,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private void onDieDropItem(L2Character killer)
 	{
-		if (atEvent || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF) || (killer == null))
+		if (atEvent || (VIP._started && _inEventVIP) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (DM._started && _inEventDM) || (killer == null))
 			return;
 
 		if ((getKarma() <= 0) && (killer instanceof L2PcInstance) && (((L2PcInstance) killer).getClan() != null) && (getClan() != null) && ((L2PcInstance) killer).getClan().isAtWarWith(getClanId()))
@@ -4717,7 +4752,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		// no war or one way war = PK
-		if (!_inEventVIP)
+		if (!_inEventVIP && !_inEventDM && !_inEventCTF)
 		{
 			if ((targetPlayer.getKarma() > 0) && Config.KARMA_AWARD_PK_KILL) // target
 			// player
@@ -4757,7 +4792,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void increasePvpKills()
 	{
-		if (CTF._started && _inEventCTF)
+		if (CTF._started && _inEventCTF || DM._started && _inEventDM || VIP._started && _inEventVIP)
 		{
 			return;
 		}
@@ -4877,6 +4912,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void increasePkKillsAndKarma(int targLVL)
 	{
+        if ((DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+            return;
 		// uprava Concho
 		// if (CTF._started && _inEventCTF) //|| Config.ENABLE_FACTION_KOOFS_NOOBS)
 		// {
@@ -4979,14 +5016,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void updatePvPStatus()
 	{
-		if (_inEventVIP)
-		{
-			return;
-		}
-		if (CTF._started && _inEventCTF)
-		{
-			return;
-		}
+        if ((DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
+        	return;
 		/*
 		 * REMOVED for karma if (!isNoob() || !isKoof()) { return; }
 		 */
@@ -5142,7 +5173,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		// calculate the Experience loss
 		long lostExp = 0;
-		if ((!atEvent && !_inEventVIP && !VIP._started) || !_inEventCTF)
+		if ((!atEvent && !_inEventVIP && !VIP._started) || !_inEventCTF && !_inEventDM)
 		{
 			if (lvl < Experience.MAX_LEVEL)
 			{
@@ -8001,7 +8032,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			// Check if a Forced ATTACK is in progress on non-attackable
 			// target
-			if (!target.isAutoAttackable(this) && !forceUse && !(_inEventVIP && VIP._started) && (sklTargetType != SkillTargetType.TARGET_AURA) && (sklTargetType != SkillTargetType.TARGET_CLAN) && (sklTargetType != SkillTargetType.TARGET_ALLY) && (sklTargetType != SkillTargetType.TARGET_PARTY) && (sklTargetType != SkillTargetType.TARGET_SELF))
+			if (!target.isAutoAttackable(this) && !forceUse 
+					&& !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started) && !(_inEventVIP && VIP._started) 
+					&& (sklTargetType != SkillTargetType.TARGET_AURA) && (sklTargetType != SkillTargetType.TARGET_CLAN) 
+					&& (sklTargetType != SkillTargetType.TARGET_ALLY) && (sklTargetType != SkillTargetType.TARGET_PARTY) 
+					&& (sklTargetType != SkillTargetType.TARGET_SELF))
 			{
 				// Send a Server->Client packet ActionFailed to the L2PcInstance
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -8170,15 +8205,10 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean checkPvpSkill(L2Object target, L2Skill skill)
 	{
-		if (_inEventVIP)
-		{
-			return true;
-		}
+        if ((_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
+            return true;
+        
 		if (isNoob() || isKoof())
-		{
-			return true;
-		}
-		if (_inEventCTF && CTF._started)
 		{
 			return true;
 		}
@@ -9479,6 +9509,36 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return _team;
 	}
+	
+    public int getNameColor()
+    {
+        return _nameColor;
+    }
+
+    public void setNameColor(int nameColor)
+    {
+        _nameColor = nameColor;
+    }
+
+    public int getTitleColor()
+    {
+        return _titleColor;
+    }
+
+    public void setTitleColor(int titleColor)
+    {
+        _titleColor = titleColor;
+    }
+    
+    public void setTitleColor(int red, int green, int blue)
+    {
+       _titleColor = (red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16);
+    }
+
+    public void setNameColor(int red, int green, int blue)
+    {
+        _nameColor = (red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16);
+    }
 
 	public void setWantsPeace(int wantsPeace)
 	{

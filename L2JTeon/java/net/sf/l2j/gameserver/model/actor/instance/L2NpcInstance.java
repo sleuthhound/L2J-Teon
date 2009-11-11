@@ -63,6 +63,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -125,6 +126,7 @@ public class L2NpcInstance extends L2Character
 	private int _fortIndex = -2;
 	public boolean isEventMob = false, _isEventVIPNPC = false, _isEventVIPNPCEnd = false;
 	public boolean _isEventMobCTF = false;
+	public boolean _isEventMobDM = false;
 	public boolean isPrivateEventMob = false;
 	private boolean _isInTown = false;
 	private int _isSpoiledBy = 0;
@@ -715,6 +717,10 @@ public class L2NpcInstance extends L2Character
 					{
 						VIP.showEndHTML(player, String.valueOf(getObjectId()));
 					}
+                    else if (_isEventMobDM)
+                    {
+                        DM.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    }
 					else if (_isEventMobCTF)
 					{
 						CTF.showEventHtml(player, String.valueOf(getObjectId()));
