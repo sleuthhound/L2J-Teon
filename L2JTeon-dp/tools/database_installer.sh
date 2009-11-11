@@ -301,6 +301,7 @@ $MYG < ../sql/custom_teleport.sql &> /dev/null
 $MYG < ../sql/custom_weapon.sql &> /dev/null
 $MYG < ../sql/ctf.sql &> /dev/null
 $MYG < ../sql/ctf_teams.sql &> /dev/null
+$MYG < ../sql/dm.sql &> /dev/null
 $MYG < ../sql/dimensional_rift.sql &> /dev/null
 $MYG < ../sql/droplist.sql &> /dev/null
 $MYG < ../sql/enchant_skill_trees.sql &> /dev/null
