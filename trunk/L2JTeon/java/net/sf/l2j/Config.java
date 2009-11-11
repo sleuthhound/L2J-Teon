@@ -826,6 +826,7 @@ public final class Config
 	/** This checks if players can summon by item during VIP event or not. */
 	public static boolean VIP_EVENT_SUMMON_BY_ITEM_ALLOWED;
 	// * CTF Event Engine *//
+    public static String CTF_EVEN_TEAMS;
 	/** Enable or Disable CTF Engine with this option. */
 	public static boolean CTF_EVENT_ENABLED;
 	/** Allow/Disallow players not in CTF to interfere with CTF participants */
@@ -834,6 +835,12 @@ public final class Config
 	public static boolean CTF_ALLOW_POTIONS;
 	/** This checks if player has the option to Summon by item or not. */
 	public static boolean CTF_ALLOW_SUMMON;
+	// * DM Event Engine *//
+    public static boolean DM_ALLOW_INTERFERENCE;
+    public static boolean DM_ALLOW_POTIONS;
+    public static boolean DM_ALLOW_SUMMON;
+    public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean DM_ON_START_UNSUMMON_PET;
 	/**
 	 * This checks if the administrator or Owner want all buffs/debuffs/effects on a character removed on event start.
 	 */
@@ -2538,6 +2545,7 @@ public final class Config
 				// ********************//
 				/* CTF Event Engine */
 				// ********************//
+                CTF_EVEN_TEAMS = L2JTeonEventMods.getProperty("CTFEvenTeams", "BALANCE");
 				CTF_EVENT_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFEventEnabled", "False"));
 				CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "False"));
 				CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "False"));
@@ -2551,6 +2559,14 @@ public final class Config
 				CTF_TEAM_FLAG_ID_2 = Integer.parseInt(L2JTeonEventMods.getProperty("CTFTeamFlagId2", "20001"));
 				CTF_TEAM_COLOR_1 = Integer.decode("0x" + L2JTeonEventMods.getProperty("CTFTeamColor2", "FF0000"));
 				CTF_MIN_PLAYERS = Integer.parseInt(L2JTeonEventMods.getProperty("CTFMinplayers", "10"));
+				// ********************//
+				/* DM Event Engine */
+				// ********************//
+	               DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowInterference", "false"));
+	               DM_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowPotions", "false"));
+	               DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "false"));
+	               DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "true"));
+	               DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "true"));
 				if (true)
 				{
 					String[] propertySplit = L2JTeonEventMods.getProperty("CTFTeamCords1", "0,0,0").split(",");
@@ -3973,6 +3989,10 @@ public final class Config
 		{
 			TVT_EVENT_PARTICIPATION_NPC_ID = Integer.parseInt(pValue);
 		}
+        else if (pName.equalsIgnoreCase("CTFEvenTeams"))  
+        {
+        	CTF_EVEN_TEAMS = pValue;
+        }
 		else if (pName.equalsIgnoreCase("CTFAllowInterference"))
 		{
 			CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
@@ -3993,6 +4013,13 @@ public final class Config
 		{
 			CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
 		}
+		
+        else if (pName.equalsIgnoreCase("DMAllowInterference")) DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMAllowPotions")) DM_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMAllowSummon")) DM_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMOnStartRemoveAllEffects")) DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet")) DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+		
 		else if (pName.equalsIgnoreCase("MinKarma"))
 		{
 			KARMA_MIN_KARMA = Integer.parseInt(pValue);

@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -146,6 +147,21 @@ public final class RequestBypassToServer extends L2GameClientPacket
 						{
 							activeChar.sendMessage("The event is already started. You can not leave now!");
 						}
+					}
+					if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
+					{
+						if (DM._joining)
+							DM.addPlayer(activeChar);
+						else
+							activeChar.sendMessage("The event is already started. You can not join now!");
+					}
+
+					if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
+					{
+						if (DM._joining)
+							DM.removePlayer(activeChar);
+						else
+							activeChar.sendMessage("The event is already started. You can not leave now!");
 					}
 					TvTEvent.onBypass(_command.substring(endOfId + 1), activeChar);
 					if (_command.substring(endOfId + 1).startsWith("event_participate"))
