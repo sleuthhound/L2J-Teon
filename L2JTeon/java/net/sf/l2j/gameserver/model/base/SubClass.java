@@ -22,12 +22,12 @@ package net.sf.l2j.gameserver.model.base;
 public final class SubClass
 {
 	private PlayerClass _class;
-	private long _exp = 0;
+	private long _exp = Experience.LEVEL[40];
 	private int _sp = 0;
-	private /*byte*/int _level = 0;
+	private byte _level = 40;
 	private int _classIndex = 1;
 
-	public SubClass(int classId, long exp, int sp, /*byte*/int level, int classIndex)
+	public SubClass(int classId, long exp, int sp, byte level, int classIndex)
 	{
 		_class = PlayerClass.values()[classId];
 		_exp = exp;
@@ -68,7 +68,7 @@ public final class SubClass
 		return _sp;
 	}
 
-	public /*byte*/int getLevel()
+	public byte getLevel()
 	{
 		return _level;
 	}
@@ -87,6 +87,7 @@ public final class SubClass
 	{
 		if (expValue > Experience.LEVEL[Experience.MAX_LEVEL])
 			expValue = Experience.LEVEL[Experience.MAX_LEVEL];
+
 		_exp = expValue;
 	}
 
@@ -100,10 +101,12 @@ public final class SubClass
 		_classIndex = classIndex;
 	}
 
-	public void setLevel(/*byte*/int levelValue)
+	public void setLevel(byte levelValue)
 	{
 		if (levelValue > Experience.MAX_LEVEL - 1)
 			levelValue = Experience.MAX_LEVEL - 1;
+		else if (levelValue < 40)
+			levelValue = 40;
 
 		_level = levelValue;
 	}
@@ -119,6 +122,9 @@ public final class SubClass
 
 	public void decLevel()
 	{
+		if (getLevel() == 40)
+			return;
+
 		_level--;
 		setExp(Experience.LEVEL[getLevel()]);
 	}

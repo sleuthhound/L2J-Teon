@@ -41,6 +41,7 @@ import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
+import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -189,10 +190,6 @@ public class EnterWorld extends L2GameClientPacket
 				}
 			}
 		}
-		/*
-		 * if (Config.ALLOW_WEDDING) // engage and notify Partner { engage(activeChar); notifyPartner(activeChar, activeChar.getPartnerId()); if (!activeChar.isMaried()) // Check if player is maried and remove if necessary Cupid's Bow L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140); // Remove Cupid's Bow if (item != null) activeChar.destroyItem("Removing Cupid's Bow", item,
-		 * activeChar, true); activeChar.getInventory().updateDatabase(); // Log it _log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed."); }
-		 */
 		if (activeChar.getAllEffects() != null)
 		{
 			for (L2Effect e : activeChar.getAllEffects())
@@ -322,8 +319,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.checkAllowedSkills();
 		}
-		// send user info again .. just like the real client
-		// sendPacket(ui);
+		// send user info again .. just like the real client sendPacket(ui);
 		if ((activeChar.getClanId() != 0) && (activeChar.getClan() != null))
 		{
 			sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
@@ -358,6 +354,8 @@ public class EnterWorld extends L2GameClientPacket
 			VIP.addPlayerNotVIP(activeChar);
 		if (CTF._savePlayers.contains(activeChar.getName()))
 			CTF.addDisconnectedPlayer(activeChar);
+		// load points for that character
+		RaidBossPointsManager.loadPoints(activeChar);
 		if (Olympiad.getInstance().playerInStadia(activeChar))
 		{
 			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);

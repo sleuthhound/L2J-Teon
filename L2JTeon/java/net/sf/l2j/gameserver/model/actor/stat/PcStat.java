@@ -43,6 +43,7 @@ public class PcStat extends PlayableStat
 	// Data Field
 	private int _oldMaxHp; // stats watch
 	private int _oldMaxMp; // stats watch
+        private int _oldMaxCp; // stats watch
 
 	// =========================================================
 	// Constructor
@@ -57,6 +58,15 @@ public class PcStat extends PlayableStat
 	public boolean addExp(long value)
 	{
 		L2PcInstance activeChar = getActiveChar();
+		// Set new karma
+		if (!activeChar.isCursedWeaponEquiped() && (activeChar.getKarma() > 0) && (activeChar.isGM() || !activeChar.isInsideZone(L2Character.ZONE_PVP)))
+		{
+			int karmaLost = activeChar.calculateKarmaLost(value);
+			if (karmaLost > 0)
+			{
+				activeChar.setKarma(activeChar.getKarma() - karmaLost);
+			}
+		}
 		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
 		if (getActiveChar().isGM() && (getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP) && getActiveChar().isInParty())
 			return false;
@@ -307,7 +317,7 @@ public class PcStat extends PlayableStat
 	}
 
 	@Override
-	public final /*byte*/int getLevel()
+	public final byte getLevel()
 	{
 		if (getActiveChar().isSubClassActive())
 			return getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).getLevel();
@@ -315,7 +325,7 @@ public class PcStat extends PlayableStat
 	}
 
 	@Override
-	public final void setLevel(/*byte*/int value)
+	public final void setLevel(byte value)
 	{
 		if (value > Experience.MAX_LEVEL - 1)
 			value = Experience.MAX_LEVEL - 1;
@@ -355,6 +365,21 @@ public class PcStat extends PlayableStat
 			if (getActiveChar().getStatus().getCurrentMp() != val)
 				getActiveChar().getStatus().setCurrentMp(getActiveChar().getStatus().getCurrentMp());
 				// trigger start of regeneration
+		}
+		return val;
+	}
+
+ 	@Override
+	public final int getMaxCp()
+	{
+		int val = super.getMaxCp();
+		if (val != _oldMaxCp)
+		{
+			_oldMaxCp = val;
+			if (getActiveChar().getStatus().getCurrentCp() != val)
+			{
+				getActiveChar().getStatus().setCurrentCp(getActiveChar().getStatus().getCurrentCp());
+			}
 		}
 		return val;
 	}
