@@ -16,13 +16,6 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-
-/**
- * 
- * @author FBIagent
- * 
- */
-
 package net.sf.l2j.gameserver.model.entity.L2JTeonEvents;
 
 import java.sql.PreparedStatement;
@@ -44,7 +37,6 @@ import net.sf.l2j.gameserver.model.item.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
-//import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -52,33 +44,24 @@ import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
+/**
+ * @author FBIagent
+ */
 public class DM
 {   
-    public static String _eventName = new String(),
-                         _eventDesc = new String(),
-                         _joiningLocationName = new String();
+    public static String _eventName = new String(), _eventDesc = new String(), _joiningLocationName = new String();
     public static Vector<String> _savePlayers = new Vector<String>();
     public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>();                                       
     public static Vector<Integer> _playerKillsCount = new Vector<Integer>();
-    public static boolean _joining = false,
-                          _teleport = false,
-                          _started = false,
-                          _sitForced = false;
+    public static boolean _joining = false, _teleport = false, _started = false, _sitForced = false;
     public static L2Spawn _npcSpawn;
     public static L2PcInstance _topPlayer;
-    public static int _npcId = 0,
-                      _npcX = 0,
-                      _npcY = 0,
-                      _npcZ = 0,
-                      _rewardId = 0,
-                      _rewardAmount = 0,
+    public static int _npcId = 0, _npcX = 0, _npcY = 0, _npcZ = 0,
+                      _rewardId = 0, _rewardAmount = 0,
                       _topKills = 0,
-                      _minlvl = 0,
-                      _maxlvl = 0,
+                      _minlvl = 0, _maxlvl = 0,
                       _playerColors = 0,
-                      _playerX = 0,
-                      _playerY = 0,
-                      _playerZ = 0;
+                      _playerX = 0, _playerY = 0, _playerZ = 0;
 
     public static void setNpcPos(L2PcInstance activeChar)
     {
@@ -86,7 +69,7 @@ public class DM
         _npcY = activeChar.getY();
         _npcZ = activeChar.getZ();
     }
-    
+
     public static boolean checkMaxLevel(int maxlvl)
     {
         if (_minlvl >= maxlvl)
@@ -94,7 +77,7 @@ public class DM
         
         return true;
     }
-    
+
     public static boolean checkMinLevel(int minlvl)
     {
         if (_maxlvl <= minlvl)
@@ -102,14 +85,14 @@ public class DM
         
         return true;
     }
-    
+
     public static void setPlayersPos(L2PcInstance activeChar)
     {
         _playerX = activeChar.getX();
         _playerY = activeChar.getY();
         _playerZ = activeChar.getZ();
     }
-    
+
     public static boolean checkPlayerOk()
     {
         if (_started || _teleport || _joining)
@@ -117,7 +100,7 @@ public class DM
         
         return true;
     }
-    
+
     public static void startJoin(L2PcInstance activeChar)
     {
         if (!startJoinOk())
@@ -130,7 +113,7 @@ public class DM
         spawnEventNpc(activeChar);
         Announcements.getInstance().announceToAll(_eventName + "(DM): Joinable in " + _joiningLocationName + "!");
     }
-    
+
     private static boolean startJoinOk()
     {
         if (_started || _teleport || _joining || _eventName.equals("") ||
@@ -141,7 +124,7 @@ public class DM
         
         return true;
     }
-    
+
     private static void spawnEventNpc(L2PcInstance activeChar)
     {
         L2NpcTemplate tmpl = NpcTable.getInstance().getTemplate(_npcId);
@@ -174,7 +157,7 @@ public class DM
             System.out.println("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
         }
     }
-    
+
     public static void teleportStart()
     {
         if (!_joining || _started || _teleport)
@@ -185,21 +168,20 @@ public class DM
 
         setUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                       {
-                                                           public void run()
-                                                           {
-                                                               DM.sit();
-                                                               
-                                                               for (L2PcInstance player : DM._players)
-                                                               {
-                                                                   if (player !=  null)
-                                                                       player.teleToLocation(_playerX, _playerY, _playerZ);
-                                                               }
-                                                           }
-                                                       }, 20000);
+              {
+                  public void run()
+                  {
+                    DM.sit();
+                       for (L2PcInstance player : DM._players)
+                       {
+                          if (player !=  null)
+                            player.teleToLocation(_playerX, _playerY, _playerZ);
+                               }
+                              }
+                             }, 20000);
         _teleport = true;
     }
-    
+
     public static void startEvent(L2PcInstance activeChar)
     {
         if (!startEventOk())
@@ -213,7 +195,7 @@ public class DM
         Announcements.getInstance().announceToAll(_eventName + "(DM): Started. Go to kill your enemies!");
         _started = true;
     }
-    
+
     private static boolean startEventOk()
     {
         if (_joining || !_teleport || _started)
@@ -221,7 +203,7 @@ public class DM
         
         return true;
     }
-    
+
     public static void setUserData()
     {
         for (L2PcInstance player : _players)
@@ -231,7 +213,7 @@ public class DM
             player.broadcastUserInfo();
         }
     }
-    
+
     public static void finishEvent(L2PcInstance activeChar)
     {
         if (!finishEventOk())
@@ -254,7 +236,7 @@ public class DM
         
         teleportFinish();
     }
-    
+
     private static boolean finishEventOk()
     {
         if (!_started)
@@ -262,7 +244,7 @@ public class DM
         
         return true;
     }
-    
+
     public static void processTopPlayer()
     {
         for (L2PcInstance player : _players)
@@ -274,7 +256,7 @@ public class DM
             }
         }
     }
-    
+
     public static void rewardPlayer(L2PcInstance activeChar)
     {
         for (L2PcInstance player : _players)
@@ -325,7 +307,7 @@ public class DM
             }
         }
     }
-    
+
     public static void abortEvent()
     {
         if (!_joining && !_teleport && !_started)
@@ -338,13 +320,13 @@ public class DM
         Announcements.getInstance().announceToAll(_eventName + "(DM): Match aborted!");
         teleportFinish();
     }
-    
+
     public static void sit()
     {
         if (_sitForced)
-            _sitForced = false;
+		_sitForced = false;
         else
-            _sitForced = true;
+		_sitForced = true;
         
         for (L2PcInstance player : _players)
         {
@@ -391,7 +373,7 @@ public class DM
             }
         }
     }
-    
+
     public static void dumpData()
     {
         System.out.println("");
@@ -450,7 +432,7 @@ public class DM
         System.out.println("");
         System.out.println("");
     }
-    
+
     public static void loadData()
     {
         _eventName = new String();
@@ -505,7 +487,7 @@ public class DM
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
-    
+
     public static void saveData()
     {
         java.sql.Connection con = null;
@@ -610,7 +592,7 @@ public class DM
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
     }
-    
+
     public static boolean addPlayerOk(L2PcInstance eventPlayer)
     {
         if (CTF._savePlayers.contains(eventPlayer.getName()) /*|| TvT._savePlayers.contains(eventPlayer.getName())*/) 
@@ -641,7 +623,7 @@ public class DM
             }
         }
     }
-    
+
     public static void removePlayer(L2PcInstance player)
     {
         if (player != null)
@@ -658,7 +640,7 @@ public class DM
             player._inEventDM = false;
         }
     }
-    
+
     public static void cleanDM()
     {
         for (L2PcInstance player : _players)
@@ -673,7 +655,7 @@ public class DM
         _topPlayer = null;
         
     }
-    
+
     public static void unspawnEventNpc()
     {
         if (_npcSpawn == null)
@@ -683,7 +665,7 @@ public class DM
         _npcSpawn.stopRespawn();
         SpawnTable.getInstance().deleteSpawn(_npcSpawn, true);
     }
-    
+
     public static void teleportFinish()
     {
         Announcements.getInstance().announceToAll(_eventName + "(DM): Teleport back to participation NPC in 20 seconds!");
@@ -711,7 +693,7 @@ public class DM
 
         return _playerKillsCount.get(index);
     }
-    
+
     public static void setPlayerKillsCount(L2PcInstance killer, int KillsCount)
     {
         int index = _players.indexOf(killer);
@@ -720,6 +702,5 @@ public class DM
             return;
 
         _playerKillsCount.set(index, KillsCount);
-    }    
-    
+    }
 }
