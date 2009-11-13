@@ -30,8 +30,7 @@ public class CharStat
 	private L2Character _activeChar;
 	private long _exp = 0;
 	private int _sp = 0;
-	//private byte _level = 1;
-	private int _level = 1;
+	private byte _level = 1;
 
 	// =========================================================
 	// Constructor
@@ -73,7 +72,7 @@ public class CharStat
 		Calculator c = _activeChar.getCalculators()[id];
 
 		// If no Func object found, no modifier is applied
-		if (c == null || c.size() == 0)
+		if ((c == null) || (c.size() == 0))
 			return init;
 
 		// Create and init an Env object to pass parameters to the Calculator
@@ -87,7 +86,7 @@ public class CharStat
 		c.calc(env);
 		// avoid some troubles with negative stats (some stats should never be
 		// negative)
-		if (env.value <= 0
+		if ((env.value <= 0)
 				&& ((stat == Stats.MAX_HP) || (stat == Stats.MAX_MP) || (stat == Stats.MAX_CP) || (stat == Stats.MAGIC_DEFENCE) || (stat == Stats.POWER_DEFENCE) || (stat == Stats.POWER_ATTACK) || (stat == Stats.MAGIC_ATTACK) || (stat == Stats.POWER_ATTACK_SPEED) || (stat == Stats.MAGIC_ATTACK_SPEED) || (stat == Stats.SHIELD_DEFENCE) || (stat == Stats.STAT_CON) || (stat == Stats.STAT_DEX) || (stat == Stats.STAT_INT) || (stat == Stats.STAT_MEN) || (stat == Stats.STAT_STR) || (stat == Stats.STAT_WIT)))
 		{
 			env.value = 1;
@@ -124,7 +123,7 @@ public class CharStat
 		if (_activeChar == null)
 			return 1;
 
-		return (float) ((1.1) * getPAtkSpd() / _activeChar.getTemplate().basePAtkSpd);
+		return (float) (1.1 * getPAtkSpd() / _activeChar.getTemplate().basePAtkSpd);
 	}
 
 	/** Return the CON of the L2Character (base+modifier). */
@@ -194,12 +193,12 @@ public class CharStat
 		return (int) calcStat(Stats.STAT_INT, _activeChar.getTemplate().baseINT, null, null);
 	}
 
-	public /*byte*/int getLevel()
+	public byte getLevel()
 	{
 		return _level;
 	}
 
-	public void setLevel(/*byte*/int value)
+	public void setLevel(byte value)
 	{
 		_level = value;
 	}
@@ -216,7 +215,7 @@ public class CharStat
 		return _activeChar.getTemplate().baseAtkRange;
 	}
 
-	public final int getMaxCp()
+	public int getMaxCp()
 	{
 		if (_activeChar == null)
 			return 1;
@@ -480,7 +479,7 @@ public class CharStat
 			bonusAtk = Config.CHAMPION_SPD_ATK;
 
 		int val = (int) ((calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().basePAtkSpd * bonusAtk, null, null) / _activeChar.getArmourExpertisePenalty()) / Config.AP_FIG );
-		   if (val > Config.MAX_PATK_SPEED / Config.AP_FIG )
+		   if (val > Config.MAX_PATK_SPEED / Config.AP_FIG  )
 		     val = (int) (Config.MAX_PATK_SPEED / Config.AP_FIG );
 		   return val;
 	}

@@ -5614,7 +5614,11 @@ public abstract class L2Character extends L2Object
 	 */
 	public boolean isInsidePeaceZone(L2PcInstance attacker)
 	{
-		return isInsidePeaceZone(attacker, this);
+		if (!isInFunEvent() || !attacker.isInFunEvent())
+		{
+			return isInsidePeaceZone(attacker, this);
+		}
+		return false;
 	}
 
 	public boolean isInsidePeaceZone(L2PcInstance attacker, L2Object target)

@@ -1278,522 +1278,435 @@
   <for>
   </for>
 </skill>
-
-<!--
-	Item Skill: Aggression, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Lvl  1 - Chance: Provokes a target to attack during an ordinary physical attack. Power 438.
-		Lvl  3 - Chance: Provokes a target to attack during an ordinary physical attack. Power 495.
-		Lvl  4 - Chance: Provokes a target to attack during an ordinary physical attack. Power 523.
-		Lvl  5 - Chance: Provokes a target to attack during an ordinary physical attack. Power 549.
-		Lvl  6 - Chance: Provokes a target to attack during an ordinary physical attack. Power 574.
-		Lvl  7 - Chance: Provokes a target to attack during an ordinary physical attack. Power 597.
-		Lvl  8 - Chance: Provokes a target to attack during an ordinary physical attack. Power 617.
-		Lvl  9 - Chance: Provokes a target to attack during an ordinary physical attack. Power 635.
-		Lvl 10 - Chance: Provokes a target to attack during an ordinary physical attack. Power 659.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
--->
-
 <skill id="3080" levels="10" name="Item Skill: Aggression">
-	<table name="#power"> 438.0 467.0 495.0 523.0 549.0 574.0 597.0 617.0 635.0 659.0 </table>
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="#power"    />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="AGGDAMAGE" />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="1000"      />
-	<for>
-		<effect count="1" name="TargetMe" time="1" val="0"/>
-	</for>
-</skill>
-
 <!--
-	Item Skill: Charm, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Lvl 1  - Chance: Decreases a target's urge to attack during a general physical attack. Power 219.
-		Lvl 2  - Chance: Decreases a target's urge to attack during a general physical attack. Power 234.
-		Lvl 3  - Chance: Decreases a target's urge to attack during a general physical attack. Power 248.
-		Lvl 4  - Chance: Decreases a target's urge to attack during a general physical attack. Power 262.
-		Lvl 5  - Chance: Decreases a target's urge to attack during a general physical attack. Power 275.
-		Lvl 6  - Chance: Decreases a target's urge to attack during a general physical attack. Power 287.
-		Lvl 7  - Chance: Decreases a target's urge to attack during a general physical attack. Power 299.
-		Lvl 8  - Chance: Decreases a target's urge to attack during a general physical attack. Power 309.
-		Lvl 9  - Chance: Decreases a target's urge to attack during a general physical attack. Power 318.
-		Lvl 10 - Chance: Decreases a target's urge to attack during a general physical attack. Power 330.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+  Description(s):
+      Lvl 1 - Chance: Provokes a target to attack during an ordinary physical attack. Power 438.
+      Lvl 2 - Provokes a target to attack during an ordinary physical attack. Power 467.
+      Lvl 3 - Chance: Provokes a target to attack during an ordinary physical attack. Power 495.
+      Lvl 4 - Chance: Provokes a target to attack during an ordinary physical attack. Power 523.
+      Lvl 5 - Chance: Provokes a target to attack during an ordinary physical attack. Power 549.
+      Lvl 6 - Chance: Provokes a target to attack during an ordinary physical attack. Power 574.
+      Lvl 7 - Chance: Provokes a target to attack during an ordinary physical attack. Power 597.
+      Lvl 8 - Chance: Provokes a target to attack during an ordinary physical attack. Power 617.
+      Lvl 9 - Chance: Provokes a target to attack during an ordinary physical attack. Power 635.
+      Lvl 10 - Chance: Provokes a target to attack during an ordinary physical attack. Power 659.
 -->
-
+  <table name="#aggr"> 438.0 467.0 495.0 523.0 549.0 574.0 597.0 617.0 635.0 659.0 </table>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="1"/>
+  <set name="skillType" val="AGGDAMAGE"/>
+  <set name="isDebuff" val="true"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 <skill id="3081" levels="10" name="Item Skill: Charm">
-	<table name="#aggr"> 219.0 234.0 248.0 262.0 275.0 287.0 299.0 309.0 318.0 330.0 </table>
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="0"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="AGGREDUCE" />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="60000"     />
-	<for>
-		<effect name="Buff" time="60" count="1" val="0">
-			<sub order="0x40" stat="aggression" val="#aggr"/>
-		</effect>
-	</for>
-</skill>
-
 <!--
-	Item Skill: Mana Burn, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Lvl  1 - Chance: Burns up a target's MP during an ordinary physical attack. Power 49.
-		Lvl  2 - Chance: Burns up a target's MP during an ordinary physical attack. Power 53.
-		Lvl  3 - Chance: Burns up a target's MP during an ordinary physical attack. Power 57.
-		Lvl  4 - Chance: Burns up a target's MP during an ordinary physical attack. Power 61.
-		Lvl  5 - Chance: Burns up a target's MP during an ordinary physical attack. Power 66.
-		Lvl  6 - Chance: Burns up a target's MP during an ordinary physical attack. Power 70.
-		Lvl  7 - Chance: Burns up a target's MP during an ordinary physical attack. Power 74.
-		Lvl  8 - Chance: Burns up a target's MP during an ordinary physical attack. Power 78.
-		Lvl  9 - Chance: Burns up a target's MP during an ordinary physical attack. Power 82.
-		Lvl 10 - Chance: Burns up a target's MP during an ordinary physical attack. Power 88.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+  Description(s):
+      Lvl 1 - Chance: Decreases a target's urge to attack during a general physical attack. Power 219.
+      Lvl 2 - Chance: Decreases a target's urge to attack during a general physical attack. Power 234.
+      Lvl 3 - Chance: Decreases a target's urge to attack during a general physical attack. Power 248.
+      Lvl 4 - Chance: Decreases a target's urge to attack during a general physical attack. Power 262.
+      Lvl 5 - Chance: Decreases a target's urge to attack during a general physical attack. Power 275.
+      Lvl 6 - Chance: Decreases a target's urge to attack during a general physical attack. Power 287.
+      Lvl 7 - Chance: Decreases a target's urge to attack during a general physical attack. Power 299.
+      Lvl 8 - Chance: Decreases a target's urge to attack during a general physical attack. Power 309.
+      Lvl 9 - Chance: Decreases a target's urge to attack during a general physical attack. Power 318.
+      Lvl 10 - Chance: Decreases a target's urge to attack during a general physical attack. Power 330.
 -->
-
+  <table name="#aggr"> 219.0 234.0 248.0 262.0 275.0 287.0 299.0 309.0 318.0 330.0 </table>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="isDebuff" val="true"/>
+  <set name="hitTime" val="1"/>
+  <set name="skillType" val="AGGREDUCE"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <for>
+    <effect name="Buff" time="5" count="1" val="0">
+      <sub order="0x40" stat="aggression" val="#aggr"/>
+    </effect>
+  </for>
+</skill>
 <skill id="3082" levels="10" name="Item Skill: Mana Burn">
-	<table name="#power"> 49.0 53.0 57.0 61.0 66.0 70.0 74.0 78.0 82.0 88.0 </table>
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="#power"    />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="MANADAM"   />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<for>
-		<effect count="1" name="TargetMe" time="1" val="0"/>
-	</for>
-</skill>
-
 <!--
-	Item Skill: Slow, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily decreases a target's speed during an ordinary physical attack. Effect 3.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+  Description(s):
+      Lvl 1 - Chance: Burns up a target's MP during an ordinary physical attack. Power 49.
+      Lvl 2 - Chance: Burns up a target's MP during an ordinary physical attack. Power 53.
+      Lvl 3 - Chance: Burns up a target's MP during an ordinary physical attack. Power 57.
+      Lvl 4 - Chance: Burns up a target's MP during an ordinary physical attack. Power 61.
+      Lvl 5 - Chance: Burns up a target's MP during an ordinary physical attack. Power 66.
+      Lvl 6 - Chance: Burns up a target's MP during an ordinary physical attack. Power 70.
+      Lvl 7 - Chance: Burns up a target's MP during an ordinary physical attack. Power 74.
+      Lvl 8 - Chance: Burns up a target's MP during an ordinary physical attack. Power 78.
+      Lvl 9 - Chance: Burns up a target's MP during an ordinary physical attack. Power 82.
+      Lvl 10 - Chance: Burns up a target's MP during an ordinary physical attack. Power 88.
 -->
-
-<skill id="3083" levels="10" name="Item Skill: Slow">
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="3"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="DEBUFF"    />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="30000"     />
-	<for>
-		<effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
-			<mul order="0x30" stat="runSpd" val="0.7"/>
-		</effect>
-	</for>
+  <table name="#power"> 49 53 57 61 66 70 74 78 82 88 </table>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MANADAM"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
 </skill>
-
+<skill id="3083" levels="10" name="Item Skill: Slow">
+<!--
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily decreases a target's speed during an ordinary physical attack. Effect 3.
+-->
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#Tab-runSpd"> 0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="isDebuff" val="true"/>
+  <for>
+    <effect count="1" name="Debuff" time="5" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+      <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
+    </effect>
+  </for>
+</skill>
 <skill id="3084" levels="10" name="Item Skill: Winter">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Lvl 1-10 - Chance: Momentarily decreases a target's Atk. Spd. during an ordinary physical attack. Effect 3.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="isDebuff" val="true"/>
   <for>
+    <effect count="1" name="Debuff" time="5" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
+      <mul order="0x30" stat="pAtkSpd" val="0.77"/>
+    </effect>
   </for>
 </skill>
-
-<!--
-	Item Skill: Stun, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily throws the target into a state of shock during an ordinary physical attack.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
--->
-
 <skill id="3085" levels="10" name="Item Skill: Stun">
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="2"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="STUN"      />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="9000"      />
-	<for>
-		<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" />
-	</for>
-</skill>
-
 <!--
-	Item Skill: Hold, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily throws the target into a state of hold during an ordinary physical attack.
-		The target cannot be affected by any additional hold attacks while the effect lasts.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+   Description(s):
+      Lvl 1-10 - Chance: Momentarily throws the target into a state of shock during an ordinary physical attack.
 -->
-
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="STUN"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <for>
+    <effect count="1" name="Stun" time="5" val="0" stackOrder="1" stackType="Stun"/>
+  </for>
+</skill>
 <skill id="3086" levels="10" name="Item Skill: Hold">
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="2"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="ROOT"      />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="30000"     />
-	<for>
-		<effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
-	</for>
-</skill>
-
 <!--
-	Item Skill: Sleep, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily throws the target into a state of sleep during a general physical attack.
-		The target cannot be affected by any additional sleep attacks while the effect lasts.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily throws the target into a state of hold during an ordinary physical attack. The target cannot be affected by any additional hold attacks while the effect lasts.
 -->
-
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="ROOT"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="isDebuff" val="true"/>
+  <for>
+    <effect count="1" name="Root" time="5" val="0" stackOrder="1" stackType="Root"/>
+  </for>
+</skill>
 <skill id="3087" levels="10" name="Item Skill: Sleep">
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="3"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="SLEEP"     />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="30000"     />
-	<for>
-    	<effect count="1" name="Sleep" time="30" val="0"/>
-	</for>
-</skill>
-
 <!--
-	Item Skill: Paralyze, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily throws the target into a state of paralysis during an ordinary physical attack.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily throws the target into a state of sleep during a general physical attack. The target cannot be affected by any additional sleep attacks while the effect lasts.
 -->
-
-<skill id="3088" levels="10" name="Item Skill: Paralyze">
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="2"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="PARALYZE"  />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="15000"     />
-	<for>
-    	<effect count="1" name="Paralyze" time="15" val="0"/>
-	</for>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="SLEEP"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="isMagic" val="true"/>
+  <for>
+    <effect count="1" name="Sleep" time="5" val="0"/>
+  </for>
 </skill>
-
+<skill id="3088" levels="10" name="Item Skill: Paralyze">
+<!--
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily throws the target into a state of paralysis during an ordinary physical attack.
+-->
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PARALYZE"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="isMagic" val="true"/>
+  <for>
+      <effect count="1" name="Paralyze" time="5" val="0"/>
+  </for>
+</skill>
 <skill id="3089" levels="10" name="Item Skill: Medusa">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Lvl 1-10 - Chance: Momentarily throws the target into a petrified state during a general physical attack.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PARALYZE"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="isMagic" val="true"/>
   <for>
+      <effect count="1" name="Petrification" time="5" val="0" stackOrder="30" stackType="turn_stone"/>
   </for>
 </skill>
-
 <skill id="3090" levels="10" name="Item Skill: Fear">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Lvl 1-10 - Chance: Momentarily throws the target into a state of fear and causes him to flee during a general physical attack.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="FEAR"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="isMagic" val="true"/>
   <for>
+    <effect count="5" name="Fear" time="3" val="0"/>
   </for>
 </skill>
-
-<!--
-	Item Skill: Poison, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Lvl  1 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 5.
-		Lvl  2 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 5.
-		Lvl  3 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 6.
-		Lvl  4 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 6.
-		Lvl  5 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 6.
-		Lvl  6 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 7.
-		Lvl  7 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 7.
-		Lvl  8 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 7.
-		Lvl  9 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 8.
-		Lvl 10 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 8.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
--->
-
 <skill id="3091" levels="10" name="Item Skill: Poison">
-	<table name="#power"> 5 5 6 6 6 7 7 7 8 8 </table>
-	<table name="#dmg"> 54 54 93 93 93 114 114 114 144 144 </table>
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="#power"    />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="POISON"    />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="30000"     />
-	<for>
-    	<effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
-	</for>
-</skill>
-
-<!--
-	Item Skill: Bleed, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Lvl  1 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 5.
-		Lvl  2 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 5.
-		Lvl  3 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 6.
-		Lvl  4 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 6.
-		Lvl  5 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 6.
-		Lvl  6 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 7.
-		Lvl  7 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 7.
-		Lvl  8 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 7.
-		Lvl  9 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 8.
-		Lvl 10 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 8.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
--->
-
-<skill id="3092" levels="10" name="Item Skill: Bleed">
-	<table name="#power"> 5 5 6 6 6 7 7 7 8 8 </table>
-	<table name="#dmg">  39 39 51 51 51 66 66 66 81 81 </table>
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="#power"    />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="BLEED"     />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="20000"     />
-	<for>
-    	<effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
-	</for>
-</skill>
-
-<!--
-	Item Skill: Silence, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily blocks the target's magic skill during a general physical attack.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
--->
-
-<skill id="3093" levels="10" name="Item Skill: Silence">
-	<set name="augmentType"  val="1"         />
-	<set name="power"        val="2"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="MUTE"      />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="30000"     />
-	<for>
-    	<effect count="1" name="Mute" time="30" val="0" stackOrder="1" stackType="silence"/>
-	</for>
-</skill>
-
-<skill id="3094" levels="10" name="Item Skill: Doom">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 1 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 5.
+      Lvl 2 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 5.
+      Lvl 3 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 6.
+      Lvl 4 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 6.
+      Lvl 5 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 6.
+      Lvl 6 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 7.
+      Lvl 7 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 7.
+      Lvl 8 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 7.
+      Lvl 9 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 8.
+      Lvl 10 - Chance: Momentarily throws the target into a poisoned state during a general physical attack. Effect 8.
+-->
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#dmg"> 24 24 54 54 72 72 93 114 132 144 </table>
+  <table name="#power"> 1.0 1.0 3.0 3.0 4.0 4.0 5.0 6.0 7.0 8.0 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="POISON"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="isMagic" val="true"/>
+  <for>
+    <!-- retail value: 8 18 24 31 38 44 48/sec; stat update every 5 units (3 1/3 sec) -->
+    <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
+  </for>
+</skill>
+<skill id="3092" levels="10" name="Item Skill: Bleed">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 1 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 5.
+      Lvl 2 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 5.
+      Lvl 3 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 6.
+      Lvl 4 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 6.
+      Lvl 5 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 6.
+      Lvl 6 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 7.
+      Lvl 7 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 7.
+      Lvl 8 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 7.
+      Lvl 9 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 8.
+      Lvl 10 - Chance: Momentarily throws the target into a bleeding state during a general physical attack. Effect 8.
+-->
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#dmg"> 39 39 51 51 66 66 81 81 93 102 </table>
+  <table name="#power"> 3.0 3.0 4.0 4.0 5.0 5.0 6.0 6.0 7.0 8.0 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="BLEED"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <for>
+    <!-- retail value: 13 17 22 27 31 34/sec; stat update every 5 units (3 1/3 sec) -->
+    <!-- Verified by slyce -  Interlude - Aug 2007 -->
+    <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
+  </for>
+</skill>
+<skill id="3093" levels="10" name="Item Skill: Silence">
+<!--
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily blocks the target's magic skill during a general physical attack.
+-->
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="isMagic" val="true"/>
+  <for>
+    <effect count="1" name="Mute" time="5" val="0" stackOrder="1" stackType="silence"/>
+  </for>
+</skill>
+<skill id="3094" levels="10" name="Item Skill: Doom">
+<!--
   Description(s):
       Lvl 1-10 - Chance: Momentarily blocks all of the target's physical and magic skills during a general physical attack.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_HIT"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <set name="isMagic" val="true"/>
   <for>
+   <effect count="1" name="SilenceMagicPhysical" time="5" val="0" stackOrder="30" stackType="silence_all"/>
   </for>
 </skill>
-
-<!--
-	Item Skill: Mana Burn, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Lvl  1 - Chance: Burns up a target's MP during magic use. Power 49.
-		Lvl  2 - Chance: Burns up a target's MP during magic use. Power 53.
-		Lvl  3 - Chance: Burns up a target's MP during magic use. Power 57.
-		Lvl  4 - Chance: Burns up a target's MP during magic use. Power 61.
-		Lvl  5 - Chance: Burns up a target's MP during magic use. Power 66.
-		Lvl  6 - Chance: Burns up a target's MP during magic use. Power 70.
-		Lvl  7 - Chance: Burns up a target's MP during magic use. Power 74.
-		Lvl  8 - Chance: Burns up a target's MP during magic use. Power 78.
-		Lvl  9 - Chance: Burns up a target's MP during magic use. Power 82.
-		Lvl 10 - Chance: Burns up a target's MP during magic use. Power 88.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
--->
-
 <skill id="3095" levels="10" name="Item Skill: Mana Burn">
-	<table name="#power"> 49.0 53.0 57.0 61.0 66.0 70.0 74.0 78.0 82.0 88.0 </table>
-	<set name="augmentType"  val="2"         />
-	<set name="power"        val="#power"    />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="MANADAM"   />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<for>
-		<effect count="1" name="TargetMe" time="1" val="0"/>
-	</for>
-</skill>
-
 <!--
-	Item Skill: Slow, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily decreases a target's speed during magic use. Effect 3.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+  Description(s):
+      Lvl 1 - Chance: Burns up a target's MP during magic use. Power 49.
+      Lvl 2 - Chance: Burns up a target's MP during magic use. Power 53.
+      Lvl 3 - Chance: Burns up a target's MP during magic use. Power 57.
+      Lvl 4 - Chance: Burns up a target's MP during magic use. Power 61.
+      Lvl 5 - Chance: Burns up a target's MP during magic use. Power 66.
+      Lvl 6 - Chance: Burns up a target's MP during magic use. Power 70.
+      Lvl 7 - Chance: Burns up a target's MP during magic use. Power 74.
+      Lvl 8 - Chance: Burns up a target's MP during magic use. Power 78.
+      Lvl 9 - Chance: Burns up a target's MP during magic use. Power 82.
+      Lvl 10 - Chance: Burns up a target's MP during magic use. Power 88.
 -->
-
-<skill id="3096" levels="10" name="Item Skill: Slow">
-	<set name="augmentType"  val="2"         />
-	<set name="power"        val="3"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="DEBUFF"    />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="30000"     />
-	<for>
-		<effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
-			<mul order="0x30" stat="runSpd" val="0.7"/>
-		</effect>
-	</for>
+  <table name="#power"> 49 53 57 61 66 70 74 78 82 88 </table>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MANADAM"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_MAGIC_OFFENSIVE"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
 </skill>
-
+<skill id="3096" levels="10" name="Item Skill: Slow">
+<!--
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily decreases the target's speed during magic use. Effect 3.
+-->
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <table name="#Tab-runSpd"> 0.7 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_MAGIC_OFFENSIVE"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="isDebuff" val="true"/>
+  <for>
+    <effect count="1" name="Debuff" time="5" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+      <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
+    </effect>
+  </for>
+</skill>
 <skill id="3097" levels="10" name="Item Skill: Winter">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Lvl 1-10 - Chance: Momentarily decreases the target's Atk. Spd. during magic use. Effect 3.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_MAGIC_OFFENSIVE"/>
+  <set name="activationChance" val="#chance"/>
   <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="isDebuff" val="true"/>
   <for>
+    <effect count="1" name="Debuff" time="5" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
+      <mul order="0x30" stat="pAtkSpd" val="0.77"/>
+    </effect>
   </for>
 </skill>
-
-<!--
-	Item Skill: Stun, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily throws the target into a state of shock during magic use.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
--->
-
 <skill id="3098" levels="10" name="Item Skill: Stun">
-	<set name="augmentType"  val="2"         />
-	<set name="power"        val="2"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="STUN"      />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="9000"      />
-	<for>
-		<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun" />
-	</for>
-</skill>
-
 <!--
-	Item Skill: Hold, Lvl 1-10, Augmentation Skill
-
-	Description(s):
-		Chance: Momentarily throws the target into a state of hold during magic use.
-		The target cannot be affected by any additional hold attacks while the effect lasts.
-
-	Done By: schursin (L2JOneo)
-	Website: www.oneodevteam.com, www.gludin.ru
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily throws the target into a state of shock during magic use.
 -->
-
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="STUN"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_MAGIC_OFFENSIVE"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isDebuff" val="true"/>
+  <for>
+    <effect count="1" name="Stun" time="5" val="0" stackOrder="1" stackType="Stun"/>
+  </for>
+</skill>
 <skill id="3099" levels="10" name="Item Skill: Hold">
-	<set name="augmentType"  val="2"         />
-	<set name="power"        val="2"         />
-	<set name="lvlDepend"    val="2"         />
-	<set name="target"       val="TARGET_ONE"/>
-	<set name="skillType"    val="ROOT"      />
-	<set name="operateType"  val="OP_ACTIVE" />
-	<set name="hitTime"      val="1200"      />
-	<set name="reuseDelay"   val="30000"     />
-	<set name="buffDuration" val="30000"     />
-	<for>
-		<effect count="1" name="Root" time="30" val="0" stackOrder="1" stackType="Root"/>
-	</for>
+<!--
+  Description(s):
+      Lvl 1-10 - Chance: Momentarily throws the target into a state of hold during magic use. The target cannot be affected by any additional hold attacks while the effect lasts.
+-->
+  <table name="#chance"> 2 2 2 3 3 3 4 4 5 5 </table>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="ROOT"/>
+  <set name="operateType" val="OP_CHANCE"/>
+  <set name="chanceType" val="ON_MAGIC_OFFENSIVE"/>
+  <set name="activationChance" val="#chance"/>
+  <set name="castRange" val="-1"/>
+  <set name="isMagic" val="true"/>
+  <set name="isDebuff" val="true"/>
+  <for>
+    <effect count="1" name="Root" time="5" val="0" stackOrder="1" stackType="Root"/>
+  </for>
 </skill>
 </list>

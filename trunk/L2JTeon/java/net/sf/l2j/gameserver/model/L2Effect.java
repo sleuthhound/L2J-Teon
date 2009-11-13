@@ -51,25 +51,65 @@ public abstract class L2Effect
 
 	public static enum EffectType
 	{
-		BUFF, BUFFIMMUNITY, CHARGE, DMG_OVER_TIME, HEAL_OVER_TIME, COMBAT_POINT_HEAL_OVER_TIME, MANA_DMG_OVER_TIME, MANA_HEAL_OVER_TIME, RELAXING, STUN, ROOT, SLEEP, HATE, FAKE_DEATH, CONFUSION, CONFUSE_MOB_ONLY, MUTE, FEAR, SILENT_MOVE, SEED, PARALYZE, STUN_SELF, PSYCHICAL_MUTE, REMOVE_TARGET, TARGET_ME, SILENCE_MAGIC_PHYSICAL, BETRAY, NOBLESSE_BLESSING, SOUL_OF_THE_PHOENIX, SALVATION, PETRIFICATION, BLUFF, INVUL, INTERRUPT, BATTLE_FORCE, SPELL_FORCE, CHARM_OF_LUCK, SIGNET_GROUND, SIGNET_EFFECT, SIGNET, IMMOBILEUNTILATTACKED, DEBUFF, PROTECTION_BLESSING
+		BUFF,
+		BUFFIMMUNITY,
+		CHARGE,
+		DMG_OVER_TIME,
+		HEAL_OVER_TIME,
+		COMBAT_POINT_HEAL_OVER_TIME,
+		MANA_DMG_OVER_TIME,
+		MANA_HEAL_OVER_TIME,
+		RELAXING,
+		STUN,
+		ROOT,
+		SLEEP,
+		HATE,
+		FAKE_DEATH,
+		CONFUSION,
+		CONFUSE_MOB_ONLY,
+		MUTE,
+		FEAR,
+		ILENT_MOVE,
+		SEED,
+		PARALYZE,
+		STUN_SELF,
+		PSYCHICAL_MUTE,
+		REMOVE_TARGET,
+		TARGET_ME,
+		SILENCE_MAGIC_PHYSICAL,
+		BETRAY,
+		NOBLESSE_BLESSING,
+		SOUL_OF_THE_PHOENIX,
+		SALVATION,
+		PETRIFICATION,
+		BLUFF,
+		INVUL,
+		INTERRUPT,
+		BATTLE_FORCE,
+		SPELL_FORCE,
+		CHARM_OF_LUCK,
+		SIGNET_GROUND,
+		SIGNET_EFFECT,
+		SIGNET,
+		IMMOBILEUNTILATTACKED,
+		DEBUFF,
+		PROTECTION_BLESSING,
+		BACKTOME,
+		CHARMOFCOURAGE,
+		RNDTELEPORT,
+		SILENT_MOVE
 	}
 
 	private static final Func[] _emptyFunctionSet = new Func[0];
-	// member _effector is the instance of L2Character that cast/used the
-	// spell/skill that is
-	// causing this effect. Do not confuse with the instance of L2Character
-	// that
-	// is being affected by this effect.
+	// member _effector is the instance of L2Character that cast/used the spell/skill that is
+	// causing this effect. Do not confuse with the instance of L2Character that is being affected by this effect.
 	private final L2Character _effector;
 	// member _effected is the instance of L2Character that was affected
-	// by this effect. Do not confuse with the instance of L2Character that
-	// catsed/used this effect.
+	// by this effect. Do not confuse with the instance of L2Character that catsed/used this effect.
 	private final L2Character _effected;
 	// the skill that was used.
 	private final L2Skill _skill;
-	// or the items that was used.
-	// private final L2Item _item;
-	// the value of an update
+	// or the items that was used. private final L2Item _item; the value of an update
 	private final Lambda _lambda;
 	// the current state
 	private EffectState _state;

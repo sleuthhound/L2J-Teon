@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 public abstract class ItemContainer
 {
 	protected static final Logger _log = Logger.getLogger(ItemContainer.class.getName());
+
 	protected final List<L2ItemInstance> _items;
 
 	protected ItemContainer()
@@ -52,7 +53,6 @@ public abstract class ItemContainer
 
 	/**
 	 * Returns the ownerID of the inventory
-	 * 
 	 * @return int
 	 */
 	public int getOwnerId()
@@ -62,7 +62,6 @@ public abstract class ItemContainer
 
 	/**
 	 * Returns the quantity of items in the inventory
-	 * 
 	 * @return int
 	 */
 	public int getSize()
@@ -72,7 +71,6 @@ public abstract class ItemContainer
 
 	/**
 	 * Returns the list of items in inventory
-	 * 
 	 * @return L2ItemInstance : items in inventory
 	 */
 	public L2ItemInstance[] getItems()

@@ -658,9 +658,9 @@ public class L2Clan
 	 * @param player name
 	 * @return
 	 */
-	public boolean isMember(int id)
+	public boolean isMember(String name)
 	{
-		return (id == 0 ? false :_members.containsKey(id));
+		return name == null ? false : _members.containsKey(name);
 	}
 
 	public void updateClanInDB()

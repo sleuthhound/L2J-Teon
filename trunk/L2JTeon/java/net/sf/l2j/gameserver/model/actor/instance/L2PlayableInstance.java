@@ -33,21 +33,14 @@ import net.sf.l2j.gameserver.templates.L2CharTemplate;
  */
 public abstract class L2PlayableInstance extends L2Character
 {
-	private boolean _isNoblesseBlessed = false; // for Noblesse Blessing skill,
-	// restores buffs after death
-	private boolean _getCharmOfLuck = false; // Charm of Luck - During a
-	// Raid/Boss war, decreased
-	// chance for death penalty
-	private boolean _isSoulOfThePhoenix = false; // for Soul of The
-	// Phoenix
-	// skill, restores buffs
-	// after death and full
-	// CP/HP/MP
+	private boolean _isNoblesseBlessed = false; // for Noblesse Blessing skill, restores buffs after death
+	private boolean _getCharmOfLuck = false; // Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
+	private boolean _isSoulOfThePhoenix = false; // for Soul of The Phoenix skill, restores buffs after death and full CP/HP/MP
 	private boolean _isSalvation = false; // for Salvation skill, restores
 	private boolean _ProtectionBlessing = false;
+	private boolean _isSilentMoving = false;
 
-	// buffs after death and full
-	// CP/HP/MP
+	// buffs after death and full CP/HP/MP
 	/**
 	 * Constructor of L2PlayableInstance (use L2Character constructor).<BR>
 	 * <BR>
@@ -353,5 +346,14 @@ public abstract class L2PlayableInstance extends L2Character
 			removeEffect(effect);
 		setCharmOfLuck(false);
 		updateAbnormalEffect();
+	}
+	public void setSilentMoving(boolean flag)
+	{
+		_isSilentMoving = flag;
+	}
+
+	public boolean isSilentMoving()
+	{
+		return _isSilentMoving;
 	}
 }

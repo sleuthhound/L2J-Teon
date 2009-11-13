@@ -27,13 +27,13 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
  */
 public class L2Potion extends L2Object
 {
-	protected static final Logger _log = Logger.getLogger(L2Character.class.getName());
+	protected static final Logger _log = Logger.getLogger(L2Potion.class.getName());
+
 	@SuppressWarnings("unused")
 	private L2Character _target;
-	@SuppressWarnings("unchecked")
-	private Future _potionhpRegTask;
-	@SuppressWarnings("unchecked")
-	private Future _potionmpRegTask;
+
+	private Future<?> _potionhpRegTask;
+	private Future<?> _potionmpRegTask;
 	protected int _milliseconds;
 	protected double _effect;
 	protected int _duration;
@@ -65,7 +65,7 @@ public class L2Potion extends L2Object
 					{
 						nowHp += _effect;
 						_instance.setCurrentHp(nowHp);
-						_duration = _duration - _milliseconds / 1000;
+						_duration = _duration - (_milliseconds / 1000);
 						setCurrentHpPotion2();
 					}
 				}
@@ -89,8 +89,7 @@ public class L2Potion extends L2Object
 			_potionhpRegTask.cancel(false);
 		}
 		_potionhpRegTask = null;
-		if (Config.DEBUG)
-			_log.fine("Potion HP regen stop");
+		if (Config.DEBUG) _log.fine("Potion HP regen stop");
 	}
 
 	public void setCurrentHpPotion2()
@@ -105,9 +104,10 @@ public class L2Potion extends L2Object
 	{
 		_potion = item;
 		_target = activeChar;
+
 		switch (_potion)
 		{
-			case 1540:
+			case (1540):
 				double nowHp = activeChar.getCurrentHp();
 				nowHp += 435;
 				if (nowHp >= activeChar.getMaxHp())
@@ -116,7 +116,7 @@ public class L2Potion extends L2Object
 				}
 				activeChar.setCurrentHp(nowHp);
 				break;
-			case 728:
+			case (728):
 				double nowMp = activeChar.getMaxMp();
 				nowMp += 435;
 				if (nowMp >= activeChar.getMaxMp())
@@ -125,7 +125,7 @@ public class L2Potion extends L2Object
 				}
 				activeChar.setCurrentMp(nowMp);
 				break;
-			case 726:
+			case (726):
 				_milliseconds = 500;
 				_duration = 15;
 				_effect = 1.5;
@@ -158,7 +158,7 @@ public class L2Potion extends L2Object
 					{
 						nowMp += _effect;
 						_instance.setCurrentMp(nowMp);
-						_duration = _duration - _milliseconds / 1000;
+						_duration = (_duration - (_milliseconds / 1000));
 						setCurrentMpPotion2();
 					}
 				}
@@ -173,8 +173,7 @@ public class L2Potion extends L2Object
 	private void startPotionMpRegeneration(L2Character activeChar)
 	{
 		_potionmpRegTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new PotionMpHealing(activeChar), 1000, _milliseconds);
-		if (Config.DEBUG)
-			_log.fine("Potion MP regen Started");
+		if (Config.DEBUG) _log.fine("Potion MP regen Started");
 	}
 
 	public void stopPotionMpRegeneration()
@@ -183,9 +182,9 @@ public class L2Potion extends L2Object
 		{
 			_potionmpRegTask.cancel(false);
 		}
+
 		_potionmpRegTask = null;
-		if (Config.DEBUG)
-			_log.fine("Potion MP regen stop");
+		if (Config.DEBUG) _log.fine("Potion MP regen stop");
 	}
 
 	public void setCurrentMpPotion2()
@@ -200,6 +199,7 @@ public class L2Potion extends L2Object
 	{
 		_potion = item;
 		_target = activeChar;
+
 		switch (_potion)
 		{
 		}
