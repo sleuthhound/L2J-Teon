@@ -19,7 +19,6 @@
 package ai.individual;
 
 import ai.group_template.L2AttackableAIScript;
-
 import java.util.logging.Logger;
 import java.util.concurrent.ScheduledFuture;
 import java.util.Calendar;
@@ -605,7 +604,6 @@ public class Sailren extends L2AttackableAIScript
 	{
 	String htmltext = "";
 	if (GrandBossManager.getInstance().getBossStatus(_BossId) == NOTSPAWN || GrandBossManager.getInstance().getBossStatus(_BossId) == ALIVE)
-		canIntoSailrenLair(player);
 		{
 			if (player.isFlying())
 			{
@@ -626,12 +624,13 @@ public class Sailren extends L2AttackableAIScript
 			else
 				htmltext = "<html><body>Shilen's Stone Statue:<br><font color=LEVEL>Gazkh</font> is necessary for seal the sailren.</body></html>";
 		}
-	/*else */if (GrandBossManager.getInstance().getBossStatus(_BossId) == INTERVAL)
+	else if (GrandBossManager.getInstance().getBossStatus(_BossId) == INTERVAL)
 		htmltext = "<html><body>Shilen's Stone Statue:<br><font color=\"LEVEL\">Another adventurers have already fought against the sailren. Do not obstruct them.</font></body></html>";
 	else
 		htmltext = "<html><body>Shilen's Stone Statue:<br><font color=\"LEVEL\">Please seal the sailren by your ability.</font></body></html>";
 	return htmltext;
 	}
+		//canIntoSailrenLair(player);
 
     public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
     {

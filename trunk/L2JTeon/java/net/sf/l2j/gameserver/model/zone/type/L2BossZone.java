@@ -19,6 +19,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -36,6 +37,7 @@ public class L2BossZone extends L2ZoneType
 	private String _zoneName;
 	private int _timeInvade;
 	private boolean _enabled = true; // default value, unless overridden by xml...
+	private String _QuestName = null;
 	// track the times that players got disconnected. Players are allowed
 	// to log back into the zone as long as their log-out was within _timeInvade
 	// time...
@@ -91,8 +93,14 @@ public class L2BossZone extends L2ZoneType
 
 	@Override
 	/*
-	 * Boss zones have special behaviors for player characters. Players are automatically teleported out when the attempt to enter these zones, except if the time at which they enter the zone is prior to the entry expiration time set for that player. Entry expiration times are set by any one of the following: 1) A player logs out while in a zone (Expiration gets set to logoutTime + _timeInvade) 2)
-	 * An external source (such as a quest or AI of NPC) set up the player for entry. There exists one more case in which the player will be allowed to enter. That is if the server recently rebooted (boot-up time more recent than currentTime - _timeInvade) AND the player was in the zone prior to reboot.
+	 * Boss zones have special behaviors for player characters. Players are automatically teleported out when the
+	 * attempt to enter these zones, except if the time at which they enter the zone is prior to the entry
+	 * expiration time set for that player. Entry expiration times are set by any one of the following:
+	 * 1) A player logs out while in a zone (Expiration gets set to logoutTime + _timeInvade)
+	 * 2) An external source (such as a quest or AI of NPC) set up the player for entry.
+	 * There exists one more case in which the player will be allowed to enter. That is if the
+	 * server recently rebooted (boot-up time more recent than currentTime - _timeInvade) AND the
+	 * player was in the zone prior to reboot.
 	 */
 	protected void onEnter(L2Character character)
 	{
@@ -100,6 +108,7 @@ public class L2BossZone extends L2ZoneType
 		{
 			if (character instanceof L2PcInstance)
 			{
+				this.aOnEnter(character);
 				L2PcInstance player = (L2PcInstance) character;
 				player.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 				if (player.isGM())
@@ -111,8 +120,7 @@ public class L2BossZone extends L2ZoneType
 				// set to receive players (aka not waiting for boss to respawn)
 				if (_playersAllowed.contains(player.getObjectId()))
 				{
-					// Get the information about this player's last logout-exit from
-					// this zone.
+					// Get the information about this player's last logout-exit from this zone.
 					Long expirationTime = _playerAllowedReEntryTimes.get(player.getObjectId());
 					// with legal entries, do nothing.
 					if (expirationTime == null) // legal null expirationTime entries
@@ -364,5 +372,18 @@ public class L2BossZone extends L2ZoneType
 		}
 		return;
 	}
-	// When the player has been annihilated, the player is banished from the lair.ç
+	// When the player has been annihilated, the player is banished from the lair.
+
+	protected void aOnEnter(L2Character character)
+	{
+		if (character instanceof L2PcInstance)
+		{
+		L2PcInstance player = (L2PcInstance) character;
+			if (player.isGM())
+			{
+				if (_zoneName.equalsIgnoreCase("AltarofSacrifice"))
+					VanHalterManager.getInstance().intruderDetection((L2PcInstance)character);
+			}
+		}
+	}
 }

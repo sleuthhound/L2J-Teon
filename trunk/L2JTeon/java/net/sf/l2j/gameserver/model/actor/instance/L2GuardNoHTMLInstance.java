@@ -56,13 +56,9 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	}
 
 	/**
-	 * Constructor of L2GuardInstance (use L2Character and L2NpcInstance constructor).<BR>
-	 * <BR>
-	 * <B><U> Actions</U> :</B><BR>
-	 * <BR>
-	 * <li>Call the L2Character constructor to set the _template of the L2GuardInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2GuardInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
-	 * <BR>
-	 * 
+	 * Constructor of L2GuardInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
+	 * <B><U> Actions</U> :</B><BR><BR>
+	 * <li>Call the L2Character constructor to set the _template of the L2GuardInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2GuardInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR><BR>
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate
@@ -106,8 +102,7 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 		_homeX = getX();
 		_homeY = getY();
 		_homeZ = getZ();
-		if (Config.DEBUG)
-			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+		if (Config.DEBUG) _log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
 	}
 
 	public int getHomeX()
@@ -141,10 +136,8 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 		_homeX = getX();
 		_homeY = getY();
 		_homeZ = getZ();
-		if (Config.DEBUG)
-			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		// check the region where this mob is, do not activate the AI if region
-		// is inactive.
+		if (Config.DEBUG) _log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
+		// check the region where this mob is, do not activate the AI if region is inactive.
 		L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
 		if ((region != null) && !region.isActive())
 			((L2AttackableAI) getAI()).stopAITask();
@@ -155,17 +148,11 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	 * <BR>
 	 * <B><U> Actions on first click on the L2GuardInstance (Select it)</U> :</B><BR>
 	 * <BR>
-	 * <li>Set the L2GuardInstance as target of the L2PcInstance player (if necessary)</li> <li>Send a Server->Client packet MyTargetSelected to the L2PcInstance player (display the select window)</li> <li>Set the L2PcInstance Intention to AI_INTENTION_IDLE</li> <li>Send a Server->Client packet ValidateLocation to correct the L2GuardInstance position and heading on the client</li> <BR>
-	 * <BR>
-	 * <B><U> Actions on second click on the L2GuardInstance (Attack it/Interact with it)</U> :</B><BR>
-	 * <BR>
-	 * <li>If L2PcInstance is in the _aggroList of the L2GuardInstance, set the L2PcInstance Intention to AI_INTENTION_ATTACK</li> <li>If L2PcInstance is NOT in the _aggroList of the L2GuardInstance, set the L2PcInstance Intention to AI_INTENTION_INTERACT (after a distance verification) and show message</li> <BR>
-	 * <BR>
-	 * <B><U> Example of use </U> :</B><BR>
-	 * <BR>
-	 * <li>Client packet : Action, AttackRequest</li> <BR>
-	 * <BR>
-	 * 
+	 * <li>Set the L2GuardInstance as target of the L2PcInstance player (if necessary)</li> <li>Send a Server->Client packet MyTargetSelected to the L2PcInstance player (display the select window)</li> <li>Set the L2PcInstance Intention to AI_INTENTION_IDLE</li> <li>Send a Server->Client packet ValidateLocation to correct the L2GuardInstance position and heading on the client</li> <BR><BR>
+	 * <B><U> Actions on second click on the L2GuardInstance (Attack it/Interact with it)</U> :</B><BR><BR>
+	 * <li>If L2PcInstance is in the _aggroList of the L2GuardInstance, set the L2PcInstance Intention to AI_INTENTION_ATTACK</li> <li>If L2PcInstance is NOT in the _aggroList of the L2GuardInstance, set the L2PcInstance Intention to AI_INTENTION_INTERACT (after a distance verification) and show message</li> <BR><BR>
+	 * <B><U> Example of use </U> :</B><BR><BR>
+	 * <li>Client packet : Action, AttackRequest</li> <BR><BR>
 	 * @param player
 	 *            The L2PcInstance that start an action on the L2GuardInstance
 	 */
@@ -177,14 +164,11 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 		{
 			// Set the L2PcInstance Intention to AI_INTENTION_IDLE
 			player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-			if (Config.DEBUG)
-				_log.fine(player.getObjectId() + ": Targetted guard " + getObjectId());
+			if (Config.DEBUG) _log.fine(player.getObjectId() + ": Targetted guard " + getObjectId());
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-			// Send a Server->Client packet MyTargetSelected to the
-			// L2PcInstance
-			// player
-			// The color to display in the select window is White
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance
+			// player The color to display in the select window is White
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
 			// Send a Server->Client packet ValidateLocation to correct the
@@ -193,30 +177,24 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 		}
 		else
 		{
-			// Check if the L2PcInstance is in the _aggroList of the
-			// L2GuardInstance
+			// Check if the L2PcInstance is in the _aggroList of the L2GuardInstance
 			if (containsTarget(player))
 			{
-				if (Config.DEBUG)
-					_log.fine(player.getObjectId() + ": Attacked guard " + getObjectId());
+				if (Config.DEBUG) _log.fine(player.getObjectId() + ": Attacked guard " + getObjectId());
 				// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 			}
 			else
 			{
-				// Calculate the distance between the L2PcInstance and the
-				// L2NpcInstance
+				// Calculate the distance between the L2PcInstance and the L2NpcInstance
 				if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
 				{
-					// Set the L2PcInstance Intention to
-					// AI_INTENTION_INTERACT
+					// Set the L2PcInstance Intention to AI_INTENTION_INTERACT
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 				}
 				else
 				{
-					// Send a Server->Client ActionFailed to the
-					// L2PcInstance in
-					// order to avoid that the client wait another packet
+					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 					// Set the L2PcInstance Intention to AI_INTENTION_IDLE
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, null);

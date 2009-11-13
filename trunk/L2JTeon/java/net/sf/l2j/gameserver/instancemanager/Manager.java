@@ -22,5 +22,6 @@ public class Manager
 		DimensionalRiftManager.getInstance().reload();
 		CursedWeaponsManager.getInstance().reload();
 		MercTicketManager.getInstance().reload();
+		VanHalterManager.getInstance().init();
 	}
 }
