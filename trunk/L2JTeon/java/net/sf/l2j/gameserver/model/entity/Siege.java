@@ -115,6 +115,9 @@ public class Siege
 	{
 		All, Attacker, DefenderNotOwner, Owner, Spectator
 	}
+	
+    private int _controlTowerCount; 
+    private int _controlTowerMaxCount; 
 
 	// ===============================================================
 	// Schedule task
@@ -237,7 +240,6 @@ public class Siege
 	private List<L2SiegeClan> _attackerClans = new FastList<L2SiegeClan>(); // L2SiegeClan
 	private List<L2SiegeClan> _defenderClans = new FastList<L2SiegeClan>(); // L2SiegeClan
 	private List<L2SiegeClan> _defenderWaitingClans = new FastList<L2SiegeClan>(); // L2SiegeClan
-	private int _defenderRespawnDelayPenalty;
 	// Castle setting
 	private List<L2ArtefactInstance> _artifacts = new FastList<L2ArtefactInstance>();
 	private List<L2ControlTowerInstance> _controlTowers = new FastList<L2ControlTowerInstance>();
@@ -420,6 +422,10 @@ public class Siege
 				removeDefenderFlags(); // Removes defenders' flags
 				getCastle().removeUpgrade(); // Remove all castle upgrade
 				getCastle().spawnDoor(true); // Respawn door to castle but
+                removeControlTower(); // Remove all control tower from this castle                 
+                _controlTowerCount = 0;//Each new siege midvictory CT are completely respawned. 
+                _controlTowerMaxCount = 0;     
+                spawnControlTower(getCastle().getCastleId()); 
 				// make them weaker (50% hp)
 				updatePlayerSiegeStateFlags(false);
 			}
@@ -456,13 +462,14 @@ public class Siege
 			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town);
 			// Teleport to the closest town teleportPlayer(Siege.TeleportWhoType.Spectator,
 			// MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
+            _controlTowerCount = 0; 
+            _controlTowerMaxCount = 0;             
 			spawnArtifact(getCastle().getCastleId()); // Spawn artifact
 			spawnControlTower(getCastle().getCastleId()); // Spawn control tower
 			getCastle().spawnDoor(); // Spawn door
 			spawnSiegeGuard(); // Spawn siege guard
 			MercTicketManager.getInstance().deleteTickets(getCastle().getCastleId());
 			// remove the tickets from the ground
-			_defenderRespawnDelayPenalty = 0; // Reset respawn delay
 			getCastle().getZone().updateZoneStatusForCharactersInside();
 			// Schedule a task to prepare auto siege end
 			_siegeEndDate = Calendar.getInstance();
@@ -778,8 +785,9 @@ public class Siege
 	/** Control Tower was skilled */
 	public void killedCT(L2NpcInstance ct)
 	{
-		_defenderRespawnDelayPenalty += SiegeManager.getInstance().getControlTowerLosePenalty();
-		// Add respawn penalty to defenders for each control tower lose
+        _controlTowerCount--; 
+        if (_controlTowerCount < 0) 
+        	_controlTowerCount = 0; 
 	}
 
 	/** Remove the flag that was killed */
@@ -1410,6 +1418,8 @@ public class Siege
 			ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), template);
 			ct.setCurrentHpMp(ct.getMaxHp(), ct.getMaxMp());
 			ct.spawnMe(_sp.getLocation().getX(), _sp.getLocation().getY(), _sp.getLocation().getZ() + 20);
+            _controlTowerCount++; 
+            _controlTowerMaxCount++; 
 			_controlTowers.add(ct);
 		}
 	}
@@ -1560,11 +1570,6 @@ public class Siege
 		return _defenderWaitingClans;
 	}
 
-	public final int getDefenderRespawnDelay()
-	{
-		return SiegeManager.getInstance().getDefenderRespawnDelay() + _defenderRespawnDelayPenalty;
-	}
-
 	public final boolean getIsInProgress()
 	{
 		return _isInProgress;
@@ -1601,4 +1606,9 @@ public class Siege
 		}
 		return _siegeGuardManager;
 	}
+	
+    public int getControlTowerCount() 
+    {
+        return _controlTowerCount;
+    }
 }

@@ -63,12 +63,12 @@ public class SiegeManager
 	private int _attackerRespawnDelay = 0; // Time in ms. Changeable in
 	// siege.config
 	private int _defenderMaxClans = 500; // Max number of clans
-	private int _defenderRespawnDelay = 30000; // Time in ms. Changeable in
+
 	// siege.config
 	// Siege settings
 	private FastMap<Integer, FastList<SiegeSpawn>> _artefactSpawnList;
 	private FastMap<Integer, FastList<SiegeSpawn>> _controlTowerSpawnList;
-	private int _controlTowerLosePenalty = 60000; // Time in ms.
+
 	// Changeable in
 	// siege.config
 	private int _flagMaxCount = 1; // Changeable in siege.config
@@ -187,9 +187,7 @@ public class SiegeManager
 			// Siege setting
 			_attackerMaxClans = Integer.decode(siegeSettings.getProperty("AttackerMaxClans", "500"));
 			_attackerRespawnDelay = Integer.decode(siegeSettings.getProperty("AttackerRespawn", "0"));
-			_controlTowerLosePenalty = Integer.decode(siegeSettings.getProperty("CTLossPenalty", "60000"));
 			_defenderMaxClans = Integer.decode(siegeSettings.getProperty("DefenderMaxClans", "500"));
-			_defenderRespawnDelay = Integer.decode(siegeSettings.getProperty("DefenderRespawn", "30000"));
 			_flagMaxCount = Integer.decode(siegeSettings.getProperty("MaxFlags", "1"));
 			_siegeClanMinLevel = Integer.decode(siegeSettings.getProperty("SiegeClanMinLevel", "4"));
 			_siegeLength = Integer.decode(siegeSettings.getProperty("SiegeLength", "120"));
@@ -280,19 +278,9 @@ public class SiegeManager
 		return _attackerRespawnDelay;
 	}
 
-	public final int getControlTowerLosePenalty()
-	{
-		return _controlTowerLosePenalty;
-	}
-
 	public final int getDefenderMaxClans()
 	{
 		return _defenderMaxClans;
-	}
-
-	public final int getDefenderRespawnDelay()
-	{
-		return _defenderRespawnDelay;
 	}
 
 	public final int getFlagMaxCount()
