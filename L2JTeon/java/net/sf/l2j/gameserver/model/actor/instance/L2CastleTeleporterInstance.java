@@ -14,19 +14,12 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Properties;
 import java.util.StringTokenizer;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -53,7 +46,17 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		String actualCommand = st.nextToken(); // Get actual command
 		if (actualCommand.equalsIgnoreCase("tele"))
 		{
-			doTeleport(player);
+            int delay; 
+            if (!getTask()) 
+            {
+                if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0) 
+                    delay = 480000; 
+                else 
+                    delay = 30000; 
+                
+                setTask(true); 
+                ThreadPoolManager.getInstance().scheduleGeneral(new oustAllPlayers(), delay ); 
+            }
 			String filename = "data/html/castleteleporter/MassGK-1.htm";
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile(filename);
@@ -67,38 +70,21 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	@Override
 	public void showChatWindow(L2PcInstance player)
 	{
-		String filename = "data/html/castleteleporter/MassGK-1.htm";
+        String filename;
 		if (!getTask())
 		{
-			filename = "data/html/castleteleporter/MassGK.htm";
+            if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0) 
+                filename = "data/html/castleteleporter/MassGK-2.htm"; 
+            else 
+                filename = "data/html/castleteleporter/MassGK.htm"; 
 		}
+        else 
+            filename = "data/html/castleteleporter/MassGK-1.htm"; 
+		
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
-	}
-
-	private void doTeleport(L2PcInstance player)
-	{
-		try
-		{
-			InputStream is = new FileInputStream(new File(Config.SIEGE_CONFIGURATION_FILE));
-			Properties siegeSettings = new Properties();
-			siegeSettings.load(is);
-			is.close();
-			long delay = Integer.decode(siegeSettings.getProperty("DefenderRespawn", "30000"));
-			Castle castle = CastleManager.getInstance().getCastle(player.getX(), player.getY(), player.getZ());
-			if (castle != null && castle.getSiege().getIsInProgress())
-				delay = castle.getSiege().getDefenderRespawnDelay();
-			if (delay > 480000)
-				delay = 480000;
-			setTask(true);
-			ThreadPoolManager.getInstance().scheduleGeneral(new oustAllPlayers(), delay);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	void oustAllPlayers()
