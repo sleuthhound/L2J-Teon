@@ -212,7 +212,7 @@ public class GameServer
 		SkillSpellbookTable.getInstance();
 		NobleSkillTable.getInstance();
 		HeroSkillTable.getInstance();
-		Npcbuffer.getInstance();
+		Npcbuffer.getInstance().engineInit();
 		NpcBufferSkillIdsTable.getInstance();
 		Util.printSection("Trade Controller");
 		TradeController.getInstance();
