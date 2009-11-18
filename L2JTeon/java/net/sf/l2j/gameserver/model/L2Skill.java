@@ -199,6 +199,7 @@ public abstract class L2Skill
 	public final static int STAT_HP_CONSUME_RATE = 337; // Rate of hp consume
 	// per skill use
 	public final static int STAT_DANCE_MP_CONSUME_RATE = 338; // rate of mp consume per dance use
+    public final static int STAT_MCRITRATE = 339; // Magic Crit Rate 
 	// COMBAT DAMAGE MODIFIER SKILLS...DETECT WEAKNESS AND WEAKNESS/STRENGTH
 	public final static int COMBAT_MOD_ANIMAL = 200;
 	public final static int COMBAT_MOD_BEAST = 201;
