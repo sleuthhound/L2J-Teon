@@ -347,7 +347,10 @@ public class CharStat
 
 	public final int getMCriticalHit(L2Character target, L2Skill skill)
 	{
-		double mrate = calcStat(Stats.MCRITICAL_RATE, 10, target, skill);
+        if (_activeChar == null) 
+            return 1; 
+        
+        double mrate = calcStat(Stats.MCRITICAL_RATE, _activeChar.getTemplate().baseMCritRate, target, skill); 
 		return (int) mrate;
 	}
 
