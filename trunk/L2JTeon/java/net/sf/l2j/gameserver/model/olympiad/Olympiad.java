@@ -2258,7 +2258,7 @@ public class Olympiad
 			switch (_type)
 			{
 				case NON_CLASSED:
-					_div = 5;
+					_div = 3;
 					_gpreward = Config.ALT_OLY_NONCLASSED_RITEM_C;
 					break;
 				default:
