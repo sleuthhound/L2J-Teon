@@ -53,6 +53,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2CubicInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DecoInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GuardNoHTMLInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcWalkerInstance;
@@ -315,7 +316,7 @@ public abstract class L2Character extends L2Object
 		&& !(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance)
 		&& !(this instanceof L2DecoInstance) && !(this instanceof L2SiegeSummonInstance)
 		&& !(this instanceof L2PetInstance) && !(this instanceof L2SummonInstance)
-		&& !(this instanceof L2SiegeFlagInstance))
+		&& !(this instanceof L2SiegeFlagInstance) && !(this instanceof L2GuardNoHTMLInstance))
 		setIsInvul(true);
 	}
 
