@@ -350,7 +350,12 @@ public class CharStat
         if (_activeChar == null) 
             return 1; 
         
-        double mrate = calcStat(Stats.MCRITICAL_RATE, _activeChar.getTemplate().baseMCritRate, target, skill); 
+        double mrate = calcStat(Stats.MCRITICAL_RATE, _activeChar.getTemplate().baseMCritRate, target, skill);
+        
+		//  Defined value in L2JTeonCustom.properties
+		if (mrate > Config.MAX_MCRIT_RATE)
+			mrate = Config.MAX_MCRIT_RATE;
+		
 		return (int) mrate;
 	}
 
