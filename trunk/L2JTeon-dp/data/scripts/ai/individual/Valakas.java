@@ -382,7 +382,7 @@ public class Valakas extends L2AttackableAIScript
         return super.onAdvEvent(event, npc, player);
 	}
 
-	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet, L2Skill skill)
+	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		if (npc.isInvul())
 		{
@@ -447,6 +447,7 @@ public class Valakas extends L2AttackableAIScript
 			}
 
 		}
+        L2Skill skill = null; // TODO: attack handler require skill 
 		int i1 = 0;
 		if (skill == null)
 		{
