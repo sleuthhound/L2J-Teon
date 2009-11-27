@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ClassMasterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -119,48 +120,62 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				try
 				{
 					L2Object object = L2World.getInstance().findObject(Integer.parseInt(id));
-					if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
-					{
-						String teamName = _command.substring(endOfId + 1).substring(16);
-						if (CTF._joining)
-						{
-							CTF.addPlayer(activeChar, teamName);
-						}
-						else
-						{
-							activeChar.sendMessage("The event is already started. You can not join now!");
-						}
-					}
-					if (_command.substring(endOfId + 1).startsWith("ctf_player_leave"))
-					{
-						if (CTF._joining)
-						{
-							CTF.removePlayer(activeChar);
-						}
-						else
-						{
-							activeChar.sendMessage("The event is already started. You can not leave now!");
-						}
-					}
-					if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
-					{
-						if (DM._joining)
-							DM.addPlayer(activeChar);
-						else
-							activeChar.sendMessage("The event is already started. You can not join now!");
-					}
-
-					if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
-					{
-						if (DM._joining)
-							DM.removePlayer(activeChar);
-						else
-							activeChar.sendMessage("The event is already started. You can not leave now!");
-					}
 					if (_command.substring(endOfId + 1).startsWith("event_participate"))
 					{
 						L2Event.inscribePlayer(activeChar);
 					}
+                    else if (_command.substring(endOfId+1).startsWith("tvt_player_join "))
+                    {
+                        String teamName = _command.substring(endOfId+1).substring(16);
+
+                        if (TvT._joining)
+                            TvT.addPlayer(activeChar, teamName);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not join now!");
+                    }
+                   
+                    else if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
+                    {
+                        if (TvT._joining)
+                            TvT.removePlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not leave now!");
+                    }
+                    
+                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
+                    {
+                        if (DM._joining)
+                            DM.addPlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not join now!");
+                    }
+                   
+                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
+                    {
+                        if (DM._joining)
+                            DM.removePlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not leave now!");
+                    }
+                    
+                    else if (_command.substring(endOfId+1).startsWith("ctf_player_join "))
+                    {
+                        String teamName = _command.substring(endOfId+1).substring(16); 
+                        
+                        if (CTF._joining)
+                            CTF.addPlayer(activeChar, teamName);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not join now!");
+                    }
+
+                    else if (_command.substring(endOfId+1).startsWith("ctf_player_leave"))
+                    {
+                        if (CTF._joining)
+                            CTF.removePlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event is already started. You can not leave now!");
+                    }
+
 					if ((object instanceof L2ClassMasterInstance) || (object != null) && (object instanceof L2NpcInstance) && (endOfId > 0) && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
 					{
 						((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));

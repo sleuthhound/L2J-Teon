@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class Recall implements ISkillHandler
@@ -59,6 +58,12 @@ public class Recall implements ISkillHandler
 					if (targetChar.isFestivalParticipant())
 					{
 						targetChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a festival."));
+						continue;
+					}
+					// Check to see if the current player target is in TvT or CTF events.
+					if (targetChar._inEventCTF || targetChar._inEventTvT)
+					{
+						targetChar.sendMessage("You may not use an escape skill in a Event.");
 						continue;
 					}
 					// Check to see if player is in jail

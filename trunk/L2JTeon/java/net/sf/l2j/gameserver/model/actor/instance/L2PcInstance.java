@@ -123,6 +123,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2EventChecks;
@@ -605,17 +606,31 @@ public final class L2PcInstance extends L2PlayableInstance
 	public LinkedList<String> kills = new LinkedList<String>();
 	public boolean eventSitForced = false;
 	public boolean atEvent = false;
-	/** CTF Engine parameters */
-	public String _teamNameCTF;
-	public String _teamNameHaveFlagCTF, _originalTitleCTF;
-	public int _originalNameColorCTF, _originalKarmaCTF;
-	public long _lastKilledTimeCTF;
-	public boolean _inEventCTF = false;
-	public boolean _haveFlagCTF = false;
-	public Future<?> _posCheckerCTF = null;
-	/** DM Engine parameters */
-	public int _originalNameColorDM, _originalKarmaDM;
-	public boolean _inEventDM = false;
+
+    /** TvT Engine parameters */
+    public String _teamNameTvT;
+    public int _originalNameColorTvT,
+               _countTvTkills,
+               _originalKarmaTvT;
+    public boolean _inEventTvT = false;
+    
+    /** CTF Engine parameters */
+    public String _teamNameCTF,
+                 _teamNameHaveFlagCTF,
+                 _originalTitleCTF;
+    public int _originalNameColorCTF,
+               _originalKarmaCTF,
+    		   _countCTFflags;    
+    public boolean _inEventCTF = false,
+                  _haveFlagCTF = false;
+    public Future _posCheckerCTF = null;
+    
+    /** DM Engine parameters */
+    public int _originalNameColorDM,
+               _countDMkills,
+               _originalKarmaDM;
+    public boolean _inEventDM = false;
+	
 	/** new loto ticket * */
 	private final int _loto[] = new int[5];
 	// public static int _loto_nums[] = {0,1,2,3,4,5,6,7,8,9,};
@@ -1975,12 +1990,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _curWeightPenalty;
 	}
 
-	@Override
-	public boolean isInFunEvent()
-	{
-		return (atEvent || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) && !isGM());
-	}
-
 	/**
 	 * Update the overloaded status of the L2PcInstance.<BR>
 	 */
@@ -2594,10 +2603,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
 		else if (isAway())
 			sendMessage("You can't stand up if your Status is Away");
-		else if (CTF._sitForced && _inEventCTF)
-			sendMessage("The Admin/GM handle if you sit or stand in this match!");
-		else if (DM._sitForced && _inEventDM)
-			sendMessage("The Admin/GM handle if you sit or stand in this match!");
+        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM )
+            sendMessage("The Admin/GM handle if you sit or stand in this match!");
 		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
 		{
 			if (_relax)
@@ -3599,16 +3606,25 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (_inEventCTF && !player._inEventCTF && (CTF._started || CTF._teleport) && !Config.CTF_ALLOW_INTERFERENCE || _inEventCTF && player._inEventCTF && (_lastKilledTimeCTF > System.currentTimeMillis()))
-		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		if (_inEventDM && DM._started && !Config.DM_ALLOW_INTERFERENCE)
-		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
+        if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
+        {
+            if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
+            {
+                player.sendPacket( ActionFailed.STATIC_PACKET );
+                return;
+            }
+            
+            else if ((_inEventCTF && !player._inEventCTF) || (!_inEventCTF && player._inEventCTF))
+            {
+                player.sendPacket( ActionFailed.STATIC_PACKET );
+                return;
+            }
+            else if ((_inEventDM && !player._inEventDM) || (!_inEventDM && player._inEventDM))
+            {
+                player.sendPacket( ActionFailed.STATIC_PACKET );
+                return;
+            }
+        }
 		// Away Sys
 		if (isAway() && !Config.AWAY_ALLOW_INTERFERENCE)
 		{
@@ -3643,7 +3659,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			else
 			{
 				// Check if this L2PcInstance is autoAttackable
-				if (isAutoAttackable(player) || (player._inEventDM && DM._started) || (player._inEventCTF && CTF._started) && !isGM())
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started))
 				{
 					// Player with lvl < 21 can't attack a cursed weapon holder
 					// And a cursed weapon holder can't attack players with lvl < 21
@@ -3679,6 +3695,12 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 	}
+	
+    @Override
+    public boolean isInFunEvent()
+    {
+    	return(atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF));
+    }
 
 	/**
 	 * Returns true if cp update should be done, false if not
@@ -4316,6 +4338,100 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (killer != null)
 		{
 			L2PcInstance pk = null;
+			
+            if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventTvT) && _inEventTvT)
+            {
+                if (TvT._teleport || TvT._started)
+                {
+                    if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
+                    {
+                        ((L2PcInstance)killer)._countTvTkills++;
+                        TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
+                    }
+                    else
+                        ((L2PcInstance)killer).sendMessage("You'r teamkiller !!! Teamkills not counting.");
+
+                    sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                    {
+                        public void run()
+                        {
+                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
+                            doRevive();
+                        }
+                    }, 20000);
+                }
+            }
+            
+            else if (_inEventTvT)
+            {
+                if (TvT._teleport || TvT._started)
+                {
+                    sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                    {
+                        public void run()
+                        {
+                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
+                            doRevive();
+                        }
+                    }, 20000);
+                }
+            }
+            
+            else if (_inEventCTF)
+            {
+                if (CTF._teleport || CTF._started)
+                {
+                    sendMessage("You will be revived and teleported to team flag in 20 seconds!");
+
+                    if (_haveFlagCTF)
+                    	removeCTFFlagOnDie();
+
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                    {
+                        public void run()
+                        {
+                            teleToLocation(CTF._teamsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._teamsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._teamsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
+                            doRevive();
+                        }
+                    }, 20000);
+                }
+            }
+            
+            else if ((killer instanceof L2PcInstance && ((L2PcInstance)killer)._inEventDM) && _inEventDM)
+            {
+                if (DM._teleport || DM._started)
+                {
+                    ((L2PcInstance)killer)._countDMkills++;
+                    
+                    sendMessage("You will be revived and teleported to spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                    {
+                        public void run()
+                        {
+                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+                            doRevive();
+                        }
+                    }, 20000);
+                }
+            }
+            else if (_inEventDM)
+            {
+                if (DM._teleport || DM._started)
+                {
+                    sendMessage("You will be revived and teleported to spot in 20 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                    {
+                        public void run()
+                        {
+                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+                            doRevive();
+                        }
+                    }, 20000);
+                }
+            }
+            
 			if (killer instanceof L2PcInstance)
 			{
 				pk = (L2PcInstance) killer;
@@ -4337,56 +4453,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				pk.kills.add(getName());
 			}
-			if (killer instanceof L2PcInstance)
-			{
-					if (((L2PcInstance) killer)._inEventCTF && _inEventCTF)
-					{
-						if (CTF._teleport || CTF._started)
-						{
-							if (_haveFlagCTF)
-							{
-								CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
-								CTF.spawnFlag(_teamNameHaveFlagCTF);
-								_haveFlagCTF = false;
-								Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
-							}
-							ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-							{
-								public void run()
-								{
-									teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
-									doRevive();
-									setCurrentCp(getMaxCp());
-									setCurrentHp(getMaxHp());
-									setCurrentMp(getMaxMp());
-									broadcastUserInfo();
-									_lastKilledTimeCTF = System.currentTimeMillis() + 7000; // 5
-									// seconds
-									// after
-									// revive
-									// protected
-								}
-							}, 2000);
-						}
-					}
-					if (((L2PcInstance)killer)._inEventDM && _inEventDM)
-					{
-						if (DM._teleport || DM._started)
-						{
-							DM.setPlayerKillsCount((L2PcInstance)killer , DM.playerKillsCount((L2PcInstance)killer)+1);
-							
-							sendMessage("You will be revived and teleported to spot in 20 seconds!");
-							ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-							{
-								public void run()
-								{
-                                    				teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
-                                    				doRevive();
-								}
-							},20000);
-						}
-					}
-				}
 			// Clear resurrect xp calculation
 			setExpBeforeDeath(0);
 			if (isCursedWeaponEquiped())
@@ -4487,10 +4553,19 @@ public final class L2PcInstance extends L2PlayableInstance
 		return true;
 	}
 
+    public void removeCTFFlagOnDie(){
+    	CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
+        CTF.spawnFlag(_teamNameHaveFlagCTF);
+        CTF.removeFlagFromPlayer(this);
+        broadcastUserInfo();
+        _haveFlagCTF = false;
+        CTF.Announcements(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");    	
+    }
+	
 	private void onDieDropItem(L2Character killer)
 	{
-		if (atEvent || (CTF._started && _inEventCTF) || (DM._started && _inEventDM) || (killer == null))
-			return;
+        if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || killer == null)
+            return;
 
 		if ((getKarma() <= 0) && (killer instanceof L2PcInstance) && (((L2PcInstance) killer).getClan() != null) && (getClan() != null) && ((L2PcInstance) killer).getClan().isAtWarWith(getClanId()))
 		// || this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId()))
@@ -4632,6 +4707,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			return;
 		}
+		
+        if (_inEventCTF || _inEventTvT || _inEventDM) return;
+
 		L2PcInstance targetPlayer = null;
 		if (target instanceof L2PcInstance)
 		{
@@ -4739,8 +4817,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void increasePvpKills()
 	{
-		if (CTF._started && _inEventCTF || DM._started && _inEventDM) return;
-
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF))
+            return;
+        
 		// Add to attacker and increase its PK counter
 		setPvpKills(getPvpKills() + 1);
 		// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
@@ -4856,8 +4935,9 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void increasePkKillsAndKarma(int targLVL)
 	{
-	        if ((DM._started && _inEventDM) || (CTF._started && _inEventCTF)) return;
-
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF))
+            return;
+        
 		int baseKarma = Config.KARMA_MIN_KARMA;
 		int newKarma = baseKarma;
 		int karmaLimit = Config.KARMA_MAX_KARMA;
@@ -4932,8 +5012,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void updatePvPStatus()
 	{
-	        if ((CTF._started && _inEventCTF) || (DM._started && _inEventDM)) return;
-
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF))
+            return;
+        
 		if (isInsideZone(ZONE_PVP)) return;
 		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
 
@@ -4947,6 +5028,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		if (player_target == null) return;
 
+        if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM) || (CTF._started && _inEventCTF && player_target._inEventCTF))  
+            return; 
+        
 		if (((L2PcInstance) this).isKoof() && (((L2PcInstance) target).isNoob())) return;
 
 		if (((L2PcInstance) this).isNoob() && (((L2PcInstance) target).isKoof())) return;
@@ -5057,7 +5141,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		// calculate the Experience loss
 		long lostExp = 0;
-		if ((!atEvent) || !_inEventCTF && !_inEventDM)
+        if (!atEvent && !_inEventTvT && !_inEventDM && !_inEventCTF)
 		{
 			if (lvl < Experience.MAX_LEVEL)
 			{
@@ -7882,12 +7966,12 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 			}
 			// Check if a Forced ATTACK is in progress on non-attackable target
-			if (!target.isAutoAttackable(this) && !forceUse && 
+            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started) &&
 				(sklTargetType != SkillTargetType.TARGET_AURA) && 
 				(sklTargetType != SkillTargetType.TARGET_CLAN) && 
 				(sklTargetType != SkillTargetType.TARGET_ALLY) && 
 				(sklTargetType != SkillTargetType.TARGET_PARTY) && 
-				(sklTargetType != SkillTargetType.TARGET_SELF) && !isInFunEvent())
+				(sklTargetType != SkillTargetType.TARGET_SELF))
 			{
 				// Send a Server->Client packet ActionFailed to the L2PcInstance
 				sendPacket(ActionFailed.STATIC_PACKET);
@@ -8046,8 +8130,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean checkPvpSkill(L2Object target, L2Skill skill)
 	{
-	        if ((_inEventDM && DM._started) || (_inEventCTF && CTF._started))
-	            return true;
+        if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started))
+            return true;
 
 		if (isNoob() || isKoof())
 			return true;
@@ -10021,6 +10105,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
 				getParty().getDimensionalRift().memberRessurected(this);
 		}
+		
+        if((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY))
+        {
+            getStatus().setCurrentHp(getMaxHp());
+            getStatus().setCurrentMp(getMaxMp());
+            getStatus().setCurrentCp(getMaxCp());
+        }
 	}
 
 	@Override
@@ -12220,10 +12311,4 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_nameColor = (red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16);
 	}
-/*
-	@Override
-	public boolean isInFunEvent()
-	{
-		return (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) && !isGM();
-	}*/
 }

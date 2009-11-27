@@ -107,6 +107,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminQuest());
 		registerAdminCommandHandler(new AdminZone());
 		registerAdminCommandHandler(new AdminDonator());
+		registerAdminCommandHandler(new AdminTvTEngine());
 		registerAdminCommandHandler(new AdminCTFEngine());
 		registerAdminCommandHandler(new AdminDMEngine());
 		registerAdminCommandHandler(new AdminCursedWeapons());
