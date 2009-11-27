@@ -725,54 +725,33 @@ public final class Config
 	/**
 	 * Time interval to check and see if L2JTeonEvent Manager should start a cycle of events if non in progress, or wait
 	 */
+	// * TVT Event Engine *//
+    public static String TVT_EVEN_TEAMS;
+    public static boolean TVT_ALLOW_INTERFERENCE;
+    public static boolean TVT_ALLOW_POTIONS;
+    public static boolean TVT_ALLOW_SUMMON;
+    public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean TVT_ON_START_UNSUMMON_PET;
+    public static boolean TVT_REVIVE_RECOVERY;
+    public static boolean TVT_ANNOUNCE_TEAM_STATS;
+    public static boolean TVT_PRICE_NO_KILLS;
+    public static boolean TVT_JOIN_CURSED;
 	// * CTF Event Engine *//
     public static String CTF_EVEN_TEAMS;
-	/** Enable or Disable CTF Engine with this option. */
-	public static boolean CTF_EVENT_ENABLED;
-	/** Allow/Disallow players not in CTF to interfere with CTF participants */
-	public static boolean CTF_ALLOW_INTERFERENCE;
-	/** This checks if player has the option to use potions or not. */
-	public static boolean CTF_ALLOW_POTIONS;
-	/** This checks if player has the option to Summon by item or not. */
-	public static boolean CTF_ALLOW_SUMMON;
+    public static boolean CTF_ALLOW_INTERFERENCE;
+    public static boolean CTF_ALLOW_POTIONS;
+    public static boolean CTF_ALLOW_SUMMON;
+    public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean CTF_ON_START_UNSUMMON_PET;
+    public static boolean CTF_ANNOUNCE_TEAM_STATS;
+    public static boolean CTF_JOIN_CURSED;
+    public static boolean CTF_REVIVE_RECOVERY;
 	// * DM Event Engine *//
     public static boolean DM_ALLOW_INTERFERENCE;
     public static boolean DM_ALLOW_POTIONS;
     public static boolean DM_ALLOW_SUMMON;
     public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
     public static boolean DM_ON_START_UNSUMMON_PET;
-	/**
-	 * This checks if the administrator or Owner want all buffs/debuffs/effects on a character removed on event start.
-	 */
-	public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
-	/**
-	 * This checks if the administrator or Owner want characters pets unsummoned on event start.
-	 */
-	public static boolean CTF_ON_START_UNSUMMON_PET;
-	/** This is the Team name for Team 1 */
-	public static String CTF_TEAM_NAME_1;
-	/** This is the start co-ordinates of team 1 * */
-	public static int[] CTF_TEAM_CORDS_1 = new int[3];
-	/** This is the ID of the Flag for Team 1 */
-	public static int CTF_TEAM_FLAG_ID_1;
-	/** This is the Team Color for Team 1 */
-	public static int CTF_TEAM_COLOR_1;
-	/** This is the Team name for Team 2 */
-	public static String CTF_TEAM_NAME_2;
-	/** This is the start co-ordinates of team 2 * */
-	public static int[] CTF_TEAM_CORDS_2 = new int[3];
-	/** This is the ID of the Flag for Team 2 */
-	public static int CTF_TEAM_FLAG_ID_2;
-	/** This is the Team Color for Team 2 */
-	public static int CTF_TEAM_COLOR_2;
-	/** This is the Minimum amount of players on both sides of the CTF Event. */
-	public static int CTF_MIN_PLAYERS;
-	/** This is the Participation time before the event starts. */
-	public static int CTF_PARTICIPATION_TIME;
-	/** This is the delay before players are teleported to start locations. */
-	public static int CTF_TELEPORT_DELAY_TIME;
-	/** This is the delay after the teleport and before the event starts. */
-	public static int CTF_DELAY_AFTER_TELEPORT;
 	// * Raid Event Engine *//
 	public static boolean RAID_SYSTEM_ENABLED;
 	public static int RAID_SYSTEM_MAX_EVENTS;
@@ -2211,60 +2190,40 @@ public final class Config
 				// ********************//
 				TIME_BETWEEN_EVENTS = Integer.parseInt(L2JTeonEventMods.getProperty("TimeInBetweenEvents", "60"));
 				// ********************//
+				/* TVT Event Engine */
+				// ********************//
+		           TVT_EVEN_TEAMS = L2JTeonEventMods.getProperty("TvTEvenTeams", "BALANCE");
+		           TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowInterference", "false"));
+		           TVT_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowPotions", "false"));
+		           TVT_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowSummon", "false"));
+		           TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartRemoveAllEffects", "true"));
+		           TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartUnsummonPet", "true"));
+		           TVT_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTReviveRecovery", "false"));
+		           TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtAnnounceTeamStats", "false"));
+		           TVT_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtPriceNoKills", "false"));
+		           TVT_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtJoinWithCursedWeapon", "true"));
+
+				// ********************//
 				/* CTF Event Engine */
 				// ********************//
-                CTF_EVEN_TEAMS = L2JTeonEventMods.getProperty("CTFEvenTeams", "BALANCE");
-				CTF_EVENT_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFEventEnabled", "False"));
-				CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "False"));
-				CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "False"));
-				CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowSummon", "False"));
-				CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartRemoveAllEffects", "True"));
-				CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartUnsummonPet", "True"));
-				CTF_TEAM_NAME_1 = L2JTeonEventMods.getProperty("CTFTeamName1", "Heaven");
-				CTF_TEAM_NAME_2 = L2JTeonEventMods.getProperty("CTFTeamName2", "Hell");
-				CTF_TEAM_FLAG_ID_1 = Integer.parseInt(L2JTeonEventMods.getProperty("CTFTeamFlagId1", "20001"));
-				CTF_TEAM_COLOR_1 = Integer.decode("0x" + L2JTeonEventMods.getProperty("CTFTeamColor1", "0000FF"));
-				CTF_TEAM_FLAG_ID_2 = Integer.parseInt(L2JTeonEventMods.getProperty("CTFTeamFlagId2", "20001"));
-				CTF_TEAM_COLOR_1 = Integer.decode("0x" + L2JTeonEventMods.getProperty("CTFTeamColor2", "FF0000"));
-				CTF_MIN_PLAYERS = Integer.parseInt(L2JTeonEventMods.getProperty("CTFMinplayers", "10"));
+		           CTF_EVEN_TEAMS = L2JTeonEventMods.getProperty("CTFEvenTeams", "BALANCE");
+		           CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "false"));
+		           CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "false"));
+		           CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowSummon", "false"));
+		           CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartRemoveAllEffects", "true"));
+		           CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartUnsummonPet", "true"));
+		           CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAnnounceTeamStats", "false"));
+		           CTF_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFJoinWithCursedWeapon", "true"));
+		           CTF_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFReviveRecovery", "false"));
+
 				// ********************//
 				/* DM Event Engine */
 				// ********************//
-	               DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowInterference", "false"));
-	               DM_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowPotions", "false"));
-	               DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "false"));
-	               DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "true"));
-	               DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "true"));
-				if (true)
-				{
-					String[] propertySplit = L2JTeonEventMods.getProperty("CTFTeamCords1", "0,0,0").split(",");
-					if (propertySplit.length < 3)
-					{
-						CTF_EVENT_ENABLED = false;
-						System.out.println("CTF[Config.load()]: invalid config property -> CTFTeamCoordinates for Team 1.");
-					}
-					else
-					{
-						CTF_TEAM_CORDS_1[0] = Integer.parseInt(propertySplit[0]);
-						CTF_TEAM_CORDS_1[1] = Integer.parseInt(propertySplit[1]);
-						CTF_TEAM_CORDS_1[2] = Integer.parseInt(propertySplit[2]);
-					}
-				}
-				if (true)
-				{
-					String[] propertySplit = L2JTeonEventMods.getProperty("CTFTeamCords2", "0,0,0").split(",");
-					if (propertySplit.length < 3)
-					{
-						CTF_EVENT_ENABLED = false;
-						System.out.println("CTF[Config.load()]: invalid config property -> CTFTeamCoordinates for Team 2.");
-					}
-					else
-					{
-						CTF_TEAM_CORDS_2[0] = Integer.parseInt(propertySplit[0]);
-						CTF_TEAM_CORDS_2[1] = Integer.parseInt(propertySplit[1]);
-						CTF_TEAM_CORDS_2[2] = Integer.parseInt(propertySplit[2]);
-					}
-				}
+		           DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowInterference", "false"));
+		           DM_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowPotions", "false"));
+		           DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "false"));
+		           DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "true"));
+		           DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "true"));
 				// ********************//
 				/* RAID Event Engine */
 				// ********************//

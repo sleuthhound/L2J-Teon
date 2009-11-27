@@ -96,9 +96,7 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
 			return false;
 		}
-		/*
-		 * if (!TvTEvent.onEscapeUse(targetChar.getObjectId())) { summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING)); return false; }
-		 */
+
 		if (targetChar.isInsideZone(L2Character.ZONE_NOSUMMONFRIEND))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IN_SUMMON_BLOCKING_AREA);

@@ -16,6 +16,13 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+
+/**
+ * 
+ * @author SqueezeD
+ * 
+ */
+
 package net.sf.l2j.gameserver.model.entity.L2JTeonEvents;
 
 import java.sql.PreparedStatement;
@@ -23,12 +30,13 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -36,32 +44,44 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.item.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-/**
- * @author FBIagent
- */
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class DM
 {   
-    public static String _eventName = new String(), _eventDesc = new String(), _joiningLocationName = new String();
+    private final static Log _log = LogFactory.getLog(DM.class.getName());
+    public static String _eventName = new String(),
+                         _eventDesc = new String(),
+                         _joiningLocationName = new String();
     public static Vector<String> _savePlayers = new Vector<String>();
     public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>();                                       
-    public static Vector<Integer> _playerKillsCount = new Vector<Integer>();
-    public static boolean _joining = false, _teleport = false, _started = false, _sitForced = false;
+    public static boolean _joining = false,
+                          _teleport = false,
+                          _started = false,
+                          _sitForced = false;
     public static L2Spawn _npcSpawn;
     public static L2PcInstance _topPlayer;
-    public static int _npcId = 0, _npcX = 0, _npcY = 0, _npcZ = 0,
-                      _rewardId = 0, _rewardAmount = 0,
+    public static int _npcId = 0,
+                      _npcX = 0,
+                      _npcY = 0,
+                      _npcZ = 0,
+                      _rewardId = 0,
+                      _rewardAmount = 0,
                       _topKills = 0,
-                      _minlvl = 0, _maxlvl = 0,
+                      _minlvl = 0,
+                      _maxlvl = 0,
                       _playerColors = 0,
-                      _playerX = 0, _playerY = 0, _playerZ = 0;
+                      _playerX = 0,
+                      _playerY = 0,
+                      _playerZ = 0;
 
     public static void setNpcPos(L2PcInstance activeChar)
     {
@@ -69,7 +89,7 @@ public class DM
         _npcY = activeChar.getY();
         _npcZ = activeChar.getZ();
     }
-
+    
     public static boolean checkMaxLevel(int maxlvl)
     {
         if (_minlvl >= maxlvl)
@@ -77,7 +97,7 @@ public class DM
         
         return true;
     }
-
+    
     public static boolean checkMinLevel(int minlvl)
     {
         if (_maxlvl <= minlvl)
@@ -85,14 +105,14 @@ public class DM
         
         return true;
     }
-
+    
     public static void setPlayersPos(L2PcInstance activeChar)
     {
         _playerX = activeChar.getX();
         _playerY = activeChar.getY();
         _playerZ = activeChar.getZ();
     }
-
+    
     public static boolean checkPlayerOk()
     {
         if (_started || _teleport || _joining)
@@ -100,12 +120,12 @@ public class DM
         
         return true;
     }
-
+    
     public static void startJoin(L2PcInstance activeChar)
     {
         if (!startJoinOk())
         {
-            System.out.println("DM Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+            if (_log.isDebugEnabled())_log.debug("DM Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
             return;
         }
         
@@ -113,7 +133,7 @@ public class DM
         spawnEventNpc(activeChar);
         Announcements.getInstance().announceToAll(_eventName + "(DM): Joinable in " + _joiningLocationName + "!");
     }
-
+    
     private static boolean startJoinOk()
     {
         if (_started || _teleport || _joining || _eventName.equals("") ||
@@ -124,7 +144,7 @@ public class DM
         
         return true;
     }
-
+    
     private static void spawnEventNpc(L2PcInstance activeChar)
     {
         L2NpcTemplate tmpl = NpcTable.getInstance().getTemplate(_npcId);
@@ -143,7 +163,7 @@ public class DM
             SpawnTable.getInstance().addNewSpawn(_npcSpawn, false);
 
             _npcSpawn.init();
-            _npcSpawn.getLastSpawn().setCurrentHp(999999999);
+            _npcSpawn.getLastSpawn().getStatus().setCurrentHp(999999999);
             _npcSpawn.getLastSpawn().setTitle(_eventName);
             _npcSpawn.getLastSpawn()._isEventMobDM = true;
             _npcSpawn.getLastSpawn().isAggressive();
@@ -154,10 +174,10 @@ public class DM
         }
         catch (Exception e)
         {
-            System.out.println("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
+            if (_log.isDebugEnabled())_log.debug("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
         }
     }
-
+    
     public static void teleportStart()
     {
         if (!_joining || _started || _teleport)
@@ -168,25 +188,56 @@ public class DM
 
         setUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-              {
-                  public void run()
-                  {
-                    DM.sit();
-                       for (L2PcInstance player : DM._players)
-                       {
-                          if (player !=  null)
-                            player.teleToLocation(_playerX, _playerY, _playerZ);
-                               }
-                              }
-                             }, 20000);
+        {
+            public void run()
+            {
+                DM.sit();
+
+                for (L2PcInstance player : DM._players)
+                {
+                    if (player !=  null)
+                    {
+                        if (Config.DM_ON_START_UNSUMMON_PET)
+                        {
+                            //Remove Summon's buffs
+                            if (player.getPet() != null)
+                            {
+                                L2Summon summon = player.getPet();
+                                for (L2Effect e : summon.getAllEffects())
+                                    e.exit();
+
+                                if (summon instanceof L2PetInstance)
+                                    summon.unSummon(player);
+                            }
+                        }
+
+                        if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+                        {
+                            for (L2Effect e : player.getAllEffects())
+                            {
+                                if (e != null) e.exit();
+                            }
+                        }
+
+                        // Remove player from his party
+                        if (player.getParty() != null)
+                        {
+                            L2Party party = player.getParty();
+                            party.removePartyMember(player);
+                        }
+                        player.teleToLocation(_playerX, _playerY, _playerZ);
+                    }
+                }
+            }
+        }, 20000);
         _teleport = true;
     }
-
+    
     public static void startEvent(L2PcInstance activeChar)
     {
         if (!startEventOk())
         {
-            System.out.println("DM Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("DM Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
             return;
         }
         
@@ -195,7 +246,7 @@ public class DM
         Announcements.getInstance().announceToAll(_eventName + "(DM): Started. Go to kill your enemies!");
         _started = true;
     }
-
+    
     private static boolean startEventOk()
     {
         if (_joining || !_teleport || _started)
@@ -203,22 +254,38 @@ public class DM
         
         return true;
     }
-
+    
     public static void setUserData()
     {
         for (L2PcInstance player : _players)
         {
-            player.setNameColor(_playerColors);
+            player._originalNameColorDM = player.getAppearance().getNameColor();
+            player._originalKarmaDM = player.getKarma();
+            player._inEventDM = true;
+            player._countDMkills = 0;
+            player.getAppearance().setNameColor(_playerColors);
             player.setKarma(0);
             player.broadcastUserInfo();
         }
     }
-
+    
+    public static void removeUserData()
+    {
+        for (L2PcInstance player : _players)
+        {
+            player.getAppearance().setNameColor(player._originalNameColorDM);
+            player.setKarma(player._originalKarmaDM);
+            player._inEventDM = false;
+            player._countDMkills = 0;
+            player.broadcastUserInfo();
+        }
+    }
+    
     public static void finishEvent(L2PcInstance activeChar)
     {
         if (!finishEventOk())
         {
-            System.out.println("DM Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
+            if (_log.isDebugEnabled())_log.debug("DM Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
             return;
         }
 
@@ -230,13 +297,13 @@ public class DM
             Announcements.getInstance().announceToAll(_eventName + "(DM): No players win the match(nobody killed).");
         else
         {
-            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer + "'s win the match! " + _topKills + " kills.");
+            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer.getName() + " wins the match! " + _topKills + " kills.");
             rewardPlayer(activeChar);
         }
         
         teleportFinish();
     }
-
+    
     private static boolean finishEventOk()
     {
         if (!_started)
@@ -244,70 +311,42 @@ public class DM
         
         return true;
     }
-
+    
     public static void processTopPlayer()
     {
         for (L2PcInstance player : _players)
         {
-            if (playerKillsCount(player) > _topKills)
+            if (player._countDMkills > _topKills)
             {
                 _topPlayer = player;
-                _topKills = playerKillsCount(player);
+                _topKills = player._countDMkills;
             }
         }
     }
-
+    
     public static void rewardPlayer(L2PcInstance activeChar)
     {
-        for (L2PcInstance player : _players)
+        if (_topPlayer != null)
         {
-            if (player != null)
-            {
-                if (player.equals(_topPlayer))
-                {
-                    PcInventory inv = player.getInventory();
-                
-                    if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
-                        inv.addItem("DM Event: " + _eventName, _rewardId, _rewardAmount, player, activeChar.getTarget());
-                    else
-                    {
-                        for (int i=0;i<=_rewardAmount-1;i++)
-                            inv.addItem("DM Event: " + _eventName, _rewardId, 1, player, activeChar.getTarget());
-                    }
-                
-                    SystemMessage sm;
+            _topPlayer.addItem("DM Event: " + _eventName, _rewardId, _rewardAmount, _topPlayer, true);
 
-                    if (_rewardAmount > 1)
-                    {
-                        sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-                        sm.addItemName(_rewardId);
-                        sm.addNumber(_rewardAmount);
-                        player.sendPacket(sm);
-                    }
-                    else
-                    {
-                        sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                        sm.addItemName(_rewardId);
-                        player.sendPacket(sm);
-                    }
-                
-                    StatusUpdate su = new StatusUpdate(player.getObjectId());
-                    su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-                    player.sendPacket(su);
+            StatusUpdate su = new StatusUpdate(_topPlayer.getObjectId());
+            su.addAttribute(StatusUpdate.CUR_LOAD, _topPlayer.getCurrentLoad());
+            _topPlayer.sendPacket(su);
 
-                    NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-                    TextBuilder replyMSG = new TextBuilder("");
+            NpcHtmlMessage nhm = new NpcHtmlMessage(5);
+            TextBuilder replyMSG = new TextBuilder("");
 
-                    replyMSG.append("<html><head><body>You win the event. Look in your inventar there should be the reward.</body></html>");
+            replyMSG.append("<html><body>You won the event. Look in your inventory for the reward.</body></html>");
 
-                    nhm.setHtml(replyMSG.toString());
-                    player.sendPacket(nhm);
-                }
-                break;
-            }
+            nhm.setHtml(replyMSG.toString());
+            _topPlayer.sendPacket(nhm);
+
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            _topPlayer.sendPacket( ActionFailed.STATIC_PACKET );
         }
     }
-
+    
     public static void abortEvent()
     {
         if (!_joining && !_teleport && !_started)
@@ -320,13 +359,13 @@ public class DM
         Announcements.getInstance().announceToAll(_eventName + "(DM): Match aborted!");
         teleportFinish();
     }
-
+    
     public static void sit()
     {
         if (_sitForced)
-		_sitForced = false;
+            _sitForced = false;
         else
-		_sitForced = true;
+            _sitForced = true;
         
         for (L2PcInstance player : _players)
         {
@@ -347,33 +386,9 @@ public class DM
                         player.standUp();
                 }
             }
-        }
-        for (L2PcInstance player : _players)
-        {
-            //Remove Buffs
-            for (L2Effect e : player.getAllEffects())
-                e.exit();
-            
-            //Remove Summon's buffs
-            if (player.getPet() != null)
-            {
-                L2Summon summon = player.getPet();
-                for (L2Effect e : summon.getAllEffects())
-                    e.exit();
-                
-                if (summon instanceof L2PetInstance)
-                    summon.unSummon(player);
-            }
-            
-            //Remove player from his party
-            if (player.getParty() != null)
-            {
-                L2Party party = player.getParty();
-                party.removePartyMember(player);
-            }
-        }
+        }        
     }
-
+    
     public static void dumpData()
     {
         System.out.println("");
@@ -415,16 +430,18 @@ public class DM
         System.out.println("# _players(Vector<L2PcInstance>) #");
         System.out.println("##################################");
         
+        System.out.println("Total Players : " + _players.size());
+        
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName()+ " index :" + _players.indexOf(player));
+                System.out.println("Name: " + player.getName()+ " kills :" + player._countDMkills);
         }
         
         System.out.println("");
-        System.out.println("#####################################################################");
-        System.out.println("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
-        System.out.println("#####################################################################");
+        System.out.println("################################");
+        System.out.println("# _savePlayers(Vector<String>) #");
+        System.out.println("################################");
         
         for (String player : _savePlayers)
             System.out.println("Name: " + player );
@@ -432,14 +449,13 @@ public class DM
         System.out.println("");
         System.out.println("");
     }
-
+    
     public static void loadData()
     {
         _eventName = new String();
         _eventDesc = new String();
         _joiningLocationName = new String();
         _savePlayers = new Vector<String>();
-        _playerKillsCount = new Vector<Integer>();
         _players = new Vector<L2PcInstance>();
         _topPlayer = null;
         _npcSpawn = null;
@@ -447,6 +463,19 @@ public class DM
         _teleport = false;
         _started = false;
         _sitForced = false;
+        _npcId = 0;
+        _npcX = 0;
+        _npcY = 0;
+        _npcZ = 0;
+        _rewardId = 0;
+        _rewardAmount = 0;
+        _topKills = 0;
+        _minlvl = 0;
+        _maxlvl = 0;
+        _playerColors = 0;
+        _playerX = 0;
+        _playerY = 0;
+        _playerZ = 0;
         
         java.sql.Connection con = null;
         try
@@ -461,7 +490,7 @@ public class DM
             
             while (rs.next())
             {        
-                _eventName = rs.getString("eventNane");
+                _eventName = rs.getString("eventName");
                 _eventDesc = rs.getString("eventDesc");
                 _joiningLocationName = rs.getString("joiningLocation");
                 _minlvl = rs.getInt("minlvl");
@@ -483,11 +512,11 @@ public class DM
         }        
         catch (Exception e)
         {
-            System.out.println("Exception: DM.loadData(): " + e.getMessage());
+            _log.error("Exception: DM.loadData(): " + e.getMessage());
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
-
+    
     public static void saveData()
     {
         java.sql.Connection con = null;
@@ -500,7 +529,7 @@ public class DM
             statement.execute();
             statement.close();
 
-            statement = con.prepareStatement("INSERT INTO dm (eventNane, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, player Z ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
+            statement = con.prepareStatement("INSERT INTO dm (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, rewardId, rewardAmount, color, playerX, playerY, playerZ ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");  
             statement.setString(1, _eventName);
             statement.setString(2, _eventDesc);
             statement.setString(3, _joiningLocationName);
@@ -517,11 +546,11 @@ public class DM
             statement.setInt(14, _playerY);
             statement.setInt(15, _playerZ);
             statement.execute();
-            statement.close();            
+            statement.close();
         }
         catch (Exception e)
         {
-            System.out.println("Exception: DM.saveData(): " + e.getMessage());
+            _log.error("Exception: DM.saveData(): " + e.getMessage());
         }        
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -532,7 +561,7 @@ public class DM
         {
             NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-            TextBuilder replyMSG = new TextBuilder("<html><head><body>");
+            TextBuilder replyMSG = new TextBuilder("<html><body>");
             replyMSG.append("DM Match<br><br><br>");
             replyMSG.append("Current event...<br1>");
             replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
@@ -575,10 +604,13 @@ public class DM
             replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
             eventPlayer.sendPacket(adminReply);
+
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            eventPlayer.sendPacket( ActionFailed.STATIC_PACKET );
         }
         catch (Exception e)
         {
-            System.out.println("DM Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+            _log.error("DM Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
 
@@ -587,75 +619,90 @@ public class DM
         if (!addPlayerOk(player))
             return;
         _players.add(player);
-        _playerKillsCount.add(0);
-        player._originalNameColorDM = player.getNameColor();
+        player._originalNameColorDM = player.getAppearance().getNameColor();
         player._originalKarmaDM = player.getKarma();
         player._inEventDM = true;
+        player._countDMkills = 0;
+        _savePlayers.add(player.getName());
+        
     }
-
+    
     public static boolean addPlayerOk(L2PcInstance eventPlayer)
     {
-        if (CTF._savePlayers.contains(eventPlayer.getName()) /*|| TvT._savePlayers.contains(eventPlayer.getName())*/) 
-        {
-            eventPlayer.sendMessage("You already participated in another event!"); 
+    	if (eventPlayer._inEventTvT)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
             return false;
-        }
-
+    	}    	
+    	if (eventPlayer._inEventCTF)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
+            return false;
+    	}    	
+    	if (eventPlayer._inEventDM)
+    	{
+    		eventPlayer.sendMessage("You already participated in the event!"); 
+            return false;
+    	}    	
         return true;
     }
 
     public static synchronized void addDisconnectedPlayer(L2PcInstance player)
     {
-        if (_teleport || _started)
+        if (!_players.contains(player) && _savePlayers.contains(player.getName()))
         {
+            if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+            {
+                for (L2Effect e : player.getAllEffects())
+                {
+                    if (e != null)
+                        e.exit();
+                }
+            }
+
             _players.add(player);
-            _playerKillsCount.add(0);
-            player._originalNameColorDM = player.getNameColor();
+            
+            player._originalNameColorDM = player.getAppearance().getNameColor();
             player._originalKarmaDM = player.getKarma();
             player._inEventDM = true;
-
-            if (_teleport || _started)
+            player._countDMkills = 0;
+            if(_teleport || _started)
             {
-                player.setNameColor(_playerColors);
+                player.getAppearance().setNameColor(_playerColors);
                 player.setKarma(0);
                 player.broadcastUserInfo();
                 player.teleToLocation(_playerX, _playerY , _playerZ);
             }
         }
     }
-
+    
     public static void removePlayer(L2PcInstance player)
     {
         if (player != null)
         {
-            int index = _players.indexOf(player);            
-            if (index != -1)
-                _playerKillsCount.remove(index);
-            
             _players.remove(player);
-            
-            player.setNameColor(player._originalNameColorDM);
-            player.setKarma(player._originalKarmaDM);
-            player.broadcastUserInfo();
-            player._inEventDM = false;
         }
     }
-
+    
     public static void cleanDM()
     {
         for (L2PcInstance player : _players)
         {
-            removePlayer(player);            
+            removePlayer(player);
         }
 
+        _savePlayers = new Vector<String>();
+        _topPlayer = null;
+        _npcSpawn = null;
+        _joining = false;
+        _teleport = false;
+        _started = false;
+        _sitForced = false;
         _topKills = 0;
         _players = new Vector<L2PcInstance>();
-        _savePlayers = new Vector<String>();
-        _playerKillsCount = new Vector<Integer>();
-        _topPlayer = null;
         
     }
-
+    
     public static void unspawnEventNpc()
     {
         if (_npcSpawn == null)
@@ -665,42 +712,23 @@ public class DM
         _npcSpawn.stopRespawn();
         SpawnTable.getInstance().deleteSpawn(_npcSpawn, true);
     }
-
+    
     public static void teleportFinish()
     {
         Announcements.getInstance().announceToAll(_eventName + "(DM): Teleport back to participation NPC in 20 seconds!");
 
+        removeUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                       {
-                                                            public void run()
-                                                            {                                                                
-                                                                for (L2PcInstance player : _players)
-                                                                {
-                                                                    if (player !=  null)
-                                                                        player.teleToLocation(_npcX, _npcY, _npcZ);
-                                                                } 
-                                                                cleanDM();
-                                                             }
-                                                       }, 20000);
-    }
-
-    public static int playerKillsCount(L2PcInstance player)
-    {
-        int index = _players.indexOf(player);
-        
-        if (index == -1)
-            return -1;
-
-        return _playerKillsCount.get(index);
-    }
-
-    public static void setPlayerKillsCount(L2PcInstance killer, int KillsCount)
-    {
-        int index = _players.indexOf(killer);
-        
-        if (index == -1)
-            return;
-
-        _playerKillsCount.set(index, KillsCount);
+        {
+            public void run()
+            {
+                for (L2PcInstance player : _players)
+                {
+                    if (player !=  null)
+                        player.teleToLocation(_npcX, _npcY, _npcZ);
+                } 
+                cleanDM();
+            }
+        }, 20000);
     }
 }

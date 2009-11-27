@@ -18,8 +18,8 @@
  */
 
 /**
- *
- * @author: FBIagent
+ * 
+ * @author SqueezeD
  *
  */
 
@@ -31,15 +31,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
-public class AdminDMEngine implements IAdminCommandHandler {
-
- private static String[] _adminCommands = {"admin_dmevent", "admin_dmevent_name", "admin_dmevent_desc", "admin_dmevent_join_loc",
+public class AdminDMEngine implements IAdminCommandHandler
+{
+    private static final String[] ADMIN_COMMANDS = {"admin_dmevent", "admin_dmevent_name", "admin_dmevent_desc", "admin_dmevent_join_loc",
                                            "admin_dmevent_minlvl", "admin_dmevent_maxlvl", "admin_dmevent_npc", "admin_dmevent_npc_pos",
                                            "admin_dmevent_reward", "admin_dmevent_reward_amount", "admin_dmevent_spawnpos", "admin_dmevent_color",
                                            "admin_dmevent_join", "admin_dmevent_teleport", "admin_dmevent_start", "admin_dmevent_abort", "admin_dmevent_finish",
                                            "admin_dmevent_sit", "admin_dmevent_dump", "admin_dmevent_save", "admin_dmevent_load"};
  
- private static final int REQUIRED_LEVEL = 100;
+    private static final int REQUIRED_LEVEL = 100;
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
@@ -155,7 +155,7 @@ public class AdminDMEngine implements IAdminCommandHandler {
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 
     private boolean checkLevel(int level) 
@@ -168,7 +168,7 @@ public class AdminDMEngine implements IAdminCommandHandler {
         NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
         TextBuilder replyMSG = new TextBuilder("<html><body>");
         
-        replyMSG.append("<center><font color=\"LEVEL\">[dm Engine]</font></center><br><br><br>");
+        replyMSG.append("<center><font color=\"LEVEL\">[dm Engine - by SqueezeD]</font></center><br><br><br>");
         replyMSG.append("<table><tr><td><edit var=\"input1\" width=\"125\"></td><td><edit var=\"input2\" width=\"125\"></td></tr></table>");
         replyMSG.append("<table border=\"0\"><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Name\" action=\"bypass -h admin_dmevent_name $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");

@@ -62,6 +62,7 @@ import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
@@ -123,9 +124,15 @@ public class L2NpcInstance extends L2Character
 	 */
 	private int _castleIndex = -2;
 	private int _fortIndex = -2;
-	public boolean isEventMob = false, _isEventVIPNPC = false, _isEventVIPNPCEnd = false;
-	public boolean _isEventMobCTF = false;
-	public boolean _isEventMobDM = false;
+	
+    public String _CTF_FlagTeamName;
+    public boolean isEventMob = false,
+                  _isEventMobTvT = false,
+                  _isEventMobDM = false,
+                  _isEventMobCTF = false,
+                  _isCTF_throneSpawn = false,
+                  _isCTF_Flag = false;
+    
 	public boolean isPrivateEventMob = false;
 	private boolean _isInTown = false;
 	private int _isSpoiledBy = 0;
@@ -712,14 +719,26 @@ public class L2NpcInstance extends L2Character
 					{
 						L2Event.showEventHtml(player, String.valueOf(getObjectId()));
 					}
-                    else if (_isEventMobDM)
+                    else if (_isEventMobTvT)
                     {
-                        DM.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    	TvT.showEventHtml(player, String.valueOf(getObjectId()));
                     }
-					else if (_isEventMobCTF)
-					{
-						CTF.showEventHtml(player, String.valueOf(getObjectId()));
-					}
+                     else if (_isEventMobDM)
+                     {
+                    	 DM.showEventHtml(player, String.valueOf(getObjectId()));
+                     }
+                     else if (_isEventMobCTF)
+                     {
+                    	 CTF.showEventHtml(player, String.valueOf(getObjectId()));
+                     }
+                     else if (_isCTF_Flag && player._inEventCTF)
+                     {
+                    	 CTF.showFlagHtml(player, String.valueOf(this.getObjectId()),_CTF_FlagTeamName);
+                     }
+                     else if (_isCTF_throneSpawn)
+                     {
+                    	 CTF.CheckRestoreFlags();
+                     }
 					else
 					{
 						Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
