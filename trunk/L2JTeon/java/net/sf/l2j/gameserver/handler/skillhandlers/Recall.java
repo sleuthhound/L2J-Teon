@@ -22,8 +22,6 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -38,16 +36,6 @@ public class Recall implements ISkillHandler
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
-			if (!TvTEvent.onEscapeUse(((L2PcInstance) activeChar).getName()))
-			{
-				((L2PcInstance) activeChar).sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
-			if (((L2PcInstance) activeChar)._inEventVIP && VIP._started)
-			{
-				((L2PcInstance) activeChar).sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
 			if (((L2PcInstance) activeChar).isInOlympiadMode())
 			{
 				((L2PcInstance) activeChar).sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
@@ -71,12 +59,6 @@ public class Recall implements ISkillHandler
 					if (targetChar.isFestivalParticipant())
 					{
 						targetChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a festival."));
-						continue;
-					}
-					// Check to see if player is in VIP Event
-					if (targetChar._inEventVIP && VIP._started && !Config.VIP_EVENT_SUMMON_BY_ITEM_ALLOWED)
-					{
-						targetChar.sendPacket(ActionFailed.STATIC_PACKET);
 						continue;
 					}
 					// Check to see if player is in jail

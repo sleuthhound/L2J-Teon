@@ -24,18 +24,12 @@ import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Broadcast;
 
-/**
- *
- *
- */
 public class Escape implements IUserCommandHandler
 {
 	private static final int[] COMMAND_IDS = { 52 };
@@ -46,11 +40,6 @@ public class Escape implements IUserCommandHandler
 	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (!TvTEvent.onEscapeUse(activeChar.getName()))
-		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
 		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isInOlympiadMode())
 		{
 			return false;
@@ -58,12 +47,6 @@ public class Escape implements IUserCommandHandler
 		int unstuckTimer = (activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		// int unstuckTimer = (activeChar.getAccessLevel() ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		// int unstuckTimer = activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 5000 : Config.UNSTUCK_INTERVAL * 1000;
-		// Check if player is in VIP Event
-		if (activeChar._inEventVIP && VIP._started)
-		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return false;
-		}
 		// Check to see if the player is in a festival.
 		if (activeChar.isFestivalParticipant())
 		{

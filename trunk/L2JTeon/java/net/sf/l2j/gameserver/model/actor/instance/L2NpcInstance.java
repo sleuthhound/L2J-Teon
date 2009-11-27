@@ -64,7 +64,6 @@ import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
@@ -712,10 +711,6 @@ public class L2NpcInstance extends L2Character
 					if (isEventMob)
 					{
 						L2Event.showEventHtml(player, String.valueOf(getObjectId()));
-					}
-					else if (_isEventVIPNPCEnd)
-					{
-						VIP.showEndHTML(player, String.valueOf(getObjectId()));
 					}
                     else if (_isEventMobDM)
                     {

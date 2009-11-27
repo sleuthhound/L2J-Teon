@@ -59,8 +59,6 @@ import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
@@ -342,16 +340,11 @@ public class EnterWorld extends L2GameClientPacket
 		notifySponsorOrApprentice(activeChar);
 		notifyCastleOwner(activeChar);
 		activeChar.onPlayerEnter();
-		TvTEvent.onLogin(activeChar);
 		PcColorTable.getInstance().process(activeChar);
 		checkCrown(activeChar);
 		// NPCBuffer
 		if (Config.NPCBUFFER_FEATURE_ENABLED)
 			CharSchemesTable.getInstance().onPlayerLogin(activeChar.getObjectId());
-		if (VIP._playersVIP.contains(activeChar.getName()))
-			VIP.addPlayerVIP(activeChar);
-		if (VIP._playersNotVIP.contains(activeChar.getName()))
-			VIP.addPlayerNotVIP(activeChar);
 		if (CTF._savePlayers.contains(activeChar.getName()))
 			CTF.addDisconnectedPlayer(activeChar);
 		// load points for that character

@@ -53,7 +53,6 @@ public class Die extends L2GameServerPacket
 			L2PcInstance player = (L2PcInstance) cha;
 			_access = player.getAccessLevel();
 			_clan = player.getClan();
-			_inL2JOneoEvent = player._inEventVIP || player._inEventTvT;
 			_donator = player.isDonator();
 		}
 		_charObjId = cha.getObjectId();

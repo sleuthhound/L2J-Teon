@@ -33,8 +33,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
@@ -121,10 +119,6 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				try
 				{
 					L2Object object = L2World.getInstance().findObject(Integer.parseInt(id));
-					if (_command.substring(endOfId + 1).startsWith("vip_finishVIP"))
-					{
-						VIP.vipWin(activeChar);
-					}
 					if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
 					{
 						String teamName = _command.substring(endOfId + 1).substring(16);
@@ -163,7 +157,6 @@ public final class RequestBypassToServer extends L2GameClientPacket
 						else
 							activeChar.sendMessage("The event is already started. You can not leave now!");
 					}
-					TvTEvent.onBypass(_command.substring(endOfId + 1), activeChar);
 					if (_command.substring(endOfId + 1).startsWith("event_participate"))
 					{
 						L2Event.inscribePlayer(activeChar);

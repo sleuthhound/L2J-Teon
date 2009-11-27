@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
@@ -92,11 +91,6 @@ public class Potions implements IItemHandler
 		 * if (!TvTEvent.onPotionUse(activeChar.getName(), itemId)) { activeChar.sendPacket(ActionFailed.STATIC_PACKET); return; }
 		 */
 		if (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS)
-		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-		if (activeChar._inEventVIP && VIP._started && !Config.VIP_EVENT_POTIONS_ALLOWED)
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;

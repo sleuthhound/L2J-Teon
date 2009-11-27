@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -47,15 +46,6 @@ public class SummonFriend implements ISkillHandler
 		}
 		if (summonerChar.inObserverMode())
 		{
-			return false;
-		}
-		/*
-		 * if (!TvTEvent.onEscapeUse(summonerChar.getObjectId())) { summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING)); return false; }
-		 */
-		// Check if player is in VIP Event
-		if (summonerChar._inEventVIP && VIP._started)
-		{
-			summonerChar.sendMessage("");
 			return false;
 		}
 		if (summonerChar.isInsideZone(L2Character.ZONE_NOSUMMONFRIEND))
