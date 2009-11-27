@@ -1,9 +1,10 @@
--- 
+-- --------------------------------
 -- Table structure for table `dm`
--- 
-
-CREATE TABLE IF NOT EXISTS `dm` (
-  `eventNane` varchar(255) NOT NULL default '',
+-- Created by SqueezeD from l2jfree
+-- --------------------------------
+DROP TABLE IF EXISTS `dm`;
+CREATE TABLE `dm` (
+  `eventName` varchar(255) NOT NULL default '',
   `eventDesc` varchar(255) NOT NULL default '',
   `joiningLocation` varchar(255) NOT NULL default '',
   `minlvl` int(4) NOT NULL default '0',
@@ -18,4 +19,4 @@ CREATE TABLE IF NOT EXISTS `dm` (
   `playerX` int(11) NOT NULL default '0',
   `playerY` int(11) NOT NULL default '0',
   `playerZ` int(11) NOT NULL default '0'  
-) ENGINE=MyISAM;
+) DEFAULT CHARSET=utf8;
