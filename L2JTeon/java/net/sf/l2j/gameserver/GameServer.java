@@ -108,7 +108,6 @@ import net.sf.l2j.gameserver.model.L2PetDataTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.Npcbuffer;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.ChainAutomation.L2JTeonEventManager;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
@@ -489,7 +488,6 @@ public class GameServer
 			OnlinePlayers.getInstance();
 		}
 		Util.printSection("L2JTeon EventManager");
-		L2JTeonEventManager.getInstance();
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
 			System.out.println("####################################");

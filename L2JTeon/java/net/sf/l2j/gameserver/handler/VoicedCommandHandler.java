@@ -21,7 +21,6 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Away;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Banking;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.JoinVIP;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.OnlinePlayers;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayersWithdrawCWH;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
@@ -56,8 +55,6 @@ public class VoicedCommandHandler
 			registerVoicedCommandHandler(new tradeoff());
 		if (Config.ALLOW_AWAY_STATUS)
 			registerVoicedCommandHandler(new Away());
-		if (Config.VIP_EVENT_ENABLED)
-			registerVoicedCommandHandler(new JoinVIP());
 		registerVoicedCommandHandler(new PlayersWithdrawCWH());
 		registerVoicedCommandHandler(new version());
 		_log.config("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");

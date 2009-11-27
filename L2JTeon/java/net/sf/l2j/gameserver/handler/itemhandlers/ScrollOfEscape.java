@@ -29,8 +29,6 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
@@ -57,22 +55,11 @@ public class ScrollOfEscape implements IItemHandler
 
 		L2PcInstance activeChar = (L2PcInstance) playable;
 
-		if (!TvTEvent.onEscapeUse(activeChar.getName()))
-		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
-
 		if (checkConditions(activeChar)) return;
 
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
-			return;
-		}
-		if (activeChar._inEventVIP && VIP._started)
-		{
-			playable.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (GrandBossManager.getInstance().getZone(activeChar) != null && !activeChar.isGM())

@@ -32,7 +32,6 @@ import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
@@ -273,11 +272,6 @@ public class Wedding implements IVoicedCommandHandler
 			playerA.sendMessage("Your partner is in the Olympiad now.");
 			return false;
 		}
-		else if (playerB._inEventVIP)
-		{
-			playerA.sendMessage("Your partner is in an event.");
-			return false;
-		}
 		else if (playerB.inObserverMode())
 		{
 			playerA.sendMessage("Your partnet is in Obsverve mode.");
@@ -286,11 +280,6 @@ public class Wedding implements IVoicedCommandHandler
 		else if (playerB.isInParty() && playerB.getParty().isInDimensionalRift())
 		{
 			playerA.sendMessage("Your partner is in dimensional rift.");
-			return false;
-		}
-		else if (playerA.atEvent || playerA._inEventVIP)
-		{
-			playerA.sendMessage("You are in an event.");
 			return false;
 		}
 		else if (playerA.isInDuel())
@@ -326,11 +315,6 @@ public class Wedding implements IVoicedCommandHandler
 		else if (playerA.isInParty() && playerA.getParty().isInDimensionalRift())
 		{
 			playerA.sendMessage("You are in the dimensional rift.");
-			return false;
-		}
-		else if (!TvTEvent.onEscapeUse(playerA.getName()))
-		{
-			playerA.sendPacket(ActionFailed.STATIC_PACKET);
 			return false;
 		}
 		else if (playerA.isCursedWeaponEquiped())

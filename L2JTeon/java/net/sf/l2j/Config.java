@@ -725,57 +725,6 @@ public final class Config
 	/**
 	 * Time interval to check and see if L2JTeonEvent Manager should start a cycle of events if non in progress, or wait
 	 */
-	// * TvT Event Engine */
-	/** Enable or Disable TvT Engine with this option */
-	public static boolean TVT_EVENT_ENABLED;
-	/** This is the event participation time. */
-	public static int TVT_EVENT_PARTICIPATION_TIME;
-	/** This is the event running time after participation. */
-	public static int TVT_EVENT_RUNNING_TIME;
-	/** This is the events participation NPC Id. */
-	public static int TVT_EVENT_PARTICIPATION_NPC_ID;
-	/** This is the coordinates for the event participation NPC. */
-	public static int[] TVT_EVENT_PARTICIPATION_NPC_COORDINATES = new int[3];
-	/** Minimum participants on both sides. */
-	public static int TVT_EVENT_MIN_PLAYERS_IN_TEAMS;
-	/** Maximum participants on both sides. */
-	public static int TVT_EVENT_MAX_PLAYERS_IN_TEAMS;
-	/** Delay before a player respawns at start point after death in event. */
-	public static int TVT_EVENT_RESPAWN_TELEPORT_DELAY;
-	/** TvT Event Start/Leave Teleport Delay. */
-	public static int TVT_EVENT_START_LEAVE_TELEPORT_DELAY;
-	/** TvT Team 1 name. */
-	public static String TVT_EVENT_TEAM_1_NAME;
-	/** TvT Team 1 coordinates. */
-	public static int[] TVT_EVENT_TEAM_1_COORDINATES = new int[3];
-	/** TvT Team 2 name. */
-	public static String TVT_EVENT_TEAM_2_NAME;
-	/** TvT Team 2 coordinates. */
-	public static int[] TVT_EVENT_TEAM_2_COORDINATES = new int[3];
-	/** TvT Event Reward ID and Reward count. */
-	public static List<int[]> TVT_EVENT_REWARDS = new FastList<int[]>();
-	/** TvT Allow targeting team members. */
-	public static boolean TVT_EVENT_TARGET_TEAM_MEMBERS_ALLOWED;
-	/** This checks if players can use Potions during TvT event or not. */
-	public static boolean TVT_EVENT_POTIONS_ALLOWED;
-	/** Specific Potions enable/disable during Tvt */
-	public static boolean TVT_EVENT_POTIONS_MP_ALLOWED;
-	public static boolean TVT_EVENT_POTIONS_HP_ALLOWED;
-	public static boolean TVT_EVENT_POTIONS_CP_ALLOWED;
-	/**
-	 * This checks if players can use Summon by Item during TvT event or not.
-	 */
-	public static boolean TVT_EVENT_SUMMON_BY_ITEM_ALLOWED;
-	/** This option will close/open event doors during the TvT Event. */
-	public static List<Integer> TVT_EVENT_DOOR_IDS = new FastList<Integer>();
-	/**
-	 * This option will check what the administrator sets for a minimum participation level.
-	 */
-	public static byte TVT_EVENT_MIN_LVL;
-	/**
-	 * This option will check what the administrator sets for a maximum participation level.
-	 */
-	public static byte TVT_EVENT_MAX_LVL;
 	// * VIP Event Engine *//
 	/** Enable or Disable VIP Engine with this option. */
 	public static boolean VIP_EVENT_ENABLED;
@@ -2311,109 +2260,6 @@ public final class Config
 				// ********************//
 				TIME_BETWEEN_EVENTS = Integer.parseInt(L2JTeonEventMods.getProperty("TimeInBetweenEvents", "60"));
 				// ********************//
-				/* TvT Event Engine */
-				// ********************//
-				TVT_EVENT_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventEnabled", "False"));
-				TVT_EVENT_PARTICIPATION_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventParticipationTime", "3600"));
-				TVT_EVENT_RUNNING_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventRunningTime", "1800"));
-				TVT_EVENT_PARTICIPATION_NPC_ID = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventParticipationNpcId", "0"));
-				if (TVT_EVENT_PARTICIPATION_NPC_ID == 0)
-				{
-					TVT_EVENT_ENABLED = false;
-					System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventParticipationNpcId");
-				}
-				else
-				{
-					String[] propertySplit = L2JTeonEventMods.getProperty("TvTEventParticipationNpcCoordinates", "0,0,0").split(",");
-					if (propertySplit.length < 3)
-					{
-						TVT_EVENT_ENABLED = false;
-						System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventParticipationNpcCoordinates");
-					}
-					else
-					{
-						TVT_EVENT_PARTICIPATION_NPC_COORDINATES[0] = Integer.parseInt(propertySplit[0]);
-						TVT_EVENT_PARTICIPATION_NPC_COORDINATES[1] = Integer.parseInt(propertySplit[1]);
-						TVT_EVENT_PARTICIPATION_NPC_COORDINATES[2] = Integer.parseInt(propertySplit[2]);
-						TVT_EVENT_MIN_PLAYERS_IN_TEAMS = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMinPlayersInTeams", "1"));
-						TVT_EVENT_MAX_PLAYERS_IN_TEAMS = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMaxPlayersInTeams", "20"));
-						TVT_EVENT_MIN_LVL = (byte) Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMinPlayerLevel", "1"));
-						TVT_EVENT_MAX_LVL = (byte) Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventMaxPlayerLevel", "80"));
-						TVT_EVENT_RESPAWN_TELEPORT_DELAY = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventRespawnTeleportDelay", "20"));
-						TVT_EVENT_START_LEAVE_TELEPORT_DELAY = Integer.parseInt(L2JTeonEventMods.getProperty("TvTEventStartLeaveTeleportDelay", "20"));
-						TVT_EVENT_TEAM_1_NAME = L2JTeonEventMods.getProperty("TvTEventTeam1Name", "Team1");
-						propertySplit = L2JTeonEventMods.getProperty("TvTEventTeam1Coordinates", "0,0,0").split(",");
-						if (propertySplit.length < 3)
-						{
-							TVT_EVENT_ENABLED = false;
-							System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventTeam1Coordinates");
-						}
-						else
-						{
-							TVT_EVENT_TEAM_1_COORDINATES[0] = Integer.parseInt(propertySplit[0]);
-							TVT_EVENT_TEAM_1_COORDINATES[1] = Integer.parseInt(propertySplit[1]);
-							TVT_EVENT_TEAM_1_COORDINATES[2] = Integer.parseInt(propertySplit[2]);
-							TVT_EVENT_TEAM_2_NAME = L2JTeonEventMods.getProperty("TvTEventTeam2Name", "Team2");
-							propertySplit = L2JTeonEventMods.getProperty("TvTEventTeam2Coordinates", "0,0,0").split(",");
-							if (propertySplit.length < 3)
-							{
-								TVT_EVENT_ENABLED = false;
-								System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventTeam2Coordinates");
-							}
-							else
-							{
-								TVT_EVENT_TEAM_2_COORDINATES[0] = Integer.parseInt(propertySplit[0]);
-								TVT_EVENT_TEAM_2_COORDINATES[1] = Integer.parseInt(propertySplit[1]);
-								TVT_EVENT_TEAM_2_COORDINATES[2] = Integer.parseInt(propertySplit[2]);
-								propertySplit = L2JTeonEventMods.getProperty("TvTEventReward", "57,100000").split(";");
-								for (String reward : propertySplit)
-								{
-									String[] rewardSplit = reward.split(",");
-									if (rewardSplit.length != 2)
-									{
-										System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventReward \"" + reward + "\"");
-									}
-									else
-									{
-										try
-										{
-											TVT_EVENT_REWARDS.add(new int[] { Integer.valueOf(rewardSplit[0]), Integer.valueOf(rewardSplit[1]) });
-										}
-										catch (NumberFormatException nfe)
-										{
-											if (!reward.equals(""))
-											{
-												System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventReward \"" + reward + "\"");
-											}
-										}
-									}
-								}
-								TVT_EVENT_TARGET_TEAM_MEMBERS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventTargetTeamMembersAllowed", "True"));
-								TVT_EVENT_POTIONS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsAllowed", "False"));
-								TVT_EVENT_POTIONS_MP_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsMPAllowed", "False"));
-								TVT_EVENT_POTIONS_HP_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsHPAllowed", "False"));
-								TVT_EVENT_POTIONS_CP_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventPotionsCPAllowed", "False"));
-								TVT_EVENT_SUMMON_BY_ITEM_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTEventSummonByItemAllowed", "False"));
-								propertySplit = L2JTeonEventMods.getProperty("TvTEventDoorsCloseOpenOnStartEnd", "").split(";");
-								for (String door : propertySplit)
-								{
-									try
-									{
-										TVT_EVENT_DOOR_IDS.add(Integer.valueOf(door));
-									}
-									catch (NumberFormatException nfe)
-									{
-										if (!door.equals(""))
-										{
-											System.out.println("TvTEventEngine[Config.load()]: invalid config property -> TvTEventDoorsCloseOpenOnStartEnd \"" + door + "\"");
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				// ********************//
 				/* VIP Event Engine */
 				// ********************//
 				VIP_EVENT_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("VIPEventEnabled", "False"));
@@ -3948,22 +3794,6 @@ public final class Config
 		else if (pName.equalsIgnoreCase("WeddingDivorceCosts"))
 		{
 			WEDDING_DIVORCE_COSTS = Integer.parseInt(pValue);
-		}
-		else if (pName.equalsIgnoreCase("TvTEventEnabled"))
-		{
-			TVT_EVENT_ENABLED = Boolean.parseBoolean(pValue);
-		}
-		else if (pName.equalsIgnoreCase("TvTEventParticipationTime"))
-		{
-			TVT_EVENT_PARTICIPATION_TIME = Integer.parseInt(pValue);
-		}
-		else if (pName.equalsIgnoreCase("TvTEventRunningTime"))
-		{
-			TVT_EVENT_RUNNING_TIME = Integer.parseInt(pValue);
-		}
-		else if (pName.equalsIgnoreCase("TvTEventParticipationNpcId"))
-		{
-			TVT_EVENT_PARTICIPATION_NPC_ID = Integer.parseInt(pValue);
 		}
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  
         {

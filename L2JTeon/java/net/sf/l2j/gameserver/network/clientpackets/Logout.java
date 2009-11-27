@@ -26,8 +26,6 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -110,8 +108,6 @@ public final class Logout extends L2GameClientPacket
 		{
 			player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 		}
-		VIP.logoutPlayerVIP(player);
-		TvTEvent.onLogout(player);
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		player.deleteMe();
 		notifyFriends(player);

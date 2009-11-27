@@ -33,8 +33,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvTEvent;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.VIP;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
@@ -52,10 +50,6 @@ public class SummonItems implements IItemHandler
 		{
 			return;
 		}
-		if (!TvTEvent.onItemSummon(playable.getName()))
-		{
-			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		if (!activeChar.getFloodProtectors().getItemPetSummon().tryPerformAction("summon items"))
 		{
@@ -65,11 +59,6 @@ public class SummonItems implements IItemHandler
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
-			return;
-		}
-		if (activeChar._inEventVIP && VIP._started && !Config.VIP_EVENT_SUMMON_BY_ITEM_ALLOWED)
-		{
-			playable.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (Config.DISABLE_SUMMON_IN_COMBAT && (activeChar.getPvpFlag() > 0))
