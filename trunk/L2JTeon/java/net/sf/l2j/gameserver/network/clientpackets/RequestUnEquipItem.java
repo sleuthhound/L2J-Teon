@@ -56,6 +56,11 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
+        if (activeChar._haveFlagCTF)
+        {
+            activeChar.sendMessage("You can't unequip a CTF flag.");
+            return;
+        }
 		L2ItemInstance item = activeChar.getInventory().getPaperdollItemByL2ItemId(_slot);
 		if ((item != null) && item.isWear())
 		{

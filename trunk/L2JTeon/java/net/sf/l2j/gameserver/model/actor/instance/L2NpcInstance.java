@@ -644,6 +644,8 @@ public class L2NpcInstance extends L2Character
 	{
 		if (!canTarget(player))
 			return;
+		
+        try{
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -750,12 +752,18 @@ public class L2NpcInstance extends L2Character
 						{
 							showChatWindow(player, 0);
 						}
+	                    player.sendPacket(ActionFailed.STATIC_PACKET);
 					}
 				}
 			}
 			else
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
+        }catch (Throwable e){
+            System.out.println("Error: L2NpcInstance--> onAction(){"+e.toString()+"}\n\n");
+            player.sendPacket(ActionFailed.STATIC_PACKET);
+            return;
+        }
 	}
 
 	/**
