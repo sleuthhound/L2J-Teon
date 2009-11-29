@@ -21,10 +21,8 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.NpcSay;
-import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public final class L2CastleTeleporterInstance extends L2FolkInstance
@@ -132,11 +130,6 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-			player.sendPacket(my);
-			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-			player.sendPacket(new ValidateLocation(this));
 		}
 		else
 		{

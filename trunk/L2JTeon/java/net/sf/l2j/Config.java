@@ -719,12 +719,6 @@ public final class Config
 	/** ************************************************** */
 	/** L2J Teon Mods Customizations -Begin * */
 	/** ************************************************** */
-	// * Event Engine Automation *//
-	/** Time in between Automated event cycling */
-	public static int TIME_BETWEEN_EVENTS;
-	/**
-	 * Time interval to check and see if L2JTeonEvent Manager should start a cycle of events if non in progress, or wait
-	 */
 	// * TVT Event Engine *//
     public static String TVT_EVEN_TEAMS;
     public static boolean TVT_ALLOW_INTERFERENCE;
@@ -2185,10 +2179,6 @@ public final class Config
 				InputStream is = new FileInputStream(new File(L2JTEON_MODS));
 				L2JTeonEventMods.load(is);
 				is.close();
-				// ********************//
-				/* Event Automation */
-				// ********************//
-				TIME_BETWEEN_EVENTS = Integer.parseInt(L2JTeonEventMods.getProperty("TimeInBetweenEvents", "60"));
 				// ********************//
 				/* TVT Event Engine */
 				// ********************//
