@@ -565,7 +565,7 @@ public class DM
 
             if (!_started && !_joining)
                 replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
-            else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
+            else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<=_maxlvl)
             {
                 if (_players.contains(eventPlayer))
                 {
