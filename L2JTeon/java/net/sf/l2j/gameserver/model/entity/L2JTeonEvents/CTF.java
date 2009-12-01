@@ -63,7 +63,7 @@ import org.apache.commons.logging.LogFactory;
 public class CTF
 {   
     private final static Log _log = LogFactory.getLog(CTF.class.getName());    
-	private static int _FlagNPC = 26053, _FLAG_IN_HAND_ITEM_ID = 6718;
+	private static int _FlagNPC = 35062, _FLAG_IN_HAND_ITEM_ID = 6718;
     public static String _eventName = new String(),
                          _eventDesc = new String(),
                          _topTeam = new String(),
@@ -1638,7 +1638,7 @@ public class CTF
             {
                 replyMSG.append("<font color=\"FFFF00\">You can't participate to this event with a cursed Weapon.</font><br>");
             }
-            else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
+            else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<=_maxlvl)
             {
                 if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
                 {
