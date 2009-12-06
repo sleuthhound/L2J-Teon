@@ -1175,11 +1175,9 @@ public final class Config
 	public static boolean CUSTOM_DROPLIST_TABLE;
 	/** Enable Custom Merchant Tables */
 	public static boolean CUSTOM_MERCHANT_TABLES;
-	/** Enable the check for Olympiads max enchant weapons */
-	public static boolean ENABLE_OLY_WEAPON_ENCH;
-	public static int MAX_OLY_WEAPON_ENCH;
 	/** Disable Dual Boxing on Olympiads */
 	public static boolean DISABLE_OLY_DUALBOX;
+    public static int OLY_ENCHANT_LIMIT;
 	public static boolean OLYMPIAD_ALLOW_AUTO_SS;
 	public static boolean OLYMPIAD_GIVE_ACUMEN_MAGES;
 	public static boolean OLYMPIAD_GIVE_HASTE_FIGHTERS;
@@ -2542,9 +2540,8 @@ public final class Config
 				CUSTOM_TELEPORT_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomTeleportTable", "False"));
 				CUSTOM_DROPLIST_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomDroplistTable", "False"));
 				CUSTOM_MERCHANT_TABLES = Boolean.valueOf(L2JTeonCustom.getProperty("CustomMerchantTables", "False"));
-				ENABLE_OLY_WEAPON_ENCH = Boolean.valueOf(L2JTeonCustom.getProperty("EnableOlyWeaponEnch", "False"));
-				MAX_OLY_WEAPON_ENCH = Integer.parseInt(L2JTeonCustom.getProperty("MaxOlyWeaponEnch", "0"));
 				DISABLE_OLY_DUALBOX = Boolean.valueOf(L2JTeonCustom.getProperty("DisableOlyDualBox", "False"));
+                OLY_ENCHANT_LIMIT = Integer.parseInt(L2JTeonCustom.getProperty("OlyMaxEnchant", "-1")); 
 				ENABLE_MODIFY_SKILL_DURATION = Boolean.valueOf(L2JTeonCustom.getProperty("EnableModifySkillDuration", "False"));
 				// Create Map only if enabled
 				if (ENABLE_MODIFY_SKILL_DURATION)
