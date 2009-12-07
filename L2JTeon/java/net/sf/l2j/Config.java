@@ -122,6 +122,7 @@ public final class Config
 	public static boolean AUTO_LEARN_SKILLS;
 	public static int ALT_PARTY_RANGE;
 	public static int ALT_PARTY_RANGE2;
+    public static double ALT_WEIGHT_LIMIT; 
 	public static boolean ALT_RECOMMEND;
 	public static boolean ALT_GAME_DELEVEL;
 	public static boolean ALT_GAME_MAGICFAILURES;
@@ -913,8 +914,6 @@ public final class Config
 	public static boolean CHAR_TITLE;
 	/** This is the new players title. */
 	public static String ADD_CHAR_TITLE;
-	/** Adds the set number to a players maximum load capacity. */
-	public static int ADD_MAX_LOAD;
 	/** Configurable addition/subtraction to Running speed. */
 	public static int CUSTOM_RUN_SPEED;
 	/** Configurable for donators TO loose Buffs and effects on death */
@@ -1460,6 +1459,7 @@ public final class Config
 				ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 				ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
 				ALT_PARTY_RANGE2 = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
+                ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1"));
 				IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "True"));
 				AUTO_LOOT = Boolean.valueOf(altSettings.getProperty("AutoLoot", "True"));
 				AUTO_LOOT_HERBS = Boolean.valueOf(altSettings.getProperty("AutoLootHerbs", "True"));
@@ -2348,7 +2348,6 @@ public final class Config
 				REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL10", "0"));
 				CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
 				ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
-				ADD_MAX_LOAD = Integer.parseInt(L2JTeonCustom.getProperty("WeightLimit", "0"));
 				CUSTOM_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("CustomRunSpeed", "0"));
 				KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepBuffsOnDeath", "False"));
 				DEATH_PENALTY_CHANCE = Integer.parseInt(L2JTeonCustom.getProperty("DeathPenaltyChance", "20"));
@@ -3314,6 +3313,10 @@ public final class Config
 		{
 			ALT_GAME_CREATION_SP_RATE = Double.parseDouble(pValue);
 		}
+        else if (pName.equalsIgnoreCase("AltWeightLimit")) 
+        {
+        	ALT_WEIGHT_LIMIT = Double.parseDouble(pValue); 
+        }
 		else if (pName.equalsIgnoreCase("AltBlacksmithUseRecipes"))
 		{
 			ALT_BLACKSMITH_USE_RECIPES = Boolean.valueOf(pValue);

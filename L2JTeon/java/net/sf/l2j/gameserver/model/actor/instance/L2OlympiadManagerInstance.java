@@ -42,7 +42,6 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		int npcId = getNpcId();
 		if (command.startsWith("OlympiadDesc"))
 		{
 			int val = Integer.parseInt(command.substring(13, 14));
