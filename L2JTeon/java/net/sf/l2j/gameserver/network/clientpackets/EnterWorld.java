@@ -265,6 +265,16 @@ public class EnterWorld extends L2GameClientPacket
 		// restore info about chat ban
 		activeChar.checkBanChat(false);
 		// restore info about auto herbs loot
+
+		// Color System checks - Start =====================================================
+		// Check if the custom PvP and PK color systems are enabled and if so ==============
+		// check the character's counters and apply any color changes that must be done. ===
+		if (activeChar.getPvpKills() >= (Config.PVP_AMOUNT1) && (Config.PVP_COLOR_SYSTEM_ENABLED))
+			activeChar.updatePvPColor(activeChar.getPvpKills());
+		if (activeChar.getPkKills() >= (Config.PK_AMOUNT1) && (Config.PK_COLOR_SYSTEM_ENABLED))
+			activeChar.updatePkColor(activeChar.getPkKills());
+		// Color System checks - End =======================================================
+
 		if (Config.ALLOW_AUTOHERBS_CMD)
 			activeChar.getAutoLootHerbs();
 		// restore info about withdraw state

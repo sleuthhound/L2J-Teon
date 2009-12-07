@@ -719,7 +719,7 @@ public final class Config
 	public static int MAX_CHARACTERS_NUMBER_PER_ACCOUNT;
 	/** ************************************************** */
 	/** L2J Teon Mods Customizations -Begin * */
-	/** ************************************************** */
+	/** ************************************************** */	
 	// * TVT Event Engine *//
     public static String TVT_EVEN_TEAMS;
     public static boolean TVT_ALLOW_INTERFERENCE;
@@ -807,6 +807,52 @@ public final class Config
 	/** ************************************************** */
 	/** L2J Teon Customizations -Begin * */
 	/** ************************************************** */
+	// ** Colored pvp name system ** //
+	public static boolean PVP_COLOR_SYSTEM_ENABLED;
+	/** Colored pvp name system */
+	public static int PVP_AMOUNT1;
+	/** Colored pvp name system */
+	public static int PVP_AMOUNT2;
+	/** Colored pvp name system */
+	public static int PVP_AMOUNT3;
+	/** Colored pvp name system */
+	public static int PVP_AMOUNT4;
+	/** Colored pvp name system */
+	public static int PVP_AMOUNT5;
+	/** Colored pvp name system */
+	public static int NAME_COLOR_FOR_PVP_AMOUNT1;
+	/** Colored pvp name system */
+	public static int NAME_COLOR_FOR_PVP_AMOUNT2;
+	/** Colored pvp name system */
+	public static int NAME_COLOR_FOR_PVP_AMOUNT3;
+	/** Colored pvp name system */
+	public static int NAME_COLOR_FOR_PVP_AMOUNT4;
+	/** Colored pvp name system */
+	public static int NAME_COLOR_FOR_PVP_AMOUNT5;
+	/** Colored pvp name system */
+	public static boolean PK_COLOR_SYSTEM_ENABLED;
+	/** Colored pk name system */
+	public static int PK_AMOUNT1;
+	/** Colored pk name system */
+	public static int PK_AMOUNT2;
+	/** Colored pk name system */
+	public static int PK_AMOUNT3;
+	/** Colored pk name system */
+	public static int PK_AMOUNT4;
+	/** Colored pk name system */
+	public static int PK_AMOUNT5;
+	/** Colored pk name system */
+	public static int TITLE_COLOR_FOR_PK_AMOUNT1;
+	/** Colored pk name system */
+	public static int TITLE_COLOR_FOR_PK_AMOUNT2;
+	/** Colored pk name system */
+	public static int TITLE_COLOR_FOR_PK_AMOUNT3;
+	/** Colored pk name system */
+	public static int TITLE_COLOR_FOR_PK_AMOUNT4;
+	/** Colored pk name system */
+	public static int TITLE_COLOR_FOR_PK_AMOUNT5;
+	/** Colored pk name system */
+	
 	// * Baby Pets Customizations *//
 	/** Can Baby Pets Grow Up? * */
 	public static boolean BABY_PETS_CAN_GROWUP;
@@ -2607,6 +2653,32 @@ public final class Config
 				BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("BankingSystemEnabled", "False"));
 				BANKING_SYSTEM_ADENA = Integer.parseInt(L2JTeonCustom.getProperty("BankingSystemAdena", "0"));
 				BANKING_SYSTEM_GOLDBARS = Integer.parseInt(L2JTeonCustom.getProperty("BankingSystemGoldBars", "0"));
+				// ************************//
+				/* PvP E Pk Color System */
+				// **********************//
+				PVP_COLOR_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnablePvPColorSystem", "False"));
+				PVP_AMOUNT1 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount1", "500"));
+				PVP_AMOUNT2 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount2", "1000"));
+				PVP_AMOUNT3 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount3", "1500"));
+				PVP_AMOUNT4 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount4", "2500"));
+				PVP_AMOUNT5 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount5", "5000"));
+				NAME_COLOR_FOR_PVP_AMOUNT1 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount1", "00FF00"));
+				NAME_COLOR_FOR_PVP_AMOUNT2 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount2", "00FF00"));
+				NAME_COLOR_FOR_PVP_AMOUNT3 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount3", "00FF00"));
+				NAME_COLOR_FOR_PVP_AMOUNT4 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount4", "00FF00"));
+				NAME_COLOR_FOR_PVP_AMOUNT5 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount4", "00FF00"));
+				PK_COLOR_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnablePkColorSystem", "False"));
+				PK_AMOUNT1 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount1", "500"));
+				PK_AMOUNT2 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount2", "1000"));
+				PK_AMOUNT3 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount3", "1500"));
+				PK_AMOUNT4 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount4", "2500"));
+				PK_AMOUNT5 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount5", "5000"));
+				TITLE_COLOR_FOR_PK_AMOUNT1 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount1", "00FF00"));
+				TITLE_COLOR_FOR_PK_AMOUNT2 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount2", "00FF00"));
+				TITLE_COLOR_FOR_PK_AMOUNT3 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount3", "00FF00"));
+				TITLE_COLOR_FOR_PK_AMOUNT4 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount4", "00FF00"));
+				TITLE_COLOR_FOR_PK_AMOUNT5 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount5", "00FF00"));
+
 			}
 			catch (Exception e)
 			{
