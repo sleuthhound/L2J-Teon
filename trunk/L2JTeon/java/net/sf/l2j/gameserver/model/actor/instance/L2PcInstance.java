@@ -3641,6 +3641,75 @@ public final class L2PcInstance extends L2PlayableInstance
 			DuelManager.getInstance().broadcastToOppositTeam(this, update);
 		}
 	}
+	
+	// Custom PVP Color System - Start
+	public void updatePvPColor(int pvpKillAmount)
+	{
+		if (Config.PVP_COLOR_SYSTEM_ENABLED)
+		{
+			// Check if the character has GM access and if so, let them be.
+			if (isGM())
+				return;
+			{
+				if ((pvpKillAmount >= (Config.PVP_AMOUNT1)) && (pvpKillAmount < (Config.PVP_AMOUNT2)))
+				{
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT1);
+				}
+				else if ((pvpKillAmount >= (Config.PVP_AMOUNT2)) && (pvpKillAmount < (Config.PVP_AMOUNT3)))
+				{
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT2);
+				}
+				else if ((pvpKillAmount >= (Config.PVP_AMOUNT3)) && (pvpKillAmount < (Config.PVP_AMOUNT4)))
+				{
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3);
+				}
+				else if ((pvpKillAmount >= (Config.PVP_AMOUNT4)) && (pvpKillAmount < (Config.PVP_AMOUNT5)))
+				{
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4);
+				}
+				else if (pvpKillAmount >= (Config.PVP_AMOUNT5))
+				{
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5);
+				}
+			}
+		}
+	}
+
+	// Custom PVP Color System - End
+	// Custom Pk Color System - Start
+	public void updatePkColor(int pkKillAmount)
+	{
+		if (Config.PK_COLOR_SYSTEM_ENABLED)
+		{
+			// Check if the character has GM access and if so, let them be, like above.
+			if (isGM())
+				return;
+			{
+				if ((pkKillAmount >= (Config.PK_AMOUNT1)) && (pkKillAmount < (Config.PVP_AMOUNT2)))
+				{
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT1);
+				}
+				else if ((pkKillAmount >= (Config.PK_AMOUNT2)) && (pkKillAmount < (Config.PVP_AMOUNT3)))
+				{
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT2);
+				}
+				else if ((pkKillAmount >= (Config.PK_AMOUNT3)) && (pkKillAmount < (Config.PVP_AMOUNT4)))
+				{
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3);
+				}
+				else if ((pkKillAmount >= (Config.PK_AMOUNT4)) && (pkKillAmount < (Config.PVP_AMOUNT5)))
+				{
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4);
+				}
+				else if (pkKillAmount >= (Config.PK_AMOUNT5))
+				{
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5);
+				}
+			}
+		}
+	}
+
+	// Custom Pk Color System - End
 
 	/**
 	 * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers.<BR>
@@ -4641,6 +4710,7 @@ public final class L2PcInstance extends L2PlayableInstance
         
 		// Add to attacker and increase its PK counter
 		setPvpKills(getPvpKills() + 1);
+		updatePvPColor(getPvpKills());
 		// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
 		sendPacket(new UserInfo(this));
 	}
@@ -4800,6 +4870,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Add karma to attacker and increase its PK counter
 		setPkKills(getPkKills() + 1);
 		setKarma(getKarma() + newKarma);
+		updatePkColor(getPkKills());
 		// Send a Server->Client UserInfo packet to attacker with its Karma and PK Counter
 		sendPacket(new UserInfo(this));
 	}
