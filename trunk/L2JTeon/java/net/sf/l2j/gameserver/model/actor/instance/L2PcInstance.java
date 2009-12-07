@@ -4777,18 +4777,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		// no war or one way war = PK
-		if (!_inEventDM && !_inEventCTF)
+		if ((targetPlayer.getKarma() > 0))
 		{
-			if ((targetPlayer.getKarma() > 0) && Config.KARMA_AWARD_PK_KILL) // target
-			// player
-			// has
-			// karma
+			if (Config.KARMA_AWARD_PK_KILL) // target player has karma
 			{
 				increasePvpKills();
-				/* Koof cant kill Koof and Noob cant kill Noob = karma - TESTING */
-				// uprava Concho
 			}
-			else if ((targetPlayer.getPvpFlag() == 0)) // && ((isKoof() && targetPlayer.isKoof()) || (isNoob() && targetPlayer.isNoob())))
+			else if ((targetPlayer.getPvpFlag() == 0))
 			{
 				increasePkKillsAndKarma(targetPlayer.getLevel());
 			}
