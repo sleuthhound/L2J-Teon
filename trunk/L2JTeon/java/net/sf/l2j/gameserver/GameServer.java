@@ -170,6 +170,7 @@ public class GameServer
 
 	public GameServer() throws Exception
 	{
+		long serverLoadStart = System.currentTimeMillis(); 
 		// Prints General System Info+
 		Util.printSection("L2JTeon Info");
 		L2JTeon.info();
@@ -475,7 +476,7 @@ public class GameServer
 		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
 		_selectorThread.openServerSocket();
 		_selectorThread.start();
-		_log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
+		_log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);	
 		// Start IRC Connection
 		if (Config.IRC_LOAD)
 		{
@@ -490,16 +491,18 @@ public class GameServer
 		Util.printSection("L2JTeon EventManager");
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
-			System.out.println("####################################");
-			System.out.println("## L2JTeon KvN Mode is Activated. ##");
-			System.out.println("####################################");
+			System.out.println("# ------------------------------- #");
+			System.out.println("#  L2JTeon KvN Mode is Activated. #");
+			System.out.println("# ------------------------------- #");
 		}
 		else
 		{
-			System.out.println("###################################");
-			System.out.println("## L2JTeon KvN Mode is Disabled. ##");
-			System.out.println("###################################");
+			System.out.println("# ------------------------------ #");
+			System.out.println("#  L2JTeon KvN Mode is Disabled. #");
+			System.out.println("# ------------------------------ #");
 		}
+		long serverLoadEnd = System.currentTimeMillis(); 
+		_log.info("Server Loaded in " + ((serverLoadEnd - serverLoadStart) / 1000) + " Seconds"); 
 	}
 
 	public static void main(String[] args) throws Exception

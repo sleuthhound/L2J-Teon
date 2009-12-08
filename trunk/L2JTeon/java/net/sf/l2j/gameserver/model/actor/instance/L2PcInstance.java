@@ -10592,7 +10592,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			if (getOlympiadGameId() != -1) // handle removal from olympiad game
 			{
-				Olympiad.getInstance().removeDisconnectedCompetitor(this);
+				try
+				{
+					Olympiad.getInstance().removeDisconnectedCompetitor(this);
+				}
+				catch (Throwable t)
+				{
+					_log.log(Level.SEVERE, "deleteMe()", t);
+				}				
 			}
 			// If the L2PcInstance has Pet, unsummon it
 			if (getPet() != null)
