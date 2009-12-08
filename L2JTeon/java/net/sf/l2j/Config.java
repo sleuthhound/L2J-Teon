@@ -166,9 +166,6 @@ public final class Config
 	public static float ALT_NPC_MAGICAL_DAMAGE_MULTI;
 	// Allow use Event Managers for change occupation ?
 	public static boolean ALLOW_CLASS_MASTERS;
-	public static boolean ALLOW_CLASS_FIRST;
-	public static boolean ALLOW_CLASS_SECOND;
-	public static boolean ALLOW_CLASS_THIRD;
 	public static boolean ES_SP_BOOK_NEEDED;
 	public static boolean ALT_GAME_SKILL_LEARN;
 	public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
@@ -1498,9 +1495,6 @@ public final class Config
 				ALT_GAME_EXPONENT_XP = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
 				ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
 				ALLOW_CLASS_MASTERS = Boolean.valueOf(altSettings.getProperty("AllowClassMasters", "False"));
-				ALLOW_CLASS_FIRST = Boolean.valueOf(altSettings.getProperty("AllowFirstClass", "False"));
-				ALLOW_CLASS_SECOND = Boolean.valueOf(altSettings.getProperty("AllowSecondClass", "False"));
-				ALLOW_CLASS_THIRD = Boolean.valueOf(altSettings.getProperty("AllowThirdClass", "False"));
 				ALT_GAME_FREIGHTS = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "False"));
 				ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 				ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
@@ -3461,18 +3455,6 @@ public final class Config
 		else if (pName.equalsIgnoreCase("AllowClassMaster"))
 		{
 			ALLOW_CLASS_MASTERS = Boolean.valueOf(pValue);
-		}
-		else if (pName.equalsIgnoreCase("AllowFirstClass"))
-		{
-			ALLOW_CLASS_FIRST = Boolean.valueOf(pValue);
-		}
-		else if (pName.equalsIgnoreCase("AllowSecondClass"))
-		{
-			ALLOW_CLASS_SECOND = Boolean.valueOf(pValue);
-		}
-		else if (pName.equalsIgnoreCase("AllowThirdClass"))
-		{
-			ALLOW_CLASS_THIRD = Boolean.valueOf(pValue);
 		}
 		else if (pName.equalsIgnoreCase("AltGameFreights"))
 		{

@@ -53,6 +53,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadUserInfoSpectator;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.util.L2FastList;
@@ -1873,9 +1874,17 @@ public class Olympiad
 		protected void handleDisconnect(L2PcInstance player)
 		{
 			if (player == _playerOne)
+			{
 				_playerOneDisconnected = true;
+				player.getClient().getConnection().close(new LeaveWorld());
+				player.closeNetConnection();
+			}
 			else if (player == _playerTwo)
+			{
 				_playerTwoDisconnected = true;
+				player.getClient().getConnection().close(new LeaveWorld());
+				player.closeNetConnection();
+			}
 		}
 
 		protected void removals()
@@ -2031,7 +2040,7 @@ public class Olympiad
 						wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_DHAIR);
 						checkWeaponArmor(player, wpn);
 					}
-					if (!Config.OLYMPIAD_ALLOW_AUTO_SS)
+					if (Config.OLYMPIAD_ALLOW_AUTO_SS)
 					{
 						// Remove shot automation
 						Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();

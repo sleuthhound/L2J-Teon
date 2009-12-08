@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>L2JTeon</name>
+	<name>L2JTeon-CORE</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,11 +16,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.jem.beaninfo.BeanInfoNature</nature>
 	</natures>
-	<linkedResources> 
-	 	                <link> 
-	 	                        <name>classes</name> 
-	 	                        <type>2</type> 
-	 	                        <location>build/classes</location> 
-	 	                </link> 
-	 	        </linkedResources> 
+	<linkedResources>
+		<link>
+			<name>classes</name>
+			<type>2</type>
+			<locationURI>build/classes</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
