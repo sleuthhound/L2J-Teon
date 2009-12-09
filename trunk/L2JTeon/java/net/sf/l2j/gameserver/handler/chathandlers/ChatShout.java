@@ -47,6 +47,13 @@ public class ChatShout implements IChatHandler
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 		if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("on") || (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
 		{
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+			{
+				player.sendPacket(cs);
+			}
+		}
+		else if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("limited"))
+		{
 			int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
@@ -54,13 +61,6 @@ public class ChatShout implements IChatHandler
 				{
 					player.sendPacket(cs);
 				}
-			}
-		}
-		else if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("global"))
-		{
-			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
-				player.sendPacket(cs);
 			}
 		}
 	}

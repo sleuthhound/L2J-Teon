@@ -171,17 +171,20 @@ public class GameServer
 	public GameServer() throws Exception
 	{
 		long serverLoadStart = System.currentTimeMillis(); 
+		
 		// Prints General System Info+
 		Util.printSection("L2JTeon Info");
 		L2JTeon.info();
 		gameServer = this;
 		_log.finest("used mem:" + getUsedMemoryMB() + "MB");
+		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
 		_idFactory = IdFactory.getInstance();
 		_threadpools = ThreadPoolManager.getInstance();
 		new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
+		
 		Util.printSection("World");
 		L2World.getInstance();
 		// load script engines
@@ -197,6 +200,14 @@ public class GameServer
 			throw new Exception("Could not initialize the ID factory");
 		}
 		CharTemplateTable.getInstance();
+
+		Util.printSection("Geodata - Path Finding");
+		GeoData.getInstance();
+		if (Config.GEODATA == 2)
+		{	
+			GeoPathFinding.getInstance();
+		}
+		
 		Util.printSection("Skills");
 		_skillTable = SkillTable.getInstance();
 		if (!_skillTable.isInitialized())
@@ -214,15 +225,16 @@ public class GameServer
 		HeroSkillTable.getInstance();
 		Npcbuffer.getInstance().engineInit();
 		NpcBufferSkillIdsTable.getInstance();
-		Util.printSection("Trade Controller");
-		TradeController.getInstance();
 		/** NPC Buffer by House */
 		if (Config.NPCBUFFER_FEATURE_ENABLED)
-			Util.printSection("Npc Buffer");
 		{
 			BufferSkillsTable.getInstance();
 			CharSchemesTable.getInstance();
 		}
+		
+		Util.printSection("Trade Controller");
+		TradeController.getInstance();
+		
 		Util.printSection("Items");
 		_itemTable = ItemTable.getInstance();
 		if (!_itemTable.isInitialized())
@@ -234,6 +246,7 @@ public class GameServer
 		SummonItemsData.getInstance();
 		ArmorSetsTable.getInstance();
 		FishTable.getInstance();
+		
 		Util.printSection("Henna");
 		_hennaTable = HennaTable.getInstance();
 		if (!_hennaTable.isInitialized())
@@ -245,6 +258,7 @@ public class GameServer
 		{
 			throw new Exception("Could not initialize the Henna Tree Table");
 		}
+		
 		Util.printSection("Npc");
 		_npcTable = NpcTable.getInstance();
 		if (!_npcTable.isInitialized())
@@ -252,24 +266,31 @@ public class GameServer
 			_log.severe("Could not find the extraced files. Please Check Your Data.");
 			throw new Exception("Could not initialize the npc table");
 		}
+		
 		Util.printSection("Spawnlist");
 		SpawnTable.getInstance();
 		RaidBossSpawnManager.getInstance();
 		DayNightSpawnManager.getInstance().notifyChangeMode();
+		
 		Util.printSection("Zones");
 		ZoneManager.getInstance();
 		MapRegionTable.getInstance();
+		
 		Util.printSection("Recipes");
 		RecipeController.getInstance();
+		
 		Util.printSection("Cache");
 		// Call to load caches
 		ChatFilterCache.getInstance();
 		HtmCache.getInstance();
 		CrestCache.getInstance();
+		
 		Util.printSection("Clan");
 		ClanTable.getInstance();
+		
 		Util.printSection("GM Table");
 		GmListTable.getInstance();
+		
 		Util.printSection("Helper Buff Table");
 		_helperBuffTable = HelperBuffTable.getInstance();
 		/**
@@ -281,12 +302,7 @@ public class GameServer
 		{
 			throw new Exception("Could not initialize the Helper Buff Table");
 		}
-		Util.printSection("Geodata");
-		GeoData.getInstance();
-		if (Config.GEODATA == 2)
-		{
-			GeoPathFinding.getInstance();
-		}
+		
 		Util.printSection("Castle Sieges - Fortress Sieges");
 		CastleManager.getInstance();
 		SiegeManager.getInstance();
@@ -294,6 +310,7 @@ public class GameServer
 		FortSiegeManager.getInstance();
 		// Load clan hall data before zone data
 		_cHManager = ClanHallManager.getInstance();
+		
 		Util.printSection("Clan Hall Siege");
 		FortResistSiegeManager.getInstance();
 		BanditStrongholdSiege.getInstance();
@@ -306,18 +323,23 @@ public class GameServer
 		{
 			FortressofTheDeadManager.getInstance();
 		}
+		
 		Util.printSection("Teleport");
 		TeleportLocationTable.getInstance();
 		LevelUpData.getInstance();
+		
 		Util.printSection("RaidBosses - GrandBosses");
 		RaidBossPointsManager.init();
 		GrandBossManager.getInstance();
 		FourSepulchersManager.getInstance().init();
 		VanHalterManager.getInstance().init();
+		
 		Util.printSection("Dimensional Rift");
 		DimensionalRiftManager.getInstance();
+		
 		Util.printSection("Announcements");
 		Announcements.getInstance();
+
 		/** Load Manor data */
 		Util.printSection("Manor");
 		L2Manor.getInstance();
@@ -330,6 +352,98 @@ public class GameServer
 		PetitionManager.getInstance();
 		// Init of a cursed weapon manager
 		CursedWeaponsManager.getInstance();
+
+		Util.printSection("Seven Signs Festival");
+		_sevenSignsEngine = SevenSigns.getInstance();
+		SevenSignsFestival.getInstance();
+		// Spawn the Orators/Preachers if in the Seal Validation period.
+		_sevenSignsEngine.spawnSevenSignsNPC();
+
+		Util.printSection("Event Drop");
+		EventDroplist.getInstance();
+		if (Config.SAVE_DROPPED_ITEM)
+		{
+			ItemsOnGroundManager.getInstance();
+		}
+		if ((Config.AUTODESTROY_ITEM_AFTER > 0) || (Config.HERB_AUTO_DESTROY_TIME > 0))
+		{
+			ItemsAutoDestroy.getInstance();
+		}
+		// Couple manager
+		if (!Config.ALLOW_WEDDING)
+		{
+			CoupleManager.getInstance();
+			// if ( _log.isDebugEnabled())_log.debug("CoupleManager
+			// initialized");
+		}
+		MonsterRace.getInstance();
+		StaticObjects.getInstance();
+
+		Util.printSection("Handlers");
+		AdminCommandHandler.getInstance();
+		AutoAnnouncementHandler.getInstance();
+		ChatHandler.getInstance();
+		ItemHandler.getInstance();
+		SkillHandler.getInstance();
+		UserCommandHandler.getInstance();
+		VoicedCommandHandler.getInstance();
+		_autoChatHandler = AutoChatHandler.getInstance();
+		_log.info("AutoChatHandler : Loaded " + _autoChatHandler.size() + " handlers in total.");
+		_autoSpawnHandler = AutoSpawnHandler.getInstance();
+		_log.info("AutoSpawnHandler : Loaded " + _autoSpawnHandler.size() + " handlers in total.");
+		// read pet stats from db
+		L2PetDataTable.getInstance().loadPetsData();
+		Universe.getInstance();
+		if (Config.ACCEPT_GEOEDITOR_CONN)
+		{
+			GeoEditorListener.getInstance();
+		}
+
+		Util.printSection("Doors");
+		_doorTable = DoorTable.getInstance();
+		_doorTable.parseData();
+		try
+		{
+			_doorTable.getDoor(24190001).openMe();
+			_doorTable.getDoor(24190002).openMe();
+			_doorTable.getDoor(24190003).openMe();
+			_doorTable.getDoor(24190004).openMe();
+			_doorTable.getDoor(23180001).openMe();
+			_doorTable.getDoor(23180002).openMe();
+			_doorTable.getDoor(23180003).openMe();
+			_doorTable.getDoor(23180004).openMe();
+			_doorTable.getDoor(23180005).openMe();
+			_doorTable.getDoor(23180006).openMe();
+			_doorTable.checkAutoOpen();
+		}
+		catch (NullPointerException e)
+		{
+			_log.warning("There is errors in your Door.csv file. Update door.csv");
+			if (Config.DEBUG)
+			{
+				e.printStackTrace();
+			}
+		}
+
+		Util.printSection("Augmentation Data");
+		AugmentationData.getInstance();
+		
+		if (Config.ALLOW_AWAY_STATUS)
+		{
+			Util.printSection("Away System");
+			AwayManager.getInstance();
+		}
+
+		Util.printSection("Olympiad");
+		Olympiad.getInstance();
+		Hero.getInstance();
+		TaskManager.getInstance();
+		GmListTable.getInstance();
+		FaenorScriptEngine.getInstance();
+
+		_shutdownHandler = Shutdown.getInstance();
+		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
+
 		Util.printSection("Quests - Scripts");
 		QuestManager.getInstance();
 		try
@@ -337,7 +451,9 @@ public class GameServer
 			_log.info("Loading Server Scripts");
 			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
 			if (!Config.ALT_DEV_NO_QUESTS)
+			{
 				L2ScriptEngineManager.getInstance().executeScriptList(scripts);
+			}
 		}
 		catch (IOException ioe)
 		{
@@ -369,85 +485,21 @@ public class GameServer
 			_log.log(Level.SEVERE, "Failed to store Compiled Scripts Cache.", e);
 		}
 		QuestManager.getInstance().report();
-		AugmentationData.getInstance();
-		if (Config.ALLOW_AWAY_STATUS)
-			_log.info("Away System");
-		AwayManager.getInstance();
-		Util.printSection("Event Drop");
-		EventDroplist.getInstance();
-		if (Config.SAVE_DROPPED_ITEM)
+
+		Util.printSection("L2JTeon EventManager");
+		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
-			ItemsOnGroundManager.getInstance();
+			_log.info("# ------------------------------- #");
+			_log.info("#  L2JTeon KvN Mode is Activated. #");
+			_log.info("# ------------------------------- #");
 		}
-		if ((Config.AUTODESTROY_ITEM_AFTER > 0) || (Config.HERB_AUTO_DESTROY_TIME > 0))
+		else
 		{
-			ItemsAutoDestroy.getInstance();
+			_log.info("# ------------------------------ #");
+			_log.info("#  L2JTeon KvN Mode is Disabled. #");
+			_log.info("# ------------------------------ #");
 		}
-		// Couple manager
-		if (!Config.ALLOW_WEDDING)
-		{
-			CoupleManager.getInstance();
-			// if ( _log.isDebugEnabled())_log.debug("CoupleManager
-			// initialized");
-		}
-		MonsterRace.getInstance();
-		StaticObjects.getInstance();
-		Util.printSection("Seven Signs Festival");
-		_sevenSignsEngine = SevenSigns.getInstance();
-		SevenSignsFestival.getInstance();
-		// Spawn the Orators/Preachers if in the Seal Validation period.
-		_sevenSignsEngine.spawnSevenSignsNPC();
-		_autoSpawnHandler = AutoSpawnHandler.getInstance();
-		_autoChatHandler = AutoChatHandler.getInstance();
-		AutoAnnouncementHandler.getInstance();
-		Util.printSection("Olympiad");
-		Olympiad.getInstance();
-		Hero.getInstance();
-		FaenorScriptEngine.getInstance();
-		TaskManager.getInstance();
-		GmListTable.getInstance();
-		Util.printSection("Handlers");
-		AdminCommandHandler.getInstance();
-		ChatHandler.getInstance();
-		ItemHandler.getInstance();
-		SkillHandler.getInstance();
-		UserCommandHandler.getInstance();
-		VoicedCommandHandler.getInstance();
-		_log.info("AutoChatHandler : Loaded " + _autoChatHandler.size() + " handlers in total.");
-		_log.info("AutoSpawnHandler : Loaded " + _autoSpawnHandler.size() + " handlers in total.");
-		AutoAnnouncementHandler.getInstance();
-		// read pet stats from db
-		L2PetDataTable.getInstance().loadPetsData();
-		Universe.getInstance();
-		if (Config.ACCEPT_GEOEDITOR_CONN)
-			GeoEditorListener.getInstance();
-		_shutdownHandler = Shutdown.getInstance();
-		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
-		Util.printSection("Doors");
-		_doorTable = DoorTable.getInstance();
-		_doorTable.parseData();
-		try
-		{
-			_doorTable.getDoor(24190001).openMe();
-			_doorTable.getDoor(24190002).openMe();
-			_doorTable.getDoor(24190003).openMe();
-			_doorTable.getDoor(24190004).openMe();
-			_doorTable.getDoor(23180001).openMe();
-			_doorTable.getDoor(23180002).openMe();
-			_doorTable.getDoor(23180003).openMe();
-			_doorTable.getDoor(23180004).openMe();
-			_doorTable.getDoor(23180005).openMe();
-			_doorTable.getDoor(23180006).openMe();
-			_doorTable.checkAutoOpen();
-		}
-		catch (NullPointerException e)
-		{
-			_log.warning("There is errors in your Door.csv file. Update door.csv");
-			if (Config.DEBUG)
-			{
-				e.printStackTrace();
-			}
-		}
+		
 		Util.printSection("Game Server");
 		ForumsBBSManager.getInstance();
 		System.gc();
@@ -488,21 +540,9 @@ public class GameServer
 		{
 			OnlinePlayers.getInstance();
 		}
-		Util.printSection("L2JTeon EventManager");
-		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
-		{
-			System.out.println("# ------------------------------- #");
-			System.out.println("#  L2JTeon KvN Mode is Activated. #");
-			System.out.println("# ------------------------------- #");
-		}
-		else
-		{
-			System.out.println("# ------------------------------ #");
-			System.out.println("#  L2JTeon KvN Mode is Disabled. #");
-			System.out.println("# ------------------------------ #");
-		}
 		long serverLoadEnd = System.currentTimeMillis(); 
-		_log.info("Server Loaded in " + ((serverLoadEnd - serverLoadStart) / 1000) + " Seconds"); 
+		_log.info("Server Loaded in " + ((serverLoadEnd - serverLoadStart) / 1000) + " Seconds");
+		Util.printSection("Game Server Started");
 	}
 
 	public static void main(String[] args) throws Exception
@@ -531,7 +571,7 @@ public class GameServer
 		}
 		else
 		{
-			System.out.println("Telnet server is currently disabled.");
+			_log.info("Telnet server is currently disabled.");
 		}
 	}
 }

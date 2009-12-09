@@ -2040,7 +2040,7 @@ public class Olympiad
 						wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_DHAIR);
 						checkWeaponArmor(player, wpn);
 					}
-					if (Config.OLYMPIAD_ALLOW_AUTO_SS)
+					if (!Config.OLYMPIAD_ALLOW_AUTO_SS)
 					{
 						// Remove shot automation
 						Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
