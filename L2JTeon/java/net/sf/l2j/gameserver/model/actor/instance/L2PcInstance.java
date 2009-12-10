@@ -4616,6 +4616,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			return;
 		}
+		if (targetPlayer == null) 
+		{
+			return; // Target player is null
+		}
 		if (targetPlayer == this)
 		{
 			return; // target player is self
@@ -4649,38 +4653,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				sendMessage("You have obtained medal for killing enemy faction.");
 			}
 		}
-		// pvp?
-		// uprava Concho
-		if (checkIfPvP(target)) // || (isKoof() && targetPlayer.isNoob()) || (isNoob() && targetPlayer.isKoof()))
-		{
-			increasePvpKills();
-			return;
-		}
-		// check about wars
-		if ((targetPlayer.getClan() != null) && (getClan() != null))
-		{
-			if (getClan().isAtWarWith(targetPlayer.getClanId()))
-			{
-				if (targetPlayer.getClan().isAtWarWith(getClanId()))
-				{
-					// both way war = PvP
-					increasePvpKills();
-					return;
-				}
-			}
-		}
-		// no war or one way war = PK
-		if ((targetPlayer.getKarma() > 0))
-		{
-			if (Config.KARMA_AWARD_PK_KILL) // target player has karma
-			{
-				increasePvpKills();
-			}
-			else if ((targetPlayer.getPvpFlag() == 0))
-			{
-				increasePkKillsAndKarma(targetPlayer.getLevel());
-			}
-		}
 		// hmm.. i think it's noobs shadow weapon cehckup
 		if ((getInventory().getPaperdollItemId(7) >= 7816) && (getInventory().getPaperdollItemId(7) <= 7831))
 		{
@@ -4697,6 +4669,37 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			refreshExpertisePenalty();
 			sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_EQUIP_ITEM_WHEN_PK_COUNT_GREATER_OR_EQUAL_THAN_ONE));
+		}
+        // Check if it's pvp
+		if ((checkIfPvP(target) && targetPlayer.getPvpFlag() != 0) // Can pvp and and Target player has pvp flag set or
+				||(isInsideZone(ZONE_PVP) && targetPlayer.isInsideZone(ZONE_PVP)))  // Player is inside pvp zone and and Target player is inside pvp zone
+		{
+            increasePvpKills();
+		}
+		else
+		{
+			// check about wars
+			if ((targetPlayer.getClan() != null) && (getClan() != null))
+			{
+				if (getClan().isAtWarWith(targetPlayer.getClanId()))
+				{
+					if (targetPlayer.getClan().isAtWarWith(getClanId()))
+					{
+						// both way war = PvP
+						increasePvpKills();
+						return;
+					}
+				}
+			}
+			// no war or one way war = PK
+			if ((targetPlayer.getKarma() > 0) && Config.KARMA_AWARD_PK_KILL)
+			{
+					increasePvpKills();
+			}
+			else if ((targetPlayer.getPvpFlag() == 0))
+			{
+				increasePkKillsAndKarma(targetPlayer.getLevel());
+			}
 		}
 	}
 

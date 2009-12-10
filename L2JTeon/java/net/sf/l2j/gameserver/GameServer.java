@@ -439,7 +439,6 @@ public class GameServer
 		Hero.getInstance();
 		TaskManager.getInstance();
 		GmListTable.getInstance();
-		FaenorScriptEngine.getInstance();
 
 		_shutdownHandler = Shutdown.getInstance();
 		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
@@ -485,6 +484,7 @@ public class GameServer
 			_log.log(Level.SEVERE, "Failed to store Compiled Scripts Cache.", e);
 		}
 		QuestManager.getInstance().report();
+		FaenorScriptEngine.getInstance();
 
 		Util.printSection("L2JTeon EventManager");
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
