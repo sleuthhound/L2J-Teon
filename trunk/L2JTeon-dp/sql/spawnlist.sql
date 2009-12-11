@@ -39194,4 +39194,5 @@ INSERT INTO `spawnlist` VALUES
 (NULL,'Stakato Nest',1,32015,89872,-44896,-2144,0,0,0,240,0,0);
 
 -- thanks to L2jServer
+INSERT INTO `spawnlist` VALUES
 (null, 'ImperialTomb', 1, 32011, 181376, -81008, -2728, 0, 0, 16500, 60, 0, 0);
