@@ -236,13 +236,6 @@ public final class UseItem extends L2GameClientPacket
 			_log.finest(activeChar.getObjectId() + ": use item " + _objectId);
 		if (item.isEquipable())
 		{
-			// for players with items over enchanted
-			if (!activeChar.isGM() && item.getEnchantLevel() > Config.ENCHANT_MAX_WEAPON || item.getEnchantLevel() > Config.ENCHANT_MAX_ARMOR || item.getEnchantLevel() > Config.ENCHANT_MAX_JEWELRY)
-			{
-                activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); //message
-                activeChar.closeNetConnection(); //kick
-				return;
-			}
 			// No unequipping/equipping while the player is in special
 			// conditions
 			if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed() || activeChar.isAlikeDead())
@@ -259,6 +252,54 @@ public final class UseItem extends L2GameClientPacket
                     activeChar.sendMessage("This item can not be equipped when you have the flag.");
 				return;
 			}
+            switch (bodyPart)
+            {
+                case L2Item.SLOT_LR_HAND:
+                case L2Item.SLOT_L_HAND:
+                case L2Item.SLOT_R_HAND:
+                {
+                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_WEAPON && !activeChar.isGM())
+                	{
+                		activeChar.setAccountAccesslevel(-100); //ban
+                		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
+                		activeChar.closeNetConnection(); //kick
+                		return;
+                	}
+                	break;
+                }
+                case L2Item.SLOT_CHEST:
+                case L2Item.SLOT_BACK:
+                case L2Item.SLOT_GLOVES:
+                case L2Item.SLOT_FEET:
+                case L2Item.SLOT_HEAD:
+                case L2Item.SLOT_FULL_ARMOR:
+                case L2Item.SLOT_LEGS:
+                {
+                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ARMOR && !activeChar.isGM())
+                	{
+                		activeChar.setAccountAccesslevel(-100); //ban
+                		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
+                		activeChar.closeNetConnection(); //kick
+                		return;
+                	}
+                	break;
+                }
+            	case L2Item.SLOT_R_EAR:
+            	case L2Item.SLOT_L_EAR:
+            	case L2Item.SLOT_NECK:
+            	case L2Item.SLOT_R_FINGER:
+            	case L2Item.SLOT_L_FINGER:
+            	{
+                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_JEWELRY && !activeChar.isGM())
+                	{
+                		activeChar.setAccountAccesslevel(-100); //ban
+                		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
+                		activeChar.closeNetConnection(); //kick
+                		return;
+                	}
+                	break;
+            	}
+            }
 			// Don't allow weapon/shield equipment if a cursed weapon is equiped
 			if (activeChar.isCursedWeaponEquiped() && ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND) || (itemId == 6408)))
 			// Don't allow to put formal wear
