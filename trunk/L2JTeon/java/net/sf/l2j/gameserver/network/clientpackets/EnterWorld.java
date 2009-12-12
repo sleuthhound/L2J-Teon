@@ -83,7 +83,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.services.WindowService;
 import net.sf.l2j.gameserver.util.Util;
-
 /**
  * Enter World Packet Handler
  * <p>
@@ -438,8 +437,7 @@ public class EnterWorld extends L2GameClientPacket
 			else if (activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
 		}
-
-		for (L2ItemInstance i : activeChar.getInventory().getItems())
+		/*for (L2ItemInstance i : activeChar.getInventory().getItems())
 		{
 			if (!activeChar.isGM())
 			{
@@ -461,7 +459,7 @@ public class EnterWorld extends L2GameClientPacket
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	/**
