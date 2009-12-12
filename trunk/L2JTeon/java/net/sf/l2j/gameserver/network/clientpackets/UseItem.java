@@ -236,6 +236,13 @@ public final class UseItem extends L2GameClientPacket
 			_log.finest(activeChar.getObjectId() + ": use item " + _objectId);
 		if (item.isEquipable())
 		{
+			// for players with items over enchanted
+			if (!activeChar.isGM() && item.getEnchantLevel() > Config.ENCHANT_MAX_WEAPON || item.getEnchantLevel() > Config.ENCHANT_MAX_ARMOR || item.getEnchantLevel() > Config.ENCHANT_MAX_JEWELRY)
+			{
+                activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); //message
+                activeChar.closeNetConnection(); //kick
+				return;
+			}
 			// No unequipping/equipping while the player is in special
 			// conditions
 			if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed() || activeChar.isAlikeDead())
