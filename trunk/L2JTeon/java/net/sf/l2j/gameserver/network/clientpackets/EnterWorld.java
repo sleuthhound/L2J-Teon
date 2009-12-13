@@ -437,31 +437,29 @@ public class EnterWorld extends L2GameClientPacket
 			else if (activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
 		}
-		/*for (L2ItemInstance i : activeChar.getInventory().getItems())
+		// check for over enchant
+		for (L2ItemInstance i : activeChar.getInventory().getItems())
 		{
-			if (!activeChar.isGM())
+			if (i.isEquipable() && !activeChar.isGM())
 			{
-				if (i.isEquipable())
+				if (i.getEnchantLevel() > Config.GM_OVER_ENCHANT && Config.GM_OVER_ENCHANT != 0)
 				{
-					if (i.getEnchantLevel() > Config.ENCHANT_MAX_WEAPON || i.getEnchantLevel() > Config.ENCHANT_MAX_ARMOR || i.getEnchantLevel() > Config.ENCHANT_MAX_JEWELRY)
-					{
-						//Delete Item Over enchanted
-						activeChar.getInventory().destroyItem(null, i, activeChar, null);
-						//Message to Player
-						activeChar.sendMessage("[Server]:You have Items over enchanted you will be kikked!");
-						//If Audit is only a Kick, with this the player goes in Jail for 1.200 minutes
-						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
-						//Punishment e log in audit
-						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
-						//Log in console
-						_log.info("#### ATTENCTION ####");
-						_log.info(i+" item has been removed from player.");
-					}
+					//Delete Item Over enchanted
+					activeChar.getInventory().destroyItem(null, i, activeChar, null);
+					//Message to Player
+					activeChar.sendMessage("[Server]:You have Items over enchanted you will be kikked!");
+					//If Audit is only a Kick, with this the player goes in Jail for 1.200 minutes
+					activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
+					//Punishment e log in audit
+					Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+					//Log in console
+					_log.info("#### ATTENCTION ####");
+					_log.info(i+" item has been removed from player.");
 				}
 			}
-		}*/
+		}
 	}
-
+	
 	/**
 	 * @param activeChar
 	 */

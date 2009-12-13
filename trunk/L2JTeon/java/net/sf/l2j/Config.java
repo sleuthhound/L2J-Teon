@@ -1340,12 +1340,6 @@ public final class Config
 	/** ************************************************** **/
 	/** Datapack root directory */
 	public static File DATAPACK_ROOT;
-	/*
-	 * Removed by Ahmed, Reason: This has no effect at all whether players can use L2Walker or not.
-	 */
-	/**
-	 * Enumeration describing values for Allowing the use of L2Walker client public static enum L2WalkerAllowed { True, False, GM } /** Allow the use of L2Walker client ? public static L2WalkerAllowed ALLOW_L2WALKER_CLIENT; /** Auto-ban client that use L2Walker ? public static boolean AUTOBAN_L2WALKER_ACC; /** Revision of L2Walker public static int L2WALKER_REVISION;
-	 */
 	// protocol revision
 	/** Minimal protocol revision */
 	public static int MIN_PROTOCOL_REVISION;
@@ -1797,12 +1791,6 @@ public final class Config
 				ALLOWFISHING = Boolean.valueOf(optionsSettings.getProperty("AllowFishing", "False"));
 				ALLOW_BOAT = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
 				ALLOW_CURSED_WEAPONS = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
-				/*
-				 * Removed by Ahmed, Reason: This has no effect at all whether players can use L2Walker or not.
-				 */
-				/**
-				 * ALLOW_L2WALKER_CLIENT = L2WalkerAllowed.valueOf(optionsSettings.getProperty("AllowL2Walker", "False")); L2WALKER_REVISION = Integer.parseInt(optionsSettings.getProperty("L2WalkerRevision", "537")); AUTOBAN_L2WALKER_ACC = Boolean.valueOf(optionsSettings.getProperty("AutobanL2WalkerAcc", "False"));
-				 */
 				ACTIVATE_POSITION_RECORDER = Boolean.valueOf(optionsSettings.getProperty("ActivatePositionRecorder", "False"));
 				DEFAULT_GLOBAL_CHAT = optionsSettings.getProperty("GlobalChat", "ON");
 				DEFAULT_TRADE_CHAT = optionsSettings.getProperty("TradeChat", "ON");
@@ -1890,6 +1878,16 @@ public final class Config
 				ENCHANT_CHANCE_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeapon", "68"));
 				ENCHANT_CHANCE_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmor", "52"));
 				ENCHANT_CHANCE_JEWELRY = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelry", "54"));
+				ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponCrystal", "85"));
+				ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorCrystal", "85"));
+				ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryCrystal", "85"));
+				ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponBlessed", "55"));
+				ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorBlessed", "55"));
+				ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryBlessed", "55"));
+				
+				ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(otherSettings.getProperty("EnableDwarfEnchantBonus", "False"));
+				DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(otherSettings.getProperty("DwarfEnchantMinLevel", "80"));
+				DWARF_ENCHANT_BONUS = Integer.parseInt(otherSettings.getProperty("DwarfEnchantBonus", "15"));
 				/* limit on enchant */
 				ENCHANT_MAX_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxWeapon", "255"));
 				ENCHANT_MAX_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxArmor", "255"));
@@ -1994,7 +1992,7 @@ public final class Config
 			catch (Exception e)
 			{
 				e.printStackTrace();
-				throw new Error("Failed to Load " + OLYMPIAD_FILE + " File.");
+				throw new Error("Failed to Load " + GENERAL_CONFIG_FILE + " File.");
 			}
 			// Olympiad Config File
 			try
@@ -2008,6 +2006,9 @@ public final class Config
 				OLYMPIAD_GIVE_HASTE_FIGHTERS = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadGiveHasteFighters", "True"));
 				OLYMPIAD_ACUMEN_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadAcumenLvl", "1"));
 				OLYMPIAD_HASTE_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadHasteLvl", "2"));
+				DISABLE_OLY_DUALBOX = Boolean.valueOf(OlympiadSettings.getProperty("DisableOlyDualBox", "False"));
+                OLY_ENCHANT_LIMIT = Integer.parseInt(OlympiadSettings.getProperty("OlyMaxEnchant", "-1")); 
+
 			}
 			catch (Exception e)
 			{
@@ -2039,6 +2040,13 @@ public final class Config
 					{
 						INVUL_NPC_LIST.add(Integer.valueOf(Integer.parseInt(t2)));
 					}
+				}
+				DISABLE_ATTACK_NPC_TYPE = Boolean.valueOf(Feature.getProperty("DisableAttackToNpcs", "False"));
+				ALLOWED_NPC_TYPES = Feature.getProperty("AllowedNPCTypes");
+				LIST_ALLOWED_NPC_TYPES = new FastList<String>();
+				for (String npc_type : ALLOWED_NPC_TYPES.split(","))
+				{
+					LIST_ALLOWED_NPC_TYPES.add(npc_type);
 				}
 				FS_TELE_FEE_RATIO = Long.parseLong(Feature.getProperty("FortressTeleportFunctionFeeRatio", "604800000"));
 				FS_TELE1_FEE = Integer.parseInt(Feature.getProperty("FortressTeleportFunctionFeeLvl1", "1000"));
@@ -2217,44 +2225,70 @@ public final class Config
 				InputStream is = new FileInputStream(new File(L2JTEON_MODS));
 				L2JTeonEventMods.load(is);
 				is.close();
-				// ********************//
-				/* TVT Event Engine */
-				// ********************//
-		           TVT_EVEN_TEAMS = L2JTeonEventMods.getProperty("TvTEvenTeams", "BALANCE");
-		           TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowInterference", "False"));
-		           TVT_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowPotions", "False"));
-		           TVT_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowSummon", "False"));
-		           TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartRemoveAllEffects", "True"));
-		           TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartUnsummonPet", "True"));
-		           TVT_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTReviveRecovery", "False"));
-		           TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtAnnounceTeamStats", "False"));
-		           TVT_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtPriceNoKills", "False"));
-		           TVT_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtJoinWithCursedWeapon", "True"));
+				// -------------------- //
+				//   TVT Event Engine   //
+				// -------------------- //
+		        TVT_EVEN_TEAMS = L2JTeonEventMods.getProperty("TvTEvenTeams", "BALANCE");
+		        TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowInterference", "False"));
+		        TVT_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowPotions", "False"));
+		        TVT_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowSummon", "False"));
+		        TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartRemoveAllEffects", "True"));
+		        TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartUnsummonPet", "True"));
+		        TVT_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTReviveRecovery", "False"));
+		        TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtAnnounceTeamStats", "False"));
+		        TVT_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtPriceNoKills", "False"));
+		        TVT_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtJoinWithCursedWeapon", "True"));
 
-				// ********************//
-				/* CTF Event Engine */
-				// ********************//
-		           CTF_EVEN_TEAMS = L2JTeonEventMods.getProperty("CTFEvenTeams", "BALANCE");
-		           CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "False"));
-		           CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "False"));
-		           CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowSummon", "False"));
-		           CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartRemoveAllEffects", "True"));
-		           CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartUnsummonPet", "True"));
-		           CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAnnounceTeamStats", "False"));
-		           CTF_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFJoinWithCursedWeapon", "True"));
-		           CTF_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFReviveRecovery", "False"));
+				// -------------------- //
+				//   CTF Event Engine   //
+				// -------------------- //
+		        CTF_EVEN_TEAMS = L2JTeonEventMods.getProperty("CTFEvenTeams", "BALANCE");
+		        CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "False"));
+		        CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "False"));
+		        CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowSummon", "False"));
+		        CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartRemoveAllEffects", "True"));
+		        CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartUnsummonPet", "True"));
+		        CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAnnounceTeamStats", "False"));
+		        CTF_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFJoinWithCursedWeapon", "True"));
+		        CTF_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFReviveRecovery", "False"));
 
-				// ********************//
-				/* DM Event Engine */
-				// ********************//
-		           DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowInterference", "False"));
-		           DM_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowPotions", "False"));
-		           DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "False"));
-		           DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "True"));
-		           DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "True"));
-				// ********************//
-				/* RAID Event Engine */
-				// ********************//
+				// -------------------- //
+				//   DM Event Engine    //
+				// -------------------- //
+		        DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowInterference", "False"));
+		        DM_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowPotions", "False"));
+		        DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "False"));
+		        DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "True"));
+		        DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "True"));
+
+				// -------------------- //
+				//    Rebith System     //
+				// -------------------- //
+				REBIRTH_ITEM = Integer.parseInt(L2JTeonEventMods.getProperty("RebirthItemId", "0"));
+				REBIRTH_SKILL1 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill1", "0"));
+				REBIRTH_SKILL1_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL1", "0"));
+				REBIRTH_SKILL2 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill2", "0"));
+				REBIRTH_SKILL2_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL2", "0"));
+				REBIRTH_SKILL3 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill3", "0"));
+				REBIRTH_SKILL3_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL3", "0"));
+				REBIRTH_SKILL4 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill4", "0"));
+				REBIRTH_SKILL4_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL4", "0"));
+				REBIRTH_SKILL5 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill5", "0"));
+				REBIRTH_SKILL5_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL5", "0"));
+				REBIRTH_SKILL6 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill6", "0"));
+				REBIRTH_SKILL6_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL6", "0"));
+				REBIRTH_SKILL7 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill7", "0"));
+				REBIRTH_SKILL7_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL7", "0"));
+				REBIRTH_SKILL8 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill8", "0"));
+				REBIRTH_SKILL8_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL8", "0"));
+				REBIRTH_SKILL9 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill9", "0"));
+				REBIRTH_SKILL9_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL9", "0"));
+				REBIRTH_SKILL10 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill10", "0"));
+				REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL10", "0"));
+				
+				// -------------------- //
+				//  RAID Event Engine   //
+				// -------------------- //
 				RAID_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidEnginesEnabled", "False"));
 				RAID_SYSTEM_GIVE_BUFFS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidGiveBuffs", "True"));
 				RAID_SYSTEM_RESURRECT_PLAYER = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidResurrectPlayer", "True"));
@@ -2265,9 +2299,10 @@ public final class Config
 					RAID_SYSTEM_ENABLED = false;
 					System.out.println("Raid Engine[Config.load()]: Invalid config property: Max Events = 0?!");
 				}
-				// ********************//
-				/* Wedding System */
-				// ********************//
+				
+				// -------------------- //
+				//    Wedding System    //
+				// -------------------- //
 				ALLOW_WEDDING = Boolean.valueOf(L2JTeonEventMods.getProperty("AllowWedding", "True"));
 				WEDDING_PRICE = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingPrice", "500000"));
 				WEDDING_PUNISH_INFIDELITY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("WeddingPunishInfidelity", "True"));
@@ -2275,9 +2310,10 @@ public final class Config
 				WEDDING_TELEPORT_PRICE = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingTeleportPrice", "500000"));
 				WEDDING_TELEPORT_INTERVAL = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingTeleportInterval", "120"));
 				WEDDING_SAMESEX = Boolean.parseBoolean(L2JTeonEventMods.getProperty("WeddingAllowSameSex", "False"));
-				// ********************//
-				/* Champion Mods */
-				// ********************//
+				
+				// -------------------- //
+				//    Champion Mods     //
+				// -------------------- //
 				CHAMPION_ENABLE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("ChampionEnable", "False"));
 				CHAMPION_FREQUENCY = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionFrequency", "0"));
 				CHAMPION_MIN_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionMinLevel", "20"));
@@ -2365,27 +2401,6 @@ public final class Config
 				FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JTeonCustom.getProperty("AnnounceTimeFaction", "0"));
 				KOOFS_NAME_TEAM = L2JTeonCustom.getProperty("KoofsTeamName", "koofs");
 				NOOBS_NAME_TEAM = L2JTeonCustom.getProperty("NoobsTeamName", "noobs");
-				REBIRTH_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("RebirthItemId", "0"));
-				REBIRTH_SKILL1 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill1", "0"));
-				REBIRTH_SKILL1_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL1", "0"));
-				REBIRTH_SKILL2 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill2", "0"));
-				REBIRTH_SKILL2_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL2", "0"));
-				REBIRTH_SKILL3 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill3", "0"));
-				REBIRTH_SKILL3_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL3", "0"));
-				REBIRTH_SKILL4 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill4", "0"));
-				REBIRTH_SKILL4_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL4", "0"));
-				REBIRTH_SKILL5 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill5", "0"));
-				REBIRTH_SKILL5_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL5", "0"));
-				REBIRTH_SKILL6 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill6", "0"));
-				REBIRTH_SKILL6_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL6", "0"));
-				REBIRTH_SKILL7 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill7", "0"));
-				REBIRTH_SKILL7_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL7", "0"));
-				REBIRTH_SKILL8 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill8", "0"));
-				REBIRTH_SKILL8_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL8", "0"));
-				REBIRTH_SKILL9 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill9", "0"));
-				REBIRTH_SKILL9_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL9", "0"));
-				REBIRTH_SKILL10 = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKill10", "0"));
-				REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonCustom.getProperty("RewardSKillLvL10", "0"));
 				CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
 				ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
 				CUSTOM_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("CustomRunSpeed", "0"));
@@ -2531,15 +2546,6 @@ public final class Config
 				SPAWN_X = Integer.parseInt(L2JTeonCustom.getProperty("SpawnX", ""));
 				SPAWN_Y = Integer.parseInt(L2JTeonCustom.getProperty("SpawnY", ""));
 				SPAWN_Z = Integer.parseInt(L2JTeonCustom.getProperty("SpawnZ", ""));
-				ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceWeaponCrystal", "85"));
-				ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceArmorCrystal", "85"));
-				ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceJewelryCrystal", "85"));
-				ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceWeaponBlessed", "55"));
-				ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceArmorBlessed", "55"));
-				ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(L2JTeonCustom.getProperty("EnchantChanceJewelryBlessed", "55"));
-				ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnableDwarfEnchantBonus", "False"));
-				DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(L2JTeonCustom.getProperty("DwarfEnchantMinLevel", "80"));
-				DWARF_ENCHANT_BONUS = Integer.parseInt(L2JTeonCustom.getProperty("DwarfEnchantBonus", "15"));
 				GM_ADMIN_MENU_STYLE = L2JTeonCustom.getProperty("GMAdminMenuStyle", "modern");
 				ENABLE_PACKET_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("PacketProtection", "False"));
 				MAX_UNKNOWN_PACKETS = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsBeforeBan", "5"));
@@ -2560,14 +2566,7 @@ public final class Config
 				ENABLE_WAREHOUSESORTING_PRIVATE = Boolean.valueOf(L2JTeonCustom.getProperty("EnableWarehouseSortingPrivate", "False"));
 				ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.valueOf(L2JTeonCustom.getProperty("EnableWarehouseSortingFreight", "False"));
 				DISABLE_SUMMON_IN_COMBAT = Boolean.valueOf(L2JTeonCustom.getProperty("DisableSummonInCombat", "True"));
-				DISABLE_ATTACK_NPC_TYPE = Boolean.valueOf(L2JTeonCustom.getProperty("DisableAttackToNpcs", "False"));
 				ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(L2JTeonCustom.getProperty("AltPerfectShieldBlockRate", "5"));
-				ALLOWED_NPC_TYPES = L2JTeonCustom.getProperty("AllowedNPCTypes");
-				LIST_ALLOWED_NPC_TYPES = new FastList<String>();
-				for (String npc_type : ALLOWED_NPC_TYPES.split(","))
-				{
-					LIST_ALLOWED_NPC_TYPES.add(npc_type);
-				}
 				CUSTOM_SPAWNLIST_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomSpawnlistTable", "False"));
 				SAVE_GMSPAWN_ON_CUSTOM = Boolean.valueOf(L2JTeonCustom.getProperty("SaveGmSpawnOnCustom", "False"));
 				DELETE_GMSPAWN_ON_CUSTOM = Boolean.valueOf(L2JTeonCustom.getProperty("DeleteGmSpawnOnCustom", "False"));
@@ -2579,8 +2578,6 @@ public final class Config
 				CUSTOM_TELEPORT_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomTeleportTable", "False"));
 				CUSTOM_DROPLIST_TABLE = Boolean.valueOf(L2JTeonCustom.getProperty("CustomDroplistTable", "False"));
 				CUSTOM_MERCHANT_TABLES = Boolean.valueOf(L2JTeonCustom.getProperty("CustomMerchantTables", "False"));
-				DISABLE_OLY_DUALBOX = Boolean.valueOf(L2JTeonCustom.getProperty("DisableOlyDualBox", "False"));
-                OLY_ENCHANT_LIMIT = Integer.parseInt(L2JTeonCustom.getProperty("OlyMaxEnchant", "-1")); 
 				ENABLE_MODIFY_SKILL_DURATION = Boolean.valueOf(L2JTeonCustom.getProperty("EnableModifySkillDuration", "False"));
 				// Create Map only if enabled
 				if (ENABLE_MODIFY_SKILL_DURATION)
@@ -3812,16 +3809,6 @@ public final class Config
 		config.PUNISHMENT_TIME = Integer.parseInt(properties.getProperty(StringUtil.concat("FloodProtector", configString, "PunishmentTime"), "0"));
 	}
 
-	/*
-	 * Removed by Ahmed, Reason: This has no effect at all whether players can use L2Walker or not.
-	 */
-	/**
-	 * Allow the player to use L2Walker ?
-	 * 
-	 * @param player
-	 *            (L2PcInstance) : Player trying to use L2Walker
-	 * @return boolean : True if (L2Walker allowed as a general rule) or (L2Walker client allowed for GM and player is a GM) public static boolean allowL2Walker(L2PcInstance player) { return ALLOW_L2WALKER_CLIENT == L2WalkerAllowed.True || ALLOW_L2WALKER_CLIENT == L2WalkerAllowed.GM && player != null && player.isGM(); }
-	 */
 	// it has no instancies
 	private Config()
 	{
