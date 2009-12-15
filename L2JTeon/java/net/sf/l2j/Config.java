@@ -1520,6 +1520,14 @@ public final class Config
 				ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
 				ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
 				ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+				ALLOW_MANOR = Boolean.parseBoolean(altSettings.getProperty("AllowManor", "False"));
+				ALT_MANOR_REFRESH_TIME = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime", "20"));
+				ALT_MANOR_REFRESH_MIN = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin", "00"));
+				ALT_MANOR_APPROVE_TIME = Integer.parseInt(altSettings.getProperty("AltManorApproveTime", "6"));
+				ALT_MANOR_APPROVE_MIN = Integer.parseInt(altSettings.getProperty("AltManorApproveMin", "00"));
+				ALT_MANOR_MAINTENANCE_PERIOD = Integer.parseInt(altSettings.getProperty("AltManorMaintenancePreiod", "360000"));
+				ALT_MANOR_SAVE_ALL_ACTIONS = Boolean.parseBoolean(altSettings.getProperty("AltManorSaveAllActions", "False"));
+				ALT_MANOR_SAVE_PERIOD_RATE = Integer.parseInt(altSettings.getProperty("AltManorSavePeriodRate", "2"));
 				ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
 				ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
 				ALT_OLY_CPERIOD = Long.parseLong(altSettings.getProperty("AltOlyCPeriod", "21600")) * 1000;
@@ -1791,6 +1799,7 @@ public final class Config
 				ALLOWFISHING = Boolean.valueOf(optionsSettings.getProperty("AllowFishing", "False"));
 				ALLOW_BOAT = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
 				ALLOW_CURSED_WEAPONS = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
+				ALLOW_NPC_WALKERS = Boolean.parseBoolean(optionsSettings.getProperty("AllowNpcWalkers", "False"));
 				ACTIVATE_POSITION_RECORDER = Boolean.valueOf(optionsSettings.getProperty("ActivatePositionRecorder", "False"));
 				DEFAULT_GLOBAL_CHAT = optionsSettings.getProperty("GlobalChat", "ON");
 				DEFAULT_TRADE_CHAT = optionsSettings.getProperty("TradeChat", "ON");
@@ -2261,6 +2270,23 @@ public final class Config
 		        DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "True"));
 		        DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "True"));
 
+		        // -------------------- //
+		        //      KvN Engine      //
+		        // -------------------- //
+				ENABLE_FACTION_KOOFS_NOOBS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FactionKoofsNoobs", "False"));
+				KOOFS_NAME_TEAM = L2JTeonEventMods.getProperty("KoofsTeamName", "koofs");
+				NOOBS_NAME_TEAM = L2JTeonEventMods.getProperty("NoobsTeamName", "noobs");
+				KOOFS_NAME_COLOR = Integer.decode("0x" + L2JTeonEventMods.getProperty("KoofsColorName", "00FFFF"));
+				NOOBS_NAME_COLOR = Integer.decode("0x" + L2JTeonEventMods.getProperty("NoobsColorName", "00FF00"));
+				ALT_PLAYER_CAN_DROP_AA = Boolean.parseBoolean(L2JTeonEventMods.getProperty("PlayerCanDropAncientAdena", "False"));
+				PLAYER_DROP_AA = Integer.parseInt(L2JTeonEventMods.getProperty("DropAncientAdena", "1"));
+				ALLOW_ADENA_REWARD = Boolean.parseBoolean(L2JTeonEventMods.getProperty("PlayerGetAdenaByPvP", "False"));
+				ADENA_NUMBER_REWARD_ON_PVP = Integer.parseInt(L2JTeonEventMods.getProperty("AmmountAdenaGetByPvP", "1"));
+				LOOSE_ADENA_ON_DIE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("PlayerLooseAdena", "False"));
+				ADENA_NUMBER_LOST_ON_DIE = Integer.parseInt(L2JTeonEventMods.getProperty("AmmountAdenaLostWhenDies", "1"));
+				ALT_ANNOUNCE_PK = Boolean.parseBoolean(L2JTeonEventMods.getProperty("NoticePK", "False"));
+				FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("AnnounceTimeFaction", "0"));
+
 				// -------------------- //
 				//    Rebith System     //
 				// -------------------- //
@@ -2285,7 +2311,7 @@ public final class Config
 				REBIRTH_SKILL9_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL9", "0"));
 				REBIRTH_SKILL10 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill10", "0"));
 				REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL10", "0"));
-				
+
 				// -------------------- //
 				//  RAID Event Engine   //
 				// -------------------- //
@@ -2299,7 +2325,7 @@ public final class Config
 					RAID_SYSTEM_ENABLED = false;
 					System.out.println("Raid Engine[Config.load()]: Invalid config property: Max Events = 0?!");
 				}
-				
+
 				// -------------------- //
 				//    Wedding System    //
 				// -------------------- //
@@ -2395,23 +2421,12 @@ public final class Config
 				DONATORS_REVIVE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorAutoRevive", "False"));
 				HERO_CUSTOM_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnableHeroCustomItem", "False"));
 				Config.ALLOW_DONATORS_UNLEGIT_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorsUnlegit", "False"));
-				KOOFS_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("KoofsColorName", "00FFFF"));
-				NOOBS_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("NoobsColorName", "00FF00"));
-				ENABLE_FACTION_KOOFS_NOOBS = Boolean.parseBoolean(L2JTeonCustom.getProperty("FactionKoofsNoobs", "False"));
-				FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JTeonCustom.getProperty("AnnounceTimeFaction", "0"));
-				KOOFS_NAME_TEAM = L2JTeonCustom.getProperty("KoofsTeamName", "koofs");
-				NOOBS_NAME_TEAM = L2JTeonCustom.getProperty("NoobsTeamName", "noobs");
 				CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
 				ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
 				CUSTOM_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("CustomRunSpeed", "0"));
 				KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepBuffsOnDeath", "False"));
 				DEATH_PENALTY_CHANCE = Integer.parseInt(L2JTeonCustom.getProperty("DeathPenaltyChance", "20"));
-				ALT_PLAYER_CAN_DROP_AA = Boolean.parseBoolean(L2JTeonCustom.getProperty("PlayerCanDropAncientAdena", "False"));
-				PLAYER_DROP_AA = Integer.parseInt(L2JTeonCustom.getProperty("DropAncientAdena", "1"));
-				ALLOW_ADENA_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("PlayerGetAdenaByPvP", "False"));
-				ADENA_NUMBER_REWARD_ON_PVP = Integer.parseInt(L2JTeonCustom.getProperty("AmmountAdenaGetByPvP", "1"));
-				LOOSE_ADENA_ON_DIE = Boolean.parseBoolean(L2JTeonCustom.getProperty("PlayerLooseAdena", "False"));
-				ADENA_NUMBER_LOST_ON_DIE = Integer.parseInt(L2JTeonCustom.getProperty("AmmountAdenaLostWhenDies", "1"));
+
 				SET_LVL_ON_START = Boolean.parseBoolean(L2JTeonCustom.getProperty("SetHighLevelOnStart", "False"));
 				HIGH_LEVEL_ON_START_FOR_SUBCLASS = Boolean.parseBoolean(L2JTeonCustom.getProperty("HighLevelOnStartForSubclass", "True"));
 				CUSTOM_STARTER_ITEMS_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomStarterItemsEnabled", "False"));
@@ -2455,15 +2470,6 @@ public final class Config
 				MIN_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MinMonsterAnimation", "0"));
 				MAX_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MaxMonsterAnimation", "0"));
 				RAID_FOSSILIZATION_PENALTY = Boolean.parseBoolean(L2JTeonCustom.getProperty("RaidFossilizationPenalty", "False"));
-				ALLOW_MANOR = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowManor", "False"));
-				ALT_MANOR_REFRESH_TIME = Integer.parseInt(L2JTeonCustom.getProperty("AltManorRefreshTime", "20"));
-				ALT_MANOR_REFRESH_MIN = Integer.parseInt(L2JTeonCustom.getProperty("AltManorRefreshMin", "00"));
-				ALT_MANOR_APPROVE_TIME = Integer.parseInt(L2JTeonCustom.getProperty("AltManorApproveTime", "6"));
-				ALT_MANOR_APPROVE_MIN = Integer.parseInt(L2JTeonCustom.getProperty("AltManorApproveMin", "00"));
-				ALT_MANOR_MAINTENANCE_PERIOD = Integer.parseInt(L2JTeonCustom.getProperty("AltManorMaintenancePreiod", "360000"));
-				ALT_MANOR_SAVE_ALL_ACTIONS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AltManorSaveAllActions", "False"));
-				ALT_MANOR_SAVE_PERIOD_RATE = Integer.parseInt(L2JTeonCustom.getProperty("AltManorSavePeriodRate", "2"));
-				ALLOW_NPC_WALKERS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowNpcWalkers", "False"));
 				// ********************//
 				/* Player Command */
 				// ********************//
@@ -2481,7 +2487,6 @@ public final class Config
 				PLAYERS_ONLINE_TRICK = Integer.parseInt(L2JTeonCustom.getProperty("OnlinePlayerCountTrick", "0"));
 				ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(L2JTeonCustom.getProperty("OnlinePlayersAnnounceInterval", "900000"));
 				ANNOUNCE_CASTLE_LORDS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AnnounceCastleLords", "False"));
-				ALT_ANNOUNCE_PK = Boolean.parseBoolean(L2JTeonCustom.getProperty("NoticePK", "False"));
 				ENABLE_PK_INFO = Boolean.valueOf(L2JTeonCustom.getProperty("EnablePkInfo", "False"));
 				NPC_ANNOUNCER_DONATOR_ONLY = Boolean.parseBoolean(L2JTeonCustom.getProperty("NpcAnnouncerDonatorOnly", "False"));
 				ALLOW_NPC_ANNOUNCER = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowNpcAnnouncer", "False"));
