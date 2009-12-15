@@ -142,23 +142,18 @@ public class Util
 	/**
 	 * returns how many processors are installed on this system.
 	 */
-	private static void printCpuInfo()
+	public static void printCpuInfo()
 	{
 		_log.info("Avaible CPU(s): " + Runtime.getRuntime().availableProcessors());
 		_log.info("Processor(s) Identifier: " + System.getenv("PROCESSOR_IDENTIFIER"));
-		_log.info("..................................................");
-		_log.info("..................................................");
 	}
 
 	/**
 	 * returns the operational system server is running on it.
 	 */
-	private static void printOSInfo()
+	public static void printOSInfo()
 	{
-		_log.info("OS: " + System.getProperty("os.name") + " Build: " + System.getProperty("os.version"));
-		_log.info("OS Arch: " + System.getProperty("os.arch"));
-		_log.info("..................................................");
-		_log.info("..................................................");
+		_log.info("Operating System: " + System.getProperty("os.name") + " Build: " + System.getProperty("os.version") + " Architecture: " + System.getProperty("os.arch"));
 	}
 
 	/**
