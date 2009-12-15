@@ -1444,6 +1444,9 @@ public final class Config
 				MAXIMUM_ONLINE_USERS = Integer.parseInt(serverSettings.getProperty("MaximumOnlineUsers", "100"));
 				MIN_PROTOCOL_REVISION = Integer.parseInt(serverSettings.getProperty("MinProtocolRevision", "660"));
 				MAX_PROTOCOL_REVISION = Integer.parseInt(serverSettings.getProperty("MaxProtocolRevision", "665"));
+				ENABLE_PACKET_PROTECTION = Boolean.parseBoolean(serverSettings.getProperty("PacketProtection", "False"));
+				MAX_UNKNOWN_PACKETS = Integer.parseInt(serverSettings.getProperty("UnknownPacketsBeforeBan", "5"));
+				UNKNOWN_PACKETS_PUNISHMENT = Integer.parseInt(serverSettings.getProperty("UnknownPacketsPunishment", "2"));
 				if (MIN_PROTOCOL_REVISION > MAX_PROTOCOL_REVISION)
 				{
 					throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
@@ -1506,6 +1509,9 @@ public final class Config
 				ALT_GAME_FREE_TELEPORT = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
 				ALT_RECOMMEND = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
 				ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
+				SUBCLASS_WITH_ITEM_AND_NO_QUEST = Boolean.parseBoolean(altSettings.getProperty("SubclassWithItemAndNoQuest", "False"));
+				MAX_SUBCLASSES = Integer.parseInt(altSettings.getProperty("MaxSubClasses", "3"));
+				KEEP_SUBCLASS_SKILLS = Boolean.parseBoolean(altSettings.getProperty("KeepSubClassSkills", "False"));
 				RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(altSettings.getProperty("RestoreEffectsOnSubClassChange", "False"));
 				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
@@ -1528,6 +1534,24 @@ public final class Config
 				ALT_MANOR_MAINTENANCE_PERIOD = Integer.parseInt(altSettings.getProperty("AltManorMaintenancePreiod", "360000"));
 				ALT_MANOR_SAVE_ALL_ACTIONS = Boolean.parseBoolean(altSettings.getProperty("AltManorSaveAllActions", "False"));
 				ALT_MANOR_SAVE_PERIOD_RATE = Integer.parseInt(altSettings.getProperty("AltManorSavePeriodRate", "2"));
+				RIFT_MIN_PARTY_SIZE = Integer.parseInt(altSettings.getProperty("RiftMinPartySize", "5"));
+				RIFT_MAX_JUMPS = Integer.parseInt(altSettings.getProperty("MaxRiftJumps", "4"));
+				RIFT_SPAWN_DELAY = Integer.parseInt(altSettings.getProperty("RiftSpawnDelay", "10000"));
+				RIFT_AUTO_JUMPS_TIME_MIN = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMin", "480"));
+				RIFT_AUTO_JUMPS_TIME_MAX = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMax", "600"));
+				RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(altSettings.getProperty("BossRoomTimeMultiply", "1.5"));
+				RIFT_ENTER_COST_RECRUIT = Integer.parseInt(altSettings.getProperty("RecruitCost", "18"));
+				RIFT_ENTER_COST_SOLDIER = Integer.parseInt(altSettings.getProperty("SoldierCost", "21"));
+				RIFT_ENTER_COST_OFFICER = Integer.parseInt(altSettings.getProperty("OfficerCost", "24"));
+				RIFT_ENTER_COST_CAPTAIN = Integer.parseInt(altSettings.getProperty("CaptainCost", "27"));
+				RIFT_ENTER_COST_COMMANDER = Integer.parseInt(altSettings.getProperty("CommanderCost", "30"));
+				RIFT_ENTER_COST_HERO = Integer.parseInt(altSettings.getProperty("HeroCost", "33"));
+				CASTLE_SHIELD = Boolean.parseBoolean(altSettings.getProperty("CastleShieldRestriction", "True"));
+				CLANHALL_SHIELD = Boolean.parseBoolean(altSettings.getProperty("ClanHallShieldRestriction", "True"));
+				APELLA_ARMORS = Boolean.parseBoolean(altSettings.getProperty("ApellaArmorsRestriction", "True"));
+				OATH_ARMORS = Boolean.parseBoolean(altSettings.getProperty("OathArmorsRestriction", "True"));
+				CASTLE_CROWN = Boolean.parseBoolean(altSettings.getProperty("CastleLordsCrownRestriction", "True"));
+				CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("CastleCircletsRestriction", "True"));
 				ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
 				ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
 				ALT_OLY_CPERIOD = Long.parseLong(altSettings.getProperty("AltOlyCPeriod", "21600")) * 1000;
@@ -1699,6 +1723,7 @@ public final class Config
 				{
 					GM_DISABLE_TRANSACTION = false;
 				}
+				GM_ADMIN_MENU_STYLE = gmSettings.getProperty("GMAdminMenuStyle", "modern");
 				GM_CAN_GIVE_DAMAGE = Integer.parseInt(gmSettings.getProperty("GMCanGiveDamage", "90"));
 				GM_DONT_TAKE_AGGRO = Integer.parseInt(gmSettings.getProperty("GMDontTakeAggro", "90"));
 				GM_DONT_TAKE_EXPSP = Integer.parseInt(gmSettings.getProperty("GMDontGiveExpSp", "90"));
@@ -1805,6 +1830,7 @@ public final class Config
 				DEFAULT_TRADE_CHAT = optionsSettings.getProperty("TradeChat", "ON");
 				LOG_CHAT = Boolean.valueOf(optionsSettings.getProperty("LogChat", "False"));
 				LOG_ITEMS = Boolean.valueOf(optionsSettings.getProperty("LogItems", "False"));
+				GMAUDIT = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "True"));
 				COMMUNITY_TYPE = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
 				BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
 				SHOW_LEVEL_COMMUNITYBOARD = Boolean.valueOf(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
@@ -1897,6 +1923,7 @@ public final class Config
 				ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(otherSettings.getProperty("EnableDwarfEnchantBonus", "False"));
 				DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(otherSettings.getProperty("DwarfEnchantMinLevel", "80"));
 				DWARF_ENCHANT_BONUS = Integer.parseInt(otherSettings.getProperty("DwarfEnchantBonus", "15"));
+				ENCHANT_HERO_WEAPONS = Boolean.parseBoolean(otherSettings.getProperty("EnchantHeroWeapons", "False"));
 				/* limit on enchant */
 				ENCHANT_MAX_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxWeapon", "255"));
 				ENCHANT_MAX_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxArmor", "255"));
@@ -2404,8 +2431,6 @@ public final class Config
 				MAX_RCRIT = Integer.parseInt(L2JTeonCustom.getProperty("MaxCritical", "500"));
 				MAX_PATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxPAtkSpeed", "0"));
 				MAX_MATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxMAtkSpeed", "0"));
-				KEEP_SUBCLASS_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepSubClassSkills", "False"));
-				MAX_SUBCLASSES = Integer.parseInt(L2JTeonCustom.getProperty("MaxSubClasses", "3"));
 				PLAYER_PROTECTION_SYSTEM = Integer.parseInt(L2JTeonCustom.getProperty("PlayerProtectionLevel", "0"));
 				ALT_DAGGER_DMG_VS_ROBE = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSRobe", "1.00"));
 				ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSLight", "1.20"));
@@ -2495,21 +2520,6 @@ public final class Config
 				NPC_ANNOUNCER_MIN_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MinLevelToAnnounce", "0"));
 				NPC_ANNOUNCER_MAX_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MaxLevelToAnnounce", "80"));
 				// ********************//
-				/* Dimensional Rift */
-				// ********************//
-				RIFT_MIN_PARTY_SIZE = Integer.parseInt(L2JTeonCustom.getProperty("RiftMinPartySize", "5"));
-				RIFT_MAX_JUMPS = Integer.parseInt(L2JTeonCustom.getProperty("MaxRiftJumps", "4"));
-				RIFT_SPAWN_DELAY = Integer.parseInt(L2JTeonCustom.getProperty("RiftSpawnDelay", "10000"));
-				RIFT_AUTO_JUMPS_TIME_MIN = Integer.parseInt(L2JTeonCustom.getProperty("AutoJumpsDelayMin", "480"));
-				RIFT_AUTO_JUMPS_TIME_MAX = Integer.parseInt(L2JTeonCustom.getProperty("AutoJumpsDelayMax", "600"));
-				RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(L2JTeonCustom.getProperty("BossRoomTimeMultiply", "1.5"));
-				RIFT_ENTER_COST_RECRUIT = Integer.parseInt(L2JTeonCustom.getProperty("RecruitCost", "18"));
-				RIFT_ENTER_COST_SOLDIER = Integer.parseInt(L2JTeonCustom.getProperty("SoldierCost", "21"));
-				RIFT_ENTER_COST_OFFICER = Integer.parseInt(L2JTeonCustom.getProperty("OfficerCost", "24"));
-				RIFT_ENTER_COST_CAPTAIN = Integer.parseInt(L2JTeonCustom.getProperty("CaptainCost", "27"));
-				RIFT_ENTER_COST_COMMANDER = Integer.parseInt(L2JTeonCustom.getProperty("CommanderCost", "30"));
-				RIFT_ENTER_COST_HERO = Integer.parseInt(L2JTeonCustom.getProperty("HeroCost", "33"));
-				// ********************//
 				/* Clan. Customizes. */
 				// ********************//
 				CLAN_RAISE_FIRST_COST = Integer.parseInt(L2JTeonCustom.getProperty("ClanFirstCost", "650000"));
@@ -2551,17 +2561,10 @@ public final class Config
 				SPAWN_X = Integer.parseInt(L2JTeonCustom.getProperty("SpawnX", ""));
 				SPAWN_Y = Integer.parseInt(L2JTeonCustom.getProperty("SpawnY", ""));
 				SPAWN_Z = Integer.parseInt(L2JTeonCustom.getProperty("SpawnZ", ""));
-				GM_ADMIN_MENU_STYLE = L2JTeonCustom.getProperty("GMAdminMenuStyle", "modern");
-				ENABLE_PACKET_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("PacketProtection", "False"));
-				MAX_UNKNOWN_PACKETS = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsBeforeBan", "5"));
-				UNKNOWN_PACKETS_PUNISHMENT = Integer.parseInt(L2JTeonCustom.getProperty("UnknownPacketsPunishment", "2"));
-				GMAUDIT = Boolean.valueOf(L2JTeonCustom.getProperty("GMAudit", "True"));
 				// ********************//
 				/* Misc. Customizes. */
 				// ********************//
 				STRICT_HERO_SYSTEM = Boolean.parseBoolean(L2JTeonCustom.getProperty("StrictHeroSystem", "True"));
-				ENCHANT_HERO_WEAPONS = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnchantHeroWeapons", "False"));
-				SUBCLASS_WITH_ITEM_AND_NO_QUEST = Boolean.parseBoolean(L2JTeonCustom.getProperty("SubclassWithItemAndNoQuest", "False"));
 				FLYING_WYVERN_DURING_SIEGE = Boolean.parseBoolean(L2JTeonCustom.getProperty("FlyingWyvernDuringSiege", "False"));
 				ES_SP_BOOK_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnchantSkillSpBookNeeded", "True"));
 				LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("LifeCrystalNeeded", "True"));
@@ -2634,15 +2637,6 @@ public final class Config
 						}
 					}
 				}
-				// ************************//
-				/* Equipment Restriction. */
-				// **********************//
-				CASTLE_SHIELD = Boolean.parseBoolean(L2JTeonCustom.getProperty("CastleShieldRestriction", "True"));
-				CLANHALL_SHIELD = Boolean.parseBoolean(L2JTeonCustom.getProperty("ClanHallShieldRestriction", "True"));
-				APELLA_ARMORS = Boolean.parseBoolean(L2JTeonCustom.getProperty("ApellaArmorsRestriction", "True"));
-				OATH_ARMORS = Boolean.parseBoolean(L2JTeonCustom.getProperty("OathArmorsRestriction", "True"));
-				CASTLE_CROWN = Boolean.parseBoolean(L2JTeonCustom.getProperty("CastleLordsCrownRestriction", "True"));
-				CASTLE_CIRCLETS = Boolean.parseBoolean(L2JTeonCustom.getProperty("CastleCircletsRestriction", "True"));
 				// ************************//
 				/* Banking System */
 				// **********************//
