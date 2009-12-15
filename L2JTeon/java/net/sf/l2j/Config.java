@@ -1117,6 +1117,9 @@ public final class Config
 	public static boolean SAFE_SIGTERM;
 	/** GM Over Enchant value */
 	public static int GM_OVER_ENCHANT;
+	public static int ENCHANT_MAX_ALLOWED_WEAPON;
+	public static int ENCHANT_MAX_ALLOWED_ARMOR;
+	public static int ENCHANT_MAX_ALLOWED_JEWELRY;
 	/** Amount of Ancient Adena when starting a new character */
 	public static int STARTING_AA;
 	/** This is the configuration for the Chat Filter */
@@ -2542,7 +2545,10 @@ public final class Config
 				LOGIN_RESTART_BY_TIME = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartByTime", "False"));
 				LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
 				SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
-				GM_OVER_ENCHANT = Integer.parseInt(L2JTeonCustom.getProperty("GMOverEnchant", "0"));
+				GM_OVER_ENCHANT = Integer.parseInt(L2JTeonCustom.getProperty("GMOverEnchant", "50"));
+				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxWeapon", "25"));
+				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxArmor", "25"));
+				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxJewelry", "25"));
 				STARTING_AA = Integer.parseInt(L2JTeonCustom.getProperty("StartingAA", "0"));
 				USE_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UseChatFilter", "False"));
 				USE_POWERFULL_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UsePowerfullChatFilter", "False"));

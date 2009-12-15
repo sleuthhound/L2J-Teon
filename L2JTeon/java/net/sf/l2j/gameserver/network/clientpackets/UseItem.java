@@ -258,7 +258,7 @@ public final class UseItem extends L2GameClientPacket
                 case L2Item.SLOT_L_HAND:
                 case L2Item.SLOT_R_HAND:
                 {
-                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_WEAPON && !activeChar.isGM())
+                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON && !activeChar.isGM())
                 	{
                 		activeChar.setAccountAccesslevel(-100); //ban
                 		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
@@ -275,7 +275,7 @@ public final class UseItem extends L2GameClientPacket
                 case L2Item.SLOT_FULL_ARMOR:
                 case L2Item.SLOT_LEGS:
                 {
-                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ARMOR && !activeChar.isGM())
+                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR && !activeChar.isGM())
                 	{
                 		activeChar.setAccountAccesslevel(-100); //ban
                 		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
@@ -290,7 +290,7 @@ public final class UseItem extends L2GameClientPacket
             	case L2Item.SLOT_R_FINGER:
             	case L2Item.SLOT_L_FINGER:
             	{
-                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_JEWELRY && !activeChar.isGM())
+                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY && !activeChar.isGM())
                 	{
                 		activeChar.setAccountAccesslevel(-100); //ban
                 		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
