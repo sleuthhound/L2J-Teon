@@ -2545,10 +2545,10 @@ public final class Config
 				LOGIN_RESTART_BY_TIME = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartByTime", "False"));
 				LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
 				SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
-				GM_OVER_ENCHANT = Integer.parseInt(L2JTeonCustom.getProperty("GMOverEnchant", "50"));
-				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxWeapon", "25"));
-				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxArmor", "25"));
-				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxJewelry", "25"));
+				GM_OVER_ENCHANT = Integer.parseInt(L2JTeonCustom.getProperty("GMOverEnchant", "26"));
+				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedWeapon", "25"));
+				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedArmor", "25"));
+				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedJewelry", "25"));
 				STARTING_AA = Integer.parseInt(L2JTeonCustom.getProperty("StartingAA", "0"));
 				USE_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UseChatFilter", "False"));
 				USE_POWERFULL_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UsePowerfullChatFilter", "False"));
