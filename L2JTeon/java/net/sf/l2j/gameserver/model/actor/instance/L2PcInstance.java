@@ -4917,7 +4917,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void updatePvPStatus(L2Character target)
 	{
-		L2PcInstance player_target = target.getActingPlayer();
+		L2PcInstance player_target = null;
+
+        if (target instanceof L2PcInstance)
+        	player_target = (L2PcInstance)target;
+        else if (target instanceof L2Summon)
+        	player_target = ((L2Summon) target).getOwner();
 
 		if (player_target == null) return;
 
