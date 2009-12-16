@@ -219,8 +219,6 @@ public class Util
 	public static void printGeneralSystemInfo()
 	{
 		printSystemTime();
-		printOSInfo();
-		printCpuInfo();
 		printRuntimeInfo();
 		printJreInfo();
 		printJvmInfo();
