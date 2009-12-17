@@ -70,6 +70,10 @@ public final class UseItem extends L2GameClientPacket
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+
+        if (activeChar.getActiveTradeList() != null)
+            activeChar.cancelActiveTrade();
+
 		// NOTE: disabled due to deadlocks
 		// synchronized (activeChar.getInventory())
 		// {
