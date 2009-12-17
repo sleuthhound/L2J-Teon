@@ -49,7 +49,10 @@ public final class TradeDone extends L2GameClientPacket
 		TradeList trade = player.getActiveTradeList();
 		if (trade == null)
 		{
-			_log.warning("player.getTradeList == null in " + getType() + " for player " + player.getName());
+			if (Config.DEBUG)
+			{
+				_log.warning("player.getTradeList == null in " + getType() + " for player " + player.getName());
+			}
 			return;
 		}
 		if (trade.isLocked())
@@ -73,6 +76,11 @@ public final class TradeDone extends L2GameClientPacket
 				player.sendMessage("Transactions are disable for your Access Level");
 				return;
 			}
+            if (player.getInstanceId() != trade.getPartner().getInstanceId() && player.getInstanceId() != -1)
+            {
+                player.cancelActiveTrade();
+                return;
+            }
 			trade.confirm();
 		}
 		else
