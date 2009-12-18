@@ -1328,28 +1328,7 @@ public abstract class L2Character extends L2Object
 		}
 		// Set the target of the skill in function of Skill Type and Target Type
 		L2Character target = (L2Character) targets[0];
-		/*
-		 * Checkup heal/buff mob, npc, flagged player
-		 */
-		if ((this instanceof L2PcInstance)
-				&& ((skill.getSkillType() == SkillType.BUFF) || (skill.getSkillType() == SkillType.HOT) || (skill.getSkillType() == SkillType.HEAL) || (skill.getSkillType() == SkillType.COMBATPOINTHEAL) || (skill.getSkillType() == SkillType.HEAL_PERCENT) || (skill.getSkillType() == SkillType.MANAHEAL) || (skill.getSkillType() == SkillType.MANAHEAL_PERCENT)
-						|| (skill.getSkillType() == SkillType.BALANCE_LIFE) || (skill.getSkillType() == SkillType.FORCE_BUFF) || (skill.getSkillType() == SkillType.CONT)))
-		{
-			// player try to heal of buff monster or guard = pvp flag
-			if ((target instanceof L2MonsterInstance) || (target instanceof L2GuardInstance) || (target instanceof L2SiegeGuardInstance))
-			{
-				setNormalPvPFlag();
-			}
-			else
-			// player try to buff or heal flaged player = pvp flag
-			if (target instanceof L2PcInstance)
-			{
-				if (((L2PcInstance) target).getPvpFlag() > 0)
-				{
-					setNormalPvPFlag();
-				}
-			}
-		}
+
 		if ((skill.getSkillType() == SkillType.BUFF) || (skill.getSkillType() == SkillType.HEAL) || (skill.getSkillType() == SkillType.COMBATPOINTHEAL) || (skill.getSkillType() == SkillType.MANAHEAL) || (skill.getSkillType() == SkillType.REFLECT) || (skill.getSkillType() == SkillType.SEED) || (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
 				|| (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PET) || (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY) || (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN) || (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY))
 		{
@@ -6815,15 +6794,6 @@ public abstract class L2Character extends L2Object
 	public long getPvpFlagLasts()
 	{
 		return _pvpFlagLasts;
-	}
-
-	private void setNormalPvPFlag()
-	{
-		setPvpFlagLasts(System.currentTimeMillis() + Config.PVP_NORMAL_TIME);
-		if (((L2PcInstance) this).getPvpFlag() == 0)
-		{
-			startPvPFlag();
-		}
 	}
 
 	public void startPvPFlag()
