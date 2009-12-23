@@ -4616,10 +4616,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			return;
 		}
-		if (targetPlayer == null) 
-		{
-			return; // Target player is null
-		}
 		if (targetPlayer == this)
 		{
 			return; // target player is self
@@ -4692,11 +4688,14 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 			}
 			// no war or one way war = PK
-			if ((targetPlayer.getKarma() > 0) && Config.KARMA_AWARD_PK_KILL)
+			if (targetPlayer.getKarma() > 0)
 			{
+				if (Config.KARMA_AWARD_PK_KILL)
+				{
 					increasePvpKills();
+				}
 			}
-			else if ((targetPlayer.getPvpFlag() == 0))
+			else if (targetPlayer.getPvpFlag() == 0)
 			{
 				increasePkKillsAndKarma(targetPlayer.getLevel());
 			}
