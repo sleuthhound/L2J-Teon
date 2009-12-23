@@ -4711,6 +4711,13 @@ public final class L2PcInstance extends L2PlayableInstance
         if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF))
             return;
         
+        if (Config.ALLOW_PVP_REWARD)
+        {
+        	// Item Reward system
+        	addItem("Loot", Config.PVP_REWARD_ITEM, Config.PVP_REWARD_COUNT, this, true);
+        	sendMessage("You will be rewarded for pvp kill!");
+        }
+        
 		// Add to attacker and increase its PK counter
 		setPvpKills(getPvpKills() + 1);
 		updatePvPColor(getPvpKills());
@@ -4870,6 +4877,13 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (getKarma() > Integer.MAX_VALUE - newKarma)
 			newKarma = Integer.MAX_VALUE - getKarma();
 
+		if (Config.ALLOW_PK_REWARD)
+		{
+			// Item Reward system
+			addItem("Loot", Config.PK_REWARD_ITEM, Config.PK_REWARD_COUNT, this, true);
+			sendMessage("You will be rewarded for pk kill!");
+		}
+		
 		// Add karma to attacker and increase its PK counter
 		setPkKills(getPkKills() + 1);
 		setKarma(getKarma() + newKarma);
