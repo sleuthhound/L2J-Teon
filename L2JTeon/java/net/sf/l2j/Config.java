@@ -804,6 +804,15 @@ public final class Config
 	/** ************************************************** */
 	/** L2J Teon Customizations -Begin * */
 	/** ************************************************** */
+	// PvP and PK Reward
+	public static boolean ALLOW_PVP_REWARD;
+	public static int PVP_REWARD_ITEM;
+	public static int PVP_REWARD_COUNT;
+
+	public static boolean ALLOW_PK_REWARD;
+	public static int PK_REWARD_ITEM;
+	public static int PK_REWARD_COUNT;
+	
 	// ** Colored pvp name system ** //
 	public static boolean PVP_COLOR_SYSTEM_ENABLED;
 	/** Colored pvp name system */
@@ -2674,7 +2683,13 @@ public final class Config
 				TITLE_COLOR_FOR_PK_AMOUNT3 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount3", "00FF00"));
 				TITLE_COLOR_FOR_PK_AMOUNT4 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount4", "00FF00"));
 				TITLE_COLOR_FOR_PK_AMOUNT5 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount5", "00FF00"));
-
+				// PvP and PK Reward
+				ALLOW_PVP_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPvpRewardSystem", "False"));
+				PVP_REWARD_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("PvpRewardItem", "57"));
+				PVP_REWARD_COUNT = Integer.parseInt(L2JTeonCustom.getProperty("PvpRewardAmount", "1"));
+				ALLOW_PK_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPkRewardSystem", "False"));
+				PK_REWARD_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardItem", "57"));
+				PK_REWARD_COUNT = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardAmount", "1"));
 			}
 			catch (Exception e)
 			{
