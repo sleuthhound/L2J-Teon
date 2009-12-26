@@ -315,6 +315,16 @@ public class L2Party
 				SevenSignsFestival.getInstance().updateParticipants(player, this);
 			if (player.isInDuel())
 				DuelManager.getInstance().onRemoveFromParty(player);
+			try
+			{
+                if (player.getForceBuff() != null) 
+                    player.abortCast(); 
+                
+                for (L2Character character : player.getKnownList().getKnownCharacters()) 
+                    if (character.getForceBuff() != null && character.getForceBuff().getTarget() == player) 
+                        character.abortCast(); 
+			}
+            catch (Exception e){} 
 			if (isInDimensionalRift())
 				_dr.partyMemberExited(player);
 			// check party size

@@ -84,31 +84,40 @@ public final class L2WorldRegion
 		return _zones;
 	}
 
-	public boolean checkEffectRangeInsidePeaceZone(L2Skill skill, final int x, final int y, final int z)
-	{
-		final int range = skill.getEffectRange();
-		final int up = y + range;
-		final int down = y - range;
-		final int left = x + range;
-		final int right = x - range;
-		for (L2ZoneType e : getZones())
-		{
-			if ((e instanceof L2TownZone && ((L2TownZone) e).isPeaceZone()) || e instanceof L2DerbyTrackZone || e instanceof L2PeaceZone)
-			{
-				if (e.isInsideZone(x, up, z))
-					return false;
-				if (e.isInsideZone(x, down, z))
-					return false;
-				if (e.isInsideZone(left, y, z))
-					return false;
-				if (e.isInsideZone(right, y, z))
-					return false;
-				if (e.isInsideZone(x, y, z))
-					return false;
-			}
-		}
-		return true;
-	}
+    public boolean checkEffectRangeInsidePeaceZone(L2Skill skill, final int x, final int y, final int z) 
+    { 
+    	if (getZones() != null) 
+    	{ 
+    		final int range = skill.getEffectRange(); 
+    		final int up = y + range; 
+    		final int down = y - range; 
+    		final int left = x + range; 
+    		final int right = x - range; 
+    		
+    		for (L2ZoneType e : getZones()) 
+    		{ 
+    			if (e instanceof L2PeaceZone) 
+    			{ 
+    				if (e.isInsideZone(x, up, z)) 
+    					return false; 
+    				
+    				if (e.isInsideZone(x, down, z)) 
+    					return false; 
+    				
+    				if (e.isInsideZone(left, y, z)) 
+    					return false; 
+    				
+    				if (e.isInsideZone(right, y, z)) 
+    					return false; 
+    				
+    				if (e.isInsideZone(x, y, z)) 
+    					return false; 
+    			} 
+    		} 
+    		return true; 
+    	} 
+    	return true; 
+    }
 
 	public void revalidateZones(L2Character character)
 	{
