@@ -51,6 +51,8 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeDmg;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCreateItem;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignet; 
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime; 
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillExitBuffs;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillNeedCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSeed;
@@ -89,7 +91,7 @@ public abstract class L2Skill
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
 	public static enum SkillTargetType
 	{
-		TARGET_NONE, TARGET_SELF, TARGET_ONE, TARGET_PARTY, TARGET_ALLY, TARGET_CLAN, TARGET_PET, TARGET_AREA, TARGET_AURA, TARGET_CORPSE, TARGET_UNDEAD, TARGET_AREA_UNDEAD, TARGET_MULTIFACE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_ITEM, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_UNLOCKABLE, TARGET_HOLY, TARGET_PARTY_MEMBER, TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_PIG, TARGET_COUPLE, TARGET_PARTY_OTHER, TARGET_SIGNET_GROUND, TARGET_GROUND, TARGET_SIGNET
+		TARGET_NONE, TARGET_SELF, TARGET_ONE, TARGET_PARTY, TARGET_ALLY, TARGET_CLAN, TARGET_PET, TARGET_AREA, TARGET_AURA, TARGET_CORPSE, TARGET_UNDEAD, TARGET_AREA_UNDEAD, TARGET_MULTIFACE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_ITEM, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_UNLOCKABLE, TARGET_HOLY, TARGET_PARTY_MEMBER, TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_PIG, TARGET_COUPLE, TARGET_PARTY_OTHER, TARGET_GROUND
 	}
 
 	public static enum SkillType
@@ -113,7 +115,7 @@ public abstract class L2Skill
 		// Summons
 		SUMMON(L2SkillSummon.class), FEED_PET, DEATHLINK_PET, STRSIEGEASSAULT, ERASE, BETRAY,
 		// Cancel
-		CANCEL, MAGE_BANE, WARRIOR_BANE, NEGATE, BUFF, DEBUFF, PASSIVE, CONT, SIGNET, RESURRECT, CHARGE(L2SkillCharge.class), MHOT, CHARGEDAM(L2SkillChargeDmg.class), EXITBUFFS(L2SkillExitBuffs.class), NEEDCHARGE(L2SkillNeedCharge.class), DETECT_WEAKNESS, LUCK, RECALL, SUMMON_FRIEND, REFLECT, SPOIL, SWEEP, FAKE_DEATH, UNBLEED, UNPOISON, UNDEAD_DEFENSE, SEED(L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, ZAKENPLAYER, ZAKENSELF,
+		CANCEL, MAGE_BANE, WARRIOR_BANE, NEGATE, BUFF, DEBUFF, PASSIVE, CONT, SIGNET(L2SkillSignet.class), SIGNET_CASTTIME(L2SkillSignetCasttime.class), RESURRECT, CHARGE(L2SkillCharge.class), MHOT, CHARGEDAM(L2SkillChargeDmg.class), EXITBUFFS(L2SkillExitBuffs.class), NEEDCHARGE(L2SkillNeedCharge.class), DETECT_WEAKNESS, LUCK, RECALL, SUMMON_FRIEND, REFLECT, SPOIL, SWEEP, FAKE_DEATH, UNBLEED, UNPOISON, UNDEAD_DEFENSE, SEED(L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, ZAKENPLAYER, ZAKENSELF,
 		// unimplemented
 		NOTDONE;
 		private final Class<? extends L2Skill> _class;
@@ -1024,6 +1026,11 @@ public abstract class L2Skill
 	{
 		return _isHeroSkill;
 	}
+	
+    public final int getNumCharges()
+    {
+        return _numCharges;
+    }
 
 	public final int getBaseCritRate()
 	{
@@ -1228,6 +1235,7 @@ public abstract class L2Skill
 				return new L2Character[] { target };
 			}
 			case TARGET_SELF:
+            case TARGET_GROUND:
 			{
 				return new L2Character[] { activeChar };
 			}
@@ -1309,8 +1317,7 @@ public abstract class L2Skill
 				{
 					if ((obj != null) && ((obj instanceof L2Attackable) || (obj instanceof L2PlayableInstance)))
 					{
-						// Don't add this target if this is a Pc->Pc pvp casting
-						// and pvp condition not met
+						// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
 						if ((obj == activeChar) || (obj == src) || ((L2Character) obj).isDead())
 						{
 							continue;
@@ -1659,26 +1666,42 @@ public abstract class L2Skill
 				}
 			}
 			case TARGET_PARTY_OTHER:
-			{
-				if ((target != null) && (target != activeChar) && (activeChar.getParty() != null) && (target.getParty() != null) && (activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID()))
-				{
-					if (!target.isDead())
-					{
-						// If a target is found, return it in a table else send
-						// a system message TARGET_IS_INCORRECT
-						return new L2Character[] { target };
-					}
-					else
-					{
-						return null;
-					}
-				}
-				else
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-					return null;
-				}
-			}
+            { 
+            	if (target != null && target != activeChar 
+            			&& activeChar.getParty() != null && target.getParty() != null 
+            			&& activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID()) 
+            	{ 
+            		if (!target.isDead()) 
+            		{ 
+            			if (target instanceof L2PcInstance) 
+            			{ 
+            				L2PcInstance player = (L2PcInstance)target; 
+            				switch (getId()) 
+            				{ 
+            				// FORCE BUFFS may cancel here but there should be a proper condition 
+            				case 426:  
+            					if (!player.isMageClass()) 
+            						return new L2Character[]{target}; 
+            					else 
+            						return null; 
+            				case 427: 
+            					if (player.isMageClass()) 
+            						return new L2Character[]{target}; 
+            					else 
+            						return null; 
+            				} 
+            			} 
+            			return new L2Character[]{target}; 
+            		} 
+            		else 
+            			return null; 
+            	} 
+            	else 
+            	{ 
+            		activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT)); 
+            		return null; 
+            	} 
+            }
 			case TARGET_CORPSE_ALLY:
 			case TARGET_ALLY:
 			{

@@ -85,8 +85,6 @@ public abstract class L2Effect
 		BLUFF,
 		INVUL,
 		INTERRUPT,
-		BATTLE_FORCE,
-		SPELL_FORCE,
 		CHARM_OF_LUCK,
 		SIGNET_GROUND,
 		SIGNET_EFFECT,
