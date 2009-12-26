@@ -419,18 +419,23 @@
   </for>
 </skill>
 <skill id="1419" levels="1" name="Volcano">
-  <set name="target" val="TARGET_SIGNET_GROUND"/>
-  <set name="skillType" val="MOG"/>
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Consecutive strikes inflict a great amount of fire damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
+  <set name="target" val="TARGET_GROUND"/>
+  <set name="skillType" val="SIGNET_CASTTIME"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="16000"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="castRange" val="400"/>
-  <set name="skillRadius" val="200"/>
+  <set name="castRange" val="900"/>
+  <set name="skillRadius" val="180"/>
   <set name="magicLvl" val="80"/>
   <set name="effectNpcId" val="13025"/>
-  <set name="initialEffectDelay" val="3000"/>
   <set name="offensive" val="True"/>
-  <set name="triggerEffectId" val="5130"/>
+  <set name="effectId" val="5130"/>
   <set name="element" val="2"/>
   <set name="isMagic" val="true"/>
   <set name="power" val="200"/>
@@ -441,25 +446,29 @@
   <cond msg="Proper SpellForces required.">
     <player spell_force="3"/>
   </cond>
-  <for>
-	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
-    </effect>
-  </for>
+   <for>
+	<effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
+  </for> 
 </skill>
 <skill id="1420" levels="1" name="Cyclone">
-  <set name="target" val="TARGET_SIGNET_GROUND"/>
-  <set name="skillType" val="MOG"/>
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Consecutive strikes inflict a great amount of wind damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
+  <set name="target" val="TARGET_GROUND"/>
+  <set name="skillType" val="SIGNET_CASTTIME"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="16000"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="castRange" val="400"/>
-  <set name="skillRadius" val="200"/>
+  <set name="castRange" val="900"/>
+  <set name="skillRadius" val="180"/>
   <set name="magicLvl" val="80"/>
-  <set name="initialEffectDelay" val="3000"/>
   <set name="offensive" val="True"/>
   <set name="element" val="1"/>
   <set name="effectNpcId" val="13025"/>
-  <set name="triggerEffectId" val="5132"/>
+  <set name="effectId" val="5132"/>
   <set name="isMagic" val="true"/>
   <set name="power" val="200"/>
   <set name="itemConsumeId" val="8876"/>
@@ -470,23 +479,27 @@
     <player spell_force="3"/>
   </cond>
   <for>
-	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
-    </effect>
+	<effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
   </for>
 </skill>
 <skill id="1421" levels="1" name="Raging Waves">
-  <set name="target" val="TARGET_SIGNET_GROUND"/>
-  <set name="skillType" val="MOG"/>
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Consecutive strikes inflict a great amount of water damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
+  <set name="target" val="TARGET_GROUND"/>
+  <set name="skillType" val="SIGNET_CASTTIME"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="16000"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="castRange" val="400"/>
-  <set name="skillRadius" val="200"/>
+  <set name="castRange" val="900"/>
+  <set name="skillRadius" val="180"/>
   <set name="magicLvl" val="80"/>
   <set name="effectNpcId" val="13025"/>
-  <set name="initialEffectDelay" val="3000"/>
   <set name="offensive" val="True"/>
-  <set name="triggerEffectId" val="5131"/>
+  <set name="effectId" val="5131"/>
   <set name="element" val="3"/>
   <set name="isMagic" val="true"/>
   <set name="power" val="200"/>
@@ -497,49 +510,42 @@
   <cond msg="Proper SpellForces required.">
     <player spell_force="3"/>
   </cond>
-  <for>
-	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
-    </effect>
-  </for>
+   <for>
+	<effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
+  </for> 
 </skill>
 <skill id="1422" levels="1" name="Day of Doom">
-  <set name="target" val="TARGET_GROUND"/>
-  <set name="skillType" val="SIGNET"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="hitTime" val="5000"/>
-  <set name="reuseDelay" val="1800000"/>
-  <set name="castRange" val="900"/>
-  <set name="skillRadius" val="200"/>
-  <set name="staticReuse" val="true"/>
-  <set name="magicLvl" val="80"/>
-  <set name="effectNpcId" val="13028"/>
-  <set name="effectId" val="5145"/>
-  <set name="isMagic" val="true"/>
-  <set name="power" val="200"/>
-  <set name="itemConsumeId" val="8876"/>
-  <set name="itemConsumeCount" val="1"/>
-  <set name="mpInitialConsume" val="36"/>
-  <set name="mpConsume" val="89"/>
-  <cond msg="Proper SpellForces required.">
-    <player spell_force="3"/>
-  </cond>
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Generates a signet that produces a strong curse that decreases all abilities. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
   <for>
-    <effect count="24" name="Signet" time="5" val="0"/>
   </for>
 </skill>
 <skill id="1423" levels="1" name="Gehenna">
-  <set name="target" val="TARGET_SIGNET_GROUND"/>
-  <set name="skillType" val="MOG"/>
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Consecutive strikes inflict a great amount of dark damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
+  <set name="target" val="TARGET_GROUND"/>
+  <set name="skillType" val="SIGNET_CASTTIME"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="16000"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="castRange" val="400"/>
-  <set name="skillRadius" val="200"/>
+  <set name="castRange" val="900"/>
+  <set name="skillRadius" val="180"/>
   <set name="magicLvl" val="80"/>
   <set name="effectNpcId" val="13025"/>
-  <set name="initialEffectDelay" val="3000"/>
   <set name="offensive" val="True"/>
-  <set name="triggerEffectId" val="5133"/>
+  <set name="effectId" val="5133"/>
   <set name="element" val="6"/>
   <set name="isMagic" val="true"/>
   <set name="power" val="200"/>
@@ -550,36 +556,39 @@
   <cond msg="Proper SpellForces required.">
     <player spell_force="3"/>
   </cond>
-  <for>
-	<effect self="1" count="0x7fffffff" name="SignetMDam" time="1" val="0">
-    </effect>
+   <for>
+	<effect self="1" count="9" name="SignetMDam" time="2" val="0"/>
   </for>
 </skill>
 <skill id="1424" levels="1" name="Anti-Summoning Field">
-  <set name="target" val="TARGET_SIGNET_GROUND"/>
-  <set name="skillType" val="MOG"/>
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Generates a signet that sends a servitor to another dimension at regular intervals. Applies to all servitors in the affected area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
+  <set name="target" val="TARGET_GROUND"/>
+  <set name="skillType" val="SIGNET"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="hitTime" val="16000"/>
+  <set name="hitTime" val="5000"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="castRange" val="400"/>
-  <set name="skillRadius" val="200"/>
+  <set name="castRange" val="900"/>
+  <set name="skillRadius" val="180"/>
   <set name="magicLvl" val="80"/>
   <set name="effectNpcId" val="13020"/>
-  <set name="initialEffectDelay" val="3000"/>
-  <set name="triggerEffectId" val="5134"/>
+  <set name="effectId" val="5134"/>
   <set name="offensive" val="True"/>
   <set name="isMagic" val="true"/>
   <set name="power" val="200"/>
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
-  <set name="mpInitialConsume" val="36"/>
-  <set name="mpConsume" val="36"/>
+  <set name="mpInitialConsume" val="70"/>
+  <set name="mpConsume" val="70"/>
   <cond msg="Proper SpellForces required.">
     <player spell_force="2"/>
  </cond>
-  <for>
-	<effect self="1" count="0x7fffffff" name="SignetAntiSummon" time="1" val="0">
-    </effect>
+   <for>
+	<effect count="6" name="SignetAntiSummon" time="5" val="0"/>
   </for>
 </skill>
 <skill id="1425" levels="1" name="Purification Field">

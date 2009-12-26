@@ -60,8 +60,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
-    <effect count="0x7fffffff" name="Force" time="3" val="15" stackOrder="0" stackType="BattleForce">
-       <mul order="0x30" stat="pAtk" val="1.10"/>
+    <effect count="0x7fffffff" name="Force" time="600" val="15" stackOrder="0" stackType="BattleForce">
+       <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
     </effect>
   </for>
 </skill>
@@ -71,7 +71,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
-    <effect count="0x7fffffff" name="Force" time="3" val="15" stackOrder="0" stackType="SpellForce">
+    <effect count="0x7fffffff" name="Force" time="600" val="15" stackOrder="0" stackType="SpellForce">
       <mul order="0x30" stat="mAtk" val="1.10"/><!-- Guessed -->
     </effect>
   </for>
@@ -315,35 +315,42 @@
   </for>
 </skill>
 <skill id="5123" levels="1" name="Maximum Defense">
+<!--
+  Description(s):
+      Temporarily maximizes P. Def./M. Def and shield defense power.
+-->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-    <effect count="1" name="SignetEffect" time="8" val="0">
-      <add order="0x40" stat="pDef" val="500"/>
+  	<effect count="1" name="Buff" time="8" val="0">
+  	  <add order="0x40" stat="pDef" val="500"/>
       <add order="0x40" stat="mDef" val="300"/>
     </effect>
   </for>
 </skill>
-
 <skill id="5124" levels="1" name="Anti-Music">
+<!--
+  Description(s):
+      none
+-->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-    <effect count="0x7fffffff" name="SignetEffect" time="1" val="0">
-    </effect>
-  </for>
 </skill>
 <skill id="5125" levels="1" name="Maximum Resist Status">
+<!--
+  Description(s):
+      Maximizes resistance to all debuff attacks.
+-->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
+  	<effect count="1" name="Buff" time="8" val="0">
   	  <mul order="0x30" stat="cancelVuln" val="0.8"/>
   	  <mul order="0x30" stat="rootVuln" val="0.8"/>
       <mul order="0x30" stat="sleepVuln" val="0.8"/>
@@ -356,46 +363,64 @@
   </for>  
 </skill>
 <skill id="5126" levels="1" name="Maximum Recovery">
+<!--
+  Description(s):
+      Maximizes HP and CP recovery.
+-->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
+  	<effect count="1" name="Buff" time="8" val="0">
   	  <mul stat="regHp" val="1.2" order="0x30"/>
   	  <mul stat="regCp" val="1.2" order="0x30"/>
     </effect>
   </for>
 </skill>
 <skill id="5127" levels="1" name="Recover Force">
+<!--
+  Description(s):
+      Maximizes P. Atk. and increases force by 1 every 5 seconds.
+-->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="0x7fffffff" name="RecoverForce" time="5" val="0">
-  	  <mul order="0x30" stat="pAtk" val="1.10"/> 
+  	<effect count="1" name="RecoverForce" time="8" val="0">
+  	  <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
     </effect>
   </for>
 </skill>
 <skill id="5128" levels="1" name="Maximum Archery">
+<!--
+  Description(s):
+      Maximizes archery ability.
+-->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="0x7fffffff" name="SignetEffect" time="5" val="0">
+    <effect count="1" name="Buff" time="8" val="0">
       <add order="0x40" stat="accCombat" val="40"/>
     </effect>
   </for>
 </skill>
 <skill id="5129" levels="1" name="Smokescreen">
+<!--
+  Needs to be finished.
+  Description(s):
+      Maximizes Evasion and assassination skill.
+-->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
+  	<effect count="1" name="Buff" time="8" val="0">
+<!-- NOT DONE -->
     </effect>
   </for>
 </skill>
@@ -403,46 +428,26 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <for>
-    <effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
-    </effect>
-  </for>
 </skill>
 <skill id="5131" levels="1" name="Tsunami">
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <for>
-    <effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
-    </effect>
-  </for>
 </skill>
 <skill id="5132" levels="1" name="Cyclone">
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <for>
-    <effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
-    </effect>
-  </for>
 </skill>
 <skill id="5133" levels="1" name="Gehenna">
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <for>
-    <effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
-    </effect>
-  </for>
 </skill>
 <skill id="5134" levels="1" name="Anti-Summoning Field">
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <for>
-    <effect count="0x7fffffff" name="SignetEffect" time="10" val="0">
-    </effect>
-  </for>
 </skill>
 <skill id="5135" levels="1" name="Slash">
 <!--
@@ -574,11 +579,11 @@
   <!-- Needs to be verified --> 
    <set name="activationChance" val="30"/> 
    <set name="castRange" val="900"/> 
-   <set name="chanceType" val="ON_ATTACKED_HIT"/> 
+   <set name="chanceType" val="ON_ATTACKED"/> 
    <set name="effectRange" val="1400"/> 
    <set name="operateType" val="OP_CHANCE"/> 
    <set name="power" val="0.0"/> 
-   <set name="skillType" val="BUFF"/> 
+   <set name="skillType" val="AGGDAMAGE"/> 
    <set name="target" val="TARGET_ONE"/> 
    <for> 
  	 <effect count="1" name="RemoveTarget" time="1" val="0"/> 
