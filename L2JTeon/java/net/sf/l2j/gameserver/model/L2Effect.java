@@ -123,6 +123,8 @@ public abstract class L2Effect
 	private int _count;
 	// abnormal effect mask
 	private int _abnormalEffect;
+    // show icon
+    private boolean _icon;
 	public boolean preventExitUpdate;
 
 	public final class EffectTask implements Runnable
@@ -179,6 +181,7 @@ public abstract class L2Effect
 		_stackOrder = template.stackOrder;
 		_periodStartTicks = GameTimeController.getGameTicks();
 		_periodfirsttime = 0;
+        _icon = template.icon;
 		scheduleEffect();
 	}
 
@@ -213,6 +216,11 @@ public abstract class L2Effect
 			_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(_currentTask, duration * 1000);
 		}
 	}
+	
+    public boolean getShowIcon()
+    {
+        return _icon;
+    }
 
 	public int getPeriod()
 	{
