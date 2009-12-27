@@ -42,8 +42,9 @@ public final class EffectTemplate
 	public FuncTemplate[] funcTemplates;
 	public final String stackType;
 	public final float stackOrder;
+    public final boolean icon; 
 
-	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect, String pStackType, float pStackOrder)
+	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect, String pStackType, float pStackOrder, boolean showicon)
 	{
 		attachCond = pAttachCond;
 		applayCond = pApplayCond;
@@ -53,6 +54,7 @@ public final class EffectTemplate
 		abnormalEffect = pAbnormalEffect;
 		stackType = pStackType;
 		stackOrder = pStackOrder;
+        icon = showicon; 
 		try
 		{
 			_func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect" + func);
