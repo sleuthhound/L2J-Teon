@@ -61,15 +61,16 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			activeChar.setActiveEnchantItem(null);
 			return;
 		}
+		if (activeChar.isOnline() == 0) 
+	    { 
+	        activeChar.setActiveEnchantItem(null); 
+	        return; 
+	    }
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
 		L2ItemInstance scroll = activeChar.getActiveEnchantItem();
 		if (item == null || scroll == null)
 		{
 			activeChar.setActiveEnchantItem(null);
-			return;
-		}
-		if ((item == null) || (scroll == null))
-		{
 			return;
 		}
 		// can't enchant rods, hero weapons and shadow items, donator rented items
@@ -276,7 +277,6 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				if (scroll.getItemId() == scrollId)
 				{
 					chance = Config.ENCHANT_CHANCE_WEAPON_CRYSTAL;
-					;
 					break;
 				}
 			}
@@ -345,6 +345,19 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				}
 			}
 		}
+		if (item.getEnchantLevel() >= maxEnchantLevel && maxEnchantLevel != 0)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
+			return;
+		}
+
+		scroll = activeChar.getInventory().destroyItem("Enchant", scroll, activeChar, item);
+        if(scroll == null)
+        {
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+            Util.handleIllegalPlayerAction(activeChar,"Player "+activeChar.getName()+" tried to enchant with a scroll he doesnt have", Config.DEFAULT_PUNISH);
+            return;
+        }
 		if ((item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX) || ((item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR) && (item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL)))
 		{
 			chance = 100;
@@ -354,30 +367,6 @@ public final class RequestEnchantItem extends L2GameClientPacket
 		{
 			if (activeChar.getLevel() >= Config.DWARF_ENCHANT_MIN_LEVEL)
 				rndValue -= Config.DWARF_ENCHANT_BONUS;
-		}
-		if (Config.ENCHANT_MAX_WEAPON > 0)
-		{
-			if (item.getItem().getType2() == L2Item.TYPE2_WEAPON && item.getEnchantLevel() >= Config.ENCHANT_MAX_WEAPON)
-			{
-				activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
-				return;
-			}
-		}
-		if (Config.ENCHANT_MAX_ARMOR > 0)
-		{
-			if (item.getItem().getType2() == L2Item.TYPE2_SHIELD_ARMOR && item.getEnchantLevel() >= Config.ENCHANT_MAX_ARMOR)
-			{
-				activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
-				return;
-			}
-		}
-		if (Config.ENCHANT_MAX_JEWELRY > 0)
-		{
-			if (item.getItem().getType2() == L2Item.TYPE2_ACCESSORY && item.getEnchantLevel() >= Config.ENCHANT_MAX_JEWELRY)
-			{
-				activeChar.sendMessage("This is server limit for enchanting this item with scrolls.");
-				return;
-			}
 		}
 		if (rndValue < chance)
 		{
