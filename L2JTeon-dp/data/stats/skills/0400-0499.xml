@@ -1011,19 +1011,19 @@
   </for>
 </skill>
 <skill id="447" levels="1" name="Counterattack">
-<!--
-  Temporarily allows you to reflect damage caused by a melee attack skill back to the enemy.
--->
-  <set name="mpConsume" val="43"/>
-  <set name="hitTime" val="500"/>
   <set name="mpConsume" val="29"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="skillType" val="BUFF"/>
   <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="false"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="hitTime" val="1000"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-   <effect count="1" name="Buff" time="10" val="0">
-    <add order="0x40" stat="reflectSkillPhysic" val="100"/>
-   </effect>
+    <effect name="Buff" time="7" count="1" val="0">
+      <add order="0x40" stat="reflectDam" val="100"/> <!-- 20 -->
+    </effect>
   </for>
 </skill>
 <skill id="448" levels="1" name="Summon Swoop Cannon">
