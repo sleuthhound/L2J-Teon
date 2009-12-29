@@ -351,13 +351,6 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			return;
 		}
 
-		scroll = activeChar.getInventory().destroyItem("Enchant", scroll, activeChar, item);
-        if(scroll == null)
-        {
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
-            Util.handleIllegalPlayerAction(activeChar,"Player "+activeChar.getName()+" tried to enchant with a scroll he doesnt have", Config.DEFAULT_PUNISH);
-            return;
-        }
 		if ((item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX) || ((item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR) && (item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL)))
 		{
 			chance = 100;
