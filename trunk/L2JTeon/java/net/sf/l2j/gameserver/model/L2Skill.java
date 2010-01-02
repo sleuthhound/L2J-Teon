@@ -553,14 +553,25 @@ public abstract class L2Skill
 	 */
 	public final double getPower(L2Character activeChar)
 	{
-		if ((_skillType == SkillType.DEATHLINK) && (activeChar != null))
-		{
-			return _power * Math.pow(1.7165 - activeChar.getCurrentHp() / activeChar.getMaxHp(), 2) * 0.577;
-		}
-		else
-		{
-			return _power;
-		}
+        if (activeChar == null) 
+            return _power; 
+        
+        switch (_skillType) 
+        {
+        case DEATHLINK: 
+        {
+            if(activeChar.getCurrentHp() / activeChar.getMaxHp() > 0.005) 
+                return _power*(-0.45*Math.log(activeChar.getCurrentHp()/activeChar.getMaxHp())+1.); 
+            else 
+                return _power*(-0.45*Math.log(0.005)+1.); 
+        }
+        case FATALCOUNTER: 
+        {
+            return _power*3.5*(1-activeChar.getCurrentHp()/activeChar.getMaxHp()); 
+        }
+        default: 
+            return _power; 
+        }
 	}
 
 	public final double getPower()

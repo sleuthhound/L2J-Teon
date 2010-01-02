@@ -52,7 +52,7 @@ public class Pdam implements ISkillHandler
 	 * (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
-	private static final SkillType[] SKILL_IDS = { SkillType.PDAM,
+	private static final SkillType[] SKILL_IDS = { SkillType.PDAM, SkillType.FATALCOUNTER,
 	/* SkillType.CHARGEDAM */
 	};
 
