@@ -72,6 +72,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExStorageMaxCount;
 import net.sf.l2j.gameserver.network.serverpackets.FriendList;
 import net.sf.l2j.gameserver.network.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
+import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
@@ -605,6 +606,15 @@ public class EnterWorld extends L2GameClientPacket
 			clan.broadcastToOtherOnlineMembers(msg, activeChar);
 			msg = null;
 			clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
+            if (clan.isNoticeEnabled()) 
+            {
+                sendPacket(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">" + 
+                        activeChar.getClan().getName() + 
+                        "</font> <font color=\"6655FF\">Clan Alert Message</font></center><br>" + 
+                        "<img src=\"L2UI.SquareWhite\" width=270 height=1><br>" + 
+                        activeChar.getClan().getNotice().replaceAll("\r\n", "<br>") +  
+                "</body></html>")); 
+            }
 		}
 	}
 
