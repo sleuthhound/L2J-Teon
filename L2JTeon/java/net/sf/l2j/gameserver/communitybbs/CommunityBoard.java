@@ -78,6 +78,10 @@ public class CommunityBoard
 			{
 				RegionBBSManager.getInstance().parsecmd(command, activeChar);
 			}
+            else if (command.startsWith("_bbsnotice")) 
+            {
+				RegionBBSManager.getInstance().parsecmd(command, activeChar);
+            }
 			else
 			{
 				TopBBSManager.getInstance().parsecmd(command, activeChar);

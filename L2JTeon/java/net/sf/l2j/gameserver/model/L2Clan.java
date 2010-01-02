@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level; 
 import java.util.logging.Logger;
 
 import javolution.util.FastList;
@@ -145,6 +146,9 @@ public class L2Clan
 	protected final Map<Integer, SubPledge> _subPledges = new FastMap<Integer, SubPledge>();
 	private int _reputationScore = 0;
 	private int _rank = 0;
+	
+    private String _notice; 
+    private boolean _noticeEnabled = false; 
 
 	/**
 	 * Called if a clan is referenced only by id. In this case all other data needs to be fetched from db
@@ -875,6 +879,7 @@ public class L2Clan
 			restoreSubPledges();
 			restoreRankPrivs();
 			restoreSkills();
+            restoreNotice(); 
 		}
 		catch (Exception e)
 		{
@@ -930,6 +935,110 @@ public class L2Clan
 			}
 		}
 	}
+	
+    private void restoreNotice()
+    {
+    	java.sql.Connection con = null;
+    	try
+    	{
+    		con = L2DatabaseFactory.getInstance().getConnection();
+    		PreparedStatement statement = con.prepareStatement("SELECT enabled,notice FROM clan_notices WHERE clan_id=?");
+    		statement.setInt(1, getClanId());
+    		ResultSet noticeData = statement.executeQuery();
+   		
+  		while (noticeData.next())
+    		{
+    			_noticeEnabled = noticeData.getBoolean("enabled");
+    			_notice = noticeData.getString("notice");
+    		}
+    		
+    		noticeData.close();
+    		statement.close();
+    		con.close();
+    	}
+    	catch (Exception e)
+   	{
+    		_log.log(Level.SEVERE, "Error restoring clan notice.", e);
+    	}
+    	finally
+  	{
+    		try { con.close(); } catch (Exception e) {}
+    	}
+    }
+
+    private void storeNotice(String notice, boolean enabled)
+    {
+    	if (notice == null)
+    		notice = "";
+    	
+    	java.sql.Connection con = null;
+
+    	try
+   	{
+    		con = L2DatabaseFactory.getInstance().getConnection();
+
+  		if (notice.length() > 8192)
+    			notice = notice.substring(0, 8191);
+    		
+    		if (_notice != null)
+    		{
+    			PreparedStatement statement = con.prepareStatement("UPDATE clan_notices SET enabled=?,notice=? WHERE clan_id=?");
+        		if (enabled)
+            		statement.setString(1, "true");
+        		else
+            		statement.setString(1, "false");
+        		statement.setString(2, notice);
+        		statement.setInt(3, getClanId());
+                statement.execute();
+                statement.close();
+   		}
+    		else
+    		{
+        		PreparedStatement statement = con.prepareStatement("INSERT INTO clan_notices (clan_id, enabled, notice) values (?,?,?)");
+        		statement.setInt(1, getClanId());
+        		if (enabled)
+            		statement.setString(2, "true");
+        		else
+            		statement.setString(2, "false");
+        		statement.setString(3, notice);
+                statement.execute();
+                statement.close();
+   		}
+    	}
+        catch (Exception e)
+        {
+           _log.warning("Error could not store clan notice: " + e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+
+    	_notice = notice;
+    	_noticeEnabled = enabled;
+    }
+
+    public void setNoticeEnabled(boolean noticeEnabled)
+    {
+    	storeNotice(_notice, noticeEnabled);
+    }
+    
+    public void setNotice(String notice)
+    {
+    	storeNotice(notice, _noticeEnabled);
+    }
+
+   public boolean isNoticeEnabled()
+    {
+    	return _noticeEnabled;
+    }
+    
+    public String getNotice()
+    {
+    	if (_notice == null)
+    		return "";
+    	return _notice;
+    }
 
 	/** used to retrieve all skills */
 	public final L2Skill[] getAllSkills()
