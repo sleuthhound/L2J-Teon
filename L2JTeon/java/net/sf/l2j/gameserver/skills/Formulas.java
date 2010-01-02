@@ -1264,7 +1264,7 @@ public final class Formulas
 		}
 		if (skill != null)
 		{
-			double skillpower = skill.getPower();
+			double skillpower = skill.getPower(attacker);
 			float ssboost = skill.getSSBoost();
 			if (ssboost <= 0)
 			{
