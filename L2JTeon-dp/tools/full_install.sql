@@ -38,6 +38,7 @@ DROP TABLE IF EXISTS clan_privs;
 DROP TABLE IF EXISTS clan_skills;
 DROP TABLE IF EXISTS clan_subpledges;
 DROP TABLE IF EXISTS clan_wars;
+DROP TABLE IF EXISTS clan_notices.sql
 DROP TABLE IF EXISTS clanhall;
 DROP TABLE IF EXISTS clanhall_functions;
 DROP TABLE IF EXISTS clanhall_siege;
