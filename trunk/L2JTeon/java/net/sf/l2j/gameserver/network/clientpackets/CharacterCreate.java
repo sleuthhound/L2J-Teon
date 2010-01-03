@@ -261,6 +261,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		}
 		L2GameClient.saveCharToDisk(newChar);
 		newChar.deleteMe(); // release the world of this character and it's inventory send char list
+		L2World.getInstance().removeObject(newChar);
 		startTutorialQuest(newChar);
 		CharSelectInfo cl = new CharSelectInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
