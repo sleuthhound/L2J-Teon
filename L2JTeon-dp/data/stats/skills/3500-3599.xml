@@ -1595,18 +1595,12 @@
   </for>
 </skill>
 <skill id="3592" levels="1" name="Dispell">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      none
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CANCEL"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="magicLvl" val="85"/>
+  <set name="maxNegated" val="5"/>
+  <set name="power" val="80"/>
 </skill>
 <skill id="3593" levels="1" name="Special Ability: Infinity Bow">
   <!-- Done by DJ MELERIX -->
