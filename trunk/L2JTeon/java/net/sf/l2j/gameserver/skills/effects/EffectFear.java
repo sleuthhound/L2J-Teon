@@ -17,15 +17,21 @@ package net.sf.l2j.gameserver.skills.effects;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage; 
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.skills.Formulas;
+import net.sf.l2j.util.Rnd;
 
 /**
- * @author littlecrow Implementation of the Fear Effect
+ * @author Harpun
  */
 final class EffectFear extends L2Effect
 {
@@ -73,6 +79,22 @@ final class EffectFear extends L2Effect
 				signy = 1;
 			posX += signx * FEAR_RANGE;
 			posY += signy * FEAR_RANGE;
+
+			if(!getEffected().isRaid()
+						&& !(getEffected() instanceof L2DoorInstance)
+						&& !(getEffected() instanceof L2NpcInstance && ((L2NpcInstance)getEffected()).getNpcId() == 35062))
+				{
+				int chance = Rnd.get(100);
+					if(getSkill().getLethalChance2() > 0 && chance < Formulas.getInstance().calcLethal(getEffector(), getEffected(), getSkill().getLethalChance2()))
+				{
+					if (getEffected() instanceof L2NpcInstance)
+					{
+						getEffected().reduceCurrentHp(getEffected().getCurrentHp()-1, getEffector());
+					getEffector().sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
+					}
+						}
+					}
+               
 			getEffected().setRunning();
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
 		}
@@ -88,6 +110,6 @@ final class EffectFear extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		return false;
+		return true;
 	}
 }
