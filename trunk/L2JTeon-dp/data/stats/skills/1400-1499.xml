@@ -1,35 +1,29 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
 <skill id="1400" levels="10" name="Turn Undead" enchantLevels1="30" enchantLevels2="30">
- 	<!-- Done by KID -->
- 	<table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-	<enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-	<enchant2 name="magicLvl" val="#enchantMagicLvl"/>
- 	<table name="#ench1Power"> 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 </table>
- 	<table name="#ench2MpConsume"> 66 65 65 63 62 62 61 60 58 58 57 56 55 55 53 52 52 51 50 48 48 47 46 45 45 43 42 42 41 40 </table>
- 	<table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
- 	<table name="#itemConsumeCount"> 3 3 4 4 4 4 5 5 5 5 </table>
- 	<table name="#magicLvl"> 56 58 60 62 64 66 68 70 72 74 </table>
- 	<set name="magicLvl" val="#magicLvl"/>
- 	<set name="power" val="50"/>
-	<set name="mpConsume" val="#mpConsume"/>
-	<set name="itemConsumeId" val="3031"/>
-	<set name="itemConsumeCount" val="#itemConsumeCount"/>
-	<set name="reuseDelay" val="9000"/>
-	<set name="hitTime" val="4000"/>
-	<set name="target" val="TARGET_UNDEAD"/>
-	<set name="skillType" val="FEAR"/>
-	<!-- <set name="isDebuff" val="true"/> Future Implementation -->
-	<set name="operateType" val="OP_ACTIVE"/>
-	<set name="lethal2" val="40"/>
-	<set name="castRange" val="900"/>
-	<set name="effectRange" val="1400"/>
-	<set name="isMagic" val="true"/>
-	<enchant1 name="power" val="#ench1Power"/>
-	<enchant2 name="mpConsume" val="#ench2MpConsume"/>
-	<for>
-	  <effect count="8" name="Fear" time="2" val="0"/>
-	</for>
+  <!-- Done by Harpun -->
+  <table name="#mpConsume"> 52 54 55 58 60 62 64 65 67 69 </table>
+  <table name="#power"> 230.0 250.0 270.0 290.0 310.0 330.0 350.0 370.0 390.0 411.0 </table>
+  <table name="#itemConsumeCount"> 3 3 4 4 4 4 5 5 5 5 </table>
+  <set name="power" val="#power"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="itemConsumeId" val="3031"/>
+  <set name="itemConsumeCount" val="#itemConsumeCount"/>
+  <table name="#lethal2"> 2 3 4 5 6 7 8 9 10 11</table>
+  <set name="save" val="6"/>  
+  <set name="reuseDelay" val="9000"/>
+  <set name="hitTime" val="4000"/>
+  <set name="target" val="TARGET_UNDEAD"/>
+  <set name="skillRadius" val="200"/>
+  <set name="skillType" val="FEAR"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="1400"/>
+  <set name="lethal2" val="#lethal2"/>
+  <set name="isMagic" val="true"/>
+  <for>
+  <effect count="5" name="Fear" time="6" val="0"/>
+  </for>
 </skill>
 <skill id="1401" levels="11" name="Major Heal" enchantLevels1="30" enchantLevels2="30" >
   <table name="#ench1Power"> 947 949 951 954 956 958 960 963 965 967 969 972 974 976 979 981 983 985 988 990 992 994 997 999 1001 1003 1006 1008 1010 1013 </table>
