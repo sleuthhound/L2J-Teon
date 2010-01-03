@@ -937,6 +937,7 @@
 	</zone>
 	<zone id='12007' type='BossZone' shape='NPoly' minZ='9967' maxZ='16301'>
 		<stat name='name' val='Lair of Baium'/>
+		<stat name='Flying' val='false'/>
 		<stat name='InvadeTime' val='1800000'/>
 	</zone>
 	<zone id='12008' type='BossZone' shape='NPoly' minZ='-2572' maxZ='5428'>
