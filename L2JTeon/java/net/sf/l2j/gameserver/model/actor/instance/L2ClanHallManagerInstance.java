@@ -704,6 +704,8 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
+		player.setLastFolkNPC(this);
+	
 		if (!canTarget(player))
 			return;
 		// Check if the L2PcInstance already target the L2NpcInstance
