@@ -109,6 +109,34 @@ public class MultiSellChoose extends L2GameClientPacket
 			return;
 		}
 		MultiSellEntry entry = prepareEntry(merchant, templateEntry, applyTaxes, maintainEnchantment, enchantment);
+
+        int slots = 0;
+        int weight = 0;
+        for (MultiSellIngredient e : entry.getProducts())
+        {
+        	if (e.getItemId() < 0)
+        		continue;
+        	L2Item template = ItemTable.getInstance().getTemplate(e.getItemId());
+        	if (template == null)
+        		continue;
+        	if (!template.isStackable())
+        		slots += e.getItemCount() * _amount;
+        	else if (player.getInventory().getItemByItemId(e.getItemId()) == null)
+        		slots++;
+        	weight += e.getItemCount() * _amount * template.getWeight();
+        }
+
+        if (!inv.validateWeight(weight))
+        {
+        	player.sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+        	return;
+        }
+        if (!inv.validateCapacity(slots))
+        {
+        	player.sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
+        	return;
+        }
+
 		// Generate a list of distinct ingredients and counts in order to check
 		// if the correct item-counts
 		// are possessed by the player
@@ -210,19 +238,6 @@ public class MultiSellChoose extends L2GameClientPacket
 		{
 			if (e.getItemId() != 65336)
 			{
-				for (MultiSellIngredient a : entry.getProducts())
-				{
-					if (player.GetInventoryLimit() < inv.getSize() + _amount && !ItemTable.getInstance().createDummyItem(a.getItemId()).isStackable())
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
-						return;
-					}
-					if (player.GetInventoryLimit() < inv.getSize() && ItemTable.getInstance().createDummyItem(a.getItemId()).isStackable())
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
-						return;
-					}
-				}
 				L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId()); // initialize
 				// and
 				// initial
@@ -373,10 +388,10 @@ public class MultiSellChoose extends L2GameClientPacket
 			}
 			else
 			{
-				if (maintainEnchantment && (_enchantment > 0))
+				if (maintainEnchantment && (e.getEnchantmentLevel() > 0))
 				{
 					sm = new SystemMessage(SystemMessageId.ACQUIRED);
-					sm.addNumber(_enchantment);
+					sm.addNumber(e.getEnchantmentLevel());
 					sm.addItemName(e.getItemId());
 				}
 				else
@@ -419,6 +434,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		MultiSellEntry newEntry = L2Multisell.getInstance().new MultiSellEntry();
 		newEntry.setEntryId(templateEntry.getEntryId());
 		int totalAdenaCount = 0;
+        boolean hasIngredient = false; 
 		for (MultiSellIngredient ing : templateEntry.getIngredients())
 		{
 			// load the ingredient from the template
@@ -456,6 +472,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
+                    hasIngredient = true; 
 				}
 			}
 			// finally, add this ingredient to the entry
@@ -471,7 +488,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		{
 			// load the ingredient from the template
 			MultiSellIngredient newIngredient = L2Multisell.getInstance().new MultiSellIngredient(ing);
-			if (maintainEnchantment)
+			if (maintainEnchantment && hasIngredient)
 			{
 				// if it is an armor/weapon, modify the enchantment level
 				// appropriately
