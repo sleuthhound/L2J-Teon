@@ -2738,7 +2738,6 @@ public class L2Attackable extends L2NpcInstance
 		// hi-lvl mobs bonus
 		if (diff > 0)
 		{
-			Random rnd = new Random();
 			count += diff;
 		}
 		FastList<RewardItem> harvested = new FastList<RewardItem>();
