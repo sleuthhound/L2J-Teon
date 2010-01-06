@@ -1129,7 +1129,7 @@ public class Castle
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			statement = con.prepareStatement(CASTLE_UPDATE_CROP);
-			statement.setInt(1, (int)amount);
+			statement.setInt(1, amount);
 			statement.setInt(2, cropId);
 			statement.setInt(3, getCastleId());
 			statement.setInt(4, period);
