@@ -47,6 +47,10 @@ public class L2SignsPriestInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
+        if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != this.getObjectId()) 
+        {
+            return; 
+        }
 		if (command.startsWith("SevenSignsDesc"))
 		{
 			int val = Integer.parseInt(command.substring(15));
