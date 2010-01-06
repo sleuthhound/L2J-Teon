@@ -715,7 +715,8 @@ public class Olympiad
 			noble.sendMessage("You can't participate to Olympiad while holding a cursed weapon.");
 			return false;
 		}
-		if (noble.isInFunEvent())
+		// Check to see if the current player is in TvT CTF or DM events.
+		if (noble.isInFunEvent() || noble._inEventCTF || noble._inEventTvT || noble._inEventDM)
 		{
 			noble.sendMessage("You can't participate to Olympiad. You are in event now.");
 			return false;

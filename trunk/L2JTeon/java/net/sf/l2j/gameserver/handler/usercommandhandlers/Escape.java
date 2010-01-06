@@ -43,6 +43,7 @@ public class Escape implements IUserCommandHandler
 		{
 			return false;
 		}
+		
 		int unstuckTimer = (activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		// int unstuckTimer = (activeChar.getAccessLevel() ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		// int unstuckTimer = activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 5000 : Config.UNSTUCK_INTERVAL * 1000;
@@ -50,6 +51,12 @@ public class Escape implements IUserCommandHandler
 		if (activeChar.isFestivalParticipant())
 		{
 			activeChar.sendMessage("You may not use an escape command in a festival.");
+			return false;
+		}
+		// Check to see if the current player is in TvT CTF or DM events.
+		if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)
+		{
+			activeChar.sendMessage("You may not use an escape skill in a Event.");
 			return false;
 		}
 		// Check to see if the player is in faction.

@@ -52,9 +52,15 @@ public class ScrollOfResurrection implements IItemHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
 			return;
 		}
+		// Check to see if the current player is in TvT CTF or DM events.
+		if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)
+		{
+			activeChar.sendMessage("You cannot use this item in a Event.");
+			return;
+		}
 		if (activeChar.isInOlympiadMode() || activeChar.inObserverMode())
 		{
-			activeChar.sendMessage("You Cannot Use This Item In Olympiad Mode!");
+			activeChar.sendMessage("You cannot use this item in Olympiad Mode!");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
