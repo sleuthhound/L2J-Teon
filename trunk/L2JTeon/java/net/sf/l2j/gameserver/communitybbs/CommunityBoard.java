@@ -78,10 +78,6 @@ public class CommunityBoard
 			{
 				RegionBBSManager.getInstance().parsecmd(command, activeChar);
 			}
-            else if (command.startsWith("_bbsnotice")) 
-            {
-				RegionBBSManager.getInstance().parsecmd(command, activeChar);
-            }
 			else
 			{
 				TopBBSManager.getInstance().parsecmd(command, activeChar);
@@ -125,6 +121,10 @@ public class CommunityBoard
 			{
 				RegionBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar);
 			}
+            else if (url.equals("Notice")) 
+            {
+                ClanBBSManager.getInstance().parsewrite(arg1, arg2, arg3, arg4, arg5, activeChar); 
+            }
 			else
 			{
 				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + url + " is not implemented yet</center><br><br></body></html>", "101");
