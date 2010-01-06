@@ -60,8 +60,8 @@ public class Recall implements ISkillHandler
 						targetChar.sendPacket(SystemMessage.sendString("You may not use an escape skill in a festival."));
 						continue;
 					}
-					// Check to see if the current player target is in TvT or CTF events.
-					if (targetChar._inEventCTF || targetChar._inEventTvT)
+					// Check to see if the current player target is in TvT, CTF or DM events.
+					if (targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventDM)
 					{
 						targetChar.sendMessage("You may not use an escape skill in a Event.");
 						continue;

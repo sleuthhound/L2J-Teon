@@ -44,6 +44,12 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
 			return false;
 		}
+		// Check to see if the current player is in TvT CTF or DM events.
+		if (summonerChar._inEventCTF || summonerChar._inEventTvT || summonerChar._inEventDM)
+		{
+			summonerChar.sendMessage("You cannot use this skill in a Event.");
+			return false;
+		}
 		if (summonerChar.inObserverMode())
 		{
 			return false;
@@ -65,6 +71,12 @@ public class SummonFriend implements ISkillHandler
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
 			sm.addString(targetChar.getName());
 			summonerChar.sendPacket(sm);
+			return false;
+		}
+		// Check to see if the current player is in TvT CTF or DM events.
+		if (targetChar._inEventCTF || targetChar._inEventTvT || targetChar._inEventDM)
+		{
+			targetChar.sendMessage("You cannot use this skill in a Event.");
 			return false;
 		}
 		if (targetChar.isInStoreMode())
@@ -189,8 +201,14 @@ public class SummonFriend implements ISkillHandler
 							continue;
 						}
 						/*
-						 * if (skill.getId() == 1403) // summon friend { // Send message ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId()); confirm.addString(activeChar.getName()); confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ()); confirm.addTime(30000); confirm.addRequesterId(activePlayer.getCharId());
-						 * target.sendPacket(confirm); }
+						 * if (skill.getId() == 1403) // summon friend 
+						 * { 
+						 * // Send message ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId()); 
+						 * confirm.addString(activeChar.getName()); 
+						 * confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ()); 
+						 * confirm.addTime(30000); confirm.addRequesterId(activePlayer.getCharId());
+						 * target.sendPacket(confirm); 
+						 * }
 						 */
 						else
 						{
