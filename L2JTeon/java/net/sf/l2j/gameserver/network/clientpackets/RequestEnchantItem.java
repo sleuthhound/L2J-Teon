@@ -120,17 +120,13 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1461;
 				switch (scroll.getItemId())
 				{
-					case 729:
-					case 731:
-					case 6569:
+					case 729: case 731: case 6569:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 730:
-					case 732:
-					case 6570:
+					case 730: case 732: case 6570:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -142,17 +138,13 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1460;
 				switch (scroll.getItemId())
 				{
-					case 947:
-					case 949:
-					case 6571:
+					case 947: case 949: case 6571:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 948:
-					case 950:
-					case 6572:
+					case 948: case 950: case 6572:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -164,17 +156,13 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1459;
 				switch (scroll.getItemId())
 				{
-					case 951:
-					case 953:
-					case 6573:
+					case 951: case 953: case 6573:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 952:
-					case 954:
-					case 6574:
+					case 952: case 954: case 6574:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -186,17 +174,13 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1458;
 				switch (scroll.getItemId())
 				{
-					case 955:
-					case 957:
-					case 6575:
+					case 955: case 957: case 6575:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 956:
-					case 958:
-					case 6576:
+					case 956: case 958: case 6576:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -208,17 +192,13 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1462;
 				switch (scroll.getItemId())
 				{
-					case 959:
-					case 961:
-					case 6577:
+					case 959: case 961: case 6577:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 960:
-					case 962:
-					case 6578:
+					case 960: case 962: case 6578:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -255,8 +235,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to enchant with a scroll he doesnt have", Config.DEFAULT_PUNISH);
 			return;
 		}
-		// SystemMessage sm = new
-		// SystemMessage(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
+		// SystemMessage sm = new SystemMessage(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
 		// activeChar.sendPacket(sm);
 		SystemMessage sm;
 		int chance = 0;
@@ -498,17 +477,8 @@ public final class RequestEnchantItem extends L2GameClientPacket
 		su.addAttribute(StatusUpdate.CUR_LOAD, activeChar.getCurrentLoad());
 		activeChar.sendPacket(su);
 		su = null;
-		activeChar.sendPacket(new EnchantResult(item.getEnchantLevel())); // FIXME
-		// i'm
-		// really
-		// not
-		// sure
-		// about
-		// this...
-		activeChar.sendPacket(new ItemList(activeChar, false)); // TODO update
-		// only the
-		// enchanted
-		// item
+		activeChar.sendPacket(new EnchantResult(item.getEnchantLevel())); // FIXME i'm really not sure about this...
+		activeChar.sendPacket(new ItemList(activeChar, false)); // TODO update only the enchanted item
 		activeChar.broadcastUserInfo();
 	}
 
