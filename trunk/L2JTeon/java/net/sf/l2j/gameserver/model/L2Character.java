@@ -724,6 +724,20 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 			}
+            // Checking if target has moved to peace zone 
+			if (target.isInsidePeaceZone((L2PcInstance)this)) 
+			{ 
+				getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE); 
+				sendPacket(ActionFailed.STATIC_PACKET); 
+				return; 
+			} 
+			
+		} 
+		else if (isInsidePeaceZone(this, target)) 
+		{ 
+			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE); 
+			sendPacket(ActionFailed.STATIC_PACKET); 
+			return; 
 		}
 		// Get the active weapon instance (always equiped in the right hand)
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
@@ -753,16 +767,6 @@ public abstract class L2Character extends L2Object
 			// Check for arrows and MP
 			if (this instanceof L2PcInstance)
 			{
-				// Checking if target has moved to peace zone - only for
-				// player-bow attacks at the moment
-				// Other melee is checked in movement code and for offensive
-				// spells a check is done every time
-				if (target.isInsidePeaceZone((L2PcInstance) this) && !Config.ENABLE_FACTION_KOOFS_NOOBS)
-				{
-					getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-					sendPacket(ActionFailed.STATIC_PACKET);
-					return;
-				}
 				// Verify if the bow can be use
 				if (_disableBowAttackEndTime <= GameTimeController.getGameTicks())
 				{
@@ -4662,7 +4666,7 @@ public abstract class L2Character extends L2Object
 			// (could be changed later to teleport if pathfinding fails)
 			// when geodata == 1, for l2playableinstance and l2riftinstance
 			// only
-			if (((Config.GEODATA == 2) && !((this instanceof L2Attackable) && ((L2Attackable) this).isReturningToSpawnPoint())) || (this instanceof L2PcInstance) || ((this instanceof L2Summon) && !(getAI().getIntention() == AI_INTENTION_FOLLOW)) || (this instanceof L2RiftInvaderInstance))
+			if (((Config.GEODATA == 2) && !((this instanceof L2Attackable) && ((L2Attackable) this).isReturningToSpawnPoint())) || (this instanceof L2PcInstance) || ((this instanceof L2Summon) && !(getAI().getIntention() == AI_INTENTION_FOLLOW)) || isAfraid() || (this instanceof L2RiftInvaderInstance))
 			{
 				if (isOnGeodataPath())
 				{
@@ -4701,7 +4705,7 @@ public abstract class L2Character extends L2Object
 			// than the original movement was and the LoS gives a shorter
 			// distance than 2000
 			// This way of detecting need for pathfinding could be changed.
-			if ((Config.GEODATA == 2) && (originalDistance - distance > 100) && (distance < 2000))
+			if ((Config.GEODATA == 2) && (originalDistance - distance > 100) && (distance < 2000) && !this.isAfraid())
 			{
 				// Path calculation
 				// Overrides previous movement check
@@ -4777,7 +4781,7 @@ public abstract class L2Character extends L2Object
 				}
 			}
 			// If no distance to go through, the movement is canceled
-			if ((distance < 1) && ((Config.GEODATA == 2) || (this instanceof L2PlayableInstance) || (this instanceof L2RiftInvaderInstance)))
+			if ((distance < 1) && ((Config.GEODATA == 2) || (this instanceof L2PlayableInstance) || this.isAfraid() || (this instanceof L2RiftInvaderInstance)))
 			{
 				sin = 0;
 				cos = 1;
