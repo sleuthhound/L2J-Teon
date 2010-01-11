@@ -90,7 +90,6 @@ public final class RequestRefine extends L2GameClientPacket
 	{
 		if (targetItem.isAugmented() || targetItem.isWear())
 			return false;
-
 		if (player.isDead())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD));
@@ -124,26 +123,17 @@ public final class RequestRefine extends L2GameClientPacket
 		// check for the items to be in the inventory of the owner
 		if (player.getInventory().getItemByObjectId(refinerItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character "
-				+ player.getName()
-				+ " of account " + player.getAccountName()
-				+ " tried to refine an item with wrong LifeStone-id.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to refine an item with wrong LifeStone-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(targetItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character "
-				+ player.getName()
-				+ " of account " + player.getAccountName()
-				+ " tried to refine an item with wrong Weapon-id.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to refine an item with wrong Weapon-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(gemstoneItem.getObjectId()) == null)
 		{
-			Util.handleIllegalPlayerAction(player, "Warning!! Character "
-				+ player.getName() + " of account "
-				+ player.getAccountName()
-				+ " tried to refine an item with wrong Gemstone-id.", Config.DEFAULT_PUNISH);
+			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to refine an item with wrong Gemstone-id.", Config.DEFAULT_PUNISH);
 			return false;
 		}
 		int itemGrade = targetItem.getItem().getItemGrade();

@@ -16,8 +16,6 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
@@ -25,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.GmAudit;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -62,7 +61,6 @@ public final class RequestDropItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		
 		if (!activeChar.getFloodProtectors().getDropItem().tryPerformAction("drop"))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -85,9 +83,9 @@ public final class RequestDropItem extends L2GameClientPacket
 			{
 				if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON && !activeChar.isGM())
 				{
-            		activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); //message
-            		activeChar.closeNetConnection(); //kick
-            		return;
+					activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
+					activeChar.closeNetConnection(); // kick
+					return;
 				}
 				break;
 			}
@@ -95,9 +93,9 @@ public final class RequestDropItem extends L2GameClientPacket
 			{
 				if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR && !activeChar.isGM())
 				{
-            		activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); //message
-            		activeChar.closeNetConnection(); //kick
-            		return;
+					activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
+					activeChar.closeNetConnection(); // kick
+					return;
 				}
 				break;
 			}
@@ -105,9 +103,9 @@ public final class RequestDropItem extends L2GameClientPacket
 			{
 				if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY && !activeChar.isGM())
 				{
-            		activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); //message
-            		activeChar.closeNetConnection(); //kick
-            		return;
+					activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
+					activeChar.closeNetConnection(); // kick
+					return;
 				}
 				break;
 			}
@@ -190,7 +188,6 @@ public final class RequestDropItem extends L2GameClientPacket
 			// Remove augementation boni on unequip
 			if (item.isAugmented())
 				item.getAugmentation().removeBonus(activeChar);
-
 			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (int i = 0; i < unequiped.length; i++)

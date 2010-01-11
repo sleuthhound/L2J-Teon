@@ -51,51 +51,7 @@ public abstract class L2Effect
 
 	public static enum EffectType
 	{
-		BUFF,
-		BUFFIMMUNITY,
-		CHARGE,
-		DMG_OVER_TIME,
-		HEAL_OVER_TIME,
-		COMBAT_POINT_HEAL_OVER_TIME,
-		MANA_DMG_OVER_TIME,
-		MANA_HEAL_OVER_TIME,
-		RELAXING,
-		STUN,
-		ROOT,
-		SLEEP,
-		HATE,
-		FAKE_DEATH,
-		CONFUSION,
-		CONFUSE_MOB_ONLY,
-		MUTE,
-		FEAR,
-		ILENT_MOVE,
-		SEED,
-		PARALYZE,
-		STUN_SELF,
-		PSYCHICAL_MUTE,
-		REMOVE_TARGET,
-		TARGET_ME,
-		SILENCE_MAGIC_PHYSICAL,
-		BETRAY,
-		NOBLESSE_BLESSING,
-		SOUL_OF_THE_PHOENIX,
-		SALVATION,
-		PETRIFICATION,
-		BLUFF,
-		INVUL,
-		INTERRUPT,
-		CHARM_OF_LUCK,
-		SIGNET_GROUND,
-		SIGNET_EFFECT,
-		SIGNET,
-		IMMOBILEUNTILATTACKED,
-		DEBUFF,
-		PROTECTION_BLESSING,
-		BACKTOME,
-		CHARMOFCOURAGE,
-		RNDTELEPORT,
-		SILENT_MOVE
+		BUFF, BUFFIMMUNITY, CHARGE, DMG_OVER_TIME, HEAL_OVER_TIME, COMBAT_POINT_HEAL_OVER_TIME, MANA_DMG_OVER_TIME, MANA_HEAL_OVER_TIME, RELAXING, STUN, ROOT, SLEEP, HATE, FAKE_DEATH, CONFUSION, CONFUSE_MOB_ONLY, MUTE, FEAR, ILENT_MOVE, SEED, PARALYZE, STUN_SELF, PSYCHICAL_MUTE, REMOVE_TARGET, TARGET_ME, SILENCE_MAGIC_PHYSICAL, BETRAY, NOBLESSE_BLESSING, SOUL_OF_THE_PHOENIX, SALVATION, PETRIFICATION, BLUFF, INVUL, INTERRUPT, CHARM_OF_LUCK, SIGNET_GROUND, SIGNET_EFFECT, SIGNET, IMMOBILEUNTILATTACKED, DEBUFF, PROTECTION_BLESSING, BACKTOME, CHARMOFCOURAGE, RNDTELEPORT, SILENT_MOVE
 	}
 
 	private static final Func[] _emptyFunctionSet = new Func[0];
@@ -123,8 +79,8 @@ public abstract class L2Effect
 	private int _count;
 	// abnormal effect mask
 	private int _abnormalEffect;
-    // show icon
-    private boolean _icon;
+	// show icon
+	private boolean _icon;
 	public boolean preventExitUpdate;
 
 	public final class EffectTask implements Runnable
@@ -181,7 +137,7 @@ public abstract class L2Effect
 		_stackOrder = template.stackOrder;
 		_periodStartTicks = GameTimeController.getGameTicks();
 		_periodfirsttime = 0;
-        _icon = template.icon;
+		_icon = template.icon;
 		scheduleEffect();
 	}
 
@@ -216,11 +172,11 @@ public abstract class L2Effect
 			_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(_currentTask, duration * 1000);
 		}
 	}
-	
-    public boolean getShowIcon()
-    {
-        return _icon;
-    }
+
+	public boolean getShowIcon()
+	{
+		return _icon;
+	}
 
 	public int getPeriod()
 	{

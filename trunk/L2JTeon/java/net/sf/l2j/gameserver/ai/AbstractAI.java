@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Summon; 
+import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStart;
@@ -74,22 +74,21 @@ abstract class AbstractAI implements Ctrl
 					return;
 				if (_followTarget == null)
 				{
-                    if(_actor instanceof L2Summon)  
-                        setIntention(AI_INTENTION_IDLE); 
-                    setIntention(AI_INTENTION_IDLE); 
-                    return; 
+					if (_actor instanceof L2Summon)
+						setIntention(AI_INTENTION_IDLE);
+					setIntention(AI_INTENTION_IDLE);
+					return;
 				}
 				if (!_actor.isInsideRadius(_followTarget, _range, true, false))
 				{
-                    if (!_actor.isInsideRadius(_followTarget, 3000, true, false)) 
-                    { 
-                    	// if the target is too far (maybe also teleported) 
-                    	if(_actor instanceof L2Summon) 
-                    		((L2Summon)_actor).setFollowStatus(false); 
-                    	
-                    	setIntention(AI_INTENTION_IDLE); 
-                    	return; 
-                    }
+					if (!_actor.isInsideRadius(_followTarget, 3000, true, false))
+					{
+						// if the target is too far (maybe also teleported)
+						if (_actor instanceof L2Summon)
+							((L2Summon) _actor).setFollowStatus(false);
+						setIntention(AI_INTENTION_IDLE);
+						return;
+					}
 					moveToPawn(_followTarget, _range);
 				}
 			}

@@ -85,7 +85,6 @@ public final class Say2 extends L2GameClientPacket
 		}
 		// getting char instance
 		L2PcInstance activeChar = getClient().getActiveChar();
-		
 		if (activeChar != null && activeChar instanceof L2PcInstance)
 		{
 			if (!activeChar.getFloodProtectors().getChat().tryPerformAction("chat"))

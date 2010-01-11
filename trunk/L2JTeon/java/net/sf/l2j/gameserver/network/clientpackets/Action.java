@@ -67,8 +67,8 @@ public final class Action extends L2GameClientPacket
 		// Update next commit
 		// if (!activeChar.getFloodProtectors().getActionMWX().tryPerformAction("_objectId"))
 		// {
-		//	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-		//	return;
+		// activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		// return;
 		// }
 		L2Object obj;
 		if (activeChar.getTargetId() == _objectId)

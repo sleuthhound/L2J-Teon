@@ -59,16 +59,16 @@ public class DimensionalRift
 		int[] coords = getRoomCoord(room);
 		party.setDimensionalRift(this);
 		for (L2PcInstance p : party.getPartyMembers())
-                {
-                        Quest riftQuest = QuestManager.getInstance().getQuest(635);
-                        if (riftQuest != null)
-                        {
-                                QuestState qs = riftQuest.newQuestState(p);
-                                qs.set("cond", "1");
-                                qs.playSound("ItemSound.quest_accept");
-                        }
+		{
+			Quest riftQuest = QuestManager.getInstance().getQuest(635);
+			if (riftQuest != null)
+			{
+				QuestState qs = riftQuest.newQuestState(p);
+				qs.set("cond", "1");
+				qs.playSound("ItemSound.quest_accept");
+			}
 			p.teleToLocation(coords[0], coords[1], coords[2]);
-                }
+		}
 		createSpawnTimer(_choosenRoom);
 		createTeleporterTimer(true);
 	}
@@ -235,9 +235,9 @@ public class DimensionalRift
 	protected void teleportToWaitingRoom(L2PcInstance player)
 	{
 		DimensionalRiftManager.getInstance().teleportToWaitingRoom(player);
-                QuestState qs = player.getQuestState("RiftQuest");
-                if (qs != null)
-                        qs.exitQuest(true);
+		QuestState qs = player.getQuestState("RiftQuest");
+		if (qs != null)
+			qs.exitQuest(true);
 	}
 
 	public void killRift()

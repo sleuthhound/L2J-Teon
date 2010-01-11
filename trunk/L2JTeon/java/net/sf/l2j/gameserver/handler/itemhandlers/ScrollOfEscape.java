@@ -51,12 +51,11 @@ public class ScrollOfEscape implements IItemHandler
 	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) return;
-
+		if (!(playable instanceof L2PcInstance))
+			return;
 		L2PcInstance activeChar = (L2PcInstance) playable;
-
-		if (checkConditions(activeChar)) return;
-
+		if (checkConditions(activeChar))
+			return;
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
@@ -330,9 +329,9 @@ public class ScrollOfEscape implements IItemHandler
 		}
 	}
 
-	private static boolean checkConditions(L2PcInstance actor) 
-	{ 
-		return actor.isStunned() || actor.isSleeping() || actor.isParalyzed() || actor.isFakeDeath() || actor.isTeleporting() || actor.isMuted() || actor.isAlikeDead() || actor.isAllSkillsDisabled(); 
+	private static boolean checkConditions(L2PcInstance actor)
+	{
+		return actor.isStunned() || actor.isSleeping() || actor.isParalyzed() || actor.isFakeDeath() || actor.isTeleporting() || actor.isMuted() || actor.isAlikeDead() || actor.isAllSkillsDisabled();
 	}
 
 	public int[] getItemIds()

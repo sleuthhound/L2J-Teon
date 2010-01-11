@@ -3832,13 +3832,11 @@ public enum SystemMessageId
 	 * Message: $s1 adena has been withdrawn to pay for purchasing fees.
 	 */
 	S1_ADENA_HAS_BEEN_WITHDRAWN_TO_PAY_FOR_PURCHASING_FEES(1607),
-
 	/**
- 	* ID: 769<br>
- 	* Message: A hacking tool has been discovered. Please try again after closing unnecessary programs.
- 	*/
- 	HACKING_TOOL(769),
-
+	 * ID: 769<br>
+	 * Message: A hacking tool has been discovered. Please try again after closing unnecessary programs.
+	 */
+	HACKING_TOOL(769),
 	/**
 	 * ID: 781<br>
 	 * Message: Observers cannot participate.
@@ -3848,15 +3846,8 @@ public enum SystemMessageId
 	 * ID: 1916<br>
 	 * Message: Your Death Penalty is now level $s1.
 	 */
-	DEATH_PENALTY_LEVEL_S1_ADDED(1916),
-	THE_SIEGE_OF_THE_CLAN_HALL_IS_FINISHED(792),
-	THE_SIEGE_OF_THE_CLAN_HALL_HAS_BEGUN(793),
-	ONLY_CLAN_LEADERS_ARE_AUTHORIZED_TO_SET_RIGHTS(795),
-	YOUR_REMAINING_OBSERVATION_TIME_IS_S1_MINUTES(796),
-	YOU_MAY_CREATE_UP_TO_48_MACROS(797),
-	ITEM_REGISTRATION_IS_IRREVERSIBLE_DO_YOU_WISH_TO_CONTINUE(798),
-	THE_OBSERVATION_TIME_HAS_EXPIRED(799),
-	YOU_ARE_TOO_LATE_THE_REGISTRATION_PERIOD_IS_OVER(800),
+	DEATH_PENALTY_LEVEL_S1_ADDED(1916), THE_SIEGE_OF_THE_CLAN_HALL_IS_FINISHED(792), THE_SIEGE_OF_THE_CLAN_HALL_HAS_BEGUN(793), ONLY_CLAN_LEADERS_ARE_AUTHORIZED_TO_SET_RIGHTS(795), YOUR_REMAINING_OBSERVATION_TIME_IS_S1_MINUTES(796), YOU_MAY_CREATE_UP_TO_48_MACROS(797), ITEM_REGISTRATION_IS_IRREVERSIBLE_DO_YOU_WISH_TO_CONTINUE(798), THE_OBSERVATION_TIME_HAS_EXPIRED(799), YOU_ARE_TOO_LATE_THE_REGISTRATION_PERIOD_IS_OVER(
+			800),
 	/**
 	 * ID: 1917<br>
 	 * Message: Your Death Penalty has been lifted.

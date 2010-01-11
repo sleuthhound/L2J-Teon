@@ -347,6 +347,7 @@ public abstract class L2PlayableInstance extends L2Character
 		setCharmOfLuck(false);
 		updateAbnormalEffect();
 	}
+
 	public void setSilentMoving(boolean flag)
 	{
 		_isSilentMoving = flag;

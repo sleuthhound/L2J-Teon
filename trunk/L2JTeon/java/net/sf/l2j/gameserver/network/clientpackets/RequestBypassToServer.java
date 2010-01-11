@@ -17,8 +17,6 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
@@ -31,9 +29,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ClassMasterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
@@ -61,13 +60,11 @@ public final class RequestBypassToServer extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		
 		if (!activeChar.getFloodProtectors().getServerBypass().tryPerformAction("_command"))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		
 		if (activeChar == null)
 		{
 			return;
@@ -124,58 +121,50 @@ public final class RequestBypassToServer extends L2GameClientPacket
 					{
 						L2Event.inscribePlayer(activeChar);
 					}
-                    else if (_command.substring(endOfId+1).startsWith("tvt_player_join "))
-                    {
-                        String teamName = _command.substring(endOfId+1).substring(16);
-
-                        if (TvT._joining)
-                            TvT.addPlayer(activeChar, teamName);
-                        else
-                            activeChar.sendMessage("The event is already started. You can not join now!");
-                    }
-                   
-                    else if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
-                    {
-                        if (TvT._joining)
-                            TvT.removePlayer(activeChar);
-                        else
-                            activeChar.sendMessage("The event is already started. You can not leave now!");
-                    }
-                    
-                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
-                    {
-                        if (DM._joining)
-                            DM.addPlayer(activeChar);
-                        else
-                            activeChar.sendMessage("The event is already started. You can not join now!");
-                    }
-                   
-                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
-                    {
-                        if (DM._joining)
-                            DM.removePlayer(activeChar);
-                        else
-                            activeChar.sendMessage("The event is already started. You can not leave now!");
-                    }
-                    
-                    else if (_command.substring(endOfId+1).startsWith("ctf_player_join "))
-                    {
-                        String teamName = _command.substring(endOfId+1).substring(16); 
-                        
-                        if (CTF._joining)
-                            CTF.addPlayer(activeChar, teamName);
-                        else
-                            activeChar.sendMessage("The event is already started. You can not join now!");
-                    }
-
-                    else if (_command.substring(endOfId+1).startsWith("ctf_player_leave"))
-                    {
-                        if (CTF._joining)
-                            CTF.removePlayer(activeChar);
-                        else
-                            activeChar.sendMessage("The event is already started. You can not leave now!");
-                    }
-
+					else if (_command.substring(endOfId + 1).startsWith("tvt_player_join "))
+					{
+						String teamName = _command.substring(endOfId + 1).substring(16);
+						if (TvT._joining)
+							TvT.addPlayer(activeChar, teamName);
+						else
+							activeChar.sendMessage("The event is already started. You can not join now!");
+					}
+					else if (_command.substring(endOfId + 1).startsWith("tvt_player_leave"))
+					{
+						if (TvT._joining)
+							TvT.removePlayer(activeChar);
+						else
+							activeChar.sendMessage("The event is already started. You can not leave now!");
+					}
+					else if (_command.substring(endOfId + 1).startsWith("dmevent_player_join"))
+					{
+						if (DM._joining)
+							DM.addPlayer(activeChar);
+						else
+							activeChar.sendMessage("The event is already started. You can not join now!");
+					}
+					else if (_command.substring(endOfId + 1).startsWith("dmevent_player_leave"))
+					{
+						if (DM._joining)
+							DM.removePlayer(activeChar);
+						else
+							activeChar.sendMessage("The event is already started. You can not leave now!");
+					}
+					else if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
+					{
+						String teamName = _command.substring(endOfId + 1).substring(16);
+						if (CTF._joining)
+							CTF.addPlayer(activeChar, teamName);
+						else
+							activeChar.sendMessage("The event is already started. You can not join now!");
+					}
+					else if (_command.substring(endOfId + 1).startsWith("ctf_player_leave"))
+					{
+						if (CTF._joining)
+							CTF.removePlayer(activeChar);
+						else
+							activeChar.sendMessage("The event is already started. You can not leave now!");
+					}
 					if (((Config.ALLOW_REMOTE_CLASS_MASTERS) && (object instanceof L2ClassMasterInstance)) || (object != null) && (object instanceof L2NpcInstance) && (endOfId > 0) && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
 					{
 						((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));

@@ -37,7 +37,7 @@ public class ChatHeroVoice implements IChatHandler
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
 	{
-		if (activeChar.isHero() || activeChar.isGM ())
+		if (activeChar.isHero() || activeChar.isGM())
 		{
 			if (!activeChar.getFloodProtectors().getHeroVoice().tryPerformAction("hero voice") && !activeChar.isGM())
 			{

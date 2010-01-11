@@ -18,23 +18,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javolution.util.FastList;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
 
 import org.apache.commons.logging.Log;
@@ -75,7 +64,7 @@ public class FortResistSiegeManager extends ClanHallSiege
 		_clansDamageInfo = new HashMap<Integer, DamageInfo>();
 		// Schedule siege auto start
 		_startSiegeTask.schedule(1000);
-        }
+	}
 
 	private final ExclusiveTask _endSiegeTask = new ExclusiveTask()
 	{
@@ -97,7 +86,6 @@ public class FortResistSiegeManager extends ClanHallSiege
 			schedule(timeRemaining);
 		}
 	};
-
 	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
 	{
 		@Override
@@ -124,14 +112,11 @@ public class FortResistSiegeManager extends ClanHallSiege
 		if (GameServer._instanceOk)
 		{
 			setIsInProgress(true);
-
 			if (!_clansDamageInfo.isEmpty())
 				_clansDamageInfo.clear();
-
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 30);
 			_endSiegeTask.schedule(1000);
-
 			ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(21);
 			if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
 			{
@@ -141,7 +126,6 @@ public class FortResistSiegeManager extends ClanHallSiege
 			}
 		}
 	}
-
 
 	public void endSiege(boolean type)
 	{

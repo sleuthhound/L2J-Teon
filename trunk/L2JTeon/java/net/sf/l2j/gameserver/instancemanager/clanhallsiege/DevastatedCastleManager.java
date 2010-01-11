@@ -14,28 +14,17 @@
  */
 package net.sf.l2j.gameserver.instancemanager.clanhallsiege;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.DoorTable;
-import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,20 +70,18 @@ public class DevastatedCastleManager extends ClanHallSiege
 		if (GameServer._instanceOk)
 		{
 			setIsInProgress(true);
-		if (!_clansDamageInfo.isEmpty())
-			_clansDamageInfo.clear();
-
+			if (!_clansDamageInfo.isEmpty())
+				_clansDamageInfo.clear();
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 60);
 			_endSiegeTask.schedule(1000);
-
-		ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(34);
-		if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
-		{
-			ClanTable.getInstance().getClan(clanhall.getOwnerId()).broadcastClanStatus();
-			ClanHallManager.getInstance().setFree(clanhall.getId());
-			clanhall.banishForeigners();
-			clanhall.spawnDoor();
+			ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(34);
+			if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
+			{
+				ClanTable.getInstance().getClan(clanhall.getOwnerId()).broadcastClanStatus();
+				ClanHallManager.getInstance().setFree(clanhall.getId());
+				clanhall.banishForeigners();
+				clanhall.spawnDoor();
 			}
 		}
 	}
@@ -167,7 +154,6 @@ public class DevastatedCastleManager extends ClanHallSiege
 			schedule(timeRemaining);
 		}
 	};
-
 	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
 	{
 		@Override

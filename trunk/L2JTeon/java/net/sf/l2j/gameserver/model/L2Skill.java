@@ -51,11 +51,11 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeDmg;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCreateItem;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
-import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignet; 
-import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime; 
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillExitBuffs;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillNeedCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSeed;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignet;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
@@ -115,7 +115,8 @@ public abstract class L2Skill
 		// Summons
 		SUMMON(L2SkillSummon.class), FEED_PET, DEATHLINK_PET, STRSIEGEASSAULT, ERASE, BETRAY,
 		// Cancel
-		CANCEL, MAGE_BANE, WARRIOR_BANE, NEGATE, BUFF, DEBUFF, PASSIVE, CONT, SIGNET(L2SkillSignet.class), SIGNET_CASTTIME(L2SkillSignetCasttime.class), RESURRECT, CHARGE(L2SkillCharge.class), MHOT, CHARGEDAM(L2SkillChargeDmg.class), EXITBUFFS(L2SkillExitBuffs.class), NEEDCHARGE(L2SkillNeedCharge.class), DETECT_WEAKNESS, LUCK, RECALL, SUMMON_FRIEND, REFLECT, SPOIL, SWEEP, FAKE_DEATH, UNBLEED, UNPOISON, UNDEAD_DEFENSE, SEED(L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, ZAKENPLAYER, ZAKENSELF,
+		CANCEL, MAGE_BANE, WARRIOR_BANE, NEGATE, BUFF, DEBUFF, PASSIVE, CONT, SIGNET(L2SkillSignet.class), SIGNET_CASTTIME(L2SkillSignetCasttime.class), RESURRECT, CHARGE(L2SkillCharge.class), MHOT, CHARGEDAM(L2SkillChargeDmg.class), EXITBUFFS(L2SkillExitBuffs.class), NEEDCHARGE(L2SkillNeedCharge.class), DETECT_WEAKNESS, LUCK, RECALL, SUMMON_FRIEND, REFLECT, SPOIL, SWEEP, FAKE_DEATH, UNBLEED, UNPOISON, UNDEAD_DEFENSE, SEED(
+				L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, ZAKENPLAYER, ZAKENSELF,
 		// unimplemented
 		NOTDONE;
 		private final Class<? extends L2Skill> _class;
@@ -201,7 +202,7 @@ public abstract class L2Skill
 	public final static int STAT_HP_CONSUME_RATE = 337; // Rate of hp consume
 	// per skill use
 	public final static int STAT_DANCE_MP_CONSUME_RATE = 338; // rate of mp consume per dance use
-    public final static int STAT_MCRITRATE = 339; // Magic Crit Rate 
+	public final static int STAT_MCRITRATE = 339; // Magic Crit Rate
 	// COMBAT DAMAGE MODIFIER SKILLS...DETECT WEAKNESS AND WEAKNESS/STRENGTH
 	public final static int COMBAT_MOD_ANIMAL = 200;
 	public final static int COMBAT_MOD_BEAST = 201;
@@ -553,25 +554,24 @@ public abstract class L2Skill
 	 */
 	public final double getPower(L2Character activeChar)
 	{
-        if (activeChar == null) 
-            return _power; 
-        
-        switch (_skillType) 
-        {
-        case DEATHLINK: 
-        {
-            if(activeChar.getCurrentHp() / activeChar.getMaxHp() > 0.005) 
-                return _power*(-0.45*Math.log(activeChar.getCurrentHp()/activeChar.getMaxHp())+1.); 
-            else 
-                return _power*(-0.45*Math.log(0.005)+1.); 
-        }
-        case FATALCOUNTER: 
-        {
-            return _power*3.5*(1-activeChar.getCurrentHp()/activeChar.getMaxHp()); 
-        }
-        default: 
-            return _power; 
-        }
+		if (activeChar == null)
+			return _power;
+		switch (_skillType)
+		{
+			case DEATHLINK:
+			{
+				if (activeChar.getCurrentHp() / activeChar.getMaxHp() > 0.005)
+					return _power * (-0.45 * Math.log(activeChar.getCurrentHp() / activeChar.getMaxHp()) + 1.);
+				else
+					return _power * (-0.45 * Math.log(0.005) + 1.);
+			}
+			case FATALCOUNTER:
+			{
+				return _power * 3.5 * (1 - activeChar.getCurrentHp() / activeChar.getMaxHp());
+			}
+			default:
+				return _power;
+		}
 	}
 
 	public final double getPower()
@@ -1037,11 +1037,11 @@ public abstract class L2Skill
 	{
 		return _isHeroSkill;
 	}
-	
-    public final int getNumCharges()
-    {
-        return _numCharges;
-    }
+
+	public final int getNumCharges()
+	{
+		return _numCharges;
+	}
 
 	public final int getBaseCritRate()
 	{
@@ -1246,7 +1246,7 @@ public abstract class L2Skill
 				return new L2Character[] { target };
 			}
 			case TARGET_SELF:
-            case TARGET_GROUND:
+			case TARGET_GROUND:
 			{
 				return new L2Character[] { activeChar };
 			}
@@ -1677,42 +1677,40 @@ public abstract class L2Skill
 				}
 			}
 			case TARGET_PARTY_OTHER:
-            { 
-            	if (target != null && target != activeChar 
-            			&& activeChar.getParty() != null && target.getParty() != null 
-            			&& activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID()) 
-            	{ 
-            		if (!target.isDead()) 
-            		{ 
-            			if (target instanceof L2PcInstance) 
-            			{ 
-            				L2PcInstance player = (L2PcInstance)target; 
-            				switch (getId()) 
-            				{ 
-            				// FORCE BUFFS may cancel here but there should be a proper condition 
-            				case 426:  
-            					if (!player.isMageClass()) 
-            						return new L2Character[]{target}; 
-            					else 
-            						return null; 
-            				case 427: 
-            					if (player.isMageClass()) 
-            						return new L2Character[]{target}; 
-            					else 
-            						return null; 
-            				} 
-            			} 
-            			return new L2Character[]{target}; 
-            		} 
-            		else 
-            			return null; 
-            	} 
-            	else 
-            	{ 
-            		activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT)); 
-            		return null; 
-            	} 
-            }
+			{
+				if (target != null && target != activeChar && activeChar.getParty() != null && target.getParty() != null && activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID())
+				{
+					if (!target.isDead())
+					{
+						if (target instanceof L2PcInstance)
+						{
+							L2PcInstance player = (L2PcInstance) target;
+							switch (getId())
+							{
+								// FORCE BUFFS may cancel here but there should be a proper condition
+								case 426:
+									if (!player.isMageClass())
+										return new L2Character[] { target };
+									else
+										return null;
+								case 427:
+									if (player.isMageClass())
+										return new L2Character[] { target };
+									else
+										return null;
+							}
+						}
+						return new L2Character[] { target };
+					}
+					else
+						return null;
+				}
+				else
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					return null;
+				}
+			}
 			case TARGET_CORPSE_ALLY:
 			case TARGET_ALLY:
 			{
@@ -1800,12 +1798,13 @@ public abstract class L2Skill
 				if (activeChar instanceof L2PlayableInstance)
 				{
 					int radius = getSkillRadius();
-                    L2PcInstance player = null; 
-                    if (activeChar instanceof L2Summon)  
-                        player = ((L2Summon)activeChar).getOwner(); 
-                    else 
-                        player = (L2PcInstance) activeChar; 
-                    if (player == null) return null; 
+					L2PcInstance player = null;
+					if (activeChar instanceof L2Summon)
+						player = ((L2Summon) activeChar).getOwner();
+					else
+						player = (L2PcInstance) activeChar;
+					if (player == null)
+						return null;
 					L2Clan clan = player.getClan();
 					if (player.isInOlympiadMode())
 					{

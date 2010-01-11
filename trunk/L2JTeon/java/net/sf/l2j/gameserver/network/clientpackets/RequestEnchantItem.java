@@ -54,18 +54,17 @@ public final class RequestEnchantItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if ((activeChar == null) || (_objectId == 0))
 			return;
-
 		if (activeChar.isProcessingTransaction())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 			activeChar.setActiveEnchantItem(null);
 			return;
 		}
-		if (activeChar.isOnline() == 0) 
-	    { 
-	        activeChar.setActiveEnchantItem(null); 
-	        return; 
-	    }
+		if (activeChar.isOnline() == 0)
+		{
+			activeChar.setActiveEnchantItem(null);
+			return;
+		}
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
 		L2ItemInstance scroll = activeChar.getActiveEnchantItem();
 		if (item == null || scroll == null)
@@ -120,13 +119,17 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1461;
 				switch (scroll.getItemId())
 				{
-					case 729: case 731: case 6569:
+					case 729:
+					case 731:
+					case 6569:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 730: case 732: case 6570:
+					case 730:
+					case 732:
+					case 6570:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -138,13 +141,17 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1460;
 				switch (scroll.getItemId())
 				{
-					case 947: case 949: case 6571:
+					case 947:
+					case 949:
+					case 6571:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 948: case 950: case 6572:
+					case 948:
+					case 950:
+					case 6572:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -156,13 +163,17 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1459;
 				switch (scroll.getItemId())
 				{
-					case 951: case 953: case 6573:
+					case 951:
+					case 953:
+					case 6573:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 952: case 954: case 6574:
+					case 952:
+					case 954:
+					case 6574:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -174,13 +185,17 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1458;
 				switch (scroll.getItemId())
 				{
-					case 955: case 957: case 6575:
+					case 955:
+					case 957:
+					case 6575:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 956: case 958: case 6576:
+					case 956:
+					case 958:
+					case 6576:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -192,13 +207,17 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				crystalId = 1462;
 				switch (scroll.getItemId())
 				{
-					case 959: case 961: case 6577:
+					case 959:
+					case 961:
+					case 6577:
 						if (itemType2 == L2Item.TYPE2_WEAPON)
 						{
 							enchantItem = true;
 						}
 						break;
-					case 960: case 962: case 6578:
+					case 960:
+					case 962:
+					case 6578:
 						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
 						{
 							enchantItem = true;
@@ -329,7 +348,6 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 			return;
 		}
-
 		if ((item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX) || ((item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR) && (item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL)))
 		{
 			chance = 100;
@@ -372,7 +390,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 					sm.addNumber(item.getEnchantLevel());
 					sm.addItemName(item.getItemId());
 					activeChar.sendPacket(sm);
-				}			
+				}
 				item.setEnchantLevel(item.getEnchantLevel() + 1);
 				item.updateDatabase();
 			}

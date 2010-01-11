@@ -1287,15 +1287,15 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public final void dropMe(L2Character dropper, int x, int y, int z)
 	{
-		if (Config.ASSERT) assert getPosition().getWorldRegion() == null;
-
-        if (Config.GEODATA > 0)
-        {
-                Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
-                x = dropDest.getX();
-                y = dropDest.getY();
-                z = dropDest.getZ();
-        }
+		if (Config.ASSERT)
+			assert getPosition().getWorldRegion() == null;
+		if (Config.GEODATA > 0)
+		{
+			Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
+			x = dropDest.getX();
+			y = dropDest.getY();
+			z = dropDest.getZ();
+		}
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2ItemInstance dropped and update its _worldregion
@@ -1309,7 +1309,8 @@ public final class L2ItemInstance extends L2Object
 		// this can synchronize on others instancies, so it's out of
 		// synchronized, to avoid deadlocks Add the L2ItemInstance dropped in the world as a visible object
 		L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), dropper);
-		if (Config.SAVE_DROPPED_ITEM) ItemsOnGroundManager.getInstance().save(this);
+		if (Config.SAVE_DROPPED_ITEM)
+			ItemsOnGroundManager.getInstance().save(this);
 	}
 
 	/**
@@ -1317,12 +1318,12 @@ public final class L2ItemInstance extends L2Object
 	 */
 	private void updateInDb()
 	{
-		if (Config.ASSERT) assert _existsInDb;
-
-		if (_wear) return;
-
-		if (_storedInDb) return;
-
+		if (Config.ASSERT)
+			assert _existsInDb;
+		if (_wear)
+			return;
+		if (_storedInDb)
+			return;
 		java.sql.Connection con = null;
 		try
 		{
@@ -1367,10 +1368,8 @@ public final class L2ItemInstance extends L2Object
 	{
 		if (_wear)
 			return;
-
 		if (Config.ASSERT)
 			assert !_existsInDb && (getObjectId() != 0);
-
 		java.sql.Connection con = null;
 		try
 		{
@@ -1416,14 +1415,11 @@ public final class L2ItemInstance extends L2Object
 	{
 		if (_wear)
 			return;
-
 		if (Config.ASSERT)
 			assert _existsInDb;
-
 		// delete augmentation data
 		if (isAugmented())
 			_augmentation.deleteAugmentationData();
-
 		java.sql.Connection con = null;
 		try
 		{
@@ -1526,8 +1522,9 @@ public final class L2ItemInstance extends L2Object
 
 	public void setTime(int time)
 	{
-		if (time > 0) _time = time;
-		else 
+		if (time > 0)
+			_time = time;
+		else
 			_time = 0;
 	}
 

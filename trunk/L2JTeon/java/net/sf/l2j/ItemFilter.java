@@ -16,6 +16,7 @@ package net.sf.l2j;
 
 import java.util.logging.Filter;
 import java.util.logging.LogRecord;
+
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 /**

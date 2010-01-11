@@ -170,21 +170,18 @@ public class GameServer
 
 	public GameServer() throws Exception
 	{
-		long serverLoadStart = System.currentTimeMillis(); 
-		
+		long serverLoadStart = System.currentTimeMillis();
 		// Prints General System Info+
 		Util.printSection("L2JTeon Info");
 		L2JTeon.info();
 		gameServer = this;
 		_log.finest("used mem:" + getUsedMemoryMB() + "MB");
-		
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
 		_idFactory = IdFactory.getInstance();
 		_threadpools = ThreadPoolManager.getInstance();
 		new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
-		
 		Util.printSection("World");
 		L2World.getInstance();
 		// load script engines
@@ -200,14 +197,12 @@ public class GameServer
 			throw new Exception("Could not initialize the ID factory");
 		}
 		CharTemplateTable.getInstance();
-
 		Util.printSection("Geodata - Path Finding");
 		GeoData.getInstance();
 		if (Config.GEODATA == 2)
-		{	
+		{
 			GeoPathFinding.getInstance();
 		}
-		
 		Util.printSection("Skills");
 		_skillTable = SkillTable.getInstance();
 		if (!_skillTable.isInitialized())
@@ -231,10 +226,8 @@ public class GameServer
 			BufferSkillsTable.getInstance();
 			CharSchemesTable.getInstance();
 		}
-		
 		Util.printSection("Trade Controller");
 		TradeController.getInstance();
-		
 		Util.printSection("Items");
 		_itemTable = ItemTable.getInstance();
 		if (!_itemTable.isInitialized())
@@ -246,7 +239,6 @@ public class GameServer
 		SummonItemsData.getInstance();
 		ArmorSetsTable.getInstance();
 		FishTable.getInstance();
-		
 		Util.printSection("Henna");
 		_hennaTable = HennaTable.getInstance();
 		if (!_hennaTable.isInitialized())
@@ -258,7 +250,6 @@ public class GameServer
 		{
 			throw new Exception("Could not initialize the Henna Tree Table");
 		}
-		
 		Util.printSection("Npc");
 		_npcTable = NpcTable.getInstance();
 		if (!_npcTable.isInitialized())
@@ -266,31 +257,24 @@ public class GameServer
 			_log.severe("Could not find the extraced files. Please Check Your Data.");
 			throw new Exception("Could not initialize the npc table");
 		}
-		
 		Util.printSection("Spawnlist");
 		SpawnTable.getInstance();
 		RaidBossSpawnManager.getInstance();
 		DayNightSpawnManager.getInstance().notifyChangeMode();
-		
 		Util.printSection("Zones");
 		ZoneManager.getInstance();
 		MapRegionTable.getInstance();
-		
 		Util.printSection("Recipes");
 		RecipeController.getInstance();
-		
 		Util.printSection("Cache");
 		// Call to load caches
 		ChatFilterCache.getInstance();
 		HtmCache.getInstance();
 		CrestCache.getInstance();
-		
 		Util.printSection("Clan");
 		ClanTable.getInstance();
-		
 		Util.printSection("GM Table");
 		GmListTable.getInstance();
-		
 		Util.printSection("Helper Buff Table");
 		_helperBuffTable = HelperBuffTable.getInstance();
 		/**
@@ -302,7 +286,6 @@ public class GameServer
 		{
 			throw new Exception("Could not initialize the Helper Buff Table");
 		}
-		
 		Util.printSection("Castle Sieges - Fortress Sieges");
 		CastleManager.getInstance();
 		SiegeManager.getInstance();
@@ -310,7 +293,6 @@ public class GameServer
 		FortSiegeManager.getInstance();
 		// Load clan hall data before zone data
 		_cHManager = ClanHallManager.getInstance();
-		
 		Util.printSection("Clan Hall Siege");
 		FortResistSiegeManager.getInstance();
 		BanditStrongholdSiege.getInstance();
@@ -323,23 +305,18 @@ public class GameServer
 		{
 			FortressofTheDeadManager.getInstance();
 		}
-		
 		Util.printSection("Teleport");
 		TeleportLocationTable.getInstance();
 		LevelUpData.getInstance();
-		
 		Util.printSection("RaidBosses - GrandBosses");
 		RaidBossPointsManager.init();
 		GrandBossManager.getInstance();
 		FourSepulchersManager.getInstance().init();
 		VanHalterManager.getInstance().init();
-		
 		Util.printSection("Dimensional Rift");
 		DimensionalRiftManager.getInstance();
-		
 		Util.printSection("Announcements");
 		Announcements.getInstance();
-
 		/** Load Manor data */
 		Util.printSection("Manor");
 		L2Manor.getInstance();
@@ -352,13 +329,11 @@ public class GameServer
 		PetitionManager.getInstance();
 		// Init of a cursed weapon manager
 		CursedWeaponsManager.getInstance();
-
 		Util.printSection("Seven Signs Festival");
 		_sevenSignsEngine = SevenSigns.getInstance();
 		SevenSignsFestival.getInstance();
 		// Spawn the Orators/Preachers if in the Seal Validation period.
 		_sevenSignsEngine.spawnSevenSignsNPC();
-
 		Util.printSection("Event Drop");
 		EventDroplist.getInstance();
 		if (Config.SAVE_DROPPED_ITEM)
@@ -378,7 +353,6 @@ public class GameServer
 		}
 		MonsterRace.getInstance();
 		StaticObjects.getInstance();
-
 		Util.printSection("Handlers");
 		AdminCommandHandler.getInstance();
 		AutoAnnouncementHandler.getInstance();
@@ -398,7 +372,6 @@ public class GameServer
 		{
 			GeoEditorListener.getInstance();
 		}
-
 		Util.printSection("Doors");
 		_doorTable = DoorTable.getInstance();
 		_doorTable.parseData();
@@ -424,25 +397,20 @@ public class GameServer
 				e.printStackTrace();
 			}
 		}
-
 		Util.printSection("Augmentation Data");
 		AugmentationData.getInstance();
-		
 		if (Config.ALLOW_AWAY_STATUS)
 		{
 			Util.printSection("Away System");
 			AwayManager.getInstance();
 		}
-
 		Util.printSection("Olympiad");
 		Olympiad.getInstance();
 		Hero.getInstance();
 		TaskManager.getInstance();
 		GmListTable.getInstance();
-
 		_shutdownHandler = Shutdown.getInstance();
 		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
-
 		Util.printSection("Quests - Scripts");
 		QuestManager.getInstance();
 		try
@@ -485,7 +453,6 @@ public class GameServer
 		}
 		QuestManager.getInstance().report();
 		FaenorScriptEngine.getInstance();
-
 		Util.printSection("L2JTeon EventManager");
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
@@ -499,7 +466,6 @@ public class GameServer
 			_log.info("#  L2JTeon KvN Mode is Disabled. #");
 			_log.info("# ------------------------------ #");
 		}
-		
 		Util.printSection("Game Server");
 		ForumsBBSManager.getInstance();
 		System.gc();
@@ -528,7 +494,7 @@ public class GameServer
 		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
 		_selectorThread.openServerSocket();
 		_selectorThread.start();
-		_log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);	
+		_log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		// Start IRC Connection
 		if (Config.IRC_LOAD)
 		{
@@ -540,7 +506,7 @@ public class GameServer
 		{
 			OnlinePlayers.getInstance();
 		}
-		long serverLoadEnd = System.currentTimeMillis(); 
+		long serverLoadEnd = System.currentTimeMillis();
 		_log.info("Server Loaded in " + ((serverLoadEnd - serverLoadStart) / 1000) + " Seconds");
 		Util.printSection("Game Server Started");
 	}

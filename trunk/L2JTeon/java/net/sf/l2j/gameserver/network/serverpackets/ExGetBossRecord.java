@@ -18,7 +18,8 @@ import java.util.Map;
 
 /**
  * Format: ch ddd [ddd]
- * @author  KenM
+ * 
+ * @author KenM
  */
 public class ExGetBossRecord extends L2GameServerPacket
 {
@@ -49,16 +50,16 @@ public class ExGetBossRecord extends L2GameServerPacket
 			writeD(0x00);
 			writeD(0x00);
 			writeD(0x00);
-			writeD(0x00);			
+			writeD(0x00);
 		}
 		else
 		{
-			writeD(_bossRecordInfo.size()); //list size
+			writeD(_bossRecordInfo.size()); // list size
 			for (int bossId : _bossRecordInfo.keySet())
 			{
 				writeD(bossId);
 				writeD(_bossRecordInfo.get(bossId));
-				writeD(0x00); //??
+				writeD(0x00); // ??
 			}
 		}
 	}

@@ -95,17 +95,17 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 		L2WarehouseInstance target = null;
 		if (player.getActiveEnchantItem() != null && target instanceof L2WarehouseInstance)
 		{
-            player.setAccessLevel(-100); 
-            player.setAccountAccesslevel(-100); 
-            Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN); 
-            return; 
+			player.setAccessLevel(-100);
+			player.setAccountAccesslevel(-100);
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+			return;
 		}
 		if (player.getActiveEnchantItem() != null)
 		{
-            player.setAccessLevel(-100); 
-            player.setAccountAccesslevel(-100); 
-            Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN); 
-            return; 
+			player.setAccessLevel(-100);
+			player.setAccountAccesslevel(-100);
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+			return;
 		}
 		// Alt game - Karma punishment
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && (player.getKarma() > 0))

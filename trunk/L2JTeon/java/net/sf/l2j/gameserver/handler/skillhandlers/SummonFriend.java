@@ -108,7 +108,6 @@ public class SummonFriend implements ISkillHandler
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
 			return false;
 		}
-
 		if (targetChar.isInsideZone(L2Character.ZONE_NOSUMMONFRIEND))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IN_SUMMON_BLOCKING_AREA);
@@ -201,14 +200,8 @@ public class SummonFriend implements ISkillHandler
 							continue;
 						}
 						/*
-						 * if (skill.getId() == 1403) // summon friend 
-						 * { 
-						 * // Send message ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId()); 
-						 * confirm.addString(activeChar.getName()); 
-						 * confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ()); 
-						 * confirm.addTime(30000); confirm.addRequesterId(activePlayer.getCharId());
-						 * target.sendPacket(confirm); 
-						 * }
+						 * if (skill.getId() == 1403) // summon friend { // Send message ConfirmDlg confirm = new ConfirmDlg(SystemMessageId.S1_WISHES_TO_SUMMON_YOU_FROM_S2_DO_YOU_ACCEPT.getId()); confirm.addString(activeChar.getName()); confirm.addZoneName(activeChar.getX(), activeChar.getY(), activeChar.getZ()); confirm.addTime(30000); confirm.addRequesterId(activePlayer.getCharId());
+						 * target.sendPacket(confirm); }
 						 */
 						else
 						{
