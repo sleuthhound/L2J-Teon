@@ -1931,6 +1931,9 @@ public final class Config
 				ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponBlessed", "55"));
 				ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorBlessed", "55"));
 				ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryBlessed", "55"));
+				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxAllowedWeapon", "25"));
+				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxAllowedArmor", "25"));
+				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(otherSettings.getProperty("EnchantMaxAllowedJewelry", "25"));
 				
 				ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(otherSettings.getProperty("EnableDwarfEnchantBonus", "False"));
 				DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(otherSettings.getProperty("DwarfEnchantMinLevel", "80"));
@@ -2555,9 +2558,6 @@ public final class Config
 				LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
 				SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
 				GM_OVER_ENCHANT = Integer.parseInt(L2JTeonCustom.getProperty("GMOverEnchant", "26"));
-				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedWeapon", "25"));
-				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedArmor", "25"));
-				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedJewelry", "25"));
 				STARTING_AA = Integer.parseInt(L2JTeonCustom.getProperty("StartingAA", "0"));
 				USE_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UseChatFilter", "False"));
 				USE_POWERFULL_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UsePowerfullChatFilter", "False"));

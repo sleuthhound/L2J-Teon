@@ -240,8 +240,13 @@ public final class UseItem extends L2GameClientPacket
 			_log.finest(activeChar.getObjectId() + ": use item " + _objectId);
 		if (item.isEquipable())
 		{
-			// No unequipping/equipping while the player is in special
-			// conditions
+			if (!activeChar.isGM() && item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON || item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR || item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY)
+			{
+				activeChar.sendMessage("You have been kicked for using an item overenchanted!");
+				activeChar.closeNetConnection();
+				return;
+			}
+			// No unequipping/equipping while the player is in special conditions
 			if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed() || activeChar.isAlikeDead())
 			{
 				activeChar.sendMessage("Your status does not allow you to do that.");
@@ -249,61 +254,62 @@ public final class UseItem extends L2GameClientPacket
 			}
 			int bodyPart = item.getItem().getBodyPart();
 			// Prevent player to remove the weapon on special conditions
-			if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted() || (activeChar._inEventCTF && activeChar._haveFlagCTF)) 
-					&& ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND)))
+			if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted()) && ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND)))
 			{
-                if (activeChar._inEventCTF && activeChar._haveFlagCTF)
-                    activeChar.sendMessage("This item can not be equipped when you have the flag.");
 				return;
 			}
-            switch (bodyPart)
-            {
-                case L2Item.SLOT_LR_HAND:
-                case L2Item.SLOT_L_HAND:
-                case L2Item.SLOT_R_HAND:
-                {
-                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON && !activeChar.isGM())
-                	{
-                		activeChar.setAccountAccesslevel(-100); //ban
-                		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
-                		activeChar.closeNetConnection(); //kick
-                		return;
-                	}
-                	break;
-                }
-                case L2Item.SLOT_CHEST:
-                case L2Item.SLOT_BACK:
-                case L2Item.SLOT_GLOVES:
-                case L2Item.SLOT_FEET:
-                case L2Item.SLOT_HEAD:
-                case L2Item.SLOT_FULL_ARMOR:
-                case L2Item.SLOT_LEGS:
-                {
-                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR && !activeChar.isGM())
-                	{
-                		activeChar.setAccountAccesslevel(-100); //ban
-                		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
-                		activeChar.closeNetConnection(); //kick
-                		return;
-                	}
-                	break;
-                }
-            	case L2Item.SLOT_R_EAR:
-            	case L2Item.SLOT_L_EAR:
-            	case L2Item.SLOT_NECK:
-            	case L2Item.SLOT_R_FINGER:
-            	case L2Item.SLOT_L_FINGER:
-            	{
-                	if(item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY && !activeChar.isGM())
-                	{
-                		activeChar.setAccountAccesslevel(-100); //ban
-                		activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); //message
-                		activeChar.closeNetConnection(); //kick
-                		return;
-                	}
-                	break;
-            	}
-            }
+			if (activeChar._inEventCTF && activeChar._haveFlagCTF && ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND)))
+			{
+			return;
+			}
+			 switch (bodyPart)
+			{
+				case L2Item.SLOT_LR_HAND:
+				case L2Item.SLOT_L_HAND:
+				case L2Item.SLOT_R_HAND:
+				{
+					if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON && !activeChar.isGM())
+					{
+						activeChar.setAccountAccesslevel(-100); // ban
+						activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); // message
+						activeChar.closeNetConnection(); // kick
+						return;
+					}
+					break;
+				}
+				case L2Item.SLOT_CHEST:
+				case L2Item.SLOT_BACK:
+				case L2Item.SLOT_GLOVES:
+				case L2Item.SLOT_FEET:
+				case L2Item.SLOT_HEAD:
+				case L2Item.SLOT_FULL_ARMOR:
+				case L2Item.SLOT_LEGS:
+				{
+					if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR && !activeChar.isGM())
+					{
+						activeChar.setAccountAccesslevel(-100); // ban
+						activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); // message
+						activeChar.closeNetConnection(); // kick
+						return;
+					}
+					break;
+				}
+				case L2Item.SLOT_R_EAR:
+				case L2Item.SLOT_L_EAR:
+				case L2Item.SLOT_NECK:
+				case L2Item.SLOT_R_FINGER:
+				case L2Item.SLOT_L_FINGER:
+				{
+					if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY && !activeChar.isGM())
+					{
+						activeChar.setAccountAccesslevel(-100); // ban
+						activeChar.sendMessage("You have been banned for using an item wich is over enchanted!"); // message
+						activeChar.closeNetConnection(); // kick
+						return;
+					}
+					break;
+				}
+			}
 			// Don't allow weapon/shield equipment if a cursed weapon is equiped
 			if (activeChar.isCursedWeaponEquiped() && ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND) || (itemId == 6408)))
 			// Don't allow to put formal wear
