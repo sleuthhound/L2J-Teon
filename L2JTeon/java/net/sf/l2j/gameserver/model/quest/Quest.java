@@ -47,7 +47,6 @@ import net.sf.l2j.gameserver.scripting.ManagedScript;
 import net.sf.l2j.gameserver.scripting.ScriptManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Rnd;
-//import net.sf.l2j.util.Rnd;
 
 /**
  * @author Luis Arias
@@ -71,12 +70,11 @@ public class Quest extends ManagedScript
 	// In fact, protected will typically be considered private thus breaking the scripts.
 	// Leave this as public as a workaround.
 	public int[] questItemIds = null;
-
 	protected final static String NO_QUEST = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
 	protected final static String QUEST_DONE = "<html><body>This quest has already been completed.</body></html>";
 	protected final static String SOUND_QUEST_START = "ItemSound.quest_accept";
 	protected final static String SOUND_QUEST_MIDDLE = "ItemSound.quest_middle";
-	protected final static String SOUND_QUEST_DONE ="ItemSound.quest_finish";
+	protected final static String SOUND_QUEST_DONE = "ItemSound.quest_finish";
 	protected final static String SOUND_ITEM_GET = "ItemSound.quest_itemget";
 	protected final static String SOUND_GIVEUP = "ItemSound.quest_giveup";
 	protected final static String SOUND_TUTORIAL = "ItemSound.quest_tutorial";
@@ -91,12 +89,9 @@ public class Quest extends ManagedScript
 	protected final static String SOUND_ED_CHIMES05 = "AmdSound.ed_chimes_05";
 	protected final static String SOUND_ARMOR_WOOD_3 = "ItemSound.armor_wood_3";
 	protected final static String SOUND_ITEM_DROP_EQUIP_ARMOR_CLOTH = "ItemSound.item_drop_equip_armor_cloth";
-	
-	
 	protected final static byte CREATED = State.CREATED;
 	protected final static byte STARTED = State.STARTED;
-	protected final static byte COMPLETED = State.COMPLETED;	
-	
+	protected final static byte COMPLETED = State.COMPLETED;
 	boolean altMethodCall = false;
 
 	protected static class Drop
@@ -104,7 +99,6 @@ public class Quest extends ManagedScript
 		public int condition;
 		public int maxcount;
 		public int chance;
-
 		public FastList<Short> itemList = new FastList<Short>();
 
 		public Drop(Integer _condition, Integer _maxcount, Integer _chance)
@@ -129,7 +123,7 @@ public class Quest extends ManagedScript
 		public DropChance(int _item_id, int _chance)
 		{
 			item_id = _item_id;
-			while(_chance > 100)
+			while (_chance > 100)
 			{
 				_chance -= 100;
 				base_count++;
@@ -1327,7 +1321,12 @@ public class Quest extends ManagedScript
 	 * <BR>
 	 * <U><I>Actions :</I></U><BR>
 	 * Use fucntion createQuestVarInDb() with following parameters :<BR>
-	 * <LI>QuestState : parameter sq that puts in fields of database : <UL type="square"> <LI>charId : ID of the player</LI> <LI>name : name of the quest</LI> </UL> </LI> <LI>var : string "&lt;state&gt;" as the name of the variable for the quest</LI> <LI>val : string corresponding at the ID of the state (in fact, initial state)</LI>
+	 * <LI>QuestState : parameter sq that puts in fields of database :
+	 * <UL type="square">
+	 * <LI>charId : ID of the player</LI>
+	 * <LI>name : name of the quest</LI>
+	 * </UL>
+	 * </LI> <LI>var : string "&lt;state&gt;" as the name of the variable for the quest</LI> <LI>val : string corresponding at the ID of the state (in fact, initial state)</LI>
 	 * 
 	 * @param qs
 	 *            : QuestState
@@ -1437,10 +1436,10 @@ public class Quest extends ManagedScript
 
 	public void addKillId(int[] killIds)
 	{
-		for (int id: killIds)
+		for (int id : killIds)
 			addKillId(id);
-	}	
-	
+	}
+
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Talk Events.<BR>
 	 * <BR>
@@ -1456,10 +1455,10 @@ public class Quest extends ManagedScript
 
 	public void addTalkId(int[] talkIds)
 	{
-		for (int id: talkIds)
+		for (int id : talkIds)
 			addTalkId(id);
-	}	
-	
+	}
+
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Spawn Events.<BR>
 	 * <BR>
@@ -1871,7 +1870,6 @@ public class Quest extends ManagedScript
 	{
 		return _onEnterWorld;
 	}
-	
 
 	protected boolean isIntInArray(int i, int[] ia)
 	{
@@ -1880,32 +1878,32 @@ public class Quest extends ManagedScript
 				return true;
 		return false;
 	}
-	
+
 	protected void addQuestItem(int item)
 	{
 		if (questItemIds == null)
 			questItemIds = new int[] { item };
 		else
 		{
-			int []newarr = new int[questItemIds.length+1];
+			int[] newarr = new int[questItemIds.length + 1];
 			System.arraycopy(questItemIds, 0, newarr, 0, questItemIds.length);
 			newarr[questItemIds.length] = item;
 			questItemIds = newarr;
 		}
 	}
-	
-	protected void addQuestItem(int []items)
+
+	protected void addQuestItem(int[] items)
 	{
 		if (questItemIds == null)
 			questItemIds = items;
 		else
 		{
-			int []newarr = new int[questItemIds.length + items.length];
+			int[] newarr = new int[questItemIds.length + items.length];
 			System.arraycopy(questItemIds, 0, newarr, 0, questItemIds.length);
 			System.arraycopy(items, 0, newarr, questItemIds.length, items.length);
 			questItemIds = newarr;
 		}
-	}	
+	}
 
 	public void setAltMethodCall(boolean altMethodCall)
 	{

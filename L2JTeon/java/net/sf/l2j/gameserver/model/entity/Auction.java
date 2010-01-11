@@ -198,7 +198,6 @@ public class Auction
 		_highestBidderId = 0;
 		_highestBidderName = "";
 		_highestBidderMaxBid = 0;
-
 		java.sql.Connection con = null;
 		try
 		{

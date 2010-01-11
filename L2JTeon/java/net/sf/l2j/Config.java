@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import net.sf.l2j.gameserver.util.FloodProtectorConfig;
 import net.sf.l2j.gameserver.util.StringUtil;
 
@@ -94,7 +94,6 @@ public final class Config
 	public static String SERVER_VERSION;
 	public static String SERVER_BUILD_DATE;
 	public static String DATAPACK_VERSION;
-	
 	// FLOODPROTECTOR_CONFIG_FILE BY DANIELMWX
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_USE_ITEM = new FloodProtectorConfig("UseItemFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_ROLL_DICE = new FloodProtectorConfig("RollDiceFloodProtector");
@@ -114,7 +113,6 @@ public final class Config
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_CHAT = new FloodProtectorConfig("ChatFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_GLOBAL = new FloodProtectorConfig("GlobalFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_POTION = new FloodProtectorConfig("PotionFloodProtector");
-	
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
@@ -122,7 +120,7 @@ public final class Config
 	public static boolean AUTO_LEARN_SKILLS;
 	public static int ALT_PARTY_RANGE;
 	public static int ALT_PARTY_RANGE2;
-    public static double ALT_WEIGHT_LIMIT; 
+	public static double ALT_WEIGHT_LIMIT;
 	public static boolean ALT_RECOMMEND;
 	public static boolean ALT_GAME_DELEVEL;
 	public static boolean ALT_GAME_MAGICFAILURES;
@@ -716,34 +714,34 @@ public final class Config
 	public static int MAX_CHARACTERS_NUMBER_PER_ACCOUNT;
 	/** ************************************************** */
 	/** L2J Teon Mods Customizations -Begin * */
-	/** ************************************************** */	
+	/** ************************************************** */
 	// * TVT Event Engine *//
-    public static String TVT_EVEN_TEAMS;
-    public static boolean TVT_ALLOW_INTERFERENCE;
-    public static boolean TVT_ALLOW_POTIONS;
-    public static boolean TVT_ALLOW_SUMMON;
-    public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
-    public static boolean TVT_ON_START_UNSUMMON_PET;
-    public static boolean TVT_REVIVE_RECOVERY;
-    public static boolean TVT_ANNOUNCE_TEAM_STATS;
-    public static boolean TVT_PRICE_NO_KILLS;
-    public static boolean TVT_JOIN_CURSED;
+	public static String TVT_EVEN_TEAMS;
+	public static boolean TVT_ALLOW_INTERFERENCE;
+	public static boolean TVT_ALLOW_POTIONS;
+	public static boolean TVT_ALLOW_SUMMON;
+	public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
+	public static boolean TVT_ON_START_UNSUMMON_PET;
+	public static boolean TVT_REVIVE_RECOVERY;
+	public static boolean TVT_ANNOUNCE_TEAM_STATS;
+	public static boolean TVT_PRICE_NO_KILLS;
+	public static boolean TVT_JOIN_CURSED;
 	// * CTF Event Engine *//
-    public static String CTF_EVEN_TEAMS;
-    public static boolean CTF_ALLOW_INTERFERENCE;
-    public static boolean CTF_ALLOW_POTIONS;
-    public static boolean CTF_ALLOW_SUMMON;
-    public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
-    public static boolean CTF_ON_START_UNSUMMON_PET;
-    public static boolean CTF_ANNOUNCE_TEAM_STATS;
-    public static boolean CTF_JOIN_CURSED;
-    public static boolean CTF_REVIVE_RECOVERY;
+	public static String CTF_EVEN_TEAMS;
+	public static boolean CTF_ALLOW_INTERFERENCE;
+	public static boolean CTF_ALLOW_POTIONS;
+	public static boolean CTF_ALLOW_SUMMON;
+	public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
+	public static boolean CTF_ON_START_UNSUMMON_PET;
+	public static boolean CTF_ANNOUNCE_TEAM_STATS;
+	public static boolean CTF_JOIN_CURSED;
+	public static boolean CTF_REVIVE_RECOVERY;
 	// * DM Event Engine *//
-    public static boolean DM_ALLOW_INTERFERENCE;
-    public static boolean DM_ALLOW_POTIONS;
-    public static boolean DM_ALLOW_SUMMON;
-    public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
-    public static boolean DM_ON_START_UNSUMMON_PET;
+	public static boolean DM_ALLOW_INTERFERENCE;
+	public static boolean DM_ALLOW_POTIONS;
+	public static boolean DM_ALLOW_SUMMON;
+	public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
+	public static boolean DM_ON_START_UNSUMMON_PET;
 	// * Raid Event Engine *//
 	public static boolean RAID_SYSTEM_ENABLED;
 	public static int RAID_SYSTEM_MAX_EVENTS;
@@ -808,11 +806,9 @@ public final class Config
 	public static boolean ALLOW_PVP_REWARD;
 	public static int PVP_REWARD_ITEM;
 	public static int PVP_REWARD_COUNT;
-
 	public static boolean ALLOW_PK_REWARD;
 	public static int PK_REWARD_ITEM;
 	public static int PK_REWARD_COUNT;
-	
 	// ** Colored pvp name system ** //
 	public static boolean PVP_COLOR_SYSTEM_ENABLED;
 	/** Colored pvp name system */
@@ -858,7 +854,6 @@ public final class Config
 	/** Colored pk name system */
 	public static int TITLE_COLOR_FOR_PK_AMOUNT5;
 	/** Colored pk name system */
-	
 	// * Baby Pets Customizations *//
 	/** Can Baby Pets Grow Up? * */
 	public static boolean BABY_PETS_CAN_GROWUP;
@@ -959,7 +954,7 @@ public final class Config
 	/** Remote class Master By Danielmwx **/
 	public static boolean ALLOW_REMOTE_CLASS_MASTERS;
 	/** L2Walker protectio Master By Danielmwx **/
-	public static boolean   ALLOW_L2WALKER_PROTECTION;
+	public static boolean ALLOW_L2WALKER_PROTECTION;
 	/**
 	 * Config option allowing server administrators/owners the ability to set a title for new players.
 	 */
@@ -1231,7 +1226,7 @@ public final class Config
 	public static boolean CUSTOM_MERCHANT_TABLES;
 	/** Disable Dual Boxing on Olympiads */
 	public static boolean DISABLE_OLY_DUALBOX;
-    public static int OLY_ENCHANT_LIMIT;
+	public static int OLY_ENCHANT_LIMIT;
 	public static boolean OLYMPIAD_ALLOW_AUTO_SS;
 	public static boolean OLYMPIAD_GIVE_ACUMEN_MAGES;
 	public static boolean OLYMPIAD_GIVE_HASTE_FIGHTERS;
@@ -1314,13 +1309,11 @@ public final class Config
 	public static int AUGMENTATION_HIGH_GLOW_CHANCE;
 	public static int AUGMENTATION_TOP_SKILL_CHANCE;
 	public static int AUGMENTATION_TOP_GLOW_CHANCE;
-	
 	public static float SK_FIG;
 	public static float SK_MAG;
 	public static float AP_FIG;
 	public static float CP_MAG;
 	public static float M_TK;
-	
 	/** Multiplies stay time in boss room. */
 	public static float RIFT_BOSS_ROOM_TIME_MUTIPLY;
 	/***************************************************************************
@@ -1332,11 +1325,13 @@ public final class Config
 	public static int FS_TIME_WARMUP;
 	public static int FS_PARTY_MEMBER_COUNT;
 	/*******************************************
-	/** ClanHallSiege Settings **/
+	 * /** ClanHallSiege Settings
+	 **/
 	/** ************************************************** **/
 	public static boolean DEVASTATED_CASTLE_ENABLED;
 	public static boolean FORTRESS_OF_THE_DEAD_ENABLED;
-	/** **************************************************
+	/**
+	 * **************************************************
 	 **/
 	/** General Settings -Begin **/
 	/** ************************************************** **/
@@ -1508,7 +1503,7 @@ public final class Config
 				ALT_GAME_FREIGHT_PRICE = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
 				ALT_PARTY_RANGE = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
 				ALT_PARTY_RANGE2 = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
-                ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1"));
+				ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1"));
 				IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "True"));
 				AUTO_LOOT = Boolean.valueOf(altSettings.getProperty("AutoLoot", "True"));
 				AUTO_LOOT_HERBS = Boolean.valueOf(altSettings.getProperty("AutoLootHerbs", "True"));
@@ -1934,7 +1929,6 @@ public final class Config
 				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxAllowedWeapon", "25"));
 				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxAllowedArmor", "25"));
 				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(otherSettings.getProperty("EnchantMaxAllowedJewelry", "25"));
-				
 				ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(otherSettings.getProperty("EnableDwarfEnchantBonus", "False"));
 				DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(otherSettings.getProperty("DwarfEnchantMinLevel", "80"));
 				DWARF_ENCHANT_BONUS = Integer.parseInt(otherSettings.getProperty("DwarfEnchantBonus", "15"));
@@ -2030,8 +2024,6 @@ public final class Config
 				DEVASTATED_CASTLE_ENABLED = Boolean.valueOf(General.getProperty("DevastatedCastleEnabled", "False"));
 				/** Fortress of The Dead */
 				FORTRESS_OF_THE_DEAD_ENABLED = Boolean.valueOf(General.getProperty("FortressofTheDeadEnabled", "False"));
-
-
 				FAILD_FAKEDEATH = Boolean.parseBoolean(General.getProperty("FaildFakeDeath", "True"));
 				/** L2J NPC Buffer by House */
 				NPCBUFFER_FEATURE_ENABLED = Boolean.valueOf(General.getProperty("NPCBufferEnabled", "False"));
@@ -2058,8 +2050,7 @@ public final class Config
 				OLYMPIAD_ACUMEN_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadAcumenLvl", "1"));
 				OLYMPIAD_HASTE_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadHasteLvl", "2"));
 				DISABLE_OLY_DUALBOX = Boolean.valueOf(OlympiadSettings.getProperty("DisableOlyDualBox", "False"));
-                OLY_ENCHANT_LIMIT = Integer.parseInt(OlympiadSettings.getProperty("OlyMaxEnchant", "-1")); 
-
+				OLY_ENCHANT_LIMIT = Integer.parseInt(OlympiadSettings.getProperty("OlyMaxEnchant", "-1"));
 			}
 			catch (Exception e)
 			{
@@ -2150,14 +2141,12 @@ public final class Config
 				InputStream is = new FileInputStream(new File(DEV_CONFIG_FILE));
 				Dev.load(is);
 				is.close();
-				
 				SK_FIG = Float.parseFloat(Dev.getProperty("Skfig", "1.0"));
 				SK_MAG = Float.parseFloat(Dev.getProperty("Skmag", "1.0"));
 				AP_FIG = Float.parseFloat(Dev.getProperty("Apfig", "1.0"));
 				CP_MAG = Float.parseFloat(Dev.getProperty("Cpmag", "1.0"));
 				M_TK = Float.parseFloat(Dev.getProperty("Mtk", "1.0"));
 			}
-			
 			catch (Exception e)
 			{
 				e.printStackTrace();
@@ -2277,44 +2266,41 @@ public final class Config
 				L2JTeonEventMods.load(is);
 				is.close();
 				// -------------------- //
-				//   TVT Event Engine   //
+				// TVT Event Engine //
 				// -------------------- //
-		        TVT_EVEN_TEAMS = L2JTeonEventMods.getProperty("TvTEvenTeams", "BALANCE");
-		        TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowInterference", "False"));
-		        TVT_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowPotions", "False"));
-		        TVT_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowSummon", "False"));
-		        TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartRemoveAllEffects", "True"));
-		        TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartUnsummonPet", "True"));
-		        TVT_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTReviveRecovery", "False"));
-		        TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtAnnounceTeamStats", "False"));
-		        TVT_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtPriceNoKills", "False"));
-		        TVT_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtJoinWithCursedWeapon", "True"));
-
+				TVT_EVEN_TEAMS = L2JTeonEventMods.getProperty("TvTEvenTeams", "BALANCE");
+				TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowInterference", "False"));
+				TVT_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowPotions", "False"));
+				TVT_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTAllowSummon", "False"));
+				TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartRemoveAllEffects", "True"));
+				TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTOnStartUnsummonPet", "True"));
+				TVT_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTReviveRecovery", "False"));
+				TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtAnnounceTeamStats", "False"));
+				TVT_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtPriceNoKills", "False"));
+				TVT_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtJoinWithCursedWeapon", "True"));
 				// -------------------- //
-				//   CTF Event Engine   //
+				// CTF Event Engine //
 				// -------------------- //
-		        CTF_EVEN_TEAMS = L2JTeonEventMods.getProperty("CTFEvenTeams", "BALANCE");
-		        CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "False"));
-		        CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "False"));
-		        CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowSummon", "False"));
-		        CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartRemoveAllEffects", "True"));
-		        CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartUnsummonPet", "True"));
-		        CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAnnounceTeamStats", "False"));
-		        CTF_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFJoinWithCursedWeapon", "True"));
-		        CTF_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFReviveRecovery", "False"));
-
+				CTF_EVEN_TEAMS = L2JTeonEventMods.getProperty("CTFEvenTeams", "BALANCE");
+				CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowInterference", "False"));
+				CTF_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowPotions", "False"));
+				CTF_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAllowSummon", "False"));
+				CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartRemoveAllEffects", "True"));
+				CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFOnStartUnsummonPet", "True"));
+				CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFAnnounceTeamStats", "False"));
+				CTF_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFJoinWithCursedWeapon", "True"));
+				CTF_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("CTFReviveRecovery", "False"));
 				// -------------------- //
-				//   DM Event Engine    //
+				// DM Event Engine //
 				// -------------------- //
-		        DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowInterference", "False"));
-		        DM_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowPotions", "False"));
-		        DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "False"));
-		        DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "True"));
-		        DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "True"));
-
-		        // -------------------- //
-		        //      KvN Engine      //
-		        // -------------------- //
+				DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowInterference", "False"));
+				DM_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowPotions", "False"));
+				DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "False"));
+				DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "True"));
+				DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "True"));
+				// -------------------- //
+				// KvN Engine //
+				// -------------------- //
 				ENABLE_FACTION_KOOFS_NOOBS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FactionKoofsNoobs", "False"));
 				KOOFS_NAME_TEAM = L2JTeonEventMods.getProperty("KoofsTeamName", "koofs");
 				NOOBS_NAME_TEAM = L2JTeonEventMods.getProperty("NoobsTeamName", "noobs");
@@ -2328,9 +2314,8 @@ public final class Config
 				ADENA_NUMBER_LOST_ON_DIE = Integer.parseInt(L2JTeonEventMods.getProperty("AmmountAdenaLostWhenDies", "1"));
 				ALT_ANNOUNCE_PK = Boolean.parseBoolean(L2JTeonEventMods.getProperty("NoticePK", "False"));
 				FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("AnnounceTimeFaction", "0"));
-
 				// -------------------- //
-				//    Rebith System     //
+				// Rebith System //
 				// -------------------- //
 				REBIRTH_ITEM = Integer.parseInt(L2JTeonEventMods.getProperty("RebirthItemId", "0"));
 				REBIRTH_SKILL1 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill1", "0"));
@@ -2353,9 +2338,8 @@ public final class Config
 				REBIRTH_SKILL9_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL9", "0"));
 				REBIRTH_SKILL10 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill10", "0"));
 				REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL10", "0"));
-
 				// -------------------- //
-				//  RAID Event Engine   //
+				// RAID Event Engine //
 				// -------------------- //
 				RAID_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidEnginesEnabled", "False"));
 				RAID_SYSTEM_GIVE_BUFFS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("RaidGiveBuffs", "True"));
@@ -2367,9 +2351,8 @@ public final class Config
 					RAID_SYSTEM_ENABLED = false;
 					System.out.println("Raid Engine[Config.load()]: Invalid config property: Max Events = 0?!");
 				}
-
 				// -------------------- //
-				//    Wedding System    //
+				// Wedding System //
 				// -------------------- //
 				ALLOW_WEDDING = Boolean.valueOf(L2JTeonEventMods.getProperty("AllowWedding", "True"));
 				WEDDING_PRICE = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingPrice", "500000"));
@@ -2378,9 +2361,8 @@ public final class Config
 				WEDDING_TELEPORT_PRICE = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingTeleportPrice", "500000"));
 				WEDDING_TELEPORT_INTERVAL = Integer.parseInt(L2JTeonEventMods.getProperty("WeddingTeleportInterval", "120"));
 				WEDDING_SAMESEX = Boolean.parseBoolean(L2JTeonEventMods.getProperty("WeddingAllowSameSex", "False"));
-				
 				// -------------------- //
-				//    Champion Mods     //
+				// Champion Mods //
 				// -------------------- //
 				CHAMPION_ENABLE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("ChampionEnable", "False"));
 				CHAMPION_FREQUENCY = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionFrequency", "0"));
@@ -2428,7 +2410,6 @@ public final class Config
 				ALLOW_REMOTE_CLASS_MASTERS = Boolean.valueOf(L2JTeonCustom.getProperty("AllowRemoteClassMasters", "False"));
 				/** L2Walker Protection by Danielmwx **/
 				ALLOW_L2WALKER_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("L2WalkerProtection", "False"));
-				
 				ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("TradeOffCommand", "False"));
 				ONLINE_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("OnlineVCommand", "False"));
 				// **************************//
@@ -2466,7 +2447,6 @@ public final class Config
 				CUSTOM_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("CustomRunSpeed", "0"));
 				KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepBuffsOnDeath", "False"));
 				DEATH_PENALTY_CHANCE = Integer.parseInt(L2JTeonCustom.getProperty("DeathPenaltyChance", "20"));
-
 				SET_LVL_ON_START = Boolean.parseBoolean(L2JTeonCustom.getProperty("SetHighLevelOnStart", "False"));
 				HIGH_LEVEL_ON_START_FOR_SUBCLASS = Boolean.parseBoolean(L2JTeonCustom.getProperty("HighLevelOnStartForSubclass", "True"));
 				CUSTOM_STARTER_ITEMS_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomStarterItemsEnabled", "False"));
@@ -3396,10 +3376,10 @@ public final class Config
 		{
 			ALT_GAME_CREATION_SP_RATE = Double.parseDouble(pValue);
 		}
-        else if (pName.equalsIgnoreCase("AltWeightLimit")) 
-        {
-        	ALT_WEIGHT_LIMIT = Double.parseDouble(pValue); 
-        }
+		else if (pName.equalsIgnoreCase("AltWeightLimit"))
+		{
+			ALT_WEIGHT_LIMIT = Double.parseDouble(pValue);
+		}
 		else if (pName.equalsIgnoreCase("AltBlacksmithUseRecipes"))
 		{
 			ALT_BLACKSMITH_USE_RECIPES = Boolean.valueOf(pValue);
@@ -3661,10 +3641,10 @@ public final class Config
 		{
 			WEDDING_DIVORCE_COSTS = Integer.parseInt(pValue);
 		}
-        else if (pName.equalsIgnoreCase("CTFEvenTeams"))  
-        {
-        	CTF_EVEN_TEAMS = pValue;
-        }
+		else if (pName.equalsIgnoreCase("CTFEvenTeams"))
+		{
+			CTF_EVEN_TEAMS = pValue;
+		}
 		else if (pName.equalsIgnoreCase("CTFAllowInterference"))
 		{
 			CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
@@ -3685,13 +3665,16 @@ public final class Config
 		{
 			CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
 		}
-		
-        else if (pName.equalsIgnoreCase("DMAllowInterference")) DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
-        else if (pName.equalsIgnoreCase("DMAllowPotions")) DM_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
-        else if (pName.equalsIgnoreCase("DMAllowSummon")) DM_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
-        else if (pName.equalsIgnoreCase("DMOnStartRemoveAllEffects")) DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
-        else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet")) DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
-		
+		else if (pName.equalsIgnoreCase("DMAllowInterference"))
+			DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("DMAllowPotions"))
+			DM_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("DMAllowSummon"))
+			DM_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("DMOnStartRemoveAllEffects"))
+			DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet"))
+			DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("MinKarma"))
 		{
 			KARMA_MIN_KARMA = Integer.parseInt(pValue);
@@ -3798,7 +3781,7 @@ public final class Config
 		}
 		return true;
 	}
-	
+
 	private static void loadFloodProtectorConfigs(final Properties properties)
 	{
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_USE_ITEM, "UseItem", "4");

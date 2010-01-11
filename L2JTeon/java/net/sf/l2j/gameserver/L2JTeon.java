@@ -42,8 +42,8 @@ public class L2JTeon
 		_log.info("               #     #     #  #      #    #       #    #  #   ##               ");
 		_log.info("               ##### ##### ####      #    #####    ####   #    #               ");
 		_log.info("-------------------------------------------------------------------------------");
-		_log.info("                         L2J Teon Core Version:     " + Config.SERVER_VERSION   );
-		_log.info("                         L2J Teon DataPack Version: " + Config.DATAPACK_VERSION );
+		_log.info("                         L2J Teon Core Version:     " + Config.SERVER_VERSION);
+		_log.info("                         L2J Teon DataPack Version: " + Config.DATAPACK_VERSION);
 		_log.info("                         Have Fun With Our Software!                           ");
 		_log.info("-------------------------------------------------------------------------------");
 	}

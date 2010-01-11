@@ -115,9 +115,9 @@ public class Siege
 	{
 		All, Attacker, DefenderNotOwner, Owner, Spectator
 	}
-	
-    private int _controlTowerCount; 
-    private int _controlTowerMaxCount; 
+
+	private int _controlTowerCount;
+	private int _controlTowerMaxCount;
 
 	// ===============================================================
 	// Schedule task
@@ -422,10 +422,10 @@ public class Siege
 				removeDefenderFlags(); // Removes defenders' flags
 				getCastle().removeUpgrade(); // Remove all castle upgrade
 				getCastle().spawnDoor(true); // Respawn door to castle but
-                removeControlTower(); // Remove all control tower from this castle                 
-                _controlTowerCount = 0;//Each new siege midvictory CT are completely respawned. 
-                _controlTowerMaxCount = 0;     
-                spawnControlTower(getCastle().getCastleId()); 
+				removeControlTower(); // Remove all control tower from this castle
+				_controlTowerCount = 0;// Each new siege midvictory CT are completely respawned.
+				_controlTowerMaxCount = 0;
+				spawnControlTower(getCastle().getCastleId());
 				// make them weaker (50% hp)
 				updatePlayerSiegeStateFlags(false);
 			}
@@ -462,8 +462,8 @@ public class Siege
 			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town);
 			// Teleport to the closest town teleportPlayer(Siege.TeleportWhoType.Spectator,
 			// MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-            _controlTowerCount = 0; 
-            _controlTowerMaxCount = 0;             
+			_controlTowerCount = 0;
+			_controlTowerMaxCount = 0;
 			spawnArtifact(getCastle().getCastleId()); // Spawn artifact
 			spawnControlTower(getCastle().getCastleId()); // Spawn control tower
 			getCastle().spawnDoor(); // Spawn door
@@ -785,9 +785,9 @@ public class Siege
 	/** Control Tower was skilled */
 	public void killedCT(L2NpcInstance ct)
 	{
-        _controlTowerCount--; 
-        if (_controlTowerCount < 0) 
-        	_controlTowerCount = 0; 
+		_controlTowerCount--;
+		if (_controlTowerCount < 0)
+			_controlTowerCount = 0;
 	}
 
 	/** Remove the flag that was killed */
@@ -979,8 +979,8 @@ public class Siege
 				break;
 			default:
 				players = getPlayersInZone();
-		};
-
+		}
+		;
 		for (L2PcInstance player : players)
 		{
 			if (player.isGM() || player.isInJail())
@@ -1418,8 +1418,8 @@ public class Siege
 			ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), template);
 			ct.setCurrentHpMp(ct.getMaxHp(), ct.getMaxMp());
 			ct.spawnMe(_sp.getLocation().getX(), _sp.getLocation().getY(), _sp.getLocation().getZ() + 20);
-            _controlTowerCount++; 
-            _controlTowerMaxCount++; 
+			_controlTowerCount++;
+			_controlTowerMaxCount++;
 			_controlTowers.add(ct);
 		}
 	}
@@ -1606,9 +1606,9 @@ public class Siege
 		}
 		return _siegeGuardManager;
 	}
-	
-    public int getControlTowerCount() 
-    {
-        return _controlTowerCount;
-    }
+
+	public int getControlTowerCount()
+	{
+		return _controlTowerCount;
+	}
 }

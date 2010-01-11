@@ -59,11 +59,11 @@ public class Fishing implements ISkillHandler
 		 */
 		int rnd = Rnd.get(200) + 200;
 		double angle = Util.convertHeadingToDegree(player.getHeading());
-        double radian = Math.toRadians(angle); 
+		double radian = Math.toRadians(angle);
 		double sin = Math.sin(radian);
 		double cos = Math.cos(radian);
-        int x1 = (int)(cos * rnd); 
-        int y1 = (int)(sin * rnd); 
+		int x1 = (int) (cos * rnd);
+		int y1 = (int) (sin * rnd);
 		int x = player.getX() + x1;
 		int y = player.getY() + y1;
 		int z = player.getZ() - 30;

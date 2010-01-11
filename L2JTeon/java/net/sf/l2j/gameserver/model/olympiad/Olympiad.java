@@ -239,7 +239,8 @@ public class Olympiad
 							Thread.sleep(1000);
 						}
 						catch (InterruptedException e)
-						{}
+						{
+						}
 					}
 					// Checking for openents and teleporting to arena
 					if (!checkStatus())
@@ -253,7 +254,8 @@ public class Olympiad
 						Thread.sleep(5000);
 					}
 					catch (InterruptedException e)
-					{}
+					{
+					}
 					synchronized (this)
 					{
 						if (!_battleStarted)
@@ -277,7 +279,8 @@ public class Olympiad
 								Thread.sleep(5000);
 							}
 							catch (InterruptedException e)
-							{}
+							{
+							}
 						}
 					}
 					_game.additions();
@@ -289,7 +292,8 @@ public class Olympiad
 							Thread.sleep(1000);
 						}
 						catch (InterruptedException e)
-						{}
+						{
+						}
 					}
 					if (!checkStatus())
 					{
@@ -307,7 +311,8 @@ public class Olympiad
 								spec.sendPacket(new ExOlympiadUserInfoSpectator(_game._playerOne, 1));
 							}
 							catch (NullPointerException e)
-							{}
+							{
+							}
 						}
 					}
 					_game.makeCompetitionStart();
@@ -322,7 +327,8 @@ public class Olympiad
 								break;
 						}
 						catch (InterruptedException e)
-						{}
+						{
+						}
 					}
 					if (!checkStatus())
 					{
@@ -365,7 +371,8 @@ public class Olympiad
 						spec.sendPacket(sm);
 					}
 					catch (NullPointerException e)
-					{}
+					{
+					}
 				}
 			}
 		}
@@ -464,31 +471,9 @@ public class Olympiad
 		}
 	}
 
-	protected static final Stadia[] STADIUMS = 
-	{
-		new Stadia(-20814, -21189, -3030), 
-		new Stadia(-120324, -225077, -3331), 
-		new Stadia(-102495, -209023, -3331), 
-		new Stadia(-120156, -207378, -3331), 
-		new Stadia(-87628, -225021, -3331), 
-		new Stadia(-81705, -213209, -3331), 
-		new Stadia(-87593, -207339, -3331), 
-		new Stadia(-93709, -218304, -3331), 
-		new Stadia(-77157, -218608, -3331),
-		new Stadia(-69682, -209027, -3331), 
-		new Stadia(-76887, -201256, -3331), 
-		new Stadia(-109985, -218701, -3331), 
-		new Stadia(-126367, -218228, -3331), 
-		new Stadia(-109629, -201292, -3331), 
-		new Stadia(-87523, -240169, -3331), 
-		new Stadia(-81748, -245950, -3331), 
-		new Stadia(-77123, -251473, -3331), 
-		new Stadia(-69778, -241801, -3331), 
-		new Stadia(-76754, -234014, -3331),
-		new Stadia(-93742, -251032, -3331), 
-		new Stadia(-87466, -257752, -3331), 
-		new Stadia(-114413, -213241, -3331)
-	};
+	protected static final Stadia[] STADIUMS = { new Stadia(-20814, -21189, -3030), new Stadia(-120324, -225077, -3331), new Stadia(-102495, -209023, -3331), new Stadia(-120156, -207378, -3331), new Stadia(-87628, -225021, -3331), new Stadia(-81705, -213209, -3331), new Stadia(-87593, -207339, -3331), new Stadia(-93709, -218304, -3331), new Stadia(-77157, -218608, -3331),
+			new Stadia(-69682, -209027, -3331), new Stadia(-76887, -201256, -3331), new Stadia(-109985, -218701, -3331), new Stadia(-126367, -218228, -3331), new Stadia(-109629, -201292, -3331), new Stadia(-87523, -240169, -3331), new Stadia(-81748, -245950, -3331), new Stadia(-77123, -251473, -3331), new Stadia(-69778, -241801, -3331), new Stadia(-76754, -234014, -3331),
+			new Stadia(-93742, -251032, -3331), new Stadia(-87466, -257752, -3331), new Stadia(-114413, -213241, -3331) };
 
 	private static enum COMP_TYPE
 	{
@@ -966,7 +951,8 @@ public class Olympiad
 									Thread.sleep(60000);
 								}
 								catch (InterruptedException e)
-								{}
+								{
+								}
 							}
 							save();
 						}
@@ -1416,7 +1402,8 @@ public class Olympiad
 				result = true;
 		}
 		if (!_inCompPeriod)
-		{}
+		{
+		}
 		else
 		{
 			for (L2OlympiadGame game : _manager.getOlympiadGames().values())
@@ -1530,7 +1517,8 @@ public class Olympiad
 						wait(60000);
 					}
 					catch (InterruptedException ex)
-					{}
+					{
+					}
 					continue;
 				}
 				// _compStarted = true;
@@ -1647,7 +1635,8 @@ public class Olympiad
 						wait(30000);
 					}
 					catch (InterruptedException e)
-					{}
+					{
+					}
 				}
 				// wait 30 sec for !stress the server
 				try
@@ -1655,7 +1644,8 @@ public class Olympiad
 					wait(30000);
 				}
 				catch (InterruptedException e)
-				{}
+				{
+				}
 			}
 			// when comp time finish wait for all games terminated before execute the cleanup code
 			boolean allGamesTerminated = false;
@@ -2055,7 +2045,8 @@ public class Olympiad
 					}
 				}
 				catch (Exception e)
-				{}
+				{
+				}
 			}
 		}
 
@@ -2118,7 +2109,8 @@ public class Olympiad
 					player.sendPacket(_sm);
 			}
 			catch (Exception e)
-			{}
+			{
+			}
 		}
 
 		protected void portPlayersBack()
@@ -2162,7 +2154,8 @@ public class Olympiad
 					player.sendSkillList();
 				}
 				catch (Exception e)
-				{}
+				{
+				}
 			}
 		}
 
@@ -2309,7 +2302,8 @@ public class Olympiad
 					_playerOne.sendPacket(sm);
 				}
 				catch (Exception e)
-				{}
+				{
+				}
 			}
 			else if (_playerOne.isOnline() == 0 || (playerOneHp == 0 && playerTwoHp != 0) || (_playerTwo.dmgDealt > _playerOne.dmgDealt && playerOneHp != 0 && playerTwoHp != 0))
 			{
@@ -2338,7 +2332,8 @@ public class Olympiad
 					_playerTwo.sendPacket(sm);
 				}
 				catch (Exception e)
-				{}
+				{
+				}
 			}
 			else
 			{
@@ -2363,7 +2358,8 @@ public class Olympiad
 					Thread.sleep(5000);
 				}
 				catch (InterruptedException e)
-				{}
+				{
+				}
 			}
 			for (int i = 5; i > 0; i--)
 			{
@@ -2375,7 +2371,8 @@ public class Olympiad
 					Thread.sleep(1000);
 				}
 				catch (InterruptedException e)
-				{}
+				{
+				}
 			}
 		}
 
@@ -2417,7 +2414,8 @@ public class Olympiad
 					}
 				}
 				catch (Exception e)
-				{}
+				{
+				}
 			}
 		}
 
@@ -2510,7 +2508,8 @@ public class Olympiad
 						pc.leaveOlympiadObserverMode();
 					}
 					catch (NullPointerException e)
-					{}
+					{
+					}
 				}
 				_spectators.clear();
 			}
@@ -2524,7 +2523,8 @@ public class Olympiad
 				_playerTwo.sendPacket(sm);
 			}
 			catch (Exception e)
-			{}
+			{
+			}
 			if (toAll && _spectators != null)
 			{
 				for (L2PcInstance spec : _spectators)
@@ -2534,7 +2534,8 @@ public class Olympiad
 						spec.sendPacket(sm);
 					}
 					catch (NullPointerException e)
-					{}
+					{
+					}
 				}
 			}
 		}

@@ -12,12 +12,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package  net.sf.l2j.gameserver.util;
+package net.sf.l2j.gameserver.util;
 
-import net.sf.l2j.gameserver.util.FloodProtectorAction;
-
-import  net.sf.l2j.Config;
-import  net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Collection of flood protectors for single player.
@@ -96,7 +94,7 @@ public final class FloodProtectors
 	private final FloodProtectorAction _global;
 	/**
 	 * Potion Flood Protector.
-	 */	
+	 */
 	private final FloodProtectorAction _potion;
 
 	/**
@@ -197,7 +195,7 @@ public final class FloodProtectors
 	{
 		return _dropItem;
 	}
-	
+
 	/**
 	 * Returns {@link #_wnk}.
 	 * 
@@ -297,6 +295,7 @@ public final class FloodProtectors
 	{
 		return _global;
 	}
+
 	/**
 	 * Returns {@link #_potion}.
 	 * 

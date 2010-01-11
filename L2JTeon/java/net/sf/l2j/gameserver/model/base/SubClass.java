@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.model.base;
 /**
  * Character Sub-Class Definition <BR>
  * Used to store key information about a character's sub-class.
+ * 
  * @author Tempy
  */
 public final class SubClass
@@ -87,7 +88,6 @@ public final class SubClass
 	{
 		if (expValue > Experience.LEVEL[Experience.MAX_LEVEL])
 			expValue = Experience.LEVEL[Experience.MAX_LEVEL];
-
 		_exp = expValue;
 	}
 
@@ -107,7 +107,6 @@ public final class SubClass
 			levelValue = Experience.MAX_LEVEL - 1;
 		else if (levelValue < 40)
 			levelValue = 40;
-
 		_level = levelValue;
 	}
 
@@ -115,7 +114,6 @@ public final class SubClass
 	{
 		if (getLevel() == Experience.MAX_LEVEL - 1)
 			return;
-
 		_level++;
 		setExp(Experience.LEVEL[getLevel()]);
 	}
@@ -124,7 +122,6 @@ public final class SubClass
 	{
 		if (getLevel() == 40)
 			return;
-
 		_level--;
 		setExp(Experience.LEVEL[getLevel()]);
 	}

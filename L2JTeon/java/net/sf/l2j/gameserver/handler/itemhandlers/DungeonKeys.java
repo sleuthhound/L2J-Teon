@@ -33,26 +33,21 @@ import net.sf.l2j.util.Rnd;
 public class DungeonKeys implements IItemHandler
 {
 	private static final int[] ITEM_IDS = { 8273, 8274, 8275, 8056 };
-
 	public static final int INTERACTION_DISTANCE = 100;
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
-
-		if (!(playable instanceof L2PcInstance)) return;
-
+		if (!(playable instanceof L2PcInstance))
+			return;
 		L2PcInstance activeChar = (L2PcInstance) playable;
-
 		L2Object target = activeChar.getTarget();
-
 		if (!(target instanceof L2DoorInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
 		L2DoorInstance door = (L2DoorInstance) target;
 		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)))
 		{
@@ -60,18 +55,15 @@ public class DungeonKeys implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
 		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You cannot use the key now.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
 		int openChance = 35;
-
-		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) return;
-
+		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+			return;
 		switch (itemId)
 		{
 			case 8056: // Gate of Splendor

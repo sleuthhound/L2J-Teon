@@ -84,8 +84,8 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.services.WindowService;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
-import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.Util;
+
 /**
  * Enter World Packet Handler
  * <p>
@@ -290,7 +290,6 @@ public class EnterWorld extends L2GameClientPacket
 		// restore info about chat ban
 		activeChar.checkBanChat(false);
 		// restore info about auto herbs loot
-
 		// Color System checks - Start =====================================================
 		// Check if the custom PvP and PK color systems are enabled and if so ==============
 		// check the character's counters and apply any color changes that must be done. ===
@@ -299,7 +298,6 @@ public class EnterWorld extends L2GameClientPacket
 		if (activeChar.getPkKills() >= (Config.PK_AMOUNT1) && (Config.PK_COLOR_SYSTEM_ENABLED))
 			activeChar.updatePkColor(activeChar.getPkKills());
 		// Color System checks - End =======================================================
-
 		if (Config.ALLOW_AUTOHERBS_CMD)
 			activeChar.getAutoLootHerbs();
 		// restore info about withdraw state
@@ -440,17 +438,12 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
 		}
 		RegionBBSManager.getInstance().changeCommunityBoard();
-		
-        if (TvT._savePlayers.contains(activeChar.getName()))
-            TvT.addDisconnectedPlayer(activeChar);
-
-
-     	if (CTF._savePlayers.contains(activeChar.getName()))
-     	    CTF.addDisconnectedPlayer(activeChar);
-         
-         if (DM._savePlayers.contains(activeChar.getName()))
-             DM.addDisconnectedPlayer(activeChar);
-         
+		if (TvT._savePlayers.contains(activeChar.getName()))
+			TvT.addDisconnectedPlayer(activeChar);
+		if (CTF._savePlayers.contains(activeChar.getName()))
+			CTF.addDisconnectedPlayer(activeChar);
+		if (DM._savePlayers.contains(activeChar.getName()))
+			DM.addDisconnectedPlayer(activeChar);
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		if (Config.ALLOW_REMOTE_CLASS_MASTERS)
 		{
@@ -462,8 +455,8 @@ public class EnterWorld extends L2GameClientPacket
 			else if (activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
 		}
-		
 	}
+
 	/**
 	 * @param activeChar
 	 */
@@ -570,15 +563,10 @@ public class EnterWorld extends L2GameClientPacket
 			clan.broadcastToOtherOnlineMembers(msg, activeChar);
 			msg = null;
 			clan.broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(activeChar), activeChar);
-            if (clan.isNoticeEnabled()) 
-            {
-                sendPacket(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">" + 
-                        activeChar.getClan().getName() + 
-                        "</font> <font color=\"6655FF\">Clan Alert Message</font></center><br>" + 
-                        "<img src=\"L2UI.SquareWhite\" width=270 height=1><br>" + 
-                        activeChar.getClan().getNotice().replaceAll("\r\n", "<br>") +  
-                "</body></html>")); 
-            }
+			if (clan.isNoticeEnabled())
+			{
+				sendPacket(new NpcHtmlMessage(1, "<html><title>Clan Announcements</title><body><br><center><font color=\"CCAA00\">" + activeChar.getClan().getName() + "</font> <font color=\"6655FF\">Clan Alert Message</font></center><br>" + "<img src=\"L2UI.SquareWhite\" width=270 height=1><br>" + activeChar.getClan().getNotice().replaceAll("\r\n", "<br>") + "</body></html>"));
+			}
 		}
 	}
 

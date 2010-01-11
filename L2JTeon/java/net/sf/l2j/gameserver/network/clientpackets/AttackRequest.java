@@ -63,8 +63,8 @@ public final class AttackRequest extends L2GameClientPacket
 		// Update next commit
 		// if (!activeChar.getFloodProtectors().getActionMwx().tryPerformAction("_objectId"))
 		// {
-		//	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-		//	return;
+		// activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		// return;
 		// }
 		if (target == null)
 			return;

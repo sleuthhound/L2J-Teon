@@ -229,7 +229,7 @@ public abstract class Inventory extends ItemContainer
 				passiveSkill = ((L2Weapon) it).getSkill();
 				// Remove augmentation bonuses on unequip
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
-				   item.getAugmentation().removeBonus((L2PcInstance)getOwner());
+					item.getAugmentation().removeBonus((L2PcInstance) getOwner());
 				enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
 				if ((it.getItemId() == 9140) || (it.getItemId() == 9141))
 				{
@@ -239,7 +239,6 @@ public abstract class Inventory extends ItemContainer
 				}
 			}
 			else if (it instanceof L2Armor)
-
 				passiveSkill = ((L2Armor) it).getSkill();
 			if (passiveSkill != null)
 			{
@@ -267,12 +266,10 @@ public abstract class Inventory extends ItemContainer
 			L2Item it = item.getItem();
 			if (it instanceof L2Weapon)
 			{
-                // Apply augmentation bonuses on equip
-                if (item.isAugmented() && getOwner() instanceof L2PcInstance)
-                    item.getAugmentation().applyBonus((L2PcInstance)getOwner());
-
-			    passiveSkill = ((L2Weapon) it).getSkill();
-
+				// Apply augmentation bonuses on equip
+				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
+					item.getAugmentation().applyBonus((L2PcInstance) getOwner());
+				passiveSkill = ((L2Weapon) it).getSkill();
 				if (item.getEnchantLevel() >= 4)
 					enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
 				if ((it.getItemId() == 9140) || (it.getItemId() == 9141))
@@ -283,7 +280,6 @@ public abstract class Inventory extends ItemContainer
 				}
 			}
 			else if (it instanceof L2Armor)
-
 				passiveSkill = ((L2Armor) it).getSkill();
 			if (passiveSkill != null)
 			{
@@ -488,7 +484,6 @@ public abstract class Inventory extends ItemContainer
 		{
 			if (!_items.contains(item))
 				return null;
-
 			removeItem(item);
 			item.setOwnerId(process, 0, actor, reference);
 			item.setLocation(ItemLocation.VOID);
@@ -517,10 +512,8 @@ public abstract class Inventory extends ItemContainer
 	public L2ItemInstance dropItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByObjectId(objectId);
-
 		if (item == null)
 			return null;
-
 		// Adjust item quantity and create new instance to drop
 		if (item.getCount() > count)
 		{

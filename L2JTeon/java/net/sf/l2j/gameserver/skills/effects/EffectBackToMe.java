@@ -19,62 +19,63 @@ import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 
-final class EffectBackToMe extends L2Effect {
+final class EffectBackToMe extends L2Effect
+{
+	public EffectBackToMe(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    public EffectBackToMe(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
-
-    @Override
+	@Override
 	public EffectType getEffectType()
-    {
-        return EffectType.BACKTOME;
-    }
+	{
+		return EffectType.BACKTOME;
+	}
 
-    @Override
+	@Override
 	public void onStart()
-    {
-        getEffected().startFear();
-    	if(getEffected() instanceof L2FolkInstance) return;
-    	if(getEffected() instanceof L2SiegeGuardInstance) return;
-    	if(getEffected() instanceof L2NpcInstance && ((L2NpcInstance)getEffected()).getNpcId() == 35062 || getSkill().getId() != 358) return;
+	{
+		getEffected().startFear();
+		if (getEffected() instanceof L2FolkInstance)
+			return;
+		if (getEffected() instanceof L2SiegeGuardInstance)
+			return;
+		if (getEffected() instanceof L2NpcInstance && ((L2NpcInstance) getEffected()).getNpcId() == 35062 || getSkill().getId() != 358)
+			return;
+		if (getEffected() instanceof L2SiegeSummonInstance)
+		{
+			return;
+		}
+		int posX = getEffected().getX();
+		int posY = getEffected().getY();
+		int posZ = getEffected().getZ();
+		int signx = -1;
+		int signy = -1;
+		if (getEffected().getX() > getEffector().getX())
+			signx = 1;
+		if (getEffected().getY() > getEffector().getY())
+			signy = 1;
+		getEffected().setRunning();
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX + (signx * 40), posY + (signy * 40), posZ, 0));
+		getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
+		getEffected().setTarget(null);
+		onActionTime();
+	}
 
-    	if(getEffected() instanceof L2SiegeSummonInstance)
-    	{
-    		return;
-    	}
-        int posX = getEffected().getX();
-        int posY = getEffected().getY();
-        int posZ = getEffected().getZ();
-        int signx=-1;
-        int signy=-1;
-        if (getEffected().getX()>getEffector().getX())
-            signx=1;
-        if (getEffected().getY()>getEffector().getY())
-            signy=1;
-
-        getEffected().setRunning();
-        getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
-                              new L2CharPosition(posX +(signx*40),posY + (signy*40),posZ,0));
-        getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
-        getEffected().setTarget(null);
-        onActionTime();
-    }
-    @Override
+	@Override
 	public void onExit()
-    {
-        getEffected().stopFear(this);
+	{
+		getEffected().stopFear(this);
+	}
 
-    }
-    @Override
+	@Override
 	public boolean onActionTime()
-    {
-        return false;
-    }
+	{
+		return false;
+	}
 }

@@ -12,11 +12,9 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 /**
  * @author Forsaiken
  */
-
 package net.sf.l2j.gameserver.skills.l2skills;
 
 import net.sf.l2j.gameserver.model.L2Character;
@@ -29,20 +27,18 @@ public final class L2SkillSignetCasttime extends L2Skill
 	public int _effectNpcId;
 	public int effectId;
 
-    public L2SkillSignetCasttime(StatsSet set)
-    {
-        super(set);
-        _effectNpcId = set.getInteger("effectNpcId", -1);
-        effectId = set.getInteger("effectId", -1);
-    }
-    
-    @Override
+	public L2SkillSignetCasttime(StatsSet set)
+	{
+		super(set);
+		_effectNpcId = set.getInteger("effectNpcId", -1);
+		effectId = set.getInteger("effectId", -1);
+	}
+
+	@Override
 	public void useSkill(L2Character caster, L2Object[] targets)
-    {
-        if (caster.isAlikeDead())
-            return;
-        
-        getEffectsSelf(caster);
-    }
-    
+	{
+		if (caster.isAlikeDead())
+			return;
+		getEffectsSelf(caster);
+	}
 }

@@ -101,13 +101,13 @@ public class GeoData
 		// Don't allow casting on players on different dungeon lvls etc
 		return Math.abs(target.getZ() - cha.getZ()) < 1000;
 	}
-	
-    public boolean canSeeTarget(L2Object cha, Point3D worldPosition) 
-    {
-        //If geo is off do simple check :] 
-        //Don't allow casting on players on different dungeon lvls etc 
-        return Math.abs(worldPosition.getZ() - cha.getZ()) < 1000; 
-    }
+
+	public boolean canSeeTarget(L2Object cha, Point3D worldPosition)
+	{
+		// If geo is off do simple check :]
+		// Don't allow casting on players on different dungeon lvls etc
+		return Math.abs(worldPosition.getZ() - cha.getZ()) < 1000;
+	}
 
 	/**
 	 * @param cha

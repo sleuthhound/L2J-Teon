@@ -70,14 +70,17 @@ public final class Util
 		}
 		return angleTarget;
 	}
-	
-    public static int calculateHeadingFrom(L2Object obj1, L2Object obj2) { return calculateHeadingFrom(obj1.getX(), obj1.getY(), obj2.getX(), obj2.getY()); } 
-    
-    public static int calculateHeadingFrom(int obj1X, int obj1Y, int obj2X, int obj2Y) 
-    {
-        return (int)(Math.atan2(obj1Y - obj2Y, obj1X - obj2X)*10430.38 + 32768); 
-    }
-    
+
+	public static int calculateHeadingFrom(L2Object obj1, L2Object obj2)
+	{
+		return calculateHeadingFrom(obj1.getX(), obj1.getY(), obj2.getX(), obj2.getY());
+	}
+
+	public static int calculateHeadingFrom(int obj1X, int obj1Y, int obj2X, int obj2Y)
+	{
+		return (int) (Math.atan2(obj1Y - obj2Y, obj1X - obj2X) * 10430.38 + 32768);
+	}
+
 	public static double calculateDistance(int x1, int y1, int z1, int x2, int y2)
 	{
 		return calculateDistance(x1, y1, 0, x2, y2, 0, false);

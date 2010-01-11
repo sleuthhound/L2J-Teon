@@ -78,16 +78,16 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 		catch (BufferUnderflowException e)
 		{
 			// ignore for now
-		if(Config.ALLOW_L2WALKER_PROTECTION)
-		{
-			L2PcInstance activeChar = getClient().getActiveChar();
-		activeChar.sendPacket(SystemMessageId.HACKING_TOOL);
-		Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " Tried to Use L2Walker And Got Kicked", IllegalPlayerAction.PUNISH_KICK);
+			if (Config.ALLOW_L2WALKER_PROTECTION)
+			{
+				L2PcInstance activeChar = getClient().getActiveChar();
+				activeChar.sendPacket(SystemMessageId.HACKING_TOOL);
+				Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " Tried to Use L2Walker And Got Kicked", IllegalPlayerAction.PUNISH_KICK);
+			}
 		}
-		}
-		}
-	
-		@Override
+	}
+
+	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();

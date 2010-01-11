@@ -12,14 +12,14 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package  net.sf.l2j.gameserver.util;
+package net.sf.l2j.gameserver.util;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import  net.sf.l2j.gameserver.GameTimeController;
-import  net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.GameTimeController;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Flood protector implementation.

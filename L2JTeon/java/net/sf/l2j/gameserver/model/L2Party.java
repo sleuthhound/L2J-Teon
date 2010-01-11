@@ -317,14 +317,15 @@ public class L2Party
 				DuelManager.getInstance().onRemoveFromParty(player);
 			try
 			{
-                if (player.getForceBuff() != null) 
-                    player.abortCast(); 
-                
-                for (L2Character character : player.getKnownList().getKnownCharacters()) 
-                    if (character.getForceBuff() != null && character.getForceBuff().getTarget() == player) 
-                        character.abortCast(); 
+				if (player.getForceBuff() != null)
+					player.abortCast();
+				for (L2Character character : player.getKnownList().getKnownCharacters())
+					if (character.getForceBuff() != null && character.getForceBuff().getTarget() == player)
+						character.abortCast();
 			}
-            catch (Exception e){} 
+			catch (Exception e)
+			{
+			}
 			if (isInDimensionalRift())
 				_dr.partyMemberExited(player);
 			// check party size

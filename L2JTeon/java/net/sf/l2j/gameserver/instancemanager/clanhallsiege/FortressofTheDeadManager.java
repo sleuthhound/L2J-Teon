@@ -17,29 +17,17 @@ package net.sf.l2j.gameserver.instancemanager.clanhallsiege;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.GameServer;
-import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.DoorTable;
-import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
 import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
-import net.sf.l2j.gameserver.network.SystemChatChannelId;
-import net.sf.l2j.gameserver.network.serverpackets.CreatureSay2;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -174,7 +162,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		{
 			L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
 		}
-			return null;
+		return null;
 	}
 
 	public void setRegistrationPeriod(boolean par)
@@ -265,7 +253,6 @@ public class FortressofTheDeadManager extends ClanHallSiege
 			schedule(timeRemaining);
 		}
 	};
-
 	private final ExclusiveTask _endSiegeTask = new ExclusiveTask()
 	{
 		@Override
@@ -292,16 +279,16 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		setIsInProgress(true);
 		for (String clanName : getRegisteredClans())
 		{
-		clan = ClanTable.getInstance().getClanByName(clanName);
-		DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
-		if (clanDamage != null)
-			clanDamage._damage += damage;
-		else
-		{
-			clanDamage = new DamageInfo();
-			clanDamage._clan = clan;
-			clanDamage._damage += damage;
-			_clansDamageInfo.put(clan.getClanId(), clanDamage);
+			clan = ClanTable.getInstance().getClanByName(clanName);
+			DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
+			if (clanDamage != null)
+				clanDamage._damage += damage;
+			else
+			{
+				clanDamage = new DamageInfo();
+				clanDamage._clan = clan;
+				clanDamage._damage += damage;
+				_clansDamageInfo.put(clan.getClanId(), clanDamage);
 			}
 		}
 	}

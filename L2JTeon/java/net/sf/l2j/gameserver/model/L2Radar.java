@@ -101,24 +101,34 @@ public final class L2Radar
 			}
 		}
 	}
-   public class RadarOnPlayer implements Runnable{
-    	private final L2PcInstance _myTarget, _me;
-    	public RadarOnPlayer(L2PcInstance target, L2PcInstance me){
-    		_me = me;
-    		_myTarget = target;
-    	}
-    	public void run(){
-    		try{
-    		if (_me == null || _me.isOnline()==0)
-    			return;
-    		_me.sendPacket(new RadarControl(1, 1, _me.getX(), _me.getY(), _me.getZ()));
-    		if (_myTarget == null || _myTarget.isOnline()==0 || !_myTarget._haveFlagCTF){
-    			return;
-    		}
-    		_me.sendPacket(new RadarControl(0, 1, _myTarget.getX(), _myTarget.getY(), _myTarget.getZ()));
-    		ThreadPoolManager.getInstance().scheduleGeneral(new RadarOnPlayer(_myTarget,_me), 15000);
-    		}catch(Throwable t)
-    		{}
-    	}
-    }    
+
+	public class RadarOnPlayer implements Runnable
+	{
+		private final L2PcInstance _myTarget, _me;
+
+		public RadarOnPlayer(L2PcInstance target, L2PcInstance me)
+		{
+			_me = me;
+			_myTarget = target;
+		}
+
+		public void run()
+		{
+			try
+			{
+				if (_me == null || _me.isOnline() == 0)
+					return;
+				_me.sendPacket(new RadarControl(1, 1, _me.getX(), _me.getY(), _me.getZ()));
+				if (_myTarget == null || _myTarget.isOnline() == 0 || !_myTarget._haveFlagCTF)
+				{
+					return;
+				}
+				_me.sendPacket(new RadarControl(0, 1, _myTarget.getX(), _myTarget.getY(), _myTarget.getZ()));
+				ThreadPoolManager.getInstance().scheduleGeneral(new RadarOnPlayer(_myTarget, _me), 15000);
+			}
+			catch (Throwable t)
+			{
+			}
+		}
+	}
 }

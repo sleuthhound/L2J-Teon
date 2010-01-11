@@ -107,12 +107,12 @@ public class Potions implements IItemHandler
 			return;
 		}
 		// Flood Protector for Delay Potion's By: Meyknho
-        if (!activeChar.getFloodProtectors().getPotion().tryPerformAction("potion")) 
-        {
-        	activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE));
-        	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-            return;
-        }
+		if (!activeChar.getFloodProtectors().getPotion().tryPerformAction("potion"))
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE));
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		int itemId = item.getItemId();
 		switch (itemId)
 		{

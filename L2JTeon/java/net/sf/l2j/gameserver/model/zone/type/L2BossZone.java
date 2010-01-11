@@ -93,14 +93,8 @@ public class L2BossZone extends L2ZoneType
 
 	@Override
 	/*
-	 * Boss zones have special behaviors for player characters. Players are automatically teleported out when the
-	 * attempt to enter these zones, except if the time at which they enter the zone is prior to the entry
-	 * expiration time set for that player. Entry expiration times are set by any one of the following:
-	 * 1) A player logs out while in a zone (Expiration gets set to logoutTime + _timeInvade)
-	 * 2) An external source (such as a quest or AI of NPC) set up the player for entry.
-	 * There exists one more case in which the player will be allowed to enter. That is if the
-	 * server recently rebooted (boot-up time more recent than currentTime - _timeInvade) AND the
-	 * player was in the zone prior to reboot.
+	 * Boss zones have special behaviors for player characters. Players are automatically teleported out when the attempt to enter these zones, except if the time at which they enter the zone is prior to the entry expiration time set for that player. Entry expiration times are set by any one of the following: 1) A player logs out while in a zone (Expiration gets set to logoutTime + _timeInvade) 2)
+	 * An external source (such as a quest or AI of NPC) set up the player for entry. There exists one more case in which the player will be allowed to enter. That is if the server recently rebooted (boot-up time more recent than currentTime - _timeInvade) AND the player was in the zone prior to reboot.
 	 */
 	protected void onEnter(L2Character character)
 	{
@@ -372,17 +366,17 @@ public class L2BossZone extends L2ZoneType
 		}
 		return;
 	}
-	// When the player has been annihilated, the player is banished from the lair.
 
+	// When the player has been annihilated, the player is banished from the lair.
 	protected void aOnEnter(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
 		{
-		L2PcInstance player = (L2PcInstance) character;
+			L2PcInstance player = (L2PcInstance) character;
 			if (player.isGM())
 			{
 				if (_zoneName.equalsIgnoreCase("AltarofSacrifice"))
-					VanHalterManager.getInstance().intruderDetection((L2PcInstance)character);
+					VanHalterManager.getInstance().intruderDetection((L2PcInstance) character);
 			}
 		}
 	}

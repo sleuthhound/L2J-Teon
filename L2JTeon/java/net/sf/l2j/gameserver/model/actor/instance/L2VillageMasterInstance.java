@@ -275,10 +275,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-					}					
+					}
 					content.append("Change Subclass:<br>Which of the following sub classes would you like to change?<br>");
 					int classIndex = 1;
-
 					for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 					{
 						SubClass subClass = subList.next();
@@ -289,7 +288,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					content.append("<br>If you change a sub class, you'll start at level 40 after the 2nd class transfer.");
 					break;
 				case 4: // Add Subclass - Action (Subclass 4 x[x])
-					boolean allowAddition = true;				
+					boolean allowAddition = true;
 					/*
 					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice.
 					 */
@@ -417,7 +416,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					}
 					content.append("Please choose a sub class to change to. If the one you are looking for is not here, " + "please seek out the appropriate master for that class.<br>" + "<font color=\"LEVEL\">Warning!</font> All classes and skills for this class will be removed.<br><br>");
 					subsAvailable = getAvailableSubClasses(player);
-
 					if ((subsAvailable != null) && !subsAvailable.isEmpty())
 					{
 						for (PlayerClass subClass : subsAvailable)
@@ -508,24 +506,19 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	{
 		if (Config.DEBUG)
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested dissolve a clan from " + getObjectId() + "(" + getName() + ")");
-
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
 			return;
 		}
-		/*  
-		* Until proper clan leader change support is done, this is a little 
-		* exploit fix (leader, while fliying wyvern changes clan leader and the new leader 
-		* can ride the wyvern too) 
-		* DrHouse 
-		*/ 
-		if (player.isFlying()) 
-		{ 
-			player.sendMessage("Please, stop flying"); 
-			return; 
+		/*
+		 * Until proper clan leader change support is done, this is a little exploit fix (leader, while fliying wyvern changes clan leader and the new leader can ride the wyvern too) DrHouse
+		 */
+		if (player.isFlying())
+		{
+			player.sendMessage("Please, stop flying");
+			return;
 		}
-
 		L2Clan clan = player.getClan();
 		if (clan.getAllyId() != 0)
 		{
@@ -613,10 +606,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			player.sendPacket(new SystemMessage(SystemMessageId.INVITED_USER_NOT_ONLINE));
 			return;
 		}
-		if (player.isFlying()) 
-		{ 
-			player.sendMessage("Please, stop flying"); 
-			return; 
+		if (player.isFlying())
+		{
+			player.sendMessage("Please, stop flying");
+			return;
 		}
 		clan.setNewLeader(member, player);
 	}

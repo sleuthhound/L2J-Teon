@@ -70,10 +70,8 @@ public final class UseItem extends L2GameClientPacket
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-
-        if (activeChar.getActiveTradeList() != null)
-            activeChar.cancelActiveTrade();
-
+		if (activeChar.getActiveTradeList() != null)
+			activeChar.cancelActiveTrade();
 		// NOTE: disabled due to deadlocks
 		// synchronized (activeChar.getInventory())
 		// {
@@ -171,42 +169,40 @@ public final class UseItem extends L2GameClientPacket
 		// Items that cannot be used
 		if (itemId == 57)
 			return;
-		
-        L2Weapon curwep = activeChar.getActiveWeaponItem();
-        if (curwep != null)
-        {
-            if ((curwep.getItemType() == L2WeaponType.DUAL) && (item.getItemType() == L2WeaponType.NONE))
-                { 
-                    activeChar.sendMessage("You are not allowed to do this.");
-                    return; 
-                }
-            else if ((curwep.getItemType() == L2WeaponType.BOW) && (item.getItemType() == L2WeaponType.NONE))
-            { 
-                activeChar.sendMessage("You are not allowed to do this.");
-                return; 
-            }
-            else if ((curwep.getItemType() == L2WeaponType.BIGBLUNT) && (item.getItemType() == L2WeaponType.NONE))
-            { 
-                activeChar.sendMessage("You are not allowed to do this.");
-                return; 
-            }
-            else if ((curwep.getItemType() == L2WeaponType.BIGSWORD) && (item.getItemType() == L2WeaponType.NONE))
-            { 
-                activeChar.sendMessage("You are not allowed to do this.");
-                return; 
-            }
-            else if ((curwep.getItemType() == L2WeaponType.POLE) && (item.getItemType() == L2WeaponType.NONE))
-            { 
-                activeChar.sendMessage("You are not allowed to do this.");
-                return; 
-            }
-            else if ((curwep.getItemType() == L2WeaponType.DUALFIST) && (item.getItemType() == L2WeaponType.NONE))
-            { 
-                activeChar.sendMessage("You are not allowed to do this.");
-                return; 
-            }
-        }
-
+		L2Weapon curwep = activeChar.getActiveWeaponItem();
+		if (curwep != null)
+		{
+			if ((curwep.getItemType() == L2WeaponType.DUAL) && (item.getItemType() == L2WeaponType.NONE))
+			{
+				activeChar.sendMessage("You are not allowed to do this.");
+				return;
+			}
+			else if ((curwep.getItemType() == L2WeaponType.BOW) && (item.getItemType() == L2WeaponType.NONE))
+			{
+				activeChar.sendMessage("You are not allowed to do this.");
+				return;
+			}
+			else if ((curwep.getItemType() == L2WeaponType.BIGBLUNT) && (item.getItemType() == L2WeaponType.NONE))
+			{
+				activeChar.sendMessage("You are not allowed to do this.");
+				return;
+			}
+			else if ((curwep.getItemType() == L2WeaponType.BIGSWORD) && (item.getItemType() == L2WeaponType.NONE))
+			{
+				activeChar.sendMessage("You are not allowed to do this.");
+				return;
+			}
+			else if ((curwep.getItemType() == L2WeaponType.POLE) && (item.getItemType() == L2WeaponType.NONE))
+			{
+				activeChar.sendMessage("You are not allowed to do this.");
+				return;
+			}
+			else if ((curwep.getItemType() == L2WeaponType.DUALFIST) && (item.getItemType() == L2WeaponType.NONE))
+			{
+				activeChar.sendMessage("You are not allowed to do this.");
+				return;
+			}
+		}
 		if (activeChar.isFishing() && ((itemId < 6535) || (itemId > 6540)))
 		{
 			// You cannot do anything else while fishing
@@ -260,9 +256,9 @@ public final class UseItem extends L2GameClientPacket
 			}
 			if (activeChar._inEventCTF && activeChar._haveFlagCTF && ((bodyPart == L2Item.SLOT_LR_HAND) || (bodyPart == L2Item.SLOT_L_HAND) || (bodyPart == L2Item.SLOT_R_HAND)))
 			{
-			return;
+				return;
 			}
-			 switch (bodyPart)
+			switch (bodyPart)
 			{
 				case L2Item.SLOT_LR_HAND:
 				case L2Item.SLOT_L_HAND:
@@ -430,7 +426,7 @@ public final class UseItem extends L2GameClientPacket
 						activeChar.addSkill(SkillTable.getInstance().getInfo(3261, 1));
 					else
 						activeChar.addSkill(SkillTable.getInstance().getInfo(3260, 0));
-						activeChar.addSkill(SkillTable.getInstance().getInfo(3262, 0));
+					activeChar.addSkill(SkillTable.getInstance().getInfo(3262, 0));
 				}
 				items = activeChar.getInventory().equipItemAndRecord(item);
 				// Consume mana - will start a task if required; returns if item is not a shadow item
