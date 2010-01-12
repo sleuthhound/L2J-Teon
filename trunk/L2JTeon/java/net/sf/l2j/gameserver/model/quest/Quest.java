@@ -48,6 +48,7 @@ import net.sf.l2j.gameserver.scripting.ScriptManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Rnd;
 
+//import net.sf.l2j.util.Rnd;
 /**
  * @author Luis Arias
  */

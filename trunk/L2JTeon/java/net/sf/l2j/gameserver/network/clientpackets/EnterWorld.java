@@ -83,7 +83,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.services.WindowService;
-import net.sf.l2j.gameserver.templates.L2EtcItemType;
+import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.util.Util;
 
 /**
@@ -128,28 +128,6 @@ public class EnterWorld extends L2GameClientPacket
 			if (Config.DEBUG)
 				_log.warning("User already exist in OID map! User " + activeChar.getName() + " is character clone");
 			// activeChar.closeNetConnection();
-		}
-		for (L2ItemInstance i : activeChar.getInventory().getItems())
-		{
-			if (i.getItemType() != L2EtcItemType.PET_COLLAR)
-			{
-				if (!activeChar.isGM())
-				{
-					if (i.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON || i.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR || i.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY)
-					{
-						// Delete Item Over enchanted
-						activeChar.getInventory().destroyItem(null, i, activeChar, null);
-						// Message to Player
-						activeChar.sendMessage("[Server]:You have Items over enchanted you will be kikked!");
-						// If Audit is only a Kick, with this the player goes in Jail for 1.200 minutes
-						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
-						// Punishment e log in audit
-						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
-						// Log in console
-						_log.info("Overenchanted item {" + i + "} has been removed from " + activeChar.getName() + ".");
-					}
-				}
-			}
 		}
 		if (activeChar.isGM())
 		{
@@ -454,6 +432,65 @@ public class EnterWorld extends L2GameClientPacket
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
 			else if (activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+		}
+		// check for over enchant
+		for (L2ItemInstance i : activeChar.getInventory().getItems())
+		{
+			if (i.isEquipable() && !activeChar.isGM() || !i.isEquipable() && !activeChar.isGM())
+			{
+				int itemType2 = i.getItem().getType2();
+				if (itemType2 == L2Item.TYPE2_WEAPON)
+				{
+					if (i.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON)
+					{
+						// Delete Item Over enchanted
+						activeChar.getInventory().destroyItem(null, i, activeChar, null);
+						// Message to Player
+						activeChar.sendMessage("[Server]:You have Items over enchanted you will be kikked!");
+						// If Audit is only a Kick, with this the player goes in Jail for 1.200 minutes
+						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
+						// Punishment e log in audit
+						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+						// Log in console
+						_log.info("#### ATTENCTION ####");
+						_log.info(i + " item has been removed from player.");
+					}
+				}
+				if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR)
+				{
+					if (i.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR)
+					{
+						// Delete Item Over enchanted
+						activeChar.getInventory().destroyItem(null, i, activeChar, null);
+						// Message to Player
+						activeChar.sendMessage("[Server]:You have Items over enchanted you will be kikked!");
+						// If Audit is only a Kick, with this the player goes in Jail for 1.200 minutes
+						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
+						// Punishment e log in audit
+						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+						// Log in console
+						_log.info("#### ATTENCTION ####");
+						_log.info(i + " item has been removed from player.");
+					}
+				}
+				if (itemType2 == L2Item.TYPE2_ACCESSORY)
+				{
+					if (i.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY)
+					{
+						// Delete Item Over enchanted
+						activeChar.getInventory().destroyItem(null, i, activeChar, null);
+						// Message to Player
+						activeChar.sendMessage("[Server]:You have Items over enchanted you will be kikked!");
+						// If Audit is only a Kick, with this the player goes in Jail for 1.200 minutes
+						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
+						// Punishment e log in audit
+						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+						// Log in console
+						_log.info("#### ATTENCTION ####");
+						_log.info(i + " item has been removed from player.");
+					}
+				}
+			}
 		}
 	}
 
