@@ -1289,13 +1289,7 @@ public final class L2ItemInstance extends L2Object
 	{
 		if (Config.ASSERT)
 			assert getPosition().getWorldRegion() == null;
-		if (Config.GEODATA > 0)
-		{
-			Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
-			x = dropDest.getX();
-			y = dropDest.getY();
-			z = dropDest.getZ();
-		}
+
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2ItemInstance dropped and update its _worldregion
