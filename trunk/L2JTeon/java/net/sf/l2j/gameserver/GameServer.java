@@ -188,7 +188,7 @@ public class GameServer
 		L2ScriptEngineManager.getInstance();
 		// start game time control early
 		GameTimeController.getInstance();
-		PcColorTable.getInstance();
+		Util.printSection("ID Factory");
 		// keep the references of Singletons to prevent garbage collection
 		CharNameTable.getInstance();
 		if (!_idFactory.isInitialized())
@@ -197,6 +197,7 @@ public class GameServer
 			throw new Exception("Could not initialize the ID factory");
 		}
 		CharTemplateTable.getInstance();
+		PcColorTable.getInstance();
 		Util.printSection("Geodata - Path Finding");
 		GeoData.getInstance();
 		if (Config.GEODATA == 2)
@@ -261,6 +262,25 @@ public class GameServer
 		SpawnTable.getInstance();
 		RaidBossSpawnManager.getInstance();
 		DayNightSpawnManager.getInstance().notifyChangeMode();
+		Util.printSection("Castle Sieges - Fortress Sieges");
+		CastleManager.getInstance();
+		SiegeManager.getInstance();
+		FortManager.getInstance();
+		FortSiegeManager.getInstance();
+		// Load clan hall data before zone data
+		_cHManager = ClanHallManager.getInstance();
+		Util.printSection("Clan Hall Siege");
+		FortResistSiegeManager.getInstance();
+		BanditStrongholdSiege.getInstance();
+		WildBeastFarmSiege.getInstance();
+		if (Config.DEVASTATED_CASTLE_ENABLED)
+		{
+			DevastatedCastleManager.getInstance();
+		}
+		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
+		{
+			FortressofTheDeadManager.getInstance();
+		}
 		Util.printSection("Zones");
 		ZoneManager.getInstance();
 		MapRegionTable.getInstance();
@@ -285,25 +305,6 @@ public class GameServer
 		if (!_helperBuffTable.isInitialized())
 		{
 			throw new Exception("Could not initialize the Helper Buff Table");
-		}
-		Util.printSection("Castle Sieges - Fortress Sieges");
-		CastleManager.getInstance();
-		SiegeManager.getInstance();
-		FortManager.getInstance();
-		FortSiegeManager.getInstance();
-		// Load clan hall data before zone data
-		_cHManager = ClanHallManager.getInstance();
-		Util.printSection("Clan Hall Siege");
-		FortResistSiegeManager.getInstance();
-		BanditStrongholdSiege.getInstance();
-		WildBeastFarmSiege.getInstance();
-		if (Config.DEVASTATED_CASTLE_ENABLED)
-		{
-			DevastatedCastleManager.getInstance();
-		}
-		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
-		{
-			FortressofTheDeadManager.getInstance();
 		}
 		Util.printSection("Teleport");
 		TeleportLocationTable.getInstance();
