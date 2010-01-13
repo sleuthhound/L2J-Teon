@@ -96,7 +96,7 @@ public class Olympiad
 			return true;
 		}
 
-		protected boolean proverkaDoTeleporta()
+		/*protected boolean proverkaDoTeleporta()
 		{
 			boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected);
 			boolean _pTwoCrash = (_game._playerTwo == null || _game._playerTwoDisconnected);
@@ -120,7 +120,7 @@ public class Olympiad
 				return false;
 			}
 			return true;
-		}
+		}*/
 
 		protected boolean checkStatus()
 		{
@@ -226,7 +226,7 @@ public class Olympiad
 						catch (InterruptedException e)
 						{
 						}
-						if (!proverkaDoTeleporta())
+						if (!checkStatus())
 						{
 							return;
 						}
@@ -393,7 +393,7 @@ public class Olympiad
 	private static final String OLYMPIAD_GET_HEROS = "SELECT char_id, char_name from " + "olympiad_nobles where class_id = ? and competitions_done >= 9 order by " + "olympiad_points desc, competitions_done desc";
 	private static final String GET_EACH_CLASS_LEADER = "SELECT char_name from " + "olympiad_nobles where class_id = ? order by olympiad_points desc, " + "competitions_done desc";
 	private static final String OLYMPIAD_DELETE_ALL = "DELETE from olympiad_nobles";
-	private static final int[] HERO_IDS = { 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119 };
+	private static final int[] HERO_IDS = { 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 131, 132, 133, 134 };
 	private static final int COMP_START = Config.ALT_OLY_START_TIME; // 6PM
 	private static final int COMP_MIN = Config.ALT_OLY_MIN; // 00 mins
 	private static final long COMP_PERIOD = Config.ALT_OLY_CPERIOD; // 6 hours
@@ -2412,6 +2412,9 @@ public class Olympiad
 							player.sendPacket(sm);
 						}
 					}
+					player.setCurrentCp(player.getMaxCp());
+					player.setCurrentHp(player.getMaxHp());
+					player.setCurrentMp(player.getMaxMp());
 				}
 				catch (Exception e)
 				{
