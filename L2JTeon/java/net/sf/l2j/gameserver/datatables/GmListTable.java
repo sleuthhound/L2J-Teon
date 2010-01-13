@@ -134,14 +134,14 @@ public class GmListTable
 		}
 		else
 		{
-		}
-		SystemMessage sm = new SystemMessage(SystemMessageId.GM_LIST);
-		player.sendPacket(sm);
-		for (String name : getAllGmNames(player.isGM()))
-		{
-			sm = new SystemMessage(SystemMessageId.GM_S1);
-			sm.addString(name);
+			SystemMessage sm = new SystemMessage(SystemMessageId.GM_LIST);
 			player.sendPacket(sm);
+			for (String name : getAllGmNames(player.isGM()))
+			{
+				sm = new SystemMessage(SystemMessageId.GM_S1);
+				sm.addString(name);
+				player.sendPacket(sm);
+			}
 		}
 	}
 

@@ -74,9 +74,7 @@ public class AdminAdmin implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_silence"))
 		{
-			if (activeChar.getMessageRefusal()) // already in
-			// message refusal
-			// mode
+			if (activeChar.getMessageRefusal()) // already in message refusal mode
 			{
 				activeChar.setMessageRefusal(false);
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_ACCEPTANCE_MODE));
