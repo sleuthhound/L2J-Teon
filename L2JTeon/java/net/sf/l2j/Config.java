@@ -64,16 +64,11 @@ public final class Config
 	public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
 	/** Properties file for siege configuration */
 	public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
-	/** XML file for banned IP */
-	public static final String BANNED_IP_XML = "./config/banned.xml";
 	/** Text file containing hexadecimal value of server ID */
 	public static final String HEXID_FILE = "./config/hexid.txt";
-	/** Properties file for AI configurations */
-	public static final String AI_FILE = "./config/ai.properties";
 	/** Properties file for 7 Signs Festival */
 	public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
 	public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
-	public static int MAX_ITEM_IN_PACKET;
 	/** Properties file for FourSepulchers */
 	public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";
 	/** L2J Teon Custom Properties File */
@@ -94,6 +89,7 @@ public final class Config
 	public static String SERVER_VERSION;
 	public static String SERVER_BUILD_DATE;
 	public static String DATAPACK_VERSION;
+	public static int MAX_ITEM_IN_PACKET;
 	// FLOODPROTECTOR_CONFIG_FILE BY DANIELMWX
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_USE_ITEM = new FloodProtectorConfig("UseItemFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_ROLL_DICE = new FloodProtectorConfig("RollDiceFloodProtector");
@@ -1668,7 +1664,6 @@ public final class Config
 				FloodProtector.load(is);
 				is.close();
 				loadFloodProtectorConfigs(FloodProtector);
-				_log.info("# " + FLOODPROTECTOR_CONFIG_FILE + " Sucessfully LOADED #");
 			}
 			catch (Exception e)
 			{
