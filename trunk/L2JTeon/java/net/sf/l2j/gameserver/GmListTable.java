@@ -153,6 +153,9 @@ public class GmListTable
 	{
 		for (L2PcInstance gm : getInstance().getAllGms(true))
 		{
+			// L2EMU_ADD
+			if (gm != null)// prevents a NPE.
+				// L2EMU_ADD
 			gm.sendPacket(SystemMessage.sendString(message));
 		}
 	}

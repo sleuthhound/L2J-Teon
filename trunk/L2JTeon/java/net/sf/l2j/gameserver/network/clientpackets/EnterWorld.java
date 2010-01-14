@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.CharSchemesTable;
-import net.sf.l2j.gameserver.datatables.GmListTable;
+import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.PcColorTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;

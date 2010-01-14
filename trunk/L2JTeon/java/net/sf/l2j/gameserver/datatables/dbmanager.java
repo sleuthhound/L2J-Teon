@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import net.sf.l2j.gameserver.GmListTable;
+
 public class dbmanager
 {
 	public static void reloadAll()
