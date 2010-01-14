@@ -43,7 +43,6 @@ import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.EventDroplist;
 import net.sf.l2j.gameserver.datatables.ExtractableItemsData;
 import net.sf.l2j.gameserver.datatables.FishTable;
-import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.HelperBuffTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.datatables.HennaTreeTable;
