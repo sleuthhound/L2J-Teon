@@ -402,7 +402,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						int hating = npc.getHating(target);
 						// Add the attacker to the L2Attackable _aggroList with 0 damage and 1 hate
 						if (hating == 0)
-							npc.addDamageHate(target, 0, 1);
+							npc.addDamageHate(target, 0, 0);
 					}
 				}
 			}
@@ -602,8 +602,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			// Check if the actor is running
 			if (_actor.isRunning())
 			{
-				// Set the actor movement type to walk and send Server->Client
-				// packet ChangeMoveType to all others L2PcInstance
+				// Set the actor movement type to walk and send Server->Client packet ChangeMoveType to all others L2PcInstance
 				_actor.setWalking();
 				// Calculate a new attack timeout
 				_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
@@ -612,9 +611,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Check if target is dead or if timeout is expired to stop this attack
 		if ((getAttackTarget() == null) || getAttackTarget().isAlikeDead() || (_attackTimeout < GameTimeController.getGameTicks()))
 		{
-			// Stop hating this target after the attack timeout or if target
-			// is
-			// dead
+			// Stop hating this target after the attack timeout or if target is dead
 			if (getAttackTarget() != null)
 			{
 				L2Attackable npc = (L2Attackable) _actor;
@@ -640,10 +637,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						{
 							continue;
 						}
-						// Check if the L2Object is inside the Faction Range of
-						// the actor
-						if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && GeoData.getInstance().canSeeTarget(_actor, npc) && (Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600) && (npc.getAI() != null) && _actor.getAttackByList().contains(getAttackTarget())
-								&& ((npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE) || (npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)))
+						// Check if the L2Object is inside the Faction Range of the actor
+						if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && GeoData.getInstance().canSeeTarget(_actor, npc) && (Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600) && (npc.getAI() != null) && _actor.getAttackByList().contains(getAttackTarget()) && ((npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE) || (npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)))
 						{
 							if ((getAttackTarget() instanceof L2PcInstance) && getAttackTarget().isInParty() && getAttackTarget().getParty().isInDimensionalRift())
 							{
@@ -654,6 +649,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 									continue;
 								}
 							}
+							// Notify the L2Object AI with EVT_AGGRESSION
+							npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
+							
 							int chance = 4;
 							if (_actor instanceof L2MinionInstance)
 							{
@@ -670,8 +668,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								continue;
 							if (!GeoData.getInstance().canSeeTarget(_actor, npc))
 								break;
-							// Notify the L2Object AI with EVT_AGGRESSION
-							npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
 							if ((getAttackTarget() instanceof L2PcInstance) || (getAttackTarget() instanceof L2Summon))
 							{
 								L2PcInstance player = (getAttackTarget() instanceof L2PcInstance) ? (L2PcInstance) getAttackTarget() : ((L2Summon) getAttackTarget()).getOwner();
@@ -689,9 +685,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				return;
 			}
-			// Get all information needed to chose between physical or
-			// magical
-			// attack
+			// Get all information needed to chose between physical or magical attack
 			L2Skill[] skills = null;
 			double dist2 = 0;
 			int range = 0;
@@ -721,10 +715,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						int posX = _actor.getX();
 						int posY = _actor.getY();
 						int posZ = _actor.getZ();
-						double distance = Math.sqrt(distance2); // This way, we
-						// only do the
-						// sqrt if we
-						// need it
+						double distance = Math.sqrt(distance2); // This way, we only do the sqrt if we need it
 						int signx = -1;
 						int signy = -1;
 						if (_actor.getX() > getAttackTarget().getX())
@@ -761,8 +752,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				setAttackTarget(hated);
 			}
-			// We should calculate new distance cuz mob can have changed the
-			// target
+			// We should calculate new distance cuz mob can have changed the target
 			dist2 = _actor.getPlanDistanceSq(hated.getX(), hated.getY());
 			if (hated.isMoving())
 			{
@@ -813,8 +803,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						}
 					}
 				}
-				// Move the actor to Pawn server side AND client side by sending
-				// Server->Client packet MoveToPawn (broadcast)
+				// Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
 				if (hated.isMoving())
 				{
 					range -= 100;
@@ -832,7 +821,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (!_actor.isMuted() /* && _rnd.nextInt(100) <= 5 */)
 			{
 				boolean useSkillSelf = true;
-				;
+
 				for (L2Skill sk : skills)
 				{
 					if (/*
@@ -891,8 +880,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtThink()
 	{
-		// Check if the actor can't use skills and if a thinking action isn't
-		// already in progress
+		// Check if the actor can't use skills and if a thinking action isn't already in progress
 		if (_thinking || _actor.isAllSkillsDisabled())
 		{
 			return;
@@ -985,16 +973,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		L2Attackable me = (L2Attackable) _actor;
 		if (target != null)
 		{
-			// Add the target to the actor _aggroList or update hate if
-			// already
-			// present
+			// Add the target to the actor _aggroList or update hate if already present
 			me.addDamageHate(target, 0, aggro);
 			// Set the actor AI Intention to AI_INTENTION_ATTACK
 			if (getIntention() != CtrlIntention.AI_INTENTION_ATTACK)
 			{
-				// Set the L2Character movement type to run and send
-				// Server->Client packet ChangeMoveType to all others
-				// L2PcInstance
+				// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 				if (!_actor.isRunning())
 				{
 					_actor.setRunning();
