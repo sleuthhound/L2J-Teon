@@ -195,8 +195,7 @@ public class L2CharacterAI extends AbstractAI
 			}
 			else
 			{
-				clientActionFailed(); // else client freezes until cancel
-				// target
+				clientActionFailed(); // else client freezes until cancel target
 			}
 		}
 		else
@@ -311,33 +310,28 @@ public class L2CharacterAI extends AbstractAI
 	{
 		if (getIntention() == AI_INTENTION_REST)
 		{
-			// Cancel action client side by sending Server->Client packet
-			// ActionFailed to the L2PcInstance actor
+			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
 			return;
 		}
 		if (_actor.isAllSkillsDisabled())
 		{
-			// Cancel action client side by sending Server->Client packet
-			// ActionFailed to the L2PcInstance actor
+			// Cancel action client side by sending Server->Client packet ActionFailed to the L2PcInstance actor
 			clientActionFailed();
 			return;
 		}
 		// Set the Intention of this AbstractAI to AI_INTENTION_MOVE_TO
 		//
-		// changeIntention(AI_INTENTION_MOVE_TO, new
+		// changeIntention(AI_INTENTION_MOVE_TO, new 
 		// L2CharPosition(((L2PcInstance)_actor).getBoat().getX() -
 		// destination.x, ((L2PcInstance)_actor).getBoat().getY() -
 		// destination.y, ((L2PcInstance)_actor).getBoat().getZ() -
 		// destination.z, 0) , null);
-		// Stop the actor auto-attack client side by sending Server->Client
-		// packet AutoAttackStop (broadcast)
+		// Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
 		clientStopAutoAttack();
-		// Abort the attack of the L2Character and send Server->Client
-		// ActionFailed packet
+		// Abort the attack of the L2Character and send Server->Client ActionFailed packet
 		_actor.abortAttack();
-		// Move the actor to Location (x,y,z) server side AND client side by
-		// sending Server->Client packet CharMoveToLocation (broadcast)
+		// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
 		moveToInABoat(destination, origin);
 	}
 
