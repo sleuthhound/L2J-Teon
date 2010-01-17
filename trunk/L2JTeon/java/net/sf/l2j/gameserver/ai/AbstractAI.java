@@ -145,7 +145,6 @@ abstract class AbstractAI implements Ctrl
 
 	/**
 	 * Return the L2Character managed by this Accessor AI.<BR>
-	 * <BR>
 	 */
 	public L2Character getActor()
 	{
@@ -154,7 +153,6 @@ abstract class AbstractAI implements Ctrl
 
 	/**
 	 * Return the current Intention.<BR>
-	 * <BR>
 	 */
 	public CtrlIntention getIntention()
 	{
@@ -168,7 +166,6 @@ abstract class AbstractAI implements Ctrl
 
 	/**
 	 * Return the current cast target.<BR>
-	 * <BR>
 	 */
 	public L2Character getCastTarget()
 	{
@@ -182,7 +179,6 @@ abstract class AbstractAI implements Ctrl
 
 	/**
 	 * Return current attack target.<BR>
-	 * <BR>
 	 */
 	public L2Character getAttackTarget()
 	{
@@ -495,8 +491,7 @@ abstract class AbstractAI implements Ctrl
 		{
 			if (offset < 10)
 				offset = 10;
-			// prevent possible extra calls to this function (there is none?),
-			// also don't send movetopawn packets too often
+			// prevent possible extra calls to this function (there is none?), also don't send movetopawn packets too often
 			boolean sendPacket = true;
 			if (_clientMoving && (_target == pawn))
 			{
@@ -580,7 +575,7 @@ abstract class AbstractAI implements Ctrl
 		if (!_actor.isMovementDisabled())
 		{
 			/*
-			 * // Set AI movement data _client_moving = true; _client_moving_to_pawn_offset = 0; // Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController _accessor.moveTo(((L2PcInstance)_actor).getBoat().getX() - destination.x,((L2PcInstance)_actor).getBoat().getY()- destination.y,((L2PcInstance)_actor).getBoat().getZ() - destination.z);
+			 * Set AI movement data _client_moving = true; _client_moving_to_pawn_offset = 0; // Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController _accessor.moveTo(((L2PcInstance)_actor).getBoat().getX() - destination.x,((L2PcInstance)_actor).getBoat().getY()- destination.y,((L2PcInstance)_actor).getBoat().getZ() - destination.z);
 			 */
 			// Send a Server->Client packet CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
 			// CharMoveToLocation msg = new CharMoveToLocation(_actor);

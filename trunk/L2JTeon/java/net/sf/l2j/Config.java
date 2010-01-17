@@ -443,6 +443,7 @@ public final class Config
 	// Logging Chat and Item Window
 	public static boolean LOG_CHAT;
 	public static boolean LOG_ITEMS;
+	public static boolean LOG_TRADES;
 	// Community Board
 	public static String COMMUNITY_TYPE;
 	public static String BBS_DEFAULT;
@@ -1832,6 +1833,7 @@ public final class Config
 				DEFAULT_TRADE_CHAT = optionsSettings.getProperty("TradeChat", "ON");
 				LOG_CHAT = Boolean.valueOf(optionsSettings.getProperty("LogChat", "False"));
 				LOG_ITEMS = Boolean.valueOf(optionsSettings.getProperty("LogItems", "False"));
+				LOG_TRADES = Boolean.valueOf(optionsSettings.getProperty("LogTrades", "False"));
 				GMAUDIT = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "True"));
 				COMMUNITY_TYPE = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
 				BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");

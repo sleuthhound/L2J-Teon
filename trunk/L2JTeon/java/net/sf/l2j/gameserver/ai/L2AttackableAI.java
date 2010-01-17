@@ -60,8 +60,7 @@ import net.sf.l2j.util.Rnd;
  */
 public class L2AttackableAI extends L2CharacterAI implements Runnable
 {
-	// protected static final Logger _log =
-	// Logger.getLogger(L2AttackableAI.class.getName());
+	// protected static final Logger _log = Logger.getLogger(L2AttackableAI.class.getName());
 	private static final int RANDOM_WALK_RATE = 30; // confirmed
 	// private static final int MAX_DRIFT_RANGE = 300;
 	private static final int MAX_ATTACK_TIMEOUT = 300; // int ticks, i.e. 30
@@ -78,7 +77,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 	/**
 	 * Constructor of L2AttackableAI.<BR>
-	 * <BR>
 	 * 
 	 * @param accessor
 	 *            The AI accessor of the L2Character
@@ -141,8 +139,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			return false;
 		}
-		// Check if the target isn't dead, is in the Aggro range and is at the
-		// same height
+		// Check if the target isn't dead, is in the Aggro range and is at the same height
 		if (target.isAlikeDead() || !me.isInsideRadius(target, me.getAggroRange(), false, false) || (Math.abs(_actor.getZ() - target.getZ()) > 300))
 		{
 			return false;
@@ -150,23 +147,17 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Check if the target is a L2PcInstance
 		if (target instanceof L2PcInstance)
 		{
-			// Don't take the aggro if the GM has the access level below or
-			// equal to GM_DONT_TAKE_AGGRO
+			// Don't take the aggro if the GM has the access level below or equal to GM_DONT_TAKE_AGGRO
 			if (((L2PcInstance) target).isGM() && (((L2PcInstance) target).getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO))
 			{
 				return false;
 			}
-			// Check if the AI isn't a Raid Boss and the target isn't in
-			// silent
-			// move mode
+			// Check if the AI isn't a Raid Boss and the target isn't in silent move mode
 			if (!(me instanceof L2RaidBossInstance) && ((L2PcInstance) target).isSilentMoving())
 			{
 				return false;
 			}
-			// Check if player is an ally //TODO! [Nemesiss] it should be
-			// rather
-			// boolean or smth like that
-			// Comparing String isnt good idea!
+			// Check if player is an ally //TODO! [Nemesiss] it should be rather boolean or smth like that Comparing String isnt good idea!
 			if ((me.getFactionId() == "varka") && ((L2PcInstance) target).isAlliedWithVarka())
 			{
 				return false;
@@ -175,9 +166,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				return false;
 			}
-			// check if the target is within the grace period for JUST
-			// getting
-			// up from fake death
+			// check if the target is within the grace period for JUST getting up from fake death
 			if (((L2PcInstance) target).isRecentFakeDeath())
 			{
 				return false;
@@ -216,10 +205,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return false;
 		}
 		else if (_actor instanceof L2FriendlyMobInstance)
-		{ // the actor is
-			// a
-			// L2FriendlyMobInstance
-			// Check if the target isn't another L2NpcInstance
+		{ 
+			// the actor is a L2FriendlyMobInstance Check if the target isn't another L2NpcInstance
 			if (target instanceof L2NpcInstance)
 			{
 				return false;
@@ -233,16 +220,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return false;
 		}
 		else
-		{ // The actor is a L2MonsterInstance
-			// Check if the target isn't another L2NpcInstance
+		{ 
+			// The actor is a L2MonsterInstance Check if the target isn't another L2NpcInstance
 			if (target instanceof L2NpcInstance)
 			{
 				return false;
 			}
 			// depending on config, do not allow mobs to attack _new_
-			// players in peacezones,
-			// unless they are already following those players from outside
-			// the peacezone.
+			// players in peacezones, unless they are already following those players from outside the peacezone.
 			if (!Config.ALT_MOB_AGRO_IN_PEACEZONE && target.isInsideZone(L2Character.ZONE_PEACE))
 			{
 				return false;
@@ -299,8 +284,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (!_actor.isAlikeDead())
 			{
 				L2Attackable npc = (L2Attackable) _actor;
-				// If its _knownPlayer isn't empty set the Intention to
-				// AI_INTENTION_ACTIVE
+				// If its _knownPlayer isn't empty set the Intention to AI_INTENTION_ACTIVE
 				if (npc.getKnownList().getKnownPlayers().size() > 0)
 				{
 					intention = AI_INTENTION_ACTIVE;
@@ -339,8 +323,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	{
 		// Calculate the attack timeout
 		_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
-		// Manage the Attack Intention : Stop current Attack (if necessary),
-		// Start a new Attack and Launch Think Event
+		// Manage the Attack Intention : Stop current Attack (if necessary), Start a new Attack and Launch Think Event
 		super.onIntentionAttack(target);
 	}
 
@@ -410,9 +393,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			L2Character hated;
 			if (_actor.isConfused())
 			{
-				hated = getAttackTarget(); // Force mobs to attak anybody
-				// if
-				// confused
+				hated = getAttackTarget(); // Force mobs to attak anybody if confused
 			}
 			else
 			{
@@ -421,14 +402,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			// Order to the L2Attackable to attack the target
 			if (hated != null)
 			{
-				// Get the hate level of the L2Attackable against this
-				// L2Character target contained in _aggroList
+				// Get the hate level of the L2Attackable against this L2Character target contained in _aggroList
 				int aggro = npc.getHating(hated);
 				if (aggro + _globalAggro > 0)
 				{
-					// Set the L2Character movement type to run and send
-					// Server->Client packet ChangeMoveType to all others
-					// L2PcInstance
+					// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 					if (!_actor.isRunning())
 					{
 						_actor.setRunning();
@@ -479,8 +457,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		// Check if the actor is a L2GuardInstance
 		if (_actor instanceof L2GuardInstance)
 		{
-			// Order to the L2GuardInstance to return to its home location
-			// because there's no target to attack
+			// Order to the L2GuardInstance to return to its home location because there's no target to attack
 			((L2GuardInstance) _actor).returnHome();
 		}
 		// If this is a festival monster, then it remains in the same location.
@@ -514,9 +491,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				x1 = ((L2MinionInstance) _actor).getLeader().getX() + Rnd.nextInt((offset - 30) * 2) - (offset - 30);
 				y1 = ((L2MinionInstance) _actor).getLeader().getY() + Rnd.nextInt((offset - 30) * 2) - (offset - 30);
 				z1 = ((L2MinionInstance) _actor).getLeader().getZ();
-				// Move the actor to Location (x,y,z) server side AND client
-				// side by sending Server->Client packet CharMoveToLocation
-				// (broadcast)
+				// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
 				moveTo(x1, y1, z1);
 				return;
 			}
@@ -545,8 +520,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				x1 = p[0];
 				y1 = p[1];
 				z1 = p[2];
-				// Calculate the distance between the current position of
-				// the L2Character and the target (x,y)
+				// Calculate the distance between the current position of the L2Character and the target (x,y)
 				double distance2 = _actor.getPlanDistanceSq(x1, y1);
 				if (distance2 > Config.MAX_DRIFT_RANGE * Config.MAX_DRIFT_RANGE)
 				{
@@ -567,11 +541,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				y1 = npc.getSpawn().getLocy() + Rnd.nextInt(Config.MAX_DRIFT_RANGE * 2) - Config.MAX_DRIFT_RANGE;
 				z1 = npc.getZ();
 			}
-			// _log.config("Curent pos ("+getX()+", "+getY()+"), moving to
-			// ("+x1+", "+y1+").");
-			// Move the actor to Location (x,y,z) server side AND client
-			// side by sending Server->Client packet CharMoveToLocation
-			// (broadcast)
+			// _log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
+			// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
 			moveTo(x1, y1, z1);
 			// [L2J_JP ADD]
 			// following boss
@@ -920,8 +891,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
-		// if (_actor instanceof L2ChestInstance &&
-		// !((L2ChestInstance)_actor).isInteracted())
+		// if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isInteracted())
 		// {
 		// ((L2ChestInstance)_actor).deleteMe();
 		// ((L2ChestInstance)_actor).getSpawn().startRespawn();
@@ -936,8 +906,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 		// Add the attacker to the _aggroList of the actor
 		((L2Attackable) _actor).addDamageHate(attacker, 0, 1);
-		// Set the L2Character movement type to run and send Server->Client
-		// packet ChangeMoveType to all others L2PcInstance
+		// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 		if (!_actor.isRunning())
 		{
 			_actor.setRunning();

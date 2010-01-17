@@ -52,7 +52,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 public final class L2ItemInstance extends L2Object
 {
 	private static final Logger _log = Logger.getLogger(L2ItemInstance.class.getName());
-	private static final Logger _logItems = Logger.getLogger("item");
+	private static final Logger _logTrades = Logger.getLogger("trade");
 
 	/** Enumeration of locations for item */
 	public static enum ItemLocation
@@ -188,12 +188,12 @@ public final class L2ItemInstance extends L2Object
 	public void setOwnerId(String process, int owner_id, L2PcInstance creator, L2Object reference)
 	{
 		setOwnerId(owner_id);
-		if (Config.LOG_ITEMS)
+		if (Config.LOG_TRADES)
 		{
 			LogRecord record = new LogRecord(Level.INFO, "CHANGE:" + process);
-			record.setLoggerName("item");
+			record.setLoggerName("trade");
 			record.setParameters(new Object[] { this, creator, reference });
-			_logItems.log(record);
+			_logTrades.log(record);
 		}
 	}
 
@@ -303,12 +303,12 @@ public final class L2ItemInstance extends L2Object
 			_count = 0;
 		}
 		_storedInDb = false;
-		if (Config.LOG_ITEMS)
+		if (Config.LOG_TRADES)
 		{
 			LogRecord record = new LogRecord(Level.INFO, "CHANGE:" + process);
-			record.setLoggerName("item");
+			record.setLoggerName("trade");
 			record.setParameters(new Object[] { this, creator, reference });
-			_logItems.log(record);
+			_logTrades.log(record);
 		}
 	}
 
