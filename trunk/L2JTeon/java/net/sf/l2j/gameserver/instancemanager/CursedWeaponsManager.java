@@ -35,7 +35,10 @@ import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance; 
+import net.sf.l2j.gameserver.model.actor.instance.L2FeedableBeastInstance; 
 import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance; 
 import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
@@ -184,7 +187,7 @@ public class CursedWeaponsManager
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT itemId, playerId, playerKarma, playerPkKills, nbKills, endTime FROM cursed_weapons");
 			ResultSet rset = statement.executeQuery();
-			if (rset.next())
+			while (rset.next())
 			{
 				int itemId = rset.getInt("itemId");
 				int playerId = rset.getInt("playerId");
@@ -237,23 +240,16 @@ public class CursedWeaponsManager
 			PreparedStatement statement = null;
 			ResultSet rset = null;
 			// TODO: See comments below...
-			// This entire for loop should NOT be necessary, since it is
-			// already
-			// handled by
-			// CursedWeapon.endOfLife(). However, if we indeed *need* to
-			// duplicate it for safety,
-			// then we'd better make sure that it FULLY cleans up inactive
-			// cursed weapons!
-			// Undesired effects result otherwise, such as player with no
-			// zariche but with karma
-			// or a lost-child entry in the cursedweapons table, without a
-			// corresponding one in items...
+			// This entire for loop should NOT be necessary, since it is already handled by
+			// CursedWeapon.endOfLife(). However, if we indeed *need* to duplicate it for safety,
+			// then we'd better make sure that it FULLY cleans up inactive cursed weapons!
+			// Undesired effects result otherwise, such as player with no zariche but with karma
+			// or a lost-child entry in the cursedweapons table, without a corresponding one in items...
 			for (CursedWeapon cw : _cursedWeapons.values())
 			{
 				if (cw.isActivated())
 					continue;
-				// Do an item check to be sure that the cursed weapon isn't hold
-				// by someone
+				// Do an item check to be sure that the cursed weapon isn't hold by someone
 				int itemId = cw.getItemId();
 				try
 				{
@@ -296,8 +292,7 @@ public class CursedWeaponsManager
 				catch (SQLException sqlE)
 				{
 				}
-				// close the statement to avoid multiply prepared statement
-				// errors in following iterations.
+				// close the statement to avoid multiply prepared statement errors in following iterations.
 				try
 				{
 					con.close();
@@ -332,9 +327,7 @@ public class CursedWeaponsManager
 	// Properties - Public
 	public synchronized void checkDrop(L2Attackable attackable, L2PcInstance player)
 	{
-		if ((attackable instanceof L2SiegeGuardInstance) || (attackable instanceof L2RiftInvaderInstance) || (attackable instanceof L2GrandBossInstance) || (attackable instanceof L2FestivalMonsterInstance))
-			return;
-		if (player.isCursedWeaponEquiped())
+		if ((attackable instanceof L2SiegeGuardInstance) || (attackable instanceof L2RiftInvaderInstance) || (attackable instanceof L2GrandBossInstance) || (attackable instanceof L2FestivalMonsterInstance) || (attackable instanceof L2GuardInstance) || (attackable instanceof L2GrandBossInstance) || (attackable instanceof L2FeedableBeastInstance))
 			return;
 		for (CursedWeapon cw : _cursedWeapons.values())
 		{

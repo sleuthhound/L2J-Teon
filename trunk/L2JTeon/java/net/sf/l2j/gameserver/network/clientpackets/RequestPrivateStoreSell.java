@@ -107,6 +107,10 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		{
 			return;
 		}
+        if (player.isCursedWeaponEquiped()) 
+        {
+        	return;
+        }
 		TradeList storeList = storePlayer.getBuyList();
 		if (storeList == null)
 		{

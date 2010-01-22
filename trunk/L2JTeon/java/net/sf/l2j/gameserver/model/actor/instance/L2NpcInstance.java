@@ -958,7 +958,7 @@ public class L2NpcInstance extends L2Character
 		// Get castle this NPC belongs to (excluding L2Attackable)
 		if (_castleIndex < 0)
 		{
-			L2TownZone town = TownManager.getInstance().getTown(getX(), getY(), getZ());
+			L2TownZone town = TownManager.getTown(getX(), getY(), getZ());
 			if (town != null)
 			{
 				_castleIndex = CastleManager.getInstance().getCastleIndex(town.getTaxById());
@@ -2157,6 +2157,11 @@ public class L2NpcInstance extends L2Character
 	 */
 	public void showChatWindow(L2PcInstance player, int val)
 	{
+        if(player.isCursedWeaponEquiped() && (!(player.getTarget() instanceof L2ClanHallManagerInstance) || !(player.getTarget() instanceof L2DoormenInstance)))
+        {
+        	player.setTarget(player);
+        	return;
+        }
 		if (player.getKarma() > 0)
 		{
 			if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && (this instanceof L2MerchantInstance))
