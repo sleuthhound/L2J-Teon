@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
@@ -362,6 +363,10 @@ public class EnterWorld extends L2GameClientPacket
 			CTF.addDisconnectedPlayer(activeChar);
 		// load points for that character
 		RaidBossPointsManager.loadPoints(activeChar);
+        if(activeChar.isCursedWeaponEquiped()) 
+        { 
+            CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquipedId()).cursedOnLogin(); 
+        }
 		if (Olympiad.getInstance().playerInStadia(activeChar))
 		{
 			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);

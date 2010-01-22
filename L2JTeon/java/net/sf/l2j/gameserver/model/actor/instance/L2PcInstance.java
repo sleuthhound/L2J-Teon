@@ -2732,12 +2732,12 @@ public final class L2PcInstance extends L2PlayableInstance
 			StatusUpdate su = new StatusUpdate(getObjectId());
 			su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
 			sendPacket(su);
-			// Cursed Weapon
-			if (CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
-				CursedWeaponsManager.getInstance().activate(this, newitem);
 			// If over capacity, trop the item
 			if (!isGM() && !_inventory.validateCapacity(0))
 				dropItem("InvDrop", newitem, null, true);
+			// Cursed Weapon
+			else if (CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
+				CursedWeaponsManager.getInstance().activate(this, newitem);
 		}
 	}
 
@@ -2834,12 +2834,12 @@ public final class L2PcInstance extends L2PlayableInstance
 				StatusUpdate su = new StatusUpdate(getObjectId());
 				su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
 				sendPacket(su);
-				// Cursed Weapon
-				if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
-					CursedWeaponsManager.getInstance().activate(this, item);
 				// If over capacity, drop the item
 				if (!isGM() && !_inventory.validateCapacity(0))
 					dropItem("InvDrop", item, null, true);
+				// Cursed Weapon
+				else if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
+					CursedWeaponsManager.getInstance().activate(this, item);
 			}
 		}
 	}
@@ -4601,6 +4601,13 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isCursedWeaponEquiped()) // cursed weapon
 		{
 			CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquipedId);
+            // Custom message for time left 
+			// CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId); 
+			// SystemMessage msg = new SystemMessage(SystemMessageId.THERE_IS_S1_HOUR_AND_S2_MINUTE_LEFT_OF_THE_FIXED_USAGE_TIME); 
+			// int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60)); 
+			// msg.addItemName(_cursedWeaponEquipedId); 
+			// msg.addNumber(timeLeftInHours); 
+			// sendPacket(msg); 
 			return;
 		}
 		// medal reward

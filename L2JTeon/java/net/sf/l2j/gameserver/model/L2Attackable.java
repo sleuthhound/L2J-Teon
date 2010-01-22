@@ -1578,22 +1578,12 @@ public class L2Attackable extends L2NpcInstance
 		}
 		if (player == null)
 		{
-			return; // Don't drop anything if the last attacker or ownere
-			// isn't
-			// L2PcInstance
+			return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
 		}
-		int levelModifier = calculateLevelModifierForDrop(player); // level
-		// modifier
-		// in %'s
-		// (will be
-		// subtracted
-		// from drop
-		// chance)
-		// Check the drop of a cursed weapon
-		if ((levelModifier == 0) && (player.getLevel() > 20))
-		{
-			CursedWeaponsManager.getInstance().checkDrop(this, player);
-		}
+		int levelModifier = calculateLevelModifierForDrop(player); // level modifier in %'s (will be subtracted from drop chance)
+		
+        CursedWeaponsManager.getInstance().checkDrop(this, player);
+        
 		// now throw all categorized drops and handle spoil.
 		for (L2DropCategory cat : npcTemplate.getDropData())
 		{
