@@ -1022,6 +1022,7 @@ public abstract class L2Skill
 			case WARRIOR_BANE:
 			case BETRAY:
 			case FATALCOUNTER:
+			case AGGREDUCE_CHAR:
 				return true;
 			default:
 				return false;
@@ -1199,16 +1200,14 @@ public abstract class L2Skill
 		// MANARECHARGE, AGGDAMAGE, BUFF, DEBUFF, STUN, ROOT, RESURRECT,
 		// PASSIVE...)
 		SkillType skillType = getSkillType();
-		// If the L2Object targeted is a L2Character, it becomes the L2Character
-		// target
+		// If the L2Object targeted is a L2Character, it becomes the L2Character target
 		if (objTarget instanceof L2Character)
 		{
 			target = (L2Character) objTarget;
 		}
 		switch (targetType)
 		{
-			// The skill can only be used on the L2Character targeted, or on the
-			// caster itself
+			// The skill can only be used on the L2Character targeted, or on the caster itself
 			case TARGET_ONE:
 			{
 				boolean canTargetSelf = false;
@@ -1241,8 +1240,7 @@ public abstract class L2Skill
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return null;
 				}
-				// If a target is found, return it in a table else send a system
-				// message TARGET_IS_INCORRECT
+				// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
 				return new L2Character[] { target };
 			}
 			case TARGET_SELF:
