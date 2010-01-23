@@ -1023,6 +1023,7 @@ public abstract class L2Skill
 			case BETRAY:
 			case FATALCOUNTER:
 			case AGGREDUCE_CHAR:
+			case AGGDAMAGE:
 				return true;
 			default:
 				return false;

@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.ai.CtrlIntention; 
 
 /**
  * @author -Nemesiss-
@@ -42,11 +43,10 @@ public class EffectTargetMe extends L2Effect
 		// Should only work on PC?
 		if (getEffected() instanceof L2PcInstance)
 		{
-			if ((getEffector() instanceof L2PcInstance) && (getEffected().getTarget() == getEffector()))
-				getEffected().onAction((L2PcInstance) getEffector());
 			getEffected().setTarget(getEffector());
 			MyTargetSelected my = new MyTargetSelected(getEffector().getObjectId(), 0);
 			getEffected().sendPacket(my);
+            getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getEffector()); 
 		}
 	}
 
