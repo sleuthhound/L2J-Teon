@@ -38,8 +38,9 @@ public class ChatTrade implements IChatHandler
 	 */
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
 	{
-		if (!activeChar.getFloodProtectors().getGlobal().tryPerformAction("global"))
+		if (!activeChar.getFloodProtectors().getTrade().tryPerformAction("trade"))
 		{
+			activeChar.sendMessage("Voce nao pode falar tao rapido, espere um pouco.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
