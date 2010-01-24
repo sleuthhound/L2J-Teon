@@ -206,9 +206,9 @@ public final class RequestRestartPoint extends L2GameClientPacket
 		{
 			return;
 		}
-		// Check to see if the current player is in TvT CTF or DM events.
-		if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)
+		if (activeChar.isInFunEvent())
 		{
+			activeChar.sendMessage("Voce nao pode deslogar estando em evento.");
 			return;
 		}
 		// SystemMessage sm2 = new SystemMessage(SystemMessage.S1_S2);

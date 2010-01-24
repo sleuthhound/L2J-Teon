@@ -73,6 +73,11 @@ public final class Logout extends L2GameClientPacket
 			player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event"));
 			return;
 		}
+		if (player.isInFunEvent())
+		{
+			player.sendPacket(SystemMessage.sendString("Voce nao pode deslogar em um evento"));
+			return;
+			}
 		if (player.isAway())
 		{
 			player.sendMessage("You can't restart in Away mode.");

@@ -28,6 +28,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
@@ -87,9 +89,16 @@ public class Potions implements IItemHandler
 			activeChar = ((L2PetInstance) playable).getOwner();
 		else
 			return;
-		/*
-		 * if (!TvTEvent.onPotionUse(activeChar.getName(), itemId)) { activeChar.sendPacket(ActionFailed.STATIC_PACKET); return; }
-		 */
+		if (activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_POTIONS)
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		if (activeChar._inEventDM && DM._started && !Config.DM_ALLOW_POTIONS)
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		if (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_POTIONS)
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -585,6 +594,7 @@ public class Potions implements IItemHandler
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
 	}
 
+	@SuppressWarnings("unchecked")
 	private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, int itemId)
 	{
 		L2Effect[] effects = activeChar.getAllEffects();

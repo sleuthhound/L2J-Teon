@@ -57,6 +57,11 @@ public final class RequestRestart extends L2GameClientPacket
 			_log.warning("[RequestRestart] activeChar null!?");
 			return;
 		}
+		if (player.isInFunEvent())
+		{
+			player.sendMessage("Voce nao pode deslogar estando em evento.");
+			return;
+		}
 		if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player) || (player.getOlympiadGameId() != -1))
 		{
 			player.sendMessage("You cant logout in olympiad mode");
