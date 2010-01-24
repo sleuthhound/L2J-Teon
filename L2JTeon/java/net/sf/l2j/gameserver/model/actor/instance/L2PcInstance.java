@@ -619,7 +619,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public String _teamNameCTF, _teamNameHaveFlagCTF, _originalTitleCTF;
 	public int _originalNameColorCTF, _originalKarmaCTF, _countCTFflags;
 	public boolean _inEventCTF = false, _haveFlagCTF = false;
-	public Future _posCheckerCTF = null;
+	public Future<?> _posCheckerCTF = null;
 	/** DM Engine parameters */
 	public int _originalNameColorDM, _countDMkills, _originalKarmaDM;
 	public boolean _inEventDM = false;
@@ -10407,6 +10407,16 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		_inBoatPosition = pt;
 	}
+	
+	public long getOnlineTime()
+	{
+		long totalOnlineTime = _onlineTime;
+		if (_onlineBeginTime > 0)
+		{
+			totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
+			}
+		return totalOnlineTime;
+		}
 
 	/**
 	 * Manage the delete task of a L2PcInstance (Leave Party, Unsummon pet, Save its inventory in the database, Remove it from the world...).<BR>
@@ -11316,6 +11326,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private class JailTask implements Runnable
 	{
 		L2PcInstance _player;
+		@SuppressWarnings("unused")
 		protected long _startedAt;
 
 		protected JailTask(L2PcInstance player)
@@ -12096,6 +12107,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private class PunishTask implements Runnable
 	{
 		L2PcInstance _player;
+		@SuppressWarnings("unused")
 		protected long _startedAt;
 
 		protected PunishTask(L2PcInstance player)

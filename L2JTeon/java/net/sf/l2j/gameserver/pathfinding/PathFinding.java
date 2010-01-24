@@ -38,11 +38,6 @@ public abstract class PathFinding
 				// Smaler Memory Usage, Higher Cpu Usage (CalculatedOnTheFly)
 				return GeoPathFinding.getInstance();
 			}
-			else
-			// WORLD_PATHFINDING
-			{
-				// Higher Memoru Usage, Lower Cpu Usage (PreCalculated)
-			}
 		}
 		return _instance;
 	}
