@@ -2357,7 +2357,7 @@ public abstract class L2Character extends L2Object
 		{
 			_targets = targets;
 			_skill = skill;
-			coolTime = coolTime;
+			_coolTime = coolTime;
 			_phase = phase;
 		}
 
@@ -3697,7 +3697,6 @@ public abstract class L2Character extends L2Object
 	private int _heading;
 	/** L2Charcater targeted by the L2Character */
 	private L2Object _target;
-	private L2Character target_;
 	// setted by the start of casting, in game ticks
 	private int _castEndTime;
 	private int _castInterruptTime;
@@ -3715,7 +3714,7 @@ public abstract class L2Character extends L2Object
 	}
 	protected L2CharacterAI _ai;
 	/** Future Skill Cast */
-	protected Future _skillCast;
+	protected Future<?> _skillCast;
 	/** Char Coords from Client */
 	private int _clientX;
 	private int _clientY;

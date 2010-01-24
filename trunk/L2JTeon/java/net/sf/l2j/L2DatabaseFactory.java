@@ -42,9 +42,9 @@ public class L2DatabaseFactory
 	{
 		try
 		{
-			if (Config.DATABASE_MAX_CONNECTIONS < Config.DATABASE_MAX_CONNECTIONS)
+			if (Config.DATABASE_MAX_CONNECTIONS < 2)
 			{
-				Config.DATABASE_MAX_CONNECTIONS = Config.DATABASE_MAX_CONNECTIONS;
+				Config.DATABASE_MAX_CONNECTIONS = 2;
 				_log.warning("at least " + Config.DATABASE_MAX_CONNECTIONS + " db connections are required.");
 			}
 			_source = new ComboPooledDataSource();
