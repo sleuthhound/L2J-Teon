@@ -4601,13 +4601,13 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isCursedWeaponEquiped()) // cursed weapon
 		{
 			CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquipedId);
-            // Custom message for time left 
-			// CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId); 
-			// SystemMessage msg = new SystemMessage(SystemMessageId.THERE_IS_S1_HOUR_AND_S2_MINUTE_LEFT_OF_THE_FIXED_USAGE_TIME); 
-			// int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60)); 
-			// msg.addItemName(_cursedWeaponEquipedId); 
-			// msg.addNumber(timeLeftInHours); 
-			// sendPacket(msg); 
+			// Custom message for time left
+			// CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId);
+			// SystemMessage msg = new SystemMessage(SystemMessageId.THERE_IS_S1_HOUR_AND_S2_MINUTE_LEFT_OF_THE_FIXED_USAGE_TIME);
+			// int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60));
+			// msg.addItemName(_cursedWeaponEquipedId);
+			// msg.addNumber(timeLeftInHours);
+			// sendPacket(msg);
 			return;
 		}
 		// medal reward

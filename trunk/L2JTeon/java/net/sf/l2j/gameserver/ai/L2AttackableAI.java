@@ -205,7 +205,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return false;
 		}
 		else if (_actor instanceof L2FriendlyMobInstance)
-		{ 
+		{
 			// the actor is a L2FriendlyMobInstance Check if the target isn't another L2NpcInstance
 			if (target instanceof L2NpcInstance)
 			{
@@ -220,7 +220,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return false;
 		}
 		else
-		{ 
+		{
 			// The actor is a L2MonsterInstance Check if the target isn't another L2NpcInstance
 			if (target instanceof L2NpcInstance)
 			{
@@ -609,7 +609,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							continue;
 						}
 						// Check if the L2Object is inside the Faction Range of the actor
-						if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && GeoData.getInstance().canSeeTarget(_actor, npc) && (Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600) && (npc.getAI() != null) && _actor.getAttackByList().contains(getAttackTarget()) && ((npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE) || (npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)))
+						if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && GeoData.getInstance().canSeeTarget(_actor, npc) && (Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600) && (npc.getAI() != null) && _actor.getAttackByList().contains(getAttackTarget())
+								&& ((npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE) || (npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)))
 						{
 							if ((getAttackTarget() instanceof L2PcInstance) && getAttackTarget().isInParty() && getAttackTarget().getParty().isInDimensionalRift())
 							{
@@ -622,7 +623,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							}
 							// Notify the L2Object AI with EVT_AGGRESSION
 							npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
-							
 							int chance = 4;
 							if (_actor instanceof L2MinionInstance)
 							{
@@ -792,7 +792,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (!_actor.isMuted() /* && _rnd.nextInt(100) <= 5 */)
 			{
 				boolean useSkillSelf = true;
-
 				for (L2Skill sk : skills)
 				{
 					if (/*

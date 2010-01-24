@@ -96,32 +96,10 @@ public class Olympiad
 			return true;
 		}
 
-		/*protected boolean proverkaDoTeleporta()
-		{
-			boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected);
-			boolean _pTwoCrash = (_game._playerTwo == null || _game._playerTwoDisconnected);
-			if (_pOneCrash || _pTwoCrash || _game._aborted)
-			{
-				if (_pOneCrash && !_pTwoCrash)
-				{
-					_sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_GAME);
-					_sm.addString(_game._playerTwoName);
-					broadcastMessage(_sm, true);
-				}
-				if (_pTwoCrash && !_pOneCrash)
-				{
-					_sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_GAME);
-					_sm.addString(_game._playerOneName);
-					broadcastMessage(_sm, true);
-				}
-				_terminated = true;
-				_game._gamestarted = false;
-				_game = null;
-				return false;
-			}
-			return true;
-		}*/
-
+		/*
+		 * protected boolean proverkaDoTeleporta() { boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected); boolean _pTwoCrash = (_game._playerTwo == null || _game._playerTwoDisconnected); if (_pOneCrash || _pTwoCrash || _game._aborted) { if (_pOneCrash && !_pTwoCrash) { _sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_GAME); _sm.addString(_game._playerTwoName);
+		 * broadcastMessage(_sm, true); } if (_pTwoCrash && !_pOneCrash) { _sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_GAME); _sm.addString(_game._playerOneName); broadcastMessage(_sm, true); } _terminated = true; _game._gamestarted = false; _game = null; return false; } return true; }
+		 */
 		protected boolean checkStatus()
 		{
 			boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected);

@@ -322,7 +322,7 @@ public class L2CharacterAI extends AbstractAI
 		}
 		// Set the Intention of this AbstractAI to AI_INTENTION_MOVE_TO
 		//
-		// changeIntention(AI_INTENTION_MOVE_TO, new 
+		// changeIntention(AI_INTENTION_MOVE_TO, new
 		// L2CharPosition(((L2PcInstance)_actor).getBoat().getX() -
 		// destination.x, ((L2PcInstance)_actor).getBoat().getY() -
 		// destination.y, ((L2PcInstance)_actor).getBoat().getZ() -

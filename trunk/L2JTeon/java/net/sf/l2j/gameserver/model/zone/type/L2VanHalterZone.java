@@ -44,6 +44,7 @@ public class L2VanHalterZone extends L2ZoneType
 		}
 	}
 
+	@Override
 	protected void onEnter(L2Character character)
 	{
 		if (character instanceof L2PcInstance)

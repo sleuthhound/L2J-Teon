@@ -156,7 +156,7 @@ public class GmListTable
 			// L2EMU_ADD
 			if (gm != null)// prevents a NPE.
 				// L2EMU_ADD
-			gm.sendPacket(SystemMessage.sendString(message));
+				gm.sendPacket(SystemMessage.sendString(message));
 		}
 	}
 }
