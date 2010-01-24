@@ -952,6 +952,8 @@ public final class Config
 	public static boolean ALLOW_REMOTE_CLASS_MASTERS;
 	/** L2Walker protectio Master By Danielmwx **/
 	public static boolean ALLOW_L2WALKER_PROTECTION;
+	/** PVP BOT By Danielmwx **/
+	public static boolean PVP_SAME_IP;
 	/**
 	 * Config option allowing server administrators/owners the ability to set a title for new players.
 	 */
@@ -2404,6 +2406,7 @@ public final class Config
 				ALLOW_REMOTE_CLASS_MASTERS = Boolean.valueOf(L2JTeonCustom.getProperty("AllowRemoteClassMasters", "False"));
 				/** L2Walker Protection by Danielmwx **/
 				ALLOW_L2WALKER_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("L2WalkerProtection", "False"));
+				PVP_SAME_IP = Boolean.parseBoolean(L2JTeonCustom.getProperty("PvPSameIP", "False"));
 				ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("TradeOffCommand", "False"));
 				ONLINE_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("OnlineVCommand", "False"));
 				// **************************//
