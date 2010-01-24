@@ -59,9 +59,6 @@ import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
@@ -308,12 +305,6 @@ public class EnterWorld extends L2GameClientPacket
 			sm.addNumber(PLAYERS_ONLINE);
 			sendPacket(sm);
 		}
-		// sends server news
-		String serverNews = HtmCache.getInstance().getHtm("data/html/servnews.htm");
-		if (serverNews != null)
-		{
-			WindowService.sendWindow(activeChar, "data/html/", "servnews.htm");
-		}
 		// check any poending petitions
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
 		// sends welcome htm if enabled.
@@ -359,8 +350,6 @@ public class EnterWorld extends L2GameClientPacket
 		// NPCBuffer
 		if (Config.NPCBUFFER_FEATURE_ENABLED)
 			CharSchemesTable.getInstance().onPlayerLogin(activeChar.getObjectId());
-		if (CTF._savePlayers.contains(activeChar.getName()))
-			CTF.addDisconnectedPlayer(activeChar);
 		// load points for that character
 		RaidBossPointsManager.loadPoints(activeChar);
 		if (activeChar.isCursedWeaponEquiped())
@@ -421,12 +410,6 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
 		}
 		RegionBBSManager.getInstance().changeCommunityBoard();
-		if (TvT._savePlayers.contains(activeChar.getName()))
-			TvT.addDisconnectedPlayer(activeChar);
-		if (CTF._savePlayers.contains(activeChar.getName()))
-			CTF.addDisconnectedPlayer(activeChar);
-		if (DM._savePlayers.contains(activeChar.getName()))
-			DM.addDisconnectedPlayer(activeChar);
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		if (Config.ALLOW_REMOTE_CLASS_MASTERS)
 		{
