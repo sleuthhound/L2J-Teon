@@ -52,10 +52,9 @@ public class Escape implements IUserCommandHandler
 			activeChar.sendMessage("You may not use an escape command in a festival.");
 			return false;
 		}
-		// Check to see if the current player is in TvT CTF or DM events.
-		if (activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)
+		if (activeChar.isInFunEvent())
 		{
-			activeChar.sendMessage("You may not use an escape skill in a Event.");
+			activeChar.sendMessage("Voce nao pode dar Escape estando em evento.");
 			return false;
 		}
 		// Check to see if the player is in faction.
