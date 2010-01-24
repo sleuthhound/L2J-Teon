@@ -294,33 +294,31 @@ public class CursedWeapon
 		CursedWeaponsManager.announce(sm); // in the Hot Spring region
 	}
 
-    public void disableAllSkills() 
-    { 
-    	for (L2Skill sk : _player.getAllSkills()) 
-    	{ 
-    		if (sk != null) 
-    			_player.removeSkill(sk, false); 
-    	} 
-    	_player.sendSkillList(); 
-    }
-    
-    public void cursedOnLogin() 
-    { 
-    	disableAllSkills(); 
-    	giveSkill(); 
-    	
-    	SystemMessage msg = new SystemMessage(SystemMessageId.S2_OWNER_HAS_LOGGED_INTO_THE_S1_REGION); 
-    	msg.addZoneName(_player.getX(), _player.getY(), _player.getZ()); 
-    	msg.addItemName(_player.getCursedWeaponEquipedId()); 
-    	CursedWeaponsManager.announce(msg); 
-    	
-    	CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_player.getCursedWeaponEquipedId()); 
-    	SystemMessage msg2 = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1); 
-    	int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60)); 
-    	msg2.addItemName(_player.getCursedWeaponEquipedId()); 
-    	msg2.addNumber(timeLeftInHours*60); 
-    	_player.sendPacket(msg2); 
-    }
+	public void disableAllSkills()
+	{
+		for (L2Skill sk : _player.getAllSkills())
+		{
+			if (sk != null)
+				_player.removeSkill(sk, false);
+		}
+		_player.sendSkillList();
+	}
+
+	public void cursedOnLogin()
+	{
+		disableAllSkills();
+		giveSkill();
+		SystemMessage msg = new SystemMessage(SystemMessageId.S2_OWNER_HAS_LOGGED_INTO_THE_S1_REGION);
+		msg.addZoneName(_player.getX(), _player.getY(), _player.getZ());
+		msg.addItemName(_player.getCursedWeaponEquipedId());
+		CursedWeaponsManager.announce(msg);
+		CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_player.getCursedWeaponEquipedId());
+		SystemMessage msg2 = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
+		int timeLeftInHours = (int) (((cw.getTimeLeft() / 60000) / 60));
+		msg2.addItemName(_player.getCursedWeaponEquipedId());
+		msg2.addNumber(timeLeftInHours * 60);
+		_player.sendPacket(msg2);
+	}
 
 	/**
 	 * Yesod:<br>

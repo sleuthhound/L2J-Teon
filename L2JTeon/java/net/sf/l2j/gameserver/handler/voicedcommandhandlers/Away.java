@@ -111,8 +111,8 @@ public class Away implements IVoicedCommandHandler
 		}
 		if (activeChar.isImmobilized())
 			return false;
-        if (text == null) 
-            text = ""; 
+		if (text == null)
+			text = "";
 		// check away text have not more then 10 letter
 		if (text.length() > 10)
 		{

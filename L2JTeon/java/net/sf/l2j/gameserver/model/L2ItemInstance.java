@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -1289,7 +1288,6 @@ public final class L2ItemInstance extends L2Object
 	{
 		if (Config.ASSERT)
 			assert getPosition().getWorldRegion() == null;
-
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2ItemInstance dropped and update its _worldregion

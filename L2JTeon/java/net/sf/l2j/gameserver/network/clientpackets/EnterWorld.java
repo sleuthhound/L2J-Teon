@@ -23,6 +23,7 @@ import net.sf.l2j.Base64;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
+import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
@@ -30,7 +31,6 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.CharSchemesTable;
-import net.sf.l2j.gameserver.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.PcColorTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
@@ -363,10 +363,10 @@ public class EnterWorld extends L2GameClientPacket
 			CTF.addDisconnectedPlayer(activeChar);
 		// load points for that character
 		RaidBossPointsManager.loadPoints(activeChar);
-        if(activeChar.isCursedWeaponEquiped()) 
-        { 
-            CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquipedId()).cursedOnLogin(); 
-        }
+		if (activeChar.isCursedWeaponEquiped())
+		{
+			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquipedId()).cursedOnLogin();
+		}
 		if (Olympiad.getInstance().playerInStadia(activeChar))
 		{
 			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
