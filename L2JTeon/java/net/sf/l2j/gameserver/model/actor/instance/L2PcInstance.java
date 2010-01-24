@@ -4644,6 +4644,13 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_EQUIP_ITEM_WHEN_PK_COUNT_GREATER_OR_EQUAL_THAN_ONE));
 		}
 		// Check if it's pvp
+		if (Config.PVP_SAME_IP)
+		{
+			String player1 = getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
+			String player1target = targetPlayer.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
+			if (player1.equals(player1target))
+				return;
+		}
 		if ((checkIfPvP(target) && targetPlayer.getPvpFlag() != 0) // Can pvp and and Target player has pvp flag set or
 				|| (isInsideZone(ZONE_PVP) && targetPlayer.isInsideZone(ZONE_PVP))) // Player is inside pvp zone and and Target player is inside pvp zone
 		{
