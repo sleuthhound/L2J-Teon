@@ -3508,6 +3508,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF));
 	}
+	
+	public boolean isInTargetEvent()
+	{
+	 		return(atEvent || (TvT._joining && _inEventTvT) || (TvT._teleport && _inEventTvT) || (TvT._sitForced && _inEventTvT) || (TvT._started && _inEventTvT) || (DM._joining && _inEventDM) || (DM._teleport && _inEventDM) || (DM._sitForced && _inEventDM) || (DM._started && _inEventDM) || (CTF._joining && _inEventCTF) || (CTF._teleport && _inEventCTF) || (CTF._sitForced && _inEventCTF) || (CTF._started && _inEventCTF));
+	}
 
 	/**
 	 * Returns true if cp update should be done, false if not
@@ -4229,6 +4234,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						public void run()
 						{
+							if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
+							{
+								stopAllEffects();
+							}
 							teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
 							doRevive();
 						}
@@ -4244,6 +4253,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						public void run()
 						{
+							if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
+							{
+								stopAllEffects();
+							}
 							teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
 							doRevive();
 						}
@@ -4261,6 +4274,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						public void run()
 						{
+							if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
+							{
+								stopAllEffects();
+							}
 							teleToLocation(CTF._teamsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._teamsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._teamsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
 							doRevive();
 						}
@@ -4277,6 +4294,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						public void run()
 						{
+							if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+							{
+								stopAllEffects();
+							}
 							teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
 							doRevive();
 						}
@@ -4292,6 +4313,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						public void run()
 						{
+							if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+							{
+								stopAllEffects();
+							}
 							teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
 							doRevive();
 						}
