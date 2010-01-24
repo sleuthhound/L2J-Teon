@@ -93,6 +93,10 @@ public final class FloodProtectors
 	 */
 	private final FloodProtectorAction _global;
 	/**
+	 * Chat trade Flood Protector.
+	 */
+	private final FloodProtectorAction _trade;
+	/**
 	 * Potion Flood Protector.
 	 */
 	private final FloodProtectorAction _potion;
@@ -123,6 +127,7 @@ public final class FloodProtectors
 		_misc = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_MISC);
 		_chat = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_CHAT);
 		_global = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_GLOBAL);
+		_trade = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_TRADE);
 		_potion = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_POTION);
 	}
 
@@ -294,6 +299,16 @@ public final class FloodProtectors
 	public FloodProtectorAction getGlobal()
 	{
 		return _global;
+	}
+	
+	/**
+	 * Returns {@link #_trade}.
+	 * 
+	 * @return {@link #_trade}
+	 */
+	public FloodProtectorAction getTrade()
+	{
+		return _trade;
 	}
 
 	/**

@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.CharSchemesTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;

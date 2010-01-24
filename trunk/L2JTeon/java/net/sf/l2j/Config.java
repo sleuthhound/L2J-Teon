@@ -108,6 +108,7 @@ public final class Config
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_MISC = new FloodProtectorConfig("MiscFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_CHAT = new FloodProtectorConfig("ChatFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_GLOBAL = new FloodProtectorConfig("GlobalFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_TRADE = new FloodProtectorConfig("TradeFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_POTION = new FloodProtectorConfig("PotionFloodProtector");
 	/** Start AltSettings.properties */
 	// Auto loots configs
@@ -3800,6 +3801,7 @@ public final class Config
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_MISC, "Misc", "10");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_CHAT, "Chat", "10");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_GLOBAL, "Global", "500");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_TRADE, "Trade", "500");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_POTION, "Potion", "10");
 	}
 
