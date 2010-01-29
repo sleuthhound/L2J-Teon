@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.DataOtimize;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.CharSchemesTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
@@ -246,6 +247,29 @@ public class Shutdown extends Thread
 			catch (Throwable t)
 			{
 				// ignore
+			}
+			try
+			{
+				if (Config.DATABASE_AUTO_ANALYZE)
+				{
+					DataOtimize.AnalyzeGame();
+				}
+				if (Config.DATABASE_AUTO_CHECK)
+				{
+					DataOtimize.CheckGame();
+				}
+				if (Config.DATABASE_AUTO_OPTIMIZE)
+				{
+					DataOtimize.OptimizeGame();
+				}
+				if (Config.DATABASE_AUTO_REPAIR)
+				{
+					DataOtimize.RepairGame();
+				}
+			}
+			catch (Throwable t)
+			{
+				//null
 			}
 			// commit data, last chance
 			try
