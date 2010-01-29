@@ -445,6 +445,8 @@ public final class Config
 	public static boolean LOG_CHAT;
 	public static boolean LOG_ITEMS;
 	public static boolean LOG_TRADES;
+	public static boolean LOG_PDAM;
+	public static boolean LOG_MDAM;
 	// Community Board
 	public static String COMMUNITY_TYPE;
 	public static String BBS_DEFAULT;
@@ -1407,6 +1409,12 @@ public final class Config
 	public static int FAST_CONNECTION_TIME;
 	public static int MAX_CONNECTION_PER_IP;
 
+	/* Auto database repair and optimize configs */
+	public static boolean DATABASE_AUTO_ANALYZE;
+	public static boolean DATABASE_AUTO_CHECK;
+	public static boolean DATABASE_AUTO_OPTIMIZE;
+	public static boolean DATABASE_AUTO_REPAIR;
+	
 	/**
 	 * This class initializes all global variables for configuration.<br>
 	 * If key doesn't appear in properties file, a default value is setting on by this class.
@@ -1458,6 +1466,10 @@ public final class Config
 				{
 					throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
 				}
+				DATABASE_AUTO_ANALYZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoAnalyze", "False"));
+				DATABASE_AUTO_CHECK = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoCheck", "False"));
+				DATABASE_AUTO_OPTIMIZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoOptimize", "False"));
+				DATABASE_AUTO_REPAIR = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoRepair", "False"));
 			}
 			catch (Exception e)
 			{
@@ -1837,6 +1849,8 @@ public final class Config
 				LOG_CHAT = Boolean.valueOf(optionsSettings.getProperty("LogChat", "False"));
 				LOG_ITEMS = Boolean.valueOf(optionsSettings.getProperty("LogItems", "False"));
 				LOG_TRADES = Boolean.valueOf(optionsSettings.getProperty("LogTrades", "False"));
+				LOG_PDAM = Boolean.valueOf(optionsSettings.getProperty("LogPdam", "False"));
+				LOG_MDAM = Boolean.valueOf(optionsSettings.getProperty("LogMdam", "False"));
 				GMAUDIT = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "True"));
 				COMMUNITY_TYPE = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
 				BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
@@ -2829,6 +2843,11 @@ public final class Config
 				NORMAL_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("NormalConnectionTime", "700"));
 				FAST_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("FastConnectionTime", "350"));
 				MAX_CONNECTION_PER_IP = Integer.parseInt(serverSettings.getProperty("MaxConnectionPerIP", "50"));
+				
+				DATABASE_AUTO_ANALYZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoAnalyze", "False"));
+				DATABASE_AUTO_CHECK = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoCheck", "False"));
+				DATABASE_AUTO_OPTIMIZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoOptimize", "False"));
+				DATABASE_AUTO_REPAIR = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoRepair", "False"));
 			}
 			catch (Exception e)
 			{

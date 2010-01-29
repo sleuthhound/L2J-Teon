@@ -29,6 +29,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.DataOtimize;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.Server;
 import net.sf.l2j.status.Status;
@@ -106,6 +107,29 @@ public class L2LoginServer
 			if (Config.DEVELOPER)
 				e.printStackTrace();
 			System.exit(1);
+		}
+		try
+		{
+			if (Config.DATABASE_AUTO_ANALYZE)
+			{
+				DataOtimize.AnalyzeLogin();
+			}
+			if (Config.DATABASE_AUTO_CHECK)
+			{
+				DataOtimize.CheckLogin();
+			}
+			if (Config.DATABASE_AUTO_OPTIMIZE)
+			{
+				DataOtimize.OptimizeLogin();
+			}
+			if (Config.DATABASE_AUTO_REPAIR)
+			{
+				DataOtimize.RepairLogin();
+			}
+		}
+		catch (Exception e)
+		{
+			//null
 		}
 		try
 		{
