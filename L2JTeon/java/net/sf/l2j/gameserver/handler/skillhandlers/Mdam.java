@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Log;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -135,7 +136,10 @@ public class Mdam implements ISkillHandler
 					name = target.getName() + "(" + target.getObjectId() + ") ";
 				}
 				name += target.getLevel() + " lvl";
-				Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage + " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_mdam");
+				if (Config.LOG_MDAM)
+				{
+					Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage + " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_mdam");
+				}
 			}
 			// Why are we trying to reduce the current target HP here?
 			// Why not inside the below "if" condition, after the effects

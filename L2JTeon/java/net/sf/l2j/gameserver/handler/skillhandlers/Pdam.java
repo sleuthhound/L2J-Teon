@@ -102,7 +102,10 @@ public class Pdam implements ISkillHandler
 				if (target instanceof L2PcInstance)
 					name = target.getName() + "(" + target.getObjectId() + ") ";
 				name += target.getLevel() + " lvl";
-				Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage + " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_pdam");
+				if (Config.LOG_PDAM)
+				{
+					Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage + " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_pdam");
+				}
 			}
 			if (soul && weapon != null)
 				weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
