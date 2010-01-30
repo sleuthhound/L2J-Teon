@@ -108,7 +108,7 @@ DROP TABLE IF EXISTS pkkills;
 DROP TABLE IF EXISTS pledge_skill_trees;
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS quest_global_data;
-DROP TABLE IF EXISTS raid_events_spawnlist;
+DROP TABLE IF EXISTS raid_event_spawnlist;
 DROP TABLE IF EXISTS raid_prizes;
 DROP TABLE IF EXISTS raidboss_spawnlist;
 DROP TABLE IF EXISTS random_spawn;
