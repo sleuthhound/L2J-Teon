@@ -1,8 +1,7 @@
 -- 
 -- Table structure for table `teleport`
 -- 
-DROP TABLE IF EXISTS teleport;
-CREATE TABLE teleport (
+CREATE TABLE IF NOT EXISTS teleport (
   Description varchar(75) default NULL,
   id decimal(11,0) NOT NULL default '0',
   loc_x decimal(9,0) default NULL,

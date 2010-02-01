@@ -1,3 +1,6 @@
+--
+-- Table structure for 'seven_signs'
+--
 CREATE TABLE IF NOT EXISTS `seven_signs` (
   `char_obj_id` INT NOT NULL default '0',
   `cabal` VARCHAR(4) NOT NULL default '',
