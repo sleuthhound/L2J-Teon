@@ -1,5 +1,7 @@
-DROP TABLE IF EXISTS `zone_vertices`;
-CREATE TABLE `zone_vertices` (
+-- 
+-- Table structure for table `zone_vertices`
+-- 
+CREATE TABLE IF NOT EXISTS `zone_vertices` (
   `id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
   `x` int(11) NOT NULL,

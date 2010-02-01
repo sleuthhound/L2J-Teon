@@ -1,8 +1,7 @@
 #----------------------------
 # Table structure for spawnlist
 #----------------------------
-DROP TABLE IF EXISTS `spawnlist`;
-CREATE TABLE `spawnlist` (
+CREATE TABLE IF NOT EXISTS `spawnlist` (
   `id` int(11) NOT NULL auto_increment,
   `location` varchar(40) NOT NULL default '',
   `count` int(9) NOT NULL default '0',
@@ -22,7 +21,6 @@ CREATE TABLE `spawnlist` (
 #----------------------------
 # Records for table spawnlist
 #----------------------------
-
 
 insert  into spawnlist values 
 (25000, 'partisan_agit_2121_01', 1, 35372, 44368, 107440, -2032, 0, 0, 0, 60, 0, '0'), 

@@ -2,8 +2,7 @@
 -- Table structure for table `tvt`
 -- Created by SqueezeD from l2jfree
 -- --------------------------------
-DROP TABLE IF EXISTS `tvt`;
-CREATE TABLE `tvt` (
+CREATE TABLE IF NOT EXISTS `tvt` (
   `eventName` varchar(255) NOT NULL default '',
   `eventDesc` varchar(255) NOT NULL default '',
   `joiningLocation` varchar(255) NOT NULL default '',

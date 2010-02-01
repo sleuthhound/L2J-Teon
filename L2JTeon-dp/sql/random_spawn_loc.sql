@@ -1,5 +1,7 @@
-DROP TABLE IF EXISTS `random_spawn_loc`;
-CREATE TABLE `random_spawn_loc` (
+--
+-- Table structure for 'random_spawn_loc'
+--
+CREATE TABLE IF NOT EXISTS `random_spawn_loc` (
   `groupId` int(11) NOT NULL default '0',
   `x` int(11) NOT NULL default '0',
   `y` int(11) NOT NULL default '0',

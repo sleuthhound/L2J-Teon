@@ -1,5 +1,7 @@
-DROP TABLE IF EXISTS skill_trees;
-CREATE TABLE skill_trees (
+--
+-- Table structure for table `skill_tress`
+--
+CREATE TABLE IF NOT EXISTS skill_trees (
   class_id int(10) unsigned NOT NULL default '0',
   skill_id int(10) unsigned NOT NULL default '0',
   level int(10) unsigned NOT NULL default '0',

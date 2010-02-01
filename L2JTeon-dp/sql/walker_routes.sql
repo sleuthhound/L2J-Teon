@@ -1,8 +1,7 @@
--- ---------------------------------
+--
 -- Table structure for walker_routes
--- ---------------------------------
-DROP TABLE IF EXISTS `walker_routes`;
-CREATE TABLE `walker_routes` (
+--
+CREATE TABLE IF NOT EXISTS `walker_routes` (
   `route_id` int(11) NOT NULL default '0',
   `npc_id` int(11) NOT NULL default '0',
   `move_point` int(9) NOT NULL,

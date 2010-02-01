@@ -1,8 +1,7 @@
--- ----------------------------
+--
 -- Table structure for vanhalter_spawnlist
--- ----------------------------
-DROP TABLE IF EXISTS `vanhalter_spawnlist`;
-CREATE TABLE `vanhalter_spawnlist` (
+--
+CREATE TABLE IF NOT EXISTS `vanhalter_spawnlist` (
   `id` int(11) NOT NULL auto_increment,
   `location` varchar(40) NOT NULL default '',
   `count` int(9) NOT NULL default '0',
