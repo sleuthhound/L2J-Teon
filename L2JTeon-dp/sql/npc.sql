@@ -1,8 +1,7 @@
-#----------------------------
-# Table structure for npc
-#----------------------------
-DROP TABLE IF EXISTS `npc`;
-CREATE TABLE `npc` (
+--
+--  Table structure for npc
+--
+CREATE TABLE IF NOT EXISTS `npc` (
   `id` decimal(11,0) NOT NULL default '0',
   `idTemplate` int(11) NOT NULL default '0',
   `name` varchar(200) default NULL,

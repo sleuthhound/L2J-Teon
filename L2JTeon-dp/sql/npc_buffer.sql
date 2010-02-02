@@ -1,10 +1,11 @@
 /*
 L2J-Archid Alternative Buffer
 */
-
 SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS `npc_buffer`;
-CREATE TABLE `npc_buffer` (
+--
+-- Table structure for 'npc_buffer'
+--
+CREATE TABLE IF NOT EXISTS `npc_buffer` (
   `npc_id` int(5) NOT NULL,
   `skill_id` int(5) NOT NULL,
   `skill_level` int(5) NOT NULL default '1',

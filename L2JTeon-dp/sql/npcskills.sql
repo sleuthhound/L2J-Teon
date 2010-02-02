@@ -1,8 +1,7 @@
 -- 
 -- Table structure for table `npcskills`
 -- 
-DROP TABLE IF EXISTS npcskills;
-CREATE TABLE npcskills (
+CREATE TABLE IF NOT EXISTS npcskills (
   npcid int(11) NOT NULL default '0',
   skillid int(11) NOT NULL default '0',
   level int(11) NOT NULL default '0',

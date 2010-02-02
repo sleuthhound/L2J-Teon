@@ -1,8 +1,8 @@
 SET FOREIGN_KEY_CHECKS=0;
--- ----------------------------
+--
 -- Table structure for raid_prizes
--- ----------------------------
-CREATE TABLE `raid_prizes` (
+--
+CREATE TABLE IF NOT EXISTS `raid_prizes` (
   `prize_package_id` int(11) NOT NULL,
   `first_prize_id` int(11) NOT NULL,
   `first_prize_ammount` int(11) NOT NULL,

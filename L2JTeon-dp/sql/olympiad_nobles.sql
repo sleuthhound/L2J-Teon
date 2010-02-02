@@ -1,3 +1,6 @@
+--
+-- Table structure for 'olympiad_nobles'
+--
 CREATE TABLE IF NOT EXISTS `olympiad_nobles` (
   `char_id` decimal(11,0) NOT NULL default '0',
   `class_id` decimal(3,0) NOT NULL default '0',

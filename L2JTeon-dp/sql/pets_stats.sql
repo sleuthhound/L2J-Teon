@@ -1,8 +1,7 @@
-#----------------------------
-# Table structure for pets_stats
-#----------------------------
-DROP TABLE IF EXISTS `pets_stats`;
-CREATE TABLE `pets_stats` (
+--
+--  Table structure for pets_stats
+--
+CREATE TABLE IF NOT EXISTS `pets_stats` (
   `type` varchar(25) NOT NULL default '',
   `typeID` int(5) NOT NULL default '0',
   `level` int(11) NOT NULL default '0',

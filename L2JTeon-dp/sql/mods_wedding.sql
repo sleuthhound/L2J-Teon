@@ -1,7 +1,6 @@
 -- 
 -- Table structure for table `mods_couples`
 -- 
-
 CREATE TABLE IF NOT EXISTS `mods_wedding` (
   `id` int(11) NOT NULL auto_increment,
   `player1Id` int(11) NOT NULL default '0',

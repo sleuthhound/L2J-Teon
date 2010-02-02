@@ -1,7 +1,7 @@
-#----------------------------
-# Table structure for minions
-#----------------------------
-CREATE TABLE `minions` (
+--
+-- Table structure for minions
+--
+CREATE TABLE IF NOT EXISTS `minions` (
   `boss_id` int(11) NOT NULL default '0',
   `minion_id` int(11) NOT NULL default '0',
   `amount_min` int(4) NOT NULL default '0',
