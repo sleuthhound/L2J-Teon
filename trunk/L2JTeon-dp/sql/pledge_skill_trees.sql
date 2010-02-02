@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS `pledge_skill_trees`;
+--
+-- Table structure for 'pledge_skill_trees'
+--
 CREATE TABLE IF NOT EXISTS `pledge_skill_trees` (
   `skill_id` int(11) default NULL,
   `level` int(11) default NULL,

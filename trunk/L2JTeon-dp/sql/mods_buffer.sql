@@ -1,7 +1,6 @@
 -- 
 -- Table structure for table `mods_buffer_skills`
 -- 
-
 CREATE TABLE IF NOT EXISTS `mods_buffer_skills` (
   id int(10) unsigned NOT NULL default '0',
   level int(10) unsigned NOT NULL default '0',
@@ -13,7 +12,6 @@ CREATE TABLE IF NOT EXISTS `mods_buffer_skills` (
 -- 
 -- Table structure for table `mods_buffer_schemes`
 -- 
-
 CREATE TABLE IF NOT EXISTS `mods_buffer_schemes` (
  ownerId int unsigned not null default '0',
  id int(10) unsigned not null default '0',
