@@ -1,8 +1,7 @@
 -- ----------------------------
 -- Table structure for dimensional_rift
 -- ----------------------------
-DROP TABLE IF EXISTS `dimensional_rift`;
-CREATE TABLE `dimensional_rift` (
+CREATE TABLE IF NOT EXISTS `dimensional_rift` (
   `type` tinyint(1) NOT NULL,
   `room_id` tinyint(1) NOT NULL,
   `xMin` int(11) NOT NULL,

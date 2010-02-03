@@ -1,6 +1,6 @@
--- ----------------------------
+--
 -- Table structure for fort
--- ----------------------------
+--
 CREATE TABLE IF NOT EXISTS `fort` (
   `id` int(11) NOT NULL default '0',
   `name` varchar(55) NOT NULL,

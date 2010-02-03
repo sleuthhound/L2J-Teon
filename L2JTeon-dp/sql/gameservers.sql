@@ -1,3 +1,6 @@
+--
+-- Table structure for table `gameservers`
+--
 CREATE TABLE IF NOT EXISTS `gameservers` (
   `server_id` int(11) NOT NULL default '0',
   `hexid` varchar(50) NOT NULL default '',

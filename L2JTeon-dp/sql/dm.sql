@@ -2,8 +2,7 @@
 -- Table structure for table `dm`
 -- Created by SqueezeD from l2jfree
 -- --------------------------------
-DROP TABLE IF EXISTS `dm`;
-CREATE TABLE `dm` (
+CREATE TABLE IF NOT EXISTS `dm` (
   `eventName` varchar(255) NOT NULL default '',
   `eventDesc` varchar(255) NOT NULL default '',
   `joiningLocation` varchar(255) NOT NULL default '',

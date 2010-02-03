@@ -1,9 +1,8 @@
--- --------------------------------
+--
 -- Table structure for table `ctf`
 -- Created by SqueezeD & Serpent for l2jfree
--- --------------------------------
-DROP TABLE IF EXISTS `ctf`;
-CREATE TABLE `ctf` (
+--
+CREATE TABLE IF NOT EXISTS `ctf` (
   `eventName` varchar(255) NOT NULL default '',
   `eventDesc` varchar(255) NOT NULL default '',
   `joiningLocation` varchar(255) NOT NULL default '',

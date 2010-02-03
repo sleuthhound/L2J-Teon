@@ -1,6 +1,6 @@
--- ---------------------------
+--
 -- Table structure for games
--- ---------------------------
+--
 CREATE TABLE IF NOT EXISTS games (
   id INT NOT NULL default 0,
   idnr INT NOT NULL default 0,

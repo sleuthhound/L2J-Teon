@@ -22,8 +22,7 @@
 --
 -- Table structure for table `droplist`
 --
-DROP TABLE IF EXISTS `droplist`;
-CREATE TABLE `droplist` (
+CREATE TABLE IF NOT EXISTS `droplist` (
   `mobId` INT NOT NULL DEFAULT '0',
   `itemId` INT NOT NULL DEFAULT '0',
   `min` INT NOT NULL DEFAULT '0',

@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `fishing_skill_trees`;
 --
 --  Table structure for fishing_skill_trees
 --

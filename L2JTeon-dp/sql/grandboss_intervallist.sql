@@ -1,6 +1,6 @@
--- ----------------------------
+--
 -- Table structure for grandboss_intervallist
--- ----------------------------
+--
 CREATE TABLE IF NOT EXISTS `grandboss_intervallist` (
   `bossId` int(11) NOT NULL,
   `respawnDate` decimal(20,0) NOT NULL,

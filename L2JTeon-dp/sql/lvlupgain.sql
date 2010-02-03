@@ -1,9 +1,7 @@
 -- 
 -- Table structure for table `lvlupgain`
 -- 
-
-DROP TABLE IF EXISTS `lvlupgain`;
-CREATE TABLE `lvlupgain` (
+CREATE TABLE IF NOT EXISTS `lvlupgain` (
   `classid` int(3) NOT NULL default '0',
   `defaulthpbase` decimal(5,1) NOT NULL default '0.0',
   `defaulthpadd` decimal(4,2) NOT NULL default '0.00',

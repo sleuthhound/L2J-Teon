@@ -1,8 +1,7 @@
--- ---------------------------------------------
+--
 -- Table structure for four_sepulchers_spawnlist
--- ---------------------------------------------
-DROP TABLE IF EXISTS `four_sepulchers_spawnlist`;
-CREATE TABLE `four_sepulchers_spawnlist` (
+--
+CREATE TABLE IF NOT EXISTS `four_sepulchers_spawnlist` (
   `id` int(11) NOT NULL auto_increment,
   `location` varchar(19) NOT NULL DEFAULT '',
   `count` int(9) NOT NULL DEFAULT '0',

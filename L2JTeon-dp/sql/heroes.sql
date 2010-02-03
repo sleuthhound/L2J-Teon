@@ -1,3 +1,6 @@
+--
+-- Table structure for 'heroes'
+--
 CREATE TABLE IF NOT EXISTS `heroes` (
   `char_id` decimal(11,0) NOT NULL default '0',
   `char_name` varchar(45) NOT NULL default '',
