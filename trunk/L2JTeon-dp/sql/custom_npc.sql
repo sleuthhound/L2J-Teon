@@ -1,9 +1,7 @@
 --
 -- Table structure for custom_npc
 --
-
-DROP TABLE IF EXISTS `custom_npc`;
-CREATE TABLE `custom_npc` (
+CREATE TABLE IF NOT EXISTS `custom_npc` (
   `id` decimal(11,0) NOT NULL default '0',
   `idTemplate` int(11) NOT NULL default '0',
   `name` varchar(200) default NULL,

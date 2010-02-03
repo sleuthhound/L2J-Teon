@@ -1,6 +1,6 @@
--- ----------------------------
+--
 -- Table structure for `cursed_weapons`
--- ----------------------------
+--
 CREATE TABLE IF NOT EXISTS `cursed_weapons` (
   `itemId` INT,
   `playerId` INT DEFAULT 0,

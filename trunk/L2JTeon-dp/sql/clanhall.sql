@@ -1,6 +1,6 @@
--- ---------------------------
+--
 -- Table structure for clanhall
--- ---------------------------
+--
 CREATE TABLE IF NOT EXISTS `clanhall` (
   `id` int(11) NOT NULL default '0',
   `name` varchar(40) NOT NULL default '',

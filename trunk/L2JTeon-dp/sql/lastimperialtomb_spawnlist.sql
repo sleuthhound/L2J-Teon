@@ -1,8 +1,7 @@
--- ----------------------------
+--
 -- Table structure for lastimperialtomb_spawnlist
--- ----------------------------
-DROP TABLE IF EXISTS `lastimperialtomb_spawnlist`;
-CREATE TABLE `lastimperialtomb_spawnlist` (
+--
+CREATE TABLE IF NOT EXISTS `lastimperialtomb_spawnlist` (
   `id` int(11) NOT NULL auto_increment,
   `count` int(9) NOT NULL default '0',
   `npc_templateid` int(9) NOT NULL default '0',

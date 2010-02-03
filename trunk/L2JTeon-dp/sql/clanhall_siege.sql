@@ -1,7 +1,6 @@
--- ----------------------------
--- Table structure for clanhall_siege
--- ----------------------------
-DROP TABLE IF EXISTS `clanhall_siege`;
+--
+-- Table structure for 'clanhall_siege'
+--
 CREATE TABLE IF NOT EXISTS `clanhall_siege` (
   `id` int(11) NOT NULL,
   `name` varchar(40) NOT NULL,

@@ -1,7 +1,7 @@
--- ----------------------------
+--
 -- Table structure for gm_edit
--- ----------------------------
-CREATE TABLE `gm_edit` (
+--
+CREATE TABLE IF NOT EXISTS `gm_edit` (
   `id` int(11) NOT NULL auto_increment,
   `GM_Name` varchar(40) default NULL,
   `GM_ID` int(11) default NULL,

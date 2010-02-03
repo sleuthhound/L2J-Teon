@@ -1,18 +1,16 @@
-#----------------------------
-# Table structure for class_list
-#----------------------------
-DROP TABLE IF EXISTS class_list;
-CREATE TABLE `class_list` (
+--
+-- Table structure for class_list
+--
+CREATE TABLE IF NOT EXISTS `class_list` (
   `class_name` varchar(19) NOT NULL default '',
   `id` int(10) unsigned NOT NULL default '0',
   `parent_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM;
-#----------------------------
-# Records for table class_list
-#----------------------------
 
-
+--
+-- Records for table class_list
+--
 INSERT INTO `class_list` VALUES
 ('H_Fighter', 0, -1), 
 ('H_Warrior', 1, 0), 

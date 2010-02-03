@@ -1,8 +1,7 @@
-DROP TABLE IF EXISTS `fish`;
 -- 
 --  Table structure for fish
 -- 
-CREATE TABLE `fish` (
+CREATE TABLE IF NOT EXISTS `fish` (
   `id` int(5) NOT NULL default '0',
   `level` int(5) NOT NULL default '0',
   `name` varchar(40) NOT NULL default '',

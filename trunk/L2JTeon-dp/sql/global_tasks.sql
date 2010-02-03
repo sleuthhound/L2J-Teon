@@ -1,7 +1,6 @@
 --
 -- Table structure for table `global_tasks`
 --
-
 CREATE TABLE IF NOT EXISTS global_tasks (
   id int(11) NOT NULL auto_increment,
   task varchar(50) NOT NULL default '',

@@ -1,8 +1,7 @@
--- ---------------------------
+--
 -- Table structure for fort_staticobjects
--- ---------------------------
-DROP TABLE IF EXISTS `fort_door`;
-CREATE TABLE `fort_door` (
+--
+CREATE TABLE IF NOT EXISTS `fort_door` (
   `fortId` INT NOT NULL default 0,
   `id` INT NOT NULL default 0,
   `name` varchar(30) NOT NULL,

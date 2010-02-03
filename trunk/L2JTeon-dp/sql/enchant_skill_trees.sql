@@ -1,5 +1,7 @@
-drop table if exists enchant_skill_trees;
-CREATE TABLE `enchant_skill_trees` (
+--
+-- Table structure for table `enchant_skill_trees`
+--
+CREATE TABLE IF NOT EXISTS `enchant_skill_trees` (
   `skill_id` int(10) NOT NULL default '0',
   `level` int(10) NOT NULL default '0',
   `name` varchar(25) NOT NULL default '',
@@ -13,7 +15,6 @@ CREATE TABLE `enchant_skill_trees` (
   `success_rate78` int(3) NOT NULL default '0',
   PRIMARY KEY  (`skill_id`,`level`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
 
 INSERT INTO enchant_skill_trees VALUES 
 (1, 101, 'Triple Slash', 37, '+1 Power', 306000, 3060000, 37, 82, 92, 97), 

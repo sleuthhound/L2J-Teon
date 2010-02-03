@@ -1,8 +1,7 @@
--- ----------------------------------
+--
 -- Table structure for fort_spawnlist
--- ----------------------------------
-DROP TABLE IF EXISTS `fort_spawnlist`;
-CREATE TABLE `fort_spawnlist` (
+--
+CREATE TABLE IF NOT EXISTS `fort_spawnlist` (
   `fort_Id` int(11) NOT NULL DEFAULT '0',
   `id` int(11) NOT NULL auto_increment,
   `location` varchar(40) NOT NULL DEFAULT '',
