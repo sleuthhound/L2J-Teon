@@ -2435,7 +2435,7 @@ public final class Config
 				// ********************//
 				MAX_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxRunSpeed", "250"));
 				MAX_EVASION = Integer.parseInt(L2JTeonCustom.getProperty("MaxEvasion", "200"));
-				MAX_MCRIT_RATE = Integer.parseInt(L2JTeonCustom.getProperty("MaxMCritRate", "300"));
+				MAX_MCRIT_RATE = Integer.parseInt(L2JTeonCustom.getProperty("MaxMCritRate", "150"));
 				MAX_RCRIT = Integer.parseInt(L2JTeonCustom.getProperty("MaxCritical", "500"));
 				MAX_PATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxPAtkSpeed", "0"));
 				MAX_MATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxMAtkSpeed", "0"));
