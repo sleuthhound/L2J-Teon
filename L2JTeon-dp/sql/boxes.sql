@@ -1,7 +1,6 @@
 --
 -- Table structure for table `boxes`
 --
-
 CREATE TABLE IF NOT EXISTS boxes (
   id int(11) NOT NULL auto_increment,
   spawn decimal(11,0) default NULL,
