@@ -1,5 +1,7 @@
-DROP TABLE IF EXISTS `auto_chat`;
-CREATE TABLE `auto_chat` (
+--
+-- Table structure for 'auto_chat'
+--
+CREATE TABLE IF NOT EXISTS `auto_chat` (
   `groupId` INT NOT NULL default '0',
   `npcId` INT NOT NULL default '0',
   `chatDelay` BIGINT NOT NULL default '-1',

@@ -1,7 +1,7 @@
--- ----------------------------
+--
 -- Table structure for buff_templates
--- ----------------------------
-CREATE TABLE `buff_templates` (
+--
+CREATE TABLE IF NOT EXISTS `buff_templates` (
   `id` int(11) unsigned NOT NULL,
   `name` varchar(35) NOT NULL default '',
   `skill_id` int(10) unsigned NOT NULL,

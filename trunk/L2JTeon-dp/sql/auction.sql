@@ -1,6 +1,6 @@
--- ---------------------------
+--
 -- Table structure for auction
--- ---------------------------
+--
 CREATE TABLE IF NOT EXISTS `auction` (
   id int(11) NOT NULL default '0',
   sellerId int(11) NOT NULL default '0',

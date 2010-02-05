@@ -1,9 +1,7 @@
 -- 
 -- Table structure for table `armorsets`
 -- 
-
-DROP TABLE IF EXISTS armorsets;
-CREATE TABLE armorsets (
+CREATE TABLE IF NOT EXISTS armorsets (
  id int(3) NOT NULL auto_increment,
  chest decimal(11,0) NOT NULL default '0',
  legs decimal(11,0) NOT NULL default '0',
