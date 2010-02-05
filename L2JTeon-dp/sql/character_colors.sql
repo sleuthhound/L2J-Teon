@@ -1,4 +1,7 @@
-CREATE TABLE `character_colors`
+--
+-- Table structure for character_colors
+--
+CREATE TABLE IF NOT EXISTS `character_colors`
 (
     `char_name` varchar(35) NOT NULL,
     `color` int(8) NOT NULL,
