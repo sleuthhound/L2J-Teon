@@ -1328,7 +1328,7 @@ public abstract class L2Skill
 					if ((obj != null) && ((obj instanceof L2Attackable) || (obj instanceof L2PlayableInstance)))
 					{
 						// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-						if ((obj == activeChar) || (obj == src) || ((L2Character) obj).isDead())
+						if ((obj == activeChar) || (obj == src) || ((L2Character) obj).isDead() || ((L2Character) obj).isInFunEvent())
 						{
 							continue;
 						}
