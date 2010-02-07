@@ -1802,11 +1802,22 @@ public final class Formulas
 	public boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
 	{
 		SkillType type = skill.getSkillType();
-		if (target.isRaid() && ((type == SkillType.CONFUSION) || (type == SkillType.MUTE) || (type == SkillType.PARALYZE) || (type == SkillType.ROOT) || (type == SkillType.FEAR) || (type == SkillType.SLEEP) || (type == SkillType.STUN) || (type == SkillType.DEBUFF) || (type == SkillType.AGGDEBUFF)))
-		{
-			return false; // these skills should have only 1/1000 chance
-			// on
-			// raid, now it's 0.
+		if (target.isRaid())
+		{ 
+			switch (type)
+			{
+				case CONFUSION:
+				case MUTE:
+				case PARALYZE:
+				case ROOT:
+				case FEAR:
+				case SLEEP:
+				case STUN:
+				case DEBUFF:
+				case AGGDEBUFF:
+					return false; // these skills should have only 1/1000 chance on raid, now it's 0.
+			}
+
 		}
 		double defence = 0;
 		// TODO: CHECK/FIX THIS FORMULA UP!!
@@ -1990,9 +2001,21 @@ public final class Formulas
 	public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
 	{
 		SkillType type = skill.getSkillType();
-		if (target.isRaid() && ((type == SkillType.CONFUSION) || (type == SkillType.MUTE) || (type == SkillType.PARALYZE) || (type == SkillType.ROOT) || (type == SkillType.FEAR) || (type == SkillType.SLEEP) || (type == SkillType.STUN) || (type == SkillType.DEBUFF) || (type == SkillType.AGGDEBUFF)))
-		{
-			return false; // these skills should not work on RaidBoss
+		if (target.isRaid())
+		{ 
+			switch (type)
+			{
+				case CONFUSION:
+				case MUTE:
+				case PARALYZE:
+				case ROOT:
+				case FEAR:
+				case SLEEP:
+				case STUN:
+				case DEBUFF:
+				case AGGDEBUFF:
+					return false; // these skills should not work on RaidBoss
+			}
 		}
 		int value = (int) skill.getPower();
 		int lvlDepend = skill.getLevelDepend();

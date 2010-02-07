@@ -6339,12 +6339,17 @@ public abstract class L2Character extends L2Object
 		// then just leave it that way, otherwise switch back to STATE_IDLE.
 		// if(isCastingNow())
 		// getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-		// If the skill type is PDAM or DRAIN_SOUL, notify the AI of the target
-		// with AI_INTENTION_ATTACK
-		if ((skill.getSkillType() == SkillType.PDAM) || (skill.getSkillType() == SkillType.BLOW) || (skill.getSkillType() == SkillType.DRAIN_SOUL) || (skill.getSkillType() == SkillType.SOW) || (skill.getSkillType() == SkillType.SPOIL))
+		// If the skill type is PDAM or DRAIN_SOUL, notify the AI of the target with AI_INTENTION_ATTACK
+		switch (skill.getSkillType())
 		{
+		case PDAM:
+		case BLOW: 
+		case DRAIN_SOUL:
+		case SOW:
+		case SPOIL:
 			if ((getTarget() != null) && (getTarget() instanceof L2Character))
 				getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getTarget());
+			break;
 		}
 		if (skill.isOffensive() && !(skill.getSkillType() == SkillType.UNLOCK) && !(skill.getSkillType() == SkillType.DELUXE_KEY_UNLOCK))
 			getAI().clientStartAutoAttack();

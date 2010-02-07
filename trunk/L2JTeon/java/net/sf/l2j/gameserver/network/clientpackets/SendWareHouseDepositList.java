@@ -145,7 +145,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 			return;
 		}
 		// Check if enough adena and charge the fee
-		if ((currentAdena < fee) || !player.reduceAdena("Warehouse", fee, player.getLastFolkNPC(), false))
+		if ((currentAdena < fee) || !player.reduceAdena("Warehouse", fee, manager, false))
 		{
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			return;
@@ -168,7 +168,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 			int itemId = oldItem.getItemId();
 			if (((itemId >= 6611) && (itemId <= 6621)) || (itemId == 6842))
 				continue;
-			L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, player.getLastFolkNPC());
+			L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, manager);
 			if (newItem == null)
 			{
 				_log.warning("Error depositing a warehouse object for char " + player.getName() + " (newitem == null)");
