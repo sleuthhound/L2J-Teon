@@ -247,13 +247,13 @@ $MYG < ../sql/chat_filter.sql &> /dev/null
 $MYG < ../sql/account_data.sql &> /dev/null
 $MYG < ../sql/armor.sql &> /dev/null
 $MYG < ../sql/armorsets.sql &> /dev/null
+$MYG < ../sql/autoanounce.sql &> /dev/null
 $MYG < ../sql/auction.sql &> /dev/null
 $MYG < ../sql/auction_bid.sql &> /dev/null
 $MYG < ../sql/auction_watch.sql &> /dev/null
 $MYG < ../sql/auto_chat.sql &> /dev/null
-$MYG < ../sql/augmentations.sql &> /dev/null
 $MYG < ../sql/auto_chat_text.sql &> /dev/null
-$MYG < ../sql/autoanounce.sql &> /dev/null
+$MYG < ../sql/augmentations.sql &> /dev/null
 $MYG < ../sql/boxaccess.sql &> /dev/null
 $MYG < ../sql/boxes.sql &> /dev/null
 $MYG < ../sql/buff_templates.sql &> /dev/null
@@ -280,8 +280,8 @@ $MYG < ../sql/character_subclasses.sql &> /dev/null
 $MYG < ../sql/characters.sql &> /dev/null
 $MYG < ../sql/clan_data.sql &> /dev/null
 $MYG < ../sql/clan_privs.sql &> /dev/null
-$MYG < ../sql/clan_skills.sql &> /dev/null
 $MYG < ../sql/clan_subpledges.sql &> /dev/null
+$MYG < ../sql/clan_skills.sql &> /dev/null
 $MYG < ../sql/clan_wars.sql &> /dev/null
 $MYG < ../sql/clan_notices.sql &> /dev/null
 $MYG < ../sql/clanhall.sql &> /dev/null
@@ -294,28 +294,31 @@ $MYG < ../sql/custom_armor.sql &> /dev/null
 $MYG < ../sql/custom_armorsets.sql &> /dev/null
 $MYG < ../sql/custom_droplist.sql &> /dev/null
 $MYG < ../sql/custom_etcitem.sql &> /dev/null
+$MYG < ../sql/mods_buffer.sql &> /dev/null
+$MYG < ../sql/mods_wedding.sql &> /dev/null
 $MYG < ../sql/custom_merchant_buylists.sql &> /dev/null
 $MYG < ../sql/custom_merchant_shopids.sql &> /dev/null
-$MYG < ../sql/custom_npc.sql &> /dev/null
 $MYG < ../sql/custom_spawnlist.sql &> /dev/null
 $MYG < ../sql/custom_teleport.sql &> /dev/null
 $MYG < ../sql/custom_weapon.sql &> /dev/null
-$MYG < ../sql/tvt.sql &> /dev/null
-$MYG < ../sql/tvt_teams.sql &> /dev/null
-$MYG < ../sql/ctf.sql &> /dev/null
-$MYG < ../sql/ctf_teams.sql &> /dev/null
-$MYG < ../sql/dm.sql &> /dev/null
 $MYG < ../sql/dimensional_rift.sql &> /dev/null
 $MYG < ../sql/droplist.sql &> /dev/null
 $MYG < ../sql/enchant_skill_trees.sql &> /dev/null
 $MYG < ../sql/etcitem.sql &> /dev/null
 $MYG < ../sql/fish.sql &> /dev/null
 $MYG < ../sql/fishing_skill_trees.sql &> /dev/null
+$MYG < ../sql/fort_staticobjects.sql &> /dev/null
+$MYG < ../sql/fort_functions.sql &> /dev/null
+$MYG < ../sql/fort_spawnlist.sql &> /dev/null
+$MYG < ../sql/fort_siege_guards.sql &> /dev/null
+$MYG < ../sql/fort_door.sql &> /dev/null
 $MYG < ../sql/fort_doorupgrade.sql &> /dev/null
 $MYG < ../sql/fort.sql &> /dev/null
 $MYG < ../sql/fortsiege_clans.sql &> /dev/null
 $MYG < ../sql/forums.sql &> /dev/null
 $MYG < ../sql/games.sql &> /dev/null
+$MYG < ../sql/grandboss_data.sql &> /dev/null
+$MYG < ../sql/grandboss_list.sql &> /dev/null
 $MYG < ../sql/global_tasks.sql &> /dev/null
 $MYG < ../sql/gm_edit.sql &> /dev/null
 $MYG < ../sql/helper_buff_list.sql &> /dev/null
@@ -334,8 +337,9 @@ $MYG < ../sql/merchant_shopids.sql &> /dev/null
 $MYG < ../sql/merchants.sql &> /dev/null
 $MYG < ../sql/minions.sql &> /dev/null
 $MYG < ../sql/nospawnlist.sql &> /dev/null
+$MYG < ../sql/npcskills.sql &> /dev/null
 $MYG < ../sql/npc.sql &> /dev/null
-$MYG < ../sql/olympiad_nobles.sql&> /dev/null
+$MYG < ../sql/custom_npc.sql &> /dev/null
 $MYG < ../sql/pets.sql &> /dev/null
 $MYG < ../sql/pets_objects.sql &> /dev/null
 $MYG < ../sql/pets_stats.sql &> /dev/null
@@ -344,9 +348,9 @@ $MYG < ../sql/pledge_skill_trees.sql &> /dev/null
 $MYG < ../sql/posts.sql &> /dev/null
 $MYG < ../sql/quest_global_data.sql &> /dev/null
 $MYG < ../sql/raid_events_spawnlist.sql &> /dev/null
-$MYG < ../sql/npcskills.sql &> /dev/null
-$MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
 $MYG < ../sql/raid_prizes.sql &> /dev/null
+$MYG < ../sql/olympiad_nobles.sql &> /dev/null
+$MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
 $MYG < ../sql/random_spawn.sql &> /dev/null
 $MYG < ../sql/random_spawn_loc.sql &> /dev/null
 $MYG < ../sql/seven_signs.sql &> /dev/null
@@ -364,48 +368,16 @@ $MYG < ../sql/walker_routes.sql &> /dev/null
 $MYG < ../sql/weapon.sql &> /dev/null
 $MYG < ../sql/zone.sql &> /dev/null
 $MYG < ../sql/zone_vertices.sql &> /dev/null
+$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
+$MYG < ../sql/npc_buffer.sql &> /dev/null
+$MYG < ../sql/lastimperialtomb_spawnlist.sql &> /dev/null
+$MYG < ../sql/tvt.sql &> /dev/null
+$MYG < ../sql/tvt_teams.sql &> /dev/null
+$MYG < ../sql/ctf.sql &> /dev/null
+$MYG < ../sql/ctf_teams.sql &> /dev/null
+$MYG < ../sql/dm.sql &> /dev/null
+$MYG < ../sql/forced_updates.sql &> /dev/null
 newbie_helper
-}
-
-experimental(){
-echo ""
-#echo ""
-#echo "WARNING: legacy spawnlist contains more mobs and lesser chests, but many z values are wrong and doesnt match retail in many areas."
-#echo -ne "Install experimental gameserver DB tables: (y) yes or (n) no or (q) quit?"
-#read ASKXP
-#case "$ASKXP" in
-#	"y"|"Y") expinstall;;
-#	"n"|"N") finish;;
-#	"q"|"Q") finish;;
-#	*) experimental;;
-#esac
-#finish
-}
-
-expinstall(){
-while :
-  do
-   echo ""
-   echo -ne "Do you want to make another backup of GSDB before applying experimental? (y/N): "
-   read LSB
-   if [ "$LSB" == "Y" -o "$LSB" == "y" ]; then
-     echo "Making a backup of the default gameserver tables."
-     $MYSQLDUMPPATH --add-drop-table -h $GSDBHOST -u $GSUSER --password=$GSPASS $GSDB > experimental_backup.sql 2> /dev/null
-     if [ $? -ne 0 ];then
-     echo ""
-     echo "There was a problem accesing your GS database, server down?."
-     exit 1
-     fi
-     break
-   elif [ "$LSB" == "n" -o "$LSB" == "N" -o "$LSB" == "" ]; then 
-     break
-   fi
-  done 
-echo "Installing experimental content."
-#$MYG < ../sql/experimental/npc.sql &> /dev/null
-#$MYG < ../sql/experimental/npcskills.sql &> /dev/null
-$MYG < ../sql/experimental/spawnlist.sql &> /dev/null
-finish
 }
 
 finish(){
