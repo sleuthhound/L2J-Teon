@@ -98,6 +98,7 @@ public final class Config
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
+	public static boolean AUTO_LOOT_RAID;
 	public static boolean AUTO_LOOT_HERBS;
 	public static boolean AUTO_LEARN_SKILLS;
 	public static int ALT_PARTY_RANGE;
@@ -1503,6 +1504,7 @@ public final class Config
 				ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1"));
 				IS_CRAFTING_ENABLED = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "True"));
 				AUTO_LOOT = Boolean.parseBoolean(altSettings.getProperty("AutoLoot", "True"));
+				AUTO_LOOT_RAID = Boolean.valueOf(altSettings.getProperty("AutoLootRaid", "True"));
 				AUTO_LOOT_HERBS = Boolean.parseBoolean(altSettings.getProperty("AutoLootHerbs", "True"));
 				ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "False"));
 				ALT_GAME_KARMA_PLAYER_CAN_SHOP = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanShop", "True"));
