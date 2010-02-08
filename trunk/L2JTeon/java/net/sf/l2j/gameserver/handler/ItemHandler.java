@@ -14,10 +14,9 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpice;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
@@ -61,7 +60,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 public class ItemHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
-	private Map<Integer, IItemHandler> _datatable;
+	private FastMap<Integer, IItemHandler> _datatable;
 
 	public static ItemHandler getInstance()
 	{
@@ -75,7 +74,7 @@ public class ItemHandler
 
 	private ItemHandler()
 	{
-		_datatable = new TreeMap<Integer, IItemHandler>();
+		_datatable = new FastMap<Integer, IItemHandler>();
 		registerItemHandler(new ScrollOfEscape());
 		registerItemHandler(new ScrollOfResurrection());
 		registerItemHandler(new SoulShots());
@@ -131,8 +130,7 @@ public class ItemHandler
 		return _datatable.get(new Integer(itemId));
 	}
 
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
+	private final static class SingletonHolder
 	{
 		protected static final ItemHandler _instance = new ItemHandler();
 	}

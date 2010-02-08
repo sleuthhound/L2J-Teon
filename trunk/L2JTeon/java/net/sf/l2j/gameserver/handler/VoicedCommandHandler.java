@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
@@ -34,7 +33,7 @@ import net.sf.l2j.gameserver.handler.voicedcommandhandlers.version;
 public class VoicedCommandHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());
-	private Map<String, IVoicedCommandHandler> _datatable;
+	private FastMap<String, IVoicedCommandHandler> _datatable;
 
 	public static VoicedCommandHandler getInstance()
 	{

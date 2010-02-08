@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javolution.util.FastMap;
@@ -38,7 +37,7 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
 public class UserCommandHandler
 {
 	private static Logger _log = Logger.getLogger(UserCommandHandler.class.getName());
-	private Map<Integer, IUserCommandHandler> _datatable;
+	private FastMap<Integer, IUserCommandHandler> _datatable;
 
 	public static UserCommandHandler getInstance()
 	{
