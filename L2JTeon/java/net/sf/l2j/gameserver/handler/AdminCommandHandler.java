@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.handler;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -96,7 +95,7 @@ public class AdminCommandHandler
 {
 	private static Logger _log = Logger.getLogger(AdminCommandHandler.class.getName());
 	private static AdminCommandHandler _instance;
-	private Map<String, IAdminCommandHandler> _datatable;
+	private FastMap<String, IAdminCommandHandler> _datatable;
 	// Alt privileges setting
 	private static Logger _priviLog = Logger.getLogger("AltPrivilegesAdmin");
 	private static FastMap<String, Integer> _privileges;

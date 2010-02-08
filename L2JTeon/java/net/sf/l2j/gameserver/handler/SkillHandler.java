@@ -14,10 +14,9 @@
  */
 package net.sf.l2j.gameserver.handler;
 
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.handler.skillhandlers.BalanceLife;
 import net.sf.l2j.gameserver.handler.skillhandlers.BeastFeed;
 import net.sf.l2j.gameserver.handler.skillhandlers.Blow;
@@ -61,7 +60,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 public class SkillHandler
 {
 	private static Logger _log = Logger.getLogger(SkillHandler.class.getName());
-	private Map<L2Skill.SkillType, ISkillHandler> _datatable;
+	private FastMap<L2Skill.SkillType, ISkillHandler> _datatable;
 
 	public static SkillHandler getInstance()
 	{
@@ -70,7 +69,7 @@ public class SkillHandler
 
 	private SkillHandler()
 	{
-		_datatable = new TreeMap<L2Skill.SkillType, ISkillHandler>();
+		_datatable = new FastMap<L2Skill.SkillType, ISkillHandler>();
 		registerSkillHandler(new Blow());
 		registerSkillHandler(new Pdam());
 		registerSkillHandler(new Mdam());
