@@ -213,6 +213,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+						return;
 					}
 					if (player.getTotalSubClasses() == Config.MAX_SUBCLASSES)
 					{
@@ -238,6 +239,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+						return;
 					}
 					content.append("Change Subclass:<br>");
 					final int baseClassId = player.getBaseClass();
@@ -275,6 +277,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+						return;
 					}
 					content.append("Change Subclass:<br>Which of the following sub classes would you like to change?<br>");
 					int classIndex = 1;
@@ -409,6 +412,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+						return;
 					}
 					if (player.isCursedWeaponEquiped())
 					{
@@ -442,6 +446,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+						return;
 					}
 					if (player.modifySubClass(paramOne, paramTwo))
 					{
