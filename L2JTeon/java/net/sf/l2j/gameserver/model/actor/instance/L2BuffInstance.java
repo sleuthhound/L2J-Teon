@@ -37,6 +37,7 @@ public class L2BuffInstance extends L2NpcInstance
 		super(objectId, template);
 	}
 
+	@Override
 	public void onAction(L2PcInstance client)
 	{
 		if (this != client.getTarget())
@@ -63,6 +64,7 @@ public class L2BuffInstance extends L2NpcInstance
 		}
 	}
 
+	@Override
 	public void onBypassFeedback(L2PcInstance client, String command)
 	{
 		boolean bFail = true;
@@ -117,6 +119,7 @@ public class L2BuffInstance extends L2NpcInstance
 			client.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
+	@Override
 	public void onActionShift(L2GameClient game)
 	{
 		L2PcInstance client = game.getActiveChar();
@@ -166,6 +169,7 @@ public class L2BuffInstance extends L2NpcInstance
 		}
 	}
 
+	@Override
 	public void reduceCurrentHp(double d, L2Character l2character, boolean flag)
 	{
 	}
