@@ -8273,6 +8273,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * Set the Silent Moving mode Flag.<BR>
 	 * <BR>
 	 */
+	@Override
 	public void setSilentMoving(boolean flag)
 	{
 		_isSilentMoving = flag;
@@ -8282,6 +8283,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * Return true if the Silent Moving mode is active.<BR>
 	 * <BR>
 	 */
+	@Override
 	public boolean isSilentMoving()
 	{
 		return _isSilentMoving;
@@ -11839,6 +11841,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// TODO: create a delay between announces.
 	}
 
+	@Override
 	public void setIsCastingNow(boolean value)
 	{
 		if (value == false)
