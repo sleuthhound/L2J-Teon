@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * format d rev 417
- * 
+ *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class AuthLoginFail extends L2GameServerPacket

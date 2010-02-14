@@ -43,7 +43,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This Class implements and Manages All Raid Events.<br>
- * 
+ *
  * @author polbat02
  */
 public class L2RaidEvent
@@ -129,7 +129,7 @@ public class L2RaidEvent
 	 * CONSTRUCTOR:<br>
 	 * This is the start of the Event, defined from HTM files.<br>
 	 * Documentation can be found in the method.<br>
-	 * 
+	 *
 	 * @param player
 	 *            --> Player taking the action on the Event Manager.
 	 * @param type
@@ -219,7 +219,7 @@ public class L2RaidEvent
 	/**
 	 * We will set the player/party Member in an Event Status.<br>
 	 * This way we will also make sure they don't enroll in any other event.<br>
-	 * 
+	 *
 	 * @param player
 	 *            --> Player to set in an Event Status
 	 * @param type
@@ -266,7 +266,7 @@ public class L2RaidEvent
 	 * <b>Let's Apply the Buffs to the Event Members</b> <li>We don't need to check if the player can or can not have access to the buffing state since it has previously been checked. <li>We assign a value of previousEventPoints to notify the player. <li>Apply the buffs. <li>Notify the player once he/she has gotten the Buffs. <br>
 	 * More Documentation can Be found inside the method's code.<br>
 	 * We will apply the buffs previous to the Event following the parameters:
-	 * 
+	 *
 	 * @param player
 	 *            --> Player participating in the Event.
 	 * @param eventPoints
@@ -403,7 +403,7 @@ public class L2RaidEvent
 	 * In case X events are already taking place, the void returns and won't let us continue with the event.<br>
 	 * This check is not needed since we already check this in L2EventManagerInstance.java, but i'll leave it in here for now since this is a very early stage of developing for now.<br>
 	 * More documentation can be found in the Method.<br>
-	 * 
+	 *
 	 * @param player
 	 *            --> Player taking the action.
 	 * @param npcId
@@ -433,7 +433,7 @@ public class L2RaidEvent
 	 * Teleport the event participants to where the event is going to take place<br>
 	 * A function has been created to make it easier for us to teleport the players every time we need them to teleport.<br>
 	 * Added suport for different kind of events.
-	 * 
+	 *
 	 * @param player
 	 *            --> Player being teleported.
 	 * @param cox
@@ -459,7 +459,7 @@ public class L2RaidEvent
 	/**
 	 * Spawning function of Event Monsters.<br>
 	 * Added Support for multiple spawns and for each one of them being defined as Event Mob.
-	 * 
+	 *
 	 * @param monsterId
 	 *            --> Npc Id
 	 * @param respawnTime
@@ -577,7 +577,7 @@ public class L2RaidEvent
 
 	/**
 	 * Function launched at every player death (if he/she's enrolled in any Raid event)
-	 * 
+	 *
 	 * @param player
 	 */
 	public static void onPlayerDeath(L2PcInstance player)
@@ -615,7 +615,7 @@ public class L2RaidEvent
 
 	/**
 	 * This void picks the rewards and launches the hand out system. It also Ends the event. Added database support for this.
-	 * 
+	 *
 	 * @param player
 	 *            --> Player taking the action.
 	 */
@@ -743,7 +743,7 @@ public class L2RaidEvent
 
 	/**
 	 * Function with which we will hand out event Items.
-	 * 
+	 *
 	 * @param player
 	 * @param item1
 	 * @param ammount1
@@ -873,7 +873,7 @@ public class L2RaidEvent
 
 	/**
 	 * Load Data of the prizes for each event. Added DataBase support for this.
-	 * 
+	 *
 	 * @param prizePackage
 	 */
 	private static void loadData(int prizePackage)
@@ -905,7 +905,7 @@ public class L2RaidEvent
 	/**
 	 * Sets the Event state<br>
 	 * <br>
-	 * 
+	 *
 	 * @param state
 	 * <br>
 	 */
@@ -920,7 +920,7 @@ public class L2RaidEvent
 	/**
 	 * Is Event inactive?<br>
 	 * <br>
-	 * 
+	 *
 	 * @return boolean<br>
 	 */
 	public static boolean isInactive()
@@ -936,7 +936,7 @@ public class L2RaidEvent
 	/**
 	 * Is Event in inactivating?<br>
 	 * <br>
-	 * 
+	 *
 	 * @return boolean<br>
 	 */
 	public static boolean isInactivating()
@@ -952,7 +952,7 @@ public class L2RaidEvent
 	/**
 	 * Is Event in participation?<br>
 	 * <br>
-	 * 
+	 *
 	 * @return boolean<br>
 	 */
 	public static boolean isParticipating()
@@ -968,7 +968,7 @@ public class L2RaidEvent
 	/**
 	 * Is Event starting?<br>
 	 * <br>
-	 * 
+	 *
 	 * @return boolean<br>
 	 */
 	public static boolean isStarting()
@@ -984,7 +984,7 @@ public class L2RaidEvent
 	/**
 	 * Is Event started?<br>
 	 * <br>
-	 * 
+	 *
 	 * @return boolean<br>
 	 */
 	public static boolean isStarted()
@@ -1000,7 +1000,7 @@ public class L2RaidEvent
 	/**
 	 * Is Event rewarding?<br>
 	 * <br>
-	 * 
+	 *
 	 * @return boolean<br>
 	 */
 	public static boolean isRewarding()
@@ -1018,7 +1018,7 @@ public class L2RaidEvent
 	 * 1. Send the message to all players of team number one<br>
 	 * 2. Send the message to all players of team number two<br>
 	 * <br>
-	 * 
+	 *
 	 * @param message
 	 * <br>
 	 */

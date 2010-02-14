@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
  * <br>
  * The whole info is stored in different FastList objects, one per each group. These lists contain a collection of L2Skills. Finally, these objects are stored in a new FastMap which has group as key and previous maps as values.<br>
  * <br>
- * 
+ *
  * @author House
  */
 public class BufferSkillsTable
@@ -122,7 +122,7 @@ public class BufferSkillsTable
 
 	/**
 	 * This method returns a list of L2Skill objects whose type equals skillType
-	 * 
+	 *
 	 * @param skillType
 	 * @return A list of L2Skill or null if skillType doesn't match.
 	 */

@@ -32,7 +32,7 @@ public enum L2WeaponType
 
 	/**
 	 * Constructor of the L2WeaponType.
-	 * 
+	 *
 	 * @param id
 	 *            : int designating the ID of the WeaponType
 	 * @param name
@@ -46,7 +46,7 @@ public enum L2WeaponType
 
 	/**
 	 * Returns the ID of the item after applying the mask.
-	 * 
+	 *
 	 * @return int : ID of the item
 	 */
 	public int mask()
@@ -56,7 +56,7 @@ public enum L2WeaponType
 
 	/**
 	 * Returns the name of the WeaponType
-	 * 
+	 *
 	 * @return String
 	 */
 	@Override

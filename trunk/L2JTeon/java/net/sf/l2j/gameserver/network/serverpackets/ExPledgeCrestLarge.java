@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: (ch) ddd b d: ? d: crest ID d: crest size b: raw data
- * 
+ *
  * @author -Wooden-
  */
 public class ExPledgeCrestLarge extends L2GameServerPacket

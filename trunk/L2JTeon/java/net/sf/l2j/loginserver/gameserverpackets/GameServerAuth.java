@@ -20,7 +20,7 @@ import net.sf.l2j.loginserver.clientpackets.ClientBasePacket;
 
 /**
  * Format: cccddb c desired ID c accept alternative ID c reserve Host s ExternalHostName s InetranlHostName d max players d hexid size b hexid
- * 
+ *
  * @author -Wooden-
  */
 public class GameServerAuth extends ClientBasePacket

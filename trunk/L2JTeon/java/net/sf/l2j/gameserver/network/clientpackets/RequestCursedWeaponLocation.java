@@ -26,7 +26,7 @@ import net.sf.l2j.util.Point3D;
 
 /**
  * Format: (ch)
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestCursedWeaponLocation extends L2GameClientPacket

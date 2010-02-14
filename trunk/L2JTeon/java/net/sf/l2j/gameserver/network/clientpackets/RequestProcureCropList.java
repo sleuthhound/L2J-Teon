@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * Format: (ch) d [dddd] d: size [ d obj id d item id d manor id d count ]
- * 
+ *
  * @author l3x
  */
 public class RequestProcureCropList extends L2GameClientPacket

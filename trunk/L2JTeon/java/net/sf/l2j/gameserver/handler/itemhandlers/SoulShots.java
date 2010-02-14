@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.util.Broadcast;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4.4 $ $Date: 2005/03/27 15:30:07 $
  */
 public class SoulShots implements IItemHandler

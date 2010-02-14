@@ -77,7 +77,7 @@ public class AiPlugingParameters
 
 	/**
 	 * If a AiPlugingParameters was converted to IDs its other parameter sets might not be accurate
-	 * 
+	 *
 	 * @return true if AiPlugingParameters where converted to IDs
 	 */
 	public boolean isConverted()

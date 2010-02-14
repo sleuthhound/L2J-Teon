@@ -35,7 +35,7 @@ import net.sf.l2j.util.Rnd;
 /**
  * This class manages all Guards in the world. It inherits all methods from L2Attackable and adds some more such as tracking PK and aggressive L2MonsterInstance.<BR>
  * <BR>
- * 
+ *
  * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/06 16:13:40 $
  */
 public final class L2GuardNoHTMLInstance extends L2Attackable
@@ -62,7 +62,7 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2GuardInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2GuardInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate
@@ -164,7 +164,7 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	 * <BR>
 	 * <li>Client packet : Action, AttackRequest</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that start an action on the L2GuardInstance
 	 */

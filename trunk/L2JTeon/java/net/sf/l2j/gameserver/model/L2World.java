@@ -32,7 +32,7 @@ import net.sf.l2j.util.Point3D;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.21.2.5.2.7 $ $Date: 2005/03/27 15:29:32 $
  */
 public final class L2World
@@ -121,7 +121,7 @@ public final class L2World
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Delete item from inventory, tranfer Item from inventory to warehouse</li> <li>Crystallize item</li> <li>Remove NPC/PC/Pet from the world</li><BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2Object to remove from _allObjects of L2World
 	 */
@@ -159,7 +159,7 @@ public final class L2World
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Client packets : Action, AttackRequest, RequestJoinParty, RequestJoinPledge...</li><BR>
-	 * 
+	 *
 	 * @param oID
 	 *            Identifier of the L2Object
 	 */
@@ -178,7 +178,7 @@ public final class L2World
 
 	/**
 	 * Added by Tempy - 08 Aug 05 Allows easy retrevial of all visible objects in world. -- do not use that fucntion, its unsafe!
-	 * 
+	 *
 	 * @deprecated
 	 */
 	@Deprecated
@@ -190,7 +190,7 @@ public final class L2World
 	/**
 	 * Get the count of all visible objects in world.<br>
 	 * <br>
-	 * 
+	 *
 	 * @return count off all L2World objects
 	 */
 	public final int getAllVisibleObjectsCount()
@@ -231,7 +231,7 @@ public final class L2World
 	/**
 	 * Return how many players are online.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return number of online players.
 	 */
 	public int getAllPlayersCount()
@@ -252,7 +252,7 @@ public final class L2World
 	/**
 	 * Return the player instance corresponding to the given name.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param name
 	 *            Name of the player to get Instance
 	 */
@@ -275,7 +275,7 @@ public final class L2World
 	/**
 	 * Return the pet instance from the given ownerId.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param ownerId
 	 *            ID of the owner
 	 */
@@ -287,7 +287,7 @@ public final class L2World
 	/**
 	 * Add the given pet instance from the given ownerId.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param ownerId
 	 *            ID of the owner
 	 * @param pet
@@ -301,7 +301,7 @@ public final class L2World
 	/**
 	 * Remove the given pet instance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param ownerId
 	 *            ID of the owner
 	 */
@@ -313,7 +313,7 @@ public final class L2World
 	/**
 	 * Remove the given pet instance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param pet
 	 *            the pet to remove
 	 */
@@ -344,7 +344,7 @@ public final class L2World
 	 * <BR>
 	 * <li>Drop an Item</li> <li>Spawn a L2Character</li> <li>Apply Death Penalty of a L2PcInstance</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2object to add in the world
 	 * @param newregion
@@ -438,7 +438,7 @@ public final class L2World
 	 * <BR>
 	 * <li>Pickup an Item</li> <li>Decay a L2Character</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2object to remove from the world
 	 * @param oldregion
@@ -498,7 +498,7 @@ public final class L2World
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Find Close Objects for L2Character</li><BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2object that determine the current L2WorldRegion
 	 */
@@ -540,7 +540,7 @@ public final class L2World
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Define the aggrolist of monster</li> <li>Define visible objects of a L2Object</li> <li>Skill : Confusion...</li><BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2object that determine the center of the circular area
 	 * @param radius
@@ -596,7 +596,7 @@ public final class L2World
 	 * <BR>
 	 * <li>Define the target list of a skill</li> <li>Define the target list of a polearme attack</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2object that determine the center of the circular area
 	 * @param radius
@@ -651,7 +651,7 @@ public final class L2World
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Find Close Objects for L2Character</li><BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2object that determine the current L2WorldRegion
 	 */
@@ -691,7 +691,7 @@ public final class L2World
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Set position of a new L2Object (drop, spawn...)</li> <li>Update position of a L2Object after a mouvement</li><BR>
-	 * 
+	 *
 	 * @param Point3D
 	 *            point position of the object
 	 */
@@ -707,7 +707,7 @@ public final class L2World
 
 	/**
 	 * Returns the whole 2d array containing the world regions used by ZoneManager.java to setup zones inside the world regions
-	 * 
+	 *
 	 * @return
 	 */
 	public L2WorldRegion[][] getAllWorldRegions()
@@ -721,7 +721,7 @@ public final class L2World
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
 	 * <li>Init L2WorldRegions</li><BR>
-	 * 
+	 *
 	 * @param x
 	 *            X position of the object
 	 * @param y

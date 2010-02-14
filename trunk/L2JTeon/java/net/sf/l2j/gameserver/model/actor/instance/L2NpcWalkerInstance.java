@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * This class manages some npcs can walk in the city. <br>
  * It inherits all methods from L2NpcInstance. <br>
  * <br>
- * 
+ *
  * @original author Rayan RPG for L2Emu Project
  * @since 819
  */
@@ -45,7 +45,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 
 	/**
 	 * AI can't be deattached, npc must move always with the same AI instance.
-	 * 
+	 *
 	 * @param newAI
 	 *            AI to set for this L2NpcWalkerInstance
 	 */
@@ -66,7 +66,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 
 	/**
 	 * Sends a chat to all _knowObjects
-	 * 
+	 *
 	 * @param chat
 	 *            message to say
 	 */
@@ -92,7 +92,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 
 	/**
 	 * NPCs are immortal
-	 * 
+	 *
 	 * @param i
 	 *            ignore it
 	 * @param attacker
@@ -107,7 +107,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 
 	/**
 	 * NPCs are immortal
-	 * 
+	 *
 	 * @param killer
 	 *            ignore it
 	 * @return false

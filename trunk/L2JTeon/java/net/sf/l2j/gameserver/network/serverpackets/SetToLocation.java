@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * <p>
  * format dddddd (player id, target id, distance, startx, starty, startz)
  * <p>
- * 
+ *
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:57 $
  */
 public class SetToLocation extends L2GameServerPacket

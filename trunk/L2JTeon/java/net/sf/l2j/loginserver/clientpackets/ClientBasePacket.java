@@ -16,7 +16,7 @@ package net.sf.l2j.loginserver.clientpackets;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4.1 $ $Date: 2005/03/27 15:30:12 $
  */
 public abstract class ClientBasePacket

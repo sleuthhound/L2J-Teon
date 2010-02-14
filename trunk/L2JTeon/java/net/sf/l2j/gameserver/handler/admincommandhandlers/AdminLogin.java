@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * This class handles the admin commands that acts on the login
- * 
+ *
  * @version $Revision: 1.2.2.1.2.4 $ $Date: 2007/07/31 10:05:56 $
  */
 public class AdminLogin implements IAdminCommandHandler
@@ -120,7 +120,7 @@ public class AdminLogin implements IAdminCommandHandler
 	}
 
 	/**
-     * 
+     *
      */
 	private void showMainPage(L2PcInstance activeChar)
 	{
@@ -135,7 +135,7 @@ public class AdminLogin implements IAdminCommandHandler
 	}
 
 	/**
-     * 
+     *
      */
 	private void allowToAll()
 	{
@@ -144,7 +144,7 @@ public class AdminLogin implements IAdminCommandHandler
 	}
 
 	/**
-     * 
+     *
      */
 	private void gmOnly()
 	{

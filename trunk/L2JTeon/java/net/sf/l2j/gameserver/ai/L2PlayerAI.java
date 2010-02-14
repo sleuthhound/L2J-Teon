@@ -61,7 +61,7 @@ public class L2PlayerAI extends L2CharacterAI
 	/**
 	 * Saves the current Intention for this L2PlayerAI if necessary and calls changeIntention in AbstractAI.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0

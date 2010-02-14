@@ -20,7 +20,7 @@ import net.sf.l2j.Config;
 
 /**
  * Packetformat Rev650 cdddddS
- * 
+ *
  * @version $Revision: 1.1.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestPartyMatchList extends L2GameClientPacket

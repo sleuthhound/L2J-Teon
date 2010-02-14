@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.6.2.1.2.10 $ $Date: 2005/03/29 14:00:54 $
  */
 public class CharTemplateTable

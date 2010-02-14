@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.4.2.1.2.5 $ $Date: 2005/03/27 15:29:33 $
  */
 public class L2TradeList

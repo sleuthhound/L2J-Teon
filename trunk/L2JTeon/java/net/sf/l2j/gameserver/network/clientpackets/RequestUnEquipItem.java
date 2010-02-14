@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.8.2.3.2.7 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestUnEquipItem extends L2GameClientPacket
@@ -39,7 +39,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 
 	/**
 	 * packet type id 0x11 format: cd
-	 * 
+	 *
 	 * @param decrypt
 	 */
 	@Override

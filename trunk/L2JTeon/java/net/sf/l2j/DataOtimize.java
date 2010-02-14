@@ -25,12 +25,12 @@ public class DataOtimize
 {
 	public static void OptimizeGame()
 	{
-		String GAME_QUICK_OPTIMIZE = 	
+		String GAME_QUICK_OPTIMIZE =
 		"OPTIMIZE TABLE account_data, armor, armorsets, auction, auction_bid, auction_watch, augmentations, auto_announcements, auto_chat, auto_chat_text, boxaccess, boxes, buff_templates, castle, castle_door, castle_doorupgrade, castle_manor_procure, castle_manor_production, castle_siege_guards, char_templates, character_blocklist, character_colors, character_friends, character_hennas, character_macroses, character_quests, character_raid_points, character_recipebook, character_recommends, character_shortcuts, character_skills, character_skills_save, character_subclasses, characters, chat_filter_ignore, chat_filter_pretext, chat_filter_words, clan_data, clan_notices, clan_privs, clan_skills, clan_subpledges, clan_wars, clanhall, clanhall_functions, clanhall_siege, class_list, couples, ctf, ctf_teams, cursed_weapons, custom_armor, custom_armorsets, custom_droplist, custom_etcitem, custom_merchant_buylists, custom_merchant_shopids, custom_npc, custom_spawnlist, custom_teleport, custom_weapon, dimensional_rift, dm, droplist, enchant_skill_trees, etcitem, fish, fishing_skill_trees, fort, fort_door, fort_doorupgrade, fort_functions, fort_spawnlist, fort_siege_guards, fort_staticobjects, fortsiege_clans, forums, four_sepulchers_spawnlist, games, global_tasks, gm_edit, grandboss_data, grandboss_list, helper_buff_list, henna, henna_trees, heroes, items, itemsonground, lastimperialtomb_spawnlist, locations, lvlupgain, mapregion, merchant_areas_list, merchant_buylists, merchant_lease, merchant_shopids, merchants, minions, mods_buffer_schemes, mods_buffer_skills, mods_wedding, nospawnlist, npc, npc_buffer, npcskills, olympiad_nobles, pets, pets_objects, pets_stats, pkkills, pledge_skill_trees, posts, quest_global_data, raid_event_spawnlist, raid_prizes, raidboss_spawnlist, random_spawn, random_spawn_loc, seven_signs, seven_signs_festival, seven_signs_status, siege_clans, skill_learn, skill_spellbooks, skill_trees, spawnlist, teleport, topic, tvt, tvt_teams, vanhalter_spawnlist, walker_routes, weapon, zone, zone_vertices";
 
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Optimization GameServer Tables...");
@@ -51,7 +51,7 @@ public class DataOtimize
 				con = null;
 				statement = null;
 				GAME_QUICK_OPTIMIZE = null;
-				
+
 			}
 			catch(Exception e)
 			{
@@ -59,15 +59,15 @@ public class DataOtimize
 			}
 		}
 	}
-	
+
 	public static void OptimizeLogin()
 	{
-		String LOGIN_QUICK_OPTIMIZE = 
+		String LOGIN_QUICK_OPTIMIZE =
 			"OPTIMIZE TABLE accounts, gameservers";
-		
+
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Optimization LoginServer Tables...");
@@ -95,15 +95,15 @@ public class DataOtimize
 			}
 		}
 	}
-	
+
 	public static void RepairGame()
 	{
-		String GAME_QUICK_REPAIR = 	
+		String GAME_QUICK_REPAIR =
 		"REPAIR TABLE account_data, armor, armorsets, auction, auction_bid, auction_watch, augmentations, auto_announcements, auto_chat, auto_chat_text, boxaccess, boxes, buff_templates, castle, castle_door, castle_doorupgrade, castle_manor_procure, castle_manor_production, castle_siege_guards, char_templates, character_blocklist, character_colors, character_friends, character_hennas, character_macroses, character_quests, character_raid_points, character_recipebook, character_recommends, character_shortcuts, character_skills, character_skills_save, character_subclasses, characters, chat_filter_ignore, chat_filter_pretext, chat_filter_words, clan_data, clan_notices, clan_privs, clan_skills, clan_subpledges, clan_wars, clanhall, clanhall_functions, clanhall_siege, class_list, couples, ctf, ctf_teams, cursed_weapons, custom_armor, custom_armorsets, custom_droplist, custom_etcitem, custom_merchant_buylists, custom_merchant_shopids, custom_npc, custom_spawnlist, custom_teleport, custom_weapon, dimensional_rift, dm, droplist, enchant_skill_trees, etcitem, fish, fishing_skill_trees, fort, fort_door, fort_doorupgrade, fort_functions, fort_spawnlist, fort_siege_guards, fort_staticobjects, fortsiege_clans, forums, four_sepulchers_spawnlist, games, global_tasks, gm_edit, grandboss_data, grandboss_list, helper_buff_list, henna, henna_trees, heroes, items, itemsonground, lastimperialtomb_spawnlist, locations, lvlupgain, mapregion, merchant_areas_list, merchant_buylists, merchant_lease, merchant_shopids, merchants, minions, mods_buffer_schemes, mods_buffer_skills, mods_wedding, nospawnlist, npc, npc_buffer, npcskills, olympiad_nobles, pets, pets_objects, pets_stats, pkkills, pledge_skill_trees, posts, quest_global_data, raid_event_spawnlist, raid_prizes, raidboss_spawnlist, random_spawn, random_spawn_loc, seven_signs, seven_signs_festival, seven_signs_status, siege_clans, skill_learn, skill_spellbooks, skill_trees, spawnlist, teleport, topic, tvt, tvt_teams, vanhalter_spawnlist, walker_routes, weapon, zone, zone_vertices EXTENDED";
 
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Repair GameServer Tables...");
@@ -124,7 +124,7 @@ public class DataOtimize
 				con = null;
 				statement = null;
 				GAME_QUICK_REPAIR = null;
-				
+
 			}
 			catch(Exception e)
 			{
@@ -132,15 +132,15 @@ public class DataOtimize
 			}
 		}
 	}
-	
+
 	public static void RepairLogin()
 	{
-		String LOGIN_QUICK_REPAIR = 
+		String LOGIN_QUICK_REPAIR =
 			"REPAIR TABLE accounts, gameservers EXTENDED";
-		
+
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Repair LoginServer Tables...");
@@ -168,15 +168,15 @@ public class DataOtimize
 			}
 		}
 	}
-	
+
 	public static void CheckGame()
 	{
-		String GAME_QUICK_CHECK = 	
+		String GAME_QUICK_CHECK =
 		"CHECK TABLE account_data, armor, armorsets, auction, auction_bid, auction_watch, augmentations, auto_announcements, auto_chat, auto_chat_text, boxaccess, boxes, buff_templates, castle, castle_door, castle_doorupgrade, castle_manor_procure, castle_manor_production, castle_siege_guards, char_templates, character_blocklist, character_colors, character_friends, character_hennas, character_macroses, character_quests, character_raid_points, character_recipebook, character_recommends, character_shortcuts, character_skills, character_skills_save, character_subclasses, characters, chat_filter_ignore, chat_filter_pretext, chat_filter_words, clan_data, clan_notices, clan_privs, clan_skills, clan_subpledges, clan_wars, clanhall, clanhall_functions, clanhall_siege, class_list, couples, ctf, ctf_teams, cursed_weapons, custom_armor, custom_armorsets, custom_droplist, custom_etcitem, custom_merchant_buylists, custom_merchant_shopids, custom_npc, custom_spawnlist, custom_teleport, custom_weapon, dimensional_rift, dm, droplist, enchant_skill_trees, etcitem, fish, fishing_skill_trees, fort, fort_door, fort_doorupgrade, fort_functions, fort_spawnlist, fort_siege_guards, fort_staticobjects, fortsiege_clans, forums, four_sepulchers_spawnlist, games, global_tasks, gm_edit, grandboss_data, grandboss_list, helper_buff_list, henna, henna_trees, heroes, items, itemsonground, lastimperialtomb_spawnlist, locations, lvlupgain, mapregion, merchant_areas_list, merchant_buylists, merchant_lease, merchant_shopids, merchants, minions, mods_buffer_schemes, mods_buffer_skills, mods_wedding, nospawnlist, npc, npc_buffer, npcskills, olympiad_nobles, pets, pets_objects, pets_stats, pkkills, pledge_skill_trees, posts, quest_global_data, raid_event_spawnlist, raid_prizes, raidboss_spawnlist, random_spawn, random_spawn_loc, seven_signs, seven_signs_festival, seven_signs_status, siege_clans, skill_learn, skill_spellbooks, skill_trees, spawnlist, teleport, topic, tvt, tvt_teams, vanhalter_spawnlist, walker_routes, weapon, zone, zone_vertices EXTENDED";
 
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Check GameServer Tables...");
@@ -197,7 +197,7 @@ public class DataOtimize
 				con = null;
 				statement = null;
 				GAME_QUICK_CHECK = null;
-				
+
 			}
 			catch(Exception e)
 			{
@@ -205,15 +205,15 @@ public class DataOtimize
 			}
 		}
 	}
-	
+
 	public static void CheckLogin()
 	{
-		String LOGIN_QUICK_CHECK = 
+		String LOGIN_QUICK_CHECK =
 			"CHECK TABLE accounts, gameservers EXTENDED";
-		
+
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Check LoginServer Tables...");
@@ -241,15 +241,15 @@ public class DataOtimize
 			}
 		}
 	}
-	
+
 	public static void AnalyzeGame()
 	{
-		String GAME_QUICK_ANALYZE = 	
+		String GAME_QUICK_ANALYZE =
 		"ANALYZE TABLE account_data, armor, armorsets, auction, auction_bid, auction_watch, augmentations, auto_announcements, auto_chat, auto_chat_text, boxaccess, boxes, buff_templates, castle, castle_door, castle_doorupgrade, castle_manor_procure, castle_manor_production, castle_siege_guards, char_templates, character_blocklist, character_colors, character_friends, character_hennas, character_macroses, character_quests, character_raid_points, character_recipebook, character_recommends, character_shortcuts, character_skills, character_skills_save, character_subclasses, characters, chat_filter_ignore, chat_filter_pretext, chat_filter_words, clan_data, clan_notices, clan_privs, clan_skills, clan_subpledges, clan_wars, clanhall, clanhall_functions, clanhall_siege, class_list, couples, ctf, ctf_teams, cursed_weapons, custom_armor, custom_armorsets, custom_droplist, custom_etcitem, custom_merchant_buylists, custom_merchant_shopids, custom_npc, custom_spawnlist, custom_teleport, custom_weapon, dimensional_rift, dm, droplist, enchant_skill_trees, etcitem, fish, fishing_skill_trees, fort, fort_door, fort_doorupgrade, fort_functions, fort_spawnlist, fort_siege_guards, fort_staticobjects, fortsiege_clans, forums, four_sepulchers_spawnlist, games, global_tasks, gm_edit, grandboss_data, grandboss_list, helper_buff_list, henna, henna_trees, heroes, items, itemsonground, lastimperialtomb_spawnlist, locations, lvlupgain, mapregion, merchant_areas_list, merchant_buylists, merchant_lease, merchant_shopids, merchants, minions, mods_buffer_schemes, mods_buffer_skills, mods_wedding, nospawnlist, npc, npc_buffer, npcskills, olympiad_nobles, pets, pets_objects, pets_stats, pkkills, pledge_skill_trees, posts, quest_global_data, raid_event_spawnlist, raid_prizes, raidboss_spawnlist, random_spawn, random_spawn_loc, seven_signs, seven_signs_festival, seven_signs_status, siege_clans, skill_learn, skill_spellbooks, skill_trees, spawnlist, teleport, topic, tvt, tvt_teams, vanhalter_spawnlist, walker_routes, weapon, zone, zone_vertices";
 
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Analyze GameServer Tables...");
@@ -270,7 +270,7 @@ public class DataOtimize
 				con = null;
 				statement = null;
 				GAME_QUICK_ANALYZE = null;
-				
+
 			}
 			catch(Exception e)
 			{
@@ -278,15 +278,15 @@ public class DataOtimize
 			}
 		}
 	}
-	
+
 	public static void AnalyzeLogin()
 	{
-		String LOGIN_QUICK_ANALYZE = 
+		String LOGIN_QUICK_ANALYZE =
 			"ANALYZE TABLE accounts, gameservers";
-		
+
 		java.sql.Connection con = null;
 		PreparedStatement statement = null;
-		
+
 		try
 		{
 			System.out.println("Analyze LoginServer Tables...");

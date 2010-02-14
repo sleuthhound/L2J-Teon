@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2ClanMember;
 
 /**
  * Format : (ch) dSd
- * 
+ *
  * @author -Wooden-
  */
 public class PledgeReceivePowerInfo extends L2GameServerPacket

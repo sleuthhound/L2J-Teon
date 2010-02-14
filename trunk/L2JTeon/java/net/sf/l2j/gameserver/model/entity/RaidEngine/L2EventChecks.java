@@ -37,7 +37,7 @@ public class L2EventChecks
 	/**
 	 * Check if Player/Clan/Party is eligible for Event.<br>
 	 * Documentation can be found in the method.<br>
-	 * 
+	 *
 	 * @param player
 	 *            --> Basic Player Taking the action.
 	 * @param eventType

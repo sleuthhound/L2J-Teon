@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands: - show_skills - remove_skills - skill_list - skill_index - add_skill - remove_skill - get_skills - reset_skills - give_all_skills - remove_all_skills - add_clan_skills
- * 
+ *
  * @version $Revision: 1.2.4.7 $ $Date: 2005/04/11 10:06:02 $
  */
 public class AdminSkill implements IAdminCommandHandler
@@ -168,7 +168,7 @@ public class AdminSkill implements IAdminCommandHandler
 
 	/**
 	 * This function will give all the skills that the target can learn at his/her level
-	 * 
+	 *
 	 * @param activeChar
 	 *            : the gm char
 	 */

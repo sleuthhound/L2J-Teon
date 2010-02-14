@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.9.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class Logout extends L2GameClientPacket

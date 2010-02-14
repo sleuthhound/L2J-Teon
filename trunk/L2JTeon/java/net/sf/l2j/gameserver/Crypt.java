@@ -18,7 +18,7 @@ import java.nio.ByteBuffer;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:18 $
  */
 public class Crypt

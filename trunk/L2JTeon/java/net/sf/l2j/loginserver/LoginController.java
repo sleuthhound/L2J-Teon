@@ -44,7 +44,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.7.4.3 $ $Date: 2005/03/27 15:30:09 $
  */
 public class LoginController
@@ -103,7 +103,7 @@ public class LoginController
 	/**
 	 * This is mostly to force the initialization of the Crypto Implementation, avoiding it being done on runtime when its first needed.<BR>
 	 * In short it avoids the worst-case execution time on runtime by doing it on loading.
-	 * 
+	 *
 	 * @param key
 	 *            Any private RSA Key just for testing purposes.
 	 * @throws GeneralSecurityException
@@ -215,7 +215,7 @@ public class LoginController
 
 	/**
 	 * Adds the address to the ban list of the login server, with the given duration.
-	 * 
+	 *
 	 * @param address
 	 *            The Address to be banned.
 	 * @param expiration
@@ -231,7 +231,7 @@ public class LoginController
 
 	/**
 	 * Adds the address to the ban list of the login server, with the given duration.
-	 * 
+	 *
 	 * @param address
 	 *            The Address to be banned.
 	 * @param duration
@@ -267,7 +267,7 @@ public class LoginController
 
 	/**
 	 * Remove the specified address from the ban list
-	 * 
+	 *
 	 * @param address
 	 *            The address to be removed from the ban list
 	 * @return true if the ban was removed, false if there was no ban for this ip
@@ -279,7 +279,7 @@ public class LoginController
 
 	/**
 	 * Remove the specified address from the ban list
-	 * 
+	 *
 	 * @param address
 	 *            The address to be removed from the ban list
 	 * @return true if the ban was removed, false if there was no ban for this ip or the address was invalid.
@@ -500,7 +500,7 @@ public class LoginController
 	 * <p>
 	 * This method returns one of the cached {@link ScrambledKeyPair ScrambledKeyPairs} for communication with Login Clients.
 	 * </p>
-	 * 
+	 *
 	 * @return a scrambled keypair
 	 */
 	public ScrambledKeyPair getScrambledRSAKeyPair()
@@ -510,7 +510,7 @@ public class LoginController
 
 	/**
 	 * user name is not case sensitive any more
-	 * 
+	 *
 	 * @param user
 	 * @param password
 	 * @param address

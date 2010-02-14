@@ -50,7 +50,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.9.2.6.2.9 $ $Date: 2005/04/02 15:57:34 $
  */
 public class ItemTable
@@ -166,7 +166,7 @@ public class ItemTable
 
 	/**
 	 * Returns instance of ItemTable
-	 * 
+	 *
 	 * @return ItemTable
 	 */
 	public static ItemTable getInstance()
@@ -180,7 +180,7 @@ public class ItemTable
 
 	/**
 	 * Returns a new object Item
-	 * 
+	 *
 	 * @return
 	 */
 	public Item newItem()
@@ -270,7 +270,7 @@ public class ItemTable
 
 	/**
 	 * Returns object Item from the record of the database
-	 * 
+	 *
 	 * @param rset
 	 *            : ResultSet designating a record of the [weapon] table of database
 	 * @return Item : object created from the database record
@@ -348,7 +348,7 @@ public class ItemTable
 
 	/**
 	 * Returns object Item from the record of the database
-	 * 
+	 *
 	 * @param rset
 	 *            : ResultSet designating a record of the [armor] table of database
 	 * @return Item : object created from the database record
@@ -410,7 +410,7 @@ public class ItemTable
 
 	/**
 	 * Returns object Item from the record of the database
-	 * 
+	 *
 	 * @param rset
 	 *            : ResultSet designating a record of the [etcitem] table of database
 	 * @return Item : object created from the database record
@@ -506,7 +506,7 @@ public class ItemTable
 
 	/**
 	 * Returns if ItemTable initialized
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isInitialized()
@@ -575,7 +575,7 @@ public class ItemTable
 
 	/**
 	 * Returns the item corresponding to the item ID
-	 * 
+	 *
 	 * @param id
 	 *            : int designating the item
 	 * @return L2Item
@@ -595,7 +595,7 @@ public class ItemTable
 	 * <BR>
 	 * <li>Create and Init the L2ItemInstance corresponding to the Item Identifier and quantity</li> <li>Add the L2ItemInstance object to _allObjects of L2world</li> <li>Logs Item creation according to log settings</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -667,7 +667,7 @@ public class ItemTable
 	 * <BR>
 	 * <U><I>Concept :</I></U><BR>
 	 * Dummy item is created by setting the ID of the object in the world at null value
-	 * 
+	 *
 	 * @param itemId
 	 *            : int designating the item
 	 * @return L2ItemInstance designating the dummy item created
@@ -700,7 +700,7 @@ public class ItemTable
 	 * <BR>
 	 * <li>Sets L2ItemInstance parameters to be unusable</li> <li>Removes the L2ItemInstance object to _allObjects of L2world</li> <li>Logs Item delettion according to log settings</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId

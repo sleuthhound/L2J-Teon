@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.2.2.9 $ $Date: 2005/04/03 15:55:04 $
  */
 public class Continuous implements ISkillHandler

@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 /**
  * This class manage all items on ground
- * 
+ *
  * @version $Revision: $ $Date: $
  * @author DiezelMax - original ideea
  * @author Enforcer - actual build

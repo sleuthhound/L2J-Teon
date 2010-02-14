@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.templates.L2Henna;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision$ $Date$
  */
 public final class RequestHennaItemInfo extends L2GameClientPacket
@@ -35,7 +35,7 @@ public final class RequestHennaItemInfo extends L2GameClientPacket
 	// format cd
 	/**
 	 * packet type id 0xbb format: cd
-	 * 
+	 *
 	 * @param decrypt
 	 */
 	@Override

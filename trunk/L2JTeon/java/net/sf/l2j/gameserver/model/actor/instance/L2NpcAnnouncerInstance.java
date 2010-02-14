@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * an Special Custom Instance to Make an Announcer Npc for Players :)
- * 
+ *
  * @author Rayan for L2EmuProject date 20/08/07
  */
 public class L2NpcAnnouncerInstance extends L2NpcInstance

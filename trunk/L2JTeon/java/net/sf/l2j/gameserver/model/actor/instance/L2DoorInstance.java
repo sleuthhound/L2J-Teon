@@ -51,7 +51,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
  */
 public class L2DoorInstance extends L2Character
@@ -258,7 +258,7 @@ public class L2DoorInstance extends L2Character
 	/**
 	 * Sets the delay in milliseconds for automatic opening/closing of this door instance. <BR>
 	 * <B>Note:</B> A value of -1 cancels the auto open/close task.
-	 * 
+	 *
 	 * @param int actionDelay
 	 */
 	public void setAutoActionDelay(int actionDelay)

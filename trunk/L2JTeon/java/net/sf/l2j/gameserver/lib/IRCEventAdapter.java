@@ -1,7 +1,7 @@
 /*
  * IRClib -- A Java Internet Relay Chat library -- class IRCEventAdapter
  * Copyright (C) 2002 - 2006 Christoph Schwering <schwering@gmail.com>
- * 
+ *
  * This library and the accompanying materials are made available under the
  * terms of the
  * 	- GNU Lesser General Public License,
@@ -37,7 +37,7 @@ package net.sf.l2j.gameserver.lib;
  * </ul>
  * <p>
  * For other, unkown events there's the <code>unknown</code>-method.
- * 
+ *
  * @author Christoph Schwering &lt;schwering@gmail.com&gt;
  * @version 1.63
  * @see IRCEventListener
@@ -74,7 +74,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when an <code>ERROR</code> command is received.
-	 * 
+	 *
 	 * @param msg
 	 *            The message of the error.
 	 */
@@ -86,7 +86,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when a numeric error is received. The server often sends numeric errors (wrong nickname etc.). The <code>msg</code>'s format is different for every reply. All replies' formats are described in the {@link org.schwering.irc.lib.IRCUtil}.
-	 * 
+	 *
 	 * @param num
 	 *            The identifier (usually a 3-digit number).
 	 * @param msg
@@ -100,7 +100,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody is invited to a channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel the user is invited to.
 	 * @param user
@@ -116,7 +116,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody joins a channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel the person joins.
 	 * @param user
@@ -130,7 +130,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody is kicked from a channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel somebody is kicked from.
 	 * @param user
@@ -148,7 +148,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when an operator changes the modes of a channel. For example, he can set somebody as an operator, too, or take him the oper-status. Also keys, moderated and other channelmodes are fired here.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel in which the modes are changed.
 	 * @param user
@@ -164,7 +164,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody changes somebody's usermodes. Note that this event is not fired when a channel-mode is set, for example when someone sets another user as operator or the mode moderated.
-	 * 
+	 *
 	 * @param user
 	 *            The user who changes the modes of another user or himself. Contains nick, username and host.
 	 * @param passiveNick
@@ -180,7 +180,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody changes his nickname successfully.
-	 * 
+	 *
 	 * @param user
 	 *            The user who changes his nickname. Contains nick, username and host.
 	 * @param newNick
@@ -194,7 +194,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody sends a <code>NOTICE</code> to a user or a group.
-	 * 
+	 *
 	 * @param target
 	 *            The channel or nickname the user sent a <code>NOTICE</code> to.
 	 * @param user
@@ -210,7 +210,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody parts from a channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel somebody parts from.
 	 * @param user
@@ -226,7 +226,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when a <code>PING</code> comes in. The IRC server tests in different periods if the client is still there by sending PING &lt;ping&gt;. The client must response PONG &lt;ping&gt;.
-	 * 
+	 *
 	 * @param ping
 	 *            The ping which is received from the server.
 	 */
@@ -238,7 +238,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when a user sends a <code>PRIVMSG</code> to a user or to a group.
-	 * 
+	 *
 	 * @param target
 	 *            The channel or nickname the user sent a <code>PRIVMSG</code> to.
 	 * @param user
@@ -254,7 +254,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when somebody quits from the network.
-	 * 
+	 *
 	 * @param user
 	 *            The user who quits. Contains nick, username and host.
 	 * @param msg
@@ -268,7 +268,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when a numeric reply is received. For example, <code>WHOIS</code> queries are answered by the server with numeric replies. The <code>msg</code>'s format is different for every reply. All replies' formats are described in the {@link org.schwering.irc.lib.IRCUtil}. The first word in the <code>value</code> is always your own nickname!
-	 * 
+	 *
 	 * @param num
 	 *            The numeric reply.
 	 * @param value
@@ -284,7 +284,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * Fired when the topic is changed by operators. Note that the topic is given as a numeric reply fired in <code>onReply</code> when you join a channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel where the topic is changed.
 	 * @param user
@@ -300,7 +300,7 @@ public class IRCEventAdapter implements IRCEventListener
 	// ------------------------------
 	/**
 	 * This event is fired when the incoming line can not be identified as a known event.
-	 * 
+	 *
 	 * @param prefix
 	 *            The prefix of the incoming line.
 	 * @param command

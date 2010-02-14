@@ -32,7 +32,7 @@ public class ThreadService
 	// ms
 	/**
 	 * x1000
-	 * 
+	 *
 	 * @param multipler
 	 */
 	public static void processSleep(int multipler)

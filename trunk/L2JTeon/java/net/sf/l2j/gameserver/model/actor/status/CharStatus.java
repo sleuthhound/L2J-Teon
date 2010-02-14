@@ -71,7 +71,7 @@ public class CharStatus
 	 * <BR>
 	 * <li>Target a PC or NPC</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2Character to add to the listener
 	 */
@@ -100,7 +100,7 @@ public class CharStatus
 	 * <BR>
 	 * <li>L2Attackable : Update the attacker AggroInfo of the L2Attackable _aggroList</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param i
 	 *            The HP decrease value
 	 * @param attacker
@@ -248,7 +248,7 @@ public class CharStatus
 	 * <BR>
 	 * <li>Untarget a PC or NPC</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2Character to add to the listener
 	 */
@@ -459,7 +459,7 @@ public class CharStatus
 	 * <BR>
 	 * Each L2Character owns a list called <B>_statusListener</B> that contains all L2PcInstance to inform of HP/MP updates. Players who must be informed are players that target this L2Character. When a RegenTask is in progress sever just need to go through this list to send Server->Client packet StatusUpdate.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return The list of L2Character to inform or null if empty
 	 */
 	public final Set<L2Character> getStatusListener()

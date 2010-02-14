@@ -13,9 +13,9 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * 
+ *
  * @author FBIagent
- * 
+ *
  */
 package net.sf.l2j.gameserver.datatables;
 

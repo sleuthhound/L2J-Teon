@@ -17,9 +17,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 /**
- * 
+ *
  * @author FBIagent / fixed and moded for l2jfree by SqueezeD
- * 
+ *
  */
 package net.sf.l2j.gameserver.model.entity.L2JTeonEvents;
 

@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class RequestWithDrawalParty extends L2GameClientPacket

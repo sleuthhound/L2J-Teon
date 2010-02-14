@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: (ch)
- * 
+ *
  * @author -Wooden-
  */
 public class ExRestartClient extends L2GameServerPacket

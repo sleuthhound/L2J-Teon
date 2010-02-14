@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch ddcdc
- * 
+ *
  * @author KenM
  */
 public class ExPCCafePointInfo extends L2GameServerPacket

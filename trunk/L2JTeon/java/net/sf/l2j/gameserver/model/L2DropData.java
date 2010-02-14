@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 /**
  * /* Special thanks to nuocnam Author: LittleVexy
- * 
+ *
  * @version $Revision: 1.1.4.4 $ $Date: 2005/03/29 23:15:15 $
  */
 public class L2DropData
@@ -33,7 +33,7 @@ public class L2DropData
 
 	/**
 	 * Returns the ID of the item dropped
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getItemId()
@@ -43,7 +43,7 @@ public class L2DropData
 
 	/**
 	 * Sets the ID of the item dropped
-	 * 
+	 *
 	 * @param itemId
 	 *            : int designating the ID of the item
 	 */
@@ -54,7 +54,7 @@ public class L2DropData
 
 	/**
 	 * Returns the minimum quantity of items dropped
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getMinDrop()
@@ -64,7 +64,7 @@ public class L2DropData
 
 	/**
 	 * Returns the maximum quantity of items dropped
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getMaxDrop()
@@ -74,7 +74,7 @@ public class L2DropData
 
 	/**
 	 * Returns the chance of having a drop
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getChance()
@@ -84,7 +84,7 @@ public class L2DropData
 
 	/**
 	 * Sets the value for minimal quantity of dropped items
-	 * 
+	 *
 	 * @param mindrop
 	 *            : int designating the quantity
 	 */
@@ -95,7 +95,7 @@ public class L2DropData
 
 	/**
 	 * Sets the value for maximal quantity of dopped items
-	 * 
+	 *
 	 * @param maxdrop
 	 *            : int designating the quantity of dropped items
 	 */
@@ -106,7 +106,7 @@ public class L2DropData
 
 	/**
 	 * Sets the chance of having the item for a drop
-	 * 
+	 *
 	 * @param chance
 	 *            : int designating the chance
 	 */
@@ -117,7 +117,7 @@ public class L2DropData
 
 	/**
 	 * Returns the stateID.
-	 * 
+	 *
 	 * @return String[]
 	 */
 	public String[] getStateIDs()
@@ -127,7 +127,7 @@ public class L2DropData
 
 	/**
 	 * Adds states of the dropped item
-	 * 
+	 *
 	 * @param list
 	 *            : String[]
 	 */
@@ -138,7 +138,7 @@ public class L2DropData
 
 	/**
 	 * Returns the questID.
-	 * 
+	 *
 	 * @return String designating the ID of the quest
 	 */
 	public String getQuestID()
@@ -148,7 +148,7 @@ public class L2DropData
 
 	/**
 	 * Sets the questID
-	 * 
+	 *
 	 * @param String
 	 *            designating the questID to set.
 	 */
@@ -159,7 +159,7 @@ public class L2DropData
 
 	/**
 	 * Returns if the dropped item is requested for a quest
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isQuestDrop()
@@ -169,7 +169,7 @@ public class L2DropData
 
 	/**
 	 * Returns a report of the object
-	 * 
+	 *
 	 * @return String
 	 */
 	@Override
@@ -185,7 +185,7 @@ public class L2DropData
 
 	/**
 	 * Returns if parameter "o" is a L2DropData and has the same itemID that the current object
-	 * 
+	 *
 	 * @param Object
 	 *            to compare to the current one
 	 * @return boolean

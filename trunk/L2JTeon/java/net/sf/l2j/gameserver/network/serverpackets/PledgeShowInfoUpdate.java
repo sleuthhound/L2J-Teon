@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class PledgeShowInfoUpdate extends L2GameServerPacket

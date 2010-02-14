@@ -35,7 +35,7 @@ public class WindowService
 
 	/**
 	 * method to send html only, replace dont work.
-	 * 
+	 *
 	 * @param target
 	 * @param path
 	 * @param filename

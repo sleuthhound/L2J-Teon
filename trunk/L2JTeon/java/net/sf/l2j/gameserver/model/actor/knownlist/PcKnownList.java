@@ -79,7 +79,7 @@ public class PcKnownList extends PlayableKnownList
 	 * <BR>
 	 * <li>Send Server-Client Packet CharInfo to the L2PcInstance</li> <li>If the object has a private store, Send Server-Client Packet PrivateStoreMsgSell to the L2PcInstance</li> <li>Send Server->Client packet MoveToPawn/CharMoveToLocation and AutoAttackStart to the L2PcInstance</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            The L2Object to add to _knownObjects and _knownPlayer
 	 * @param dropper
@@ -198,7 +198,7 @@ public class PcKnownList extends PlayableKnownList
 	/**
 	 * Remove a L2Object from L2PcInstance _knownObjects and _knownPlayer (if necessary) and send Server-Client Packet DeleteObject to the L2PcInstance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            The L2Object to remove from _knownObjects and _knownPlayer
 	 */

@@ -89,7 +89,7 @@ public class QuestTimer
 
 	/**
 	 * public method to compare if this timer matches with the key attributes passed.
-	 * 
+	 *
 	 * @param quest
 	 *            : Quest instance to which the timer is attached
 	 * @param name

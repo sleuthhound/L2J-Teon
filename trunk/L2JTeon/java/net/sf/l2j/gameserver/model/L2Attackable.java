@@ -66,7 +66,7 @@ import net.sf.l2j.util.Rnd;
  * L2Attackable :<BR>
  * <BR>
  * <li>L2ArtefactInstance</li> <li>L2FriendlyMobInstance</li> <li>L2MonsterInstance</li> <li>L2FortSiegeGuardInstance</li> <li>L2SiegeGuardInstance</li>
- * 
+ *
  * @version $Revision: 1.24.2.3.2.16 $ $Date: 2005/04/11 19:11:21 $
  */
 public class L2Attackable extends L2NpcInstance
@@ -334,7 +334,7 @@ public class L2Attackable extends L2NpcInstance
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2Attackable (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2Attackable</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate
@@ -393,7 +393,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Not used.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @deprecated
 	 */
 	@Deprecated
@@ -413,7 +413,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Reduce the current HP of the L2Attackable.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param damage
 	 *            The HP decrease value
 	 * @param attacker
@@ -428,7 +428,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param i
 	 *            The HP decrease value
 	 * @param attacker
@@ -496,7 +496,7 @@ public class L2Attackable extends L2NpcInstance
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T GIVE rewards to L2PetInstance</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param killer
 	 *            The L2Character that has killed the L2Attackable
 	 */
@@ -579,7 +579,7 @@ public class L2Attackable extends L2NpcInstance
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T GIVE rewards to L2PetInstance</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param lastAttacker
 	 *            The L2Character that has killed the L2Attackable
 	 */
@@ -887,7 +887,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attacker
 	 *            The L2Character that gave damages to this L2Attackable
 	 * @param damage
@@ -918,7 +918,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attacker
 	 *            The L2Character that gave damages to this L2Attackable
 	 * @param damage
@@ -1069,7 +1069,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Return the hate level of the L2Attackable against this L2Character contained in _aggroList.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param target
 	 *            The L2Character whose hate level must be returned
 	 */
@@ -1106,7 +1106,7 @@ public class L2Attackable extends L2NpcInstance
 
 	/**
 	 * Calculates quantity of items for specific drop acording to current situation <br>
-	 * 
+	 *
 	 * @param drop
 	 *            The L2DropData count is being calculated for
 	 * @param lastAttacker
@@ -1284,7 +1284,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Calculates quantity of items for specific drop CATEGORY according to current situation <br>
 	 * Only a max of ONE item from a category is allowed to be dropped.
-	 * 
+	 *
 	 * @param drop
 	 *            The L2DropData count is being calculated for
 	 * @param lastAttacker
@@ -1510,7 +1510,7 @@ public class L2Attackable extends L2NpcInstance
 
 	/**
 	 * Calculates the level modifier for drop<br>
-	 * 
+	 *
 	 * @param lastAttacker
 	 *            The L2PcInstance that has killed the L2Attackable
 	 */
@@ -1561,7 +1561,7 @@ public class L2Attackable extends L2NpcInstance
 	 * dropped</li> <li>If the autoLoot mode is actif and if the L2Character that has killed the L2Attackable is a L2PcInstance, give this or these Item(s) to the L2PcInstance that has killed the L2Attackable</li> <li>If the autoLoot mode isn't actif or if the L2Character that has killed the L2Attackable is not a L2PcInstance, add this or these Item(s) in the world as a visible object at the
 	 * position where mob was last</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param lastAttacker
 	 *            The L2Character that has killed the L2Attackable
 	 */
@@ -1944,7 +1944,7 @@ public class L2Attackable extends L2NpcInstance
 	 * <li>Get an Item Identifier (random) from the DateDrop Item table of this Event</li> <li>Get the Item quantity dropped (random)</li> <li>Create this or these L2ItemInstance corresponding to this Item Identifier</li> <li>If the autoLoot mode is actif and if the L2Character that has killed the L2Attackable is a L2PcInstance, give this or these Item(s) to the L2PcInstance that has killed the
 	 * L2Attackable</li> <li>If the autoLoot mode isn't actif or if the L2Character that has killed the L2Attackable is not a L2PcInstance, add this or these Item(s) in the world as a visible object at the position where mob was last</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param lastAttacker
 	 *            The L2Character that has killed the L2Attackable
 	 */
@@ -2061,7 +2061,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Return true if the _aggroList of this L2Attackable contains the L2Character.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2Character searched in the _aggroList of the L2Attackable
 	 */
@@ -2113,7 +2113,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Set the over-hit flag on the L2Attackable.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param status
 	 *            The status of the over-hit flag
 	 */
@@ -2125,7 +2125,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Set the over-hit values like the attacker who did the strike and the ammount of damage done by the skill.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attacker
 	 *            The L2Character who hit on the L2Attackable using the over-hit enabled skill
 	 * @param damage
@@ -2155,7 +2155,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Return the L2Character who hit on the L2Attackable using an over-hit enabled skill.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return L2Character attacker
 	 */
 	public L2Character getOverhitAttacker()
@@ -2166,7 +2166,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Return the ammount of damage done on the L2Attackable using an over-hit enabled skill.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return double damage
 	 */
 	public double getOverhitDamage()
@@ -2248,7 +2248,7 @@ public class L2Attackable extends L2NpcInstance
 
 	/**
 	 * Calculate the leveling chance of Soul Crystals based on the attacker that killed this L2Attackable
-	 * 
+	 *
 	 * @param attacker
 	 *            The player that last killed this L2Attackable $ Rewrite 06.12.06 - Yesod
 	 */
@@ -2545,7 +2545,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * Calculate the Experience and SP to distribute to attacker (L2PcInstance, L2SummonInstance or L2Party) of the L2Attackable.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param diff
 	 *            The difference of level between attacker (L2PcInstance, L2SummonInstance or L2Party) and the L2Attackable
 	 * @param damage
@@ -2659,7 +2659,7 @@ public class L2Attackable extends L2NpcInstance
 
 	/**
 	 * Sets the seed parametrs, but not the seed state
-	 * 
+	 *
 	 * @param id
 	 *            - id of the seed
 	 * @param seeder

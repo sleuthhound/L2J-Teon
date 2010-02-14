@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Format: (ch) dSS
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPledgeSetAcademyMaster extends L2GameClientPacket

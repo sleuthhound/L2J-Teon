@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * Dawn/Dusk Seven Signs Priest Instance
- * 
+ *
  * @author Tempy
  */
 public class L2SignsPriestInstance extends L2FolkInstance

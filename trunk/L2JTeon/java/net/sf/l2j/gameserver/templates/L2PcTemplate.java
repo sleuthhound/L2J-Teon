@@ -62,7 +62,7 @@ public class L2PcTemplate extends L2CharTemplate
 
 	/**
 	 * add starter equipment
-	 * 
+	 *
 	 * @param i
 	 */
 	public void addItem(int itemId)

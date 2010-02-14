@@ -91,7 +91,7 @@ public class Forum
 	}
 
 	/**
-     * 
+     *
      */
 	private void load()
 	{
@@ -167,7 +167,7 @@ public class Forum
 	}
 
 	/**
-     * 
+     *
      */
 	private void getChildren()
 	{
@@ -296,7 +296,7 @@ public class Forum
 	}
 
 	/**
-     * 
+     *
      */
 	public void insertindb()
 	{
@@ -332,7 +332,7 @@ public class Forum
 	}
 
 	/**
-     * 
+     *
      */
 	public void vload()
 	{

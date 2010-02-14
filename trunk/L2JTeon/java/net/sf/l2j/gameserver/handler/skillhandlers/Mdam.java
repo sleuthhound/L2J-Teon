@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.8.2.9 $ $Date: 2005/04/05 19:41:23 $
  */
 public class Mdam implements ISkillHandler

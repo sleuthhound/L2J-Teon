@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PrivateStoreMsgSell;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public class SetPrivateStoreMsgSell extends L2GameClientPacket

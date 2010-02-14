@@ -30,7 +30,7 @@ import net.sf.l2j.Server;
 
 /**
  * This class SQL Account Manager
- * 
+ *
  * @author netimperia
  * @version $Revision: 2.3.2.1.2.3 $ $Date: 2005/08/08 22:47:12 $
  */

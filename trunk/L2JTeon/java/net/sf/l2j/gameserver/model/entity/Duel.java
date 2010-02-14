@@ -297,7 +297,7 @@ public class Duel
 	// Method - Public
 	/**
 	 * Check if a player engaged in pvp combat (only for 1on1 duels)
-	 * 
+	 *
 	 * @return returns true if a duelist is engaged in Pvp combat
 	 */
 	public boolean isDuelistInPvp(boolean sendMessage)
@@ -416,7 +416,7 @@ public class Duel
 
 	/**
 	 * Restore player conditions
-	 * 
+	 *
 	 * @param was
 	 *            the duel canceled?
 	 */
@@ -459,7 +459,7 @@ public class Duel
 
 	/**
 	 * Get the duel id
-	 * 
+	 *
 	 * @return id
 	 */
 	public int getId()
@@ -469,7 +469,7 @@ public class Duel
 
 	/**
 	 * Returns the remaining time
-	 * 
+	 *
 	 * @return remaining time
 	 */
 	public int getRemainingTime()
@@ -479,7 +479,7 @@ public class Duel
 
 	/**
 	 * Get the player that requestet the duel
-	 * 
+	 *
 	 * @return duel requester
 	 */
 	public L2PcInstance getPlayerA()
@@ -489,7 +489,7 @@ public class Duel
 
 	/**
 	 * Get the player that was challenged
-	 * 
+	 *
 	 * @return challenged player
 	 */
 	public L2PcInstance getPlayerB()
@@ -499,7 +499,7 @@ public class Duel
 
 	/**
 	 * Returns whether this is a party duel or not
-	 * 
+	 *
 	 * @return is party duel
 	 */
 	public boolean isPartyDuel()
@@ -519,7 +519,7 @@ public class Duel
 
 	/**
 	 * teleport all players to the given coordinates
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -578,7 +578,7 @@ public class Duel
 
 	/**
 	 * Get the duel winner
-	 * 
+	 *
 	 * @return winner
 	 */
 	public L2PcInstance getWinner()
@@ -594,7 +594,7 @@ public class Duel
 
 	/**
 	 * Get the duel looser
-	 * 
+	 *
 	 * @return looser
 	 */
 	public L2PcInstance getLooser()
@@ -627,7 +627,7 @@ public class Duel
 
 	/**
 	 * Do the countdown and send message to players if necessary
-	 * 
+	 *
 	 * @return current count
 	 */
 	public int countdown()
@@ -651,7 +651,7 @@ public class Duel
 
 	/**
 	 * The duel has reached a state in which it can no longer continue
-	 * 
+	 *
 	 * @param duel
 	 *            result
 	 */
@@ -751,7 +751,7 @@ public class Duel
 
 	/**
 	 * Did a situation occur in which the duel has to be ended?
-	 * 
+	 *
 	 * @return DuelResultEnum duel status
 	 */
 	public DuelResultEnum checkEndDuelCondition()
@@ -810,7 +810,7 @@ public class Duel
 
 	/**
 	 * Register a surrender request
-	 * 
+	 *
 	 * @param surrendering
 	 *            player
 	 */
@@ -869,7 +869,7 @@ public class Duel
 
 	/**
 	 * This function is called whenever a player was defeated in a duel
-	 * 
+	 *
 	 * @param dieing
 	 *            player
 	 */
@@ -912,7 +912,7 @@ public class Duel
 
 	/**
 	 * This function is called whenever a player leaves a party
-	 * 
+	 *
 	 * @param leaving
 	 *            player
 	 */

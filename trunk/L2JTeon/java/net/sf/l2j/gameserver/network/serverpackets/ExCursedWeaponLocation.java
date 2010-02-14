@@ -20,7 +20,7 @@ import net.sf.l2j.util.Point3D;
 
 /**
  * Format: (ch) d[ddddd]
- * 
+ *
  * @author -Wooden-
  */
 public class ExCursedWeaponLocation extends L2GameServerPacket

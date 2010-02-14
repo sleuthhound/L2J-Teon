@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExSendManorList;
 
 /**
  * Format: ch c (id) 0xD0 h (subid) 0x08
- * 
+ *
  * @author l3x
  */
 public class RequestManorList extends L2GameClientPacket

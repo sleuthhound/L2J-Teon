@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.RecipeController;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.2.2.1 $ $Date: 2005/03/27 15:29:32 $
  */
 public class L2ManufactureItem

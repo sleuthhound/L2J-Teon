@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.model.quest.QuestState;
 
 /**
  * Sh (dd) h (dddd)
- * 
+ *
  * @author Tempy
  */
 public class GMViewQuestList extends L2GameServerPacket

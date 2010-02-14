@@ -36,7 +36,7 @@ public class L2BufferTeonInstance
 
 	/**
 	 * Apply Buffs onto a player.
-	 * 
+	 *
 	 * @param player
 	 * @param _templateId
 	 * @param efector

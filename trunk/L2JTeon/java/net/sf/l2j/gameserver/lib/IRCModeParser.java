@@ -1,7 +1,7 @@
 /*
  * IRClib -- A Java Internet Relay Chat library -- class IRCModeParser
  * Copyright (C) 2002 - 2006 Christoph Schwering <schwering@gmail.com>
- * 
+ *
  * This library and the accompanying materials are made available under the
  * terms of the
  * 	- GNU Lesser General Public License,
@@ -15,7 +15,7 @@ package net.sf.l2j.gameserver.lib;
 /**
  * Parses channel-modes.
  * <p>
- * An instance of this class is an argument of the <code>{@link 
+ * An instance of this class is an argument of the <code>{@link
  * org.schwering.irc.lib.IRCEventListener#onMode(String chan, IRCUser user,
  * IRCModeParser modeParser)}</code>. It's intended to help the programmer to work with the modes.
  * <p>
@@ -35,7 +35,7 @@ package net.sf.l2j.gameserver.lib;
  * </ul>
  * <p>
  * These are all channel-modes defined in RFC1459. Nevertheless, most networks provide more channel-modes. This class can handle all modes; it's not restricted to the rights defined in RFC1459.
- * 
+ *
  * @author Christoph Schwering &lt;schwering@gmail.com&gt;
  * @version 1.22
  * @see IRCEventListener
@@ -62,7 +62,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Analyzes the modes and parses them into the parts operators (<code>+</code> or <code>-</code>), modes (one character) and optional arguments (one word or number).
-	 * 
+	 *
 	 * @param line
 	 *            The modes and the arguments; nothing more.
 	 */
@@ -94,11 +94,11 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Analyzes the modes and parses them into the parts operators (<code>+</code> or <code>-</code>), modes (one character) and optional arguments (one word or number).
-	 * 
+	 *
 	 * @param modes
 	 *            The modes (for example <code>+oo+m-v</code>).
 	 * @param args
-	 *            The modes' arguments (for example <code>Heinz Hans 
+	 *            The modes' arguments (for example <code>Heinz Hans
 	 *             Thomas</code>).
 	 */
 	public IRCModeParser(String modes, String args)
@@ -111,7 +111,7 @@ public class IRCModeParser
 	/**
 	 * Parses the modes into two <code>char</code>-arrays and one <code>String</code>-array. <br />
 	 * The first one contains the operator of the mode (<code>+</code> or </code>-</code>) and the second one the mode (<code>w</code>, <code>i</code>, <code>s</code>, <code>o</code> or any other mode). The <code>String[]</code> contains the nicknames.
-	 * 
+	 *
 	 * @param modes
 	 *            The modes (for example <code>+oo+m-v</code>).
 	 * @param args
@@ -162,7 +162,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Returns the amount of modes in the string. This is done by counting all chars which are not <code>+</code> or <code>-</code>.
-	 * 
+	 *
 	 * @param modes
 	 *            The modes which are to analyze.
 	 * @return The count of modes without operators.
@@ -179,7 +179,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Returns count of modes.
-	 * 
+	 *
 	 * @return The count of modes.
 	 * @see #getOperatorAt(int)
 	 * @see #getModeAt(int)
@@ -193,7 +193,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Returns the operator (<code>+</code> or <code>-</code>) of a given index.
-	 * 
+	 *
 	 * @param i
 	 *            The index of the operator you want to get. The index starts with <code>1</code> and not with <code>0</code>.
 	 * @return The operator at the given index (<code>+</code> or <code>-</code>).
@@ -209,7 +209,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Returns the mode (for example <code>o</code>, <code>v</code>, <code>m</code>, <code>i</code>) of a given index.
-	 * 
+	 *
 	 * @param i
 	 *            The index of the mode you want to get. The index starts with <code>1</code> and not with <code>0</code>.
 	 * @return The mode of the given index (for example <code>o</code>, <code>v</code>, <code>m</code>, <code>i</code>)
@@ -225,7 +225,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Returns the nick of a given index.
-	 * 
+	 *
 	 * @param i
 	 *            The index of the argument you want to get. The index starts with <code>1</code> and not with <code>0</code>.
 	 * @return The argument you requested. It's <code>""</code> if there's no argument at this index (for example <code>+m</code> for moderated has never an argument).
@@ -241,7 +241,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Returns the line as it was sent from the IRC server. The line contains the the operators, the modes and the nicknames, but not the channel or the nickname who executed the MODE command!
-	 * 
+	 *
 	 * @return The line which was set as argument when the parser was initialized.
 	 */
 	public String getLine()
@@ -252,7 +252,7 @@ public class IRCModeParser
 	// ------------------------------
 	/**
 	 * Generates a <code>String</code> with some information about the instance of <code>IRCModeParser</code>. Its format is: <code>classname[line]</code>.
-	 * 
+	 *
 	 * @return A <code>String</code> with information about the instance.
 	 */
 	@Override

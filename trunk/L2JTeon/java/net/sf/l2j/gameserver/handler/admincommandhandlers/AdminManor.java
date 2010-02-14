@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 /**
  * Admin comand handler for Manor System This class handles following admin commands: - manor_info = shows info about current manor state - manor_approve = approves settings for the next manor period - manor_setnext = changes manor settings to the next day's - manor_reset castle = resets all manor data for specified castle (or all) - manor_setmaintenance = sets manor system under maintenance mode
  * - manor_save = saves all manor data into database - manor_disable = disables manor system
- * 
+ *
  * @author l3x
  */
 public class AdminManor implements IAdminCommandHandler

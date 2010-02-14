@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.4.8 $ $Date: 2005/04/06 16:13:24 $
  */
 public class GameTimeController
@@ -88,7 +88,7 @@ public class GameTimeController
 	 * <BR>
 	 * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param cha
 	 *            The L2Character to add to movingObjects of GameTimeController
 	 */

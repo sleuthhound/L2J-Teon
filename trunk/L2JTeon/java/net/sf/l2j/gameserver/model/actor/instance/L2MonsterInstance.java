@@ -30,7 +30,7 @@ import net.sf.l2j.util.Rnd;
  * This class manages all Monsters. L2MonsterInstance :<BR>
  * <BR>
  * <li>L2MinionInstance</li> <li>L2RaidBossInstance</li>
- * 
+ *
  * @version $Revision: 1.20.4.6 $ $Date: 2005/04/06 16:13:39 $
  */
 public class L2MonsterInstance extends L2Attackable
@@ -47,7 +47,7 @@ public class L2MonsterInstance extends L2Attackable
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2MonsterInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2MonsterInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate

@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 /**
  * This class manages all Castle Siege Artefacts.<BR>
  * <BR>
- * 
+ *
  * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/06 16:13:40 $
  */
 public final class L2ArtefactInstance extends L2NpcInstance
@@ -36,7 +36,7 @@ public final class L2ArtefactInstance extends L2NpcInstance
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2ArtefactInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2ArtefactInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate
@@ -74,7 +74,7 @@ public final class L2ArtefactInstance extends L2NpcInstance
 	 * <BR>
 	 * <li>Client packet : Action, AttackRequest</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that start an action on the L2ArtefactInstance
 	 */

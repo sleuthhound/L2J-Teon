@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.7.4.4 $ $Date: 2005/03/27 18:46:19 $
  */
 public final class Action extends L2GameClientPacket

@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.10.4.9 $ $Date: 2005/04/11 10:06:08 $
  */
 public class L2MerchantInstance extends L2FolkInstance

@@ -1,7 +1,7 @@
 /*
  * IRClib -- A Java Internet Relay Chat library -- class IRCUtil
  * Copyright (C) 2002 - 2006 Christoph Schwering <schwering@gmail.com>
- * 
+ *
  * This library and the accompanying materials are made available under the
  * terms of the
  * 	- GNU Lesser General Public License,
@@ -18,7 +18,7 @@ import java.util.Vector;
  * Contains some utilities like numeric error and reply numbers.
  * <p>
  * The most description of the numeric errors and numeric replies are copied from RFC1459.
- * 
+ *
  * @author Christoph Schwering &lt;schwering@gmail.com&gt;
  * @author Normton &lt;normton@latinmail.com&gt;
  * @version 2.03
@@ -30,42 +30,42 @@ public class IRCUtil implements IRCConstants
 {
 	/**
 	 * This is part of the mIRC code and shows that a color-code starts / ends. Here it is as the ASCII decimal int 3.
-	 * 
+	 *
 	 * @deprecated Moved to <code>IRCConstants</code>.
 	 */
 	@Deprecated
 	public static char colorIndicator = 3; // ASCII code
 	/**
 	 * This is part of the mIRC code and shows that bold starts / ends. Here it is as the ASCII decimal int 32.
-	 * 
+	 *
 	 * @deprecated Moved to <code>IRCConstants</code>.
 	 */
 	@Deprecated
 	public static char boldIndicator = 31; // ASCII code
 	/**
 	 * This is part of the mIRC code and shows that bold starts / ends. Here it is as the ASCII decimal int 2.
-	 * 
+	 *
 	 * @deprecated Moved to <code>IRCConstants</code>.
 	 */
 	@Deprecated
 	public static char underlinedIndicator = 2; // ASCII code
 	/**
 	 * This is part of the mIRC code and shows that bold, underline and colors end. Here it is as the ASCII decimal int 15.
-	 * 
+	 *
 	 * @deprecated Moved to <code>IRCConstants</code>.
 	 */
 	@Deprecated
 	public static char colorEndIndicator = 15; // ASCII code
 	/**
 	 * This is part of the mIRC code and indicates that the client's colors are reversed (background -&gt; foreground and foreground -&gt; background). Here it is as the ASCII decimal int 1.
-	 * 
+	 *
 	 * @deprecated Moved to <code>IRCConstants</code>.
 	 */
 	@Deprecated
 	public static char colorReverseIndicator = 22; // ASCII code
 	/**
 	 * This is part of the mIRC code and shows that a PRIVMSG is an ACTION (<code>/me</code>). Here it is as the ASCII decimal int 22.
-	 * 
+	 *
 	 * @deprecated Moved to <code>IRCConstants</code>.
 	 */
 	@Deprecated
@@ -90,7 +90,7 @@ public class IRCUtil implements IRCConstants
 	 * <li>+ == 43</li>
 	 * </ul>
 	 * .
-	 * 
+	 *
 	 * @param str
 	 *            The name to check if it's a channel.
 	 * @return <code>true</code> if the argument starts with one of the characters mentioned above.
@@ -104,7 +104,7 @@ public class IRCUtil implements IRCConstants
 	// ------------------------------
 	/**
 	 * Parses a <code>String</code> to an <code>int</code> via <code>Integer.parseInt</code> but avoids the <code>NumberFormatException</code>.
-	 * 
+	 *
 	 * @param str
 	 *            The <code>String</code> to parse.
 	 * @return The parsed new <code>int</code>. <code>-1</code> if <code>NumberFormatException</code> was thrown.
@@ -124,7 +124,7 @@ public class IRCUtil implements IRCConstants
 	// ------------------------------
 	/**
 	 * Erases the mIRC colorcodes from a String. The documentation of the evil color codes is available on <a href="http://www.mirc.co.uk/help/color.txt" target="_blank">http://www.mirc.co.uk/help/color.txt</a>. This method links to the <code>parseColors(StringBuffer)</code> method.
-	 * 
+	 *
 	 * @param str
 	 *            The line which should be parsed.
 	 * @return A line cleaned from any mIRC colorcodes.
@@ -138,7 +138,7 @@ public class IRCUtil implements IRCConstants
 	// ------------------------------
 	/**
 	 * Erases the mIRC colorcodes from a String. The documentation of the evil color codes is available on <a href="http://www.mirc.co.uk/help/color.txt" target="_blank">http://www.mirc.co.uk/help/color.txt</a>.
-	 * 
+	 *
 	 * @param buf
 	 *            The line which should be parsed.
 	 * @return A line as <code>StringBuffer</code> object which is cleaned from any mIRC colorcodes.
@@ -198,7 +198,7 @@ public class IRCUtil implements IRCConstants
 	// ------------------------------
 	/**
 	 * Splits a string into substrings.
-	 * 
+	 *
 	 * @param str
 	 *            The string which is to split.
 	 * @param delim
@@ -236,7 +236,7 @@ public class IRCUtil implements IRCConstants
 	// ------------------------------
 	/**
 	 * Splits a string into substrings. This method is totally equal to <code>split(str, delim, null)</code>.
-	 * 
+	 *
 	 * @param str
 	 *            The string which is to split.
 	 * @param delim

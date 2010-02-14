@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch Sd
- * 
+ *
  * @author KenM
  */
 public class ExDuelAskStart extends L2GameServerPacket

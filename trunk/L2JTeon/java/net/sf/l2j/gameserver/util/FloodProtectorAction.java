@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Flood protector implementation.
- * 
+ *
  * @author fordfrog
  */
 public final class FloodProtectorAction
@@ -59,7 +59,7 @@ public final class FloodProtectorAction
 
 	/**
 	 * Creates new instance of FloodProtectorAction.
-	 * 
+	 *
 	 * @param player
 	 *            player for which flood protection is being created
 	 * @param config
@@ -74,7 +74,7 @@ public final class FloodProtectorAction
 
 	/**
 	 * Checks whether the request is flood protected or not.
-	 * 
+	 *
 	 * @param command
 	 *            command issued or short command description
 	 * @return true if action is allowed, otherwise false

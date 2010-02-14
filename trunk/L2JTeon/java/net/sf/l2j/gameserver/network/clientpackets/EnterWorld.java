@@ -91,7 +91,7 @@ import net.sf.l2j.gameserver.util.Util;
  * <p>
  * packet format rev656 cbdddd
  * <p>
- * 
+ *
  * @version $Revision: 1.16.2.1.2.7 $ $Date: 2005/03/29 23:15:33 $
  */
 public class EnterWorld extends L2GameClientPacket

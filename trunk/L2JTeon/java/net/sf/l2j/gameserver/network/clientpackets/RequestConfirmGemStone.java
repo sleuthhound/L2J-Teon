@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * Format:(ch) dddd
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestConfirmGemStone extends L2GameClientPacket

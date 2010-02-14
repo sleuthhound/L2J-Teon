@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Collection of flood protectors for single player.
- * 
+ *
  * @author fordfrog edit Danielmwx
  */
 public final class FloodProtectors
@@ -103,7 +103,7 @@ public final class FloodProtectors
 
 	/**
 	 * Creates new instance of FloodProtectors.
-	 * 
+	 *
 	 * @param player
 	 *            player for which the collection of flood protectors is being created.
 	 */
@@ -133,7 +133,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_useItem}.
-	 * 
+	 *
 	 * @return {@link #_useItem}
 	 */
 	public FloodProtectorAction getUseItem()
@@ -143,7 +143,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_rollDice}.
-	 * 
+	 *
 	 * @return {@link #_rollDice}
 	 */
 	public FloodProtectorAction getRollDice()
@@ -153,7 +153,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_firework}.
-	 * 
+	 *
 	 * @return {@link #_firework}
 	 */
 	public FloodProtectorAction getFirework()
@@ -163,7 +163,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_itemPetSummon}.
-	 * 
+	 *
 	 * @return {@link #_itemPetSummon}
 	 */
 	public FloodProtectorAction getItemPetSummon()
@@ -173,7 +173,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_heroVoice}.
-	 * 
+	 *
 	 * @return {@link #_heroVoice}
 	 */
 	public FloodProtectorAction getHeroVoice()
@@ -183,7 +183,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_subclass}.
-	 * 
+	 *
 	 * @return {@link #_subclass}
 	 */
 	public FloodProtectorAction getSubclass()
@@ -193,7 +193,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_dropItem}.
-	 * 
+	 *
 	 * @return {@link #_dropItem}
 	 */
 	public FloodProtectorAction getDropItem()
@@ -203,7 +203,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_wnk}.
-	 * 
+	 *
 	 * @return {@link #_wnk}
 	 */
 	public FloodProtectorAction getWnk()
@@ -213,7 +213,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_serverBypass}.
-	 * 
+	 *
 	 * @return {@link #_serverBypass}
 	 */
 	public FloodProtectorAction getServerBypass()
@@ -223,7 +223,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_buffer}.
-	 * 
+	 *
 	 * @return {@link #_buffer}
 	 */
 	public FloodProtectorAction getBuffer()
@@ -233,7 +233,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_craft}.
-	 * 
+	 *
 	 * @return {@link #_craft}
 	 */
 	public FloodProtectorAction getCraft()
@@ -243,7 +243,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_multisell}.
-	 * 
+	 *
 	 * @return {@link #_multisell}
 	 */
 	public FloodProtectorAction getMultisell()
@@ -253,7 +253,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_BankingSystem}.
-	 * 
+	 *
 	 * @return {@link #_BankingSystem}
 	 */
 	public FloodProtectorAction getBankingSystem()
@@ -263,7 +263,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_werehouse}.
-	 * 
+	 *
 	 * @return {@link #_werehouse}
 	 */
 	public FloodProtectorAction getWerehouse()
@@ -273,7 +273,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_misc}.
-	 * 
+	 *
 	 * @return {@link #_misc}
 	 */
 	public FloodProtectorAction getMisc()
@@ -283,7 +283,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_chat}.
-	 * 
+	 *
 	 * @return {@link #_chat}
 	 */
 	public FloodProtectorAction getChat()
@@ -293,17 +293,17 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_global}.
-	 * 
+	 *
 	 * @return {@link #_global}
 	 */
 	public FloodProtectorAction getGlobal()
 	{
 		return _global;
 	}
-	
+
 	/**
 	 * Returns {@link #_trade}.
-	 * 
+	 *
 	 * @return {@link #_trade}
 	 */
 	public FloodProtectorAction getTrade()
@@ -313,7 +313,7 @@ public final class FloodProtectors
 
 	/**
 	 * Returns {@link #_potion}.
-	 * 
+	 *
 	 * @return {@link #_potion}
 	 */
 	public FloodProtectorAction getPotion()

@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeReceiveMemberInfo;
 
 /**
  * Format: (ch) dS
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPledgeMemberInfo extends L2GameClientPacket

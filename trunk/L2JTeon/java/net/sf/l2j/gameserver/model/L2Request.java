@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class manages requests (transactions) between two L2PcInstance.
- * 
+ *
  * @author kriau
  */
 public class L2Request

@@ -62,7 +62,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class...
- * 
+ *
  * @version $Revision: 1.3.2.8.2.22 $ $Date: 2005/04/06 16:13:42 $
  */
 public abstract class L2Skill
@@ -1180,7 +1180,7 @@ public abstract class L2Skill
 	 * <BR>
 	 * <li>ONE : The skill can only be used on the L2PcInstance targeted, or on the caster if it's a L2PcInstance and no L2PcInstance targeted</li> <li>SELF</li> <li>HOLY, UNDEAD</li> <li>PET</li> <li>AURA, AURA_CLOSE</li> <li>AREA</li> <li>MULTIFACE</li> <li>PARTY, CLAN</li> <li>CORPSE_PLAYER, CORPSE_MOB, CORPSE_CLAN</li> <li>UNLOCKABLE</li> <li>ITEM</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param activeChar
 	 *            The L2Character who use the skill
 	 */

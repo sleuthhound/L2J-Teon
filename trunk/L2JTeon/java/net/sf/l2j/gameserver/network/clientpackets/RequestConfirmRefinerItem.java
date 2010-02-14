@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * Fromat(ch) dd
- * 
+ *
  * @author -Wooden-
  */
 public class RequestConfirmRefinerItem extends L2GameClientPacket

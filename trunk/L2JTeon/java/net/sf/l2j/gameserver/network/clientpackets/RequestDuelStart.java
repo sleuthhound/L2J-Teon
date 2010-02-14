@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Format:(ch) Sd
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestDuelStart extends L2GameClientPacket

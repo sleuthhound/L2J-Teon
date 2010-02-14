@@ -17,7 +17,7 @@ package net.sf.l2j.gameserver.model.base;
 /**
  * Character Sub-Class Definition <BR>
  * Used to store key information about a character's sub-class.
- * 
+ *
  * @author Tempy
  */
 public final class SubClass

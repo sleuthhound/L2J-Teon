@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.skills.funcs.Lambda;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.1.2.12 $ $Date: 2005/04/11 10:06:07 $
  */
 public abstract class L2Effect
@@ -190,7 +190,7 @@ public abstract class L2Effect
 
 	/**
 	 * Returns the elapsed time of the task.
-	 * 
+	 *
 	 * @return Time in seconds.
 	 */
 	public int getTaskTime()

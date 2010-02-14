@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.5.2.4 $ $Date: 2005/04/03 15:55:03 $
  */
 public class Resurrect implements ISkillHandler

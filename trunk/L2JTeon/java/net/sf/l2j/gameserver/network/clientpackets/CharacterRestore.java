@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.network.serverpackets.CharSelectInfo;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.4.2.1.2.2 $ $Date: 2005/03/27 15:29:29 $
  */
 public final class CharacterRestore extends L2GameClientPacket

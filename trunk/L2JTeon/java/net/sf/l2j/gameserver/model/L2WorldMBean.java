@@ -22,7 +22,7 @@ public interface L2WorldMBean
 	/**
 	 * Get the count of all visible objects in world.<br>
 	 * <br>
-	 * 
+	 *
 	 * @return count off all L2World objects
 	 */
 	public int getAllVisibleObjectsCount();
@@ -30,7 +30,7 @@ public interface L2WorldMBean
 	/**
 	 * Return how many players are online.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return number of online players.
 	 */
 	public int getAllPlayersCount();

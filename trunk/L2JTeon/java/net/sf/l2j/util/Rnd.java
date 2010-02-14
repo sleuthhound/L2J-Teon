@@ -16,7 +16,7 @@ package net.sf.l2j.util;
 
 /**
  * $
- * 
+ *
  * @author Balancer
  */
 public class Rnd

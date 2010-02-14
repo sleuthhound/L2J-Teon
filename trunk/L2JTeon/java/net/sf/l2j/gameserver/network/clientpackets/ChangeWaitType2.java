@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ChairSit;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class ChangeWaitType2 extends L2GameClientPacket

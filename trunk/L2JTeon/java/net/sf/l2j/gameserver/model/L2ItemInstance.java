@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 
 /**
  * This class manages items.
- * 
+ *
  * @version $Revision: 1.4.2.1.2.11 $ $Date: 2005/03/31 16:07:50 $
  */
 public final class L2ItemInstance extends L2Object
@@ -121,7 +121,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Constructor of the L2ItemInstance from the objectId and the itemId.
-	 * 
+	 *
 	 * @param objectId
 	 *            : int designating the ID of the object in the world
 	 * @param itemId
@@ -149,7 +149,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Constructor of the L2ItemInstance from the objetId and the description of the item given by the L2Item.
-	 * 
+	 *
 	 * @param objectId
 	 *            : int designating the ID of the object in the world
 	 * @param item
@@ -174,7 +174,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the ownerID of the item
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param owner_id
@@ -198,7 +198,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the ownerID of the item
-	 * 
+	 *
 	 * @param owner_id
 	 *            : int designating the ID of the owner
 	 */
@@ -214,7 +214,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the ownerID of the item
-	 * 
+	 *
 	 * @return int : ownerID of the item
 	 */
 	public int getOwnerId()
@@ -224,7 +224,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the location of the item
-	 * 
+	 *
 	 * @param loc
 	 *            : ItemLocation (enumeration)
 	 */
@@ -237,7 +237,7 @@ public final class L2ItemInstance extends L2Object
 	 * Sets the location of the item.<BR>
 	 * <BR>
 	 * <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
+	 *
 	 * @param loc
 	 *            : ItemLocation (enumeration)
 	 * @param loc_data
@@ -261,7 +261,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the quantity of item
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getCount()
@@ -273,7 +273,7 @@ public final class L2ItemInstance extends L2Object
 	 * Sets the quantity of the item.<BR>
 	 * <BR>
 	 * <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -337,7 +337,7 @@ public final class L2ItemInstance extends L2Object
 	 * Sets the quantity of the item.<BR>
 	 * <BR>
 	 * <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
+	 *
 	 * @param count
 	 *            : int
 	 */
@@ -353,7 +353,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is equipable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isEquipable()
@@ -363,7 +363,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is equipped
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isEquipped()
@@ -373,7 +373,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the slot where the item is stored
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getEquipSlot()
@@ -387,7 +387,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the item
-	 * 
+	 *
 	 * @return L2Item
 	 */
 	public L2Item getItem()
@@ -446,7 +446,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the type of item
-	 * 
+	 *
 	 * @return Enum
 	 */
 	@SuppressWarnings("unchecked")
@@ -457,7 +457,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the ID of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getItemId()
@@ -467,7 +467,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns true if item is an EtcItem
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isEtcItem()
@@ -477,7 +477,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns true if item is a Weapon/Shield
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isWeapon()
@@ -487,7 +487,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns true if item is an Armor
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isArmor()
@@ -497,7 +497,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the L2EtcItem
-	 * 
+	 *
 	 * @return L2EtcItem
 	 */
 	public L2EtcItem getEtcItem()
@@ -511,7 +511,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the L2Weapon
-	 * 
+	 *
 	 * @return L2Weapon
 	 */
 	public L2Weapon getWeaponItem()
@@ -525,7 +525,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the characteristics of the L2Armor
-	 * 
+	 *
 	 * @return L2Armor
 	 */
 	public L2Armor getArmorItem()
@@ -539,7 +539,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the quantity of crystals for crystallization
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getCrystalCount()
@@ -549,7 +549,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the reference price of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getReferencePrice()
@@ -559,7 +559,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the name of the item
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getItemName()
@@ -569,7 +569,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the price of the item for selling
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getPriceToSell()
@@ -584,7 +584,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the price of the item for selling <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
+	 *
 	 * @param price
 	 *            : int designating the price
 	 */
@@ -596,7 +596,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the price of the item for buying
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getPriceToBuy()
@@ -606,7 +606,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the price of the item for buying <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
+	 *
 	 * @param price
 	 *            : int
 	 */
@@ -618,7 +618,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the last change of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getLastChange()
@@ -628,7 +628,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the last change of the item
-	 * 
+	 *
 	 * @param lastChange
 	 *            : int
 	 */
@@ -639,7 +639,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is stackable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isStackable()
@@ -649,7 +649,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is dropable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isDropable()
@@ -659,7 +659,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is destroyable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isDestroyable()
@@ -669,7 +669,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is tradeable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isTradeable()
@@ -679,7 +679,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is consumable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isConsumable()
@@ -689,7 +689,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is a heroitem
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isHeroitem()
@@ -699,7 +699,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if item is available for manipulation
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isAvailable(L2PcInstance player, boolean allowAdena, boolean Adventurer)
@@ -764,7 +764,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the level of enchantment of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getEnchantLevel()
@@ -774,7 +774,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the level of enchantment of the item
-	 * 
+	 *
 	 * @param int
 	 */
 	public void setEnchantLevel(int enchantLevel)
@@ -789,7 +789,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the physical defense of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getPDef()
@@ -803,7 +803,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns whether this item is augmented or not
-	 * 
+	 *
 	 * @return true if augmented
 	 */
 	public boolean isAugmented()
@@ -813,7 +813,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the augmentation object for this item
-	 * 
+	 *
 	 * @return augmentation
 	 */
 	public L2Augmentation getAugmentation()
@@ -823,7 +823,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets a new augmentation
-	 * 
+	 *
 	 * @param augmentation
 	 * @return return true if sucessfull
 	 */
@@ -881,7 +881,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns true if this item is a shadow item Shadow items have a limited life-time
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isShadowItem()
@@ -891,7 +891,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the mana for this shadow item <b>NOTE</b>: does not send an inventory update packet
-	 * 
+	 *
 	 * @param mana
 	 */
 	public void setMana(int mana)
@@ -901,7 +901,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the remaining mana of this shadow item
-	 * 
+	 *
 	 * @return lifeTime
 	 */
 	public int getMana()
@@ -911,7 +911,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Decreases the mana of this shadow item, sends a inventory update schedules a new consumption task if non is running optionally one could force a new task
-	 * 
+	 *
 	 * @param forces
 	 *            a new consumption task if item is equipped
 	 */
@@ -1021,7 +1021,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns false cause item can't be attacked
-	 * 
+	 *
 	 * @return boolean false
 	 */
 	@Override
@@ -1032,7 +1032,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the type of charge with SoulShot of the item.
-	 * 
+	 *
 	 * @return int (CHARGED_NONE, CHARGED_SOULSHOT)
 	 */
 	public int getChargedSoulshot()
@@ -1042,7 +1042,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the type of charge with SpiritShot of the item
-	 * 
+	 *
 	 * @return int (CHARGED_NONE, CHARGED_SPIRITSHOT, CHARGED_BLESSED_SPIRITSHOT)
 	 */
 	public int getChargedSpiritshot()
@@ -1057,7 +1057,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the type of charge with SoulShot of the item
-	 * 
+	 *
 	 * @param type
 	 *            : int (CHARGED_NONE, CHARGED_SOULSHOT)
 	 */
@@ -1068,7 +1068,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Sets the type of charge with SpiritShot of the item
-	 * 
+	 *
 	 * @param type
 	 *            : int (CHARGED_NONE, CHARGED_SPIRITSHOT, CHARGED_BLESSED_SPIRITSHOT)
 	 */
@@ -1084,7 +1084,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * This function basically returns a set of functions from L2Item/L2Armor/L2Weapon, but may add additional functions, if this particular item instance is enhanched for a particular player.
-	 * 
+	 *
 	 * @param player
 	 *            : L2Character designating the player
 	 * @return Func[]
@@ -1141,7 +1141,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns a L2ItemInstance stored in database from its objectID
-	 * 
+	 *
 	 * @param objectId
 	 *            : int designating the objectID of the item
 	 * @return L2ItemInstance
@@ -1440,7 +1440,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns the item in String format
-	 * 
+	 *
 	 * @return String
 	 */
 	@Override
@@ -1526,7 +1526,7 @@ public final class L2ItemInstance extends L2Object
 
 	/**
 	 * Returns if the item is donator's rented item
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isDonatorRented()

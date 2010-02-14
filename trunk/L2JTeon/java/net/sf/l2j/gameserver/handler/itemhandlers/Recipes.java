@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.5.2.5 $ $Date: 2005/04/06 16:13:51 $
  */
 public class Recipes implements IItemHandler

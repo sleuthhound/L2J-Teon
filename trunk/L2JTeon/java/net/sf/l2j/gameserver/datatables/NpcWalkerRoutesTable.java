@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Main Table to Load Npc Walkers Routes and Chat SQL Table.<br>
- * 
+ *
  * @author Rayan RPG for L2Emu Project
  * @since 927
  */

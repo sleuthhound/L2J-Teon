@@ -27,7 +27,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class manages all RaidBoss. In a group mob, there are one master called RaidBoss and several slaves called Minions.
- * 
+ *
  * @version $Revision: 1.20.4.6 $ $Date: 2005/04/06 16:13:39 $
  */
 public final class L2RaidBossInstance extends L2MonsterInstance
@@ -43,7 +43,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2RaidBossInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2RaidBossInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate

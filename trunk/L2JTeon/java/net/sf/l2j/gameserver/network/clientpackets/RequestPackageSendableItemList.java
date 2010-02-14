@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PackageSendableList;
 
 /**
  * Format: (c)d d: char object id (?)
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPackageSendableItemList extends L2GameClientPacket

@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.handler.chathandlers.ChatTrade;
 
 /**
  * This class handles all chat handlers
- * 
+ *
  * @author durgus and Maxi56
  */
 public class ChatHandler

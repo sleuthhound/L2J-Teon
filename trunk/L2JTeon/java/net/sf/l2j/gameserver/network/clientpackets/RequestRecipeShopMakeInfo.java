@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.network.serverpackets.RecipeShopItemInfo;
 
 /**
  * This class ... cdd
- * 
+ *
  * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class RequestRecipeShopMakeInfo extends L2GameClientPacket

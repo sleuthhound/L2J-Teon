@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.network.serverpackets.AquireSkillInfo;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.5.2.1.2.5 $ $Date: 2005/04/06 16:13:48 $
  */
 public class RequestAquireSkillInfo extends L2GameClientPacket

@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
 /**
  * This class describes [S]->[C] PetInfo packet.
- * 
+ *
  * @version $Revision: 1.6.2.5.2.12 $ $Date: 2005/03/31 09:19:16 $ Last update: baby pets grow up. Updated by schursin (L2JOneo Dev Team) www.oneodevteam.com
  */
 public class PetInfo extends L2GameServerPacket
@@ -41,7 +41,7 @@ public class PetInfo extends L2GameServerPacket
 
 	/**
 	 * rev 478 dddddddddddddddddddffffdddcccccSSdddddddddddddddddddddddddddhc
-	 * 
+	 *
 	 * @param _characters
 	 */
 	public PetInfo(L2Summon summon)

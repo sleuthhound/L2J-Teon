@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
  * 0000: 30
  * <p>
  * <p>
- * 
+ *
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/29 23:15:33 $
  */
 public final class Appearing extends L2GameClientPacket

@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class L2SymbolMakerInstance extends L2FolkInstance

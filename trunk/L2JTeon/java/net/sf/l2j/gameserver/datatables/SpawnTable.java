@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @author Nightmare
  * @version $Revision: 1.5.2.6.2.7 $ $Date: 2005/03/27 15:29:18 $
  */
@@ -369,7 +369,7 @@ public class SpawnTable
 	/**
 	 * Get all the spawn of a NPC<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param npcId
 	 *            : ID of the NPC to find.
 	 * @return

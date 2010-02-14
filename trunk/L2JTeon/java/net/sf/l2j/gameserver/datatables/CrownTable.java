@@ -20,7 +20,7 @@ import javolution.util.FastList;
 
 /**
  * This class has just one simple function to return the item id of a crown regarding to castleid
- * 
+ *
  * @author evill33t
  */
 public class CrownTable

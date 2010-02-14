@@ -34,7 +34,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class represents all guards in the world. It inherits all methods from L2Attackable and adds some more such as tracking PK's or custom interactions.
- * 
+ *
  * @version $Revision: 1.11.2.1.2.7 $ $Date: 2005/04/06 16:13:40 $
  */
 public final class L2SiegeGuardInstance extends L2Attackable
@@ -72,7 +72,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	/**
 	 * Return True if a siege is in progress and the L2Character attacker isn't a Defender.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attacker
 	 *            The L2Character that the L2SiegeGuardInstance try to attack
 	 */

@@ -198,7 +198,7 @@ public class TimeService
 		Date today = new Date();// instanciando o objeto Date
 		@SuppressWarnings("unused")
 		long todayLong = today.getTime(); // convertendo Date para Long
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); //    
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); //
 		String daytoday = df.format(today);
 		return daytoday;
 	}

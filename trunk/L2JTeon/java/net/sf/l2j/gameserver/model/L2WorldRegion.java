@@ -35,7 +35,7 @@ import net.sf.l2j.util.L2ObjectSet;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.4.4 $ $Date: 2005/03/27 15:29:33 $
  */
 public final class L2WorldRegion
@@ -257,7 +257,7 @@ public final class L2WorldRegion
 
 	/**
 	 * this function turns this region's AI and geodata on or off
-	 * 
+	 *
 	 * @param value
 	 */
 	public void setActive(boolean value)

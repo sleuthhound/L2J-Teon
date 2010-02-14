@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.L2TradeList;
 
 /**
  * Format: c ddh[hdddhhd] c - id (0xE8) d - money d - manor id h - size [ h - item type 1 d - object id d - item id d - count h - item type 2 h d - price ]
- * 
+ *
  * @author l3x
  */
 public final class BuyListSeed extends L2GameServerPacket

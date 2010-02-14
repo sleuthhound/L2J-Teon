@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SendMacroList;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/02 15:38:41 $
  */
 public class MacroList

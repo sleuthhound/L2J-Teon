@@ -16,14 +16,14 @@ package net.sf.l2j.gameserver.templates;
 
 /**
  * This class is dedicated to the management of EtcItem.
- * 
+ *
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:30:10 $
  */
 public final class L2EtcItem extends L2Item
 {
 	/**
 	 * Constructor for EtcItem.
-	 * 
+	 *
 	 * @see L2Item constructor
 	 * @param type
 	 *            : L2EtcItemType designating the type of object Etc
@@ -37,7 +37,7 @@ public final class L2EtcItem extends L2Item
 
 	/**
 	 * Returns the type of Etc Item
-	 * 
+	 *
 	 * @return L2EtcItemType
 	 */
 	@Override
@@ -48,7 +48,7 @@ public final class L2EtcItem extends L2Item
 
 	/**
 	 * Returns if the item is consumable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	@Override
@@ -62,7 +62,7 @@ public final class L2EtcItem extends L2Item
 
 	/**
 	 * Returns the ID of the Etc item after applying the mask.
-	 * 
+	 *
 	 * @return int : ID of the EtcItem
 	 */
 	@Override

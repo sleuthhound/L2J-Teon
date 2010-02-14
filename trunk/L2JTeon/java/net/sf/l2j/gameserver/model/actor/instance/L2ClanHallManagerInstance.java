@@ -698,7 +698,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
 	/**
 	 * this is called when a player interacts with this NPC
-	 * 
+	 *
 	 * @param player
 	 */
 	@Override

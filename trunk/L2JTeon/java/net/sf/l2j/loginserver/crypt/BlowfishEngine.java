@@ -83,7 +83,7 @@ public class BlowfishEngine
 
 	/**
 	 * initialise a Blowfish cipher.
-	 * 
+	 *
 	 * @param encryption
 	 *            whether or not we are for encryption.
 	 * @param key

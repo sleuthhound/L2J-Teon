@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
 /**
  * This class contains all informations concerning the item (weapon, armor, etc).<BR>
  * Mother class of : <LI>L2Armor</LI> <LI>L2EtcItem</LI> <LI>L2Weapon</LI>
- * 
+ *
  * @version $Revision: 1.7.2.2.2.5 $ $Date: 2005/04/06 18:25:18 $
  */
 public abstract class L2Item
@@ -134,7 +134,7 @@ public abstract class L2Item
 	 * <BR>
 	 * <U><I>Variables filled :</I></U><BR>
 	 * <LI>type</LI> <LI>_itemId</LI> <LI>_name</LI> <LI>_type1 & _type2</LI> <LI>_weight</LI> <LI>_crystallizable</LI> <LI>_stackable</LI> <LI>_materialType & _crystalType & _crystlaCount</LI> <LI>_duration</LI> <LI>_bodypart</LI> <LI>_referencePrice</LI> <LI>_sellable</LI>
-	 * 
+	 *
 	 * @param type
 	 *            : Enum designating the type of the item
 	 * @param set
@@ -169,7 +169,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the itemType.
-	 * 
+	 *
 	 * @return Enum
 	 */
 	@SuppressWarnings("unchecked")
@@ -180,7 +180,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the duration of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getDuration()
@@ -190,7 +190,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the ID of the iden
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getItemId()
@@ -202,7 +202,7 @@ public abstract class L2Item
 
 	/**
 	 * Return the type of material of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getMaterialType()
@@ -212,7 +212,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the type 2 of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getType2()
@@ -222,7 +222,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the weight of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getWeight()
@@ -232,7 +232,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item is crystallizable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isCrystallizable()
@@ -247,7 +247,7 @@ public abstract class L2Item
 
 	/**
 	 * Return the type of crystal if item is crystallizable
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getCrystalType()
@@ -257,7 +257,7 @@ public abstract class L2Item
 
 	/**
 	 * Return the type of crystal if item is crystallizable
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getCrystalItemId()
@@ -270,7 +270,7 @@ public abstract class L2Item
 	 * <BR>
 	 * <U><I>Concept :</I></U><BR>
 	 * In fact, this fucntion returns the type of crystal of the item.
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getItemGrade()
@@ -280,7 +280,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the quantity of crystals for crystallization
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getCrystalCount()
@@ -290,7 +290,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the quantity of crystals for crystallization on specific enchant level
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getCrystalCount(int enchantLevel)
@@ -323,7 +323,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the name of the item
-	 * 
+	 *
 	 * @return String
 	 */
 	public final String getName()
@@ -333,7 +333,7 @@ public abstract class L2Item
 
 	/**
 	 * Return the part of the body used with the item.
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getBodyPart()
@@ -343,7 +343,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the type 1 of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getType1()
@@ -353,7 +353,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item is stackable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isStackable()
@@ -363,7 +363,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item is consumable
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isConsumable()
@@ -373,7 +373,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item is a heroitem
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isHeroitem()
@@ -383,7 +383,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the price of reference of the item
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getReferencePrice()
@@ -393,7 +393,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can be sold
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isSellable()
@@ -408,7 +408,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can dropped
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isDropable()
@@ -423,7 +423,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can destroy
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isDestroyable()
@@ -438,7 +438,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if the item can add to trade
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isTradeable()
@@ -453,7 +453,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if item is for hatchling
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isForHatchling()
@@ -463,7 +463,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if item is for strider
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isForStrider()
@@ -473,7 +473,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if item is for wolf
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isForWolf()
@@ -483,7 +483,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns if item is for wolf
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public boolean isForBabyPet()
@@ -493,7 +493,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns array of Func objects containing the list of functions used by the item
-	 * 
+	 *
 	 * @param instance
 	 *            : L2ItemInstance pointing out the item
 	 * @param player
@@ -522,7 +522,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the effects associated with the item.
-	 * 
+	 *
 	 * @param instance
 	 *            : L2ItemInstance pointing out the item
 	 * @param player
@@ -551,7 +551,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns effects of skills associated with the item.
-	 * 
+	 *
 	 * @param caster
 	 *            : L2Character pointing out the caster
 	 * @param target
@@ -579,7 +579,7 @@ public abstract class L2Item
 
 	/**
 	 * Add the FuncTemplate f to the list of functions used with the item
-	 * 
+	 *
 	 * @param f
 	 *            : FuncTemplate to add
 	 */
@@ -608,7 +608,7 @@ public abstract class L2Item
 
 	/**
 	 * Add the EffectTemplate effect to the list of effects generated by the item
-	 * 
+	 *
 	 * @param effect
 	 *            : EffectTemplate
 	 */
@@ -635,7 +635,7 @@ public abstract class L2Item
 
 	/**
 	 * Add the L2Skill skill to the list of skills generated by the item
-	 * 
+	 *
 	 * @param skill
 	 *            : L2Skill
 	 */
@@ -662,7 +662,7 @@ public abstract class L2Item
 
 	/**
 	 * Returns the name of the item
-	 * 
+	 *
 	 * @return String
 	 */
 	@Override

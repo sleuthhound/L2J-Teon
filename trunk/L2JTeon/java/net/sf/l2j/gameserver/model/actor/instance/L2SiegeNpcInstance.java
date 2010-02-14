@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class L2SiegeNpcInstance extends L2FolkInstance
@@ -37,7 +37,7 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 
 	/**
 	 * this is called when a player interacts with this NPC
-	 * 
+	 *
 	 * @param player
 	 */
 	@Override
@@ -75,7 +75,7 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 	/**
 	 * If siege is in progress shows the Busy HTML<BR>
 	 * else Shows the SiegeInfo window
-	 * 
+	 *
 	 * @param player
 	 */
 	public void showSiegeInfoWindow(L2PcInstance player)

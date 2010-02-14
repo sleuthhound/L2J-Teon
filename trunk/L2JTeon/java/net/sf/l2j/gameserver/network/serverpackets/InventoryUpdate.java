@@ -42,7 +42,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
  * format h (hh dddhhhh hh) revision 377 <BR>
  * format h (hh dddhhhd hh) revision 415 <BR>
  * <BR>
- * 
+ *
  * @version $Revision: 1.3.2.2.2.4 $ $Date: 2005/03/27 15:29:39 $ Rebuild 23.2.2006 by Advi
  */
 public class InventoryUpdate extends L2GameServerPacket

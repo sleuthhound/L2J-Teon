@@ -25,7 +25,7 @@ import net.sf.l2j.L2DatabaseFactory;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.2.1.2.7 $ $Date: 2005/04/11 10:06:12 $
  */
 public class StackIDFactory extends IdFactory
@@ -143,7 +143,7 @@ public class StackIDFactory extends IdFactory
 
 	/**
 	 * return a used Object ID back to the pool
-	 * 
+	 *
 	 * @param object
 	 *            ID
 	 */

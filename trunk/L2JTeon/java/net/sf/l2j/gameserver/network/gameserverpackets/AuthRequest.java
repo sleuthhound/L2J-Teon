@@ -20,7 +20,7 @@ public class AuthRequest extends GameServerBasePacket
 {
 	/**
 	 * Format: cccSddb c desired ID c accept alternative ID c reserve Host s ExternalHostName s InetranlHostName d max players d hexid size b hexid
-	 * 
+	 *
 	 * @param id
 	 * @param acceptAlternate
 	 * @param hexid

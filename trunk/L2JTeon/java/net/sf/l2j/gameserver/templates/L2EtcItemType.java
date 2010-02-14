@@ -25,7 +25,7 @@ public enum L2EtcItemType
 
 	/**
 	 * Constructor of the L2EtcItemType.
-	 * 
+	 *
 	 * @param id
 	 *            : int designating the ID of the EtcItemType
 	 * @param name
@@ -39,7 +39,7 @@ public enum L2EtcItemType
 
 	/**
 	 * Returns the ID of the item after applying the mask.
-	 * 
+	 *
 	 * @return int : ID of the item
 	 */
 	public int mask()
@@ -49,7 +49,7 @@ public enum L2EtcItemType
 
 	/**
 	 * Returns the name of the EtcItemType
-	 * 
+	 *
 	 * @return String
 	 */
 	@Override

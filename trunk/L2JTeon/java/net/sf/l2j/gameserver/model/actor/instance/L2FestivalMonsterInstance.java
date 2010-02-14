@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * L2FestivalMonsterInstance This class manages all attackable festival NPCs, spawned during the Festival of Darkness.
- * 
+ *
  * @author Tempy
  */
 public class L2FestivalMonsterInstance extends L2MonsterInstance
@@ -37,7 +37,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2FestivalMonsterInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2MonsterInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate

@@ -83,7 +83,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of items in inventory available for transaction
-	 * 
+	 *
 	 * @return L2ItemInstance : items in inventory
 	 */
 	public L2ItemInstance[] getUniqueItems(boolean allowAdena, boolean allowAncientAdena, boolean Adventurer)
@@ -117,7 +117,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of items in inventory available for transaction Allows an item to appear twice if and only if there is a difference in enchantment level.
-	 * 
+	 *
 	 * @return L2ItemInstance : items in inventory
 	 */
 	public L2ItemInstance[] getUniqueItemsByEnchantLevel(boolean allowAdena, boolean allowAncientAdena)
@@ -149,7 +149,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of all items in inventory that have a given item id.
-	 * 
+	 *
 	 * @return L2ItemInstance[] : matching items from inventory
 	 */
 	public L2ItemInstance[] getAllItemsByItemId(int itemId)
@@ -165,7 +165,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of all items in inventory that have a given item id AND a given enchantment level.
-	 * 
+	 *
 	 * @return L2ItemInstance[] : matching items from inventory
 	 */
 	public L2ItemInstance[] getAllItemsByItemId(int itemId, int enchantment)
@@ -181,7 +181,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of items in inventory available for transaction
-	 * 
+	 *
 	 * @return L2ItemInstance : items in inventory
 	 */
 	public L2ItemInstance[] getAvailableItems(boolean allowAdena)
@@ -195,7 +195,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Get all augmented items
-	 * 
+	 *
 	 * @return
 	 */
 	public L2ItemInstance[] getAugmentedItems()
@@ -209,7 +209,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Returns the list of items in inventory available for transaction adjusetd by tradeList
-	 * 
+	 *
 	 * @return L2ItemInstance : items in inventory
 	 */
 	public TradeList.TradeItem[] getAvailableItems(TradeList tradeList)
@@ -227,7 +227,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adjust TradeItem according his status in inventory
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance to be adjusten
 	 * @return TradeItem representing adjusted item
@@ -250,7 +250,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds adena to PCInventory
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -268,7 +268,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Removes adena to PCInventory
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -286,7 +286,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds specified amount of ancient adena to player inventory.
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -304,7 +304,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Removes specified amount of ancient adena from player inventory.
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param count
@@ -322,7 +322,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds item in inventory and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -346,7 +346,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Adds item in inventory and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -372,7 +372,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Transfers item to another inventory and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -398,7 +398,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Destroy item from inventory and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -422,7 +422,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Destroys item from inventory and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -448,7 +448,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Destroy item from inventory by using its <B>itemId</B> and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -474,7 +474,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Drop item from inventory and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -498,7 +498,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * Drop item from inventory by using its <B>objectID</B> and checks _adena and _ancientAdena
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -524,7 +524,7 @@ public class PcInventory extends Inventory
 
 	/**
 	 * <b>Overloaded</b>, when removes item from inventory, remove also owner shortcuts.
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance to be removed from inventory
 	 */

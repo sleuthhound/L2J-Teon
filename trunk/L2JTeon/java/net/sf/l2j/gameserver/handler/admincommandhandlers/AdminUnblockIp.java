@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  * <ul>
  * <li>admin_unblockip</li>
  * </ul>
- * 
+ *
  * @version $Revision: 1.3.2.6.2.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminUnblockIp implements IAdminCommandHandler

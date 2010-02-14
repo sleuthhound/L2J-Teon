@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch Trigger packet
- * 
+ *
  * @author KenM
  */
 public class ExShowVariationCancelWindow extends L2GameServerPacket

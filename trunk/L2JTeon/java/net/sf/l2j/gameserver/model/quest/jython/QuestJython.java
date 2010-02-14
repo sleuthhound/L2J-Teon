@@ -20,7 +20,7 @@ public abstract class QuestJython extends Quest
 {
 	/**
 	 * Constructor used in jython files.
-	 * 
+	 *
 	 * @param questId
 	 *            : int designating the ID of the quest
 	 * @param name

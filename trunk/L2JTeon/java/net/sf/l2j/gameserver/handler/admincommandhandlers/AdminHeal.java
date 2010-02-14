@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands: - heal = restores HP/MP/CP on target, name or radius
- * 
+ *
  * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminHeal implements IAdminCommandHandler

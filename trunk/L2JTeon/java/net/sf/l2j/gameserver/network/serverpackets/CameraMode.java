@@ -21,7 +21,7 @@ public class CameraMode extends L2GameServerPacket
 
 	/**
 	 * Forces client camera mode change
-	 * 
+	 *
 	 * @param mode
 	 *            0 - third person cam 1 - first person cam
 	 */

@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.base.ClassId;
 
 /**
  * This class ...
- * 
+ *
  * @author NightMarez
  * @version $Revision: 1.3.2.4.2.3 $ $Date: 2005/03/27 15:29:18 $
  */

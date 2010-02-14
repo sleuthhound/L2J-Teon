@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.2.2.1 $ $Date: 2005/03/02 15:38:36 $
  */
 public class CombatPointHeal implements ISkillHandler

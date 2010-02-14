@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
 
 /**
  * Format: (ch) dSdS
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPledgeReorganizeMember extends L2GameClientPacket

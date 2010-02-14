@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.util.Broadcast;
 
 /**
  * Beast SpiritShot Handler
- * 
+ *
  * @author Tempy
  */
 public class BeastSpiritShot implements IItemHandler

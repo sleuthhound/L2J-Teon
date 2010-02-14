@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 
 /**
  * A no landing zone
- * 
+ *
  * @author durgus
  */
 public class L2NoLandingZone extends L2ZoneType

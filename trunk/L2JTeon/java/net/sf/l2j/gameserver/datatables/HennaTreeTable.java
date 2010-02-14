@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.templates.L2Henna;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class HennaTreeTable

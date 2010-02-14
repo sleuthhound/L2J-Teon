@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Macro;
 
 /**
  * packet type id 0xe7 sample e7 d // unknown change of Macro edit,add,delete c // unknown c //count of Macros c // unknown d // id S // macro name S // desc S // acronym c // icon c // count c // entry c // type d // skill id c // shortcut id S // command name format: cdhcdSSScc (ccdcS)
- * 
+ *
  * @param decrypt
  */
 public class SendMacroList extends L2GameServerPacket
@@ -74,7 +74,7 @@ public class SendMacroList extends L2GameServerPacket
 		// writeS("ADM"); //acronym
 		// writeC(0); //icon
 		// writeC(2); //count
-		//		
+		//
 		// writeC(1); //i of count
 		// writeC(3); //type 1 = skill, 3 = action, 4 = shortcut
 		// writeD(0); // skill id

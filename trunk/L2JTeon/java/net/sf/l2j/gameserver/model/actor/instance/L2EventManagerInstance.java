@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This Class manages all the Requests to join a Raid Event.
- * 
+ *
  * @author polbat02
  */
 public class L2EventManagerInstance extends L2NpcInstance

@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands: - invul = turns invulnerability on/off
- * 
+ *
  * @version $Revision: 1.1.6.4 $ $Date: 2007/07/31 10:06:00 $
  */
 public class AdminMonsterRace implements IAdminCommandHandler

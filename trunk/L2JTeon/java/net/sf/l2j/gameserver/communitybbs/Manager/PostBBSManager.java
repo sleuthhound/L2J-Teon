@@ -248,7 +248,7 @@ public class PostBBSManager extends BaseBBSManager
 	 */
 	private void showMemoPost(Topic topic, L2PcInstance activeChar, Forum forum)
 	{
-		//		
+		//
 		Post p = getGPosttByTopic(topic);
 		Locale locale = Locale.getDefault();
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);

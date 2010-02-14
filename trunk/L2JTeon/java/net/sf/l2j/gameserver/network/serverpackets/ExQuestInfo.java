@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: $ $Date: $
  * @author Luca Baldi
  */

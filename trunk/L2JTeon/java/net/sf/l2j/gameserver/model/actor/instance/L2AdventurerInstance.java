@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: $ $Date: $
  * @author LBaldi
  */

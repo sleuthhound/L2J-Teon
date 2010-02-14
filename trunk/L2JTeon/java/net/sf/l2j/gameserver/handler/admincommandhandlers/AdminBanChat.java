@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.entity.GmAudit;
 
 /**
  * This class handles following admin commands: - admin_banchat = Imposes a chat ban on the specified player. - admin_unbanchat = Removes any chat ban on the specified player. Uses: admin_banchat [<player_name>] [<time_in_seconds>] admin_banchat [<player_name>] [<time_in_seconds>] [<ban_chat_reason>] admin_unbanchat [<player_name>]
- * 
+ *
  * @version $Revision: 1.1.6.3 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminBanChat implements IAdminCommandHandler

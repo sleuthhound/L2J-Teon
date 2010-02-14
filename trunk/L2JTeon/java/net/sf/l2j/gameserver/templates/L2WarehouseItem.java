@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 /**
  * This class contains L2ItemInstance<BR>
  * Use to sort L2ItemInstance of : <LI>L2Armor</LI> <LI>L2EtcItem</LI> <LI>L2Weapon</LI>
- * 
+ *
  * @version $Revision: 1.7.2.2.2.5 $ $Date: 2005/04/06 18:25:18 $
  */
 public class L2WarehouseItem
@@ -52,7 +52,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the item.
-	 * 
+	 *
 	 * @return L2Item
 	 */
 	public L2Item getItem()
@@ -62,7 +62,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the unique objectId
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getObjectId()
@@ -72,7 +72,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the owner
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getOwnerId()
@@ -82,7 +82,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the count
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getCount()
@@ -92,7 +92,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the first type
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getType1()
@@ -102,7 +102,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the second type
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getType2()
@@ -112,7 +112,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the second type
-	 * 
+	 *
 	 * @return int
 	 */
 	@SuppressWarnings("unchecked")
@@ -123,7 +123,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the ItemId
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getItemId()
@@ -133,7 +133,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the part of body used with this item
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getBodyPart()
@@ -143,7 +143,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the enchant level
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getEnchantLevel()
@@ -153,7 +153,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the item grade
-	 * 
+	 *
 	 * @return int
 	 */
 	public final int getItemGrade()
@@ -163,7 +163,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns true if it is a weapon
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isWeapon()
@@ -173,7 +173,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns true if it is an armor
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isArmor()
@@ -183,7 +183,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns true if it is an EtcItem
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public final boolean isEtcItem()
@@ -193,7 +193,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the name of the item
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getItemName()
@@ -213,7 +213,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the name of the item
-	 * 
+	 *
 	 * @return String
 	 * @deprecated beware to use getItemName() instead because getName() is final in L2Object and could not be overriden! Allover L2Object.getName() may return null!
 	 */
@@ -225,7 +225,7 @@ public class L2WarehouseItem
 
 	/**
 	 * Returns the name of the item
-	 * 
+	 *
 	 * @return String
 	 */
 	@Override

@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 
 /**
  * This class handles following admin commands: - res = resurrects target L2Character
- * 
+ *
  * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminRes implements IAdminCommandHandler

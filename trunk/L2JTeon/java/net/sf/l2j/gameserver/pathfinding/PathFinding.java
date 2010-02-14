@@ -246,7 +246,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert geodata position to pathnode position
-	 * 
+	 *
 	 * @param geo_pos
 	 * @return pathnode position
 	 */
@@ -257,7 +257,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert node position to pathnode block position
-	 * 
+	 *
 	 * @param geo_pos
 	 * @return pathnode block position (0...255)
 	 */
@@ -283,7 +283,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert pathnode x to World x position
-	 * 
+	 *
 	 * @param node_x
 	 *            , rx
 	 * @return
@@ -295,7 +295,7 @@ public abstract class PathFinding
 
 	/**
 	 * Convert pathnode y to World y position
-	 * 
+	 *
 	 * @param node_y
 	 * @return
 	 */

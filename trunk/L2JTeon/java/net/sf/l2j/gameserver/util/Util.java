@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * General Utility functions related to Gameserver
- * 
+ *
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 public final class Util
@@ -113,7 +113,7 @@ public final class Util
 	/**
 	 * Capitalizes the first letter of a string, and returns the result.<BR>
 	 * (Based on ucfirst() function of PHP)
-	 * 
+	 *
 	 * @param String
 	 *            str
 	 * @return String containing the modified string.
@@ -131,7 +131,7 @@ public final class Util
 	/**
 	 * Capitalizes the first letter of every "word" in a string.<BR>
 	 * (Based on ucwords() function of PHP)
-	 * 
+	 *
 	 * @param String
 	 *            str
 	 * @return String containing the modified string.
@@ -204,7 +204,7 @@ public final class Util
 
 	/**
 	 * Returns the number of "words" in a given string.
-	 * 
+	 *
 	 * @param String
 	 *            str
 	 * @return int numWords
@@ -217,7 +217,7 @@ public final class Util
 	/**
 	 * Returns a delimited string for an given array of string elements.<BR>
 	 * (Based on implode() in PHP)
-	 * 
+	 *
 	 * @param String
 	 *            [] strArray
 	 * @param String
@@ -237,7 +237,7 @@ public final class Util
 	/**
 	 * Returns a delimited string for an given collection of string elements.<BR>
 	 * (Based on implode() in PHP)
-	 * 
+	 *
 	 * @param Collection
 	 *            &lt;String&gt; strCollection
 	 * @param String
@@ -252,7 +252,7 @@ public final class Util
 	/**
 	 * Returns the rounded value of val to specified number of digits after the decimal point.<BR>
 	 * (Based on round() in PHP)
-	 * 
+	 *
 	 * @param float val
 	 * @param int numPlaces
 	 * @return float roundedVal
@@ -284,7 +284,7 @@ public final class Util
 
 	/**
 	 * Return amount of adena formatted with "," delimiter
-	 * 
+	 *
 	 * @param amount
 	 * @return String formatted adena amount
 	 */
@@ -314,7 +314,7 @@ public final class Util
 	// L2J_JP ADD SANDMAN
 	/**
 	 * It computes a camera angle to become approximately front.
-	 * 
+	 *
 	 * @param heading
 	 *            of target.
 	 * @return angle to use for yaw of command of "specialcamera".

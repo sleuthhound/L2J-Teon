@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.skills.Stats;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.2.2.4 $ $Date: 2005/04/06 16:13:48 $
  */
 public class Heal implements ISkillHandler

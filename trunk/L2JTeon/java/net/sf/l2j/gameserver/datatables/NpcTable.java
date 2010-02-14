@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.8.2.6.2.9 $ $Date: 2005/04/06 16:13:25 $
  */
 public class NpcTable

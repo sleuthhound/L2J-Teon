@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: (ch) dd
- * 
+ *
  * @author -Wooden-
  */
 public class PledgeSkillListAdd extends L2GameServerPacket

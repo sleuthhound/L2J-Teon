@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneForm;
 
 /**
  * A primitive rectangular zone
- * 
+ *
  * @author durgus
  */
 public class ZoneCuboid extends L2ZoneForm

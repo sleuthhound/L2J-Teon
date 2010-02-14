@@ -41,7 +41,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.7.2.16 $ $Date: 2005/04/06 16:13:49 $
  */
 public class Pdam implements ISkillHandler

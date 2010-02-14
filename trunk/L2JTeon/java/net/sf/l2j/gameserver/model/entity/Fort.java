@@ -309,7 +309,7 @@ public class Fort
 
 	/**
 	 * Sets this forts zone
-	 * 
+	 *
 	 * @param zone
 	 */
 	public void setZone(L2FortZone zone)
@@ -324,7 +324,7 @@ public class Fort
 
 	/**
 	 * Get the objects distance to this fort
-	 * 
+	 *
 	 * @param obj
 	 * @return
 	 */

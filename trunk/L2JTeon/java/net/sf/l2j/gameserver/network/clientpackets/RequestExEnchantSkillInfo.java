@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExEnchantSkillInfo;
 
 /**
  * Format chdd c: (id) 0xD0 h: (subid) 0x06 d: skill id d: skill lvl
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestExEnchantSkillInfo extends L2GameClientPacket

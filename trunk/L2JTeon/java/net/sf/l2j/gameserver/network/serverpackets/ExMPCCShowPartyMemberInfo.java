@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch d[Sdd]
- * 
+ *
  * @author KenM
  */
 public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket

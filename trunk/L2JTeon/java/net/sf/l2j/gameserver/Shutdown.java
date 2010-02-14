@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class provides the functions for shutting down and restarting the server It closes all open clientconnections and saves all data.
- * 
+ *
  * @Date: 2007/09/05 00:00:00 $
  */
 public class Shutdown extends Thread
@@ -55,7 +55,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * This function starts a shutdown countdown from Telnet (Copied from Function startShutdown())
-	 * 
+	 *
 	 * @param ip
 	 *            IP Which Issued shutdown command
 	 * @param seconds
@@ -121,7 +121,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * This function aborts a running countdown
-	 * 
+	 *
 	 * @param IP
 	 *            IP Which Issued shutdown command
 	 */
@@ -147,7 +147,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * This creates a countdown instance of Shutdown.
-	 * 
+	 *
 	 * @param seconds
 	 *            how many seconds until shutdown
 	 * @param restart
@@ -172,7 +172,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * get the shutdown-hook instance the shutdown-hook instance is created by the first call of this function, but it has to be registrered externaly.
-	 * 
+	 *
 	 * @return instance of Shutdown, to be used as shutdown hook
 	 */
 	public static Shutdown getInstance()
@@ -311,7 +311,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * This functions starts a shutdown countdown
-	 * 
+	 *
 	 * @param activeChar
 	 *            GM who issued the shutdown command
 	 * @param seconds
@@ -366,7 +366,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * This function aborts a running countdown
-	 * 
+	 *
 	 * @param activeChar
 	 *            GM who issued the abort command
 	 */
@@ -383,7 +383,7 @@ public class Shutdown extends Thread
 
 	/**
 	 * set the shutdown mode
-	 * 
+	 *
 	 * @param mode
 	 *            what mode shall be set
 	 */

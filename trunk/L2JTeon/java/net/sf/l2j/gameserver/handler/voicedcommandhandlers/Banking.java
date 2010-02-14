@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 
 /**
  * This class trades Gold Bars for Adena and vice versa.
- * 
+ *
  * @author Ahmed
  */
 public class Banking implements IVoicedCommandHandler

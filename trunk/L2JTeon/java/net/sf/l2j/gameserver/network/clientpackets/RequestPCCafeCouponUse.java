@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * Format: (ch) S
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPCCafeCouponUse extends L2GameClientPacket

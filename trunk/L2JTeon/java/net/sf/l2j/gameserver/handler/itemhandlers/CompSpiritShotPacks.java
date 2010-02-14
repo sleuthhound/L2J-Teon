@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:30:07 $
  */
 public class CompSpiritShotPacks implements IItemHandler

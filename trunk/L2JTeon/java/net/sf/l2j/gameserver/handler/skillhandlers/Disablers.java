@@ -43,7 +43,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This Handles Disabler skills
- * 
+ *
  * @author _drunk_
  */
 public class Disablers implements ISkillHandler

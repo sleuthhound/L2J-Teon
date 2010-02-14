@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * Format: (ch) d[d]
- * 
+ *
  * @author -Wooden-
  */
 public class ExCursedWeaponList extends L2GameServerPacket

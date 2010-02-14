@@ -233,7 +233,7 @@ public class Castle
 
 	/**
 	 * Sets this castles zone
-	 * 
+	 *
 	 * @param zone
 	 */
 	public void setZone(L2CastleZone zone)
@@ -263,7 +263,7 @@ public class Castle
 
 	/**
 	 * Get the objects distance to this castle
-	 * 
+	 *
 	 * @param obj
 	 * @return
 	 */

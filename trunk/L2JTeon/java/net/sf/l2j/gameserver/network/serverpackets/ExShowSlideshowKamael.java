@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch
- * 
+ *
  * @author devScarlet & mrTJO
  */
 public class ExShowSlideshowKamael extends L2GameServerPacket

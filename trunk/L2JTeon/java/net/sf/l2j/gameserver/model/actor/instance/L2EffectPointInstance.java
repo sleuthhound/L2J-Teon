@@ -36,7 +36,7 @@ public class L2EffectPointInstance extends L2NpcInstance
 
 	/**
 	 * this is called when a player interacts with this NPC
-	 * 
+	 *
 	 * @param player
 	 */
 	@Override

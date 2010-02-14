@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Format: ch Sddddddddd
- * 
+ *
  * @author KenM
  */
 public class ExDuelUpdateUserInfo extends L2GameServerPacket

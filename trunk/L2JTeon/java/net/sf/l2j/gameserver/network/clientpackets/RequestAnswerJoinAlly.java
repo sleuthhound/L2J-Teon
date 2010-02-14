@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * sample 5F 01 00 00 00 format cdd
- * 
+ *
  * @version $Revision: 1.7.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class RequestAnswerJoinAlly extends L2GameClientPacket

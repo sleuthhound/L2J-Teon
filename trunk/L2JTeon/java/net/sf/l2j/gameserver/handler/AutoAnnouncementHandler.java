@@ -131,7 +131,7 @@ public class AutoAnnouncementHandler
 	/**
 	 * Registers a globally active autoannouncement. <BR>
 	 * Returns the associated auto announcement instance.
-	 * 
+	 *
 	 * @param String
 	 *            announcementTexts
 	 * @param int announcementDelay (-1 = default delay)
@@ -145,7 +145,7 @@ public class AutoAnnouncementHandler
 	/**
 	 * Registers a NON globally-active auto announcement <BR>
 	 * Returns the associated auto chat instance.
-	 * 
+	 *
 	 * @param String
 	 *            announcementTexts
 	 * @param int announcementDelay (-1 = default delay)
@@ -242,7 +242,7 @@ public class AutoAnnouncementHandler
 
 	/**
 	 * Removes and cancels ALL auto announcement for the given announcement id.
-	 * 
+	 *
 	 * @param int Id
 	 * @return boolean removedSuccessfully
 	 */
@@ -277,7 +277,7 @@ public class AutoAnnouncementHandler
 
 	/**
 	 * Removes and cancels ALL auto announcement for the given announcement instance.
-	 * 
+	 *
 	 * @param AutoAnnouncementInstance
 	 *            announcementInst
 	 * @return boolean removedSuccessfully
@@ -293,7 +293,7 @@ public class AutoAnnouncementHandler
 
 	/**
 	 * Returns the associated auto announcement instance either by the given announcement ID or object ID.
-	 * 
+	 *
 	 * @param int id
 	 * @return AutoAnnouncementInstance announcementInst
 	 */
@@ -304,7 +304,7 @@ public class AutoAnnouncementHandler
 
 	/**
 	 * Sets the active state of all auto announcement instances to that specified, and cancels the scheduled chat task if necessary.
-	 * 
+	 *
 	 * @param boolean isActive
 	 */
 	public void setAutoAnnouncementActive(boolean isActive)
@@ -393,7 +393,7 @@ public class AutoAnnouncementHandler
 		 * Auto Announcement Runner <BR>
 		 * <BR>
 		 * Represents the auto announcement scheduled task for each announcement instance.
-		 * 
+		 *
 		 * @author chief
 		 */
 		private class AutoAnnouncementRunner implements Runnable

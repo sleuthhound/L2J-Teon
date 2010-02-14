@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands: - character_disconnect = disconnects target player
- * 
+ *
  * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:00 $
  */
 public class AdminDisconnect implements IAdminCommandHandler

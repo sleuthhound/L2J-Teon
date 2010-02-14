@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -255,7 +255,7 @@ public class L2BossZone extends L2ZoneType
 
 	/**
 	 * Some GrandBosses send all players in zone to a specific part of the zone, rather than just removing them all. If this is the case, this command should be used. If this is no the case, then use oustAllPlayers().
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -302,7 +302,7 @@ public class L2BossZone extends L2ZoneType
 
 	/**
 	 * This function is to be used by external sources, such as quests and AI in order to allow a player for entry into the zone for some time. Naturally if the player does not enter within the allowed time, he/she will be teleported out again...
-	 * 
+	 *
 	 * @param player
 	 *            : reference to the player we wish to allow
 	 * @param durationInSec

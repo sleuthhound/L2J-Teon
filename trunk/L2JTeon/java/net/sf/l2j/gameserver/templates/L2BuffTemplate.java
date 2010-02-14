@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.model.base.Race;
 
 /**
  * This class represents a Buff Template
- * 
+ *
  * @author: polbat02
  */
 public class L2BuffTemplate

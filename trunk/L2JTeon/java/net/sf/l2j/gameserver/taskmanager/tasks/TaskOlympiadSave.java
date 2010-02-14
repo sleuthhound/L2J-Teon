@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
 
 /**
  * Updates all data of Olympiad nobles in db
- * 
+ *
  * @author godson
  */
 public class TaskOlympiadSave extends Task

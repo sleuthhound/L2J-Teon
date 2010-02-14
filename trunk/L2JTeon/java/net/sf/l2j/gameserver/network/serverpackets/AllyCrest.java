@@ -23,7 +23,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  * 0030: ...
  * 0530: 10 91 00 00 00 60 9b d1 01 e4 6e ee 52 97 dd       .....`....n.R..
  * </code> format dd x...x
- * 
+ *
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
 public class AllyCrest extends L2GameServerPacket

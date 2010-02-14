@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.18.2.5.2.8 $ $Date: 2005/04/05 19:41:08 $
  */
 public class SystemMessage extends L2GameServerPacket

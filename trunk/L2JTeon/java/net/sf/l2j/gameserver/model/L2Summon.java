@@ -524,7 +524,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	 * <BR>
 	 * <li>Notify the AI with AI_INTENTION_CAST and target</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill to use
 	 * @param forceUse
@@ -699,7 +699,7 @@ public abstract class L2Summon extends L2PlayableInstance
 
 	/**
 	 * Servitors' skills automatically change their level based on the servitor's level. Until level 70, the servitor gets 1 lv of skill per 10 levels. After that, it is 1 skill level per 5 servitor levels. If the resulting skill level doesn't exist use the max that does exist!
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#doCast(net.sf.l2j.gameserver.model.L2Skill)
 	 */
 	@Override

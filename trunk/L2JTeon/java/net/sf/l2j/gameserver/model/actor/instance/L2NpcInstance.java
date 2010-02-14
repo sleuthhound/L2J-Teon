@@ -98,7 +98,7 @@ import net.sf.l2j.util.Rnd;
  * L2Character :<BR>
  * <BR>
  * <li>L2Attackable</li> <li>L2BoxInstance</li> <li>L2FolkInstance</li>
- * 
+ *
  * @version $Revision: 1.32.2.7.2.24 $ $Date: 2005/04/11 10:06:09 $
  */
 public class L2NpcInstance extends L2Character
@@ -269,7 +269,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2Character (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2Character</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param template
@@ -446,7 +446,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>L2Attackable</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            The Object to add to _knownObject
 	 */
@@ -478,7 +478,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>L2Attackable</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            The Object to remove from _knownObject
 	 */
@@ -628,7 +628,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>L2GuardInstance :</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that start an action on the L2NpcInstance
 	 */
@@ -765,7 +765,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>Client packet : Action</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param client
 	 *            The thread that manage the player that pessed Shift and click on the L2NpcInstance
 	 */
@@ -1018,7 +1018,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>Client packet : RequestBypassToServer</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param command
 	 *            The command string received from client
 	 */
@@ -1444,7 +1444,7 @@ public class L2NpcInstance extends L2Character
 
 	/**
 	 * Throws an action command to L2BufferTeonInstance.<br>
-	 * 
+	 *
 	 * @param player
 	 *            --> Target player
 	 * @param buffTemplate
@@ -1538,7 +1538,7 @@ public class L2NpcInstance extends L2Character
 	/**
 	 * Send a Server->Client packet NpcHtmlMessage to the L2PcInstance in order to display the message of the L2NpcInstance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance who talks with the L2NpcInstance
 	 * @param content
@@ -1565,7 +1565,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>L2GuardInstance : Set the pathfile to data/html/guard/12006-1.htm (npcId-page number)</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param npcId
 	 *            The Identifier of the L2NpcInstance whose text must be display
 	 * @param val
@@ -1611,7 +1611,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that talk with the L2NpcInstance
 	 * @param quests
@@ -1637,7 +1637,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>Get the text of the quest state in the folder data/jscript/quests/questId/stateId.htm</li> <li>Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance</li> <li>Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that talk with the L2NpcInstance
 	 * @param questId
@@ -1716,7 +1716,7 @@ public class L2NpcInstance extends L2Character
 	/**
 	 * Collect awaiting quests/start points and display a QuestChooseWindow (if several available) or QuestWindow.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that talk with the L2NpcInstance
 	 */
@@ -1767,7 +1767,7 @@ public class L2NpcInstance extends L2Character
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
 	 * <li>Get the text of the selected HTML file in function of the npcId and of the page number</li> <li>Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance</li> <li>Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet</li> <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that talk with the L2NpcInstance
 	 * @param val
@@ -2047,7 +2047,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> Newbie Helper Buff list is define in sql table helper_buff_list</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that talk with the L2NpcInstance
 	 */
@@ -2123,7 +2123,7 @@ public class L2NpcInstance extends L2Character
 
 	/**
 	 * Returns true if html exists
-	 * 
+	 *
 	 * @param player
 	 * @param type
 	 * @return boolean
@@ -2148,7 +2148,7 @@ public class L2NpcInstance extends L2Character
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
 	 * <li>Get the text of the selected HTML file in function of the npcId and of the page number</li> <li>Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance</li> <li>Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet</li> <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that talk with the L2NpcInstance
 	 * @param val
@@ -2589,7 +2589,7 @@ public class L2NpcInstance extends L2Character
 	 * relative to the datapack root. <BR>
 	 * <BR>
 	 * Added by Tempy
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that talk with the L2NpcInstance
 	 * @param filename
@@ -2638,7 +2638,7 @@ public class L2NpcInstance extends L2Character
 	 * <BR>
 	 * <li>L2Attackable</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param killer
 	 *            The L2Character who killed it
 	 */
@@ -2662,7 +2662,7 @@ public class L2NpcInstance extends L2Character
 	/**
 	 * Set the spawn of the L2NpcInstance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param spawn
 	 *            The L2Spawn that manage the L2NpcInstance
 	 */

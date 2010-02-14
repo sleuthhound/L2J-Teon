@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**
  * Festival of Darkness Guide (Seven Signs)
- * 
+ *
  * @author Tempy
  */
 public final class L2FestivalGuideInstance extends L2FolkInstance

@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.0.0.0 $ $Date: 2005/07/11 15:29:30 $
  */
 public final class RequestAutoSoulShot extends L2GameClientPacket

@@ -1,7 +1,7 @@
 /*
  * IRClib -- A Java Internet Relay Chat library -- class IRCConnection
  * Copyright (C) 2002 - 2006 Christoph Schwering <schwering@gmail.com>
- * 
+ *
  * This library and the accompanying materials are made available under the
  * terms of the
  * 	- GNU Lesser General Public License,
@@ -26,28 +26,28 @@ import java.net.SocketException;
  * The following sample code tries to establish an IRC connection to an IRC server:
  * <p>
  * <hr />
- * 
+ *
  * <pre>
- * 
+ *
  *  The following code of a class which imports org.schwering.irc.lib.*
  *  prepares an IRC connection and then tries to establish the connection.
- *  The server is &quot;irc.somenetwork.com&quot;, the default portrange (6667 and 
- *  6669) is set, no password is used (null). The nickname is &quot;Foo&quot; and 
+ *  The server is &quot;irc.somenetwork.com&quot;, the default portrange (6667 and
+ *  6669) is set, no password is used (null). The nickname is &quot;Foo&quot; and
  *  the realname is &quot;Mr. Foobar&quot;. The username &quot;foobar&quot;.
- *  Because of setDaemon(true), the JVM exits even if this thread is 
+ *  Because of setDaemon(true), the JVM exits even if this thread is
  *  running.
- *  An instance of the class MyListener which must implement 
- *  IRCActionListener is added as only event-listener for the connection. 
+ *  An instance of the class MyListener which must implement
+ *  IRCActionListener is added as only event-listener for the connection.
  *  The connection is told to parse out mIRC color codes and to enable
  *  automatic PING? PONG! replies.
- * 
+ *
  * IRCConnection conn = new IRCConnection(&quot;irc.somenetwork.com&quot;, 6667, 6669, null, &quot;Foo&quot;, &quot;Mr. Foobar&quot;, &quot;foo@bar.com&quot;);
- * 
+ *
  * conn.addIRCEventListener(new MyListener());
  * conn.setDaemon(true);
  * conn.setColors(false);
  * conn.setPong(true);
- * 
+ *
  * try
  * {
  *     conn.connect(); // Try to connect!!! Don't forget this!!!
@@ -59,7 +59,7 @@ import java.net.SocketException;
  * <hr />
  * <p>
  * The serverpassword isn't needed in most cases. You can give <code>null</code> or <code>""</code> instead as done in this example.
- * 
+ *
  * @author Christoph Schwering &lt;schwering@gmail.com&gt;
  * @version 3.05
  * @see IRCEventListener
@@ -140,7 +140,7 @@ public class IRCConnection extends Thread
 	 * <br />
 	 * The constructor prepares a new IRC connection which can be really started by invoking the <code>connect</code> method. Before invoking it, you should set the <code>IRCEventListener</code> and other settings.<br />
 	 * Note that you do not need to set a password to connect to the large public IRC networks like QuakeNet, EFNet etc. To use no password in your IRC connection, use <code>""</code> or <code>null</code> for the password argument in the constructor.
-	 * 
+	 *
 	 * @param host
 	 *            The hostname of the server we want to connect to.
 	 * @param ports
@@ -176,7 +176,7 @@ public class IRCConnection extends Thread
 	 * <br />
 	 * The constructor prepares a new IRC connection which can be really started by invoking the <code>connect</code> method. Before invoking it, you should set the <code>IRCEventListener</code> and other settings.<br />
 	 * Note that you do not need to set a password to connect to the large public IRC networks like QuakeNet, EFNet etc. To use no password in your IRC connection, use <code>""</code> or <code>null</code> for the password argument in the constructor.
-	 * 
+	 *
 	 * @param host
 	 *            The hostname of the server we want to connect to.
 	 * @param portMin
@@ -204,7 +204,7 @@ public class IRCConnection extends Thread
 	/**
 	 * Converts a portrange which starts with a given <code>int</code> and ends with a given <code>int</code> into an array which contains all <code>int</code>s from the beginning to the ending (including beginning and ending).<br />
 	 * If <code>portMin > portMax</code>, the portrange is turned arount automatically.
-	 * 
+	 *
 	 * @param portMin
 	 *            The beginning port of the portrange.
 	 * @param portMax
@@ -230,7 +230,7 @@ public class IRCConnection extends Thread
 	 * This method must be invoked to start a connection; the constructor doesn't do that!<br />
 	 * It tries all set ports until one is open. If all ports fail it throws an <code>IOException</code>.<br />
 	 * You can invoke <code>connect</code> only one time.
-	 * 
+	 *
 	 * @throws IOException
 	 *             If an I/O error occurs.
 	 * @throws SocketException
@@ -272,7 +272,7 @@ public class IRCConnection extends Thread
 	 * It initializes the class-vars for the inputstream and the outputstream of the socket, starts the registration of at the IRC server by calling <code>register()</code> and starts the receiving of lines from the server by starting the thread with the <code>start</code> method.<br />
 	 * <br />
 	 * This method must be protected, because it is used by extending classes, which override the <code>connect</code> method.
-	 * 
+	 *
 	 * @param s
 	 *            The socket which is used for the connection.
 	 * @throws IOException
@@ -297,7 +297,7 @@ public class IRCConnection extends Thread
 	/**
 	 * Registers the connection with the IRC server. <br />
 	 * In fact, it sends a password (if set, else nothing), the nickname and the user, the realname and the host which we're connecting to.<br />
-	 * The action synchronizes <code>code> so that no important messages 
+	 * The action synchronizes <code>code> so that no important messages
 	 * (like the first PING) come in before this registration is finished.<br />
 	 * The <code>USER</code> command's format is:<br />
 	 * <code>
@@ -340,7 +340,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Sends a String to the server. You should use this method only, if you must do it. For most purposes, there are <code>do*</code> methods (like <code>doJoin</code>). A carriage return line feed (<code>\r\n</code>) is appended automatically.
-	 * 
+	 *
 	 * @param line
 	 *            The line which should be send to the server without the trailing carriage return line feed (<code>\r\n</code>).
 	 */
@@ -366,7 +366,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Just parses a String given as the only argument with the help of the <code>IRCParser</code> class. Then it controls the command and fires events through the <code>IRCEventListener</code>.<br />
-	 * 
+	 *
 	 * @param line
 	 *            The line which is sent from the server.
 	 */
@@ -548,7 +548,7 @@ public class IRCConnection extends Thread
 	 * Close down the connection brutally. <br />
 	 * It does *NOT* send the proper IRC command <code>QUIT</code>. You should always use the <code>doQuit</code> methods or <code>send("QUIT")</code> instead of this method. <br />
 	 * You should use this method to close down the connection only when the IRC server doesn't react to the <code>QUIT</code> command.
-	 * 
+	 *
 	 * @see #connect()
 	 * @see #doQuit
 	 * @see #doQuit(String)
@@ -606,7 +606,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Adds a new {@link org.schwering.irc.lib.IRCEventListener} which listens for actions coming from the IRC server.
-	 * 
+	 *
 	 * @param l
 	 *            An instance of the {@link org.schwering.irc.lib.IRCEventListener} interface.
 	 * @throws IllegalArgumentException
@@ -626,7 +626,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Removes the first occurence of the given {@link org.schwering.irc.lib.IRCEventListener} from the listener-vector.
-	 * 
+	 *
 	 * @param l
 	 *            An instance of the {@link org.schwering.irc.lib.IRCEventListener} interface.
 	 * @return <code>true</code> if the listener was successfully removed; <code>false</code> if it was not found.
@@ -657,7 +657,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Enables or disables the mIRC colorcodes.
-	 * 
+	 *
 	 * @param colors
 	 *            <code>true</code> to enable, <code>false</code> to disable colors.
 	 */
@@ -669,7 +669,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Enables or disables the automatic PING? PONG! support.
-	 * 
+	 *
 	 * @param pong
 	 *            <code>true</code> to enable automatic <code>PONG</code> reply, <code>false</code> makes the class fire <code>onPing</code> events.
 	 */
@@ -681,7 +681,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Changes the character encoding used to talk to the server. This can be ISO-8859-1 or UTF-8 for example. This property must be set before a call to the <code>connect()</code> method.
-	 * 
+	 *
 	 * @param encoding
 	 */
 	public void setEncoding(String encoding)
@@ -712,7 +712,7 @@ public class IRCConnection extends Thread
 	/**
 	 * Tells whether there's a connection to the IRC network or not. <br />
 	 * If <code>connect</code> wasn't called yet, it returns <code>false</code>.
-	 * 
+	 *
 	 * @return The status of the connection; <code>true</code> if it's connected.
 	 * @see #connect()
 	 * @see #doQuit()
@@ -727,7 +727,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns the nickname of this instance.
-	 * 
+	 *
 	 * @return The nickname.
 	 */
 	public String getNick()
@@ -738,7 +738,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns the realname of this instance.
-	 * 
+	 *
 	 * @return The realname.
 	 */
 	public String getRealname()
@@ -749,7 +749,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns the username of this instance.
-	 * 
+	 *
 	 * @return The username.
 	 */
 	public String getUsername()
@@ -760,7 +760,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns the server of this instance.
-	 * 
+	 *
 	 * @return The server's hostname.
 	 */
 	public String getHost()
@@ -771,7 +771,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns the password of this instance. If no password is set, <code>null</code> is returned.
-	 * 
+	 *
 	 * @return The password. If no password is set, <code>null</code> is returned.
 	 */
 	public String getPassword()
@@ -782,7 +782,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns all ports to which the <code>IRCConnection</code> is going to try or has tried to connect to.
-	 * 
+	 *
 	 * @return The ports in an <code>int[]</code> array.
 	 */
 	public int[] getPorts()
@@ -793,7 +793,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns the port to which the <code>IRCConnection</code> connected, or <code>0</code> if the connection failed or wasn't tried yet.
-	 * 
+	 *
 	 * @return The port to which the <code>IRCConnection</code>, or <code>0</code> if the connection failed or wasn't tried yet.
 	 */
 	public int getPort()
@@ -804,7 +804,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Indicates whether colors are stripped out or not.
-	 * 
+	 *
 	 * @return <code>true</code> if colors are disabled.
 	 */
 	public boolean getColors()
@@ -815,7 +815,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Indicates whether automatic PING? PONG! is enabled or not.
-	 * 
+	 *
 	 * @return <code>true</code> if PING? PONG! is done automatically.
 	 */
 	public boolean getPong()
@@ -826,7 +826,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Returns the encoding of the socket.
-	 * 
+	 *
 	 * @return The socket's encoding.
 	 */
 	public String getEncoding()
@@ -838,7 +838,7 @@ public class IRCConnection extends Thread
 	/**
 	 * Returns the timeout of the socket. <br />
 	 * If an error occurs, which is never the case, <code>-1</code> is returned.
-	 * 
+	 *
 	 * @return The timeout.
 	 */
 	public int getTimeout()
@@ -862,7 +862,7 @@ public class IRCConnection extends Thread
 	 * Generates a <code>String</code> with some information about the instance of <code>IRCConnection</code>. Its format is: <code>
      * classname[host,portMin,portMax,username,nick,realname,pass,connected]
      * </code>.
-	 * 
+	 *
 	 * @return A <code>String</code> with information about the instance.
 	 */
 	@Override
@@ -883,7 +883,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Sets away message.
-	 * 
+	 *
 	 * @param msg
 	 *            The away message.
 	 */
@@ -895,7 +895,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Invites a user to a channel.
-	 * 
+	 *
 	 * @param nick
 	 *            The nickname of the user who should be invited.
 	 * @param chan
@@ -909,7 +909,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Checks if one or more nicks are used on the server.
-	 * 
+	 *
 	 * @param nick
 	 *            The nickname of the user we search for.
 	 */
@@ -921,7 +921,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Joins a channel without a key.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel which is to join.
 	 */
@@ -933,7 +933,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Joins a channel with a key.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel which is to join.
 	 * @param key
@@ -947,7 +947,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Kicks a user from a channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel somebody should be kicked from.
 	 * @param nick
@@ -961,7 +961,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Kicks a user from a channel with a comment.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel somebody should be kicked from.
 	 * @param nick
@@ -986,7 +986,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Lists channel(s) with their topic and status.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel the <code>LIST</code> refers to.
 	 */
@@ -1007,7 +1007,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Lists all visible users of (a) channel(s).
-	 * 
+	 *
 	 * @param chan
 	 *            The channel the <code>NAMES</code> command is refering to.
 	 */
@@ -1019,7 +1019,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Sends a message to a person or a channel.
-	 * 
+	 *
 	 * @param target
 	 *            The nickname or channel the message should be sent to.
 	 * @param msg
@@ -1033,7 +1033,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Requests a Reply 324 for the modes of a given channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel the <code>MODE</code> request is refering to.
 	 */
@@ -1046,7 +1046,7 @@ public class IRCConnection extends Thread
 	/**
 	 * Sends a mode to the server. <br />
 	 * The first argument is a nickname (user-mode) or a channel (channel-mode). <code>String mode</code> must contain the operators (+/-), the modes (o/v/i/k/l/p/s/w) and the possibly values (nicks/banmask/limit/key).
-	 * 
+	 *
 	 * @param target
 	 *            The nickname or channel of the user whose modes will be changed.
 	 * @param mode
@@ -1060,7 +1060,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Changes the nickname.
-	 * 
+	 *
 	 * @param nick
 	 *            The new nickname.
 	 */
@@ -1072,7 +1072,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Notices a message to a person or a channel.
-	 * 
+	 *
 	 * @param target
 	 *            The nickname or channel (group) the message should be sent to.
 	 * @param msg
@@ -1086,7 +1086,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Parts from a given channel.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel you want to part from.
 	 */
@@ -1098,7 +1098,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Parts from a given channel with a given parg-msg.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel you want to part from.
 	 * @param msg
@@ -1112,7 +1112,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Quits from the IRC server with a quit-msg.
-	 * 
+	 *
 	 * @param ping
 	 *            The ping which was received in <code>onPing</code>. It's a <code>String</code>, because sometimes on some networks the server-hostname (for example splatterworld.quakenet.org) is given as parameter which would throw an Exception if we gave the ping as long.
 	 */
@@ -1124,7 +1124,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Quits from the IRC server. Calls the <code>disconnect</code>-method which does the work actually.
-	 * 
+	 *
 	 * @see #isConnected()
 	 * @see #connect()
 	 * @see #doQuit(String)
@@ -1138,7 +1138,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Quits from the IRC server with a quit-msg. Calls the <code>disconnect</code>-method which does the work actually.
-	 * 
+	 *
 	 * @param msg
 	 *            The optional quitmessage.
 	 * @see #isConnected()
@@ -1154,7 +1154,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Requests the topic of a chan. The topic is given in a numeric reply.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel which topic should be requested.
 	 */
@@ -1166,7 +1166,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Changes the topic of a chan.
-	 * 
+	 *
 	 * @param chan
 	 *            The channel which topic is changed.
 	 * @param topic
@@ -1180,7 +1180,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Requests information about users matching the given criteric, for example a channel they are on.
-	 * 
+	 *
 	 * @param criteric
 	 *            The criterics of the <code>WHO</code> query.
 	 */
@@ -1192,7 +1192,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Requires information about an existing user.
-	 * 
+	 *
 	 * @param nick
 	 *            The nickname of the user the query is refering to.
 	 */
@@ -1204,7 +1204,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Requires host-information about a user, who is not connected anymore.
-	 * 
+	 *
 	 * @param nick
 	 *            The nickname of the user the query is refering to.
 	 */
@@ -1216,7 +1216,7 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Requires host-information about up to 5 users which must be listed and divided by spaces.
-	 * 
+	 *
 	 * @param nick
 	 *            The nickname of the user the query is refering to.
 	 */

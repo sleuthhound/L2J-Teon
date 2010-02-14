@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.11.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class RequestRestart extends L2GameClientPacket

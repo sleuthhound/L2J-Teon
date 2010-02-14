@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,7 +42,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * - Methods to show html windows: <li>showGiveBuffsWindow <li>showManageSchemeWindow <li>showEditSchemeWindow <br>
  * </br> - Methods to get and build info (Strings, future html content) from character schemes, state, etc. <li>getPlayerSchemeListFrame: Returns a table with player's schemes names <li>getGroupSkillListFrame: Returns a table with skills available in the skill_group <li>getPlayerSkillListFrame: Returns a table with skills already in player's scheme (scheme_key) <br>
  * <br>
- * 
+ *
  * @author House
  */
 public class L2BufferInstance extends L2FolkInstance
@@ -259,7 +259,7 @@ public class L2BufferInstance extends L2FolkInstance
 
 	/**
 	 * Sends an html packet to player with Give Buffs menu info for player and pet, depending on targettype parameter {player, pet}
-	 * 
+	 *
 	 * @param player
 	 * @param targettype
 	 */
@@ -290,7 +290,7 @@ public class L2BufferInstance extends L2FolkInstance
 
 	/**
 	 * Sends an html packet to player with Manage scheme menu info. This allows player to create/delete/clear schemes
-	 * 
+	 *
 	 * @param player
 	 */
 	private void showManageSchemeWindow(L2PcInstance player)
@@ -327,7 +327,7 @@ public class L2BufferInstance extends L2FolkInstance
 
 	/**
 	 * This sends an html packet to player with Edit Scheme Menu info. This allows player to edit each created scheme (add/delete skills)
-	 * 
+	 *
 	 * @param player
 	 * @param skill_group
 	 * @param scheme_key

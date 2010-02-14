@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.12.4.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class RequestWearItem extends L2GameClientPacket

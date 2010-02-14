@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeReceiveWarList;
 
 /**
  * Format: (ch) dd
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPledgeWarList extends L2GameClientPacket

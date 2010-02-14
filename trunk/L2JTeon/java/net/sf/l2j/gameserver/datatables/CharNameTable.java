@@ -23,7 +23,7 @@ import net.sf.l2j.L2DatabaseFactory;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.2.2.2.1 $ $Date: 2005/03/27 15:29:18 $
  */
 public class CharNameTable

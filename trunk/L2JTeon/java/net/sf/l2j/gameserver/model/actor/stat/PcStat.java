@@ -84,7 +84,7 @@ public class PcStat extends PlayableStat
 	 * <li>Remove Karma when the player kills L2MonsterInstance</li> <li>Send a Server->Client packet StatusUpdate to the L2PcInstance</li> <li>Send a Server->Client System Message to the L2PcInstance</li> <li>If the L2PcInstance increases it's level, send a Server->Client packet SocialAction (broadcast)</li> <li>If the L2PcInstance increases it's level, manage the increase level task (Max MP, Max
 	 * MP, Recommandation, Expertise and beginner skills...)</li> <li>If the L2PcInstance increases it's level, send a Server->Client packet UserInfo to the L2PcInstance</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param addToExp
 	 *            The Experience value to add
 	 * @param addToSp
