@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.9.2.3.2.8 $ $Date: 2005/03/27 15:29:30 $
  */
 @SuppressWarnings("unused")

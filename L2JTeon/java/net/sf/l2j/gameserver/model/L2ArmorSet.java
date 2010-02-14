@@ -47,7 +47,7 @@ public final class L2ArmorSet
 
 	/**
 	 * Checks if player have equiped all items from set (not checking shield)
-	 * 
+	 *
 	 * @param player
 	 *            whose inventory is being checked
 	 * @return true if player equips whole set
@@ -141,7 +141,7 @@ public final class L2ArmorSet
 
 	/**
 	 * Checks if all parts of set are enchanted to +6 or more
-	 * 
+	 *
 	 * @param player
 	 * @return
 	 */

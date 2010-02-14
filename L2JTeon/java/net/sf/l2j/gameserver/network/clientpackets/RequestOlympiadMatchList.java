@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * format ch c: (id) 0xD0 h: (subid) 0x13
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestOlympiadMatchList extends L2GameClientPacket

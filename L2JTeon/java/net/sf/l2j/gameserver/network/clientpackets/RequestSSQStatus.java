@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SSQStatus;
 
 /**
  * Seven Signs Record Update Request packet type id 0xc7 format: cc
- * 
+ *
  * @author Tempy
  */
 public final class RequestSSQStatus extends L2GameClientPacket

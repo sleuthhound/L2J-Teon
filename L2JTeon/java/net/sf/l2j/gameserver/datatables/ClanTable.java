@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.11.2.5.2.5 $ $Date: 2005/03/27 15:29:18 $
  */
 public class ClanTable
@@ -137,7 +137,7 @@ public class ClanTable
 
 	/**
 	 * Creates a new clan and store clan info to database
-	 * 
+	 *
 	 * @param player
 	 * @return NULL if clan with same name already exists
 	 */

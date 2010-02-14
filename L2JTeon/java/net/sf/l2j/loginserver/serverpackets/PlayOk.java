@@ -17,7 +17,7 @@ package net.sf.l2j.loginserver.serverpackets;
 import net.sf.l2j.loginserver.SessionKey;
 
 /**
- * 
+ *
  */
 public final class PlayOk extends L2LoginServerPacket
 {

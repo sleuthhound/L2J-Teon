@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.5.2.3.2.5 $ $Date: 2005/03/29 23:15:10 $
  */
 public class PetStatusUpdate extends L2GameServerPacket

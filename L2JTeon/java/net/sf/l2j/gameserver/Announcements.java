@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.script.DateRange;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.5.2.1.2.7 $ $Date: 2005/03/29 23:15:14 $
  */
 public class Announcements
@@ -228,7 +228,7 @@ public class Announcements
 			// empty message.. ignore
 		}
 	}
-	
+
 	public void announceToPlayers(String message)
 	{
 		// Get all players

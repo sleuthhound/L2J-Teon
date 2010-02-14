@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 
 /**
  * This class handles following admin commands: - gmshop = shows menu - buy id = shows shop with respective id
- * 
+ *
  * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminShop implements IAdminCommandHandler

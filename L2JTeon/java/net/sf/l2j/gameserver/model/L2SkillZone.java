@@ -25,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Just a quick scratch
- * 
+ *
  * @author NB4L1
  */
 public class L2SkillZone

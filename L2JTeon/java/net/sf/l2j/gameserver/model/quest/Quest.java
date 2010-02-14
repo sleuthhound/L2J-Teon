@@ -160,7 +160,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Return collection view of the values contains in the allEventS
-	 * 
+	 *
 	 * @return Collection<Quest>
 	 */
 	public static Collection<Quest> findAllEvents()
@@ -170,7 +170,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * (Constructor)Add values to class variables and put the quest in HashMaps.
-	 * 
+	 *
 	 * @param questId
 	 *            : int pointing out the ID of the quest
 	 * @param name
@@ -238,7 +238,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Return ID of the quest
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getQuestIntId()
@@ -248,7 +248,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Add a new QuestState to the database and return it.
-	 * 
+	 *
 	 * @param player
 	 * @return QuestState : QuestState created
 	 */
@@ -261,7 +261,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Return initial state of the quest
-	 * 
+	 *
 	 * @return State
 	 */
 	public byte getInitialState()
@@ -271,7 +271,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Return name of the quest
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getName()
@@ -281,7 +281,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Return description of the quest
-	 * 
+	 *
 	 * @return String
 	 */
 	public String getDescr()
@@ -291,7 +291,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Add a timer to the quest, if it doesn't exist already
-	 * 
+	 *
 	 * @param name
 	 *            : name of the timer (also passed back as "event" in onAdvEvent)
 	 * @param time
@@ -308,7 +308,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Add a timer to the quest, if it doesn't exist already. If the timer is repeatable, it will auto-fire automatically, at a fixed rate, until explicitly canceled.
-	 * 
+	 *
 	 * @param name
 	 *            : name of the timer (also passed back as "event" in onAdvEvent)
 	 * @param time
@@ -858,7 +858,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Show message error to player who has an access level greater than 0
-	 * 
+	 *
 	 * @param player
 	 *            : L2PcInstance
 	 * @param t
@@ -886,7 +886,7 @@ public class Quest extends ManagedScript
 	 * <U><I>Concept : </I></U><BR>
 	 * 3 cases are managed according to the value of the parameter "res" :<BR>
 	 * <LI><U>"res" ends with string ".html" :</U> an HTML is opened in order to be shown in a dialog box</LI> <LI><U>"res" starts with "<html>" :</U> the message hold in "res" is shown in a dialog box</LI> <LI><U>otherwise :</U> the message held in "res" is shown in chat box</LI>
-	 * 
+	 *
 	 * @param qs
 	 *            : QuestState
 	 * @param res
@@ -917,7 +917,7 @@ public class Quest extends ManagedScript
 	 * <BR>
 	 * <U><I>Action : </U></I><BR>
 	 * Add state of quests, drops and variables for quests in the HashMap _quest of L2PcInstance
-	 * 
+	 *
 	 * @param player
 	 *            : Player who is entering the world
 	 */
@@ -1013,7 +1013,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Insert (or Update) in the database variables that need to stay persistant for this quest after a reboot. This function is for storage of values that do not related to a specific player but are global for all characters. For example, if we need to disable a quest-gatekeeper until a certain time (as is done with some grand-boss gatekeepers), we can save that time in the DB.
-	 * 
+	 *
 	 * @param var
 	 *            : String designating the name of the variable for the quest
 	 * @param value
@@ -1052,7 +1052,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Read from the database a previously saved variable for this quest. Due to performance considerations, this function should best be used only when the quest is first loaded. Subclasses of this class can define structures into which these loaded values can be saved. However, on-demand usage of this function throughout the script is not prohibited, only not recommended. Values read from this
 	 * function were entered by calls to "saveGlobalQuestVar"
-	 * 
+	 *
 	 * @param var
 	 *            : String designating the name of the variable for the quest
 	 * @return String : String representing the loaded value for the passed var, or an empty string if the var was invalid
@@ -1093,7 +1093,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Permanently delete from the database a global quest variable that was previously saved for this quest.
-	 * 
+	 *
 	 * @param var
 	 *            : String designating the name of the variable for the quest
 	 */
@@ -1159,7 +1159,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Insert in the database the quest for the player.
-	 * 
+	 *
 	 * @param qs
 	 *            : QuestState pointing out the state of the quest
 	 * @param var
@@ -1205,7 +1205,7 @@ public class Quest extends ManagedScript
 	 * The selection of the right record is made with : <LI>charId = qs.getPlayer().getObjectID()</LI> <LI>name = qs.getQuest().getName()</LI> <LI>var = var</LI> <BR>
 	 * <BR>
 	 * The modification made is : <LI>value = parameter value</LI>
-	 * 
+	 *
 	 * @param qs
 	 *            : Quest State
 	 * @param var
@@ -1246,7 +1246,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Delete a variable of player's quest from the database.
-	 * 
+	 *
 	 * @param qs
 	 *            : object QuestState pointing out the player's quest
 	 * @param var
@@ -1284,7 +1284,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Delete the player's quest from database.
-	 * 
+	 *
 	 * @param qs
 	 *            : QuestState pointing out the player's quest
 	 */
@@ -1328,7 +1328,7 @@ public class Quest extends ManagedScript
 	 * <LI>name : name of the quest</LI>
 	 * </UL>
 	 * </LI> <LI>var : string "&lt;state&gt;" as the name of the variable for the quest</LI> <LI>val : string corresponding at the ID of the state (in fact, initial state)</LI>
-	 * 
+	 *
 	 * @param qs
 	 *            : QuestState
 	 */
@@ -1341,7 +1341,7 @@ public class Quest extends ManagedScript
 	 * Update informations regarding quest in database.<BR>
 	 * <U><I>Actions :</I></U><BR>
 	 * <LI>Get ID state of the quest recorded in object qs</LI> <LI>Test if quest is completed. If true, add a star (*) before the ID state</LI> <LI>Save in database the ID state (with or without the star) for the variable called "&lt;state&gt;" of the quest</LI>
-	 * 
+	 *
 	 * @param qs
 	 *            : QuestState
 	 */
@@ -1354,7 +1354,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed mob will respond to for the specified Event type.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param npcId
 	 *            : id of the NPC to register
 	 * @param eventType
@@ -1379,7 +1379,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Add the quest to the NPC's startQuest
-	 * 
+	 *
 	 * @param npcId
 	 * @return L2NpcTemplate : Start NPC
 	 */
@@ -1391,7 +1391,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Add the quest to the NPC's first-talk (default action dialog)
-	 * 
+	 *
 	 * @param npcId
 	 * @return L2NpcTemplate : Start NPC
 	 */
@@ -1402,7 +1402,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Add the NPC to the AcquireSkill dialog
-	 * 
+	 *
 	 * @param npcId
 	 * @return L2NpcTemplate : NPC
 	 */
@@ -1414,7 +1414,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed mob will respond to for Attack Events.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attackId
 	 * @return int : attackId
 	 */
@@ -1426,7 +1426,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed mob will respond to for Kill Events.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param killId
 	 * @return int : killId
 	 */
@@ -1444,7 +1444,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Talk Events.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param talkId
 	 *            : ID of the NPC
 	 * @return int : ID of the NPC
@@ -1463,7 +1463,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Spawn Events.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param talkId
 	 *            : ID of the NPC
 	 * @return int : ID of the NPC
@@ -1476,7 +1476,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Skill-See Events.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param talkId
 	 *            : ID of the NPC
 	 * @return int : ID of the NPC
@@ -1494,7 +1494,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Faction Call Events.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param talkId
 	 *            : ID of the NPC
 	 * @return int : ID of the NPC
@@ -1507,7 +1507,7 @@ public class Quest extends ManagedScript
 	/**
 	 * Add this quest to the list of quests that the passed npc will respond to for Character See Events.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param talkId
 	 *            : ID of the NPC
 	 * @return int : ID of the NPC
@@ -1568,7 +1568,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Auxilary function for party quests. Note: This function is only here because of how commonly it may be used by quest developers. For any variations on this function, the quest script can always handle things on its own
-	 * 
+	 *
 	 * @param player
 	 *            : the instance of a player whose party is to be searched
 	 * @param value
@@ -1582,7 +1582,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Auxilary function for party quests. Note: This function is only here because of how commonly it may be used by quest developers. For any variations on this function, the quest script can always handle things on its own
-	 * 
+	 *
 	 * @param player
 	 *            : the instance of a player whose party is to be searched
 	 * @param var
@@ -1632,7 +1632,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Auxilary function for party quests. Note: This function is only here because of how commonly it may be used by quest developers. For any variations on this function, the quest script can always handle things on its own
-	 * 
+	 *
 	 * @param player
 	 *            : the instance of a player whose party is to be searched
 	 * @param state
@@ -1679,7 +1679,7 @@ public class Quest extends ManagedScript
 
 	/**
 	 * Show HTML file to client
-	 * 
+	 *
 	 * @param fileName
 	 * @return String : message sent to client
 	 */

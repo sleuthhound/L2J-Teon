@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.taskmanager.TaskManager.ExecutedTask;
 
 /**
  * Updates all data for the Seven Signs and Festival of Darkness engines, when time is elapsed.
- * 
+ *
  * @author Tempy
  */
 public class TaskSevenSignsUpdate extends Task

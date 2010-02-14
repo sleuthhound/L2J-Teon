@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class stores references to all online game masters. (access level > 100)
- * 
+ *
  * @version $Revision: 1.2.2.1.2.7 $ $Date: 2005/04/05 19:41:24 $
  */
 public class GmListTable
@@ -89,7 +89,7 @@ public class GmListTable
 
 	/**
 	 * GM will be displayed on clients gmlist
-	 * 
+	 *
 	 * @param player
 	 */
 	public void showGm(L2PcInstance player)
@@ -101,7 +101,7 @@ public class GmListTable
 
 	/**
 	 * GM will no longer be displayed on clients gmlist
-	 * 
+	 *
 	 * @param player
 	 */
 	public void hideGm(L2PcInstance player)

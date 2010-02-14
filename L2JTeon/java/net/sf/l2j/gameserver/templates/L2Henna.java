@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.templates;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class L2Henna

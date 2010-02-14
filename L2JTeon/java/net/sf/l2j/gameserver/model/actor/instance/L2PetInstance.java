@@ -56,7 +56,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.15.2.10.2.16 $ $Date: 2005/04/06 16:13:40 $
  */
 public class L2PetInstance extends L2Summon
@@ -338,7 +338,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Destroys item from inventory and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -379,7 +379,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Destroy item from inventory by using its <B>itemId</B> and send a Server->Client InventoryUpdate packet to the L2PcInstance.
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -552,7 +552,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Transfers item to another inventory
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param itemId
@@ -664,7 +664,7 @@ public class L2PetInstance extends L2Summon
 
 	/**
 	 * Remove the Pet from DB and its associated item from the player inventory
-	 * 
+	 *
 	 * @param owner
 	 *            The owner from whose invenory we should delete the item
 	 */

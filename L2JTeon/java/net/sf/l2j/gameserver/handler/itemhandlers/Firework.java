@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.0.0.0.0.0 $ $Date: 2005/09/02 19:41:13 $
  */
 public class Firework implements IItemHandler

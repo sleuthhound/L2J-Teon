@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.model.L2TradeList;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.5.4.13 $ $Date: 2005/04/06 16:13:38 $
  */
 public class TradeController

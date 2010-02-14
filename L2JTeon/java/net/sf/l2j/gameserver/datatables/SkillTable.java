@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.8.2.6.2.18 $ $Date: 2005/04/06 16:13:25 $
  */
 public class SkillTable
@@ -63,7 +63,7 @@ public class SkillTable
 
 	/**
 	 * Provides the skill hash
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill to be hashed
 	 * @return SkillTable.getSkillHashCode(skill.getId(), skill.getLevel())
@@ -75,7 +75,7 @@ public class SkillTable
 
 	/**
 	 * Centralized method for easier change of the hashing sys
-	 * 
+	 *
 	 * @param skillId
 	 *            The Skill Id
 	 * @param skillLevel

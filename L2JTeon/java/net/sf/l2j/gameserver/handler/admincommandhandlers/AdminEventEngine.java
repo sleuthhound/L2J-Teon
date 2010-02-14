@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 
 /**
  * This class handles following admin commands: - admin = shows menu
- * 
+ *
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminEventEngine implements IAdminCommandHandler

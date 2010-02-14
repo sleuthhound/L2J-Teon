@@ -26,7 +26,7 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
 
 /**
  * Packets received by the game server from clients
- * 
+ *
  * @author KenM
  */
 public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>

@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.12.4.5 $ $Date: 2005/04/11 10:06:11 $
  */
 public final class RequestBypassToServer extends L2GameClientPacket

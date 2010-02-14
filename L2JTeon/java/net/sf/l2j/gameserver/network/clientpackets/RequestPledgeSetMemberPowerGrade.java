@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Format: (ch) Sd
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket

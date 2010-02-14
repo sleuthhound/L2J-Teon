@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.util;
 
 /**
  * Flood protector configuration
- * 
+ *
  * @author fordfrog
  */
 public final class FloodProtectorConfig
@@ -48,7 +48,7 @@ public final class FloodProtectorConfig
 
 	/**
 	 * Creates new instance of FloodProtectorConfig.
-	 * 
+	 *
 	 * @param floodProtectorType
 	 *            {@link #FLOOD_PROTECTOR_TYPE}
 	 */

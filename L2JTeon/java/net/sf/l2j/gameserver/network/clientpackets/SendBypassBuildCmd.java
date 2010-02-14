@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class handles all GM commands triggered by //command
- * 
+ *
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:29 $
  */
 public final class SendBypassBuildCmd extends L2GameClientPacket

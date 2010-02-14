@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 
 /**
  * This class ...
- * 
+ *
  * @author Yme
  * @version $Revision: 1.3.2.2.2.4 $ $Date: 2005/03/29 23:15:10 $
  */

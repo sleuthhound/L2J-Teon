@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 
 /**
  * sample 0000: 0c 9b da 12 40 ....@ format d
- * 
+ *
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:40 $
  */
 public class Revive extends L2GameServerPacket

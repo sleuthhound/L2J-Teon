@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * <p>
  * format dddddd (player id, target id, distance, startx, starty, startz)
  * <p>
- * 
+ *
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/04/06 16:13:46 $
  */
 public class MoveToPawn extends L2GameServerPacket

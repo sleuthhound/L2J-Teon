@@ -341,7 +341,7 @@ public class ClanHall
 
 	/**
 	 * Sets this clan halls zone
-	 * 
+	 *
 	 * @param zone
 	 */
 	public void setZone(L2ClanHallZone zone)

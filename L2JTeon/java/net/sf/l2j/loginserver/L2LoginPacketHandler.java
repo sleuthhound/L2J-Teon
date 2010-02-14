@@ -27,7 +27,7 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
 
 /**
  * Handler for packets received by Login Server
- * 
+ *
  * @author KenM
  */
 public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>

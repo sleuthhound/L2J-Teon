@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * format ch c: (id) 0xD0 h: (subid) 0x12
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestOlympiadObserverEnd extends L2GameClientPacket

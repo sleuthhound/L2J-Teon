@@ -55,7 +55,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * Seven Signs Festival of Darkness Engine TODO: - Archer mobs should target healer characters over other party members. - ADDED 29 Sep: Players that leave a party during the Seven Signs Festival will now take damage and cannot be healed.
- * 
+ *
  * @author Tempy
  */
 public class SevenSignsFestival implements SpawnListener
@@ -297,7 +297,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns the associated name (level range) to a given festival ID.
-	 * 
+	 *
 	 * @param int festivalID
 	 * @return String festivalName
 	 */
@@ -327,7 +327,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns the maximum allowed player level for the given festival type.
-	 * 
+	 *
 	 * @param festivalId
 	 * @return int maxLevel
 	 */
@@ -354,7 +354,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns true if the monster ID given is of an archer/marksman type.
-	 * 
+	 *
 	 * @param npcId
 	 * @return boolean isArcher
 	 */
@@ -368,7 +368,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns true if the monster ID given is a festival chest.
-	 * 
+	 *
 	 * @param npcId
 	 * @return boolean isChest
 	 */
@@ -379,7 +379,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Primarily used to terminate the Festival Manager, when the Seven Signs period changes.
-	 * 
+	 *
 	 * @return ScheduledFuture festManagerScheduler
 	 */
 	@SuppressWarnings("unchecked")
@@ -405,7 +405,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Restores saved festival data, basic settings from the properties file and past high score data from the database.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	protected void restoreFestivalData()
@@ -483,7 +483,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Stores current festival data, basic settings to the properties file and past high score data to the database. If updateSettings = true, then all Seven Signs data is updated in the database.
-	 * 
+	 *
 	 * @param updateSettings
 	 * @throws Exception
 	 */
@@ -764,7 +764,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns the current festival ID and oracle ID that the specified player is in, but will return the default of {-1, -1} if the player is not found as a participant.
-	 * 
+	 *
 	 * @param player
 	 * @return int[] playerFestivalInfo
 	 */
@@ -876,7 +876,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns a stats set containing the highest score <b>this cycle</b> for the the specified cabal and associated festival ID.
-	 * 
+	 *
 	 * @param oracle
 	 * @param festivalId
 	 * @return StatsSet festivalDat
@@ -906,7 +906,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Returns a stats set containing the highest ever recorded score data for the specified festival.
-	 * 
+	 *
 	 * @param festivalId
 	 * @return StatsSet result
 	 */
@@ -934,7 +934,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Set the final score details for the last participants of the specified festival data. Returns <b>true</b> if the score is higher than that previously recorded <b>this cycle</b>.
-	 * 
+	 *
 	 * @param player
 	 * @param oracle
 	 * @param festivalId
@@ -1036,7 +1036,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Calculate and return the proportion of the accumulated bonus for the festival where the player was in the winning party, if the winning party's cabal won the event. The accumulated bonus is then updated, with the player's share deducted.
-	 * 
+	 *
 	 * @param player
 	 * @return playerBonus (the share of the bonus for the party)
 	 */
@@ -1065,7 +1065,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Used to send a "shout" message to all players currently present in an Oracle. Primarily used for Festival Guide and Witch related speech.
-	 * 
+	 *
 	 * @param senderName
 	 * @param message
 	 */
@@ -1081,7 +1081,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Basically a wrapper-call to signal to increase the challenge of the specified festival.
-	 * 
+	 *
 	 * @param oracle
 	 * @param festivalId
 	 * @return boolean isChalIncreased
@@ -1094,7 +1094,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Used with the SpawnListener, to update the required "chat guide" instances, for use with announcements in the oracles.
-	 * 
+	 *
 	 * @param npc
 	 */
 	public void npcSpawned(L2NpcInstance npc)
@@ -1119,7 +1119,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * The FestivalManager class is the main runner of all the festivals. It is used for easier integration and management of all running festivals.
-	 * 
+	 *
 	 * @author Tempy
 	 */
 	private class FestivalManager implements Runnable
@@ -1282,7 +1282,7 @@ public class SevenSignsFestival implements SpawnListener
 		/**
 		 * Returns the running instance of a festival for the given Oracle and festivalID. <BR>
 		 * A <B>null</B> value is returned if there are no participants in that festival.
-		 * 
+		 *
 		 * @param oracle
 		 * @param festivalId
 		 * @return L2DarknessFestival festivalInst
@@ -1300,7 +1300,7 @@ public class SevenSignsFestival implements SpawnListener
 
 		/**
 		 * Returns the number of currently running festivals <b>WITH</b> participants.
-		 * 
+		 *
 		 * @return int Count
 		 */
 		public final int getInstanceCount()
@@ -1311,7 +1311,7 @@ public class SevenSignsFestival implements SpawnListener
 
 	/**
 	 * Each running festival is represented by an L2DarknessFestival class. It contains all the spawn information and data for the running festival. All festivals are managed by the FestivalManager class, which must be initialized first.
-	 * 
+	 *
 	 * @author Tempy
 	 */
 	private class L2DarknessFestival
@@ -1481,7 +1481,7 @@ public class SevenSignsFestival implements SpawnListener
 		 * 1 - Same as 0, but without archers/marksmen. (used for challenge increase) <BR>
 		 * 2 - Secondary Monsters (archers) <BR>
 		 * 3 - Festival Chests
-		 * 
+		 *
 		 * @param respawnDelay
 		 * @param spawnType
 		 */

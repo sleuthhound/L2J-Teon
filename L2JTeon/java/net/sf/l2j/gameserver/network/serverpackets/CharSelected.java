@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.4.2.5.2.6 $ $Date: 2005/03/27 15:29:39 $
  */
 public class CharSelected extends L2GameServerPacket
@@ -79,7 +79,7 @@ public class CharSelected extends L2GameServerPacket
 		writeD(0x00); // c3 work
 		// extra info
 		writeD(GameTimeController.getInstance().getGameTime()); // in-game time
-		writeD(0x00); //  
+		writeD(0x00); //
 		writeD(0x00); // c3
 		writeD(0x00); // c3 InspectorBin
 		writeD(0x00); // c3

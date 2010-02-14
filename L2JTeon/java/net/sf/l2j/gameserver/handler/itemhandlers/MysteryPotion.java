@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.6.4 $ $Date: 2005/04/06 18:25:18 $
  */
 public class MysteryPotion implements IItemHandler

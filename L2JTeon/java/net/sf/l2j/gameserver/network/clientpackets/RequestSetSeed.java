@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManorManager.SeedProduction;
 
 /**
  * Format: (ch) dd [ddd] d - manor id d - size [ d - seed id d - sales d - price ]
- * 
+ *
  * @author l3x
  */
 public class RequestSetSeed extends L2GameClientPacket

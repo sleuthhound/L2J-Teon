@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  * Format (ch) dd
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestWithdrawPartyRoom extends L2GameClientPacket

@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class handles following admin commands: - recallparty - recallclan - recallally
- * 
+ *
  * @author Yamaneko
  */
 public class AdminMassRecall implements IAdminCommandHandler

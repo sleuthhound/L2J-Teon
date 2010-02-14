@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  * d = current time (seconds)<BR>
  * d = Siege time (seconds) (0 for selectable)<BR>
  * d = (UNKNOW) Siege Time Select Related?
- * 
+ *
  * @author KenM
  */
 public class SiegeInfo extends L2GameServerPacket

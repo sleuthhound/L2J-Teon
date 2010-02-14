@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class HennaTable
@@ -52,7 +52,7 @@ public class HennaTable
 	}
 
 	/**
-     * 
+     *
      */
 	private void restoreHennaData()
 	{

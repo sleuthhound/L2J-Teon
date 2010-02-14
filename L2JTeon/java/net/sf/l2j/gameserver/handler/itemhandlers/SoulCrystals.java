@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4 $ $Date: 2005/08/14 21:31:07 $
  */
 public class SoulCrystals implements IItemHandler

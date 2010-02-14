@@ -76,7 +76,7 @@ public class FastMRUCache<K, V> extends FastCollection implements Reusable
 
 	/**
 	 * Returns a set allocated from the stack when executing in a {@link javolution.realtime.PoolContext PoolContext}).
-	 * 
+	 *
 	 * @return a new, pre-allocated or recycled set instance.
 	 */
 	public static FastMRUCache newInstance()

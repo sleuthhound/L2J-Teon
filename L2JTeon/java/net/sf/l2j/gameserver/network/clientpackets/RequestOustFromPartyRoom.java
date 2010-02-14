@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * format (ch) d
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestOustFromPartyRoom extends L2GameClientPacket

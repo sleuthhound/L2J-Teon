@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class manages all Minions. In a group mob, there are one master called RaidBoss and several slaves called Minions.
- * 
+ *
  * @version $Revision: 1.20.4.6 $ $Date: 2005/04/06 16:13:39 $
  */
 public final class L2MinionInstance extends L2MonsterInstance
@@ -39,7 +39,7 @@ public final class L2MinionInstance extends L2MonsterInstance
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2MinionInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2MinionInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate
@@ -79,7 +79,7 @@ public final class L2MinionInstance extends L2MonsterInstance
 	/**
 	 * Set the master of this L2MinionInstance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param leader
 	 *            The L2Character that leads this L2MinionInstance
 	 */
@@ -91,7 +91,7 @@ public final class L2MinionInstance extends L2MonsterInstance
 	/**
 	 * Manages the doDie event for this L2MinionInstance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param killer
 	 *            The L2Character that killed this L2MinionInstance.<BR>
 	 * <BR>

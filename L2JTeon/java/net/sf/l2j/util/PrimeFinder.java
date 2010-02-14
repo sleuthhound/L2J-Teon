@@ -22,7 +22,7 @@ import java.util.Arrays;
  * However, JDK 1.2, JGL 3.1 and many other toolkits do nothing to keep capacities prime. This class provides efficient means to choose prime capacities.
  * <p>
  * Choosing a prime is <tt>O(log 300)</tt> (binary search in a list of 300 ints). Memory requirements: 1 KB static memory.
- * 
+ *
  * @author wolfgang.hoschek@cern.ch
  * @version 1.0, 09/24/99
  */
@@ -70,7 +70,7 @@ public final class PrimeFinder
 
 	/**
 	 * Returns a prime number which is <code>&gt;= desiredCapacity</code> and very close to <code>desiredCapacity</code> (within 11% if <code>desiredCapacity &gt;= 1000</code>).
-	 * 
+	 *
 	 * @param desiredCapacity
 	 *            the capacity desired by the user.
 	 * @return the capacity which should be used for a hashtable.

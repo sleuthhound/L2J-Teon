@@ -64,7 +64,7 @@ public class CharKnownList extends ObjectKnownList
 	/**
 	 * Return true if the L2PcInstance is in _knownPlayer of the L2Character.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance to search in _knownPlayer
 	 */
@@ -197,7 +197,7 @@ public class CharKnownList extends ObjectKnownList
 
 		/**
 		 * Constructor with the active object
-		 * 
+		 *
 		 * @param obj
 		 */
 		public KnownListAsynchronousUpdateTask(L2Character obj)
@@ -207,7 +207,7 @@ public class CharKnownList extends ObjectKnownList
 
 		/**
 		 * Update known objects of active objects
-		 * 
+		 *
 		 * @see java.lang.Runnable#run()
 		 */
 		public void run()

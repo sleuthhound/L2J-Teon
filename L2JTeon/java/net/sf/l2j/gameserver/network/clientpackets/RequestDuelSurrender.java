@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.instancemanager.DuelManager;
 
 /**
  * Format:(ch) just a trigger
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestDuelSurrender extends L2GameClientPacket

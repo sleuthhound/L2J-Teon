@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.network.serverpackets.HennaEquipList;
 
 /**
  * RequestHennaList - 0xba
- * 
+ *
  * @author Tempy
  */
 public final class RequestHennaList extends L2GameClientPacket

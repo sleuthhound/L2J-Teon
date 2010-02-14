@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * Format(ch) d
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestRefineCancel extends L2GameClientPacket

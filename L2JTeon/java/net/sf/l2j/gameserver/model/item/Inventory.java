@@ -42,7 +42,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 /**
  * This class manages inventory
- * 
+ *
  * @version $Revision: 1.13.2.9.2.12 $ $Date: 2005/03/29 23:15:15 $ rewritten 23.2.2006 by Advi
  */
 public abstract class Inventory extends ItemContainer
@@ -123,7 +123,7 @@ public abstract class Inventory extends ItemContainer
 
 		/**
 		 * Constructor of the ChangeRecorder
-		 * 
+		 *
 		 * @param inventory
 		 */
 		ChangeRecorder(Inventory inventory)
@@ -153,7 +153,7 @@ public abstract class Inventory extends ItemContainer
 
 		/**
 		 * Returns alterations in inventory
-		 * 
+		 *
 		 * @return L2ItemInstance[] : array of alterated items
 		 */
 		public L2ItemInstance[] getChangedItems()
@@ -457,7 +457,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the instance of new ChangeRecorder
-	 * 
+	 *
 	 * @return ChangeRecorder
 	 */
 	public ChangeRecorder newRecorder()
@@ -467,7 +467,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Drop item from inventory and updates database
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param item
@@ -496,7 +496,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Drop item from inventory by using its <B>objectID</B> and updates database
-	 * 
+	 *
 	 * @param process
 	 *            : String Identifier of process triggering this action
 	 * @param objectId
@@ -533,7 +533,7 @@ public abstract class Inventory extends ItemContainer
 	/**
 	 * Adds item to inventory for further adjustments and Equip it if necessary (itemlocation defined)<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance to be added from inventory
 	 */
@@ -547,7 +547,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Removes item from inventory for further adjustments.
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance to be removed from inventory
 	 */
@@ -565,7 +565,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the item in the paperdoll slot
-	 * 
+	 *
 	 * @return L2ItemInstance
 	 */
 	public L2ItemInstance getPaperdollItem(int slot)
@@ -575,7 +575,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the item in the paperdoll L2Item slot
-	 * 
+	 *
 	 * @param L2Item
 	 *            slot identifier
 	 * @return L2ItemInstance
@@ -626,7 +626,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the ID of the item in the paperdol slot
-	 * 
+	 *
 	 * @param slot
 	 *            : int designating the slot
 	 * @return int designating the ID of the item
@@ -660,7 +660,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the objectID associated to the item in the paperdoll slot
-	 * 
+	 *
 	 * @param slot
 	 *            : int pointing out the slot
 	 * @return int designating the objectID
@@ -681,7 +681,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Adds new inventory's paperdoll listener
-	 * 
+	 *
 	 * @param PaperdollListener
 	 *            pointing out the listener
 	 */
@@ -694,7 +694,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Removes a paperdoll listener
-	 * 
+	 *
 	 * @param PaperdollListener
 	 *            pointing out the listener to be deleted
 	 */
@@ -705,7 +705,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Equips an item in the given slot of the paperdoll. <U><I>Remark :</I></U> The item <B>HAS TO BE</B> already in the inventory
-	 * 
+	 *
 	 * @param slot
 	 *            : int pointing out the slot of the paperdoll
 	 * @param item
@@ -759,7 +759,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Return the mask of weared item
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getWearedMask()
@@ -833,7 +833,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Unequips item in body slot and returns alterations.
-	 * 
+	 *
 	 * @param slot
 	 *            : int designating the slot of the paperdoll
 	 * @return L2ItemInstance[] : list of changes
@@ -856,7 +856,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Sets item in slot of the paperdoll to null value
-	 * 
+	 *
 	 * @param pdollSlot
 	 *            : int designating the slot
 	 * @return L2ItemInstance designating the item in slot before change
@@ -868,7 +868,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Unepquips item in slot and returns alterations
-	 * 
+	 *
 	 * @param slot
 	 *            : int designating the slot
 	 * @return L2ItemInstance[] : list of items altered
@@ -891,7 +891,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Unequips item in slot (i.e. equips with default value)
-	 * 
+	 *
 	 * @param slot
 	 *            : int designating the slot
 	 */
@@ -970,7 +970,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Equips item and returns list of alterations
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance corresponding to the item
 	 * @return L2ItemInstance[] : list of alterations
@@ -991,7 +991,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Equips item in slot of paperdoll.
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance designating the item and slot used.
 	 */
@@ -1204,7 +1204,7 @@ public abstract class Inventory extends ItemContainer
 
 	/**
 	 * Returns the totalWeight.
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getTotalWeight()
@@ -1215,7 +1215,7 @@ public abstract class Inventory extends ItemContainer
 	/**
 	 * Return the L2ItemInstance of the arrows needed for this bow.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param bow
 	 *            : L2Item designating the bow
 	 * @return L2ItemInstance pointing out arrows for bow

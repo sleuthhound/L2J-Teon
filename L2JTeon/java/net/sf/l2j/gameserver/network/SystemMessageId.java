@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network;
 
 /**
  * System Messages IDs
- * 
+ *
  * @author Noctarius & Nille02 & schursin
  */
 public enum SystemMessageId

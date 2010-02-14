@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.2.2.9 $ $Date: 2005/04/04 19:08:01 $
  */
 public class Charge implements ISkillHandler

@@ -40,7 +40,7 @@ import net.sf.l2j.util.Rnd;
  * Auto Spawn Handler Allows spawning of a NPC object based on a timer. (From the official idea used for the Merchant and Blacksmith of Mammon) General Usage: - Call registerSpawn() with the parameters listed below. int npcId int[][] spawnPoints or specify NULL to add points later. int initialDelay (If < 0 = default value) int respawnDelay (If < 0 = default value) int despawnDelay (If < 0 =
  * default value or if = 0, function disabled) spawnPoints is a standard two-dimensional int array containing X,Y and Z coordinates. The default respawn/despawn delays are currently every hour (as for Mammon on official servers). - The resulting AutoSpawnInstance object represents the newly added spawn index. - The interal methods of this object can be used to adjust random spawning, for instance
  * a call to setRandomSpawn(1, true); would set the spawn at index 1 to be randomly rather than sequentially-based. - Also they can be used to specify the number of NPC instances to spawn using setSpawnCount(), and broadcast a message to all users using setBroadcast(). Random Spawning = OFF by default Broadcasting = OFF by default
- * 
+ *
  * @author Tempy
  */
 public class AutoSpawnHandler
@@ -133,7 +133,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Registers a spawn with the given parameters with the spawner, and marks it as active. Returns a AutoSpawnInstance containing info about the spawn.
-	 * 
+	 *
 	 * @param int npcId
 	 * @param int[][] spawnPoints
 	 * @param int initialDelay (If < 0 = default value)
@@ -165,7 +165,7 @@ public class AutoSpawnHandler
 	/**
 	 * Registers a spawn with the given parameters with the spawner, and marks it as active. Returns a AutoSpawnInstance containing info about the spawn. <BR>
 	 * <B>Warning:</B> Spawn locations must be specified separately using addSpawnLocation().
-	 * 
+	 *
 	 * @param int npcId
 	 * @param int initialDelay (If < 0 = default value)
 	 * @param int respawnDelay (If < 0 = default value)
@@ -179,7 +179,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Remove a registered spawn from the list, specified by the given spawn instance.
-	 * 
+	 *
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @return boolean removedSuccessfully
@@ -210,7 +210,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Remove a registered spawn from the list, specified by the given spawn object ID.
-	 * 
+	 *
 	 * @param int objectId
 	 * @return boolean removedSuccessfully
 	 */
@@ -221,7 +221,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Sets the active state of the specified spawn.
-	 * 
+	 *
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @param boolean isActive
@@ -258,7 +258,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Sets the active state of all auto spawn instances to that specified, and cancels the scheduled spawn task if necessary.
-	 * 
+	 *
 	 * @param boolean isActive
 	 */
 	public void setAllActive(boolean isActive)
@@ -272,7 +272,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Returns the number of milliseconds until the next occurrance of the given spawn.
-	 * 
+	 *
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @param long milliRemaining
@@ -288,7 +288,7 @@ public class AutoSpawnHandler
 	/**
 	 * Attempts to return the AutoSpawnInstance associated with the given NPC or Object ID type. <BR>
 	 * Note: If isObjectId == false, returns first instance for the specified NPC ID.
-	 * 
+	 *
 	 * @param int id
 	 * @param boolean isObjectId
 	 * @return AutoSpawnInstance spawnInst
@@ -320,7 +320,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Tests if the specified object ID is assigned to an auto spawn.
-	 * 
+	 *
 	 * @param int objectId
 	 * @return boolean isAssigned
 	 */
@@ -331,7 +331,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Tests if the specified spawn instance is assigned to an auto spawn.
-	 * 
+	 *
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @return boolean isAssigned
@@ -345,7 +345,7 @@ public class AutoSpawnHandler
 	 * AutoSpawner Class <BR>
 	 * <BR>
 	 * This handles the main spawn task for an auto spawn instance, and initializes a despawner if required.
-	 * 
+	 *
 	 * @author Tempy
 	 */
 	private class AutoSpawner implements Runnable
@@ -461,7 +461,7 @@ public class AutoSpawnHandler
 	 * AutoDespawner Class <BR>
 	 * <BR>
 	 * Simply used as a secondary class for despawning an auto spawn instance.
-	 * 
+	 *
 	 * @author Tempy
 	 */
 	private class AutoDespawner implements Runnable
@@ -504,7 +504,7 @@ public class AutoSpawnHandler
 	 * AutoSpawnInstance Class <BR>
 	 * <BR>
 	 * Stores information about a registered auto spawn.
-	 * 
+	 *
 	 * @author Tempy
 	 */
 	public class AutoSpawnInstance

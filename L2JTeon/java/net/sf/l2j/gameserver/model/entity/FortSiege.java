@@ -524,7 +524,7 @@ public class FortSiege
 	/**
 	 * Announce to player.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param message
 	 *            The String of the message to send to player
 	 * @param inAreaOnly
@@ -592,7 +592,7 @@ public class FortSiege
 	/**
 	 * Approve clan as defender for siege<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clanId
 	 *            The int of player's clan id
 	 */
@@ -624,7 +624,7 @@ public class FortSiege
 	/**
 	 * Return true if clan is attacker<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clan
 	 *            The L2Clan of the player
 	 */
@@ -636,7 +636,7 @@ public class FortSiege
 	/**
 	 * Return true if clan is defender<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clan
 	 *            The L2Clan of the player
 	 */
@@ -648,7 +648,7 @@ public class FortSiege
 	/**
 	 * Return true if clan is defender waiting approval<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clan
 	 *            The L2Clan of the player
 	 */
@@ -858,7 +858,7 @@ public class FortSiege
 	/**
 	 * Register clan as attacker<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance of the player trying to register
 	 */
@@ -898,7 +898,7 @@ public class FortSiege
 	/**
 	 * Register clan as defender<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance of the player trying to register
 	 */
@@ -922,7 +922,7 @@ public class FortSiege
 	/**
 	 * Remove clan from siege<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clanId
 	 *            The int of player's clan id
 	 */
@@ -961,7 +961,7 @@ public class FortSiege
 	/**
 	 * Remove clan from siege<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clanId
 	 *            The int of player's clan id
 	 */
@@ -995,7 +995,7 @@ public class FortSiege
 	/**
 	 * Remove clan from siege<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance of player/clan being removed
 	 */
@@ -1011,7 +1011,7 @@ public class FortSiege
 	/**
 	 * Remove clan from siege<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance of player/clan being removed
 	 */
@@ -1101,7 +1101,7 @@ public class FortSiege
 	/**
 	 * Add clan as attacker<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clanId
 	 *            The int of clan's id
 	 */
@@ -1118,7 +1118,7 @@ public class FortSiege
 	/**
 	 * Add clan as defender<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clanId
 	 *            The int of clan's id
 	 */
@@ -1136,7 +1136,7 @@ public class FortSiege
 	 * <p>
 	 * Add clan as defender with the specified type
 	 * </p>
-	 * 
+	 *
 	 * @param clanId
 	 *            The int of clan's id
 	 * @param type
@@ -1150,7 +1150,7 @@ public class FortSiege
 	/**
 	 * Add clan as defender waiting approval<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clanId
 	 *            The int of clan's id
 	 */
@@ -1167,7 +1167,7 @@ public class FortSiege
 	/**
 	 * Return true if the player can register.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance of the player trying to register
 	 */
@@ -1207,7 +1207,7 @@ public class FortSiege
 	/**
 	 * Return the correct siege date as Calendar.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param siegeDate
 	 *            The Calendar siege date and time
 	 */
@@ -1384,7 +1384,7 @@ public class FortSiege
 	/**
 	 * Save registration to database.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param clan
 	 *            The L2Clan of player
 	 * @param typeId

@@ -34,7 +34,7 @@ import net.sf.l2j.util.Rnd;
  * <BR>
  * L2NpcInstance can be spawned either in a random position into a location area (if Lox=0 and Locy=0), either at an exact position. The heading of the L2NpcInstance can be a random heading if not defined (value= -1) or an exact heading (ex : merchant...).<BR>
  * <BR>
- * 
+ *
  * @author Nightmare
  * @version $Revision: 1.9.2.3.2.8 $ $Date: 2005/03/27 15:29:32 $
  */
@@ -136,7 +136,7 @@ public class L2Spawn
 	 * <BR>
 	 * <li>Set the _template of the L2Spawn</li> <li>Calculate the implementationName used to generate the generic constructor of L2NpcInstance managed by this L2Spawn</li> <li>Create the generic constructor of L2NpcInstance managed by this L2Spawn</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param mobTemplate
 	 *            The L2NpcTemplate to link to this L2Spawn
 	 */
@@ -401,7 +401,7 @@ public class L2Spawn
 	/**
 	 * Create the initial spawning and set _doRespawn to true.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return The number of L2NpcInstance that were spawned
 	 */
 	public int init()

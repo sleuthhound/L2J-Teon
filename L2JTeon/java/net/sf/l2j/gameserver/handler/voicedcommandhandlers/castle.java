@@ -25,8 +25,8 @@ import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.network.serverpackets.Ride;
 
 /**
- * 
- * 
+ *
+ *
  */
 public class castle implements IVoicedCommandHandler
 {

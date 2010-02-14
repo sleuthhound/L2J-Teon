@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneForm;
 
 /**
  * A not so primitive npoly zone
- * 
+ *
  * @author durgus
  */
 public class ZoneNPoly extends L2ZoneForm

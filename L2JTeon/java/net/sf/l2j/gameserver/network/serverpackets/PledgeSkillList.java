@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
  * Format: (ch) d [dd]
- * 
+ *
  * @author -Wooden-
  */
 public class PledgeSkillList extends L2GameServerPacket

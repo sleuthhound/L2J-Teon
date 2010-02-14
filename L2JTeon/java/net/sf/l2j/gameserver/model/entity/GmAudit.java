@@ -22,14 +22,14 @@ import net.sf.l2j.L2DatabaseFactory;
 
 /**
  * GM EditManager. Will insert a SQL message upon call.
- * 
+ *
  * @author DaRkRaGe
  */
 public class GmAudit
 {
 	/**
 	 * Inserts the comment into the DataBase.
-	 * 
+	 *
 	 * @param GmName
 	 * @param GmId
 	 * @param Target

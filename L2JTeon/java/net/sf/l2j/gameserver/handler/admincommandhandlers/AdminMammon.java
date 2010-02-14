@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Admin Command Handler for Mammon NPCs
- * 
+ *
  * @author Tempy
  */
 public class AdminMammon implements IAdminCommandHandler

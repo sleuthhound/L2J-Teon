@@ -8,7 +8,7 @@
  * Revision 1  2/08/2005 00:49:12  luisantonioa
  * Added copyright notice
  *
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 public class Item

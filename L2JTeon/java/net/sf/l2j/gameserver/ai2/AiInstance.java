@@ -58,7 +58,7 @@ public class AiInstance
 	 * <p>
 	 * This methode add the handler to the {@link EventHandlerSet} associated with the specified{@link AiEventType}
 	 * </p>
-	 * 
+	 *
 	 * @param handler
 	 *            the handler to be added
 	 */

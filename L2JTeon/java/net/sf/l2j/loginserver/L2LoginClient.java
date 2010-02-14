@@ -35,7 +35,7 @@ import com.l2jserver.mmocore.network.MMOConnection;
 
 /**
  * Represents a client connected into the LoginServer
- * 
+ *
  * @author KenM
  */
 public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>

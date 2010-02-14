@@ -61,7 +61,7 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
  * <li>A general ThreadPool where everything else that needs to run asynchronously with no delay should be executed ({@link net.sf.l2j.gameserver.model.actor.knownlist KnownList} updates, SQL updates/inserts...)?</li>
  * </ul>
  * </p>
- * 
+ *
  * @author -Wooden-
  */
 public class ThreadPoolManager
@@ -291,7 +291,7 @@ public class ThreadPoolManager
 	}
 
 	/**
-     * 
+     *
      */
 	public void shutdown()
 	{
@@ -325,7 +325,7 @@ public class ThreadPoolManager
 	}
 
 	/**
-     * 
+     *
      */
 	public void purge()
 	{
@@ -339,7 +339,7 @@ public class ThreadPoolManager
 	}
 
 	/**
-     * 
+     *
      */
 	public String getPacketStats()
 	{

@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.6.2.2.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class TradeDone extends L2GameClientPacket

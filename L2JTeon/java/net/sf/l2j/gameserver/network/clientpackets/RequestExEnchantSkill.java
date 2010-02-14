@@ -38,7 +38,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * Format chdd c: (id) 0xD0 h: (subid) 0x06 d: skill id d: skill lvl
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestExEnchantSkill extends L2GameClientPacket

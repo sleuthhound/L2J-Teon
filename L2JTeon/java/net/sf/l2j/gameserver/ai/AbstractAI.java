@@ -132,7 +132,7 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Constructor of AbstractAI.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param accessor
 	 *            The AI accessor of the L2Character
 	 */
@@ -194,7 +194,7 @@ abstract class AbstractAI implements Ctrl
 	 * <B>L2AttackableAI</B> : Create an AI Task executed every 1s (if necessary)<BR>
 	 * <B>L2PlayerAI</B> : Stores the current AI intention parameters to later restore it if necessary<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -217,7 +217,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 */
@@ -231,7 +231,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -247,7 +247,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Stop the FOLLOW mode if necessary</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -306,7 +306,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is stunned, he will attack again after the stunned periode)</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param evt
 	 *            The event whose the AI must be notified
 	 */
@@ -320,7 +320,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is stunned, he will attack again after the stunned periode)</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param evt
 	 *            The event whose the AI must be notified
 	 * @param arg0
@@ -336,7 +336,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change (ex : If the character attack and is stunned, he will attack again after the stunned periode)</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param evt
 	 *            The event whose the AI must be notified
 	 * @param arg0
@@ -706,7 +706,7 @@ abstract class AbstractAI implements Ctrl
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcIstance to notify with state of this L2Character
 	 */
@@ -732,7 +732,7 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Create and Launch an AI Follow Task to execute every 1s.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param target
 	 *            The L2Character to follow
 	 */
@@ -751,7 +751,7 @@ abstract class AbstractAI implements Ctrl
 	/**
 	 * Create and Launch an AI Follow Task to execute every 0.5s, following at specified range.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param target
 	 *            The L2Character to follow
 	 */

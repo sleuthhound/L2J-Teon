@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.model.base.ClassId;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.13.2.2.2.8 $ $Date: 2005/04/06 16:13:25 $
  */
 public class SkillTreeTable
@@ -65,7 +65,7 @@ public class SkillTreeTable
 	/**
 	 * Return the minimum level needed to have this Expertise.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param grade
 	 *            The grade level searched
 	 */
@@ -89,7 +89,7 @@ public class SkillTreeTable
 
 	/**
 	 * Each class receives new skill on certain levels, this methods allow the retrieval of the minimun character level of given class required to learn a given skill
-	 * 
+	 *
 	 * @param skillId
 	 *            The iD of the skill
 	 * @param classID
@@ -480,7 +480,7 @@ public class SkillTreeTable
 
 	/**
 	 * Returns all allowed skills for a given class.
-	 * 
+	 *
 	 * @param classId
 	 * @return all allowed skills for a given class.
 	 */

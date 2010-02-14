@@ -25,7 +25,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class manages all Grand Bosses.
- * 
+ *
  * @version $Revision: 1.0.0.0 $ $Date: 2006/06/16 $
  */
 public final class L2GrandBossInstance extends L2MonsterInstance
@@ -45,7 +45,7 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 
 	/**
 	 * Constructor for L2GrandBossInstance. This represent all grandbosses.
-	 * 
+	 *
 	 * @param objectId
 	 *            ID of the instance
 	 * @param template

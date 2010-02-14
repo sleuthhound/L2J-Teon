@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExPledgeCrestLarge;
 
 /**
  * Fomat : chd c: (id) 0xD0 h: (subid) 0x10 d: the crest id This is a trigger
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestExPledgeCrestLarge extends L2GameClientPacket

@@ -31,7 +31,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * L2NpcBufferInstance
- * 
+ *
  * @author KidZor & VaGo
  * @Special Thx to FbiAgent
  */

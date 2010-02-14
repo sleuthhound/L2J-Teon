@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 
 /**
  * sample 0000: 1e 9b da 12 40 ....@ format d
- * 
+ *
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class DeleteObject extends L2GameServerPacket

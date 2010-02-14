@@ -59,7 +59,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Returns the quantity of items in the inventory
-	 * 
+	 *
 	 * @return int
 	 */
 	@Override
@@ -76,7 +76,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Returns the list of items in inventory
-	 * 
+	 *
 	 * @return L2ItemInstance : items in inventory
 	 */
 	@Override
@@ -93,7 +93,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Returns the item from inventory by using its <B>itemId</B>
-	 * 
+	 *
 	 * @param itemId
 	 *            : int designating the ID of the item
 	 * @return L2ItemInstance designating the item or null if not found in inventory
@@ -109,7 +109,7 @@ public class PcFreight extends ItemContainer
 
 	/**
 	 * Adds item to PcFreight for further adjustments.
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance to be added from inventory
 	 */

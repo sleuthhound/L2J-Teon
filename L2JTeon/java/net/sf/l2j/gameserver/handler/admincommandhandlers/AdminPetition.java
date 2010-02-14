@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles commands for GMs to respond to petitions.
- * 
+ *
  * @author Tempy
  */
 public class AdminPetition implements IAdminCommandHandler

@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 
 /**
  * Enum of basic stats.
- * 
+ *
  * @author mkizub
  */
 public enum Stats

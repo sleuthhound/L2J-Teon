@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * Format:(ch) dddd
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestRefine extends L2GameClientPacket

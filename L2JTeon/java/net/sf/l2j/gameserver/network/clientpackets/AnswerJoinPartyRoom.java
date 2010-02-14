@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * Format: (ch) d
- * 
+ *
  * @author -Wooden-
  */
 public final class AnswerJoinPartyRoom extends L2GameClientPacket

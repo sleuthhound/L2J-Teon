@@ -34,7 +34,7 @@ public class L2MinionData
 	/**
 	 * Set the Identifier of the Minion to spawn.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param if The L2Character Identifier to spawn
 	 */
 	public void setMinionId(int id)
@@ -54,7 +54,7 @@ public class L2MinionData
 	/**
 	 * Set the minimum of minions to amount.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param amountMin
 	 *            The minimum quantity of this Minion type to spawn
 	 */
@@ -66,7 +66,7 @@ public class L2MinionData
 	/**
 	 * Set the maximum of minions to amount.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param amountMax
 	 *            The maximum quantity of this Minion type to spawn
 	 */
@@ -78,7 +78,7 @@ public class L2MinionData
 	/**
 	 * Set the amount of this Minion type to spawn.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param amount
 	 *            The quantity of this Minion type to spawn
 	 */

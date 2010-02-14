@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.zone.L2ZoneForm;
 
 /**
  * A primitive circular zone
- * 
+ *
  * @author durgus
  */
 public class ZoneCylinder extends L2ZoneForm

@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch dddd
- * 
+ *
  * @author KenM
  */
 public class ExUseSharedGroupItem extends L2GameServerPacket

@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 
 /**
  * Format (ch)ddddd
- * 
+ *
  * @author -Wooden-
  */
 public class ExFishingStart extends L2GameServerPacket

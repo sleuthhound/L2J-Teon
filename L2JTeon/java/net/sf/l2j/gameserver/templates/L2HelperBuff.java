@@ -55,7 +55,7 @@ public class L2HelperBuff
 
 	/**
 	 * Returns the lower level that the L2PcInstance must achieve in order to obtain this buff
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getLowerLevel()
@@ -65,7 +65,7 @@ public class L2HelperBuff
 
 	/**
 	 * Sets the lower level that the L2PcInstance must achieve in order to obtain this buff
-	 * 
+	 *
 	 * @param itemId
 	 *            : int designating the lower level
 	 */
@@ -76,7 +76,7 @@ public class L2HelperBuff
 
 	/**
 	 * Returns the upper level that the L2PcInstance mustn't exceed in order to obtain this buff
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getUpperLevel()
@@ -86,7 +86,7 @@ public class L2HelperBuff
 
 	/**
 	 * Sets the upper level that the L2PcInstance mustn't exceed in order to obtain this buff
-	 * 
+	 *
 	 * @param itemId
 	 *            : int designating the upper level
 	 */
@@ -97,7 +97,7 @@ public class L2HelperBuff
 
 	/**
 	 * Returns the ID of the buff that the L2PcInstance will receive
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getSkillID()
@@ -107,7 +107,7 @@ public class L2HelperBuff
 
 	/**
 	 * Sets the ID of the buff that the L2PcInstance will receive
-	 * 
+	 *
 	 * @param itemId
 	 *            : int designating the skill Identifier
 	 */
@@ -118,7 +118,7 @@ public class L2HelperBuff
 
 	/**
 	 * Returns the Level of the buff that the L2PcInstance will receive
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getSkillLevel()
@@ -128,7 +128,7 @@ public class L2HelperBuff
 
 	/**
 	 * Sets the Level of the buff that the L2PcInstance will receive
-	 * 
+	 *
 	 * @param itemId
 	 *            : int designating the level of the skill
 	 */
@@ -139,7 +139,7 @@ public class L2HelperBuff
 
 	/**
 	 * Returns if this Buff can be cast on a fighter or a mystic
-	 * 
+	 *
 	 * @return boolean : false if it's a fighter class Buff
 	 */
 	public boolean isMagicClassBuff()
@@ -149,7 +149,7 @@ public class L2HelperBuff
 
 	/**
 	 * Sets if this Buff can be cast on a fighter or a mystic
-	 * 
+	 *
 	 * @param sweep
 	 */
 	public void setIsMagicClass(boolean isMagicClass)

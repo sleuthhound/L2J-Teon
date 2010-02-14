@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * Format:(ch) h
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestExMPCCShowPartyMembersInfo extends L2GameClientPacket

@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,7 +30,7 @@ import org.w3c.dom.Node;
 
 /**
  * Abstract base class for any zone type Handles basic operations
- * 
+ *
  * @author durgus
  */
 public abstract class L2ZoneType
@@ -72,7 +72,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Setup new parameters for this zone
-	 * 
+	 *
 	 * @param type
 	 * @param value
 	 */
@@ -139,7 +139,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Checks if the given character is affected by this zone
-	 * 
+	 *
 	 * @param character
 	 * @return
 	 */
@@ -195,7 +195,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Set the zone for this L2ZoneType Instance
-	 * 
+	 *
 	 * @param zone
 	 */
 	public void setZone(L2ZoneForm zone)
@@ -205,7 +205,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Returns this zones zone form
-	 * 
+	 *
 	 * @param zone
 	 * @return
 	 */
@@ -225,7 +225,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Checks if the given coordinates are within zone's plane
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 */
@@ -241,7 +241,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Checks if the given coordinates are within the zone
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z
@@ -258,7 +258,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Checks if the given object is inside the zone.
-	 * 
+	 *
 	 * @param object
 	 */
 	public boolean isInsideZone(L2Object object)
@@ -319,7 +319,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Force fully removes a character from the zone Should use during teleport / logoff
-	 * 
+	 *
 	 * @param character
 	 */
 	public void removeCharacter(L2Character character)
@@ -333,7 +333,7 @@ public abstract class L2ZoneType
 
 	/**
 	 * Will scan the zones char list for the character
-	 * 
+	 *
 	 * @param character
 	 * @return
 	 */

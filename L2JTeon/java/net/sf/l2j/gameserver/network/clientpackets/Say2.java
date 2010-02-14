@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class is describes Say2 packet
- * 
+ *
  * @version $Revision: 1.16.2.12.2.7 $ $Date: 2005/04/11 10:06:11 $
  */
 public final class Say2 extends L2GameClientPacket

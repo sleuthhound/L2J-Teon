@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 /**
  * This class handles commands for gm to forge packets
- * 
+ *
  * @author Maktakien
  */
 public class AdminPForge implements IAdminCommandHandler

@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ... 31 SendWareHouseDepositList cd (dd)
- * 
+ *
  * @version $Revision: 1.3.4.5 $ $Date: 2005/04/11 10:06:09 $
  */
 public final class SendWareHouseDepositList extends L2GameClientPacket

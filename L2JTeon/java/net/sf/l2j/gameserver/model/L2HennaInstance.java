@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.templates.L2Henna;
 
 /**
  * This class represents a Non-Player-Character in the world. it can be a monster or a friendly character. it also uses a template to fetch some static values. the templates are hardcoded in the client, so we can rely on them.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class L2HennaInstance

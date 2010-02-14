@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2RecipeList;
 
 /**
  * format d d(dd)
- * 
+ *
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class RecipeBookItemList extends L2GameServerPacket

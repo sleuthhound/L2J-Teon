@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SSQStatus;
 
 /**
  * Item Handler for Seven Signs Record
- * 
+ *
  * @author Tempy
  */
 public class SevenSignsRecord implements IItemHandler

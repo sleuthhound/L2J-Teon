@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeInfo;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.5.4.3 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class RequestPledgeInfo extends L2GameClientPacket

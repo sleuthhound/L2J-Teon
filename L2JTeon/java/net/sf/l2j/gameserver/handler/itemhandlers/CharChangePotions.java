@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 
 /**
  * Itemhhandler for Character Appearance Change Potions
- * 
+ *
  * @author Tempy
  */
 public class CharChangePotions implements IItemHandler

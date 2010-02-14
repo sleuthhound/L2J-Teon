@@ -2,7 +2,7 @@ package net.sf.l2j.gameserver.lib;
 
 /**
  * Contains constants: reply codes, error codes and mIRC color codes.
- * 
+ *
  * @author Christoph Schwering &lt;schwering@gmail.com&gt;
  * @since 1.10
  * @version 1.00

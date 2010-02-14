@@ -40,7 +40,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class ...
- * 
+ *
  * @author nuocnam
  * @version $Revision: 1.6.2.2.2.6 $ $Date: 2005/04/11 19:12:16 $
  */
@@ -65,7 +65,7 @@ public class L2Party
 
 	/**
 	 * constructor ensures party has always one member - leader
-	 * 
+	 *
 	 * @param leader
 	 * @param itemDistributionMode
 	 */
@@ -78,7 +78,7 @@ public class L2Party
 
 	/**
 	 * returns number of party members
-	 * 
+	 *
 	 * @return
 	 */
 	public int getMemberCount()
@@ -88,7 +88,7 @@ public class L2Party
 
 	/**
 	 * returns number of players that already been invited, but not replied yet
-	 * 
+	 *
 	 * @return
 	 */
 	public int getPendingInvitationNumber()
@@ -114,7 +114,7 @@ public class L2Party
 
 	/**
 	 * returns all party members
-	 * 
+	 *
 	 * @return
 	 */
 	public List<L2PcInstance> getPartyMembers()
@@ -126,7 +126,7 @@ public class L2Party
 
 	/**
 	 * get random member from party
-	 * 
+	 *
 	 * @return
 	 */
 	// private L2PcInstance getRandomMember() { return
@@ -147,7 +147,7 @@ public class L2Party
 
 	/**
 	 * get next item looter
-	 * 
+	 *
 	 * @return
 	 */
 	/*
@@ -177,7 +177,7 @@ public class L2Party
 
 	/**
 	 * get next item looter
-	 * 
+	 *
 	 * @return
 	 */
 	private L2PcInstance getActualLooter(L2PcInstance player, int ItemId, boolean spoil, L2Character target)
@@ -207,7 +207,7 @@ public class L2Party
 
 	/**
 	 * true if player is party leader
-	 * 
+	 *
 	 * @param player
 	 * @return
 	 */
@@ -218,7 +218,7 @@ public class L2Party
 
 	/**
 	 * Returns the Object ID for the party leader to be used as a unique identifier of this party
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getPartyLeaderOID()
@@ -228,7 +228,7 @@ public class L2Party
 
 	/**
 	 * Broadcasts packet to every party member
-	 * 
+	 *
 	 * @param msg
 	 */
 	public void broadcastToPartyMembers(L2GameServerPacket msg)
@@ -254,7 +254,7 @@ public class L2Party
 
 	/**
 	 * adds new member to party
-	 * 
+	 *
 	 * @param player
 	 */
 	public void addPartyMember(L2PcInstance player)
@@ -287,7 +287,7 @@ public class L2Party
 
 	/**
 	 * removes player from party
-	 * 
+	 *
 	 * @param player
 	 */
 	public void removePartyMember(L2PcInstance player)
@@ -358,7 +358,7 @@ public class L2Party
 
 	/**
 	 * Change party leader (used for string arguments)
-	 * 
+	 *
 	 * @param name
 	 */
 	public void changePartyLeader(String name)
@@ -401,7 +401,7 @@ public class L2Party
 
 	/**
 	 * finds a player in the party by name
-	 * 
+	 *
 	 * @param name
 	 * @return
 	 */
@@ -417,7 +417,7 @@ public class L2Party
 
 	/**
 	 * Oust player from party
-	 * 
+	 *
 	 * @param player
 	 */
 	public void oustPartyMember(L2PcInstance player)
@@ -449,7 +449,7 @@ public class L2Party
 
 	/**
 	 * Oust player from party Overloaded method that takes player's name as parameter
-	 * 
+	 *
 	 * @param name
 	 */
 	public void oustPartyMember(String name)
@@ -488,7 +488,7 @@ public class L2Party
 	 */
 	/**
 	 * distribute item(s) to party members
-	 * 
+	 *
 	 * @param player
 	 * @param item
 	 */
@@ -522,7 +522,7 @@ public class L2Party
 
 	/**
 	 * distribute item(s) to party members
-	 * 
+	 *
 	 * @param player
 	 * @param item
 	 */
@@ -557,7 +557,7 @@ public class L2Party
 
 	/**
 	 * distribute adena to party members
-	 * 
+	 *
 	 * @param adena
 	 */
 	public void distributeAdena(L2PcInstance player, int adena, L2Character target)
@@ -594,7 +594,7 @@ public class L2Party
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T GIVE rewards to L2PetInstance</B></FONT><BR>
 	 * <BR>
 	 * Exception are L2PetInstances that leech from the owner's XP; they get the exp indirectly, via the owner's exp gain<BR>
-	 * 
+	 *
 	 * @param xpReward
 	 *            The Experience reward to distribute
 	 * @param spReward
@@ -661,7 +661,7 @@ public class L2Party
 	 * Calculates and gives final XP and SP rewards to the party member.<BR>
 	 * This method takes in consideration number of members, members' levels, rewarder's level and bonus modifier for the actual party.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param member
 	 *            is the L2Character to be rewarded
 	 * @param xpReward

@@ -130,7 +130,7 @@ public class L2BoatInstance extends L2Character
 		}
 
 		/**
-	 * 
+	 *
 	 */
 		private void loadBoatPath()
 		{
@@ -407,7 +407,7 @@ public class L2BoatInstance extends L2Character
 	public int _runstate = 0;
 
 	/**
-     * 
+     *
      */
 	public void evtArrived()
 	{
@@ -680,7 +680,7 @@ public class L2BoatInstance extends L2Character
 
 	//
 	/**
-     * 
+     *
      */
 	public void spawn()
 	{

@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class L2DoormenInstance extends L2NpcInstance
@@ -152,7 +152,7 @@ public class L2DoormenInstance extends L2NpcInstance
 
 	/**
 	 * this is called when a player interacts with this NPC
-	 * 
+	 *
 	 * @param player
 	 */
 	@Override

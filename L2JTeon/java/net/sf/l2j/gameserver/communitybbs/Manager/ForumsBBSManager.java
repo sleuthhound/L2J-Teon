@@ -63,7 +63,7 @@ public class ForumsBBSManager extends BaseBBSManager
 	}
 
 	/**
-     * 
+     *
      */
 	private void load()
 	{

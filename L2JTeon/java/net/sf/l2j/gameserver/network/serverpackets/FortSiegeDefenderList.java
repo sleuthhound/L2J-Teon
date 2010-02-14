@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.model.entity.Fort;
  * S = AllyName<BR>
  * S = AllyLeaderName<BR>
  * d = AllyCrestID<BR>
- * 
+ *
  * @author Vice [L2JOneo]
  */
 public class FortSiegeDefenderList extends L2GameServerPacket

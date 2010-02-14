@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.entity.Fort;
 
 /**
  * sample 0b 952a1048 objectId 00000000 00000000 00000000 00000000 00000000 00000000 format dddddd rev 377 format ddddddd rev 417
- * 
+ *
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 18:46:18 $
  */
 public class Die extends L2GameServerPacket

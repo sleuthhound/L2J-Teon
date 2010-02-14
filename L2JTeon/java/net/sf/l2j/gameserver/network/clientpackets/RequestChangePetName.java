@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.4.4 $ $Date: 2005/04/06 16:13:48 $
  */
 public final class RequestChangePetName extends L2GameClientPacket

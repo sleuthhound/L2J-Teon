@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch S
- * 
+ *
  * @author KenM
  */
 public class ExAskJoinPartyRoom extends L2GameServerPacket

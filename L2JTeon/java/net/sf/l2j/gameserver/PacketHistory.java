@@ -65,13 +65,13 @@ class PacketHistory
 		// {
 		// xml.setAttribute("time-stamp", new
 		// Date(packetHistory.timeStamp).toString());
-		//           
+		//
 		// for (Class cls : packetHistory.info.keySet())
 		// {
 		// xml.setAttribute(cls.getSimpleName(), packetHistory.info.get(cls));
 		// }
 		// }
-		//        
+		//
 		// public PacketHistory parse(XmlElement xml)
 		// {
 		// PacketHistory packetHistory = new PacketHistory();
@@ -79,7 +79,7 @@ class PacketHistory
 		// packetHistory.info = xml.<Map<Class, Long>> get("info");
 		// return packetHistory;
 		// }
-		//        
+		//
 		// public String defaultName()
 		// {
 		// return "packet-history";

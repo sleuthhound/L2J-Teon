@@ -1,7 +1,7 @@
 /*
  * IRClib -- A Java Internet Relay Chat library -- class IRCParser
  * Copyright (C) 2002 - 2006 Christoph Schwering <schwering@gmail.com>
- * 
+ *
  * This library and the accompanying materials are made available under the
  * terms of the
  * 	- GNU Lesser General Public License,
@@ -33,29 +33,29 @@ package net.sf.l2j.gameserver.lib;
  * <p>
  * The following extract of the RFC1459 shows the message format in BNF: <blockquote cite="RFC1459"><code>
  * &lt;message&gt;&nbsp;&nbsp;::=
- * [':' &lt;prefix&gt; &lt;SPACE&gt; ] &lt;command&gt; &lt;params&gt; 
+ * [':' &lt;prefix&gt; &lt;SPACE&gt; ] &lt;command&gt; &lt;params&gt;
  * &lt;crlf&gt; <br />
  * &lt;prefix&gt;&nbsp;&nbsp;&nbsp;::=
- * &lt;servername&gt; | &lt;nick&gt; 
+ * &lt;servername&gt; | &lt;nick&gt;
  * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
  * <br />
  * &lt;command&gt;&nbsp;&nbsp;::=
- * &lt;letter&gt; { &lt;letter&gt; } | &lt;number&gt; &lt;number&gt; 
+ * &lt;letter&gt; { &lt;letter&gt; } | &lt;number&gt; &lt;number&gt;
  * &lt;number&gt; <br />
  * &lt;SPACE&gt;&nbsp;&nbsp;&nbsp;&nbsp;::=
  * ' ' { ' ' }<br />
  * &lt;params&gt;&nbsp;&nbsp;&nbsp;::=
  * &lt;SPACE&gt; [ ':' &lt;trailing&gt; | &lt;middle&gt; &lt;params&gt; ] <br />
  * &lt;middle&gt;&nbsp;&nbsp;&nbsp;::=
- * &lt;Any *non-empty* sequence of octets not including SPACE or NUL or CR or 
+ * &lt;Any *non-empty* sequence of octets not including SPACE or NUL or CR or
  * LF, the first of which may not be ':'&gt; <br />
  * &lt;trailing&gt;&nbsp;::=
- * &lt;Any, possibly *empty*, sequence of octets not including NUL or CR or 
+ * &lt;Any, possibly *empty*, sequence of octets not including NUL or CR or
  * LF&gt; <br />
  * &lt;crlf&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::=
  * CR LF<br />
  * </code></blockquote>
- * 
+ *
  * @author Christoph Schwering &lt;schwering@gmail.com&gt;
  * @version 3.22
  * @see IRCConnection_alt
@@ -94,7 +94,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Parses the line after erasing all mIRC color codes. This constructor is a shorthand for <code>IRCParser(line, false)</code>.
-	 * 
+	 *
 	 * @param line
 	 *            The line which will be parsed.
 	 */
@@ -106,7 +106,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * The main constructor. Parses prefix, command, middle and trailing.
-	 * 
+	 *
 	 * @param line
 	 *            The line which will be parsed.
 	 * @param colorsEnabled
@@ -149,7 +149,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Searches for a char in the <code>StringBuffer buf</code> from a given index and returns its index.
-	 * 
+	 *
 	 * @param c
 	 *            The char to search.
 	 * @param i
@@ -167,7 +167,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Searches for a string in the <code>StringBuffer buf</code> from a given index and returns its beginning index.
-	 * 
+	 *
 	 * @param str
 	 *            The string to search.
 	 * @param i
@@ -194,7 +194,7 @@ public class IRCParser
 	 * It starts at the end. <br />
 	 * Note: The method expects a character which is not <code>c</code> before it can return an index. Thus in a string like "<code>nick moor&nbsp;&nbsp;
 	 * &nbsp;&nbsp;</code>" with four trailing spaces <code>lastIndexOf(' ')</code> does not return the the index of the last space. It first waits for characters which are not a space (r, o, o, m) and then returns the index of the next space: the space between <code>nick</code> and <code>moor</code>. By this, also in lines with trailing whitespace the trailing-part is correctly recognized.
-	 * 
+	 *
 	 * @param c
 	 *            The char to search.
 	 * @return The last index of the searched char.
@@ -224,7 +224,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Returns the line's prefix. A prefix is the part which contains information about the sender of the line. If no prefix is set, <code>""</code> is returned; but in fact there's always a prefix.
-	 * 
+	 *
 	 * @return The line's prefix.
 	 */
 	public String getPrefix()
@@ -235,7 +235,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Returns the line's command.
-	 * 
+	 *
 	 * @return The line's command.
 	 */
 	public String getCommand()
@@ -246,7 +246,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Returns the line's middle.
-	 * 
+	 *
 	 * @return The line's middle.
 	 */
 	public String getMiddle()
@@ -257,7 +257,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Returns the line's trailing.
-	 * 
+	 *
 	 * @return The line's trailing.
 	 */
 	public String getTrailing()
@@ -268,7 +268,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Returns the unparsed line. It looks exacttly as the server sent it, but if colors are disabled and therefore already parsed out by IRCUtil.parseColors, the colors are not included in here.
-	 * 
+	 *
 	 * @return The line.
 	 */
 	public String getLine()
@@ -279,7 +279,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Returns the line's parameters which consists of the middle and the trailing.
-	 * 
+	 *
 	 * @return The line's parameters.
 	 */
 	public String getParameters()
@@ -292,7 +292,7 @@ public class IRCParser
 	 * Returns the nickname of the person who sent the line or the servername of the server which sent the line. <br />
 	 * It is found in the prefix which always looks like that:<br />
 	 * <code>
-	 * &lt;servername&gt; | &lt;nick&gt; 
+	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
      * </code><br />
 	 * <br />
@@ -300,7 +300,7 @@ public class IRCParser
 	 * <br />
 	 * <b>Note:</b> This method is totally equal to <code>getServername</code>! <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.
-	 * 
+	 *
 	 * @return The nickname or the servername of the line. If no prefix is given, <code>null</code> is returned.
 	 * @see #getServername()
 	 * @see #getUsername()
@@ -320,7 +320,7 @@ public class IRCParser
 	 * Returns the servername of the server which sent the line or the nickname of the person who sent the line. <br />
 	 * It is found in the prefix which always looks like that:<br />
 	 * <code>
-	 * &lt;servername&gt; | &lt;nick&gt; 
+	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
      * </code><br />
 	 * <br />
@@ -328,7 +328,7 @@ public class IRCParser
 	 * <br />
 	 * <b>Note:</b> This method is totally equal to <code>getNick</code>! <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.
-	 * 
+	 *
 	 * @return The servername or the nickname of the line. If no prefix is given, <code>null</code> is returned.
 	 * @see #getNick()
 	 * @see #getUser()
@@ -343,13 +343,13 @@ public class IRCParser
 	 * Returns the username of the person who sent the line.<br />
 	 * It is found in the prefix which always looks like that:<br />
 	 * <code>
-	 * &lt;servername&gt; | &lt;nick&gt; 
+	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
      * </code><br />
 	 * <br />
 	 * If the username is not specified, this method returns <code>null</code>. <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.
-	 * 
+	 *
 	 * @return The username of the line; <code>null</code> if it's not given.
 	 * @see #getNick()
 	 * @see #getHost()
@@ -371,13 +371,13 @@ public class IRCParser
 	 * Returns the host of the person who sent the line.<br />
 	 * It is found in the prefix which always looks like that:<br />
 	 * <code>
-	 * &lt;servername&gt; | &lt;nick&gt; 
+	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
      * </code><br />
 	 * <br />
 	 * If the host is not specified, this method returns <code>null</code>. <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.
-	 * 
+	 *
 	 * @return The host of the line; <code>null</code> if it's not given.
 	 * @see #getNick()
 	 * @see #getUsername()
@@ -393,9 +393,9 @@ public class IRCParser
 
 	// ------------------------------
 	/**
-	 * Returns a new <code>IRCUser</code> object. This method is equal to <code>new IRCUser(IRCParser.getNick(), 
+	 * Returns a new <code>IRCUser</code> object. This method is equal to <code>new IRCUser(IRCParser.getNick(),
 	 * IRCParser.getUsername(), IRCParser.getHost())</code>. See those methods to learn which value they return if they are not set.
-	 * 
+	 *
 	 * @return A new <code>IRCUser</code> object with exactly those values which are returned by the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods.
 	 * @see #getNick()
 	 * @see #getUsername()
@@ -409,7 +409,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Gets count of parameters. If <code>parameters</code> isn't initialized yet, it calls <code>initParameters</code> to do that.
-	 * 
+	 *
 	 * @return The number of parameters.
 	 */
 	public int getParameterCount()
@@ -422,7 +422,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Get one parameter of the line. If <code>parameters</code> isn't initialized yet, it calls <code>initParameters</code> to do that.
-	 * 
+	 *
 	 * @param i
 	 *            The index of the parameter you want to get. The index starts with 1 and not with 0.
 	 * @return The <code>i</code>th parameter. If <code>i</code> is out of bounds, <code>""</code> is returned.
@@ -441,7 +441,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Grabs the line's parameters from the <code>i</code>th to the last parameter (including the <code>i</code>th). If <code>parameters</code> isn't initialized yet, it calls <code>initParameters</code> to do that.
-	 * 
+	 *
 	 * @param i
 	 *            The index of the first parameter you want to get.
 	 * @return All parameters behind another beginning at the <code>i</code>th. If <code>i</code> is out of bounds, <code>""</code> is returned.
@@ -459,7 +459,7 @@ public class IRCParser
 	// ------------------------------
 	/**
 	 * Grabs the line's parameters from the first to the <code>i</code>th parameters (including the <code>i</code>th). If <code>parameters</code> isn't initialized yet, it calls <code>initParameters</code> to do that.
-	 * 
+	 *
 	 * @param i
 	 *            The index of the last parameter you want to get.
 	 * @return All parameters beginning at the first and ending at the <code>i</code>th. If <code>i</code> is out of bounds, <code>""</code> is returned.
@@ -479,7 +479,7 @@ public class IRCParser
 	/**
 	 * Generates a <code>String</code> with some information about the instance of <code>IRCParser</code>.<br />
 	 * Its format is: <code>classname[prefix,command,middle,trailing]</code>.
-	 * 
+	 *
 	 * @return A <code>String</code> with information about the instance.
 	 */
 	@Override

@@ -849,7 +849,7 @@ public final class Formulas
 	 * <BR>
 	 * FuncAtkAccuracy -> Math.sqrt(_player.getDEX())*6+_player.getLevel()<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param cha
 	 *            L2PcInstance or L2Summon that must obtain basic Func objects
 	 */
@@ -1231,7 +1231,7 @@ public final class Formulas
 
 	/**
 	 * Calculated damage caused by ATTACK of attacker on target, called separatly for each weapon, if dual-weapon is used.
-	 * 
+	 *
 	 * @param attacker
 	 *            player or NPC that makes ATTACK
 	 * @param target
@@ -1803,7 +1803,7 @@ public final class Formulas
 	{
 		SkillType type = skill.getSkillType();
 		if (target.isRaid())
-		{ 
+		{
 			switch (type)
 			{
 				case CONFUSION:
@@ -2002,7 +2002,7 @@ public final class Formulas
 	{
 		SkillType type = skill.getSkillType();
 		if (target.isRaid())
-		{ 
+		{
 			switch (type)
 			{
 				case CONFUSION:

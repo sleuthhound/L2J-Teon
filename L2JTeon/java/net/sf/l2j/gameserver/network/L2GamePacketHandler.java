@@ -41,7 +41,7 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
  * <li>Clients sends a MoveToLocation packet without having a character attached. (Potential errors handling the packet).</li> <li>Clients sends a RequestAuthLogin being already authed. (Potential exploit).</li> <BR>
  * <BR>
  * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all these states.
- * 
+ *
  * @author KenM
  */
 public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>

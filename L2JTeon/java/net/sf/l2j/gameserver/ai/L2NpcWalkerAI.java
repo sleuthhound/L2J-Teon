@@ -44,7 +44,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	/**
 	 * Constructor of L2CharacterAI.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param accessor
 	 *            The AI accessor of the L2Character
 	 */
@@ -80,7 +80,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 
 	/**
 	 * If npc can't walk to it's target then just teleport to next point
-	 * 
+	 *
 	 * @param blocked_at_pos
 	 *            ignoring it
 	 */

@@ -63,7 +63,7 @@ public class Topic
 	}
 
 	/**
-     * 
+     *
      */
 	public void insertindb()
 	{
@@ -133,7 +133,7 @@ public class Topic
 	}
 
 	/**
-     * 
+     *
      */
 	public void deleteme(Forum f)
 	{

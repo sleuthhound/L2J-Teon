@@ -57,7 +57,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * dddddSdddddddddddddddddddddddddddffffdddSdddccccccc (h)
  * <p>
  * dddddSdddddddddddddddddddddddddddffffdddSdddddccccccch dddddSddddddddddddddddddddddddddddffffdddSdddddccccccch (h) c (dchd) ddc dcc c cddd d dddddSdddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddffffdddSdddddccccccch [h] c (ddhd) ddc c ddc cddd d d dd d d d
- * 
+ *
  * @version $Revision: 1.7.2.6.2.11 $ $Date: 2005/04/11 10:05:54 $
  */
 public class CharInfo extends L2GameServerPacket

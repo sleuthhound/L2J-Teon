@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4.4 $ $Date: 2005/03/27 15:30:07 $
  */
 public class CrystalCarol implements IItemHandler

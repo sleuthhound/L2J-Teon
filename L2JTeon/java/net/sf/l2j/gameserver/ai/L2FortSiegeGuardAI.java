@@ -60,7 +60,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	/**
 	 * Constructor of L2AttackableAI.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param accessor
 	 *            The AI accessor of the L2Character
 	 */
@@ -97,7 +97,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	 * <BR>
 	 * <li>The target isn't a Folk, a Door or another L2NpcInstance</li> <li>The target isn't dead, isn't invulnerable, isn't in silent moving mode AND too far (>100)</li> <li>The target is in the actor Aggro range and is at the same height</li> <li>The actor is Aggressive</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param target
 	 *            The targeted L2Object
 	 */
@@ -129,7 +129,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : If actor _knowPlayer isn't EMPTY, AI_INTENTION_IDLE will be change in AI_INTENTION_ACTIVE</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param intention
 	 *            The new Intention to set to the AI
 	 * @param arg0
@@ -182,7 +182,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	/**
 	 * Manage the Attack Intention : Stop current Attack (if necessary), Calculate attack timeout, Start a new Attack and Launch Think Event.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param target
 	 *            The L2Character to attack
 	 */
@@ -563,7 +563,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	 * <BR>
 	 * <li>Init the attack : Calculate the attack timeout, Set the _globalAggro to 0, Add the attacker to the actor _aggroList</li> <li>Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance</li> <li>Set the Intention to AI_INTENTION_ATTACK</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attacker
 	 *            The L2Character that attacks the actor
 	 */
@@ -595,7 +595,7 @@ public class L2FortSiegeGuardAI extends L2CharacterAI implements Runnable
 	 * <BR>
 	 * <li>Add the target to the actor _aggroList or update hate if already present</li> <li>Set the actor Intention to AI_INTENTION_ATTACK (if actor is L2GuardInstance check if it isn't too far from its home location)</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attacker
 	 *            The L2Character that attacks
 	 * @param aggro

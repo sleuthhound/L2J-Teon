@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -66,7 +66,7 @@ public class FaenorInterface implements EngineInterface
 
 	/**
 	 * Adds a new Quest Drop to an NPC
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.script.EngineInterface#addQuestDrop(int)
 	 */
 	public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states)
@@ -88,7 +88,7 @@ public class FaenorInterface implements EngineInterface
 
 	/**
 	 * Adds a new Drop to an NPC
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.script.EngineInterface#addQuestDrop(int)
 	 */
 	public void addDrop(int npcID, int itemID, int min, int max, boolean sweep, int chance) throws NullPointerException
@@ -110,7 +110,7 @@ public class FaenorInterface implements EngineInterface
 
 	/**
 	 * Adds a new drop to an NPC. If the drop is sweep, it adds it to the NPC's Sweep category If the drop is non-sweep, it creates a new category for this drop.
-	 * 
+	 *
 	 * @param npc
 	 * @param drop
 	 * @param sweep
@@ -135,7 +135,7 @@ public class FaenorInterface implements EngineInterface
 
 	/**
 	 * Adds a new drop to an NPC, in the specified category. If the category does not exist, it is created.
-	 * 
+	 *
 	 * @param npc
 	 * @param drop
 	 * @param sweep

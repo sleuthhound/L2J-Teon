@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Format : chdb c (id) 0xD0 h (subid) 0x11 d data size b raw data (picture i think ;) )
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestExSetPledgeCrestLarge extends L2GameClientPacket

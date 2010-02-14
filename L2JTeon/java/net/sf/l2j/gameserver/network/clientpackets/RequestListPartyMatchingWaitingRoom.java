@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * Format: (ch) this is just a trigger : no data
- * 
+ *
  * @author -Wooden-
  */
 public class RequestListPartyMatchingWaitingRoom extends L2GameClientPacket

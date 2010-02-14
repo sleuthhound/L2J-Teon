@@ -41,7 +41,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.7.2.1.2.4 $ $Date: 2005/03/27 15:29:30 $
  */
 public class RequestAquireSkill extends L2GameClientPacket

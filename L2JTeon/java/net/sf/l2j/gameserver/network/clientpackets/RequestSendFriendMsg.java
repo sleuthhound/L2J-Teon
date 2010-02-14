@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Recieve Private (Friend) Message - 0xCC Format: c SS S: Message S: Receiving Player
- * 
+ *
  * @author Tempy
  */
 public final class RequestSendFriendMsg extends L2GameClientPacket

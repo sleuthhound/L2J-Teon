@@ -64,7 +64,7 @@ import org.w3c.dom.Node;
 
 /**
  * This class manages the augmentation data and can also create new augmentations.
- * 
+ *
  * @author durgus
  */
 public class ZoneManager
@@ -389,7 +389,7 @@ public class ZoneManager
 
 	/**
 	 * Add new zone
-	 * 
+	 *
 	 * @param zone
 	 */
 	public void addZone(Integer id, L2ZoneType zone)
@@ -399,7 +399,7 @@ public class ZoneManager
 
 	/**
 	 * Returns all zones registered with the ZoneManager. To minimise iteration processing retrieve zones from L2WorldRegion for a specific location instead.
-	 * 
+	 *
 	 * @return zones
 	 */
 	public Collection<L2ZoneType> getAllZones()
@@ -414,7 +414,7 @@ public class ZoneManager
 
 	/**
 	 * Returns all zones from where the object is located
-	 * 
+	 *
 	 * @param object
 	 * @return zones
 	 */
@@ -425,7 +425,7 @@ public class ZoneManager
 
 	/**
 	 * Returns all zones from given coordinates (plane)
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @return zones
@@ -444,7 +444,7 @@ public class ZoneManager
 
 	/**
 	 * Returns all zones from given coordinates
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z

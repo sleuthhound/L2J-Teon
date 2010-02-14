@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * Service class for manor
- * 
+ *
  * @author l3x
  */
 public class L2Manor
@@ -111,7 +111,7 @@ public class L2Manor
 
 	/**
 	 * Returns price which lord pays to buy one seed
-	 * 
+	 *
 	 * @param seedId
 	 * @return seed price
 	 */
@@ -206,7 +206,7 @@ public class L2Manor
 
 	/**
 	 * Return all crops which can be purchased by given castle
-	 * 
+	 *
 	 * @param castleId
 	 * @return
 	 */
@@ -225,7 +225,7 @@ public class L2Manor
 
 	/**
 	 * Return list of seed ids, which belongs to castle with given id
-	 * 
+	 *
 	 * @param castleId
 	 *            - id of the castle
 	 * @return seedIds - list of seed ids
@@ -245,7 +245,7 @@ public class L2Manor
 
 	/**
 	 * Returns castle id where seed can be sowned<br>
-	 * 
+	 *
 	 * @param seedId
 	 * @return castleId
 	 */

@@ -38,7 +38,7 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.18.2.7.2.9 $ $Date: 2005/03/27 15:29:30 $
  */
 public final class UseItem extends L2GameClientPacket

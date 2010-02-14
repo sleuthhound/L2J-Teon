@@ -28,7 +28,7 @@ public class RaidFightManager
 	/**
 	 * The task method to handle cycles of the event<br>
 	 * <br>
-	 * 
+	 *
 	 * @see java.lang.Runnable#run()<br>
 	 */
 	public void run()

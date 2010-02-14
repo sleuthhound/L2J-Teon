@@ -32,7 +32,7 @@ public final class L2DecoInstance extends L2NpcInstance
 	 * <BR>
 	 * <li>Call the L2Character constructor to set the _template of the L2DecoInstance (copy skills from template to object and link _calculators to NPC_STD_CALCULATOR)</li> <li>Set the name of the L2DecoInstance</li> <li>Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param L2NpcTemplate
@@ -70,7 +70,7 @@ public final class L2DecoInstance extends L2NpcInstance
 	 * <BR>
 	 * <li>Client packet : Action, AttackRequest</li><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance that start an action on the L2DecoInstance
 	 */

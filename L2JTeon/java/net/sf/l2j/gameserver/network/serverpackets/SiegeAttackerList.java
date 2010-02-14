@@ -44,7 +44,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  * S = AllyName<BR>
  * S = AllyLeaderName<BR>
  * d = AllyCrestID<BR>
- * 
+ *
  * @author KenM
  */
 public class SiegeAttackerList extends L2GameServerPacket

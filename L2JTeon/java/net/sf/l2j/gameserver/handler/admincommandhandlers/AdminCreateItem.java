@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class handles following admin commands: - itemcreate = show menu - create_item <id> [num] = creates num items with respective id, if num is not specified, assumes 1.
- * 
+ *
  * @version $Revision: 1.2.2.2.2.3 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminCreateItem implements IAdminCommandHandler

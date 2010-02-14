@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * Format: (ch) just a trigger
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestExFishRanking extends L2GameClientPacket

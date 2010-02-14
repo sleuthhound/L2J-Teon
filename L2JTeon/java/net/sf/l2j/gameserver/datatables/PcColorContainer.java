@@ -32,7 +32,7 @@ public class PcColorContainer
 
 	/**
 	 * Returns the color
-	 * 
+	 *
 	 * @return int
 	 */
 	public int getColor()
@@ -42,7 +42,7 @@ public class PcColorContainer
 
 	/**
 	 * Returns the time when the color was registered
-	 * 
+	 *
 	 * @return long
 	 */
 	public long getRegTime()
@@ -52,7 +52,7 @@ public class PcColorContainer
 
 	/**
 	 * Returns the time when the color should be deleted
-	 * 
+	 *
 	 * @return long
 	 */
 	public long getTime()

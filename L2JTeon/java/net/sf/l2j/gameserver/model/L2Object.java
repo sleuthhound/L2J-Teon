@@ -173,7 +173,7 @@ public abstract class L2Object
 	 * <BR>
 	 * <li>Do Pickup Item : PCInstance and Pet</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            Player that pick up the item
 	 */

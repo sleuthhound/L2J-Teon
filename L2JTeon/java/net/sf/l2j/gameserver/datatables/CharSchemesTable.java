@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
  * This class stores players' buff schemes into FastMap. On player login, his scheme is loaded and on server shutdown all modified schemes are saved to DataBase. This avoids too many unnecessary DataBase connections and queries. If server crashes, nothing important is lost :)
- * 
+ *
  * @author House
  */
 public class CharSchemesTable
@@ -46,7 +46,7 @@ public class CharSchemesTable
 
 	/**
 	 * This method loads player scheme and put into _schemesTable map.
-	 * 
+	 *
 	 * @param objectId
 	 *            : player's objectId
 	 */

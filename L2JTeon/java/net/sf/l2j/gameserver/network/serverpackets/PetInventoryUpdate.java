@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 /**
  * This class ...
- * 
+ *
  * @author Yme
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $ Rebuild 23.2.2006 by Advi
  */

@@ -25,7 +25,7 @@ import java.util.Vector;
  * c6 37 50 40 // Attribute Identifier : 01-Level, 02-Experience, 03-STR, 04-DEX, 05-CON, 06-INT, 07-WIT, 08-MEN, 09-Current HP, 0a, Max HP...<BR>
  * cd 09 00 00 // Attribute Value <BR>
  * format d d(dd)
- * 
+ *
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:39 $
  */
 public class StatusUpdate extends L2GameServerPacket

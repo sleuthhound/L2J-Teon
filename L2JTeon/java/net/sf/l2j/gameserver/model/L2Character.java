@@ -129,7 +129,7 @@ import net.sf.l2j.util.Rnd;
  * Each L2Character owns generic and static properties (ex : all Keltir have the same number of HP...). All of those properties are stored in a different template for each type of L2Character. Each template is loaded once in the server cache memory (reduce memory use). When a new instance of L2Character is spawned, server just create a link between the instance and the template. This link is
  * stored in <B>_template</B><BR>
  * <BR>
- * 
+ *
  * @version $Revision: 1.53.2.45.2.34 $ $Date: 2005/04/11 10:06:08 $
  */
 public abstract class L2Character extends L2Object
@@ -279,7 +279,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>If L2Character is NOT a L2NPCInstance, create an empty _skills slot</li> <li>If L2Character is a L2PcInstance or L2Summon, copy basic Calculator set to object</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param objectId
 	 *            Identifier of the object to initialized
 	 * @param template
@@ -373,7 +373,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Add L2Character instance that is attacking to the attacker list.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2Character that attcks this one
 	 */
@@ -465,7 +465,7 @@ public abstract class L2Character extends L2Object
 
 	/**
 	 * Returns true if hp update should be done, false if not
-	 * 
+	 *
 	 * @return boolean
 	 */
 	protected boolean needHpUpdate(int barPixels)
@@ -662,7 +662,7 @@ public abstract class L2Character extends L2Object
 	 * <li>Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack)</li> <li>Select the type of attack to start (Simple, Bow, Pole or Dual) and verify if SoulShot are charged then start calculation</li> <li>If the Server->Client packet Attack contains at least 1 hit, send the Server->Client packet Attack to the L2Character AND to all L2PcInstance in the _KnownPlayers of
 	 * the L2Character</li> <li>Notify AI with EVT_READY_TO_ACT</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param target
 	 *            The L2Character targeted
 	 */
@@ -961,7 +961,7 @@ public abstract class L2Character extends L2Object
 	 * <li>Calculate if hit is missed or not</li> <li>Consumme arrows</li> <li>If hit isn't missed, calculate if shield defense is efficient</li> <li>If hit isn't missed, calculate if hit is critical</li> <li>If hit isn't missed, calculate physical damages</li> <li>If the L2Character is a L2PcInstance, Send a Server->Client packet SetupGauge</li> <li>Create a new hit task with Medium priority</li>
 	 * <li>Calculate and set the disable delay of the bow in function of the Attack Speed</li> <li>Add this hit to the Server-Client packet Attack</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attack
 	 *            Server->Client packet Attack in which the hit will be added
 	 * @param target
@@ -1017,7 +1017,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Calculate if hits are missed or not</li> <li>If hits aren't missed, calculate if shield defense is efficient</li> <li>If hits aren't missed, calculate if hit is critical</li> <li>If hits aren't missed, calculate physical damages</li> <li>Create 2 new hit tasks with Medium priority</li> <li>Add those hits to the Server-Client packet Attack</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attack
 	 *            Server->Client packet Attack in which the hit will be added
 	 * @param target
@@ -1076,7 +1076,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Get all visible objects in a spheric area near the L2Character to obtain possible targets</li> <li>If possible target is the L2Character targeted, launch a simple attack against it</li> <li>If possible target isn't the L2Character targeted but is attakable, launch a simple attack against it</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attack
 	 *            Server->Client packet Attack in which the hit will be added
 	 * @return true if one hit isn't missed
@@ -1189,7 +1189,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Calculate if hit is missed or not</li> <li>If hit isn't missed, calculate if shield defense is efficient</li> <li>If hit isn't missed, calculate if hit is critical</li> <li>If hit isn't missed, calculate physical damages</li> <li>Create a new hit task with Medium priority</li> <li>Add this hit to the Server-Client packet Attack</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param attack
 	 *            Server->Client packet Attack in which the hit will be added
 	 * @param target
@@ -1238,7 +1238,7 @@ public abstract class L2Character extends L2Object
 	 * <li>Verify the possibilty of the the cast : skill is a spell, caster isn't muted...</li> <li>Get the list of all targets (ex : area effects) and define the L2Charcater targeted (its stats will be used in calculation)</li> <li>Calculate the casting time (base + modifier of MAtkSpd), interrupt time and re-use delay</li> <li>Send a Server->Client packet MagicSkillUser (to diplay casting
 	 * animation), a packet SetupGauge (to display casting bar) and a system message</li> <li>Disable all skills during the casting time (create a task EnableAllSkills)</li> <li>Disable the skill during the re-use delay (create a task EnableSkill)</li> <li>Create a task MagicUseTask (that will call method onMagicUseTimer) to launch the Magic Skill at the end of the casting time</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill to use
 	 */
@@ -1564,7 +1564,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Index according to skill id the current timestamp of use.<br>
 	 * <br>
-	 * 
+	 *
 	 * @param skill
 	 *            id
 	 * @param reuse
@@ -1579,7 +1579,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Index according to skill id the current timestamp of use.<br>
 	 * <br>
-	 * 
+	 *
 	 * @param skill
 	 *            id <BR>
 	 *            <B>Overriden in :</B> (L2PcInstance)
@@ -1592,7 +1592,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Starts a force buff on target.<br>
 	 * <br>
-	 * 
+	 *
 	 * @param caster
 	 * @param force
 	 *            type <BR>
@@ -1614,7 +1614,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>L2NpcInstance : Create a DecayTask to remove the corpse of the L2NpcInstance after 7 seconds</li> <li>L2Attackable : Distribute rewards (EXP, SP, Drops...) and notify Quest Engine</li> <li>L2PcInstance : Apply Death Penalty, Manage gain/loss Karma and Item Drop</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param killer
 	 *            The L2Character who killed it
 	 */
@@ -1769,7 +1769,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Check if the L2Character can cast (ex : not sleeping...)</li> <li>Check if the target is correct</li> <li>Notify the AI with AI_INTENTION_CAST and target</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill to use
 	 */
@@ -1851,7 +1851,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Set this Npc as a Raid instance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param isRaid
 	 */
 	public void setIsRaid(boolean isRaid)
@@ -2695,7 +2695,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * Several same effect can't be used on a L2Character at the same time. Indeed, effects are not stackable and the last cast will replace the previous in progress. More, some effects belong to the same Stack Group (ex WindWald and Haste Potion). If 2 effects of a same group are used at the same time on a L2Character, only the more efficient (identified by its priority order) will be preserve.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param id
 	 *            The identifier of the stacked effect to add to the Stack Group
 	 * @param stackOrder
@@ -3094,7 +3094,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>. The Integer key of _effects is the L2Skill Identifier that has created the L2Effect.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param effectId
 	 *            The L2Skill Identifier of the L2Effect to remove from _effects
 	 */
@@ -3122,7 +3122,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Remove Func added by this effect from the L2Character Calculator (Stop L2Effect)</li> <li>Remove the L2Effect from _effects of the L2Character</li> <li>Update active skills in progress icones on player client</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param type
 	 *            The type of effect to stop ((ex : BUFF, DMG_OVER_TIME...)
 	 */
@@ -3447,7 +3447,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All active skills effects in progress on the L2Character are identified in <B>_effects</B>. The Integer key of _effects is the L2Skill Identifier that has created the effect.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return A table containing all active skills effect in progress on the L2Character
 	 */
 	public final L2Effect[] getAllEffects()
@@ -3477,7 +3477,7 @@ public abstract class L2Character extends L2Object
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
 	 * All active skills effects in progress on the L2Character are identified in <B>_effects</B>.
-	 * 
+	 *
 	 * @param index
 	 *            The L2Skill Identifier of the L2Effect to return from the _effects
 	 * @return The L2Effect corresponding to the L2Skill Identifier
@@ -3509,7 +3509,7 @@ public abstract class L2Character extends L2Object
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
 	 * All active skills effects in progress on the L2Character are identified in <B>_effects</B>.
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill whose effect must be returned
 	 * @return The first L2Effect created by the L2Skill
@@ -3542,7 +3542,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>. The Integer key of _effects is the L2Skill Identifier that has created the L2Effect.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param tp
 	 *            The Effect Type of skills whose effect must be returned
 	 * @return The first L2Effect corresponding to the Effect Type
@@ -3726,7 +3726,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Add QuestState instance that is to be notified of character's death.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param qs
 	 *            The QuestState that subscribe to this event
 	 */
@@ -3761,7 +3761,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>If _calculators is linked to NPC_STD_CALCULATOR, create a copy of NPC_STD_CALCULATOR in _calculators</li> <li>Add the Func object to _calculators</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param f
 	 *            The Func object to add to the Calculator corresponding to the state affected
 	 */
@@ -3801,7 +3801,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Equip an item from inventory</li> <li>Learn a new passive skill</li> <li>Use an active skill</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param funcs
 	 *            The list of Func objects to add to the Calculator corresponding to the state affected
 	 */
@@ -3831,7 +3831,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>If L2Character is a L2NPCInstance and _calculators is equal to NPC_STD_CALCULATOR, free cache memory and just create a link on NPC_STD_CALCULATOR in _calculators</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param f
 	 *            The Func object to remove from the Calculator corresponding to the state affected
 	 */
@@ -3875,7 +3875,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Unequip an item from inventory</li> <li>Stop an active skill</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param funcs
 	 *            The list of Func objects to add to the Calculator corresponding to the state affected
 	 */
@@ -3909,7 +3909,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Unequip an item from inventory</li> <li>Stop an active skill</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param owner
 	 *            The Object(Skill, Item...) that has created the effect
 	 */
@@ -4332,7 +4332,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current Z position is obtained FROM THE CLIENT by the Client->Server ValidatePosition Packet. But x and y positions must be calculated to avoid that players try to modify their movement speed.</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param gameTicks
 	 *            Nb of ticks since the server start
 	 * @return true if the movement is finished
@@ -4464,7 +4464,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>L2PcInstance : Remove the L2PcInstance from the old target _statusListener and add it to the new target if it was a L2Character</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2object to target
 	 */
@@ -4537,7 +4537,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>AI : onIntentionMoveTo(L2CharPosition), onIntentionPickUp(L2Object), onIntentionInteract(L2Object)</li> <li>FollowTask</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param x
 	 *            The X position of the destination
 	 * @param y
@@ -4930,7 +4930,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the distance between the current position of the L2Character and the target (x,y).<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param x
 	 *            X position of the target
 	 * @param y
@@ -4949,7 +4949,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the distance between the current position of the L2Character and the target (x,y).<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param x
 	 *            X position of the target
 	 * @param y
@@ -4969,7 +4969,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the squared distance between the current position of the L2Character and the given object.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2Object
 	 * @return the squared distance
@@ -4982,7 +4982,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the squared distance between the current position of the L2Character and the given x, y, z.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param x
 	 *            X position of the target
 	 * @param y
@@ -5003,7 +5003,7 @@ public abstract class L2Character extends L2Object
 	 * Return the squared plan distance between the current position of the L2Character and the given object.<BR>
 	 * (check only x and y, not z)<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            L2Object
 	 * @return the squared plan distance
@@ -5017,7 +5017,7 @@ public abstract class L2Character extends L2Object
 	 * Return the squared plan distance between the current position of the L2Character and the given x, y, z.<BR>
 	 * (check only x and y, not z)<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param x
 	 *            X position of the target
 	 * @param y
@@ -5034,7 +5034,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Check if this object is inside the given radius around the given object.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param object
 	 *            the target
 	 * @param radius
@@ -5054,7 +5054,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Check if this object is inside the given plan radius around the given point.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param x
 	 *            X position of the target
 	 * @param y
@@ -5073,7 +5073,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Check if this object is inside the given radius around the given point.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param x
 	 *            X position of the target
 	 * @param y
@@ -5310,7 +5310,7 @@ public abstract class L2Character extends L2Object
 	 * <li>If the attacker/target is dead or use fake death, notify the AI with EVT_CANCEL and send a Server->Client packet ActionFailed (if attacker is a L2PcInstance)</li> <li>If attack isn't aborted, send a message system (critical hit, missed...) to attacker/target if they are L2PcInstance</li> <li>If attack isn't aborted and hit isn't missed, reduce HP of the target and calculate reflection
 	 * damage to reduce HP of attacker if necessary</li> <li>if attack isn't aborted and hit isn't missed, manage attack or cast break of the target (calculating rate, sending message...)</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param target
 	 *            The L2Character targeted
 	 * @param damage
@@ -5558,7 +5558,7 @@ public abstract class L2Character extends L2Object
 	 * <li>If L2Character or target is in a town area, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed</li> <li>If target is confused, send a Server->Client packet ActionFailed</li> <li>If L2Character is a L2ArtefactInstance, send a Server->Client packet ActionFailed</li> <li>Send a Server->Client packet MyTargetSelected to start attack and Notify AI with
 	 * AI_INTENTION_ATTACK</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance to attack
 	 */
@@ -5848,7 +5848,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>L2PcInstance : Save update in the character_skills table of the database</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param newSkill
 	 *            The L2Skill to add to the L2Character
 	 * @return The L2Skill replaced or null if just added a new L2Skill
@@ -5912,7 +5912,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>L2PcInstance : Save update in the character_skills table of the database</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill to remove from the L2Character
 	 * @return The L2Skill removed
@@ -5969,7 +5969,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the level of a skill owned by the L2Character.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skillId
 	 *            The identifier of the L2Skill whose level must be returned
 	 * @return The level of the L2Skill identified by skillId
@@ -5991,7 +5991,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return true if the skill is known by the L2Character.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skillId
 	 *            The identifier of the L2Skill to check the knowledge
 	 */
@@ -6007,7 +6007,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Return the number of skills of type(Buff, Debuff, HEAL_PERCENT, MANAHEAL_PERCENT) affecting this L2Character.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @return The number of Buffs affecting this L2Character
 	 */
 	public int getBuffCount()
@@ -6035,7 +6035,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Removes the first Buff of this L2Character.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param preferSkill
 	 *            If != 0 the given skill Id will be removed instead of first
 	 */
@@ -6097,7 +6097,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Checks if the given skill stacks with an existing one.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param checkSkill
 	 *            the skill to be checked
 	 * @return Returns whether or not this skill will stack
@@ -6133,7 +6133,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : A magic skill casting MUST BE in progress</B></FONT><BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill to use
 	 */
@@ -6340,7 +6340,7 @@ public abstract class L2Character extends L2Object
 		switch (skill.getSkillType())
 		{
 		case PDAM:
-		case BLOW: 
+		case BLOW:
 		case DRAIN_SOUL:
 		case SOW:
 		case SPOIL:
@@ -6413,7 +6413,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All skills disabled are identified by their skillId in <B>_disabledSkills</B> of the L2Character <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skillId
 	 *            The identifier of the L2Skill to enable
 	 */
@@ -6437,7 +6437,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All skills disabled are identified by their skillId in <B>_disabledSkills</B> of the L2Character <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skillId
 	 *            The identifier of the L2Skill to disable
 	 */
@@ -6452,7 +6452,7 @@ public abstract class L2Character extends L2Object
 
 	/**
 	 * Disable this skill id for the duration of the delay in milliseconds.
-	 * 
+	 *
 	 * @param skillId
 	 * @param delay
 	 *            (seconds * 1000)
@@ -6473,7 +6473,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * All skills disabled are identified by their skillId in <B>_disabledSkills</B> of the L2Character <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skillId
 	 *            The identifier of the L2Skill to disable
 	 */
@@ -6518,7 +6518,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Launch the magic skill and calculate its effects on each target contained in the targets table.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param skill
 	 *            The L2Skill to use
 	 * @param targets
@@ -7270,7 +7270,7 @@ public abstract class L2Character extends L2Object
 
 	/**
 	 * Check if character reflected skill
-	 * 
+	 *
 	 * @param skill
 	 * @return
 	 */
@@ -7286,7 +7286,7 @@ public abstract class L2Character extends L2Object
 
 	/**
 	 * Check player max buff count
-	 * 
+	 *
 	 * @return max buff count
 	 */
 	public int getMaxBuffCount()
@@ -7329,7 +7329,7 @@ public abstract class L2Character extends L2Object
 	/**
 	 * Set this Npc as a Minion instance.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param val
 	 */
 	public void setIsRaidMinion(boolean val)

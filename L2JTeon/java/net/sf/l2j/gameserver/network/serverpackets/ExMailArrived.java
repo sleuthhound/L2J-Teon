@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * Fromat: (ch)
- * 
+ *
  * @author -Specialwolf-
  */
 public class ExMailArrived extends L2GameServerPacket

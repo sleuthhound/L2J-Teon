@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * An arena
- * 
+ *
  * @author durgus
  */
 public class L2ArenaZone extends L2ZoneType

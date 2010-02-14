@@ -51,7 +51,7 @@ import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.7.2.4.2.7 $ $Date: 2005/04/06 16:13:41 $
  */
 public class L2Clan
@@ -151,7 +151,7 @@ public class L2Clan
 
 	/**
 	 * Called if a clan is referenced only by id. In this case all other data needs to be fetched from db
-	 * 
+	 *
 	 * @param clanId
 	 *            A valid clan Id to create and restore
 	 */
@@ -165,7 +165,7 @@ public class L2Clan
 
 	/**
 	 * Called only if a new clan is created
-	 * 
+	 *
 	 * @param clanId
 	 *            A valid clan Id to create
 	 * @param clanName
@@ -1901,7 +1901,7 @@ public class L2Clan
 
 	/**
 	 * Checks if activeChar and target meet various conditions to join a clan
-	 * 
+	 *
 	 * @param activeChar
 	 * @param target
 	 * @param pledgeType
@@ -1999,7 +1999,7 @@ public class L2Clan
 
 	/**
 	 * Checks if activeChar and target meet various conditions to join a clan
-	 * 
+	 *
 	 * @param activeChar
 	 * @param target
 	 * @return

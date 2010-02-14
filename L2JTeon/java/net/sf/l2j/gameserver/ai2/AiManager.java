@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.ai2.AiInstance.QueueEventRunner;
 
 /**
  * This class will load all the AI's and retain all of them. It is a singleton
- * 
+ *
  * @author -Wooden-
  */
 public class AiManager

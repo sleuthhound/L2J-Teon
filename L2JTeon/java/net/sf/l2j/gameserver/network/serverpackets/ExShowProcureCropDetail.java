@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 
 /**
  * format(packet 0xFE) ch dd [dddc] c - id h - sub id d - crop id d - size [ d - manor name d - buy residual d - buy price c - reward type ]
- * 
+ *
  * @author l3x
  */
 public class ExShowProcureCropDetail extends L2GameServerPacket

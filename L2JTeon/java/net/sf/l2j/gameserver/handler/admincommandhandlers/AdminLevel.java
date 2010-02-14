@@ -82,7 +82,7 @@ public class AdminLevel implements IAdminCommandHandler
 
 	/**
 	 * Show tips about command usage and syntax.
-	 * 
+	 *
 	 * @param command
 	 *            admin command name
 	 */

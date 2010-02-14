@@ -145,7 +145,7 @@ public class TownManager
 
 	/**
 	 * Returns the town at that position (if any)
-	 * 
+	 *
 	 * @param x
 	 * @param y
 	 * @param z

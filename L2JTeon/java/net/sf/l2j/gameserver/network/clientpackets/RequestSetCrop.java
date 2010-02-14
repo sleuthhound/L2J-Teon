@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManorManager.CropProcure;
 
 /**
  * Format: (ch) dd [dddc] d - manor id d - size [ d - crop id d - sales d - price c - reward type ]
- * 
+ *
  * @author l3x
  */
 public class RequestSetCrop extends L2GameClientPacket

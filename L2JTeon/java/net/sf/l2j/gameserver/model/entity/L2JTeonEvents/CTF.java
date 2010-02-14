@@ -17,9 +17,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 /**
- * 
+ *
  * @author SqueezeD & Darki699 (idea by FBIAgent)
- * 
+ *
  */
 package net.sf.l2j.gameserver.model.entity.L2JTeonEvents;
 

@@ -19,7 +19,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ShowMiniMap;
 
 /**
  * sample format d
- * 
+ *
  * @version $Revision: 1 $ $Date: 2005/04/10 00:17:44 $
  */
 public final class RequestShowMiniMap extends L2GameClientPacket

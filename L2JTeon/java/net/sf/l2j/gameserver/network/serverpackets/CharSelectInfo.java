@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.8.2.4.2.6 $ $Date: 2005/04/06 16:13:46 $
  */
 public class CharSelectInfo extends L2GameServerPacket

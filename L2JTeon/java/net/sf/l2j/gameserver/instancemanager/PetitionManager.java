@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * Petition Manager
- * 
+ *
  * @author Tempy
  */
 public final class PetitionManager

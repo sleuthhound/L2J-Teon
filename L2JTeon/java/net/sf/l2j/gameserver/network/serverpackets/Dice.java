@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:29:40 $
  */
 public class Dice extends L2GameServerPacket
@@ -31,7 +31,7 @@ public class Dice extends L2GameServerPacket
 
 	/**
 	 * 0xd4 Dice dddddd
-	 * 
+	 *
 	 * @param _characters
 	 */
 	public Dice(int charObjId, int itemId, int number, int x, int y, int z)

@@ -124,7 +124,7 @@ import com.l2jserver.mmocore.network.SelectorThread;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.29.2.15.2.19 $ $Date: 2005/04/05 19:41:23 $
  */
 public class GameServer

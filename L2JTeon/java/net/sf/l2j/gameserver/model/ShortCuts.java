@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:33 $
  */
 public class ShortCuts

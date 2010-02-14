@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.util.StringUtil;
  * This class containce global server configuration.<br>
  * It has static final fields initialized from configuration files.<br>
  * It's initialized at the very begin of startup, and later JIT will optimize away debug/unused code.
- * 
+ *
  * @author mkizub
  */
 public final class Config
@@ -69,7 +69,7 @@ public final class Config
 	public static final String OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
 	public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
 	public static final String DEV_CONFIG_FILE = "./config/custom/Dev.properties";
-	
+
 	/** Server and Datapack version */
 	public static String SERVER_VERSION;
 	public static String SERVER_BUILD_DATE;
@@ -879,7 +879,7 @@ public final class Config
 	public static boolean DISABLE_WEIGHT_PENALTIES;
 	/**
 	 * Config to
-	 * 
+	 *
 	 * @Checkup and delete delayed rented items.
 	 */
 	public static boolean DONATOR_DELETE_RENTED_ITEMS;
@@ -1400,11 +1400,11 @@ public final class Config
 	public static boolean DATABASE_AUTO_CHECK;
 	public static boolean DATABASE_AUTO_OPTIMIZE;
 	public static boolean DATABASE_AUTO_REPAIR;
-	
+
 	/**
 	 * This class initializes all global variables for configuration.<br>
 	 * If key doesn't appear in properties file, a default value is setting on by this class.
-	 * 
+	 *
 	 * @see CONFIGURATION_FILE (propertie file) for configuring your server.
 	 */
 	@SuppressWarnings("unchecked")
@@ -2830,7 +2830,7 @@ public final class Config
 				NORMAL_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("NormalConnectionTime", "700"));
 				FAST_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("FastConnectionTime", "350"));
 				MAX_CONNECTION_PER_IP = Integer.parseInt(serverSettings.getProperty("MaxConnectionPerIP", "50"));
-				
+
 				DATABASE_AUTO_ANALYZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoAnalyze", "False"));
 				DATABASE_AUTO_CHECK = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoCheck", "False"));
 				DATABASE_AUTO_OPTIMIZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoOptimize", "False"));
@@ -2864,7 +2864,7 @@ public final class Config
 
 	/**
 	 * Set a new value to a game parameter from the admin console.
-	 * 
+	 *
 	 * @param pName
 	 *            (String) : name of the parameter to change
 	 * @param pValue
@@ -3827,7 +3827,7 @@ public final class Config
 
 	/**
 	 * Save hexadecimal ID of the server in the properties file.
-	 * 
+	 *
 	 * @param string
 	 *            (String) : hexadecimal ID of the server to store
 	 * @see HEXID_FILE
@@ -3841,7 +3841,7 @@ public final class Config
 
 	/**
 	 * Save hexadecimal ID of the server in the properties file.
-	 * 
+	 *
 	 * @param hexId
 	 *            (String) : hexadecimal ID of the server to store
 	 * @param fileName

@@ -84,7 +84,7 @@ public class PcColorTable
 
 	/**
 	 * Returns the instance of this class, assign a new object to _instance if it's null
-	 * 
+	 *
 	 * @return PcColorTable
 	 */
 	public static PcColorTable getInstance()
@@ -96,7 +96,7 @@ public class PcColorTable
 
 	/**
 	 * Sets the name color of the L2PcInstance if it name is on the list
-	 * 
+	 *
 	 * @param activeChar
 	 */
 	public synchronized void process(L2PcInstance activeChar)
@@ -113,7 +113,7 @@ public class PcColorTable
 
 	/**
 	 * Adds the name of the L2PcInstance to the list with the color values
-	 * 
+	 *
 	 * @param activeChar
 	 * @param color
 	 * @param regTime
@@ -162,7 +162,7 @@ public class PcColorTable
 
 	/**
 	 * Returns true if the name is deleted successfully from list, otherwise false Deletes the name from the list
-	 * 
+	 *
 	 * @param charName
 	 * @return boolean
 	 */

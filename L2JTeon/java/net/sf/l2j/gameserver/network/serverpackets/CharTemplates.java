@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.templates.L2PcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.2.1.2.7 $ $Date: 2005/03/27 15:29:39 $
  */
 public class CharTemplates extends L2GameServerPacket

@@ -17,7 +17,7 @@
  * [URL]http://www.gnu.org/copyleft/gpl.html[/URL]
  */
 /**
- * 
+ *
  * @author SqueezeD
  *
  */

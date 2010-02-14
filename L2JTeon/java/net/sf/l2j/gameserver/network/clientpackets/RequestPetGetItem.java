@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4.4 $ $Date: 2005/03/29 23:15:33 $
  */
 public final class RequestPetGetItem extends L2GameClientPacket

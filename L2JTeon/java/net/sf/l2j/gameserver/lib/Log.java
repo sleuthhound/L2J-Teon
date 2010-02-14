@@ -1,4 +1,4 @@
-/* 
+/*
  coded by Balancer
  balancer@balancer.ru
  http://balancer.ru

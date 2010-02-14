@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  * Format: (ch) dd
- * 
+ *
  * @author -Wooden-
  */
 public class RequestDismissPartyRoom extends L2GameClientPacket

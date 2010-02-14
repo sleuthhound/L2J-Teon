@@ -8,7 +8,7 @@
  * Revision 1  25/10/2005 18:42:48  luisantonioa
  * Added copyright notice
  *
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
@@ -42,7 +42,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2 $ $Date: 2004/06/27 08:12:59 $
  */
 public class MinionList
@@ -177,7 +177,7 @@ public class MinionList
 	 * <BR>
 	 * <li>Get the Minion data of all Minions that must be spawn</li> <li>For each Minion type, spawn the amount of Minion needed</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param player
 	 *            The L2PcInstance to attack
 	 */
@@ -209,7 +209,7 @@ public class MinionList
 	 * <BR>
 	 * <li>Get the template of the Minion to spawn</li> <li>Create and Init the Minion and generate its Identifier</li> <li>Set the Minion HP, MP and Heading</li> <li>Set the Minion leader to this RaidBoss</li> <li>Init the position of the Minion and add it in the world as a visible object</li> <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param minionid
 	 *            The I2NpcTemplate Identifier of the Minion to spawn
 	 */

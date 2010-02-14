@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class allows a player to type in the command .joinvip and join the vip event.
- * 
+ *
  * @author DaRkRaGe
  */
 public class version implements IVoicedCommandHandler

@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * 0x42 WarehouseWithdrawalList dh (h dddhh dhhh d)
- * 
+ *
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/29 23:15:10 $
  */
 public class WareHouseWithdrawalList extends L2GameServerPacket

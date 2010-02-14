@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 
 /**
  * sample 0000: 5a d8 a8 10 48 d8 a8 10 48 10 04 00 00 01 00 00 Z...H...H....... 0010: 00 f0 1a 00 00 68 28 00 00 .....h(.. format dddddd dddh (h)
- * 
+ *
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
 public class MagicSkillUser extends L2GameServerPacket

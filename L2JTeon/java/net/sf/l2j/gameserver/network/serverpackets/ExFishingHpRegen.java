@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 
 /**
  * Format (ch)dddcccd d: cahacter oid d: time left d: fish hp c: c: c: 00 if fish gets damage 02 if fish regens d:
- * 
+ *
  * @author -Wooden-
  */
 public class ExFishingHpRegen extends L2GameServerPacket

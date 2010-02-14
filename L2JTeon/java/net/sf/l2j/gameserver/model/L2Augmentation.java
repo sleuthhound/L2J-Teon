@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.skills.funcs.LambdaConst;
 
 /**
  * Used to store an augmentation and its boni
- * 
+ *
  * @author durgus
  */
 public final class L2Augmentation
@@ -169,7 +169,7 @@ public final class L2Augmentation
 
 	/**
 	 * Get the augmentation "id" used in serverpackets.
-	 * 
+	 *
 	 * @return augmentationId
 	 */
 	public int getAugmentationId()
@@ -184,7 +184,7 @@ public final class L2Augmentation
 
 	/**
 	 * Applys the Bonus to the player.
-	 * 
+	 *
 	 * @param player
 	 */
 	public void applyBonus(L2PcInstance player)
@@ -200,7 +200,7 @@ public final class L2Augmentation
 
 	/**
 	 * Removes the augmentation Bonus from the player.
-	 * 
+	 *
 	 * @param player
 	 */
 	public void removeBonus(L2PcInstance player)

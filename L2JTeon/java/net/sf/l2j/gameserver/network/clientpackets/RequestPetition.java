@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  * <li>d: type</li>
  * </ul>
  * </p>
- * 
+ *
  * @author -Wooden-, TempyIncursion
  */
 public final class RequestPetition extends L2GameClientPacket

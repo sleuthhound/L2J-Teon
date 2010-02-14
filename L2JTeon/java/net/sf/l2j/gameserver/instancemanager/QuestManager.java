@@ -61,7 +61,7 @@ public class QuestManager extends ScriptManager<Quest>
 	/**
 	 * Reloads a the quest given by questId.<BR>
 	 * <B>NOTICE: Will only work if the quest name is equal the quest folder name</B>
-	 * 
+	 *
 	 * @param questId
 	 *            The id of the quest to be reloaded
 	 * @return true if reload was successful, false otherwise

@@ -186,7 +186,7 @@ public class TradeList
 
 	/**
 	 * Returns the list of items in inventory available for transaction
-	 * 
+	 *
 	 * @return L2ItemInstance : items in inventory
 	 */
 	public TradeList.TradeItem[] getAvailableItems(PcInventory inventory)
@@ -211,7 +211,7 @@ public class TradeList
 
 	/**
 	 * Adjust available item from Inventory by the one in this list
-	 * 
+	 *
 	 * @param item
 	 *            : L2ItemInstance to be adjusted
 	 * @return TradeItem representing adjusted item
@@ -230,7 +230,7 @@ public class TradeList
 
 	/**
 	 * Adjust ItemRequest by corresponding item in this list using its <b>ObjectId</b>
-	 * 
+	 *
 	 * @param item
 	 *            : ItemRequest to be adjusted
 	 */
@@ -248,7 +248,7 @@ public class TradeList
 
 	/**
 	 * Adjust ItemRequest by corresponding item in this list using its <b>ItemId</b>
-	 * 
+	 *
 	 * @param item
 	 *            : ItemRequest to be adjusted
 	 */
@@ -266,7 +266,7 @@ public class TradeList
 
 	/**
 	 * Add simplified item to TradeList
-	 * 
+	 *
 	 * @param objectId
 	 *            : int
 	 * @param count
@@ -280,7 +280,7 @@ public class TradeList
 
 	/**
 	 * Add item to TradeList
-	 * 
+	 *
 	 * @param objectId
 	 *            : int
 	 * @param count
@@ -327,7 +327,7 @@ public class TradeList
 
 	/**
 	 * Add item to TradeList
-	 * 
+	 *
 	 * @param objectId
 	 *            : int
 	 * @param count
@@ -366,7 +366,7 @@ public class TradeList
 
 	/**
 	 * Remove item from TradeList
-	 * 
+	 *
 	 * @param objectId
 	 *            : int
 	 * @param count
@@ -439,7 +439,7 @@ public class TradeList
 
 	/**
 	 * Confirms TradeList
-	 * 
+	 *
 	 * @return : boolean
 	 */
 	public boolean confirm()
@@ -645,7 +645,7 @@ public class TradeList
 
 	/**
 	 * Buy items from this PrivateStore list
-	 * 
+	 *
 	 * @return : boolean true if success
 	 */
 	public synchronized boolean PrivateStoreBuy(L2PcInstance player, ItemRequest[] items, int price)
@@ -762,7 +762,7 @@ public class TradeList
 
 	/**
 	 * Sell items to this PrivateStore list
-	 * 
+	 *
 	 * @return : boolean true if success
 	 */
 	public synchronized boolean PrivateStoreSell(L2PcInstance player, ItemRequest[] items, int price)

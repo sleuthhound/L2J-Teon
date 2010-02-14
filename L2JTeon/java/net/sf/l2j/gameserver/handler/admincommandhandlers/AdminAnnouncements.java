@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class handles following admin commands: - announce text = announces text to all players - list_announcements = show menu - reload_announcements = reloads announcements from txt file - announce_announcements = announce all stored announcements to all players - add_announcement text = adds text to startup announcements - del_announcement id = deletes announcement with respective id
- * 
+ *
  * @version $Revision: 1.4.4.5 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminAnnouncements implements IAdminCommandHandler

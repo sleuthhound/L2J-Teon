@@ -25,7 +25,7 @@ public enum L2ArmorType
 
 	/**
 	 * Constructor of the L2ArmorType.
-	 * 
+	 *
 	 * @param id
 	 *            : int designating the ID of the ArmorType
 	 * @param name
@@ -39,7 +39,7 @@ public enum L2ArmorType
 
 	/**
 	 * Returns the ID of the ArmorType after applying a mask.
-	 * 
+	 *
 	 * @return int : ID of the ArmorType after mask
 	 */
 	public int mask()
@@ -49,7 +49,7 @@ public enum L2ArmorType
 
 	/**
 	 * Returns the name of the ArmorType
-	 * 
+	 *
 	 * @return String
 	 */
 	@Override

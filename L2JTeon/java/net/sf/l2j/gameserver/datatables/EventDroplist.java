@@ -69,7 +69,7 @@ public class EventDroplist
 	/**
 	 * Create and Init a new DateDrop then add it to the allNpcDateDrops of EventDroplist .<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param items
 	 *            The table containing all item identifier of this DateDrop
 	 * @param count

@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 /**
  * Seven Signs Engine TODO: - Implementation of the Seal of Strife for sieges.
- * 
+ *
  * @author Tempy
  */
 public class SevenSigns
@@ -553,7 +553,7 @@ public class SevenSigns
 
 	/**
 	 * Restores all Seven Signs data and settings, usually called at server startup.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	protected void restoreSevenSignsData()
@@ -635,7 +635,7 @@ public class SevenSigns
 	/**
 	 * Saves all Seven Signs data, both to the database and properties file (if updateSettings = true). Often called to preserve data integrity and synchronization with DB, in case of errors. <BR>
 	 * If player != null, just that player's data is updated in the database, otherwise all player's data is sequentially updated.
-	 * 
+	 *
 	 * @param player
 	 * @param updateSettings
 	 * @throws Exception
@@ -742,7 +742,7 @@ public class SevenSigns
 
 	/**
 	 * Tests whether the specified player has joined a cabal in the past.
-	 * 
+	 *
 	 * @param player
 	 * @return boolean hasRegistered
 	 */
@@ -754,7 +754,7 @@ public class SevenSigns
 	/**
 	 * Used to specify cabal-related details for the specified player. This method checks to see if the player has registered before and will update the database if necessary. <BR>
 	 * Returns the cabal ID the player has joined.
-	 * 
+	 *
 	 * @param player
 	 * @param chosenCabal
 	 * @param chosenSeal
@@ -830,7 +830,7 @@ public class SevenSigns
 	/**
 	 * Returns the amount of ancient adena the specified player can claim, if any.<BR>
 	 * If removeReward = true, all the ancient adena owed to them is removed, then DB is updated.
-	 * 
+	 *
 	 * @param player
 	 * @param removeReward
 	 * @return int rewardAmount
@@ -853,7 +853,7 @@ public class SevenSigns
 
 	/**
 	 * Used to add the specified player's seal stone contribution points to the current total for their cabal. Returns the point score the contribution was worth. Each stone count <B>must be</B> broken down and specified by the stone's color.
-	 * 
+	 *
 	 * @param player
 	 * @param blueCount
 	 * @param greenCount
@@ -891,7 +891,7 @@ public class SevenSigns
 
 	/**
 	 * Adds the specified number of festival points to the specified cabal. Remember, the same number of points are <B>deducted from the rival cabal</B> to maintain proportionality.
-	 * 
+	 *
 	 * @param cabal
 	 * @param amount
 	 */
@@ -914,7 +914,7 @@ public class SevenSigns
 
 	/**
 	 * Send info on the current Seven Signs period to the specified player.
-	 * 
+	 *
 	 * @param player
 	 */
 	public void sendCurrentPeriodMsg(L2PcInstance player)
@@ -940,7 +940,7 @@ public class SevenSigns
 
 	/**
 	 * Sends the built-in system message specified by sysMsgId to all online players.
-	 * 
+	 *
 	 * @param sysMsgId
 	 */
 	public void sendMessageToAll(SystemMessageId sysMsgId)
@@ -1141,7 +1141,7 @@ public class SevenSigns
 
 	/**
 	 * The primary controller of period change of the Seven Signs system. This runs all related tasks depending on the period that is about to begin.
-	 * 
+	 *
 	 * @author Tempy
 	 */
 	protected class SevenSignsPeriodChange implements Runnable

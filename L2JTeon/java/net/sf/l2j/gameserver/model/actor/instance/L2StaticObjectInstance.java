@@ -1,7 +1,7 @@
 /*
  * $Header: /cvsroot/l2j/L2_Gameserver/java/net/sf/l2j/gameserver/model/L2StaticObjectInstance.java,v 1.3.2.2.2.2 2005/02/04 13:05:27 maximas Exp $
  *
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
@@ -97,7 +97,7 @@ public class L2StaticObjectInstance extends L2Object
 
 	/**
 	 * this is called when a player interacts with this NPC
-	 * 
+	 *
 	 * @param player
 	 */
 	@Override

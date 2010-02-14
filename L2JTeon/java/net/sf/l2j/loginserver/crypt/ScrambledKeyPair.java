@@ -20,7 +20,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.logging.Logger;
 
 /**
- * 
+ *
  */
 public class ScrambledKeyPair
 {

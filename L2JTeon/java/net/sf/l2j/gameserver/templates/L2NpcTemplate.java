@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.skills.Stats;
  * <BR>
  * <li>npcId, type, name, sex</li> <li>rewardExp, rewardSp</li> <li>aggroRange, factionId, factionRange</li> <li>rhand, lhand, armor</li> <li>isUndead</li> <li>_drops</li> <li>_minions</li> <li>_teachInfo</li> <li>_skills</li> <li>_questsStart</li><BR>
  * <BR>
- * 
+ *
  * @version $Revision: 1.1.2.4 $ $Date: 2005/04/02 15:57:51 $
  */
 public final class L2NpcTemplate extends L2CharTemplate
@@ -88,7 +88,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	/**
 	 * Constructor of L2Character.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param set
 	 *            The StatsSet object to transfert data to the method
 	 */

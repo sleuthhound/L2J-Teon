@@ -125,7 +125,7 @@ public class L2NpcWalkerNode
 	/**
 	 * Constructor of L2NpcWalker.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param set
 	 *            The StatsSet object to transfert data to the method
 	 */
@@ -136,7 +136,7 @@ public class L2NpcWalkerNode
 	/**
 	 * Constructor of L2NpcWalker.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param set
 	 *            The StatsSet object to transfert data to the method
 	 */

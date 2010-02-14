@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.model.TradeList;
 
 /**
  * This class ...
- * 
+ *
  * @author Yme
  * @version $Revision: 1.2.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */

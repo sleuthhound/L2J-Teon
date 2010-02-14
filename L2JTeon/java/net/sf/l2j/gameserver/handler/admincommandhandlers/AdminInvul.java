@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.entity.GmAudit;
 
 /**
  * This class handles following admin commands: - invul = turns invulnerability on/off
- * 
+ *
  * @version $Revision: 1.2.4.4 $ $Date: 2007/07/31 10:06:02 $
  */
 public class AdminInvul implements IAdminCommandHandler

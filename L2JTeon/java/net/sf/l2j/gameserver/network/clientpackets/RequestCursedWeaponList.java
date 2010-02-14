@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExCursedWeaponList;
 
 /**
  * Format: (ch)
- * 
+ *
  * @author -Wooden-
  */
 public class RequestCursedWeaponList extends L2GameClientPacket

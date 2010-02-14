@@ -143,7 +143,7 @@ public class DuelManager
 
 	/**
 	 * Updates player states.
-	 * 
+	 *
 	 * @param player
 	 *            - the dieing player
 	 */
@@ -158,7 +158,7 @@ public class DuelManager
 
 	/**
 	 * Registers a debuff which will be removed if the duel ends
-	 * 
+	 *
 	 * @param player
 	 * @param debuff
 	 */
@@ -173,7 +173,7 @@ public class DuelManager
 
 	/**
 	 * Removes player from duel.
-	 * 
+	 *
 	 * @param player
 	 *            - the removed player
 	 */
@@ -188,7 +188,7 @@ public class DuelManager
 
 	/**
 	 * Broadcasts a packet to the team opposing the given player.
-	 * 
+	 *
 	 * @param player
 	 * @param packet
 	 */

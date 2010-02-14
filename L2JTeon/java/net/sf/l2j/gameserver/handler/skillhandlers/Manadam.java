@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 /**
  * Class handling the Mana damage skill
- * 
+ *
  * @author slyce
  */
 public class Manadam implements ISkillHandler

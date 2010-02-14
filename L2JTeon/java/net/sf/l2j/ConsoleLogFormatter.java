@@ -23,7 +23,7 @@ import javolution.text.TextBuilder;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:30:08 $
  */
 public class ConsoleLogFormatter extends Formatter

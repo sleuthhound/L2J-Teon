@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeReceivePowerInfo;
 
 /**
  * Format: (ch) dS
- * 
+ *
  * @author -Wooden-
  */
 public final class RequestPledgeMemberPowerInfo extends L2GameClientPacket

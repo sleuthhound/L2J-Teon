@@ -33,7 +33,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * This class handles following admin commands: - gm = turns gm mode on/off
- * 
+ *
  * @version $Revision: 1.1.2.1 $ $Date: 2005/03/15 21:32:48 $
  */
 public class AdminFightCalculator implements IAdminCommandHandler

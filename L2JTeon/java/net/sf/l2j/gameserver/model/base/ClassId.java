@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.model.base;
  * <BR>
  * <li>id : The Identifier of the class</li> <li>isMage : true if the class is a mage class</li> <li>race : The race of this class</li> <li>parent : The parent ClassId or null if this class is the root</li> <BR>
  * <BR>
- * 
+ *
  * @version $Revision: 1.4.4.4 $ $Date: 2005/03/27 15:29:33 $
  */
 public enum ClassId
@@ -100,7 +100,7 @@ public enum ClassId
 	/**
 	 * Return true if this Class is a child of the selected ClassId.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param cid
 	 *            The parent ClassId to check
 	 */
@@ -116,7 +116,7 @@ public enum ClassId
 	/**
 	 * Return true if this Class is equal to the selected ClassId or a child of the selected ClassId.<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param cid
 	 *            The parent ClassId to check
 	 */
@@ -128,7 +128,7 @@ public enum ClassId
 	/**
 	 * Return the child level of this Class (0=root, 1=child leve 1...).<BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param cid
 	 *            The parent ClassId to check
 	 */

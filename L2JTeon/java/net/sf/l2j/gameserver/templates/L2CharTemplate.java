@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.templates;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.2.4.6 $ $Date: 2005/04/02 15:57:51 $
  */
 public class L2CharTemplate

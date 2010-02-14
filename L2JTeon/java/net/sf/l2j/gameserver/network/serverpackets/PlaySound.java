@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.1.6.2 $ $Date: 2005/03/27 15:29:39 $
  */
 public class PlaySound extends L2GameServerPacket

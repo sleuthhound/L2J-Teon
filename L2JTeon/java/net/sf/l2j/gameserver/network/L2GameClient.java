@@ -45,7 +45,7 @@ import com.l2jserver.mmocore.network.MMOConnection;
 
 /**
  * Represents a client connected on Game Server
- * 
+ *
  * @author KenM
  */
 public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
@@ -54,7 +54,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	/**
 	 * CONNECTED - client has just connected AUTHED - client has authed but doesnt has character attached to it yet IN_GAME - client has selected a char and is in game
-	 * 
+	 *
 	 * @author KenM
 	 */
 	public static enum GameClientState
