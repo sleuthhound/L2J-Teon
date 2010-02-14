@@ -626,9 +626,7 @@ public class L2PetInstance extends L2Summon
 		{
 			Inventory petInventory = getInventory();
 			L2ItemInstance[] items = petInventory.getItems();
-			for (int i = 0; i < items.length; i++)
-			{
-				L2ItemInstance giveit = items[i];
+			for (L2ItemInstance giveit : items) {
 				if (giveit.getItem().getWeight() * giveit.getCount() + getOwner().getInventory().getTotalWeight() < getOwner().getMaxLoad())
 				{
 					// If the owner can carry it give it to them
@@ -723,9 +721,8 @@ public class L2PetInstance extends L2Summon
 		try
 		{
 			L2ItemInstance[] items = getInventory().getItems();
-			for (int i = 0; i < items.length; i++)
-			{
-				dropItemHere(items[i]);
+			for (L2ItemInstance item : items) {
+				dropItemHere(item);
 			}
 		}
 		catch (Exception e)

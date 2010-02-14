@@ -47,9 +47,8 @@ public class ManaHeal implements ISkillHandler
 		L2PcInstance targetInstance = null;
 		int classId = 0;
 		int skillId = 0;
-		for (int index = 0; index < targets.length; index++)
-		{
-			target = (L2Character) targets[index];
+		for (L2Object target2 : targets) {
+			target = (L2Character) target2;
 			if (target instanceof L2PcInstance)
 			{
 				targetInstance = (L2PcInstance) target;

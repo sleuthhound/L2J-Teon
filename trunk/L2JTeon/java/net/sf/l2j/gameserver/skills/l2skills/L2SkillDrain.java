@@ -46,9 +46,8 @@ public class L2SkillDrain extends L2Skill
 			return;
 		boolean ss = false;
 		boolean bss = false;
-		for (int index = 0; index < targets.length; index++)
-		{
-			L2Character target = (L2Character) targets[index];
+		for (L2Object target2 : targets) {
+			L2Character target = (L2Character) target2;
 			if (target.isAlikeDead() && (getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
 				continue;
 			if ((activeChar != target) && target.isInvul())
@@ -86,7 +85,25 @@ public class L2SkillDrain extends L2Skill
 			}
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar, activeChar.getMCriticalHit(target, this));
 			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
-			double hpAdd = _absorbAbs + _absorbPart * damage;
+			
+            int _drain = 0;
+            int _cp = (int)target.getCurrentCp();
+            int _hp = (int)target.getCurrentHp();
+            
+            if (_cp > 0)
+            {
+            	if (damage < _cp)
+            		_drain = 0;
+            	else
+            		_drain = damage - _cp;
+            }
+            else if (damage > _hp)
+            	_drain = _hp;
+            else
+            	_drain = damage;
+         	
+			double hpAdd = _absorbAbs + _absorbPart * _drain;
+			
 			double hp = activeChar.getCurrentHp() + hpAdd > activeChar.getMaxHp() ? activeChar.getMaxHp() : activeChar.getCurrentHp() + hpAdd;
 			activeChar.setCurrentHp(hp);
 			StatusUpdate suhp = new StatusUpdate(activeChar.getObjectId());

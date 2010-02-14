@@ -34,9 +34,8 @@ public class L2SkillSeed extends L2Skill
 		if (caster.isAlikeDead())
 			return;
 		// Update Seeds Effects
-		for (int i = 0; i < targets.length; i++)
-		{
-			L2Character target = (L2Character) targets[i];
+		for (L2Object target2 : targets) {
+			L2Character target = (L2Character) target2;
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
 			EffectSeed oldEffect = (EffectSeed) target.getFirstEffect(getId());
@@ -45,12 +44,9 @@ public class L2SkillSeed extends L2Skill
 			else
 				oldEffect.increasePower();
 			L2Effect[] effects = target.getAllEffects();
-			for (int j = 0; j < effects.length; j++)
-				if (effects[j].getEffectType() == L2Effect.EffectType.SEED)
-					effects[j].rescheduleEffect();
-			/*
-			 * for (int j=0;j<effects.length;j++){ if (effects[j].getEffectType()==L2Effect.EffectType.SEED){ EffectSeed e = (EffectSeed)effects[j]; if (e.getInUse() || e.getSkill().getId()==this.getId()){ e.rescheduleEffect(); } } }
-			 */
+			for (L2Effect effect : effects)
+				if (effect.getEffectType() == L2Effect.EffectType.SEED)
+					effect.rescheduleEffect();
 		}
 	}
 }

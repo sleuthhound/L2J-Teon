@@ -90,19 +90,17 @@ public class L2SkillElemental extends L2Skill
 				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
-		for (int index = 0; index < targets.length; index++)
-		{
-			L2Character target = (L2Character) targets[index];
+		for (L2Object target2 : targets) {
+			L2Character target = (L2Character) target2;
 			if (target.isAlikeDead())
 				continue;
 			boolean charged = true;
 			if (!_seedAny)
 			{
-				for (int i = 0; i < _seeds.length; i++)
-				{
-					if (_seeds[i] != 0)
+				for (int _seed : _seeds) {
+					if (_seed != 0)
 					{
-						L2Effect e = target.getFirstEffect(_seeds[i]);
+						L2Effect e = target.getFirstEffect(_seed);
 						if ((e == null) || !e.getInUse())
 						{
 							charged = false;
@@ -114,11 +112,10 @@ public class L2SkillElemental extends L2Skill
 			else
 			{
 				charged = false;
-				for (int i = 0; i < _seeds.length; i++)
-				{
-					if (_seeds[i] != 0)
+				for (int _seed : _seeds) {
+					if (_seed != 0)
 					{
-						L2Effect e = target.getFirstEffect(_seeds[i]);
+						L2Effect e = target.getFirstEffect(_seed);
 						if ((e != null) && e.getInUse())
 						{
 							charged = true;

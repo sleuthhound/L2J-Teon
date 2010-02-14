@@ -222,9 +222,8 @@ public final class CharacterCreate extends L2GameClientPacket
 		{
 			ItemTable itemTable = ItemTable.getInstance();
 			L2Item[] items = template.getItems();
-			for (int i = 0; i < items.length; i++)
-			{
-				L2ItemInstance item = newChar.getInventory().addItem("Init", items[i].getItemId(), 1, newChar, null);
+			for (L2Item item2 : items) {
+				L2ItemInstance item = newChar.getInventory().addItem("Init", item2.getItemId(), 1, newChar, null);
 				if (item.getItemId() == 5588)
 				{
 					// add tutbook shortcut
@@ -241,22 +240,21 @@ public final class CharacterCreate extends L2GameClientPacket
 			}
 		}
 		L2SkillLearn[] startSkills = SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId());
-		for (int i = 0; i < startSkills.length; i++)
-		{
-			newChar.addSkill(SkillTable.getInstance().getInfo(startSkills[i].getId(), startSkills[i].getLevel()), true);
-			if ((startSkills[i].getId() == 1001) || (startSkills[i].getId() == 1177))
+		for (L2SkillLearn startSkill : startSkills) {
+			newChar.addSkill(SkillTable.getInstance().getInfo(startSkill.getId(), startSkill.getLevel()), true);
+			if ((startSkill.getId() == 1001) || (startSkill.getId() == 1177))
 			{
-				shortcut = new L2ShortCut(1, 0, 2, startSkills[i].getId(), 1, 1);
+				shortcut = new L2ShortCut(1, 0, 2, startSkill.getId(), 1, 1);
 				newChar.registerShortCut(shortcut);
 			}
-			if (startSkills[i].getId() == 1216)
+			if (startSkill.getId() == 1216)
 			{
-				shortcut = new L2ShortCut(10, 0, 2, startSkills[i].getId(), 1, 1);
+				shortcut = new L2ShortCut(10, 0, 2, startSkill.getId(), 1, 1);
 				newChar.registerShortCut(shortcut);
 			}
 			if (Config.DEBUG)
 			{
-				_log.fine("adding starter skill:" + startSkills[i].getId() + " / " + startSkills[i].getLevel());
+				_log.fine("adding starter skill:" + startSkill.getId() + " / " + startSkill.getLevel());
 			}
 		}
 		L2GameClient.saveCharToDisk(newChar);

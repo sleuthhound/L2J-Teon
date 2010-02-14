@@ -165,9 +165,8 @@ public abstract class L2ZoneType
 			if (_race != null)
 			{
 				boolean ok = false;
-				for (int i = 0; i < _race.length; i++)
-				{
-					if (((L2PcInstance) character).getRace().ordinal() == _race[i])
+				for (int element : _race) {
+					if (((L2PcInstance) character).getRace().ordinal() == element)
 					{
 						ok = true;
 						break;
@@ -180,9 +179,8 @@ public abstract class L2ZoneType
 			if (_class != null)
 			{
 				boolean ok = false;
-				for (int i = 0; i < _class.length; i++)
-				{
-					if (((L2PcInstance) character).getClassId().ordinal() == _class[i])
+				for (int _clas : _class) {
+					if (((L2PcInstance) character).getClassId().ordinal() == _clas)
 					{
 						ok = true;
 						break;

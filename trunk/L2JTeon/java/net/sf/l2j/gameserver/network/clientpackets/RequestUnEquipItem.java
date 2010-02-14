@@ -102,10 +102,9 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
 		// show the update in the inventory
 		InventoryUpdate iu = new InventoryUpdate();
-		for (int i = 0; i < unequiped.length; i++)
-		{
-			activeChar.checkSSMatch(null, unequiped[i]);
-			iu.addModifiedItem(unequiped[i]);
+		for (L2ItemInstance element : unequiped) {
+			activeChar.checkSSMatch(null, element);
+			iu.addModifiedItem(element);
 		}
 		activeChar.sendPacket(iu);
 		// On retail you don't stop hitting if unequip something. REOMVED: activeChar.abortAttack();

@@ -2194,9 +2194,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
 		while (skills.length > unLearnable)
 		{
-			for (int i = 0; i < skills.length; i++)
-			{
-				L2SkillLearn s = skills[i];
+			for (L2SkillLearn s : skills) {
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 				if (sk == null || !sk.getCanLearn(getClassId()) || Config.ENABLE_NO_AUTOLEARN_LIST && Config.NO_AUTOLEARN_LIST.contains(sk.getId()))
 				{
@@ -4659,9 +4657,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				L2ItemInstance unequiped[] = getInventory().unEquipItemInSlotAndRecord(invItem.getEquipSlot());
 				InventoryUpdate iu = new InventoryUpdate();
-				for (int i = 0; i < unequiped.length; i++)
-				{
-					iu.addModifiedItem(unequiped[i]);
+				for (L2ItemInstance element : unequiped) {
+					iu.addModifiedItem(element);
 				}
 				sendPacket(iu);
 			}
@@ -5590,8 +5587,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
-			for (int i = 0; i < unequiped.length; i++)
-				iu.addModifiedItem(unequiped[i]);
+			for (L2ItemInstance element : unequiped)
+				iu.addModifiedItem(element);
 			sendPacket(iu);
 			abortAttack();
 			broadcastUserInfo();
@@ -5623,9 +5620,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 			L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(sld.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
-			for (int i = 0; i < unequiped.length; i++)
-			{
-				iu.addModifiedItem(unequiped[i]);
+			for (L2ItemInstance element : unequiped) {
+				iu.addModifiedItem(element);
 			}
 			sendPacket(iu);
 			abortAttack();
@@ -6449,20 +6445,18 @@ public final class L2PcInstance extends L2PlayableInstance
 			statement.execute();
 			statement.close();
 			L2RecipeList[] recipes = getCommonRecipeBook();
-			for (int count = 0; count < recipes.length; count++)
-			{
+			for (L2RecipeList recipe : recipes) {
 				statement = con.prepareStatement("INSERT INTO character_recipebook (char_id, id, type) values(?,?,0)");
 				statement.setInt(1, getObjectId());
-				statement.setInt(2, recipes[count].getId());
+				statement.setInt(2, recipe.getId());
 				statement.execute();
 				statement.close();
 			}
 			recipes = getDwarvenRecipeBook();
-			for (int count = 0; count < recipes.length; count++)
-			{
+			for (L2RecipeList recipe : recipes) {
 				statement = con.prepareStatement("INSERT INTO character_recipebook (char_id, id, type) values(?,?,1)");
 				statement.setInt(1, getObjectId());
-				statement.setInt(2, recipes[count].getId());
+				statement.setInt(2, recipe.getId());
 				statement.execute();
 				statement.close();
 			}

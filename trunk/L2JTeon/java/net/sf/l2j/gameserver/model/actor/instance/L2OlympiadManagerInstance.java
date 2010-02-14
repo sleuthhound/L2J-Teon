@@ -139,13 +139,12 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 						replyMSG.append("<br>There are no matches at the moment");
 					else
 					{
-						for (int i = 0; i < matches.length; i++)
-						{
-							showbattle = Integer.parseInt(matches[i].substring(1, 2));
-							stad = Integer.parseInt(matches[i].substring(4, 5));
+						for (String matche : matches) {
+							showbattle = Integer.parseInt(matche.substring(1, 2));
+							stad = Integer.parseInt(matche.substring(4, 5));
 							if (showbattle == 1)
 							{
-								replyMSG.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_Olympiad 3_" + stad + "\">" + matches[i] + "</a>");
+								replyMSG.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_Olympiad 3_" + stad + "\">" + matche + "</a>");
 							}
 						}
 					}

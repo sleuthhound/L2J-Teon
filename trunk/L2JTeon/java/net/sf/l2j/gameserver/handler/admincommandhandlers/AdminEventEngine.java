@@ -327,9 +327,8 @@ public class AdminEventEngine implements IAdminCommandHandler
 			result = "No 'data/events' directory!";
 			return result;
 		}
-		for (int i = 0; i < files.length; i++)
-		{
-			File file = new File("data/events/" + files[i]);
+		for (String file2 : files) {
+			File file = new File("data/events/" + file2);
 			result += "<font color=\"LEVEL\">" + file.getName() + " </font><br><button value=\"select\" action=\"bypass -h admin_event_set " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><button value=\"ver\" action=\"bypass -h admin_event_see " + file.getName()
 					+ "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><button value=\"delete\" action=\"bypass -h admin_event_del " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br><br>";
 		}

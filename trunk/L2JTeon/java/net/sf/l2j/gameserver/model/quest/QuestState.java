@@ -681,9 +681,8 @@ public final class QuestState
 		int[] itemIdList = getQuest().getRegisteredItemIds();
 		if (itemIdList != null)
 		{
-			for (int i = 0; i < itemIdList.length; i++)
-			{
-				takeItems(itemIdList[i], -1);
+			for (int element : itemIdList) {
+				takeItems(element, -1);
 			}
 		}
 		// If quest is repeatable, delete quest from list of quest of the player and from database (quest CAN be created again => repeatable)

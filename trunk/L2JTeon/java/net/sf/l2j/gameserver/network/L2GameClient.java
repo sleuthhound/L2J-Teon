@@ -413,9 +413,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	public void setCharSelection(CharSelectInfoPackage[] chars)
 	{
 		_charSlotMapping.clear();
-		for (int i = 0; i < chars.length; i++)
-		{
-			int objectId = chars[i].getObjectId();
+		for (CharSelectInfoPackage c : chars) {
+			int objectId = c.getObjectId();
 			_charSlotMapping.add(new Integer(objectId));
 		}
 	}

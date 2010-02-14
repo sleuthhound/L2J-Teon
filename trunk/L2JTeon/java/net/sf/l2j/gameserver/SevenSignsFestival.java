@@ -1501,9 +1501,8 @@ public class SevenSignsFestival implements SpawnListener
 					_npcSpawns = (_cabal == SevenSigns.CABAL_DAWN) ? FESTIVAL_DAWN_CHEST_SPAWNS[_levelRange] : FESTIVAL_DUSK_CHEST_SPAWNS[_levelRange];
 					break;
 			}
-			for (int i = 0; i < _npcSpawns.length; i++)
-			{
-				FestivalSpawn currSpawn = new FestivalSpawn(_npcSpawns[i]);
+			for (int[] spawn : _npcSpawns) {
+				FestivalSpawn currSpawn = new FestivalSpawn(spawn);
 				// Only spawn archers/marksmen if specified to do so.
 				if ((spawnType == 1) && isFestivalArcher(currSpawn._npcId))
 					continue;

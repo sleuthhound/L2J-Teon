@@ -483,9 +483,8 @@ abstract class DocumentBase
 			}
 		}
 		// Elemental seed condition processing
-		for (int i = 0; i < ElementSeeds.length; i++)
-		{
-			if (ElementSeeds[i] > 0)
+		for (int elementSeed : ElementSeeds) {
+			if (elementSeed > 0)
 			{
 				cond = joinAnd(cond, new ConditionElementSeed(ElementSeeds));
 				break;

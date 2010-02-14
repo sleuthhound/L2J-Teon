@@ -55,9 +55,8 @@ public class Blow implements ISkillHandler
 		{
 			return;
 		}
-		for (int index = 0; index < targets.length; index++)
-		{
-			L2Character target = (L2Character) targets[index];
+		for (L2Object target2 : targets) {
+			L2Character target = (L2Character) target2;
 			if (target.isAlikeDead())
 			{
 				continue;

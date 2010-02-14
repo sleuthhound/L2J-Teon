@@ -437,9 +437,8 @@ public final class RequestEnchantItem extends L2GameClientPacket
 				if (item.isEquipped())
 				{
 					InventoryUpdate iu = new InventoryUpdate();
-					for (int i = 0; i < unequiped.length; i++)
-					{
-						iu.addModifiedItem(unequiped[i]);
+					for (L2ItemInstance element : unequiped) {
+						iu.addModifiedItem(element);
 					}
 					activeChar.sendPacket(iu);
 					activeChar.broadcastUserInfo();

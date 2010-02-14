@@ -1262,15 +1262,14 @@ public class Olympiad
 			PreparedStatement statement;
 			ResultSet rset;
 			StatsSet hero;
-			for (int i = 0; i < HERO_IDS.length; i++)
-			{
+			for (int element : HERO_IDS) {
 				statement = con.prepareStatement(OLYMPIAD_GET_HEROS);
-				statement.setInt(1, HERO_IDS[i]);
+				statement.setInt(1, element);
 				rset = statement.executeQuery();
 				if (rset.next())
 				{
 					hero = new StatsSet();
-					hero.set(CLASS_ID, HERO_IDS[i]);
+					hero.set(CLASS_ID, element);
 					hero.set(CHAR_ID, rset.getInt(CHAR_ID));
 					hero.set(CHAR_NAME, rset.getString(CHAR_NAME));
 					_heroesToBe.add(hero);
@@ -2527,8 +2526,8 @@ public class Olympiad
 			{
 				L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
 				InventoryUpdate iu = new InventoryUpdate();
-				for (int i = 0; i < unequiped.length; i++)
-					iu.addModifiedItem(unequiped[i]);
+				for (L2ItemInstance element : unequiped)
+					iu.addModifiedItem(element);
 				player.sendPacket(iu);
 				player.abortAttack();
 				player.broadcastUserInfo();

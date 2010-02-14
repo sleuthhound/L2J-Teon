@@ -58,9 +58,8 @@ public class Manadam implements ISkillHandler
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
-		for (int index = 0; index < targets.length; index++)
-		{
-			target = (L2Character) targets[index];
+		for (L2Object target2 : targets) {
+			target = (L2Character) target2;
 			if (target.reflectSkill(skill))
 				target = activeChar;
 			boolean acted = Formulas.getInstance().calcMagicAffected(activeChar, target, skill);

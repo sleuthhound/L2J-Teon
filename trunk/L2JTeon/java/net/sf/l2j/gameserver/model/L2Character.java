@@ -3353,9 +3353,7 @@ public abstract class L2Character extends L2Object
 		L2Effect[] effects = getAllEffects();
 		if ((effects != null) && (effects.length > 0))
 		{
-			for (int i = 0; i < effects.length; i++)
-			{
-				L2Effect effect = effects[i];
+			for (L2Effect effect : effects) {
 				if (effect == null)
 					continue;
 				if ((effect.getEffectType() == L2Effect.EffectType.CHARGE) && (player != null))
@@ -6259,11 +6257,10 @@ public abstract class L2Character extends L2Object
 		try
 		{
 			// Go through targets table
-			for (int i = 0; i < targets.length; i++)
-			{
-				if (targets[i] instanceof L2PlayableInstance)
+			for (L2Object target2 : targets) {
+				if (target2 instanceof L2PlayableInstance)
 				{
-					L2Character target = (L2Character) targets[i];
+					L2Character target = (L2Character) target2;
 					if ((skill.getSkillType() == L2Skill.SkillType.BUFF) || (skill.getSkillType() == L2Skill.SkillType.SEED))
 					{
 						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
