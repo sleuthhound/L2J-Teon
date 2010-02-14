@@ -105,10 +105,9 @@ public final class RequestDestroyItem extends L2GameClientPacket
 		{
 			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getEquipSlot());
 			InventoryUpdate iu = new InventoryUpdate();
-			for (int i = 0; i < unequiped.length; i++)
-			{
-				activeChar.checkSSMatch(null, unequiped[i]);
-				iu.addModifiedItem(unequiped[i]);
+			for (L2ItemInstance element : unequiped) {
+				activeChar.checkSSMatch(null, element);
+				iu.addModifiedItem(element);
 			}
 			activeChar.sendPacket(iu);
 			activeChar.broadcastUserInfo();

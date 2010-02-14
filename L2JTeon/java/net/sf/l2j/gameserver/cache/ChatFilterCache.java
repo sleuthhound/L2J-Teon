@@ -163,8 +163,8 @@ public class ChatFilterCache
 	private String deletePreText(String text)
 	{
 		text = " " + text + " ";
-		for (int i = 0; i < _pretextCache.length; i++)
-			text = text.replace(" " + _pretextCache[i] + " ", " ");
+		for (String element : _pretextCache)
+			text = text.replace(" " + element + " ", " ");
 		return text;
 	}
 
@@ -174,11 +174,10 @@ public class ChatFilterCache
 		String[] wordArr = text.split(" ");
 		String[] result0 = new String[wordArr.length + 1];
 		int cellId = 0;
-		for (int i = 0; i < wordArr.length; i++)
-		{
-			if (wordArr[i].length() > minLen)
+		for (String element : wordArr) {
+			if (element.length() > minLen)
 				cellId += 1;
-			result0[cellId] += wordArr[i];
+			result0[cellId] += element;
 		}
 		String[] result = new String[cellId + 1];
 		for (int i = 0; i <= cellId; i++)
@@ -190,21 +189,20 @@ public class ChatFilterCache
 	// delete ignore words from wordsContainer
 	private void deleteIgnores()
 	{
-		for (int i = 0; i < _ignoreCache.length; i++)
+		for (String element : _ignoreCache)
 			for (int n = 0; n < _wordsContainer.length; n++)
-				_wordsContainer[n] = _wordsContainer[n].replace(_ignoreCache[i], " ");
+				_wordsContainer[n] = _wordsContainer[n].replace(element, " ");
 	}
 
 	// search for bad words
 	private boolean doWordsFilter()
 	{
-		for (int n = 0; n < _wordsContainer.length; n++)
-			if (_wordsContainer[n] != "")
+		for (String word : _wordsContainer)
+			if (word != "")
 			{
-				String word = _wordsContainer[n];
-				for (int i = 0; i < _wordsCache.length; i++)
-					word = word.replace(_wordsCache[i], "");
-				if (_wordsContainer[n] != word)
+				for (String element : _wordsCache)
+					word = word.replace(element, "");
+				if (word != word)
 					return true;
 			}
 		return false;
@@ -215,8 +213,8 @@ public class ChatFilterCache
 		if (!Config.USE_POWERFULL_CHAT_FILTER)
 		// simple chat filter method
 		{
-			for (int i = 0; i < _wordsCache.length; i++)
-				text = text.replaceAll(_wordsCache[i], Config.CHAT_FILTER_CHARS);
+			for (String element : _wordsCache)
+				text = text.replaceAll(element, Config.CHAT_FILTER_CHARS);
 		}
 		// powerfull chat filter method
 		else

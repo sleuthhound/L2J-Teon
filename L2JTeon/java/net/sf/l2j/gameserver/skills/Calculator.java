@@ -123,12 +123,11 @@ public final class Calculator
 	{
 		Func[] funcs = _functions;
 		FastList<Stats> modifiedStats = new FastList<Stats>();
-		for (int i = 0; i < funcs.length; i++)
-		{
-			if (funcs[i].funcOwner == owner)
+		for (Func func : funcs) {
+			if (func.funcOwner == owner)
 			{
-				modifiedStats.add(funcs[i].stat);
-				removeFunc(funcs[i]);
+				modifiedStats.add(func.stat);
+				removeFunc(func);
 			}
 		}
 		return modifiedStats;
@@ -140,7 +139,7 @@ public final class Calculator
 	public void calc(Env env)
 	{
 		Func[] funcs = _functions;
-		for (int i = 0; i < funcs.length; i++)
-			funcs[i].calc(env);
+		for (Func func : funcs)
+			func.calc(env);
 	}
 }

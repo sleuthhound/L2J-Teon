@@ -965,10 +965,9 @@ public final class L2ItemInstance extends L2Object
 				{
 					L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(getEquipSlot());
 					InventoryUpdate iu = new InventoryUpdate();
-					for (int i = 0; i < unequiped.length; i++)
-					{
-						player.checkSSMatch(null, unequiped[i]);
-						iu.addModifiedItem(unequiped[i]);
+					for (L2ItemInstance element : unequiped) {
+						player.checkSSMatch(null, element);
+						iu.addModifiedItem(element);
 					}
 					player.sendPacket(iu);
 				}

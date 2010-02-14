@@ -40,10 +40,9 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 
 	private static int getPrime(int min)
 	{
-		for (int i = 0; i < PRIMES.length; i++)
-		{
-			if (PRIMES[i] >= min)
-				return PRIMES[i];
+		for (int element : PRIMES) {
+			if (element >= min)
+				return element;
 		}
 		throw new OutOfMemoryError();
 	}
@@ -100,9 +99,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 		{
 			int cnt = 0;
 			assert _collisions.length == _table.length + 31 >> 5;
-			for (int i = 0; i < _table.length; i++)
-			{
-				L2Object obj = _table[i];
+			for (T obj : _table) {
 				if (obj != null)
 					cnt++;
 			}

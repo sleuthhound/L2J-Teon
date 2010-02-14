@@ -1325,9 +1325,8 @@ public abstract class Inventory extends ItemContainer
 	{
 		L2ItemInstance item;
 		int slot;
-		for (int i = 0; i < _paperdoll.length; i++)
-		{
-			item = _paperdoll[i];
+		for (L2ItemInstance element : _paperdoll) {
+			item = element;
 			if (item == null)
 				continue;
 			slot = item.getEquipSlot();

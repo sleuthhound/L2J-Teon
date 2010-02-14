@@ -225,9 +225,7 @@ public class Npcbuffer
 					ln = ln.replaceAll("\t", "");
 				}
 				String t[] = ln.split(";");
-				for (int c = 0; c < t.length; c++)
-				{
-					String e = t[c];
+				for (String e : t) {
 					if (e.contains("="))
 					{
 						if (e.split("=")[0].contains("entry"))

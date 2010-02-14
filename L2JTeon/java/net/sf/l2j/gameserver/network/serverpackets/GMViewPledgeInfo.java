@@ -61,14 +61,13 @@ public class GMViewPledgeInfo extends L2GameServerPacket
 		writeD(_clan.isAtWar()); // c3
 		L2ClanMember[] members = _clan.getMembers();
 		writeD(members.length);
-		for (int i = 0; i < members.length; i++)
-		{
-			writeS(members[i].getName());
-			writeD(members[i].getLevel());
-			writeD(members[i].getClassId());
+		for (L2ClanMember member : members) {
+			writeS(member.getName());
+			writeD(member.getLevel());
+			writeD(member.getClassId());
 			writeD(0);
 			writeD(1);
-			writeD(members[i].isOnline() ? members[i].getObjectId() : 0);
+			writeD(member.isOnline() ? member.getObjectId() : 0);
 			writeD(0); // Ashitaka fix
 		}
 	}

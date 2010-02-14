@@ -62,9 +62,8 @@ public class L2SkillNeedCharge extends L2Skill
 		// apply effects
 		if (hasEffects())
 		{
-			for (int index = 0; index < targets.length; index++)
-			{
-				getEffects(activeChar, (L2Character) targets[index]);
+			for (L2Object target : targets) {
+				getEffects(activeChar, (L2Character) target);
 			}
 		}
 	}

@@ -97,11 +97,10 @@ public class ZoneManager
 		// Get the world regions
 		int count = 0;
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
-		for (int x = 0; x < worldRegions.length; x++)
-		{
-			for (int y = 0; y < worldRegions[x].length; y++)
+		for (L2WorldRegion[] worldRegion : worldRegions) {
+			for (int y = 0; y < worldRegion.length; y++)
 			{
-				worldRegions[x][y].getZones().clear();
+				worldRegion[y].getZones().clear();
 				count++;
 			}
 		}

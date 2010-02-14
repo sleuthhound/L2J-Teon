@@ -66,9 +66,8 @@ public class Heal implements ISkillHandler
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;
-		for (int index = 0; index < targets.length; index++)
-		{
-			target = (L2Character) targets[index];
+		for (L2Object target2 : targets) {
+			target = (L2Character) target2;
 			// We should not heal if char is dead
 			if ((target == null) || target.isDead())
 				continue;

@@ -40,10 +40,9 @@ public final class L2ObjectHashMap<T extends L2Object> extends L2ObjectMap<T>
 
 	private static int getPrime(int min)
 	{
-		for (int i = 0; i < PRIMES.length; i++)
-		{
-			if (PRIMES[i] >= min)
-				return PRIMES[i];
+		for (int element : PRIMES) {
+			if (element >= min)
+				return element;
 		}
 		throw new OutOfMemoryError();
 	}

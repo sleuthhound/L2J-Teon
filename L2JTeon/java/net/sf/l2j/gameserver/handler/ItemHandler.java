@@ -119,9 +119,8 @@ public class ItemHandler
 		// Get all ID corresponding to the item type of the handler
 		int[] ids = handler.getItemIds();
 		// Add handler for each ID found
-		for (int i = 0; i < ids.length; i++)
-		{
-			_datatable.put(new Integer(ids[i]), handler);
+		for (int id : ids) {
+			_datatable.put(new Integer(id), handler);
 		}
 	}
 

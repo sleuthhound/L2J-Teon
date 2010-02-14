@@ -94,9 +94,8 @@ public class Announcements
 			if (!validDateRange.isValid() || validDateRange.isWithinRange(currentDate))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				for (int j = 0; j < msg.length; j++)
-				{
-					sm.addString(msg[j]);
+				for (String element : msg) {
+					sm.addString(element);
 				}
 				activeChar.sendPacket(sm);
 			}

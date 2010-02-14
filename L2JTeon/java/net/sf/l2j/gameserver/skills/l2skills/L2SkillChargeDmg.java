@@ -85,10 +85,9 @@ public class L2SkillChargeDmg extends L2Skill
 		{
 			effect.exit();
 		}
-		for (int index = 0; index < targets.length; index++)
-		{
+		for (L2Object target2 : targets) {
 			L2ItemInstance weapon = caster.getActiveWeaponInstance();
-			L2Character target = (L2Character) targets[index];
+			L2Character target = (L2Character) target2;
 			if (target.isAlikeDead())
 				continue;
 			// Calculate skill evasion

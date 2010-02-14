@@ -2402,13 +2402,12 @@ public class L2Attackable extends L2NpcInstance
 								// level crystals
 								if (crystalLVL > 9)
 								{
-									for (int i = 0; i < SoulCrystal.HighSoulConvert.length; i++)
-									{
+									for (int[] element : SoulCrystal.HighSoulConvert) {
 										// Get the next stage above 10 using
 										// array.
-										if (id == SoulCrystal.HighSoulConvert[i][0])
+										if (id == element[0])
 										{
-											crystalNEW = SoulCrystal.HighSoulConvert[i][1];
+											crystalNEW = element[1];
 											break;
 										}
 									}

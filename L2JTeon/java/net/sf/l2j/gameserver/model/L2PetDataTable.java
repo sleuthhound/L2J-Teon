@@ -121,8 +121,8 @@ public class L2PetDataTable
 
 	public void addPetData(L2PetData[] petLevelsList)
 	{
-		for (int i = 0; i < petLevelsList.length; i++)
-			addPetData(petLevelsList[i]);
+		for (L2PetData element : petLevelsList)
+			addPetData(element);
 	}
 
 	public L2PetData getPetData(int petID, int petLevel)
