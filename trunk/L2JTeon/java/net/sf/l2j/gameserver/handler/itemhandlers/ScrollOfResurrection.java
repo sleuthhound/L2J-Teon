@@ -54,7 +54,7 @@ public class ScrollOfResurrection implements IItemHandler
 		}
 		if (activeChar.isInFunEvent())
 		{
-			activeChar.sendMessage("Voce nao pode usar Res estando em evento.");
+			activeChar.sendMessage("You may not use an scroll of ressurrection into Event.");
 			return;
 		}
 		if (activeChar.isInOlympiadMode() || activeChar.inObserverMode())

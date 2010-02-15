@@ -80,7 +80,7 @@ public class ScrollOfEscape implements IItemHandler
 		}
 		if (activeChar.isInFunEvent())
 		{
-			activeChar.sendMessage("Voce nao pode usar Escape estando em evento.");
+			activeChar.sendMessage("You may not use an escape skill in a Event.");
 			return;
 		}
 		// Check to see if player is in jail

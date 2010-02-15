@@ -40,7 +40,7 @@ public class ChatTrade implements IChatHandler
 	{
 		if (!activeChar.getFloodProtectors().getTrade().tryPerformAction("trade"))
 		{
-			activeChar.sendMessage("Voce nao pode falar tao rapido, espere um pouco.");
+			activeChar.sendMessage("You can not talk so fast wait a little.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}

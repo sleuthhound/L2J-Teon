@@ -208,7 +208,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 		}
 		if (activeChar.isInFunEvent())
 		{
-			activeChar.sendMessage("Voce nao pode deslogar estando em evento.");
+			activeChar.sendMessage("You cant logout in event.");
 			return;
 		}
 		// SystemMessage sm2 = new SystemMessage(SystemMessage.S1_S2);
