@@ -58,7 +58,7 @@ public final class RequestJoinParty extends L2GameClientPacket
 		}
 		if (target.isInTargetEvent() || requestor.isInTargetEvent())
 		{
-			requestor.sendMessage("Voce nao pode dar party estando no evento");
+			requestor.sendMessage("You can not party into event.");
 		return;
 		}
 		if (target.isInParty())

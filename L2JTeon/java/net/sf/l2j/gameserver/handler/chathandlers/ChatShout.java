@@ -40,7 +40,7 @@ public class ChatShout implements IChatHandler
 	{
 		if (!activeChar.getFloodProtectors().getGlobal().tryPerformAction("global"))
 		{
-			activeChar.sendMessage("Voce nao pode falar tao rapido, espere um pouco.");
+			activeChar.sendMessage("You can not talk so fast wait a little.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}

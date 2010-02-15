@@ -75,7 +75,7 @@ public final class Logout extends L2GameClientPacket
 		}
 		if (player.isInFunEvent())
 		{
-			player.sendPacket(SystemMessage.sendString("Voce nao pode deslogar em um evento"));
+			player.sendPacket(SystemMessage.sendString("You cant logout in event"));
 			return;
 			}
 		if (player.isAway())

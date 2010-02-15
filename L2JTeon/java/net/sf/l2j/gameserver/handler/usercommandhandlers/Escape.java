@@ -54,7 +54,7 @@ public class Escape implements IUserCommandHandler
 		}
 		if (activeChar.isInFunEvent())
 		{
-			activeChar.sendMessage("Voce nao pode dar Escape estando em evento.");
+			activeChar.sendMessage("You may not use an escape skill in a Event.");
 			return false;
 		}
 		// Check to see if the player is in faction.
