@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -35,7 +35,7 @@ import ai.group_template.L2AttackableAIScript;
  */
 public class Antharas extends L2AttackableAIScript
 {
-	
+
 	private static final int ANTHARAS = 29019;
 
 	//Antharas Status Tracking :
@@ -44,11 +44,11 @@ public class Antharas extends L2AttackableAIScript
 	                							//before he unleashes his attack. Entry is unlocked
 	private static final byte FIGHTING = 2;    	//Antharas is engaged in battle, annihilating his foes. Entry is locked
 	private static final byte DEAD = 3;        	//Antharas has been killed. Entry is locked
-    
+
 	private static long _LastAction = 0;
-	
+
 	private static L2BossZone _Zone;
-	
+
 	// Boss: Antharas
 	public Antharas(int id,String name,String descr)
 	{
@@ -206,7 +206,7 @@ public class Antharas extends L2AttackableAIScript
 	}
 
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
-	{	
+	{
         _LastAction = System.currentTimeMillis();
         if (GrandBossManager.getInstance().getBossStatus(ANTHARAS) != FIGHTING)
         {
@@ -215,8 +215,8 @@ public class Antharas extends L2AttackableAIScript
         return super.onAttack(npc, attacker, damage, isPet);
 	}
 
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
-    { 
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+    {
         npc.broadcastPacket(new PlaySound(1, "BS01_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
         this.startQuestTimer("spawn_cubes", 10000, npc, null);
         GrandBossManager.getInstance().setBossStatus(ANTHARAS,DEAD);

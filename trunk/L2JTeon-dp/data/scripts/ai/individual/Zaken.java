@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -67,11 +67,11 @@ public class Zaken extends L2AttackableAIScript
 	private static final int[] Xcoords = {53950,55980,54950,55970,53930,55970,55980,54960,53950,53930,55970,55980,54960,53950,53930};
     private static final int[] Ycoords = {219860,219820,218790,217770,217760,217770,219920,218790,219860,217760,217770,219920,218790,219860,217760};
     private static final int[] Zcoords = {-3488,-3488,-3488,-3488,-3488,-3216,-3216,-3216,-3216,-3216,-2944,-2944,-2944,-2944,-2944};
-	
+
 	//ZAKEN Status Tracking :
 	private static final byte ALIVE = 0;	//Zaken is spawned.
 	private static final byte DEAD = 1;		//Zaken has been killed.
-	
+
 	private static L2BossZone _Zone;
 
 	public Zaken (int questId, String name, String descr)
@@ -208,7 +208,7 @@ public class Zaken extends L2AttackableAIScript
 	        }
 			if (GetTimeHour() < 5)
         	{
-				if( sk_4223 == 1 ) //use night face if zaken have day face 
+				if( sk_4223 == 1 ) //use night face if zaken have day face
 				{
 					npc.setTarget(npc);
 					npc.doCast(SkillTable.getInstance().getInfo(4224,1));
@@ -499,7 +499,7 @@ public class Zaken extends L2AttackableAIScript
 				cancelQuestTimer("1003", null, null);
 			}
 		}
-		
+
 		else if (event.equalsIgnoreCase("zaken_unlock"))
         {
             L2GrandBossInstance zaken = (L2GrandBossInstance) addSpawn(ZAKEN,55312, 219168, -3223,0,false,0);
@@ -513,13 +513,13 @@ public class Zaken extends L2AttackableAIScript
         return super.onAdvEvent(event, npc, player);
 	}
 
-    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
-    { 
+    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet)
+    {
         if (caller == null || npc == null)
         	return super.onFactionCall(npc, caller, attacker, isPet);
         int npcId = npc.getNpcId();
         int callerId = caller.getNpcId();
-        
+
         if (GetTimeHour() < 5 && callerId != ZAKEN && npcId == ZAKEN)
         {
         	int damage = 0; // well damage required :x
@@ -553,7 +553,7 @@ public class Zaken extends L2AttackableAIScript
     			L2Character nextTarget = ((L2Attackable)npc).getMostHated();
     			if (nextTarget != null)
     				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, nextTarget);
-    			
+
     		}
     		else if( skillId == 4217 )
     		{
@@ -656,7 +656,7 @@ public class Zaken extends L2AttackableAIScript
     }
 
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
-    {	
+    {
         int npcId = npc.getNpcId();
         if (npcId == ZAKEN)
         {
@@ -716,7 +716,7 @@ public class Zaken extends L2AttackableAIScript
         				{
         					npc.setTarget(attacker);
         					npc.doCast(SkillTable.getInstance().getInfo(4221,1));
-        				}    					
+        				}
     				}
     			}
     			if( Rnd.get(2) < 1 )
@@ -744,9 +744,9 @@ public class Zaken extends L2AttackableAIScript
         }
         return super.onAttack(npc, attacker, damage, isPet);
     }
-        
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
-    { 
+
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+    {
         int npcId = npc.getNpcId();
         if (npcId == ZAKEN)
         {
@@ -814,7 +814,7 @@ public class Zaken extends L2AttackableAIScript
         				{
         					npc.setTarget(caster);
         					npc.doCast(SkillTable.getInstance().getInfo(4221,1));
-        				}    					
+        				}
         			}
         		}
         		if( Rnd.get(2) < 1 )
@@ -830,7 +830,7 @@ public class Zaken extends L2AttackableAIScript
         return super.onSkillSee(npc, caster, skill, targets, isPet);
     }
 
-    public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet) 
+    public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet)
     {
         int npcId = npc.getNpcId();
         if (npcId == ZAKEN)
@@ -899,7 +899,7 @@ public class Zaken extends L2AttackableAIScript
             				{
             					npc.setTarget(player);
             					npc.doCast(SkillTable.getInstance().getInfo(4221,1));
-            				}    					
+            				}
             			}
             		}
             		if( Rnd.get(2) < 1 )
@@ -913,7 +913,7 @@ public class Zaken extends L2AttackableAIScript
     			}
         	}
         }
-    	return super.onAggroRangeEnter(npc, player, isPet); 
+    	return super.onAggroRangeEnter(npc, player, isPet);
     }
 
     public int GetTimeHour()

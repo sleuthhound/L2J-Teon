@@ -106,14 +106,14 @@ public class VanHalter extends L2AttackableAIScript
 	protected ScheduledFuture<?> _intervalTask = null;
 	protected ScheduledFuture<?> _halterEscapeTask = null;
 	protected ScheduledFuture<?> _setBleedTask = null;
-	
+
 	// state of High Priestess van Halter
 	boolean _isLocked = false;
 	boolean _isHalterSpawned = false;
 	boolean _isSacrificeSpawned = false;
 	boolean _isCaptainSpawned = false;
 	boolean _isHelperCalled = false;
-	
+
 	private static final byte NOTSPAWN = 0;
 	private static final byte INTERVAL = 1;
 	private static final byte ALIVE = 2;
@@ -124,7 +124,7 @@ public class VanHalter extends L2AttackableAIScript
         super(id,name,descr);
         int[] mobs = {29062, 22188, 32058, 32059, 32060, 32061, 32062, 32063, 32064, 32065, 32066};
         this.registerMobs(mobs);
-        
+
         int _state = GrandBossManager.getInstance().getBossStatus(29062);
 	// clear flag.
 	_isLocked = false;
@@ -1875,8 +1875,8 @@ public class VanHalter extends L2AttackableAIScript
         return super.onAttack(npc, attacker, damage, isPet);
     }
 
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
-    { 
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+    {
     	int npcId = npc.getNpcId();
     	if (npcId == 29062)
     	{

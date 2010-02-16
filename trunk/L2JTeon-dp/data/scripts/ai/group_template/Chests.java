@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,9 +29,9 @@ import net.sf.l2j.util.Rnd;
  */
 public class Chests extends L2AttackableAIScript
 {
-	
+
 	private static final int SKILL_DELUXE_KEY = 2229;
-	
+
 	//Base chance for BOX to be opened
 	private static final int BASE_CHANCE = 100;
 
@@ -40,7 +40,7 @@ public class Chests extends L2AttackableAIScript
 
 	// Chance for a chest to actually be a BOX (as opposed to being a mimic).
 	private static final int IS_BOX = 40;
-	
+
 	private static final int[] NPC_IDS = { 18265,18266,18267,18268,18269,18270,18271,
 			18272,18273,18274,18275,18276,18277,18278,18279,18280,18281,
 			18282,18283,18284,18285,18286,18287,18288,18289,18290,18291,
@@ -48,17 +48,17 @@ public class Chests extends L2AttackableAIScript
 			21740,21763,21786,21801,21802,21803,21804,21805,21806,21807,
 			21808,21809,21810,21811,21812,21813,21814,21815,21816,21817,
 			21818,21819,21820,21821,21822 };
-	
+
 	public Chests(int questId, String name, String descr)
 	{
         // firstly, don't forget to call the parent constructor to prepare the event triggering
         // mechanisms etc.
 		super(questId, name, descr);
-        this.registerMobs(NPC_IDS);		
+        this.registerMobs(NPC_IDS);
 	}
 
-	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
-    { 
+	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
+    {
         if (npc instanceof L2ChestInstance)
         {
 	        // this behavior is only run when the target of skill is the passed npc (chest)
@@ -71,7 +71,7 @@ public class Chests extends L2AttackableAIScript
 	        int npcId = chest.getNpcId();
 	        int skillId = skill.getId();
 	        int skillLevel= skill.getLevel();
-	
+
 	        // check if the chest and skills used are valid for this script.  Exit if invalid.
 	        if (!contains(NPC_IDS,npcId))
 	        {
@@ -93,7 +93,7 @@ public class Chests extends L2AttackableAIScript
 	                    if (keyLevelNeeded < 0)
 	                    	keyLevelNeeded *= -1;
 	                    int chance = BASE_CHANCE - keyLevelNeeded * LEVEL_DECREASE;
-	
+
 	                    // success, pretend-death with rewards:  chest.reduceCurrentHp(99999999, player)
 	                    if (Rnd.get(100) < chance)
 	                    {
@@ -120,7 +120,7 @@ public class Chests extends L2AttackableAIScript
     }
 
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
-    {	
+    {
         if (npc instanceof L2ChestInstance)
         {
         	L2ChestInstance chest = ((L2ChestInstance)npc);
@@ -130,7 +130,7 @@ public class Chests extends L2AttackableAIScript
 	        {
 	        	return super.onAttack(npc,attacker,damage,isPet);
 	        }
-	
+
 	        // if this was a mimic, set the target, start the skills and become agro
 	        if (!chest.isInteracted())
 	        {

@@ -3,17 +3,17 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package ai.group_template;
- 
+
 import java.util.Collection;
 
 import javolution.util.FastList;
@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.network.serverpackets.NpcSay;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Rnd;
- 
+
 public class Monastery extends L2AttackableAIScript
 {
 	static final int[] mobs1 = {22124, 22125, 22126, 22127, 22129};
@@ -49,7 +49,7 @@ public class Monastery extends L2AttackableAIScript
         registerMobs(mobs1);
         registerMobs(mobs2);
     }
- 
+
     public String onAggroRangeEnter(L2NpcInstance npc, L2PcInstance player, boolean isPet)
     {
     	if (contains(mobs1,npc.getNpcId()) && !npc.isInCombat() && npc.getTarget() == null)
@@ -76,7 +76,7 @@ public class Monastery extends L2AttackableAIScript
     				}
     			}
     		}
-    		else if (((L2Attackable)npc).getMostHated() == null) 
+    		else if (((L2Attackable)npc).getMostHated() == null)
     			return null;
     	}
         return super.onAggroRangeEnter(npc, player, isPet);
@@ -102,7 +102,7 @@ public class Monastery extends L2AttackableAIScript
     	}
 		return super.onSkillSee(npc, caster, skill, targets, isPet);
 	}
-    
+
     public String onSpawn(L2NpcInstance npc)
 	{
     	if (contains(mobs1,npc.getNpcId()))
@@ -151,7 +151,7 @@ public class Monastery extends L2AttackableAIScript
     	}
 		return super.onSpawn(npc);
 	}
-    
+
     public String onSpellFinished(L2NpcInstance npc, L2PcInstance player, L2Skill skill)
     {
     	if (contains(mobs1,npc.getNpcId()) && skill.getId() == 4589)
@@ -162,7 +162,7 @@ public class Monastery extends L2AttackableAIScript
     	}
     	return super.onSpellFinished(npc, player, skill);
     }
-    
+
     public static void main(String[] args)
     {
         new Monastery(-1, "Monastery", "ai");

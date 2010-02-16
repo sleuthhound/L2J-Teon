@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,7 +30,7 @@ public class SummonMinions extends L2AttackableAIScript
 	private static FastSet<Integer> myTrackingSet = new FastSet<Integer>(); //Used to track instances of npcs
 	private FastMap<Integer, FastList<L2PcInstance>> _attackersList = new FastMap<Integer, FastList<L2PcInstance>>();
 	private static final FastMap<Integer, Integer[]> MINIONS = new FastMap<Integer, Integer[]>();
-	
+
 	static
     {
             MINIONS.put(20767,new Integer[]{20768,20769,20770}); //Timak Orc Troop
@@ -51,7 +51,7 @@ public class SummonMinions extends L2AttackableAIScript
             MINIONS.put(22265,new Integer[]{18366,18366}); //Chrysocolla
             MINIONS.put(22266,new Integer[]{18366,18366}); //Pythia
     }
-	
+
 	public SummonMinions(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -61,7 +61,7 @@ public class SummonMinions extends L2AttackableAIScript
 		};
 		this.registerMobs(temp);
 	}
-	
+
 	public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
@@ -185,7 +185,7 @@ public class SummonMinions extends L2AttackableAIScript
 		}
 		return super.onAttack(npc, attacker, damage, isPet);
 	}
-	
+
 	public String onKill(L2NpcInstance npc, L2PcInstance killer, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
@@ -200,7 +200,7 @@ public class SummonMinions extends L2AttackableAIScript
 		}
 		return super.onKill(npc, killer, isPet);
 	}
-	
+
 	public static void main(String[] args)
 	{
 		// now call the constructor (starts up the ai)
