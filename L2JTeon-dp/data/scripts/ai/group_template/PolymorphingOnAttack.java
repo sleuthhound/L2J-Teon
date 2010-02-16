@@ -3,17 +3,17 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package ai.group_template;
- 
+
 import java.util.Map;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
@@ -23,9 +23,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.util.Rnd;
- 
+
 import javolution.util.FastMap;
- 
+
 /**
  * @author Slyce
  */
@@ -54,14 +54,14 @@ public class PolymorphingOnAttack extends L2AttackableAIScript
         new String[]{"I must admit, no one makes my blood boil quite like you do!", "Now the battle begins!", "Witness my true power!"},
         new String[]{"Prepare to die!", "I'll double my strength!", "You have more skill than I thought"}
     };
- 
+
     public PolymorphingOnAttack(int questId, String name, String descr)
     {
         super(questId, name, descr);
         for (int id : MOBSPAWNS.keySet())
             super.addAttackId(id);
     }
- 
+
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
     {
         if (MOBSPAWNS.containsKey(npc.getNpcId()))
@@ -85,7 +85,7 @@ public class PolymorphingOnAttack extends L2AttackableAIScript
         }
         return super.onAttack (npc, attacker, damage, isPet);
     }
- 
+
     public static void main(String[] args)
     {
         new PolymorphingOnAttack(-1,"polymorphing_on_attack","ai");

@@ -31,9 +31,9 @@ public class HotSprings extends L2AttackableAIScript
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		int HSBUFF = Rnd.get(5);
-		if (npc.getNpcId() == 21316 || 
-			npc.getNpcId() == 21321 || 
-			npc.getNpcId() == 21314 || 
+		if (npc.getNpcId() == 21316 ||
+			npc.getNpcId() == 21321 ||
+			npc.getNpcId() == 21314 ||
 			npc.getNpcId() == 21319)
 		{
 			if (HSBUFF == 1)

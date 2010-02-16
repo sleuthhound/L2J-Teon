@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,15 +49,15 @@ public class SagasSuperClass extends QuestJython
 	public int[] Z = {};
 	public String[] Text = {};
 	L2FastMap<L2NpcInstance, Integer> _SpawnList = new L2FastMap<L2NpcInstance, Integer>();
-	
+
 	int[] QuestClass[] = {{0x7f},{0x80,0x81},{0x82},{0x05},{0x14},{0x15},{0x02},{0x03},{0x2e},{0x30},{0x33},{0x34},{0x08},{0x17},{0x24},{0x09},{0x18},{0x25},{0x10},{0x11},{0x1e},{0x0c},{0x1b},{0x28},{0x0e},{0x1c},{0x29},{0x0d},{0x06},{0x22},{0x21},{0x2b},{0x37},{0x39}};
-	
+
 	public SagasSuperClass(int id, String name, String descr)
 	{
 		super(id,name,descr);
 		qnu = id;
 	}
-	
+
 	public void registerNPCs()
 	{
 		addStartNpc(NPC[0]);
@@ -78,30 +78,30 @@ public class SagasSuperClass extends QuestJython
 		for (int Guardian_Angel = 27214; Guardian_Angel < 27217; Guardian_Angel++)
 			addKillId(Guardian_Angel);
 	}
-	
+
 	public void Cast(L2NpcInstance npc, L2Character target, int skillId, int level)
 	{
 		target.broadcastPacket(new MagicSkillUser(target,target,skillId,level,6000,1));
 		target.broadcastPacket(new MagicSkillUser(npc,npc,skillId,level,6000,1));
 	}
-	
+
 	public void AutoChat(L2NpcInstance npc, String text)
 	{
 		npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), text));
 	}
-	
+
 	public void AddSpawn(QuestState st, L2NpcInstance mob)
 	{
 		_SpawnList.put(mob, st.getPlayer().getObjectId());
 	}
-	
+
 	public L2NpcInstance FindSpawn (L2PcInstance player,L2NpcInstance npc)
 	{
 		if (_SpawnList.containsKey(npc) && _SpawnList.get(npc) == player.getObjectId())
-			return npc;	
+			return npc;
 		return null;
 	}
-	
+
 	public void DeleteSpawn(QuestState st,L2NpcInstance npc)
 	{
 		if (_SpawnList.containsKey(npc))
@@ -110,7 +110,7 @@ public class SagasSuperClass extends QuestJython
 			npc.deleteMe();
 		}
 	}
-	
+
 	public QuestState findRightState(L2NpcInstance npc)
 	{
 		L2PcInstance player = null;
@@ -118,12 +118,12 @@ public class SagasSuperClass extends QuestJython
 		if (_SpawnList.containsKey(npc))
 		{
 			player = (L2PcInstance) L2World.getInstance().findObject(_SpawnList.get(npc));
-			if (player != null) 
+			if (player != null)
 				st = player.getQuestState(qn);
 		}
 		return st;
 	}
-	
+
 	public void giveHallishaMark(QuestState st2)
 	{
 		if (st2.getInt("spawned") == 0)
@@ -168,7 +168,7 @@ public class SagasSuperClass extends QuestJython
 		}
 		return null;
 	}
-	
+
 	public int getClassId(L2PcInstance player)
 	{
 		if (player.getClassId().getId() == 0x81)
@@ -177,7 +177,7 @@ public class SagasSuperClass extends QuestJython
 		}
 		return classid[0];
 	}
-	
+
 	public int getPrevClass(L2PcInstance player)
 	{
 		if (player.getClassId().getId() == 0x81)
@@ -186,7 +186,7 @@ public class SagasSuperClass extends QuestJython
 		}
 		return prevclass[0];
 	}
-	
+
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
 	{
 		QuestState st = player.getQuestState(qn);
@@ -486,7 +486,7 @@ public class SagasSuperClass extends QuestJython
 			return null;
 		return htmltext;
 	}
-    
+
 	public String onTalk(L2NpcInstance npc,L2PcInstance player)
 	{
 		String htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
@@ -658,7 +658,7 @@ public class SagasSuperClass extends QuestJython
 		}
 		return htmltext;
 	}
-	
+
 	public String onFirstTalk(L2NpcInstance npc,L2PcInstance player)
 	{
 		String htmltext = "";
@@ -717,7 +717,7 @@ public class SagasSuperClass extends QuestJython
 			npc.showChatWindow(player);
 		return htmltext;
 	}
-	
+
 	public String onAttack(L2NpcInstance npc,L2PcInstance player, int damage, boolean isPet)
 	{
 		QuestState st2 = findRightState(npc);
@@ -751,13 +751,13 @@ public class SagasSuperClass extends QuestJython
 		}
 		return super.onAttack(npc, player, damage, isPet);
 	}
-	
+
 	public String onSkillSee(L2NpcInstance npc,L2PcInstance player, L2Skill skill, L2Object[] targets, boolean isPet)
 	{
 		if (_SpawnList.containsKey(npc) && _SpawnList.get(npc) != player.getObjectId())
 		{
 			L2PcInstance quest_player = (L2PcInstance) L2World.getInstance().findObject(_SpawnList.get(npc));
-			if (quest_player == null) 
+			if (quest_player == null)
 				return null;
 			else
 			{
@@ -777,7 +777,7 @@ public class SagasSuperClass extends QuestJython
 		}
 		return super.onSkillSee(npc, player, skill, targets, isPet);
 	}
-	
+
 	public String onKill(L2NpcInstance npc,L2PcInstance player, boolean isPet)
 	{
 		int npcId = npc.getNpcId();
@@ -817,7 +817,7 @@ public class SagasSuperClass extends QuestJython
 				return super.onKill(npc, player, isPet);
 			}
 		}
-		
+
 		int[] Archon_Hellisha_Norm = {18212, 18214, 18215, 18216, 18218};
 		for (int i = 0; i < Archon_Hellisha_Norm.length;i++)
 		{
@@ -835,12 +835,12 @@ public class SagasSuperClass extends QuestJython
 	                    st1.set("cond","16");
 	                    st1.playSound("ItemSound.quest_middle");
 					}
-						
+
 				}
 				return super.onKill(npc, player, isPet);
 			}
 		}
-		
+
 		for (int Guardian_Angel = 27214; Guardian_Angel < 27217; Guardian_Angel++)
 		{
 			if (npcId == Guardian_Angel)
@@ -859,7 +859,7 @@ public class SagasSuperClass extends QuestJython
 	                        st1.set("cond","7");
 						}
 					}
-						
+
 				}
 				return super.onKill(npc, player, isPet);
 			}
@@ -897,7 +897,7 @@ public class SagasSuperClass extends QuestJython
 	                    st.set("cond","16");
 	                    st.playSound("ItemSound.quest_middle");
 					}
-					else 
+					else
 	                    AutoChat(npc,Text[5].replace("PLAYERNAME",player.getName()));
 				}
 				cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer());
@@ -930,14 +930,14 @@ public class SagasSuperClass extends QuestJython
 	    }
 		return super.onKill(npc, player, isPet);
 	}
-	
+
 	@Override
 	public boolean unload()
 	{
 		// if sub classes aren't loaded, just unload superclass
 		if (_scripts.size() == 0)
 			return super.unload();
-		
+
 		// unload all subclasses
 		for (int index=0;index<_scripts.size();index++)
 		{
@@ -946,16 +946,16 @@ public class SagasSuperClass extends QuestJython
 			QuestManager.getInstance().removeQuest(_scripts.get(index));
 		}
 		_scripts.clear();
-		
+
 		// now unload superclass
 		return super.unload();
 	}
-	
+
 	public static void main(String[] args)
 	{
 		// initialize superclass
 		new SagasSuperClass(-1,"SagasSuperClass","Saga's SuperClass");
-		
+
 		// initialize subclasses
 		_scripts.add(new SagaOfEvasSaint());
 		_scripts.add(new SagaOfEvasTemplar());

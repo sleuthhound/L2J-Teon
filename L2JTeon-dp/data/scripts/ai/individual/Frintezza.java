@@ -48,7 +48,7 @@ import net.sf.l2j.util.Rnd;
 
 /**
  * Frintezza AI
- * 
+ *
  * @author Darki699
  * @author SANDMAN L2J_JP(modified)
  * @author JOJO Update by rocknow

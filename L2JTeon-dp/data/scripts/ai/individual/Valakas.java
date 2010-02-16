@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -71,9 +71,9 @@ public class Valakas extends L2AttackableAIScript
 	                							//before he unleashes his attack. Entry is unlocked
 	private static final byte FIGHTING = 2;    	//Valakas is engaged in battle, annihilating his foes. Entry is locked
 	private static final byte DEAD = 3;        	//Valakas has been killed. Entry is locked
-	
+
 	private static L2BossZone _Zone;
-	
+
 	// Boss: Valakas
 	public Valakas(int id,String name,String descr)
 	{
@@ -122,7 +122,7 @@ public class Valakas extends L2AttackableAIScript
     		            {
     		            }
     				}
-                },100L); 
+                },100L);
                 startQuestTimer("1003", 60000, valakas, null, true);
             }
         }
@@ -137,27 +137,27 @@ public class Valakas extends L2AttackableAIScript
             L2GrandBossInstance valakas = (L2GrandBossInstance) addSpawn(VALAKAS,loc_x,loc_y,loc_z,heading,false,0);
             GrandBossManager.getInstance().addBoss(valakas);
             final L2NpcInstance _valakas = valakas;
-            final int _status = status; 
+            final int _status = status;
             ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
 				public void run()
 				{
 					try
 		            {
 			            _valakas.setCurrentHpMp(hp,mp);
-                        if (_status != FIGHTING) _valakas.setIsInvul(true); 
+                        if (_status != FIGHTING) _valakas.setIsInvul(true);
                         _valakas.setRunning();
 		            }
 		            catch (Throwable e)
 		            {
 		            }
 				}
-            },100L); 
+            },100L);
 
             startQuestTimer("1003", 60000, valakas, null, true);
             if (status == WAITING)
             {
                 // Start timer to lock entry after 30 minutes
-                startQuestTimer("1001",ExternalConfig.Valakas_Wait_Time, valakas, null); 
+                startQuestTimer("1001",ExternalConfig.Valakas_Wait_Time, valakas, null);
             }
             else if (status == FIGHTING)
             {
@@ -192,7 +192,7 @@ public class Valakas extends L2AttackableAIScript
     		            {
     		            }
     				}
-                },1L); 
+                },1L);
                 startQuestTimer("1004",2000, npc, null);
             }
             else if (event.equalsIgnoreCase("1002"))
@@ -960,14 +960,14 @@ public class Valakas extends L2AttackableAIScript
 		return super.onAttack(npc, attacker, damage, isPet);
 	}
 
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
-    { 
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+    {
     	startQuestTimer("1111",500, npc, null);
         npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),2000,130,-1,0,10000));
         npc.broadcastPacket(new PlaySound(1, "B03_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
-        // uncoment me once animations available 
+        // uncoment me once animations available
         //GrandBossManager.getInstance().setBossStatus(VALAKAS,DEAD);
-        long respawnTime = (long)ExternalConfig.Interval_Of_Valakas_Spawn + Rnd.get(ExternalConfig.Random_Of_Valakas_Spawn); 
+        long respawnTime = (long)ExternalConfig.Interval_Of_Valakas_Spawn + Rnd.get(ExternalConfig.Random_Of_Valakas_Spawn);
         this.startQuestTimer("valakas_unlock", respawnTime, null, null);
         // also save the respawn time so that the info is maintained past reboots
         StatsSet info = GrandBossManager.getInstance().getStatsSet(VALAKAS);
@@ -994,7 +994,7 @@ public class Valakas extends L2AttackableAIScript
 		if (c_quest3 == null)
 			i_quest3 = 0;
 		else if (!Util.checkIfInRange(5000, npc, c_quest3, true) || c_quest3.isDead())
-			i_quest3 = 0;	
+			i_quest3 = 0;
 		if (c_quest4 == null)
 			i_quest4 = 0;
 		else if (!Util.checkIfInRange(5000, npc, c_quest4, true) || c_quest4.isDead())
@@ -1285,7 +1285,7 @@ public class Valakas extends L2AttackableAIScript
 			npc.setIsCastingNow(true);
 			npc.setTarget(target);
 			npc.doCast(skill);
-			
+
 		}
 		else
 		{
@@ -1313,7 +1313,7 @@ public class Valakas extends L2AttackableAIScript
 		}
 		return;
 	}
-	
+
 	public L2Character getRandomTarget(L2NpcInstance npc)
 	{
 		FastList<L2Character> result = new FastList<L2Character>();
@@ -1349,7 +1349,7 @@ public class Valakas extends L2AttackableAIScript
     	return super.onSpellFinished(npc, player, skill);
     }
 
-    public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet) 
+    public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet)
     {
     	int i1 = 0;
         if (GrandBossManager.getInstance().getBossStatus(VALAKAS) == FIGHTING)
