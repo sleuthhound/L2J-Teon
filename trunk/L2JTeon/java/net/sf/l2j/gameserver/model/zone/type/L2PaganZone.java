@@ -34,9 +34,9 @@ public class L2PaganZone extends L2ZoneType
 		if (character instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance) character;
-			L2ItemInstance item = player.getInventory().getItemByItemId(8064);
+			player.getInventory().getItemByItemId(8064);
 			player.destroyItemByItemId("Mark", 8064, 1, player, true);
-			L2ItemInstance fadedMark = player.getInventory().addItem("Faded Mark", 8065, 1, player, player);
+			player.getInventory().addItem("Faded Mark", 8065, 1, player, player);
 			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
 			sm.addItemName(/* fadedMark */8065);
 			player.sendPacket(sm);
