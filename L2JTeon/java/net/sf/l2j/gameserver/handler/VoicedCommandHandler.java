@@ -86,8 +86,7 @@ public class VoicedCommandHandler
 		return _datatable.size();
 	}
 
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
+	private final static class SingletonHolder
 	{
 		protected static final VoicedCommandHandler _instance = new VoicedCommandHandler();
 	}

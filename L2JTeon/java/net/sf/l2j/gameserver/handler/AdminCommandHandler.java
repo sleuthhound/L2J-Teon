@@ -94,7 +94,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class AdminCommandHandler
 {
 	private static Logger _log = Logger.getLogger(AdminCommandHandler.class.getName());
-	private static AdminCommandHandler _instance;
 	private FastMap<String, IAdminCommandHandler> _datatable;
 	// Alt privileges setting
 	private static Logger _priviLog = Logger.getLogger("AltPrivilegesAdmin");
@@ -103,11 +102,7 @@ public class AdminCommandHandler
 
 	public static AdminCommandHandler getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new AdminCommandHandler();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private AdminCommandHandler()
@@ -284,5 +279,10 @@ public class AdminCommandHandler
 			return false;
 		}
 		return true;
+	}
+
+	private final static class SingletonHolder
+	{
+		protected static final AdminCommandHandler _instance = new AdminCommandHandler();
 	}
 }
