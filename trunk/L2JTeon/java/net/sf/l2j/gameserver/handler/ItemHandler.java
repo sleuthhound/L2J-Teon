@@ -67,11 +67,6 @@ public class ItemHandler
 		return SingletonHolder._instance;
 	}
 
-	public int size()
-	{
-		return _datatable.size();
-	}
-
 	private ItemHandler()
 	{
 		_datatable = new FastMap<Integer, IItemHandler>();
@@ -127,6 +122,11 @@ public class ItemHandler
 	public IItemHandler getItemHandler(int itemId)
 	{
 		return _datatable.get(new Integer(itemId));
+	}
+
+	public int size()
+	{
+		return _datatable.size();
 	}
 
 	private final static class SingletonHolder

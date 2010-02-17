@@ -126,8 +126,7 @@ public class SkillHandler
 		return _datatable.size();
 	}
 
-	@SuppressWarnings("synthetic-access")
-	private static class SingletonHolder
+	private final static class SingletonHolder
 	{
 		protected static final SkillHandler _instance = new SkillHandler();
 	}
