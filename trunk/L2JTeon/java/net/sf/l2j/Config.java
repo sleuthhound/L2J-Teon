@@ -1212,8 +1212,6 @@ public final class Config
 	public static boolean CUSTOM_DROPLIST_TABLE;
 	/** Enable Custom Merchant Tables */
 	public static boolean CUSTOM_MERCHANT_TABLES;
-	/** Disable Dual Boxing on Olympiads */
-	public static boolean DISABLE_OLY_DUALBOX;
 	public static int OLY_ENCHANT_LIMIT;
 	public static boolean OLYMPIAD_ALLOW_AUTO_SS;
 	public static boolean OLYMPIAD_GIVE_ACUMEN_MAGES;
@@ -2047,7 +2045,6 @@ public final class Config
 				OLYMPIAD_GIVE_HASTE_FIGHTERS = Boolean.parseBoolean(OlympiadSettings.getProperty("OlympiadGiveHasteFighters", "True"));
 				OLYMPIAD_ACUMEN_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadAcumenLvl", "1"));
 				OLYMPIAD_HASTE_LVL = Integer.parseInt(OlympiadSettings.getProperty("OlympiadHasteLvl", "2"));
-				DISABLE_OLY_DUALBOX = Boolean.parseBoolean(OlympiadSettings.getProperty("DisableOlyDualBox", "False"));
 				OLY_ENCHANT_LIMIT = Integer.parseInt(OlympiadSettings.getProperty("OlyMaxEnchant", "-1"));
 			}
 			catch (Exception e)
