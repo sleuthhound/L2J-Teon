@@ -241,7 +241,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="70"/>
   <for>
-    <effect name="Buff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect name="Debuff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
@@ -259,7 +259,7 @@
   <set name="castRange" val="800"/>
   <set name="effectRange" val="1300"/>
   <for>
-    <effect name="Buff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect name="Debuff" time="30" count="1" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
@@ -397,7 +397,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pAtk">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
   </for>
@@ -418,7 +418,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pDef">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pd_up">
       <mul order="0x30" stat="pDef" val="#pDef"/>
     </effect>
   </for>
@@ -443,7 +443,7 @@
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pAtk">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
   </for>
@@ -468,7 +468,7 @@
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pDef">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pd_up">
       <mul order="0x30" stat="pDef" val="#pDef"/>
     </effect>
   </for>
@@ -530,7 +530,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="60"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="0.7" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.7"/>
     </effect>
   </for>
@@ -595,7 +595,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
+    <effect count="1" name="Debuff" time="15" val="0" stackOrder="#Tab-pAtk" stackType="pAtkDown">
       <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
     </effect>
   </for>
@@ -617,7 +617,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="#Tab-pAtkSpd" stackType="pAtkSpdDown">
+    <effect count="1" name="Debuff" time="15" val="0" stackOrder="#Tab-pAtkSpd" stackType="pAtkSpdDown">
       <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd"/>
     </effect>
   </for>
@@ -780,7 +780,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="20" val="0" stackOrder="#runSpd" stackType="runSpd">
+    <effect count="1" name="Buff" time="20" val="0" stackOrder="#runSpd" stackType="speed_up_special">
       <mul order="0x30" stat="runSpd" val="#runSpd"/>
     </effect>
   </for>
@@ -861,7 +861,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pAtkDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pAtkDown">
      <mul order="0x30" stat="pAtk" val="0.77"/>
     </effect>
   </for>
@@ -878,7 +878,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
       <mul order="0x30" stat="pDef" val="0.77"/>
     </effect>
   </for>
@@ -895,7 +895,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
        <mul order="0x30" stat="pAtkSpd" val="0.77"/>
     </effect>
   </for>
@@ -1110,7 +1110,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
+    <effect name="Debuff" time="120" count="1" val="0" stackOrder="0.77" stackType="pAtkSpdDown">
       <mul order="0x30" stat="pAtkSpd" val="0.77"/>
     </effect>
   </for>
@@ -1192,7 +1192,7 @@
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtkSpd" stackType="pAtkSpeedUp">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtkSpd" stackType="attack_time_down">
       <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
     </effect>
   </for>
@@ -1233,7 +1233,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
     </effect>
   </for>

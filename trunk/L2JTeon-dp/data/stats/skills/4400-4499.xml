@@ -12,7 +12,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-mAtkSpd" stackType="mAtkSpeedUp">
+    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-mAtkSpd" stackType="casting_time_down">
       <mul order="0x30" stat="mAtkSpd" val="#Tab-mAtkSpd"/>
     </effect>
   </for>
@@ -29,7 +29,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-mAtk" stackType="mAtk">
+    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-mAtk" stackType="ma_up">
       <mul order="0x30" stat="mAtk" val="#Tab-mAtk"/>
     </effect>
   </for>
@@ -46,7 +46,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-pAtkSpd" stackType="pAtkSpeedUp">
+    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-pAtkSpd" stackType="attack_time_down">
       <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd"/>
     </effect>
   </for>
@@ -79,7 +79,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-rCrit" stackType="rCrit">
+    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-rCrit" stackType="critical_prob_up">
       <mul order="0x30" stat="rCrit" val="#Tab-rCrit"/>
     </effect>
   </for>
@@ -96,7 +96,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-cAtk" stackType="cAtk">
+    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-cAtk" stackType="critical_dmg_up">
       <mul order="0x30" stat="cAtk" val="#Tab-cAtk"/>
     </effect>
   </for>
