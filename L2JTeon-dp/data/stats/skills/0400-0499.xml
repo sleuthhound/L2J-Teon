@@ -24,7 +24,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
-    <effect count="1" name="Buff" time="10" val="0">
+    <effect count="1" name="Debuff" time="10" val="0">
       <mul order="0x30" stat="rCrit" val="#rCrit"/>
     </effect>
   </for>
@@ -53,7 +53,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
-     <effect count="1" name="Buff" time="10" val="0">
+     <effect count="1" name="Debuff" time="10" val="0">
        <mul order="0x30" stat="cAtk" val="#cAtk"/>
      </effect>
   </for>
@@ -201,7 +201,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0">
+    <effect count="1" name="Debuff" time="30" val="0">
       <mul order="0x30" stat="runSpd" val="0.5"/>
       <mul order="0x30" stat="pAtkSpd" val="0.8"/>
       <mul order="0x30" stat="mAtkSpd" val="0.8"/>
@@ -224,7 +224,7 @@
   <set name="effectRange" val="-1"/>
   <set name="weaponsAllowed" val="512"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0">
+    <effect count="1" name="Debuff" time="15" val="0">
       <mul order="0x30" stat="mAtk" val="0.65"/>
       <mul order="0x30" stat="pAtk" val="0.65"/>
     </effect>
@@ -371,7 +371,7 @@
   <enchant1 name="mpConsume" val="#ench1Cost"/>
   <enchant2 name="power" val="#ench2Chanse"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="#Tab-accCombat" stackType="accuracyDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-accCombat" stackType="accuracyDown">
       <sub order="0x40" stat="accCombat" val="#Tab-accCombat"/>
     </effect>
   </for>
@@ -1119,7 +1119,7 @@
     <using kind="Dual Sword"/>
   </cond>
   <for>
-    <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="SpeedUpS">
+    <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="speed_up_special">
       <add order="0x40" stat="runSpd" val="#spd"/>
     </effect>
   </for>

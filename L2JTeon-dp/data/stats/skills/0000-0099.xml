@@ -106,7 +106,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="#spd" stackType="SpeedUpS">
+    <effect count="1" name="Buff" time="15" val="0" stackOrder="#spd" stackType="speed_up_special">
       <add order="0x40" stat="runSpd" val="#spd"/>
     </effect>
   </for>
@@ -1672,7 +1672,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pAtk">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#rate"/>
     </effect>
   </for>
@@ -1694,7 +1694,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
   <for>
-    <effect count="1" name="Buff" time="60" val="0" stackOrder="#uprate" stackType="pAtks">
+    <effect count="1" name="Buff" time="60" val="0" stackOrder="#uprate" stackType="pa_up_special">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
   </for>
@@ -1937,7 +1937,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pDef">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pd_up">
       <mul order="0x30" stat="pDef" val="#rate"/>
     </effect>
   </for>
@@ -1997,7 +1997,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
   <for>
-    <effect count="1" name="Buff" time="90" val="0" stackOrder="#uprate" stackType="pAtks">
+    <effect count="1" name="Buff" time="90" val="0" stackOrder="#uprate" stackType="pa_up_special">
       <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       <sub order="0x40" stat="rEvas" val="#Tab-rEvas"/>
       <add order="0x40" stat="accCombat" val="#Tab-accCombat">
@@ -2058,7 +2058,7 @@
   <using kind="Fist, Dual Fist"/>
   </cond>
   <for>
-    <effect name="Buff" time="30" count="1" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+    <effect name="Debuff" time="30" count="1" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
     </effect>
   </for>
@@ -2123,7 +2123,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
-    <effect name="Buff" time="60" count="1" val="0" stackOrder="0.77" stackType="pAtkDown">
+    <effect name="Debuff" time="60" count="1" val="0" stackOrder="0.77" stackType="pAtkDown">
       <mul order="0x30" stat="pAtk" val="0.77"/>
     </effect>
   </for>
