@@ -2567,14 +2567,22 @@ public abstract class L2Character extends L2Object
 					return;
 			}
 			L2Effect tempEffect = null;
-			// Make sure there's no same effect previously
+            // Check for same effects 
 			for (int i = 0; i < _effects.size(); i++)
 			{
-				if ((_effects.get(i).getSkill().getId() == newEffect.getSkill().getId()) && (_effects.get(i).getEffectType() == newEffect.getEffectType()))
+				if ((_effects.get(i).getSkill().getId() == newEffect.getSkill().getId()) && (_effects.get(i).getEffectType() == newEffect.getEffectType() && _effects.get(i).getStackOrder() == newEffect.getStackOrder()))
 				{
-					// Started scheduled timer needs to be canceled. There could be a nicer fix...
-					newEffect.stopEffectTask();
-					return;
+                    if (newEffect.getSkill().getSkillType() == L2Skill.SkillType.BUFF || newEffect.getEffectType() == L2Effect.EffectType.BUFF) 
+                    {
+                        // renew buffs, exit old 
+                        _effects.get(i).exit(); 
+                    }
+                    else
+                    {
+						// Started scheduled timer needs to be canceled. There could be a nicer fix...
+						newEffect.stopEffectTask();
+						return;
+                    }
 				}
 			}
 			// Remove first Buff if number of buffs > 19
