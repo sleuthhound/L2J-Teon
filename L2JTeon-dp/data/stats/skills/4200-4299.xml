@@ -73,7 +73,7 @@
   <set name="castRange" val="750"/>
   <set name="effectRange" val="1250"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="30" val="0" stackOrder="#Tab-runSpd" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="#Tab-runSpd"/>
     </effect>
   </for>
@@ -235,7 +235,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="pAtk">
+    <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="1.5"/>
     </effect>
   </for>
@@ -257,7 +257,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="pDef">
+    <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="pd_up">
       <mul order="0x30" stat="pDef" val="1.5"/>
     </effect>
   </for>
@@ -279,7 +279,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="pAtkSpeedUp">
+    <effect count="1" name="Buff" time="60" val="0" stackOrder="99" stackType="attack_time_down">
       <mul order="0x30" stat="pAtkSpd" val="1.5"/>
     </effect>
   </for>
@@ -625,7 +625,7 @@
   <set name="effectType" val="DEBUFF"/>
   <set name="effectPower" val="90"/>
   <for>
-    <effect name="Buff" time="120" count="1" val="0">
+    <effect name="Debuff" time="120" count="1" val="0">
       <mul order="0x30" stat="regHp" val="0.5"/>
     </effect>
   </for>
@@ -645,7 +645,7 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
@@ -710,6 +710,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+    <effect count="1" name="Buff" time="10" val="0" stackOrder="1" stackType="hp_regen_up"/> 
   </for>
 </skill>
 <skill id="4243" levels="1" name="Venomous Poison">
@@ -819,7 +820,7 @@
   <set name="castRange" val="1000"/>
   <set name="effectRange" val="1500"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.7" stackType="RunSpeedDown">
+    <effect count="1" name="Debuff" time="120" val="0" stackOrder="0.7" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.7"/>
     </effect>
   </for>

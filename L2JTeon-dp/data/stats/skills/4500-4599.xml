@@ -594,70 +594,99 @@
   <set name="target" val="TARGET_SELF"/>
 </skill>
 <skill id="4551" levels="10" name="Hot Springs Rheumatism">
-  <table name="#Tab-accCombat"> 0 3 3 3 5 5 5 8 8 10 </table>
-  <table name="#Tab-rEvas"> 3 6 8 10 6 0 0 0 0 0 </table>
-  <set name="mpConsume" val="69"/>
-  <set name="power" val="200"/>
+  <table name="#pDef"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85 </table>
+  <table name="#rCrit"> 3 5 8 10 5 0 0 0 0 0 </table>
+  <set name="mpInitialConsume" val="14"/>
+  <set name="mpConsume" val="55"/>
+  <set name="power" val="0.0"/>
+  <set name="magicLvl" val="75"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="reuseDelay" val="0"/>
+  <set name="hitTime" val="0"/>
+  <set name="coolTime" val="0"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
+  <set name="effectRange" val="1100"/>
+  <set name="aggroPoints" val="-100"/>
   <for>
-    <effect count="900" name="DamOverTime" time="4" val="0" abnormal="poison">
-      <add order="0x30" stat="rCrit" val="#Tab-accCombat"/>
-      <sub order="0x30" stat="pDef" val="#Tab-rEvas"/>
-    </effect>
+   <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison"> <!-- needs core support for abnormal = spa_disease_a -->
+     <mul order="0x30" stat="pDef" val="#pDef"/>
+     <add order="0x40" stat="rCrit" val="#rCrit"/>
+   </effect>
   </for>
 </skill>
 <skill id="4552" levels="10" name="Hot Springs Cholera">
-  <table name="#Tab-rEvas"> 0 3 3 3 5 5 5 8 8 10 </table>
-  <table name="#Tab-accCombat"> 3 6 8 10 6 0 0 0 0 0 </table>
-  <set name="mpConsume" val="69"/>
-  <set name="power" val="200"/>
+  <table name="#rEvas"> 0 3 3 3 5 5 5 8 8 10 </table>
+  <table name="#accCombat"> 3 6 8 10 6 0 0 0 0 0 </table>
+  <set name="mpInitialConsume" val="14"/>
+  <set name="mpConsume" val="55"/>
+  <set name="power" val="0.0"/>
+  <set name="magicLvl" val="75"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="reuseDelay" val="0"/>
+  <set name="hitTime" val="0"/>
+  <set name="coolTime" val="0"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
+  <set name="effectRange" val="1100"/>
+  <set name="aggroPoints" val="-100"/>
   <for>
-    <effect count="900" name="DamOverTime" time="4" val="0" abnormal="poison">
-      <add order="0x40" stat="accCombat" val="#Tab-accCombat"/>
-      <sub order="0x40" stat="rEvas" val="#Tab-rEvas"/>
-    </effect>
+   <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison"> <!-- needs core support for abnormal = spa_disease_b -->
+     <sub order="0x40" stat="rEvas" val="#rEvas"/>
+     <add order="0x40" stat="accCombat" val="#accCombat"/>
+   </effect>
   </for>
 </skill>
 <skill id="4553" levels="10" name="Hot Springs Flu">
-<!-- TODO 
-Infected with Hot Springs Flu. Temporarily, Atk. Spd. 
-is increased and P. Atk. is decreased. Effect 1-10-->
-  <set name="mpConsume" val="69"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <table name="#pAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
+  <table name="#pAtk"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85 </table>
+  <set name="mpInitialConsume" val="14"/>
+  <set name="mpConsume" val="55"/>
+  <set name="power" val="0.0"/>
+  <set name="magicLvl" val="75"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="0"/>
+  <set name="hitTime" val="0"/>
+  <set name="coolTime" val="0"/>
+  <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <set name="aggroPoints" val="-100"/>
   <for>
+   <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison"> <!-- needs core support for abnormal = spa_disease_c -->
+     <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
+     <mul order="0x30" stat="pAtk" val="#pAtk"/>
+   </effect>
   </for>
 </skill>
 <skill id="4554" levels="10" name="Hot Springs Malaria">
-  <table name="#Tab-mAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
+  <table name="#mAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
   <table name="#MpConsumeRate"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.84 </table>
+  <set name="mpInitialConsume" val="14"/>
   <set name="mpConsume" val="55"/>
-  <set name="power" val="200"/>
+  <set name="power" val="0.0"/>
+  <set name="magicLvl" val="75"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="reuseDelay" val="0"/>
+  <set name="hitTime" val="0"/>
+  <set name="coolTime" val="0"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
+  <set name="effectRange" val="1100"/>
+  <set name="aggroPoints" val="-100"/>
   <for>
-    <effect count="900" name="DamOverTime" time="4" val="0" abnormal="poison">
-      <mul order="0x40" stat="mAtkSpd" val="#Tab-mAtkSpd"/>
-	  <mul order="0x40" stat="MpConsumeRate" val="#MpConsumeRate"/>
-    </effect>
+   <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison"> <!-- needs core support for abnormal = spa_disease_d -->
+     <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
+     <mul order="0x30" stat="MpConsumeRate" val="#MpConsumeRate"/>
+   </effect>
   </for>
 </skill>
 <skill id="4556" levels="1" name="Dispel Hot Spring Disease A_D">
@@ -705,15 +734,20 @@ is increased and P. Atk. is decreased. Effect 1-10-->
   </for>
 </skill>
 <skill id="4559" levels="1" name="Hot Springs Illusion">
-  <!-- Done by DJ MELERIX -->
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
-  <set name="magicLvl" val="1"/>
+  <set name="mpConsume" val="0"/>
+  <set name="power" val="0.0"/>
+  <set name="magicLvl" val="75"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="0"/>
+  <set name="hitTime" val="0"/>
+  <set name="coolTime" val="0"/>
+  <set name="skillType" val="DEBUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="target" val="TARGET_SELF"/>
+  <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <set name="aggroPoints" val="0"/>
   <for>
-    <effect count="900" name="BigHead" time="4800" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
+    <effect count="1" name="Debuff" time="600" val="0" abnormal="bighead"/>
   </for>
 </skill>
 <skill id="4560" levels="12" name="NPC Fire Burn">
@@ -1075,6 +1109,7 @@ target cannot move temporarily. Effect 3. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <for>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/> 
   </for>
 </skill>
 <skill id="4585" levels="3" name="NPC Clan Buff - Berserk Might">
