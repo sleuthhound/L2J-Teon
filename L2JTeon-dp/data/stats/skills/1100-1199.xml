@@ -1351,12 +1351,12 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="md_up_attr">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="AquaAtr">
       <mul order="0x30" stat="waterVuln" val="#vuln"/>
     </effect>
   </for>
   <enchant1for>
-    <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="3" stackType="md_up_attr">
+    <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="3" stackType="AquaAtr">
       <mul order="0x30" stat="waterVuln" val="0.7"/>
     </effect>
   </enchant1for>
@@ -1452,12 +1452,12 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="md_up_attr">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="WindAtr">
       <mul order="0x30" stat="windVuln" val="#vuln"/>
     </effect>
   </for>
   <enchant1for>
-    <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="3" stackType="md_up_attr">
+    <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="3" stackType="WindAtr">
       <mul order="0x30" stat="windVuln" val="0.7"/>
     </effect>
   </enchant1for>
@@ -1498,12 +1498,12 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="md_up_attr">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#stackOrder" stackType="FireAtr">
       <mul order="0x30" stat="fireVuln" val="#vuln"/>
     </effect>
   </for>
   <enchant1for>
-    <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="3" stackType="md_up_attr">
+    <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="3" stackType="FireAtr">
       <mul order="0x30" stat="fireVuln" val="0.7"/>
     </effect>
   </enchant1for>
