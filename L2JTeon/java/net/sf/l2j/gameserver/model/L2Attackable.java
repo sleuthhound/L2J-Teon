@@ -813,8 +813,8 @@ public class L2Attackable extends L2NpcInstance
 							{
 								reward2 = rewards.get(summon);
 								if (reward2 != null) // Pets are only added
-								// if they have done
-								// damage
+									// if they have done
+									// damage
 								{
 									if (Util.checkIfInRange(Config.ALT_PARTY_RANGE, this, summon, true))
 									{
@@ -967,7 +967,7 @@ public class L2Attackable extends L2NpcInstance
 		{
 			L2Character mostHated = getMostHated();
 			if (mostHated == null) // makes target passive for a moment
-			// more
+				// more
 			{
 				((L2AttackableAI) getAI()).setGlobalAggro(-25);
 				return;
@@ -1643,7 +1643,7 @@ public class L2Attackable extends L2NpcInstance
 						DropItem(player, item); // drop the item on the ground
 					}
 
-						// Broadcast message if RaidBoss was defeated
+					// Broadcast message if RaidBoss was defeated
 					if (this instanceof L2RaidBossInstance || this instanceof L2GrandBossInstance)
 					{
 						SystemMessage sm;
@@ -1683,14 +1683,14 @@ public class L2Attackable extends L2NpcInstance
 		// Instant Item Drop :>
 		double rateHp = getStat().calcStat(Stats.MAX_HP, 1, this, null);
 		if ((rateHp <= 1) && String.valueOf(npcTemplate.type).contentEquals("L2Monster")) // only
-		// L2Monster
-		// with
-		// <=
-		// 1x
-		// HP
-		// can
-		// drop
-		// herbs
+			// L2Monster
+			// with
+			// <=
+			// 1x
+			// HP
+			// can
+			// drop
+			// herbs
 		{
 			boolean _hp = false;
 			boolean _mp = false;
@@ -2686,30 +2686,30 @@ public class L2Attackable extends L2NpcInstance
 			{
 				switch (skillId)
 				{
-					case 4303: // Strong type x2
-						count *= 2;
-						break;
-					case 4304: // Strong type x3
-						count *= 3;
-						break;
-					case 4305: // Strong type x4
-						count *= 4;
-						break;
-					case 4306: // Strong type x5
-						count *= 5;
-						break;
-					case 4307: // Strong type x6
-						count *= 6;
-						break;
-					case 4308: // Strong type x7
-						count *= 7;
-						break;
-					case 4309: // Strong type x8
-						count *= 8;
-						break;
-					case 4310: // Strong type x9
-						count *= 9;
-						break;
+				case 4303: // Strong type x2
+					count *= 2;
+					break;
+				case 4304: // Strong type x3
+					count *= 3;
+					break;
+				case 4305: // Strong type x4
+					count *= 4;
+					break;
+				case 4306: // Strong type x5
+					count *= 5;
+					break;
+				case 4307: // Strong type x6
+					count *= 6;
+					break;
+				case 4308: // Strong type x7
+					count *= 7;
+					break;
+				case 4309: // Strong type x8
+					count *= 8;
+					break;
+				case 4310: // Strong type x9
+					count *= 9;
+					break;
 				}
 			}
 		}

@@ -795,8 +795,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				for (L2Skill sk : skills)
 				{
 					if (/*
-						 * sk.getCastRange() >= dist && sk.getCastRange() <= 70 &&
-						 */!sk.isPassive() && (_actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)) && !_actor.isSkillDisabled(sk.getId()) && ((Rnd.nextInt(100) <= 8) || ((_actor instanceof L2PenaltyMonsterInstance) && (Rnd.nextInt(100) <= 20))))
+					 * sk.getCastRange() >= dist && sk.getCastRange() <= 70 &&
+					 */!sk.isPassive() && (_actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)) && !_actor.isSkillDisabled(sk.getId()) && ((Rnd.nextInt(100) <= 8) || ((_actor instanceof L2PenaltyMonsterInstance) && (Rnd.nextInt(100) <= 20))))
 					{
 						L2Object OldTarget = _actor.getTarget();
 						if ((sk.getSkillType() == L2Skill.SkillType.BUFF) || (sk.getSkillType() == L2Skill.SkillType.HEAL))

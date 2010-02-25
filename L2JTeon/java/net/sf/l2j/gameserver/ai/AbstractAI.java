@@ -268,36 +268,36 @@ abstract class AbstractAI implements Ctrl
 		// Launch the onIntention method of the L2CharacterAI corresponding to the new Intention
 		switch (intention)
 		{
-			case AI_INTENTION_IDLE:
-				onIntentionIdle();
-				break;
-			case AI_INTENTION_ACTIVE:
-				onIntentionActive();
-				break;
-			case AI_INTENTION_REST:
-				onIntentionRest();
-				break;
-			case AI_INTENTION_ATTACK:
-				onIntentionAttack((L2Character) arg0);
-				break;
-			case AI_INTENTION_CAST:
-				onIntentionCast((L2Skill) arg0, (L2Object) arg1);
-				break;
-			case AI_INTENTION_MOVE_TO:
-				onIntentionMoveTo((L2CharPosition) arg0);
-				break;
-			case AI_INTENTION_MOVE_TO_IN_A_BOAT:
-				onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
-				break;
-			case AI_INTENTION_FOLLOW:
-				onIntentionFollow((L2Character) arg0);
-				break;
-			case AI_INTENTION_PICK_UP:
-				onIntentionPickUp((L2Object) arg0);
-				break;
-			case AI_INTENTION_INTERACT:
-				onIntentionInteract((L2Object) arg0);
-				break;
+		case AI_INTENTION_IDLE:
+			onIntentionIdle();
+			break;
+		case AI_INTENTION_ACTIVE:
+			onIntentionActive();
+			break;
+		case AI_INTENTION_REST:
+			onIntentionRest();
+			break;
+		case AI_INTENTION_ATTACK:
+			onIntentionAttack((L2Character) arg0);
+			break;
+		case AI_INTENTION_CAST:
+			onIntentionCast((L2Skill) arg0, (L2Object) arg1);
+			break;
+		case AI_INTENTION_MOVE_TO:
+			onIntentionMoveTo((L2CharPosition) arg0);
+			break;
+		case AI_INTENTION_MOVE_TO_IN_A_BOAT:
+			onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
+			break;
+		case AI_INTENTION_FOLLOW:
+			onIntentionFollow((L2Character) arg0);
+			break;
+		case AI_INTENTION_PICK_UP:
+			onIntentionPickUp((L2Object) arg0);
+			break;
+		case AI_INTENTION_INTERACT:
+			onIntentionInteract((L2Object) arg0);
+			break;
 		}
 	}
 
@@ -353,60 +353,60 @@ abstract class AbstractAI implements Ctrl
 		 */
 		switch (evt)
 		{
-			case EVT_THINK:
-				onEvtThink();
-				break;
-			case EVT_ATTACKED:
-				onEvtAttacked((L2Character) arg0);
-				break;
-			case EVT_AGGRESSION:
-				onEvtAggression((L2Character) arg0, ((Number) arg1).intValue());
-				break;
-			case EVT_STUNNED:
-				onEvtStunned((L2Character) arg0);
-				break;
-			case EVT_SLEEPING:
-				onEvtSleeping((L2Character) arg0);
-				break;
-			case EVT_ROOTED:
-				onEvtRooted((L2Character) arg0);
-				break;
-			case EVT_CONFUSED:
-				onEvtConfused((L2Character) arg0);
-				break;
-			case EVT_MUTED:
-				onEvtMuted((L2Character) arg0);
-				break;
-			case EVT_READY_TO_ACT:
-				onEvtReadyToAct();
-				break;
-			case EVT_USER_CMD:
-				onEvtUserCmd(arg0, arg1);
-				break;
-			case EVT_ARRIVED:
-				onEvtArrived();
-				break;
-			case EVT_ARRIVED_REVALIDATE:
-				onEvtArrivedRevalidate();
-				break;
-			case EVT_ARRIVED_BLOCKED:
-				onEvtArrivedBlocked((L2CharPosition) arg0);
-				break;
-			case EVT_FORGET_OBJECT:
-				onEvtForgetObject((L2Object) arg0);
-				break;
-			case EVT_CANCEL:
-				onEvtCancel();
-				break;
-			case EVT_DEAD:
-				onEvtDead();
-				break;
-			case EVT_FAKE_DEATH:
-				onEvtFakeDeath();
-				break;
-			case EVT_FINISH_CASTING:
-				onEvtFinishCasting();
-				break;
+		case EVT_THINK:
+			onEvtThink();
+			break;
+		case EVT_ATTACKED:
+			onEvtAttacked((L2Character) arg0);
+			break;
+		case EVT_AGGRESSION:
+			onEvtAggression((L2Character) arg0, ((Number) arg1).intValue());
+			break;
+		case EVT_STUNNED:
+			onEvtStunned((L2Character) arg0);
+			break;
+		case EVT_SLEEPING:
+			onEvtSleeping((L2Character) arg0);
+			break;
+		case EVT_ROOTED:
+			onEvtRooted((L2Character) arg0);
+			break;
+		case EVT_CONFUSED:
+			onEvtConfused((L2Character) arg0);
+			break;
+		case EVT_MUTED:
+			onEvtMuted((L2Character) arg0);
+			break;
+		case EVT_READY_TO_ACT:
+			onEvtReadyToAct();
+			break;
+		case EVT_USER_CMD:
+			onEvtUserCmd(arg0, arg1);
+			break;
+		case EVT_ARRIVED:
+			onEvtArrived();
+			break;
+		case EVT_ARRIVED_REVALIDATE:
+			onEvtArrivedRevalidate();
+			break;
+		case EVT_ARRIVED_BLOCKED:
+			onEvtArrivedBlocked((L2CharPosition) arg0);
+			break;
+		case EVT_FORGET_OBJECT:
+			onEvtForgetObject((L2Object) arg0);
+			break;
+		case EVT_CANCEL:
+			onEvtCancel();
+			break;
+		case EVT_DEAD:
+			onEvtDead();
+			break;
+		case EVT_FAKE_DEATH:
+			onEvtFakeDeath();
+			break;
+		case EVT_FINISH_CASTING:
+			onEvtFinishCasting();
+			break;
 		}
 	}
 

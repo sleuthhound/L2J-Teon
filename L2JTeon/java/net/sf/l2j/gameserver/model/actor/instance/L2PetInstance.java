@@ -113,11 +113,11 @@ public class L2PetInstance extends L2Summon
 						startFeed(true); // switching to battle feed
 					}
 					else
-					// if its on battleFeed mode
-					if (_feedMode)
-					{
-						startFeed(false); // normal feed
-					}
+						// if its on battleFeed mode
+						if (_feedMode)
+						{
+							startFeed(false); // normal feed
+						}
 				}
 				if (getCurrentFed() > FOOD_ITEM_CONSUME_COUNT)
 				{

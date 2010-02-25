@@ -194,19 +194,19 @@ public class L2CommandChannel
 		int npcId = ((L2Attackable) obj).getNpcId();
 		switch (npcId)
 		{
-			case 29001: // Queen Ant
-			case 29006: // Core
-			case 29014: // Orfen
-			case 29022: // Zaken
-				return getMemberCount() > 36;
-			case 29020: // Baium
-				return getMemberCount() > 56;
-			case 29019: // Antharas
-				return getMemberCount() > 225;
-			case 29028: // Valakas
-				return getMemberCount() > 99;
-			default: // normal Raidboss
-				return getMemberCount() > 18;
+		case 29001: // Queen Ant
+		case 29006: // Core
+		case 29014: // Orfen
+		case 29022: // Zaken
+			return getMemberCount() > 36;
+		case 29020: // Baium
+			return getMemberCount() > 56;
+		case 29019: // Antharas
+			return getMemberCount() > 225;
+		case 29028: // Valakas
+			return getMemberCount() > 99;
+		default: // normal Raidboss
+			return getMemberCount() > 18;
 		}
 	}
 }

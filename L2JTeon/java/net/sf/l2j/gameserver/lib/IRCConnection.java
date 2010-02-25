@@ -301,8 +301,8 @@ public class IRCConnection extends Thread
 	 * (like the first PING) come in before this registration is finished.<br />
 	 * The <code>USER</code> command's format is:<br />
 	 * <code>
-     * &lt;username&gt; &lt;localhost&gt; &lt;irchost&gt; &lt;realname&gt;
-     * </code>
+	 * &lt;username&gt; &lt;localhost&gt; &lt;irchost&gt; &lt;realname&gt;
+	 * </code>
 	 */
 	private void register()
 	{
@@ -698,13 +698,13 @@ public class IRCConnection extends Thread
 	{
 		if (socket != null)
 			try
-			{
+		{
 				socket.setSoTimeout(millis);
-			}
-			catch (IOException exc)
-			{
-				exc.printStackTrace();
-			}
+		}
+		catch (IOException exc)
+		{
+			exc.printStackTrace();
+		}
 		timeout = millis;
 	}
 
@@ -845,14 +845,14 @@ public class IRCConnection extends Thread
 	{
 		if (socket != null)
 			try
-			{
+		{
 				return socket.getSoTimeout();
-			}
-			catch (IOException exc)
-			{
-				exc.printStackTrace();
-				return -1;
-			}
+		}
+		catch (IOException exc)
+		{
+			exc.printStackTrace();
+			return -1;
+		}
 		else
 			return timeout;
 	}
@@ -860,8 +860,8 @@ public class IRCConnection extends Thread
 	// ------------------------------
 	/**
 	 * Generates a <code>String</code> with some information about the instance of <code>IRCConnection</code>. Its format is: <code>
-     * classname[host,portMin,portMax,username,nick,realname,pass,connected]
-     * </code>.
+	 * classname[host,portMin,portMax,username,nick,realname,pass,connected]
+	 * </code>.
 	 *
 	 * @return A <code>String</code> with information about the instance.
 	 */

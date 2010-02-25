@@ -219,7 +219,7 @@ public class Duel
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 20000);
 				}
 				else if (count > 0) // duel not started yet - continue
-				// countdown
+					// countdown
 				{
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 1000);
 				}
@@ -669,71 +669,71 @@ public class Duel
 		SystemMessage sm = null;
 		switch (result)
 		{
-			case Team1Win:
-				restorePlayerConditions(false);
-				// send SystemMessage
-				if (_partyDuel)
-					sm = new SystemMessage(SystemMessageId.S1S_PARTY_HAS_WON_THE_DUEL);
-				else
-					sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_DUEL);
-				sm.addString(_playerA.getName());
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
-			case Team2Win:
-				restorePlayerConditions(false);
-				// send SystemMessage
-				if (_partyDuel)
-					sm = new SystemMessage(SystemMessageId.S1S_PARTY_HAS_WON_THE_DUEL);
-				else
-					sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_DUEL);
-				sm.addString(_playerB.getName());
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
-			case Team1Surrender:
-				restorePlayerConditions(false);
-				// send SystemMessage
-				if (_partyDuel)
-					sm = new SystemMessage(SystemMessageId.SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON);
-				else
-					sm = new SystemMessage(SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON);
-				sm.addString(_playerA.getName());
-				sm.addString(_playerB.getName());
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
-			case Team2Surrender:
-				restorePlayerConditions(false);
-				// send SystemMessage
-				if (_partyDuel)
-					sm = new SystemMessage(SystemMessageId.SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON);
-				else
-					sm = new SystemMessage(SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON);
-				sm.addString(_playerB.getName());
-				sm.addString(_playerA.getName());
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
-			case Canceled:
-				stopFighting();
-				// dont restore hp, mp, cp
-				restorePlayerConditions(true);
-				// TODO: is there no other message for a canceled duel?
-				// send SystemMessage
-				sm = new SystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
-			case Timeout:
-				stopFighting();
-				// hp,mp,cp seem to be restored in a timeout too...
-				restorePlayerConditions(false);
-				// send SystemMessage
-				sm = new SystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
-				broadcastToTeam1(sm);
-				broadcastToTeam2(sm);
-				break;
+		case Team1Win:
+			restorePlayerConditions(false);
+			// send SystemMessage
+			if (_partyDuel)
+				sm = new SystemMessage(SystemMessageId.S1S_PARTY_HAS_WON_THE_DUEL);
+			else
+				sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_DUEL);
+			sm.addString(_playerA.getName());
+			broadcastToTeam1(sm);
+			broadcastToTeam2(sm);
+			break;
+		case Team2Win:
+			restorePlayerConditions(false);
+			// send SystemMessage
+			if (_partyDuel)
+				sm = new SystemMessage(SystemMessageId.S1S_PARTY_HAS_WON_THE_DUEL);
+			else
+				sm = new SystemMessage(SystemMessageId.S1_HAS_WON_THE_DUEL);
+			sm.addString(_playerB.getName());
+			broadcastToTeam1(sm);
+			broadcastToTeam2(sm);
+			break;
+		case Team1Surrender:
+			restorePlayerConditions(false);
+			// send SystemMessage
+			if (_partyDuel)
+				sm = new SystemMessage(SystemMessageId.SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON);
+			else
+				sm = new SystemMessage(SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON);
+			sm.addString(_playerA.getName());
+			sm.addString(_playerB.getName());
+			broadcastToTeam1(sm);
+			broadcastToTeam2(sm);
+			break;
+		case Team2Surrender:
+			restorePlayerConditions(false);
+			// send SystemMessage
+			if (_partyDuel)
+				sm = new SystemMessage(SystemMessageId.SINCE_S1S_PARTY_WITHDREW_FROM_THE_DUEL_S1S_PARTY_HAS_WON);
+			else
+				sm = new SystemMessage(SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON);
+			sm.addString(_playerB.getName());
+			sm.addString(_playerA.getName());
+			broadcastToTeam1(sm);
+			broadcastToTeam2(sm);
+			break;
+		case Canceled:
+			stopFighting();
+			// dont restore hp, mp, cp
+			restorePlayerConditions(true);
+			// TODO: is there no other message for a canceled duel?
+			// send SystemMessage
+			sm = new SystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
+			broadcastToTeam1(sm);
+			broadcastToTeam2(sm);
+			break;
+		case Timeout:
+			stopFighting();
+			// hp,mp,cp seem to be restored in a timeout too...
+			restorePlayerConditions(false);
+			// send SystemMessage
+			sm = new SystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
+			broadcastToTeam1(sm);
+			broadcastToTeam2(sm);
+			break;
 		}
 		// Send end duel packet
 		ExDuelEnd duelEnd = null;
@@ -935,7 +935,7 @@ public class Duel
 			_playerB = null;
 		}
 		else
-		// teleport the player back & delete his PlayerCondition record
+			// teleport the player back & delete his PlayerCondition record
 		{
 			for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
 			{

@@ -45,10 +45,10 @@ public class Util
 	{
 		return ipAddress.startsWith("192.168.") || ipAddress.startsWith("10.") ||
 		// ipAddress.startsWith("172.16.") ||
-				// Removed because there are some net IPs in this range.
-				// TODO: Use regexp or something to only include 172.16.0.0 =>
-				// 172.16.31.255
-				ipAddress.startsWith("127.0.0.1");
+		// Removed because there are some net IPs in this range.
+		// TODO: Use regexp or something to only include 172.16.0.0 =>
+		// 172.16.31.255
+		ipAddress.startsWith("127.0.0.1");
 	}
 
 	public static String printData(byte[] data, int len)

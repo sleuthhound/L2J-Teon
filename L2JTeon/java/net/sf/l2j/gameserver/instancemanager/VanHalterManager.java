@@ -1338,333 +1338,333 @@ public class VanHalterManager
 			_vanHalter.setTarget(_RitualOffering);
 			switch (_taskId)
 			{
-				case 1:
-					_Alive = ALIVE;
-					GrandBossManager.getInstance().setBossStatus(_BossId, _Alive);
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
+			case 1:
+				_Alive = ALIVE;
+				GrandBossManager.getInstance().setBossStatus(_BossId, _Alive);
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
 					{
-						if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_vanHalter, 50, 90, 0, 0, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
+						pc.enterMovieMode();
+						pc.specialCamera(_vanHalter, 50, 90, 0, 0, 15000);
 					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(2), 16);
-					break;
-				case 2:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(5)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(5), 1842, 100, -3, 0, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(3), 1);
-					break;
-				case 3:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(5)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(5), 1861, 97, -10, 1500, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(4), 1500);
-					break;
-				case 4:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(4)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(4), 1876, 97, 12, 0, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(5), 1);
-					break;
-				case 5:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(4)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(4), 1839, 94, 0, 1500, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(6), 1500);
-					break;
-				case 6:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(3)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(3), 1872, 94, 15, 0, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(7), 1);
-					break;
-				case 7:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(3)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(3), 1839, 92, 0, 1500, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(8), 1500);
-					break;
-				case 8:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(2)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(2), 1872, 92, 15, 0, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(9), 1);
-					break;
-				case 9:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(2)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(2), 1839, 90, 5, 1500, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(10), 1500);
-					break;
-				case 10:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(1)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(1), 1872, 90, 5, 0, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(11), 1);
-					break;
-				case 11:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_CameraMarker.get(1)) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_CameraMarker.get(1), 2002, 90, 2, 1500, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(12), 2000);
-					break;
-				case 12:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_vanHalter, 50, 90, 10, 0, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(13), 1000);
-					break;
-				case 13:
-					// High Priestess van Halter uses the skill to kill Ritual Offering.
-					L2Skill skill = SkillTable.getInstance().getInfo(1168, 7);
-					_RitualOffering.setIsInvul(false);
-					_vanHalter.setTarget(_RitualOffering);
-					_vanHalter.setIsImmobilized(false);
-					_vanHalter.doCast(skill);
-					_vanHalter.setIsImmobilized(true);
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(14), 4700);
-					break;
-				case 14:
-					_RitualOffering.setIsInvul(false);
-					_RitualOffering.reduceCurrentHp(_RitualOffering.getMaxHp() * 2, _vanHalter);
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(15), 4300);
-					break;
-				case 15:
-					spawnRitualSacrifice();
-					deleteRitualOffering();
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_vanHalter, 100, 90, 15, 1500, 15000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(16), 2000);
-					break;
-				case 16:
-					// set camera.
-					for (L2PcInstance pc : _PlayersInLair)
-					{
-						if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
-						{
-							pc.enterMovieMode();
-							pc.specialCamera(_vanHalter, 5200, 90, -10, 9500, 6000);
-						}
-						else
-						{
-							pc.leaveMovieMode();
-						}
-					}
-					// set next task.
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(17), 6000);
-					break;
-				case 17:
-					// reset camera.
-					for (L2PcInstance pc : _PlayersInLair)
+					else
 					{
 						pc.leaveMovieMode();
 					}
-					deleteRitualSacrifice();
-					deleteCameraMarker();
-					_vanHalter.setIsImmobilized(false);
-					_vanHalter.setIsInvul(false);
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
-					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(18), 1000);
-					break;
-				case 18:
-					combatBeginning();
-					if (_MovieTask != null)
-						_MovieTask.cancel(true);
-					_MovieTask = null;
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(2), 16);
+				break;
+			case 2:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(5)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(5), 1842, 100, -3, 0, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(3), 1);
+				break;
+			case 3:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(5)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(5), 1861, 97, -10, 1500, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(4), 1500);
+				break;
+			case 4:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(4)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(4), 1876, 97, 12, 0, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(5), 1);
+				break;
+			case 5:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(4)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(4), 1839, 94, 0, 1500, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(6), 1500);
+				break;
+			case 6:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(3)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(3), 1872, 94, 15, 0, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(7), 1);
+				break;
+			case 7:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(3)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(3), 1839, 92, 0, 1500, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(8), 1500);
+				break;
+			case 8:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(2)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(2), 1872, 92, 15, 0, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(9), 1);
+				break;
+			case 9:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(2)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(2), 1839, 90, 5, 1500, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(10), 1500);
+				break;
+			case 10:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(1)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(1), 1872, 90, 5, 0, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(11), 1);
+				break;
+			case 11:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_CameraMarker.get(1)) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_CameraMarker.get(1), 2002, 90, 2, 1500, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(12), 2000);
+				break;
+			case 12:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_vanHalter, 50, 90, 10, 0, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(13), 1000);
+				break;
+			case 13:
+				// High Priestess van Halter uses the skill to kill Ritual Offering.
+				L2Skill skill = SkillTable.getInstance().getInfo(1168, 7);
+				_RitualOffering.setIsInvul(false);
+				_vanHalter.setTarget(_RitualOffering);
+				_vanHalter.setIsImmobilized(false);
+				_vanHalter.doCast(skill);
+				_vanHalter.setIsImmobilized(true);
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(14), 4700);
+				break;
+			case 14:
+				_RitualOffering.setIsInvul(false);
+				_RitualOffering.reduceCurrentHp(_RitualOffering.getMaxHp() * 2, _vanHalter);
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(15), 4300);
+				break;
+			case 15:
+				spawnRitualSacrifice();
+				deleteRitualOffering();
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_vanHalter, 100, 90, 15, 1500, 15000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(16), 2000);
+				break;
+			case 16:
+				// set camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					if (pc.getPlanDistanceSq(_vanHalter) <= _distance)
+					{
+						pc.enterMovieMode();
+						pc.specialCamera(_vanHalter, 5200, 90, -10, 9500, 6000);
+					}
+					else
+					{
+						pc.leaveMovieMode();
+					}
+				}
+				// set next task.
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(17), 6000);
+				break;
+			case 17:
+				// reset camera.
+				for (L2PcInstance pc : _PlayersInLair)
+				{
+					pc.leaveMovieMode();
+				}
+				deleteRitualSacrifice();
+				deleteCameraMarker();
+				_vanHalter.setIsImmobilized(false);
+				_vanHalter.setIsInvul(false);
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
+				_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(18), 1000);
+				break;
+			case 18:
+				combatBeginning();
+				if (_MovieTask != null)
+					_MovieTask.cancel(true);
+				_MovieTask = null;
 			}
 		}
 	}

@@ -77,34 +77,34 @@ public class L2ControllableMobAI extends L2AttackableAI
 		{
 			switch (getAlternateAI())
 			{
-				case AI_IDLE:
-					if (getIntention() != CtrlIntention.AI_INTENTION_ACTIVE)
-					{
-						setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-					}
-					break;
-				case AI_FOLLOW:
-					thinkFollow();
-					break;
-				case AI_CAST:
-					thinkCast();
-					break;
-				case AI_FORCEATTACK:
-					thinkForceAttack();
-					break;
-				case AI_ATTACK_GROUP:
-					thinkAttackGroup();
-					break;
-				default:
-					if (getIntention() == AI_INTENTION_ACTIVE)
-					{
-						thinkActive();
-					}
-					else if (getIntention() == AI_INTENTION_ATTACK)
-					{
-						thinkAttack();
-					}
-					break;
+			case AI_IDLE:
+				if (getIntention() != CtrlIntention.AI_INTENTION_ACTIVE)
+				{
+					setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+				}
+				break;
+			case AI_FOLLOW:
+				thinkFollow();
+				break;
+			case AI_CAST:
+				thinkCast();
+				break;
+			case AI_FORCEATTACK:
+				thinkForceAttack();
+				break;
+			case AI_ATTACK_GROUP:
+				thinkAttackGroup();
+				break;
+			default:
+				if (getIntention() == AI_INTENTION_ACTIVE)
+				{
+					thinkActive();
+				}
+				else if (getIntention() == AI_INTENTION_ATTACK)
+				{
+					thinkAttack();
+				}
+			break;
 			}
 		}
 		finally

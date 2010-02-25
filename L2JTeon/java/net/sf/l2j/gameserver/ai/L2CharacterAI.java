@@ -421,7 +421,7 @@ public class L2CharacterAI extends AbstractAI
 		// Set the AI pick up target
 		setTarget(object);
 		if ((object.getX() == 0) && (object.getY() == 0)) // TODO: Find the
-		// drop&spawn bug
+			// drop&spawn bug
 		{
 			_log.warning("Object in coords 0,0 - using a temporary fix");
 			object.setXYZ(getActor().getX(), getActor().getY(), getActor().getZ() + 5);

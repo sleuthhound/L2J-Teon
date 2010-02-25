@@ -142,8 +142,8 @@ public class Fishing implements ISkillHandler
 			player.sendPacket(new ItemList(player, false));
 		}
 		else
-		// Has enough bait, consume 1 and update inventory. Start
-		// fishing follows.
+			// Has enough bait, consume 1 and update inventory. Start
+			// fishing follows.
 		{
 			lure2 = player.getInventory().destroyItem("Consume", player.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND), 1, player, null);
 			InventoryUpdate iu = new InventoryUpdate();

@@ -493,47 +493,47 @@ public class TvT
 			{
 				switch (seconds)
 				{
-					case 3600: // 1 hour left
-						if (_joining)
-						{
-							Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till registration close!");
-						}
-						else if (_started)
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till event finish!");
-						break;
-					case 1800: // 30 minutes left
-					case 900: // 15 minutes left
-					case 600: // 10 minutes left
-					case 300: // 5 minutes left
-					case 240: // 4 minutes left
-					case 180: // 3 minutes left
-					case 120: // 2 minutes left
-					case 60: // 1 minute left
-						if (_joining)
-						{
-							removeOfflinePlayers();
-							Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till registration close!");
-						}
-						else if (_started)
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till event finish!");
-						break;
-					case 30: // 30 seconds left
-					case 15: // 15 seconds left
-					case 10: // 10 seconds left
-					case 5: // 5 seconds left
-					case 4: // 4 seconds left
-					case 3: // 3 seconds left
-					case 2: // 2 seconds left
-					case 1: // 1 seconds left
-						if (_joining)
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds + " second(s) till registration close!");
-						else if (_teleport)
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds + " seconds(s) till start fight!");
-						else if (_started)
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds + " second(s) till event finish!");
-						break;
+				case 3600: // 1 hour left
+					if (_joining)
+					{
+						Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
+						Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till registration close!");
+					}
+					else if (_started)
+						Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till event finish!");
+					break;
+				case 1800: // 30 minutes left
+				case 900: // 15 minutes left
+				case 600: // 10 minutes left
+				case 300: // 5 minutes left
+				case 240: // 4 minutes left
+				case 180: // 3 minutes left
+				case 120: // 2 minutes left
+				case 60: // 1 minute left
+					if (_joining)
+					{
+						removeOfflinePlayers();
+						Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
+						Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till registration close!");
+					}
+					else if (_started)
+						Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till event finish!");
+					break;
+				case 30: // 30 seconds left
+				case 15: // 15 seconds left
+				case 10: // 10 seconds left
+				case 5: // 5 seconds left
+				case 4: // 4 seconds left
+				case 3: // 3 seconds left
+				case 2: // 2 seconds left
+				case 1: // 1 seconds left
+					if (_joining)
+						Announcements.getInstance().announceToAll("TvT Event: " + seconds + " second(s) till registration close!");
+					else if (_teleport)
+						Announcements.getInstance().announceToAll("TvT Event: " + seconds + " seconds(s) till start fight!");
+					else if (_started)
+						Announcements.getInstance().announceToAll("TvT Event: " + seconds + " second(s) till event finish!");
+					break;
 				}
 			}
 			long startOneSecondWaiterStartTime = System.currentTimeMillis();

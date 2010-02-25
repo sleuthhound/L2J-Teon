@@ -41,8 +41,8 @@ public class ConditionGameTime extends Condition
 	{
 		switch (_check)
 		{
-			case NIGHT:
-				return GameTimeController.getInstance().isNowNight() == _required;
+		case NIGHT:
+			return GameTimeController.getInstance().isNowNight() == _required;
 		}
 		return !_required;
 	}

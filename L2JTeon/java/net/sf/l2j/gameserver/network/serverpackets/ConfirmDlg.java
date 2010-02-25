@@ -115,36 +115,36 @@ public class ConfirmDlg extends L2GameServerPacket
 				writeD(t);
 				switch (t)
 				{
-					case TYPE_TEXT:
-					{
-						writeS((String) _values.get(i));
-						break;
-					}
-					case TYPE_NUMBER:
-					case TYPE_NPC_NAME:
-					case TYPE_ITEM_NAME:
-					{
-						int t1 = ((Integer) _values.get(i)).intValue();
-						writeD(t1);
-						break;
-					}
-					case TYPE_SKILL_NAME:
-					{
-						int t1 = ((Integer) _values.get(i)).intValue();
-						writeD(t1); // Skill Id
-						writeD(_skillLvL); // Skill lvl
-						break;
-					}
-					case TYPE_ZONE_NAME:
-					{
-						int t1 = ((int[]) _values.get(i))[0];
-						int t2 = ((int[]) _values.get(i))[1];
-						int t3 = ((int[]) _values.get(i))[2];
-						writeD(t1);
-						writeD(t2);
-						writeD(t3);
-						break;
-					}
+				case TYPE_TEXT:
+				{
+					writeS((String) _values.get(i));
+					break;
+				}
+				case TYPE_NUMBER:
+				case TYPE_NPC_NAME:
+				case TYPE_ITEM_NAME:
+				{
+					int t1 = ((Integer) _values.get(i)).intValue();
+					writeD(t1);
+					break;
+				}
+				case TYPE_SKILL_NAME:
+				{
+					int t1 = ((Integer) _values.get(i)).intValue();
+					writeD(t1); // Skill Id
+					writeD(_skillLvL); // Skill lvl
+					break;
+				}
+				case TYPE_ZONE_NAME:
+				{
+					int t1 = ((int[]) _values.get(i))[0];
+					int t2 = ((int[]) _values.get(i))[1];
+					int t3 = ((int[]) _values.get(i))[2];
+					writeD(t1);
+					writeD(t2);
+					writeD(t3);
+					break;
+				}
 				}
 			}
 			// timed dialog (Summon Friend skill request)

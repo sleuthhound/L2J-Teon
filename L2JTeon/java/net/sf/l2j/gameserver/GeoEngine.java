@@ -683,8 +683,8 @@ public class GeoEngine extends GeoData
 	private static short getRegionOffset(int x, int y)
 	{
 		int rx = x >> 11; // =/(256 * 8)
-		int ry = y >> 11;
-		return (short) (((rx + 16) << 5) + (ry + 10));
+							int ry = y >> 11;
+				return (short) (((rx + 16) << 5) + (ry + 10));
 	}
 
 	/**
@@ -776,7 +776,7 @@ public class GeoEngine extends GeoData
 			return height;
 		}
 		else
-		// multilevel
+			// multilevel
 		{
 			cellX = getCell(geox);
 			cellY = getCell(geoy);
@@ -854,7 +854,7 @@ public class GeoEngine extends GeoData
 			temph = height;
 		}
 		else
-		// multilevel
+			// multilevel
 		{
 			cellX = getCell(geox);
 			cellY = getCell(geoy);
@@ -951,7 +951,7 @@ public class GeoEngine extends GeoData
 				return Double.MIN_VALUE;
 		}
 		else
-		// multilevel, type == 2
+			// multilevel, type == 2
 		{
 			cellX = getCell(x);
 			cellY = getCell(y);
@@ -1054,7 +1054,7 @@ public class GeoEngine extends GeoData
 				return true; // this value is just an approximate
 		}
 		else
-		// multilevel, type == 2
+			// multilevel, type == 2
 		{
 			cellX = getCell(x);
 			cellY = getCell(y);
@@ -1184,7 +1184,7 @@ public class GeoEngine extends GeoData
 			NSWE = (short) (height & 0x0F);
 		}
 		else
-		// multilevel
+			// multilevel
 		{
 			cellX = getCell(x);
 			cellY = getCell(y);

@@ -30,7 +30,7 @@ public class ChestKey implements IItemHandler
 {
 	public static final int INTERACTION_DISTANCE = 100;
 	private static final int[] ITEM_IDS = { 6665, 6666, 6667, 6668, 6669, 6670, 6671, 6672
-	// deluxe key
+		// deluxe key
 	};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)

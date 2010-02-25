@@ -79,36 +79,36 @@ public final class RequestDropItem extends L2GameClientPacket
 		// check drop item OverEnchanted
 		switch (item.getItem().getType2())
 		{
-			case L2Item.TYPE2_WEAPON:
+		case L2Item.TYPE2_WEAPON:
+		{
+			if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON && !activeChar.isGM())
 			{
-				if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_WEAPON && !activeChar.isGM())
-				{
-					activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
-					activeChar.closeNetConnection(); // kick
-					return;
-				}
-				break;
+				activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
+				activeChar.closeNetConnection(); // kick
+				return;
 			}
-			case L2Item.TYPE2_SHIELD_ARMOR:
+			break;
+		}
+		case L2Item.TYPE2_SHIELD_ARMOR:
+		{
+			if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR && !activeChar.isGM())
 			{
-				if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_ARMOR && !activeChar.isGM())
-				{
-					activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
-					activeChar.closeNetConnection(); // kick
-					return;
-				}
-				break;
+				activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
+				activeChar.closeNetConnection(); // kick
+				return;
 			}
-			case L2Item.TYPE2_ACCESSORY:
+			break;
+		}
+		case L2Item.TYPE2_ACCESSORY:
+		{
+			if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY && !activeChar.isGM())
 			{
-				if (item.getEnchantLevel() > Config.ENCHANT_MAX_ALLOWED_JEWELRY && !activeChar.isGM())
-				{
-					activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
-					activeChar.closeNetConnection(); // kick
-					return;
-				}
-				break;
+				activeChar.sendMessage("You have been kicked for using an item wich is over enchanted!"); // message
+				activeChar.closeNetConnection(); // kick
+				return;
 			}
+			break;
+		}
 		}
 		if (item.getItemType() == L2EtcItemType.QUEST)
 		{

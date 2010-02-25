@@ -150,7 +150,7 @@ public class L2Multisell
 			} // end for each inventory item.
 		} // end if "inventory-only"
 		else
-		// this is a list-all type
+			// this is a list-all type
 		{
 			// if no taxes are applied, no modifications are needed
 			for (MultiSellEntry ent : listTemplate.getEntries())

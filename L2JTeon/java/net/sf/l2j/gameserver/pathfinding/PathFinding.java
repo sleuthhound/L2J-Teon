@@ -62,7 +62,7 @@ public abstract class PathFinding
 		to_visit.add(start);
 		int i = 0;
 		while (i < 800)// TODO! Add limit to cfg. Worst case max distance is
-		// 1810..
+			// 1810..
 		{
 			Node node;
 			try

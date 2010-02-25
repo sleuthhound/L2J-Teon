@@ -336,31 +336,31 @@ public class AdminAdmin implements IAdminCommandHandler
 		}
 		switch (mode)
 		{
-			case 1:
+		case 1:
+			filename = "main";
+			break;
+		case 2:
+			filename = "game";
+			break;
+		case 3:
+			filename = "effects";
+			break;
+		case 4:
+			filename = "server";
+			break;
+		case 5:
+			filename = "mods";
+			break;
+		default:
+			if (Config.GM_ADMIN_MENU_STYLE.equals("modern"))
+			{
 				filename = "main";
-				break;
-			case 2:
-				filename = "game";
-				break;
-			case 3:
-				filename = "effects";
-				break;
-			case 4:
-				filename = "server";
-				break;
-			case 5:
-				filename = "mods";
-				break;
-			default:
-				if (Config.GM_ADMIN_MENU_STYLE.equals("modern"))
-				{
-					filename = "main";
-				}
-				else
-				{
-					filename = "classic";
-				}
-				break;
+			}
+			else
+			{
+				filename = "classic";
+			}
+		break;
 		}
 		AdminHelpPage.showHelpPage(activeChar, filename + "_menu.htm");
 	}

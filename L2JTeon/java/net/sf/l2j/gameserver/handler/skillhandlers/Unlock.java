@@ -90,74 +90,74 @@ public class Unlock implements ISkillHandler
 						chestGroup = 1;
 					switch (chestGroup)
 					{
-						case 1:
-						{
-							if (skill.getLevel() > 10)
-								chestChance = 80; // 100% of success -
-							// it's boring
-							else if (skill.getLevel() >= 3)
-								chestChance = 50;
-							else if (skill.getLevel() == 2)
-								chestChance = 45;
-							else if (skill.getLevel() == 1)
-								chestChance = 40;
-							chestTrapLimit = 10;
-						}
-							break;
-						case 2:
-						{
-							if (skill.getLevel() > 12)
-								chestChance = 80; // 100% of success -
-							// it's boring
-							else if (skill.getLevel() >= 7)
-								chestChance = 50;
-							else if (skill.getLevel() == 6)
-								chestChance = 45;
-							else if (skill.getLevel() == 5)
-								chestChance = 40;
-							else if (skill.getLevel() == 4)
-								chestChance = 35;
-							else if (skill.getLevel() == 3)
-								chestChance = 30;
-							chestTrapLimit = 30;
-						}
-							break;
-						case 3:
-						{
-							if (skill.getLevel() >= 14)
-								chestChance = 50;
-							else if (skill.getLevel() == 13)
-								chestChance = 45;
-							else if (skill.getLevel() == 12)
-								chestChance = 40;
-							else if (skill.getLevel() == 11)
-								chestChance = 35;
-							else if (skill.getLevel() == 10)
-								chestChance = 30;
-							else if (skill.getLevel() == 9)
-								chestChance = 25;
-							else if (skill.getLevel() == 8)
-								chestChance = 20;
-							else if (skill.getLevel() == 7)
-								chestChance = 15;
-							else if (skill.getLevel() == 6)
-								chestChance = 10;
-							chestTrapLimit = 50;
-						}
-							break;
-						case 4:
-						{
-							if (skill.getLevel() >= 14)
-								chestChance = 50;
-							else if (skill.getLevel() == 13)
-								chestChance = 45;
-							else if (skill.getLevel() == 12)
-								chestChance = 40;
-							else if (skill.getLevel() == 11)
-								chestChance = 35;
-							chestTrapLimit = 80;
-						}
-							break;
+					case 1:
+					{
+						if (skill.getLevel() > 10)
+							chestChance = 80; // 100% of success -
+						// it's boring
+						else if (skill.getLevel() >= 3)
+							chestChance = 50;
+						else if (skill.getLevel() == 2)
+							chestChance = 45;
+						else if (skill.getLevel() == 1)
+							chestChance = 40;
+						chestTrapLimit = 10;
+					}
+					break;
+					case 2:
+					{
+						if (skill.getLevel() > 12)
+							chestChance = 80; // 100% of success -
+						// it's boring
+						else if (skill.getLevel() >= 7)
+							chestChance = 50;
+						else if (skill.getLevel() == 6)
+							chestChance = 45;
+						else if (skill.getLevel() == 5)
+							chestChance = 40;
+						else if (skill.getLevel() == 4)
+							chestChance = 35;
+						else if (skill.getLevel() == 3)
+							chestChance = 30;
+						chestTrapLimit = 30;
+					}
+					break;
+					case 3:
+					{
+						if (skill.getLevel() >= 14)
+							chestChance = 50;
+						else if (skill.getLevel() == 13)
+							chestChance = 45;
+						else if (skill.getLevel() == 12)
+							chestChance = 40;
+						else if (skill.getLevel() == 11)
+							chestChance = 35;
+						else if (skill.getLevel() == 10)
+							chestChance = 30;
+						else if (skill.getLevel() == 9)
+							chestChance = 25;
+						else if (skill.getLevel() == 8)
+							chestChance = 20;
+						else if (skill.getLevel() == 7)
+							chestChance = 15;
+						else if (skill.getLevel() == 6)
+							chestChance = 10;
+						chestTrapLimit = 50;
+					}
+					break;
+					case 4:
+					{
+						if (skill.getLevel() >= 14)
+							chestChance = 50;
+						else if (skill.getLevel() == 13)
+							chestChance = 45;
+						else if (skill.getLevel() == 12)
+							chestChance = 40;
+						else if (skill.getLevel() == 11)
+							chestChance = 35;
+						chestTrapLimit = 80;
+					}
+					break;
 					}
 					if (Rnd.get(100) <= chestChance)
 					{

@@ -123,33 +123,33 @@ public class GameServerThread extends Thread
 				int packetType = data[0] & 0xff;
 				switch (packetType)
 				{
-					case 00:
-						onReceiveBlowfishKey(data);
-						break;
-					case 01:
-						onGameServerAuth(data);
-						break;
-					case 02:
-						onReceivePlayerInGame(data);
-						break;
-					case 03:
-						onReceivePlayerLogOut(data);
-						break;
-					case 04:
-						onReceiveChangeAccessLevel(data);
-						break;
-					case 05:
-						onReceivePlayerAuthRequest(data);
-						break;
-					case 06:
-						onReceiveServerStatus(data);
-						break;
-					case 07:
-						onReceiveLoginRestart(data);
-						break;
-					default:
-						_log.warning("Unknown Opcode (" + Integer.toHexString(packetType).toUpperCase() + ") from GameServer, closing connection.");
-						forceClose(LoginServerFail.NOT_AUTHED);
+				case 00:
+					onReceiveBlowfishKey(data);
+					break;
+				case 01:
+					onGameServerAuth(data);
+					break;
+				case 02:
+					onReceivePlayerInGame(data);
+					break;
+				case 03:
+					onReceivePlayerLogOut(data);
+					break;
+				case 04:
+					onReceiveChangeAccessLevel(data);
+					break;
+				case 05:
+					onReceivePlayerAuthRequest(data);
+					break;
+				case 06:
+					onReceiveServerStatus(data);
+					break;
+				case 07:
+					onReceiveLoginRestart(data);
+					break;
+				default:
+					_log.warning("Unknown Opcode (" + Integer.toHexString(packetType).toUpperCase() + ") from GameServer, closing connection.");
+				forceClose(LoginServerFail.NOT_AUTHED);
 				}
 			}
 		}
@@ -497,24 +497,24 @@ public class GameServerThread extends Thread
 		_gsi.setInternalIp(gameInternalHost);
 		if (!gameExternalHost.equals("*"))
 			try
-			{
+		{
 				_gsi.setExternalIp(InetAddress.getByName(gameExternalHost).getHostAddress());
-			}
-			catch (UnknownHostException e)
-			{
-				_log.warning("Couldn't resolve hostname \"" + gameExternalHost + "\"");
-			}
+		}
+		catch (UnknownHostException e)
+		{
+			_log.warning("Couldn't resolve hostname \"" + gameExternalHost + "\"");
+		}
 		else
 			_gsi.setExternalIp(_connectionIp);
 		if (!gameInternalHost.equals("*"))
 			try
-			{
+		{
 				_gsi.setInternalIp(InetAddress.getByName(gameInternalHost).getHostAddress());
-			}
-			catch (UnknownHostException e)
-			{
-				_log.warning("Couldn't resolve hostname \"" + gameInternalHost + "\"");
-			}
+		}
+		catch (UnknownHostException e)
+		{
+			_log.warning("Couldn't resolve hostname \"" + gameInternalHost + "\"");
+		}
 		else
 			_gsi.setInternalIp(_connectionIp);
 		_log.info("Updated Gameserver [" + getServerId() + "] " + GameServerTable.getInstance().getServerNameById(getServerId()) + " IP's:");

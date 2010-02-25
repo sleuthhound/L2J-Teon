@@ -56,74 +56,74 @@ public final class RequestBlock extends L2GameClientPacket
 			return;
 		switch (_type)
 		{
-			case BLOCK:
-				if (_target == null)
+		case BLOCK:
+			if (_target == null)
+			{
+				int acl = 0;
+				try
 				{
-					int acl = 0;
-					try
-					{
-						acl = BlockList.getOfflineCharacterACL(_name);
-					}
-					catch (IllegalArgumentException iae)
-					{
-						// Incorrect player name.
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST));
-						return;
-					}
-					if (acl >= Config.GM_MIN)
-					{
-						// Cannot block a GM character.
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_AN_A_GM));
-						return;
-					}
-					BlockList.addToBlockList(activeChar, _name);
+					acl = BlockList.getOfflineCharacterACL(_name);
 				}
-				else
+				catch (IllegalArgumentException iae)
 				{
-					if (_target.isGM())
-					{
-						// Cannot block a GM character.
-						activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_AN_A_GM));
-						return;
-					}
-					BlockList.addToBlockList(activeChar, _target);
+					// Incorrect player name.
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST));
+					return;
 				}
-				break;
-			case UNBLOCK:
-				if (_target == null)
+				if (acl >= Config.GM_MIN)
 				{
-					if (BlockList.isInBlockList(activeChar, _name))
-					{
-						BlockList.removeFromBlockList(activeChar, _name);
-					}
+					// Cannot block a GM character.
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_AN_A_GM));
+					return;
 				}
-				else
+				BlockList.addToBlockList(activeChar, _name);
+			}
+			else
+			{
+				if (_target.isGM())
 				{
-					if (BlockList.isInBlockList(activeChar, _target))
-					{
-						BlockList.removeFromBlockList(activeChar, _target);
-					}
+					// Cannot block a GM character.
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_AN_A_GM));
+					return;
 				}
-				break;
-			case BLOCKLIST:
-				BlockList.sendListToOwner(activeChar);
-				break;
-			case ALLBLOCK:
-				if (!activeChar.getMessageRefusal())
+				BlockList.addToBlockList(activeChar, _target);
+			}
+			break;
+		case UNBLOCK:
+			if (_target == null)
+			{
+				if (BlockList.isInBlockList(activeChar, _name))
 				{
-					activeChar.setMessageRefusal(true);
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_REFUSAL_MODE));
+					BlockList.removeFromBlockList(activeChar, _name);
 				}
-				break;
-			case ALLUNBLOCK:
-				if (activeChar.getMessageRefusal())
+			}
+			else
+			{
+				if (BlockList.isInBlockList(activeChar, _target))
 				{
-					activeChar.setMessageRefusal(false);
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_ACCEPTANCE_MODE));
+					BlockList.removeFromBlockList(activeChar, _target);
 				}
-				break;
-			default:
-				_log.info("Unknown 0x0a block type: " + _type);
+			}
+			break;
+		case BLOCKLIST:
+			BlockList.sendListToOwner(activeChar);
+			break;
+		case ALLBLOCK:
+			if (!activeChar.getMessageRefusal())
+			{
+				activeChar.setMessageRefusal(true);
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_REFUSAL_MODE));
+			}
+			break;
+		case ALLUNBLOCK:
+			if (activeChar.getMessageRefusal())
+			{
+				activeChar.setMessageRefusal(false);
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.MESSAGE_ACCEPTANCE_MODE));
+			}
+			break;
+		default:
+			_log.info("Unknown 0x0a block type: " + _type);
 		}
 	}
 

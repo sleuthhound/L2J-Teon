@@ -255,11 +255,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	 * The table containing all minimum level needed for each Expertise (None, D, C, B, A, S)
 	 */
 	private static final int[] EXPERTISE_LEVELS = { SkillTreeTable.getInstance().getExpertiseLevel(0), // NONE
-			SkillTreeTable.getInstance().getExpertiseLevel(1), // D
-			SkillTreeTable.getInstance().getExpertiseLevel(2), // C
-			SkillTreeTable.getInstance().getExpertiseLevel(3), // B
-			SkillTreeTable.getInstance().getExpertiseLevel(4), // A
-			SkillTreeTable.getInstance().getExpertiseLevel(5), // S
+		SkillTreeTable.getInstance().getExpertiseLevel(1), // D
+		SkillTreeTable.getInstance().getExpertiseLevel(2), // C
+		SkillTreeTable.getInstance().getExpertiseLevel(3), // B
+		SkillTreeTable.getInstance().getExpertiseLevel(4), // A
+		SkillTreeTable.getInstance().getExpertiseLevel(5), // S
 	};
 	private static final int[] COMMON_CRAFT_LEVELS = { 5, 20, 28, 36, 43, 49, 55, 62 };
 
@@ -316,18 +316,18 @@ public final class L2PcInstance extends L2PlayableInstance
 				return;
 			switch (skill.getTargetType())
 			{
-				case TARGET_GROUND:
+			case TARGET_GROUND:
+				return;
+			default:
+			{
+				L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
+				if (mainTarget == null || !(mainTarget instanceof L2Character))
 					return;
-				default:
-				{
-					L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
-					if (mainTarget == null || !(mainTarget instanceof L2Character))
-						return;
-					for (L2CubicInstance cubic : getCubics().values())
-						if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-							cubic.doAction((L2Character) mainTarget);
-				}
-					break;
+				for (L2CubicInstance cubic : getCubics().values())
+					if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+						cubic.doAction((L2Character) mainTarget);
+			}
+			break;
 			}
 		}
 	}
@@ -3509,7 +3509,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public boolean isInTargetEvent()
 	{
-	 		return(atEvent || (TvT._joining && _inEventTvT) || (TvT._teleport && _inEventTvT) || (TvT._sitForced && _inEventTvT) || (TvT._started && _inEventTvT) || (DM._joining && _inEventDM) || (DM._teleport && _inEventDM) || (DM._sitForced && _inEventDM) || (DM._started && _inEventDM) || (CTF._joining && _inEventCTF) || (CTF._teleport && _inEventCTF) || (CTF._sitForced && _inEventCTF) || (CTF._started && _inEventCTF));
+		return(atEvent || (TvT._joining && _inEventTvT) || (TvT._teleport && _inEventTvT) || (TvT._sitForced && _inEventTvT) || (TvT._started && _inEventTvT) || (DM._joining && _inEventDM) || (DM._teleport && _inEventDM) || (DM._sitForced && _inEventDM) || (DM._started && _inEventDM) || (CTF._joining && _inEventCTF) || (CTF._teleport && _inEventCTF) || (CTF._sitForced && _inEventCTF) || (CTF._started && _inEventCTF));
 	}
 
 	/**
@@ -4457,7 +4457,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || killer == null)
 			return;
 		if ((getKarma() <= 0) && (killer instanceof L2PcInstance) && (((L2PcInstance) killer).getClan() != null) && (getClan() != null) && ((L2PcInstance) killer).getClan().isAtWarWith(getClanId()))
-		// || this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId()))
+			// || this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId()))
 		{
 			return;
 		}
@@ -5008,12 +5008,12 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				switch (luckLevel)
 				{
-					case 1:
-						newPercentLost = 3.52;
-					case 2:
-						newPercentLost = 3.20;
-					case 3:
-						newPercentLost = 3.00;
+				case 1:
+					newPercentLost = 3.52;
+				case 2:
+					newPercentLost = 3.20;
+				case 3:
+					newPercentLost = 3.00;
 				}
 			}
 			// killed in clan war & skill lvl 3
@@ -5026,10 +5026,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				switch (luckLevel)
 				{
-					case 2:
-						newPercentLost = 2.00;
-					case 3:
-						newPercentLost = 2.00;
+				case 2:
+					newPercentLost = 2.00;
+				case 3:
+					newPercentLost = 2.00;
 				}
 			}
 			// is new percent lower then normal, then apply it
@@ -7637,21 +7637,21 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		switch (sklTargetType)
 		{
-			// Target the player if skill type is AURA, PARTY, CLAN or SELF
-			case TARGET_AURA:
-			case TARGET_PARTY:
-			case TARGET_ALLY:
-			case TARGET_CLAN:
-			case TARGET_GROUND:
-			case TARGET_SELF:
-				target = this;
-				break;
-			case TARGET_PET:
-				target = getPet();
-				break;
-			default:
-				target = getTarget();
-				break;
+		// Target the player if skill type is AURA, PARTY, CLAN or SELF
+		case TARGET_AURA:
+		case TARGET_PARTY:
+		case TARGET_ALLY:
+		case TARGET_CLAN:
+		case TARGET_GROUND:
+		case TARGET_SELF:
+			target = this;
+			break;
+		case TARGET_PET:
+			target = getPet();
+			break;
+		default:
+			target = getTarget();
+		break;
 		}
 		// Check the validity of the target
 		if (target == null)
@@ -7815,16 +7815,16 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				switch (sklTargetType)
 				{
-					case TARGET_AURA:
-					case TARGET_CLAN:
-					case TARGET_ALLY:
-					case TARGET_PARTY:
-					case TARGET_SELF:
-					case TARGET_GROUND:
-						break;
-					default: // Send a Server->Client packet ActionFailed to the L2PcInstance
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return;
+				case TARGET_AURA:
+				case TARGET_CLAN:
+				case TARGET_ALLY:
+				case TARGET_PARTY:
+				case TARGET_SELF:
+				case TARGET_GROUND:
+					break;
+				default: // Send a Server->Client packet ActionFailed to the L2PcInstance
+					sendPacket(ActionFailed.STATIC_PACKET);
+				return;
 				}
 			}
 			// Check if the target is in the skill cast range
@@ -7858,30 +7858,30 @@ public final class L2PcInstance extends L2PlayableInstance
 			// check if the target is a monster and if force attack is set.. if not then we don't want to cast.
 			switch (sklTargetType)
 			{
-				case TARGET_PET:
-				case TARGET_AURA:
-				case TARGET_CLAN:
-				case TARGET_SELF:
-				case TARGET_PARTY:
-				case TARGET_ALLY:
-				case TARGET_CORPSE_MOB:
-				case TARGET_AREA_CORPSE_MOB:
-				case TARGET_GROUND:
+			case TARGET_PET:
+			case TARGET_AURA:
+			case TARGET_CLAN:
+			case TARGET_SELF:
+			case TARGET_PARTY:
+			case TARGET_ALLY:
+			case TARGET_CORPSE_MOB:
+			case TARGET_AREA_CORPSE_MOB:
+			case TARGET_GROUND:
+				break;
+			default:
+			{
+				switch (sklType)
+				{
+				case BEAST_FEED:
+				case DELUXE_KEY_UNLOCK:
+				case UNLOCK:
 					break;
 				default:
-				{
-					switch (sklType)
-					{
-						case BEAST_FEED:
-						case DELUXE_KEY_UNLOCK:
-						case UNLOCK:
-							break;
-						default:
-							sendPacket(ActionFailed.STATIC_PACKET);
-							return;
-					}
-					break;
+					sendPacket(ActionFailed.STATIC_PACKET);
+				return;
 				}
+				break;
+			}
 			}
 		}
 		// Check if the skill is Spoil type and if the target isn't already spoiled
@@ -7935,26 +7935,26 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Check if this is a Pvp skill and target isn't a non-flagged/non-karma player
 		switch (sklTargetType)
 		{
-			case TARGET_PARTY:
-			case TARGET_ALLY: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
-			case TARGET_CLAN: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
-			case TARGET_AURA:
-			case TARGET_GROUND:
-			case TARGET_SELF:
-				break;
-			default:
-				if (!checkPvpSkill(target, skill) && (getAccessLevel() < Config.GM_PEACEATTACK))
+		case TARGET_PARTY:
+		case TARGET_ALLY: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
+		case TARGET_CLAN: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
+		case TARGET_AURA:
+		case TARGET_GROUND:
+		case TARGET_SELF:
+			break;
+		default:
+			if (!checkPvpSkill(target, skill) && (getAccessLevel() < Config.GM_PEACEATTACK))
+			{
+				if (!isInFunEvent() || !target.isInFunEvent())
 				{
-					if (!isInFunEvent() || !target.isInFunEvent())
-					{
-						// Send a System Message to the L2PcInstance
-						sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-						// Send a Server->Client packet ActionFailed to the
-						// L2PcInstance
-						sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
+					// Send a System Message to the L2PcInstance
+					sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					// Send a Server->Client packet ActionFailed to the
+					// L2PcInstance
+					sendPacket(ActionFailed.STATIC_PACKET);
+					return;
 				}
+			}
 		}
 		if ((sklTargetType == SkillTargetType.TARGET_HOLY) && !TakeCastle.checkIfOkToCastSealOfRule(this, false))
 		{
@@ -8103,11 +8103,11 @@ public final class L2PcInstance extends L2PlayableInstance
 			return true;
 		}
 		else
-		// if this is a castle that is currently being sieged, and the rider is NOT a castle owner he cannot land. castle owner is the leader of the clan that owns the castle where the pc is
-		if (isInsideZone(ZONE_SIEGE) && !((getClan() != null) && (CastleManager.getInstance().getCastle(this) == CastleManager.getInstance().getCastleByOwner(getClan())) && (this == getClan().getLeader().getPlayerInstance())))
-		{
-			return true;
-		}
+			// if this is a castle that is currently being sieged, and the rider is NOT a castle owner he cannot land. castle owner is the leader of the clan that owns the castle where the pc is
+			if (isInsideZone(ZONE_SIEGE) && !((getClan() != null) && (CastleManager.getInstance().getCastle(this) == CastleManager.getInstance().getCastleByOwner(getClan())) && (this == getClan().getLeader().getPlayerInstance())))
+			{
+				return true;
+			}
 		return false;
 	}
 
@@ -8118,21 +8118,21 @@ public final class L2PcInstance extends L2PlayableInstance
 			return false;
 		switch (mountType)
 		{
-			case 0:
-				setIsFlying(false);
-				setIsRiding(false);
-				break; // Dismounted
-			case 1:
-				setIsRiding(true);
-				if (isNoble())
-				{
-					L2Skill striderAssaultSkill = SkillTable.getInstance().getInfo(325, 1);
-					addSkill(striderAssaultSkill, false); // not saved to DB
-				}
-				break;
-			case 2:
-				setIsFlying(true);
-				break; // Flying Wyvern
+		case 0:
+			setIsFlying(false);
+			setIsRiding(false);
+			break; // Dismounted
+		case 1:
+			setIsRiding(true);
+			if (isNoble())
+			{
+				L2Skill striderAssaultSkill = SkillTable.getInstance().getInfo(325, 1);
+				addSkill(striderAssaultSkill, false); // not saved to DB
+			}
+			break;
+		case 2:
+			setIsFlying(true);
+			break; // Flying Wyvern
 		}
 		_mountType = mountType;
 		// Send a Server->Client packet InventoryUpdate to the L2PcInstance in order to update speed
@@ -8356,8 +8356,8 @@ public final class L2PcInstance extends L2PlayableInstance
 					if (!summon)
 					{
 						if ((itemId == 1463) || (itemId == 1464) || (itemId == 1465) || (itemId == 1466) || (itemId == 1467) || (itemId == 1835) || (itemId == 5789 /*
-																																									 * || itemId == 6535 || itemId == 6536 || itemId == 6537 || itemId == 6538 || itemId == 6539 || itemId == 6540
-																																									 */))
+						 * || itemId == 6535 || itemId == 6536 || itemId == 6537 || itemId == 6538 || itemId == 6539 || itemId == 6540
+						 */))
 						{
 							handler = ItemHandler.getInstance().getItemHandler(itemId);
 							if (handler != null)
@@ -10435,9 +10435,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (_onlineBeginTime > 0)
 		{
 			totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
-			}
-		return totalOnlineTime;
 		}
+		return totalOnlineTime;
+	}
 
 	/**
 	 * Manage the delete task of a L2PcInstance (Leave Party, Unsummon pet, Save its inventory in the database, Remove it from the world...).<BR>
@@ -10511,10 +10511,10 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				switch (effect.getEffectType())
 				{
-					case SIGNET_GROUND:
-					case SIGNET_EFFECT:
-						effect.exit();
-						break;
+				case SIGNET_GROUND:
+				case SIGNET_EFFECT:
+					effect.exit();
+					break;
 				}
 			}
 		}
@@ -10780,18 +10780,18 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		switch (_lure.getItemId())
 		{
-			case 7807: // green for beginners
-			case 7808: // purple for beginners
-			case 7809: // yellow for beginners
-			case 8486: // prize-winning for beginners
-				return 0;
-			case 8485: // prize-winning luminous
-			case 8506: // green luminous
-			case 8509: // purple luminous
-			case 8512: // yellow luminous
-				return 2;
-			default:
-				return 1;
+		case 7807: // green for beginners
+		case 7808: // purple for beginners
+		case 7809: // yellow for beginners
+		case 8486: // prize-winning for beginners
+			return 0;
+		case 8485: // prize-winning luminous
+		case 8506: // green luminous
+		case 8509: // purple luminous
+		case 8512: // yellow luminous
+			return 2;
+		default:
+			return 1;
 		}
 	}
 
@@ -10801,220 +10801,220 @@ public final class L2PcInstance extends L2PlayableInstance
 		int type = 1;
 		switch (group)
 		{
-			case 0: // fish for novices
-				switch (_lure.getItemId())
+		case 0: // fish for novices
+			switch (_lure.getItemId())
+			{
+			case 7807: // green lure, preferred by fast-moving (nimble) fish (type 5)
+				if (check <= 54)
 				{
-					case 7807: // green lure, preferred by fast-moving (nimble) fish (type 5)
-						if (check <= 54)
-						{
-							type = 5;
-						}
-						else if (check <= 77)
-						{
-							type = 4;
-						}
-						else
-						{
-							type = 6;
-						}
-						break;
-					case 7808: // purple lure, preferred by fat fish (type 4)
-						if (check <= 54)
-						{
-							type = 4;
-						}
-						else if (check <= 77)
-						{
-							type = 6;
-						}
-						else
-						{
-							type = 5;
-						}
-						break;
-					case 7809: // yellow lure, preferred by ugly fish (type 6)
-						if (check <= 54)
-						{
-							type = 6;
-						}
-						else if (check <= 77)
-						{
-							type = 5;
-						}
-						else
-						{
-							type = 4;
-						}
-						break;
-					case 8486: // prize-winning fishing lure for beginners
-						if (check <= 33)
-						{
-							type = 4;
-						}
-						else if (check <= 66)
-						{
-							type = 5;
-						}
-						else
-						{
-							type = 6;
-						}
-						break;
+					type = 5;
+				}
+				else if (check <= 77)
+				{
+					type = 4;
+				}
+				else
+				{
+					type = 6;
 				}
 				break;
-			case 1: // normal fish
-				switch (_lure.getItemId())
+			case 7808: // purple lure, preferred by fat fish (type 4)
+				if (check <= 54)
 				{
-					case 7610:
-					case 7611:
-					case 7612:
-					case 7613:
-						type = 3;
-						break;
-					case 6519: // all theese lures (green) are prefered by
-						// fast-moving (nimble) fish (type 1)
-					case 8505:
-					case 6520:
-					case 6521:
-					case 8507:
-						if (check <= 54)
-						{
-							type = 1;
-						}
-						else if (check <= 74)
-						{
-							type = 0;
-						}
-						else if (check <= 94)
-						{
-							type = 2;
-						}
-						else
-						{
-							type = 3;
-						}
-						break;
-					case 6522: // all theese lures (purple) are prefered by fat
-						// fish (type 0)
-					case 8508:
-					case 6523:
-					case 6524:
-					case 8510:
-						if (check <= 54)
-						{
-							type = 0;
-						}
-						else if (check <= 74)
-						{
-							type = 1;
-						}
-						else if (check <= 94)
-						{
-							type = 2;
-						}
-						else
-						{
-							type = 3;
-						}
-						break;
-					case 6525: // all theese lures (yellow) are prefered by ugly fish (type 2)
-					case 8511:
-					case 6526:
-					case 6527:
-					case 8513:
-						if (check <= 55)
-						{
-							type = 2;
-						}
-						else if (check <= 74)
-						{
-							type = 1;
-						}
-						else if (check <= 94)
-						{
-							type = 0;
-						}
-						else
-						{
-							type = 3;
-						}
-						break;
-					case 8484: // prize-winning fishing lure
-						if (check <= 33)
-						{
-							type = 0;
-						}
-						else if (check <= 66)
-						{
-							type = 1;
-						}
-						else
-						{
-							type = 2;
-						}
-						break;
+					type = 4;
+				}
+				else if (check <= 77)
+				{
+					type = 6;
+				}
+				else
+				{
+					type = 5;
 				}
 				break;
-			case 2: // upper grade fish, luminous lure
-				switch (_lure.getItemId())
+			case 7809: // yellow lure, preferred by ugly fish (type 6)
+				if (check <= 54)
 				{
-					case 8506: // green lure, preferred by fast-moving (nimble) fish (type 8)
-						if (check <= 54)
-						{
-							type = 8;
-						}
-						else if (check <= 77)
-						{
-							type = 7;
-						}
-						else
-						{
-							type = 9;
-						}
-						break;
-					case 8509: // purple lure, preferred by fat fish (type 7)
-						if (check <= 54)
-						{
-							type = 7;
-						}
-						else if (check <= 77)
-						{
-							type = 9;
-						}
-						else
-						{
-							type = 8;
-						}
-						break;
-					case 8512: // yellow lure, preferred by ugly fish (type 9)
-						if (check <= 54)
-						{
-							type = 9;
-						}
-						else if (check <= 77)
-						{
-							type = 8;
-						}
-						else
-						{
-							type = 7;
-						}
-						break;
-					case 8485: // prize-winning fishing lure
-						if (check <= 33)
-						{
-							type = 7;
-						}
-						else if (check <= 66)
-						{
-							type = 8;
-						}
-						else
-						{
-							type = 9;
-						}
-						break;
+					type = 6;
 				}
+				else if (check <= 77)
+				{
+					type = 5;
+				}
+				else
+				{
+					type = 4;
+				}
+				break;
+			case 8486: // prize-winning fishing lure for beginners
+				if (check <= 33)
+				{
+					type = 4;
+				}
+				else if (check <= 66)
+				{
+					type = 5;
+				}
+				else
+				{
+					type = 6;
+				}
+				break;
+			}
+			break;
+		case 1: // normal fish
+			switch (_lure.getItemId())
+			{
+			case 7610:
+			case 7611:
+			case 7612:
+			case 7613:
+				type = 3;
+				break;
+			case 6519: // all theese lures (green) are prefered by
+				// fast-moving (nimble) fish (type 1)
+			case 8505:
+			case 6520:
+			case 6521:
+			case 8507:
+				if (check <= 54)
+				{
+					type = 1;
+				}
+				else if (check <= 74)
+				{
+					type = 0;
+				}
+				else if (check <= 94)
+				{
+					type = 2;
+				}
+				else
+				{
+					type = 3;
+				}
+				break;
+			case 6522: // all theese lures (purple) are prefered by fat
+				// fish (type 0)
+			case 8508:
+			case 6523:
+			case 6524:
+			case 8510:
+				if (check <= 54)
+				{
+					type = 0;
+				}
+				else if (check <= 74)
+				{
+					type = 1;
+				}
+				else if (check <= 94)
+				{
+					type = 2;
+				}
+				else
+				{
+					type = 3;
+				}
+				break;
+			case 6525: // all theese lures (yellow) are prefered by ugly fish (type 2)
+			case 8511:
+			case 6526:
+			case 6527:
+			case 8513:
+				if (check <= 55)
+				{
+					type = 2;
+				}
+				else if (check <= 74)
+				{
+					type = 1;
+				}
+				else if (check <= 94)
+				{
+					type = 0;
+				}
+				else
+				{
+					type = 3;
+				}
+				break;
+			case 8484: // prize-winning fishing lure
+				if (check <= 33)
+				{
+					type = 0;
+				}
+				else if (check <= 66)
+				{
+					type = 1;
+				}
+				else
+				{
+					type = 2;
+				}
+				break;
+			}
+			break;
+		case 2: // upper grade fish, luminous lure
+			switch (_lure.getItemId())
+			{
+			case 8506: // green lure, preferred by fast-moving (nimble) fish (type 8)
+				if (check <= 54)
+				{
+					type = 8;
+				}
+				else if (check <= 77)
+				{
+					type = 7;
+				}
+				else
+				{
+					type = 9;
+				}
+				break;
+			case 8509: // purple lure, preferred by fat fish (type 7)
+				if (check <= 54)
+				{
+					type = 7;
+				}
+				else if (check <= 77)
+				{
+					type = 9;
+				}
+				else
+				{
+					type = 8;
+				}
+				break;
+			case 8512: // yellow lure, preferred by ugly fish (type 9)
+				if (check <= 54)
+				{
+					type = 9;
+				}
+				else if (check <= 77)
+				{
+					type = 8;
+				}
+				else
+				{
+					type = 7;
+				}
+				break;
+			case 8485: // prize-winning fishing lure
+				if (check <= 33)
+				{
+					type = 7;
+				}
+				else if (check <= 66)
+				{
+					type = 8;
+				}
+				else
+				{
+					type = 9;
+				}
+				break;
+			}
 		}
 		return type;
 	}
@@ -11954,31 +11954,31 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		switch (state)
 		{
-			case 0:
-			{
-				_punishLevel = PunishLevel.NONE;
-				break;
-			}
-			case 1:
-			{
-				_punishLevel = PunishLevel.CHAT;
-				break;
-			}
-			case 2:
-			{
-				_punishLevel = PunishLevel.JAIL;
-				break;
-			}
-			case 3:
-			{
-				_punishLevel = PunishLevel.CHAR;
-				break;
-			}
-			case 4:
-			{
-				_punishLevel = PunishLevel.ACC;
-				break;
-			}
+		case 0:
+		{
+			_punishLevel = PunishLevel.NONE;
+			break;
+		}
+		case 1:
+		{
+			_punishLevel = PunishLevel.CHAT;
+			break;
+		}
+		case 2:
+		{
+			_punishLevel = PunishLevel.JAIL;
+			break;
+		}
+		case 3:
+		{
+			_punishLevel = PunishLevel.CHAR;
+			break;
+		}
+		case 4:
+		{
+			_punishLevel = PunishLevel.ACC;
+			break;
+		}
 		}
 	}
 
@@ -11994,86 +11994,86 @@ public final class L2PcInstance extends L2PlayableInstance
 		long delayInMilliseconds = delayInMinutes * 60000L;
 		switch (state)
 		{
-			case NONE: // Remove Punishments
+		case NONE: // Remove Punishments
+		{
+			switch (_punishLevel)
 			{
-				switch (_punishLevel)
-				{
-					case CHAT:
-					{
-						_punishLevel = state;
-						stopPunishTask(true);
-						sendPacket(new EtcStatusUpdate(this));
-						sendMessage("Your Chat ban has been lifted");
-						break;
-					}
-					case JAIL:
-					{
-						_punishLevel = state;
-						// Open a Html message to inform the player
-						NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-						String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_out.htm");
-						if (jailInfos != null)
-							htmlMsg.setHtml(jailInfos);
-						else
-							htmlMsg.setHtml("<html><body>You are free for now, respect server rules!</body></html>");
-						sendPacket(htmlMsg);
-						stopPunishTask(true);
-						teleToLocation(17836, 170178, -3507, true); // Floran
-						break;
-					}
-				}
-				break;
-			}
-			case CHAT: // Chat Ban
+			case CHAT:
 			{
 				_punishLevel = state;
-				_punishTimer = 0;
+				stopPunishTask(true);
 				sendPacket(new EtcStatusUpdate(this));
-				// Remove the task if any
-				stopPunishTask(false);
-				if (delayInMinutes > 0)
-				{
-					_punishTimer = delayInMilliseconds;
-					// start the countdown
-					_punishTask = ThreadPoolManager.getInstance().scheduleGeneral(new PunishTask(this), _punishTimer);
-					sendMessage("You are chat banned for " + delayInMinutes + " minutes.");
-				}
-				else
-					sendMessage("You have been chat banned");
+				sendMessage("Your Chat ban has been lifted");
 				break;
 			}
-			case JAIL: // Jail Player
+			case JAIL:
 			{
 				_punishLevel = state;
-				_punishTimer = 0;
-				// Remove the task if any
-				stopPunishTask(false);
-				if (delayInMinutes > 0)
-				{
-					_punishTimer = delayInMilliseconds;
-					// start the countdown
-					_punishTask = ThreadPoolManager.getInstance().scheduleGeneral(new PunishTask(this), _punishTimer);
-					sendMessage("You are in jail for " + delayInMinutes + " minutes.");
-				}
 				// Open a Html message to inform the player
 				NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-				String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_in.htm");
+				String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_out.htm");
 				if (jailInfos != null)
 					htmlMsg.setHtml(jailInfos);
 				else
-					htmlMsg.setHtml("<html><body>You have been put in jail by an admin.</body></html>");
+					htmlMsg.setHtml("<html><body>You are free for now, respect server rules!</body></html>");
 				sendPacket(htmlMsg);
-				setInstanceId(0);
-				teleToLocation(-114356, -249645, -2984, false); // Jail
+				stopPunishTask(true);
+				teleToLocation(17836, 170178, -3507, true); // Floran
 				break;
 			}
-			case CHAR: // Ban Character
-			case ACC: // Ban Account
-			default:
+			}
+			break;
+		}
+		case CHAT: // Chat Ban
+		{
+			_punishLevel = state;
+			_punishTimer = 0;
+			sendPacket(new EtcStatusUpdate(this));
+			// Remove the task if any
+			stopPunishTask(false);
+			if (delayInMinutes > 0)
 			{
-				_punishLevel = state;
-				break;
+				_punishTimer = delayInMilliseconds;
+				// start the countdown
+				_punishTask = ThreadPoolManager.getInstance().scheduleGeneral(new PunishTask(this), _punishTimer);
+				sendMessage("You are chat banned for " + delayInMinutes + " minutes.");
 			}
+			else
+				sendMessage("You have been chat banned");
+			break;
+		}
+		case JAIL: // Jail Player
+		{
+			_punishLevel = state;
+			_punishTimer = 0;
+			// Remove the task if any
+			stopPunishTask(false);
+			if (delayInMinutes > 0)
+			{
+				_punishTimer = delayInMilliseconds;
+				// start the countdown
+				_punishTask = ThreadPoolManager.getInstance().scheduleGeneral(new PunishTask(this), _punishTimer);
+				sendMessage("You are in jail for " + delayInMinutes + " minutes.");
+			}
+			// Open a Html message to inform the player
+			NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
+			String jailInfos = HtmCache.getInstance().getHtm("data/html/jail_in.htm");
+			if (jailInfos != null)
+				htmlMsg.setHtml(jailInfos);
+			else
+				htmlMsg.setHtml("<html><body>You have been put in jail by an admin.</body></html>");
+			sendPacket(htmlMsg);
+			setInstanceId(0);
+			teleToLocation(-114356, -249645, -2984, false); // Jail
+			break;
+		}
+		case CHAR: // Ban Character
+		case ACC: // Ban Account
+		default:
+		{
+			_punishLevel = state;
+			break;
+		}
 		}
 		// store in database
 		storeCharBase();

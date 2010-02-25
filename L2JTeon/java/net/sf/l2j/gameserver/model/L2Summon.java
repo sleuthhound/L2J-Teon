@@ -557,20 +557,20 @@ public abstract class L2Summon extends L2PlayableInstance
 		L2Object target = null;
 		switch (skill.getTargetType())
 		{
-			// OWNER_PET should be cast even if no target has been found
-			case TARGET_OWNER_PET:
-				target = getOwner();
-				break;
+		// OWNER_PET should be cast even if no target has been found
+		case TARGET_OWNER_PET:
+			target = getOwner();
+			break;
 			// PARTY, AURA, SELF should be cast even if no target has been found
-			case TARGET_PARTY:
-			case TARGET_AURA:
-			case TARGET_SELF:
-				target = this;
-				break;
-			default:
-				// Get the first target of the list
-				target = skill.getFirstOfTargetList(this);
-				break;
+		case TARGET_PARTY:
+		case TARGET_AURA:
+		case TARGET_SELF:
+			target = this;
+			break;
+		default:
+			// Get the first target of the list
+			target = skill.getFirstOfTargetList(this);
+		break;
 		}
 		// Check the validity of the target
 		if (target == null)

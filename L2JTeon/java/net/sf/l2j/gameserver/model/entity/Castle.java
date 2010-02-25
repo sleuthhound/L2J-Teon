@@ -133,11 +133,11 @@ public class Castle
 			}
 		}
 		if (!_name.equalsIgnoreCase("aden") && !_name.equalsIgnoreCase("Rune") && !_name.equalsIgnoreCase("Schuttgart") && !_name.equalsIgnoreCase("Goddard")) // If
-		// current
-		// castle
-		// instance is not Aden,
-		// Rune, Goddard or
-		// Schuttgart.
+			// current
+			// castle
+			// instance is not Aden,
+			// Rune, Goddard or
+			// Schuttgart.
 		{
 			Castle aden = CastleManager.getInstance().getCastle("aden");
 			if (aden != null)
@@ -362,14 +362,14 @@ public class Castle
 		int maxTax;
 		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
 		{
-			case SevenSigns.CABAL_DAWN:
-				maxTax = 25;
-				break;
-			case SevenSigns.CABAL_DUSK:
-				maxTax = 5;
-				break;
-			default: // no owner
-				maxTax = 15;
+		case SevenSigns.CABAL_DAWN:
+			maxTax = 25;
+			break;
+		case SevenSigns.CABAL_DUSK:
+			maxTax = 5;
+			break;
+		default: // no owner
+			maxTax = 15;
 		}
 		if ((taxPercent < 0) || (taxPercent > maxTax))
 		{

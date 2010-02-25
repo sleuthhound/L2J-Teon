@@ -151,7 +151,7 @@ public class L2SkillSummon extends L2Skill
 				return;
 			}
 			else
-			// normal cubic skill
+				// normal cubic skill
 			{
 				int mastery = activeChar.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
 				if (mastery < 0)

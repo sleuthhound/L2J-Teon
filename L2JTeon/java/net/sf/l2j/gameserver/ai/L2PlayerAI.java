@@ -123,10 +123,10 @@ public class L2PlayerAI extends L2CharacterAI
 				 * if (Config.DEBUG) _log.warning("L2PlayerAI: onEvtFinishCasting -> " + cmd._intention + " " + cmd._arg0 + " " + cmd._arg1);
 				 */
 				if ((cmd != null) && (cmd._crtlIntention != AI_INTENTION_CAST)) // previous
-				// state
-				// shouldn't
-				// be
-				// casting
+					// state
+					// shouldn't
+					// be
+					// casting
 				{
 					setIntention(cmd._crtlIntention, cmd._arg0, cmd._arg1);
 				}

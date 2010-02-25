@@ -154,8 +154,8 @@ public final class L2MercManagerInstance extends L2FolkInstance
 				if (getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
 				else if (getCastle().getOwnerId() == player.getClanId()) // Clan
-				// owns
-				// castle
+					// owns
+					// castle
 				{
 					if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES)
 						return COND_OWNER;

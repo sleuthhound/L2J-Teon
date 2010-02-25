@@ -50,11 +50,11 @@ public enum Stats
 	CONFUSION("confusion"), // mob changes target, opposite to aggression/hate
 	SLEEP("sleep"), // sleep (don't move/ATTACK) until attacked
 	FIRE("fire"), WIND("wind"), WATER("water"), EARTH("earth"), HOLY("holy"), DARK("dark"), AGGRESSION_VULN("aggressionVuln"), BLEED_VULN("bleedVuln"), POISON_VULN("poisonVuln"), STUN_VULN("stunVuln"), PARALYZE_VULN("paralyzeVuln"), ROOT_VULN("rootVuln"), SLEEP_VULN("sleepVuln"), CONFUSION_VULN("confusionVuln"), MOVEMENT_VULN("movementVuln"), FIRE_VULN("fireVuln"), WIND_VULN("windVuln"), WATER_VULN(
-			"waterVuln"), EARTH_VULN("earthVuln"), HOLY_VULN("holyVuln"), DARK_VULN("darkVuln"), CANCEL_VULN("cancelVuln"), // Resistance for cancel type skills
+	"waterVuln"), EARTH_VULN("earthVuln"), HOLY_VULN("holyVuln"), DARK_VULN("darkVuln"), CANCEL_VULN("cancelVuln"), // Resistance for cancel type skills
 	DERANGEMENT_VULN("derangementVuln"), DEBUFF_VULN("debuffVuln"), NONE_WPN_VULN("noneWpnVuln"), // Shields
 	SWORD_WPN_VULN("swordWpnVuln"), BLUNT_WPN_VULN("bluntWpnVuln"), DAGGER_WPN_VULN("daggerWpnVuln"), BOW_WPN_VULN("bowWpnVuln"), POLE_WPN_VULN("poleWpnVuln"), ETC_WPN_VULN("etcWpnVuln"), FIST_WPN_VULN("fistWpnVuln"), DUAL_WPN_VULN("dualWpnVuln"), DUALFIST_WPN_VULN("dualFistWpnVuln"), REFLECT_DAMAGE_PERCENT("reflectDam"), REFLECT_SKILL_MAGIC("reflectSkillMagic"), REFLECT_SKILL_PHYSIC(
-			"reflectSkillPhysic"), ABSORB_DAMAGE_PERCENT("absorbDam"), TRANSFER_DAMAGE_PERCENT("transDam"), MAX_LOAD("maxLoad"), PATK_PLANTS("pAtk-plants"), PATK_INSECTS("pAtk-insects"), PATK_ANIMALS("pAtk-animals"), PATK_MONSTERS("pAtk-monsters"), PATK_DRAGONS("pAtk-dragons"), PATK_UNDEAD("pAtk-undead"), PATK_GIANTS("pAtk-giants"), PDEF_PLANTS("pDef-plants"), PDEF_INSECTS("pDef-insects"), PDEF_ANIMALS(
-			"pDef-animals"), PDEF_MONSTERS("pDef-monsters"), PDEF_DRAGONS("pDef-dragons"), PDEF_UNDEAD("pDef-undead"), PDEF_GIANTS("pDef-giants"), ATK_REUSE("atkReuse"),
+	"reflectSkillPhysic"), ABSORB_DAMAGE_PERCENT("absorbDam"), TRANSFER_DAMAGE_PERCENT("transDam"), MAX_LOAD("maxLoad"), PATK_PLANTS("pAtk-plants"), PATK_INSECTS("pAtk-insects"), PATK_ANIMALS("pAtk-animals"), PATK_MONSTERS("pAtk-monsters"), PATK_DRAGONS("pAtk-dragons"), PATK_UNDEAD("pAtk-undead"), PATK_GIANTS("pAtk-giants"), PDEF_PLANTS("pDef-plants"), PDEF_INSECTS("pDef-insects"), PDEF_ANIMALS(
+	"pDef-animals"), PDEF_MONSTERS("pDef-monsters"), PDEF_DRAGONS("pDef-dragons"), PDEF_UNDEAD("pDef-undead"), PDEF_GIANTS("pDef-giants"), ATK_REUSE("atkReuse"),
 	// ExSkill :)
 	INV_LIM("inventoryLimit"), WH_LIM("whLimit"), FREIGHT_LIM("FreightLimit"), P_SELL_LIM("PrivateSellLimit"), P_BUY_LIM("PrivateBuyLimit"), REC_D_LIM("DwarfRecipeLimit"), REC_C_LIM("CommonRecipeLimit"),
 	// C4 Stats

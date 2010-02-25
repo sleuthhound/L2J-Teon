@@ -132,22 +132,22 @@ public class ScrollOfResurrection implements IItemHandler
 				else
 				{
 					if (targetPlayer.isFestivalParticipant()) // Check to see
-					// if the
-					// current
-					// player target
-					// is in a
-					// festival.
+						// if the
+						// current
+						// player target
+						// is in a
+						// festival.
 					{
 						condGood = false;
 						activeChar.sendPacket(SystemMessage.sendString("You may not resurrect participants in a festival."));
 					}
 					{
 						if ((activeChar.isNoob() && targetPlayer.isKoof()) || (activeChar.isKoof() && targetPlayer.isNoob())) // Check to see
-						// if the
-						// current
-						// player target
-						// is an
-						// enemy.
+							// if the
+							// current
+							// player target
+							// is an
+							// enemy.
 						{
 							condGood = false;
 							activeChar.sendPacket(SystemMessage.sendString("You may not ressurect an enemy faction."));
@@ -192,18 +192,18 @@ public class ScrollOfResurrection implements IItemHandler
 					int skillLevel = 1;
 					switch (itemId)
 					{
-						case 737:
-							skillId = 2014;
-							break; // Scroll of Resurrection
-						case 3936:
-							skillId = 2049;
-							break; // Blessed Scroll of Resurrection
-						case 3959:
-							skillId = 2062;
-							break; // L2Day - Blessed Scroll of Resurrection
-						case 6387:
-							skillId = 2179;
-							break; // Blessed Scroll of Resurrection: For Pets
+					case 737:
+						skillId = 2014;
+						break; // Scroll of Resurrection
+					case 3936:
+						skillId = 2049;
+						break; // Blessed Scroll of Resurrection
+					case 3959:
+						skillId = 2062;
+						break; // L2Day - Blessed Scroll of Resurrection
+					case 6387:
+						skillId = 2179;
+						break; // Blessed Scroll of Resurrection: For Pets
 					}
 					if (skillId != 0)
 					{

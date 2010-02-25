@@ -29,12 +29,12 @@ public class State
 	{
 		switch (state)
 		{
-			case 1:
-				return "Started";
-			case 2:
-				return "Completed";
-			default:
-				return "Start";
+		case 1:
+			return "Started";
+		case 2:
+			return "Completed";
+		default:
+			return "Start";
 		}
 	}
 

@@ -118,9 +118,9 @@ public class RequestAquireSkill extends L2GameClientPacket
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
 					else
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
-					
-                    if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1) 
-                    {
+
+					if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1) 
+					{
 						L2ItemInstance spb = player.getInventory().getItemByItemId(spbId);
 						if (spb == null)
 						{
@@ -188,7 +188,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			}
 		}
 		else if (_skillType == 2) // pledgeskills TODO: Find appropriate
-		// system messages.
+			// system messages.
 		{
 			if (!player.isClanLeader())
 			{

@@ -287,12 +287,12 @@ public class RegionBBSManager extends BaseBBSManager
 		sortedPlayers.addAll(players);
 		players = null;
 		Collections.sort(sortedPlayers, new Comparator<L2PcInstance>()
-		{
+				{
 			public int compare(L2PcInstance p1, L2PcInstance p2)
 			{
 				return p1.getName().compareToIgnoreCase(p2.getName());
 			}
-		});
+				});
 		_onlinePlayers.clear();
 		_onlineCount = 0;
 		_onlineCountGm = 0;

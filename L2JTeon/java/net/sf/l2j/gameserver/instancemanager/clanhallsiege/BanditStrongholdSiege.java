@@ -494,8 +494,8 @@ public class BanditStrongholdSiege extends ClanHallSiege
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
 				if /*
-					 * (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ()) &&
-					 */(player.getInstanceId() == 0/* ) */)
+				 * (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ()) &&
+				 */(player.getInstanceId() == 0/* ) */)
 				{
 					player.sendPacket(cs);
 				}

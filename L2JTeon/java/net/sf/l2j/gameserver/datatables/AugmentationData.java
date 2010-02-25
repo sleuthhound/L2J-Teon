@@ -328,25 +328,25 @@ public class AugmentationData
 		boolean generateGlow = false;
 		switch (lifeStoneGrade)
 		{
-			case 0:
-				skill_Chance = Config.AUGMENTATION_NG_SKILL_CHANCE;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_NG_GLOW_CHANCE)
-					generateGlow = true;
-				break;
-			case 1:
-				skill_Chance = Config.AUGMENTATION_MID_SKILL_CHANCE;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_MID_GLOW_CHANCE)
-					generateGlow = true;
-				break;
-			case 2:
-				skill_Chance = Config.AUGMENTATION_HIGH_SKILL_CHANCE;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_HIGH_GLOW_CHANCE)
-					generateGlow = true;
-				break;
-			case 3:
-				skill_Chance = Config.AUGMENTATION_TOP_SKILL_CHANCE;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_TOP_GLOW_CHANCE)
-					generateGlow = true;
+		case 0:
+			skill_Chance = Config.AUGMENTATION_NG_SKILL_CHANCE;
+			if (Rnd.get(1, 100) <= Config.AUGMENTATION_NG_GLOW_CHANCE)
+				generateGlow = true;
+			break;
+		case 1:
+			skill_Chance = Config.AUGMENTATION_MID_SKILL_CHANCE;
+			if (Rnd.get(1, 100) <= Config.AUGMENTATION_MID_GLOW_CHANCE)
+				generateGlow = true;
+			break;
+		case 2:
+			skill_Chance = Config.AUGMENTATION_HIGH_SKILL_CHANCE;
+			if (Rnd.get(1, 100) <= Config.AUGMENTATION_HIGH_GLOW_CHANCE)
+				generateGlow = true;
+			break;
+		case 3:
+			skill_Chance = Config.AUGMENTATION_TOP_SKILL_CHANCE;
+			if (Rnd.get(1, 100) <= Config.AUGMENTATION_TOP_GLOW_CHANCE)
+				generateGlow = true;
 		}
 		if (Rnd.get(1, 100) <= skill_Chance)
 			generateSkill = true;
@@ -423,21 +423,21 @@ public class AugmentationData
 			augmentationSkill temp = null;
 			switch (resultColor)
 			{
-				case 1: // blue skill
-					temp = _blueSkills.get(Rnd.get(0, _blueSkills.size() - 1));
-					skill = temp.getSkill(lifeStoneLevel);
-					stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
-					break;
-				case 2: // purple skill
-					temp = _purpleSkills.get(Rnd.get(0, _purpleSkills.size() - 1));
-					skill = temp.getSkill(lifeStoneLevel);
-					stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
-					break;
-				case 3: // red skill
-					temp = _redSkills.get(Rnd.get(0, _redSkills.size() - 1));
-					skill = temp.getSkill(lifeStoneLevel);
-					stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
-					break;
+			case 1: // blue skill
+				temp = _blueSkills.get(Rnd.get(0, _blueSkills.size() - 1));
+				skill = temp.getSkill(lifeStoneLevel);
+				stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
+				break;
+			case 2: // purple skill
+				temp = _purpleSkills.get(Rnd.get(0, _purpleSkills.size() - 1));
+				skill = temp.getSkill(lifeStoneLevel);
+				stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
+				break;
+			case 3: // red skill
+				temp = _redSkills.get(Rnd.get(0, _redSkills.size() - 1));
+				skill = temp.getSkill(lifeStoneLevel);
+				stat34 = temp.getAugmentationSkillId() + (lifeStoneLevel - 1) * _skillsCount;
+				break;
 			}
 		}
 		if (Config.DEBUG)
@@ -511,7 +511,7 @@ public class AugmentationData
 					temp.add(new AugStat(as.getStat(), as.getSingleStatValue(subblock)));
 				}
 				else
-				// twin stat
+					// twin stat
 				{
 					stats[i] -= 13; // rescale to 0 (if first of first combined block)
 					int x = 12; // next combi block has 12 stats
@@ -541,18 +541,18 @@ public class AugmentationData
 			{
 				switch (stats[i])
 				{
-					case BASESTAT_STR:
-						temp.add(new AugStat(Stats.STAT_STR, 1.0f));
-						break;
-					case BASESTAT_CON:
-						temp.add(new AugStat(Stats.STAT_CON, 1.0f));
-						break;
-					case BASESTAT_INT:
-						temp.add(new AugStat(Stats.STAT_INT, 1.0f));
-						break;
-					case BASESTAT_MEN:
-						temp.add(new AugStat(Stats.STAT_MEN, 1.0f));
-						break;
+				case BASESTAT_STR:
+					temp.add(new AugStat(Stats.STAT_STR, 1.0f));
+					break;
+				case BASESTAT_CON:
+					temp.add(new AugStat(Stats.STAT_CON, 1.0f));
+					break;
+				case BASESTAT_INT:
+					temp.add(new AugStat(Stats.STAT_INT, 1.0f));
+					break;
+				case BASESTAT_MEN:
+					temp.add(new AugStat(Stats.STAT_MEN, 1.0f));
+					break;
 				}
 			}
 		}

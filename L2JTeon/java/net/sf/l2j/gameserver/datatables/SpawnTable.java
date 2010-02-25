@@ -111,17 +111,17 @@ public class SpawnTable
 						spawnDat.setLocation(loc_id);
 						switch (rset.getInt("periodOfDay"))
 						{
-							case 0: // default
-								_npcSpawnCount += spawnDat.init();
-								break;
-							case 1: // Day
-								DayNightSpawnManager.getInstance().addDayCreature(spawnDat);
-								_npcSpawnCount++;
-								break;
-							case 2: // Night
-								DayNightSpawnManager.getInstance().addNightCreature(spawnDat);
-								_npcSpawnCount++;
-								break;
+						case 0: // default
+							_npcSpawnCount += spawnDat.init();
+							break;
+						case 1: // Day
+							DayNightSpawnManager.getInstance().addDayCreature(spawnDat);
+							_npcSpawnCount++;
+							break;
+						case 2: // Night
+							DayNightSpawnManager.getInstance().addNightCreature(spawnDat);
+							_npcSpawnCount++;
+							break;
 						}
 						_spawntable.put(spawnDat.getId(), spawnDat);
 						if (spawnDat.getId() > _highestId)
@@ -201,17 +201,17 @@ public class SpawnTable
 							spawnDat.setLocation(loc_id);
 							switch (rset.getInt("periodOfDay"))
 							{
-								case 0: // default
-									_cusSpawnCount += spawnDat.init();
-									break;
-								case 1: // Day
-									DayNightSpawnManager.getInstance().addDayCreature(spawnDat);
-									_cusSpawnCount++;
-									break;
-								case 2: // Night
-									DayNightSpawnManager.getInstance().addNightCreature(spawnDat);
-									_cusSpawnCount++;
-									break;
+							case 0: // default
+								_cusSpawnCount += spawnDat.init();
+								break;
+							case 1: // Day
+								DayNightSpawnManager.getInstance().addDayCreature(spawnDat);
+								_cusSpawnCount++;
+								break;
+							case 2: // Night
+								DayNightSpawnManager.getInstance().addNightCreature(spawnDat);
+								_cusSpawnCount++;
+								break;
 							}
 							_spawntable.put(spawnDat.getId(), spawnDat);
 							if (spawnDat.getId() > _highestId)

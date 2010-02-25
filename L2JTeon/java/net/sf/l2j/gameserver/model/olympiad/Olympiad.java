@@ -191,11 +191,11 @@ public class Olympiad
 					{
 						switch (i)
 						{
-							case 45:
-							case 30:
-							case 15:
-								_game.sendMessageToPlayers(false, i);
-								break;
+						case 45:
+						case 30:
+						case 15:
+							_game.sendMessageToPlayers(false, i);
+							break;
 						}
 						try
 						{
@@ -449,8 +449,8 @@ public class Olympiad
 	}
 
 	protected static final Stadia[] STADIUMS = { new Stadia(-20814, -21189, -3030), new Stadia(-120324, -225077, -3331), new Stadia(-102495, -209023, -3331), new Stadia(-120156, -207378, -3331), new Stadia(-87628, -225021, -3331), new Stadia(-81705, -213209, -3331), new Stadia(-87593, -207339, -3331), new Stadia(-93709, -218304, -3331), new Stadia(-77157, -218608, -3331),
-			new Stadia(-69682, -209027, -3331), new Stadia(-76887, -201256, -3331), new Stadia(-109985, -218701, -3331), new Stadia(-126367, -218228, -3331), new Stadia(-109629, -201292, -3331), new Stadia(-87523, -240169, -3331), new Stadia(-81748, -245950, -3331), new Stadia(-77123, -251473, -3331), new Stadia(-69778, -241801, -3331), new Stadia(-76754, -234014, -3331),
-			new Stadia(-93742, -251032, -3331), new Stadia(-87466, -257752, -3331), new Stadia(-114413, -213241, -3331) };
+		new Stadia(-69682, -209027, -3331), new Stadia(-76887, -201256, -3331), new Stadia(-109985, -218701, -3331), new Stadia(-126367, -218228, -3331), new Stadia(-109629, -201292, -3331), new Stadia(-87523, -240169, -3331), new Stadia(-81748, -245950, -3331), new Stadia(-77123, -251473, -3331), new Stadia(-69778, -241801, -3331), new Stadia(-76754, -234014, -3331),
+		new Stadia(-93742, -251032, -3331), new Stadia(-87466, -257752, -3331), new Stadia(-114413, -213241, -3331) };
 
 	private static enum COMP_TYPE
 	{
@@ -498,39 +498,39 @@ public class Olympiad
 		_nextWeeklyChange = Long.parseLong(OlympiadProperties.getProperty("NextWeeklyChange", "0"));
 		switch (_period)
 		{
-			case 0:
-				if (_olympiadEnd == 0 || _olympiadEnd < Calendar.getInstance().getTimeInMillis())
-					setNewOlympiadEnd();
-				else
-					_isOlympiadEnd = false;
-				break;
-			case 1:
-				if (_validationEnd > Calendar.getInstance().getTimeInMillis())
+		case 0:
+			if (_olympiadEnd == 0 || _olympiadEnd < Calendar.getInstance().getTimeInMillis())
+				setNewOlympiadEnd();
+			else
+				_isOlympiadEnd = false;
+			break;
+		case 1:
+			if (_validationEnd > Calendar.getInstance().getTimeInMillis())
+			{
+				_isOlympiadEnd = true;
+				_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 				{
-					_isOlympiadEnd = true;
-					_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+					public void run()
 					{
-						public void run()
-						{
-							_period = 0;
-							_currentCycle++;
-							deleteNobles();
-							setNewOlympiadEnd();
-							init();
-						}
-					}, getMillisToValidationEnd());
-				}
-				else
-				{
-					_currentCycle++;
-					_period = 0;
-					deleteNobles();
-					setNewOlympiadEnd();
-				}
-				break;
-			default:
-				_log.warning("Olympiad System: Omg something went wrong in loading!! Period = " + _period);
-				return;
+						_period = 0;
+						_currentCycle++;
+						deleteNobles();
+						setNewOlympiadEnd();
+						init();
+					}
+				}, getMillisToValidationEnd());
+			}
+			else
+			{
+				_currentCycle++;
+				_period = 0;
+				deleteNobles();
+				setNewOlympiadEnd();
+			}
+			break;
+		default:
+			_log.warning("Olympiad System: Omg something went wrong in loading!! Period = " + _period);
+		return;
 		}
 		try
 		{
@@ -2209,14 +2209,14 @@ public class Olympiad
 			_players.set(1, _playerTwo);
 			switch (_type)
 			{
-				case NON_CLASSED:
-					_div = 3;
-					_gpreward = Config.ALT_OLY_NONCLASSED_RITEM_C;
-					break;
-				default:
-					_div = 3;
-					_gpreward = Config.ALT_OLY_CLASSED_RITEM_C;
-					break;
+			case NON_CLASSED:
+				_div = 3;
+				_gpreward = Config.ALT_OLY_NONCLASSED_RITEM_C;
+				break;
+			default:
+				_div = 3;
+			_gpreward = Config.ALT_OLY_CLASSED_RITEM_C;
+			break;
 			}
 			if (_playerTwo.isOnline() == 0 || (playerTwoHp == 0 && playerOneHp != 0) || (_playerOne.dmgDealt > _playerTwo.dmgDealt && playerTwoHp != 0 && playerOneHp != 0))
 			{

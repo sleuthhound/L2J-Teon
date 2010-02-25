@@ -66,31 +66,31 @@ public class SplendorKeys implements IItemHandler
 			return;
 		switch (itemId)
 		{
-			case 8056: // Key of Splendor Room
-				if (door.getDoorName().startsWith("Gate_of_Splendor"))
+		case 8056: // Key of Splendor Room
+			if (door.getDoorName().startsWith("Gate_of_Splendor"))
+			{
+				if ((openChance > 0) && (Rnd.get(100) < openChance))
 				{
-					if ((openChance > 0) && (Rnd.get(100) < openChance))
-					{
-						activeChar.sendMessage("You opened Gate of Splendor.");
-						door.openMe();
-						door.onOpen(); // Closes the door after 60sec
-						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
-					}
-					else
-					{
-						// test with: activeChar.sendPacket(new
-						// SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR));
-						activeChar.sendMessage("You failed to open Gate of Splendor.");
-						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
-						activeChar.sendPacket(playSound);
-					}
+					activeChar.sendMessage("You opened Gate of Splendor.");
+					door.openMe();
+					door.onOpen(); // Closes the door after 60sec
+					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
 				}
 				else
 				{
-					activeChar.sendMessage("Incorrect Door.");
+					// test with: activeChar.sendPacket(new
+					// SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR));
+					activeChar.sendMessage("You failed to open Gate of Splendor.");
+					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
+					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+					activeChar.sendPacket(playSound);
 				}
-				break;
+			}
+			else
+			{
+				activeChar.sendMessage("Incorrect Door.");
+			}
+			break;
 		}
 	}
 

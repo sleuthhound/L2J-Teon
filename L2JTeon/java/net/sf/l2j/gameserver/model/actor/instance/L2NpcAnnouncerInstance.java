@@ -142,11 +142,11 @@ public class L2NpcAnnouncerInstance extends L2NpcInstance
 			if (player.getAnnounceCount() == Config.NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY)
 			{
 				if (player.getLastAnnounceDate() == Calendar.DAY_OF_WEEK)// player
-				// is
-				// in
-				// the
-				// same
-				// day
+					// is
+					// in
+					// the
+					// same
+					// day
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());// will
 					// add

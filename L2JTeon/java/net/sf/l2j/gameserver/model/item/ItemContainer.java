@@ -350,13 +350,13 @@ public abstract class ItemContainer
 			else
 			{
 				if (sourceitem.getCount() > count) // If possible, only
-				// update
-				// counts
+					// update
+					// counts
 				{
 					sourceitem.changeCount(process, -count, actor, reference);
 				}
 				else
-				// Otherwise destroy old item
+					// Otherwise destroy old item
 				{
 					removeItem(sourceitem);
 					ItemTable.getInstance().destroyItem(process, sourceitem, actor, reference);
@@ -366,7 +366,7 @@ public abstract class ItemContainer
 					targetitem.changeCount(process, count, actor, reference);
 				}
 				else
-				// Otherwise add new item
+					// Otherwise add new item
 				{
 					targetitem = target.addItem(process, sourceitem.getItemId(), count, actor, reference);
 				}

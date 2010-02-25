@@ -298,24 +298,24 @@ public abstract class L2Item
 		if (enchantLevel > 3)
 			switch (_type2)
 			{
-				case TYPE2_SHIELD_ARMOR:
-				case TYPE2_ACCESSORY:
-					return _crystalCount + crystalEnchantBonusArmor[getCrystalType()] * (3 * enchantLevel - 6);
-				case TYPE2_WEAPON:
-					return _crystalCount + crystalEnchantBonusWeapon[getCrystalType()] * (2 * enchantLevel - 3);
-				default:
-					return _crystalCount;
+			case TYPE2_SHIELD_ARMOR:
+			case TYPE2_ACCESSORY:
+				return _crystalCount + crystalEnchantBonusArmor[getCrystalType()] * (3 * enchantLevel - 6);
+			case TYPE2_WEAPON:
+				return _crystalCount + crystalEnchantBonusWeapon[getCrystalType()] * (2 * enchantLevel - 3);
+			default:
+				return _crystalCount;
 			}
 		else if (enchantLevel > 0)
 			switch (_type2)
 			{
-				case TYPE2_SHIELD_ARMOR:
-				case TYPE2_ACCESSORY:
-					return _crystalCount + crystalEnchantBonusArmor[getCrystalType()] * enchantLevel;
-				case TYPE2_WEAPON:
-					return _crystalCount + crystalEnchantBonusWeapon[getCrystalType()] * enchantLevel;
-				default:
-					return _crystalCount;
+			case TYPE2_SHIELD_ARMOR:
+			case TYPE2_ACCESSORY:
+				return _crystalCount + crystalEnchantBonusArmor[getCrystalType()] * enchantLevel;
+			case TYPE2_WEAPON:
+				return _crystalCount + crystalEnchantBonusWeapon[getCrystalType()] * enchantLevel;
+			default:
+				return _crystalCount;
 			}
 		else
 			return _crystalCount;

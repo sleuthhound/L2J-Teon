@@ -543,23 +543,23 @@ public class Lottery
 				}
 				switch (count)
 				{
-					case 0:
-						break;
-					case 5:
-						res[0] = 1;
-						res[1] = rset.getInt("prize1");
-						break;
-					case 4:
-						res[0] = 2;
-						res[1] = rset.getInt("prize2");
-						break;
-					case 3:
-						res[0] = 3;
-						res[1] = rset.getInt("prize3");
-						break;
-					default:
-						res[0] = 4;
-						res[1] = 200;
+				case 0:
+					break;
+				case 5:
+					res[0] = 1;
+					res[1] = rset.getInt("prize1");
+					break;
+				case 4:
+					res[0] = 2;
+					res[1] = rset.getInt("prize2");
+					break;
+				case 3:
+					res[0] = 3;
+					res[1] = rset.getInt("prize3");
+					break;
+				default:
+					res[0] = 4;
+				res[1] = 200;
 				}
 				if (Config.DEBUG)
 				{

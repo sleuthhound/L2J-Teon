@@ -294,7 +294,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-     * </code><br />
+	 * </code><br />
 	 * <br />
 	 * If no prefix is given in the whole line, <code>null</code> is returned. <br />
 	 * <br />
@@ -322,7 +322,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-     * </code><br />
+	 * </code><br />
 	 * <br />
 	 * If no prefix is given in the whole line, <code>null</code> is returned. <br />
 	 * <br />
@@ -345,7 +345,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-     * </code><br />
+	 * </code><br />
 	 * <br />
 	 * If the username is not specified, this method returns <code>null</code>. <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.
@@ -373,7 +373,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-     * </code><br />
+	 * </code><br />
 	 * <br />
 	 * If the host is not specified, this method returns <code>null</code>. <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.

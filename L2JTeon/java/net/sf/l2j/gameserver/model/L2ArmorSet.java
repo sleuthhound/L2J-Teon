@@ -93,18 +93,18 @@ public final class L2ArmorSet
 	{
 		switch (slot)
 		{
-			case Inventory.PAPERDOLL_CHEST:
-				return _chest == itemId;
-			case Inventory.PAPERDOLL_LEGS:
-				return _legs == itemId;
-			case Inventory.PAPERDOLL_HEAD:
-				return _head == itemId;
-			case Inventory.PAPERDOLL_GLOVES:
-				return _gloves == itemId;
-			case Inventory.PAPERDOLL_FEET:
-				return _feet == itemId;
-			default:
-				return false;
+		case Inventory.PAPERDOLL_CHEST:
+			return _chest == itemId;
+		case Inventory.PAPERDOLL_LEGS:
+			return _legs == itemId;
+		case Inventory.PAPERDOLL_HEAD:
+			return _head == itemId;
+		case Inventory.PAPERDOLL_GLOVES:
+			return _gloves == itemId;
+		case Inventory.PAPERDOLL_FEET:
+			return _feet == itemId;
+		default:
+			return false;
 		}
 	}
 

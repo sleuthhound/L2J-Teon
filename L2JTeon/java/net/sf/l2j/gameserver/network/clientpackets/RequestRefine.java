@@ -61,9 +61,9 @@ public final class RequestRefine extends L2GameClientPacket
 		L2ItemInstance refinerItem = (L2ItemInstance) L2World.getInstance().findObject(_refinerItemObjId);
 		L2ItemInstance gemstoneItem = (L2ItemInstance) L2World.getInstance().findObject(_gemstoneItemObjId);
 		if ((targetItem == null) || (refinerItem == null) || (gemstoneItem == null) || (targetItem.getOwnerId() != activeChar.getObjectId()) || (refinerItem.getOwnerId() != activeChar.getObjectId()) || (gemstoneItem.getOwnerId() != activeChar.getObjectId()) || (activeChar.getLevel() < 46)) // must
-		// be
-		// lvl
-		// 46
+			// be
+			// lvl
+			// 46
 		{
 			activeChar.sendPacket(new ExVariationResult(0, 0, 0));
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
@@ -76,8 +76,8 @@ public final class RequestRefine extends L2GameClientPacket
 		{
 			int stat12 = 0x0000FFFF & targetItem.getAugmentation().getAugmentationId();
 			int stat34 = targetItem.getAugmentation().getAugmentationId() >> 16;
-			activeChar.sendPacket(new ExVariationResult(stat12, stat34, 1));
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_ITEM_WAS_SUCCESSFULLY_AUGMENTED));
+		activeChar.sendPacket(new ExVariationResult(stat12, stat34, 1));
+		activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_ITEM_WAS_SUCCESSFULLY_AUGMENTED));
 		}
 		else
 		{
@@ -155,70 +155,70 @@ public final class RequestRefine extends L2GameClientPacket
 		int lifeStoneGrade = getLifeStoneGrade(lifeStoneId);
 		switch (itemGrade)
 		{
-			case L2Item.CRYSTAL_C:
-				if ((player.getLevel() < 46) || (gemstoneItemId != 2130))
-					return false;
-				modifyGemstoneCount = 20;
-				break;
-			case L2Item.CRYSTAL_B:
-				if ((lifeStoneLevel < 3) || (player.getLevel() < 52) || (gemstoneItemId != 2130))
-					return false;
-				modifyGemstoneCount = 30;
-				break;
-			case L2Item.CRYSTAL_A:
-				if ((lifeStoneLevel < 6) || (player.getLevel() < 61) || (gemstoneItemId != 2131))
-					return false;
-				modifyGemstoneCount = 20;
-				break;
-			case L2Item.CRYSTAL_S:
-				if ((lifeStoneLevel != 10) || (player.getLevel() < 76) || (gemstoneItemId != 2131))
-					return false;
-				modifyGemstoneCount = 25;
-				break;
+		case L2Item.CRYSTAL_C:
+			if ((player.getLevel() < 46) || (gemstoneItemId != 2130))
+				return false;
+			modifyGemstoneCount = 20;
+			break;
+		case L2Item.CRYSTAL_B:
+			if ((lifeStoneLevel < 3) || (player.getLevel() < 52) || (gemstoneItemId != 2130))
+				return false;
+			modifyGemstoneCount = 30;
+			break;
+		case L2Item.CRYSTAL_A:
+			if ((lifeStoneLevel < 6) || (player.getLevel() < 61) || (gemstoneItemId != 2131))
+				return false;
+			modifyGemstoneCount = 20;
+			break;
+		case L2Item.CRYSTAL_S:
+			if ((lifeStoneLevel != 10) || (player.getLevel() < 76) || (gemstoneItemId != 2131))
+				return false;
+			modifyGemstoneCount = 25;
+			break;
 		}
 		// check if the lifestone is appropriate for this player
 		switch (lifeStoneLevel)
 		{
-			case 1:
-				if (player.getLevel() < 46)
-					return false;
-				break;
-			case 2:
-				if (player.getLevel() < 49)
-					return false;
-				break;
-			case 3:
-				if (player.getLevel() < 52)
-					return false;
-				break;
-			case 4:
-				if (player.getLevel() < 55)
-					return false;
-				break;
-			case 5:
-				if (player.getLevel() < 58)
-					return false;
-				break;
-			case 6:
-				if (player.getLevel() < 61)
-					return false;
-				break;
-			case 7:
-				if (player.getLevel() < 64)
-					return false;
-				break;
-			case 8:
-				if (player.getLevel() < 67)
-					return false;
-				break;
-			case 9:
-				if (player.getLevel() < 70)
-					return false;
-				break;
-			case 10:
-				if (player.getLevel() < 76)
-					return false;
-				break;
+		case 1:
+			if (player.getLevel() < 46)
+				return false;
+			break;
+		case 2:
+			if (player.getLevel() < 49)
+				return false;
+			break;
+		case 3:
+			if (player.getLevel() < 52)
+				return false;
+			break;
+		case 4:
+			if (player.getLevel() < 55)
+				return false;
+			break;
+		case 5:
+			if (player.getLevel() < 58)
+				return false;
+			break;
+		case 6:
+			if (player.getLevel() < 61)
+				return false;
+			break;
+		case 7:
+			if (player.getLevel() < 64)
+				return false;
+			break;
+		case 8:
+			if (player.getLevel() < 67)
+				return false;
+			break;
+		case 9:
+			if (player.getLevel() < 70)
+				return false;
+			break;
+		case 10:
+			if (player.getLevel() < 76)
+				return false;
+			break;
 		}
 		if (gemstoneItem.getCount() - modifyGemstoneCount < 0)
 			return false;

@@ -65,7 +65,7 @@ public class FishingSkill implements ISkillHandler
 		double gradebonus = 1 + weaponItem.getCrystalType() * 0.1;
 		int dmg = (int) (skill.getPower() * gradebonus * SS);
 		if (player.getSkillLevel(1315) <= skill.getLevel() - 2) // 1315 - Fish
-		// Expertise
+			// Expertise
 		{// Penalty
 			player.sendPacket(new SystemMessage(SystemMessageId.REELING_PUMPING_3_LEVELS_HIGHER_THAN_FISHING_PENALTY));
 			pen = 50;
@@ -83,7 +83,7 @@ public class FishingSkill implements ISkillHandler
 			fish.useRealing(dmg, pen);
 		}
 		else
-		// Pumping
+			// Pumping
 		{
 			fish.usePomping(dmg, pen);
 		}

@@ -142,7 +142,7 @@ public class IRCModeParser
 				operatorsArr[n] = operator;
 				modesArr[n] = c; // add the mode
 				if ((c == 'o') || (c == 'v') || (c == 'b') || (c == 'k')
-				// arg
+						// arg
 						|| ((c == 'l') && (operator == '+')))
 				{ // key comes
 					// with arg if

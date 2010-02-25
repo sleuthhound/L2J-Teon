@@ -1459,13 +1459,13 @@ public abstract class L2Character extends L2Object
 				// I must 'eat' them here so players don't take advantage of // infinite speed increase
 				switch (skill.getSkillType())
 				{
-					case BUFF:
-					case MANAHEAL:
-					case RESURRECT:
-					case RECALL:
-					case DOT:
-						weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-						break;
+				case BUFF:
+				case MANAHEAL:
+				case RESURRECT:
+				case RECALL:
+				case DOT:
+					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+					break;
 				}
 			}
 		}
@@ -1795,16 +1795,16 @@ public abstract class L2Character extends L2Object
 		L2Object target = null;
 		switch (skill.getTargetType())
 		{
-			case TARGET_AURA: // AURA, SELF should be cast even if no target
-			case TARGET_GROUND:
-				// has been found
-			case TARGET_SELF:
-				target = this;
-				break;
-			default:
-				// Get the first target of the list
-				target = skill.getFirstOfTargetList(this);
-				break;
+		case TARGET_AURA: // AURA, SELF should be cast even if no target
+		case TARGET_GROUND:
+			// has been found
+		case TARGET_SELF:
+			target = this;
+			break;
+		default:
+			// Get the first target of the list
+			target = skill.getFirstOfTargetList(this);
+		break;
 		}
 		// Notify the AI with AI_INTENTION_CAST and target
 		getAI().setIntention(CtrlIntention.AI_INTENTION_CAST, skill, target);
@@ -2367,17 +2367,17 @@ public abstract class L2Character extends L2Object
 			{
 				switch (_phase)
 				{
-					case 1:
-						onMagicLaunchedTimer(_targets, _skill, _coolTime, false);
-						break;
-					case 2:
-						onMagicHitTimer(_targets, _skill, _coolTime, false);
-						break;
-					case 3:
-						onMagicFinalizer(_skill);
-						break;
-					default:
-						break;
+				case 1:
+					onMagicLaunchedTimer(_targets, _skill, _coolTime, false);
+					break;
+				case 2:
+					onMagicHitTimer(_targets, _skill, _coolTime, false);
+					break;
+				case 3:
+					onMagicFinalizer(_skill);
+					break;
+				default:
+					break;
 				}
 				// check augmentation skill effect
 				if ((getAugmentationSkillType() == 0) || (getAugmentationSkillType() == 2))
@@ -2567,22 +2567,22 @@ public abstract class L2Character extends L2Object
 					return;
 			}
 			L2Effect tempEffect = null;
-            // Check for same effects 
+			// Check for same effects 
 			for (int i = 0; i < _effects.size(); i++)
 			{
 				if ((_effects.get(i).getSkill().getId() == newEffect.getSkill().getId()) && (_effects.get(i).getEffectType() == newEffect.getEffectType() && _effects.get(i).getStackOrder() == newEffect.getStackOrder()))
 				{
-                    if (newEffect.getSkill().getSkillType() == L2Skill.SkillType.BUFF || newEffect.getEffectType() == L2Effect.EffectType.BUFF) 
-                    {
-                        // renew buffs, exit old 
-                        _effects.get(i).exit(); 
-                    }
-                    else
-                    {
+					if (newEffect.getSkill().getSkillType() == L2Skill.SkillType.BUFF || newEffect.getEffectType() == L2Effect.EffectType.BUFF) 
+					{
+						// renew buffs, exit old 
+						_effects.get(i).exit(); 
+					}
+					else
+					{
 						// Started scheduled timer needs to be canceled. There could be a nicer fix...
 						newEffect.stopEffectTask();
 						return;
-                    }
+					}
 				}
 			}
 			// Remove first Buff if number of buffs > 19
@@ -2898,40 +2898,40 @@ public abstract class L2Character extends L2Object
 					int _diff = highestLevel - this.getLevel();
 					switch (_diff)
 					{
-						case 1:
-						case 2:
-						case 3:
-						case 4:
-						case 5:
-							if (Rnd.get(100) >= 95) // fails at 5%.
+					case 1:
+					case 2:
+					case 3:
+					case 4:
+					case 5:
+						if (Rnd.get(100) >= 95) // fails at 5%.
+							setIsFakeDeath(false);
+						break;
+					case 6:
+						if (Rnd.get(100) >= 90) // fails at 10%.
+							setIsFakeDeath(false);
+						break;
+					case 7:
+						if (Rnd.get(100) >= 85) // fails at 15%.
+							setIsFakeDeath(false);
+						break;
+					case 8:
+						if (Rnd.get(100) >= 80) // fails at 20%.
+							setIsFakeDeath(false);
+						break;
+					case 9:
+						if (Rnd.get(100) >= 75) // fails at 25%.
+							setIsFakeDeath(false);
+						break;
+					default:
+						if (_diff > 9)
+						{
+							if (Rnd.get(100) >= 50) // fails at 50%.
 								setIsFakeDeath(false);
-							break;
-						case 6:
-							if (Rnd.get(100) >= 90) // fails at 10%.
-								setIsFakeDeath(false);
-							break;
-						case 7:
-							if (Rnd.get(100) >= 85) // fails at 15%.
-								setIsFakeDeath(false);
-							break;
-						case 8:
-							if (Rnd.get(100) >= 80) // fails at 20%.
-								setIsFakeDeath(false);
-							break;
-						case 9:
-							if (Rnd.get(100) >= 75) // fails at 25%.
-								setIsFakeDeath(false);
-							break;
-						default:
-							if (_diff > 9)
-							{
-								if (Rnd.get(100) >= 50) // fails at 50%.
-									setIsFakeDeath(false);
-							}
-							else
-							{
-								setIsFakeDeath(true);
-							}
+						}
+						else
+						{
+							setIsFakeDeath(true);
+						}
 					}
 				}
 			}
@@ -4643,9 +4643,9 @@ public abstract class L2Character extends L2Object
 		m.onGeodataPathIndex = -1; // Initialize not on geodata path
 		if (Config.GEODATA > 0 && !this.isFlying()
 		// && !this.isInsideZone(ZONE_WATER) // TODO: change geodata to return correct Z and check if exploiting possible
-				&& !(this instanceof L2NpcWalkerInstance)) // currently flying characters not checked
-		// if ((Config.GEODATA > 0) && !isFlying()) // currently flying
-		// characters not checked
+		&& !(this instanceof L2NpcWalkerInstance)) // currently flying characters not checked
+			// if ((Config.GEODATA > 0) && !isFlying()) // currently flying
+			// characters not checked
 		{
 			double originalDistance = distance;
 			int originalX = x;
@@ -4705,72 +4705,72 @@ public abstract class L2Character extends L2Object
 				if ((this instanceof L2PlayableInstance) || isInCombat())
 				{
 					int gx = curX - L2World.MAP_MIN_X >> 4;
-					int gy = curY - L2World.MAP_MIN_Y >> 4;
-					m.geoPath = GeoPathFinding.getInstance().findPath(gx, gy, (short) curZ, gtx, gty, (short) originalZ);
-					if ((m.geoPath == null) || (m.geoPath.size() < 2)) // No
-					// path
-					// found
+			int gy = curY - L2World.MAP_MIN_Y >> 4;
+			m.geoPath = GeoPathFinding.getInstance().findPath(gx, gy, (short) curZ, gtx, gty, (short) originalZ);
+			if ((m.geoPath == null) || (m.geoPath.size() < 2)) // No
+				// path
+				// found
+			{
+				// Even though there's no path found (remember geonodes
+				// aren't perfect),
+				// the mob is attacking and right now we set it so that
+				// the mob will go
+				// after target anyway, is dz is small enough. Summons
+				// will follow their masters no matter what.
+				if ((this instanceof L2PcInstance) || (!(this instanceof L2PlayableInstance) && (Math.abs(z - curZ) > 140)) || ((this instanceof L2Summon) && !((L2Summon) this).getFollowStatus()))
+				{
+					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+					return;
+				}
+				else
+				{
+					x = originalX;
+					y = originalY;
+					z = originalZ;
+					distance = originalDistance;
+				}
+			}
+			else
+			{
+				m.onGeodataPathIndex = 0; // on first segment
+				m.geoPathGtx = gtx;
+				m.geoPathGty = gty;
+				m.geoPathAccurateTx = originalX;
+				m.geoPathAccurateTy = originalY;
+				x = m.geoPath.get(m.onGeodataPathIndex).getX();
+				y = m.geoPath.get(m.onGeodataPathIndex).getY();
+				z = m.geoPath.get(m.onGeodataPathIndex).getZ();
+				// check for doors in the route
+				if (DoorTable.getInstance().checkIfDoorsBetween(curX, curY, curZ, x, y, z))
+				{
+					m.geoPath = null;
+					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+					return;
+				}
+				for (int i = 0; i < m.geoPath.size() - 1; i++)
+				{
+					if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.get(i), m.geoPath.get(i + 1)))
 					{
-						// Even though there's no path found (remember geonodes
-						// aren't perfect),
-						// the mob is attacking and right now we set it so that
-						// the mob will go
-						// after target anyway, is dz is small enough. Summons
-						// will follow their masters no matter what.
-						if ((this instanceof L2PcInstance) || (!(this instanceof L2PlayableInstance) && (Math.abs(z - curZ) > 140)) || ((this instanceof L2Summon) && !((L2Summon) this).getFollowStatus()))
-						{
-							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-							return;
-						}
-						else
-						{
-							x = originalX;
-							y = originalY;
-							z = originalZ;
-							distance = originalDistance;
-						}
+						m.geoPath = null;
+						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+						return;
 					}
-					else
-					{
-						m.onGeodataPathIndex = 0; // on first segment
-						m.geoPathGtx = gtx;
-						m.geoPathGty = gty;
-						m.geoPathAccurateTx = originalX;
-						m.geoPathAccurateTy = originalY;
-						x = m.geoPath.get(m.onGeodataPathIndex).getX();
-						y = m.geoPath.get(m.onGeodataPathIndex).getY();
-						z = m.geoPath.get(m.onGeodataPathIndex).getZ();
-						// check for doors in the route
-						if (DoorTable.getInstance().checkIfDoorsBetween(curX, curY, curZ, x, y, z))
-						{
-							m.geoPath = null;
-							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-							return;
-						}
-						for (int i = 0; i < m.geoPath.size() - 1; i++)
-						{
-							if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.get(i), m.geoPath.get(i + 1)))
-							{
-								m.geoPath = null;
-								getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-								return;
-							}
-						}
-						// not in use: final check if we can indeed reach first
-						// path node (path nodes sometimes aren't accurate
-						// enough)
-						// but if the node is very far, then a shorter check
-						// (like 3 blocks) would be enough
-						// something similar might be needed for end
-						/*
-						 * Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z); if (destiny.getX() != x || destiny.getY() != y) { m.geoPath = null; getAI().stopFollow(); getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE); return; }
-						 */
-						dx = x - curX;
-						dy = y - curY;
-						distance = Math.sqrt(dx * dx + dy * dy);
-						sin = dy / distance;
-						cos = dx / distance;
-					}
+				}
+				// not in use: final check if we can indeed reach first
+				// path node (path nodes sometimes aren't accurate
+				// enough)
+				// but if the node is very far, then a shorter check
+				// (like 3 blocks) would be enough
+				// something similar might be needed for end
+				/*
+				 * Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z); if (destiny.getX() != x || destiny.getY() != y) { m.geoPath = null; getAI().stopFollow(); getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE); return; }
+				 */
+				dx = x - curX;
+				dy = y - curY;
+				distance = Math.sqrt(dx * dx + dy * dy);
+				sin = dy / distance;
+				cos = dx / distance;
+			}
 				}
 			}
 			// If no distance to go through, the movement is canceled
@@ -5427,7 +5427,7 @@ public abstract class L2Character extends L2Object
 				L2Weapon weapon = getActiveWeaponItem();
 				boolean isBow = (weapon != null) && weapon.getItemType().toString().equalsIgnoreCase("Bow");
 				if (!isBow) // Do not reflect or absorb if weapon is of type
-				// bow
+					// bow
 				{
 					// Reduce HP of the target and calculate reflection
 					// damage
@@ -5796,15 +5796,15 @@ public abstract class L2Character extends L2Object
 		{
 			switch (weapon.getItemType())
 			{
-				case BOW:
-					atkSpd = getStat().getPAtkSpd();
-					return (int) (1500 * 345 / atkSpd);
-				case DAGGER:
-					atkSpd = getStat().getPAtkSpd();
-					// atkSpd /= 1.15;
-					break;
-				default:
-					atkSpd = getStat().getPAtkSpd();
+			case BOW:
+				atkSpd = getStat().getPAtkSpd();
+				return (int) (1500 * 345 / atkSpd);
+			case DAGGER:
+				atkSpd = getStat().getPAtkSpd();
+				// atkSpd /= 1.15;
+				break;
+			default:
+				atkSpd = getStat().getPAtkSpd();
 			}
 		}
 		else
@@ -5825,10 +5825,10 @@ public abstract class L2Character extends L2Object
 		double atkSpd = getStat().getPAtkSpd();
 		switch (weapon.getItemType())
 		{
-			case BOW:
-				return (int) (reuse * 345 / atkSpd);
-			default:
-				return (int) (reuse * 312 / atkSpd);
+		case BOW:
+			return (int) (reuse * 345 / atkSpd);
+		default:
+			return (int) (reuse * 312 / atkSpd);
 		}
 	}
 

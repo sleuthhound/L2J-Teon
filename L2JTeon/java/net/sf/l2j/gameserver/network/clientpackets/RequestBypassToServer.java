@@ -72,8 +72,8 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		try
 		{
 			if (_command.startsWith("admin_")) // &&
-			// activeChar.getAccessLevel()
-			// >= Config.GM_ACCESSLEVEL)
+				// activeChar.getAccessLevel()
+				// >= Config.GM_ACCESSLEVEL)
 			{
 				if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, _command))
 				{

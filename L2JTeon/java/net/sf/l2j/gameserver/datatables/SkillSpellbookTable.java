@@ -73,20 +73,20 @@ public class SkillSpellbookTable
 		{
 			switch (level)
 			{
-				case 1:
-					return 8618; // Ancient Book - Divine Inspiration (Modern
-					// Language Version)
-				case 2:
-					return 8619; // Ancient Book - Divine Inspiration (Original
-					// Language Version)
-				case 3:
-					return 8620; // Ancient Book - Divine Inspiration
-					// (Manuscript)
-				case 4:
-					return 8621; // Ancient Book - Divine Inspiration (Original
-					// Version)
-				default:
-					return -1;
+			case 1:
+				return 8618; // Ancient Book - Divine Inspiration (Modern
+				// Language Version)
+			case 2:
+				return 8619; // Ancient Book - Divine Inspiration (Original
+				// Language Version)
+			case 3:
+				return 8620; // Ancient Book - Divine Inspiration
+				// (Manuscript)
+			case 4:
+				return 8621; // Ancient Book - Divine Inspiration (Original
+				// Version)
+			default:
+				return -1;
 			}
 		}
 		if (!_skillSpellbooks.containsKey(skillId))

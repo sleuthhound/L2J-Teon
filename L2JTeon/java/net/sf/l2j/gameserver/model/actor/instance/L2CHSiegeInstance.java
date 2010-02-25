@@ -108,47 +108,47 @@ public class L2CHSiegeInstance extends L2NpcInstance
 			str = "<html><body>Newspaper!<br>";
 			switch (getTemplate().getNpcId())
 			{
-				case 35639:
-					if (!FortressofTheDeadManager.getInstance().isRegistrationPeriod())
-					{
-						showChatWindow(player, 3);
-						return;
-					}
-					if ((Clan == null) || (Clan.getLeaderName() != player.getName()) || (Clan.getLevel() < 4))
-					{
-						showChatWindow(player, 1);
-						return;
-					}
-					if (FortressofTheDeadManager.getInstance().clanhall.getOwnerClan() == Clan)
+			case 35639:
+				if (!FortressofTheDeadManager.getInstance().isRegistrationPeriod())
+				{
+					showChatWindow(player, 3);
+					return;
+				}
+				if ((Clan == null) || (Clan.getLeaderName() != player.getName()) || (Clan.getLevel() < 4))
+				{
+					showChatWindow(player, 1);
+					return;
+				}
+				if (FortressofTheDeadManager.getInstance().clanhall.getOwnerClan() == Clan)
+				{
+					str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+				}
+				else
+				{
+					if (FortressofTheDeadManager.getInstance().isClanOnSiege(Clan))
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
 					}
 					else
 					{
-						if (FortressofTheDeadManager.getInstance().isClanOnSiege(Clan))
+						int res = FortressofTheDeadManager.getInstance().registerClanOnSiege(player, Clan);
+						if (res == 0)
 						{
-							str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-							str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
+							str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
+							str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
 						}
-						else
+						else if (res == 1)
 						{
-							int res = FortressofTheDeadManager.getInstance().registerClanOnSiege(player, Clan);
-							if (res == 0)
-							{
-								str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
-								str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
-							}
-							else if (res == 1)
-							{
-								str += "You have participation in the siege";
-							}
-							else if (res == 2)
-							{
-								str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
-							}
+							str += "You have participation in the siege";
+						}
+						else if (res == 2)
+						{
+							str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
 						}
 					}
-					break;
+				}
+				break;
 			}
 			str += "</body></html>";
 			html.setHtml(str);
@@ -208,15 +208,15 @@ public class L2CHSiegeInstance extends L2NpcInstance
 			int clanCount = 0;
 			switch (npcId)
 			{
-				case 35639:
-					clanhall = ClanHallManager.getInstance().getClanHallById(64);
-					startSiege = FortressofTheDeadManager.getInstance().getSiegeDate().getTimeInMillis();
-					for (String a : FortressofTheDeadManager.getInstance().getRegisteredClans())
-					{
-						clanCount++;
-						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  " + FortressofTheDeadManager.getInstance().getClansCount(a) + "</td></tr>";
-					}
-					break;
+			case 35639:
+				clanhall = ClanHallManager.getInstance().getClanHallById(64);
+				startSiege = FortressofTheDeadManager.getInstance().getSiegeDate().getTimeInMillis();
+				for (String a : FortressofTheDeadManager.getInstance().getRegisteredClans())
+				{
+					clanCount++;
+					clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  " + FortressofTheDeadManager.getInstance().getClansCount(a) + "</td></tr>";
+				}
+				break;
 			}
 			while (clanCount < 5)
 			{

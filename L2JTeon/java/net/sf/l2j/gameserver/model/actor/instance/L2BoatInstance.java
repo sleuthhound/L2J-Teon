@@ -130,8 +130,8 @@ public class L2BoatInstance extends L2Character
 		}
 
 		/**
-	 *
-	 */
+		 *
+		 */
 		private void loadBoatPath()
 		{
 			LineNumberReader lnr = null;
@@ -313,25 +313,25 @@ public class L2BoatInstance extends L2Character
 			BoatCaptain bc;
 			switch (_state)
 			{
-				case 1:
-					_boat.say(5);
-					bc = new BoatCaptain(2, _boat);
-					ThreadPoolManager.getInstance().scheduleGeneral(bc, 240000);
-					break;
-				case 2:
-					_boat.say(1);
-					bc = new BoatCaptain(3, _boat);
-					ThreadPoolManager.getInstance().scheduleGeneral(bc, 40000);
-					break;
-				case 3:
-					_boat.say(0);
-					bc = new BoatCaptain(4, _boat);
-					ThreadPoolManager.getInstance().scheduleGeneral(bc, 20000);
-					break;
-				case 4:
-					_boat.say(-1);
-					_boat.begin();
-					break;
+			case 1:
+				_boat.say(5);
+				bc = new BoatCaptain(2, _boat);
+				ThreadPoolManager.getInstance().scheduleGeneral(bc, 240000);
+				break;
+			case 2:
+				_boat.say(1);
+				bc = new BoatCaptain(3, _boat);
+				ThreadPoolManager.getInstance().scheduleGeneral(bc, 40000);
+				break;
+			case 3:
+				_boat.say(0);
+				bc = new BoatCaptain(4, _boat);
+				ThreadPoolManager.getInstance().scheduleGeneral(bc, 20000);
+				break;
+			case 4:
+				_boat.say(-1);
+				_boat.begin();
+				break;
 			}
 		}
 	}
@@ -407,8 +407,8 @@ public class L2BoatInstance extends L2Character
 	public int _runstate = 0;
 
 	/**
-     *
-     */
+	 *
+	 */
 	public void evtArrived()
 	{
 		if (_runstate != 0)
@@ -464,10 +464,10 @@ public class L2BoatInstance extends L2Character
 				lasty = y;
 			}
 			else if ((x - lastx) * (x - lastx) + (y - lasty) * (y - lasty) > 2250000) // 1500
-			// *
-			// 1500
-			// =
-			// 2250000
+				// *
+				// 1500
+				// =
+				// 2250000
 			{
 				check = true;
 				lastx = x;
@@ -588,100 +588,100 @@ public class L2BoatInstance extends L2Character
 		PlaySound ps;
 		switch (i)
 		{
-			case 10:
-				if (_cycle == 1)
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess10_1);
-				}
-				else
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess10_1);
-				}
-				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
-				if ((knownPlayers == null) || knownPlayers.isEmpty())
-					return;
-				for (L2PcInstance player : knownPlayers)
-				{
-					player.sendPacket(sm);
-					player.sendPacket(ps);
-				}
-				break;
-			case 5:
-				if (_cycle == 1)
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess5_1);
-				}
-				else
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess5_1);
-				}
-				ps = new PlaySound(0, "itemsound.ship_5min", 1, getObjectId(), getX(), getY(), getZ());
-				if ((knownPlayers == null) || knownPlayers.isEmpty())
-					return;
-				for (L2PcInstance player : knownPlayers)
-				{
-					player.sendPacket(sm);
-					player.sendPacket(ps);
-				}
-				break;
-			case 1:
-				if (_cycle == 1)
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess1_1);
-				}
-				else
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess1_1);
-				}
-				ps = new PlaySound(0, "itemsound.ship_1min", 1, getObjectId(), getX(), getY(), getZ());
-				if ((knownPlayers == null) || knownPlayers.isEmpty())
-					return;
-				for (L2PcInstance player : knownPlayers)
-				{
-					player.sendPacket(sm);
-					player.sendPacket(ps);
-				}
-				break;
-			case 0:
-				if (_cycle == 1)
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess0_1);
-				}
-				else
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess0_1);
-				}
-				if ((knownPlayers == null) || knownPlayers.isEmpty())
-					return;
-				for (L2PcInstance player : knownPlayers)
-				{
-					player.sendPacket(sm);
-					// player.sendPacket(ps);
-				}
-				break;
-			case -1:
-				if (_cycle == 1)
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmessb_1);
-				}
-				else
-				{
-					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmessb_1);
-				}
-				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
-				for (L2PcInstance player : knownPlayers)
-				{
-					player.sendPacket(sm);
-					player.sendPacket(ps);
-				}
-				break;
+		case 10:
+			if (_cycle == 1)
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess10_1);
+			}
+			else
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess10_1);
+			}
+			ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
+			if ((knownPlayers == null) || knownPlayers.isEmpty())
+				return;
+			for (L2PcInstance player : knownPlayers)
+			{
+				player.sendPacket(sm);
+				player.sendPacket(ps);
+			}
+			break;
+		case 5:
+			if (_cycle == 1)
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess5_1);
+			}
+			else
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess5_1);
+			}
+			ps = new PlaySound(0, "itemsound.ship_5min", 1, getObjectId(), getX(), getY(), getZ());
+			if ((knownPlayers == null) || knownPlayers.isEmpty())
+				return;
+			for (L2PcInstance player : knownPlayers)
+			{
+				player.sendPacket(sm);
+				player.sendPacket(ps);
+			}
+			break;
+		case 1:
+			if (_cycle == 1)
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess1_1);
+			}
+			else
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess1_1);
+			}
+			ps = new PlaySound(0, "itemsound.ship_1min", 1, getObjectId(), getX(), getY(), getZ());
+			if ((knownPlayers == null) || knownPlayers.isEmpty())
+				return;
+			for (L2PcInstance player : knownPlayers)
+			{
+				player.sendPacket(sm);
+				player.sendPacket(ps);
+			}
+			break;
+		case 0:
+			if (_cycle == 1)
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess0_1);
+			}
+			else
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess0_1);
+			}
+			if ((knownPlayers == null) || knownPlayers.isEmpty())
+				return;
+			for (L2PcInstance player : knownPlayers)
+			{
+				player.sendPacket(sm);
+				// player.sendPacket(ps);
+			}
+			break;
+		case -1:
+			if (_cycle == 1)
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmessb_1);
+			}
+			else
+			{
+				sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmessb_1);
+			}
+			ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
+			for (L2PcInstance player : knownPlayers)
+			{
+				player.sendPacket(sm);
+				player.sendPacket(ps);
+			}
+			break;
 		}
 	}
 
 	//
 	/**
-     *
-     */
+	 *
+	 */
 	public void spawn()
 	{
 		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();

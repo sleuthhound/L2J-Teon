@@ -48,37 +48,37 @@ public class AdminEditChar implements IAdminCommandHandler
 {
 	private static Logger _log = Logger.getLogger(AdminEditChar.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_edit_character", "admin_current_player", "admin_nokarma", // this
-			// is
-			// to
-			// remove
-			// karma
-			// from
-			// selected
-			// char...
-			"admin_setkarma", // sets karma of target char to any amount.
-			// //setkarma <karma>
-			"admin_character_list", // same as character_info, kept for
-			// compatibility purposes
-			"admin_character_info", // given a player name, displays an
-			// information window
-			"admin_show_characters",// list of characters
-			"admin_find_character", // find a player by his name or a part
-			// of it
-			// (case-insensitive)
-			"admin_find_ip", // find all the player connections from a given
-			// IPv4 number
-			"admin_find_account", // list all the characters from an
-			// account
-			// (useful for GMs w/o DB access)
-			"admin_save_modifications", // consider it deprecated...
-			"admin_rec", // gives recommendation points
-			"admin_settitle", // changes char title
-			"admin_setname", // changes char name
-			"admin_setsex", // changes characters' sex
-			"admin_setcolor", // change charnames' color display
-			"admin_delete_color", // remove selected color display
-			"admin_setclass", // changes chars' classId
-			"admin_fullfood" // fulfills a pet's food bar
+		// is
+		// to
+		// remove
+		// karma
+		// from
+		// selected
+		// char...
+		"admin_setkarma", // sets karma of target char to any amount.
+		// //setkarma <karma>
+		"admin_character_list", // same as character_info, kept for
+		// compatibility purposes
+		"admin_character_info", // given a player name, displays an
+		// information window
+		"admin_show_characters",// list of characters
+		"admin_find_character", // find a player by his name or a part
+		// of it
+		// (case-insensitive)
+		"admin_find_ip", // find all the player connections from a given
+		// IPv4 number
+		"admin_find_account", // list all the characters from an
+		// account
+		// (useful for GMs w/o DB access)
+		"admin_save_modifications", // consider it deprecated...
+		"admin_rec", // gives recommendation points
+		"admin_settitle", // changes char title
+		"admin_setname", // changes char name
+		"admin_setsex", // changes characters' sex
+		"admin_setcolor", // change charnames' color display
+		"admin_delete_color", // remove selected color display
+		"admin_setclass", // changes chars' classId
+		"admin_fullfood" // fulfills a pet's food bar
 	};
 	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_CHAR_EDIT_OTHER;

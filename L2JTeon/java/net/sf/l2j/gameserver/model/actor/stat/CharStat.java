@@ -247,48 +247,48 @@ public class CharStat
 		{
 			switch (stat)
 			{
-				case AGGRESSION:
-					attack += _activeChar.getTemplate().baseAggression;
-					break;
-				case BLEED:
-					attack += _activeChar.getTemplate().baseBleed;
-					break;
-				case POISON:
-					attack += _activeChar.getTemplate().basePoison;
-					break;
-				case STUN:
-					attack += _activeChar.getTemplate().baseStun;
-					break;
-				case ROOT:
-					attack += _activeChar.getTemplate().baseRoot;
-					break;
-				case MOVEMENT:
-					attack += _activeChar.getTemplate().baseMovement;
-					break;
-				case CONFUSION:
-					attack += _activeChar.getTemplate().baseConfusion;
-					break;
-				case SLEEP:
-					attack += _activeChar.getTemplate().baseSleep;
-					break;
-				case FIRE:
-					attack += _activeChar.getTemplate().baseFire;
-					break;
-				case WIND:
-					attack += _activeChar.getTemplate().baseWind;
-					break;
-				case WATER:
-					attack += _activeChar.getTemplate().baseWater;
-					break;
-				case EARTH:
-					attack += _activeChar.getTemplate().baseEarth;
-					break;
-				case HOLY:
-					attack += _activeChar.getTemplate().baseHoly;
-					break;
-				case DARK:
-					attack += _activeChar.getTemplate().baseDark;
-					break;
+			case AGGRESSION:
+				attack += _activeChar.getTemplate().baseAggression;
+				break;
+			case BLEED:
+				attack += _activeChar.getTemplate().baseBleed;
+				break;
+			case POISON:
+				attack += _activeChar.getTemplate().basePoison;
+				break;
+			case STUN:
+				attack += _activeChar.getTemplate().baseStun;
+				break;
+			case ROOT:
+				attack += _activeChar.getTemplate().baseRoot;
+				break;
+			case MOVEMENT:
+				attack += _activeChar.getTemplate().baseMovement;
+				break;
+			case CONFUSION:
+				attack += _activeChar.getTemplate().baseConfusion;
+				break;
+			case SLEEP:
+				attack += _activeChar.getTemplate().baseSleep;
+				break;
+			case FIRE:
+				attack += _activeChar.getTemplate().baseFire;
+				break;
+			case WIND:
+				attack += _activeChar.getTemplate().baseWind;
+				break;
+			case WATER:
+				attack += _activeChar.getTemplate().baseWater;
+				break;
+			case EARTH:
+				attack += _activeChar.getTemplate().baseEarth;
+				break;
+			case HOLY:
+				attack += _activeChar.getTemplate().baseHoly;
+				break;
+			case DARK:
+				attack += _activeChar.getTemplate().baseDark;
+				break;
 			}
 		}
 		// Add the power of the skill to the attack effect

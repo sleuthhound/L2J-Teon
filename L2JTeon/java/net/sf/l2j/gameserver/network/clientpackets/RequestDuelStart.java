@@ -145,7 +145,7 @@ public final class RequestDuelStart extends L2GameClientPacket
 			}
 		}
 		else
-		// 1vs1 duel
+			// 1vs1 duel
 		{
 			if (!targetChar.isProcessingRequest())
 			{

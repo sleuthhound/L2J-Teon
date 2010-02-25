@@ -91,21 +91,21 @@ public final class Action extends L2GameClientPacket
 		{
 			switch (_actionId)
 			{
-				case 0:
+			case 0:
+				obj.onAction(activeChar);
+				break;
+			case 1:
+				if ((obj instanceof L2Character) && ((L2Character) obj).isAlikeDead())
 					obj.onAction(activeChar);
-					break;
-				case 1:
-					if ((obj instanceof L2Character) && ((L2Character) obj).isAlikeDead())
-						obj.onAction(activeChar);
-					else
-						obj.onActionShift(getClient());
-					break;
-				default:
-					// Ivalid action detected (probably client cheating), log
-					// this
-					_log.warning("Character: " + activeChar.getName() + " requested invalid action: " + _actionId);
-					getClient().sendPacket(ActionFailed.STATIC_PACKET);
-					break;
+				else
+					obj.onActionShift(getClient());
+				break;
+			default:
+				// Ivalid action detected (probably client cheating), log
+				// this
+				_log.warning("Character: " + activeChar.getName() + " requested invalid action: " + _actionId);
+			getClient().sendPacket(ActionFailed.STATIC_PACKET);
+			break;
 			}
 		}
 		else

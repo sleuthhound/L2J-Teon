@@ -70,14 +70,14 @@ public class FishTable
 				fish = new FishData(id, lvl, name, hp, hpreg, type, group, fish_guts, guts_check_time, wait_time, combat_time);
 				switch (fish.getGroup())
 				{
-					case 0:
-						_fishsEasy.add(fish);
-						break;
-					case 1:
-						_fishsNormal.add(fish);
-						break;
-					case 2:
-						_fishsHard.add(fish);
+				case 0:
+					_fishsEasy.add(fish);
+					break;
+				case 1:
+					_fishsNormal.add(fish);
+					break;
+				case 2:
+					_fishsHard.add(fish);
 				}
 			}
 			Fishes.close();
@@ -116,14 +116,14 @@ public class FishTable
 		List<FishData> _Fishs = null;
 		switch (group)
 		{
-			case 0:
-				_Fishs = _fishsEasy;
-				break;
-			case 1:
-				_Fishs = _fishsNormal;
-				break;
-			case 2:
-				_Fishs = _fishsHard;
+		case 0:
+			_Fishs = _fishsEasy;
+			break;
+		case 1:
+			_Fishs = _fishsNormal;
+			break;
+		case 2:
+			_Fishs = _fishsHard;
 		}
 		if (_Fishs == null)
 		{

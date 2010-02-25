@@ -53,8 +53,8 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 public class AdminEffects implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_invis", "admin_invisible", "admin_vis", "admin_visible", "admin_invis_menu", "admin_earthquake", "admin_earthquake_menu", "admin_bighead", "admin_shrinkhead", "admin_gmspeed", "admin_gmspeed_menu", "admin_unpara_all", "admin_para_all", "admin_unpara", "admin_para", "admin_unpara_all_menu", "admin_para_all_menu", "admin_unpara_menu",
-			"admin_para_menu", "admin_polyself", "admin_unpolyself", "admin_polyself_menu", "admin_unpolyself_menu", "admin_changename", "admin_changename_menu", "admin_clearteams", "admin_setteam_close", "admin_setteam", "admin_sethero", "admin_social", "admin_effect", "admin_social_menu", "admin_effect_menu", "admin_abnormal", "admin_abnormal_menu", "admin_play_sounds", "admin_play_sound",
-			"admin_atmosphere", "admin_atmosphere_menu" };
+		"admin_para_menu", "admin_polyself", "admin_unpolyself", "admin_polyself_menu", "admin_unpolyself_menu", "admin_changename", "admin_changename_menu", "admin_clearteams", "admin_setteam_close", "admin_setteam", "admin_sethero", "admin_social", "admin_effect", "admin_social_menu", "admin_effect_menu", "admin_abnormal", "admin_abnormal_menu", "admin_play_sounds", "admin_play_sound",
+		"admin_atmosphere", "admin_atmosphere_menu" };
 	private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
