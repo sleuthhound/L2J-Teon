@@ -77,8 +77,8 @@ public abstract class FloodProtectedListener extends Thread
 							continue;
 						}
 						if (fConnection.isFlooding) // if connection was
-						// flooding server but now
-						// passed the check
+							// flooding server but now
+							// passed the check
 						{
 							fConnection.isFlooding = false;
 							_log.info(connection.getInetAddress().getHostAddress() + " is not considered as flooding anymore.");

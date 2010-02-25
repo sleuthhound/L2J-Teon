@@ -240,23 +240,23 @@ public class L2RaidEvent
 				continue;
 			switch (_eventType)
 			{
-				case 1:
-				{
-					member.inSoloEvent = true;
-					break;
-				}
-				case 2:
-				{
-					member.inClanEvent = true;
-					break;
-				}
-				case 3:
-				{
-					member.inPartyEvent = true;
-					break;
-				}
-				default:
-					return;
+			case 1:
+			{
+				member.inSoloEvent = true;
+				break;
+			}
+			case 2:
+			{
+				member.inClanEvent = true;
+				break;
+			}
+			case 3:
+			{
+				member.inPartyEvent = true;
+				break;
+			}
+			default:
+				return;
 			}
 			member.sendMessage("Event Manager: You are now enroled in a " + L2EventChecks.eType(_eventType) + " Type of Event.");
 		}

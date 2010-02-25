@@ -71,45 +71,45 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 		SystemMessage sm = new SystemMessage(SystemMessageId.REQUIRES_S1_S2);
 		switch (itemGrade)
 		{
-			case L2Item.CRYSTAL_C:
-				gemstoneCount = 20;
-				gemstoneItemId = GEMSTONE_D;
-				sm.addNumber(gemstoneCount);
-				sm.addString("Gemstone D");
-				break;
-			case L2Item.CRYSTAL_B:
-				if (lifeStoneLevel < 3)
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
-					return;
-				}
-				gemstoneCount = 30;
-				gemstoneItemId = GEMSTONE_D;
-				sm.addNumber(gemstoneCount);
-				sm.addString("Gemstone D");
-				break;
-			case L2Item.CRYSTAL_A:
-				if (lifeStoneLevel < 6)
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
-					return;
-				}
-				gemstoneCount = 20;
-				gemstoneItemId = GEMSTONE_C;
-				sm.addNumber(gemstoneCount);
-				sm.addString("Gemstone C");
-				break;
-			case L2Item.CRYSTAL_S:
-				if (lifeStoneLevel != 10)
-				{
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
-					return;
-				}
-				gemstoneCount = 25;
-				gemstoneItemId = GEMSTONE_C;
-				sm.addNumber(gemstoneCount);
-				sm.addString("Gemstone C");
-				break;
+		case L2Item.CRYSTAL_C:
+			gemstoneCount = 20;
+			gemstoneItemId = GEMSTONE_D;
+			sm.addNumber(gemstoneCount);
+			sm.addString("Gemstone D");
+			break;
+		case L2Item.CRYSTAL_B:
+			if (lifeStoneLevel < 3)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
+				return;
+			}
+			gemstoneCount = 30;
+			gemstoneItemId = GEMSTONE_D;
+			sm.addNumber(gemstoneCount);
+			sm.addString("Gemstone D");
+			break;
+		case L2Item.CRYSTAL_A:
+			if (lifeStoneLevel < 6)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
+				return;
+			}
+			gemstoneCount = 20;
+			gemstoneItemId = GEMSTONE_C;
+			sm.addNumber(gemstoneCount);
+			sm.addString("Gemstone C");
+			break;
+		case L2Item.CRYSTAL_S:
+			if (lifeStoneLevel != 10)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
+				return;
+			}
+			gemstoneCount = 25;
+			gemstoneItemId = GEMSTONE_C;
+			sm.addNumber(gemstoneCount);
+			sm.addString("Gemstone C");
+			break;
 		}
 		activeChar.sendPacket(new ExConfirmVariationRefiner(_refinerItemObjId, refinerItemId, gemstoneItemId, gemstoneCount));
 		activeChar.sendPacket(sm);

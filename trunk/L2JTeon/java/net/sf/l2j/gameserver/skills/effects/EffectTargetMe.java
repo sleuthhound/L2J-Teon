@@ -46,7 +46,7 @@ public class EffectTargetMe extends L2Effect
 			getEffected().setTarget(getEffector());
 			MyTargetSelected my = new MyTargetSelected(getEffector().getObjectId(), 0);
 			getEffected().sendPacket(my);
-            getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getEffector());
+			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getEffector());
 		}
 	}
 

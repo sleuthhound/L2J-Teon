@@ -361,7 +361,7 @@ public class Siege
 			{
 				int allyId = ClanTable.getInstance().getClan(getCastle().getOwnerId()).getAllyId();
 				if (getDefenderClans().size() == 0)
-				// If defender doesn't exist (Pc vs Npc) and only an alliance attacks
+					// If defender doesn't exist (Pc vs Npc) and only an alliance attacks
 				{
 					// The player's clan is in an alliance
 					if (allyId != 0)
@@ -965,20 +965,20 @@ public class Siege
 		List<L2PcInstance> players;
 		switch (teleportWho)
 		{
-			case Owner:
-				players = getOwnersInZone();
-				break;
-			case Attacker:
-				players = getAttackersInZone();
-				break;
-			case DefenderNotOwner:
-				players = getDefendersButNotOwnersInZone();
-				break;
-			case Spectator:
-				players = getSpectatorsInZone();
-				break;
-			default:
-				players = getPlayersInZone();
+		case Owner:
+			players = getOwnersInZone();
+			break;
+		case Attacker:
+			players = getAttackersInZone();
+			break;
+		case DefenderNotOwner:
+			players = getDefendersButNotOwnersInZone();
+			break;
+		case Spectator:
+			players = getSpectatorsInZone();
+			break;
+		default:
+			players = getPlayersInZone();
 		}
 		;
 		for (L2PcInstance player : players)

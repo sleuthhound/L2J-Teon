@@ -103,60 +103,60 @@ public final class L2ChestInstance extends L2MonsterInstance
 			if (rnd >= 90)
 				trapSkillId = 4139;
 			else
-			// explosion
-			if (rnd >= 50)
-				trapSkillId = 4118;
-			else
-			// area paralysys
-			if (rnd >= 20)
-				trapSkillId = 1167;
-			else
-				// poison cloud
-				trapSkillId = 223; // sting
+				// explosion
+				if (rnd >= 50)
+					trapSkillId = 4118;
+				else
+					// area paralysys
+					if (rnd >= 20)
+						trapSkillId = 1167;
+					else
+						// poison cloud
+						trapSkillId = 223; // sting
 		}
 		else if (getTemplate().level >= 41)
 		{
 			if (rnd >= 90)
 				trapSkillId = 4139;
 			else
-			// explosion
-			if (rnd >= 60)
-				trapSkillId = 96;
-			else
-			// bleed
-			if (rnd >= 20)
-				trapSkillId = 1167;
-			else
-				// poison cloud
-				trapSkillId = 4118; // area paralysys
+				// explosion
+				if (rnd >= 60)
+					trapSkillId = 96;
+				else
+					// bleed
+					if (rnd >= 20)
+						trapSkillId = 1167;
+					else
+						// poison cloud
+						trapSkillId = 4118; // area paralysys
 		}
 		else if (getTemplate().level >= 21)
 		{
 			if (rnd >= 80)
 				trapSkillId = 4139;
 			else
-			// explosion
-			if (rnd >= 50)
-				trapSkillId = 96;
-			else
-			// bleed
-			if (rnd >= 20)
-				trapSkillId = 1167;
-			else
-				// poison cloud
-				trapSkillId = 129; // poison
+				// explosion
+				if (rnd >= 50)
+					trapSkillId = 96;
+				else
+					// bleed
+					if (rnd >= 20)
+						trapSkillId = 1167;
+					else
+						// poison cloud
+						trapSkillId = 129; // poison
 		}
 		else
 		{
 			if (rnd >= 80)
 				trapSkillId = 4139;
 			else
-			// explosion
-			if (rnd >= 50)
-				trapSkillId = 96;
-			else
-				// bleed
-				trapSkillId = 129; // poison
+				// explosion
+				if (rnd >= 50)
+					trapSkillId = 96;
+				else
+					// bleed
+					trapSkillId = 129; // poison
 		}
 		player.sendPacket(SystemMessage.sendString("There was a trap!"));
 		handleCast(player, trapSkillId);

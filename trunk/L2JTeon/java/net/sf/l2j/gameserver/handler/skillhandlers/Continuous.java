@@ -45,9 +45,9 @@ public class Continuous implements ISkillHandler
 	// private static Logger _log =
 	// Logger.getLogger(Continuous.class.getName());
 	private static final SkillType[] SKILL_IDS = { L2Skill.SkillType.BUFF, L2Skill.SkillType.DEBUFF, L2Skill.SkillType.DOT, L2Skill.SkillType.MDOT, L2Skill.SkillType.POISON, L2Skill.SkillType.BLEED, L2Skill.SkillType.HOT, L2Skill.SkillType.CPHOT, L2Skill.SkillType.MPHOT,
-	// L2Skill.SkillType.MANAHEAL,
-			// L2Skill.SkillType.MANA_BY_LEVEL,
-			L2Skill.SkillType.FEAR, L2Skill.SkillType.CONT, L2Skill.SkillType.WEAKNESS, L2Skill.SkillType.REFLECT, L2Skill.SkillType.UNDEAD_DEFENSE, L2Skill.SkillType.AGGDEBUFF, L2Skill.SkillType.FORCE_BUFF };
+		// L2Skill.SkillType.MANAHEAL,
+		// L2Skill.SkillType.MANA_BY_LEVEL,
+		L2Skill.SkillType.FEAR, L2Skill.SkillType.CONT, L2Skill.SkillType.WEAKNESS, L2Skill.SkillType.REFLECT, L2Skill.SkillType.UNDEAD_DEFENSE, L2Skill.SkillType.AGGDEBUFF, L2Skill.SkillType.FORCE_BUFF };
 	private L2Skill _skill;
 
 	/*
@@ -174,20 +174,20 @@ public class Continuous implements ISkillHandler
 					continue;
 				}
 			}
-            if (skill.isToggle()) 
-            {
-                L2Effect[] effects = target.getAllEffects(); 
-                if (effects != null) 
-                {
-                    for (L2Effect e : effects) { 
-                        if (e != null && skill != null) 
-                            if (e.getSkill().getId() == skill.getId()) { 
-                                e.exit(); 
-                                return; 
-                            }
-                    }
-                }
-            }
+			if (skill.isToggle()) 
+			{
+				L2Effect[] effects = target.getAllEffects(); 
+				if (effects != null) 
+				{
+					for (L2Effect e : effects) { 
+						if (e != null && skill != null) 
+							if (e.getSkill().getId() == skill.getId()) { 
+								e.exit(); 
+								return; 
+							}
+					}
+				}
+			}
 			// if this is a debuff let the duel manager know about it
 			// so the debuff can be removed after the duel
 			// (player & target must be in the same duel)

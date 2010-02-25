@@ -53,7 +53,7 @@ public class Pdam implements ISkillHandler
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
 	 */
 	private static final SkillType[] SKILL_IDS = { SkillType.PDAM, SkillType.FATALCOUNTER,
-	/* SkillType.CHARGEDAM */
+		/* SkillType.CHARGEDAM */
 	};
 
 	/*
@@ -167,7 +167,7 @@ public class Pdam implements ISkillHandler
 							}
 						}
 						else
-						// 2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
+							// 2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
 						{
 							// If is a monster damage is (CurrentHp - 1) so HP = 1
 							if (target instanceof L2NpcInstance)
@@ -230,7 +230,7 @@ public class Pdam implements ISkillHandler
 					}
 				}
 				else
-				// No - damage
+					// No - damage
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
 				}

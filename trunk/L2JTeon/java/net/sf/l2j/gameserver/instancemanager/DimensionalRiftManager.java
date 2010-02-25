@@ -422,20 +422,20 @@ public class DimensionalRiftManager
 	{
 		switch (type)
 		{
-			case 1:
-				return Config.RIFT_ENTER_COST_RECRUIT;
-			case 2:
-				return Config.RIFT_ENTER_COST_SOLDIER;
-			case 3:
-				return Config.RIFT_ENTER_COST_OFFICER;
-			case 4:
-				return Config.RIFT_ENTER_COST_CAPTAIN;
-			case 5:
-				return Config.RIFT_ENTER_COST_COMMANDER;
-			case 6:
-				return Config.RIFT_ENTER_COST_HERO;
-			default:
-				return 999999;
+		case 1:
+			return Config.RIFT_ENTER_COST_RECRUIT;
+		case 2:
+			return Config.RIFT_ENTER_COST_SOLDIER;
+		case 3:
+			return Config.RIFT_ENTER_COST_OFFICER;
+		case 4:
+			return Config.RIFT_ENTER_COST_CAPTAIN;
+		case 5:
+			return Config.RIFT_ENTER_COST_COMMANDER;
+		case 6:
+			return Config.RIFT_ENTER_COST_HERO;
+		default:
+			return 999999;
 		}
 	}
 

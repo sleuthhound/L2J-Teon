@@ -91,8 +91,8 @@ public class Forum
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	private void load()
 	{
 		java.sql.Connection con = null;
@@ -167,8 +167,8 @@ public class Forum
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	private void getChildren()
 	{
 		java.sql.Connection con = null;
@@ -296,8 +296,8 @@ public class Forum
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	public void insertindb()
 	{
 		java.sql.Connection con = null;
@@ -332,8 +332,8 @@ public class Forum
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	public void vload()
 	{
 		if (_loaded == false)

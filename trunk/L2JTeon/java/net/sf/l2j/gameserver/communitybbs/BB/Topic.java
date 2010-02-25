@@ -63,8 +63,8 @@ public class Topic
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	public void insertindb()
 	{
 		java.sql.Connection con = null;
@@ -133,8 +133,8 @@ public class Topic
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	public void deleteme(Forum f)
 	{
 		TopicBBSManager.getInstance().delTopic(this);

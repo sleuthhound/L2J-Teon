@@ -160,48 +160,48 @@ public class PetStat extends SummonStat
 		{
 			switch (stat)
 			{
-				case AGGRESSION:
-					attack += getActiveChar().getTemplate().baseAggression;
-					break;
-				case BLEED:
-					attack += getActiveChar().getTemplate().baseBleed;
-					break;
-				case POISON:
-					attack += getActiveChar().getTemplate().basePoison;
-					break;
-				case STUN:
-					attack += getActiveChar().getTemplate().baseStun;
-					break;
-				case ROOT:
-					attack += getActiveChar().getTemplate().baseRoot;
-					break;
-				case MOVEMENT:
-					attack += getActiveChar().getTemplate().baseMovement;
-					break;
-				case CONFUSION:
-					attack += getActiveChar().getTemplate().baseConfusion;
-					break;
-				case SLEEP:
-					attack += getActiveChar().getTemplate().baseSleep;
-					break;
-				case FIRE:
-					attack += getActiveChar().getTemplate().baseFire;
-					break;
-				case WIND:
-					attack += getActiveChar().getTemplate().baseWind;
-					break;
-				case WATER:
-					attack += getActiveChar().getTemplate().baseWater;
-					break;
-				case EARTH:
-					attack += getActiveChar().getTemplate().baseEarth;
-					break;
-				case HOLY:
-					attack += getActiveChar().getTemplate().baseHoly;
-					break;
-				case DARK:
-					attack += getActiveChar().getTemplate().baseDark;
-					break;
+			case AGGRESSION:
+				attack += getActiveChar().getTemplate().baseAggression;
+				break;
+			case BLEED:
+				attack += getActiveChar().getTemplate().baseBleed;
+				break;
+			case POISON:
+				attack += getActiveChar().getTemplate().basePoison;
+				break;
+			case STUN:
+				attack += getActiveChar().getTemplate().baseStun;
+				break;
+			case ROOT:
+				attack += getActiveChar().getTemplate().baseRoot;
+				break;
+			case MOVEMENT:
+				attack += getActiveChar().getTemplate().baseMovement;
+				break;
+			case CONFUSION:
+				attack += getActiveChar().getTemplate().baseConfusion;
+				break;
+			case SLEEP:
+				attack += getActiveChar().getTemplate().baseSleep;
+				break;
+			case FIRE:
+				attack += getActiveChar().getTemplate().baseFire;
+				break;
+			case WIND:
+				attack += getActiveChar().getTemplate().baseWind;
+				break;
+			case WATER:
+				attack += getActiveChar().getTemplate().baseWater;
+				break;
+			case EARTH:
+				attack += getActiveChar().getTemplate().baseEarth;
+				break;
+			case HOLY:
+				attack += getActiveChar().getTemplate().baseHoly;
+				break;
+			case DARK:
+				attack += getActiveChar().getTemplate().baseDark;
+				break;
 			}
 		}
 		if (skill != null)

@@ -56,10 +56,10 @@ public abstract class L2ObjectMap<T extends L2Object> implements Iterable<T>
 	{
 		switch (Config.MAP_TYPE)
 		{
-			case WorldObjectMap:
-				return new WorldObjectMap<L2Object>();
-			default:
-				return new WorldObjectTree<L2Object>();
+		case WorldObjectMap:
+			return new WorldObjectMap<L2Object>();
+		default:
+			return new WorldObjectTree<L2Object>();
 		}
 	}
 }

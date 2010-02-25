@@ -293,8 +293,8 @@ public class MultiSellChoose extends L2GameClientPacket
 							}
 						}
 						else
-						// b) enchantment is not maintained. Get the
-						// instances with the LOWEST enchantment level
+							// b) enchantment is not maintained. Get the
+							// instances with the LOWEST enchantment level
 						{
 							/*
 							 * NOTE: There are 2 ways to achieve the above goal. 1) Get all items that have the correct itemId, loop through them until the lowest enchantment level is found. Repeat all this for the next item until proper count of items is reached. 2) Get all items that have the correct itemId, sort them once based on enchantment level, and get the range of items that is necessary.

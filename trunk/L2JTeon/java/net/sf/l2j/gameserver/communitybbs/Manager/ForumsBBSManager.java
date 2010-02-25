@@ -63,8 +63,8 @@ public class ForumsBBSManager extends BaseBBSManager
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	private void load()
 	{
 		java.sql.Connection con = null;

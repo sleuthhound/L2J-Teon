@@ -259,12 +259,12 @@ public class RaidBossPointsManager
 		}
 		Vector<Entry<Integer, Integer>> list = new Vector<Map.Entry<Integer, Integer>>(tmpRanking.entrySet());
 		Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>()
-		{
+				{
 			public int compare(Map.Entry<Integer, Integer> entry, Map.Entry<Integer, Integer> entry1)
 			{
 				return entry.getValue().equals(entry1.getValue()) ? 0 : entry.getValue() < entry1.getValue() ? 1 : -1;
 			}
-		});
+				});
 		int ranking = 0;
 		for (Map.Entry<Integer, Integer> entry : list)
 		{

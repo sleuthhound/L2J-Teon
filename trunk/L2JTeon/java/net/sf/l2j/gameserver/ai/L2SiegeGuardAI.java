@@ -363,7 +363,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 					setIntention(AI_INTENTION_IDLE, null, null);
 				}
 				else
-				// Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
+					// Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
 				{
 					// Temporary hack for preventing guards jumping off towers,
 					// before replacing this with effective geodata checks and AI modification

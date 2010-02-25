@@ -196,66 +196,66 @@ public class MapRegionTable
 		int castle;
 		switch (area)
 		{
-			case 0:
-				castle = 1;
-				break;// Talking Island Village
-			case 1:
-				castle = 4;
-				break; // Elven Village
-			case 2:
-				castle = 4;
-				break; // Dark Elven Village
-			case 3:
-				castle = 9;
-				break; // Orc Village
-			case 4:
-				castle = 9;
-				break; // Dwarven Village
-			case 5:
-				castle = 1;
-				break; // Town of Gludio
-			case 6:
-				castle = 1;
-				break; // Gludin Village
-			case 7:
-				castle = 2;
-				break; // Town of Dion
-			case 8:
-				castle = 3;
-				break; // Town of Giran
-			case 9:
-				castle = 4;
-				break; // Town of Oren
-			case 10:
-				castle = 5;
-				break; // Town of Aden
-			case 11:
-				castle = 5;
-				break; // Hunters Village
-			case 12:
-				castle = 3;
-				break; // Giran Harbor
-			case 13:
-				castle = 6;
-				break; // Heine
-			case 14:
-				castle = 8;
-				break; // Rune Township
-			case 15:
-				castle = 7;
-				break; // Town of Goddard
-			case 16:
-				castle = 9;
-				break; // Town of Shuttgart
-			case 17:
-				castle = 4;
-				break; // Ivory Tower
-			case 18:
-				castle = 8;
-				break; // Primeval Isle Wharf
-			default:
-				castle = 5;
-				break; // Town of Aden
+		case 0:
+			castle = 1;
+			break;// Talking Island Village
+		case 1:
+			castle = 4;
+			break; // Elven Village
+		case 2:
+			castle = 4;
+			break; // Dark Elven Village
+		case 3:
+			castle = 9;
+			break; // Orc Village
+		case 4:
+			castle = 9;
+			break; // Dwarven Village
+		case 5:
+			castle = 1;
+			break; // Town of Gludio
+		case 6:
+			castle = 1;
+			break; // Gludin Village
+		case 7:
+			castle = 2;
+			break; // Town of Dion
+		case 8:
+			castle = 3;
+			break; // Town of Giran
+		case 9:
+			castle = 4;
+			break; // Town of Oren
+		case 10:
+			castle = 5;
+			break; // Town of Aden
+		case 11:
+			castle = 5;
+			break; // Hunters Village
+		case 12:
+			castle = 3;
+			break; // Giran Harbor
+		case 13:
+			castle = 6;
+			break; // Heine
+		case 14:
+			castle = 8;
+			break; // Rune Township
+		case 15:
+			castle = 7;
+			break; // Town of Goddard
+		case 16:
+			castle = 9;
+			break; // Town of Shuttgart
+		case 17:
+			castle = 4;
+			break; // Ivory Tower
+		case 18:
+			castle = 8;
+			break; // Primeval Isle Wharf
+		default:
+			castle = 5;
+		break; // Town of Aden
 		}
 		return castle;
 	}
@@ -271,63 +271,63 @@ public class MapRegionTable
 		String nearestTown;
 		switch (nearestTownId)
 		{
-			case 0:
-				nearestTown = "Talking Island Village";
-				break;
-			case 1:
-				nearestTown = "Elven Village";
-				break;
-			case 2:
-				nearestTown = "Dark Elven Village";
-				break;
-			case 3:
-				nearestTown = "Orc Village";
-				break;
-			case 4:
-				nearestTown = "Dwarven Village";
-				break;
-			case 5:
-				nearestTown = "Town of Gludio";
-				break;
-			case 6:
-				nearestTown = "Gludin Village";
-				break;
-			case 7:
-				nearestTown = "Town of Dion";
-				break;
-			case 8:
-				nearestTown = "Town of Giran";
-				break;
-			case 9:
-				nearestTown = "Town of Oren";
-				break;
-			case 10:
-				nearestTown = "Town of Aden";
-				break;
-			case 11:
-				nearestTown = "Hunters Village";
-				break;
-			case 12:
-				nearestTown = "Giran Harbor";
-				break;
-			case 13:
-				nearestTown = "Heine";
-				break;
-			case 14:
-				nearestTown = "Rune Township";
-				break;
-			case 15:
-				nearestTown = "Town of Goddard";
-				break;
-			case 16:
-				nearestTown = "Town of Shuttgart";
-				break; // //TODO@ (Check mapregion table)[Luno]
-			case 18:
-				nearestTown = "Primeval Isle";
-				break;
-			default:
-				nearestTown = "Town of Aden";
-				break;
+		case 0:
+			nearestTown = "Talking Island Village";
+			break;
+		case 1:
+			nearestTown = "Elven Village";
+			break;
+		case 2:
+			nearestTown = "Dark Elven Village";
+			break;
+		case 3:
+			nearestTown = "Orc Village";
+			break;
+		case 4:
+			nearestTown = "Dwarven Village";
+			break;
+		case 5:
+			nearestTown = "Town of Gludio";
+			break;
+		case 6:
+			nearestTown = "Gludin Village";
+			break;
+		case 7:
+			nearestTown = "Town of Dion";
+			break;
+		case 8:
+			nearestTown = "Town of Giran";
+			break;
+		case 9:
+			nearestTown = "Town of Oren";
+			break;
+		case 10:
+			nearestTown = "Town of Aden";
+			break;
+		case 11:
+			nearestTown = "Hunters Village";
+			break;
+		case 12:
+			nearestTown = "Giran Harbor";
+			break;
+		case 13:
+			nearestTown = "Heine";
+			break;
+		case 14:
+			nearestTown = "Rune Township";
+			break;
+		case 15:
+			nearestTown = "Town of Goddard";
+			break;
+		case 16:
+			nearestTown = "Town of Shuttgart";
+			break; // //TODO@ (Check mapregion table)[Luno]
+		case 18:
+			nearestTown = "Primeval Isle";
+			break;
+		default:
+			nearestTown = "Town of Aden";
+		break;
 		}
 		return nearestTown;
 	}

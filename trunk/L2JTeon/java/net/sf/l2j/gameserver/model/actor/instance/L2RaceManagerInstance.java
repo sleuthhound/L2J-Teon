@@ -121,40 +121,40 @@ public class L2RaceManagerInstance extends L2NpcInstance
 		SystemMessage sm = new SystemMessage(type);
 		switch (type.getId())
 		{
-			case 816: // SystemMessageId.MONSRACE_TICKETS_AVAILABLE_FOR_S1_RACE
-			case 817: // SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE
-				if (_state != ACCEPTING_BETS)
-				{// System.out.println("Race
-					// Initializing");
-					_state = ACCEPTING_BETS;
-					startRace();
-				}// else{System.out.println("Race open");}
-				sm.addNumber(_raceNumber);
-				break;
-			case 818: // SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES
-			case 820: // SystemMessageId.MONSRACE_BEGINS_IN_S1_MINUTES
-			case 823: // SystemMessageId.MONSRACE_BEGINS_IN_S1_SECONDS
-				sm.addNumber(_minutes);
-				sm.addNumber(_raceNumber);
-				_minutes--;
-				break;
-			case 819: // SystemMessageId.MONSRACE_TICKET_SALES_CLOSED
-				// System.out.println("Sales closed");
-				sm.addNumber(_raceNumber);
-				_state = WAITING;
-				_minutes = 2;
-				break;
-			case 822: // SystemMessageId.MONSRACE_COUNTDOWN_IN_FIVE_SECONDS
-			case 825: // SystemMessageId.MONSRACE_RACE_END
-				sm.addNumber(_raceNumber);
-				_minutes = 5;
-				break;
-			case 826: // SystemMessageId.MONSRACE_FIRST_PLACE_S1_SECOND_S2
-				// System.out.println("Placing");
-				_state = RACE_END;
-				sm.addNumber(MonsterRace.getInstance().getFirstPlace());
-				sm.addNumber(MonsterRace.getInstance().getSecondPlace());
-				break;
+		case 816: // SystemMessageId.MONSRACE_TICKETS_AVAILABLE_FOR_S1_RACE
+		case 817: // SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE
+			if (_state != ACCEPTING_BETS)
+			{// System.out.println("Race
+				// Initializing");
+				_state = ACCEPTING_BETS;
+				startRace();
+			}// else{System.out.println("Race open");}
+			sm.addNumber(_raceNumber);
+			break;
+		case 818: // SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES
+		case 820: // SystemMessageId.MONSRACE_BEGINS_IN_S1_MINUTES
+		case 823: // SystemMessageId.MONSRACE_BEGINS_IN_S1_SECONDS
+			sm.addNumber(_minutes);
+			sm.addNumber(_raceNumber);
+			_minutes--;
+			break;
+		case 819: // SystemMessageId.MONSRACE_TICKET_SALES_CLOSED
+			// System.out.println("Sales closed");
+			sm.addNumber(_raceNumber);
+			_state = WAITING;
+			_minutes = 2;
+			break;
+		case 822: // SystemMessageId.MONSRACE_COUNTDOWN_IN_FIVE_SECONDS
+		case 825: // SystemMessageId.MONSRACE_RACE_END
+			sm.addNumber(_raceNumber);
+			_minutes = 5;
+			break;
+		case 826: // SystemMessageId.MONSRACE_FIRST_PLACE_S1_SECOND_S2
+			// System.out.println("Placing");
+			_state = RACE_END;
+			sm.addNumber(MonsterRace.getInstance().getFirstPlace());
+			sm.addNumber(MonsterRace.getInstance().getSecondPlace());
+			break;
 		}
 		// System.out.println("Counter: "+minutes);
 		// System.out.println("State: "+state);

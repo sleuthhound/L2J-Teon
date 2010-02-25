@@ -207,272 +207,272 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			}
 			switch (cmdChoice)
 			{
-				case 1:/*
-						 * Add Subclass - Initial Avoid giving player an option to add a new sub class, if they have three already.
-						 */
-					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+			case 1:/*
+			 * Add Subclass - Initial Avoid giving player an option to add a new sub class, if they have three already.
+			 */
+				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+				if (player.getTotalSubClasses() == Config.MAX_SUBCLASSES)
+				{
+					player.sendMessage("You can now only change one of your current sub classes.");
+					return;
+				}
+				subsAvailable = getAvailableSubClasses(player);
+				if ((subsAvailable != null) && !subsAvailable.isEmpty())
+				{
+					content.append("Add Subclass:<br>Which sub class do you wish to add?<br>");
+					for (PlayerClass subClass : subsAvailable)
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-						return;
+						content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 4 " + subClass.ordinal() + "\" msg=\"1268;" + formatClassForDisplay(subClass) + "\">" + formatClassForDisplay(subClass) + "</a><br>");
 					}
-					if (player.getTotalSubClasses() == Config.MAX_SUBCLASSES)
+				}
+				else
+				{
+					player.sendMessage("There are no sub classes available at this time.");
+					return;
+				}
+				break;
+			case 2: // Change Class - Initial
+				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+				content.append("Change Subclass:<br>");
+				final int baseClassId = player.getBaseClass();
+				if (player.getSubClasses().isEmpty())
+				{
+					content.append("You can't change sub classes when you don't have a sub class to begin with.<br>" + "<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 1\">Add subclass.</a>");
+				}
+				else
+				{
+					content.append("Which class would you like to switch to?<br>");
+					if (baseClassId == player.getActiveClass())
 					{
-						player.sendMessage("You can now only change one of your current sub classes.");
-						return;
-					}
-					subsAvailable = getAvailableSubClasses(player);
-					if ((subsAvailable != null) && !subsAvailable.isEmpty())
-					{
-						content.append("Add Subclass:<br>Which sub class do you wish to add?<br>");
-						for (PlayerClass subClass : subsAvailable)
-						{
-							content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 4 " + subClass.ordinal() + "\" msg=\"1268;" + formatClassForDisplay(subClass) + "\">" + formatClassForDisplay(subClass) + "</a><br>");
-						}
+						content.append(CharTemplateTable.getClassNameById(baseClassId) + "&nbsp;<font color=\"LEVEL\">(Base Class)</font><br><br>");
 					}
 					else
 					{
-						player.sendMessage("There are no sub classes available at this time.");
-						return;
+						content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 5 0\">" + CharTemplateTable.getClassNameById(baseClassId) + "</a>&nbsp;" + "<font color=\"LEVEL\">(Base Class)</font><br><br>");
 					}
-					break;
-				case 2: // Change Class - Initial
-					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-						return;
-					}
-					content.append("Change Subclass:<br>");
-					final int baseClassId = player.getBaseClass();
-					if (player.getSubClasses().isEmpty())
-					{
-						content.append("You can't change sub classes when you don't have a sub class to begin with.<br>" + "<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 1\">Add subclass.</a>");
-					}
-					else
-					{
-						content.append("Which class would you like to switch to?<br>");
-						if (baseClassId == player.getActiveClass())
-						{
-							content.append(CharTemplateTable.getClassNameById(baseClassId) + "&nbsp;<font color=\"LEVEL\">(Base Class)</font><br><br>");
-						}
-						else
-						{
-							content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 5 0\">" + CharTemplateTable.getClassNameById(baseClassId) + "</a>&nbsp;" + "<font color=\"LEVEL\">(Base Class)</font><br><br>");
-						}
-						for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
-						{
-							SubClass subClass = subList.next();
-							int subClassId = subClass.getClassId();
-							if (subClassId == player.getActiveClass())
-							{
-								content.append(CharTemplateTable.getClassNameById(subClassId) + "<br>");
-							}
-							else
-							{
-								content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 5 " + subClass.getClassIndex() + "\">" + CharTemplateTable.getClassNameById(subClassId) + "</a><br>");
-							}
-						}
-					}
-					break;
-				case 3: // Change/Cancel Subclass - Initial
-					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-						return;
-					}
-					content.append("Change Subclass:<br>Which of the following sub classes would you like to change?<br>");
-					int classIndex = 1;
 					for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 					{
 						SubClass subClass = subList.next();
-						content.append("Sub-class " + classIndex + "<br1>");
-						content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 6 " + subClass.getClassIndex() + "\">" + CharTemplateTable.getClassNameById(subClass.getClassId()) + "</a><br>");
-						classIndex++;
-					}
-					content.append("<br>If you change a sub class, you'll start at level 40 after the 2nd class transfer.");
-					break;
-				case 4: // Add Subclass - Action (Subclass 4 x[x])
-					boolean allowAddition = true;
-					/*
-					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice.
-					 */
-					if (player.getLevel() < 75)
-					{
-						player.sendMessage("You may not add a new sub class before you are level 75 on your previous class.");
-						allowAddition = false;
-					}
-					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-						return;
-					}
-					if (player.isCursedWeaponEquiped())
-					{
-						return;
-					}
-					if (allowAddition)
-					{
-						if (!player.getSubClasses().isEmpty())
+						int subClassId = subClass.getClassId();
+						if (subClassId == player.getActiveClass())
 						{
-							for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
+							content.append(CharTemplateTable.getClassNameById(subClassId) + "<br>");
+						}
+						else
+						{
+							content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 5 " + subClass.getClassIndex() + "\">" + CharTemplateTable.getClassNameById(subClassId) + "</a><br>");
+						}
+					}
+				}
+				break;
+			case 3: // Change/Cancel Subclass - Initial
+				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+				content.append("Change Subclass:<br>Which of the following sub classes would you like to change?<br>");
+				int classIndex = 1;
+				for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
+				{
+					SubClass subClass = subList.next();
+					content.append("Sub-class " + classIndex + "<br1>");
+					content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 6 " + subClass.getClassIndex() + "\">" + CharTemplateTable.getClassNameById(subClass.getClassId()) + "</a><br>");
+					classIndex++;
+				}
+				content.append("<br>If you change a sub class, you'll start at level 40 after the 2nd class transfer.");
+				break;
+			case 4: // Add Subclass - Action (Subclass 4 x[x])
+				boolean allowAddition = true;
+				/*
+				 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice.
+				 */
+				if (player.getLevel() < 75)
+				{
+					player.sendMessage("You may not add a new sub class before you are level 75 on your previous class.");
+					allowAddition = false;
+				}
+				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+				if (player.isCursedWeaponEquiped())
+				{
+					return;
+				}
+				if (allowAddition)
+				{
+					if (!player.getSubClasses().isEmpty())
+					{
+						for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
+						{
+							SubClass subClass = subList.next();
+							if (subClass.getLevel() < 75)
 							{
-								SubClass subClass = subList.next();
-								if (subClass.getLevel() < 75)
-								{
-									player.sendMessage("You may not add a new sub class before you are level 75 on your previous sub class.");
-									allowAddition = false;
-									break;
-								}
+								player.sendMessage("You may not add a new sub class before you are level 75 on your previous sub class.");
+								allowAddition = false;
+								break;
 							}
 						}
 					}
-					/*
-					 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass) and Fate's Whisper (A Grade Weapon) quests by checking for instances of their unique reward items. If they both exist, remove both unique items and continue with adding the sub-class.
-					 */
-					if (Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST)
+				}
+				/*
+				 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass) and Fate's Whisper (A Grade Weapon) quests by checking for instances of their unique reward items. If they both exist, remove both unique items and continue with adding the sub-class.
+				 */
+				if (Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST)
+				{
+					L2ItemInstance elixirItem = player.getInventory().getItemByItemId(6319);
+					L2ItemInstance destinyItem = player.getInventory().getItemByItemId(5011);
+					if (elixirItem == null)
 					{
-						L2ItemInstance elixirItem = player.getInventory().getItemByItemId(6319);
-						L2ItemInstance destinyItem = player.getInventory().getItemByItemId(5011);
-						if (elixirItem == null)
-						{
-							player.sendMessage("You must have \"Mimir's Elixir\" in your inventory.");
-							return;
-						}
-						if (destinyItem == null)
-						{
-							player.sendMessage("You must have the \"Star of Destiny\" in your inventory.");
-							return;
-						}
-						if (allowAddition)
-						{
-							player.destroyItemByItemId("Quest", 6319, 1, this, true);
-							player.destroyItemByItemId("Quest", 5011, 1, this, true);
-						}
+						player.sendMessage("You must have \"Mimir's Elixir\" in your inventory.");
+						return;
 					}
-					if (!Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST && !Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
+					if (destinyItem == null)
 					{
-						QuestState qs = player.getQuestState("235_MimirsElixir");
-						if ((qs == null) || !qs.isCompleted())
-						{
-							player.sendMessage("You must have completed the Mimir's Elixir quest to continue adding your sub class.");
-							return;
-						}
-						qs = player.getQuestState("234_FatesWhisper");
-						if ((qs == null) || !qs.isCompleted())
-						{
-							player.sendMessage("You must have completed the Fate's Whisper quest to continue adding your sub class.");
-							return;
-						}
+						player.sendMessage("You must have the \"Star of Destiny\" in your inventory.");
+						return;
 					}
 					if (allowAddition)
 					{
-						String className = CharTemplateTable.getClassNameById(paramOne);
-						if (!player.addSubClass(paramOne, player.getTotalSubClasses() + 1))
-						{
-							player.sendMessage("The sub class could not be added.");
-							return;
-						}
-						player.setActiveClass(player.getTotalSubClasses());
-						player.broadcastUserInfo();
-						player.abortCast();
-						content.append("Add Subclass:<br>The sub class of <font color=\"LEVEL\">" + className + "</font> has been added.");
-						player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // Transfer to new class.
+						player.destroyItemByItemId("Quest", 6319, 1, this, true);
+						player.destroyItemByItemId("Quest", 5011, 1, this, true);
 					}
-					else
+				}
+				if (!Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST && !Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
+				{
+					QuestState qs = player.getQuestState("235_MimirsElixir");
+					if ((qs == null) || !qs.isCompleted())
 					{
-						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
-					}
-					break;
-				case 5: // Change Class - Action
-					/*
-					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice. Note: paramOne = classIndex
-					 */
-					if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
-					{
-						player.sendMessage("Don't change sub classes so rapidly, please wait.");
-						player.sendPacket(ActionFailed.STATIC_PACKET);
+						player.sendMessage("You must have completed the Mimir's Elixir quest to continue adding your sub class.");
 						return;
 					}
-					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+					qs = player.getQuestState("234_FatesWhisper");
+					if ((qs == null) || !qs.isCompleted())
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+						player.sendMessage("You must have completed the Fate's Whisper quest to continue adding your sub class.");
 						return;
 					}
-					if (player.isCursedWeaponEquiped())
+				}
+				if (allowAddition)
+				{
+					String className = CharTemplateTable.getClassNameById(paramOne);
+					if (!player.addSubClass(paramOne, player.getTotalSubClasses() + 1))
 					{
+						player.sendMessage("The sub class could not be added.");
 						return;
 					}
+					player.setActiveClass(player.getTotalSubClasses());
+					player.broadcastUserInfo();
+					player.abortCast();
+					content.append("Add Subclass:<br>The sub class of <font color=\"LEVEL\">" + className + "</font> has been added.");
+					player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // Transfer to new class.
+				}
+				else
+				{
+					html.setFile("data/html/villagemaster/SubClass_Fail.htm");
+				}
+				break;
+			case 5: // Change Class - Action
+				/*
+				 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice. Note: paramOne = classIndex
+				 */
+				if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
+				{
+					player.sendMessage("Don't change sub classes so rapidly, please wait.");
+					player.sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+				if (player.isCursedWeaponEquiped())
+				{
+					return;
+				}
+				player.setActiveClass(paramOne);
+				player.broadcastUserInfo();
+				player.abortCast();
+				content.append("Change Subclass:<br>Your active sub class is now a <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getActiveClass()) + "</font>.");
+				player.sendPacket(new SystemMessage(SystemMessageId.SUBCLASS_TRANSFER_COMPLETED)); // Transfer
+				// completed.
+				break;
+			case 6: // Change/Cancel Subclass - Choice
+				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+				if (player.isCursedWeaponEquiped())
+				{
+					return;
+				}
+				content.append("Please choose a sub class to change to. If the one you are looking for is not here, " + "please seek out the appropriate master for that class.<br>" + "<font color=\"LEVEL\">Warning!</font> All classes and skills for this class will be removed.<br><br>");
+				subsAvailable = getAvailableSubClasses(player);
+				if ((subsAvailable != null) && !subsAvailable.isEmpty())
+				{
+					for (PlayerClass subClass : subsAvailable)
+					{
+						content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 7 " + paramOne + " " + subClass.ordinal() + "\">" + formatClassForDisplay(subClass) + "</a><br>");
+					}
+				}
+				else
+				{
+					player.sendMessage("There are no sub classes available at this time.");
+					return;
+				}
+				break;
+			case 7: // Change Subclass - Action
+				/*
+				 * Warning: the information about this subclass will be removed from the subclass list even if false!
+				 */
+				if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
+				{
+					player.sendMessage("Don't change sub classes so rapidly, please wait.");
+					player.sendPacket(ActionFailed.STATIC_PACKET);
+					return;
+				}
+				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				{
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
+					return;
+				}
+				if (player.modifySubClass(paramOne, paramTwo))
+				{
 					player.setActiveClass(paramOne);
 					player.broadcastUserInfo();
 					player.abortCast();
-					content.append("Change Subclass:<br>Your active sub class is now a <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(player.getActiveClass()) + "</font>.");
-					player.sendPacket(new SystemMessage(SystemMessageId.SUBCLASS_TRANSFER_COMPLETED)); // Transfer
-					// completed.
-					break;
-				case 6: // Change/Cancel Subclass - Choice
-					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+					content.append("Change Subclass:<br>Your sub class has been changed to <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(paramTwo) + "</font>.");
+					player.sendPacket(new SystemMessage(SystemMessageId.ADD_NEW_SUBCLASS)); // Subclass added.
+					// check player skills
+					if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
 					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-						return;
+						player.checkAllowedSkills();
 					}
-					if (player.isCursedWeaponEquiped())
-					{
-						return;
-					}
-					content.append("Please choose a sub class to change to. If the one you are looking for is not here, " + "please seek out the appropriate master for that class.<br>" + "<font color=\"LEVEL\">Warning!</font> All classes and skills for this class will be removed.<br><br>");
-					subsAvailable = getAvailableSubClasses(player);
-					if ((subsAvailable != null) && !subsAvailable.isEmpty())
-					{
-						for (PlayerClass subClass : subsAvailable)
-						{
-							content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 7 " + paramOne + " " + subClass.ordinal() + "\">" + formatClassForDisplay(subClass) + "</a><br>");
-						}
-					}
-					else
-					{
-						player.sendMessage("There are no sub classes available at this time.");
-						return;
-					}
-					break;
-				case 7: // Change Subclass - Action
+				}
+				else
+				{
 					/*
-					 * Warning: the information about this subclass will be removed from the subclass list even if false!
+					 * This isn't good! modifySubClass() removed subclass from memory we must update _classIndex! Else IndexOutOfBoundsException can turn up some place down the line along with other seemingly unrelated problems.
 					 */
-					if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
-					{
-						player.sendMessage("Don't change sub classes so rapidly, please wait.");
-						player.sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
-					if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-						return;
-					}
-					if (player.modifySubClass(paramOne, paramTwo))
-					{
-						player.setActiveClass(paramOne);
-						player.broadcastUserInfo();
-						player.abortCast();
-						content.append("Change Subclass:<br>Your sub class has been changed to <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(paramTwo) + "</font>.");
-						player.sendPacket(new SystemMessage(SystemMessageId.ADD_NEW_SUBCLASS)); // Subclass added.
-						// check player skills
-						if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-						{
-							player.checkAllowedSkills();
-						}
-					}
-					else
-					{
-						/*
-						 * This isn't good! modifySubClass() removed subclass from memory we must update _classIndex! Else IndexOutOfBoundsException can turn up some place down the line along with other seemingly unrelated problems.
-						 */
-						player.setActiveClass(0); // Also updates _classIndex plus switching _classid to baseclass.
-						player.broadcastUserInfo();
-						player.abortCast();
-						player.sendMessage("The sub class could not be added, you have been reverted to your base class.");
-						return;
-					}
-					break;
+					player.setActiveClass(0); // Also updates _classIndex plus switching _classid to baseclass.
+					player.broadcastUserInfo();
+					player.abortCast();
+					player.sendMessage("The sub class could not be added, you have been reverted to your base class.");
+					return;
+				}
+				break;
 			}
 			content.append("</body></html>");
 			/*

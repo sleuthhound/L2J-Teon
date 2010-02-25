@@ -94,83 +94,83 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 		}
 		switch (_itemtype)
 		{
-			case WEAPON:
-				_objects = createWeaponList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case ARMOR:
-				_objects = createArmorList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case ETCITEM:
-				_objects = createEtcItemList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case MATERIAL:
-				_objects = createMatList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case RECIPE:
-				_objects = createRecipeList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case AMULETT:
-				_objects = createAmulettList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case SPELLBOOK:
-				_objects = createSpellbookList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case CONSUMABLE:
-				_objects = createConsumableList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case SHOT:
-				_objects = createShotList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case SCROLL:
-				_objects = createScrollList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case SEED:
-				_objects = createSeedList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case OTHER:
-				_objects = createOtherList(_activeChar.getActiveWarehouse().getItems());
-				break;
-			case ALL:
-			default:
-				_objects = createAllList(_activeChar.getActiveWarehouse().getItems());
-				break;
+		case WEAPON:
+			_objects = createWeaponList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case ARMOR:
+			_objects = createArmorList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case ETCITEM:
+			_objects = createEtcItemList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case MATERIAL:
+			_objects = createMatList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case RECIPE:
+			_objects = createRecipeList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case AMULETT:
+			_objects = createAmulettList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case SPELLBOOK:
+			_objects = createSpellbookList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case CONSUMABLE:
+			_objects = createConsumableList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case SHOT:
+			_objects = createShotList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case SCROLL:
+			_objects = createScrollList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case SEED:
+			_objects = createSeedList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case OTHER:
+			_objects = createOtherList(_activeChar.getActiveWarehouse().getItems());
+			break;
+		case ALL:
+		default:
+			_objects = createAllList(_activeChar.getActiveWarehouse().getItems());
+		break;
 		}
 		try
 		{
 			switch (_sortorder)
 			{
-				case A2Z:
-				case Z2A:
-					Collections.sort(_objects, new WarehouseItemNameComparator(_sortorder));
-					break;
-				case GRADE:
-					if ((_itemtype == WarehouseListType.ARMOR) || (_itemtype == WarehouseListType.WEAPON))
-					{
-						Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Collections.sort(_objects, new WarehouseItemGradeComparator(A2Z));
-					}
-					break;
-				case LEVEL:
-					if (_itemtype == WarehouseListType.RECIPE)
-					{
-						Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Collections.sort(_objects, new WarehouseItemRecipeComparator(A2Z));
-					}
-					break;
-				case TYPE:
-					if (_itemtype == WarehouseListType.MATERIAL)
-					{
-						Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Collections.sort(_objects, new WarehouseItemTypeComparator(A2Z));
-					}
-					break;
-				case WEAR:
-					if (_itemtype == WarehouseListType.ARMOR)
-					{
-						Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
-						Collections.sort(_objects, new WarehouseItemBodypartComparator(A2Z));
-					}
-					break;
+			case A2Z:
+			case Z2A:
+				Collections.sort(_objects, new WarehouseItemNameComparator(_sortorder));
+				break;
+			case GRADE:
+				if ((_itemtype == WarehouseListType.ARMOR) || (_itemtype == WarehouseListType.WEAPON))
+				{
+					Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
+					Collections.sort(_objects, new WarehouseItemGradeComparator(A2Z));
+				}
+				break;
+			case LEVEL:
+				if (_itemtype == WarehouseListType.RECIPE)
+				{
+					Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
+					Collections.sort(_objects, new WarehouseItemRecipeComparator(A2Z));
+				}
+				break;
+			case TYPE:
+				if (_itemtype == WarehouseListType.MATERIAL)
+				{
+					Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
+					Collections.sort(_objects, new WarehouseItemTypeComparator(A2Z));
+				}
+				break;
+			case WEAR:
+				if (_itemtype == WarehouseListType.ARMOR)
+				{
+					Collections.sort(_objects, new WarehouseItemNameComparator(A2Z));
+					Collections.sort(_objects, new WarehouseItemBodypartComparator(A2Z));
+				}
+				break;
 			}
 		}
 		catch (Exception e)

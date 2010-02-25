@@ -55,20 +55,20 @@ public class ScrollsValakas implements IItemHandler
 				return;
 			switch (itemId)
 			{
-				case 6653: // Amulet: Flames of Valakas - xz nuzen li on vobwe
-					activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2233, 1, 1, 0));
-					useScroll(activeChar, 2233, 1);
-					break;
-				case 6654: // Amulet: Flames of Valakas
-					activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2233, 1, 1, 0));
-					useScroll(activeChar, 2233, 1);
-					break;
-				case 6655: // Amulet: Slay Valakas
-					activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2232, 1, 1, 0));
-					useScroll(activeChar, 2232, 1);
-					break;
-				default:
-					break;
+			case 6653: // Amulet: Flames of Valakas - xz nuzen li on vobwe
+				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2233, 1, 1, 0));
+				useScroll(activeChar, 2233, 1);
+				break;
+			case 6654: // Amulet: Flames of Valakas
+				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2233, 1, 1, 0));
+				useScroll(activeChar, 2233, 1);
+				break;
+			case 6655: // Amulet: Slay Valakas
+				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2232, 1, 1, 0));
+				useScroll(activeChar, 2232, 1);
+				break;
+			default:
+				break;
 			}
 			return;
 		}

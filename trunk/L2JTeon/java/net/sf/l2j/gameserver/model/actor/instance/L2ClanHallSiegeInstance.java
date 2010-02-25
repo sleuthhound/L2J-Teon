@@ -111,98 +111,98 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			str = "<html><body>Newspaper!<br>";
 			switch (getTemplate().getNpcId())
 			{
-				case 35437:
-					if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
-					{
-						showChatWindow(player, 3);
-						return;
-					}
-					if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
-					{
-						showChatWindow(player, 1);
-						return;
-					}
-					if (BanditStrongholdSiege.getInstance().clanhall.getOwnerClan() == playerClan)
+			case 35437:
+				if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+				{
+					showChatWindow(player, 3);
+					return;
+				}
+				if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+				{
+					showChatWindow(player, 1);
+					return;
+				}
+				if (BanditStrongholdSiege.getInstance().clanhall.getOwnerClan() == playerClan)
+				{
+					str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+					str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
+				}
+				else
+				{
+					if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
 						str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
 					}
 					else
 					{
-						if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
+						int res = BanditStrongholdSiege.getInstance().registerClanOnSiege(player, playerClan);
+						if (res == 0)
 						{
-							str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-							str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
-							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
+							str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
+							str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
+							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
 						}
-						else
+						else if (res == 1)
 						{
-							int res = BanditStrongholdSiege.getInstance().registerClanOnSiege(player, playerClan);
-							if (res == 0)
-							{
-								str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
-								str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
-								str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
-							}
-							else if (res == 1)
-							{
-								str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
-								str += "Come back when you're done.";
-							}
-							else if (res == 2)
-							{
-								str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
-								str += "Next time be more powerful";
-							}
+							str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
+							str += "Come back when you're done.";
+						}
+						else if (res == 2)
+						{
+							str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
+							str += "Next time be more powerful";
 						}
 					}
-					break;
-				case 35627:
-					if (!WildBeastFarmSiege.getInstance().isRegistrationPeriod())
-					{
-						showChatWindow(player, 3);
-						return;
-					}
-					if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
-					{
-						showChatWindow(player, 1);
-						return;
-					}
-					if (WildBeastFarmSiege.getInstance().clanhall.getOwnerClan() == playerClan)
+				}
+				break;
+			case 35627:
+				if (!WildBeastFarmSiege.getInstance().isRegistrationPeriod())
+				{
+					showChatWindow(player, 3);
+					return;
+				}
+				if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+				{
+					showChatWindow(player, 1);
+					return;
+				}
+				if (WildBeastFarmSiege.getInstance().clanhall.getOwnerClan() == playerClan)
+				{
+					str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+					str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
+				}
+				else
+				{
+					if (WildBeastFarmSiege.getInstance().isClanOnSiege(playerClan))
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
 						str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
 					}
 					else
 					{
-						if (WildBeastFarmSiege.getInstance().isClanOnSiege(playerClan))
+						int res = WildBeastFarmSiege.getInstance().registerClanOnSiege(player, playerClan);
+						if (res == 0)
 						{
-							str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-							str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
-							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
+							str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
+							str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
+							str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
 						}
-						else
+						else if (res == 1)
 						{
-							int res = WildBeastFarmSiege.getInstance().registerClanOnSiege(player, playerClan);
-							if (res == 0)
-							{
-								str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
-								str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
-								str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Select members of the siege</a><br>";
-							}
-							else if (res == 1)
-							{
-								str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
-								str += "Come back when you're done.";
-							}
-							else if (res == 2)
-							{
-								str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
-								str += "Next time be more raztoropny.";
-							}
+							str += "You have not passed the test and did not qualify for participation in the siege of Robbers<br>";
+							str += "Come back when you're done.";
+						}
+						else if (res == 2)
+						{
+							str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
+							str += "Next time be more raztoropny.";
 						}
 					}
-					break;
+				}
+				break;
 			}
 			str += "</body></html>";
 			html.setHtml(str);
@@ -357,24 +357,24 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			int clanCount = 0;
 			switch (npcId)
 			{
-				case 35437:
-					clanhall = ClanHallManager.getInstance().getClanHallById(35);
-					startSiege = BanditStrongholdSiege.getInstance().getSiegeDate().getTimeInMillis();
-					for (String a : BanditStrongholdSiege.getInstance().getRegisteredClans())
-					{
-						clanCount++;
-						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
-					}
-					break;
-				case 35627:
-					clanhall = ClanHallManager.getInstance().getClanHallById(63);
-					startSiege = WildBeastFarmSiege.getInstance().getSiegeDate().getTimeInMillis();
-					for (String a : WildBeastFarmSiege.getInstance().getRegisteredClans())
-					{
-						clanCount++;
-						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
-					}
-					break;
+			case 35437:
+				clanhall = ClanHallManager.getInstance().getClanHallById(35);
+				startSiege = BanditStrongholdSiege.getInstance().getSiegeDate().getTimeInMillis();
+				for (String a : BanditStrongholdSiege.getInstance().getRegisteredClans())
+				{
+					clanCount++;
+					clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
+				}
+				break;
+			case 35627:
+				clanhall = ClanHallManager.getInstance().getClanHallById(63);
+				startSiege = WildBeastFarmSiege.getInstance().getSiegeDate().getTimeInMillis();
+				for (String a : WildBeastFarmSiege.getInstance().getRegisteredClans())
+				{
+					clanCount++;
+					clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
+				}
+				break;
 			}
 			while (clanCount < 5)
 			{

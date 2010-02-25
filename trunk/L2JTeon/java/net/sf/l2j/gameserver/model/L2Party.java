@@ -185,20 +185,20 @@ public class L2Party
 		L2PcInstance looter = player;
 		switch (_itemDistribution)
 		{
-			case ITEM_RANDOM:
-				if (!spoil)
-					looter = getCheckedRandomMember(ItemId, target);
-				break;
-			case ITEM_RANDOM_SPOIL:
+		case ITEM_RANDOM:
+			if (!spoil)
 				looter = getCheckedRandomMember(ItemId, target);
-				break;
-			case ITEM_ORDER:
-				if (!spoil)
-					looter = getCheckedNextLooter(ItemId, target);
-				break;
-			case ITEM_ORDER_SPOIL:
+			break;
+		case ITEM_RANDOM_SPOIL:
+			looter = getCheckedRandomMember(ItemId, target);
+			break;
+		case ITEM_ORDER:
+			if (!spoil)
 				looter = getCheckedNextLooter(ItemId, target);
-				break;
+			break;
+		case ITEM_ORDER_SPOIL:
+			looter = getCheckedNextLooter(ItemId, target);
+			break;
 		}
 		if (looter == null)
 			looter = player;

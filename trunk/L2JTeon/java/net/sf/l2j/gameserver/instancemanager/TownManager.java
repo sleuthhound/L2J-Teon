@@ -63,44 +63,44 @@ public class TownManager
 	{
 		switch (MapRegionTable.getInstance().getMapRegion(activeObject.getPosition().getX(), activeObject.getPosition().getY()))
 		{
-			case 0:
-				return getTown(2); // TI
-			case 1:
-				return getTown(3); // Elven
-			case 2:
-				return getTown(1); // DE
-			case 3:
-				return getTown(4); // Orc
-			case 4:
-				return getTown(6); // Dwarven
-			case 5:
-				return getTown(7); // Gludio
-			case 6:
-				return getTown(5); // Gludin
-			case 7:
-				return getTown(8); // Dion
-			case 8:
-				return getTown(9); // Giran
-			case 9:
-				return getTown(10); // Oren
-			case 10:
-				return getTown(12); // Aden
-			case 11:
-				return getTown(11); // HV
-			case 12:
-				return getTown(9); // Giran Harbour
-			case 13:
-				return getTown(15); // Heine
-			case 14:
-				return getTown(14); // Rune
-			case 15:
-				return getTown(13); // Goddard
-			case 16:
-				return getTown(17); // Schuttgart
-			case 17:
-				return getTown(16); // Floran
-			case 18:
-				return getTown(19); // Primeval Isle
+		case 0:
+			return getTown(2); // TI
+		case 1:
+			return getTown(3); // Elven
+		case 2:
+			return getTown(1); // DE
+		case 3:
+			return getTown(4); // Orc
+		case 4:
+			return getTown(6); // Dwarven
+		case 5:
+			return getTown(7); // Gludio
+		case 6:
+			return getTown(5); // Gludin
+		case 7:
+			return getTown(8); // Dion
+		case 8:
+			return getTown(9); // Giran
+		case 9:
+			return getTown(10); // Oren
+		case 10:
+			return getTown(12); // Aden
+		case 11:
+			return getTown(11); // HV
+		case 12:
+			return getTown(9); // Giran Harbour
+		case 13:
+			return getTown(15); // Heine
+		case 14:
+			return getTown(14); // Rune
+		case 15:
+			return getTown(13); // Goddard
+		case 16:
+			return getTown(17); // Schuttgart
+		case 17:
+			return getTown(16); // Floran
+		case 18:
+			return getTown(19); // Primeval Isle
 		}
 		return getTown(16); // Default to floran
 	}

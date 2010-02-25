@@ -171,8 +171,8 @@ public class RecipeController
 		}
 		RecipeItemMaker maker;
 		if (Config.ALT_GAME_CREATION && ((maker = _activeMakers.get(manufacturer)) != null)) // check
-		// if
-		// busy
+			// if
+			// busy
 		{
 			player.sendMessage("Manufacturer is busy, please try later.");
 			return;
@@ -368,10 +368,10 @@ public class RecipeController
 			{
 				for (L2ManufactureItem temp : _player.getCreateList().getList())
 					if (temp.getRecipeId() == _recipeList.getId()) // find
-					// recipe
-					// for item
-					// we want
-					// manufactured
+						// recipe
+						// for item
+						// we want
+						// manufactured
 					{
 						_price = temp.getCost();
 						if (_target.getAdena() < _price) // check price
@@ -505,7 +505,7 @@ public class RecipeController
 				_player.reduceCurrentMp(_manaRequired);
 			// first take adena for manufacture
 			if ((_target != _player) && (_price > 0)) // customer must pay for
-			// services
+				// services
 			{
 				// attempt to pay for item
 				L2ItemInstance adenatransfer = _target.transferItem("PayManufacture", _target.getInventory().getAdenaInstance().getObjectId(), _price, _player.getInventory(), _player);
@@ -517,8 +517,8 @@ public class RecipeController
 				}
 			}
 			if ((_items = listItems(true)) == null) // this line actually
-			// takes
-			// materials from inventory
+				// takes
+				// materials from inventory
 			{ // handle possible cheaters here
 				// (they click craft then try to get rid of items in order to
 				// get free craft)
@@ -606,7 +606,7 @@ public class RecipeController
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 100 + _delay);
 				}
 				else
-				// no rest - report no mana
+					// no rest - report no mana
 				{
 					_target.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 					abort();

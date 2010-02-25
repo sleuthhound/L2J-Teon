@@ -235,10 +235,10 @@ public class DoorTable
 			// Garden of Eva (every 7 minutes)
 			if (doorInst.getDoorName().startsWith("goe"))
 				doorInst.setAutoActionDelay(420000);
-			// Tower of Insolence (every 5 minutes)
+		// Tower of Insolence (every 5 minutes)
 			else if (doorInst.getDoorName().startsWith("aden_tower"))
 				doorInst.setAutoActionDelay(300000);
-			// Cruma Tower (every 20 minutes)
+		// Cruma Tower (every 20 minutes)
 			else if (doorInst.getDoorName().startsWith("cruma"))
 				doorInst.setAutoActionDelay(1200000);
 	}

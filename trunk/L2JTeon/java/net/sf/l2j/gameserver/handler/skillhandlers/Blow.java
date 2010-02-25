@@ -200,9 +200,9 @@ public class Blow implements ISkillHandler
 						target.reduceCurrentHp(target.getCurrentHp() - 1, activeChar);
 					}
 					else if (target instanceof L2PcInstance) // If is a
-					// active
-					// player set his HP
-					// and CP to 1
+						// active
+						// player set his HP
+						// and CP to 1
 					{
 						L2PcInstance player = (L2PcInstance) target;
 						if (!player.isInvul())

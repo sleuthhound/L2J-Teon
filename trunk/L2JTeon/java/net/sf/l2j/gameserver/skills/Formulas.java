@@ -1313,38 +1313,38 @@ public final class Formulas
 		{
 			switch (weapon.getItemType())
 			{
-				case BOW:
-					stat = Stats.BOW_WPN_VULN;
-					break;
-				case BLUNT:
-				case BIGBLUNT:
-					stat = Stats.BLUNT_WPN_VULN;
-					break;
-				case DAGGER:
-					stat = Stats.DAGGER_WPN_VULN;
-					break;
-				case DUAL:
-					stat = Stats.DUAL_WPN_VULN;
-					break;
-				case DUALFIST:
-					stat = Stats.DUALFIST_WPN_VULN;
-					break;
-				case ETC:
-					stat = Stats.ETC_WPN_VULN;
-					break;
-				case FIST:
-					stat = Stats.FIST_WPN_VULN;
-					break;
-				case POLE:
-					stat = Stats.POLE_WPN_VULN;
-					break;
-				case SWORD:
-					stat = Stats.SWORD_WPN_VULN;
-					break;
-				case BIGSWORD: // TODO: have a proper resistance/vulnerability
-					// for Big swords
-					stat = Stats.SWORD_WPN_VULN;
-					break;
+			case BOW:
+				stat = Stats.BOW_WPN_VULN;
+				break;
+			case BLUNT:
+			case BIGBLUNT:
+				stat = Stats.BLUNT_WPN_VULN;
+				break;
+			case DAGGER:
+				stat = Stats.DAGGER_WPN_VULN;
+				break;
+			case DUAL:
+				stat = Stats.DUAL_WPN_VULN;
+				break;
+			case DUALFIST:
+				stat = Stats.DUALFIST_WPN_VULN;
+				break;
+			case ETC:
+				stat = Stats.ETC_WPN_VULN;
+				break;
+			case FIST:
+				stat = Stats.FIST_WPN_VULN;
+				break;
+			case POLE:
+				stat = Stats.POLE_WPN_VULN;
+				break;
+			case SWORD:
+				stat = Stats.SWORD_WPN_VULN;
+				break;
+			case BIGSWORD: // TODO: have a proper resistance/vulnerability
+				// for Big swords
+				stat = Stats.SWORD_WPN_VULN;
+				break;
 			}
 		}
 		if (crit)
@@ -1405,30 +1405,30 @@ public final class Formulas
 		{
 			switch (((L2NpcInstance) target).getTemplate().getRace())
 			{
-				case UNDEAD:
-					damage *= attacker.getPAtkUndead(target);
-					break;
-				case BEAST:
-					damage *= attacker.getPAtkMonsters(target);
-					break;
-				case ANIMAL:
-					damage *= attacker.getPAtkAnimals(target);
-					break;
-				case PLANT:
-					damage *= attacker.getPAtkPlants(target);
-					break;
-				case DRAGON:
-					damage *= attacker.getPAtkDragons(target);
-					break;
-				case BUG:
-					damage *= attacker.getPAtkInsects(target);
-					break;
-				case GIANT:
-					damage *= attacker.getPAtkGiants(target);
-					break;
-				default:
-					// nothing
-					break;
+			case UNDEAD:
+				damage *= attacker.getPAtkUndead(target);
+				break;
+			case BEAST:
+				damage *= attacker.getPAtkMonsters(target);
+				break;
+			case ANIMAL:
+				damage *= attacker.getPAtkAnimals(target);
+				break;
+			case PLANT:
+				damage *= attacker.getPAtkPlants(target);
+				break;
+			case DRAGON:
+				damage *= attacker.getPAtkDragons(target);
+				break;
+			case BUG:
+				damage *= attacker.getPAtkInsects(target);
+				break;
+			case GIANT:
+				damage *= attacker.getPAtkGiants(target);
+				break;
+			default:
+				// nothing
+				break;
 			}
 		}
 		if (skill != null)
@@ -1634,8 +1634,8 @@ public final class Formulas
 				if (target instanceof L2NpcInstance)
 					target.reduceCurrentHp(target.getCurrentHp() - 1, activeChar);
 				else if (target instanceof L2PcInstance) // If is a active
-				// player set his HP
-				// and CP to 1
+					// player set his HP
+					// and CP to 1
 				{
 					L2PcInstance player = (L2PcInstance) target;
 					if (!player.isInvul())
@@ -1806,16 +1806,16 @@ public final class Formulas
 		{
 			switch (type)
 			{
-				case CONFUSION:
-				case MUTE:
-				case PARALYZE:
-				case ROOT:
-				case FEAR:
-				case SLEEP:
-				case STUN:
-				case DEBUFF:
-				case AGGDEBUFF:
-					return false; // these skills should have only 1/1000 chance on raid, now it's 0.
+			case CONFUSION:
+			case MUTE:
+			case PARALYZE:
+			case ROOT:
+			case FEAR:
+			case SLEEP:
+			case STUN:
+			case DEBUFF:
+			case AGGDEBUFF:
+				return false; // these skills should have only 1/1000 chance on raid, now it's 0.
 			}
 
 		}
@@ -1846,71 +1846,71 @@ public final class Formulas
 			{
 				switch (stat)
 				{
-					case AGGRESSION:
-						multiplier *= target.getTemplate().baseAggressionVuln;
-						break;
-					case BLEED:
-						multiplier *= target.getTemplate().baseBleedVuln;
-						break;
-					case POISON:
-						multiplier *= target.getTemplate().basePoisonVuln;
-						break;
-					case STUN:
-						multiplier *= target.getTemplate().baseStunVuln;
-						break;
-					case ROOT:
-						multiplier *= target.getTemplate().baseRootVuln;
-						break;
-					case MOVEMENT:
-						multiplier *= target.getTemplate().baseMovementVuln;
-						break;
-					case CONFUSION:
-						multiplier *= target.getTemplate().baseConfusionVuln;
-						break;
-					case SLEEP:
-						multiplier *= target.getTemplate().baseSleepVuln;
-						break;
-					case FIRE:
-						multiplier *= target.getTemplate().baseFireVuln;
-						break;
-					case WIND:
-						multiplier *= target.getTemplate().baseWindVuln;
-						break;
-					case WATER:
-						multiplier *= target.getTemplate().baseWaterVuln;
-						break;
-					case EARTH:
-						multiplier *= target.getTemplate().baseEarthVuln;
-						break;
-					case HOLY:
-						multiplier *= target.getTemplate().baseHolyVuln;
-						break;
-					case DARK:
-						multiplier *= target.getTemplate().baseDarkVuln;
-						break;
+				case AGGRESSION:
+					multiplier *= target.getTemplate().baseAggressionVuln;
+					break;
+				case BLEED:
+					multiplier *= target.getTemplate().baseBleedVuln;
+					break;
+				case POISON:
+					multiplier *= target.getTemplate().basePoisonVuln;
+					break;
+				case STUN:
+					multiplier *= target.getTemplate().baseStunVuln;
+					break;
+				case ROOT:
+					multiplier *= target.getTemplate().baseRootVuln;
+					break;
+				case MOVEMENT:
+					multiplier *= target.getTemplate().baseMovementVuln;
+					break;
+				case CONFUSION:
+					multiplier *= target.getTemplate().baseConfusionVuln;
+					break;
+				case SLEEP:
+					multiplier *= target.getTemplate().baseSleepVuln;
+					break;
+				case FIRE:
+					multiplier *= target.getTemplate().baseFireVuln;
+					break;
+				case WIND:
+					multiplier *= target.getTemplate().baseWindVuln;
+					break;
+				case WATER:
+					multiplier *= target.getTemplate().baseWaterVuln;
+					break;
+				case EARTH:
+					multiplier *= target.getTemplate().baseEarthVuln;
+					break;
+				case HOLY:
+					multiplier *= target.getTemplate().baseHolyVuln;
+					break;
+				case DARK:
+					multiplier *= target.getTemplate().baseDarkVuln;
+					break;
 				}
 			}
 			// Next, calculate the elemental vulnerabilities
 			switch (skill.getElement())
 			{
-				case L2Skill.ELEMENT_EARTH:
-					multiplier = target.calcStat(Stats.EARTH_VULN, multiplier, target, skill);
-					break;
-				case L2Skill.ELEMENT_FIRE:
-					multiplier = target.calcStat(Stats.FIRE_VULN, multiplier, target, skill);
-					break;
-				case L2Skill.ELEMENT_WATER:
-					multiplier = target.calcStat(Stats.WATER_VULN, multiplier, target, skill);
-					break;
-				case L2Skill.ELEMENT_WIND:
-					multiplier = target.calcStat(Stats.WIND_VULN, multiplier, target, skill);
-					break;
-				case L2Skill.ELEMENT_HOLY:
-					multiplier = target.calcStat(Stats.HOLY_VULN, multiplier, target, skill);
-					break;
-				case L2Skill.ELEMENT_DARK:
-					multiplier = target.calcStat(Stats.DARK_VULN, multiplier, target, skill);
-					break;
+			case L2Skill.ELEMENT_EARTH:
+				multiplier = target.calcStat(Stats.EARTH_VULN, multiplier, target, skill);
+				break;
+			case L2Skill.ELEMENT_FIRE:
+				multiplier = target.calcStat(Stats.FIRE_VULN, multiplier, target, skill);
+				break;
+			case L2Skill.ELEMENT_WATER:
+				multiplier = target.calcStat(Stats.WATER_VULN, multiplier, target, skill);
+				break;
+			case L2Skill.ELEMENT_WIND:
+				multiplier = target.calcStat(Stats.WIND_VULN, multiplier, target, skill);
+				break;
+			case L2Skill.ELEMENT_HOLY:
+				multiplier = target.calcStat(Stats.HOLY_VULN, multiplier, target, skill);
+				break;
+			case L2Skill.ELEMENT_DARK:
+				multiplier = target.calcStat(Stats.DARK_VULN, multiplier, target, skill);
+				break;
 			}
 			// Finally, calculate skilltype vulnerabilities
 			SkillType type = skill.getSkillType();
@@ -1922,39 +1922,39 @@ public final class Formulas
 			{
 				switch (type)
 				{
-					case BLEED:
-						multiplier = target.calcStat(Stats.BLEED_VULN, multiplier, target, skill);
-						break;
-					case POISON:
-						multiplier = target.calcStat(Stats.POISON_VULN, multiplier, target, skill);
-						break;
-					case STUN:
-						multiplier = target.calcStat(Stats.STUN_VULN, multiplier, target, skill);
-						break;
-					case PARALYZE:
-						multiplier = target.calcStat(Stats.PARALYZE_VULN, multiplier, target, skill);
-						break;
-					case ROOT:
-						multiplier = target.calcStat(Stats.ROOT_VULN, multiplier, target, skill);
-						break;
-					case SLEEP:
-						multiplier = target.calcStat(Stats.SLEEP_VULN, multiplier, target, skill);
-						break;
-					case MUTE:
-					case FEAR:
-					case BETRAY:
-					case AGGREDUCE_CHAR:
-						multiplier = target.calcStat(Stats.DERANGEMENT_VULN, multiplier, target, skill);
-						break;
-					case CONFUSION:
-						multiplier = target.calcStat(Stats.CONFUSION_VULN, multiplier, target, skill);
-						break;
-					case DEBUFF:
-					case WEAKNESS:
-						multiplier = target.calcStat(Stats.DEBUFF_VULN, multiplier, target, skill);
-						break;
-					default:
-						;
+				case BLEED:
+					multiplier = target.calcStat(Stats.BLEED_VULN, multiplier, target, skill);
+					break;
+				case POISON:
+					multiplier = target.calcStat(Stats.POISON_VULN, multiplier, target, skill);
+					break;
+				case STUN:
+					multiplier = target.calcStat(Stats.STUN_VULN, multiplier, target, skill);
+					break;
+				case PARALYZE:
+					multiplier = target.calcStat(Stats.PARALYZE_VULN, multiplier, target, skill);
+					break;
+				case ROOT:
+					multiplier = target.calcStat(Stats.ROOT_VULN, multiplier, target, skill);
+					break;
+				case SLEEP:
+					multiplier = target.calcStat(Stats.SLEEP_VULN, multiplier, target, skill);
+					break;
+				case MUTE:
+				case FEAR:
+				case BETRAY:
+				case AGGREDUCE_CHAR:
+					multiplier = target.calcStat(Stats.DERANGEMENT_VULN, multiplier, target, skill);
+					break;
+				case CONFUSION:
+					multiplier = target.calcStat(Stats.CONFUSION_VULN, multiplier, target, skill);
+					break;
+				case DEBUFF:
+				case WEAKNESS:
+					multiplier = target.calcStat(Stats.DEBUFF_VULN, multiplier, target, skill);
+					break;
+				default:
+					;
 				}
 			}
 		}
@@ -1970,26 +1970,26 @@ public final class Formulas
 		}
 		switch (type)
 		{
-			case STUN:
-			case BLEED:
-				multiplier = 2 - Math.sqrt(CONbonus[target.getCON()]);
-				break;
-			case POISON:
-			case SLEEP:
-			case DEBUFF:
-			case WEAKNESS:
-			case ERASE:
-			case ROOT:
-			case MUTE:
-			case FEAR:
-			case BETRAY:
-			case CONFUSION:
-			case AGGREDUCE_CHAR:
-			case PARALYZE:
-				multiplier = 2 - Math.sqrt(MENbonus[target.getMEN()]);
-				break;
-			default:
-				return multiplier;
+		case STUN:
+		case BLEED:
+			multiplier = 2 - Math.sqrt(CONbonus[target.getCON()]);
+			break;
+		case POISON:
+		case SLEEP:
+		case DEBUFF:
+		case WEAKNESS:
+		case ERASE:
+		case ROOT:
+		case MUTE:
+		case FEAR:
+		case BETRAY:
+		case CONFUSION:
+		case AGGREDUCE_CHAR:
+		case PARALYZE:
+			multiplier = 2 - Math.sqrt(MENbonus[target.getMEN()]);
+			break;
+		default:
+			return multiplier;
 		}
 		if (multiplier < 0)
 		{
@@ -2005,26 +2005,26 @@ public final class Formulas
 		{
 			switch (type)
 			{
-				case CONFUSION:
-				case MUTE:
-				case PARALYZE:
-				case ROOT:
-				case FEAR:
-				case SLEEP:
-				case STUN:
-				case DEBUFF:
-				case AGGDEBUFF:
-					return false; // these skills should not work on RaidBoss
+			case CONFUSION:
+			case MUTE:
+			case PARALYZE:
+			case ROOT:
+			case FEAR:
+			case SLEEP:
+			case STUN:
+			case DEBUFF:
+			case AGGDEBUFF:
+				return false; // these skills should not work on RaidBoss
 			}
 		}
 		int value = (int) skill.getPower();
 		int lvlDepend = skill.getLevelDepend();
 		if ((type == SkillType.PDAM) || (type == SkillType.MDAM)) // For
-		// additional
-		// effects on
-		// PDAM skills
-		// (like STUN,
-		// SHOCK,...)
+			// additional
+			// effects on
+			// PDAM skills
+			// (like STUN,
+			// SHOCK,...)
 		{
 			value = skill.getEffectPower();
 			type = skill.getEffectType();
@@ -2116,28 +2116,28 @@ public final class Formulas
 		int chance = 0;
 		switch (level)
 		{
-			case 1:
-				chance = 30;
-				break;
-			case 2:
-				chance = 50;
-				break;
-			case 3:
-				chance = 75;
-				break;
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 10:
-			case 11:
-			case 12:
-			case 13:
-			case 14:
-				chance = 100;
-				break;
+		case 1:
+			chance = 30;
+			break;
+		case 2:
+			chance = 50;
+			break;
+		case 3:
+			chance = 75;
+			break;
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+			chance = 100;
+			break;
 		}
 		if (Rnd.get(120) > chance)
 		{

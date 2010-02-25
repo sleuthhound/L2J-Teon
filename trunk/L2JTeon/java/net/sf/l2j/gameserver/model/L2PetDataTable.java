@@ -219,45 +219,45 @@ public class L2PetDataTable
 	{
 		switch (itemId)
 		{
-			// wolf pet a
-			case 2375:
-				return 12077;
-				// Sin Eater
-			case 4425:
-				return 12564;
-				// hatchling of wind
-			case 3500:
-				return 12311;
-				// hatchling of star
-			case 3501:
-				return 12312;
-				// hatchling of twilight
-			case 3502:
-				return 12313;
-				// wind strider
-			case 4422:
-				return 12526;
-				// Star strider
-			case 4423:
-				return 12527;
-				// Twilight strider
-			case 4424:
-				return 12528;
-				// Wyvern
-			case 8663:
-				return 12621;
-				// Baby Buffalo
-			case 6648:
-				return 12780;
-				// Baby Cougar
-			case 6649:
-				return 12782;
-				// Baby Kookaburra
-			case 6650:
-				return 12781;
-				// unknown item id.. should never happen
-			default:
-				return 0;
+		// wolf pet a
+		case 2375:
+			return 12077;
+			// Sin Eater
+		case 4425:
+			return 12564;
+			// hatchling of wind
+		case 3500:
+			return 12311;
+			// hatchling of star
+		case 3501:
+			return 12312;
+			// hatchling of twilight
+		case 3502:
+			return 12313;
+			// wind strider
+		case 4422:
+			return 12526;
+			// Star strider
+		case 4423:
+			return 12527;
+			// Twilight strider
+		case 4424:
+			return 12528;
+			// Wyvern
+		case 8663:
+			return 12621;
+			// Baby Buffalo
+		case 6648:
+			return 12780;
+			// Baby Cougar
+		case 6649:
+			return 12782;
+			// Baby Kookaburra
+		case 6650:
+			return 12781;
+			// unknown item id.. should never happen
+		default:
+			return 0;
 		}
 	}
 
@@ -330,27 +330,27 @@ public class L2PetDataTable
 	{
 		switch (npcId)
 		{
-			case 12077:// wolf pet a
-				return new int[] { 2375 };
-			case 12564:// Sin Eater
-				return new int[] { 4425 };
-			case 12311:// hatchling of wind
-			case 12312:// hatchling of star
-			case 12313:// hatchling of twilight
-				return new int[] { 3500, 3501, 3502 };
-			case 12526:// wind strider
-			case 12527:// Star strider
-			case 12528:// Twilight strider
-				return new int[] { 4422, 4423, 4424 };
-			case 12621:// Wyvern
-				return new int[] { 8663 };
-			case 12780:// Baby Buffalo
-			case 12782:// Baby Cougar
-			case 12781:// Baby Kookaburra
-				return new int[] { 6648, 6649, 6650 };
-				// unknown item id.. should never happen
-			default:
-				return new int[] { 0 };
+		case 12077:// wolf pet a
+			return new int[] { 2375 };
+		case 12564:// Sin Eater
+			return new int[] { 4425 };
+		case 12311:// hatchling of wind
+		case 12312:// hatchling of star
+		case 12313:// hatchling of twilight
+			return new int[] { 3500, 3501, 3502 };
+		case 12526:// wind strider
+		case 12527:// Star strider
+		case 12528:// Twilight strider
+			return new int[] { 4422, 4423, 4424 };
+		case 12621:// Wyvern
+			return new int[] { 8663 };
+		case 12780:// Baby Buffalo
+		case 12782:// Baby Cougar
+		case 12781:// Baby Kookaburra
+			return new int[] { 6648, 6649, 6650 };
+			// unknown item id.. should never happen
+		default:
+			return new int[] { 0 };
 		}
 	}
 
@@ -359,6 +359,6 @@ public class L2PetDataTable
 		return ((npcId == 12526) // wind strider)
 				|| (npcId == 12527) // star strider)
 				|| (npcId == 12528) // twilight strider)
-		|| (npcId == 12621)); // wyvern
+				|| (npcId == 12621)); // wyvern
 	}
 }

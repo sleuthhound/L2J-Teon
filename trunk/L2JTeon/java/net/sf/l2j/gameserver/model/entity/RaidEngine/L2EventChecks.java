@@ -87,24 +87,24 @@ public class L2EventChecks
 			 */
 			switch (eventType)
 			{
-				case 2:
-				{
-					if (_eventPlayers.contains(player) && member.getClan().getName().equals(player.getClan().getName()))
-						eventPoints += member.getEventPoints();
-					break;
-				}
-				case 3:
-				{
-					// Let's add the points of each member to the Party General
-					// Clan Score.
+			case 2:
+			{
+				if (_eventPlayers.contains(player) && member.getClan().getName().equals(player.getClan().getName()))
 					eventPoints += member.getEventPoints();
-					break;
-				}
-				default:
-				{
-					eventPoints = member.getEventPoints();
-					break;
-				}
+				break;
+			}
+			case 3:
+			{
+				// Let's add the points of each member to the Party General
+				// Clan Score.
+				eventPoints += member.getEventPoints();
+				break;
+			}
+			default:
+			{
+				eventPoints = member.getEventPoints();
+				break;
+			}
 			}
 		}
 		/*

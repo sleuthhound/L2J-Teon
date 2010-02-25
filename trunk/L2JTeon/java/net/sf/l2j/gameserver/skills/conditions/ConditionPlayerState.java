@@ -41,22 +41,22 @@ public class ConditionPlayerState extends Condition
 	{
 		switch (_check)
 		{
-			case RESTING:
-				if (env.player instanceof L2PcInstance)
-				{
-					return ((L2PcInstance) env.player).isSitting() == _required;
-				}
-				return !_required;
-			case MOVING:
-				return env.player.isMoving() == _required;
-			case RUNNING:
-				return (env.player.isMoving() == _required) && (env.player.isRunning() == _required);
-			case FLYING:
-				return env.player.isFlying() == _required;
-			case BEHIND:
-				return env.player.isBehindTarget() == _required;
-			case FRONT:
-				return env.player.isFrontTarget() == _required;
+		case RESTING:
+			if (env.player instanceof L2PcInstance)
+			{
+				return ((L2PcInstance) env.player).isSitting() == _required;
+			}
+			return !_required;
+		case MOVING:
+			return env.player.isMoving() == _required;
+		case RUNNING:
+			return (env.player.isMoving() == _required) && (env.player.isRunning() == _required);
+		case FLYING:
+			return env.player.isFlying() == _required;
+		case BEHIND:
+			return env.player.isBehindTarget() == _required;
+		case FRONT:
+			return env.player.isFrontTarget() == _required;
 		}
 		return !_required;
 	}

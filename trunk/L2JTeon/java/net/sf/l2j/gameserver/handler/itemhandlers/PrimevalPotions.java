@@ -55,16 +55,16 @@ public class PrimevalPotions implements IItemHandler
 				return;
 			switch (itemId)
 			{
-				case 8786: // Primeval Potion
-					activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2305, 1, 1, 0));
-					useScroll(activeChar, 2305, 1);
-					break;
-				case 8787: // Sprigant's Fruit
-					activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2305, 1, 1, 0));
-					useScroll(activeChar, 2305, 1);
-					break;
-				default:
-					break;
+			case 8786: // Primeval Potion
+				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2305, 1, 1, 0));
+				useScroll(activeChar, 2305, 1);
+				break;
+			case 8787: // Sprigant's Fruit
+				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2305, 1, 1, 0));
+				useScroll(activeChar, 2305, 1);
+				break;
+			default:
+				break;
 			}
 			return;
 		}

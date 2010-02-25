@@ -55,16 +55,16 @@ public final class IllegalPlayerAction implements Runnable
 		_actor = actor;
 		switch (punishment)
 		{
-			case PUNISH_KICK:
-				_actor.sendMessage("You will be kicked for illegal action, GM informed");
-				break;
-			case PUNISH_KICKBAN:
-				_actor.sendMessage("You are banned for illegal action, GM informed");
-				break;
-			case PUNISH_JAIL:
-				_actor.sendMessage("Illegal action performed!");
-				_actor.sendMessage("You will be teleported to GM Consultation Service area and jailed");
-				break;
+		case PUNISH_KICK:
+			_actor.sendMessage("You will be kicked for illegal action, GM informed");
+			break;
+		case PUNISH_KICKBAN:
+			_actor.sendMessage("You are banned for illegal action, GM informed");
+			break;
+		case PUNISH_JAIL:
+			_actor.sendMessage("Illegal action performed!");
+			_actor.sendMessage("You will be teleported to GM Consultation Service area and jailed");
+			break;
 		}
 	}
 
@@ -77,19 +77,19 @@ public final class IllegalPlayerAction implements Runnable
 		GmListTable.broadcastMessageToGMs(_message);
 		switch (_punishment)
 		{
-			case PUNISH_BROADCAST:
-				return;
-			case PUNISH_KICK:
-				_actor.closeNetConnection();
-				break;
-			case PUNISH_KICKBAN:
-				_actor.setAccessLevel(-100);
-				_actor.setAccountAccesslevel(-100);
-				_actor.closeNetConnection();
-				break;
-			case PUNISH_JAIL:
-				_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);
-				break;
+		case PUNISH_BROADCAST:
+			return;
+		case PUNISH_KICK:
+			_actor.closeNetConnection();
+			break;
+		case PUNISH_KICKBAN:
+			_actor.setAccessLevel(-100);
+			_actor.setAccountAccesslevel(-100);
+			_actor.closeNetConnection();
+			break;
+		case PUNISH_JAIL:
+			_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);
+			break;
 		}
 	}
 }

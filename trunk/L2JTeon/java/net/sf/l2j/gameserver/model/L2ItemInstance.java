@@ -705,17 +705,17 @@ public final class L2ItemInstance extends L2Object
 	public boolean isAvailable(L2PcInstance player, boolean allowAdena, boolean Adventurer)
 	{
 		return !isEquipped() && (getItem().getType2() != 3) && ((getItem().getType2() != 4) || (getItem().getType1() != 1)) // TODO:
-				// what
-				// does
-				// this
-				// mean?
-				&& ((player.getPet() == null) || (getObjectId() != player.getPet().getControlItemId())) // Not
-				// Control
-				// item
-				// of
-				// currently
-				// summoned pet
-				&& (player.getActiveEnchantItem() != this) && (allowAdena || (getItemId() != 57)) && ((getItemId() < 7816) || (getItemId() > 7833) || Adventurer) && ((player.getCurrentSkill() == null) || (player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId())) && isTradeable();
+		// what
+		// does
+		// this
+		// mean?
+		&& ((player.getPet() == null) || (getObjectId() != player.getPet().getControlItemId())) // Not
+		// Control
+		// item
+		// of
+		// currently
+		// summoned pet
+		&& (player.getActiveEnchantItem() != this) && (allowAdena || (getItemId() != 57)) && ((getItemId() < 7816) || (getItemId() > 7833) || Adventurer) && ((player.getCurrentSkill() == null) || (player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId())) && isTradeable();
 	}
 
 	/*
@@ -939,21 +939,21 @@ public final class L2ItemInstance extends L2Object
 			SystemMessage sm;
 			switch (_mana)
 			{
-				case 10:
-					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_10);
-					sm.addString(getItemName());
-					player.sendPacket(sm);
-					break;
-				case 5:
-					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_5);
-					sm.addString(getItemName());
-					player.sendPacket(sm);
-					break;
-				case 1:
-					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_1);
-					sm.addString(getItemName());
-					player.sendPacket(sm);
-					break;
+			case 10:
+				sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_10);
+				sm.addString(getItemName());
+				player.sendPacket(sm);
+				break;
+			case 5:
+				sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_5);
+				sm.addString(getItemName());
+				player.sendPacket(sm);
+				break;
+			case 1:
+				sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_1);
+				sm.addString(getItemName());
+				player.sendPacket(sm);
+				break;
 			}
 			if (_mana == 0) // The life time has expired
 			{

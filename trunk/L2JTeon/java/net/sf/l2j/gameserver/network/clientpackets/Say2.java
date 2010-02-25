@@ -153,12 +153,12 @@ public final class Say2 extends L2GameClientPacket
 			{
 				switch (Config.CHAT_FILTER_PUNISHMENT)
 				{
-					case 1:
-						activeChar.setChatBanned(true, Config.CHAT_FILTER_PUNISHMENT_TIME * 60, "Chat Filter");
-						break;
-					case 2:
-						activeChar.setInJail(true, Config.CHAT_FILTER_PUNISHMENT_TIME);
-						break;
+				case 1:
+					activeChar.setChatBanned(true, Config.CHAT_FILTER_PUNISHMENT_TIME * 60, "Chat Filter");
+					break;
+				case 2:
+					activeChar.setInJail(true, Config.CHAT_FILTER_PUNISHMENT_TIME);
+					break;
 				}
 				return;
 			}

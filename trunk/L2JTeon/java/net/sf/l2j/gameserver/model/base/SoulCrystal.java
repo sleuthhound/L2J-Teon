@@ -22,17 +22,17 @@ import net.sf.l2j.Config;
 public class SoulCrystal
 {
 	public static final int[][] HighSoulConvert = { { 4639, 5577 }, // RED
-			// 10 -
-			// 11
-			{ 5577, 5580 }, // RED 11 - 12
-			{ 5580, 5908 }, // RED 12 - 13
-			{ 4650, 5578 }, // GRN 10 - 11
-			{ 5578, 5581 }, // GRN 11 - 12
-			{ 5581, 5911 }, // GRN 12 - 13
-			{ 4661, 5579 }, // BLU 10 - 11
-			{ 5579, 5582 }, // BLU 11 - 12
-			{ 5582, 5914 }
-	// BLU 12 - 13
+		// 10 -
+		// 11
+		{ 5577, 5580 }, // RED 11 - 12
+		{ 5580, 5908 }, // RED 12 - 13
+		{ 4650, 5578 }, // GRN 10 - 11
+		{ 5578, 5581 }, // GRN 11 - 12
+		{ 5581, 5911 }, // GRN 12 - 13
+		{ 4661, 5579 }, // BLU 10 - 11
+		{ 5579, 5582 }, // BLU 11 - 12
+		{ 5582, 5914 }
+		// BLU 12 - 13
 	};
 	/**
 	 * "First line is for Red Soul Crystals, second is Green and third is Blue Soul Crystals, ordered by ascending level, from 0 to 13..."

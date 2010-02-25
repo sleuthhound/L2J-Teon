@@ -54,16 +54,16 @@ public class JackpotSeed implements IItemHandler
 	}
 
 	private static int[] _itemIds = { 6389, // small seed
-			6390
-	// large seed
+		6390
+		// large seed
 	};
 	private static int[] _npcIds = { 12774, // Young Pumpkin
-			12777
-	// Large Young Pumpkin
+		12777
+		// Large Young Pumpkin
 	};
 	private static int[] _npcLifeTime = { 30000, // Young Pumpkin
-			40000
-	// Large Young Pumpkin
+		40000
+		// Large Young Pumpkin
 	};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)

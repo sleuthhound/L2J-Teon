@@ -32,8 +32,8 @@ public class AskJoinAlly extends L2GameServerPacket
 	private int _requestorObjId;
 
 	/**
-     *
-     */
+	 *
+	 */
 	public AskJoinAlly(int requestorObjId, String requestorName)
 	{
 		_requestorName = requestorName;

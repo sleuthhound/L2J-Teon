@@ -150,32 +150,32 @@ public class FourSepulchersManager
 		// if current time >= time of entry beginning and if current time < time
 		// of entry beginning + time of entry end
 		if (currentTime >= _coolDownTimeEnd && currentTime < _entryTimeEnd) // entry
-		// time
-		// check
+			// time
+			// check
 		{
 			clean();
 			_changeEntryTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(), 0);
 			_log.info("FourSepulchersManager: Beginning in Entry time");
 		}
 		else if (currentTime >= _entryTimeEnd && currentTime < _warmUpTimeEnd) // warmup
-		// time
-		// check
+			// time
+			// check
 		{
 			clean();
 			_changeWarmUpTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeWarmUpTime(), 0);
 			_log.info("FourSepulchersManager: Beginning in WarmUp time");
 		}
 		else if (currentTime >= _warmUpTimeEnd && currentTime < _attackTimeEnd) // attack
-		// time
-		// check
+			// time
+			// check
 		{
 			clean();
 			_changeAttackTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeAttackTime(), 0);
 			_log.info("FourSepulchersManager: Beginning in Attack time");
 		}
 		else
-		// else cooldown time and without cleanup because it's already
-		// implemented
+			// else cooldown time and without cleanup because it's already
+			// implemented
 		{
 			_changeCoolDownTimeTask = ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(), 0);
 			_log.info("FourSepulchersManager: Beginning in Cooldown time");
@@ -238,30 +238,30 @@ public class FourSepulchersManager
 				spawnDat.setRespawnDelay(60);
 				switch (i)
 				{
-					case 31921: // conquerors
-						spawnDat.setLocx(181061);
-						spawnDat.setLocy(-85595);
-						spawnDat.setLocz(-7200);
-						spawnDat.setHeading(-32584);
-						break;
-					case 31922: // emperors
-						spawnDat.setLocx(179292);
-						spawnDat.setLocy(-88981);
-						spawnDat.setLocz(-7200);
-						spawnDat.setHeading(-33272);
-						break;
-					case 31923: // sages
-						spawnDat.setLocx(173202);
-						spawnDat.setLocy(-87004);
-						spawnDat.setLocz(-7200);
-						spawnDat.setHeading(-16248);
-						break;
-					case 31924: // judges
-						spawnDat.setLocx(175606);
-						spawnDat.setLocy(-82853);
-						spawnDat.setLocz(-7200);
-						spawnDat.setHeading(-16248);
-						break;
+				case 31921: // conquerors
+					spawnDat.setLocx(181061);
+					spawnDat.setLocy(-85595);
+					spawnDat.setLocz(-7200);
+					spawnDat.setHeading(-32584);
+					break;
+				case 31922: // emperors
+					spawnDat.setLocx(179292);
+					spawnDat.setLocy(-88981);
+					spawnDat.setLocz(-7200);
+					spawnDat.setHeading(-33272);
+					break;
+				case 31923: // sages
+					spawnDat.setLocx(173202);
+					spawnDat.setLocy(-87004);
+					spawnDat.setLocz(-7200);
+					spawnDat.setHeading(-16248);
+					break;
+				case 31924: // judges
+					spawnDat.setLocx(175606);
+					spawnDat.setLocy(-82853);
+					spawnDat.setLocz(-7200);
+					spawnDat.setHeading(-16248);
+					break;
 				}
 				_managers.add(spawnDat);
 				SpawnTable.getInstance().addNewSpawn(spawnDat, false);
@@ -803,20 +803,20 @@ public class FourSepulchersManager
 		int npcId = npc.getNpcId();
 		switch (npcId)
 		{
-			// ID ok
-			case 31921:
-			case 31922:
-			case 31923:
-			case 31924:
-				break;
+		// ID ok
+		case 31921:
+		case 31922:
+		case 31923:
+		case 31924:
+			break;
 			// ID not ok
-			default:
-				if (!player.isGM())
-				{
-					_log.warning("Player " + player.getName() + "(" + player.getObjectId() + ") tried to cheat in four sepulchers.");
-					Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " tried to enter four sepulchers with invalid npc id.", Config.DEFAULT_PUNISH);
-				}
-				return;
+		default:
+			if (!player.isGM())
+			{
+				_log.warning("Player " + player.getName() + "(" + player.getObjectId() + ") tried to cheat in four sepulchers.");
+				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " tried to enter four sepulchers with invalid npc id.", Config.DEFAULT_PUNISH);
+			}
+		return;
 		}
 		if (_hallInUse.get(npcId).booleanValue())
 		{
@@ -1043,19 +1043,19 @@ public class FourSepulchersManager
 				{
 					switch (npcId)
 					{
-						case 31469:
-						case 31474:
-						case 31479:
-						case 31484:
-							if (Rnd.get(48) == 0)
-							{
-								spawnKeyBoxMob = true;
-								// _log.info("FourSepulchersManager.SpawnMonster:
-								// Set to spawn Church of Viscount Key Mob.");
-							}
-							break;
-						default:
-							spawnKeyBoxMob = false;
+					case 31469:
+					case 31474:
+					case 31479:
+					case 31484:
+						if (Rnd.get(48) == 0)
+						{
+							spawnKeyBoxMob = true;
+							// _log.info("FourSepulchersManager.SpawnMonster:
+							// Set to spawn Church of Viscount Key Mob.");
+						}
+						break;
+					default:
+						spawnKeyBoxMob = false;
 					}
 				}
 				L2SepulcherMonsterInstance mob = null;
@@ -1098,33 +1098,33 @@ public class FourSepulchersManager
 					mob.mysteriousBoxId = npcId;
 					switch (npcId)
 					{
-						case 31469:
-						case 31474:
-						case 31479:
-						case 31484:
-						case 31472:
-						case 31477:
-						case 31482:
-						case 31487:
-							mobs.add(mob);
+					case 31469:
+					case 31474:
+					case 31479:
+					case 31484:
+					case 31472:
+					case 31477:
+					case 31482:
+					case 31487:
+						mobs.add(mob);
 					}
 					_allMobs.add(mob);
 				}
 			}
 			switch (npcId)
 			{
-				case 31469:
-				case 31474:
-				case 31479:
-				case 31484:
-					_viscountMobs.put(npcId, mobs);
-					break;
-				case 31472:
-				case 31477:
-				case 31482:
-				case 31487:
-					_dukeMobs.put(npcId, mobs);
-					break;
+			case 31469:
+			case 31474:
+			case 31479:
+			case 31484:
+				_viscountMobs.put(npcId, mobs);
+				break;
+			case 31472:
+			case 31477:
+			case 31482:
+			case 31487:
+				_dukeMobs.put(npcId, mobs);
+				break;
 			}
 		}
 	}
@@ -1316,70 +1316,70 @@ public class FourSepulchersManager
 			// may be there is a better way to do this
 			switch (min)
 			{
-				case 6:
-				case 7:
-					min = 5;
-					break;
-				case 8:
-				case 9:
-				case 11:
-				case 12:
-					min = 10;
-					break;
-				case 13:
-				case 14:
-				case 16:
-				case 17:
-					min = 15;
-					break;
-				case 18:
-				case 19:
-				case 21:
-				case 22:
-					min = 20;
-					break;
-				case 23:
-				case 24:
-				case 26:
-				case 27:
-					min = 25;
-					break;
-				case 28:
-				case 29:
-				case 31:
-				case 32:
-					min = 30;
-					break;
-				case 33:
-				case 34:
-				case 36:
-				case 37:
-					min = 35;
-					break;
-				case 38:
-				case 39:
-				case 41:
-				case 42:
-					min = 40;
-					break;
-				case 43:
-				case 44:
-				case 46:
-				case 47:
-					min = 45;
-					break;
-				case 48:
-				case 49:
-				case 51:
-				case 52:
-					min = 50;
-					break;
-				case 53:
-				case 54:
-				case 56:
-				case 57:
-					min = 55;
-					break;
+			case 6:
+			case 7:
+				min = 5;
+				break;
+			case 8:
+			case 9:
+			case 11:
+			case 12:
+				min = 10;
+				break;
+			case 13:
+			case 14:
+			case 16:
+			case 17:
+				min = 15;
+				break;
+			case 18:
+			case 19:
+			case 21:
+			case 22:
+				min = 20;
+				break;
+			case 23:
+			case 24:
+			case 26:
+			case 27:
+				min = 25;
+				break;
+			case 28:
+			case 29:
+			case 31:
+			case 32:
+				min = 30;
+				break;
+			case 33:
+			case 34:
+			case 36:
+			case 37:
+				min = 35;
+				break;
+			case 38:
+			case 39:
+			case 41:
+			case 42:
+				min = 40;
+				break;
+			case 43:
+			case 44:
+			case 46:
+			case 47:
+				min = 45;
+				break;
+			case 48:
+			case 49:
+			case 51:
+			case 52:
+				min = 50;
+				break;
+			case 53:
+			case 54:
+			case 56:
+			case 57:
+				min = 55;
+				break;
 			}
 		}
 		return min;

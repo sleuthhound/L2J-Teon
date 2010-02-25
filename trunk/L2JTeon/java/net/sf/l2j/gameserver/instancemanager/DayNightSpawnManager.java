@@ -157,17 +157,17 @@ public class DayNightSpawnManager
 			return;
 		switch (mode)
 		{
-			case 0:
-				spawnDayCreatures();
-				specialNightBoss(0);
-				break;
-			case 1:
-				spawnNightCreatures();
-				specialNightBoss(1);
-				break;
-			default:
-				_log.warning("DayNightSpawnManager: Wrong mode sent");
-				break;
+		case 0:
+			spawnDayCreatures();
+			specialNightBoss(0);
+			break;
+		case 1:
+			spawnNightCreatures();
+			specialNightBoss(1);
+			break;
+		default:
+			_log.warning("DayNightSpawnManager: Wrong mode sent");
+		break;
 		}
 	}
 
@@ -225,14 +225,14 @@ public class DayNightSpawnManager
 	{
 		switch (mode)
 		{
-			case 0:
-				boss.deleteMe();
-				_log.info("DayNightSpawnManager: Deleting Hellman raidboss");
-				break;
-			case 1:
-				boss.spawnMe();
-				_log.info("DayNightSpawnManager: Spawning Hellman raidboss");
-				break;
+		case 0:
+			boss.deleteMe();
+			_log.info("DayNightSpawnManager: Deleting Hellman raidboss");
+			break;
+		case 1:
+			boss.spawnMe();
+			_log.info("DayNightSpawnManager: Spawning Hellman raidboss");
+			break;
 		}
 	}
 

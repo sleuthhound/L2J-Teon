@@ -291,8 +291,8 @@ public class ThreadPoolManager
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	public void shutdown()
 	{
 		_shutdown = true;
@@ -325,8 +325,8 @@ public class ThreadPoolManager
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	public void purge()
 	{
 		_effectsScheduledThreadPool.purge();
@@ -339,8 +339,8 @@ public class ThreadPoolManager
 	}
 
 	/**
-     *
-     */
+	 *
+	 */
 	public String getPacketStats()
 	{
 		TextBuilder tb = new TextBuilder();
