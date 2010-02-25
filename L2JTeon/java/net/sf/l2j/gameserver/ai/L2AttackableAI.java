@@ -120,7 +120,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	 */
 	private boolean autoAttackCondition(L2Character target)
 	{
-		if ((target == null) || !(_actor instanceof L2Attackable))
+		if (target == null || !(_actor instanceof L2Attackable))
 		{
 			return false;
 		}
@@ -129,18 +129,18 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (target.isInvul())
 		{
 			// However EffectInvincible requires to check GMs specially
-			if ((target instanceof L2PcInstance) && ((L2PcInstance) target).isGM())
+			if (target instanceof L2PcInstance && ((L2PcInstance) target).isGM())
 				return false;
-			if ((target instanceof L2Summon) && ((L2Summon) target).getOwner().isGM())
+			if (target instanceof L2Summon && ((L2Summon) target).getOwner().isGM())
 				return false;
 		}
 		// Check if the target isn't a Folk or a Door
-		if ((target instanceof L2FolkInstance) || (target instanceof L2DoorInstance))
+		if (target instanceof L2FolkInstance || target instanceof L2DoorInstance)
 		{
 			return false;
 		}
 		// Check if the target isn't dead, is in the Aggro range and is at the same height
-		if (target.isAlikeDead() || !me.isInsideRadius(target, me.getAggroRange(), false, false) || (Math.abs(_actor.getZ() - target.getZ()) > 300))
+		if (target.isAlikeDead() || !me.isInsideRadius(target, me.getAggroRange(), false, false) || Math.abs(_actor.getZ() - target.getZ()) > 300)
 		{
 			return false;
 		}
@@ -148,7 +148,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (target instanceof L2PcInstance)
 		{
 			// Don't take the aggro if the GM has the access level below or equal to GM_DONT_TAKE_AGGRO
-			if (((L2PcInstance) target).isGM() && (((L2PcInstance) target).getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO))
+			if (((L2PcInstance) target).isGM() && ((L2PcInstance) target).getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
 			{
 				return false;
 			}
@@ -158,11 +158,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return false;
 			}
 			// Check if player is an ally //TODO! [Nemesiss] it should be rather boolean or smth like that Comparing String isnt good idea!
-			if ((me.getFactionId() == "varka") && ((L2PcInstance) target).isAlliedWithVarka())
+			if (me.getFactionId() == "varka" && ((L2PcInstance) target).isAlliedWithVarka())
 			{
 				return false;
 			}
-			if ((me.getFactionId() == "ketra") && ((L2PcInstance) target).isAlliedWithKetra())
+			if (me.getFactionId() == "ketra" && ((L2PcInstance) target).isAlliedWithKetra())
 			{
 				return false;
 			}
@@ -180,7 +180,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				byte riftType = target.getParty().getDimensionalRift().getType();
 				byte riftRoom = target.getParty().getDimensionalRift().getCurrentRoom();
-				if ((me instanceof L2RiftInvaderInstance) && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(me.getX(), me.getY(), me.getZ()))
+				if (me instanceof L2RiftInvaderInstance && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(me.getX(), me.getY(), me.getZ()))
 				{
 					return false;
 				}
@@ -190,7 +190,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (_actor instanceof L2GuardInstance)
 		{
 			// Check if the L2PcInstance target has karma (=PK)
-			if ((target instanceof L2PcInstance) && (((L2PcInstance) target).getKarma() > 0))
+			if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
 			{
 				// Los Check
 				return GeoData.getInstance().canSeeTarget(me, target);
@@ -212,7 +212,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return false;
 			}
 			// Check if the L2PcInstance target has karma (=PK)
-			if ((target instanceof L2PcInstance) && (((L2PcInstance) target).getKarma() > 0))
+			if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
 			{
 				// Los Check
 				return GeoData.getInstance().canSeeTarget(me, target);
@@ -278,7 +278,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	@Override
 	synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
 	{
-		if ((intention == AI_INTENTION_IDLE) || (intention == AI_INTENTION_ACTIVE))
+		if (intention == AI_INTENTION_IDLE || intention == AI_INTENTION_ACTIVE)
 		{
 			// Check if actor is not dead
 			if (!_actor.isAlikeDead())
@@ -365,10 +365,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					/*
 					 * Check to see if this is a festival mob spawn. If it is, then check to see if the aggro trigger is a festival participant...if so, move to attack it.
 					 */
-					if ((_actor instanceof L2FestivalMonsterInstance) && obj instanceof L2PcInstance)
+					if (_actor instanceof L2FestivalMonsterInstance && obj instanceof L2PcInstance)
 					{
 						L2PcInstance targetPlayer = (L2PcInstance) obj;
-						if (!(targetPlayer.isFestivalParticipant()))
+						if (!targetPlayer.isFestivalParticipant())
 							continue;
 					}
 					/*
@@ -466,7 +466,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			return;
 		}
 		// Minions following leader
-		if ((_actor instanceof L2MinionInstance) && (((L2MinionInstance) _actor).getLeader() != null))
+		if (_actor instanceof L2MinionInstance && ((L2MinionInstance) _actor).getLeader() != null)
 		{
 			int offset;
 			if (_actor.isRaidMinion())
@@ -501,14 +501,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			// [L2J_JP ADD SANDMAN]
 			// Instant move of zaken
-			if ((npc.getNpcId() == 29022) && Rnd.get(5) > 1)
+			if (npc.getNpcId() == 29022 && Rnd.get(5) > 1)
 			{
 				npc.doCast(SkillTable.getInstance().getInfo(4222, 1));
 				return;
 			}
 			int x1, y1, z1;
 			// If NPC with random coord in territory
-			if ((npc.getSpawn().getLocx() == 0) && (npc.getSpawn().getLocy() == 0))
+			if (npc.getSpawn().getLocx() == 0 && npc.getSpawn().getLocy() == 0)
 			{
 				// If NPC with random fixed coord, don't move
 				if (Territory.getInstance().getProcMax(npc.getSpawn().getLocation()) > 0)
@@ -580,7 +580,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 		// Check if target is dead or if timeout is expired to stop this attack
-		if ((getAttackTarget() == null) || getAttackTarget().isAlikeDead() || (_attackTimeout < GameTimeController.getGameTicks()))
+		if (getAttackTarget() == null || getAttackTarget().isAlikeDead() || _attackTimeout < GameTimeController.getGameTicks())
 		{
 			// Stop hating this target after the attack timeout or if target is dead
 			if (getAttackTarget() != null)
@@ -604,19 +604,19 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					if (obj instanceof L2NpcInstance)
 					{
 						L2NpcInstance npc = (L2NpcInstance) obj;
-						if ((npc == null) || (getAttackTarget() == null) || (faction_id != npc.getFactionId()))
+						if (npc == null || getAttackTarget() == null || faction_id != npc.getFactionId())
 						{
 							continue;
 						}
 						// Check if the L2Object is inside the Faction Range of the actor
-						if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && GeoData.getInstance().canSeeTarget(_actor, npc) && (Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600) && (npc.getAI() != null) && _actor.getAttackByList().contains(getAttackTarget())
-								&& ((npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE) || (npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)))
+						if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && GeoData.getInstance().canSeeTarget(_actor, npc) && Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600 && npc.getAI() != null && _actor.getAttackByList().contains(getAttackTarget())
+								&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE))
 						{
-							if ((getAttackTarget() instanceof L2PcInstance) && getAttackTarget().isInParty() && getAttackTarget().getParty().isInDimensionalRift())
+							if (getAttackTarget() instanceof L2PcInstance && getAttackTarget().isInParty() && getAttackTarget().getParty().isInDimensionalRift())
 							{
 								byte riftType = getAttackTarget().getParty().getDimensionalRift().getType();
 								byte riftRoom = getAttackTarget().getParty().getDimensionalRift().getCurrentRoom();
-								if ((_actor instanceof L2RiftInvaderInstance) && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
+								if (_actor instanceof L2RiftInvaderInstance && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
 								{
 									continue;
 								}
@@ -639,9 +639,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								continue;
 							if (!GeoData.getInstance().canSeeTarget(_actor, npc))
 								break;
-							if ((getAttackTarget() instanceof L2PcInstance) || (getAttackTarget() instanceof L2Summon))
+							if (getAttackTarget() instanceof L2PcInstance || getAttackTarget() instanceof L2Summon)
 							{
-								L2PcInstance player = (getAttackTarget() instanceof L2PcInstance) ? (L2PcInstance) getAttackTarget() : ((L2Summon) getAttackTarget()).getOwner();
+								L2PcInstance player = getAttackTarget() instanceof L2PcInstance ? (L2PcInstance) getAttackTarget() : ((L2Summon) getAttackTarget()).getOwner();
 								if (npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL) != null)
 								{
 									for (Quest quest : npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL))
@@ -674,7 +674,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return;
 			}
 			L2Weapon weapon = _actor.getActiveWeaponItem();
-			if ((weapon != null) && (weapon.getItemType() == L2WeaponType.BOW))
+			if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
 			{
 				// Micht: kepping this one otherwise we should do 2 sqrt
 				double distance2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
@@ -733,18 +733,18 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			if (dist2 > range * range)
 			{
 				// check for long ranged skills and heal/buff skills
-				if (!_actor.isMuted() && (!Config.ALT_GAME_MOB_ATTACK_AI || ((_actor instanceof L2MonsterInstance) && (Rnd.nextInt(100) <= 5))))
+				if (!_actor.isMuted() && (!Config.ALT_GAME_MOB_ATTACK_AI || _actor instanceof L2MonsterInstance && Rnd.nextInt(100) <= 5))
 				{
 					for (L2Skill sk : skills)
 					{
 						int castRange = sk.getCastRange();
-						if (((sk.getSkillType() == L2Skill.SkillType.BUFF) || (sk.getSkillType() == L2Skill.SkillType.HEAL) || ((dist2 >= castRange * castRange / 9.0) && (dist2 <= castRange * castRange) && (castRange > 70))) && !_actor.isSkillDisabled(sk.getId()) && (_actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)) && !sk.isPassive() && (Rnd.nextInt(100) <= 5))
+						if ((sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL || dist2 >= castRange * castRange / 9.0 && dist2 <= castRange * castRange && castRange > 70) && !_actor.isSkillDisabled(sk.getId()) && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive() && Rnd.nextInt(100) <= 5)
 						{
 							L2Object OldTarget = _actor.getTarget();
-							if ((sk.getSkillType() == L2Skill.SkillType.BUFF) || (sk.getSkillType() == L2Skill.SkillType.HEAL))
+							if (sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL)
 							{
 								boolean useSkillSelf = true;
-								if ((sk.getSkillType() == L2Skill.SkillType.HEAL) && (_actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5)))
+								if (sk.getSkillType() == L2Skill.SkillType.HEAL && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
 								{
 									useSkillSelf = false;
 									break;
@@ -752,7 +752,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 								if (sk.getSkillType() == L2Skill.SkillType.BUFF)
 								{
 									L2Effect[] effects = _actor.getAllEffects();
-									for (int i = 0; (effects != null) && (i < effects.length); i++)
+									for (int i = 0; effects != null && i < effects.length; i++)
 									{
 										L2Effect effect = effects[i];
 										if (effect.getSkill() == sk)
@@ -796,13 +796,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				{
 					if (/*
 					 * sk.getCastRange() >= dist && sk.getCastRange() <= 70 &&
-					 */!sk.isPassive() && (_actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)) && !_actor.isSkillDisabled(sk.getId()) && ((Rnd.nextInt(100) <= 8) || ((_actor instanceof L2PenaltyMonsterInstance) && (Rnd.nextInt(100) <= 20))))
+					 */!sk.isPassive() && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !_actor.isSkillDisabled(sk.getId()) && (Rnd.nextInt(100) <= 8 || _actor instanceof L2PenaltyMonsterInstance && Rnd.nextInt(100) <= 20))
 					{
 						L2Object OldTarget = _actor.getTarget();
-						if ((sk.getSkillType() == L2Skill.SkillType.BUFF) || (sk.getSkillType() == L2Skill.SkillType.HEAL))
+						if (sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL)
 						{
 							useSkillSelf = true;
-							if ((sk.getSkillType() == L2Skill.SkillType.HEAL) && (_actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5)))
+							if (sk.getSkillType() == L2Skill.SkillType.HEAL && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
 							{
 								useSkillSelf = false;
 								break;
@@ -810,7 +810,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							if (sk.getSkillType() == L2Skill.SkillType.BUFF)
 							{
 								L2Effect[] effects = _actor.getAllEffects();
-								for (int i = 0; (effects != null) && (i < effects.length); i++)
+								for (int i = 0; effects != null && i < effects.length; i++)
 								{
 									L2Effect effect = effects[i];
 									if (effect.getSkill() == sk)

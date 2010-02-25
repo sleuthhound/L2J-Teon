@@ -48,7 +48,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_size = readD();
-		if ((_size * 16 > _buf.remaining()) || (_size > 500))
+		if (_size * 16 > _buf.remaining() || _size > 500)
 		{
 			_size = 0;
 			return;
@@ -84,7 +84,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 		{
 			target = player.getLastFolkNPC();
 		}
-		if (!player.isGM() && ((target == null) || !(target instanceof L2ManorManagerInstance) || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))
+		if (!player.isGM() && (target == null || !(target instanceof L2ManorManagerInstance) || !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))
 		{
 			return;
 		}
@@ -103,7 +103,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			int itemId = _items[i * 4 + 1];
 			int manorId = _items[i * 4 + 2];
 			int count = _items[i * 4 + 3];
-			if ((itemId == 0) || (manorId == 0) || (count == 0))
+			if (itemId == 0 || manorId == 0 || count == 0)
 			{
 				continue;
 			}
@@ -156,7 +156,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			int cropId = _items[i * 4 + 1];
 			int manorId = _items[i * 4 + 2];
 			int count = _items[i * 4 + 3];
-			if ((objId == 0) || (cropId == 0) || (manorId == 0) || (count == 0))
+			if (objId == 0 || cropId == 0 || manorId == 0 || count == 0)
 			{
 				continue;
 			}
@@ -173,7 +173,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			{
 				continue;
 			}
-			if ((crop == null) || (crop.getId() == 0) || (crop.getPrice() == 0))
+			if (crop == null || crop.getId() == 0 || crop.getPrice() == 0)
 			{
 				continue;
 			}
@@ -244,7 +244,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			{
 				continue;
 			}
-			if ((itemDel == null) || (itemAdd == null))
+			if (itemDel == null || itemAdd == null)
 			{
 				continue;
 			}

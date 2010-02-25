@@ -89,7 +89,7 @@ public class Npcbuffer
 	public void reload(L2PcInstance client)
 	{
 		loadBuffs();
-		client.sendMessage((new StringBuilder("Buffer reload: entries ")).append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
+		client.sendMessage(new StringBuilder("Buffer reload: entries ").append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
 	}
 
 	public void useRestore(L2BuffInstance jj, L2PcInstance client, String type, String after)
@@ -138,7 +138,7 @@ public class Npcbuffer
 		BuffGroup buff = (BuffGroup) buffs().get(Integer.valueOf(Integer.parseInt(st)));
 		if (buff == null)
 		{
-			jj.showChatErrWnd(client, after, client.isGM() ? (new StringBuilder("template ")).append(st).append(" is null.").toString() : "Come back later.");
+			jj.showChatErrWnd(client, after, client.isGM() ? new StringBuilder("template ").append(st).append(" is null.").toString() : "Come back later.");
 			return;
 		}
 		L2ItemInstance item = client.getInventory().getItemByItemId(buff.itemId);
@@ -165,11 +165,11 @@ public class Npcbuffer
 		{
 			cae(client, skill);
 			skill.getEffects(jj, client);
-			client.sendPacket((new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT)).addSkillName(effect[0], effect[1]));
+			client.sendPacket(new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(effect[0], effect[1]));
 		}
 		else
 		{
-			client.sendMessage(client.isGM() ? (new StringBuilder("null skill ")).append(effect[0]).append(" lv").append(effect[1]).toString() : "You are not able to receive this effect.");
+			client.sendMessage(client.isGM() ? new StringBuilder("null skill ").append(effect[0]).append(" lv").append(effect[1]).toString() : "You are not able to receive this effect.");
 		}
 	}
 
@@ -255,7 +255,7 @@ public class Npcbuffer
 			bInitialized = false;
 		}
 		bInitialized = true;
-		System.out.println((new StringBuilder("Buffer reload: entries ")).append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
+		System.out.println(new StringBuilder("Buffer reload: entries ").append(buffs().size()).append(", muls ").append(buffs_mul.size()).toString());
 		return;
 	}
 

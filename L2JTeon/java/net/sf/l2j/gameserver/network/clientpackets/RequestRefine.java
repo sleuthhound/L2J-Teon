@@ -60,7 +60,7 @@ public final class RequestRefine extends L2GameClientPacket
 		L2ItemInstance targetItem = (L2ItemInstance) L2World.getInstance().findObject(_targetItemObjId);
 		L2ItemInstance refinerItem = (L2ItemInstance) L2World.getInstance().findObject(_refinerItemObjId);
 		L2ItemInstance gemstoneItem = (L2ItemInstance) L2World.getInstance().findObject(_gemstoneItemObjId);
-		if ((targetItem == null) || (refinerItem == null) || (gemstoneItem == null) || (targetItem.getOwnerId() != activeChar.getObjectId()) || (refinerItem.getOwnerId() != activeChar.getObjectId()) || (gemstoneItem.getOwnerId() != activeChar.getObjectId()) || (activeChar.getLevel() < 46)) // must
+		if (targetItem == null || refinerItem == null || gemstoneItem == null || targetItem.getOwnerId() != activeChar.getObjectId() || refinerItem.getOwnerId() != activeChar.getObjectId() || gemstoneItem.getOwnerId() != activeChar.getObjectId() || activeChar.getLevel() < 46) // must
 			// be
 			// lvl
 			// 46
@@ -141,14 +141,14 @@ public final class RequestRefine extends L2GameClientPacket
 		int lifeStoneId = refinerItem.getItemId();
 		int gemstoneItemId = gemstoneItem.getItemId();
 		// is the refiner Item a life stone?
-		if ((lifeStoneId < 8723) || (lifeStoneId > 8762))
+		if (lifeStoneId < 8723 || lifeStoneId > 8762)
 			return false;
 		// must be a weapon, must be > d grade
 		// TODO: can do better? : currently: using isdestroyable() as a check for hero / cursed weapons
-		if ((itemGrade < L2Item.CRYSTAL_C) || (itemType != L2Item.TYPE2_WEAPON) || !targetItem.isDestroyable())
+		if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON || !targetItem.isDestroyable())
 			return false;
 		// player must be able to use augmentation
-		if ((player.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE) || player.isDead() || player.isParalyzed() || player.isFishing() || player.isSitting())
+		if (player.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_NONE || player.isDead() || player.isParalyzed() || player.isFishing() || player.isSitting())
 			return false;
 		int modifyGemstoneCount = _gemstoneCount;
 		int lifeStoneLevel = getLifeStoneLevel(lifeStoneId);
@@ -156,22 +156,22 @@ public final class RequestRefine extends L2GameClientPacket
 		switch (itemGrade)
 		{
 		case L2Item.CRYSTAL_C:
-			if ((player.getLevel() < 46) || (gemstoneItemId != 2130))
+			if (player.getLevel() < 46 || gemstoneItemId != 2130)
 				return false;
 			modifyGemstoneCount = 20;
 			break;
 		case L2Item.CRYSTAL_B:
-			if ((lifeStoneLevel < 3) || (player.getLevel() < 52) || (gemstoneItemId != 2130))
+			if (lifeStoneLevel < 3 || player.getLevel() < 52 || gemstoneItemId != 2130)
 				return false;
 			modifyGemstoneCount = 30;
 			break;
 		case L2Item.CRYSTAL_A:
-			if ((lifeStoneLevel < 6) || (player.getLevel() < 61) || (gemstoneItemId != 2131))
+			if (lifeStoneLevel < 6 || player.getLevel() < 61 || gemstoneItemId != 2131)
 				return false;
 			modifyGemstoneCount = 20;
 			break;
 		case L2Item.CRYSTAL_S:
-			if ((lifeStoneLevel != 10) || (player.getLevel() < 76) || (gemstoneItemId != 2131))
+			if (lifeStoneLevel != 10 || player.getLevel() < 76 || gemstoneItemId != 2131)
 				return false;
 			modifyGemstoneCount = 25;
 			break;

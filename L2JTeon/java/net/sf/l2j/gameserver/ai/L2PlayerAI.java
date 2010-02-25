@@ -82,7 +82,7 @@ public class L2PlayerAI extends L2CharacterAI
 			return;
 		}
 		// do nothing if next intention is same as current one.
-		if ((intention == _intention) && (arg0 == _intentionArg0) && (arg1 == _intentionArg1))
+		if (intention == _intention && arg0 == _intentionArg0 && arg1 == _intentionArg1)
 		{
 			super.changeIntention(intention, arg0, arg1);
 			return;
@@ -104,7 +104,7 @@ public class L2PlayerAI extends L2CharacterAI
 	protected void onEvtFinishCasting()
 	{
 		// forget interupted actions after offensive skill
-		if ((_skill != null) && _skill.isOffensive())
+		if (_skill != null && _skill.isOffensive())
 			_interuptedIntentions.clear();
 		if (getIntention() == AI_INTENTION_CAST)
 		{
@@ -122,7 +122,7 @@ public class L2PlayerAI extends L2CharacterAI
 				/*
 				 * if (Config.DEBUG) _log.warning("L2PlayerAI: onEvtFinishCasting -> " + cmd._intention + " " + cmd._arg0 + " " + cmd._arg1);
 				 */
-				if ((cmd != null) && (cmd._crtlIntention != AI_INTENTION_CAST)) // previous
+				if (cmd != null && cmd._crtlIntention != AI_INTENTION_CAST) // previous
 					// state
 					// shouldn't
 					// be
@@ -234,12 +234,12 @@ public class L2PlayerAI extends L2CharacterAI
 		if (oldTarget != null)
 		{
 			// Replace the current target by the cast target
-			if ((target != null) && (oldTarget != target))
+			if (target != null && oldTarget != target)
 				_actor.setTarget(getCastTarget());
 			// Launch the Cast of the skill
 			_accessor.doCast(_skill);
 			// Restore the initial target
-			if ((target != null) && (oldTarget != target))
+			if (target != null && oldTarget != target)
 				_actor.setTarget(oldTarget);
 		}
 		else

@@ -88,7 +88,7 @@ public class FaenorQuestParser extends FaenorParser
 			min = getInt(attribute(drop, "Min"));
 			max = getInt(attribute(drop, "Max"));
 			chance = getInt(attribute(drop, "Chance"));
-			states = (attribute(drop, "States")).split(",");
+			states = attribute(drop, "States").split(",");
 		}
 		catch (NullPointerException e)
 		{
@@ -104,7 +104,7 @@ public class FaenorQuestParser extends FaenorParser
 		@Override
 		public Parser create()
 		{
-			return (new FaenorQuestParser());
+			return new FaenorQuestParser();
 		}
 	}
 

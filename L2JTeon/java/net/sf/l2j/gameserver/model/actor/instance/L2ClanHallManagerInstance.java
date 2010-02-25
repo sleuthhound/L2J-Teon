@@ -138,7 +138,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 					}
 					if (st.countTokens() < 1)
 						return;
-					int valbuy = Integer.parseInt(st.nextToken()) + (getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE).getLvl() * 100000);
+					int valbuy = Integer.parseInt(st.nextToken()) + getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE).getLvl() * 100000;
 					showBuyWindow(player, valbuy);
 				}
 				else if (val.equalsIgnoreCase("support"))

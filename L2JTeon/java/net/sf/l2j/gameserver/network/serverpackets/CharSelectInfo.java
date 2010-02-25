@@ -320,7 +320,7 @@ public class CharSelectInfo extends L2GameServerPacket
 		/*
 		 * Check if the base class is set to zero and alse doesn't match with the current active class, otherwise send the base class ID. This prevents chars created before base class was introduced from being displayed incorrectly.
 		 */
-		if ((baseClassId == 0) && (activeClassId > 0))
+		if (baseClassId == 0 && activeClassId > 0)
 			charInfopackage.setBaseClassId(activeClassId);
 		else
 			charInfopackage.setBaseClassId(baseClassId);

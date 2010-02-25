@@ -75,7 +75,7 @@ public final class EffectTemplate
 
 	public L2Effect getEffect(Env env)
 	{
-		if ((attachCond != null) && !attachCond.test(env))
+		if (attachCond != null && !attachCond.test(env))
 			return null;
 		try
 		{

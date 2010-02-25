@@ -55,7 +55,7 @@ public class SplendorKeys implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if ((activeChar.getAbnormalEffect() > 0) || activeChar.isInCombat())
+		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You cannot use the key now.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -69,7 +69,7 @@ public class SplendorKeys implements IItemHandler
 		case 8056: // Key of Splendor Room
 			if (door.getDoorName().startsWith("Gate_of_Splendor"))
 			{
-				if ((openChance > 0) && (Rnd.get(100) < openChance))
+				if (openChance > 0 && Rnd.get(100) < openChance)
 				{
 					activeChar.sendMessage("You opened Gate of Splendor.");
 					door.openMe();

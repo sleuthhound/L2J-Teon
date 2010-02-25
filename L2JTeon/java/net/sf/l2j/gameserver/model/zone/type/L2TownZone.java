@@ -83,7 +83,7 @@ public class L2TownZone extends L2ZoneType
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if ((character instanceof L2PcInstance) && ((L2PcInstance) character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
+		if (character instanceof L2PcInstance && ((L2PcInstance) character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
 			return;
 		if (!_noPeace && Config.ZONE_TOWN != 2)
 			character.setInsideZone(2, true);

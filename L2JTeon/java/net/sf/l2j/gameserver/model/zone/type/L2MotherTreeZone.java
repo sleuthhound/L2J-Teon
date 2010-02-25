@@ -53,7 +53,7 @@ public class L2MotherTreeZone extends L2ZoneType
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if ((character instanceof L2PcInstance) && character.isInsideZone(L2Character.ZONE_MOTHERTREE))
+		if (character instanceof L2PcInstance && character.isInsideZone(L2Character.ZONE_MOTHERTREE))
 		{
 			character.setInsideZone(L2Character.ZONE_MOTHERTREE, false);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));

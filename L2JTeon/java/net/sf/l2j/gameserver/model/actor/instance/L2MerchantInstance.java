@@ -87,7 +87,7 @@ public class L2MerchantInstance extends L2FolkInstance
 		if (Config.DEBUG)
 			_log.fine("Showing buylist");
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
-		if ((list != null) && list.getNpcId().equals(String.valueOf(getNpcId())))
+		if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
 		{
 			BuyList bl = new BuyList(list, player.getAdena(), taxRate);
 			player.sendPacket(bl);
@@ -190,7 +190,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
 	public void tryRentPet(L2PcInstance player, int val)
 	{
-		if ((player == null) || (player.getPet() != null) || player.isMounted() || player.isRentedPet())
+		if (player == null || player.getPet() != null || player.isMounted() || player.isRentedPet())
 			return;
 		if (!player.disarmWeapons())
 			return;
@@ -208,7 +208,7 @@ public class L2MerchantInstance extends L2FolkInstance
 		{
 			petId = 12621;
 		}
-		if ((val < 1) || (val > 4))
+		if (val < 1 || val > 4)
 			return;
 		price *= cost[val - 1];
 		int time = ridetime[val - 1];

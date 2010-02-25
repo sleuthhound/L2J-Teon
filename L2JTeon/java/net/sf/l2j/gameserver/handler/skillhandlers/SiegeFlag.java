@@ -47,9 +47,9 @@ public class SiegeFlag implements ISkillHandler
 			return;
 		Castle castle = CastleManager.getInstance().getCastle(player);
 		Fort fort = FortManager.getInstance().getFort(player);
-		if (castle == null || !(checkIfOkToPlaceFlag(player, castle, true)))
+		if (castle == null || !checkIfOkToPlaceFlag(player, castle, true))
 			return;
-		if (fort == null || !(checkIfOkToPlaceFlag(player, fort, true)))
+		if (fort == null || !checkIfOkToPlaceFlag(player, fort, true))
 			return;
 		try
 		{
@@ -88,7 +88,7 @@ public class SiegeFlag implements ISkillHandler
 	{
 		Castle castle = CastleManager.getInstance().getCastle(activeChar);
 		Fort fort = FortManager.getInstance().getFort(activeChar);
-		if ((castle == null) || (fort == null))
+		if (castle == null || fort == null)
 			return false;
 		if (castle != null)
 			return checkIfOkToPlaceFlag(activeChar, castle, isCheckOnly);

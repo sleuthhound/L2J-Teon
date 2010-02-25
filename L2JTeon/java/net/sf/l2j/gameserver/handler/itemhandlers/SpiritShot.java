@@ -51,7 +51,7 @@ public class SpiritShot implements IItemHandler
 		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
 		int itemId = item.getItemId();
 		// Check if Spiritshot can be used
-		if ((weaponInst == null) || (weaponItem.getSpiritShotCount() == 0))
+		if (weaponInst == null || weaponItem.getSpiritShotCount() == 0)
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SPIRITSHOTS));
@@ -68,7 +68,7 @@ public class SpiritShot implements IItemHandler
 		}
 		// Check for correct grade
 		int weaponGrade = weaponItem.getCrystalType();
-		if (((weaponGrade == L2Item.CRYSTAL_NONE) && (itemId != 5790) && (itemId != 2509)) || ((weaponGrade == L2Item.CRYSTAL_D) && (itemId != 2510)) || ((weaponGrade == L2Item.CRYSTAL_C) && (itemId != 2511)) || ((weaponGrade == L2Item.CRYSTAL_B) && (itemId != 2512)) || ((weaponGrade == L2Item.CRYSTAL_A) && (itemId != 2513)) || ((weaponGrade == L2Item.CRYSTAL_S) && (itemId != 2514)))
+		if (weaponGrade == L2Item.CRYSTAL_NONE && itemId != 5790 && itemId != 2509 || weaponGrade == L2Item.CRYSTAL_D && itemId != 2510 || weaponGrade == L2Item.CRYSTAL_C && itemId != 2511 || weaponGrade == L2Item.CRYSTAL_B && itemId != 2512 || weaponGrade == L2Item.CRYSTAL_A && itemId != 2513 || weaponGrade == L2Item.CRYSTAL_S && itemId != 2514)
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH));

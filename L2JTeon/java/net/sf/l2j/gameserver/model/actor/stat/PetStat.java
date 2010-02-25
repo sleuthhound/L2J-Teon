@@ -73,7 +73,7 @@ public class PetStat extends SummonStat
 		}
 		boolean levelIncreased = super.addLevel(value);
 		// Sync up exp with current level
-		if ((getExp() > getExpForLevel(getLevel() + 1)) || (getExp() < getExpForLevel(getLevel())))
+		if (getExp() > getExpForLevel(getLevel() + 1) || getExp() < getExpForLevel(getLevel()))
 		{
 			setExp(Experience.LEVEL[getLevel()]);
 		}

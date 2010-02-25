@@ -308,7 +308,7 @@ public class Duel
 			// there
 			return false;
 		}
-		else if ((_playerA.getPvpFlag() != 0) || (_playerB.getPvpFlag() != 0))
+		else if (_playerA.getPvpFlag() != 0 || _playerB.getPvpFlag() != 0)
 		{
 			if (sendMessage)
 			{
@@ -551,7 +551,7 @@ public class Duel
 	{
 		if (_playerA == null)
 			return;
-		if (_partyDuel && (_playerA.getParty() != null))
+		if (_partyDuel && _playerA.getParty() != null)
 		{
 			for (L2PcInstance temp : _playerA.getParty().getPartyMembers())
 				temp.sendPacket(packet);
@@ -567,7 +567,7 @@ public class Duel
 	{
 		if (_playerB == null)
 			return;
-		if (_partyDuel && (_playerB.getParty() != null))
+		if (_partyDuel && _playerB.getParty() != null)
 		{
 			for (L2PcInstance temp : _playerB.getParty().getPartyMembers())
 				temp.sendPacket(packet);
@@ -583,7 +583,7 @@ public class Duel
 	 */
 	public L2PcInstance getWinner()
 	{
-		if (!getFinished() || (_playerA == null) || (_playerB == null))
+		if (!getFinished() || _playerA == null || _playerB == null)
 			return null;
 		if (_playerA.getDuelState() == DUELSTATE_WINNER)
 			return _playerA;
@@ -599,7 +599,7 @@ public class Duel
 	 */
 	public L2PcInstance getLooser()
 	{
-		if (!getFinished() || (_playerA == null) || (_playerB == null))
+		if (!getFinished() || _playerA == null || _playerB == null)
 			return null;
 		if (_playerA.getDuelState() == DUELSTATE_WINNER)
 			return _playerB;
@@ -616,7 +616,7 @@ public class Duel
 		L2PcInstance looser = getLooser();
 		if (looser == null)
 			return;
-		if (_partyDuel && (looser.getParty() != null))
+		if (_partyDuel && looser.getParty() != null)
 		{
 			for (L2PcInstance temp : looser.getParty().getPartyMembers())
 				temp.broadcastPacket(new SocialAction(temp.getObjectId(), 7));
@@ -657,7 +657,7 @@ public class Duel
 	 */
 	public void endDuel(DuelResultEnum result)
 	{
-		if ((_playerA == null) || (_playerB == null))
+		if (_playerA == null || _playerB == null)
 		{
 			// clean up
 			_playerConditions.clear();
@@ -757,7 +757,7 @@ public class Duel
 	public DuelResultEnum checkEndDuelCondition()
 	{
 		// one of the players might leave during duel
-		if ((_playerA == null) || (_playerB == null))
+		if (_playerA == null || _playerB == null)
 			return DuelResultEnum.Canceled;
 		// got a duel surrender request?
 		if (_surrenderRequest != 0)
@@ -792,7 +792,7 @@ public class Duel
 		{
 			// Duel was interrupted e.g.: player was attacked by
 			// mobs / other players
-			if ((_playerA.getDuelState() == DUELSTATE_INTERRUPTED) || (_playerB.getDuelState() == DUELSTATE_INTERRUPTED))
+			if (_playerA.getDuelState() == DUELSTATE_INTERRUPTED || _playerB.getDuelState() == DUELSTATE_INTERRUPTED)
 				return DuelResultEnum.Canceled;
 			// Are the players too far apart?
 			if (!_playerA.isInsideRadius(_playerB, 1600, false, false))
@@ -901,7 +901,7 @@ public class Duel
 		}
 		else
 		{
-			if ((player != _playerA) && (player != _playerB))
+			if (player != _playerA && player != _playerB)
 				_log.warning("Error in onPlayerDefeat(): player is not part of this 1vs1 duel");
 			if (_playerA == player)
 				_playerB.setDuelState(DUELSTATE_WINNER);
@@ -924,7 +924,7 @@ public class Duel
 		// this player is leaving his party during party duel
 		// if hes either playerA or playerB cancel the duel and port the players
 		// back
-		if ((player == _playerA) || (player == _playerB))
+		if (player == _playerA || player == _playerB)
 		{
 			for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
 			{

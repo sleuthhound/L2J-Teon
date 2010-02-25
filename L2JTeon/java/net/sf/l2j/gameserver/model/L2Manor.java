@@ -59,7 +59,7 @@ public class L2Manor
 		FastList<Integer> crops = new FastList<Integer>();
 		for (SeedData seed : _seeds.values())
 		{
-			if (!crops.contains(seed.getCrop()) && (seed.getCrop() != 0) && !crops.contains(seed.getCrop()))
+			if (!crops.contains(seed.getCrop()) && seed.getCrop() != 0 && !crops.contains(seed.getCrop()))
 			{
 				crops.add(seed.getCrop());
 			}
@@ -215,7 +215,7 @@ public class L2Manor
 		FastList<Integer> crops = new FastList<Integer>();
 		for (SeedData seed : _seeds.values())
 		{
-			if ((seed.getManorId() == castleId) && !crops.contains(seed.getCrop()))
+			if (seed.getManorId() == castleId && !crops.contains(seed.getCrop()))
 			{
 				crops.add(seed.getCrop());
 			}
@@ -235,7 +235,7 @@ public class L2Manor
 		FastList<Integer> seedsID = new FastList<Integer>();
 		for (SeedData seed : _seeds.values())
 		{
-			if ((seed.getManorId() == castleId) && !seedsID.contains(seed.getId()))
+			if (seed.getManorId() == castleId && !seedsID.contains(seed.getId()))
 			{
 				seedsID.add(seed.getId());
 			}
@@ -369,7 +369,7 @@ public class L2Manor
 			String line = null;
 			while ((line = lnr.readLine()) != null)
 			{
-				if ((line.trim().length() == 0) || line.startsWith("#"))
+				if (line.trim().length() == 0 || line.startsWith("#"))
 				{
 					continue;
 				}

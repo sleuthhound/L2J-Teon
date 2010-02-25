@@ -188,7 +188,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				String val = command.substring(15);
 				int karma = Integer.parseInt(val);
-				if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
+				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
 				{
 					new GmAudit(activeChar.getName(), activeChar.getObjectId(), activeChar.getName(), command);
 				}
@@ -208,7 +208,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			try
 			{
 				String val = command.substring(24);
-				if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
+				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
 				{
 					new GmAudit(activeChar.getName(), activeChar.getObjectId(), activeChar.getName(), command);
 				}
@@ -230,7 +230,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				int recVal = Integer.parseInt(val);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
+				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
 				{
 					return false;
 				}
@@ -259,7 +259,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				int classidval = Integer.parseInt(val);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
+				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
 				{
 					return false;
 				}
@@ -279,7 +279,7 @@ public class AdminEditChar implements IAdminCommandHandler
 						valid = true;
 					}
 				}
-				if (valid && (player.getClassId().getId() != classidval))
+				if (valid && player.getClassId().getId() != classidval)
 				{
 					player.setClassId(classidval);
 					if (!player.isSubClassActive())
@@ -306,7 +306,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				String val = command.substring(15);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
+				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
 				{
 					return false;
 				}
@@ -336,7 +336,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				String val = command.substring(14);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
+				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
 				{
 					return false;
 				}
@@ -365,7 +365,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
+			if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
 			{
 				return false;
 			}

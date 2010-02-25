@@ -67,7 +67,7 @@ public final class ServerList extends L2LoginServerPacket
 		_servers = new FastList<ServerData>();
 		_lastServer = client.getLastServer();
 		for (GameServerInfo gsi : GameServerTable.getInstance().getRegisteredGameServers().values())
-			if ((gsi.getStatus() == ServerStatus.STATUS_GM_ONLY) && (client.getAccessLevel() >= Config.GM_MIN))
+			if (gsi.getStatus() == ServerStatus.STATUS_GM_ONLY && client.getAccessLevel() >= Config.GM_MIN)
 				// Server is GM-Only but you've got GM Status
 				addServer(client.usesInternalIP() ? gsi.getInternalHost() : gsi.getExternalHost(), gsi.getPort(), gsi.isPvp(), gsi.isTestServer(), gsi.getCurrentPlayerCount(), gsi.getMaxPlayers(), gsi.isShowingBrackets(), gsi.isShowingClock(), gsi.getStatus(), gsi.getId());
 			else if (gsi.getStatus() != ServerStatus.STATUS_GM_ONLY)

@@ -102,7 +102,7 @@ public final class TaskManager
 				{
 				}
 			}
-			if ((type == TYPE_SHEDULED) || (type == TYPE_TIME))
+			if (type == TYPE_SHEDULED || type == TYPE_TIME)
 			{
 				stopTask();
 			}
@@ -302,7 +302,7 @@ public final class TaskManager
 				return false;
 			}
 			long delay = min.getTimeInMillis() - System.currentTimeMillis();
-			if (check.after(min) || (delay < 0))
+			if (check.after(min) || delay < 0)
 			{
 				delay += interval;
 			}

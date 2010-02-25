@@ -123,7 +123,7 @@ public class FaenorWorldDataParser extends FaenorParser
 		@Override
 		public Parser create()
 		{
-			return (new FaenorWorldDataParser());
+			return new FaenorWorldDataParser();
 		}
 	}
 

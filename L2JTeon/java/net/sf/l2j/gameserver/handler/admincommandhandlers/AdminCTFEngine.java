@@ -256,7 +256,7 @@ public class AdminCTFEngine implements IAdminCommandHandler
 
 	private boolean checkLevel(int level)
 	{
-		return (level >= REQUIRED_LEVEL);
+		return level >= REQUIRED_LEVEL;
 	}
 
 	public void showEditPage(L2PcInstance activeChar)

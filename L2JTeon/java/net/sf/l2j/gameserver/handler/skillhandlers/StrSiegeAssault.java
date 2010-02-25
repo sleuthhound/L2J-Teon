@@ -42,7 +42,7 @@ public class StrSiegeAssault implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return;
 		L2PcInstance player = (L2PcInstance) activeChar;
 		if (!activeChar.isRiding())
@@ -50,7 +50,7 @@ public class StrSiegeAssault implements ISkillHandler
 		if (!(player.getTarget() instanceof L2DoorInstance))
 			return;
 		Castle castle = CastleManager.getInstance().getCastle(player);
-		if ((castle == null) || !checkIfOkToUseStriderSiegeAssault(player, castle, true))
+		if (castle == null || !checkIfOkToUseStriderSiegeAssault(player, castle, true))
 			return;
 		try
 		{
@@ -62,7 +62,7 @@ public class StrSiegeAssault implements ISkillHandler
 			for (L2Object target2 : targets) {
 				L2Character target = (L2Character) target2;
 				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-				if ((activeChar instanceof L2PcInstance) && (target instanceof L2PcInstance) && target.isAlikeDead() && target.isFakeDeath())
+				if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
 				{
 					target.stopFakeDeath(null);
 				}
@@ -71,15 +71,15 @@ public class StrSiegeAssault implements ISkillHandler
 				boolean dual = activeChar.isUsingDualWeapon();
 				boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
 				boolean crit = Formulas.getInstance().calcCrit(activeChar.getCriticalHit(target, skill));
-				boolean soul = (weapon != null) && (weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT) && (weapon.getItemType() != L2WeaponType.DAGGER);
-				if (!crit && ((skill.getCondition() & L2Skill.COND_CRIT) != 0))
+				boolean soul = weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER;
+				if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
 					damage = 0;
 				else
 					damage = (int) Formulas.getInstance().calcPhysDam(activeChar, target, skill, shld, crit, dual, soul);
 				if (damage > 0)
 				{
 					target.reduceCurrentHp(damage, activeChar);
-					if (soul && (weapon != null))
+					if (soul && weapon != null)
 						weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 					activeChar.sendDamageMessage(target, damage, false, false, false);
 				}
@@ -111,7 +111,7 @@ public class StrSiegeAssault implements ISkillHandler
 	{
 		Castle castle = CastleManager.getInstance().getCastle(activeChar);
 		Fort fort = FortManager.getInstance().getFort(activeChar);
-		if ((castle == null) && (fort == null))
+		if (castle == null && fort == null)
 			return false;
 		if (castle != null)
 			return checkIfOkToUseStriderSiegeAssault(activeChar, castle, isCheckOnly);
@@ -121,11 +121,11 @@ public class StrSiegeAssault implements ISkillHandler
 
 	public static boolean checkIfOkToUseStriderSiegeAssault(L2Character activeChar, Castle castle, boolean isCheckOnly)
 	{
-		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
-		if ((castle == null) || (castle.getCastleId() <= 0))
+		if (castle == null || castle.getCastleId() <= 0)
 			sm.addString("You must be on castle ground to use strider siege assault");
 		else if (!castle.getSiege().getIsInProgress())
 			sm.addString("You can only use strider siege assault during a siege.");
@@ -144,11 +144,11 @@ public class StrSiegeAssault implements ISkillHandler
 
 	public static boolean checkIfOkToUseStriderSiegeAssault(L2Character activeChar, Fort fort, boolean isCheckOnly)
 	{
-		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
-		if ((fort == null) || (fort.getFortId() <= 0))
+		if (fort == null || fort.getFortId() <= 0)
 			sm.addString("You must be on fort ground to use strider siege assault");
 		else if (!fort.getSiege().getIsInProgress())
 			sm.addString("You can only use strider siege assault during a siege.");

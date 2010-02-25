@@ -91,7 +91,7 @@ public class L2SkillZone
 					return false;
 				}
 			}
-			return (_count > 0);
+			return _count > 0;
 		}
 
 		public void run()

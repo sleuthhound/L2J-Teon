@@ -237,7 +237,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					}
 				}
 				L2TradeList list = TradeController.getInstance().getBuyList(buy);
-				if ((list != null) && list.getNpcId().equals(String.valueOf(getNpcId())))
+				if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
 				{
 					BuyList bl = new BuyList(list, player.getAdena(), 0);
 					player.sendPacket(bl);
@@ -267,7 +267,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					catch (NoSuchElementException e)
 					{
 					}
-					if ((amount > 0) && ((long) getCastle().getTreasury() + amount < Integer.MAX_VALUE))
+					if (amount > 0 && (long) getCastle().getTreasury() + amount < Integer.MAX_VALUE)
 					{
 						if (player.reduceAdena("Castle", amount, this, true))
 						{
@@ -420,13 +420,13 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 				switch (ask)
 				{ // Main action
 				case 3: // Current seeds (Manor info)
-					if ((time == 1) && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+					if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
 						player.sendPacket(new ExShowSeedInfo(castleId, null));
 					else
 						player.sendPacket(new ExShowSeedInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getSeedProduction(time)));
 					break;
 				case 4: // Current crops (Manor info)
-					if ((time == 1) && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+					if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
 						player.sendPacket(new ExShowCropInfo(castleId, null));
 					else
 						player.sendPacket(new ExShowCropInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getCropProcure(time)));
@@ -554,7 +554,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 
 	protected int validateCondition(L2PcInstance player)
 	{
-		if ((getCastle() != null) && (getCastle().getCastleId() > 0))
+		if (getCastle() != null && getCastle().getCastleId() > 0)
 		{
 			if (player.getClan() != null)
 			{

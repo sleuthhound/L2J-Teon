@@ -50,7 +50,7 @@ public class ConditionPlayerState extends Condition
 		case MOVING:
 			return env.player.isMoving() == _required;
 		case RUNNING:
-			return (env.player.isMoving() == _required) && (env.player.isRunning() == _required);
+			return env.player.isMoving() == _required && env.player.isRunning() == _required;
 		case FLYING:
 			return env.player.isFlying() == _required;
 		case BEHIND:

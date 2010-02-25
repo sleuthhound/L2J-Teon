@@ -176,7 +176,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			/*
 			 * NO subclass during restart/shutdown due to avoid an exploit. (Safe_Sigterm)
 			 */
-			if (Config.SAFE_SIGTERM && (Shutdown.getCounterInstance() != null))
+			if (Config.SAFE_SIGTERM && Shutdown.getCounterInstance() != null)
 			{
 				player.sendMessage("You are not allowed to Subclass during server restart/shutdown!");
 				return;
@@ -210,7 +210,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			case 1:/*
 			 * Add Subclass - Initial Avoid giving player an option to add a new sub class, if they have three already.
 			 */
-				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 					return;
@@ -221,7 +221,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					return;
 				}
 				subsAvailable = getAvailableSubClasses(player);
-				if ((subsAvailable != null) && !subsAvailable.isEmpty())
+				if (subsAvailable != null && !subsAvailable.isEmpty())
 				{
 					content.append("Add Subclass:<br>Which sub class do you wish to add?<br>");
 					for (PlayerClass subClass : subsAvailable)
@@ -236,7 +236,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				}
 				break;
 			case 2: // Change Class - Initial
-				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 					return;
@@ -274,7 +274,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				}
 				break;
 			case 3: // Change/Cancel Subclass - Initial
-				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 					return;
@@ -300,7 +300,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					player.sendMessage("You may not add a new sub class before you are level 75 on your previous class.");
 					allowAddition = false;
 				}
-				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 					return;
@@ -351,13 +351,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				if (!Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST && !Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
 				{
 					QuestState qs = player.getQuestState("235_MimirsElixir");
-					if ((qs == null) || !qs.isCompleted())
+					if (qs == null || !qs.isCompleted())
 					{
 						player.sendMessage("You must have completed the Mimir's Elixir quest to continue adding your sub class.");
 						return;
 					}
 					qs = player.getQuestState("234_FatesWhisper");
-					if ((qs == null) || !qs.isCompleted())
+					if (qs == null || !qs.isCompleted())
 					{
 						player.sendMessage("You must have completed the Fate's Whisper quest to continue adding your sub class.");
 						return;
@@ -392,7 +392,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 					return;
@@ -409,7 +409,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				// completed.
 				break;
 			case 6: // Change/Cancel Subclass - Choice
-				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 					return;
@@ -420,7 +420,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				}
 				content.append("Please choose a sub class to change to. If the one you are looking for is not here, " + "please seek out the appropriate master for that class.<br>" + "<font color=\"LEVEL\">Warning!</font> All classes and skills for this class will be removed.<br><br>");
 				subsAvailable = getAvailableSubClasses(player);
-				if ((subsAvailable != null) && !subsAvailable.isEmpty())
+				if (subsAvailable != null && !subsAvailable.isEmpty())
 				{
 					for (PlayerClass subClass : subsAvailable)
 					{
@@ -443,7 +443,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					player.sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-				if (Olympiad.getInstance().isRegisteredInComp(player) || (player.getOlympiadGameId() > 0))
+				if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 				{
 					player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 					return;
@@ -535,7 +535,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISSOLVE_WHILE_IN_WAR));
 			return;
 		}
-		if ((clan.getHasCastle() != 0) || (clan.getHasHideout() != 0))
+		if (clan.getHasCastle() != 0 || clan.getHasHideout() != 0)
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISSOLVE_WHILE_OWNING_CLAN_HALL_OR_CASTLE));
 			return;
@@ -641,7 +641,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			}
 			return;
 		}
-		if (!Util.isAlphaNumeric(clanName) || (2 > clanName.length()))
+		if (!Util.isAlphaNumeric(clanName) || 2 > clanName.length())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
 			return;
@@ -671,7 +671,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		}
 		if (pledgeType != L2Clan.SUBUNIT_ACADEMY)
 		{
-			if ((clan.getClanMember(leaderName) == null) || (clan.getClanMember(leaderName).getPledgeType() != 0))
+			if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getPledgeType() != 0)
 			{
 				if (pledgeType >= L2Clan.SUBUNIT_KNIGHT1)
 				{
@@ -754,7 +754,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
 			return;
 		}
-		if ((clan.getClanMember(leaderName) == null) || (clan.getClanMember(leaderName).getPledgeType() != 0))
+		if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getPledgeType() != 0)
 		{
 			if (subPledge.getId() >= L2Clan.SUBUNIT_KNIGHT1)
 			{
@@ -806,12 +806,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					{
 						subClassId = ClassId.values()[subClassId].getParent().getId();
 					}
-					if ((availSub.ordinal() == subClassId) || (availSub.ordinal() == player.getBaseClass()))
+					if (availSub.ordinal() == subClassId || availSub.ordinal() == player.getBaseClass())
 					{
 						availSubs.remove(PlayerClass.values()[availSub.ordinal()]);
 					}
 				}
-				if ((npcRace == PlayerRace.Human) || (npcRace == PlayerRace.LightElf))
+				if (npcRace == PlayerRace.Human || npcRace == PlayerRace.LightElf)
 				{
 					/*
 					 * If the master is human or light elf, ensure that fighter-type masters only teach fighter classes, and priest-type masters only teach priest classes etc.
@@ -830,7 +830,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					/*
 					 * If the master is not human and not light elf, then remove any classes not of the same race as the master.
 					 */
-					if ((npcRace != PlayerRace.Human) && (npcRace != PlayerRace.LightElf) && !availSub.isOfRace(npcRace))
+					if (npcRace != PlayerRace.Human && npcRace != PlayerRace.LightElf && !availSub.isOfRace(npcRace))
 					{
 						availSubs.remove(availSub);
 					}
@@ -929,11 +929,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	private final ClassType getVillageMasterTeachType()
 	{
 		String npcClass = getTemplate().getStatsSet().getString("jClass");
-		if ((npcClass.indexOf("sanctuary") > -1) || (npcClass.indexOf("clergyman") > -1))
+		if (npcClass.indexOf("sanctuary") > -1 || npcClass.indexOf("clergyman") > -1)
 		{
 			return ClassType.Priest;
 		}
-		if ((npcClass.indexOf("mageguild") > -1) || (npcClass.indexOf("patriarch") > -1))
+		if (npcClass.indexOf("mageguild") > -1 || npcClass.indexOf("patriarch") > -1)
 		{
 			return ClassType.Mystic;
 		}

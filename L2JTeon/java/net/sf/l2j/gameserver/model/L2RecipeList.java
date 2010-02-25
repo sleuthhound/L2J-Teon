@@ -134,7 +134,7 @@ public class L2RecipeList
 	 */
 	public boolean isConsumable()
 	{
-		return ((_itemId >= 1463) && (_itemId <= 1467)) || ((_itemId >= 2509) && (_itemId <= 2514)) || ((_itemId >= 3947) && (_itemId <= 3952)) || ((_itemId >= 1341) && (_itemId <= 1345));
+		return _itemId >= 1463 && _itemId <= 1467 || _itemId >= 2509 && _itemId <= 2514 || _itemId >= 3947 && _itemId <= 3952 || _itemId >= 1341 && _itemId <= 1345;
 	}
 
 	/**

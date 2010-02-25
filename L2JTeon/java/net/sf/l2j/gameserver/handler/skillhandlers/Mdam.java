@@ -91,7 +91,7 @@ public class Mdam implements ISkillHandler
 		}
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
-			if ((activeChar instanceof L2PcInstance) && (target instanceof L2PcInstance) && target.isAlikeDead() && target.isFakeDeath())
+			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
 			{
 				target.stopFakeDeath(null);
 			}
@@ -119,7 +119,7 @@ public class Mdam implements ISkillHandler
 			// }
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar, activeChar.getMCriticalHit(target, skill));
 			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, skill, ss, bss, mcrit);
-			if ((damage > 5000) && (activeChar instanceof L2PcInstance))
+			if (damage > 5000 && activeChar instanceof L2PcInstance)
 			{
 				String name = "";
 				if (target instanceof L2RaidBossInstance)
@@ -190,7 +190,7 @@ public class Mdam implements ISkillHandler
 		}
 		// self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
-		if ((effect != null) && effect.isSelfEffect())
+		if (effect != null && effect.isSelfEffect())
 		{
 			// Replace old effect with new one.
 			effect.exit();

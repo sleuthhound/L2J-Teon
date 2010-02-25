@@ -61,14 +61,14 @@ public class Seed implements IItemHandler
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if (!(target instanceof L2MonsterInstance) || (target instanceof L2ChestInstance) || (target instanceof L2GrandBossInstance) || (target instanceof L2RaidBossInstance))
+		if (!(target instanceof L2MonsterInstance) || target instanceof L2ChestInstance || target instanceof L2GrandBossInstance || target instanceof L2RaidBossInstance)
 		{
 			_activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING));
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		_target = (L2MonsterInstance) target;
-		if ((_target == null) || _target.isDead())
+		if (_target == null || _target.isDead())
 		{
 			_activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);

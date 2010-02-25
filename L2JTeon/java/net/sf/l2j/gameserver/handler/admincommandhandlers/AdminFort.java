@@ -42,7 +42,7 @@ public class AdminFort implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if ((activeChar.getAccessLevel() < REQUIRED_LEVEL) || !activeChar.isGM())
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL || !activeChar.isGM())
 			{
 				return false;
 			}
@@ -56,7 +56,7 @@ public class AdminFort implements IAdminCommandHandler
 		String val = "";
 		if (st.hasMoreTokens())
 			val = st.nextToken();
-		if (((fort == null) || (fort.getFortId() < 0)))
+		if (fort == null || fort.getFortId() < 0)
 			// No fort specified
 			showFortSelectPage(activeChar);
 		else
@@ -110,7 +110,7 @@ public class AdminFort implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_setfort"))
 			{
-				if ((player == null) || (player.getClan() == null))
+				if (player == null || player.getClan() == null)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				else
 					fort.setOwner(player.getClan());

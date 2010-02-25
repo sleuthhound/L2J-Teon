@@ -61,7 +61,7 @@ public class FortSiegeInfo extends L2GameServerPacket
 			return;
 		writeC(0xc9);
 		writeD(_fort.getFortId());
-		writeD((_fort.getOwnerId() == activeChar.getClanId()) && activeChar.isClanLeader() ? 0x01 : 0x00);
+		writeD(_fort.getOwnerId() == activeChar.getClanId() && activeChar.isClanLeader() ? 0x01 : 0x00);
 		writeD(_fort.getOwnerId());
 		if (_fort.getOwnerId() > 0)
 		{

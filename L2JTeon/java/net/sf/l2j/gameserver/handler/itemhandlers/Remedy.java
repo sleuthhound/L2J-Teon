@@ -54,7 +54,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if ((e.getSkill().getSkillType() == L2Skill.SkillType.POISON) && (e.getSkill().getLevel() <= 3))
+				if (e.getSkill().getSkillType() == L2Skill.SkillType.POISON && e.getSkill().getLevel() <= 3)
 				{
 					e.exit();
 					break;
@@ -70,7 +70,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if ((e.getSkill().getSkillType() == L2Skill.SkillType.POISON) && (e.getSkill().getLevel() <= 7))
+				if (e.getSkill().getSkillType() == L2Skill.SkillType.POISON && e.getSkill().getLevel() <= 7)
 				{
 					e.exit();
 					break;
@@ -86,7 +86,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if ((e.getSkill().getSkillType() == L2Skill.SkillType.BLEED) && (e.getSkill().getLevel() <= 3))
+				if (e.getSkill().getSkillType() == L2Skill.SkillType.BLEED && e.getSkill().getLevel() <= 3)
 				{
 					e.exit();
 					break;
@@ -102,7 +102,7 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if ((e.getSkill().getSkillType() == L2Skill.SkillType.BLEED) && (e.getSkill().getLevel() <= 7))
+				if (e.getSkill().getSkillType() == L2Skill.SkillType.BLEED && e.getSkill().getLevel() <= 7)
 				{
 					e.exit();
 					break;

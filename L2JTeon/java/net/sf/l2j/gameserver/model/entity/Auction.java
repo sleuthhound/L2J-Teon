@@ -295,7 +295,7 @@ public class Auction
 		{
 			requiredAdena = bid - getHighestBidderMaxBid();
 		}
-		if (((getHighestBidderId() > 0) && (bid > getHighestBidderMaxBid())) || ((getHighestBidderId() == 0) && (bid >= getStartingBid())))
+		if (getHighestBidderId() > 0 && bid > getHighestBidderMaxBid() || getHighestBidderId() == 0 && bid >= getStartingBid())
 		{
 			if (takeItem(bidder, 57, requiredAdena))
 			{
@@ -318,7 +318,7 @@ public class Auction
 	/** Take Item in WHC */
 	private boolean takeItem(L2PcInstance bidder, int itemId, int quantity)
 	{
-		if ((bidder.getClan() != null) && (bidder.getClan().getWarehouse().getAdena() >= quantity))
+		if (bidder.getClan() != null && bidder.getClan().getWarehouse().getAdena() >= quantity)
 		{
 			bidder.getClan().getWarehouse().destroyItemByItemId("Buy", _adenaId, quantity, bidder, bidder);
 			return true;
@@ -474,14 +474,14 @@ public class Auction
 	/** End of auction */
 	public void endAuction()
 	{
-		if ((GameServer.gameServer.getCHManager() != null) && GameServer.gameServer.getCHManager().loaded())
+		if (GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded())
 		{
-			if ((_highestBidderId == 0) && (_sellerId == 0))
+			if (_highestBidderId == 0 && _sellerId == 0)
 			{
 				startAutoTask();
 				return;
 			}
-			if ((_highestBidderId == 0) && (_sellerId > 0))
+			if (_highestBidderId == 0 && _sellerId > 0)
 			{
 				/**
 				 * If seller haven't sell ClanHall, auction removed, THIS MUST BE CONFIRMED

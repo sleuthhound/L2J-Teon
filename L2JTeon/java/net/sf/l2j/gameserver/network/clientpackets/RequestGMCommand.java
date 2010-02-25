@@ -50,7 +50,7 @@ public final class RequestGMCommand extends L2GameClientPacket
 	protected void runImpl()
 	{
 		// prevent non gm or low level GMs from vieweing player stuff
-		if (!getClient().getActiveChar().isGM() || (getClient().getActiveChar().getAccessLevel() < Config.GM_ALTG_MIN_LEVEL))
+		if (!getClient().getActiveChar().isGM() || getClient().getActiveChar().getAccessLevel() < Config.GM_ALTG_MIN_LEVEL)
 			return;
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
 		// player name was incorrect?

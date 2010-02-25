@@ -68,18 +68,18 @@ public class Scrolls implements IItemHandler
 			return;
 		}
 		int itemId = item.getItemId();
-		if ((itemId >= 8594) && (itemId <= 8599)) // Scrolls of recovery XML: 2286
+		if (itemId >= 8594 && itemId <= 8599) // Scrolls of recovery XML: 2286
 		{
 			if (activeChar.getKarma() > 0)
 			{
 				return; // Chaotic can not use it
 			}
-			if (((itemId == 8594) && (activeChar.getExpertiseIndex() == 0)) || // Scroll:
-					((itemId == 8595) && (activeChar.getExpertiseIndex() == 1)) || // Scroll:
-					((itemId == 8596) && (activeChar.getExpertiseIndex() == 2)) || // Scroll:
-					((itemId == 8597) && (activeChar.getExpertiseIndex() == 3)) || // Scroll:
-					((itemId == 8598) && (activeChar.getExpertiseIndex() == 4)) || // Scroll:
-					((itemId == 8599) && (activeChar.getExpertiseIndex() == 5))) // Scroll:
+			if (itemId == 8594 && activeChar.getExpertiseIndex() == 0 || // Scroll:
+					itemId == 8595 && activeChar.getExpertiseIndex() == 1 || // Scroll:
+					itemId == 8596 && activeChar.getExpertiseIndex() == 2 || // Scroll:
+					itemId == 8597 && activeChar.getExpertiseIndex() == 3 || // Scroll:
+					itemId == 8598 && activeChar.getExpertiseIndex() == 4 || // Scroll:
+					itemId == 8599 && activeChar.getExpertiseIndex() == 5) // Scroll:
 				// Recovery
 				// (S
 				// Grade)
@@ -98,29 +98,24 @@ public class Scrolls implements IItemHandler
 			}
 			return;
 		}
-		else if ((itemId == 5703) || ((itemId >= 5803) && (itemId <= 5807)))
+		else if (itemId == 5703 || itemId >= 5803 && itemId <= 5807)
 		{
-			if (((itemId == 5703) && (activeChar.getExpertiseIndex() == 0)) || // Lucky
-					(// Charm
-							// (No
-							// Grade)
-							(itemId == 5803) && (activeChar.getExpertiseIndex() == 1)) || // Lucky
-							(// Charm
-									// (D
-									// Grade)
-									(itemId == 5804) && (activeChar.getExpertiseIndex() == 2)) || // Lucky
-									(// Charm
-											// (C
-											// Grade)
-											(itemId == 5805) && (activeChar.getExpertiseIndex() == 3)) || // Lucky
-											(// Charm
-													// (B
-													// Grade)
-													(itemId == 5806) && (activeChar.getExpertiseIndex() == 4)) || // Lucky
-													(// Charm
-															// (A
-															// Grade)
-															(itemId == 5807) && (activeChar.getExpertiseIndex() == 5))) // Lucky
+			if (itemId == 5703 && activeChar.getExpertiseIndex() == 0 || // Lucky
+					// (No
+					// Grade)
+					itemId == 5803 && activeChar.getExpertiseIndex() == 1 || // Lucky
+					// (D
+					// Grade)
+					itemId == 5804 && activeChar.getExpertiseIndex() == 2 || // Lucky
+					// (C
+					// Grade)
+					itemId == 5805 && activeChar.getExpertiseIndex() == 3 || // Lucky
+					// (B
+					// Grade)
+					itemId == 5806 && activeChar.getExpertiseIndex() == 4 || // Lucky
+					// (A
+					// Grade)
+					itemId == 5807 && activeChar.getExpertiseIndex() == 5) // Lucky
 				// Charm
 				// (S
 				// Grade)
@@ -135,15 +130,15 @@ public class Scrolls implements IItemHandler
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE));
 			return;
 		}
-		else if ((itemId >= 8515) && (itemId <= 8520)) // Charm of Courage XML:
+		else if (itemId >= 8515 && itemId <= 8520) // Charm of Courage XML:
 			// 5041
 		{
-			if (((itemId == 8515) && (activeChar.getExpertiseIndex() == 0)) || // Charm
-					((itemId == 8516) && (activeChar.getExpertiseIndex() == 1)) || // Charm
-					((itemId == 8517) && (activeChar.getExpertiseIndex() == 2)) || // Charm
-					((itemId == 8518) && (activeChar.getExpertiseIndex() == 3)) || // Charm
-					((itemId == 8519) && (activeChar.getExpertiseIndex() == 4)) || // Charm
-					((itemId == 8520) && (activeChar.getExpertiseIndex() == 5))) // Charm
+			if (itemId == 8515 && activeChar.getExpertiseIndex() == 0 || // Charm
+					itemId == 8516 && activeChar.getExpertiseIndex() == 1 || // Charm
+					itemId == 8517 && activeChar.getExpertiseIndex() == 2 || // Charm
+					itemId == 8518 && activeChar.getExpertiseIndex() == 3 || // Charm
+					itemId == 8519 && activeChar.getExpertiseIndex() == 4 || // Charm
+					itemId == 8520 && activeChar.getExpertiseIndex() == 5) // Charm
 				// of
 				// Courage
 				// (S
@@ -163,7 +158,7 @@ public class Scrolls implements IItemHandler
 			}
 			return;
 		}
-		else if ((itemId >= 8954) && (itemId <= 8956))
+		else if (itemId >= 8954 && itemId <= 8956)
 		{
 			if (activeChar.getLevel() < 76)
 			{

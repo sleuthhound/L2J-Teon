@@ -127,7 +127,7 @@ public class CharStatus
 				else if (((L2PcInstance) getActiveChar()).getDuelState() == Duel.DUELSTATE_WINNER)
 					return;
 				// cancel duel if player got hit by another player, that is not part of the duel or a monster
-				if (!(attacker instanceof L2SummonInstance) && !((attacker instanceof L2PcInstance) && (((L2PcInstance) attacker).getDuelId() == ((L2PcInstance) getActiveChar()).getDuelId())))
+				if (!(attacker instanceof L2SummonInstance) && !(attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getDuelId() == ((L2PcInstance) getActiveChar()).getDuelId()))
 				{
 					((L2PcInstance) getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
 				}
@@ -146,7 +146,7 @@ public class CharStatus
 		}
 		if (awake && getActiveChar().isSleeping())
 			getActiveChar().stopSleeping(null);
-		if (getActiveChar().isStunned() && (Rnd.get(10) == 0))
+		if (getActiveChar().isStunned() && Rnd.get(10) == 0)
 			getActiveChar().stopStunning(null);
 		if (getActiveChar().isImmobileUntilAttacked())
 			getActiveChar().stopImmobileUntilAttacked(null);
@@ -170,7 +170,7 @@ public class CharStatus
 			if (value <= 0)
 			{
 				// is the dieing one a duelist? if so change his duel state to dead
-				if ((getActiveChar() instanceof L2PcInstance) && ((L2PcInstance) getActiveChar()).isInDuel())
+				if (getActiveChar() instanceof L2PcInstance && ((L2PcInstance) getActiveChar()).isInDuel())
 				{
 					getActiveChar().disableAllSkills();
 					stopHpMpRegeneration();
@@ -270,7 +270,7 @@ public class CharStatus
 	 */
 	public synchronized final void startHpMpRegeneration()
 	{
-		if ((_regTask == null) && !getActiveChar().isDead())
+		if (_regTask == null && !getActiveChar().isDead())
 		{
 			if (Config.DEBUG)
 				_log.fine("HP/MP/CP regen started");
@@ -492,7 +492,7 @@ public class CharStatus
 				{
 					// no broadcast necessary for characters that are in inactive regions.
 					// stop regeneration for characters who are filled up and in an inactive region.
-					if ((getCurrentCp() == charstat.getMaxCp()) && (getCurrentHp() == charstat.getMaxHp()) && (getCurrentMp() == charstat.getMaxMp()))
+					if (getCurrentCp() == charstat.getMaxCp() && getCurrentHp() == charstat.getMaxHp() && getCurrentMp() == charstat.getMaxMp())
 						stopHpMpRegeneration();
 				}
 				else

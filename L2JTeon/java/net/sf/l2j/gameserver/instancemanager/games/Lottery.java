@@ -56,7 +56,7 @@ public class Lottery
 		_enddate = System.currentTimeMillis();
 		if (Config.ALLOW_LOTTERY)
 		{
-			(new startLottery()).run();
+			new startLottery().run();
 		}
 	}
 
@@ -155,7 +155,7 @@ public class Lottery
 						_enddate = rset.getLong("enddate");
 						if (_enddate <= System.currentTimeMillis() + 2 * MINUTE)
 						{
-							(new finishLottery()).run();
+							new finishLottery().run();
 							rset.close();
 							statement.close();
 							return;
@@ -333,7 +333,7 @@ public class Lottery
 				{
 					int curenchant = rset.getInt("enchant_level") & enchant;
 					int curtype2 = rset.getInt("custom_type2") & type2;
-					if ((curenchant == 0) && (curtype2 == 0))
+					if (curenchant == 0 && curtype2 == 0)
 					{
 						continue;
 					}
@@ -519,7 +519,7 @@ public class Lottery
 			{
 				int curenchant = rset.getInt("number1") & enchant;
 				int curtype2 = rset.getInt("number2") & type2;
-				if ((curenchant == 0) && (curtype2 == 0))
+				if (curenchant == 0 && curtype2 == 0)
 				{
 					rset.close();
 					statement.close();

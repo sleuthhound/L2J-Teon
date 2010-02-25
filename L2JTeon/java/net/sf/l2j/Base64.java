@@ -506,7 +506,7 @@ public class Base64
 		{
 			encode3to4(source, d + off, 3, outBuff, e);
 			lineLength += 4;
-			if (breakLines && (lineLength == MAX_LINE_LENGTH))
+			if (breakLines && lineLength == MAX_LINE_LENGTH)
 			{
 				outBuff[e + 4] = NEW_LINE;
 				e++;
@@ -708,10 +708,9 @@ public class Base64
 		if (bytes.length >= 2)
 		{
 			int head = bytes[0] & 0xff | bytes[1] << 8 & 0xff00;
-			if ((bytes != null) && // In case decoding returned null
-					(bytes.length >= 4) && // Don't want to get
-					(// ArrayIndexOutOfBounds exception
-							java.util.zip.GZIPInputStream.GZIP_MAGIC == head))
+			if (bytes != null && // In case decoding returned null
+					bytes.length >= 4 && // Don't want to get
+					java.util.zip.GZIPInputStream.GZIP_MAGIC == head)
 			{
 				java.io.ByteArrayInputStream bais = null;
 				java.util.zip.GZIPInputStream gzis = null;
@@ -941,7 +940,7 @@ public class Base64
 						{
 							b = in.read();
 						}
-						while ((b >= 0) && (DECODABET[b & 0x7f] <= WHITE_SPACE_ENC));
+						while (b >= 0 && DECODABET[b & 0x7f] <= WHITE_SPACE_ENC);
 						if (b < 0)
 							break; // Reads a -1 if end of stream
 						b4[i] = (byte) b;
@@ -968,7 +967,7 @@ public class Base64
 				// End of relevant data?
 				if ( /* !encode && */position >= numSigBytes)
 					return -1;
-				if (encode && breakLines && (lineLength >= MAX_LINE_LENGTH))
+				if (encode && breakLines && lineLength >= MAX_LINE_LENGTH)
 				{
 					lineLength = 0;
 					return '\n';
@@ -1114,7 +1113,7 @@ public class Base64
 				{
 					out.write(encode3to4(b4, buffer, bufferLength));
 					lineLength += 4;
-					if (breakLines && (lineLength >= MAX_LINE_LENGTH))
+					if (breakLines && lineLength >= MAX_LINE_LENGTH)
 					{
 						out.write(NEW_LINE);
 						lineLength = 0;

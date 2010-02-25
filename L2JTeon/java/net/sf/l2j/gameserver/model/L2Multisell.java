@@ -119,7 +119,7 @@ public class L2Multisell
 				// equipped
 				// so for each appropriate item, produce a set of entries for
 				// the multisell list.
-				if (!item.isWear() && ((item.getItem() instanceof L2Armor) || (item.getItem() instanceof L2Weapon)))
+				if (!item.isWear() && (item.getItem() instanceof L2Armor || item.getItem() instanceof L2Weapon))
 				{
 					enchantLevel = listTemplate.getMaintainEnchantment() ? item.getEnchantLevel() : 0;
 					// loop through the entries to see which ones we wish to
@@ -203,7 +203,7 @@ public class L2Multisell
 			else if (maintainEnchantment)
 			{
 				L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
-				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
+				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
 				}
@@ -228,7 +228,7 @@ public class L2Multisell
 				// (note, if maintain enchantment is "false" this modification
 				// will result to a +0)
 				L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
-				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
+				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
 				}

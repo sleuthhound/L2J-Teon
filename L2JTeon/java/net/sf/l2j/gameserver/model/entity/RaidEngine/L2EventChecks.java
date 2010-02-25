@@ -57,7 +57,7 @@ public class L2EventChecks
 		// If there's not enough clan members online to fill the MinPeople
 		// requirement
 		// return false.
-		if ((_eventPlayers.size() <= minPeople) && (eventType == (2 | 3)))
+		if (_eventPlayers.size() <= minPeople && eventType == (2 | 3))
 		{
 			// Notify to the requester.
 			player.sendMessage("Not enough " + eType(eventType) + " members of the connected at this mommtent, try again later.");

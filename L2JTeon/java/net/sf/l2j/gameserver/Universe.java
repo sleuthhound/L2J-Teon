@@ -172,7 +172,7 @@ public class Universe implements java.io.Serializable
 
 	public static Universe getInstance()
 	{
-		if ((_instance == null) && Config.ACTIVATE_POSITION_RECORDER)
+		if (_instance == null && Config.ACTIVATE_POSITION_RECORDER)
 		{
 			_instance = new Universe();
 		}

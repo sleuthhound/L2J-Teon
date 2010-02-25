@@ -77,7 +77,7 @@ public class MercTicket implements IItemHandler
 			return;
 			}
 		}
-		if (!activeChar.isCastleLord(castleId) && ((activeChar.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) != L2Clan.CP_CS_MERCENARIES))
+		if (!activeChar.isCastleLord(castleId) && (activeChar.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) != L2Clan.CP_CS_MERCENARIES)
 		{
 			activeChar.sendMessage("You don't have the right to hire mercenaries!");
 			return;

@@ -93,7 +93,7 @@ public class AugmentationData
 		load();
 		_skillsCount = _blueSkills.size() + _purpleSkills.size() + _redSkills.size();
 		// Use size*4: since theres 4 blocks of stat-data with equivalent size
-		_log.info("AugmentationData: Loaded: " + (_augmentationStats[0].size() * 4) + " augmentation stats.");
+		_log.info("AugmentationData: Loaded: " + _augmentationStats[0].size() * 4 + " augmentation stats.");
 		_log.info("AugmentationData: Loaded: " + _blueSkills.size() + " blue, " + _purpleSkills.size() + " purple and " + _redSkills.size() + " red skills");
 	}
 
@@ -360,16 +360,16 @@ public class AugmentationData
 		if (stat34 == 0 && !generateSkill)
 		{
 			resultColor = Rnd.get(0, 100);
-			if (resultColor <= (15 * lifeStoneGrade) + 40)
+			if (resultColor <= 15 * lifeStoneGrade + 40)
 				resultColor = 1;
 			else
 				resultColor = 0;
 		}
 		{
 			resultColor = Rnd.get(0, 100);
-			if (resultColor <= (10 * lifeStoneGrade) + 5 || stat34 != 0)
+			if (resultColor <= 10 * lifeStoneGrade + 5 || stat34 != 0)
 				resultColor = 3;
-			else if (resultColor <= (10 * lifeStoneGrade) + 10)
+			else if (resultColor <= 10 * lifeStoneGrade + 10)
 				resultColor = 1;
 			else
 				resultColor = 2;
@@ -398,22 +398,22 @@ public class AugmentationData
 		if (stat34 == 0 && !generateSkill)
 		{
 			int temp = Rnd.get(2, 3);
-			int colorOffset = resultColor * (10 * STAT_SUBBLOCKSIZE) + temp * STAT_BLOCKSIZE + 1;
-			int offset = ((lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE) + colorOffset;
+			int colorOffset = resultColor * 10 * STAT_SUBBLOCKSIZE + temp * STAT_BLOCKSIZE + 1;
+			int offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + colorOffset;
 			stat34 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
 			if (generateGlow && lifeStoneGrade >= 2)
-				offset = ((lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE) + (temp - 2) * STAT_BLOCKSIZE + lifeStoneGrade * (10 * STAT_SUBBLOCKSIZE) + 1;
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + (temp - 2) * STAT_BLOCKSIZE + lifeStoneGrade * 10 * STAT_SUBBLOCKSIZE + 1;
 			else
-				offset = ((lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE) + (temp - 2) * STAT_BLOCKSIZE + Rnd.get(0, 1) * (10 * STAT_SUBBLOCKSIZE) + 1;
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + (temp - 2) * STAT_BLOCKSIZE + Rnd.get(0, 1) * 10 * STAT_SUBBLOCKSIZE + 1;
 			stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
 		}
 		else
 		{
 			int offset;
 			if (!generateGlow)
-				offset = ((lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE) + Rnd.get(0, 1) * STAT_BLOCKSIZE + 1;
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + Rnd.get(0, 1) * STAT_BLOCKSIZE + 1;
 			else
-				offset = ((lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE) + Rnd.get(0, 1) * STAT_BLOCKSIZE + (lifeStoneGrade + resultColor) / 2 * (10 * STAT_SUBBLOCKSIZE) + 1;
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + Rnd.get(0, 1) * STAT_BLOCKSIZE + (lifeStoneGrade + resultColor) / 2 * 10 * STAT_SUBBLOCKSIZE + 1;
 			stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
 		}
 		// generate a skill if neccessary
@@ -487,7 +487,7 @@ public class AugmentationData
 		// to get the idea have a look @ optiondata_client-e.dat - thats where the data came from :)
 		int stats[] = new int[2];
 		stats[0] = 0x0000FFFF & augmentationId;
-		stats[1] = (augmentationId >> 16);
+		stats[1] = augmentationId >> 16;
 		for (int i = 0; i < 2; i++)
 		{
 			// its a stat
@@ -507,7 +507,7 @@ public class AugmentationData
 				}
 				if (stats[i] < 14) // solo stat
 				{
-					augmentationStat as = ((augmentationStat) _augmentationStats[block].get((stats[i] - 1)));
+					augmentationStat as = (augmentationStat) _augmentationStats[block].get((stats[i] - 1));
 					temp.add(new AugStat(as.getStat(), as.getSingleStatValue(subblock)));
 				}
 				else
@@ -523,13 +523,13 @@ public class AugmentationData
 						rescales++;
 					}
 					// get first stat
-					augmentationStat as = ((augmentationStat) _augmentationStats[block].get(rescales));
+					augmentationStat as = (augmentationStat) _augmentationStats[block].get(rescales);
 					if (rescales == 0)
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock)));
 					else
-						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue((subblock * 2) + 1)));
+						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock * 2 + 1)));
 					// get 2nd stat
-					as = ((augmentationStat) _augmentationStats[block].get(rescales + stats[i]));
+					as = (augmentationStat) _augmentationStats[block].get(rescales + stats[i]);
 					if (as.getStat() == Stats.CRITICAL_DAMAGE)
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock)));
 					else

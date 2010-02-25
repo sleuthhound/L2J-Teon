@@ -69,7 +69,7 @@ public class Heal implements ISkillHandler
 		for (L2Object target2 : targets) {
 			target = (L2Character) target2;
 			// We should not heal if char is dead
-			if ((target == null) || target.isDead())
+			if (target == null || target.isDead())
 				continue;
 			// We should not heal walls and door
 			if (target instanceof L2DoorInstance)
@@ -77,9 +77,9 @@ public class Heal implements ISkillHandler
 			// Player holding a cursed weapon can't be healed and can't heal
 			if (target != activeChar)
 			{
-				if ((target instanceof L2PcInstance) && ((L2PcInstance) target).isCursedWeaponEquiped())
+				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquiped())
 					continue;
-				else if ((player != null) && player.isCursedWeaponEquiped())
+				else if (player != null && player.isCursedWeaponEquiped())
 					continue;
 			}
 			double hp = skill.getPower();
@@ -139,7 +139,7 @@ public class Heal implements ISkillHandler
 				}
 				else
 				{
-					if ((activeChar instanceof L2PcInstance) && (activeChar != target))
+					if (activeChar instanceof L2PcInstance && activeChar != target)
 					{
 						SystemMessage sm = new SystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1);
 						sm.addString(activeChar.getName());

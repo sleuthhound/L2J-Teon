@@ -119,7 +119,7 @@ public class ExtractableItems implements IItemHandler
 			for (L2ExtractableProductItem expi : exitem.getProductItemsArray())
 			{
 				int chance = expi.getChance();
-				if ((rndNum >= chanceFrom) && (rndNum <= chance + chanceFrom))
+				if (rndNum >= chanceFrom && rndNum <= chance + chanceFrom)
 				{
 					createItemID = expi.getId();
 					createAmount = expi.getAmmount();

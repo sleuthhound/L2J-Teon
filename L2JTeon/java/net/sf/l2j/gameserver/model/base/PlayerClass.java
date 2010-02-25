@@ -134,9 +134,9 @@ public enum PlayerClass
 		EnumSet<PlayerClass> allOf = EnumSet.noneOf(PlayerClass.class);
 		for (PlayerClass playerClass : EnumSet.allOf(PlayerClass.class))
 		{
-			if ((race == null) || playerClass.isOfRace(race))
+			if (race == null || playerClass.isOfRace(race))
 			{
-				if ((level == null) || playerClass.isOfLevel(level))
+				if (level == null || playerClass.isOfLevel(level))
 				{
 					allOf.add(playerClass);
 				}

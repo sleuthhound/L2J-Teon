@@ -157,7 +157,7 @@ public class L2Spawn
 			implementationName = "L2RaceManager";
 		}
 		// if (mobTemplate.npcId == 8050)
-		if ((mobTemplate.npcId >= 31046) && (mobTemplate.npcId <= 31053))
+		if (mobTemplate.npcId >= 31046 && mobTemplate.npcId <= 31053)
 		{
 			implementationName = "L2SymbolMaker";
 		}
@@ -384,7 +384,7 @@ public class L2Spawn
 		_currentCount--;
 		// Check if respawn is possible to prevent multiple respawning caused by
 		// lag
-		if (_doRespawn && (_scheduledCount + _currentCount < _maximumCount))
+		if (_doRespawn && _scheduledCount + _currentCount < _maximumCount)
 		{
 			// Update the current number of SpawnTask in progress or stand
 			// by of
@@ -504,7 +504,7 @@ public class L2Spawn
 		int newlocx, newlocy, newlocz;
 		// If Locx=0 and Locy=0, the L2NpcInstance must be spawned in an area
 		// defined by location
-		if ((getLocx() == 0) && (getLocy() == 0))
+		if (getLocx() == 0 && getLocy() == 0)
 		{
 			if (getLocation() == 0)
 			{

@@ -199,7 +199,7 @@ public class L2RaidEvent
 	private static boolean setCoords(L2PcInstance player)
 	{
 		int _ce = L2EventManagerInstance._currentEvents;
-		if ((_ce == 0) || (_ce > Config.RAID_SYSTEM_MAX_EVENTS))
+		if (_ce == 0 || _ce > Config.RAID_SYSTEM_MAX_EVENTS)
 		{
 			String reason = null;
 			if (_ce == 0)
@@ -228,7 +228,7 @@ public class L2RaidEvent
 	private synchronized void setInEvent(L2PcInstance player)
 	{
 		// Check if the type of event is defined.
-		if ((_eventType != 1) && (_eventType != 2) && (_eventType != 3))
+		if (_eventType != 1 && _eventType != 2 && _eventType != 3)
 		{
 			player.sendMessage("Debug: Error in The event type [Function: setInEvent]");
 			_log.warning("Event Manager: Error! Event not defined! [Function setInEvent]");
@@ -283,7 +283,7 @@ public class L2RaidEvent
 		/*
 		 * Check if the event type has been defined. Once the event is fully functional this checks will be taken out
 		 */
-		if ((_eventType != 1) && (_eventType != 2) && (_eventType != 3))
+		if (_eventType != 1 && _eventType != 2 && _eventType != 3)
 		{
 			player.sendMessage("Debug: Error in The event type [Function: bufEventMembers]");
 			_log.warning("Se corta la funcion de entrega de buffs.");
@@ -702,7 +702,7 @@ public class L2RaidEvent
 	private synchronized static void clearFromEvent(L2PcInstance player)
 	{
 		setState(EventState.INACTIVATING);
-		if ((_eventType != 1) && (_eventType != 2) && (_eventType != 3))
+		if (_eventType != 1 && _eventType != 2 && _eventType != 3)
 			return;
 		if (_eventType == 1)
 		{
@@ -756,7 +756,7 @@ public class L2RaidEvent
 		boolean hasItem1 = false;
 		boolean hasItem2 = false;
 		boolean hasEventPoints = false;
-		if ((item1 == 0) && (item2 == 0) && (eventPoints == 0))
+		if (item1 == 0 && item2 == 0 && eventPoints == 0)
 			return;
 		if (item1 != 0)
 			hasItem1 = true;
