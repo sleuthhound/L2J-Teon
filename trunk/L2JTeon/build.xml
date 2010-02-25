@@ -180,8 +180,6 @@
 					includes="**/*.bat">
 		</fixcrlf>
 
-        <mkdir dir="${build.dist.game}/hibernate-mapping" />
-
         <mkdir dir="${build.dist.game}/config" />
     	<mkdir dir="${build.dist.login}/config" />
     	<copy todir="${build.dist.game}/config">
