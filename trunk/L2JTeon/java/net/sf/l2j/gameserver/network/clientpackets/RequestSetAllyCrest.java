@@ -42,7 +42,7 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_length = readD();
-		if ((_length < 0) || (_length > 192))
+		if (_length < 0 || _length > 192)
 			return;
 		_data = new byte[_length];
 		readB(_data);
@@ -67,7 +67,7 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 		if (activeChar.getAllyId() != 0)
 		{
 			L2Clan leaderclan = ClanTable.getInstance().getClan(activeChar.getAllyId());
-			if ((activeChar.getClanId() != leaderclan.getClanId()) || !activeChar.isClanLeader())
+			if (activeChar.getClanId() != leaderclan.getClanId() || !activeChar.isClanLeader())
 			{
 				return;
 			}

@@ -75,19 +75,19 @@ public final class L2ChestInstance extends L2MonsterInstance
 		int id = getTemplate().npcId;
 		if (!_specialDrop)
 		{
-			if ((id >= 18265) && (id <= 18286))
+			if (id >= 18265 && id <= 18286)
 				id += 3536;
-			else if ((id == 18287) || (id == 18288))
+			else if (id == 18287 || id == 18288)
 				id = 21671;
-			else if ((id == 18289) || (id == 18290))
+			else if (id == 18289 || id == 18290)
 				id = 21694;
-			else if ((id == 18291) || (id == 18292))
+			else if (id == 18291 || id == 18292)
 				id = 21717;
-			else if ((id == 18293) || (id == 18294))
+			else if (id == 18293 || id == 18294)
 				id = 21740;
-			else if ((id == 18295) || (id == 18296))
+			else if (id == 18295 || id == 18296)
 				id = 21763;
-			else if ((id == 18297) || (id == 18298))
+			else if (id == 18297 || id == 18298)
 				id = 21786;
 		}
 		super.doItemDrop(NpcTable.getInstance().getTemplate(id), lastAttacker);
@@ -167,9 +167,9 @@ public final class L2ChestInstance extends L2MonsterInstance
 	{
 		int skillLevel = 1;
 		byte lvl = getTemplate().level;
-		if ((lvl > 20) && (lvl <= 40))
+		if (lvl > 20 && lvl <= 40)
 			skillLevel = 3;
-		else if ((lvl > 40) && (lvl <= 60))
+		else if (lvl > 40 && lvl <= 60)
 			skillLevel = 5;
 		else if (lvl > 60)
 			skillLevel = 6;

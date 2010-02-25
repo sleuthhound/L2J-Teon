@@ -70,7 +70,7 @@ public class PetInfo extends L2GameServerPacket
 			_curFed = pet.getCurrentFed(); // how fed it is
 			_maxFed = pet.getMaxFed(); // max fed it can be
 		}
-		if (Config.BABY_PETS_CAN_GROWUP && (_summon.getLevel() >= Config.BABY_PETS_GROWUP_LVL))
+		if (Config.BABY_PETS_CAN_GROWUP && _summon.getLevel() >= Config.BABY_PETS_GROWUP_LVL)
 		{
 			switch (_templateId)
 			{
@@ -176,7 +176,7 @@ public class PetInfo extends L2GameServerPacket
 		// poison &
 		// bleed=3; flame=4;
 		int npcId = _summon.getTemplate().npcId;
-		if ((npcId >= 12526) && (npcId <= 12528))
+		if (npcId >= 12526 && npcId <= 12528)
 			writeH(1);// c2 ride button
 		else
 			writeH(0);

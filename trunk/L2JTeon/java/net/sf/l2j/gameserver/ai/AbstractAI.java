@@ -263,7 +263,7 @@ abstract class AbstractAI implements Ctrl
 		 * if (Config.DEBUG) _log.warning("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
 		 */
 		// Stop the follow mode if necessary
-		if ((intention != AI_INTENTION_FOLLOW) && (intention != AI_INTENTION_ATTACK))
+		if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK)
 			stopFollow();
 		// Launch the onIntention method of the L2CharacterAI corresponding to the new Intention
 		switch (intention)
@@ -493,7 +493,7 @@ abstract class AbstractAI implements Ctrl
 				offset = 10;
 			// prevent possible extra calls to this function (there is none?), also don't send movetopawn packets too often
 			boolean sendPacket = true;
-			if (_clientMoving && (_target == pawn))
+			if (_clientMoving && _target == pawn)
 			{
 				if (_clientMovingToPawnOffset == offset)
 				{
@@ -504,7 +504,7 @@ abstract class AbstractAI implements Ctrl
 				else if (_actor.isOnGeodataPath())
 				{
 					// minimum time to calculate new route is 2 seconds
-					if (GameTimeController.getGameTicks() < (_moveToPawnTimeout + 10))
+					if (GameTimeController.getGameTicks() < _moveToPawnTimeout + 10)
 						return;
 				}
 			}
@@ -514,7 +514,7 @@ abstract class AbstractAI implements Ctrl
 			_target = pawn;
 			_moveToPawnTimeout = GameTimeController.getGameTicks();
 			_moveToPawnTimeout += 1000 / GameTimeController.MILLIS_IN_TICK;
-			if ((pawn == null) || (_accessor == null))
+			if (pawn == null || _accessor == null)
 				return;
 			// Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
 			_accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
@@ -606,7 +606,7 @@ abstract class AbstractAI implements Ctrl
 		if (_actor.isMoving())
 			_accessor.stopMove(pos);
 		_clientMovingToPawnOffset = 0;
-		if (_clientMoving || (pos != null))
+		if (_clientMoving || pos != null)
 		{
 			_clientMoving = false;
 			// Send a Server->Client packet StopMove to the actor and all L2PcInstance in its _knownPlayers
@@ -714,7 +714,7 @@ abstract class AbstractAI implements Ctrl
 	{
 		if (_clientMoving)
 		{
-			if ((_clientMovingToPawnOffset != 0) && (_followTarget != null))
+			if (_clientMovingToPawnOffset != 0 && _followTarget != null)
 			{
 				// Send a Server->Client packet MoveToPawn to the actor and all L2PcInstance in its _knownPlayers
 				MoveToPawn msg = new MoveToPawn(_actor, _followTarget, _clientMovingToPawnOffset);

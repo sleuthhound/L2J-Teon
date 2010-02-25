@@ -104,7 +104,7 @@ public final class RequestActionUse extends L2GameClientPacket
 			{
 				break;
 			}
-			if ((target != null) && !activeChar.isSitting() && (target instanceof L2StaticObjectInstance) && (((L2StaticObjectInstance) target).getType() == 1) && (CastleManager.getInstance().getCastle(target) != null) && activeChar.isClanLeader() && (activeChar.getClan().getHasCastle() != 0) && activeChar.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false))
+			if (target != null && !activeChar.isSitting() && target instanceof L2StaticObjectInstance && ((L2StaticObjectInstance) target).getType() == 1 && CastleManager.getInstance().getCastle(target) != null && activeChar.isClanLeader() && activeChar.getClan().getHasCastle() != 0 && activeChar.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false))
 			{
 				ChairSit cs = new ChairSit(activeChar, ((L2StaticObjectInstance) target).getStaticObjectId());
 				activeChar.sendPacket(cs);
@@ -141,14 +141,14 @@ public final class RequestActionUse extends L2GameClientPacket
 			break;
 		case 15:
 		case 21: // pet follow/stop
-			if ((pet != null) && !pet.isMovementDisabled() && !activeChar.isBetrayed())
+			if (pet != null && !pet.isMovementDisabled() && !activeChar.isBetrayed())
 			{
 				pet.setFollowStatus(!pet.getFollowStatus());
 			}
 			break;
 		case 16:
 		case 22: // pet attack
-			if ((target != null) && (pet != null) && (pet != target) && !pet.isAttackingDisabled() && !activeChar.isBetrayed())
+			if (target != null && pet != null && pet != target && !pet.isAttackingDisabled() && !activeChar.isBetrayed())
 			{
 				if (activeChar.isInOlympiadMode() && !activeChar.isOlympiadStart())
 				{
@@ -158,7 +158,7 @@ public final class RequestActionUse extends L2GameClientPacket
 					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
-				if ((activeChar.getAccessLevel() < Config.GM_PEACEATTACK) && activeChar.isInsidePeaceZone(pet, target))
+				if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && activeChar.isInsidePeaceZone(pet, target))
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
 					return;
@@ -167,7 +167,7 @@ public final class RequestActionUse extends L2GameClientPacket
 				{
 					if (target instanceof L2DoorInstance)
 					{
-						if (((L2DoorInstance) target).isAttackable(activeChar) && (pet.getNpcId() != L2SiegeSummonInstance.SWOOP_CANNON_ID))
+						if (((L2DoorInstance) target).isAttackable(activeChar) && pet.getNpcId() != L2SiegeSummonInstance.SWOOP_CANNON_ID)
 						{
 							pet.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 						}
@@ -183,13 +183,13 @@ public final class RequestActionUse extends L2GameClientPacket
 			break;
 		case 17:
 		case 23: // pet - cancel action
-			if ((pet != null) && !pet.isMovementDisabled() && !activeChar.isBetrayed())
+			if (pet != null && !pet.isMovementDisabled() && !activeChar.isBetrayed())
 			{
 				pet.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
 			}
 			break;
 		case 19: // pet unsummon
-			if ((pet != null) && !activeChar.isBetrayed())
+			if (pet != null && !activeChar.isBetrayed())
 			{
 				// returns pet to control item
 				if (pet.isDead())
@@ -221,7 +221,7 @@ public final class RequestActionUse extends L2GameClientPacket
 			break;
 		case 38: // pet mount
 			// mount
-			if ((pet != null) && pet.isMountable() && !activeChar.isMounted() && !activeChar.isBetrayed())
+			if (pet != null && pet.isMountable() && !activeChar.isMounted() && !activeChar.isBetrayed())
 			{
 				if (activeChar.isDead())
 				{
@@ -371,19 +371,19 @@ public final class RequestActionUse extends L2GameClientPacket
 			activeChar.sendPacket(new RecipeShopManageList(activeChar, false));
 			break;
 		case 52: // unsummon
-			if ((pet != null) && (pet instanceof L2SummonInstance))
+			if (pet != null && pet instanceof L2SummonInstance)
 			{
 				pet.unSummon(activeChar);
 			}
 			break;
 		case 53: // move to target
-			if ((target != null) && (pet != null) && (pet != target) && !pet.isMovementDisabled())
+			if (target != null && pet != null && pet != target && !pet.isMovementDisabled())
 			{
 				pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
 			}
 			break;
 		case 54: // move to target hatch/strider
-			if ((target != null) && (pet != null) && (pet != target) && !pet.isMovementDisabled())
+			if (target != null && pet != null && pet != target && !pet.isMovementDisabled())
 			{
 				pet.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0));
 			}
@@ -510,7 +510,7 @@ public final class RequestActionUse extends L2GameClientPacket
 			activeChar.sendMessage("Cannot use skills while trading");
 			return;
 		}
-		if ((activeSummon != null) && !activeChar.isBetrayed())
+		if (activeSummon != null && !activeChar.isBetrayed())
 		{
 			Map<Integer, L2Skill> _skills = activeSummon.getTemplate().getSkills();
 			if (_skills == null)

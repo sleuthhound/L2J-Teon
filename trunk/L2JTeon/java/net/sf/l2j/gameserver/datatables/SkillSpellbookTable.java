@@ -69,7 +69,7 @@ public class SkillSpellbookTable
 
 	public int getBookForSkill(int skillId, int level)
 	{
-		if ((skillId == L2Skill.SKILL_DIVINE_INSPIRATION) && (level != -1))
+		if (skillId == L2Skill.SKILL_DIVINE_INSPIRATION && level != -1)
 		{
 			switch (level)
 			{

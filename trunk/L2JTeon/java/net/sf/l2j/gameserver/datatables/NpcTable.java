@@ -124,7 +124,7 @@ public class NpcTable
 					}
 					int skillId = npcskills.getInt("skillid");
 					int level = npcskills.getInt("level");
-					if ((npcDat.race == null) && (skillId == 4416))
+					if (npcDat.race == null && skillId == 4416)
 					{
 						npcDat.setRace(level);
 						continue;
@@ -506,7 +506,7 @@ public class NpcTable
 		List<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
 		for (L2NpcTemplate t : _npcs.values())
 		{
-			if ((t.level == lvl) && "L2Monster".equals(t.type))
+			if (t.level == lvl && "L2Monster".equals(t.type))
 			{
 				list.add(t);
 			}

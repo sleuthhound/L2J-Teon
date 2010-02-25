@@ -75,7 +75,7 @@ public class ValidatePosition extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if ((activeChar == null) || activeChar.isTeleporting())
+		if (activeChar == null || activeChar.isTeleporting())
 			return;
 		if (Config.COORD_SYNCHRONIZE > 0)
 		{
@@ -93,7 +93,7 @@ public class ValidatePosition extends L2GameClientPacket
 			 * if (Config.DEVELOPER && false) { int dxs = (_x - activeChar._lastClientPosition.x); int dys = (_y - activeChar._lastClientPosition.y); int dist = (int)Math.sqrt(dxsdxs + dysdys); int heading = dist > 0 ? (int)(Math.atan2(-dys/dist, -dxs/dist) 10430.378350470452724949566316381) + 32768 : 0; System.out.println("Client X:" + _x + ", Y:" + _y + ", Z:" + _z + ", H:" + _heading +
 			 * ", Dist:" + activeChar.getLastClientDistance(_x, _y, _z)); System.out.println("Server X:" + realX + ", Y:" + realY + ", Z:" + realZ + ", H:" + activeChar.getHeading() + ", Dist:" + activeChar.getLastServerDistance(realX, realY, realZ)); }
 			 */
-			if ((diffSq > 0) && (diffSq < 250000)) // if too large, messes observation
+			if (diffSq > 0 && diffSq < 250000) // if too large, messes observation
 			{
 				if ((Config.COORD_SYNCHRONIZE & 1) == 1 && (!activeChar.isMoving() // character is not moving, take coordinates from client
 						|| !activeChar.validateMovementHeading(_heading))) // Heading changed on client = possible obstacle
@@ -153,15 +153,15 @@ public class ValidatePosition extends L2GameClientPacket
 		if (activeChar.getParty() != null)
 			activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
 		if (Config.ACCEPT_GEOEDITOR_CONN)
-			if ((GeoEditorListener.getInstance().getThread() != null) && GeoEditorListener.getInstance().getThread().isWorking() && GeoEditorListener.getInstance().getThread().isSend(activeChar))
+			if (GeoEditorListener.getInstance().getThread() != null && GeoEditorListener.getInstance().getThread().isWorking() && GeoEditorListener.getInstance().getThread().isSend(activeChar))
 				GeoEditorListener.getInstance().getThread().sendGmPosition(_x, _y, (short) _z);
 		if (activeChar.getPet() != null)
 		{
 			activeChar.getPet().setInRange(true);
 		}
-		if (!Config.FLYING_WYVERN_DURING_SIEGE && (activeChar.getMountType() == 2))
+		if (!Config.FLYING_WYVERN_DURING_SIEGE && activeChar.getMountType() == 2)
 		{
-			if (activeChar.isInsideZone(L2Character.ZONE_SIEGE) && !((activeChar.getClan() != null) && (CastleManager.getInstance().getCastle(activeChar) == CastleManager.getInstance().getCastleByOwner(activeChar.getClan())) && (activeChar == activeChar.getClan().getLeader().getPlayerInstance())))
+			if (activeChar.isInsideZone(L2Character.ZONE_SIEGE) && !(activeChar.getClan() != null && CastleManager.getInstance().getCastle(activeChar) == CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) && activeChar == activeChar.getClan().getLeader().getPlayerInstance()))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 				sm.addString("You entered into a no-fly zone.");
@@ -181,6 +181,6 @@ public class ValidatePosition extends L2GameClientPacket
 	@Deprecated
 	public boolean equal(ValidatePosition pos)
 	{
-		return (_x == pos._x) && (_y == pos._y) && (_z == pos._z) && (_heading == pos._heading);
+		return _x == pos._x && _y == pos._y && _z == pos._z && _heading == pos._heading;
 	}
 }

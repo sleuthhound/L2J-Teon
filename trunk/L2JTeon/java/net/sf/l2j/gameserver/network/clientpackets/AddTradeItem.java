@@ -63,7 +63,7 @@ public final class AddTradeItem extends L2GameClientPacket
 			return;
 		}
 		final L2PcInstance partner = trade.getPartner();
-		if ((partner == null) || (L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null) || partner.getActiveTradeList() == null)
+		if (partner == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null || partner.getActiveTradeList() == null)
 		{
 			// Trade partner not found, cancel trade
 			if (partner != null)
@@ -78,7 +78,7 @@ public final class AddTradeItem extends L2GameClientPacket
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED));
 			return;
 		}
-		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
+		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			player.cancelActiveTrade();

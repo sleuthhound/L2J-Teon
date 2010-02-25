@@ -55,12 +55,12 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance targetItem = (L2ItemInstance) L2World.getInstance().findObject(_targetItemObjId);
 		L2ItemInstance refinerItem = (L2ItemInstance) L2World.getInstance().findObject(_refinerItemObjId);
-		if ((targetItem == null) || (refinerItem == null))
+		if (targetItem == null || refinerItem == null)
 			return;
 		int itemGrade = targetItem.getItem().getItemGrade();
 		int refinerItemId = refinerItem.getItem().getItemId();
 		// is the item a life stone?
-		if ((refinerItemId < 8723) || (refinerItemId > 8762))
+		if (refinerItemId < 8723 || refinerItemId > 8762)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
 			return;

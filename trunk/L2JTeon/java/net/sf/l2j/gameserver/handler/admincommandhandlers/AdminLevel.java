@@ -57,7 +57,7 @@ public class AdminLevel implements IAdminCommandHandler
 			{
 				target = (L2PlayableInstance) activeChar.getTarget();
 				curlevel = target.getLevel();
-				reslevel = cmd.equals("admin_addlevel") ? (curlevel + lvl) : cmd.equals("admin_remlevel") ? (curlevel - lvl) : lvl;
+				reslevel = cmd.equals("admin_addlevel") ? curlevel + lvl : cmd.equals("admin_remlevel") ? curlevel - lvl : lvl;
 				try
 				{
 					xpcur = target.getStat().getExp();

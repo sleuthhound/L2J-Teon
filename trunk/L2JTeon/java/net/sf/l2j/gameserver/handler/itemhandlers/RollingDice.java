@@ -45,7 +45,7 @@ public class RollingDice implements IItemHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
 			return;
 		}
-		if ((itemId == 4625) || (itemId == 4626) || (itemId == 4627) || (itemId == 4628))
+		if (itemId == 4625 || itemId == 4626 || itemId == 4627 || itemId == 4628)
 		{
 			int number = rollDice(activeChar);
 			if (number == 0)

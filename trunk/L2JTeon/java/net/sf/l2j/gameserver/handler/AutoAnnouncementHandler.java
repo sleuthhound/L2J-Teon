@@ -329,7 +329,7 @@ public class AutoAnnouncementHandler
 		{
 			_defaultId = id;
 			_defaultTexts = announcementTexts;
-			_defaultDelay = (announcementDelay * 1000);
+			_defaultDelay = announcementDelay * 1000;
 			setActive(true);
 		}
 

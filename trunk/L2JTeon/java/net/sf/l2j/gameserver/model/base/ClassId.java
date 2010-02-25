@@ -122,7 +122,7 @@ public enum ClassId
 	 */
 	public final boolean equalsOrChildOf(ClassId cid)
 	{
-		return (this == cid) || childOf(cid);
+		return this == cid || childOf(cid);
 	}
 
 	/**

@@ -48,7 +48,7 @@ public class AiPlugingParameters
 	@SuppressWarnings("unchecked")
 	public void convertToIDs()
 	{
-		if ((_but != null) && !_but.isEmpty())
+		if (_but != null && !_but.isEmpty())
 			_but.convertToIDs();
 		if (_npcClassTypes != null)
 			for (String classType : _npcClassTypes)
@@ -65,7 +65,7 @@ public class AiPlugingParameters
 			{
 				_npcIDs.addAll(NpcTable.getInstance().getAllNpcOfAiType(aiType));
 			}
-		if ((_but != null) && !_but.isEmpty())
+		if (_but != null && !_but.isEmpty())
 			removeIDs(_but.getIDs());
 		_converted = true;
 	}

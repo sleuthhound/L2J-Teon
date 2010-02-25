@@ -838,7 +838,7 @@ public class FourSepulchersManager
 			for (L2PcInstance mem : player.getParty().getPartyMembers())
 			{
 				QuestState qs = mem.getQuestState(QUEST_ID);
-				if (qs == null || (!qs.isStarted() && !qs.isCompleted()))
+				if (qs == null || !qs.isStarted() && !qs.isCompleted())
 				{
 					showHtmlFile(player, npcId + "-NS.htm", npc, mem);
 					return;
@@ -865,7 +865,7 @@ public class FourSepulchersManager
 			for (L2PcInstance mem : player.getParty().getPartyMembers())
 			{
 				QuestState qs = mem.getQuestState(QUEST_ID);
-				if (qs == null || (!qs.isStarted() && !qs.isCompleted()))
+				if (qs == null || !qs.isStarted() && !qs.isCompleted())
 				{
 					showHtmlFile(player, npcId + "-NS.htm", npc, mem);
 					return;
@@ -885,7 +885,7 @@ public class FourSepulchersManager
 		else
 		{
 			QuestState qs = player.getQuestState(QUEST_ID);
-			if (qs == null || (!qs.isStarted() && !qs.isCompleted()))
+			if (qs == null || !qs.isStarted() && !qs.isCompleted())
 			{
 				showHtmlFile(player, npcId + "-NS.htm", npc, player);
 				return;

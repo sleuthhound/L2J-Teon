@@ -368,7 +368,7 @@ public class Fort
 	public void setOwner(L2Clan clan)
 	{
 		// Remove old owner
-		if ((getOwnerId() > 0) && ((clan == null) || (clan.getClanId() != getOwnerId())))
+		if (getOwnerId() > 0 && (clan == null || clan.getClanId() != getOwnerId()))
 		{
 			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try
 			// to find clan instance
@@ -453,7 +453,7 @@ public class Fort
 		L2DoorInstance door = getDoor(doorId);
 		if (door == null)
 			return;
-		if ((door != null) && (door.getDoorId() == doorId))
+		if (door != null && door.getDoorId() == doorId)
 		{
 			door.setCurrentHp(door.getMaxHp() + hp);
 			saveDoorUpgrade(doorId, hp, pDef, mDef);
@@ -481,10 +481,10 @@ public class Fort
 				_siegeDate = Calendar.getInstance();
 				_siegeDate.setTimeInMillis(rs.getLong("siegeDate"));
 				_siegeDayOfWeek = rs.getInt("siegeDayOfWeek");
-				if ((_siegeDayOfWeek < 1) || (_siegeDayOfWeek > 7))
+				if (_siegeDayOfWeek < 1 || _siegeDayOfWeek > 7)
 					_siegeDayOfWeek = 7;
 				_siegeHourOfDay = rs.getInt("siegeHourOfDay");
-				if ((_siegeHourOfDay < 0) || (_siegeHourOfDay > 23))
+				if (_siegeHourOfDay < 0 || _siegeHourOfDay > 23)
 					_siegeHourOfDay = 20;
 				_taxPercent = rs.getInt("taxPercent");
 				_treasury = rs.getInt("treasury");

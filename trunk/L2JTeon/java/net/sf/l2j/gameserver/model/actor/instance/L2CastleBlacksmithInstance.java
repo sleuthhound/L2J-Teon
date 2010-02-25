@@ -149,7 +149,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 	{
 		if (player.isGM())
 			return COND_OWNER;
-		if ((getCastle() != null) && (getCastle().getCastleId() > 0))
+		if (getCastle() != null && getCastle().getCastleId() > 0)
 		{
 			if (player.getClan() != null)
 			{

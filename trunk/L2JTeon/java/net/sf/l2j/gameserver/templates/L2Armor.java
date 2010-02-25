@@ -61,7 +61,7 @@ public final class L2Armor extends L2Item
 		_hpBonus = set.getInteger("hp_bonus", 0);
 		int sId = set.getInteger("item_skill_id");
 		int sLv = set.getInteger("item_skill_lvl");
-		if ((sId > 0) && (sLv > 0))
+		if (sId > 0 && sLv > 0)
 			_itemSkill = SkillTable.getInstance().getInfo(sId, sLv);
 	}
 

@@ -89,7 +89,7 @@ public final class CharacterCreate extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if ((_name.length() < 3) || (_name.length() > 16) || !Util.isAlphaNumeric(_name) || !isValidName(_name))
+		if (_name.length() < 3 || _name.length() > 16 || !Util.isAlphaNumeric(_name) || !isValidName(_name))
 		{
 			if (Config.DEBUG)
 			{
@@ -232,7 +232,7 @@ public final class CharacterCreate extends L2GameClientPacket
 				}
 				if (item.isEquipable())
 				{
-					if ((newChar.getActiveWeaponItem() == null) || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
+					if (newChar.getActiveWeaponItem() == null || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
 					{
 						newChar.getInventory().equipItemAndRecord(item);
 					}
@@ -242,7 +242,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		L2SkillLearn[] startSkills = SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId());
 		for (L2SkillLearn startSkill : startSkills) {
 			newChar.addSkill(SkillTable.getInstance().getInfo(startSkill.getId(), startSkill.getLevel()), true);
-			if ((startSkill.getId() == 1001) || (startSkill.getId() == 1177))
+			if (startSkill.getId() == 1001 || startSkill.getId() == 1177)
 			{
 				shortcut = new L2ShortCut(1, 0, 2, startSkill.getId(), 1, 1);
 				newChar.registerShortCut(shortcut);

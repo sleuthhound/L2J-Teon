@@ -49,7 +49,7 @@ public class L2BufferTeonInstance
 		getbufferType(efector).setTarget(player);
 		FastList<L2BuffTemplate> _templateBuffs = new FastList<L2BuffTemplate>();
 		_templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId);
-		if ((_templateBuffs == null) || (_templateBuffs.size() == 0))
+		if (_templateBuffs == null || _templateBuffs.size() == 0)
 			return;
 		int _priceTotal = 0;
 		int _pricePoints = 0;
@@ -71,11 +71,11 @@ public class L2BufferTeonInstance
 			getbufferType(efector).setTarget(player);
 			if (_buff.checkPlayer(player) && _buff.checkPrice(player))
 			{
-				if ((player.getInventory().getAdena() >= _priceTotal + _buff.getAdenaPrice()) && (player.getEventPoints() >= _buff.getPointsPrice()))
+				if (player.getInventory().getAdena() >= _priceTotal + _buff.getAdenaPrice() && player.getEventPoints() >= _buff.getPointsPrice())
 				{
 					_priceTotal += _buff.getAdenaPrice();
 					_pricePoints += _buff.getPointsPrice();
-					if (_buff.forceCast() || (player.getFirstEffect(_buff.getSkill()) == null))
+					if (_buff.forceCast() || player.getFirstEffect(_buff.getSkill()) == null)
 					{
 						// regeneration ^^
 						player.setCurrentHpMp(player.getMaxHp() + 5000, player.getMaxMp() + 5000);
@@ -125,7 +125,7 @@ public class L2BufferTeonInstance
 				}
 			}
 		}
-		if (paymentRequired && ((_pricePoints > 0) || (_priceTotal > 0)))
+		if (paymentRequired && (_pricePoints > 0 || _priceTotal > 0))
 		{
 			if (_pricePoints > 0)
 			{

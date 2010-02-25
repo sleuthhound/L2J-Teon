@@ -43,7 +43,7 @@ public class L2SkillNeedCharge extends L2Skill
 		}
 		// get the effect
 		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
-		if ((effect == null) || (effect.numCharges < numCharges))
+		if (effect == null || effect.numCharges < numCharges)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 			sm.addSkillName(getId());

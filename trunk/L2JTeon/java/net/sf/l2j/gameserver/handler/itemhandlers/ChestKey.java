@@ -43,7 +43,7 @@ public class ChestKey implements IItemHandler
 		// key
 		// skill
 		L2Object target = activeChar.getTarget();
-		if (!(target instanceof L2ChestInstance) || (target == null))
+		if (!(target instanceof L2ChestInstance) || target == null)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);

@@ -1227,7 +1227,7 @@ public class TvT
 
 	public static synchronized void addDisconnectedPlayer(L2PcInstance player)
 	{
-		if ((Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE") && (_teleport || _started)))
+		if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started) || Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE") && (_teleport || _started))
 		{
 			if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
 			{
@@ -1269,7 +1269,7 @@ public class TvT
 				setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT) - 1);
 				_players.remove(player);
 			}
-			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
+			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && !_playersShuffle.isEmpty() && _playersShuffle.contains(player))
 				_playersShuffle.remove(player);
 		}
 	}

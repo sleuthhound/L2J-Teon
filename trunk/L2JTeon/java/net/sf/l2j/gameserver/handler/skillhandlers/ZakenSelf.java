@@ -35,7 +35,7 @@ public class ZakenSelf implements ISkillHandler
 				if (!(targets[index] instanceof L2Character))
 					continue;
 				L2Character target = (L2Character) targets[index];
-				int ch = (Rnd.get(14) + 1);
+				int ch = Rnd.get(14) + 1;
 				if (ch == 1)
 				{
 					target.teleToLocation(55299, 219120, -2952, true);

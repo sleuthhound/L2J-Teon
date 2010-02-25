@@ -62,13 +62,13 @@ public class SummonItems implements IItemHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
 			return;
 		}
-		if (Config.DISABLE_SUMMON_IN_COMBAT && (activeChar.getPvpFlag() > 0))
+		if (Config.DISABLE_SUMMON_IN_COMBAT && activeChar.getPvpFlag() > 0)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT));
 			playable.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if ((activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_SUMMON) || (activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_SUMMON))
+		if (activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_SUMMON || activeChar._inEventCTF && CTF._started && !Config.CTF_ALLOW_SUMMON)
 		{
 			ActionFailed af = ActionFailed.STATIC_PACKET;
 			activeChar.sendPacket(af);
@@ -82,7 +82,7 @@ public class SummonItems implements IItemHandler
 			return;
 		}
 		L2SummonItem sitem = SummonItemsData.getInstance().getSummonItem(item.getItemId());
-		if (((activeChar.getPet() != null) || activeChar.isMounted()) && sitem.isPetSummon())
+		if ((activeChar.getPet() != null || activeChar.isMounted()) && sitem.isPetSummon())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_HAVE_A_PET));
 			return;

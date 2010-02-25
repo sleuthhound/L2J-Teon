@@ -340,7 +340,7 @@ public class GameServer
 		{
 			ItemsOnGroundManager.getInstance();
 		}
-		if ((Config.AUTODESTROY_ITEM_AFTER > 0) || (Config.HERB_AUTO_DESTROY_TIME > 0))
+		if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
 		{
 			ItemsAutoDestroy.getInstance();
 		}
@@ -507,7 +507,7 @@ public class GameServer
 			OnlinePlayers.getInstance();
 		}
 		long serverLoadEnd = System.currentTimeMillis();
-		_log.info("Server Loaded in " + ((serverLoadEnd - serverLoadStart) / 1000) + " Seconds");
+		_log.info("Server Loaded in " + (serverLoadEnd - serverLoadStart) / 1000 + " Seconds");
 		Util.printSection("Game Server Started");
 	}
 

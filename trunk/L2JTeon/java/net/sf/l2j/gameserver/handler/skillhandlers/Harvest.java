@@ -76,7 +76,7 @@ public class Harvest implements ISkillHandler
 				if (calcSuccess())
 				{
 					L2Attackable.RewardItem[] items = _target.takeHarvest();
-					if ((items != null) && (items.length > 0))
+					if (items != null && items.length > 0)
 					{
 						for (L2Attackable.RewardItem ritem : items)
 						{
@@ -130,7 +130,7 @@ public class Harvest implements ISkillHandler
 		int basicSuccess = 100;
 		int levelPlayer = _activeChar.getLevel();
 		int levelTarget = _target.getLevel();
-		int diff = (levelPlayer - levelTarget);
+		int diff = levelPlayer - levelTarget;
 		if (diff < 0)
 			diff = -diff;
 		// apply penalty, target <=> player levels

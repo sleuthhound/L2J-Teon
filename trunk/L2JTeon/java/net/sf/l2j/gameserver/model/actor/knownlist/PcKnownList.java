@@ -160,7 +160,7 @@ public class PcKnownList extends PlayableKnownList
 					otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
 					getActiveChar().sendPacket(new CharInfo(otherPlayer));
 					int relation = otherPlayer.getRelation(getActiveChar());
-					if ((otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null) && (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation))
+					if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation)
 						getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation, getActiveChar().isAutoAttackable(otherPlayer)));
 					getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
 					/*
@@ -173,7 +173,7 @@ public class PcKnownList extends PlayableKnownList
 				{
 					getActiveChar().sendPacket(new CharInfo(otherPlayer));
 					int relation = otherPlayer.getRelation(getActiveChar());
-					if ((otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null) && (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation))
+					if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation)
 						getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation, getActiveChar().isAutoAttackable(otherPlayer)));
 				}
 				if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL)
@@ -209,7 +209,7 @@ public class PcKnownList extends PlayableKnownList
 			return false;
 		// Send Server-Client Packet DeleteObject to the L2PcInstance
 		getActiveChar().sendPacket(new DeleteObject(object));
-		if (Config.CHECK_KNOWN && (object instanceof L2NpcInstance))
+		if (Config.CHECK_KNOWN && object instanceof L2NpcInstance)
 			getActiveChar().sendMessage("Removed NPC: " + ((L2NpcInstance) object).getName());
 		return true;
 	}

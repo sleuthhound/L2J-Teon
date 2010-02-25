@@ -46,7 +46,7 @@ public final class AnswerTradeRequest extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
+		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -65,7 +65,7 @@ public final class AnswerTradeRequest extends L2GameClientPacket
 			return;
 		}
 		L2PcInstance partner = player.getActiveRequester();
-		if ((partner == null) || (L2World.getInstance().findObject(partner.getObjectId()) == null))
+		if (partner == null || L2World.getInstance().findObject(partner.getObjectId()) == null)
 		{
 			// Trade partner not found, cancel trade
 			player.sendPacket(new SendTradeDone(0));

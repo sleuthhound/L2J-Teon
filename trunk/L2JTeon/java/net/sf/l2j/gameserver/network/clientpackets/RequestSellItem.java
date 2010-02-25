@@ -55,7 +55,7 @@ public final class RequestSellItem extends L2GameClientPacket
 	{
 		_listId = readD();
 		_count = readD();
-		if ((_count <= 0) || (_count * 12 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
+		if (_count <= 0 || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 			_items = null;
@@ -69,7 +69,7 @@ public final class RequestSellItem extends L2GameClientPacket
 			int itemId = readD();
 			_items[i * 3 + 1] = itemId;
 			long cnt = readD();
-			if ((cnt > Integer.MAX_VALUE) || (cnt <= 0))
+			if (cnt > Integer.MAX_VALUE || cnt <= 0)
 			{
 				_count = 0;
 				_items = null;
@@ -93,13 +93,13 @@ public final class RequestSellItem extends L2GameClientPacket
 			return;
 		}
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && (player.getKarma() > 0))
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
 		{
 			return;
 		}
 		L2Object target = player.getTarget();
 		if (!player.isGM() && (target == null // No target (ie GM Shop))
-				|| !((target instanceof L2MerchantInstance) || (target instanceof L2MercManagerInstance)) // Target not a merchant and not mercmanager
+				|| !(target instanceof L2MerchantInstance || target instanceof L2MercManagerInstance) // Target not a merchant and not mercmanager
 				|| !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false))) // Distance is too far
 		{
 			return;
@@ -146,7 +146,7 @@ public final class RequestSellItem extends L2GameClientPacket
 			@SuppressWarnings("unused")
 			int itemId = _items[i * 3 + 1];
 			int count = _items[i * 3 + 2];
-			if ((count < 0) || (count > Integer.MAX_VALUE))
+			if (count < 0 || count > Integer.MAX_VALUE)
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to purchase over " + Integer.MAX_VALUE + " items at the same time.", Config.DEFAULT_PUNISH);
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
@@ -155,7 +155,7 @@ public final class RequestSellItem extends L2GameClientPacket
 				return;
 			}
 			L2ItemInstance item = player.checkItemManipulation(objectId, count, "sell");
-			if ((item == null) || !item.getItem().isSellable())
+			if (item == null || !item.getItem().isSellable())
 			{
 				continue;
 			}

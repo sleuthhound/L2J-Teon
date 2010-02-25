@@ -207,7 +207,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public double getVulnerability(Stats id)
 	{
-		if ((_vulnerabilities == null) || (_vulnerabilities.get(id) == null))
+		if (_vulnerabilities == null || _vulnerabilities.get(id) == null)
 			return 1;
 		return _vulnerabilities.get(id);
 	}
@@ -416,26 +416,26 @@ public final class L2NpcTemplate extends L2CharTemplate
 	/**
 	 * @return the lhand
 	 */
-	 public int getLhand()
+	public int getLhand()
 	{
 		return lhand;
 	}
 
-	 /**
-	  * @return the rhand
-	  */
-	 public int getRhand()
-	 {
-		 return rhand;
-	 }
+	/**
+	 * @return the rhand
+	 */
+	public int getRhand()
+	{
+		return rhand;
+	}
 
-	 public boolean isCustom()
-	 {
-		 return npcId != idTemplate;
-	 }
+	public boolean isCustom()
+	{
+		return npcId != idTemplate;
+	}
 
-	 public int getNpcId()
-	 {
-		 return npcId;
-	 }
+	public int getNpcId()
+	{
+		return npcId;
+	}
 }

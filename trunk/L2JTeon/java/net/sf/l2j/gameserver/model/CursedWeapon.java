@@ -77,7 +77,7 @@ public class CursedWeapon
 	{
 		if (_isActivated)
 		{
-			if ((_player != null) && (_player.isOnline() == 1))
+			if (_player != null && _player.isOnline() == 1)
 			{
 				// Remove from player
 				_log.info(_name + " being removed online.");
@@ -163,7 +163,7 @@ public class CursedWeapon
 			// has
 			// another cursed weapon equipped,
 			// OR this cursed weapon is on the ground.
-			if ((_player != null) && (_player.getInventory().getItemByItemId(_itemId) != null))
+			if (_player != null && _player.getInventory().getItemByItemId(_itemId) != null)
 			{
 				// Destroy
 				L2ItemInstance removedItem = _player.getInventory().destroyItemByItemId("", _itemId, 1, _player, null);
@@ -314,7 +314,7 @@ public class CursedWeapon
 		CursedWeaponsManager.announce(msg);
 		CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_player.getCursedWeaponEquipedId());
 		SystemMessage msg2 = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
-		int timeLeftInHours = (int) (((cw.getTimeLeft() / 60000) / 60));
+		int timeLeftInHours = (int) (cw.getTimeLeft() / 60000 / 60);
 		msg2.addItemName(_player.getCursedWeaponEquipedId());
 		msg2.addNumber(timeLeftInHours * 60);
 		_player.sendPacket(msg2);
@@ -527,7 +527,7 @@ public class CursedWeapon
 		_nbKills++;
 		_player.setPkKills(_nbKills);
 		_player.broadcastUserInfo();
-		if ((_nbKills % _stageKills == 0) && (_nbKills <= _stageKills * (_skillMaxLevel - 1)))
+		if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills * (_skillMaxLevel - 1))
 		{
 			giveSkill();
 		}
@@ -677,7 +677,7 @@ public class CursedWeapon
 
 	public int getLevel()
 	{
-		return Math.min(1 + (_nbKills / _stageKills), _skillMaxLevel);
+		return Math.min(1 + _nbKills / _stageKills, _skillMaxLevel);
 	}
 
 	public long getTimeLeft()
@@ -709,11 +709,11 @@ public class CursedWeapon
 
 	public Point3D getWorldPosition()
 	{
-		if (_isActivated && (_player != null))
+		if (_isActivated && _player != null)
 		{
 			return _player.getPosition().getWorldPosition();
 		}
-		if (_isDropped && (_item != null))
+		if (_isDropped && _item != null)
 		{
 			return _item.getPosition().getWorldPosition();
 		}

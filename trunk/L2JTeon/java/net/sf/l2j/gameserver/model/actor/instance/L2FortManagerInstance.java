@@ -187,7 +187,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 				{
 					if (val != "")
 					{
-						boolean open = (Integer.parseInt(val) == 1);
+						boolean open = Integer.parseInt(val) == 1;
 						while (st.hasMoreTokens())
 							getFort().openCloseDoor(player, Integer.parseInt(st.nextToken()), open);
 					}
@@ -768,7 +768,7 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						skill = SkillTable.getInstance().getInfo(skill_id, skill_lvl);
 						player.doCast(skill);
 						{
-							if (!((skill.getMpConsume() + skill.getMpInitialConsume()) > this.getCurrentMp()))
+							if (!(skill.getMpConsume() + skill.getMpInitialConsume() > this.getCurrentMp()))
 								this.doCast(skill);
 							else
 							{

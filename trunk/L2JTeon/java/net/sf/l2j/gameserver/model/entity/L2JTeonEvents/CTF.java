@@ -1775,7 +1775,7 @@ public class CTF
 		/*
 		 * !!! CAUTION !!! Do NOT fix multiple object Ids on this event or you will ruin the flag reposition check!!! All Multiple object Ids will be collected by the Garbage Collector, after the event ends, memory sweep is made!!!
 		 */
-		if ((Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE") && (_teleport || _started)))
+		if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started) || Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE") && (_teleport || _started))
 		{
 			if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
 			{
@@ -1819,7 +1819,7 @@ public class CTF
 				setTeamPlayersCount(player._teamNameCTF, teamPlayersCount(player._teamNameCTF) - 1);
 				_players.remove(player);
 			}
-			else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
+			else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && !_playersShuffle.isEmpty() && _playersShuffle.contains(player))
 				_playersShuffle.remove(player);
 		}
 	}
@@ -1950,9 +1950,9 @@ public class CTF
 		int centerX = 0, centerY = 0, centerZ = 0;
 		for (int x = 0; x < pos; x++)
 		{
-			centerX += (locX[x] / division);
-			centerY += (locY[x] / division);
-			centerZ += (locZ[x] / division);
+			centerX += locX[x] / division;
+			centerY += locY[x] / division;
+			centerZ += locZ[x] / division;
 		}
 		// now let's find the furthest distance from the "center" to the egg shaped sphere
 		// surrounding the polygon, size x1.5 (for maximum logical area to wander...):

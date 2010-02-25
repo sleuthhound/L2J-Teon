@@ -48,7 +48,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		_storePlayerId = readD();
 		_count = readD();
 		// count*20 is the size of a for iteration of each item
-		if ((_count < 0) || (_count * 20 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
+		if (_count < 0 || _count * 20 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
 		{
 			_count = 0;
 		}
@@ -62,7 +62,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 			readH(); // TODO analyse this
 			long count = readD();
 			int price = readD();
-			if ((count > Integer.MAX_VALUE) || (count < 0))
+			if (count > Integer.MAX_VALUE || count < 0)
 			{
 				String msgErr = "[RequestPrivateStoreSell] player " + getClient().getActiveChar().getName() + " tried an overflow exploit, ban this player!";
 				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
@@ -73,7 +73,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 			_items[i] = new ItemRequest(objectId, itemId, (int) count, price);
 			priceTotal += price * count;
 		}
-		if ((priceTotal < 0) || (priceTotal > Integer.MAX_VALUE))
+		if (priceTotal < 0 || priceTotal > Integer.MAX_VALUE)
 		{
 			String msgErr = "[RequestPrivateStoreSell] player " + getClient().getActiveChar().getName() + " tried an overflow exploit, ban this player!";
 			Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
@@ -98,7 +98,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 			return;
 		}
 		L2Object object = L2World.getInstance().findObject(_storePlayerId);
-		if ((object == null) || !(object instanceof L2PcInstance))
+		if (object == null || !(object instanceof L2PcInstance))
 		{
 			return;
 		}
@@ -116,7 +116,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		{
 			return;
 		}
-		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
+		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -143,7 +143,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		}
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
-			if ((storePlayer.isNoob() && player.isKoof()) || (storePlayer.isKoof() && player.isNoob()))
+			if (storePlayer.isNoob() && player.isKoof() || storePlayer.isKoof() && player.isNoob())
 			{
 				player.sendMessage("You cant sell on enemy Faction");
 				sendPacket(ActionFailed.STATIC_PACKET);

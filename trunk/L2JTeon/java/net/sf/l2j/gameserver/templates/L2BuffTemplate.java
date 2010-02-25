@@ -180,7 +180,7 @@ public class L2BuffTemplate
 	 */
 	public boolean checkLevel(L2PcInstance player)
 	{
-		return ((_minLevel == 0) || (player.getLevel() >= _minLevel)) && ((_maxLevel == 0) || (player.getLevel() <= _maxLevel));
+		return (_minLevel == 0 || player.getLevel() >= _minLevel) && (_maxLevel == 0 || player.getLevel() <= _maxLevel);
 	}
 
 	/**
@@ -189,17 +189,17 @@ public class L2BuffTemplate
 	public boolean checkRace(L2PcInstance player)
 	{
 		boolean cond = false;
-		if ((_race == 0) || (_race == 31))
+		if (_race == 0 || _race == 31)
 			return true;
-		if ((player.getRace() == Race.human) && ((_race & 16) != 0))
+		if (player.getRace() == Race.human && (_race & 16) != 0)
 			cond = true;
-		if ((player.getRace() == Race.elf) && ((_race & 8) != 0))
+		if (player.getRace() == Race.elf && (_race & 8) != 0)
 			cond = true;
-		if ((player.getRace() == Race.darkelf) && ((_race & 4) != 0))
+		if (player.getRace() == Race.darkelf && (_race & 4) != 0)
 			cond = true;
-		if ((player.getRace() == Race.orc) && ((_race & 2) != 0))
+		if (player.getRace() == Race.orc && (_race & 2) != 0)
 			cond = true;
-		if ((player.getRace() == Race.dwarf) && ((_race & 1) != 0))
+		if (player.getRace() == Race.dwarf && (_race & 1) != 0)
 			cond = true;
 		return cond;
 	}
@@ -209,7 +209,7 @@ public class L2BuffTemplate
 	 */
 	public boolean checkClass(L2PcInstance player)
 	{
-		return (_class == 0) || (_class == 3) || ((_class == 1) && !player.isMageClass()) || ((_class == 2) && player.isMageClass());
+		return _class == 0 || _class == 3 || _class == 1 && !player.isMageClass() || _class == 2 && player.isMageClass();
 	}
 
 	/**
@@ -226,7 +226,7 @@ public class L2BuffTemplate
 	 */
 	public boolean checkPrice(L2PcInstance player)
 	{
-		return ((_adena == 0) || (player.getInventory().getAdena() >= _adena)) && ((_points == 0) || (player.getEventPoints() >= _points));
+		return (_adena == 0 || player.getInventory().getAdena() >= _adena) && (_points == 0 || player.getEventPoints() >= _points);
 	}
 
 	/**

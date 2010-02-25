@@ -60,7 +60,7 @@ public class GeoEditorListener extends Thread
 
 	public String getStatus()
 	{
-		if ((_geoEditor != null) && _geoEditor.isWorking())
+		if (_geoEditor != null && _geoEditor.isWorking())
 		{
 			return "Geoeditor connected.";
 		}
@@ -76,7 +76,7 @@ public class GeoEditorListener extends Thread
 			while (true)
 			{
 				connection = _serverSocket.accept();
-				if ((_geoEditor != null) && _geoEditor.isWorking())
+				if (_geoEditor != null && _geoEditor.isWorking())
 				{
 					_log.warning("Geoeditor already connected!");
 					connection.close();
