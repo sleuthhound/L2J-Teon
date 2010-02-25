@@ -2196,7 +2196,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			for (L2SkillLearn s : skills) {
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-				if (sk == null || !sk.getCanLearn(getClassId()) || Config.ENABLE_NO_AUTOLEARN_LIST && Config.NO_AUTOLEARN_LIST.contains(sk.getId()))
+				if (sk == null || !sk.getCanLearn(getClassId()) || Config.ENABLE_NO_AUTOLEARN_LIST && Config.NO_AUTOLEARN_LIST.contains(sk.getId()) || (sk.getId() == L2Skill.SKILL_DIVINE_INSPIRATION && !Config.AUTO_LEARN_DIVINE_INSPIRATION))
 				{
 					unLearnable++;
 					continue;
