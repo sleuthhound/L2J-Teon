@@ -22060,3 +22060,15 @@ REPLACE INTO `npcskills` VALUES
 (29050,5013,1),
 (29051,5009,1),
 (29051,5013,1);
+
+-- summon skills
+INSERT INTO `npcskills` VALUES ('14836', '5135', '1');
+INSERT INTO `npcskills` VALUES ('14836', '5136', '1');
+INSERT INTO `npcskills` VALUES ('14836', '5137', '1');
+INSERT INTO `npcskills` VALUES ('14837', '5138', '1');
+INSERT INTO `npcskills` VALUES ('14837', '5139', '1');
+INSERT INTO `npcskills` VALUES ('14838', '5140', '1');
+INSERT INTO `npcskills` VALUES ('14838', '5141', '1');
+INSERT INTO `npcskills` VALUES ('14838', '5142', '1');
+INSERT INTO `npcskills` VALUES ('14839', '5110', '1');
+INSERT INTO `npcskills` VALUES ('14839', '5111', '1');
