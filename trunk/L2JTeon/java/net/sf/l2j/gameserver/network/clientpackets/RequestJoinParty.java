@@ -59,7 +59,7 @@ public final class RequestJoinParty extends L2GameClientPacket
 		if (target.isInTargetEvent() || requestor.isInTargetEvent())
 		{
 			requestor.sendMessage("You can not party into event.");
-			return;
+		return;
 		}
 		if (target.isInParty())
 		{
@@ -112,7 +112,7 @@ public final class RequestJoinParty extends L2GameClientPacket
 			createNewParty(target, requestor);
 		}
 		else
-			// Asker is in party
+		// Asker is in party
 		{
 			if (requestor.getParty().isInDimensionalRift())
 			{

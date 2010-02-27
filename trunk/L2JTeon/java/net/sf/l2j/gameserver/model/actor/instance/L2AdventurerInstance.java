@@ -45,14 +45,14 @@ public class L2AdventurerInstance extends L2FolkInstance
 				int bossId = Integer.parseInt(command.substring(12).trim());
 				switch (RaidBossSpawnManager.getInstance().getRaidBossStatusId(bossId))
 				{
-				case ALIVE:
-				case DEAD:
-					L2Spawn spawn = RaidBossSpawnManager.getInstance().getSpawns().get(bossId);
-					player.sendPacket(new RadarControl(0, 1, spawn.getLocx(), spawn.getLocy(), spawn.getLocz()));
-					break;
-				case UNDEFINED:
-					player.sendMessage("This Boss isn't in game - notify L2J Datapack Dev Team");
-					break;
+					case ALIVE:
+					case DEAD:
+						L2Spawn spawn = RaidBossSpawnManager.getInstance().getSpawns().get(bossId);
+						player.sendPacket(new RadarControl(0, 1, spawn.getLocx(), spawn.getLocy(), spawn.getLocz()));
+						break;
+					case UNDEFINED:
+						player.sendMessage("This Boss isn't in game - notify L2J Datapack Dev Team");
+						break;
 				}
 			}
 			catch (NumberFormatException e)

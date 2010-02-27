@@ -138,7 +138,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 					}
 					if (st.countTokens() < 1)
 						return;
-					int valbuy = Integer.parseInt(st.nextToken()) + getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE).getLvl() * 100000;
+					int valbuy = Integer.parseInt(st.nextToken()) + (getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE).getLvl() * 100000);
 					showBuyWindow(player, valbuy);
 				}
 				else if (val.equalsIgnoreCase("support"))
@@ -199,48 +199,48 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int percent = Integer.valueOf(val);
 									switch (percent)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 20:
-										fee = Config.CH_HPREG1_FEE;
-										break;
-									case 40:
-										fee = Config.CH_HPREG2_FEE;
-										break;
-									case 80:
-										fee = Config.CH_HPREG3_FEE;
-										break;
-									case 100:
-										fee = Config.CH_HPREG4_FEE;
-										break;
-									case 120:
-										fee = Config.CH_HPREG5_FEE;
-										break;
-									case 140:
-										fee = Config.CH_HPREG6_FEE;
-										break;
-									case 160:
-										fee = Config.CH_HPREG7_FEE;
-										break;
-									case 180:
-										fee = Config.CH_HPREG8_FEE;
-										break;
-									case 200:
-										fee = Config.CH_HPREG9_FEE;
-										break;
-									case 220:
-										fee = Config.CH_HPREG10_FEE;
-										break;
-									case 240:
-										fee = Config.CH_HPREG11_FEE;
-										break;
-									case 260:
-										fee = Config.CH_HPREG12_FEE;
-										break;
-									default:
-										fee = Config.CH_HPREG13_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 20:
+											fee = Config.CH_HPREG1_FEE;
+											break;
+										case 40:
+											fee = Config.CH_HPREG2_FEE;
+											break;
+										case 80:
+											fee = Config.CH_HPREG3_FEE;
+											break;
+										case 100:
+											fee = Config.CH_HPREG4_FEE;
+											break;
+										case 120:
+											fee = Config.CH_HPREG5_FEE;
+											break;
+										case 140:
+											fee = Config.CH_HPREG6_FEE;
+											break;
+										case 160:
+											fee = Config.CH_HPREG7_FEE;
+											break;
+										case 180:
+											fee = Config.CH_HPREG8_FEE;
+											break;
+										case 200:
+											fee = Config.CH_HPREG9_FEE;
+											break;
+										case 220:
+											fee = Config.CH_HPREG10_FEE;
+											break;
+										case 240:
+											fee = Config.CH_HPREG11_FEE;
+											break;
+										case 260:
+											fee = Config.CH_HPREG12_FEE;
+											break;
+										default:
+											fee = Config.CH_HPREG13_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_HP, percent, fee, Config.CH_HPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
@@ -259,24 +259,24 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int percent = Integer.valueOf(val);
 									switch (percent)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 5:
-										fee = Config.CH_MPREG1_FEE;
-										break;
-									case 10:
-										fee = Config.CH_MPREG2_FEE;
-										break;
-									case 15:
-										fee = Config.CH_MPREG3_FEE;
-										break;
-									case 30:
-										fee = Config.CH_MPREG4_FEE;
-										break;
-									default:
-										fee = Config.CH_MPREG5_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 5:
+											fee = Config.CH_MPREG1_FEE;
+											break;
+										case 10:
+											fee = Config.CH_MPREG2_FEE;
+											break;
+										case 15:
+											fee = Config.CH_MPREG3_FEE;
+											break;
+										case 30:
+											fee = Config.CH_MPREG4_FEE;
+											break;
+										default:
+											fee = Config.CH_MPREG5_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_MP, percent, fee, Config.CH_MPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
@@ -295,30 +295,30 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int percent = Integer.valueOf(val);
 									switch (percent)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 5:
-										fee = Config.CH_EXPREG1_FEE;
-										break;
-									case 10:
-										fee = Config.CH_EXPREG2_FEE;
-										break;
-									case 15:
-										fee = Config.CH_EXPREG3_FEE;
-										break;
-									case 25:
-										fee = Config.CH_EXPREG4_FEE;
-										break;
-									case 35:
-										fee = Config.CH_EXPREG5_FEE;
-										break;
-									case 40:
-										fee = Config.CH_EXPREG6_FEE;
-										break;
-									default:
-										fee = Config.CH_EXPREG7_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 5:
+											fee = Config.CH_EXPREG1_FEE;
+											break;
+										case 10:
+											fee = Config.CH_EXPREG2_FEE;
+											break;
+										case 15:
+											fee = Config.CH_EXPREG3_FEE;
+											break;
+										case 25:
+											fee = Config.CH_EXPREG4_FEE;
+											break;
+										case 35:
+											fee = Config.CH_EXPREG5_FEE;
+											break;
+										case 40:
+											fee = Config.CH_EXPREG6_FEE;
+											break;
+										default:
+											fee = Config.CH_EXPREG7_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_EXP, percent, fee, Config.CH_EXPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
@@ -399,18 +399,18 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 1:
-										fee = Config.CH_ITEM1_FEE;
-										break;
-									case 2:
-										fee = Config.CH_ITEM2_FEE;
-										break;
-									default:
-										fee = Config.CH_ITEM3_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 1:
+											fee = Config.CH_ITEM1_FEE;
+											break;
+										case 2:
+											fee = Config.CH_ITEM2_FEE;
+											break;
+										default:
+											fee = Config.CH_ITEM3_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_ITEM_CREATE, lvl, fee, Config.CH_ITEM_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
@@ -429,15 +429,15 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 1:
-										fee = Config.CH_TELE1_FEE;
-										break;
-									default:
-										fee = Config.CH_TELE2_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 1:
+											fee = Config.CH_TELE1_FEE;
+											break;
+										default:
+											fee = Config.CH_TELE2_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_TELEPORT, lvl, fee, Config.CH_TELE_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_TELEPORT) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
@@ -456,33 +456,33 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 1:
-										fee = Config.CH_SUPPORT1_FEE;
-										break;
-									case 2:
-										fee = Config.CH_SUPPORT2_FEE;
-										break;
-									case 3:
-										fee = Config.CH_SUPPORT3_FEE;
-										break;
-									case 4:
-										fee = Config.CH_SUPPORT4_FEE;
-										break;
-									case 5:
-										fee = Config.CH_SUPPORT5_FEE;
-										break;
-									case 6:
-										fee = Config.CH_SUPPORT6_FEE;
-										break;
-									case 7:
-										fee = Config.CH_SUPPORT7_FEE;
-										break;
-									default:
-										fee = Config.CH_SUPPORT8_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 1:
+											fee = Config.CH_SUPPORT1_FEE;
+											break;
+										case 2:
+											fee = Config.CH_SUPPORT2_FEE;
+											break;
+										case 3:
+											fee = Config.CH_SUPPORT3_FEE;
+											break;
+										case 4:
+											fee = Config.CH_SUPPORT4_FEE;
+											break;
+										case 5:
+											fee = Config.CH_SUPPORT5_FEE;
+											break;
+										case 6:
+											fee = Config.CH_SUPPORT6_FEE;
+											break;
+										case 7:
+											fee = Config.CH_SUPPORT7_FEE;
+											break;
+										default:
+											fee = Config.CH_SUPPORT8_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_SUPPORT, lvl, fee, Config.CH_SUPPORT_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_SUPPORT) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
@@ -558,15 +558,15 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 1:
-										fee = Config.CH_CURTAIN1_FEE;
-										break;
-									default:
-										fee = Config.CH_CURTAIN2_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 1:
+											fee = Config.CH_CURTAIN1_FEE;
+											break;
+										default:
+											fee = Config.CH_CURTAIN2_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_DECO_CURTAINS, lvl, fee, Config.CH_CURTAIN_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_DECO_CURTAINS) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
@@ -585,15 +585,15 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
 									{
-									case 0:
-										fee = 0;
-										break;
-									case 1:
-										fee = Config.CH_FRONT1_FEE;
-										break;
-									default:
-										fee = Config.CH_FRONT2_FEE;
-									break;
+										case 0:
+											fee = 0;
+											break;
+										case 1:
+											fee = Config.CH_FRONT1_FEE;
+											break;
+										default:
+											fee = Config.CH_FRONT2_FEE;
+											break;
 									}
 									if (!getClanHall().updateFunctions(ClanHall.FUNC_DECO_FRONTPLATEFORM, lvl, fee, Config.CH_FRONT_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_DECO_FRONTPLATEFORM) == null)))
 										player.sendMessage("You don't have enough adena in your clan's warehouse");

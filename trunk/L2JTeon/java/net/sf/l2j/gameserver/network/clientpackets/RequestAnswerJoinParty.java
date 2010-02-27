@@ -69,7 +69,7 @@ public final class RequestAnswerJoinParty extends L2GameClientPacket
 				msg = null;
 				// activate garbage collection if there are no other members in
 				// party (happens when we were creating new one)
-				if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1)
+				if ((requestor.getParty() != null) && (requestor.getParty().getMemberCount() == 1))
 				{
 					requestor.setParty(null);
 				}

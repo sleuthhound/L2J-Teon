@@ -185,20 +185,20 @@ public class L2Party
 		L2PcInstance looter = player;
 		switch (_itemDistribution)
 		{
-		case ITEM_RANDOM:
-			if (!spoil)
+			case ITEM_RANDOM:
+				if (!spoil)
+					looter = getCheckedRandomMember(ItemId, target);
+				break;
+			case ITEM_RANDOM_SPOIL:
 				looter = getCheckedRandomMember(ItemId, target);
-			break;
-		case ITEM_RANDOM_SPOIL:
-			looter = getCheckedRandomMember(ItemId, target);
-			break;
-		case ITEM_ORDER:
-			if (!spoil)
+				break;
+			case ITEM_ORDER:
+				if (!spoil)
+					looter = getCheckedNextLooter(ItemId, target);
+				break;
+			case ITEM_ORDER_SPOIL:
 				looter = getCheckedNextLooter(ItemId, target);
-			break;
-		case ITEM_ORDER_SPOIL:
-			looter = getCheckedNextLooter(ItemId, target);
-			break;
+				break;
 		}
 		if (looter == null)
 			looter = player;
@@ -247,7 +247,7 @@ public class L2Party
 	{
 		for (L2PcInstance member : getPartyMembers())
 		{
-			if (member != null && !member.equals(player))
+			if ((member != null) && !member.equals(player))
 				member.sendPacket(msg);
 		}
 	}
@@ -295,7 +295,7 @@ public class L2Party
 		if (getPartyMembers().contains(player))
 		{
 			// remove player
-			if (isLeader(player) && getPartyMembers().size() > 2)
+			if (isLeader(player) && (getPartyMembers().size() > 2))
 				changePartyLeader(getPartyMembers().get(1).getName());
 			getPartyMembers().remove(player);
 			// delete all party-windows on removed player
@@ -364,7 +364,7 @@ public class L2Party
 	public void changePartyLeader(String name)
 	{
 		L2PcInstance player = getPlayerByName(name);
-		if (player != null && !player.isInDuel())
+		if ((player != null) && !player.isInDuel())
 		{
 			if (getPartyMembers().contains(player))
 			{
@@ -574,7 +574,7 @@ public class L2Party
 			ToReward.add(member);
 		}
 		// Avoid null exceptions, if any
-		if (ToReward == null || ToReward.isEmpty())
+		if ((ToReward == null) || ToReward.isEmpty())
 			return;
 		// Now we can actually distribute the adena reward
 		// (Total adena splitted by the number of party members that are in

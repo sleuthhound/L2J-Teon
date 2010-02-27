@@ -37,20 +37,20 @@ public class AdminEnchant implements IAdminCommandHandler
 	// private static Logger _log =
 	// Logger.getLogger(AdminEnchant.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_seteh",// 6
-		"admin_setec",// 10
-		"admin_seteg",// 9
-		"admin_setel",// 11
-		"admin_seteb",// 12
-		"admin_setew",// 7
-		"admin_setes",// 8
-		"admin_setle",// 1
-		"admin_setre",// 2
-		"admin_setlf",// 4
-		"admin_setrf",// 5
-		"admin_seten",// 3
-		"admin_setun",// 0
-		"admin_setba",// 13
-	"admin_enchant" };
+			"admin_setec",// 10
+			"admin_seteg",// 9
+			"admin_setel",// 11
+			"admin_seteb",// 12
+			"admin_setew",// 7
+			"admin_setes",// 8
+			"admin_setle",// 1
+			"admin_setre",// 2
+			"admin_setlf",// 4
+			"admin_setrf",// 5
+			"admin_seten",// 3
+			"admin_setun",// 0
+			"admin_setba",// 13
+			"admin_enchant" };
 	private static final int REQUIRED_LEVEL = Config.GM_ENCHANT;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -131,7 +131,7 @@ public class AdminEnchant implements IAdminCommandHandler
 				{
 					int ench = Integer.parseInt(command.substring(12));
 					// check value
-					if (ench < 0 || ench > 65535)
+					if ((ench < 0) || (ench > 65535))
 					{
 						activeChar.sendMessage("You must set the enchant level to be between 0-65535.");
 					}
@@ -186,7 +186,7 @@ public class AdminEnchant implements IAdminCommandHandler
 		L2ItemInstance itemInstance = null;
 		// only attempt to enchant if there is a weapon equipped
 		L2ItemInstance parmorInstance = player.getInventory().getPaperdollItem(armorType);
-		if (parmorInstance != null && parmorInstance.getEquipSlot() == armorType)
+		if ((parmorInstance != null) && (parmorInstance.getEquipSlot() == armorType))
 		{
 			itemInstance = parmorInstance;
 		}
@@ -194,7 +194,7 @@ public class AdminEnchant implements IAdminCommandHandler
 		{
 			// for bows and double handed weapons
 			parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
-			if (parmorInstance != null && parmorInstance.getEquipSlot() == Inventory.PAPERDOLL_LRHAND)
+			if ((parmorInstance != null) && (parmorInstance.getEquipSlot() == Inventory.PAPERDOLL_LRHAND))
 			{
 				itemInstance = parmorInstance;
 			}

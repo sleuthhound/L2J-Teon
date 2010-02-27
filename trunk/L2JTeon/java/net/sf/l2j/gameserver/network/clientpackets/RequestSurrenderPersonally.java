@@ -54,7 +54,7 @@ public final class RequestSurrenderPersonally extends L2GameClientPacket
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if (!_clan.isAtWarWith(clan.getClanId()) || _activeChar.getWantsPeace() == 1)
+		if (!_clan.isAtWarWith(clan.getClanId()) || (_activeChar.getWantsPeace() == 1))
 		{
 			_activeChar.sendMessage("You aren't at war with this clan.");
 			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);

@@ -28,7 +28,7 @@ public class ChairSit extends L2GameServerPacket
 	private int _staticObjectId;
 
 	/**
-	 */
+     */
 	public ChairSit(L2PcInstance player, int staticObjectId)
 	{
 		_activeChar = player;

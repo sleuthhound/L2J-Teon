@@ -34,7 +34,7 @@ public class castle implements IVoicedCommandHandler
 
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-		if (command.startsWith("opendoor") && activeChar.getClan() != null)
+		if (command.startsWith("opendoor") && (activeChar.getClan() != null))
 		{
 			// Can the player opene/close the doors ?
 			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR)
@@ -53,7 +53,7 @@ public class castle implements IVoicedCommandHandler
 				}
 			}
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());
-			if (fort != null && door.getFort() != null)
+			if ((fort != null) && (door.getFort() != null))
 			{
 				if (fort.getFortId() == door.getFort().getFortId())
 				{
@@ -63,7 +63,7 @@ public class castle implements IVoicedCommandHandler
 			}
 			return false;
 		}
-		else if (command.startsWith("closedoor") && activeChar.getClan() != null)
+		else if (command.startsWith("closedoor") && (activeChar.getClan() != null))
 		{
 			// Can the player open/close the doors ?
 			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR)
@@ -80,7 +80,7 @@ public class castle implements IVoicedCommandHandler
 				}
 			}
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());
-			if (fort != null && door.getFort() != null)
+			if ((fort != null) && (door.getFort() != null))
 			{
 				if (fort.getFortId() == door.getFort().getFortId())
 				{
@@ -90,10 +90,10 @@ public class castle implements IVoicedCommandHandler
 			}
 			return false;
 		}
-		else if (command.startsWith("ridewyvern") && activeChar.getClan() != null)
+		else if (command.startsWith("ridewyvern") && (activeChar.getClan() != null))
 		{
 			Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
-			if (castle != null && activeChar.isClanLeader())
+			if ((castle != null) && activeChar.isClanLeader())
 			{
 				if (castle.checkIfInZone(activeChar.getX(), activeChar.getY(), activeChar.getZ()))
 				{

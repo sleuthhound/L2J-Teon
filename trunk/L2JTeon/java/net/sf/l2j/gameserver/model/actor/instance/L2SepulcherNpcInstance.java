@@ -138,8 +138,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 			{
 				// Check the height difference
 				if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth
-					// difference might
-					// need some tweaking
+				// difference might
+				// need some tweaking
 				{
 					// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
@@ -186,62 +186,62 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		}
 		switch (getNpcId())
 		{
-		case 31468:
-		case 31469:
-		case 31470:
-		case 31471:
-		case 31472:
-		case 31473:
-		case 31474:
-		case 31475:
-		case 31476:
-		case 31477:
-		case 31478:
-		case 31479:
-		case 31480:
-		case 31481:
-		case 31482:
-		case 31483:
-		case 31484:
-		case 31485:
-		case 31486:
-		case 31487:
-			setIsInvul(false);
-			reduceCurrentHp(getMaxHp() + 1, player);
-			if (_spawnMonsterTask != null)
-				_spawnMonsterTask.cancel(true);
-			_spawnMonsterTask = ThreadPoolManager.getInstance().scheduleEffect(new SpawnMonster(getNpcId()), 3500);
-			break;
-		case 31455:
-		case 31456:
-		case 31457:
-		case 31458:
-		case 31459:
-		case 31460:
-		case 31461:
-		case 31462:
-		case 31463:
-		case 31464:
-		case 31465:
-		case 31466:
-		case 31467:
-			setIsInvul(false);
-			reduceCurrentHp(getMaxHp() + 1, player);
-			if (player.getParty() != null && !player.getParty().isLeader(player))
-				player = player.getParty().getLeader();
-			player.addItem("Quest", HALLS_KEY, 1, player, true);
-			break;
-		default:
-		{
-			Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
-			if (qlsa != null && qlsa.length > 0)
-				player.setLastQuestNpcObject(getObjectId());
-			Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
-			if (qlst != null && qlst.length == 1)
-				qlst[0].notifyFirstTalk(this, player);
-			else
-				showChatWindow(player, 0);
-		}
+			case 31468:
+			case 31469:
+			case 31470:
+			case 31471:
+			case 31472:
+			case 31473:
+			case 31474:
+			case 31475:
+			case 31476:
+			case 31477:
+			case 31478:
+			case 31479:
+			case 31480:
+			case 31481:
+			case 31482:
+			case 31483:
+			case 31484:
+			case 31485:
+			case 31486:
+			case 31487:
+				setIsInvul(false);
+				reduceCurrentHp(getMaxHp() + 1, player);
+				if (_spawnMonsterTask != null)
+					_spawnMonsterTask.cancel(true);
+				_spawnMonsterTask = ThreadPoolManager.getInstance().scheduleEffect(new SpawnMonster(getNpcId()), 3500);
+				break;
+			case 31455:
+			case 31456:
+			case 31457:
+			case 31458:
+			case 31459:
+			case 31460:
+			case 31461:
+			case 31462:
+			case 31463:
+			case 31464:
+			case 31465:
+			case 31466:
+			case 31467:
+				setIsInvul(false);
+				reduceCurrentHp(getMaxHp() + 1, player);
+				if (player.getParty() != null && !player.getParty().isLeader(player))
+					player = player.getParty().getLeader();
+				player.addItem("Quest", HALLS_KEY, 1, player, true);
+				break;
+			default:
+			{
+				Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
+				if ((qlsa != null) && qlsa.length > 0)
+					player.setLastQuestNpcObject(getObjectId());
+				Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
+				if ((qlst != null) && qlst.length == 1)
+					qlst[0].notifyFirstTalk(this, player);
+				else
+					showChatWindow(player, 0);
+			}
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -310,25 +310,25 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 			{
 				switch (getNpcId())
 				{
-				case 31929:
-				case 31934:
-				case 31939:
-				case 31944:
-					FourSepulchersManager.getInstance().spawnShadow(getNpcId());
-				default:
-				{
-					openNextDoor(getNpcId());
-					if (player.getParty() != null)
+					case 31929:
+					case 31934:
+					case 31939:
+					case 31944:
+						FourSepulchersManager.getInstance().spawnShadow(getNpcId());
+					default:
 					{
-						for (L2PcInstance mem : player.getParty().getPartyMembers())
+						openNextDoor(getNpcId());
+						if (player.getParty() != null)
 						{
-							if (mem.getInventory().getItemByItemId(HALLS_KEY) != null)
-								mem.destroyItemByItemId("Quest", HALLS_KEY, mem.getInventory().getItemByItemId(HALLS_KEY).getCount(), mem, true);
+							for (L2PcInstance mem : player.getParty().getPartyMembers())
+							{
+								if (mem.getInventory().getItemByItemId(HALLS_KEY) != null)
+									mem.destroyItemByItemId("Quest", HALLS_KEY, mem.getInventory().getItemByItemId(HALLS_KEY).getCount(), mem, true);
+							}
 						}
+						else
+							player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
 					}
-					else
-						player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
-				}
 				}
 			}
 		}

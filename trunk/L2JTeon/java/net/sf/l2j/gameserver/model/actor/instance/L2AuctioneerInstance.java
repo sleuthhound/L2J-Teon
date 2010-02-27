@@ -232,14 +232,14 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 			}
 			else if (actualCommand.equalsIgnoreCase("bid1"))
 			{
-				if (player.getClan() == null || player.getClan().getLevel() < 2)
+				if ((player.getClan() == null) || (player.getClan().getLevel() < 2))
 				{
 					player.sendMessage("Your clan's level needs to be at least 2, before you can bid in an auction");
 					return;
 				}
 				if (val == "")
 					return;
-				if (player.getClan().getAuctionBiddedAt() > 0 && player.getClan().getAuctionBiddedAt() != Integer.parseInt(val) || player.getClan().getHasHideout() > 0)
+				if (((player.getClan().getAuctionBiddedAt() > 0) && (player.getClan().getAuctionBiddedAt() != Integer.parseInt(val))) || (player.getClan().getHasHideout() > 0))
 				{
 					player.sendMessage("You can't bid at more than one auction");
 					return;
@@ -346,7 +346,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 			}
 			else if (actualCommand.equalsIgnoreCase("selectedItems"))
 			{
-				if (player.getClan() != null && player.getClan().getHasHideout() == 0 && player.getClan().getAuctionBiddedAt() > 0)
+				if ((player.getClan() != null) && (player.getClan().getHasHideout() == 0) && (player.getClan().getAuctionBiddedAt() > 0))
 				{
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 					String filename = "data/html/auction/AgitBidInfo.htm";
@@ -376,7 +376,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 					player.sendPacket(html);
 					return;
 				}
-				else if (player.getClan() != null && AuctionManager.getInstance().getAuction(player.getClan().getHasHideout()) != null)
+				else if ((player.getClan() != null) && (AuctionManager.getInstance().getAuction(player.getClan().getHasHideout()) != null))
 				{
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 					String filename = "data/html/auction/AgitSaleInfo.htm";
@@ -407,7 +407,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 					player.sendPacket(html);
 					return;
 				}
-				else if (player.getClan() != null && player.getClan().getHasHideout() != 0)
+				else if ((player.getClan() != null) && (player.getClan().getHasHideout() != 0))
 				{
 					int ItemId = player.getClan().getHasHideout();
 					String filename = "data/html/auction/AgitInfo.htm";
@@ -577,7 +577,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 
 	private int validateCondition(L2PcInstance player)
 	{
-		if (getCastle() != null && getCastle().getCastleId() > 0)
+		if ((getCastle() != null) && (getCastle().getCastleId() > 0))
 		{
 			if (getCastle().getSiege().getIsInProgress())
 				return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
@@ -593,30 +593,30 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 		String nearestTown;
 		switch (nearestTownId)
 		{
-		case 5:
-			nearestTown = "GLUDIO";
-			break;
-		case 6:
-			nearestTown = "GLUDIN";
-			break;
-		case 7:
-			nearestTown = "DION";
-			break;
-		case 8:
-			nearestTown = "GIRAN";
-			break;
-		case 14:
-			nearestTown = "RUNE";
-			break;
-		case 15:
-			nearestTown = "GODARD";
-			break;
-		case 16:
-			nearestTown = "SCHUTTGART";
-			break;
-		default:
-			nearestTown = "ADEN";
-		break;
+			case 5:
+				nearestTown = "GLUDIO";
+				break;
+			case 6:
+				nearestTown = "GLUDIN";
+				break;
+			case 7:
+				nearestTown = "DION";
+				break;
+			case 8:
+				nearestTown = "GIRAN";
+				break;
+			case 14:
+				nearestTown = "RUNE";
+				break;
+			case 15:
+				nearestTown = "GODARD";
+				break;
+			case 16:
+				nearestTown = "SCHUTTGART";
+				break;
+			default:
+				nearestTown = "ADEN";
+				break;
 		}
 		return nearestTown;
 	}

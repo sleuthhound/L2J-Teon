@@ -49,7 +49,7 @@ public class DungeonKeys implements IItemHandler
 			return;
 		}
 		L2DoorInstance door = (L2DoorInstance) target;
-		if (!activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false))
+		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)))
 		{
 			activeChar.sendMessage("Too far.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -66,89 +66,89 @@ public class DungeonKeys implements IItemHandler
 			return;
 		switch (itemId)
 		{
-		case 8056: // Gate of Splendor
-			if (door.getDoorName().startsWith("Gate_of_Splendor"))
-			{
-				if (Rnd.get(100) < openChance)
+			case 8056: // Gate of Splendor
+				if (door.getDoorName().startsWith("Gate_of_Splendor"))
 				{
-					activeChar.sendMessage("You opened Anterooms Door.");
-					door.openMe();
-					door.onOpen(); // Closes the door after 60sec
-				}
-			}
-			else
-			{
-			}
-			break;
-		case 8273: // AnteroomKey
-			if (door.getDoorName().startsWith("Anteroom"))
-			{
-				if (Rnd.get(100) < openChance)
-				{
-					activeChar.sendMessage("You opened Anterooms Door.");
-					door.openMe();
-					door.onOpen(); // Closes the door after 60sec
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					if (Rnd.get(100) < openChance)
+					{
+						activeChar.sendMessage("You opened Anterooms Door.");
+						door.openMe();
+						door.onOpen(); // Closes the door after 60sec
+					}
 				}
 				else
 				{
-					activeChar.sendMessage("You failed to open Anterooms Door.");
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
-					activeChar.sendPacket(playSound);
 				}
-			}
-			else
-			{
-				activeChar.sendMessage("Incorrect Door.");
-			}
-			break;
-		case 8274: // Chapel key, Chapel Door has a Gatekeeper?? I use this key for Altar Entrance
-			if (door.getDoorName().startsWith("Altar_Entrance"))
-			{
-				if (Rnd.get(100) < openChance)
+				break;
+			case 8273: // AnteroomKey
+				if (door.getDoorName().startsWith("Anteroom"))
 				{
-					activeChar.sendMessage("You opened Altar Entrance.");
-					door.openMe();
-					door.onOpen();
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					if (Rnd.get(100) < openChance)
+					{
+						activeChar.sendMessage("You opened Anterooms Door.");
+						door.openMe();
+						door.onOpen(); // Closes the door after 60sec
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					}
+					else
+					{
+						activeChar.sendMessage("You failed to open Anterooms Door.");
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
+						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+						activeChar.sendPacket(playSound);
+					}
 				}
 				else
 				{
-					activeChar.sendMessage("You failed to open Altar Entrance.");
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
-					activeChar.sendPacket(playSound);
+					activeChar.sendMessage("Incorrect Door.");
 				}
-			}
-			else
-			{
-				activeChar.sendMessage("Incorrect Door.");
-			}
-			break;
-		case 8275: // Key of Darkness
-			if (door.getDoorName().startsWith("Door_of_Darkness"))
-			{
-				if (Rnd.get(100) < openChance)
+				break;
+			case 8274: // Chapel key, Chapel Door has a Gatekeeper?? I use this key for Altar Entrance
+				if (door.getDoorName().startsWith("Altar_Entrance"))
 				{
-					activeChar.sendMessage("You opened Door of Darkness.");
-					door.openMe();
-					door.onOpen();
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					if (Rnd.get(100) < openChance)
+					{
+						activeChar.sendMessage("You opened Altar Entrance.");
+						door.openMe();
+						door.onOpen();
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					}
+					else
+					{
+						activeChar.sendMessage("You failed to open Altar Entrance.");
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
+						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+						activeChar.sendPacket(playSound);
+					}
 				}
 				else
 				{
-					activeChar.sendMessage("You failed to open Door of Darkness.");
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
-					activeChar.sendPacket(playSound);
+					activeChar.sendMessage("Incorrect Door.");
 				}
-			}
-			else
-			{
-				activeChar.sendMessage("Incorrect Door.");
-			}
-			break;
+				break;
+			case 8275: // Key of Darkness
+				if (door.getDoorName().startsWith("Door_of_Darkness"))
+				{
+					if (Rnd.get(100) < openChance)
+					{
+						activeChar.sendMessage("You opened Door of Darkness.");
+						door.openMe();
+						door.onOpen();
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					}
+					else
+					{
+						activeChar.sendMessage("You failed to open Door of Darkness.");
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
+						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+						activeChar.sendPacket(playSound);
+					}
+				}
+				else
+				{
+					activeChar.sendMessage("Incorrect Door.");
+				}
+				break;
 		}
 	}
 

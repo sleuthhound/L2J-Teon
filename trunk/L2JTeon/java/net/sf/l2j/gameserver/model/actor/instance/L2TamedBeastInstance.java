@@ -216,7 +216,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 	public void onOwnerGotAttacked(L2Character attacker)
 	{
 		// check if the owner is no longer around...if so, despawn
-		if (_owner == null || _owner.isOnline() == 0)
+		if ((_owner == null) || (_owner.isOnline() == 0))
 		{
 			doDespawn();
 			return;
@@ -246,7 +246,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			{
 				// if the skill is a debuff, check if the attacker has it
 				// already [ attacker.getEffect(L2Skill skill) ]
-				if (skill.getSkillType() == L2Skill.SkillType.DEBUFF && Rnd.get(3) < 1 && attacker.getFirstEffect(skill) != null)
+				if ((skill.getSkillType() == L2Skill.SkillType.DEBUFF) && (Rnd.get(3) < 1) && (attacker.getFirstEffect(skill) != null))
 				{
 					sitCastAndFollow(skill, attacker);
 				}
@@ -268,9 +268,9 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 			{
 				// if the skill is a buff, check if the owner has it already [
 				// owner.getEffect(L2Skill skill) ]
-				if (Rnd.get(5) < chance
-						&& (skill.getSkillType() == L2Skill.SkillType.HEAL || skill.getSkillType() == L2Skill.SkillType.HOT || skill.getSkillType() == L2Skill.SkillType.BALANCE_LIFE || skill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT || skill.getSkillType() == L2Skill.SkillType.HEAL_STATIC || skill.getSkillType() == L2Skill.SkillType.COMBATPOINTHEAL
-								|| skill.getSkillType() == L2Skill.SkillType.CPHOT || skill.getSkillType() == L2Skill.SkillType.MANAHEAL || skill.getSkillType() == L2Skill.SkillType.MANA_BY_LEVEL || skill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT || skill.getSkillType() == L2Skill.SkillType.MANARECHARGE || skill.getSkillType() == L2Skill.SkillType.MPHOT))
+				if ((Rnd.get(5) < chance)
+						&& ((skill.getSkillType() == L2Skill.SkillType.HEAL) || (skill.getSkillType() == L2Skill.SkillType.HOT) || (skill.getSkillType() == L2Skill.SkillType.BALANCE_LIFE) || (skill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT) || (skill.getSkillType() == L2Skill.SkillType.HEAL_STATIC) || (skill.getSkillType() == L2Skill.SkillType.COMBATPOINTHEAL)
+								|| (skill.getSkillType() == L2Skill.SkillType.CPHOT) || (skill.getSkillType() == L2Skill.SkillType.MANAHEAL) || (skill.getSkillType() == L2Skill.SkillType.MANA_BY_LEVEL) || (skill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) || (skill.getSkillType() == L2Skill.SkillType.MANARECHARGE) || (skill.getSkillType() == L2Skill.SkillType.MPHOT)))
 				{
 					sitCastAndFollow(skill, _owner);
 					return;
@@ -320,7 +320,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 				item = owner.getInventory().getItemByItemId(6644);
 			// if the owner has enough food, call the item handler (use the
 			// food and triffer all necessary actions)
-			if (item != null && item.getCount() >= 1)
+			if ((item != null) && (item.getCount() >= 1))
 			{
 				L2Object oldTarget = owner.getTarget();
 				owner.setTarget(_tamedBeast);
@@ -363,7 +363,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
 		{
 			L2PcInstance owner = _tamedBeast.getOwner();
 			// check if the owner is no longer around...if so, despawn
-			if (owner == null || owner.isOnline() == 0)
+			if ((owner == null) || (owner.isOnline() == 0))
 			{
 				doDespawn();
 				return;

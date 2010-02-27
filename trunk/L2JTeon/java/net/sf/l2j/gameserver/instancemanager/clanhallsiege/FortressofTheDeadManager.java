@@ -90,12 +90,12 @@ public class FortressofTheDeadManager extends ClanHallSiege
 				endSiege(false);
 				return;
 			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() == null)
+			if ((_clansInfo.size() == 1) && (clanhall.getOwnerClan() == null))
 			{
 				endSiege(false);
 				return;
 			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
+			if ((_clansInfo.size() == 1) && (clanhall.getOwnerClan() != null))
 			{
 				L2Clan clan = null;
 				for (clansInfo a : _clansInfo.values())

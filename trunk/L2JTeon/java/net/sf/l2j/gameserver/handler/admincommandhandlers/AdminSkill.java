@@ -90,7 +90,7 @@ public class AdminSkill implements IAdminCommandHandler
 			try
 			{
 				String val = command.substring(15);
-				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+				if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
 				{
 					adminAddSkill(activeChar, val);
 				}
@@ -106,7 +106,7 @@ public class AdminSkill implements IAdminCommandHandler
 			{
 				String id = command.substring(19);
 				int idval = Integer.parseInt(id);
-				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+				if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
 				{
 					adminRemoveSkill(activeChar, idval);
 				}
@@ -122,14 +122,14 @@ public class AdminSkill implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_reset_skills"))
 		{
-			if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+			if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
 			{
 				adminResetSkills(activeChar);
 			}
 		}
 		else if (command.equals("admin_give_all_skills"))
 		{
-			if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+			if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
 			{
 				adminGiveAllSkills(activeChar);
 			}
@@ -153,7 +153,7 @@ public class AdminSkill implements IAdminCommandHandler
 			try
 			{
 				String[] val = command.split(" ");
-				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+				if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
 				{
 					adminAddClanSkill(activeChar, Integer.parseInt(val[1]), Integer.parseInt(val[2]));
 				}
@@ -194,7 +194,7 @@ public class AdminSkill implements IAdminCommandHandler
 			for (L2SkillLearn s : skills)
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-				if (sk == null || !sk.getCanLearn(player.getClassId()))
+				if ((sk == null) || !sk.getCanLearn(player.getClassId()))
 				{
 					if (countUnlearnable)
 					{
@@ -503,7 +503,7 @@ public class AdminSkill implements IAdminCommandHandler
 			showMainPage(activeChar);
 			return;
 		}
-		if (id < 370 || id > 391 || level < 1 || level > 3)
+		if ((id < 370) || (id > 391) || (level < 1) || (level > 3))
 		{
 			activeChar.sendMessage("Usage: //add_clan_skill <skill_id> <level>");
 			showMainPage(activeChar);

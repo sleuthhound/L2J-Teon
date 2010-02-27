@@ -101,14 +101,14 @@ final class EffectSignetMDam extends L2Effect
 		{
 			switch (weaponInst.getChargedSpiritshot())
 			{
-			case L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT:
-				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				bss = true;
-				break;
-			case L2ItemInstance.CHARGED_SPIRITSHOT:
-				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-				ss = true;
-				break;
+				case L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT:
+					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+					bss = true;
+					break;
+				case L2ItemInstance.CHARGED_SPIRITSHOT:
+					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+					ss = true;
+					break;
 			}
 		}
 		// if (!bss && !ss)

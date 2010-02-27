@@ -39,7 +39,7 @@ public final class RequestRecipeShopListSet extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_count = readD();
-		if (_count < 0 || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if ((_count < 0) || (_count * 8 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 			_count = 0;
 		_items = new int[_count * 2];
 		for (int x = 0; x < _count; x++)

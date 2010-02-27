@@ -62,7 +62,7 @@ public class Sweep implements ISkillHandler
 			}
 			if (isSweeping)
 			{
-				if (items == null || items.length == 0)
+				if ((items == null) || (items.length == 0))
 					continue;
 				for (L2Attackable.RewardItem ritem : items)
 				{

@@ -112,7 +112,7 @@ public final class L2MercManagerInstance extends L2FolkInstance
 		if (Config.DEBUG)
 			_log.fine("Showing buylist");
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
-		if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
+		if ((list != null) && list.getNpcId().equals(String.valueOf(getNpcId())))
 		{
 			BuyList bl = new BuyList(list, player.getAdena(), 0);
 			player.sendPacket(bl);
@@ -147,15 +147,15 @@ public final class L2MercManagerInstance extends L2FolkInstance
 
 	private int validateCondition(L2PcInstance player)
 	{
-		if (getCastle() != null && getCastle().getCastleId() > 0)
+		if ((getCastle() != null) && (getCastle().getCastleId() > 0))
 		{
 			if (player.getClan() != null)
 			{
 				if (getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
 				else if (getCastle().getOwnerId() == player.getClanId()) // Clan
-					// owns
-					// castle
+				// owns
+				// castle
 				{
 					if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES)
 						return COND_OWNER;

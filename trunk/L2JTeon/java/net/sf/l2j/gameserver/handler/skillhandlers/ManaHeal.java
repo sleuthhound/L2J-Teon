@@ -48,39 +48,39 @@ public class ManaHeal implements ISkillHandler
 	 */
 	public void useSkill(L2Character actChar, L2Skill skill, L2Object[] targets)
 	{
-		L2Character target = null;
+        L2Character target = null;
 
-		for (L2Object target2 : targets) {
-			target = (L2Character)target2;
-			double mp = skill.getPower();
-			if (skill.getSkillType() == SkillType.MANAHEAL_PERCENT){
-				//double mp = skill.getPower();
-				mp = target.getMaxMp() * mp / 100.0;
-			}
-			else {
-				mp = skill.getSkillType() == SkillType.MANARECHARGE ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
-			}
+        for (L2Object target2 : targets) {
+            target = (L2Character)target2;
+            double mp = skill.getPower();
+            if (skill.getSkillType() == SkillType.MANAHEAL_PERCENT){
+            	//double mp = skill.getPower();
+             mp = target.getMaxMp() * mp / 100.0;
+            }
+            else {
+             mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
+            }
 			//int cLev = activeChar.getLevel();
 			//hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
-			target.setLastHealAmount((int)mp);
+            target.setLastHealAmount((int)mp);
 			target.setCurrentMp(mp+target.getCurrentMp());
 			StatusUpdate sump = new StatusUpdate(target.getObjectId());
 			sump.addAttribute(StatusUpdate.CUR_MP, (int)target.getCurrentMp());
 			target.sendPacket(sump);
 
-			if (actChar instanceof L2PcInstance && actChar != target)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1);
-				sm.addString(actChar.getName());
-				sm.addNumber((int)mp);
-				target.sendPacket(sm);
-			}
-			else
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_MP_RESTORED);
-				sm.addNumber((int)mp);
-				target.sendPacket(sm);
-			}
+            if (actChar instanceof L2PcInstance && actChar != target)
+            {
+                SystemMessage sm = new SystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1);
+                sm.addString(actChar.getName());
+                sm.addNumber((int)mp);
+                target.sendPacket(sm);
+            }
+            else
+            {
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_MP_RESTORED);
+                sm.addNumber((int)mp);
+                target.sendPacket(sm);
+            }
 		}
 	}
 

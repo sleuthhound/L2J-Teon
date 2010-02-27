@@ -59,7 +59,7 @@ public final class L2TownPetInstance extends L2Attackable
 	@Override
 	public final TownPetKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof TownPetKnownList))
+		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof TownPetKnownList))
 		{
 			setKnownList(new TownPetKnownList(this));
 		}
@@ -128,7 +128,7 @@ public final class L2TownPetInstance extends L2Attackable
 		// check the region where this mob is, do not activate the AI if region
 		// is inactive.
 		L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
-		if (region != null && !region.isActive())
+		if ((region != null) && !region.isActive())
 		{
 			((L2AttackableAI) getAI()).stopAITask();
 		}

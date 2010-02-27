@@ -133,7 +133,7 @@ public final class L2ItemInstance extends L2Object
 		super.setKnownList(new NullKnownList(this));
 		_itemId = itemId;
 		_item = ItemTable.getInstance().getTemplate(itemId);
-		if (_itemId == 0 || _item == null)
+		if ((_itemId == 0) || (_item == null))
 		{
 			throw new IllegalArgumentException();
 		}
@@ -161,7 +161,7 @@ public final class L2ItemInstance extends L2Object
 		super.setKnownList(new NullKnownList(this));
 		_itemId = item.getItemId();
 		_item = item;
-		if (_itemId == 0 || _item == null)
+		if ((_itemId == 0) || (_item == null))
 		{
 			throw new IllegalArgumentException();
 		}
@@ -245,7 +245,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public void setLocation(ItemLocation loc, int loc_data)
 	{
-		if (loc == _loc && loc_data == _locData)
+		if ((loc == _loc) && (loc_data == _locData))
 		{
 			return;
 		}
@@ -289,7 +289,7 @@ public final class L2ItemInstance extends L2Object
 		{
 			return;
 		}
-		if (count > 0 && _count > Integer.MAX_VALUE - count)
+		if ((count > 0) && (_count > Integer.MAX_VALUE - count))
 		{
 			_count = Integer.MAX_VALUE;
 		}
@@ -318,7 +318,7 @@ public final class L2ItemInstance extends L2Object
 		{
 			return;
 		}
-		if (count > 0 && _count > Integer.MAX_VALUE - count)
+		if ((count > 0) && (_count > Integer.MAX_VALUE - count))
 		{
 			_count = Integer.MAX_VALUE;
 		}
@@ -358,7 +358,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public boolean isEquipable()
 	{
-		return !(_item.getBodyPart() == 0 || _item instanceof L2EtcItem);
+		return !((_item.getBodyPart() == 0) || (_item instanceof L2EtcItem));
 	}
 
 	/**
@@ -368,7 +368,7 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public boolean isEquipped()
 	{
-		return _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP;
+		return (_loc == ItemLocation.PAPERDOLL) || (_loc == ItemLocation.PET_EQUIP);
 	}
 
 	/**
@@ -380,7 +380,7 @@ public final class L2ItemInstance extends L2Object
 	{
 		if (Config.ASSERT)
 		{
-			assert _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP || _loc == ItemLocation.FREIGHT;
+			assert (_loc == ItemLocation.PAPERDOLL) || (_loc == ItemLocation.PET_EQUIP) || (_loc == ItemLocation.FREIGHT);
 		}
 		return _locData;
 	}
@@ -427,7 +427,7 @@ public final class L2ItemInstance extends L2Object
 
 	public boolean isCupidBow()
 	{
-		if (getItemId() == 9140 || getItemId() == 9141)
+		if ((getItemId() == 9140) || (getItemId() == 9141))
 		{
 			return true;
 		}
@@ -704,18 +704,18 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public boolean isAvailable(L2PcInstance player, boolean allowAdena, boolean Adventurer)
 	{
-		return !isEquipped() && getItem().getType2() != 3 && (getItem().getType2() != 4 || getItem().getType1() != 1) // TODO:
-		// what
-		// does
-		// this
-		// mean?
-		&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not
-		// Control
-		// item
-		// of
-		// currently
-		// summoned pet
-		&& player.getActiveEnchantItem() != this && (allowAdena || getItemId() != 57) && (getItemId() < 7816 || getItemId() > 7833 || Adventurer) && (player.getCurrentSkill() == null || player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId()) && isTradeable();
+		return !isEquipped() && (getItem().getType2() != 3) && ((getItem().getType2() != 4) || (getItem().getType1() != 1)) // TODO:
+				// what
+				// does
+				// this
+				// mean?
+				&& ((player.getPet() == null) || (getObjectId() != player.getPet().getControlItemId())) // Not
+				// Control
+				// item
+				// of
+				// currently
+				// summoned pet
+				&& (player.getActiveEnchantItem() != this) && (allowAdena || (getItemId() != 57)) && ((getItemId() < 7816) || (getItemId() > 7833) || Adventurer) && ((player.getCurrentSkill() == null) || (player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId())) && isTradeable();
 	}
 
 	/*
@@ -737,7 +737,7 @@ public final class L2ItemInstance extends L2Object
 				player.sendMessage("You cannot pickup mercenaries while in a party.");
 				canPickup = false;
 			}
-			else if (player.getClan() == null || CastleManager.getInstance().getCastleByOwner(player.getClan()).getCastleId() != castleId)
+			else if ((player.getClan() == null) || (CastleManager.getInstance().getCastleByOwner(player.getClan()).getCastleId() != castleId))
 			{
 				player.sendMessage("Only the castle owners can pickup mercenaries.");
 				canPickup = false;
@@ -939,21 +939,21 @@ public final class L2ItemInstance extends L2Object
 			SystemMessage sm;
 			switch (_mana)
 			{
-			case 10:
-				sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_10);
-				sm.addString(getItemName());
-				player.sendPacket(sm);
-				break;
-			case 5:
-				sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_5);
-				sm.addString(getItemName());
-				player.sendPacket(sm);
-				break;
-			case 1:
-				sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_1);
-				sm.addString(getItemName());
-				player.sendPacket(sm);
-				break;
+				case 10:
+					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_10);
+					sm.addString(getItemName());
+					player.sendPacket(sm);
+					break;
+				case 5:
+					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_5);
+					sm.addString(getItemName());
+					player.sendPacket(sm);
+					break;
+				case 1:
+					sm = new SystemMessage(SystemMessageId.S1S_REMAINING_MANA_IS_NOW_1);
+					sm.addString(getItemName());
+					player.sendPacket(sm);
+					break;
 			}
 			if (_mana == 0) // The life time has expired
 			{
@@ -1116,7 +1116,7 @@ public final class L2ItemInstance extends L2Object
 		}
 		if (_existsInDb)
 		{
-			if (_ownerId == 0 || _loc == ItemLocation.VOID || _count == 0 && _loc != ItemLocation.LEASE)
+			if ((_ownerId == 0) || (_loc == ItemLocation.VOID) || ((_count == 0) && (_loc != ItemLocation.LEASE)))
 			{
 				removeFromDb();
 			}
@@ -1127,11 +1127,11 @@ public final class L2ItemInstance extends L2Object
 		}
 		else
 		{
-			if (_count == 0 && _loc != ItemLocation.LEASE)
+			if ((_count == 0) && (_loc != ItemLocation.LEASE))
 			{
 				return;
 			}
-			if (_loc == ItemLocation.VOID || _ownerId == 0)
+			if ((_loc == ItemLocation.VOID) || (_ownerId == 0))
 			{
 				return;
 			}
@@ -1212,7 +1212,7 @@ public final class L2ItemInstance extends L2Object
 				// Setup life time for shadow weapons
 				inst._mana = manaLeft;
 				// consume 1 mana
-				if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
+				if ((inst._mana > 0) && (inst.getLocation() == ItemLocation.PAPERDOLL))
 				{
 					inst.decreaseMana(false);
 				}
@@ -1224,7 +1224,7 @@ public final class L2ItemInstance extends L2Object
 					statement.close();
 					return null;
 				}
-				else if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
+				else if ((inst._mana > 0) && (inst.getLocation() == ItemLocation.PAPERDOLL))
 				{
 					inst.scheduleConsumeManaTask();
 				}
@@ -1360,7 +1360,7 @@ public final class L2ItemInstance extends L2Object
 		if (_wear)
 			return;
 		if (Config.ASSERT)
-			assert !_existsInDb && getObjectId() != 0;
+			assert !_existsInDb && (getObjectId() != 0);
 		java.sql.Connection con = null;
 		try
 		{
@@ -1482,7 +1482,7 @@ public final class L2ItemInstance extends L2Object
 
 	public boolean isNightLure()
 	{
-		return _itemId >= 8505 && _itemId <= 8513 || _itemId == 8485;
+		return ((_itemId >= 8505) && (_itemId <= 8513)) || (_itemId == 8485);
 	}
 
 	public void setCountDecrease(boolean decrease)

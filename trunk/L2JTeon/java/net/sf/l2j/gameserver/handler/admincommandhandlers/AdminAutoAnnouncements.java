@@ -98,6 +98,6 @@ public class AdminAutoAnnouncements implements IAdminCommandHandler
 
 	private boolean checkLevel(int level)
 	{
-		return level >= REQUIRED_LEVEL;
+		return (level >= REQUIRED_LEVEL);
 	}
 }

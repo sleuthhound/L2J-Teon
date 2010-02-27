@@ -80,17 +80,17 @@ public class L2SummonInstance extends L2Summon
 		// When no item consume is defined task only need to check when summon life time has ended.
 		// Otherwise have to destroy items from owner's inventory in order to let summon live.
 		int delay = 1000;
-		if (Config.DEBUG && _itemConsumeCount != 0)
+		if (Config.DEBUG && (_itemConsumeCount != 0))
 			_log.warning("L2SummonInstance: Item Consume ID: " + _itemConsumeId + ", Count: " + _itemConsumeCount + ", Rate: " + _itemConsumeSteps + " times.");
 		if (Config.DEBUG)
-			_log.warning("L2SummonInstance: Task Delay " + delay / 1000 + " seconds.");
+			_log.warning("L2SummonInstance: Task Delay " + (delay / 1000) + " seconds.");
 		_summonLifeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new SummonLifetime(getOwner(), this), delay, delay);
 	}
 
 	@Override
 	public final int getLevel()
 	{
-		return getTemplate() != null ? getTemplate().level : 0;
+		return (getTemplate() != null ? getTemplate().level : 0);
 	}
 
 	@Override
@@ -239,7 +239,7 @@ public class L2SummonInstance extends L2Summon
 					_summon.unSummon(_activeChar);
 				}
 				// check if it is time to consume another item
-				else if (newTimeRemaining <= _summon.getNextItemConsumeTime() && oldTimeRemaining > _summon.getNextItemConsumeTime())
+				else if ((newTimeRemaining <= _summon.getNextItemConsumeTime()) && (oldTimeRemaining > _summon.getNextItemConsumeTime()))
 				{
 					_summon.decNextItemConsumeTime(maxTime / (_summon.getItemConsumeSteps() + 1));
 					// check if owner has enought itemConsume, if requested
@@ -249,7 +249,7 @@ public class L2SummonInstance extends L2Summon
 					}
 				}
 				// prevent useless packet-sending when the difference isn't visible.
-				if (_summon.lastShowntimeRemaining - newTimeRemaining > maxTime / 352)
+				if ((_summon.lastShowntimeRemaining - newTimeRemaining) > maxTime / 352)
 				{
 					_summon.getOwner().sendPacket(new SetSummonRemainTime(maxTime, (int) newTimeRemaining));
 					_summon.lastShowntimeRemaining = (int) newTimeRemaining;

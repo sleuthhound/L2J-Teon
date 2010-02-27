@@ -107,9 +107,9 @@ public class CoupleManager
 
 	public void createCouple(L2PcInstance player1, L2PcInstance player2)
 	{
-		if (player1 != null && player2 != null)
+		if ((player1 != null) && (player2 != null))
 		{
-			if (player1.getPartnerId() == 0 && player2.getPartnerId() == 0)
+			if ((player1.getPartnerId() == 0) && (player2.getPartnerId() == 0))
 			{
 				int _player1id = player1.getObjectId();
 				int _player2id = player2.getObjectId();
@@ -138,12 +138,12 @@ public class CoupleManager
 				player1.setMaried(false);
 				player1.setCoupleId(0);
 				item = player1.getInventory().getItemByItemId(9140);
-				if (player1.isOnline() == 1 && item != null)
+				if ((player1.isOnline() == 1) && (item != null))
 				{
 					player1.destroyItem("Removing Cupids Bow", item, player1, true);
 					player1.getInventory().updateDatabase();
 				}
-				if (player1.isOnline() == 0 && item != null)
+				if ((player1.isOnline() == 0) && (item != null))
 				{
 					Integer PlayerId = player1.getObjectId();
 					Integer ItemId = 9140;
@@ -178,12 +178,12 @@ public class CoupleManager
 				player2.setMaried(false);
 				player2.setCoupleId(0);
 				item = player2.getInventory().getItemByItemId(9140);
-				if (player2.isOnline() == 1 && item != null)
+				if ((player2.isOnline() == 1) && (item != null))
 				{
 					player2.destroyItem("Removing Cupids Bow", item, player2, true);
 					player2.getInventory().updateDatabase();
 				}
-				if (player2.isOnline() == 0 && item != null)
+				if ((player2.isOnline() == 0) && (item != null))
 				{
 					Integer Player2Id = player2.getObjectId();
 					Integer Item2Id = 9140;
@@ -222,7 +222,7 @@ public class CoupleManager
 		int i = 0;
 		for (Couple temp : getCouples())
 		{
-			if (temp != null && temp.getId() == coupleId)
+			if ((temp != null) && (temp.getId() == coupleId))
 				return i;
 			i++;
 		}

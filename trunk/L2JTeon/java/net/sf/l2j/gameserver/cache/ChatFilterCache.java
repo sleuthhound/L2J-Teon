@@ -211,7 +211,7 @@ public class ChatFilterCache
 	private String filterIt(String text)
 	{
 		if (!Config.USE_POWERFULL_CHAT_FILTER)
-			// simple chat filter method
+		// simple chat filter method
 		{
 			for (String element : _wordsCache)
 				text = text.replaceAll(element, Config.CHAT_FILTER_CHARS);

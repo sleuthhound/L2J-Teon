@@ -61,38 +61,38 @@ public final class L2TeleporterInstance extends L2FolkInstance
 			int npcId = getTemplate().npcId;
 			switch (npcId)
 			{
-			case 31095: //
-			case 31096: //
-			case 31097: //
-			case 31098: // Enter Necropolises
-			case 31099: //
-			case 31100: //
-			case 31101: //
-			case 31102: //
-			case 31114: //
-			case 31115: //
-			case 31116: // Enter Catacombs
-			case 31117: //
-			case 31118: //
-			case 31119: //
-				player.setIsIn7sDungeon(true);
-				break;
-			case 31103: //
-			case 31104: //
-			case 31105: //
-			case 31106: // Exit Necropolises
-			case 31107: //
-			case 31108: //
-			case 31109: //
-			case 31110: //
-			case 31120: //
-			case 31121: //
-			case 31122: // Exit Catacombs
-			case 31123: //
-			case 31124: //
-			case 31125: //
-				player.setIsIn7sDungeon(false);
-				break;
+				case 31095: //
+				case 31096: //
+				case 31097: //
+				case 31098: // Enter Necropolises
+				case 31099: //
+				case 31100: //
+				case 31101: //
+				case 31102: //
+				case 31114: //
+				case 31115: //
+				case 31116: // Enter Catacombs
+				case 31117: //
+				case 31118: //
+				case 31119: //
+					player.setIsIn7sDungeon(true);
+					break;
+				case 31103: //
+				case 31104: //
+				case 31105: //
+				case 31106: // Exit Necropolises
+				case 31107: //
+				case 31108: //
+				case 31109: //
+				case 31110: //
+				case 31120: //
+				case 31121: //
+				case 31122: // Exit Catacombs
+				case 31123: //
+				case 31124: //
+				case 31125: //
+					player.setIsIn7sDungeon(false);
+					break;
 			}
 			if (st.countTokens() <= 0)
 			{
@@ -179,7 +179,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 				player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
 				return;
 			}
-			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_GK && player.getKarma() > 0) // karma
+			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_GK && (player.getKarma() > 0)) // karma
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 				sm.addString("Go away, you're not welcome here.");

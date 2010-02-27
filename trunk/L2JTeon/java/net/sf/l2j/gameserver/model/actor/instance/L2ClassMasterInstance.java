@@ -63,21 +63,21 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		ClassLevel lvl = PlayerClass.values()[classId.getId()].getLevel();
 		switch (lvl)
 		{
-		case First:
-			jobLevel = 1;
-			break;
-		case Second:
-			jobLevel = 2;
-			break;
-		case Third:
-			jobLevel = 3;
-			break;
-		default:
-			jobLevel = 4;
+			case First:
+				jobLevel = 1;
+				break;
+			case Second:
+				jobLevel = 2;
+				break;
+			case Third:
+				jobLevel = 3;
+				break;
+			default:
+				jobLevel = 4;
 		}
 		if (player.isGM())
 			showChatWindowChooseClass(player);
-		else if ((level >= 20 && jobLevel == 1 || level >= 40 && jobLevel == 2) && Config.ALLOW_CLASS_MASTERS)
+		else if (((level >= 20 && jobLevel == 1) || (level >= 40 && jobLevel == 2)) && Config.ALLOW_CLASS_MASTERS)
 			showChatWindow(player, classId.getId());
 		else if (level >= 76 && Config.ALLOW_CLASS_MASTERS && classId.getId() < 88)
 		{
@@ -106,15 +106,15 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			sb.append("<html><body>");
 			switch (jobLevel)
 			{
-			case 1:
-				sb.append("Come back here when you reach level 20 to change your class.<br>");
-				break;
-			case 2:
-				sb.append("Come back here when you reach level 40 to change your class.<br>");
-				break;
-			case 3:
-				sb.append("There are no more class changes for you.<br>");
-				break;
+				case 1:
+					sb.append("Come back here when you reach level 20 to change your class.<br>");
+					break;
+				case 2:
+					sb.append("Come back here when you reach level 40 to change your class.<br>");
+					break;
+				case 3:
+					sb.append("There are no more class changes for you.<br>");
+					break;
 			}
 			for (Quest q : Quest.findAllEvents())
 				sb.append("Event: <a action=\"bypass -h Quest " + q.getName() + "\">" + q.getDescr() + "</a><br>");
@@ -190,34 +190,34 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			}
 			switch (lvlnow)
 			{
-			case First:
-				jobLevel = 1;
-				break;
-			case Second:
-				jobLevel = 2;
-				break;
-			case Third:
-				jobLevel = 3;
-				break;
-			default:
-				jobLevel = 4;
+				case First:
+					jobLevel = 1;
+					break;
+				case Second:
+					jobLevel = 2;
+					break;
+				case Third:
+					jobLevel = 3;
+					break;
+				default:
+					jobLevel = 4;
 			}
 			if (jobLevel == 4)
 				return; // no more job changes
 			ClassLevel lvlnext = PlayerClass.values()[val].getLevel();
 			switch (lvlnext)
 			{
-			case First:
-				newJobLevel = 1;
-				break;
-			case Second:
-				newJobLevel = 2;
-				break;
-			case Third:
-				newJobLevel = 3;
-				break;
-			default:
-				newJobLevel = 4;
+				case First:
+					newJobLevel = 1;
+					break;
+				case Second:
+					newJobLevel = 2;
+					break;
+				case Third:
+					newJobLevel = 3;
+					break;
+				default:
+					newJobLevel = 4;
 			}
 			// prevents changing between same level jobs
 			if (newJobLevel != jobLevel + 1)

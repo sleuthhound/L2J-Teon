@@ -89,91 +89,91 @@ public class L2EventManagerInstance extends L2NpcInstance
 				// If the player has passed the checks, then continue.
 				switch (type)
 				{
-				// Case Clan Events.
-				case 2:
-				{
-					if (player.getClan() == null)
+					// Case Clan Events.
+					case 2:
 					{
-						player.sendMessage("You Don't have a Clan!");
-						return;
+						if (player.getClan() == null)
+						{
+							player.sendMessage("You Don't have a Clan!");
+							return;
+						}
+						L2PcInstance[] onlineclanMembers = player.getClan().getOnlineMembers("");
+						for (L2PcInstance member : onlineclanMembers)
+						{
+							boolean eligible = true;
+							if (member == null)
+								continue;
+							if (!L2EventChecks.usualChecks(member, minLevel))
+								eligible = false;
+							if (eligible && !_finalPlayers.contains(member))
+								_finalPlayers.add(member);
+						}
+						if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
+						{
+							player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
+							_awaitingplayers.add(player);
+							ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName() + " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?");
+							player.sendPacket(dlg);
+							// player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?"));
+						}
+						else
+						{
+							String reason;
+							if (_finalPlayers.size() > 1)
+								reason = ": Only 1 Clan Member Online.";
+							else if (_finalPlayers.size() < minPeople)
+								reason = ": Not enough members online to participate.";
+							else
+								reason = ".";
+							player.sendMessage("Cannot participate" + reason);
+						}
+						break;
 					}
-					L2PcInstance[] onlineclanMembers = player.getClan().getOnlineMembers("");
-					for (L2PcInstance member : onlineclanMembers)
+						// Case Party Events.
+					case 3:
 					{
-						boolean eligible = true;
-						if (member == null)
-							continue;
-						if (!L2EventChecks.usualChecks(member, minLevel))
-							eligible = false;
-						if (eligible && !_finalPlayers.contains(member))
-							_finalPlayers.add(member);
+						if (player.getParty() == null)
+						{
+							player.sendMessage("You DON'T have a Party!");
+							return;
+						}
+						List<L2PcInstance> partyMembers = player.getParty().getPartyMembers();
+						for (L2PcInstance member : partyMembers)
+						{
+							boolean eligible = true;
+							if (member == null)
+								continue;
+							if (!L2EventChecks.usualChecks(member, minLevel))
+								eligible = false;
+							if (eligible && !_finalPlayers.contains(member))
+								_finalPlayers.add(member);
+						}
+						if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
+						{
+							player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
+							_awaitingplayers.add(player);
+							ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName() + " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?");
+							player.sendPacket(dlg);
+							// player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?"));
+						}
+						else
+						{
+							String reason;
+							if (_finalPlayers.size() > 1)
+								reason = ": Only 1 Party Member.";
+							else if (_finalPlayers.size() < minPeople)
+								reason = ": Not enough members to participate.";
+							else
+								reason = ".";
+							player.sendMessage("Cannot participate" + reason);
+						}
+						break;
 					}
-					if (_finalPlayers.size() > 1 && _finalPlayers.size() >= minPeople)
+					default:
 					{
 						player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
-						_awaitingplayers.add(player);
-						ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName() + " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?");
-						player.sendPacket(dlg);
-						// player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + " clan are Eligible for the event. Do you want to continue?"));
+						player.setRaidAnswear(1);
 					}
-					else
-					{
-						String reason;
-						if (_finalPlayers.size() > 1)
-							reason = ": Only 1 Clan Member Online.";
-						else if (_finalPlayers.size() < minPeople)
-							reason = ": Not enough members online to participate.";
-						else
-							reason = ".";
-						player.sendMessage("Cannot participate" + reason);
-					}
-					break;
-				}
-				// Case Party Events.
-				case 3:
-				{
-					if (player.getParty() == null)
-					{
-						player.sendMessage("You DON'T have a Party!");
-						return;
-					}
-					List<L2PcInstance> partyMembers = player.getParty().getPartyMembers();
-					for (L2PcInstance member : partyMembers)
-					{
-						boolean eligible = true;
-						if (member == null)
-							continue;
-						if (!L2EventChecks.usualChecks(member, minLevel))
-							eligible = false;
-						if (eligible && !_finalPlayers.contains(member))
-							_finalPlayers.add(member);
-					}
-					if (_finalPlayers.size() > 1 && _finalPlayers.size() >= minPeople)
-					{
-						player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
-						_awaitingplayers.add(player);
-						ConfirmDlg dlg = new ConfirmDlg(614).addString(player.getName() + " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?");
-						player.sendPacket(dlg);
-						// player.sendPacket(new ConfirmDlg(614, " A total of " + _finalPlayers.size() + " members of your " + "party are Eligible for the event. Do you want to continue?"));
-					}
-					else
-					{
-						String reason;
-						if (_finalPlayers.size() > 1)
-							reason = ": Only 1 Party Member.";
-						else if (_finalPlayers.size() < minPeople)
-							reason = ": Not enough members to participate.";
-						else
-							reason = ".";
-						player.sendMessage("Cannot participate" + reason);
-					}
-					break;
-				}
-				default:
-				{
-					player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
-					player.setRaidAnswear(1);
-				}
 				}
 				return;
 			}

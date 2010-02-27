@@ -41,10 +41,10 @@ public abstract class L2ObjectSet<T extends L2Object> implements Iterable<T>
 	{
 		switch (Config.SET_TYPE)
 		{
-		case WorldObjectSet:
-			return new WorldObjectSet<L2Object>();
-		default:
-			return new L2ObjectHashSet<L2Object>();
+			case WorldObjectSet:
+				return new WorldObjectSet<L2Object>();
+			default:
+				return new L2ObjectHashSet<L2Object>();
 		}
 	}
 
@@ -52,10 +52,10 @@ public abstract class L2ObjectSet<T extends L2Object> implements Iterable<T>
 	{
 		switch (Config.SET_TYPE)
 		{
-		case WorldObjectSet:
-			return new WorldObjectSet<L2PlayableInstance>();
-		default:
-			return new L2ObjectHashSet<L2PlayableInstance>();
+			case WorldObjectSet:
+				return new WorldObjectSet<L2PlayableInstance>();
+			default:
+				return new L2ObjectHashSet<L2PlayableInstance>();
 		}
 	}
 

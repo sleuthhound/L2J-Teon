@@ -123,7 +123,7 @@ public class L2SkillSummon extends L2Skill
 					{
 						mastery = 0;
 					}
-					if (mastery == 0 && player.getCubics().size() > 0)
+					if ((mastery == 0) && (player.getCubics().size() > 0))
 					{
 						// Player can have only 1 cubic - we shuld replace old
 						// cubic with new one
@@ -151,7 +151,7 @@ public class L2SkillSummon extends L2Skill
 				return;
 			}
 			else
-				// normal cubic skill
+			// normal cubic skill
 			{
 				int mastery = activeChar.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
 				if (mastery < 0)
@@ -177,7 +177,7 @@ public class L2SkillSummon extends L2Skill
 				return;
 			}
 		}
-		if (activeChar.getPet() != null || activeChar.isMounted())
+		if ((activeChar.getPet() != null) || activeChar.isMounted())
 		{
 			if (Config.DEBUG)
 			{

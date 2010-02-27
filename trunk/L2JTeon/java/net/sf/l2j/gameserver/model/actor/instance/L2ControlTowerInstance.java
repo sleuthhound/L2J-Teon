@@ -40,14 +40,14 @@ public class L2ControlTowerInstance extends L2NpcInstance
 	public boolean isAttackable()
 	{
 		// Attackable during siege by attacker only
-		return getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress();
+		return (getCastle() != null) && (getCastle().getCastleId() > 0) && getCastle().getSiege().getIsInProgress();
 	}
 
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
 		// Attackable during siege by attacker only
-		return attacker != null && attacker instanceof L2PcInstance && getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress() && getCastle().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan());
+		return (attacker != null) && (attacker instanceof L2PcInstance) && (getCastle() != null) && (getCastle().getCastleId() > 0) && getCastle().getSiege().getIsInProgress() && getCastle().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan());
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class L2ControlTowerInstance extends L2NpcInstance
 		if (getCastle().getSiege().getIsInProgress())
 		{
 			getCastle().getSiege().killedCT(this);
-			if (getGuards() != null && getGuards().size() > 0)
+			if ((getGuards() != null) && (getGuards().size() > 0))
 			{
 				for (L2Spawn spawn : getGuards())
 				{

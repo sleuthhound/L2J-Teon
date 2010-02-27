@@ -51,7 +51,7 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 		{
 			return;
 		}
-		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null && !activeChar.isDead())
+		if ((activeChar.getPrivateStoreType() == 0) && (activeChar.getActiveRequester() == null) && !activeChar.isDead())
 		{
 			if (Config.DEBUG)
 			{
@@ -63,10 +63,10 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 				if (_type == 1)
 				{
 					// Fishingshots are not automatic on retail
-					if (_itemId < 6535 || _itemId > 6540)
+					if ((_itemId < 6535) || (_itemId > 6540))
 					{
 						// Attempt to charge first shot on activation
-						if (_itemId == 6645 || _itemId == 6646 || _itemId == 6647)
+						if ((_itemId == 6645) || (_itemId == 6646) || (_itemId == 6647))
 						{
 							activeChar.addAutoSoulShot(_itemId);
 							ExAutoSoulShot atk = new ExAutoSoulShot(_itemId, _type);
@@ -80,9 +80,9 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 						}
 						else
 						{
-							if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem() && item.getItem().getCrystalType() == activeChar.getActiveWeaponItem().getCrystalType())
+							if ((activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()) && (item.getItem().getCrystalType() == activeChar.getActiveWeaponItem().getCrystalType()))
 							{
-								if ((_itemId >= 3947 && _itemId <= 3952 || _itemId >= 2509 && _itemId <= 2514 || _itemId >= 1463 && _itemId <= 1467) && activeChar.isInOlympiadMode())
+								if ((((_itemId >= 3947) && (_itemId <= 3952)) || ((_itemId >= 2509) && (_itemId <= 2514)) || ((_itemId >= 1463) && (_itemId <= 1467))) && activeChar.isInOlympiadMode())
 								{
 									SystemMessage sm = new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
 									sm.addString(item.getItemName());
@@ -105,7 +105,7 @@ public final class RequestAutoSoulShot extends L2GameClientPacket
 							}
 							else
 							{
-								if (_itemId >= 2509 && _itemId <= 2514 || _itemId >= 3947 && _itemId <= 3952 || _itemId == 5790)
+								if (((_itemId >= 2509) && (_itemId <= 2514)) || ((_itemId >= 3947) && (_itemId <= 3952)) || (_itemId == 5790))
 								{
 									activeChar.sendPacket(new SystemMessage(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH));
 								}

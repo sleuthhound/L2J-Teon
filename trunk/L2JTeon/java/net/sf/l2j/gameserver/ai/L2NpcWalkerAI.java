@@ -100,10 +100,10 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		int destinationX = _route.get(_currentPos).getMoveX();
 		int destinationY = _route.get(_currentPos).getMoveY();
 		int destinationZ = _route.get(_currentPos).getMoveZ();
-		if (getActor().getX() == destinationX && getActor().getY() == destinationY && getActor().getZ() == destinationZ)
+		if ((getActor().getX() == destinationX) && (getActor().getY() == destinationY) && (getActor().getZ() == destinationZ))
 		{
 			String chat = _route.get(_currentPos).getChatText();
-			if (chat != null && !chat.equals(""))
+			if ((chat != null) && !chat.equals(""))
 			{
 				try
 				{
@@ -130,7 +130,7 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 
 	private void walkToLocation()
 	{
-		if (_currentPos < _route.size() - 1)
+		if (_currentPos < (_route.size() - 1))
 			_currentPos++;
 		else
 			_currentPos = 0;

@@ -64,7 +64,7 @@ public class L2FishermanInstance extends L2FolkInstance
 		if (Config.DEBUG)
 			_log.fine("Showing buylist");
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
-		if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
+		if ((list != null) && list.getNpcId().equals(String.valueOf(getNpcId())))
 		{
 			BuyList bl = new BuyList(list, player.getAdena(), taxRate);
 			player.sendPacket(bl);

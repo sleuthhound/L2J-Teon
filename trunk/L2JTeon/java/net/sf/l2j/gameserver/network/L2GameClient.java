@@ -430,7 +430,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	 */
 	private int getObjectIdForSlot(int charslot)
 	{
-		if (charslot < 0 || charslot >= _charSlotMapping.size())
+		if ((charslot < 0) || (charslot >= _charSlotMapping.size()))
 		{
 			_log.warning(toString() + " tried to delete Character in slot " + charslot + " but no characters exits at that slot.");
 			return -1;
@@ -487,14 +487,14 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			InetAddress address = getConnection().getSocketChannel().socket().getInetAddress();
 			switch (getState())
 			{
-			case CONNECTED:
-				return "[IP: " + (address == null ? "disconnected" : address.getHostAddress()) + "]";
-			case AUTHED:
-				return "[Account: " + getAccountName() + " - IP: " + (address == null ? "disconnected" : address.getHostAddress()) + "]";
-			case IN_GAME:
-				return "[Character: " + (getActiveChar() == null ? "disconnected" : getActiveChar().getName()) + " - Account: " + getAccountName() + " - IP: " + (address == null ? "disconnected" : address.getHostAddress()) + "]";
-			default:
-				throw new IllegalStateException("Missing state on switch");
+				case CONNECTED:
+					return "[IP: " + (address == null ? "disconnected" : address.getHostAddress()) + "]";
+				case AUTHED:
+					return "[Account: " + getAccountName() + " - IP: " + (address == null ? "disconnected" : address.getHostAddress()) + "]";
+				case IN_GAME:
+					return "[Character: " + (getActiveChar() == null ? "disconnected" : getActiveChar().getName()) + " - Account: " + getAccountName() + " - IP: " + (address == null ? "disconnected" : address.getHostAddress()) + "]";
+				default:
+					throw new IllegalStateException("Missing state on switch");
 			}
 		}
 		catch (NullPointerException e)
@@ -526,7 +526,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 				_autoSaveInDB.cancel(true);
 				L2PcInstance player = L2GameClient.this.getActiveChar();
 				if (player != null) // this should only happen on connection
-					// loss
+				// loss
 				{
 					// we store all data from players who are disconnected
 					// while

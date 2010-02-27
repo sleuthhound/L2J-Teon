@@ -120,8 +120,8 @@ public class AdminLogin implements IAdminCommandHandler
 	}
 
 	/**
-	 *
-	 */
+     *
+     */
 	private void showMainPage(L2PcInstance activeChar)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -135,8 +135,8 @@ public class AdminLogin implements IAdminCommandHandler
 	}
 
 	/**
-	 *
-	 */
+     *
+     */
 	private void allowToAll()
 	{
 		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_AUTO);
@@ -144,8 +144,8 @@ public class AdminLogin implements IAdminCommandHandler
 	}
 
 	/**
-	 *
-	 */
+     *
+     */
 	private void gmOnly()
 	{
 		LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_GM_ONLY);

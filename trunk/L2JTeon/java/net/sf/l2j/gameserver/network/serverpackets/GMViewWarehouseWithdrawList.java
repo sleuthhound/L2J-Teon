@@ -55,55 +55,55 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 			writeH(item.getCustomType1());
 			switch (item.getItem().getType2())
 			{
-			case L2Item.TYPE2_WEAPON:
-			{
-				writeD(item.getItem().getBodyPart());
-				writeH(item.getEnchantLevel());
-				writeH(((L2Weapon) item.getItem()).getSoulShotCount());
-				writeH(((L2Weapon) item.getItem()).getSpiritShotCount());
-				break;
-			}
-			case L2Item.TYPE2_SHIELD_ARMOR:
-			case L2Item.TYPE2_ACCESSORY:
-			case L2Item.TYPE2_PET_WOLF:
-			case L2Item.TYPE2_PET_HATCHLING:
-			case L2Item.TYPE2_PET_STRIDER:
-			case L2Item.TYPE2_PET_BABY:
-			{
-				writeD(item.getItem().getBodyPart());
-				writeH(item.getEnchantLevel());
-				writeH(0x00);
-				writeH(0x00);
-				break;
-			}
+				case L2Item.TYPE2_WEAPON:
+				{
+					writeD(item.getItem().getBodyPart());
+					writeH(item.getEnchantLevel());
+					writeH(((L2Weapon) item.getItem()).getSoulShotCount());
+					writeH(((L2Weapon) item.getItem()).getSpiritShotCount());
+					break;
+				}
+				case L2Item.TYPE2_SHIELD_ARMOR:
+				case L2Item.TYPE2_ACCESSORY:
+				case L2Item.TYPE2_PET_WOLF:
+				case L2Item.TYPE2_PET_HATCHLING:
+				case L2Item.TYPE2_PET_STRIDER:
+				case L2Item.TYPE2_PET_BABY:
+				{
+					writeD(item.getItem().getBodyPart());
+					writeH(item.getEnchantLevel());
+					writeH(0x00);
+					writeH(0x00);
+					break;
+				}
 			}
 			writeD(item.getObjectId());
 			switch (item.getItem().getType2())
 			{
-			case L2Item.TYPE2_WEAPON:
-			{
-				if (item.isAugmented())
+				case L2Item.TYPE2_WEAPON:
 				{
-					writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
-					writeD(item.getAugmentation().getAugmentationId() >> 16);
+					if (item.isAugmented())
+					{
+						writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
+						writeD(item.getAugmentation().getAugmentationId() >> 16);
+					}
+					else
+					{
+						writeD(0);
+						writeD(0);
+					}
+					break;
 				}
-				else
+				case L2Item.TYPE2_SHIELD_ARMOR:
+				case L2Item.TYPE2_ACCESSORY:
+				case L2Item.TYPE2_PET_WOLF:
+				case L2Item.TYPE2_PET_HATCHLING:
+				case L2Item.TYPE2_PET_STRIDER:
+				case L2Item.TYPE2_PET_BABY:
 				{
 					writeD(0);
 					writeD(0);
 				}
-				break;
-			}
-			case L2Item.TYPE2_SHIELD_ARMOR:
-			case L2Item.TYPE2_ACCESSORY:
-			case L2Item.TYPE2_PET_WOLF:
-			case L2Item.TYPE2_PET_HATCHLING:
-			case L2Item.TYPE2_PET_STRIDER:
-			case L2Item.TYPE2_PET_BABY:
-			{
-				writeD(0);
-				writeD(0);
-			}
 			}
 		}
 	}

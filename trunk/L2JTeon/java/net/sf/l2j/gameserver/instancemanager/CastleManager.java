@@ -171,7 +171,7 @@ public class CastleManager
 		for (int i = 0; i < getCastles().size(); i++)
 		{
 			castle = getCastles().get(i);
-			if (castle != null && castle.getCastleId() == castleId)
+			if ((castle != null) && (castle.getCastleId() == castleId))
 				return i;
 		}
 		return -1;
@@ -188,7 +188,7 @@ public class CastleManager
 		for (int i = 0; i < getCastles().size(); i++)
 		{
 			castle = getCastles().get(i);
-			if (castle != null && castle.checkIfInZone(x, y, z))
+			if ((castle != null) && castle.checkIfInZone(x, y, z))
 				return i;
 		}
 		return -1;
@@ -206,15 +206,15 @@ public class CastleManager
 		int maxTax;
 		switch (sealStrifeOwner)
 		{
-		case SevenSigns.CABAL_DUSK:
-			maxTax = 5;
-			break;
-		case SevenSigns.CABAL_DAWN:
-			maxTax = 25;
-			break;
-		default: // no owner
-			maxTax = 15;
-		break;
+			case SevenSigns.CABAL_DUSK:
+				maxTax = 5;
+				break;
+			case SevenSigns.CABAL_DAWN:
+				maxTax = 25;
+				break;
+			default: // no owner
+				maxTax = 15;
+				break;
 		}
 		for (Castle castle : _castles)
 			if (castle.getTaxPercent() > maxTax)
@@ -230,7 +230,7 @@ public class CastleManager
 
 	public int getCircletByCastleId(int castleId)
 	{
-		if (castleId > 0 && castleId < 10)
+		if ((castleId > 0) && (castleId < 10))
 			return _castleCirclets[castleId];
 		return 0;
 	}

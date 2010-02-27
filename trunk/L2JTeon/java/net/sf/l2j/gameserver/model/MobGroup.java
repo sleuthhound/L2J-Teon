@@ -71,18 +71,18 @@ public final class MobGroup
 			L2ControllableMobAI mobGroupAI = (L2ControllableMobAI) getMobs().get(0).getAI();
 			switch (mobGroupAI.getAlternateAI())
 			{
-			case L2ControllableMobAI.AI_NORMAL:
-				return "Idle";
-			case L2ControllableMobAI.AI_FORCEATTACK:
-				return "Force Attacking";
-			case L2ControllableMobAI.AI_FOLLOW:
-				return "Following";
-			case L2ControllableMobAI.AI_CAST:
-				return "Casting";
-			case L2ControllableMobAI.AI_ATTACK_GROUP:
-				return "Attacking Group";
-			default:
-				return "Idle";
+				case L2ControllableMobAI.AI_NORMAL:
+					return "Idle";
+				case L2ControllableMobAI.AI_FORCEATTACK:
+					return "Force Attacking";
+				case L2ControllableMobAI.AI_FOLLOW:
+					return "Following";
+				case L2ControllableMobAI.AI_CAST:
+					return "Casting";
+				case L2ControllableMobAI.AI_ATTACK_GROUP:
+					return "Attacking Group";
+				default:
+					return "Idle";
 			}
 		}
 		catch (Exception e)
@@ -292,7 +292,7 @@ public final class MobGroup
 	{
 		List<L2ControllableMobInstance> deadMobs = new FastList<L2ControllableMobInstance>();
 		for (L2ControllableMobInstance mobInst : getMobs())
-			if (mobInst != null && mobInst.isDead())
+			if ((mobInst != null) && mobInst.isDead())
 				deadMobs.add(mobInst);
 		getMobs().removeAll(deadMobs);
 	}

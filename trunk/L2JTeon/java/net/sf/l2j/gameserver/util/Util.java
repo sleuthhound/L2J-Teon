@@ -103,7 +103,7 @@ public final class Util
 
 	public static double calculateDistance(L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
-		if (obj1 == null || obj2 == null)
+		if ((obj1 == null) || (obj2 == null))
 		{
 			return 1000000;
 		}
@@ -121,7 +121,7 @@ public final class Util
 	public static String capitalizeFirst(String str)
 	{
 		str = str.trim();
-		if (str.length() > 0 && Character.isLetter(str.charAt(0)))
+		if ((str.length() > 0) && Character.isLetter(str.charAt(0)))
 		{
 			return str.substring(0, 1).toUpperCase() + str.substring(1);
 		}
@@ -161,7 +161,7 @@ public final class Util
 	 */
 	public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
-		if (obj1 == null || obj2 == null)
+		if ((obj1 == null) || (obj2 == null))
 		{
 			return false;
 		}

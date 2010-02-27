@@ -105,7 +105,7 @@ public final class PetitionManager
 		{
 			setState(endState);
 			_endTime = System.currentTimeMillis();
-			if (getResponder() != null && getResponder().isOnline() == 1)
+			if ((getResponder() != null) && (getResponder().isOnline() == 1))
 			{
 				if (endState == PetitionState.Responder_Reject)
 				{
@@ -128,7 +128,7 @@ public final class PetitionManager
 			}
 			// End petition consultation and inform them, if they are still
 			// online.
-			if (getPetitioner() != null && getPetitioner().isOnline() == 1)
+			if ((getPetitioner() != null) && (getPetitioner().isOnline() == 1))
 				getPetitioner().sendPacket(new SystemMessage(SystemMessageId.THIS_END_THE_PETITION_PLEASE_PROVIDE_FEEDBACK));
 			getCompletedPetitions().put(getId(), this);
 			return getPendingPetitions().remove(getId()) != null;
@@ -176,7 +176,7 @@ public final class PetitionManager
 
 		public void sendPetitionerPacket(L2GameServerPacket responsePacket)
 		{
-			if (getPetitioner() == null || getPetitioner().isOnline() == 0)
+			if ((getPetitioner() == null) || (getPetitioner().isOnline() == 0))
 			{
 				// Allows petitioners to see the results of their petition when
 				// they log back into the game.
@@ -188,7 +188,7 @@ public final class PetitionManager
 
 		public void sendResponderPacket(L2GameServerPacket responsePacket)
 		{
-			if (getResponder() == null || getResponder().isOnline() == 0)
+			if ((getResponder() == null) || (getResponder().isOnline() == 0))
 			{
 				endPetitionConsultation(PetitionState.Responder_Missing);
 				return;
@@ -255,9 +255,9 @@ public final class PetitionManager
 	{
 		for (Petition currPetition : getPendingPetitions().values())
 		{
-			if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == player.getObjectId())
+			if ((currPetition.getPetitioner() != null) && (currPetition.getPetitioner().getObjectId() == player.getObjectId()))
 				return currPetition.endPetitionConsultation(PetitionState.Petitioner_Cancel);
-			if (currPetition.getResponder() != null && currPetition.getResponder().getObjectId() == player.getObjectId())
+			if ((currPetition.getResponder() != null) && (currPetition.getResponder().getObjectId() == player.getObjectId()))
 				return currPetition.endPetitionConsultation(PetitionState.Responder_Cancel);
 		}
 		return false;
@@ -270,7 +270,7 @@ public final class PetitionManager
 			{
 				if (currPetition == null)
 					continue;
-				if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == petitioner.getObjectId())
+				if ((currPetition.getPetitioner() != null) && (currPetition.getPetitioner().getObjectId() == petitioner.getObjectId()))
 				{
 					for (CreatureSay logMessage : currPetition.getLogMessages())
 						petitioner.sendPacket(logMessage);
@@ -287,7 +287,7 @@ public final class PetitionManager
 		{
 			if (currPetition == null)
 				continue;
-			if (currPetition.getResponder() != null && currPetition.getResponder().getObjectId() == player.getObjectId())
+			if ((currPetition.getResponder() != null) && (currPetition.getResponder().getObjectId() == player.getObjectId()))
 				return currPetition.endPetitionConsultation(PetitionState.Completed);
 		}
 		return false;
@@ -317,14 +317,14 @@ public final class PetitionManager
 		{
 			if (currPetition == null)
 				continue;
-			if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == player.getObjectId())
+			if ((currPetition.getPetitioner() != null) && (currPetition.getPetitioner().getObjectId() == player.getObjectId()))
 				petitionCount++;
 		}
 		for (Petition currPetition : getCompletedPetitions().values())
 		{
 			if (currPetition == null)
 				continue;
-			if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == player.getObjectId())
+			if ((currPetition.getPetitioner() != null) && (currPetition.getPetitioner().getObjectId() == player.getObjectId()))
 				petitionCount++;
 		}
 		return petitionCount;
@@ -359,7 +359,7 @@ public final class PetitionManager
 					continue;
 				if (currPetition.getState() != PetitionState.In_Process)
 					continue;
-				if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == player.getObjectId() || currPetition.getResponder() != null && currPetition.getResponder().getObjectId() == player.getObjectId())
+				if (((currPetition.getPetitioner() != null) && (currPetition.getPetitioner().getObjectId() == player.getObjectId())) || ((currPetition.getResponder() != null) && (currPetition.getResponder().getObjectId() == player.getObjectId())))
 					return true;
 			}
 		return false;
@@ -377,7 +377,7 @@ public final class PetitionManager
 			{
 				if (currPetition == null)
 					continue;
-				if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == petitioner.getObjectId())
+				if ((currPetition.getPetitioner() != null) && (currPetition.getPetitioner().getObjectId() == petitioner.getObjectId()))
 					return true;
 			}
 		return false;
@@ -408,7 +408,7 @@ public final class PetitionManager
 		{
 			if (currPetition == null)
 				continue;
-			if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == player.getObjectId())
+			if ((currPetition.getPetitioner() != null) && (currPetition.getPetitioner().getObjectId() == player.getObjectId()))
 			{
 				cs = new CreatureSay(player.getObjectId(), Say2.PETITION_PLAYER, player.getName(), messageText);
 				currPetition.addLogMessage(cs);
@@ -416,7 +416,7 @@ public final class PetitionManager
 				currPetition.sendPetitionerPacket(cs);
 				return true;
 			}
-			if (currPetition.getResponder() != null && currPetition.getResponder().getObjectId() == player.getObjectId())
+			if ((currPetition.getResponder() != null) && (currPetition.getResponder().getObjectId() == player.getObjectId()))
 			{
 				cs = new CreatureSay(player.getObjectId(), Say2.PETITION_GM, player.getName(), messageText);
 				currPetition.addLogMessage(cs);

@@ -70,7 +70,7 @@ public class AdminDelete implements IAdminCommandHandler
 	private void handleDelete(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
-		if (obj != null && obj instanceof L2NpcInstance)
+		if ((obj != null) && (obj instanceof L2NpcInstance))
 		{
 			L2NpcInstance target = (L2NpcInstance) obj;
 			target.deleteMe();

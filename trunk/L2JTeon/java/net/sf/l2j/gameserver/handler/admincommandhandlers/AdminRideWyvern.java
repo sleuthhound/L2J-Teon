@@ -37,7 +37,7 @@ public class AdminRideWyvern implements IAdminCommandHandler
 				return false;
 		if (command.startsWith("admin_ride"))
 		{
-			if (activeChar.isMounted() || activeChar.getPet() != null)
+			if (activeChar.isMounted() || (activeChar.getPet() != null))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 				sm.addString("Already Have a Pet or Mounted.");

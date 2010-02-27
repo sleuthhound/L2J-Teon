@@ -55,7 +55,7 @@ public class SplendorKeys implements IItemHandler
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
+		if ((activeChar.getAbnormalEffect() > 0) || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You cannot use the key now.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -66,31 +66,31 @@ public class SplendorKeys implements IItemHandler
 			return;
 		switch (itemId)
 		{
-		case 8056: // Key of Splendor Room
-			if (door.getDoorName().startsWith("Gate_of_Splendor"))
-			{
-				if (openChance > 0 && Rnd.get(100) < openChance)
+			case 8056: // Key of Splendor Room
+				if (door.getDoorName().startsWith("Gate_of_Splendor"))
 				{
-					activeChar.sendMessage("You opened Gate of Splendor.");
-					door.openMe();
-					door.onOpen(); // Closes the door after 60sec
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					if ((openChance > 0) && (Rnd.get(100) < openChance))
+					{
+						activeChar.sendMessage("You opened Gate of Splendor.");
+						door.openMe();
+						door.onOpen(); // Closes the door after 60sec
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
+					}
+					else
+					{
+						// test with: activeChar.sendPacket(new
+						// SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR));
+						activeChar.sendMessage("You failed to open Gate of Splendor.");
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
+						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
+						activeChar.sendPacket(playSound);
+					}
 				}
 				else
 				{
-					// test with: activeChar.sendPacket(new
-					// SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR));
-					activeChar.sendMessage("You failed to open Gate of Splendor.");
-					activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
-					PlaySound playSound = new PlaySound("interfacesound.system_close_01");
-					activeChar.sendPacket(playSound);
+					activeChar.sendMessage("Incorrect Door.");
 				}
-			}
-			else
-			{
-				activeChar.sendMessage("Incorrect Door.");
-			}
-			break;
+				break;
 		}
 	}
 

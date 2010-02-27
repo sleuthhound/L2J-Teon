@@ -50,7 +50,7 @@ public class RequestBuySeed extends L2GameClientPacket
 	{
 		_manorId = readD();
 		_count = readD();
-		if (_count > 500 || _count * 8 < _buf.remaining()) // check values
+		if ((_count > 500) || (_count * 8 < _buf.remaining())) // check values
 		{
 			_count = 0;
 			return;
@@ -61,7 +61,7 @@ public class RequestBuySeed extends L2GameClientPacket
 			int itemId = readD();
 			_items[i * 2 + 0] = itemId;
 			long cnt = readD();
-			if (cnt > Integer.MAX_VALUE || cnt < 1)
+			if ((cnt > Integer.MAX_VALUE) || (cnt < 1))
 			{
 				_count = 0;
 				_items = null;
@@ -128,7 +128,7 @@ public class RequestBuySeed extends L2GameClientPacket
 			return;
 		}
 		// Charge buyer
-		if (totalPrice < 0 || !player.reduceAdena("Buy", (int) totalPrice, target, false))
+		if ((totalPrice < 0) || !player.reduceAdena("Buy", (int) totalPrice, target, false))
 		{
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			return;

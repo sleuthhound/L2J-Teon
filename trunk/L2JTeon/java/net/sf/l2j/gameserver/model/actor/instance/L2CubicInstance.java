@@ -57,40 +57,40 @@ public class L2CubicInstance
 		_level = level;
 		switch (_id)
 		{
-		case STORM_CUBIC:
-			_skills.add(4049);
-			break;
-		case VAMPIRIC_CUBIC:
-			_skills.add(4050);
-			break;
-		case LIFE_CUBIC:
-			_skills.add(4051);
-			_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 3600000); // disappear
-			// in 60
-			// mins
-			doAction(_owner);
-			break;
-		case VIPER_CUBIC:
-			_skills.add(4052);
-			break;
-		case POLTERGEIST_CUBIC:
-			_skills.add(4053);
-			_skills.add(4054);
-			_skills.add(4055);
-			break;
-		case BINDING_CUBIC:
-			_skills.add(4164);
-			break;
-		case AQUA_CUBIC:
-			_skills.add(4165);
-			break;
-		case SPARK_CUBIC:
-			_skills.add(4166);
-			break;
-		case ATTRACT_CUBIC:
-			_skills.add(5115);
-			_skills.add(5116);
-			break;
+			case STORM_CUBIC:
+				_skills.add(4049);
+				break;
+			case VAMPIRIC_CUBIC:
+				_skills.add(4050);
+				break;
+			case LIFE_CUBIC:
+				_skills.add(4051);
+				_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 3600000); // disappear
+				// in 60
+				// mins
+				doAction(_owner);
+				break;
+			case VIPER_CUBIC:
+				_skills.add(4052);
+				break;
+			case POLTERGEIST_CUBIC:
+				_skills.add(4053);
+				_skills.add(4054);
+				_skills.add(4055);
+				break;
+			case BINDING_CUBIC:
+				_skills.add(4164);
+				break;
+			case AQUA_CUBIC:
+				_skills.add(4165);
+				break;
+			case SPARK_CUBIC:
+				_skills.add(4166);
+				break;
+			case ATTRACT_CUBIC:
+				_skills.add(5115);
+				_skills.add(5116);
+				break;
 		}
 		if (_disappearTask == null)
 			_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 1200000); // disappear
@@ -107,29 +107,29 @@ public class L2CubicInstance
 		_target = target;
 		switch (_id)
 		{
-		case STORM_CUBIC:
-			_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(12), 0, 10000);
-			break;
-		case VAMPIRIC_CUBIC:
-			_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(8), 0, 15000);
-			break;
-		case VIPER_CUBIC:
-			_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 20000);
-			break;
-		case POLTERGEIST_CUBIC:
-			_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 8000);
-			break;
-		case BINDING_CUBIC:
-		case AQUA_CUBIC:
-		case SPARK_CUBIC:
-			_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 8000);
-			break;
-		case LIFE_CUBIC:
-			_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Heal(50), 0, 30000);
-			break;
-		case ATTRACT_CUBIC:
-			_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 8000);
-			break;
+			case STORM_CUBIC:
+				_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(12), 0, 10000);
+				break;
+			case VAMPIRIC_CUBIC:
+				_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(8), 0, 15000);
+				break;
+			case VIPER_CUBIC:
+				_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 20000);
+				break;
+			case POLTERGEIST_CUBIC:
+				_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 8000);
+				break;
+			case BINDING_CUBIC:
+			case AQUA_CUBIC:
+			case SPARK_CUBIC:
+				_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 8000);
+				break;
+			case LIFE_CUBIC:
+				_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Heal(50), 0, 30000);
+				break;
+			case ATTRACT_CUBIC:
+				_actionTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Action(30), 0, 8000);
+				break;
 		}
 	}
 
@@ -174,7 +174,7 @@ public class L2CubicInstance
 
 		public void run()
 		{
-			if (_owner.isDead() || _target.isDead() || _owner.getTarget() != _target)
+			if (_owner.isDead() || _target.isDead() || (_owner.getTarget() != _target))
 			{
 				stopAction();
 				if (_owner.isDead())

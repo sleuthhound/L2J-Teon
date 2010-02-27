@@ -48,7 +48,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 	{
 		_objectID = readD();
 		_count = readD();
-		if (_count < 0 || _count > 500)
+		if ((_count < 0) || (_count > 500))
 		{
 			_count = -1;
 			return;
@@ -80,15 +80,15 @@ public final class RequestPackageSend extends L2GameClientPacket
 		if (warehouse == null)
 			return;
 		L2FolkInstance manager = player.getLastFolkNPC();
-		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+		if (((manager == null) || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 			return;
-		if (warehouse instanceof PcFreight && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if ((warehouse instanceof PcFreight) && Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			return;
 		}
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0)
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && (player.getKarma() > 0))
 			return;
 		// Freight price from config or normal price per item slot (30)
 		int fee = _count * Config.ALT_GAME_FREIGHT_PRICE;
@@ -107,7 +107,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 				i.count = 0;
 				continue;
 			}
-			if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
+			if (!item.isTradeable() || (item.getItemType() == L2EtcItemType.QUEST))
 				return;
 			// Calculate needed adena and slots
 			if (item.getItemId() == 57)
@@ -124,7 +124,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 			return;
 		}
 		// Check if enough adena and charge the fee
-		if (currentAdena < fee || !player.reduceAdena("Warehouse", fee, manager, false))
+		if ((currentAdena < fee) || !player.reduceAdena("Warehouse", fee, manager, false))
 		{
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			return;
@@ -136,7 +136,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 			int objectId = i.id;
 			int count = i.count;
 			// check for an invalid item
-			if (objectId == 0 && count == 0)
+			if ((objectId == 0) && (count == 0))
 				continue;
 			L2ItemInstance oldItem = player.getInventory().getItemByObjectId(objectId);
 			if (oldItem == null)
@@ -145,7 +145,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 				continue;
 			}
 			int itemId = oldItem.getItemId();
-			if (itemId >= 6611 && itemId <= 6621 || itemId == 6842)
+			if (((itemId >= 6611) && (itemId <= 6621)) || (itemId == 6842))
 				continue;
 			L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, manager);
 			if (newItem == null)
@@ -155,7 +155,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 			}
 			if (playerIU != null)
 			{
-				if (oldItem.getCount() > 0 && oldItem != newItem)
+				if ((oldItem.getCount() > 0) && (oldItem != newItem))
 					playerIU.addModifiedItem(oldItem);
 				else
 					playerIU.addRemovedItem(oldItem);

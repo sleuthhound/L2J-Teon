@@ -111,7 +111,7 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 			for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 			{
 				final int playerCabal = SevenSigns.getInstance().getPlayerCabal(player);
-				if (playerCabal == winningCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.ORATOR_NPC_ID)
+				if ((playerCabal == winningCabal) && (playerCabal != SevenSigns.CABAL_NULL) && (_caster.getNpcId() == SevenSigns.ORATOR_NPC_ID))
 				{
 					if (!player.isMageClass())
 					{
@@ -130,7 +130,7 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 						}
 					}
 				}
-				else if (playerCabal == losingCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.PREACHER_NPC_ID)
+				else if ((playerCabal == losingCabal) && (playerCabal != SevenSigns.CABAL_NULL) && (_caster.getNpcId() == SevenSigns.PREACHER_NPC_ID))
 				{
 					if (!player.isMageClass())
 					{
@@ -156,7 +156,7 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 
 		private boolean handleCast(L2PcInstance player, int skillId)
 		{
-			int skillLevel = player.getLevel() > 40 ? 1 : 2;
+			int skillLevel = (player.getLevel() > 40) ? 1 : 2;
 			if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false))
 				return false;
 			L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);

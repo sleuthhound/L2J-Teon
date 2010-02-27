@@ -40,7 +40,7 @@ final class EffectBetray extends L2Effect
 	@Override
 	public void onStart()
 	{
-		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
+		if ((getEffected() != null) && (getEffector() instanceof L2PcInstance) && (getEffected() instanceof L2Summon))
 		{
 			L2PcInstance targetOwner = null;
 			targetOwner = ((L2Summon) getEffected()).getOwner();
@@ -54,7 +54,7 @@ final class EffectBetray extends L2Effect
 	@Override
 	public void onExit()
 	{
-		if (getEffected() != null && getEffector() instanceof L2PcInstance && getEffected() instanceof L2Summon)
+		if ((getEffected() != null) && (getEffector() instanceof L2PcInstance) && (getEffected() instanceof L2Summon))
 		{
 			L2PcInstance targetOwner = null;
 			targetOwner = ((L2Summon) getEffected()).getOwner();

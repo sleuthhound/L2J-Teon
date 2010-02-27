@@ -301,7 +301,7 @@ public class L2BoxInstance extends L2NpcInstance
 		Set<L2BoxItem> _items = new FastSet<L2BoxItem>();
 		for (L2ItemInstance i : player.getInventory().getItems())
 		{
-			if (i.getItemId() == 57 || i.isEquipped())
+			if ((i.getItemId() == 57) || i.isEquipped())
 				continue;
 			L2BoxItem bi = new L2BoxItem(i.getItemId(), i.getCount(), i.getItem().getName(), i.getObjectId(), i.getEnchantLevel());
 			_items.add(bi);

@@ -73,7 +73,7 @@ public class L2EventTeleporter implements Runnable
 			_player.setMountObjectID(0);
 		}
 		L2Summon summon = _player.getPet();
-		if (_removeBuffs && summon != null)
+		if (_removeBuffs && (summon != null))
 			summon.unSummon(_player);
 		if (_removeBuffs)
 		{

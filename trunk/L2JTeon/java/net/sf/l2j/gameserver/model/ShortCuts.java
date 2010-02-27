@@ -51,7 +51,7 @@ public class ShortCuts
 	{
 		L2ShortCut sc = _shortCuts.get(slot + page * 12);
 		// verify shortcut
-		if (sc != null && sc.getType() == L2ShortCut.TYPE_ITEM)
+		if ((sc != null) && (sc.getType() == L2ShortCut.TYPE_ITEM))
 		{
 			if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
 			{
@@ -109,13 +109,13 @@ public class ShortCuts
 	public synchronized void deleteShortCut(int slot, int page)
 	{
 		L2ShortCut old = _shortCuts.remove(slot + page * 12);
-		if (old == null || _owner == null)
+		if ((old == null) || (_owner == null))
 			return;
 		deleteShortCutFromDb(old);
 		if (old.getType() == L2ShortCut.TYPE_ITEM)
 		{
 			L2ItemInstance item = _owner.getInventory().getItemByObjectId(old.getId());
-			if (item != null && item.getItemType() == L2EtcItemType.SHOT)
+			if ((item != null) && (item.getItemType() == L2EtcItemType.SHOT))
 			{
 				_owner.removeAutoSoulShot(item.getItemId());
 				_owner.sendPacket(new ExAutoSoulShot(item.getItemId(), 0));
@@ -131,7 +131,7 @@ public class ShortCuts
 		L2ShortCut toRemove = null;
 		for (L2ShortCut shortcut : _shortCuts.values())
 		{
-			if (shortcut.getType() == L2ShortCut.TYPE_ITEM && shortcut.getId() == objectId)
+			if ((shortcut.getType() == L2ShortCut.TYPE_ITEM) && (shortcut.getId() == objectId))
 			{
 				toRemove = shortcut;
 				break;

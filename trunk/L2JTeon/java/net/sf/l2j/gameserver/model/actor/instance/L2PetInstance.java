@@ -113,11 +113,11 @@ public class L2PetInstance extends L2Summon
 						startFeed(true); // switching to battle feed
 					}
 					else
-						// if its on battleFeed mode
-						if (_feedMode)
-						{
-							startFeed(false); // normal feed
-						}
+					// if its on battleFeed mode
+					if (_feedMode)
+					{
+						startFeed(false); // normal feed
+					}
 				}
 				if (getCurrentFed() > FOOD_ITEM_CONSUME_COUNT)
 				{
@@ -140,7 +140,7 @@ public class L2PetInstance extends L2Summon
 				}
 				L2ItemInstance food = null;
 				food = getInventory().getItemByItemId(foodId);
-				if (food != null && getCurrentFed() < 0.55 * getMaxFed())
+				if ((food != null) && (getCurrentFed() < 0.55 * getMaxFed()))
 				{
 					if (destroyItem("Feed", food.getObjectId(), 1, null, false))
 					{
@@ -207,7 +207,7 @@ public class L2PetInstance extends L2Summon
 	@Override
 	public PetStat getStat()
 	{
-		if (super.getStat() == null || !(super.getStat() instanceof PetStat))
+		if ((super.getStat() == null) || !(super.getStat() instanceof PetStat))
 		{
 			setStat(new PetStat(this));
 		}
@@ -235,10 +235,10 @@ public class L2PetInstance extends L2Summon
 	public void onAction(L2PcInstance player)
 	{
 		boolean isOwner = player.getObjectId() == getOwner().getObjectId();
-		boolean thisIsTarget = player.getTarget() != null && player.getTarget().getObjectId() == getObjectId();
+		boolean thisIsTarget = (player.getTarget() != null) && (player.getTarget().getObjectId() == getObjectId());
 		if (isOwner && thisIsTarget)
 		{
-			if (isOwner && player != getOwner())
+			if (isOwner && (player != getOwner()))
 			{
 				// update owner
 				updateRefOwner(player);
@@ -294,7 +294,7 @@ public class L2PetInstance extends L2Summon
 	{
 		for (L2ItemInstance item : getInventory().getItems())
 		{
-			if (item.getLocation() == L2ItemInstance.ItemLocation.PET_EQUIP && item.getItem().getType1() == L2Item.TYPE2_WEAPON)
+			if ((item.getLocation() == L2ItemInstance.ItemLocation.PET_EQUIP) && (item.getItem().getType1() == L2Item.TYPE2_WEAPON))
 			{
 				return item;
 			}
@@ -437,7 +437,7 @@ public class L2PetInstance extends L2Summon
 		}
 		L2ItemInstance target = (L2ItemInstance) object;
 		// Herbs
-		if (target.getItemId() > 8599 && target.getItemId() < 8615)
+		if ((target.getItemId() > 8599) && (target.getItemId() < 8615))
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
 			smsg.addItemName(target.getItemId());
@@ -459,7 +459,7 @@ public class L2PetInstance extends L2Summon
 				getOwner().sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-			if (target.getOwnerId() != 0 && target.getOwnerId() != getOwner().getObjectId() && !getOwner().isInLooterParty(target.getOwnerId()))
+			if ((target.getOwnerId() != 0) && (target.getOwnerId() != getOwner().getObjectId()) && !getOwner().isInLooterParty(target.getOwnerId()))
 			{
 				getOwner().sendPacket(ActionFailed.STATIC_PACKET);
 				if (target.getItemId() == 57)
@@ -483,7 +483,7 @@ public class L2PetInstance extends L2Summon
 				}
 				return;
 			}
-			if (target.getItemLootShedule() != null && (target.getOwnerId() == getOwner().getObjectId() || getOwner().isInLooterParty(target.getOwnerId())))
+			if ((target.getItemLootShedule() != null) && ((target.getOwnerId() == getOwner().getObjectId()) || getOwner().isInLooterParty(target.getOwnerId())))
 			{
 				target.resetOwnerTimer();
 			}
@@ -575,7 +575,7 @@ public class L2PetInstance extends L2Summon
 		}
 		// Send inventory update packet
 		PetInventoryUpdate petIU = new PetInventoryUpdate();
-		if (oldItem.getCount() > 0 && oldItem != newItem)
+		if ((oldItem.getCount() > 0) && (oldItem != newItem))
 		{
 			petIU.addModifiedItem(oldItem);
 		}
@@ -946,7 +946,7 @@ public class L2PetInstance extends L2Summon
 			}
 		}
 		L2ItemInstance itemInst = getControlItem();
-		if (itemInst != null && itemInst.getEnchantLevel() != getStat().getLevel())
+		if ((itemInst != null) && (itemInst.getEnchantLevel() != getStat().getLevel()))
 		{
 			itemInst.setEnchantLevel(getStat().getLevel());
 			itemInst.updateDatabase();
@@ -1131,7 +1131,7 @@ public class L2PetInstance extends L2Summon
 	@Override
 	public final int getSkillLevel(int skillId)
 	{
-		if (_skills == null || _skills.get(skillId) == null)
+		if ((_skills == null) || (_skills.get(skillId) == null))
 		{
 			return -1;
 		}

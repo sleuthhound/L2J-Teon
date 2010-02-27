@@ -57,12 +57,12 @@ public class RequestSocialAction extends L2GameClientPacket
 			return;
 		}
 		// check if its the actionId is allowed
-		if (_actionId < 2 || _actionId > 13)
+		if ((_actionId < 2) || (_actionId > 13))
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " requested an internal Social Action.", Config.DEFAULT_PUNISH);
 			return;
 		}
-		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null && !activeChar.isAlikeDead() && (!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) && activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
+		if ((activeChar.getPrivateStoreType() == 0) && (activeChar.getActiveRequester() == null) && !activeChar.isAlikeDead() && (!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) && (activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE))
 		{
 			if (Config.DEBUG)
 				_log.fine("Social Action:" + _actionId);

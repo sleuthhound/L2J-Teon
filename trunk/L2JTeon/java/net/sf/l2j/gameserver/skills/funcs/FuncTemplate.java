@@ -58,8 +58,8 @@ public final class FuncTemplate
 					Integer.TYPE, // order of execution
 					Object.class, // owner
 					Lambda.class
-					// value for function
-			});
+			// value for function
+					});
 		}
 		catch (NoSuchMethodException e)
 		{
@@ -69,7 +69,7 @@ public final class FuncTemplate
 
 	public Func getFunc(Env env, Object owner)
 	{
-		if (attachCond != null && !attachCond.test(env))
+		if ((attachCond != null) && !attachCond.test(env))
 			return null;
 		try
 		{

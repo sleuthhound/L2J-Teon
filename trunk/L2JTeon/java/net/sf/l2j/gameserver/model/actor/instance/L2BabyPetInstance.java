@@ -48,9 +48,9 @@ public final class L2BabyPetInstance extends L2PetInstance
 			// just in case, also allow cp heal and mp recharges to be
 			// considered here...you never know ;)
 			if (skill.isActive()
-					&& skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET
-					&& (skill.getSkillType() == L2Skill.SkillType.HEAL || skill.getSkillType() == L2Skill.SkillType.HOT || skill.getSkillType() == L2Skill.SkillType.BALANCE_LIFE || skill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT || skill.getSkillType() == L2Skill.SkillType.HEAL_STATIC || skill.getSkillType() == L2Skill.SkillType.COMBATPOINTHEAL
-							|| skill.getSkillType() == L2Skill.SkillType.CPHOT || skill.getSkillType() == L2Skill.SkillType.MANAHEAL || skill.getSkillType() == L2Skill.SkillType.MANA_BY_LEVEL || skill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT || skill.getSkillType() == L2Skill.SkillType.MANARECHARGE || skill.getSkillType() == L2Skill.SkillType.MPHOT))
+					&& (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET)
+					&& ((skill.getSkillType() == L2Skill.SkillType.HEAL) || (skill.getSkillType() == L2Skill.SkillType.HOT) || (skill.getSkillType() == L2Skill.SkillType.BALANCE_LIFE) || (skill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT) || (skill.getSkillType() == L2Skill.SkillType.HEAL_STATIC) || (skill.getSkillType() == L2Skill.SkillType.COMBATPOINTHEAL)
+							|| (skill.getSkillType() == L2Skill.SkillType.CPHOT) || (skill.getSkillType() == L2Skill.SkillType.MANAHEAL) || (skill.getSkillType() == L2Skill.SkillType.MANA_BY_LEVEL) || (skill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) || (skill.getSkillType() == L2Skill.SkillType.MANARECHARGE) || (skill.getSkillType() == L2Skill.SkillType.MPHOT)))
 			{
 				// only consider two skills. If the pet has more, too bad...they
 				// won't be used by its AI.
@@ -161,11 +161,11 @@ public final class L2BabyPetInstance extends L2PetInstance
 				// if the owner's HP is very low (less than 20%) have a high
 				// chance for strong heal
 				// otherwise, have a low chance for weak heal
-				if (owner.getCurrentHp() / owner.getMaxHp() < 0.2 && Rnd.get(4) < 3)
+				if ((owner.getCurrentHp() / owner.getMaxHp() < 0.2) && (Rnd.get(4) < 3))
 				{
 					_baby.useMagic(_strongHeal, false, false);
 				}
-				else if (owner.getCurrentHp() / owner.getMaxHp() < 0.8 && Rnd.get(4) < 1)
+				else if ((owner.getCurrentHp() / owner.getMaxHp() < 0.8) && (Rnd.get(4) < 1))
 				{
 					_baby.useMagic(_weakHeal, false, false);
 				}

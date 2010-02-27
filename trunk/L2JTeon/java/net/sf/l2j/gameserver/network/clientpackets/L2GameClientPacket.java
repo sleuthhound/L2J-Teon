@@ -72,8 +72,8 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 				}
 			}
 			runImpl();
-			if (this instanceof MoveBackwardToLocation || this instanceof AttackRequest || this instanceof RequestActionUse || this instanceof RequestMagicSkillUse)
-				// could include pickup and talk too, but less is better
+			if ((this instanceof MoveBackwardToLocation) || (this instanceof AttackRequest) || (this instanceof RequestActionUse) || (this instanceof RequestMagicSkillUse))
+			// could include pickup and talk too, but less is better
 			{
 				// Removes onspawn protection - player has faster computer than
 				// average

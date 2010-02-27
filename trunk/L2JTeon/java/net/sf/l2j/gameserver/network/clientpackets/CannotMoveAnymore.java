@@ -58,7 +58,7 @@ public final class CannotMoveAnymore extends L2GameClientPacket
 		{
 			player.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_BLOCKED, new L2CharPosition(_x, _y, _z, _heading));
 		}
-		if (player instanceof L2PcInstance && ((L2PcInstance) player).getParty() != null)
+		if ((player instanceof L2PcInstance) && (((L2PcInstance) player).getParty() != null))
 			((L2PcInstance) player).getParty().broadcastToPartyMembers(((L2PcInstance) player), new PartyMemberPosition((L2PcInstance) player));
 		// player.stopMove();
 		//

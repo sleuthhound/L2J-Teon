@@ -91,7 +91,7 @@ public abstract class ItemContainer
 	public L2ItemInstance getItemByItemId(int itemId)
 	{
 		for (L2ItemInstance item : _items)
-			if (item != null && item.getItemId() == itemId)
+			if ((item != null) && (item.getItemId() == itemId))
 				return item;
 		return null;
 	}
@@ -109,7 +109,7 @@ public abstract class ItemContainer
 	public L2ItemInstance getItemByItemId(int itemId, L2ItemInstance itemToIgnore)
 	{
 		for (L2ItemInstance item : _items)
-			if (item != null && item.getItemId() == itemId && !item.equals(itemToIgnore))
+			if ((item != null) && (item.getItemId() == itemId) && !item.equals(itemToIgnore))
 				return item;
 		return null;
 	}
@@ -142,7 +142,7 @@ public abstract class ItemContainer
 	{
 		int count = 0;
 		for (L2ItemInstance item : _items)
-			if (item.getItemId() == itemId && (item.getEnchantLevel() == enchantLevel || enchantLevel < 0))
+			if ((item.getItemId() == itemId) && ((item.getEnchantLevel() == enchantLevel) || (enchantLevel < 0)))
 				// if (item.isAvailable((L2PcInstance)getOwner(), true) ||
 				// item.getItem().getType2() == 3)//available or quest item
 				if (item.isStackable())
@@ -169,7 +169,7 @@ public abstract class ItemContainer
 	{
 		L2ItemInstance olditem = getItemByItemId(item.getItemId());
 		// If stackable item is found in inventory just add to current quantity
-		if (olditem != null && olditem.isStackable())
+		if ((olditem != null) && olditem.isStackable())
 		{
 			int count = item.getCount();
 			olditem.changeCount(process, count, actor, reference);
@@ -179,7 +179,7 @@ public abstract class ItemContainer
 			item.updateDatabase();
 			item = olditem;
 			// Updates database
-			if (item.getItemId() == 57 && count < 10000 * Config.RATE_DROP_ADENA)
+			if ((item.getItemId() == 57) && (count < 10000 * Config.RATE_DROP_ADENA))
 			{
 				// Small adena changes won't be saved to database all the time
 				if (GameTimeController.getGameTicks() % 5 == 0)
@@ -222,12 +222,12 @@ public abstract class ItemContainer
 	{
 		L2ItemInstance item = getItemByItemId(itemId);
 		// If stackable item is found in inventory just add to current quantity
-		if (item != null && item.isStackable())
+		if ((item != null) && item.isStackable())
 		{
 			item.changeCount(process, count, actor, reference);
 			item.setLastChange(L2ItemInstance.MODIFIED);
 			// Updates database
-			if (itemId == 57 && count < 10000 * Config.RATE_DROP_ADENA)
+			if ((itemId == 57) && (count < 10000 * Config.RATE_DROP_ADENA))
 			{
 				// Small adena changes won't be saved to database all the time
 				if (GameTimeController.getGameTicks() % 5 == 0)
@@ -341,7 +341,7 @@ public abstract class ItemContainer
 			if (count > sourceitem.getCount())
 				count = sourceitem.getCount();
 			// If possible, move entire item object
-			if (sourceitem.getCount() == count && targetitem == null)
+			if ((sourceitem.getCount() == count) && (targetitem == null))
 			{
 				removeItem(sourceitem);
 				target.addItem(process, sourceitem, actor, reference);
@@ -350,13 +350,13 @@ public abstract class ItemContainer
 			else
 			{
 				if (sourceitem.getCount() > count) // If possible, only
-					// update
-					// counts
+				// update
+				// counts
 				{
 					sourceitem.changeCount(process, -count, actor, reference);
 				}
 				else
-					// Otherwise destroy old item
+				// Otherwise destroy old item
 				{
 					removeItem(sourceitem);
 					ItemTable.getInstance().destroyItem(process, sourceitem, actor, reference);
@@ -366,14 +366,14 @@ public abstract class ItemContainer
 					targetitem.changeCount(process, count, actor, reference);
 				}
 				else
-					// Otherwise add new item
+				// Otherwise add new item
 				{
 					targetitem = target.addItem(process, sourceitem.getItemId(), count, actor, reference);
 				}
 			}
 			// Updates database
 			sourceitem.updateDatabase();
-			if (targetitem != sourceitem && targetitem != null)
+			if ((targetitem != sourceitem) && (targetitem != null))
 				targetitem.updateDatabase();
 			if (sourceitem.isAugmented())
 				sourceitem.getAugmentation().removeBonus(actor);
@@ -602,7 +602,7 @@ public abstract class ItemContainer
 				L2World.getInstance().storeObject(item);
 				// If stackable item is found in inventory just add to current
 				// quantity
-				if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
+				if (item.isStackable() && (getItemByItemId(item.getItemId()) != null))
 					addItem("Restore", item, null, getOwner());
 				else
 					addItem(item);

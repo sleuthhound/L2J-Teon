@@ -98,7 +98,7 @@ public class IRCUtil implements IRCConstants
 	public static boolean isChan(String str)
 	{
 		int c;
-		return str.length() >= 2 && ((c = str.charAt(0)) == 35 || c == 38 || c == 33 || c == 43);
+		return (str.length() >= 2) && (((c = str.charAt(0)) == 35) || (c == 38) || (c == 33) || (c == 43));
 	}
 
 	// ------------------------------
@@ -157,24 +157,24 @@ public class IRCUtil implements IRCConstants
 				if (c == COLOR_INDICATOR)
 				{
 					c = buf.charAt(++j);
-					if ('0' <= c && c <= '9')
+					if (('0' <= c) && (c <= '9'))
 					{ // first int
 						c = buf.charAt(++j);
-						if ('0' <= c && c <= '9')
+						if (('0' <= c) && (c <= '9'))
 							c = buf.charAt(++j); // second int
 					}
 					if (c == ',')
 						c = buf.charAt(++j); // comma
-					if ('0' <= c && c <= '9')
+					if (('0' <= c) && (c <= '9'))
 					{ // first int
 						c = buf.charAt(++j);
-						if ('0' <= c && c <= '9')
+						if (('0' <= c) && (c <= '9'))
 							c = buf.charAt(++j); // second int
 					}
 					// ACTION / BOLD / UNDERLINE / COLOR END
 					// (format: <actionIndicator> / <boldIndicator> etc.)
 				}
-				else if (c == ACTION_INDICATOR || c == BOLD_INDICATOR || c == UNDERLINE_INDICATOR || c == COLOR_END_INDICATOR || c == COLOR_REVERSE_INDICATOR)
+				else if ((c == ACTION_INDICATOR) || (c == BOLD_INDICATOR) || (c == UNDERLINE_INDICATOR) || (c == COLOR_END_INDICATOR) || (c == COLOR_REVERSE_INDICATOR))
 				{
 					j++;
 				}
@@ -226,7 +226,7 @@ public class IRCUtil implements IRCConstants
 		}
 		if (last != len)
 			items.add(str.substring(last));
-		if (trailing != null && trailing.length() != 0)
+		if ((trailing != null) && (trailing.length() != 0))
 			items.add(trailing);
 		String[] result = new String[items.size()];
 		items.copyInto(result);

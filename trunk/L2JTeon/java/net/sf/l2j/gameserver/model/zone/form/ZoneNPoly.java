@@ -44,7 +44,7 @@ public class ZoneNPoly extends L2ZoneForm
 		boolean inside = false;
 		for (int i = 0, j = _x.length - 1; i < _x.length; j = i++)
 		{
-			if ((_y[i] <= y && y < _y[j] || _y[j] <= y && y < _y[i]) && x < (_x[j] - _x[i]) * (y - _y[i]) / (_y[j] - _y[i]) + _x[i])
+			if ((((_y[i] <= y) && (y < _y[j])) || ((_y[j] <= y) && (y < _y[i]))) && (x < (_x[j] - _x[i]) * (y - _y[i]) / (_y[j] - _y[i]) + _x[i]))
 			{
 				inside = !inside;
 			}

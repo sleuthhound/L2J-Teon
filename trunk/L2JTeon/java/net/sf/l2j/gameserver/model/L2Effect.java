@@ -442,9 +442,9 @@ public abstract class L2Effect
 	{
 		EffectTask task = _currentTask;
 		ScheduledFuture future = _currentFuture;
-		if (task == null || future == null)
+		if ((task == null) || (future == null))
 			return;
-		if (_state == EffectState.FINISHING || _state == EffectState.CREATED)
+		if ((_state == EffectState.FINISHING) || (_state == EffectState.CREATED))
 			return;
 		L2Skill sk = getSkill();
 		if (task._rate > 0)
@@ -463,9 +463,9 @@ public abstract class L2Effect
 	{
 		EffectTask task = _currentTask;
 		ScheduledFuture future = _currentFuture;
-		if (task == null || future == null)
+		if ((task == null) || (future == null))
 			return;
-		if (_state == EffectState.FINISHING || _state == EffectState.CREATED)
+		if ((_state == EffectState.FINISHING) || (_state == EffectState.CREATED))
 			return;
 		L2Skill sk = getSkill();
 		ps.addPartySpelledEffect(sk.getId(), getLevel(), (int) future.getDelay(TimeUnit.MILLISECONDS));
@@ -476,9 +476,9 @@ public abstract class L2Effect
 	{
 		EffectTask task = _currentTask;
 		ScheduledFuture future = _currentFuture;
-		if (task == null || future == null)
+		if ((task == null) || (future == null))
 			return;
-		if (_state == EffectState.FINISHING || _state == EffectState.CREATED)
+		if ((_state == EffectState.FINISHING) || (_state == EffectState.CREATED))
 			return;
 		L2Skill sk = getSkill();
 		os.addEffect(sk.getId(), getLevel(), (int) future.getDelay(TimeUnit.MILLISECONDS));

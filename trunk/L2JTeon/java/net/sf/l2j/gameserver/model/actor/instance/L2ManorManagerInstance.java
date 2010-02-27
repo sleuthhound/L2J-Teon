@@ -93,10 +93,10 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 					player.sendPacket(html);
 				}
 				else if (!player.isGM() // Player is not GM
-						&& getCastle() != null && getCastle().getCastleId() > 0
-						&& player.getClan() != null
-						&& getCastle().getOwnerId() == player.getClanId()
-						&& player.isClanLeader()) // Player is clan leader of clan (then he is the lord)
+						&& (getCastle() != null) && (getCastle().getCastleId() > 0) // Verification of castle )
+						&& (player.getClan() != null) // Player have clan )
+						&& (getCastle().getOwnerId() == player.getClanId()) // Player's clan owning the castle )
+						&& (player.isClanLeader())) // Player is clan leader of clan (then he is the lord)
 				{
 					showMessageWindow(player, "manager-lord.htm");
 				}
@@ -133,7 +133,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		// BypassValidation Exploit plug.
-		if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != getObjectId())
+		if ((player.getLastFolkNPC() == null) || (player.getLastFolkNPC().getObjectId() != getObjectId()))
 			return;
 		if (command.startsWith("manor_menu_select"))
 		{
@@ -158,52 +158,52 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 				castleId = state;
 			switch (ask)
 			{
-			// Main action
-			case 1: // Seed purchase
-				if (castleId != getCastle().getCastleId())
-				{
-					player.sendPacket(new SystemMessage(SystemMessageId.HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR));
-				}
-				else
-				{
-					L2TradeList tradeList = new L2TradeList(0);
-					FastList<SeedProduction> seeds = getCastle().getSeedProduction(CastleManorManager.PERIOD_CURRENT);
-					for (SeedProduction s : seeds)
+				// Main action
+				case 1: // Seed purchase
+					if (castleId != getCastle().getCastleId())
 					{
-						L2ItemInstance item = ItemTable.getInstance().createDummyItem(s.getId());
-						item.setPriceToSell(s.getPrice());
-						item.setCount(s.getCanProduce());
-						if (item.getCount() > 0 && item.getPriceToSell() > 0)
-							tradeList.addItem(item);
+						player.sendPacket(new SystemMessage(SystemMessageId.HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR));
 					}
-					BuyListSeed bl = new BuyListSeed(tradeList, castleId, player.getAdena());
-					player.sendPacket(bl);
-				}
-				break;
-			case 2: // Crop sales
-				player.sendPacket(new ExShowSellCropList(player, castleId, getCastle().getCropProcure(CastleManorManager.PERIOD_CURRENT)));
-				break;
-			case 3: // Current seeds (Manor info)
-				if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
-					player.sendPacket(new ExShowSeedInfo(castleId, null));
-				else
-					player.sendPacket(new ExShowSeedInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getSeedProduction(time)));
-				break;
-			case 4: // Current crops (Manor info)
-				if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
-					player.sendPacket(new ExShowCropInfo(castleId, null));
-				else
-					player.sendPacket(new ExShowCropInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getCropProcure(time)));
-				break;
-			case 5: // Basic info (Manor info)
-				player.sendPacket(new ExShowManorDefaultInfo());
-				break;
-			case 6: // Buy harvester
-				this.showBuyWindow(player, "3" + getNpcId());
-				break;
-			case 9: // Edit sales (Crop sales)
-				player.sendPacket(new ExShowProcureCropDetail(state));
-				break;
+					else
+					{
+						L2TradeList tradeList = new L2TradeList(0);
+						FastList<SeedProduction> seeds = getCastle().getSeedProduction(CastleManorManager.PERIOD_CURRENT);
+						for (SeedProduction s : seeds)
+						{
+							L2ItemInstance item = ItemTable.getInstance().createDummyItem(s.getId());
+							item.setPriceToSell(s.getPrice());
+							item.setCount(s.getCanProduce());
+							if ((item.getCount() > 0) && (item.getPriceToSell() > 0))
+								tradeList.addItem(item);
+						}
+						BuyListSeed bl = new BuyListSeed(tradeList, castleId, player.getAdena());
+						player.sendPacket(bl);
+					}
+					break;
+				case 2: // Crop sales
+					player.sendPacket(new ExShowSellCropList(player, castleId, getCastle().getCropProcure(CastleManorManager.PERIOD_CURRENT)));
+					break;
+				case 3: // Current seeds (Manor info)
+					if ((time == 1) && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+						player.sendPacket(new ExShowSeedInfo(castleId, null));
+					else
+						player.sendPacket(new ExShowSeedInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getSeedProduction(time)));
+					break;
+				case 4: // Current crops (Manor info)
+					if ((time == 1) && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+						player.sendPacket(new ExShowCropInfo(castleId, null));
+					else
+						player.sendPacket(new ExShowCropInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getCropProcure(time)));
+					break;
+				case 5: // Basic info (Manor info)
+					player.sendPacket(new ExShowManorDefaultInfo());
+					break;
+				case 6: // Buy harvester
+					this.showBuyWindow(player, "3" + getNpcId());
+					break;
+				case 9: // Edit sales (Crop sales)
+					player.sendPacket(new ExShowProcureCropDetail(state));
+					break;
 			}
 		}
 		else if (command.startsWith("help"))

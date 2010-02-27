@@ -72,7 +72,7 @@ public class AdminKill implements IAdminCommandHandler
 							int radius = Integer.parseInt(st.nextToken());
 							for (L2Character knownChar : plyr.getKnownList().getKnownCharactersInRadius(radius))
 							{
-								if (knownChar == null || knownChar instanceof L2ControllableMobInstance || knownChar.equals(activeChar))
+								if ((knownChar == null) || (knownChar instanceof L2ControllableMobInstance) || knownChar.equals(activeChar))
 								{
 									continue;
 								}
@@ -99,7 +99,7 @@ public class AdminKill implements IAdminCommandHandler
 						int radius = Integer.parseInt(firstParam);
 						for (L2Character knownChar : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 						{
-							if (knownChar == null || knownChar instanceof L2ControllableMobInstance || knownChar.equals(activeChar))
+							if ((knownChar == null) || (knownChar instanceof L2ControllableMobInstance) || knownChar.equals(activeChar))
 							{
 								continue;
 							}
@@ -118,7 +118,7 @@ public class AdminKill implements IAdminCommandHandler
 			else
 			{
 				L2Object obj = activeChar.getTarget();
-				if (obj == null || obj instanceof L2ControllableMobInstance || !(obj instanceof L2Character))
+				if ((obj == null) || (obj instanceof L2ControllableMobInstance) || !(obj instanceof L2Character))
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 				}

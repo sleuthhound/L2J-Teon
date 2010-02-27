@@ -76,12 +76,12 @@ public class PcStatus extends PlayableStatus
 				return;
 		}
 		int fullValue = (int) value;
-		if (attacker != null && attacker != getActiveChar())
+		if ((attacker != null) && (attacker != getActiveChar()))
 		{
 			// Check and calculate transfered damage
 			L2Summon summon = getActiveChar().getPet();
 			// TODO correct range
-			if (summon != null && summon instanceof L2SummonInstance && Util.checkIfInRange(900, getActiveChar(), summon, true))
+			if ((summon != null) && (summon instanceof L2SummonInstance) && Util.checkIfInRange(900, getActiveChar(), summon, true))
 			{
 				int tDmg = (int) value * (int) getActiveChar().getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) / 100;
 				// Only transfer dmg up to current HP, it should not be killed
@@ -114,7 +114,7 @@ public class PcStatus extends PlayableStatus
 			getActiveChar().standUp();
 		if (getActiveChar().isFakeDeath())
 			getActiveChar().stopFakeDeath(null);
-		if (attacker != null && attacker != getActiveChar() && fullValue > 0)
+		if ((attacker != null) && (attacker != getActiveChar()) && (fullValue > 0))
 		{
 			// Send a System Message to the L2PcInstance
 			SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);

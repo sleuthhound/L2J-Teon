@@ -108,13 +108,13 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 			activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
 			return;
 		}
-		if (_moveMovement == 0 && Config.GEODATA < 1) // cursor movement
-			// without geodata is
-			// disabled
+		if ((_moveMovement == 0) && (Config.GEODATA < 1)) // cursor movement
+		// without geodata is
+		// disabled
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
-		else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null && activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
+		else if (activeChar.isAttackingNow() && (activeChar.getActiveWeaponItem() != null) && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
@@ -124,7 +124,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 			double dy = _targetY - _curY;
 			// Can't move if character is confused, or trying to move a huge
 			// distance
-			if (activeChar.isOutOfControl() || dx * dx + dy * dy > 98010000) // 9900*9900
+			if (activeChar.isOutOfControl() || (dx * dx + dy * dy > 98010000)) // 9900*9900
 			{
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;

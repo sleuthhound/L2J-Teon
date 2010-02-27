@@ -151,7 +151,7 @@ public class AdminExpSp implements IAdminCommandHandler
 			{
 				return false;
 			}
-			if (expval != 0 || spval != 0)
+			if ((expval != 0) || (spval != 0))
 			{
 				// Common character information
 				player.sendMessage("Admin is adding you " + expval + " xp and " + spval + " sp.");
@@ -200,7 +200,7 @@ public class AdminExpSp implements IAdminCommandHandler
 			{
 				return false;
 			}
-			if (expval != 0 || spval != 0)
+			if ((expval != 0) || (spval != 0))
 			{
 				// Common character information
 				player.sendMessage("Admin is removing you " + expval + " xp and " + spval + " sp.");

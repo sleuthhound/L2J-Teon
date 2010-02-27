@@ -86,20 +86,20 @@ public class Die extends L2GameServerPacket
 			Boolean isInDefense = false;
 			Castle castle = CastleManager.getInstance().getCastle(_activeChar);
 			Fort fort = FortManager.getInstance().getFort(_activeChar);
-			if (castle != null && castle.getSiege().getIsInProgress())
+			if ((castle != null) && castle.getSiege().getIsInProgress())
 			{
 				// siege in progress
 				siegeClan = castle.getSiege().getAttackerClan(_clan);
-				if (siegeClan == null && castle.getSiege().checkIsDefender(_clan))
+				if ((siegeClan == null) && castle.getSiege().checkIsDefender(_clan))
 				{
 					isInDefense = true;
 				}
 			}
-			else if (fort != null && fort.getSiege().getIsInProgress())
+			else if ((fort != null) && fort.getSiege().getIsInProgress())
 			{
 				// fort siege in progress
 				siegeClan = fort.getSiege().getAttackerClan(_clan);
-				if (siegeClan == null && fort.getSiege().checkIsDefender(_clan))
+				if ((siegeClan == null) && fort.getSiege().checkIsDefender(_clan))
 				{
 					isInDefense = true;
 				}
@@ -107,14 +107,14 @@ public class Die extends L2GameServerPacket
 			writeD(_clan.getHasHideout() > 0 ? 0x01 : 0x00); // 6d 01 00 00
 			// 00 - to hide
 			// away
-			writeD(_clan.getHasCastle() > 0 || _clan.getHasFort() > 0 || isInDefense ? 0x01 : 0x00); // 6d
+			writeD((_clan.getHasCastle() > 0) || (_clan.getHasFort() > 0) || isInDefense ? 0x01 : 0x00); // 6d
 			// 02
 			// 00
 			// 00
 			// 00 -
 			// to
 			// castle
-			writeD(siegeClan != null && !isInDefense && siegeClan.getFlag().size() > 0 ? 0x01 : 0x00); // 6d
+			writeD((siegeClan != null) && !isInDefense && (siegeClan.getFlag().size() > 0) ? 0x01 : 0x00); // 6d
 			// 03
 			// 00 00
 			// 00 -

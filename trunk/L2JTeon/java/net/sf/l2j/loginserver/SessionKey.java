@@ -49,7 +49,7 @@ public class SessionKey
 
 	public boolean checkLoginPair(int loginOk1, int loginOk2)
 	{
-		return loginOkID1 == loginOk1 && loginOkID2 == loginOk2;
+		return (loginOkID1 == loginOk1) && (loginOkID2 == loginOk2);
 	}
 
 	/**
@@ -67,8 +67,8 @@ public class SessionKey
 		// when server doesnt show licence it deosnt send the LoginOk packet,
 		// client doesnt have this part of the key then.
 		if (Config.SHOW_LICENCE)
-			return playOkID1 == key.playOkID1 && loginOkID1 == key.loginOkID1 && playOkID2 == key.playOkID2 && loginOkID2 == key.loginOkID2;
+			return (playOkID1 == key.playOkID1) && (loginOkID1 == key.loginOkID1) && (playOkID2 == key.playOkID2) && (loginOkID2 == key.loginOkID2);
 		else
-			return playOkID1 == key.playOkID1 && playOkID2 == key.playOkID2;
+			return (playOkID1 == key.playOkID1) && (playOkID2 == key.playOkID2);
 	}
 }

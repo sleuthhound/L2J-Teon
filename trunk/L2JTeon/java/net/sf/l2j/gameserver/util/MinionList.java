@@ -155,7 +155,7 @@ public class MinionList
 	 */
 	public void maintainMinions()
 	{
-		if (master == null || master.isAlikeDead())
+		if ((master == null) || master.isAlikeDead())
 			return;
 		Long current = System.currentTimeMillis();
 		if (_respawnTasks != null)
@@ -183,7 +183,7 @@ public class MinionList
 	 */
 	public void spawnMinions()
 	{
-		if (master == null || master.isAlikeDead())
+		if ((master == null) || master.isAlikeDead())
 			return;
 		List<L2MinionData> minions = master.getTemplate().getMinionData();
 		synchronized (minionReferences)

@@ -81,12 +81,12 @@ public final class QuestState
 
 	public boolean isCompleted()
 	{
-		return getState() == State.COMPLETED;
+		return (getState() == State.COMPLETED);
 	}
 
 	public boolean isStarted()
 	{
-		return getState() == State.STARTED;
+		return (getState() == State.STARTED);
 	}
 
 	public Object setState(byte state)
@@ -181,7 +181,7 @@ public final class QuestState
 			// also, in this case, no work is needed if the state is being reset to a smaller value
 			// in those cases, skip forward to informing the client about the change...
 			// ELSE, if we just now skipped for the first time...prepare the flags!!!
-			if (cond > old + 1)
+			if (cond > (old + 1))
 			{
 				// set the most significant bit to 1 (indicates that there exist skipped states)
 				// also, ensure that the least significant bit is an 1 (the first step is never skipped, no matter
@@ -189,9 +189,9 @@ public final class QuestState
 				completedStateFlags = 0x80000001;
 				// since no flag had been skipped until now, the least significant bits must all
 				// be set to 1, up until "old" number of bits.
-				completedStateFlags |= (1 << old) - 1;
+				completedStateFlags |= ((1 << old) - 1);
 				// now, just set the bit corresponding to the passed cond to 1 (current step)
-				completedStateFlags |= 1 << cond - 1;
+				completedStateFlags |= (1 << (cond - 1));
 				set("__compltdStateFlags", String.valueOf(completedStateFlags));
 			}
 		}
@@ -201,9 +201,9 @@ public final class QuestState
 			// if this is a push back to a previous step, clear all completion flags ahead
 			if (cond < old)
 			{
-				completedStateFlags &= (1 << cond) - 1; // note, this also unsets the flag indicating that there exist skips
+				completedStateFlags &= ((1 << cond) - 1); // note, this also unsets the flag indicating that there exist skips
 				// now, check if this resulted in no steps being skipped any more
-				if (completedStateFlags == (1 << cond) - 1)
+				if (completedStateFlags == ((1 << cond) - 1))
 					unset("__compltdStateFlags");
 				else
 				{
@@ -218,7 +218,7 @@ public final class QuestState
 			// state and we are done
 			else
 			{
-				completedStateFlags |= 1 << cond - 1;
+				completedStateFlags |= (1 << (cond - 1));
 				set("__compltdStateFlags", String.valueOf(completedStateFlags));
 			}
 		}
@@ -401,7 +401,7 @@ public final class QuestState
 
 	public boolean dropQuestItems(int itemId, int minCount, int maxCount, int neededCount, int dropChance, boolean sound)
 	{
-		dropChance *= Config.RATE_DROP_QUEST / (getPlayer().getParty() != null ? getPlayer().getParty().getMemberCount() : 1);
+		dropChance *= Config.RATE_DROP_QUEST / ((getPlayer().getParty() != null) ? getPlayer().getParty().getMemberCount() : 1);
 		int currentCount = getQuestItemsCount(itemId);
 		if (neededCount > 0 && currentCount >= neededCount)
 			return true;
@@ -432,9 +432,9 @@ public final class QuestState
 			// Give the item to Player
 			getPlayer().addItem("Quest", itemId, itemCount, getPlayer().getTarget(), true);
 			if (sound)
-				playSound(currentCount + itemCount < neededCount ? "Itemsound.quest_itemget" : "Itemsound.quest_middle");
+				playSound((currentCount + itemCount < neededCount) ? "Itemsound.quest_itemget" : "Itemsound.quest_middle");
 		}
-		return neededCount > 0 && currentCount + itemCount >= neededCount;
+		return (neededCount > 0 && currentCount + itemCount >= neededCount);
 	}
 
 	// TODO: More radar functions need to be added when the radar class is complete.

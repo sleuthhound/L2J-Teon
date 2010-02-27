@@ -303,7 +303,7 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public NpcKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof NpcKnownList))
+		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof NpcKnownList))
 		{
 			setKnownList(new NpcKnownList(this));
 		}
@@ -313,7 +313,7 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public NpcStat getStat()
 	{
-		if (super.getStat() == null || !(super.getStat() instanceof NpcStat))
+		if ((super.getStat() == null) || !(super.getStat() instanceof NpcStat))
 		{
 			setStat(new NpcStat(this));
 		}
@@ -323,7 +323,7 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public NpcStatus getStatus()
 	{
-		if (super.getStatus() == null || !(super.getStatus() instanceof NpcStatus))
+		if ((super.getStatus() == null) || !(super.getStatus() instanceof NpcStatus))
 		{
 			setStatus(new NpcStatus(this));
 		}
@@ -456,7 +456,7 @@ public class L2NpcInstance extends L2Character
 		{
 			return 10000;
 		}
-		if (object instanceof L2FolkInstance || !(object instanceof L2Character))
+		if ((object instanceof L2FolkInstance) || !(object instanceof L2Character))
 		{
 			return 0;
 		}
@@ -679,10 +679,10 @@ public class L2NpcInstance extends L2Character
 			{
 				// Check the height difference
 				if (Math.abs(player.getZ() - getZ()) < 400) // this max
-					// heigth
-					// difference might
-					// need some
-					// tweaking
+				// heigth
+				// difference might
+				// need some
+				// tweaking
 				{
 					// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
@@ -735,7 +735,7 @@ public class L2NpcInstance extends L2Character
 					else
 					{
 						Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
-						if (qlst != null && qlst.length == 1)
+						if ((qlst != null) && (qlst.length == 1))
 						{
 							qlst[0].notifyFirstTalk(this, player);
 						}
@@ -1026,7 +1026,7 @@ public class L2NpcInstance extends L2Character
 	{
 		// if (canInteract(player))
 		{
-			if (isBusy() && getBusyMessage().length() > 0)
+			if (isBusy() && (getBusyMessage().length() > 0))
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -1229,14 +1229,14 @@ public class L2NpcInstance extends L2Character
 				int cmdChoice = Integer.parseInt(command.substring(8, 9).trim());
 				switch (cmdChoice)
 				{
-				case 1:
-					player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_TO_BE_AUGMENTED));
-					player.sendPacket(new ExShowVariationMakeWindow());
-					break;
-				case 2:
-					player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION));
-					player.sendPacket(new ExShowVariationCancelWindow());
-					break;
+					case 1:
+						player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_TO_BE_AUGMENTED));
+						player.sendPacket(new ExShowVariationMakeWindow());
+						break;
+					case 2:
+						player.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION));
+						player.sendPacket(new ExShowVariationCancelWindow());
+						break;
 				}
 			}
 			else if (command.startsWith("MakeBuffs"))
@@ -1263,7 +1263,7 @@ public class L2NpcInstance extends L2Character
 				try
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					if (player.getLevel() > 25 || player.getLevel() < 6 || !player.isNewbie())
+					if ((player.getLevel() > 25) || (player.getLevel() < 6) || !player.isNewbie())
 					{
 						html.setFile("data/html/adventurers_guide/31760-3.htm");
 						player.sendPacket(html);
@@ -1291,15 +1291,15 @@ public class L2NpcInstance extends L2Character
 				try
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					if (player.getLevel() > 25 || player.getLevel() < 6 || !player.isNewbie())
+					if ((player.getLevel() > 25) || (player.getLevel() < 6) || !player.isNewbie())
 					{
 						html.setFile("data/html/adventurers_guide/31760-3.htm");
 						player.sendPacket(html);
 					}
 					else
-						/*
-						 * if (player.getCoupon(0)) { html.setFile("data/html/adventurers_guide/31760-1.htm"); player.sendPacket(html); } else
-						 */{
+					/*
+					 * if (player.getCoupon(0)) { html.setFile("data/html/adventurers_guide/31760-1.htm"); player.sendPacket(html); } else
+					 */{
 						L2Multisell.getInstance().SeparateAndSend(10010, player, false, getCastle().getTaxRate());
 					}
 				}
@@ -1313,15 +1313,15 @@ public class L2NpcInstance extends L2Character
 				try
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					if (player.getLevel() > 25 || player.getLevel() < 6 || !player.isNewbie())
+					if ((player.getLevel() > 25) || (player.getLevel() < 6) || !player.isNewbie())
 					{
 						html.setFile("data/html/adventurers_guide/31760-3.htm");
 						player.sendPacket(html);
 					}
 					else
-						/*
-						 * if (player.getCoupon(0) || !player.isNewbie()) { html.setFile("data/html/adventurers_guide/31760-1.htm"); player.sendPacket(html); } else
-						 */{
+					/*
+					 * if (player.getCoupon(0) || !player.isNewbie()) { html.setFile("data/html/adventurers_guide/31760-1.htm"); player.sendPacket(html); } else
+					 */{
 						L2Multisell.getInstance().SeparateAndSend(10011, player, false, getCastle().getTaxRate());
 					}
 				}
@@ -1335,7 +1335,7 @@ public class L2NpcInstance extends L2Character
 				try
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					if (player.getLevel() > 25 || player.getClassId().level() != 1 || !player.isNewbie())
+					if ((player.getLevel() > 25) || (player.getClassId().level() != 1) || !player.isNewbie())
 					{
 						html.setFile("data/html/adventurers_guide/31760-6.htm");
 						player.sendPacket(html);
@@ -1363,15 +1363,15 @@ public class L2NpcInstance extends L2Character
 				try
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					if (player.getLevel() > 25 || player.getClassId().level() != 1 || !player.isNewbie())
+					if ((player.getLevel() > 25) || (player.getClassId().level() != 1) || !player.isNewbie())
 					{
 						html.setFile("data/html/adventurers_guide/31760-6.htm");
 						player.sendPacket(html);
 					}
 					else
-						/*
-						 * if (player.getCoupon(1)) { html.setFile("data/html/adventurers_guide/31760-4.htm"); player.sendPacket(html); } else
-						 */{
+					/*
+					 * if (player.getCoupon(1)) { html.setFile("data/html/adventurers_guide/31760-4.htm"); player.sendPacket(html); } else
+					 */{
 						L2Multisell.getInstance().SeparateAndSend(10012, player, false, getCastle().getTaxRate());
 					}
 				}
@@ -1385,15 +1385,15 @@ public class L2NpcInstance extends L2Character
 				try
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					if (player.getLevel() > 25 || player.getClassId().level() != 1 || !player.isNewbie())
+					if ((player.getLevel() > 25) || (player.getClassId().level() != 1) || !player.isNewbie())
 					{
 						html.setFile("data/html/adventurers_guide/31760-6.htm");
 						player.sendPacket(html);
 					}
 					else
-						/*
-						 * if (player.getCoupon(1)) { html.setFile("data/html/adventurers_guide/31760-4.htm"); player.sendPacket(html); } else
-						 */{
+					/*
+					 * if (player.getCoupon(1)) { html.setFile("data/html/adventurers_guide/31760-4.htm"); player.sendPacket(html); } else
+					 */{
 						L2Multisell.getInstance().SeparateAndSend(10013, player, false, getCastle().getTaxRate());
 					}
 				}
@@ -1656,7 +1656,7 @@ public class L2NpcInstance extends L2Character
 		}
 		else
 		{
-			if (q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000 && (player.getWeightPenalty() >= 3 || player.GetInventoryLimit() * 0.8 <= player.getInventory().getSize()))
+			if ((q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000) && (player.getWeightPenalty() >= 3 || player.GetInventoryLimit() * 0.8 <= player.getInventory().getSize()))
 			{
 				player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
 				return;
@@ -1733,7 +1733,7 @@ public class L2NpcInstance extends L2Character
 			for (QuestState x : awaits)
 			{
 				if (!options.contains(x))
-					if (x.getQuest().getQuestIntId() > 0 && x.getQuest().getQuestIntId() < 1000)
+					if ((x.getQuest().getQuestIntId() > 0) && (x.getQuest().getQuestIntId() < 1000))
 						options.add(x.getQuest());
 			}
 		}
@@ -1742,7 +1742,7 @@ public class L2NpcInstance extends L2Character
 			for (Quest x : starts)
 			{
 				if (!options.contains(x))
-					if (x.getQuestIntId() > 0 && x.getQuestIntId() < 1000)
+					if ((x.getQuestIntId() > 0) && (x.getQuestIntId() < 1000))
 						options.add(x);
 			}
 		}
@@ -1791,9 +1791,9 @@ public class L2NpcInstance extends L2Character
 			filename = getHtmlPath(npcId, 1);
 			html.setFile(filename);
 		}
-		else if (val >= 1 && val <= 21) // 1-20 - buttons, 21 - second
-			// buy
-			// lottery ticket window
+		else if ((val >= 1) && (val <= 21)) // 1-20 - buttons, 21 - second
+		// buy
+		// lottery ticket window
 		{
 			if (!Lottery.getInstance().isStarted())
 			{
@@ -1826,7 +1826,7 @@ public class L2NpcInstance extends L2Character
 				}
 			}
 			// if not rearched limit 5 and not unseted value
-			if (count < 5 && found == 0 && val <= 20)
+			if ((count < 5) && (found == 0) && (val <= 20))
 			{
 				for (int i = 0; i < 5; i++)
 				{
@@ -1929,7 +1929,7 @@ public class L2NpcInstance extends L2Character
 			html.setFile(filename);
 		}
 		else if (val == 24) // 24 - Previous winning numbers/Prize
-			// claim
+		// claim
 		{
 			filename = getHtmlPath(npcId, 4);
 			html.setFile(filename);
@@ -1941,7 +1941,7 @@ public class L2NpcInstance extends L2Character
 				{
 					continue;
 				}
-				if (item.getItemId() == 4442 && item.getCustomType1() < lotonumber)
+				if ((item.getItemId() == 4442) && (item.getCustomType1() < lotonumber))
 				{
 					message = message + "<a action=\"bypass -h npc_%objectId%_Loto " + item.getObjectId() + "\">" + item.getCustomType1() + " Event Number ";
 					int[] numbers = Lottery.getInstance().decodeNumbers(item.getEnchantLevel(), item.getCustomType2());
@@ -1954,18 +1954,18 @@ public class L2NpcInstance extends L2Character
 					{
 						switch (check[0])
 						{
-						case 1:
-							message += "- 1st Prize";
-							break;
-						case 2:
-							message += "- 2nd Prize";
-							break;
-						case 3:
-							message += "- 3th Prize";
-							break;
-						case 4:
-							message += "- 4th Prize";
-							break;
+							case 1:
+								message += "- 1st Prize";
+								break;
+							case 2:
+								message += "- 2nd Prize";
+								break;
+							case 3:
+								message += "- 3th Prize";
+								break;
+							case 4:
+								message += "- 4th Prize";
+								break;
 						}
 						message += " " + check[1] + "a.";
 					}
@@ -1979,11 +1979,11 @@ public class L2NpcInstance extends L2Character
 			html.replace("%result%", message);
 		}
 		else if (val > 24) // >24 - check lottery ticket by
-			// item object id
+		// item object id
 		{
 			int lotonumber = Lottery.getInstance().getId();
 			L2ItemInstance item = player.getInventory().getItemByObjectId(val);
-			if (item == null || item.getItemId() != 4442 || item.getCustomType1() >= lotonumber)
+			if ((item == null) || (item.getItemId() != 4442) || (item.getCustomType1() >= lotonumber))
 			{
 				return;
 			}
@@ -2016,14 +2016,14 @@ public class L2NpcInstance extends L2Character
 
 	public void makeCPRecovery(L2PcInstance player)
 	{
-		if (getNpcId() != 31225)
+		if ((getNpcId() != 31225))
 		{
 			return;
 		}
 		if (player.isCursedWeaponEquiped())
 		{
 			player.sendMessage("Go away, you're not welcome here.");
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+            player.sendPacket(ActionFailed.STATIC_PACKET); 
 			return;
 		}
 		int neededmoney = 100;
@@ -2031,13 +2031,13 @@ public class L2NpcInstance extends L2Character
 		{
 			return;
 		}
-		L2Skill skill = SkillTable.getInstance().getInfo(4380, 1);
-		if (skill != null)
-		{
-			setTarget(player);
-			doCast(skill);
-		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+        L2Skill skill = SkillTable.getInstance().getInfo(4380, 1); 
+        if (skill != null) 
+        {
+            setTarget(player); 
+            doCast(skill); 
+        }
+        player.sendPacket(ActionFailed.STATIC_PACKET); 
 	}
 
 	/**
@@ -2082,7 +2082,7 @@ public class L2NpcInstance extends L2Character
 			higestLevel = HelperBuffTable.getInstance().getPhysicClassHighestLevel();
 		}
 		// If the player is too high level, display a message and return
-		if (player_level > higestLevel || !player.isNewbie())
+		if ((player_level > higestLevel) || !player.isNewbie())
 		{
 			String content = "<html><body>Newbie Guide:<br>Only a <font color=\"LEVEL\">novice character of level " + higestLevel + " or less</font> can receive my support magic.<br>Your novice character is the first one that you created and raised in this world.</body></html>";
 			insertObjectIdAndShowChatWindow(player, content);
@@ -2102,7 +2102,7 @@ public class L2NpcInstance extends L2Character
 		{
 			if (helperBuffItem.isMagicClassBuff() == player.isMageClass())
 			{
-				if (player_level >= helperBuffItem.getLowerLevel() && player_level <= helperBuffItem.getUpperLevel())
+				if ((player_level >= helperBuffItem.getLowerLevel()) && (player_level <= helperBuffItem.getUpperLevel()))
 				{
 					skill = SkillTable.getInstance().getInfo(helperBuffItem.getSkillID(), helperBuffItem.getSkillLevel());
 					if (skill.getSkillType() == SkillType.SUMMON)
@@ -2165,28 +2165,28 @@ public class L2NpcInstance extends L2Character
 		}
 		if (player.getKarma() > 0)
 		{
-			if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && this instanceof L2MerchantInstance)
+			if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && (this instanceof L2MerchantInstance))
 			{
 				if (showPkDenyChatWindow(player, "merchant"))
 				{
 					return;
 				}
 			}
-			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_GK && this instanceof L2TeleporterInstance)
+			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_GK && (this instanceof L2TeleporterInstance))
 			{
 				if (showPkDenyChatWindow(player, "teleporter"))
 				{
 					return;
 				}
 			}
-			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && this instanceof L2WarehouseInstance)
+			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && (this instanceof L2WarehouseInstance))
 			{
 				if (showPkDenyChatWindow(player, "warehouse"))
 				{
 					return;
 				}
 			}
-			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && this instanceof L2FishermanInstance)
+			else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && (this instanceof L2FishermanInstance))
 			{
 				if (showPkDenyChatWindow(player, "fisherman"))
 				{
@@ -2194,7 +2194,7 @@ public class L2NpcInstance extends L2Character
 				}
 			}
 		}
-		if (getTemplate().type == "L2Auctioneer" && val == 0)
+		if ((getTemplate().type == "L2Auctioneer") && (val == 0))
 		{
 			return;
 		}
@@ -2208,363 +2208,363 @@ public class L2NpcInstance extends L2Character
 		int compWinner = SevenSigns.getInstance().getCabalHighestScore();
 		switch (npcId)
 		{
-		case 31078:
-		case 31079:
-		case 31080:
-		case 31081:
-		case 31082: // Dawn Priests
-		case 31083:
-		case 31084:
-		case 31168:
-		case 31692:
-		case 31694:
-		case 31997:
-			switch (playerCabal)
-			{
-			case SevenSigns.CABAL_DAWN:
-				if (isSealValidationPeriod)
+			case 31078:
+			case 31079:
+			case 31080:
+			case 31081:
+			case 31082: // Dawn Priests
+			case 31083:
+			case 31084:
+			case 31168:
+			case 31692:
+			case 31694:
+			case 31997:
+				switch (playerCabal)
 				{
-					if (compWinner == SevenSigns.CABAL_DAWN)
-					{
-						if (compWinner != sealGnosisOwner)
+					case SevenSigns.CABAL_DAWN:
+						if (isSealValidationPeriod)
 						{
-							filename += "dawn_priest_2c.htm";
+							if (compWinner == SevenSigns.CABAL_DAWN)
+							{
+								if (compWinner != sealGnosisOwner)
+								{
+									filename += "dawn_priest_2c.htm";
+								}
+								else
+								{
+									filename += "dawn_priest_2a.htm";
+								}
+							}
+							else
+							{
+								filename += "dawn_priest_2b.htm";
+							}
 						}
 						else
 						{
-							filename += "dawn_priest_2a.htm";
+							filename += "dawn_priest_1b.htm";
 						}
-					}
-					else
-					{
-						filename += "dawn_priest_2b.htm";
-					}
-				}
-				else
-				{
-					filename += "dawn_priest_1b.htm";
-				}
-				break;
-			case SevenSigns.CABAL_DUSK:
-				if (isSealValidationPeriod)
-				{
-					filename += "dawn_priest_3b.htm";
-				}
-				else
-				{
-					filename += "dawn_priest_3a.htm";
-				}
-				break;
-			default:
-				if (isSealValidationPeriod)
-				{
-					if (compWinner == SevenSigns.CABAL_DAWN)
-					{
-						filename += "dawn_priest_4.htm";
-					}
-					else
-					{
-						filename += "dawn_priest_2b.htm";
-					}
-				}
-				else
-				{
-					filename += "dawn_priest_1a.htm";
-				}
-			break;
-			}
-			break;
-		case 31085:
-		case 31086:
-		case 31087:
-		case 31088: // Dusk Priest
-		case 31089:
-		case 31090:
-		case 31091:
-		case 31169:
-		case 31693:
-		case 31695:
-		case 31998:
-			switch (playerCabal)
-			{
-			case SevenSigns.CABAL_DUSK:
-				if (isSealValidationPeriod)
-				{
-					if (compWinner == SevenSigns.CABAL_DUSK)
-					{
-						if (compWinner != sealGnosisOwner)
+						break;
+					case SevenSigns.CABAL_DUSK:
+						if (isSealValidationPeriod)
 						{
-							filename += "dusk_priest_2c.htm";
+							filename += "dawn_priest_3b.htm";
 						}
 						else
 						{
-							filename += "dusk_priest_2a.htm";
+							filename += "dawn_priest_3a.htm";
+						}
+						break;
+					default:
+						if (isSealValidationPeriod)
+						{
+							if (compWinner == SevenSigns.CABAL_DAWN)
+							{
+								filename += "dawn_priest_4.htm";
+							}
+							else
+							{
+								filename += "dawn_priest_2b.htm";
+							}
+						}
+						else
+						{
+							filename += "dawn_priest_1a.htm";
+						}
+						break;
+				}
+				break;
+			case 31085:
+			case 31086:
+			case 31087:
+			case 31088: // Dusk Priest
+			case 31089:
+			case 31090:
+			case 31091:
+			case 31169:
+			case 31693:
+			case 31695:
+			case 31998:
+				switch (playerCabal)
+				{
+					case SevenSigns.CABAL_DUSK:
+						if (isSealValidationPeriod)
+						{
+							if (compWinner == SevenSigns.CABAL_DUSK)
+							{
+								if (compWinner != sealGnosisOwner)
+								{
+									filename += "dusk_priest_2c.htm";
+								}
+								else
+								{
+									filename += "dusk_priest_2a.htm";
+								}
+							}
+							else
+							{
+								filename += "dusk_priest_2b.htm";
+							}
+						}
+						else
+						{
+							filename += "dusk_priest_1b.htm";
+						}
+						break;
+					case SevenSigns.CABAL_DAWN:
+						if (isSealValidationPeriod)
+						{
+							filename += "dusk_priest_3b.htm";
+						}
+						else
+						{
+							filename += "dusk_priest_3a.htm";
+						}
+						break;
+					default:
+						if (isSealValidationPeriod)
+						{
+							if (compWinner == SevenSigns.CABAL_DUSK)
+							{
+								filename += "dusk_priest_4.htm";
+							}
+							else
+							{
+								filename += "dusk_priest_2b.htm";
+							}
+						}
+						else
+						{
+							filename += "dusk_priest_1a.htm";
+						}
+						break;
+				}
+				break;
+			case 31095: //
+			case 31096: //
+			case 31097: //
+			case 31098: // Enter Necropolises
+			case 31099: //
+			case 31100: //
+			case 31101: //
+			case 31102: //
+				if (isSealValidationPeriod)
+				{
+					if ((playerCabal != compWinner) || (sealAvariceOwner != compWinner))
+					{
+						switch (compWinner)
+						{
+							case SevenSigns.CABAL_DAWN:
+								player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+								filename += "necro_no.htm";
+								break;
+							case SevenSigns.CABAL_DUSK:
+								player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+								filename += "necro_no.htm";
+								break;
+							case SevenSigns.CABAL_NULL:
+								filename = getHtmlPath(npcId, val); // do
+								// the
+								// default!
+								break;
 						}
 					}
 					else
 					{
-						filename += "dusk_priest_2b.htm";
+						filename = getHtmlPath(npcId, val); // do the
+						// default!
 					}
 				}
 				else
 				{
-					filename += "dusk_priest_1b.htm";
-				}
-				break;
-			case SevenSigns.CABAL_DAWN:
-				if (isSealValidationPeriod)
-				{
-					filename += "dusk_priest_3b.htm";
-				}
-				else
-				{
-					filename += "dusk_priest_3a.htm";
-				}
-				break;
-			default:
-				if (isSealValidationPeriod)
-				{
-					if (compWinner == SevenSigns.CABAL_DUSK)
+					if (playerCabal == SevenSigns.CABAL_NULL)
 					{
-						filename += "dusk_priest_4.htm";
+						filename += "necro_no.htm";
 					}
 					else
 					{
-						filename += "dusk_priest_2b.htm";
-					}
-				}
-				else
-				{
-					filename += "dusk_priest_1a.htm";
-				}
-			break;
-			}
-			break;
-		case 31095: //
-		case 31096: //
-		case 31097: //
-		case 31098: // Enter Necropolises
-		case 31099: //
-		case 31100: //
-		case 31101: //
-		case 31102: //
-			if (isSealValidationPeriod)
-			{
-				if (playerCabal != compWinner || sealAvariceOwner != compWinner)
-				{
-					switch (compWinner)
-					{
-					case SevenSigns.CABAL_DAWN:
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
-						filename += "necro_no.htm";
-						break;
-					case SevenSigns.CABAL_DUSK:
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
-						filename += "necro_no.htm";
-						break;
-					case SevenSigns.CABAL_NULL:
-						filename = getHtmlPath(npcId, val); // do
-						// the
+						filename = getHtmlPath(npcId, val); // do the
 						// default!
-						break;
 					}
 				}
-				else
+				break;
+			case 31114: //
+			case 31115: //
+			case 31116: // Enter Catacombs
+			case 31117: //
+			case 31118: //
+			case 31119: //
+				if (isSealValidationPeriod)
 				{
-					filename = getHtmlPath(npcId, val); // do the
-					// default!
-				}
-			}
-			else
-			{
-				if (playerCabal == SevenSigns.CABAL_NULL)
-				{
-					filename += "necro_no.htm";
-				}
-				else
-				{
-					filename = getHtmlPath(npcId, val); // do the
-					// default!
-				}
-			}
-			break;
-		case 31114: //
-		case 31115: //
-		case 31116: // Enter Catacombs
-		case 31117: //
-		case 31118: //
-		case 31119: //
-			if (isSealValidationPeriod)
-			{
-				if (playerCabal != compWinner || sealGnosisOwner != compWinner)
-				{
-					switch (compWinner)
+					if ((playerCabal != compWinner) || (sealGnosisOwner != compWinner))
 					{
-					case SevenSigns.CABAL_DAWN:
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
-						filename += "cata_no.htm";
-						break;
-					case SevenSigns.CABAL_DUSK:
-						player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
-						filename += "cata_no.htm";
-						break;
-					case SevenSigns.CABAL_NULL:
-						filename = getHtmlPath(npcId, val); // do
-						// the
+						switch (compWinner)
+						{
+							case SevenSigns.CABAL_DAWN:
+								player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+								filename += "cata_no.htm";
+								break;
+							case SevenSigns.CABAL_DUSK:
+								player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+								filename += "cata_no.htm";
+								break;
+							case SevenSigns.CABAL_NULL:
+								filename = getHtmlPath(npcId, val); // do
+								// the
+								// default!
+								break;
+						}
+					}
+					else
+					{
+						filename = getHtmlPath(npcId, val); // do the
 						// default!
-						break;
 					}
 				}
 				else
 				{
-					filename = getHtmlPath(npcId, val); // do the
-					// default!
+					if (playerCabal == SevenSigns.CABAL_NULL)
+					{
+						filename += "cata_no.htm";
+					}
+					else
+					{
+						filename = getHtmlPath(npcId, val); // do the
+						// default!
+					}
 				}
-			}
-			else
-			{
-				if (playerCabal == SevenSigns.CABAL_NULL)
+				break;
+			case 31111: // Gatekeeper Spirit (Disciples)
+				if ((playerCabal == sealAvariceOwner) && (playerCabal == compWinner))
 				{
-					filename += "cata_no.htm";
+					switch (sealAvariceOwner)
+					{
+						case SevenSigns.CABAL_DAWN:
+							filename += "spirit_dawn.htm";
+							break;
+						case SevenSigns.CABAL_DUSK:
+							filename += "spirit_dusk.htm";
+							break;
+						case SevenSigns.CABAL_NULL:
+							filename += "spirit_null.htm";
+							break;
+					}
 				}
 				else
 				{
-					filename = getHtmlPath(npcId, val); // do the
-					// default!
-				}
-			}
-			break;
-		case 31111: // Gatekeeper Spirit (Disciples)
-			if (playerCabal == sealAvariceOwner && playerCabal == compWinner)
-			{
-				switch (sealAvariceOwner)
-				{
-				case SevenSigns.CABAL_DAWN:
-					filename += "spirit_dawn.htm";
-					break;
-				case SevenSigns.CABAL_DUSK:
-					filename += "spirit_dusk.htm";
-					break;
-				case SevenSigns.CABAL_NULL:
 					filename += "spirit_null.htm";
+				}
+				break;
+			case 31112: // Gatekeeper Spirit (Disciples)
+				filename += "spirit_exit.htm";
+				break;
+			case 31127: //
+			case 31128: //
+			case 31129: // Dawn Festival Guides
+			case 31130: //
+			case 31131: //
+				filename += "festival/dawn_guide.htm";
+				break;
+			case 31137: //
+			case 31138: //
+			case 31139: // Dusk Festival Guides
+			case 31140: //
+			case 31141: //
+				filename += "festival/dusk_guide.htm";
+				break;
+			case 31092: // Black Marketeer of Mammon
+				filename += "blkmrkt_1.htm";
+				break;
+			case 31113: // Merchant of Mammon
+				switch (compWinner)
+				{
+					case SevenSigns.CABAL_DAWN:
+						if ((playerCabal != compWinner) || (playerCabal != sealAvariceOwner))
+						{
+							player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+							return;
+						}
+						break;
+					case SevenSigns.CABAL_DUSK:
+						if ((playerCabal != compWinner) || (playerCabal != sealAvariceOwner))
+						{
+							player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+							return;
+						}
+						break;
+				}
+				filename += "mammmerch_1.htm";
+				break;
+			case 31126: // Blacksmith of Mammon
+				switch (compWinner)
+				{
+					case SevenSigns.CABAL_DAWN:
+						if ((playerCabal != compWinner) || (playerCabal != sealGnosisOwner))
+						{
+							player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+							return;
+						}
+						break;
+					case SevenSigns.CABAL_DUSK:
+						if ((playerCabal != compWinner) || (playerCabal != sealGnosisOwner))
+						{
+							player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+							return;
+						}
+						break;
+				}
+				filename += "mammblack_1.htm";
+				break;
+			case 31132:
+			case 31133:
+			case 31134:
+			case 31135:
+			case 31136: // Festival Witches
+			case 31142:
+			case 31143:
+			case 31144:
+			case 31145:
+			case 31146:
+				filename += "festival/festival_witch.htm";
+				break;
+			case 31688:
+				if (player.isNoble())
+				{
+					filename = Olympiad.OLYMPIAD_HTML_FILE + "noble_main.htm";
+				}
+				else
+				{
+					filename = getHtmlPath(npcId, val);
+				}
+				break;
+			case 31690:
+			case 31769:
+			case 31770:
+			case 31771:
+			case 31772:
+				if (player.isHero())
+				{
+					filename = Olympiad.OLYMPIAD_HTML_FILE + "hero_main.htm";
+				}
+				else
+				{
+					filename = getHtmlPath(npcId, val);
+				}
+				break;
+			default:
+				if ((npcId >= 31865) && (npcId <= 31918))
+				{
+					filename += "rift/GuardianOfBorder.htm";
 					break;
 				}
-			}
-			else
-			{
-				filename += "spirit_null.htm";
-			}
-			break;
-		case 31112: // Gatekeeper Spirit (Disciples)
-			filename += "spirit_exit.htm";
-			break;
-		case 31127: //
-		case 31128: //
-		case 31129: // Dawn Festival Guides
-		case 31130: //
-		case 31131: //
-			filename += "festival/dawn_guide.htm";
-			break;
-		case 31137: //
-		case 31138: //
-		case 31139: // Dusk Festival Guides
-		case 31140: //
-		case 31141: //
-			filename += "festival/dusk_guide.htm";
-			break;
-		case 31092: // Black Marketeer of Mammon
-			filename += "blkmrkt_1.htm";
-			break;
-		case 31113: // Merchant of Mammon
-			switch (compWinner)
-			{
-			case SevenSigns.CABAL_DAWN:
-				if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
+				if (((npcId >= 31093) && (npcId <= 31094)) || ((npcId >= 31172) && (npcId <= 31201)) || ((npcId >= 31239) && (npcId <= 31254)))
 				{
-					player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
 					return;
 				}
-				break;
-			case SevenSigns.CABAL_DUSK:
-				if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
-				{
-					player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
-					return;
-				}
-				break;
-			}
-			filename += "mammmerch_1.htm";
-			break;
-		case 31126: // Blacksmith of Mammon
-			switch (compWinner)
-			{
-			case SevenSigns.CABAL_DAWN:
-				if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
-				{
-					player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
-					return;
-				}
-				break;
-			case SevenSigns.CABAL_DUSK:
-				if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
-				{
-					player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
-					return;
-				}
-				break;
-			}
-			filename += "mammblack_1.htm";
-			break;
-		case 31132:
-		case 31133:
-		case 31134:
-		case 31135:
-		case 31136: // Festival Witches
-		case 31142:
-		case 31143:
-		case 31144:
-		case 31145:
-		case 31146:
-			filename += "festival/festival_witch.htm";
-			break;
-		case 31688:
-			if (player.isNoble())
-			{
-				filename = Olympiad.OLYMPIAD_HTML_FILE + "noble_main.htm";
-			}
-			else
-			{
+				// Get the text of the selected HTML file in function of the
+				// npcId and of the page number
 				filename = getHtmlPath(npcId, val);
-			}
-			break;
-		case 31690:
-		case 31769:
-		case 31770:
-		case 31771:
-		case 31772:
-			if (player.isHero())
-			{
-				filename = Olympiad.OLYMPIAD_HTML_FILE + "hero_main.htm";
-			}
-			else
-			{
-				filename = getHtmlPath(npcId, val);
-			}
-			break;
-		default:
-			if (npcId >= 31865 && npcId <= 31918)
-			{
-				filename += "rift/GuardianOfBorder.htm";
 				break;
-			}
-		if (npcId >= 31093 && npcId <= 31094 || npcId >= 31172 && npcId <= 31201 || npcId >= 31239 && npcId <= 31254)
-		{
-			return;
-		}
-		// Get the text of the selected HTML file in function of the
-		// npcId and of the page number
-		filename = getHtmlPath(npcId, val);
-		break;
 		}
 		// Send a Server->Client NpcHtmlMessage containing the text of the
 		// L2NpcInstance to the L2PcInstance

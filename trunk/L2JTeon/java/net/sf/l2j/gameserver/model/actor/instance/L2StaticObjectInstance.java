@@ -61,7 +61,7 @@ public class L2StaticObjectInstance extends L2Object
 	}
 
 	/**
-	 */
+     */
 	public L2StaticObjectInstance(int objectId)
 	{
 		super(objectId);

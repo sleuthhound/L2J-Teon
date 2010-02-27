@@ -73,21 +73,21 @@ public class ItemInfo
 		// Get the action to do clientside
 		switch (item.getLastChange())
 		{
-		case L2ItemInstance.ADDED:
-		{
-			_change = 1;
-			break;
-		}
-		case L2ItemInstance.MODIFIED:
-		{
-			_change = 2;
-			break;
-		}
-		case L2ItemInstance.REMOVED:
-		{
-			_change = 3;
-			break;
-		}
+			case L2ItemInstance.ADDED:
+			{
+				_change = 1;
+				break;
+			}
+			case L2ItemInstance.MODIFIED:
+			{
+				_change = 2;
+				break;
+			}
+			case L2ItemInstance.REMOVED:
+			{
+				_change = 3;
+				break;
+			}
 		}
 		// Get shadow item mana
 		_mana = item.getMana();

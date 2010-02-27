@@ -26,7 +26,7 @@ public class Log
 		/*
 		 * Logger _log = logs.get(cat); if(_log == null) { _log = Logger.getLogger(cat); logs.put(cat, _log); }
 		 */
-		String date = new SimpleDateFormat("yy.MM.dd H:mm:ss").format(new Date());
+		String date = (new SimpleDateFormat("yy.MM.dd H:mm:ss")).format(new Date());
 		new File("log/game").mkdirs();
 		try
 		{
@@ -52,8 +52,8 @@ public class Log
 	@Deprecated
 	public static final void addEvent(L2PcInstance pc, String text)
 	{
-		String date = new SimpleDateFormat("yy.MM.dd H:mm:ss").format(new Date());
-		String filedate = new SimpleDateFormat("yyMMdd_H").format(new Date());
+		String date = (new SimpleDateFormat("yy.MM.dd H:mm:ss")).format(new Date());
+		String filedate = (new SimpleDateFormat("yyMMdd_H")).format(new Date());
 		new File("log/game").mkdirs();
 		File file = new File("log/game/actions_" + filedate + ".txt");
 		FileWriter save = null;

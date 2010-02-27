@@ -27,12 +27,12 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 public class EnchantScrolls implements IItemHandler
 {
 	private static final int[] ITEM_IDS = { 729, 730, 731, 732, 6569, 6570, // a
-		// grade
-		947, 948, 949, 950, 6571, 6572, // b grade
-		951, 952, 953, 954, 6573, 6574, // c grade
-		955, 956, 957, 958, 6575, 6576, // d grade
-		959, 960, 961, 962, 6577, 6578
-		// s grade
+			// grade
+			947, 948, 949, 950, 6571, 6572, // b grade
+			951, 952, 953, 954, 6573, 6574, // c grade
+			955, 956, 957, 958, 6575, 6576, // d grade
+			959, 960, 961, 962, 6577, 6578
+	// s grade
 	};
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -44,7 +44,7 @@ public class EnchantScrolls implements IItemHandler
 			return;
 		// NO enchant during restart/shutdown due to avoid an exploit.
 		// (Safe_Sigterm)
-		if (Config.SAFE_SIGTERM && Shutdown.getCounterInstance() != null)
+		if (Config.SAFE_SIGTERM && (Shutdown.getCounterInstance() != null))
 		{
 			activeChar.sendMessage("You are not allowed to Enchant during server restart/shutdown!");
 			return;

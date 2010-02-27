@@ -80,7 +80,7 @@ public class CrownManager
 			}
 			// L2EMU_EDIT
 			if (activeCharClanLeader != null && activeCharClanLeader.getObjectId() == activeChar.getObjectId())
-				// L2EMU_EDIT
+			// L2EMU_EDIT
 			{
 				isLeader = true;
 			}

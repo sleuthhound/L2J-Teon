@@ -103,7 +103,7 @@ public class DimensionalRift
 			{
 				if (_choosenRoom > -1)
 					DimensionalRiftManager.getInstance().getRoom(_type, _choosenRoom).unspawn();
-				if (reasonTP && jumps_current < getMaxJumps() && _party.getMemberCount() > deadPlayers.size())
+				if (reasonTP && (jumps_current < getMaxJumps()) && (_party.getMemberCount() > deadPlayers.size()))
 				{
 					jumps_current++;
 					_completedRooms.add(_choosenRoom);
@@ -171,7 +171,7 @@ public class DimensionalRift
 			deadPlayers.remove(player);
 		if (revivedInWaitingRoom.contains(player))
 			revivedInWaitingRoom.remove(player);
-		if (_party.getMemberCount() < Config.RIFT_MIN_PARTY_SIZE || _party.getMemberCount() == 1)
+		if ((_party.getMemberCount() < Config.RIFT_MIN_PARTY_SIZE) || (_party.getMemberCount() == 1))
 		{
 			for (L2PcInstance p : _party.getPartyMembers())
 				teleportToWaitingRoom(p);
@@ -353,7 +353,7 @@ public class DimensionalRift
 
 	public byte getMaxJumps()
 	{
-		if (Config.RIFT_MAX_JUMPS <= 8 && Config.RIFT_MAX_JUMPS >= 1)
+		if ((Config.RIFT_MAX_JUMPS <= 8) && (Config.RIFT_MAX_JUMPS >= 1))
 			return (byte) Config.RIFT_MAX_JUMPS;
 		else
 			return 4;

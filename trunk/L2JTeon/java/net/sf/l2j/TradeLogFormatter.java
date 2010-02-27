@@ -58,8 +58,8 @@ public class TradeLogFormatter extends Formatter
 			// output.append(((L2PcInstance)p).getName());
 			else
 				output.append(p.toString()/*
-				 * + ":" + ((L2Object)p).getObjectId()
-				 */);
+										 * + ":" + ((L2Object)p).getObjectId()
+										 */);
 		}
 		output.append(CRLF);
 		return output.toString();

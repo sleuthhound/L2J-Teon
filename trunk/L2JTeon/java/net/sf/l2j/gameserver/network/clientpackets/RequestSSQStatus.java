@@ -40,7 +40,7 @@ public final class RequestSSQStatus extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		if ((SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod()) && _page == 4)
+		if ((SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod()) && (_page == 4))
 			return;
 		SSQStatus ssqs = new SSQStatus(activeChar, _page);
 		activeChar.sendPacket(ssqs);

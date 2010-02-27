@@ -149,14 +149,14 @@ public class ItemTable
 	 * Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon]
 	 */
 	private static final String[] SQL_ITEM_SELECTS = {
-		"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
-		"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM custom_etcitem",
-		"SELECT item_id, name, bodypart, crystallizable, armor_type, weight," + " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," + " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM armor",
-		"SELECT item_id, name, bodypart, crystallizable, armor_type, weight," + " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," + " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM custom_armor",
-		"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," + " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," + " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count,"
-		+ " sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," + " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM weapon",
-		"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," + " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," + " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count,"
-		+ " sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," + " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM custom_weapon" };
+			"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
+			"SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM custom_etcitem",
+			"SELECT item_id, name, bodypart, crystallizable, armor_type, weight," + " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," + " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM armor",
+			"SELECT item_id, name, bodypart, crystallizable, armor_type, weight," + " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," + " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM custom_armor",
+			"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," + " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," + " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count,"
+					+ " sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," + " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM weapon",
+			"SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," + " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," + " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count,"
+					+ " sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," + " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM custom_weapon" };
 	/** List of etcItem */
 	private static final Map<Integer, Item> itemData = new FastMap<Integer, Item>();
 	/** List of weapons */
@@ -373,7 +373,7 @@ public class ItemTable
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
 		item.set.set("item_skill_id", rset.getInt("item_skill_id"));
 		item.set.set("item_skill_lvl", rset.getInt("item_skill_lvl"));
-		if (bodypart == L2Item.SLOT_NECK || bodypart == L2Item.SLOT_HAIR || bodypart == L2Item.SLOT_FACE || bodypart == L2Item.SLOT_DHAIR || (bodypart & L2Item.SLOT_L_EAR) != 0 || (bodypart & L2Item.SLOT_L_FINGER) != 0)
+		if ((bodypart == L2Item.SLOT_NECK) || (bodypart == L2Item.SLOT_HAIR) || (bodypart == L2Item.SLOT_FACE) || (bodypart == L2Item.SLOT_DHAIR) || ((bodypart & L2Item.SLOT_L_EAR) != 0) || ((bodypart & L2Item.SLOT_L_FINGER) != 0))
 		{
 			item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
 			item.set.set("type2", L2Item.TYPE2_ACCESSORY);
@@ -619,9 +619,9 @@ public class ItemTable
 			ScheduledFuture itemLootShedule;
 			long delay = 0;
 			// if in CommandChannel and was killing a World/RaidBoss
-			if (reference != null && reference instanceof L2GrandBossInstance || reference instanceof L2RaidBossInstance)
+			if (((reference != null) && (reference instanceof L2GrandBossInstance)) || (reference instanceof L2RaidBossInstance))
 			{
-				if (((L2Attackable) reference).getFirstCommandChannelAttacked() != null && ((L2Attackable) reference).getFirstCommandChannelAttacked().meetRaidWarCondition(reference))
+				if ((((L2Attackable) reference).getFirstCommandChannelAttacked() != null) && ((L2Attackable) reference).getFirstCommandChannelAttacked().meetRaidWarCondition(reference))
 				{
 					item.setOwnerId(((L2Attackable) reference).getFirstCommandChannelAttacked().getChannelLeader().getObjectId());
 					delay = 300000;
@@ -645,7 +645,7 @@ public class ItemTable
 		// Add the L2ItemInstance object to _allObjects of L2world
 		L2World.getInstance().storeObject(item);
 		// Set Item parameters
-		if (item.isStackable() && count > 1)
+		if (item.isStackable() && (count > 1))
 			item.setCount(count);
 		if (Config.LOG_ITEMS)
 		{

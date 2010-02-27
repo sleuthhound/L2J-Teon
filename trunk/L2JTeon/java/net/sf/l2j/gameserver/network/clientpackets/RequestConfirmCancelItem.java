@@ -50,7 +50,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance item = (L2ItemInstance) L2World.getInstance().findObject(_itemId);
-		if (activeChar == null || item == null)
+		if ((activeChar == null) || (item == null))
 			return;
 		if (!item.isAugmented())
 		{
@@ -60,34 +60,34 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 		int price = 0;
 		switch (item.getItem().getItemGrade())
 		{
-		case L2Item.CRYSTAL_C:
-			if (item.getCrystalCount() < 1720)
-				price = 95000;
-			else if (item.getCrystalCount() < 2452)
-				price = 150000;
-			else
-				price = 210000;
-			break;
-		case L2Item.CRYSTAL_B:
-			if (item.getCrystalCount() < 1746)
-				price = 240000;
-			else
-				price = 270000;
-			break;
-		case L2Item.CRYSTAL_A:
-			if (item.getCrystalCount() < 2160)
-				price = 330000;
-			else if (item.getCrystalCount() < 2824)
-				price = 390000;
-			else
-				price = 420000;
-			break;
-		case L2Item.CRYSTAL_S:
-			price = 480000;
-			break;
+			case L2Item.CRYSTAL_C:
+				if (item.getCrystalCount() < 1720)
+					price = 95000;
+				else if (item.getCrystalCount() < 2452)
+					price = 150000;
+				else
+					price = 210000;
+				break;
+			case L2Item.CRYSTAL_B:
+				if (item.getCrystalCount() < 1746)
+					price = 240000;
+				else
+					price = 270000;
+				break;
+			case L2Item.CRYSTAL_A:
+				if (item.getCrystalCount() < 2160)
+					price = 330000;
+				else if (item.getCrystalCount() < 2824)
+					price = 390000;
+				else
+					price = 420000;
+				break;
+			case L2Item.CRYSTAL_S:
+				price = 480000;
+				break;
 			// any other item type is not augmentable
-		default:
-			return;
+			default:
+				return;
 		}
 		activeChar.sendPacket(new ExConfirmCancelItem(_itemId, price));
 	}

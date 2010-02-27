@@ -1560,7 +1560,7 @@ public class Quest extends ManagedScript
 		// NPE prevention. If the player is null, there is nothing to return
 		if (player == null)
 			return null;
-		if (player.getParty() == null || player.getParty().getPartyMembers().size() == 0)
+		if ((player.getParty() == null) || (player.getParty().getPartyMembers().size() == 0))
 			return player;
 		L2Party party = player.getParty();
 		return party.getPartyMembers().get(Rnd.get(party.getPartyMembers().size()));
@@ -1601,10 +1601,10 @@ public class Quest extends ManagedScript
 		QuestState temp = null;
 		L2Party party = player.getParty();
 		// if this player is not in a party, just check if this player instance matches the conditions itself
-		if (party == null || party.getPartyMembers().size() == 0)
+		if ((party == null) || (party.getPartyMembers().size() == 0))
 		{
 			temp = player.getQuestState(getName());
-			if (temp != null && temp.get(var) != null && ((String) temp.get(var)).equalsIgnoreCase(value))
+			if ((temp != null) && (temp.get(var) != null) && ((String) temp.get(var)).equalsIgnoreCase(value))
 				return player; // match
 			return null; // no match
 		}
@@ -1620,7 +1620,7 @@ public class Quest extends ManagedScript
 			if (partyMember == null)
 				continue;
 			temp = partyMember.getQuestState(getName());
-			if (temp != null && temp.get(var) != null && ((String) temp.get(var)).equalsIgnoreCase(value) && partyMember.isInsideRadius(target, 1500, true, false))
+			if ((temp != null) && (temp.get(var) != null) && ((String) temp.get(var)).equalsIgnoreCase(value) && partyMember.isInsideRadius(target, 1500, true, false))
 				candidates.add(partyMember);
 		}
 		// if there was no match, return null...
@@ -1648,10 +1648,10 @@ public class Quest extends ManagedScript
 		QuestState temp = null;
 		L2Party party = player.getParty();
 		// if this player is not in a party, just check if this player instance matches the conditions itself
-		if (party == null || party.getPartyMembers().size() == 0)
+		if ((party == null) || (party.getPartyMembers().size() == 0))
 		{
 			temp = player.getQuestState(getName());
-			if (temp != null && temp.getState() == state)
+			if ((temp != null) && (temp.getState() == state))
 				return player; // match
 			return null; // no match
 		}
@@ -1667,7 +1667,7 @@ public class Quest extends ManagedScript
 			if (partyMember == null)
 				continue;
 			temp = partyMember.getQuestState(getName());
-			if (temp != null && temp.getState() == state && partyMember.isInsideRadius(target, 1500, true, false))
+			if ((temp != null) && (temp.getState() == state) && partyMember.isInsideRadius(target, 1500, true, false))
 				candidates.add(partyMember);
 		}
 		// if there was no match, return null...
@@ -1762,7 +1762,7 @@ public class Quest extends ManagedScript
 				// with quest spawns! For both of the above cases, we need a
 				// fail-safe spawn. For this, we use the
 				// default spawn location, which is at the player's loc.
-				if (x == 0 && y == 0)
+				if ((x == 0) && (y == 0))
 				{
 					_log.log(Level.SEVERE, "Failed to adjust bad locks for quest spawn!  Spawn aborted!");
 					return null;

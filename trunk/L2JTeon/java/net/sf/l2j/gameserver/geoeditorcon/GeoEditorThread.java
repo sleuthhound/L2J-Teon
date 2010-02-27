@@ -69,7 +69,7 @@ public class GeoEditorThread extends Thread
 			{
 				if (!isConnected())
 					_working = false;
-				if (_mode == 2 && timer > _sendDelay)
+				if ((_mode == 2) && (timer > _sendDelay))
 				{
 					for (L2PcInstance gm : _gms)
 						if (!gm.getClient().getConnection().isClosed())
@@ -231,7 +231,7 @@ public class GeoEditorThread extends Thread
 
 	public boolean isSend(L2PcInstance gm)
 	{
-		if (_mode == 1 && _gms.contains(gm))
+		if ((_mode == 1) && _gms.contains(gm))
 			return true;
 		return false;
 	}

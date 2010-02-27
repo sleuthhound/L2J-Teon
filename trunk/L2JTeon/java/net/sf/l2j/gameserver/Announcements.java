@@ -234,5 +234,5 @@ public class Announcements
 		// Get all players
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			player.sendMessage(message);
-	}
+		}
 }

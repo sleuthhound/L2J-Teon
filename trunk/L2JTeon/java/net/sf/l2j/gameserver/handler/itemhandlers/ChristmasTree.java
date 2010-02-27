@@ -30,13 +30,13 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 public class ChristmasTree implements IItemHandler
 {
 	private static final int[] ITEM_IDS = { 5560, /* x-mas tree */
-		5561
-		/* Special x-mas tree */
+	5561
+	/* Special x-mas tree */
 	};
 	private static final int[] NPC_IDS = { 13006, /*
-	 * Christmas tree w. flashing lights and snow
-	 */
-		13007 };
+												 * Christmas tree w. flashing lights and snow
+												 */
+	13007 };
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{

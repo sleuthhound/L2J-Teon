@@ -41,13 +41,13 @@ public class AdminSiege implements IAdminCommandHandler
 	// private static Logger _log =
 	// Logger.getLogger(AdminSiege.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_siege", "admin_add_attacker", "admin_add_defender", "admin_add_guard", "admin_list_siege_clans", "admin_clear_siege_list", "admin_move_defenders", "admin_spawn_doors", "admin_endsiege", "admin_startsiege", "admin_setcastle", "admin_removecastle", "admin_clanhall", "admin_clanhallset", "admin_clanhalldel", "admin_clanhallopendoors",
-		"admin_clanhallclosedoors", "admin_clanhallteleportself" };
+			"admin_clanhallclosedoors", "admin_clanhallteleportself" };
 	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL || !activeChar.isGM())
+			if ((activeChar.getAccessLevel() < REQUIRED_LEVEL) || !activeChar.isGM())
 			{
 				return false;
 			}
@@ -64,7 +64,7 @@ public class AdminSiege implements IAdminCommandHandler
 		String val = "";
 		if (st.hasMoreTokens())
 			val = st.nextToken();
-		if ((castle == null || castle.getCastleId() < 0) && clanhall == null)
+		if (((castle == null) || (castle.getCastleId() < 0)) && (clanhall == null))
 			// No castle specified
 			showCastleSelectPage(activeChar);
 		else
@@ -118,7 +118,7 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_setcastle"))
 			{
-				if (player == null || player.getClan() == null)
+				if ((player == null) || (player.getClan() == null))
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				else
 					castle.setOwner(player.getClan());
@@ -133,7 +133,7 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_clanhallset"))
 			{
-				if (player == null || player.getClan() == null)
+				if ((player == null) || (player.getClan() == null))
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				else if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
 					activeChar.sendMessage("This ClanHall isn't free!");

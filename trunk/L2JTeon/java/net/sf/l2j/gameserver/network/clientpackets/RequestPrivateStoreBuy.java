@@ -49,7 +49,7 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		_storePlayerId = readD();
 		_count = readD();
 		// count*12 is the size of a for iteration of each item
-		if (_count < 0 || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if ((_count < 0) || (_count * 12 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 		{
 			_count = 0;
 		}
@@ -81,7 +81,7 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 			return;
 		}
 		L2Object object = L2World.getInstance().findObject(_storePlayerId);
-		if (object == null || !(object instanceof L2PcInstance))
+		if ((object == null) || !(object instanceof L2PcInstance))
 		{
 			return;
 		}
@@ -90,7 +90,7 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 			return;
 		}
 		L2PcInstance storePlayer = (L2PcInstance) object;
-		if (!(storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL || storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL))
+		if (!((storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL) || (storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)))
 		{
 			return;
 		}
@@ -101,14 +101,14 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		}
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
-			if (storePlayer.isNoob() && player.isKoof() || storePlayer.isKoof() && player.isNoob())
+			if ((storePlayer.isNoob() && player.isKoof()) || (storePlayer.isKoof() && player.isNoob()))
 			{
 				player.sendMessage("You cant buy from enemy Faction");
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}
-		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -119,7 +119,7 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		long priceTotal = 0;
 		for (ItemRequest ir : _items)
 		{
-			if (ir.getCount() > Integer.MAX_VALUE || ir.getCount() < 0)
+			if ((ir.getCount() > Integer.MAX_VALUE) || (ir.getCount() < 0))
 			{
 				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName() + " tried an overflow exploit, ban this player!";
 				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
@@ -142,7 +142,7 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		}
 		// FIXME: this check should be (and most probabliy is) done in the
 		// TradeList mechanics
-		if (priceTotal < 0 || priceTotal > Integer.MAX_VALUE)
+		if ((priceTotal < 0) || (priceTotal > Integer.MAX_VALUE))
 		{
 			String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName() + " tried an overflow exploit, ban this player!";
 			Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);

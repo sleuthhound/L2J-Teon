@@ -57,20 +57,20 @@ public class ServerStatus extends ClientBasePacket
 				int value = readD();
 				switch (type)
 				{
-				case SERVER_LIST_STATUS:
-					gsi.setStatus(value);
-					break;
-				case SERVER_LIST_CLOCK:
-					gsi.setShowingClock(value == ON);
-					break;
-				case SERVER_LIST_SQUARE_BRACKET:
-					gsi.setShowingBrackets(value == ON);
-					break;
-				case TEST_SERVER:
-					gsi.setTestServer(value == ON);
-					break;
-				case MAX_PLAYERS:
-					gsi.setMaxPlayers(value);
+					case SERVER_LIST_STATUS:
+						gsi.setStatus(value);
+						break;
+					case SERVER_LIST_CLOCK:
+						gsi.setShowingClock(value == ON);
+						break;
+					case SERVER_LIST_SQUARE_BRACKET:
+						gsi.setShowingBrackets(value == ON);
+						break;
+					case TEST_SERVER:
+						gsi.setTestServer(value == ON);
+						break;
+					case MAX_PLAYERS:
+						gsi.setMaxPlayers(value);
 				}
 			}
 		}

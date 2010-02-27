@@ -34,7 +34,7 @@ public class SummonTreasureKey implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
 			return;
 		L2PcInstance player = (L2PcInstance) activeChar;
 		try
@@ -42,26 +42,26 @@ public class SummonTreasureKey implements ISkillHandler
 			int item_id = 0;
 			switch (skill.getLevel())
 			{
-			case 1:
-			{
-				item_id = Rnd.get(6667, 6669);
-				break;
-			}
-			case 2:
-			{
-				item_id = Rnd.get(6668, 6670);
-				break;
-			}
-			case 3:
-			{
-				item_id = Rnd.get(6669, 6671);
-				break;
-			}
-			case 4:
-			{
-				item_id = Rnd.get(6670, 6672);
-				break;
-			}
+				case 1:
+				{
+					item_id = Rnd.get(6667, 6669);
+					break;
+				}
+				case 2:
+				{
+					item_id = Rnd.get(6668, 6670);
+					break;
+				}
+				case 3:
+				{
+					item_id = Rnd.get(6669, 6671);
+					break;
+				}
+				case 4:
+				{
+					item_id = Rnd.get(6670, 6672);
+					break;
+				}
 			}
 			player.addItem("Skill", item_id, Rnd.get(2, 3), player, false);
 		}

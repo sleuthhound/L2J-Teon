@@ -172,7 +172,7 @@ public class AdminSpawn implements IAdminCommandHandler
 		L2Object target = activeChar.getTarget();
 		if (target == null)
 			target = activeChar;
-		if (target != activeChar && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
+		if ((target != activeChar) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
 			return;
 		L2NpcTemplate template1;
 		if (monsterId.matches("[0-9]*"))

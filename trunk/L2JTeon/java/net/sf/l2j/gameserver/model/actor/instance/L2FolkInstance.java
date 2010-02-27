@@ -88,7 +88,7 @@ public class L2FolkInstance extends L2NpcInstance
 		for (L2SkillLearn s : skills)
 		{
 			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-			if (sk == null || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcId))
+			if ((sk == null) || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcId))
 				continue;
 			int cost = SkillTreeTable.getInstance().getSkillCost(player, sk);
 			counts++;
@@ -236,7 +236,7 @@ public class L2FolkInstance extends L2NpcInstance
 					{
 						int count = 0;
 						ClassId classCheck = player.getClassId();
-						while (count == 0 && classCheck != null)
+						while ((count == 0) && (classCheck != null))
 						{
 							for (ClassId cid : _classesToTeach)
 							{
