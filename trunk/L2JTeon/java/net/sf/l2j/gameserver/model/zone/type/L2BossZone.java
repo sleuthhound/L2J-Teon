@@ -120,7 +120,7 @@ public class L2BossZone extends L2ZoneType
 					if (expirationTime == null) // legal null expirationTime entries
 					{
 						long serverStartTime = GameServer.dateTimeServerStarted.getTimeInMillis();
-						if ((serverStartTime > (System.currentTimeMillis() - _timeInvade)))
+						if (serverStartTime > System.currentTimeMillis() - _timeInvade)
 							return;
 					}
 					else

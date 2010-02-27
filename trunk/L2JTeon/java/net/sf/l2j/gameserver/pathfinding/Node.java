@@ -79,6 +79,6 @@ public class Node
 			return false;
 		Node n = (Node) arg0;
 		// Check if x,y,z are the same
-		return (_loc.getX() == n.getLoc().getX()) && (_loc.getY() == n.getLoc().getY()) && (_loc.getZ() == n.getLoc().getZ());
+		return _loc.getX() == n.getLoc().getX() && _loc.getY() == n.getLoc().getY() && _loc.getZ() == n.getLoc().getZ();
 	}
 }

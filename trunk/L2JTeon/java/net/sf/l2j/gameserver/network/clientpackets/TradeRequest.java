@@ -50,14 +50,14 @@ public final class TradeRequest extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
+		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		L2Object target = L2World.getInstance().findObject(_objectId);
-		if ((target == null) || !player.getKnownList().knowsObject(target) || !(target instanceof L2PcInstance) || (target.getObjectId() == player.getObjectId()))
+		if (target == null || !player.getKnownList().knowsObject(target) || !(target instanceof L2PcInstance) || target.getObjectId() == player.getObjectId())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return;
@@ -84,12 +84,12 @@ public final class TradeRequest extends L2GameClientPacket
 			return;
 		}
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && ((player.getKarma() > 0) || (partner.getKarma() > 0)))
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && (player.getKarma() > 0 || partner.getKarma() > 0))
 		{
 			player.sendMessage("Chaotic players can't use Trade.");
 			return;
 		}
-		if ((player.getPrivateStoreType() != 0) || (partner.getPrivateStoreType() != 0))
+		if (player.getPrivateStoreType() != 0 || partner.getPrivateStoreType() != 0)
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
 			return;

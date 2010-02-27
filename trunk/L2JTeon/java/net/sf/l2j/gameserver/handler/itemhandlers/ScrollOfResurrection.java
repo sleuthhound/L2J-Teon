@@ -67,11 +67,11 @@ public class ScrollOfResurrection implements IItemHandler
 			return;
 		int itemId = item.getItemId();
 		// boolean blessedScroll = (itemId != 737);
-		boolean humanScroll = (itemId == 3936) || (itemId == 3959) || (itemId == 737);
-		boolean petScroll = (itemId == 6387) || (itemId == 737);
+		boolean humanScroll = itemId == 3936 || itemId == 3959 || itemId == 737;
+		boolean petScroll = itemId == 6387 || itemId == 737;
 		// SoR Animation section
 		L2Character target = (L2Character) activeChar.getTarget();
-		if ((target != null) && target.isDead())
+		if (target != null && target.isDead())
 		{
 			L2PcInstance targetPlayer = null;
 			if (target instanceof L2PcInstance)
@@ -79,7 +79,7 @@ public class ScrollOfResurrection implements IItemHandler
 			L2PetInstance targetPet = null;
 			if (target instanceof L2PetInstance)
 				targetPet = (L2PetInstance) target;
-			if ((targetPlayer != null) || (targetPet != null))
+			if (targetPlayer != null || targetPet != null)
 			{
 				boolean condGood = true;
 				// check target is not in a active siege zone
@@ -88,7 +88,7 @@ public class ScrollOfResurrection implements IItemHandler
 					castle = CastleManager.getInstance().getCastle(targetPlayer.getX(), targetPlayer.getY(), targetPlayer.getZ());
 				else
 					castle = CastleManager.getInstance().getCastle(targetPet.getX(), targetPet.getY(), targetPet.getZ());
-				if ((castle != null) && castle.getSiege().getIsInProgress())
+				if (castle != null && castle.getSiege().getIsInProgress())
 				{
 					condGood = false;
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
@@ -142,7 +142,7 @@ public class ScrollOfResurrection implements IItemHandler
 						activeChar.sendPacket(SystemMessage.sendString("You may not resurrect participants in a festival."));
 					}
 					{
-						if ((activeChar.isNoob() && targetPlayer.isKoof()) || (activeChar.isKoof() && targetPlayer.isNoob())) // Check to see
+						if (activeChar.isNoob() && targetPlayer.isKoof() || activeChar.isKoof() && targetPlayer.isNoob()) // Check to see
 						// if the
 						// current
 						// player target

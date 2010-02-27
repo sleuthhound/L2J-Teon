@@ -62,13 +62,13 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			return;
 		}
 		L2ItemInstance item = activeChar.getInventory().getPaperdollItemByL2ItemId(_slot);
-		if ((item != null) && item.isWear())
+		if (item != null && item.isWear())
 		{
 			// Wear-items are not to be unequipped
 			return;
 		}
 		// Prevent of unequiping a cursed weapon
-		if ((_slot == L2Item.SLOT_LR_HAND) && activeChar.isCursedWeaponEquiped())
+		if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
 		{
 			// Message ?
 			return;
@@ -82,12 +82,12 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		if (activeChar.isCastingNow())
 			return;
 		// Remove augmentation bonus
-		if ((item != null) && item.isAugmented())
+		if (item != null && item.isAugmented())
 		{
 			item.getAugmentation().removeBonus(activeChar);
 		}
 		// remove skill of cupid's bow
-		if ((item != null) && item.isCupidBow())
+		if (item != null && item.isCupidBow())
 		{
 			if (item.getItemId() == 9140)
 			{

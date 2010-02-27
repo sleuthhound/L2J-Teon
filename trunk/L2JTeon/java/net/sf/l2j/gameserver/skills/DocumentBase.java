@@ -143,7 +143,7 @@ abstract class DocumentBase
 		{
 			condition = parseCondition(n.getFirstChild(), template);
 			Node msg = n.getAttributes().getNamedItem("msg");
-			if ((condition != null) && (msg != null))
+			if (condition != null && msg != null)
 				condition.setMessage(msg.getNodeValue());
 			n = n.getNextSibling();
 		}
@@ -218,7 +218,7 @@ abstract class DocumentBase
 				{
 					if (((L2Skill) template).getLevel() < 100)
 						time = Config.SKILL_DURATION_LIST.get(((L2Skill) template).getId());
-					else if ((((L2Skill) template).getLevel() >= 100) && (((L2Skill) template).getLevel() < 140))
+					else if (((L2Skill) template).getLevel() >= 100 && ((L2Skill) template).getLevel() < 140)
 						time += Config.SKILL_DURATION_LIST.get(((L2Skill) template).getId());
 					else if (((L2Skill) template).getLevel() > 140)
 						time = Config.SKILL_DURATION_LIST.get(((L2Skill) template).getId());
@@ -273,9 +273,9 @@ abstract class DocumentBase
 		parseTemplate(n, lt);
 		if (template instanceof L2Item)
 			((L2Item) template).attach(lt);
-		else if ((template instanceof L2Skill) && !self)
+		else if (template instanceof L2Skill && !self)
 			((L2Skill) template).attach(lt);
-		else if ((template instanceof L2Skill) && self)
+		else if (template instanceof L2Skill && self)
 			((L2Skill) template).attachSelf(lt);
 	}
 
@@ -294,7 +294,7 @@ abstract class DocumentBase
 		L2Skill skill = SkillTable.getInstance().getInfo(id, lvl);
 		if (attrs.getNamedItem("chance") != null)
 		{
-			if ((template instanceof L2Weapon) || (template instanceof L2Item))
+			if (template instanceof L2Weapon || template instanceof L2Item)
 			{
 				skill.attach(new ConditionGameChance(Integer.decode(getValue(attrs.getNamedItem("chance").getNodeValue(), template))), true);
 			}
@@ -305,7 +305,7 @@ abstract class DocumentBase
 		}
 		if (template instanceof L2Weapon)
 		{
-			if ((attrs.getNamedItem("onUse") != null) || ((attrs.getNamedItem("onCrit") == null) && (attrs.getNamedItem("onCast") == null)))
+			if (attrs.getNamedItem("onUse") != null || attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null)
 				((L2Weapon) template).attach(skill); // Attach as skill
 			// triggered on use
 			if (attrs.getNamedItem("onCrit") != null)
@@ -327,7 +327,7 @@ abstract class DocumentBase
 
 	protected Condition parseCondition(Node n, Object template)
 	{
-		while ((n != null) && (n.getNodeType() != Node.ELEMENT_NODE))
+		while (n != null && n.getNodeType() != Node.ELEMENT_NODE)
 			n = n.getNextSibling();
 		if (n == null)
 			return null;
@@ -358,7 +358,7 @@ abstract class DocumentBase
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if ((cond.conditions == null) || (cond.conditions.length == 0))
+		if (cond.conditions == null || cond.conditions.length == 0)
 			_log.severe("Empty <and> condition in " + _file);
 		return cond;
 	}
@@ -371,7 +371,7 @@ abstract class DocumentBase
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 		}
-		if ((cond.conditions == null) || (cond.conditions.length == 0))
+		if (cond.conditions == null || cond.conditions.length == 0)
 			_log.severe("Empty <or> condition in " + _file);
 		return cond;
 	}
@@ -683,7 +683,7 @@ abstract class DocumentBase
 		String name = n.getAttributes().getNamedItem("name").getNodeValue().trim();
 		String value = n.getAttributes().getNamedItem("val").getNodeValue().trim();
 		char ch = value.length() == 0 ? ' ' : value.charAt(0);
-		if ((ch == '#') || (ch == '-') || Character.isDigit(ch))
+		if (ch == '#' || ch == '-' || Character.isDigit(ch))
 			set.set(name, String.valueOf(getValue(value, level)));
 		else
 			set.set(name, value);
@@ -726,9 +726,9 @@ abstract class DocumentBase
 		}
 		LambdaCalc calc = new LambdaCalc();
 		n = n.getFirstChild();
-		while ((n != null) && (n.getNodeType() != Node.ELEMENT_NODE))
+		while (n != null && n.getNodeType() != Node.ELEMENT_NODE)
 			n = n.getNextSibling();
-		if ((n == null) || !"val".equals(n.getNodeName()))
+		if (n == null || !"val".equals(n.getNodeName()))
 			throw new IllegalArgumentException("Value not specified");
 		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
 		{

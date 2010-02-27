@@ -292,7 +292,7 @@ public final class MobGroup
 	{
 		List<L2ControllableMobInstance> deadMobs = new FastList<L2ControllableMobInstance>();
 		for (L2ControllableMobInstance mobInst : getMobs())
-			if ((mobInst != null) && mobInst.isDead())
+			if (mobInst != null && mobInst.isDead())
 				deadMobs.add(mobInst);
 		getMobs().removeAll(deadMobs);
 	}

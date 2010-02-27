@@ -219,7 +219,7 @@ public final class Formulas
 		{
 			double intb = INTbonus[env.player.getINT()];
 			double lvlb = env.player.getLevelMod();
-			env.value *= (lvlb * lvlb) * (intb * intb);
+			env.value *= lvlb * lvlb * intb * intb;
 		}
 	}
 
@@ -281,9 +281,9 @@ public final class Formulas
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_HEAD) != null)
 					env.value -= 12;
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST) != null)
-					env.value -= ((p.getClassId().isMage()) ? 15 : 31);
+					env.value -= p.getClassId().isMage() ? 15 : 31;
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEGS) != null)
-					env.value -= ((p.getClassId().isMage()) ? 8 : 18);
+					env.value -= p.getClassId().isMage() ? 8 : 18;
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_GLOVES) != null)
 					env.value -= 8;
 				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_FEET) != null)
@@ -339,7 +339,7 @@ public final class Formulas
 			env.value += Math.sqrt(p.getDEX()) * 6;
 			env.value += p.getLevel();
 			if (p instanceof L2Summon)
-				env.value += (p.getLevel() < 60) ? 4 : 5;
+				env.value += p.getLevel() < 60 ? 4 : 5;
 		}
 	}
 
@@ -918,7 +918,7 @@ public final class Formulas
 		if (cha instanceof L2GrandBossInstance)
 		{
 			L2GrandBossInstance boss = (L2GrandBossInstance) cha;
-			if ((boss.getNpcId() == 29022) && (GrandBossManager.getInstance().checkIfInZone("SunlightRoom", boss)))
+			if (boss.getNpcId() == 29022 && GrandBossManager.getInstance().checkIfInZone("SunlightRoom", boss))
 				hpRegenMultiplier *= 0.75;
 		}
 		if (Config.CHAMPION_ENABLE && cha.isChampion())
@@ -943,7 +943,7 @@ public final class Formulas
 					hpRegenMultiplier *= siegeModifier;
 				}
 			}
-			if (player.isInsideZone(L2Character.ZONE_CLANHALL) && (player.getClan() != null))
+			if (player.isInsideZone(L2Character.ZONE_CLANHALL) && player.getClan() != null)
 			{
 				int clanHallIndex = player.getClan().getHasHideout();
 				if (clanHallIndex > 0)
@@ -1021,7 +1021,7 @@ public final class Formulas
 			{
 				mpRegenBonus += 1;
 			}
-			if (player.isInsideZone(L2Character.ZONE_CLANHALL) && (player.getClan() != null))
+			if (player.isInsideZone(L2Character.ZONE_CLANHALL) && player.getClan() != null)
 			{
 				int clanHallIndex = player.getClan().getHasHideout();
 				if (clanHallIndex > 0)
@@ -1155,17 +1155,17 @@ public final class Formulas
 
 	public final double calcSiegeRegenModifer(L2PcInstance activeChar)
 	{
-		if ((activeChar == null) || (activeChar.getClan() == null))
+		if (activeChar == null || activeChar.getClan() == null)
 		{
 			return 0;
 		}
 		Siege siege = SiegeManager.getInstance().getSiege(activeChar.getPosition().getX(), activeChar.getPosition().getY(), activeChar.getPosition().getZ());
-		if ((siege == null) || !siege.getIsInProgress())
+		if (siege == null || !siege.getIsInProgress())
 		{
 			return 0;
 		}
 		L2SiegeClan siegeClan = siege.getAttackerClan(activeChar.getClan().getClanId());
-		if ((siegeClan == null) || (siegeClan.getFlag().size() == 0) || !Util.checkIfInRange(200, activeChar, siegeClan.getFlag().get(0), true))
+		if (siegeClan == null || siegeClan.getFlag().size() == 0 || !Util.checkIfInRange(200, activeChar, siegeClan.getFlag().get(0), true))
 		{
 			return 0;
 		}
@@ -1186,7 +1186,7 @@ public final class Formulas
 		{
 			defence += target.getShldDef();
 		}
-		if (ss && (skill.getSSBoost() > 0))
+		if (ss && skill.getSSBoost() > 0)
 		{
 			power *= skill.getSSBoost();
 		}
@@ -1251,7 +1251,7 @@ public final class Formulas
 		if (attacker instanceof L2PcInstance)
 		{
 			L2PcInstance pcInst = (L2PcInstance) attacker;
-			if (pcInst.isGM() && (pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE))
+			if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 			{
 				return 0;
 			}
@@ -1286,23 +1286,23 @@ public final class Formulas
 		// In C5 summons make 10 % less dmg in PvP.
 		// Damage less to L2PcInstance or L2Summon instance if Summon attacker
 		// Summon
-		if ((attacker instanceof L2Summon) && ((target instanceof L2PcInstance) || (target instanceof L2Summon)))
+		if (attacker instanceof L2Summon && (target instanceof L2PcInstance || target instanceof L2Summon))
 		{
 			damage *= 0.9;
 		}
 		// In C4 increase PVP Damage for Noblesses 10%
-		if ((attacker instanceof L2PcInstance) && (target instanceof L2PcInstance) && ((L2PcInstance) attacker).isNoble())
+		if (attacker instanceof L2PcInstance && target instanceof L2PcInstance && ((L2PcInstance) attacker).isNoble())
 		{
 			damage *= 1.1;
 		}
 		// In C5 increase PVP Damage for Heroes 10%
 		// Damage for Hero added incrased daamge for Noblesses
-		if ((attacker instanceof L2PcInstance) && (target instanceof L2PcInstance) && ((L2PcInstance) attacker).isHero())
+		if (attacker instanceof L2PcInstance && target instanceof L2PcInstance && ((L2PcInstance) attacker).isHero())
 		{
 			damage *= 1.1;
 		}
 		// In C5 increase PVP Damage for Summons is Owner is Hero
-		else if ((attacker instanceof L2Summon) && ((target instanceof L2PcInstance) || (target instanceof L2Summon)) && ((L2Summon) attacker).getOwner().isHero())
+		else if (attacker instanceof L2Summon && (target instanceof L2PcInstance || target instanceof L2Summon) && ((L2Summon) attacker).getOwner().isHero())
 		{
 			damage *= 1.05;
 		}
@@ -1444,7 +1444,7 @@ public final class Formulas
 				target.sendPacket(new SystemMessage(SystemMessageId.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS));
 			}
 		}
-		if ((damage > 0) && (damage < 1))
+		if (damage > 0 && damage < 1)
 		{
 			damage = 1;
 		}
@@ -1453,7 +1453,7 @@ public final class Formulas
 			damage = 0;
 		}
 		// Dmg bonusses in PvP fight
-		if (((attacker instanceof L2PcInstance) || (attacker instanceof L2Summon)) && ((target instanceof L2PcInstance) || (target instanceof L2Summon)))
+		if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && (target instanceof L2PcInstance || target instanceof L2Summon))
 		{
 			if (skill == null)
 			{
@@ -1483,7 +1483,7 @@ public final class Formulas
 		if (attacker instanceof L2PcInstance)
 		{
 			L2PcInstance pcInst = (L2PcInstance) attacker;
-			if (pcInst.isGM() && (pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE))
+			if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 			{
 				return 0;
 			}
@@ -1500,23 +1500,23 @@ public final class Formulas
 		}
 		double damage = 91 * Math.sqrt(mAtk) / mDef * skill.getPower(attacker) * calcSkillVulnerability(target, skill);
 		// In C5 summons make 10 % less dmg in PvP.
-		if ((attacker instanceof L2Summon) && (target instanceof L2PcInstance))
+		if (attacker instanceof L2Summon && target instanceof L2PcInstance)
 		{
 			damage *= 0.9;
 		}
 		// In C4 increase PVP Damage for Noblesses 10%
-		if ((attacker instanceof L2PcInstance) && (target instanceof L2PcInstance) && ((L2PcInstance) attacker).isNoble())
+		if (attacker instanceof L2PcInstance && target instanceof L2PcInstance && ((L2PcInstance) attacker).isNoble())
 		{
 			damage *= 1.1;
 		}
 		// In C5 increase PVP Damage for Heroes 10%
 		// Damage for Hero added incrased daamge for Noblesses
-		if ((attacker instanceof L2PcInstance) && (target instanceof L2PcInstance) && ((L2PcInstance) attacker).isHero())
+		if (attacker instanceof L2PcInstance && target instanceof L2PcInstance && ((L2PcInstance) attacker).isHero())
 		{
 			damage *= 1.1;
 		}
 		// In C5 increase PVP Damage for Summons is Owner is Hero
-		else if ((attacker instanceof L2Summon) && ((target instanceof L2PcInstance) || (target instanceof L2Summon)) && ((L2Summon) attacker).getOwner().isHero())
+		else if (attacker instanceof L2Summon && (target instanceof L2PcInstance || target instanceof L2Summon) && ((L2Summon) attacker).getOwner().isHero())
 		{
 			damage *= 1.05;
 		}
@@ -1527,7 +1527,7 @@ public final class Formulas
 		{
 			if (attacker instanceof L2PcInstance)
 			{
-				if (calcMagicSuccess(attacker, target, skill) && (target.getLevel() - attacker.getLevel() <= 9))
+				if (calcMagicSuccess(attacker, target, skill) && target.getLevel() - attacker.getLevel() <= 9)
 				{
 					if (skill.getSkillType() == SkillType.DRAIN)
 					{
@@ -1572,7 +1572,7 @@ public final class Formulas
 			damage *= 4;
 		}
 		// Pvp bonusses for dmg
-		if (((attacker instanceof L2PcInstance) || (attacker instanceof L2Summon)) && ((target instanceof L2PcInstance) || (target instanceof L2Summon)))
+		if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && (target instanceof L2PcInstance || target instanceof L2Summon))
 		{
 			if (skill.isMagic())
 			{
@@ -1699,7 +1699,7 @@ public final class Formulas
 		if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
 		{
 			L2Weapon wpn = target.getActiveWeaponItem();
-			if ((wpn != null) && (wpn.getItemType() == L2WeaponType.BOW))
+			if (wpn != null && wpn.getItemType() == L2WeaponType.BOW)
 			{
 				init = 15;
 			}
@@ -1783,7 +1783,7 @@ public final class Formulas
 			return false;
 		}
 		// Check for passive skill Aegis (316) or Aegis Stance (318)
-		if ((target.getKnownSkill(316) == null) && (target.getFirstEffect(318) == null))
+		if (target.getKnownSkill(316) == null && target.getFirstEffect(318) == null)
 		{
 			if (!target.isFront(attacker))
 			{
@@ -1792,7 +1792,7 @@ public final class Formulas
 		}
 		// if attacker use bow and target wear shield, shield block rate is
 		// multiplied by 1.3 (30%)
-		if ((at_weapon != null) && (at_weapon.getItemType() == L2WeaponType.BOW))
+		if (at_weapon != null && at_weapon.getItemType() == L2WeaponType.BOW)
 		{
 			shldRate *= 1.3;
 		}
@@ -1916,7 +1916,7 @@ public final class Formulas
 			SkillType type = skill.getSkillType();
 			// For additional effects on PDAM and MDAM skills (like STUN,
 			// SHOCK, PARALYZE...)
-			if ((type != null) && ((type == SkillType.PDAM) || (type == SkillType.MDAM)))
+			if (type != null && (type == SkillType.PDAM || type == SkillType.MDAM))
 				type = skill.getEffectType();
 			if (type != null)
 			{
@@ -2019,7 +2019,7 @@ public final class Formulas
 		}
 		int value = (int) skill.getPower();
 		int lvlDepend = skill.getLevelDepend();
-		if ((type == SkillType.PDAM) || (type == SkillType.MDAM)) // For
+		if (type == SkillType.PDAM || type == SkillType.MDAM) // For
 		// additional
 		// effects on
 		// PDAM skills
@@ -2031,7 +2031,7 @@ public final class Formulas
 		}
 		// TODO: Temporary fix for skills with EffectPower = 0 or EffectType not
 		// set
-		if ((value == 0) || (type == null))
+		if (value == 0 || type == null)
 		{
 			if (skill.getSkillType() == SkillType.PDAM)
 			{
@@ -2047,11 +2047,11 @@ public final class Formulas
 		// TODO: Temporary fix for skills with Power = 0 or LevelDepend not set
 		if (value == 0)
 		{
-			value = (type == SkillType.PARALYZE) ? 50 : (type == SkillType.FEAR) ? 40 : 80;
+			value = type == SkillType.PARALYZE ? 50 : type == SkillType.FEAR ? 40 : 80;
 		}
 		if (lvlDepend == 0)
 		{
-			lvlDepend = ((type == SkillType.PARALYZE) || (type == SkillType.FEAR)) ? 1 : 2;
+			lvlDepend = type == SkillType.PARALYZE || type == SkillType.FEAR ? 1 : 2;
 		}
 		// TODO: Temporary fix for NPC skills with MagicLevel not set
 		// int lvlmodifier = (skill.getMagicLevel() - target.getLevel()) *
@@ -2169,7 +2169,7 @@ public final class Formulas
 	{
 		double restorePercent = baseRestorePercent;
 		double modifier = WITbonus[casterWIT];
-		if ((restorePercent != 100) && (restorePercent != 0))
+		if (restorePercent != 100 && restorePercent != 0)
 		{
 			restorePercent = baseRestorePercent * modifier;
 			if (restorePercent - baseRestorePercent > 20.0)

@@ -90,7 +90,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 					_log.warning("No handler registered for bypass '" + _command + "'");
 				}
 			}
-			else if (_command.equals("come_here") && (activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL))
+			else if (_command.equals("come_here") && activeChar.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 			{
 				comeHere(activeChar);
 			}
@@ -165,7 +165,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 						else
 							activeChar.sendMessage("The event is already started. You can not leave now!");
 					}
-					if (((Config.ALLOW_REMOTE_CLASS_MASTERS) && (object instanceof L2ClassMasterInstance)) || (object != null) && (object instanceof L2NpcInstance) && (endOfId > 0) && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+					if (Config.ALLOW_REMOTE_CLASS_MASTERS && object instanceof L2ClassMasterInstance || object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
 					{
 						((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
 					}

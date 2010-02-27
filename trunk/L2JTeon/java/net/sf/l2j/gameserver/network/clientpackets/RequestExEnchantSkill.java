@@ -69,7 +69,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		if (trainer == null)
 			return;
 		int npcid = trainer.getNpcId();
-		if (((trainer == null) || !player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+		if ((trainer == null || !player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 			return;
 		if (player.getSkillLevel(_skillId) >= _skillLvl)// already knows the
 			// skill with this level
@@ -89,7 +89,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		for (L2EnchantSkillLearn s : skills)
 		{
 			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-			if ((sk == null) || (sk != skill) || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcid))
+			if (sk == null || sk != skill || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcid))
 				continue;
 			counts++;
 			_requiredSp = s.getSpCost();
@@ -97,7 +97,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 			_rate = s.getRate(player);
 			_baseLvl = s.getBaseLevel();
 		}
-		if ((counts == 0) && !Config.ALT_GAME_SKILL_LEARN)
+		if (counts == 0 && !Config.ALT_GAME_SKILL_LEARN)
 		{
 			player.sendMessage("You are trying to learn skill that u can't..");
 			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
@@ -108,7 +108,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 			long expAfter = player.getExp() - _requiredExp;
 			if (player.getExp() >= _requiredExp && expAfter >= Experience.LEVEL[player.getLevel()])
 			{
-				if (Config.ES_SP_BOOK_NEEDED && ((_skillLvl == 101) || (_skillLvl == 141)))
+				if (Config.ES_SP_BOOK_NEEDED && (_skillLvl == 101 || _skillLvl == 141))
 				// only first lvl requires book
 				{
 					int spbId = 6622;
@@ -172,7 +172,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		L2ShortCut[] allShortCuts = player.getAllShortCuts();
 		for (L2ShortCut sc : allShortCuts)
 		{
-			if ((sc.getId() == _skillId) && (sc.getType() == L2ShortCut.TYPE_SKILL))
+			if (sc.getId() == _skillId && sc.getType() == L2ShortCut.TYPE_SKILL)
 			{
 				L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _skillLvl, 1);
 				player.sendPacket(new ShortCutRegister(newsc));

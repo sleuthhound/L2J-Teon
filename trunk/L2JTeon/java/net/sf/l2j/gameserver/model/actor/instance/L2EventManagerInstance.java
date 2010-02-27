@@ -108,7 +108,7 @@ public class L2EventManagerInstance extends L2NpcInstance
 							if (eligible && !_finalPlayers.contains(member))
 								_finalPlayers.add(member);
 						}
-						if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
+						if (_finalPlayers.size() > 1 && _finalPlayers.size() >= minPeople)
 						{
 							player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
 							_awaitingplayers.add(player);
@@ -148,7 +148,7 @@ public class L2EventManagerInstance extends L2NpcInstance
 							if (eligible && !_finalPlayers.contains(member))
 								_finalPlayers.add(member);
 						}
-						if ((_finalPlayers.size() > 1) && (_finalPlayers.size() >= minPeople))
+						if (_finalPlayers.size() > 1 && _finalPlayers.size() >= minPeople)
 						{
 							player.setRaidParameters(player, type, eventPoints, npcId, npcAm, minPeople, bufflist, prizeLevel, this, _finalPlayers);
 							_awaitingplayers.add(player);

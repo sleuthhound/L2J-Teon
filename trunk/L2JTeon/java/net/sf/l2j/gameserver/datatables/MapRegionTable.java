@@ -360,7 +360,7 @@ public class MapRegionTable
 					}
 				}
 				// If teleport to castle
-				if ((teleportWhere == TeleportWhereType.Castle) || (teleportWhere == TeleportWhereType.SiegeFlag))
+				if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.SiegeFlag)
 				{
 					castle = CastleManager.getInstance().getCastleByOwner(player.getClan());
 					fort = FortManager.getInstance().getFortByOwner(player.getClan());
@@ -369,21 +369,21 @@ public class MapRegionTable
 						castle = CastleManager.getInstance().getCastle(player);
 					if (fort == null)
 						fort = FortManager.getInstance().getFort(player);
-					if ((castle != null) && (castle.getCastleId() > 0))
+					if (castle != null && castle.getCastleId() > 0)
 					{
 						// If Teleporting to castle or
 						// If is on caslte with siege and player's clan is
 						// defender
-						if ((teleportWhere == TeleportWhereType.Castle) || ((teleportWhere == TeleportWhereType.Castle) && castle.getSiege().getIsInProgress() && (castle.getSiege().getDefenderClan(player.getClan()) != null)))
+						if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.Castle && castle.getSiege().getIsInProgress() && castle.getSiege().getDefenderClan(player.getClan()) != null)
 						{
 							coord = castle.getZone().getSpawn();
 							return new Location(coord[0], coord[1], coord[2]);
 						}
-						if ((teleportWhere == TeleportWhereType.SiegeFlag) && castle.getSiege().getIsInProgress())
+						if (teleportWhere == TeleportWhereType.SiegeFlag && castle.getSiege().getIsInProgress())
 						{
 							// Check if player's clan is attacker
 							List<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
-							if ((flags != null) && !flags.isEmpty())
+							if (flags != null && !flags.isEmpty())
 							{
 								// Spawn to flag - Need more work to get player
 								// to the nearest flag
@@ -392,21 +392,21 @@ public class MapRegionTable
 							}
 						}
 					}
-					else if ((fort != null) && (fort.getFortId() > 0))
+					else if (fort != null && fort.getFortId() > 0)
 					{
 						// If Teleporting to castle or
 						// If is on caslte with siege and player's clan is
 						// defender
-						if ((teleportWhere == TeleportWhereType.Castle) || ((teleportWhere == TeleportWhereType.Castle) && fort.getSiege().getIsInProgress() && (fort.getSiege().getDefenderClan(player.getClan()) != null)))
+						if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.Castle && fort.getSiege().getIsInProgress() && fort.getSiege().getDefenderClan(player.getClan()) != null)
 						{
 							coord = fort.getZone().getSpawn();
 							return new Location(coord[0], coord[1], coord[2]);
 						}
-						if ((teleportWhere == TeleportWhereType.SiegeFlag) && fort.getSiege().getIsInProgress())
+						if (teleportWhere == TeleportWhereType.SiegeFlag && fort.getSiege().getIsInProgress())
 						{
 							// Check if player's clan is attacker
 							List<L2NpcInstance> flags = fort.getSiege().getFlag(player.getClan());
-							if ((flags != null) && !flags.isEmpty())
+							if (flags != null && !flags.isEmpty())
 							{
 								// Spawn to flag - Need more work to get player
 								// to the nearest flag
@@ -418,13 +418,13 @@ public class MapRegionTable
 				}
 			}
 			// teleport RED PK 5+ to Floran Village
-			if ((player.getPkKills() > 5) && (player.getKarma() > 1))
+			if (player.getPkKills() > 5 && player.getKarma() > 1)
 				return new Location(17817, 170079, -3530);
 			// Karma player land out of city
 			if (player.getKarma() > 1)
 			{
 				int closest = getMapRegion(activeChar.getX(), activeChar.getY());
-				if ((closest >= 0) && (closest < _pointsWithKarmas.length))
+				if (closest >= 0 && closest < _pointsWithKarmas.length)
 					return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
 				else
 					return new Location(17817, 170079, -3530);

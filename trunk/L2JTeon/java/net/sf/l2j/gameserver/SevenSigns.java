@@ -186,7 +186,7 @@ public class SevenSigns
 		{
 			for (AutoSpawnInstance spawnInst : _marketeerSpawns.values())
 				AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, true);
-			if ((getSealOwner(SEAL_GNOSIS) == getCabalHighestScore()) && (getSealOwner(SEAL_GNOSIS) != CABAL_NULL))
+			if (getSealOwner(SEAL_GNOSIS) == getCabalHighestScore() && getSealOwner(SEAL_GNOSIS) != CABAL_NULL)
 			{
 				if (!Config.ANNOUNCE_MAMMON_SPAWN)
 					_blacksmithSpawn.setBroadcast(false);
@@ -210,7 +210,7 @@ public class SevenSigns
 					AutoSpawnHandler.getInstance().setSpawnActive(spawnInst, false);
 				AutoChatHandler.getInstance().setAutoChatActive(false);
 			}
-			if ((getSealOwner(SEAL_AVARICE) == getCabalHighestScore()) && (getSealOwner(SEAL_AVARICE) != CABAL_NULL))
+			if (getSealOwner(SEAL_AVARICE) == getCabalHighestScore() && getSealOwner(SEAL_AVARICE) != CABAL_NULL)
 			{
 				if (!Config.ANNOUNCE_MAMMON_SPAWN)
 					_merchantSpawn.setBroadcast(false);
@@ -373,7 +373,7 @@ public class SevenSigns
 				if (daysToChange == 7)
 					if (_calendar.get(Calendar.HOUR_OF_DAY) < PERIOD_START_HOUR)
 						daysToChange = 0;
-					else if ((_calendar.get(Calendar.HOUR_OF_DAY) == PERIOD_START_HOUR) && (_calendar.get(Calendar.MINUTE) < PERIOD_START_MINS))
+					else if (_calendar.get(Calendar.HOUR_OF_DAY) == PERIOD_START_HOUR && _calendar.get(Calendar.MINUTE) < PERIOD_START_MINS)
 						daysToChange = 0;
 				// Otherwise...
 				if (daysToChange > 0)

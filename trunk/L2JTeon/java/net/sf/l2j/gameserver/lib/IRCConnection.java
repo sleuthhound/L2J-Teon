@@ -159,11 +159,11 @@ public class IRCConnection extends Thread
 	 */
 	public IRCConnection(String host, int[] ports, String pass, String nick, String username, String realname)
 	{
-		if ((host == null) || (ports == null) || (ports.length == 0))
+		if (host == null || ports == null || ports.length == 0)
 			throw new IllegalArgumentException("Host and ports may not be null.");
 		this.host = host;
 		this.ports = ports;
-		this.pass = (pass != null) && (pass.length() == 0) ? null : pass;
+		this.pass = pass != null && pass.length() == 0 ? null : pass;
 		this.nick = nick;
 		this.username = username;
 		this.realname = realname;
@@ -246,7 +246,7 @@ public class IRCConnection extends Thread
 			throw new SocketException("Socket closed or already open (" + level + ")");
 		IOException exception = null;
 		Socket s = null;
-		for (int i = 0; (i < ports.length) && (s == null); i++)
+		for (int i = 0; i < ports.length && s == null; i++)
 		{
 			try
 			{
@@ -471,10 +471,10 @@ public class IRCConnection extends Thread
 			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onNotice(middle, user, trailing);
 		}
-		else if (((reply = IRCUtil.parseInt(command)) >= 1) && (reply < 400))
+		else if ((reply = IRCUtil.parseInt(command)) >= 1 && reply < 400)
 		{ // RPL
 			String potNick = p.getParameter(1);
-			if (((level == 1) || (level == 2)) && (nick.length() > potNick.length()) && nick.substring(0, potNick.length()).equalsIgnoreCase(potNick))
+			if ((level == 1 || level == 2) && nick.length() > potNick.length() && nick.substring(0, potNick.length()).equalsIgnoreCase(potNick))
 			{
 				nick = potNick;
 				if (level == 2)
@@ -496,7 +496,7 @@ public class IRCConnection extends Thread
 			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onReply(reply, middle, trailing);
 		}
-		else if ((reply >= 400) && (reply < 600))
+		else if (reply >= 400 && reply < 600)
 		{ // ERROR
 			String trailing = p.getTrailing();
 			for (int i = listeners.length - 1; i >= 0; i--)

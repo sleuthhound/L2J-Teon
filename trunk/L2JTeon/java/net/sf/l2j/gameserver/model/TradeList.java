@@ -297,17 +297,17 @@ public class TradeList
 			return null;
 		}
 		L2Object o = L2World.getInstance().findObject(objectId);
-		if ((o == null) || !(o instanceof L2ItemInstance))
+		if (o == null || !(o instanceof L2ItemInstance))
 		{
 			_log.warning(_owner.getName() + ": Attempt to add invalid item to TradeList!");
 			return null;
 		}
 		L2ItemInstance item = (L2ItemInstance) o;
-		if (!item.isTradeable() || (item.getItemType() == L2EtcItemType.QUEST))
+		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
 			return null;
 		if (count > item.getCount())
 			return null;
-		if (!item.isStackable() && (count > 1))
+		if (!item.isStackable() && count > 1)
 		{
 			_log.warning(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
 			return null;
@@ -349,9 +349,9 @@ public class TradeList
 			_log.warning(_owner.getName() + ": Attempt to add invalid item to TradeList!");
 			return null;
 		}
-		if (!item.isTradeable() || (item.getItemType() == L2EtcItemType.QUEST))
+		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
 			return null;
-		if (!item.isStackable() && (count > 1))
+		if (!item.isStackable() && count > 1)
 		{
 			_log.warning(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
 			return null;
@@ -381,7 +381,7 @@ public class TradeList
 			return null;
 		}
 		for (TradeItem titem : _items)
-			if ((titem.getObjectId() == objectId) || (titem.getItem().getItemId() == itemId))
+			if (titem.getObjectId() == objectId || titem.getItem().getItemId() == itemId)
 			{
 				// If Partner has already confirmed this trade, invalidate the
 				// confirmation
@@ -396,7 +396,7 @@ public class TradeList
 					partnerList.invalidateConfirmation();
 				}
 				// Reduce item count or complete item
-				if ((count != -1) && (titem.getCount() > count))
+				if (count != -1 && titem.getCount() > count)
 					titem.setCount(titem.getCount() - count);
 				else
 					_items.remove(titem);
@@ -413,7 +413,7 @@ public class TradeList
 		for (TradeItem titem : _items)
 		{
 			L2ItemInstance item = _owner.getInventory().getItemByObjectId(titem.getObjectId());
-			if ((item == null) || (titem.getCount() < 1))
+			if (item == null || titem.getCount() < 1)
 				removeItem(titem.getObjectId(), -1, -1);
 			else if (item.getCount() < titem.getCount())
 				titem.setCount(item.getCount());
@@ -506,7 +506,7 @@ public class TradeList
 	private boolean validate()
 	{
 		// Check for Owner validity
-		if ((_owner == null) || (L2World.getInstance().findObject(_owner.getObjectId()) == null))
+		if (_owner == null || L2World.getInstance().findObject(_owner.getObjectId()) == null)
 		{
 			_log.warning("Invalid owner of TradeList");
 			return false;
@@ -515,7 +515,7 @@ public class TradeList
 		for (TradeItem titem : _items)
 		{
 			L2ItemInstance item = _owner.checkItemManipulation(titem.getObjectId(), titem.getCount(), "transfer");
-			if ((item == null) || (titem.getCount() < 1))
+			if (item == null || titem.getCount() < 1)
 			{
 				_log.warning(_owner.getName() + ": Invalid Item in TradeList");
 				return false;
@@ -540,7 +540,7 @@ public class TradeList
 			// Add changes to inventory update packets
 			if (ownerIU != null)
 			{
-				if ((oldItem.getCount() > 0) && (oldItem != newItem))
+				if (oldItem.getCount() > 0 && oldItem != newItem)
 					ownerIU.addModifiedItem(oldItem);
 				else
 					ownerIU.addRemovedItem(oldItem);
@@ -720,7 +720,7 @@ public class TradeList
 				return false;
 			removeItem(item.getObjectId(), -1, item.getCount());
 			// Add changes to inventory update packets
-			if ((oldItem.getCount() > 0) && (oldItem != newItem))
+			if (oldItem.getCount() > 0 && oldItem != newItem)
 				ownerIU.addModifiedItem(oldItem);
 			else
 				ownerIU.addRemovedItem(oldItem);
@@ -811,7 +811,7 @@ public class TradeList
 				return false;
 			removeItem(-1, item.getItemId(), item.getCount());
 			// Add changes to inventory update packets
-			if ((oldItem.getCount() > 0) && (oldItem != newItem))
+			if (oldItem.getCount() > 0 && oldItem != newItem)
 				playerIU.addModifiedItem(oldItem);
 			else
 				playerIU.addRemovedItem(oldItem);

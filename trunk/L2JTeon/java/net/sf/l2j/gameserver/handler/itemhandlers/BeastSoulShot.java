@@ -70,7 +70,7 @@ public class BeastSoulShot implements IItemHandler
 		int shotConsumption = 1;
 		L2ItemInstance weaponInst = null;
 		L2Weapon weaponItem = null;
-		if ((activePet instanceof L2PetInstance) && !(activePet instanceof L2BabyPetInstance))
+		if (activePet instanceof L2PetInstance && !(activePet instanceof L2BabyPetInstance))
 		{
 			weaponInst = ((L2PetInstance) activePet).getActiveWeaponInstance();
 			weaponItem = ((L2PetInstance) activePet).getActiveWeaponItem();

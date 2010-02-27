@@ -185,7 +185,7 @@ public class DimensionalRiftManager
 												x = riftRoom.getRandomX();
 												y = riftRoom.getRandomY();
 												z = riftRoom.getTeleportCoords()[2];
-												if ((template != null) && _rooms.containsKey(type) && _rooms.get(type).containsKey(roomId))
+												if (template != null && _rooms.containsKey(type) && _rooms.get(type).containsKey(roomId))
 												{
 													spawnDat = new L2Spawn(template);
 													spawnDat.setAmount(1);
@@ -385,7 +385,7 @@ public class DimensionalRiftManager
 
 		public boolean checkIfInZone(int x, int y, int z)
 		{
-			return _s.contains(x, y) && (z >= _zMin) && (z <= _zMax);
+			return _s.contains(x, y) && z >= _zMin && z <= _zMax;
 		}
 
 		public boolean isBossRoom()

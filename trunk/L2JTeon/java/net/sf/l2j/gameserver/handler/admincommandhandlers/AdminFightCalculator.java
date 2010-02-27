@@ -114,7 +114,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 			npc2 = NpcTable.getInstance().getTemplate(mid2);
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		TextBuilder replyMSG = new TextBuilder();
-		if ((npc1 != null) && (npc2 != null))
+		if (npc1 != null && npc2 != null)
 		{
 			replyMSG.append("<html><title>Selected mobs to fight</title>");
 			replyMSG.append("<body>");
@@ -129,7 +129,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 			replyMSG.append("</center>");
 			replyMSG.append("</body></html>");
 		}
-		else if ((lvl1 != 0) && (npc1 == null))
+		else if (lvl1 != 0 && npc1 == null)
 		{
 			replyMSG.append("<html><title>Select first mob to fight</title>");
 			replyMSG.append("<body><table>");
@@ -140,7 +140,7 @@ public class AdminFightCalculator implements IAdminCommandHandler
 			}
 			replyMSG.append("</table></body></html>");
 		}
-		else if ((lvl2 != 0) && (npc2 == null))
+		else if (lvl2 != 0 && npc2 == null)
 		{
 			replyMSG.append("<html><title>Select second mob to fight</title>");
 			replyMSG.append("<body><table>");

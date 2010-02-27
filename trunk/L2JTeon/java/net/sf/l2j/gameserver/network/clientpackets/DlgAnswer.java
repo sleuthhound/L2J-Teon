@@ -46,13 +46,13 @@ public final class DlgAnswer extends L2GameClientPacket
 			_log.fine(getType() + ": Answer acepted. Message ID " + _messageId + ", asnwer " + _answer + ", + Requester ID " + _requesterId);
 		if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
 			getClient().getActiveChar().reviveAnswer(_answer);
-		else if ((_messageId == 1983) && Config.ALLOW_WEDDING)
+		else if (_messageId == 1983 && Config.ALLOW_WEDDING)
 			getClient().getActiveChar().EngageAnswer(_answer);
 		else if (_messageId == 1140)
 			getClient().getActiveChar().gatesAnswer(_answer, 1);
 		else if (_messageId == 1141)
 			getClient().getActiveChar().gatesAnswer(_answer, 0);
-		else if ((_messageId == 614) && L2EventManagerInstance._awaitingplayers.contains(getClient().getActiveChar()))
+		else if (_messageId == 614 && L2EventManagerInstance._awaitingplayers.contains(getClient().getActiveChar()))
 		{
 			getClient().getActiveChar().setRaidAnswear(_answer);
 			L2EventManagerInstance._awaitingplayers.remove(getClient().getActiveChar());

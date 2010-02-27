@@ -52,7 +52,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if ((activeChar == null) || (_objectId == 0))
+		if (activeChar == null || _objectId == 0)
 			return;
 		if (activeChar.isProcessingTransaction())
 		{
@@ -73,7 +73,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			return;
 		}
 		// can't enchant rods, hero weapons and shadow items, donator rented items
-		if ((item.getItem().getItemType() == L2WeaponType.ROD) || (!Config.ENCHANT_HERO_WEAPONS && (item.getItemId() >= 6611) && (item.getItemId() <= 6621)) || ((item.getItemId() >= 7816) && (item.getItemId() <= 7831)) || item.isShadowItem() || item.isDonatorRented())
+		if (item.getItem().getItemType() == L2WeaponType.ROD || !Config.ENCHANT_HERO_WEAPONS && item.getItemId() >= 6611 && item.getItemId() <= 6621 || item.getItemId() >= 7816 && item.getItemId() <= 7831 || item.isShadowItem() || item.isDonatorRented())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 			activeChar.setActiveEnchantItem(null);
@@ -130,7 +130,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 					case 730:
 					case 732:
 					case 6570:
-						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
 						{
 							enchantItem = true;
 						}
@@ -152,7 +152,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 					case 948:
 					case 950:
 					case 6572:
-						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
 						{
 							enchantItem = true;
 						}
@@ -174,7 +174,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 					case 952:
 					case 954:
 					case 6574:
-						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
 						{
 							enchantItem = true;
 						}
@@ -196,7 +196,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 					case 956:
 					case 958:
 					case 6576:
-						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
 						{
 							enchantItem = true;
 						}
@@ -218,7 +218,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 					case 960:
 					case 962:
 					case 6578:
-						if ((itemType2 == L2Item.TYPE2_SHIELD_ARMOR) || (itemType2 == L2Item.TYPE2_ACCESSORY))
+						if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR || itemType2 == L2Item.TYPE2_ACCESSORY)
 						{
 							enchantItem = true;
 						}
@@ -232,7 +232,7 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			return;
 		}
 		// Get the scroll type - Yesod
-		if ((scroll.getItemId() >= 6569) && (scroll.getItemId() <= 6578))
+		if (scroll.getItemId() >= 6569 && scroll.getItemId() <= 6578)
 		{
 			blessedScroll = true;
 		}
@@ -348,12 +348,12 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 			return;
 		}
-		if ((item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX) || ((item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR) && (item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL)))
+		if (item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX || item.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR && item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL)
 		{
 			chance = 100;
 		}
 		int rndValue = Rnd.get(100);
-		if (Config.ENABLE_DWARF_ENCHANT_BONUS && (activeChar.getRace() == Race.dwarf))
+		if (Config.ENABLE_DWARF_ENCHANT_BONUS && activeChar.getRace() == Race.dwarf)
 		{
 			if (activeChar.getLevel() >= Config.DWARF_ENCHANT_MIN_LEVEL)
 				rndValue -= Config.DWARF_ENCHANT_BONUS;
@@ -363,17 +363,17 @@ public final class RequestEnchantItem extends L2GameClientPacket
 			synchronized (item)
 			{
 				if (item.getOwnerId() != activeChar.getObjectId() // has just lost the item)
-						|| ((item.getEnchantLevel() >= maxEnchantLevel) && (maxEnchantLevel != 0)))
+						|| item.getEnchantLevel() >= maxEnchantLevel && maxEnchantLevel != 0)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 					return;
 				}
-				if ((item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY) && (item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL))
+				if (item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY && item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 					return;
 				}
-				if ((item.getEnchantLevel() >= maxEnchantLevel) && (maxEnchantLevel != 0))
+				if (item.getEnchantLevel() >= maxEnchantLevel && maxEnchantLevel != 0)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
 					return;

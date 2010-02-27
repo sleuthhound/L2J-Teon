@@ -309,7 +309,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
 						player.sendMessage("You must enter an amount.");
 						break;
 					}
-					if ((ancientAdenaAmount < ancientAdenaConvert) || (ancientAdenaConvert < 1))
+					if (ancientAdenaAmount < ancientAdenaConvert || ancientAdenaConvert < 1)
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 						break;
@@ -324,7 +324,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
 				case 9: // Receive Contribution Rewards
 					int playerCabal = SevenSigns.getInstance().getPlayerCabal(player);
 					int winningCabal = SevenSigns.getInstance().getCabalHighestScore();
-					if (SevenSigns.getInstance().isSealValidationPeriod() && (playerCabal == winningCabal))
+					if (SevenSigns.getInstance().isSealValidationPeriod() && playerCabal == winningCabal)
 					{
 						int ancientAdenaReward = SevenSigns.getInstance().getAncientAdenaReward(player, true);
 						if (ancientAdenaReward < 3)
@@ -433,7 +433,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
 					}
 					int totalCount = convertItem.getCount();
 					int ancientAdenaReward = 0;
-					if ((convertCount <= totalCount) && (convertCount > 0))
+					if (convertCount <= totalCount && convertCount > 0)
 					{
 						switch (convertStoneId)
 						{

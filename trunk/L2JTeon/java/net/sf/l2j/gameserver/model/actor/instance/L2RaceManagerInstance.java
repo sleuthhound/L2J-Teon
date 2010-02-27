@@ -96,7 +96,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
 	@Override
 	public final RaceManagerKnownList getKnownList()
 	{
-		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof RaceManagerKnownList))
+		if (super.getKnownList() == null || !(super.getKnownList() instanceof RaceManagerKnownList))
 			setKnownList(new RaceManagerKnownList(this));
 		return (RaceManagerKnownList) super.getKnownList();
 	}
@@ -210,12 +210,12 @@ public class L2RaceManagerInstance extends L2NpcInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		if (command.startsWith("BuyTicket") && (_state != ACCEPTING_BETS))
+		if (command.startsWith("BuyTicket") && _state != ACCEPTING_BETS)
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.MONSRACE_TICKETS_NOT_AVAILABLE));
 			command = "Chat 0";
 		}
-		if (command.startsWith("ShowOdds") && (_state == ACCEPTING_BETS))
+		if (command.startsWith("ShowOdds") && _state == ACCEPTING_BETS)
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.MONSRACE_NO_PAYOUT_INFO));
 			command = "Chat 0";
@@ -228,7 +228,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
 				player.setRace(0, 0);
 				player.setRace(1, 0);
 			}
-			if (((val == 10) && (player.getRace(0) == 0)) || ((val == 20) && (player.getRace(0) == 0) && (player.getRace(1) == 0)))
+			if (val == 10 && player.getRace(0) == 0 || val == 20 && player.getRace(0) == 0 && player.getRace(1) == 0)
 				val = 0;
 			showBuyTicket(player, val);
 		}
@@ -338,7 +338,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
 		}
 		else if (val == 20)
 		{
-			if ((player.getRace(0) == 0) || (player.getRace(1) == 0))
+			if (player.getRace(0) == 0 || player.getRace(1) == 0)
 				return;
 			filename = getHtmlPath(npcId, 4);
 			html.setFile(filename);
@@ -358,7 +358,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
 		}
 		else
 		{
-			if ((player.getRace(0) == 0) || (player.getRace(1) == 0))
+			if (player.getRace(0) == 0 || player.getRace(1) == 0)
 				return;
 			int ticket = player.getRace(0);
 			int priceId = player.getRace(1);

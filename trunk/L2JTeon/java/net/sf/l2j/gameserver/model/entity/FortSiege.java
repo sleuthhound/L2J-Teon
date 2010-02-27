@@ -87,7 +87,7 @@ public class FortSiege
 					// 1 hr
 					// left.
 				}
-				else if ((timeRemaining <= 3600000) && (timeRemaining > 600000))
+				else if (timeRemaining <= 3600000 && timeRemaining > 600000)
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege conclusion.", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining - 600000); // Prepare
@@ -95,7 +95,7 @@ public class FortSiege
 					// for
 					// 10 minute left.
 				}
-				else if ((timeRemaining <= 600000) && (timeRemaining > 300000))
+				else if (timeRemaining <= 600000 && timeRemaining > 300000)
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege conclusion.", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining - 300000); // Prepare
@@ -103,7 +103,7 @@ public class FortSiege
 					// for 5 minute
 					// left.
 				}
-				else if ((timeRemaining <= 300000) && (timeRemaining > 10000))
+				else if (timeRemaining <= 300000 && timeRemaining > 10000)
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege conclusion.", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining - 10000); // Prepare
@@ -114,7 +114,7 @@ public class FortSiege
 					// count
 					// down
 				}
-				else if ((timeRemaining <= 10000) && (timeRemaining > 0))
+				else if (timeRemaining <= 10000 && timeRemaining > 0)
 				{
 					announceToPlayer(getFort().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) left!", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_fortInst), timeRemaining); // Prepare
@@ -165,7 +165,7 @@ public class FortSiege
 					// before siege start to
 					// end registration
 				}
-				else if ((timeRemaining <= 86400000) && (timeRemaining > 13600000))
+				else if (timeRemaining <= 86400000 && timeRemaining > 13600000)
 				{
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining - 13600000); // Prepare
 					// task
@@ -173,7 +173,7 @@ public class FortSiege
 					// 1 hr left before
 					// siege start.
 				}
-				else if ((timeRemaining <= 13600000) && (timeRemaining > 600000))
+				else if (timeRemaining <= 13600000 && timeRemaining > 600000)
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege begin.", false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining - 600000); // Prepare
@@ -181,7 +181,7 @@ public class FortSiege
 					// for 10 minute
 					// left.
 				}
-				else if ((timeRemaining <= 600000) && (timeRemaining > 300000))
+				else if (timeRemaining <= 600000 && timeRemaining > 300000)
 				{
 					announceToPlayer("The registration term for " + getFort().getName() + " has ended.", false);
 					_isRegistrationOver = true;
@@ -194,7 +194,7 @@ public class FortSiege
 					// minute
 					// left.
 				}
-				else if ((timeRemaining <= 300000) && (timeRemaining > 10000))
+				else if (timeRemaining <= 300000 && timeRemaining > 10000)
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getFort().getName() + " siege begin.", false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining - 10000); // Prepare
@@ -205,7 +205,7 @@ public class FortSiege
 					// count
 					// down
 				}
-				else if ((timeRemaining <= 10000) && (timeRemaining > 0))
+				else if (timeRemaining <= 10000 && timeRemaining > 0)
 				{
 					announceToPlayer(getFort().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) to start!", false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_fortInst), timeRemaining); // Prepare
@@ -369,7 +369,7 @@ public class FortSiege
 				// _siegeGuardManager.removeMercs();
 			}
 			// If defender doesn't exist (Pc vs Npc)
-			if ((getDefenderClans().size() == 0) && (getAttackerClans().size() == 1))
+			if (getDefenderClans().size() == 0 && getAttackerClans().size() == 1)
 			{
 				L2SiegeClan sc_newowner = getAttackerClan(getFort().getOwnerId());
 				removeAttacker(sc_newowner);
@@ -810,7 +810,7 @@ public class FortSiege
 			// quick check from player states, which don't include siege
 			// number
 			// however
-			if (!player.isInsideZone(L2Character.ZONE_SIEGE) || (player.getSiegeState() != 0))
+			if (!player.isInsideZone(L2Character.ZONE_SIEGE) || player.getSiegeState() != 0)
 			{
 				continue;
 			}
@@ -880,7 +880,7 @@ public class FortSiege
 		}
 		if (allyId != 0)
 		{
-			if ((player.getClan().getAllyId() == allyId) && !force)
+			if (player.getClan().getAllyId() == allyId && !force)
 			{
 				player.sendMessage("You cannot register as an attacker because your alliance owns the fort");
 				return;
@@ -1001,7 +1001,7 @@ public class FortSiege
 	 */
 	public void removeSiegeClan(L2Clan clan)
 	{
-		if ((clan == null) || (clan.getHasFort() == getFort().getFortId()) || !FortSiegeManager.getInstance().checkIsRegistered(clan, getFort().getFortId()))
+		if (clan == null || clan.getHasFort() == getFort().getFortId() || !FortSiegeManager.getInstance().checkIsRegistered(clan, getFort().getFortId()))
 		{
 			return;
 		}
@@ -1181,7 +1181,7 @@ public class FortSiege
 		{
 			player.sendMessage("This is not the time for siege registration and so registration and cancellation cannot be done.");
 		}
-		else if ((player.getClan() == null) || (player.getClan().getLevel() < FortSiegeManager.getInstance().getSiegeClanMinLevel()))
+		else if (player.getClan() == null || player.getClan().getLevel() < FortSiegeManager.getInstance().getSiegeClanMinLevel())
 		{
 			player.sendMessage("Only clans with Level " + FortSiegeManager.getInstance().getSiegeClanMinLevel() + " and higher may register for a fort siege.");
 		}
@@ -1399,7 +1399,7 @@ public class FortSiege
 		java.sql.Connection con = null;
 		try
 		{
-			if ((typeId == 0) || (typeId == 2) || (typeId == -1))
+			if (typeId == 0 || typeId == 2 || typeId == -1)
 			{
 				if (getDefenderClans().size() + getDefenderWaitingClans().size() >= FortSiegeManager.getInstance().getDefenderMaxClans())
 				{
@@ -1433,7 +1433,7 @@ public class FortSiege
 				statement.execute();
 				statement.close();
 			}
-			if ((typeId == 0) || (typeId == -1))
+			if (typeId == 0 || typeId == -1)
 			{
 				addDefender(clan.getClanId());
 				announceToPlayer(clan.getName() + " has been registered to defend " + getFort().getName(), false);
@@ -1527,7 +1527,7 @@ public class FortSiege
 		getSiegeGuardManager().spawnSiegeGuard();
 		// Register guard to the closest Control Tower
 		// When CT dies, so do all the guards that it controls
-		if ((getSiegeGuardManager().getSiegeGuardSpawn().size() > 0) && (_controlTowers.size() > 0))
+		if (getSiegeGuardManager().getSiegeGuardSpawn().size() > 0 && _controlTowers.size() > 0)
 		{
 			L2ControlTowerInstance closestCt;
 			double distance, x, y, z;
@@ -1550,7 +1550,7 @@ public class FortSiege
 					y = spawn.getLocy() - ct.getY();
 					z = spawn.getLocz() - ct.getZ();
 					distance = x * x + y * y + z * z;
-					if ((closestCt == null) || (distance < distanceClosest))
+					if (closestCt == null || distance < distanceClosest)
 					{
 						closestCt = ct;
 						distanceClosest = distance;
@@ -1577,7 +1577,7 @@ public class FortSiege
 	{
 		for (L2SiegeClan sc : getAttackerClans())
 		{
-			if ((sc != null) && (sc.getClanId() == clanId))
+			if (sc != null && sc.getClanId() == clanId)
 			{
 				return sc;
 			}
@@ -1601,7 +1601,7 @@ public class FortSiege
 
 	public final Fort getFort()
 	{
-		if ((_fort == null) || (_fort.length <= 0))
+		if (_fort == null || _fort.length <= 0)
 		{
 			return null;
 		}
@@ -1621,7 +1621,7 @@ public class FortSiege
 	{
 		for (L2SiegeClan sc : getDefenderClans())
 		{
-			if ((sc != null) && (sc.getClanId() == clanId))
+			if (sc != null && sc.getClanId() == clanId)
 			{
 				return sc;
 			}
@@ -1651,7 +1651,7 @@ public class FortSiege
 	{
 		for (L2SiegeClan sc : getDefenderWaitingClans())
 		{
-			if ((sc != null) && (sc.getClanId() == clanId))
+			if (sc != null && sc.getClanId() == clanId)
 			{
 				return sc;
 			}

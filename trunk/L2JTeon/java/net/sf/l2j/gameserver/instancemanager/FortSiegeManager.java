@@ -103,16 +103,16 @@ public class FortSiegeManager
 	 */
 	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
 	{
-		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
 		Fort fort = FortManager.getInstance().getFort(player);
-		if ((fort == null) || (fort.getFortId() <= 0))
+		if (fort == null || fort.getFortId() <= 0)
 			sm.addString("You must be on fort ground to summon this");
 		else if (!fort.getSiege().getIsInProgress())
 			sm.addString("You can only summon this during a siege.");
-		else if ((player.getClanId() != 0) && (fort.getSiege().getAttackerClan(player.getClanId()) == null))
+		else if (player.getClanId() != 0 && fort.getSiege().getAttackerClan(player.getClanId()) == null)
 			sm.addString("You can only summon this as a registered attacker.");
 		else
 			return true;

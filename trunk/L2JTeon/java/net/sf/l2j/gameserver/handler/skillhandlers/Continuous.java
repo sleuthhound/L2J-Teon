@@ -79,7 +79,7 @@ public class Continuous implements ISkillHandler
 		}
 		for (L2Object target2 : targets) {
 			target = (L2Character) target2;
-			if ((skill.getSkillType() != L2Skill.SkillType.BUFF) && (skill.getSkillType() != L2Skill.SkillType.HOT) && (skill.getSkillType() != L2Skill.SkillType.CPHOT) && (skill.getSkillType() != L2Skill.SkillType.MPHOT) && (skill.getSkillType() != L2Skill.SkillType.UNDEAD_DEFENSE) && (skill.getSkillType() != L2Skill.SkillType.AGGDEBUFF) && (skill.getSkillType() != L2Skill.SkillType.CONT))
+			if (skill.getSkillType() != L2Skill.SkillType.BUFF && skill.getSkillType() != L2Skill.SkillType.HOT && skill.getSkillType() != L2Skill.SkillType.CPHOT && skill.getSkillType() != L2Skill.SkillType.MPHOT && skill.getSkillType() != L2Skill.SkillType.UNDEAD_DEFENSE && skill.getSkillType() != L2Skill.SkillType.AGGDEBUFF && skill.getSkillType() != L2Skill.SkillType.CONT)
 			{
 				if (target.reflectSkill(skill))
 				{
@@ -87,7 +87,7 @@ public class Continuous implements ISkillHandler
 				}
 			}
 			// Walls and Door should not be buffed
-			if ((target instanceof L2DoorInstance) && ((skill.getSkillType() == L2Skill.SkillType.BUFF) || (skill.getSkillType() == L2Skill.SkillType.HOT)))
+			if (target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
 			{
 				continue;
 			}
@@ -96,11 +96,11 @@ public class Continuous implements ISkillHandler
 			{
 				if (target != activeChar)
 				{
-					if ((target instanceof L2PcInstance) && ((L2PcInstance) target).isCursedWeaponEquiped())
+					if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquiped())
 					{
 						continue;
 					}
-					else if ((player != null) && player.isCursedWeaponEquiped())
+					else if (player != null && player.isCursedWeaponEquiped())
 					{
 						continue;
 					}
@@ -174,16 +174,16 @@ public class Continuous implements ISkillHandler
 					continue;
 				}
 			}
-            if (skill.isToggle()) 
+            if (skill.isToggle())
             {
-                L2Effect[] effects = target.getAllEffects(); 
-                if (effects != null) 
+                L2Effect[] effects = target.getAllEffects();
+                if (effects != null)
                 {
-                    for (L2Effect e : effects) { 
-                        if (e != null && skill != null) 
-                            if (e.getSkill().getId() == skill.getId()) { 
-                                e.exit(); 
-                                return; 
+                    for (L2Effect e : effects) {
+                        if (e != null && skill != null)
+                            if (e.getSkill().getId() == skill.getId()) {
+                                e.exit();
+                                return;
                             }
                     }
                 }
@@ -191,7 +191,7 @@ public class Continuous implements ISkillHandler
 			// if this is a debuff let the duel manager know about it
 			// so the debuff can be removed after the duel
 			// (player & target must be in the same duel)
-			if ((target instanceof L2PcInstance) && ((L2PcInstance) target).isInDuel() && ((skill.getSkillType() == L2Skill.SkillType.DEBUFF) || (skill.getSkillType() == L2Skill.SkillType.BUFF)) && (player.getDuelId() == ((L2PcInstance) target).getDuelId()))
+			if (target instanceof L2PcInstance && ((L2PcInstance) target).isInDuel() && (skill.getSkillType() == L2Skill.SkillType.DEBUFF || skill.getSkillType() == L2Skill.SkillType.BUFF) && player.getDuelId() == ((L2PcInstance) target).getDuelId())
 			{
 				DuelManager dm = DuelManager.getInstance();
 				for (L2Effect buff : skill.getEffects(activeChar, target))
@@ -227,7 +227,7 @@ public class Continuous implements ISkillHandler
 		}
 		// self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
-		if ((effect != null) && effect.isSelfEffect())
+		if (effect != null && effect.isSelfEffect())
 		{
 			// Replace old effect with new one.
 			effect.exit();

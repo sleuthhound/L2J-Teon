@@ -123,7 +123,7 @@ public class RegionBBSManager extends BaseBBSManager
 			htmlCode.append("<table border=0><tr><td>" + player.getName() + " (" + sex + " " + player.getTemplate().className + "):</td></tr>");
 			htmlCode.append("<tr><td>Level: " + levelApprox + "</td></tr>");
 			htmlCode.append("<tr><td><br></td></tr>");
-			if ((activeChar != null) && (activeChar.isGM() || (player.getObjectId() == activeChar.getObjectId()) || Config.SHOW_LEVEL_COMMUNITYBOARD))
+			if (activeChar != null && (activeChar.isGM() || player.getObjectId() == activeChar.getObjectId() || Config.SHOW_LEVEL_COMMUNITYBOARD))
 			{
 				long nextLevelExp = 0;
 				long nextLevelExpNeeded = 0;
@@ -223,7 +223,7 @@ public class RegionBBSManager extends BaseBBSManager
 					_logChat.log(record);
 				}
 				CreatureSay cs = new CreatureSay(activeChar.getObjectId(), Say2.TELL, activeChar.getName(), ar3);
-				if ((receiver != null) && !BlockList.isBlocked(receiver, activeChar))
+				if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
 				{
 					if (!receiver.getMessageRefusal())
 					{
@@ -429,7 +429,7 @@ public class RegionBBSManager extends BaseBBSManager
 					htmlCode.append(trClose);
 				}
 			}
-			if ((cell > 0) && (cell < Config.NAME_PER_ROW_COMMUNITYBOARD))
+			if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
 			{
 				htmlCode.append(trClose);
 			}
@@ -508,7 +508,7 @@ public class RegionBBSManager extends BaseBBSManager
 			cell = 0;
 			for (L2PcInstance player : getOnlinePlayers(page))
 			{
-				if ((player == null) || player.getAppearance().getInvisible())
+				if (player == null || player.getAppearance().getInvisible())
 				{
 					continue; // Go to next
 				}
@@ -537,7 +537,7 @@ public class RegionBBSManager extends BaseBBSManager
 					htmlCode.append(trClose);
 				}
 			}
-			if ((cell > 0) && (cell < Config.NAME_PER_ROW_COMMUNITYBOARD))
+			if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
 			{
 				htmlCode.append(trClose);
 			}

@@ -85,7 +85,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							return;
 						}
 						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
-						if ((ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null) && (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null))
+						if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
 						{
 							activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl());
 						}
@@ -104,7 +104,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 									isInDefense = true;
 								}
 							}
-							if ((activeChar.getClan().getHasCastle() == 0) && !isInDefense)
+							if (activeChar.getClan().getHasCastle() == 0 && !isInDefense)
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
@@ -122,7 +122,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 									isInDefense = true;
 								}
 							}
-							if ((activeChar.getClan().getHasFort() == 0) && !isInDefense)
+							if (activeChar.getClan().getHasFort() == 0 && !isInDefense)
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
@@ -142,7 +142,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							{
 								siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
 							}
-							if ((siegeClan == null) || (siegeClan.getFlag().size() == 0))
+							if (siegeClan == null || siegeClan.getFlag().size() == 0)
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
@@ -156,7 +156,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							{
 								siegeClan = fort.getSiege().getAttackerClan(activeChar.getClan());
 							}
-							if ((siegeClan == null) || (siegeClan.getFlag().size() == 0))
+							if (siegeClan == null || siegeClan.getFlag().size() == 0)
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
@@ -244,7 +244,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			}
 			activeChar.sendMessage("You've been erased from the event!");
 			int num = L2RaidEvent._participatingPlayers.size();
-			if ((num > 0) && (num != 1))
+			if (num > 0 && num != 1)
 				num -= 1;
 			else
 				L2RaidEvent.hardFinish();

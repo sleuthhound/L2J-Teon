@@ -87,7 +87,7 @@ public abstract class Inventory extends ItemContainer
 	{
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
-			if (!((getOwner() != null) && (getOwner() instanceof L2PcInstance)))
+			if (!(getOwner() != null && getOwner() instanceof L2PcInstance))
 				return;
 			L2PcInstance owner = (L2PcInstance) getOwner();
 			if (item.getItemId() == 6408)
@@ -96,7 +96,7 @@ public abstract class Inventory extends ItemContainer
 
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
-			if (!((getOwner() != null) && (getOwner() instanceof L2PcInstance)))
+			if (!(getOwner() != null && getOwner() instanceof L2PcInstance))
 				return;
 			L2PcInstance owner = (L2PcInstance) getOwner();
 			// If player equip Formal Wear unequip weapons and abort
@@ -231,7 +231,7 @@ public abstract class Inventory extends ItemContainer
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().removeBonus((L2PcInstance) getOwner());
 				enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
-				if ((it.getItemId() == 9140) || (it.getItemId() == 9141))
+				if (it.getItemId() == 9140 || it.getItemId() == 9141)
 				{
 					player.removeSkill(SkillTable.getInstance().getInfo(3260, 1), false);
 					player.removeSkill(SkillTable.getInstance().getInfo(3261, 1), false);
@@ -272,7 +272,7 @@ public abstract class Inventory extends ItemContainer
 				passiveSkill = ((L2Weapon) it).getSkill();
 				if (item.getEnchantLevel() >= 4)
 					enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
-				if ((it.getItemId() == 9140) || (it.getItemId() == 9141))
+				if (it.getItemId() == 9140 || it.getItemId() == 9141)
 				{
 					player.addSkill(SkillTable.getInstance().getInfo(3260, 1), false);
 					player.addSkill(SkillTable.getInstance().getInfo(3261, 1), false);
@@ -997,7 +997,7 @@ public abstract class Inventory extends ItemContainer
 	 */
 	public synchronized void equipItem(L2ItemInstance item)
 	{
-		if ((getOwner() instanceof L2PcInstance) && (((L2PcInstance) getOwner()).getPrivateStoreType() != 0))
+		if (getOwner() instanceof L2PcInstance && ((L2PcInstance) getOwner()).getPrivateStoreType() != 0)
 			return;
 		if (getOwner() instanceof L2PcInstance)
 		{
@@ -1009,7 +1009,7 @@ public abstract class Inventory extends ItemContainer
 					return;
 				}
 			}
-			if ((player.getPkKills() > 0) && (item.getItemId() >= 7816) && (item.getItemId() <= 7831))
+			if (player.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
 			{
 				player.sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_EQUIP_ITEM_WHEN_PK_COUNT_GREATER_OR_EQUAL_THAN_ONE));
 				return;
@@ -1018,7 +1018,7 @@ public abstract class Inventory extends ItemContainer
 				if (!player.isHero())
 				{
 					int itemId = item.getItemId();
-					if (((itemId >= 6611) && (itemId <= 6621)) || (itemId == 6842))
+					if (itemId >= 6611 && itemId <= 6621 || itemId == 6842)
 					{
 						return;
 					}
@@ -1045,7 +1045,7 @@ public abstract class Inventory extends ItemContainer
 			}
 			case L2Item.SLOT_L_HAND:
 			{
-				if (!(item.getItem() instanceof L2EtcItem) || (item.getItem().getItemType() != L2EtcItemType.ARROW))
+				if (!(item.getItem() instanceof L2EtcItem) || item.getItem().getItemType() != L2EtcItemType.ARROW)
 				{
 					L2ItemInstance old1 = setPaperdollItem(PAPERDOLL_LRHAND, null);
 					if (old1 != null)
@@ -1125,7 +1125,7 @@ public abstract class Inventory extends ItemContainer
 			{
 				// handle full armor
 				L2ItemInstance chest = getPaperdollItem(PAPERDOLL_CHEST);
-				if ((chest != null) && (chest.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR))
+				if (chest != null && chest.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)
 				{
 					setPaperdollItem(PAPERDOLL_CHEST, null);
 				}
@@ -1196,7 +1196,7 @@ public abstract class Inventory extends ItemContainer
 		int weight = 0;
 		for (L2ItemInstance item : _items)
 		{
-			if ((item != null) && (item.getItem() != null))
+			if (item != null && item.getItem() != null)
 				weight += item.getItem().getWeight() * item.getCount();
 		}
 		_totalWeight = weight;
@@ -1275,7 +1275,7 @@ public abstract class Inventory extends ItemContainer
 				if (getOwner() instanceof L2PcInstance)
 				{
 					L2PcInstance player = (L2PcInstance) getOwner();
-					if ((player.getPkKills() > 0) && (item.getItemId() >= 7816) && (item.getItemId() <= 7831))
+					if (player.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
 					{
 						item.setLocation(ItemLocation.INVENTORY);
 					}
@@ -1285,7 +1285,7 @@ public abstract class Inventory extends ItemContainer
 							if (!player.isHero())
 							{
 								int itemId = item.getItemId();
-								if (((itemId >= 6611) && (itemId <= 6621)) || (itemId == 6842))
+								if (itemId >= 6611 && itemId <= 6621 || itemId == 6842)
 									item.setLocation(ItemLocation.INVENTORY);
 							}
 						}
@@ -1293,7 +1293,7 @@ public abstract class Inventory extends ItemContainer
 				L2World.getInstance().storeObject(item);
 				// If stackable item is found in inventory just add to current
 				// quantity
-				if (item.isStackable() && (getItemByItemId(item.getItemId()) != null))
+				if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
 					addItem("Restore", item, null, getOwner());
 				else
 					addItem(item);

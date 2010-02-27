@@ -146,12 +146,12 @@ public class L2PetDataTable
 
 	public static boolean isHatchling(int npcId)
 	{
-		return (npcId > 12310) && (npcId < 12314);
+		return npcId > 12310 && npcId < 12314;
 	}
 
 	public static boolean isStrider(int npcId)
 	{
-		return (npcId > 12525) && (npcId < 12529);
+		return npcId > 12525 && npcId < 12529;
 	}
 
 	public static boolean isWyvern(int npcId)
@@ -161,12 +161,12 @@ public class L2PetDataTable
 
 	public static boolean isBaby(int npcId)
 	{
-		return (npcId > 12779) && (npcId < 12783);
+		return npcId > 12779 && npcId < 12783;
 	}
 
 	public static boolean isPetFood(int itemId)
 	{
-		return (itemId == 2515) || (itemId == 4038) || (itemId == 5168) || (itemId == 6316) || (itemId == 7582);
+		return itemId == 2515 || itemId == 4038 || itemId == 5168 || itemId == 6316 || itemId == 7582;
 	}
 
 	public static boolean isWolfFood(int itemId)
@@ -318,12 +318,12 @@ public class L2PetDataTable
 
 	public static boolean isPetItem(int itemId)
 	{
-		return ((itemId == 2375) // wolf)
-				|| (itemId == 4425) // Sin Eater)
-				|| (itemId == 3500) || (itemId == 3501) || (itemId == 3502) // hatchlings)
-				|| (itemId == 4422) || (itemId == 4423) || (itemId == 4424) // striders)
-				|| (itemId == 8663) // Wyvern)
-				|| (itemId == 6648) || (itemId == 6649) || (itemId == 6650)); // Babies
+		return itemId == 2375
+				|| itemId == 4425
+				|| itemId == 3500 || itemId == 3501 || itemId == 3502
+				|| itemId == 4422 || itemId == 4423 || itemId == 4424
+				|| itemId == 8663
+				|| itemId == 6648 || itemId == 6649 || itemId == 6650; // Babies
 	}
 
 	public static int[] getPetItemsAsNpc(int npcId)
@@ -356,9 +356,9 @@ public class L2PetDataTable
 
 	public static boolean isMountable(int npcId)
 	{
-		return ((npcId == 12526) // wind strider)
-				|| (npcId == 12527) // star strider)
-				|| (npcId == 12528) // twilight strider)
-		|| (npcId == 12621)); // wyvern
+		return npcId == 12526
+				|| npcId == 12527
+				|| npcId == 12528
+		|| npcId == 12621; // wyvern
 	}
 }

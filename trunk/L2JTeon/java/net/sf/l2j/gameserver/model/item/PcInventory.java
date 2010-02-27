@@ -96,9 +96,9 @@ public class PcInventory extends Inventory
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if (!allowAdena && (item.getItemId() == 57))
+			if (!allowAdena && item.getItemId() == 57)
 				continue;
-			if (!allowAncientAdena && (item.getItemId() == 5575))
+			if (!allowAncientAdena && item.getItemId() == 5575)
 				continue;
 			boolean isDuplicate = false;
 			for (L2ItemInstance litem : list)
@@ -109,7 +109,7 @@ public class PcInventory extends Inventory
 					break;
 				}
 			}
-			if (!isDuplicate && (!onlyAvailable || (item.getItem().isSellable() && item.isAvailable(getOwner(), false, Adventurer))))
+			if (!isDuplicate && (!onlyAvailable || item.getItem().isSellable() && item.isAvailable(getOwner(), false, Adventurer)))
 				list.add(item);
 		}
 		return list.toArray(new L2ItemInstance[list.size()]);
@@ -130,18 +130,18 @@ public class PcInventory extends Inventory
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if (!allowAdena && (item.getItemId() == 57))
+			if (!allowAdena && item.getItemId() == 57)
 				continue;
-			if (!allowAncientAdena && (item.getItemId() == 5575))
+			if (!allowAncientAdena && item.getItemId() == 5575)
 				continue;
 			boolean isDuplicate = false;
 			for (L2ItemInstance litem : list)
-				if ((litem.getItemId() == item.getItemId()) && (litem.getEnchantLevel() == item.getEnchantLevel()))
+				if (litem.getItemId() == item.getItemId() && litem.getEnchantLevel() == item.getEnchantLevel())
 				{
 					isDuplicate = true;
 					break;
 				}
-			if (!isDuplicate && (!onlyAvailable || (item.getItem().isSellable() && item.isAvailable(getOwner(), false, false))))
+			if (!isDuplicate && (!onlyAvailable || item.getItem().isSellable() && item.isAvailable(getOwner(), false, false)))
 				list.add(item);
 		}
 		return list.toArray(new L2ItemInstance[list.size()]);
@@ -173,7 +173,7 @@ public class PcInventory extends Inventory
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if ((item.getItemId() == itemId) && (item.getEnchantLevel() == enchantment))
+			if (item.getItemId() == itemId && item.getEnchantLevel() == enchantment)
 				list.add(item);
 		}
 		return list.toArray(new L2ItemInstance[list.size()]);
@@ -188,7 +188,7 @@ public class PcInventory extends Inventory
 	{
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
-			if ((item != null) && item.isAvailable(getOwner(), allowAdena, false))
+			if (item != null && item.isAvailable(getOwner(), allowAdena, false))
 				list.add(item);
 		return list.toArray(new L2ItemInstance[list.size()]);
 	}
@@ -202,7 +202,7 @@ public class PcInventory extends Inventory
 	{
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
-			if ((item != null) && item.isAugmented())
+			if (item != null && item.isAugmented())
 				list.add(item);
 		return list.toArray(new L2ItemInstance[list.size()]);
 	}
@@ -337,9 +337,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance addItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
 	{
 		item = super.addItem(process, item, actor, reference);
-		if ((item != null) && (item.getItemId() == ADENA_ID) && !item.equals(_adena))
+		if (item != null && item.getItemId() == ADENA_ID && !item.equals(_adena))
 			_adena = item;
-		if ((item != null) && (item.getItemId() == ANCIENT_ADENA_ID) && !item.equals(_ancientAdena))
+		if (item != null && item.getItemId() == ANCIENT_ADENA_ID && !item.equals(_ancientAdena))
 			_ancientAdena = item;
 		return item;
 	}
@@ -363,9 +363,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance addItem(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = super.addItem(process, itemId, count, actor, reference);
-		if ((item != null) && (item.getItemId() == ADENA_ID) && !item.equals(_adena))
+		if (item != null && item.getItemId() == ADENA_ID && !item.equals(_adena))
 			_adena = item;
-		if ((item != null) && (item.getItemId() == ANCIENT_ADENA_ID) && !item.equals(_ancientAdena))
+		if (item != null && item.getItemId() == ANCIENT_ADENA_ID && !item.equals(_ancientAdena))
 			_ancientAdena = item;
 		return item;
 	}
@@ -389,9 +389,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance transferItem(String process, int objectId, int count, ItemContainer target, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = super.transferItem(process, objectId, count, target, actor, reference);
-		if ((_adena != null) && ((_adena.getCount() <= 0) || (_adena.getOwnerId() != getOwnerId())))
+		if (_adena != null && (_adena.getCount() <= 0 || _adena.getOwnerId() != getOwnerId()))
 			_adena = null;
-		if ((_ancientAdena != null) && ((_ancientAdena.getCount() <= 0) || (_ancientAdena.getOwnerId() != getOwnerId())))
+		if (_ancientAdena != null && (_ancientAdena.getCount() <= 0 || _ancientAdena.getOwnerId() != getOwnerId()))
 			_ancientAdena = null;
 		return item;
 	}
@@ -413,9 +413,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance destroyItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
 	{
 		item = super.destroyItem(process, item, actor, reference);
-		if ((_adena != null) && (_adena.getCount() <= 0))
+		if (_adena != null && _adena.getCount() <= 0)
 			_adena = null;
-		if ((_ancientAdena != null) && (_ancientAdena.getCount() <= 0))
+		if (_ancientAdena != null && _ancientAdena.getCount() <= 0)
 			_ancientAdena = null;
 		return item;
 	}
@@ -439,9 +439,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance destroyItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = super.destroyItem(process, objectId, count, actor, reference);
-		if ((_adena != null) && (_adena.getCount() <= 0))
+		if (_adena != null && _adena.getCount() <= 0)
 			_adena = null;
-		if ((_ancientAdena != null) && (_ancientAdena.getCount() <= 0))
+		if (_ancientAdena != null && _ancientAdena.getCount() <= 0)
 			_ancientAdena = null;
 		return item;
 	}
@@ -465,9 +465,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance destroyItemByItemId(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = super.destroyItemByItemId(process, itemId, count, actor, reference);
-		if ((_adena != null) && (_adena.getCount() <= 0))
+		if (_adena != null && _adena.getCount() <= 0)
 			_adena = null;
-		if ((_ancientAdena != null) && (_ancientAdena.getCount() <= 0))
+		if (_ancientAdena != null && _ancientAdena.getCount() <= 0)
 			_ancientAdena = null;
 		return item;
 	}
@@ -489,9 +489,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance dropItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
 	{
 		item = super.dropItem(process, item, actor, reference);
-		if ((_adena != null) && ((_adena.getCount() <= 0) || (_adena.getOwnerId() != getOwnerId())))
+		if (_adena != null && (_adena.getCount() <= 0 || _adena.getOwnerId() != getOwnerId()))
 			_adena = null;
-		if ((_ancientAdena != null) && ((_ancientAdena.getCount() <= 0) || (_ancientAdena.getOwnerId() != getOwnerId())))
+		if (_ancientAdena != null && (_ancientAdena.getCount() <= 0 || _ancientAdena.getOwnerId() != getOwnerId()))
 			_ancientAdena = null;
 		return item;
 	}
@@ -515,9 +515,9 @@ public class PcInventory extends Inventory
 	public L2ItemInstance dropItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = super.dropItem(process, objectId, count, actor, reference);
-		if ((_adena != null) && ((_adena.getCount() <= 0) || (_adena.getOwnerId() != getOwnerId())))
+		if (_adena != null && (_adena.getCount() <= 0 || _adena.getOwnerId() != getOwnerId()))
 			_adena = null;
-		if ((_ancientAdena != null) && ((_ancientAdena.getCount() <= 0) || (_ancientAdena.getOwnerId() != getOwnerId())))
+		if (_ancientAdena != null && (_ancientAdena.getCount() <= 0 || _ancientAdena.getOwnerId() != getOwnerId()))
 			_ancientAdena = null;
 		return item;
 	}
@@ -605,7 +605,7 @@ public class PcInventory extends Inventory
 	public boolean validateCapacity(L2ItemInstance item)
 	{
 		int slots = 0;
-		if (!(item.isStackable() && (getItemByItemId(item.getItemId()) != null)) && (item.getItemType() != L2EtcItemType.HERB))
+		if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null) && item.getItemType() != L2EtcItemType.HERB)
 			slots++;
 		return validateCapacity(slots);
 	}
@@ -614,7 +614,7 @@ public class PcInventory extends Inventory
 	{
 		int slots = 0;
 		for (L2ItemInstance item : items)
-			if (!(item.isStackable() && (getItemByItemId(item.getItemId()) != null)))
+			if (!(item.isStackable() && getItemByItemId(item.getItemId()) != null))
 				slots++;
 		return validateCapacity(slots);
 	}
@@ -623,7 +623,7 @@ public class PcInventory extends Inventory
 	{
 		int slots = 0;
 		L2ItemInstance invItem = getItemByItemId(ItemId);
-		if (!((invItem != null) && invItem.isStackable()))
+		if (!(invItem != null && invItem.isStackable()))
 			slots++;
 		return validateCapacity(slots);
 	}

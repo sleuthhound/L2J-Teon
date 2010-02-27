@@ -96,14 +96,14 @@ public class RequestAquireSkill extends L2GameClientPacket
 			for (L2SkillLearn s : skills)
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-				if ((sk == null) || (sk != skill) || !sk.getCanLearn(player.getSkillLearningClassId()) || !sk.canTeachBy(npcid))
+				if (sk == null || sk != skill || !sk.getCanLearn(player.getSkillLearningClassId()) || !sk.canTeachBy(npcid))
 				{
 					continue;
 				}
 				counts++;
 				_requiredSp = SkillTreeTable.getInstance().getSkillCost(player, skill);
 			}
-			if ((counts == 0) && !Config.ALT_GAME_SKILL_LEARN)
+			if (counts == 0 && !Config.ALT_GAME_SKILL_LEARN)
 			{
 				player.sendMessage("You are trying to learn skill that u can't..");
 				Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
@@ -118,8 +118,8 @@ public class RequestAquireSkill extends L2GameClientPacket
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
 					else
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
-					
-                    if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1) 
+
+                    if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1)
                     {
 						L2ItemInstance spb = player.getInventory().getItemByItemId(spbId);
 						if (spb == null)
@@ -150,7 +150,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			for (L2SkillLearn s : skillsc)
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-				if ((sk == null) || (sk != skill))
+				if (sk == null || sk != skill)
 				{
 					continue;
 				}
@@ -203,7 +203,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			for (L2PledgeSkillLearn s : skills)
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-				if ((sk == null) || (sk != skill))
+				if (sk == null || sk != skill)
 				{
 					continue;
 				}
@@ -289,7 +289,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			L2ShortCut[] allShortCuts = player.getAllShortCuts();
 			for (L2ShortCut sc : allShortCuts)
 			{
-				if ((sc.getId() == _id) && (sc.getType() == L2ShortCut.TYPE_SKILL))
+				if (sc.getId() == _id && sc.getType() == L2ShortCut.TYPE_SKILL)
 				{
 					L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _level, 1);
 					player.sendPacket(new ShortCutRegister(newsc));
@@ -305,7 +305,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		{
 			trainer.showSkillList(player, player.getSkillLearningClassId());
 		}
-		if ((_id >= 1368) && (_id <= 1372)) // if skill is expand sendpacket :)
+		if (_id >= 1368 && _id <= 1372) // if skill is expand sendpacket :)
 		{
 			ExStorageMaxCount esmc = new ExStorageMaxCount(player);
 			player.sendPacket(esmc);

@@ -98,9 +98,8 @@ public class ZoneManager
 		int count = 0;
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
 		for (L2WorldRegion[] worldRegion : worldRegions) {
-			for (int y = 0; y < worldRegion.length; y++)
-			{
-				worldRegion[y].getZones().clear();
+			for (L2WorldRegion element : worldRegion) {
+				element.getZones().clear();
 				count++;
 			}
 		}
@@ -254,7 +253,7 @@ public class ZoneManager
 									}
 									// An nPoly needs to have at least 3
 									// vertices
-									if ((fl_x.size() == fl_y.size()) && (fl_x.size() > 2))
+									if (fl_x.size() == fl_y.size() && fl_x.size() > 2)
 									{
 										// Create arrays
 										int[] aX = new int[fl_x.size()];
@@ -323,7 +322,7 @@ public class ZoneManager
 								}
 								// L2JTeon add Maxi
 								if ("spawn".equalsIgnoreCase(cd.getNodeName()))
-									((temp)).setSpawnLocs(cd);
+									temp.setSpawnLocs(cd);
 							}
 							// Skip checks for fishing zones & add to fishing zone manager
 							if (temp instanceof L2FishingZone)
@@ -339,10 +338,10 @@ public class ZoneManager
 							{
 								for (int y = 0; y < worldRegions[x].length; y++)
 								{
-									ax = (x - L2World.OFFSET_X) << L2World.SHIFT_BY;
-									bx = ((x + 1) - L2World.OFFSET_X) << L2World.SHIFT_BY;
-									ay = (y - L2World.OFFSET_Y) << L2World.SHIFT_BY;
-									by = ((y + 1) - L2World.OFFSET_Y) << L2World.SHIFT_BY;
+									ax = x - L2World.OFFSET_X << L2World.SHIFT_BY;
+									bx = x + 1 - L2World.OFFSET_X << L2World.SHIFT_BY;
+									ay = y - L2World.OFFSET_Y << L2World.SHIFT_BY;
+									by = y + 1 - L2World.OFFSET_Y << L2World.SHIFT_BY;
 									if (temp.getZone().intersectsRectangle(ax, bx, ay, by))
 									{
 										if (Config.DEBUG)

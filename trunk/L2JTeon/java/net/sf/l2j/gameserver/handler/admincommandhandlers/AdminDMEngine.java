@@ -153,7 +153,7 @@ public class AdminDMEngine implements IAdminCommandHandler
 
 	private boolean checkLevel(int level)
 	{
-		return (level >= REQUIRED_LEVEL);
+		return level >= REQUIRED_LEVEL;
 	}
 
 	public void showMainPage(L2PcInstance activeChar)

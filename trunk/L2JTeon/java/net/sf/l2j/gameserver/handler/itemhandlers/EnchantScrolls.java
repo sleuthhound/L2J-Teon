@@ -44,7 +44,7 @@ public class EnchantScrolls implements IItemHandler
 			return;
 		// NO enchant during restart/shutdown due to avoid an exploit.
 		// (Safe_Sigterm)
-		if (Config.SAFE_SIGTERM && (Shutdown.getCounterInstance() != null))
+		if (Config.SAFE_SIGTERM && Shutdown.getCounterInstance() != null)
 		{
 			activeChar.sendMessage("You are not allowed to Enchant during server restart/shutdown!");
 			return;

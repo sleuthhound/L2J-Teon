@@ -59,7 +59,7 @@ public final class TradeDone extends L2GameClientPacket
 			return;
 		if (_response == 1)
 		{
-			if ((trade.getPartner() == null) || (L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null))
+			if (trade.getPartner() == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null)
 			{
 				// Trade partner not found, cancel trade
 				player.cancelActiveTrade();
@@ -70,7 +70,7 @@ public final class TradeDone extends L2GameClientPacket
 			}
 			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null)
 				return;
-			if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
+			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{
 				player.cancelActiveTrade();
 				player.sendMessage("Transactions are disable for your Access Level");

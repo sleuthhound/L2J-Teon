@@ -1201,7 +1201,7 @@ public class VanHalterManager
 		// set interval end.
 		if (_Alive != INTERVAL)
 		{
-			_StateSet.set("respawn_time", Calendar.getInstance().getTimeInMillis() + (Rnd.get(ExternalConfig.HPH_FIXINTERVALOFHALTER, ExternalConfig.HPH_FIXINTERVALOFHALTER + ExternalConfig.HPH_RANDOMINTERVALOFHALTER) * 1000));
+			_StateSet.set("respawn_time", Calendar.getInstance().getTimeInMillis() + Rnd.get(ExternalConfig.HPH_FIXINTERVALOFHALTER, ExternalConfig.HPH_FIXINTERVALOFHALTER + ExternalConfig.HPH_RANDOMINTERVALOFHALTER) * 1000);
 			_Alive = INTERVAL;
 			GrandBossManager.getInstance().setBossStatus(_BossId, _Alive);
 			GrandBossManager.getInstance().setStatsSet(_BossId, _StateSet);

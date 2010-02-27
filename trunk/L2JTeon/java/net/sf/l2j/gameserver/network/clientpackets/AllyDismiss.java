@@ -55,7 +55,7 @@ public final class AllyDismiss extends L2GameClientPacket
 			player.sendPacket(new SystemMessage(SystemMessageId.NO_CURRENT_ALLIANCES));
 			return;
 		}
-		if (!player.isClanLeader() || (leaderClan.getClanId() != leaderClan.getAllyId()))
+		if (!player.isClanLeader() || leaderClan.getClanId() != leaderClan.getAllyId())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
 			return;

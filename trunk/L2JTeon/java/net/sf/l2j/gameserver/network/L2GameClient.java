@@ -430,7 +430,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	 */
 	private int getObjectIdForSlot(int charslot)
 	{
-		if ((charslot < 0) || (charslot >= _charSlotMapping.size()))
+		if (charslot < 0 || charslot >= _charSlotMapping.size())
 		{
 			_log.warning(toString() + " tried to delete Character in slot " + charslot + " but no characters exits at that slot.");
 			return -1;

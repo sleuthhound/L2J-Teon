@@ -39,7 +39,7 @@ public class TradeFilter implements Filter
 		{
 			// if (record.getMessage() == null) return true;
 			String[] messageList = record.getMessage().split(":");
-			if ((messageList.length < 2) || !_excludeProcess.contains(messageList[1]))
+			if (messageList.length < 2 || !_excludeProcess.contains(messageList[1]))
 				return true;
 		}
 		if (_excludeTradeType != null)
@@ -52,6 +52,6 @@ public class TradeFilter implements Filter
 			if (!_excludeTradeType.contains(item.getItemType().toString()))
 				return true;
 		}
-		return (_excludeProcess == null) && (_excludeTradeType == null);
+		return _excludeProcess == null && _excludeTradeType == null;
 	}
 }

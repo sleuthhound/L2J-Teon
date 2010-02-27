@@ -52,7 +52,7 @@ public class SoulShots implements IItemHandler
 		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
 		int itemId = item.getItemId();
 		// Check if Soulshot can be used
-		if ((weaponInst == null) || (weaponItem.getSoulShotCount() == 0))
+		if (weaponInst == null || weaponItem.getSoulShotCount() == 0)
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SOULSHOTS));
@@ -66,7 +66,7 @@ public class SoulShots implements IItemHandler
 		}
 		// Check for correct grade
 		int weaponGrade = weaponItem.getCrystalType();
-		if (((weaponGrade == L2Item.CRYSTAL_NONE) && (itemId != 5789) && (itemId != 1835)) || ((weaponGrade == L2Item.CRYSTAL_D) && (itemId != 1463)) || ((weaponGrade == L2Item.CRYSTAL_C) && (itemId != 1464)) || ((weaponGrade == L2Item.CRYSTAL_B) && (itemId != 1465)) || ((weaponGrade == L2Item.CRYSTAL_A) && (itemId != 1466)) || ((weaponGrade == L2Item.CRYSTAL_S) && (itemId != 1467)))
+		if (weaponGrade == L2Item.CRYSTAL_NONE && itemId != 5789 && itemId != 1835 || weaponGrade == L2Item.CRYSTAL_D && itemId != 1463 || weaponGrade == L2Item.CRYSTAL_C && itemId != 1464 || weaponGrade == L2Item.CRYSTAL_B && itemId != 1465 || weaponGrade == L2Item.CRYSTAL_A && itemId != 1466 || weaponGrade == L2Item.CRYSTAL_S && itemId != 1467)
 		{
 			if (!activeChar.getAutoSoulShot().containsKey(itemId))
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.SOULSHOTS_GRADE_MISMATCH));

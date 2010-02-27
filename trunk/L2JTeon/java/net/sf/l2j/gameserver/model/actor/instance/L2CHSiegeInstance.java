@@ -114,7 +114,7 @@ public class L2CHSiegeInstance extends L2NpcInstance
 						showChatWindow(player, 3);
 						return;
 					}
-					if ((Clan == null) || (Clan.getLeaderName() != player.getName()) || (Clan.getLevel() < 4))
+					if (Clan == null || Clan.getLeaderName() != player.getName() || Clan.getLevel() < 4)
 					{
 						showChatWindow(player, 1);
 						return;
@@ -158,7 +158,7 @@ public class L2CHSiegeInstance extends L2NpcInstance
 		else if (command.startsWith("UnRegister"))
 		{
 			L2Clan Clan = player.getClan();
-			if ((Clan == null) || (Clan.getLeaderName() != player.getName()) || (Clan.getLevel() < 4))
+			if (Clan == null || Clan.getLeaderName() != player.getName() || Clan.getLevel() < 4)
 			{
 				_log.warning("Attention!!! player " + player.getName() + " use packet hack, try unregister clan.");
 				return;

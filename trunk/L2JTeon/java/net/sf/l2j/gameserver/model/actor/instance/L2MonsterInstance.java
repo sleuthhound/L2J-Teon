@@ -63,7 +63,7 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public final MonsterKnownList getKnownList()
 	{
-		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof MonsterKnownList))
+		if (super.getKnownList() == null || !(super.getKnownList() instanceof MonsterKnownList))
 		{
 			setKnownList(new MonsterKnownList(this));
 		}
@@ -91,7 +91,7 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public boolean isAggressive()
 	{
-		return (getTemplate().aggroRange > 0) && !isEventMob;
+		return getTemplate().aggroRange > 0 && !isEventMob;
 	}
 
 	@Override
@@ -161,7 +161,7 @@ public class L2MonsterInstance extends L2Attackable
 					int minionX = masterX + Rnd.nextInt(401) - 200;
 					int minionY = masterY + Rnd.nextInt(401) - 200;
 					int minionZ = masterZ;
-					while (((minionX != masterX + 30) && (minionX != masterX - 30)) || ((minionY != masterY + 30) && (minionY != masterY - 30)))
+					while (minionX != masterX + 30 && minionX != masterX - 30 || minionY != masterY + 30 && minionY != masterY - 30)
 					{
 						minionX = masterX + Rnd.nextInt(401) - 200;
 						minionY = masterY + Rnd.nextInt(401) - 200;

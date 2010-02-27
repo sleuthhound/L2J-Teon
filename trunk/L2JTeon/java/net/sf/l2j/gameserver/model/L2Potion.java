@@ -63,7 +63,7 @@ public class L2Potion extends L2Object
 					{
 						nowHp += _effect;
 						_instance.setCurrentHp(nowHp);
-						_duration = _duration - (_milliseconds / 1000);
+						_duration = _duration - _milliseconds / 1000;
 						setCurrentHpPotion2();
 					}
 				}
@@ -105,7 +105,7 @@ public class L2Potion extends L2Object
 		_target = activeChar;
 		switch (_potion)
 		{
-			case (1540):
+			case 1540:
 				double nowHp = activeChar.getCurrentHp();
 				nowHp += 435;
 				if (nowHp >= activeChar.getMaxHp())
@@ -114,7 +114,7 @@ public class L2Potion extends L2Object
 				}
 				activeChar.setCurrentHp(nowHp);
 				break;
-			case (728):
+			case 728:
 				double nowMp = activeChar.getMaxMp();
 				nowMp += 435;
 				if (nowMp >= activeChar.getMaxMp())
@@ -123,7 +123,7 @@ public class L2Potion extends L2Object
 				}
 				activeChar.setCurrentMp(nowMp);
 				break;
-			case (726):
+			case 726:
 				_milliseconds = 500;
 				_duration = 15;
 				_effect = 1.5;
@@ -156,7 +156,7 @@ public class L2Potion extends L2Object
 					{
 						nowMp += _effect;
 						_instance.setCurrentMp(nowMp);
-						_duration = (_duration - (_milliseconds / 1000));
+						_duration = _duration - _milliseconds / 1000;
 						setCurrentMpPotion2();
 					}
 				}

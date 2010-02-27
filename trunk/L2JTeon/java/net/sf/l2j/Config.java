@@ -101,7 +101,7 @@ public final class Config
 	public static boolean AUTO_LOOT_RAID;
 	public static boolean AUTO_LOOT_HERBS;
 	public static boolean AUTO_LEARN_SKILLS;
-    public static boolean AUTO_LEARN_DIVINE_INSPIRATION; 
+    public static boolean AUTO_LEARN_DIVINE_INSPIRATION;
 	public static int ALT_PARTY_RANGE;
 	public static int ALT_PARTY_RANGE2;
 	public static double ALT_WEIGHT_LIMIT;
