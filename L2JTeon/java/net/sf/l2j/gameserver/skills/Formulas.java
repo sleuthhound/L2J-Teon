@@ -1212,6 +1212,32 @@ public final class Formulas
 		// skill
 		// was given to all classes. The values here try to be a compromise.
 		// They were originally added in a late C4 rev (2289).
+		if (Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill != null
+				|| Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill == null)
+		{
+			switch(((L2PcInstance) attacker).getClassId().getId())
+			{
+			case 7: //H_Rogue
+			case 22: //E_Scout
+			case 35: //DE_Assassin
+			{
+				damage = damage * Config.ROGUE_P_DMG; // Damage Fight Rogue, Scout and Knight
+				break;
+			}
+			case 8: //H_TreasureHunter
+			case 93: //H_Adventurer
+			case 23: //E_PlainsWalker
+			case 101: //E_WindRider
+			case 36: //DE_AbyssWalker
+			case 108: //DE_GhostHunter
+			{
+				damage = damage * Config.DAGGER_P_DMG; // Damage Dagger
+				break;
+			}
+			default:
+				break;
+			}
+		}
 		L2Weapon weapon = attacker.getActiveWeaponItem();
 		if (target instanceof L2PcInstance && weapon != null && weapon.getItemType() == L2WeaponType.DAGGER && skill != null)
 		{
@@ -1219,11 +1245,11 @@ public final class Formulas
 			if (armor != null)
 			{
 				if (((L2PcInstance) target).isWearingHeavyArmor())
-					damage /= Config.ALT_DAGGER_DMG_VS_HEAVY;
+					damage /= Config.DAGGER_RECUDE_DMG_VS_HEAVY;
 				if (((L2PcInstance) target).isWearingLightArmor())
-					damage /= Config.ALT_DAGGER_DMG_VS_LIGHT;
+					damage /= Config.DAGGER_RECUDE_DMG_VS_LIGHT;
 				if (((L2PcInstance) target).isWearingMagicArmor())
-					damage /= Config.ALT_DAGGER_DMG_VS_ROBE;
+					damage /= Config.DAGGER_RECUDE_DMG_VS_ROBE;
 			}
 		}
 		return damage < 1 ? 1. : damage;
@@ -1464,14 +1490,145 @@ public final class Formulas
 				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 			}
 		}
-		if (attacker instanceof L2PcInstance)
+		/*
+		 * Balance Classes By: Meyknho
+		 */
+		if (Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill != null
+				|| Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill == null)
 		{
-			if (((L2PcInstance) attacker).getClassId().isMage())
-				damage = damage * Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
-			else
-				damage = damage * Config.ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;
+			switch(((L2PcInstance) attacker).getClassId().getId())
+			{
+			case 0: //H_Fighter
+			case 18: //E_Fighter
+			case 31: //DE_Fighter
+			case 44: //O_Fighter
+			case 53: //D_Fighter
+			{
+				damage = damage * Config.FIGHT_P_DMG; // Damage Fight Initial
+				break;
+			}
+			case 1: //H_Warrior
+			case 4: //H_Knight
+			case 19: //E_Knight
+			case 32: //DE_PaulusKnight
+			{
+				damage = damage * Config.KNIGHT_P_DMG; // Damage Fight Warrior and Knight
+				break;
+			}
+			case 7: //H_Rogue
+			case 22: //E_Scout
+			case 35: //DE_Assassin
+			{
+				damage = damage * Config.ROGUE_P_DMG; // Damage Fight Rogue, Scout and Knight
+				break;
+			}
+			case 10: //H_Mage
+			case 25: //E_Mage
+			case 38: //DE_Mage
+			case 49: //O_Mage
+			{
+				damage = damage * Config.MAGE_INI_P_DMG; // Damage Mage Initial
+				break;
+			}
+			case 11: //H_Wizard
+			case 26: //E_Wizard
+			case 39: //DE_DarkWizard
+			case 50: //O_Shaman
+			{
+				damage = damage * Config.WIZARD_P_DMG; // Damage Mage Wizards and Shaman
+				break;
+			}
+			case 8: //H_TreasureHunter
+			case 93: //H_Adventurer
+			case 23: //E_PlainsWalker
+			case 101: //E_WindRider
+			case 36: //DE_AbyssWalker
+			case 108: //DE_GhostHunter
+			{
+				damage = damage * Config.DAGGER_P_DMG; // Damage Dagger
+				break;
+			}
+			case 9: //H_Hawkeye
+			case 92: //H_Sagittarius
+			case 24: //E_SilverRanger
+			case 102: //E_MoonlightSentinel
+			case 37: //DE_PhantomRanger
+			case 109: //DE_GhostSentinel
+			{
+				damage = damage * Config.ARCHER_P_DMG; // Damage Archer
+				break;
+			}
+			case 5: //H_Paladin
+			case 90: //H_PhoenixKnight
+			case 6: //H_DarkAvenger
+			case 91: //H_HellKnight
+			case 20: //E_TempleKnight
+			case 99: //E_EvaTemplar
+			case 21: //E_SwordSinger
+			case 100: //E_SwordMuse
+			case 33: //DE_ShillienKnight
+			case 106: //DE_ShillienTemplar
+			{
+				damage = damage * Config.TANKER_P_DMG; //Damage Tanker
+				break;
+			}
+			case 2: //H_Gladiator
+			case 88: //H_Duelist
+			case 34: //DE_BladeDancer
+			case 107: //DE_SpectralDancer
+			{
+				damage = damage * Config.DUAL_P_DMG; //Damage Gladiator and Dual
+			}
+				break;
+			case 3: //H_Warlord
+			case 89: //H_Dreadnought
+			{
+				damage = damage * Config.POLE_P_DMG; //Damage Pole
+				break;
+			}
+			case 12: //H_Sorceror
+			case 94: //H_Archmage
+			case 13: //H_Necromancer
+			case 95: //H_Soultaker
+			case 27: //E_SpellSinger
+			case 103: //E_MysticMuse
+			case 40: //DE_Spellhowler
+			case 110: //DE_StormScreamer
+			case 51: //O_Overlord
+			case 115: //O_Dominator
+			{
+				damage = damage * Config.MAGE_P_DMG; //Damage Mages
+				break;
+			}
+			case 45: //O_Raider
+			case 46: //O_Destroyer
+			case 113: //O_Titan
+			{
+				damage = damage * Config.ORC_RAIDER_P_DMG; //Damage Orc Raider
+				break;
+			}
+			case 47: //O_Monk
+			case 48: //O_Tyrant
+			case 114: //O_GrandKhauatari
+			{
+				damage = damage * Config.ORC_MONK_P_DMG; //Damage Orc Monk
+				break;
+			}
+			case 54: //D_Scavenger
+			case 55: //D_BountyHunter
+			case 117: //D_FortuneSeeker
+			case 56: //D_Artisan
+			case 57: //D_Warsmith
+			case 118: //D_Maestro
+			{
+				damage = damage * Config.DWARF_P_DMG; //Damage Dwarf
+				break;
+			}
+			default:
+				break;
+			}
 		}
-		else if (attacker instanceof L2Summon)
+		if (attacker instanceof L2Summon)
 			damage = damage * Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2NpcInstance)
 			damage = damage * Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
@@ -1583,14 +1740,145 @@ public final class Formulas
 				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 			}
 		}
-		if (attacker instanceof L2PcInstance)
+		/*
+		 * Balance Classes By: Meyknho
+		 */
+		if (Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill != null
+				|| Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill == null)
 		{
-			if (((L2PcInstance) attacker).getClassId().isMage())
-				damage = damage * Config.ALT_MAGES_MAGICAL_DAMAGE_MULTI;
-			else
-				damage = damage * Config.ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;
+			switch(((L2PcInstance) attacker).getClassId().getId())
+			{
+			case 0: //H_Fighter
+			case 18: //E_Fighter
+			case 31: //DE_Fighter
+			case 44: //O_Fighter
+			case 53: //D_Fighter
+			{
+				damage = damage * Config.FIGHT_M_DMG; // Damage Fight Initial
+				break;
+			}
+			case 1: //H_Warrior
+			case 4: //H_Knight
+			case 19: //E_Knight
+			case 32: //DE_PaulusKnight
+			{
+				damage = damage * Config.KNIGHT_M_DMG; // Damage Fight Warrior and Knight
+				break;
+			}
+			case 7: //H_Rogue
+			case 22: //E_Scout
+			case 35: //DE_Assassin
+			{
+				damage = damage * Config.ROGUE_M_DMG; // Damage Fight Rogue, Scout and Knight
+				break;
+			}
+			case 10: //H_Mage
+			case 25: //E_Mage
+			case 38: //DE_Mage
+			case 49: //O_Mage
+			{
+				damage = damage * Config.MAGE_INI_M_DMG; // Damage Mage Initial
+				break;
+			}
+			case 11: //H_Wizard
+			case 26: //E_Wizard
+			case 39: //DE_DarkWizard
+			case 50: //O_Shaman
+			{
+				damage = damage * Config.WIZARD_M_DMG; // Damage Mage Wizards and Shaman
+				break;
+			}
+			case 8: //H_TreasureHunter
+			case 93: //H_Adventurer
+			case 23: //E_PlainsWalker
+			case 101: //E_WindRider
+			case 36: //DE_AbyssWalker
+			case 108: //DE_GhostHunter
+			{
+				damage = damage * Config.DAGGER_M_DMG; // Damage Dagger
+				break;
+			}
+			case 9: //H_Hawkeye
+			case 92: //H_Sagittarius
+			case 24: //E_SilverRanger
+			case 102: //E_MoonlightSentinel
+			case 37: //DE_PhantomRanger
+			case 109: //DE_GhostSentinel
+			{
+				damage = damage * Config.ARCHER_M_DMG; // Damage Archer
+				break;
+			}
+			case 5: //H_Paladin
+			case 90: //H_PhoenixKnight
+			case 6: //H_DarkAvenger
+			case 91: //H_HellKnight
+			case 20: //E_TempleKnight
+			case 99: //E_EvaTemplar
+			case 21: //E_SwordSinger
+			case 100: //E_SwordMuse
+			case 33: //DE_ShillienKnight
+			case 106: //DE_ShillienTemplar
+			{
+				damage = damage * Config.TANKER_M_DMG; //Damage Tanker
+				break;
+			}
+			case 2: //H_Gladiator
+			case 88: //H_Duelist
+			case 34: //DE_BladeDancer
+			case 107: //DE_SpectralDancer
+			{
+				damage = damage * Config.DUAL_M_DMG; //Damage Gladiator and Dual
+			}
+				break;
+			case 3: //H_Warlord
+			case 89: //H_Dreadnought
+			{
+				damage = damage * Config.POLE_M_DMG; //Damage Pole
+				break;
+			}
+			case 12: //H_Sorceror
+			case 94: //H_Archmage
+			case 13: //H_Necromancer
+			case 95: //H_Soultaker
+			case 27: //E_SpellSinger
+			case 103: //E_MysticMuse
+			case 40: //DE_Spellhowler
+			case 110: //DE_StormScreamer
+			case 51: //O_Overlord
+			case 115: //O_Dominator
+			{
+				damage = damage * Config.MAGE_M_DMG; //Damage Mages
+				break;
+			}
+			case 45: //O_Raider
+			case 46: //O_Destroyer
+			case 113: //O_Titan
+			{
+				damage = damage * Config.ORC_RAIDER_M_DMG; //Damage Orc Raider
+				break;
+			}
+			case 47: //O_Monk
+			case 48: //O_Tyrant
+			case 114: //O_GrandKhauatari
+			{
+				damage = damage * Config.ORC_MONK_M_DMG; //Damage Orc Monk
+				break;
+			}
+			case 54: //D_Scavenger
+			case 55: //D_BountyHunter
+			case 117: //D_FortuneSeeker
+			case 56: //D_Artisan
+			case 57: //D_Warsmith
+			case 118: //D_Maestro
+			{
+				damage = damage * Config.DWARF_M_DMG; //Damage Dwarf
+				break;
+			}
+			default:
+				break;
+			}
 		}
-		else if (attacker instanceof L2Summon)
+		if (attacker instanceof L2Summon)
 			damage = damage * Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2NpcInstance)
 			damage = damage * Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
@@ -2019,12 +2307,7 @@ public final class Formulas
 		}
 		int value = (int) skill.getPower();
 		int lvlDepend = skill.getLevelDepend();
-		if (type == SkillType.PDAM || type == SkillType.MDAM) // For
-		// additional
-		// effects on
-		// PDAM skills
-		// (like STUN,
-		// SHOCK,...)
+		if (type == SkillType.PDAM || type == SkillType.MDAM) // For additional effects on PDAM skills (like STUN, SHOCK,...)
 		{
 			value = skill.getEffectPower();
 			type = skill.getEffectType();

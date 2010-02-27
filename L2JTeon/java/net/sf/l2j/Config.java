@@ -66,6 +66,8 @@ public final class Config
 	public static final String L2JTEON_MODS = "./config/custom/L2JTeonMods.properties";
 	public static final String FEATURE_CONFIG_FILE = "./config/custom/Feature.properties";
 	public static final String GENERAL_CONFIG_FILE = "./config/custom/General.properties";
+	public static final String BALANCE_CONFIG_FILE = "./config/custom/BalanceClasses.properties";
+	public static final String CUSTOM_TABLES_FILE = "./config/custom/CustomTables.properties";
 	public static final String OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
 	public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
 	public static final String DEV_CONFIG_FILE = "./config/custom/Dev.properties";
@@ -137,11 +139,43 @@ public final class Config
 	public static double ALT_GAME_CREATION_XP_RATE;
 	public static double ALT_GAME_CREATION_SP_RATE;
 	public static boolean ALT_BLACKSMITH_USE_RECIPES;
-	// multiples damages Char's / Pet's / Npc's
-	public static float ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
-	public static float ALT_MAGES_MAGICAL_DAMAGE_MULTI;
-	public static float ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;
-	public static float ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;
+	// Balance Classes START
+	public static boolean ENABLE_BALANCE;
+
+	public static float FIGHT_P_DMG;
+	public static float KNIGHT_P_DMG;
+	public static float ROGUE_P_DMG;
+	public static float MAGE_INI_P_DMG;
+	public static float WIZARD_P_DMG;
+
+	public static float FIGHT_M_DMG;
+	public static float KNIGHT_M_DMG;
+	public static float ROGUE_M_DMG;
+	public static float MAGE_INI_M_DMG;
+	public static float WIZARD_M_DMG;
+
+	public static float DAGGER_P_DMG;
+	public static float ARCHER_P_DMG;
+	public static float TANKER_P_DMG;
+	public static float DUAL_P_DMG;
+	public static float POLE_P_DMG;
+	public static float MAGE_P_DMG;
+	public static float ORC_MONK_P_DMG;
+	public static float ORC_RAIDER_P_DMG;
+	public static float DWARF_P_DMG;
+
+	public static float DAGGER_M_DMG;
+	public static float ARCHER_M_DMG;
+	public static float TANKER_M_DMG;
+	public static float DUAL_M_DMG;
+	public static float POLE_M_DMG;
+	public static float MAGE_M_DMG;
+	public static float ORC_MONK_M_DMG;
+	public static float ORC_RAIDER_M_DMG;
+	public static float DWARF_M_DMG;
+	// Balance Classes END
+
+	// multiples damages Pet's and Mobs
 	public static float ALT_PETS_PHYSICAL_DAMAGE_MULTI;
 	public static float ALT_PETS_MAGICAL_DAMAGE_MULTI;
 	public static float ALT_NPC_PHYSICAL_DAMAGE_MULTI;
@@ -865,9 +899,9 @@ public final class Config
 	/** Low Level Protection System. */
 	public static int PLAYER_PROTECTION_SYSTEM;
 	/** Alternatives damages for daggers */
-	public static float ALT_DAGGER_DMG_VS_ROBE;
-	public static float ALT_DAGGER_DMG_VS_LIGHT;
-	public static float ALT_DAGGER_DMG_VS_HEAVY;
+	public static float DAGGER_RECUDE_DMG_VS_ROBE;
+	public static float DAGGER_RECUDE_DMG_VS_LIGHT;
+	public static float DAGGER_RECUDE_DMG_VS_HEAVY;
 	/** Front Blow Success Rate. */
 	public static int FRONT_BLOW_SUCCESS;
 	/** Back Blow Success Rate. */
@@ -1476,14 +1510,6 @@ public final class Config
 				ALT_GAME_CREATION_XP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
 				ALT_GAME_CREATION_SP_RATE = Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
 				ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "True"));
-				ALT_MAGES_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00"));
-				ALT_MAGES_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00"));
-				ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageFighters", "1.00"));
-				ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageFighters", "1.00"));
-				ALT_PETS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamagePets", "1.00"));
-				ALT_PETS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamagePets", "1.00"));
-				ALT_NPC_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageNpc", "1.00"));
-				ALT_NPC_MAGICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltMDamageNpc", "1.00"));
 				ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "False"));
 				AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "False"));
                 AUTO_LEARN_DIVINE_INSPIRATION = Boolean.parseBoolean(altSettings.getProperty("AutoLearnDivineInspiration", "False"));
@@ -2035,6 +2061,109 @@ public final class Config
 				e.printStackTrace();
 				throw new Error("Failed to Load " + GENERAL_CONFIG_FILE + " File.");
 			}
+			// CustomTables Config File
+			try
+			{
+				Properties CustomTables = new Properties();
+				InputStream is = new FileInputStream(new File(CUSTOM_TABLES_FILE));
+				CustomTables.load(is);
+				is.close();
+
+				CUSTOM_SPAWNLIST_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomSpawnlistTable", "False"));
+				SAVE_GMSPAWN_ON_CUSTOM = Boolean.parseBoolean(CustomTables.getProperty("SaveGmSpawnOnCustom", "False"));
+				DELETE_GMSPAWN_ON_CUSTOM = Boolean.parseBoolean(CustomTables.getProperty("DeleteGmSpawnOnCustom", "False"));
+				CUSTOM_NPC_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomNpcTable", "False"));
+				CUSTOM_ETCITEM_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomEtcitemTable", "False"));
+				CUSTOM_ARMOR_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomArmorTable", "False"));
+				CUSTOM_ARMORSETS_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomArmorSetsTable", "False"));
+				CUSTOM_WEAPON_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomWeaponTable", "False"));
+				CUSTOM_TELEPORT_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomTeleportTable", "False"));
+				CUSTOM_DROPLIST_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomDroplistTable", "False"));
+				CUSTOM_MERCHANT_TABLES = Boolean.parseBoolean(CustomTables.getProperty("CustomMerchantTables", "False"));
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error("Failed to Load " + CUSTOM_TABLES_FILE + " File.");
+			}
+			// Balance Config File
+			try
+			{
+				Properties Balance = new Properties();
+				InputStream is = new FileInputStream(new File(BALANCE_CONFIG_FILE));
+				Balance.load(is);
+				is.close();
+
+				ENABLE_BALANCE = Boolean.parseBoolean(Balance.getProperty("EnableBalanceClasses", "False"));
+
+				FIGHT_P_DMG = Float.parseFloat(Balance.getProperty("PDamageFightInitial", "1.0"));
+				FIGHT_M_DMG = Float.parseFloat(Balance.getProperty("MDamageFightInitial", "1.0"));
+
+				KNIGHT_P_DMG = Float.parseFloat(Balance.getProperty("PDamageKnight", "1.0"));
+				KNIGHT_M_DMG = Float.parseFloat(Balance.getProperty("MDamageKnight", "1.0"));
+
+				ROGUE_P_DMG = Float.parseFloat(Balance.getProperty("PDamageRogue", "1.0"));
+				ROGUE_M_DMG = Float.parseFloat(Balance.getProperty("MDamageRogue", "1.0"));
+
+				MAGE_INI_P_DMG = Float.parseFloat(Balance.getProperty("PDamageMageInitial", "1.0"));
+				MAGE_INI_M_DMG = Float.parseFloat(Balance.getProperty("MDamageMageInitial", "1.0"));
+
+				WIZARD_P_DMG = Float.parseFloat(Balance.getProperty("PDamageWizard", "1.0"));
+				WIZARD_M_DMG = Float.parseFloat(Balance.getProperty("MDamageWizard", "1.0"));
+
+				DAGGER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageDagger", "1.0"));
+				DAGGER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageDagger", "1.0"));
+
+				ARCHER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageArcher", "1.0"));
+				ARCHER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageArcher", "1.0"));
+
+				TANKER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageTanker", "1.0"));
+				TANKER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageTanker", "1.0"));
+
+				DUAL_P_DMG = Float.parseFloat(Balance.getProperty("PDamageDual", "1.0"));
+				DUAL_M_DMG = Float.parseFloat(Balance.getProperty("MDamageDual", "1.0"));
+
+				POLE_P_DMG = Float.parseFloat(Balance.getProperty("PDamagePole", "1.0"));
+				POLE_M_DMG = Float.parseFloat(Balance.getProperty("MDamagePole", "1.0"));
+
+				MAGE_P_DMG = Float.parseFloat(Balance.getProperty("PDamageMage", "1.0"));
+				MAGE_M_DMG = Float.parseFloat(Balance.getProperty("MDamageMage", "1.0"));
+
+				ORC_MONK_P_DMG = Float.parseFloat(Balance.getProperty("PDamageOrcMonk", "1.0"));
+				ORC_MONK_M_DMG = Float.parseFloat(Balance.getProperty("MDamageOrcMonk", "1.0"));
+
+				ORC_RAIDER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageOrcRaider", "1.0"));
+				ORC_RAIDER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageOrcRaider", "1.0"));
+
+				DWARF_P_DMG = Float.parseFloat(Balance.getProperty("PDamageDwarf", "1.0"));
+				DWARF_M_DMG = Float.parseFloat(Balance.getProperty("MDamageDwarf", "1.0"));
+
+				ALT_PETS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltPDamagePets", "1.00"));
+				ALT_PETS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltMDamagePets", "1.00"));
+				ALT_NPC_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltPDamageNpc", "1.00"));
+				ALT_NPC_MAGICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltMDamageNpc", "1.00"));
+
+				MAX_RUN_SPEED = Integer.parseInt(Balance.getProperty("MaxRunSpeed", "250"));
+				MAX_EVASION = Integer.parseInt(Balance.getProperty("MaxEvasion", "200"));
+				MAX_MCRIT_RATE = Integer.parseInt(Balance.getProperty("MaxMCritRate", "150"));
+				MAX_RCRIT = Integer.parseInt(Balance.getProperty("MaxCritical", "500"));
+				MAX_PATK_SPEED = Integer.parseInt(Balance.getProperty("MaxPAtkSpeed", "1800"));
+				MAX_MATK_SPEED = Integer.parseInt(Balance.getProperty("MaxMAtkSpeed", "2500"));
+
+				DAGGER_RECUDE_DMG_VS_ROBE = Float.parseFloat(Balance.getProperty("DaggerReduceDmgVSRobe", "1.00"));
+				DAGGER_RECUDE_DMG_VS_LIGHT = Float.parseFloat(Balance.getProperty("DaggerReduceDmgVSLight", "1.00"));
+				DAGGER_RECUDE_DMG_VS_HEAVY = Float.parseFloat(Balance.getProperty("DaggerReduceDmgVSHeavy", "1.00"));
+				FRONT_BLOW_SUCCESS = Integer.parseInt(Balance.getProperty("FrontBlow", "50"));
+				BACK_BLOW_SUCCESS = Integer.parseInt(Balance.getProperty("BackBlow", "70"));
+				SIDE_BLOW_SUCCESS = Integer.parseInt(Balance.getProperty("SideBlow", "60"));
+
+				CUSTOM_RUN_SPEED = Integer.parseInt(Balance.getProperty("CustomRunSpeed", "0"));
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error("Failed to Load " + BALANCE_CONFIG_FILE + " File.");
+			}
 			// Olympiad Config File
 			try
 			{
@@ -2419,19 +2548,7 @@ public final class Config
 				// ********************//
 				/* Character Statistics */
 				// ********************//
-				MAX_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxRunSpeed", "250"));
-				MAX_EVASION = Integer.parseInt(L2JTeonCustom.getProperty("MaxEvasion", "200"));
-				MAX_MCRIT_RATE = Integer.parseInt(L2JTeonCustom.getProperty("MaxMCritRate", "150"));
-				MAX_RCRIT = Integer.parseInt(L2JTeonCustom.getProperty("MaxCritical", "500"));
-				MAX_PATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxPAtkSpeed", "0"));
-				MAX_MATK_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("MaxMAtkSpeed", "0"));
 				PLAYER_PROTECTION_SYSTEM = Integer.parseInt(L2JTeonCustom.getProperty("PlayerProtectionLevel", "0"));
-				ALT_DAGGER_DMG_VS_ROBE = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSRobe", "1.00"));
-				ALT_DAGGER_DMG_VS_LIGHT = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSLight", "1.20"));
-				ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(L2JTeonCustom.getProperty("DaggerVSHeavy", "1.40"));
-				FRONT_BLOW_SUCCESS = Integer.parseInt(L2JTeonCustom.getProperty("FrontBlow", "50"));
-				BACK_BLOW_SUCCESS = Integer.parseInt(L2JTeonCustom.getProperty("BackBlow", "70"));
-				SIDE_BLOW_SUCCESS = Integer.parseInt(L2JTeonCustom.getProperty("SideBlow", "60"));
 				DISABLE_GRADE_PENALTIES = Boolean.parseBoolean(L2JTeonCustom.getProperty("DisableGradePenalties", "False"));
 				DISABLE_WEIGHT_PENALTIES = Boolean.parseBoolean(L2JTeonCustom.getProperty("DisableWeightPenalties", "False"));
 				DONATOR_DELETE_RENTED_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("DonatorDeleteRentedItems", "False"));
@@ -2442,7 +2559,6 @@ public final class Config
 				Config.ALLOW_DONATORS_UNLEGIT_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorsUnlegit", "False"));
 				CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
 				ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
-				CUSTOM_RUN_SPEED = Integer.parseInt(L2JTeonCustom.getProperty("CustomRunSpeed", "0"));
 				KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepBuffsOnDeath", "False"));
 				DEATH_PENALTY_CHANCE = Integer.parseInt(L2JTeonCustom.getProperty("DeathPenaltyChance", "20"));
 				SET_LVL_ON_START = Boolean.parseBoolean(L2JTeonCustom.getProperty("SetHighLevelOnStart", "False"));
@@ -2571,17 +2687,6 @@ public final class Config
 				ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnableWarehouseSortingFreight", "False"));
 				DISABLE_SUMMON_IN_COMBAT = Boolean.parseBoolean(L2JTeonCustom.getProperty("DisableSummonInCombat", "True"));
 				ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(L2JTeonCustom.getProperty("AltPerfectShieldBlockRate", "5"));
-				CUSTOM_SPAWNLIST_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomSpawnlistTable", "False"));
-				SAVE_GMSPAWN_ON_CUSTOM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SaveGmSpawnOnCustom", "False"));
-				DELETE_GMSPAWN_ON_CUSTOM = Boolean.parseBoolean(L2JTeonCustom.getProperty("DeleteGmSpawnOnCustom", "False"));
-				CUSTOM_NPC_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomNpcTable", "False"));
-				CUSTOM_ETCITEM_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomEtcitemTable", "False"));
-				CUSTOM_ARMOR_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomArmorTable", "False"));
-				CUSTOM_ARMORSETS_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomArmorSetsTable", "False"));
-				CUSTOM_WEAPON_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomWeaponTable", "False"));
-				CUSTOM_TELEPORT_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomTeleportTable", "False"));
-				CUSTOM_DROPLIST_TABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomDroplistTable", "False"));
-				CUSTOM_MERCHANT_TABLES = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomMerchantTables", "False"));
 				ENABLE_MODIFY_SKILL_DURATION = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnableModifySkillDuration", "False"));
 				// Create Map only if enabled
 				if (ENABLE_MODIFY_SKILL_DURATION)
