@@ -36,7 +36,7 @@ public class QuestList extends L2GameServerPacket
 	@Override
 	public void runImpl()
 	{
-		if ((getClient() != null) && (getClient().getActiveChar() != null))
+		if (getClient() != null && getClient().getActiveChar() != null)
 		{
 			_activeChar = getClient().getActiveChar();
 			_quests = _activeChar.getAllActiveQuests();
@@ -53,7 +53,7 @@ public class QuestList extends L2GameServerPacket
 		 * 10th. 0000 0000 0000 0000 0000 0000 0000 1010: Indicates that no steps were skipped and current is the 10th. It is speculated that the latter will be processed faster by the client, so it is preferred when no steps have been skipped. However, the sequence "1000 0000 0000 0000 0000 0010 1101 1111" indicates that the current step is the 10th but the 6th and 9th are not to be shown at all
 		 * (not completed, either).
 		 */
-		if ((_quests == null) || (_quests.length == 0))
+		if (_quests == null || _quests.length == 0)
 		{
 			writeC(0x80);
 			writeH(0);

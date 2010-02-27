@@ -326,7 +326,7 @@ public class CursedWeaponsManager
 	// Properties - Public
 	public synchronized void checkDrop(L2Attackable attackable, L2PcInstance player)
 	{
-		if ((attackable instanceof L2SiegeGuardInstance) || (attackable instanceof L2RiftInvaderInstance) || (attackable instanceof L2GrandBossInstance) || (attackable instanceof L2FestivalMonsterInstance) || (attackable instanceof L2GuardInstance) || (attackable instanceof L2GrandBossInstance) || (attackable instanceof L2FeedableBeastInstance))
+		if (attackable instanceof L2SiegeGuardInstance || attackable instanceof L2RiftInvaderInstance || attackable instanceof L2GrandBossInstance || attackable instanceof L2FestivalMonsterInstance || attackable instanceof L2GuardInstance || attackable instanceof L2GrandBossInstance || attackable instanceof L2FeedableBeastInstance)
 			return;
 		for (CursedWeapon cw : _cursedWeapons.values())
 		{
@@ -394,7 +394,7 @@ public class CursedWeaponsManager
 			return;
 		for (CursedWeapon cw : _cursedWeapons.values())
 		{
-			if (cw.isActivated() && (player.getObjectId() == cw.getPlayerId()))
+			if (cw.isActivated() && player.getObjectId() == cw.getPlayerId())
 			{
 				cw.setPlayer(player);
 				cw.setItem(player.getInventory().getItemByItemId(cw.getItemId()));

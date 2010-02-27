@@ -397,7 +397,7 @@ public class Potions implements IItemHandler
 				// elixir of Life
 				if (!isNegotov(activeChar, itemId, 2287))
 					return;
-				if ((itemId == 8622 && activeChar.getExpertiseIndex() == 0) || (itemId == 8623 && activeChar.getExpertiseIndex() == 1) || (itemId == 8624 && activeChar.getExpertiseIndex() == 2) || (itemId == 8625 && activeChar.getExpertiseIndex() == 3) || (itemId == 8626 && activeChar.getExpertiseIndex() == 4) || (itemId == 8627 && activeChar.getExpertiseIndex() == 5))
+				if (itemId == 8622 && activeChar.getExpertiseIndex() == 0 || itemId == 8623 && activeChar.getExpertiseIndex() == 1 || itemId == 8624 && activeChar.getExpertiseIndex() == 2 || itemId == 8625 && activeChar.getExpertiseIndex() == 3 || itemId == 8626 && activeChar.getExpertiseIndex() == 4 || itemId == 8627 && activeChar.getExpertiseIndex() == 5)
 					res = usePotion(activeChar, 2287, (activeChar.getExpertiseIndex() + 1));
 				else
 				{
@@ -416,7 +416,7 @@ public class Potions implements IItemHandler
 				// elixir of Strength
 				if (!isNegotov(activeChar, itemId, 2288))
 					return;
-				if ((itemId == 8628 && activeChar.getExpertiseIndex() == 0) || (itemId == 8629 && activeChar.getExpertiseIndex() == 1) || (itemId == 8630 && activeChar.getExpertiseIndex() == 2) || (itemId == 8631 && activeChar.getExpertiseIndex() == 3) || (itemId == 8632 && activeChar.getExpertiseIndex() == 4) || (itemId == 8633 && activeChar.getExpertiseIndex() == 5))
+				if (itemId == 8628 && activeChar.getExpertiseIndex() == 0 || itemId == 8629 && activeChar.getExpertiseIndex() == 1 || itemId == 8630 && activeChar.getExpertiseIndex() == 2 || itemId == 8631 && activeChar.getExpertiseIndex() == 3 || itemId == 8632 && activeChar.getExpertiseIndex() == 4 || itemId == 8633 && activeChar.getExpertiseIndex() == 5)
 					res = usePotion(activeChar, 2288, (activeChar.getExpertiseIndex() + 1));
 				else
 				{
@@ -435,7 +435,7 @@ public class Potions implements IItemHandler
 				// elixir of cp
 				if (!isNegotov(activeChar, itemId, 2289))
 					return;
-				if ((itemId == 8634 && activeChar.getExpertiseIndex() == 0) || (itemId == 8635 && activeChar.getExpertiseIndex() == 1) || (itemId == 8636 && activeChar.getExpertiseIndex() == 2) || (itemId == 8637 && activeChar.getExpertiseIndex() == 3) || (itemId == 8638 && activeChar.getExpertiseIndex() == 4) || (itemId == 8639 && activeChar.getExpertiseIndex() == 5))
+				if (itemId == 8634 && activeChar.getExpertiseIndex() == 0 || itemId == 8635 && activeChar.getExpertiseIndex() == 1 || itemId == 8636 && activeChar.getExpertiseIndex() == 2 || itemId == 8637 && activeChar.getExpertiseIndex() == 3 || itemId == 8638 && activeChar.getExpertiseIndex() == 4 || itemId == 8639 && activeChar.getExpertiseIndex() == 5)
 					res = usePotion(activeChar, 2289, (activeChar.getExpertiseIndex() + 1));
 				else
 				{
@@ -604,7 +604,7 @@ public class Potions implements IItemHandler
 		{
 			if (e.getEffectType() == effectType)
 			{
-				if (e.getTaskTime() > (e.getSkill().getBuffDuration() * 67) / 100000)
+				if (e.getTaskTime() > e.getSkill().getBuffDuration() * 67 / 100000)
 					return true;
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addItemName(itemId);

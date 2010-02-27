@@ -874,7 +874,7 @@ public class L2Clan
 			}
 			clanData.close();
 			statement.close();
-			if (Config.DEBUG && (getName() != null))
+			if (Config.DEBUG && getName() != null)
 				_log.config("Restored clan data for \"" + getName() + "\" from database.");
 			restoreSubPledges();
 			restoreRankPrivs();
@@ -1219,7 +1219,7 @@ public class L2Clan
 		{
 			try
 			{
-				if (member.isOnline() && (member.getPlayerInstance() != player))
+				if (member.isOnline() && member.getPlayerInstance() != player)
 					member.getPlayerInstance().sendPacket(packet);
 			}
 			catch (NullPointerException e)
@@ -1264,7 +1264,7 @@ public class L2Clan
 
 	public boolean isAtWarWith(Integer id)
 	{
-		if ((_atWarWith != null) && (_atWarWith.size() > 0))
+		if (_atWarWith != null && _atWarWith.size() > 0)
 			if (_atWarWith.contains(id))
 				return true;
 		return false;
@@ -1272,7 +1272,7 @@ public class L2Clan
 
 	public boolean isAtWarAttacker(Integer id)
 	{
-		if ((_atWarAttackers != null) && (_atWarAttackers.size() > 0))
+		if (_atWarAttackers != null && _atWarAttackers.size() > 0)
 			if (_atWarAttackers.contains(id))
 				return true;
 		return false;
@@ -1324,7 +1324,7 @@ public class L2Clan
 
 	public int isAtWar()
 	{
-		if ((_atWarWith != null) && (_atWarWith.size() > 0))
+		if (_atWarWith != null && _atWarWith.size() > 0)
 			return 1;
 		return 0;
 	}
@@ -1533,7 +1533,7 @@ public class L2Clan
 		}
 		// Royal Guard 5000 points per each
 		// Order of Knights 10000 points per each
-		if ((pledgeType != -1) && (((getReputationScore() < 5000) && (pledgeType < L2Clan.SUBUNIT_KNIGHT1)) || ((getReputationScore() < 10000) && (pledgeType > L2Clan.SUBUNIT_ROYAL2))))
+		if (pledgeType != -1 && (getReputationScore() < 5000 && pledgeType < L2Clan.SUBUNIT_KNIGHT1 || getReputationScore() < 10000 && pledgeType > L2Clan.SUBUNIT_ROYAL2))
 		{
 			SystemMessage sp = new SystemMessage(SystemMessageId.CLAN_REPUTATION_SCORE_IS_TOO_LOW);
 			player.sendPacket(sp);
@@ -1809,26 +1809,26 @@ public class L2Clan
 
 	public void setReputationScore(int value, boolean save)
 	{
-		if ((_reputationScore >= 0) && (value < 0))
+		if (_reputationScore >= 0 && value < 0)
 		{
 			broadcastToOnlineMembers(new SystemMessage(SystemMessageId.REPUTATION_POINTS_0_OR_LOWER_CLAN_SKILLS_DEACTIVATED));
 			L2Skill[] skills = getAllSkills();
 			for (L2ClanMember member : _members.values())
 			{
-				if (member.isOnline() && (member.getPlayerInstance() != null))
+				if (member.isOnline() && member.getPlayerInstance() != null)
 				{
 					for (L2Skill sk : skills)
 						member.getPlayerInstance().removeSkill(sk, false);
 				}
 			}
 		}
-		else if ((_reputationScore < 0) && (value >= 0))
+		else if (_reputationScore < 0 && value >= 0)
 		{
 			broadcastToOnlineMembers(new SystemMessage(SystemMessageId.CLAN_SKILLS_WILL_BE_ACTIVATED_SINCE_REPUTATION_IS_0_OR_HIGHER));
 			L2Skill[] skills = getAllSkills();
 			for (L2ClanMember member : _members.values())
 			{
-				if (member.isOnline() && (member.getPlayerInstance() != null))
+				if (member.isOnline() && member.getPlayerInstance() != null)
 				{
 					for (L2Skill sk : skills)
 					{
@@ -1970,7 +1970,7 @@ public class L2Clan
 			sm = null;
 			return false;
 		}
-		if (((target.getLevel() > 40) || (target.getClassId().level() >= 2)) && (pledgeType == -1))
+		if ((target.getLevel() > 40 || target.getClassId().level() >= 2) && pledgeType == -1)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DOESNOT_MEET_REQUIREMENTS_TO_JOIN_ACADEMY);
 			sm.addString(target.getName());
@@ -2010,7 +2010,7 @@ public class L2Clan
 		{
 			return false;
 		}
-		if ((activeChar.getAllyId() == 0) || !activeChar.isClanLeader() || (activeChar.getClanId() != activeChar.getAllyId()))
+		if (activeChar.getAllyId() == 0 || !activeChar.isClanLeader() || activeChar.getClanId() != activeChar.getAllyId())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
 			return false;
@@ -2175,7 +2175,7 @@ public class L2Clan
 			player.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_ALLIANCE_NAME));
 			return;
 		}
-		if ((allyName.length() > 16) || (allyName.length() < 2))
+		if (allyName.length() > 16 || allyName.length() < 2)
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_ALLIANCE_NAME_LENGTH));
 			return;
@@ -2201,7 +2201,7 @@ public class L2Clan
 			player.sendPacket(new SystemMessage(SystemMessageId.NO_CURRENT_ALLIANCES));
 			return;
 		}
-		if (!player.isClanLeader() || (getClanId() != getAllyId()))
+		if (!player.isClanLeader() || getClanId() != getAllyId())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
 			return;
@@ -2215,7 +2215,7 @@ public class L2Clan
 		long currentTime = System.currentTimeMillis();
 		for (L2Clan clan : ClanTable.getInstance().getClans())
 		{
-			if ((clan.getAllyId() == getAllyId()) && (clan.getClanId() != getClanId()))
+			if (clan.getAllyId() == getAllyId() && clan.getClanId() != getClanId())
 			{
 				clan.setAllyId(0);
 				clan.setAllyName(null);
@@ -2251,7 +2251,7 @@ public class L2Clan
 			case 0:
 			{
 				// upgrade to 1
-				if ((player.getSp() >= Config.CLAN_SP_FIRST) && (player.getAdena() >= Config.CLAN_RAISE_FIRST_COST))
+				if (player.getSp() >= Config.CLAN_SP_FIRST && player.getAdena() >= Config.CLAN_RAISE_FIRST_COST)
 				{
 					if (player.reduceAdena("ClanLvl", Config.CLAN_RAISE_FIRST_COST, player.getTarget(), true))
 					{
@@ -2268,7 +2268,7 @@ public class L2Clan
 			case 1:
 			{
 				// upgrade to 2
-				if ((player.getSp() >= Config.CLAN_SP_SEC) && (player.getAdena() >= Config.CLAN_RAISE_SEC_COST))
+				if (player.getSp() >= Config.CLAN_SP_SEC && player.getAdena() >= Config.CLAN_RAISE_SEC_COST)
 				{
 					if (player.reduceAdena("ClanLvl", Config.CLAN_RAISE_SEC_COST, player.getTarget(), true))
 					{
@@ -2285,7 +2285,7 @@ public class L2Clan
 			case 2:
 			{
 				// upgrade to 3
-				if ((player.getSp() >= Config.CLAN_SP_THIRD) && (player.getInventory().getItemByItemId(1419) != null))
+				if (player.getSp() >= Config.CLAN_SP_THIRD && player.getInventory().getItemByItemId(1419) != null)
 				{
 					// itemid 1419 == proof of blood
 					if (player.destroyItemByItemId("ClanLvl", 1419, 1, player.getTarget(), false))
@@ -2308,7 +2308,7 @@ public class L2Clan
 			case 3:
 			{
 				// upgrade to 4
-				if ((player.getSp() >= Config.CLAN_SP_FORTH) && (player.getInventory().getItemByItemId(3874) != null))
+				if (player.getSp() >= Config.CLAN_SP_FORTH && player.getInventory().getItemByItemId(3874) != null)
 				{
 					// itemid 3874 == proof of alliance
 					if (player.destroyItemByItemId("ClanLvl", 3874, 1, player.getTarget(), false))
@@ -2331,7 +2331,7 @@ public class L2Clan
 			case 4:
 			{
 				// upgrade to 5
-				if ((player.getSp() >= Config.CLAN_SP_FIFTH) && (player.getInventory().getItemByItemId(3870) != null))
+				if (player.getSp() >= Config.CLAN_SP_FIFTH && player.getInventory().getItemByItemId(3870) != null)
 				{
 					// itemid 3870 == proof of aspiration
 					if (player.destroyItemByItemId("ClanLvl", 3870, 1, player.getTarget(), false))
@@ -2352,7 +2352,7 @@ public class L2Clan
 				break;
 			}
 			case 5:
-				if ((getReputationScore() >= Config.CLAN_REPUTATION_FIRST) && (getMembersCount() >= Config.CLAN_MEMBERS_FIRST))
+				if (getReputationScore() >= Config.CLAN_REPUTATION_FIRST && getMembersCount() >= Config.CLAN_MEMBERS_FIRST)
 				{
 					setReputationScore(getReputationScore() - Config.CLAN_REPUTATION_FIRST, true);
 					SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
@@ -2363,7 +2363,7 @@ public class L2Clan
 				}
 				break;
 			case 6:
-				if ((getReputationScore() >= Config.CLAN_REPUTATION_SEC) && (getMembersCount() >= Config.CLAN_MEMBERS_SEC))
+				if (getReputationScore() >= Config.CLAN_REPUTATION_SEC && getMembersCount() >= Config.CLAN_MEMBERS_SEC)
 				{
 					setReputationScore(getReputationScore() - Config.CLAN_REPUTATION_SEC, true);
 					SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
@@ -2374,7 +2374,7 @@ public class L2Clan
 				}
 				break;
 			case 7:
-				if ((getReputationScore() >= Config.CLAN_REPUTATION_THIRD) && (getMembersCount() >= Config.CLAN_MEMBERS_THIRD))
+				if (getReputationScore() >= Config.CLAN_REPUTATION_THIRD && getMembersCount() >= Config.CLAN_MEMBERS_THIRD)
 				{
 					setReputationScore(getReputationScore() - Config.CLAN_REPUTATION_THIRD, true);
 					SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);

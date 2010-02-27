@@ -157,7 +157,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 					assert obj.getObjectId() != _table[pos].getObjectId();
 				// if there was no collisions at this slot, and we found a free
 				// slot previously - use found slot
-				if ((slot >= 0) && ((_collisions[pos >> 5] & 1 << (pos & 31)) == 0))
+				if (slot >= 0 && (_collisions[pos >> 5] & 1 << (pos & 31)) == 0)
 				{
 					_table[slot] = obj;
 					_count++;
@@ -211,7 +211,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 				return;
 			}
 			// check for collision (if we previously deleted element)
-			if ((_table[pos] == null) && ((_collisions[pos >> 5] & 1 << (pos & 31)) == 0))
+			if (_table[pos] == null && (_collisions[pos >> 5] & 1 << (pos & 31)) == 0)
 			{
 				if (DEBUG)
 					check();
@@ -256,7 +256,7 @@ public final class L2ObjectHashSet<T extends L2Object> extends L2ObjectSet<T> im
 			if (_table[pos] == obj)
 				return true;
 			// check for collision (if we previously deleted element)
-			if ((_table[pos] == null) && ((_collisions[pos >> 5] & 1 << (pos & 31)) == 0))
+			if (_table[pos] == null && (_collisions[pos >> 5] & 1 << (pos & 31)) == 0)
 			{
 				return false;
 			}

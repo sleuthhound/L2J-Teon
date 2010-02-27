@@ -862,13 +862,13 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 	{
 		switch (Config.UNKNOWN_PACKETS_PUNISHMENT)
 		{
-			case (1):
+			case 1:
 				if (client.getActiveChar() != null)
 				{
 					GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets.");
 				}
 				break;
-			case (2):
+			case 2:
 				_log.warning("PacketProtection: " + client.toString() + " got kicked due flooding of unknown packets");
 				if (client.getActiveChar() != null)
 				{
@@ -877,7 +877,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					client.getActiveChar().closeNetConnection();
 				}
 				break;
-			case (3):
+			case 3:
 				_log.warning("PacketProtection: " + client.toString() + " got banned due flooding of unknown packets");
 				LoginServerThread.getInstance().sendAccessLevel(client.getAccountName(), -99);
 				if (client.getActiveChar() != null)

@@ -77,7 +77,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 		}
 		if (player.isGM())
 			showChatWindowChooseClass(player);
-		else if (((level >= 20 && jobLevel == 1) || (level >= 40 && jobLevel == 2)) && Config.ALLOW_CLASS_MASTERS)
+		else if ((level >= 20 && jobLevel == 1 || level >= 40 && jobLevel == 2) && Config.ALLOW_CLASS_MASTERS)
 			showChatWindow(player, classId.getId());
 		else if (level >= 76 && Config.ALLOW_CLASS_MASTERS && classId.getId() < 88)
 		{

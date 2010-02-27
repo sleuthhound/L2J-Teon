@@ -500,7 +500,7 @@ public class L2BufferInstance extends L2FolkInstance
 	{
 		int fee = 0;
 		if (Config.NPCBUFFER_STATIC_BUFF_COST >= 0)
-			return (list.size() * Config.NPCBUFFER_STATIC_BUFF_COST);
+			return list.size() * Config.NPCBUFFER_STATIC_BUFF_COST;
 		else
 		{
 			for (L2Skill sk : list)

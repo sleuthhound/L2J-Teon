@@ -97,7 +97,7 @@ public class Point3D implements Serializable
 			boolean ret;
 			synchronized (point3D)
 			{
-				ret = (point3D._x == _x) && (point3D._y == _y) && (point3D._z == _z);
+				ret = point3D._x == _x && point3D._y == _y && point3D._z == _z;
 			}
 			return ret;
 		}
@@ -106,7 +106,7 @@ public class Point3D implements Serializable
 
 	public synchronized boolean equals(int pX, int pY, int pZ)
 	{
-		return (_x == pX) && (_y == pY) && (_z == pZ);
+		return _x == pX && _y == pY && _z == pZ;
 	}
 
 	public synchronized long distanceSquaredTo(Point3D point)

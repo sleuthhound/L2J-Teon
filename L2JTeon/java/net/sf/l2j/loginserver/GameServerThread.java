@@ -92,7 +92,7 @@ public class GameServerThread extends Thread
 				lengthLo = _in.read();
 				lengthHi = _in.read();
 				length = lengthHi * 256 + lengthLo;
-				if ((lengthHi < 0) || _connection.isClosed())
+				if (lengthHi < 0 || _connection.isClosed())
 				{
 					_log.finer("LoginServerThread: Login terminated the connection.");
 					break;
@@ -100,7 +100,7 @@ public class GameServerThread extends Thread
 				byte[] data = new byte[length - 2];
 				int receivedBytes = 0;
 				int newBytes = 0;
-				while ((newBytes != -1) && (receivedBytes < length - 2))
+				while (newBytes != -1 && receivedBytes < length - 2)
 				{
 					newBytes = _in.read(data, 0, length - 2);
 					receivedBytes = receivedBytes + newBytes;
@@ -250,7 +250,7 @@ public class GameServerThread extends Thread
 			if (Config.DEBUG)
 				_log.info("auth request received for Player " + par.getAccount());
 			SessionKey key = LoginController.getInstance().getKeyForAccount(par.getAccount());
-			if ((key != null) && key.equals(par.getKey()))
+			if (key != null && key.equals(par.getKey()))
 			{
 				if (Config.DEBUG)
 					_log.info("auth request: OK");
@@ -518,9 +518,9 @@ public class GameServerThread extends Thread
 		else
 			_gsi.setInternalIp(_connectionIp);
 		_log.info("Updated Gameserver [" + getServerId() + "] " + GameServerTable.getInstance().getServerNameById(getServerId()) + " IP's:");
-		if ((oldInternal == null) || !oldInternal.equalsIgnoreCase(gameInternalHost))
+		if (oldInternal == null || !oldInternal.equalsIgnoreCase(gameInternalHost))
 			_log.info("InternalIP: " + gameInternalHost);
-		if ((oldExternal == null) || !oldExternal.equalsIgnoreCase(gameExternalHost))
+		if (oldExternal == null || !oldExternal.equalsIgnoreCase(gameExternalHost))
 			_log.info("ExternalIP: " + gameExternalHost);
 	}
 

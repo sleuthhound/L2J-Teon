@@ -110,7 +110,7 @@ public class AuctionManager
 		for (int i = 0; i < getAuctions().size(); i++)
 		{
 			auction = getAuctions().get(i);
-			if ((auction != null) && (auction.getId() == auctionId))
+			if (auction != null && auction.getId() == auctionId)
 				return i;
 		}
 		return -1;

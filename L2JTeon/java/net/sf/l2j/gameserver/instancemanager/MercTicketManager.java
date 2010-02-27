@@ -119,23 +119,23 @@ public class MercTicketManager
 	// returns the castleId for the passed ticket item id
 	public int getTicketCastleId(int itemId)
 	{
-		if (((itemId >= ITEM_IDS[0]) && (itemId <= ITEM_IDS[9])) || ((itemId >= ITEM_IDS[10]) && (itemId <= ITEM_IDS[19])))
+		if (itemId >= ITEM_IDS[0] && itemId <= ITEM_IDS[9] || itemId >= ITEM_IDS[10] && itemId <= ITEM_IDS[19])
 			return 1; // Gludio
-		if (((itemId >= ITEM_IDS[20]) && (itemId <= ITEM_IDS[29])) || ((itemId >= ITEM_IDS[30]) && (itemId <= ITEM_IDS[39])))
+		if (itemId >= ITEM_IDS[20] && itemId <= ITEM_IDS[29] || itemId >= ITEM_IDS[30] && itemId <= ITEM_IDS[39])
 			return 2; // Dion
-		if (((itemId >= ITEM_IDS[40]) && (itemId <= ITEM_IDS[49])) || ((itemId >= ITEM_IDS[50]) && (itemId <= ITEM_IDS[59])))
+		if (itemId >= ITEM_IDS[40] && itemId <= ITEM_IDS[49] || itemId >= ITEM_IDS[50] && itemId <= ITEM_IDS[59])
 			return 3; // Giran
-		if (((itemId >= ITEM_IDS[60]) && (itemId <= ITEM_IDS[69])) || ((itemId >= ITEM_IDS[70]) && (itemId <= ITEM_IDS[79])))
+		if (itemId >= ITEM_IDS[60] && itemId <= ITEM_IDS[69] || itemId >= ITEM_IDS[70] && itemId <= ITEM_IDS[79])
 			return 4; // Oren
-		if (((itemId >= ITEM_IDS[80]) && (itemId <= ITEM_IDS[89])) || ((itemId >= ITEM_IDS[90]) && (itemId <= ITEM_IDS[99])))
+		if (itemId >= ITEM_IDS[80] && itemId <= ITEM_IDS[89] || itemId >= ITEM_IDS[90] && itemId <= ITEM_IDS[99])
 			return 5; // Aden
-		if (((itemId >= ITEM_IDS[100]) && (itemId <= ITEM_IDS[109])) || ((itemId >= ITEM_IDS[110]) && (itemId <= ITEM_IDS[119])))
+		if (itemId >= ITEM_IDS[100] && itemId <= ITEM_IDS[109] || itemId >= ITEM_IDS[110] && itemId <= ITEM_IDS[119])
 			return 6; // Innadril
-		if (((itemId >= ITEM_IDS[120]) && (itemId <= ITEM_IDS[129])) || ((itemId >= ITEM_IDS[130]) && (itemId <= ITEM_IDS[139])))
+		if (itemId >= ITEM_IDS[120] && itemId <= ITEM_IDS[129] || itemId >= ITEM_IDS[130] && itemId <= ITEM_IDS[139])
 			return 7; // Goddard
-		if (((itemId >= ITEM_IDS[140]) && (itemId <= ITEM_IDS[149])) || ((itemId >= ITEM_IDS[150]) && (itemId <= ITEM_IDS[159])))
+		if (itemId >= ITEM_IDS[140] && itemId <= ITEM_IDS[149] || itemId >= ITEM_IDS[150] && itemId <= ITEM_IDS[159])
 			return 8; // Rune
-		if (((itemId >= ITEM_IDS[160]) && (itemId <= ITEM_IDS[169])) || ((itemId >= ITEM_IDS[170]) && (itemId <= ITEM_IDS[179])))
+		if (itemId >= ITEM_IDS[160] && itemId <= ITEM_IDS[169] || itemId >= ITEM_IDS[170] && itemId <= ITEM_IDS[179])
 			return 9; // Schuttgart
 		return -1;
 	}
@@ -188,7 +188,7 @@ public class MercTicketManager
 					{
 						// only handle tickets if a siege is not ongoing in this
 						// npc's castle
-						if ((castle != null) && !castle.getSiege().getIsInProgress())
+						if (castle != null && !castle.getSiege().getIsInProgress())
 						{
 							itemId = ITEM_IDS[i];
 							// create the ticket in the gameworld
@@ -246,7 +246,7 @@ public class MercTicketManager
 		for (int i = 0; i < getDroppedTickets().size(); i++)
 		{
 			ticket = getDroppedTickets().get(i);
-			if ((ticket != null) && (ticket.getItemId() == itemId))
+			if (ticket != null && ticket.getItemId() == itemId)
 				count++;
 		}
 		if (count >= limit)
@@ -270,7 +270,7 @@ public class MercTicketManager
 		for (int i = 0; i < getDroppedTickets().size(); i++)
 		{
 			ticket = getDroppedTickets().get(i);
-			if ((ticket != null) && (getTicketCastleId(ticket.getItemId()) == castleId))
+			if (ticket != null && getTicketCastleId(ticket.getItemId()) == castleId)
 				count++;
 		}
 		if (count >= limit)
@@ -325,7 +325,7 @@ public class MercTicketManager
 			npc.setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp());
 			npc.setDecayed(false);
 			npc.spawnMe(x, y, (z + 20));
-			if ((messages != null) && (messages.length > 0))
+			if (messages != null && messages.length > 0)
 				AutoChatHandler.getInstance().registerChat(npc, messages, chatDelay);
 			if (despawnDelay > 0)
 			{
@@ -349,7 +349,7 @@ public class MercTicketManager
 		while (i < getDroppedTickets().size())
 		{
 			L2ItemInstance item = getDroppedTickets().get(i);
-			if ((item != null) && (getTicketCastleId(item.getItemId()) == castleId))
+			if (item != null && getTicketCastleId(item.getItemId()) == castleId)
 			{
 				item.decayMe();
 				L2World.getInstance().removeObject(item);
@@ -378,9 +378,9 @@ public class MercTicketManager
 			}
 		// find the castle where this item is
 		Castle castle = CastleManager.getInstance().getCastleById(getTicketCastleId(itemId));
-		if ((npcId > 0) && (castle != null))
+		if (npcId > 0 && castle != null)
 		{
-			(new SiegeGuardManager(castle)).removeMerc(npcId, item.getX(), item.getY(), item.getZ());
+			new SiegeGuardManager(castle).removeMerc(npcId, item.getX(), item.getY(), item.getZ());
 		}
 		getDroppedTickets().remove(item);
 	}

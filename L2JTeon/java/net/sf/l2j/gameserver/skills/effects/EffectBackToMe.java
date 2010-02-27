@@ -61,7 +61,7 @@ final class EffectBackToMe extends L2Effect
 		if (getEffected().getY() > getEffector().getY())
 			signy = 1;
 		getEffected().setRunning();
-		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX + (signx * 40), posY + (signy * 40), posZ, 0));
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX + signx * 40, posY + signy * 40, posZ, 0));
 		getEffected().sendPacket(SystemMessage.sendString("You can feel Bluff's effect"));
 		getEffected().setTarget(null);
 		onActionTime();

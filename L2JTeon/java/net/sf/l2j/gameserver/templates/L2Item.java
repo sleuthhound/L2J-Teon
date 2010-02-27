@@ -378,7 +378,7 @@ public abstract class L2Item
 	 */
 	public boolean isHeroitem()
 	{
-		return ((_itemId >= 6611) && (_itemId <= 6621)) || (_itemId == 6842);
+		return _itemId >= 6611 && _itemId <= 6621 || _itemId == 6842;
 	}
 
 	/**

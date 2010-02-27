@@ -43,7 +43,7 @@ public class Fishing implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if ((activeChar == null) || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return;
 		L2PcInstance player = (L2PcInstance) activeChar;
 		/*
@@ -107,7 +107,7 @@ public class Fishing implements ISkillHandler
 		/*
 		 * Of course since you can define fishing water volumes of any height, the function needs to be changed to cope with that. Still, this is assuming that fishing zones water surfaces, are always above "sea level".
 		 */
-		if ((player.getZ() <= -3800) || (player.getZ() < z - 32))
+		if (player.getZ() <= -3800 || player.getZ() < z - 32)
 		{
 			// You can't fish in water
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_UNDER_WATER));
@@ -121,7 +121,7 @@ public class Fishing implements ISkillHandler
 				return;
 		}
 		L2Weapon weaponItem = player.getActiveWeaponItem();
-		if ((weaponItem == null) || (weaponItem.getItemType() != L2WeaponType.ROD))
+		if (weaponItem == null || weaponItem.getItemType() != L2WeaponType.ROD)
 		{
 			// Fishing poles are not installed
 			player.sendPacket(new SystemMessage(SystemMessageId.FISHING_POLE_NOT_EQUIPPED));
@@ -136,7 +136,7 @@ public class Fishing implements ISkillHandler
 		}
 		player.SetLure(lure);
 		L2ItemInstance lure2 = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
-		if ((lure2 == null) || (lure2.getCount() < 1)) // Not enough bait.
+		if (lure2 == null || lure2.getCount() < 1) // Not enough bait.
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_BAIT));
 			player.sendPacket(new ItemList(player, false));

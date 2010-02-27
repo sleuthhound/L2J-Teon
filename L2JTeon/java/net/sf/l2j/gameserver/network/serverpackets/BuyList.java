@@ -68,7 +68,7 @@ public final class BuyList extends L2GameServerPacket
 		writeH(_list.length);
 		for (L2ItemInstance item : _list)
 		{
-			if ((item.getCount() > 0) || (item.getCount() == -1))
+			if (item.getCount() > 0 || item.getCount() == -1)
 			{
 				writeH(item.getItem().getType1()); // item type1
 				writeD(item.getObjectId());
@@ -110,7 +110,7 @@ public final class BuyList extends L2GameServerPacket
 					writeH(0x00); // ?
 					writeH(0x00);
 				}
-				if ((item.getItemId() >= 3960) && (item.getItemId() <= 4026))// Config.RATE_SIEGE_GUARDS_PRICE-//'
+				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)// Config.RATE_SIEGE_GUARDS_PRICE-//'
 					writeD((int) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * (1 + _taxRate)));
 				else
 					writeD((int) (item.getPriceToSell() * (1 + _taxRate)));

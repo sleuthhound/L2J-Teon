@@ -207,7 +207,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public double getVulnerability(Stats id)
 	{
-		if ((_vulnerabilities == null) || (_vulnerabilities.get(id) == null))
+		if (_vulnerabilities == null || _vulnerabilities.get(id) == null)
 			return 1;
 		return _vulnerabilities.get(id);
 	}

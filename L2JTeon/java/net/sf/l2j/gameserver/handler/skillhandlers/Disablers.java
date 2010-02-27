@@ -64,7 +64,7 @@ public class Disablers implements ISkillHandler
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		if (activeChar instanceof L2PcInstance)
 		{
-			if ((weaponInst == null) && skill.isOffensive())
+			if (weaponInst == null && skill.isOffensive())
 			{
 				SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);
 				sm2.addString("You must equip a weapon before casting a spell.");
@@ -133,7 +133,7 @@ public class Disablers implements ISkillHandler
 				continue;
 			}
 			L2Character target = (L2Character) targets[index];
-			if ((target == null) || target.isDead())
+			if (target == null || target.isDead())
 			{
 				// or dead
 				continue;
@@ -335,7 +335,7 @@ public class Disablers implements ISkillHandler
 				case AGGREMOVE:
 				{
 					// these skills needs to be rechecked
-					if ((target instanceof L2Attackable) && !target.isRaid())
+					if (target instanceof L2Attackable && !target.isRaid())
 					{
 						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
 						{
@@ -420,7 +420,7 @@ public class Disablers implements ISkillHandler
 						{
 							for (Func f : e.getStatFuncs())
 							{
-								if ((f.stat == Stats.MAGIC_ATTACK) || (f.stat == Stats.MAGIC_ATTACK_SPEED))
+								if (f.stat == Stats.MAGIC_ATTACK || f.stat == Stats.MAGIC_ATTACK_SPEED)
 								{
 									e.exit();
 									break;
@@ -448,7 +448,7 @@ public class Disablers implements ISkillHandler
 						{
 							for (Func f : e.getStatFuncs())
 							{
-								if ((f.stat == Stats.RUN_SPEED) || (f.stat == Stats.POWER_ATTACK_SPEED))
+								if (f.stat == Stats.RUN_SPEED || f.stat == Stats.POWER_ATTACK_SPEED)
 								{
 									e.exit();
 									break;
@@ -493,7 +493,7 @@ public class Disablers implements ISkillHandler
 									case SIGNET_EFFECT:
 										continue;
 								}
-								if ((e.getSkill().getId() != 4082) && (e.getSkill().getId() != 4215) && (e.getSkill().getId() != 4515) && (e.getSkill().getId() != 5182) && (e.getSkill().getId() != 110) && (e.getSkill().getId() != 111) && (e.getSkill().getId() != 1323) && (e.getSkill().getId() != 1325)) // Cannot
+								if (e.getSkill().getId() != 4082 && e.getSkill().getId() != 4215 && e.getSkill().getId() != 4515 && e.getSkill().getId() != 5182 && e.getSkill().getId() != 110 && e.getSkill().getId() != 111 && e.getSkill().getId() != 1323 && e.getSkill().getId() != 1325) // Cannot
 								// cancel
 								// skills
 								// 4082,
@@ -647,7 +647,7 @@ public class Disablers implements ISkillHandler
 		}// end for
 		// self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
-		if ((effect != null) && effect.isSelfEffect())
+		if (effect != null && effect.isSelfEffect())
 		{
 			// Replace old effect with new one.
 			effect.exit();
@@ -668,7 +668,7 @@ public class Disablers implements ISkillHandler
 			if (power == -1) // if power is -1 the effect is always removed
 			// without power/lvl check ^^
 			{
-				if ((e.getSkill().getSkillType() == type) || ((e.getSkill().getEffectType() != null) && (e.getSkill().getEffectType() == type)))
+				if (e.getSkill().getSkillType() == type || e.getSkill().getEffectType() != null && e.getSkill().getEffectType() == type)
 				{
 					if (skillId != 0)
 					{
@@ -683,7 +683,7 @@ public class Disablers implements ISkillHandler
 					}
 				}
 			}
-			else if (((e.getSkill().getSkillType() == type) && (e.getSkill().getPower() <= power)) || ((e.getSkill().getEffectType() != null) && (e.getSkill().getEffectType() == type) && (e.getSkill().getEffectLvl() <= power)))
+			else if (e.getSkill().getSkillType() == type && e.getSkill().getPower() <= power || e.getSkill().getEffectType() != null && e.getSkill().getEffectType() == type && e.getSkill().getEffectLvl() <= power)
 			{
 				if (skillId != 0)
 				{

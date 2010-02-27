@@ -102,7 +102,7 @@ public class ScrollOfEscape implements IItemHandler
 		// Modified by Tempy - 28 Jul 05 \\
 		// Check if this is a blessed scroll, if it is then shorten the cast time.
 		int itemId = item.getItemId();
-		int escapeSkill = (itemId == 1538) || (itemId == 5858) || (itemId == 5859) || (itemId == 3958) ? 2036 : 2013;
+		int escapeSkill = itemId == 1538 || itemId == 5858 || itemId == 5859 || itemId == 3958 ? 2036 : 2013;
 		if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			return;
 		activeChar.disableAllSkills();
@@ -143,11 +143,11 @@ public class ScrollOfEscape implements IItemHandler
 			_activeChar.setIsIn7sDungeon(false);
 			try
 			{
-				if (((_itemId == 1830) || (_itemId == 5859)) && (CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)) // escape to castle if own's one
+				if ((_itemId == 1830 || _itemId == 5859) && CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null) // escape to castle if own's one
 				{
 					_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Castle);
 				}
-				else if (((_itemId == 1829) || (_itemId == 5858)) && (_activeChar.getClan() != null) && (ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null)) // escape to clan hall if own's one
+				else if ((_itemId == 1829 || _itemId == 5858) && _activeChar.getClan() != null && ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null) // escape to clan hall if own's one
 				{
 					_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.ClanHall);
 				}

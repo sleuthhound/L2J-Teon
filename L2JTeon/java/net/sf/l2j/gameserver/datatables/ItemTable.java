@@ -373,7 +373,7 @@ public class ItemTable
 		item.set.set("tradeable", Boolean.valueOf(rset.getString("tradeable")));
 		item.set.set("item_skill_id", rset.getInt("item_skill_id"));
 		item.set.set("item_skill_lvl", rset.getInt("item_skill_lvl"));
-		if ((bodypart == L2Item.SLOT_NECK) || (bodypart == L2Item.SLOT_HAIR) || (bodypart == L2Item.SLOT_FACE) || (bodypart == L2Item.SLOT_DHAIR) || ((bodypart & L2Item.SLOT_L_EAR) != 0) || ((bodypart & L2Item.SLOT_L_FINGER) != 0))
+		if (bodypart == L2Item.SLOT_NECK || bodypart == L2Item.SLOT_HAIR || bodypart == L2Item.SLOT_FACE || bodypart == L2Item.SLOT_DHAIR || (bodypart & L2Item.SLOT_L_EAR) != 0 || (bodypart & L2Item.SLOT_L_FINGER) != 0)
 		{
 			item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
 			item.set.set("type2", L2Item.TYPE2_ACCESSORY);
@@ -619,9 +619,9 @@ public class ItemTable
 			ScheduledFuture itemLootShedule;
 			long delay = 0;
 			// if in CommandChannel and was killing a World/RaidBoss
-			if (((reference != null) && (reference instanceof L2GrandBossInstance)) || (reference instanceof L2RaidBossInstance))
+			if (reference != null && reference instanceof L2GrandBossInstance || reference instanceof L2RaidBossInstance)
 			{
-				if ((((L2Attackable) reference).getFirstCommandChannelAttacked() != null) && ((L2Attackable) reference).getFirstCommandChannelAttacked().meetRaidWarCondition(reference))
+				if (((L2Attackable) reference).getFirstCommandChannelAttacked() != null && ((L2Attackable) reference).getFirstCommandChannelAttacked().meetRaidWarCondition(reference))
 				{
 					item.setOwnerId(((L2Attackable) reference).getFirstCommandChannelAttacked().getChannelLeader().getObjectId());
 					delay = 300000;
@@ -645,7 +645,7 @@ public class ItemTable
 		// Add the L2ItemInstance object to _allObjects of L2world
 		L2World.getInstance().storeObject(item);
 		// Set Item parameters
-		if (item.isStackable() && (count > 1))
+		if (item.isStackable() && count > 1)
 			item.setCount(count);
 		if (Config.LOG_ITEMS)
 		{

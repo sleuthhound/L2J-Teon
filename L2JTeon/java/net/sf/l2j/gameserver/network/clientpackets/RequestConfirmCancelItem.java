@@ -50,7 +50,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance item = (L2ItemInstance) L2World.getInstance().findObject(_itemId);
-		if ((activeChar == null) || (item == null))
+		if (activeChar == null || item == null)
 			return;
 		if (!item.isAugmented())
 		{

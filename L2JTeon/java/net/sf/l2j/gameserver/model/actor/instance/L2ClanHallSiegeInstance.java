@@ -117,7 +117,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 						showChatWindow(player, 3);
 						return;
 					}
-					if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+					if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 					{
 						showChatWindow(player, 1);
 						return;
@@ -163,7 +163,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 						showChatWindow(player, 3);
 						return;
 					}
-					if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+					if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 					{
 						showChatWindow(player, 1);
 						return;
@@ -212,7 +212,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		else if (command.startsWith("UnRegister"))
 		{
 			L2Clan playerClan = player.getClan();
-			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+			if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 			{
 				_log.warning("Attention!!! player " + player.getName() + " use packet hack, try unregister clan.");
 				return;
@@ -242,7 +242,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		else if (command.startsWith("PlayerList"))
 		{
 			L2Clan playerClan = player.getClan();
-			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+			if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 			{
 				return;
 			}
@@ -259,7 +259,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		else if (command.startsWith("addPlayer"))
 		{
 			L2Clan playerClan = player.getClan();
-			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+			if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 			{
 				return;
 			}
@@ -280,7 +280,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		else if (command.startsWith("removePlayer"))
 		{
 			L2Clan playerClan = player.getClan();
-			if ((playerClan == null) || (playerClan.getLeaderName() != player.getName()) || (playerClan.getLevel() < 4))
+			if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 			{
 				return;
 			}

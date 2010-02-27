@@ -124,7 +124,7 @@ public class ItemsOnGroundManager
 				{
 					L2ItemInstance item = new L2ItemInstance(result.getInt(1), result.getInt(2));
 					L2World.getInstance().storeObject(item);
-					if (item.isStackable() && (result.getInt(3) > 1)) // this
+					if (item.isStackable() && result.getInt(3) > 1) // this
 						// check
 						// and..
 						item.setCount(result.getInt(3));
@@ -147,7 +147,7 @@ public class ItemsOnGroundManager
 					{
 						if (result.getLong(8) > -1)
 						{
-							if (((Config.AUTODESTROY_ITEM_AFTER > 0) && (item.getItemType() != L2EtcItemType.HERB)) || ((Config.HERB_AUTO_DESTROY_TIME > 0) && (item.getItemType() == L2EtcItemType.HERB)))
+							if (Config.AUTODESTROY_ITEM_AFTER > 0 && item.getItemType() != L2EtcItemType.HERB || Config.HERB_AUTO_DESTROY_TIME > 0 && item.getItemType() == L2EtcItemType.HERB)
 								ItemsAutoDestroy.getInstance().addItem(item);
 						}
 					}

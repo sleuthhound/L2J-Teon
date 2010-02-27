@@ -96,7 +96,7 @@ public class MacroList
 		L2ShortCut[] allShortCuts = _owner.getAllShortCuts();
 		for (L2ShortCut sc : allShortCuts)
 		{
-			if ((sc.getId() == id) && (sc.getType() == L2ShortCut.TYPE_MACRO))
+			if (sc.getId() == id && sc.getType() == L2ShortCut.TYPE_MACRO)
 				_owner.deleteShortCut(sc.getSlot(), sc.getPage());
 		}
 		sendUpdate();
@@ -139,7 +139,7 @@ public class MacroList
 				sb.append(cmd.type).append(',');
 				sb.append(cmd.d1).append(',');
 				sb.append(cmd.d2);
-				if ((cmd.cmd != null) && (cmd.cmd.length() > 0))
+				if (cmd.cmd != null && cmd.cmd.length() > 0)
 					sb.append(',').append(cmd.cmd);
 				sb.append(';');
 			}

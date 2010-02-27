@@ -249,7 +249,7 @@ public class L2NpcBufferInstance extends L2NpcInstance
 					return;
 				}
 				L2ItemInstance itemInstance = playerInstance.getInventory().getItemByItemId(skillFeeId);
-				if (itemInstance == null || (!itemInstance.isStackable() && playerInstance.getInventory().getInventoryItemCount(skillFeeId, -1) < skillFeeAmount))
+				if (itemInstance == null || !itemInstance.isStackable() && playerInstance.getInventory().getInventoryItemCount(skillFeeId, -1) < skillFeeAmount)
 				{
 					playerInstance.sendMessage("You do not have enought items!");
 					return;

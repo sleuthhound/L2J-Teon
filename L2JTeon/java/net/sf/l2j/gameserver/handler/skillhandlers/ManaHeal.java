@@ -58,7 +58,7 @@ public class ManaHeal implements ISkillHandler
              mp = target.getMaxMp() * mp / 100.0;
             }
             else {
-             mp = (skill.getSkillType() == SkillType.MANARECHARGE) ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
+             mp = skill.getSkillType() == SkillType.MANARECHARGE ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
             }
 			//int cLev = activeChar.getLevel();
 			//hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;

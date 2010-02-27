@@ -45,7 +45,7 @@ public class AdminPledge implements IAdminCommandHandler
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 		{
-			if (!activeChar.isGM() || (activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL) || (activeChar.getTarget() == null) || !(activeChar.getTarget() instanceof L2PcInstance))
+			if (!activeChar.isGM() || activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL || activeChar.getTarget() == null || !(activeChar.getTarget() instanceof L2PcInstance))
 			{
 				return false;
 			}
@@ -123,7 +123,7 @@ public class AdminPledge implements IAdminCommandHandler
 			else if (action.equals("setlevel"))
 			{
 				int level = Integer.parseInt(parameter);
-				if ((level >= 0) && (level < 9))
+				if (level >= 0 && level < 9)
 				{
 					player.getClan().changeLevel(level);
 					activeChar.sendMessage("You set level " + level + " for clan " + player.getClan().getName());

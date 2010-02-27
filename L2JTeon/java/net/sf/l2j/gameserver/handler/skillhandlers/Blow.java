@@ -77,7 +77,7 @@ public class Blow implements ISkillHandler
 			}
 			// If skill requires Crit or skill requires behind,
 			// calculate chance based on DEX, Position and on self BUFF
-			if ((((skill.getCondition() & L2Skill.COND_BACK) != 0) && (_successChance == BACK)) && (!skillIsEvaded) || (((skill.getCondition() & L2Skill.COND_CRIT) != 0) && Formulas.getInstance().calcBlow(activeChar, target, _successChance)))
+			if ((skill.getCondition() & L2Skill.COND_BACK) != 0 && _successChance == BACK && !skillIsEvaded || (skill.getCondition() & L2Skill.COND_CRIT) != 0 && Formulas.getInstance().calcBlow(activeChar, target, _successChance))
 			{
 				if (skill.hasEffects())
 				{
@@ -91,7 +91,7 @@ public class Blow implements ISkillHandler
 					}
 				}
 				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-				boolean soul = (weapon != null) && (weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT) && (weapon.getItemType() == L2WeaponType.DAGGER);
+				boolean soul = weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() == L2WeaponType.DAGGER;
 				boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
 				// Crit rate base crit rate for skill, modified with STR bonus
 				boolean crit = false;
@@ -107,7 +107,7 @@ public class Blow implements ISkillHandler
 					// skills
 					// Adds directly to damage
 					L2Effect vicious = activeChar.getFirstEffect(312);
-					if ((vicious != null) && (damage > 1))
+					if (vicious != null && damage > 1)
 					{
 						for (Func func : vicious.getStatFuncs())
 						{
@@ -121,11 +121,11 @@ public class Blow implements ISkillHandler
 						}
 					}
 				}
-				if (soul && (weapon != null))
+				if (soul && weapon != null)
 				{
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 				}
-				if (skill.getDmgDirectlyToHP() && (target instanceof L2PcInstance))
+				if (skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
 				{
 					L2PcInstance player = (L2PcInstance) target;
 					if (!player.isInvul())
@@ -188,12 +188,12 @@ public class Blow implements ISkillHandler
 				activeChar.sendPacket(sm);
 			}
 			// Possibility of a lethal strike
-			if (!target.isRaid() && !(target instanceof L2DoorInstance) && !((target instanceof L2NpcInstance) && (((L2NpcInstance) target).getNpcId() == 35062)))
+			if (!target.isRaid() && !(target instanceof L2DoorInstance) && !(target instanceof L2NpcInstance && ((L2NpcInstance) target).getNpcId() == 35062))
 			{
 				int chance = Rnd.get(100);
 				// 2nd lethal effect activate (cp,hp to 1 or if target is npc
 				// then hp to 1)
-				if ((skill.getLethalChance2() > 0) && (chance < Formulas.getInstance().calcLethal(activeChar, target, skill.getLethalChance2())))
+				if (skill.getLethalChance2() > 0 && chance < Formulas.getInstance().calcLethal(activeChar, target, skill.getLethalChance2()))
 				{
 					if (target instanceof L2NpcInstance)
 					{
@@ -213,7 +213,7 @@ public class Blow implements ISkillHandler
 					}
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
 				}
-				else if ((skill.getLethalChance1() > 0) && (chance < Formulas.getInstance().calcLethal(activeChar, target, skill.getLethalChance1())))
+				else if (skill.getLethalChance1() > 0 && chance < Formulas.getInstance().calcLethal(activeChar, target, skill.getLethalChance1()))
 				{
 					if (target instanceof L2PcInstance)
 					{
@@ -232,7 +232,7 @@ public class Blow implements ISkillHandler
 			}
 			L2Effect effect = activeChar.getFirstEffect(skill.getId());
 			// Self Effect
-			if ((effect != null) && effect.isSelfEffect())
+			if (effect != null && effect.isSelfEffect())
 			{
 				effect.exit();
 			}

@@ -98,21 +98,21 @@ public abstract class L2Object
 	public final int getX()
 	{
 		if (Config.ASSERT)
-			assert (getPosition().getWorldRegion() != null) || _isVisible;
+			assert getPosition().getWorldRegion() != null || _isVisible;
 		return getPosition().getX();
 	}
 
 	public final int getY()
 	{
 		if (Config.ASSERT)
-			assert (getPosition().getWorldRegion() != null) || _isVisible;
+			assert getPosition().getWorldRegion() != null || _isVisible;
 		return getPosition().getY();
 	}
 
 	public final int getZ()
 	{
 		if (Config.ASSERT)
-			assert (getPosition().getWorldRegion() != null) || _isVisible;
+			assert getPosition().getWorldRegion() != null || _isVisible;
 		return getPosition().getZ();
 	}
 
@@ -249,7 +249,7 @@ public abstract class L2Object
 	public final void spawnMe()
 	{
 		if (Config.ASSERT)
-			assert (getPosition().getWorldRegion() == null) && (getPosition().getWorldPosition().getX() != 0) && (getPosition().getWorldPosition().getY() != 0) && (getPosition().getWorldPosition().getZ() != 0);
+			assert getPosition().getWorldRegion() == null && getPosition().getWorldPosition().getX() != 0 && getPosition().getWorldPosition().getY() != 0 && getPosition().getWorldPosition().getZ() != 0;
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2Object spawn and update its _worldregion
@@ -432,7 +432,7 @@ public abstract class L2Object
 	public boolean isInFunEvent()
 	{
 		L2PcInstance player = getActingPlayer();
-		return (player == null ? false : player.isInFunEvent());
+		return player == null ? false : player.isInFunEvent();
 	}
 
 	public L2PcInstance getActingPlayer()

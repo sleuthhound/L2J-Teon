@@ -37,7 +37,7 @@ public class ScrambledKeyPair
 	private byte[] scrambleModulus(BigInteger modulus)
 	{
 		byte[] scrambledMod = modulus.toByteArray();
-		if ((scrambledMod.length == 0x81) && (scrambledMod[0] == 0x00))
+		if (scrambledMod.length == 0x81 && scrambledMod[0] == 0x00)
 		{
 			byte[] temp = new byte[0x80];
 			System.arraycopy(scrambledMod, 1, temp, 0, 0x80);

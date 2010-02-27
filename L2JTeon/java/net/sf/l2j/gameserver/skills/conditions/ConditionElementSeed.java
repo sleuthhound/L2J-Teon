@@ -61,7 +61,7 @@ public class ConditionElementSeed extends Condition
 		if (_requiredSeeds[3] > 0)
 		{
 			int count = 0;
-			for (int i = 0; (i < Seeds.length) && (count < _requiredSeeds[3]); i++)
+			for (int i = 0; i < Seeds.length && count < _requiredSeeds[3]; i++)
 			{
 				if (Seeds[i] > 0)
 				{
@@ -75,7 +75,7 @@ public class ConditionElementSeed extends Condition
 		if (_requiredSeeds[4] > 0)
 		{
 			int count = 0;
-			for (int i = 0; (i < Seeds.length) && (count < _requiredSeeds[4]); i++)
+			for (int i = 0; i < Seeds.length && count < _requiredSeeds[4]; i++)
 			{
 				count += Seeds[i];
 			}

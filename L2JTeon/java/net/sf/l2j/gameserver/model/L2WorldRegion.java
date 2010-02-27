@@ -245,11 +245,11 @@ public final class L2WorldRegion
 	public Boolean areNeighborsEmpty()
 	{
 		// if this region is occupied, return false.
-		if (isActive() && (_allPlayable.size() > 0))
+		if (isActive() && _allPlayable.size() > 0)
 			return false;
 		// if any one of the neighbors is occupied, return false
 		for (L2WorldRegion neighbor : _surroundingRegions)
-			if (neighbor.isActive() && (neighbor._allPlayable.size() > 0))
+			if (neighbor.isActive() && neighbor._allPlayable.size() > 0)
 				return false;
 		// in all other cases, return true.
 		return true;
@@ -324,7 +324,7 @@ public final class L2WorldRegion
 		{
 			_allPlayable.put((L2PlayableInstance) object);
 			// if this is the first player to enter the region, activate self & neighbors
-			if ((_allPlayable.size() == 1) && (!Config.GRIDS_ALWAYS_ON))
+			if (_allPlayable.size() == 1 && !Config.GRIDS_ALWAYS_ON)
 				startActivation();
 		}
 	}
@@ -345,7 +345,7 @@ public final class L2WorldRegion
 		if (object instanceof L2PlayableInstance)
 		{
 			_allPlayable.remove((L2PlayableInstance) object);
-			if ((_allPlayable.size() == 0) && (!Config.GRIDS_ALWAYS_ON))
+			if (_allPlayable.size() == 0 && !Config.GRIDS_ALWAYS_ON)
 				startDeactivation();
 		}
 	}

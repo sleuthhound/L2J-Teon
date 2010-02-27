@@ -141,7 +141,7 @@ public class DoorTable
 		if (rangeZMin > rangeZMax)
 			_log.severe("Error in door data, ID:" + id);
 		int collisionRadius; // (max) radius for movement checks
-		if ((rangeXMax - rangeXMin) > (rangeYMax - rangeYMin))
+		if (rangeXMax - rangeXMin > rangeYMax - rangeYMin)
 			collisionRadius = rangeYMax - rangeYMin;
 		else
 			collisionRadius = rangeXMax - rangeXMin;

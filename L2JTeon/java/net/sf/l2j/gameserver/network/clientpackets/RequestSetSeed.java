@@ -41,7 +41,7 @@ public class RequestSetSeed extends L2GameClientPacket
 	{
 		_manorId = readD();
 		_size = readD();
-		if ((_size * 12 > _buf.remaining()) || (_size > 500))
+		if (_size * 12 > _buf.remaining() || _size > 500)
 		{
 			_size = 0;
 			return;

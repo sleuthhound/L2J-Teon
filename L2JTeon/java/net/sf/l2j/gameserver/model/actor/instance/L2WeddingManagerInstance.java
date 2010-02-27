@@ -103,7 +103,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 		{
 			L2PcInstance ptarget = (L2PcInstance) L2World.getInstance().findObject(player.getPartnerId());
 			// partner online ?
-			if ((ptarget == null) || (ptarget.isOnline() == 0))
+			if (ptarget == null || ptarget.isOnline() == 0)
 			{
 				filename = "data/html/wedding/notfound.htm";
 				sendHtmlMessage(player, filename, replace);
@@ -244,7 +244,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 							String frmWear = Integer.toString(6408);
 							String strItem = null;
 							strItem = Integer.toString(item3.getItemId());
-							if ((null != strItem) && strItem.equals(frmWear))
+							if (null != strItem && strItem.equals(frmWear))
 							{
 								player.setIsWearingFormalWear(true);
 							}

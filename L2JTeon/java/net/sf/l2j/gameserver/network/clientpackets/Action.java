@@ -87,7 +87,7 @@ public final class Action extends L2GameClientPacket
 		// Check if the target is valid, if the player haven't a shop or isn't
 		// the requester of a transaction (ex : FriendInvite, JoinAlly,
 		// JoinParty...)
-		if ((activeChar.getPrivateStoreType() == 0) && (activeChar.getActiveRequester() == null))
+		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null)
 		{
 			switch (_actionId)
 			{
@@ -95,7 +95,7 @@ public final class Action extends L2GameClientPacket
 					obj.onAction(activeChar);
 					break;
 				case 1:
-					if ((obj instanceof L2Character) && ((L2Character) obj).isAlikeDead())
+					if (obj instanceof L2Character && ((L2Character) obj).isAlikeDead())
 						obj.onAction(activeChar);
 					else
 						obj.onActionShift(getClient());
