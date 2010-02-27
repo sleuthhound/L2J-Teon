@@ -1635,16 +1635,23 @@ public abstract class L2Character extends L2Object
 		stopMove(null);
 		// Stop HP/MP/CP Regeneration task
 		getStatus().stopHpMpRegeneration();
-		// Stop all active skills effects in progress on the L2Character,
-		// if the Character isn't a Noblesse Blessed L2PlayableInstance
-		if (this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isNoblesseBlessed())
+		// Stop all active skills effects in progress on the L2Character, if the Character isn't a Noblesse Blessed L2PlayableInstance
+		if (this instanceof L2PlayableInstance && (((L2PlayableInstance) this).isSoulOfThePhoenix() || this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isSalvation()))
+		{
+			((L2PcInstance) this).reviveRequest((L2PcInstance) this, null, false);
+			if (((L2PlayableInstance) this).isSoulOfThePhoenix() && ((L2PcInstance) this)._reviveRequested == 0)
+			{
+				((L2PlayableInstance) this).stopSoulOfThePhoenix(null);
+			}
+			if (((L2PlayableInstance) this).isSalvation() && ((L2PcInstance) this)._reviveRequested == 0)
+			{
+				((L2PlayableInstance) this).stopSalvation(null);
+			}
+		}
+		else if (this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isNoblesseBlessed())
 		{
 			((L2PlayableInstance) this).stopNoblesseBlessing(null);
-			if (((L2PlayableInstance) this).getCharmOfLuck()) // remove Lucky
-				// Charm if
-				// player have
-				// Nobless
-				// blessing buff
+			if (((L2PlayableInstance) this).getCharmOfLuck()) // remove Lucky Charm if player have Nobless blessing buff
 				((L2PlayableInstance) this).stopCharmOfLuck(null);
 			if (((L2PlayableInstance) this).isSoulOfThePhoenix() || ((L2PlayableInstance) this).isSalvation())
 			{
@@ -1661,31 +1668,14 @@ public abstract class L2Character extends L2Object
 		}
 		else
 		{
-			if (this instanceof L2PlayableInstance && (((L2PlayableInstance) this).isSoulOfThePhoenix() || ((L2PlayableInstance) this).isSalvation()))
+			if (Config.KEEP_BUFFS_ON_DEATH && this instanceof L2PcInstance && ((L2PcInstance) this).isDonator())
 			{
-				((L2PcInstance) this).reviveRequest((L2PcInstance) this, null, false);
-				if (((L2PlayableInstance) this).isSoulOfThePhoenix() && ((L2PcInstance) this)._reviveRequested == 0)
-				{
-					((L2PlayableInstance) this).stopSoulOfThePhoenix(null);
-				}
-				if (((L2PlayableInstance) this).isSalvation() && ((L2PcInstance) this)._reviveRequested == 0)
-				{
-					((L2PlayableInstance) this).stopSalvation(null);
-				}
+				return false;
 			}
-			else
-			{
-				if (Config.KEEP_BUFFS_ON_DEATH && this instanceof L2PcInstance && ((L2PcInstance) this).isDonator())
-				{
-					return false;
-				}
-				else
-				{
-					stopAllEffects();
-					calculateRewards(killer);
-				}
-			}
+			stopAllEffects();
 		}
+
+		calculateRewards(killer);
 		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
 		broadcastStatusUpdate();
 		// Notify L2Character AI
@@ -2567,23 +2557,15 @@ public abstract class L2Character extends L2Object
 					return;
 			}
 			L2Effect tempEffect = null;
-            // Check for same effects
+            // Make sure there's no same effect previously
 			for (int i = 0; i < _effects.size(); i++)
 			{
-				if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId() && _effects.get(i).getEffectType() == newEffect.getEffectType() && _effects.get(i).getStackOrder() == newEffect.getStackOrder())
-				{
-                    if (newEffect.getSkill().getSkillType() == L2Skill.SkillType.BUFF || newEffect.getEffectType() == L2Effect.EffectType.BUFF)
-                    {
-                        // renew buffs, exit old
-                        _effects.get(i).exit();
-                    }
-                    else
-                    {
-						// Started scheduled timer needs to be canceled. There could be a nicer fix...
-						newEffect.stopEffectTask();
-						return;
-                    }
-				}
+                if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId() && _effects.get(i).getEffectType() == newEffect.getEffectType())
+                {
+					// Started scheduled timer needs to be canceled. There could be a nicer fix...
+					newEffect.stopEffectTask();
+					return;
+                }
 			}
 			// Remove first Buff if number of buffs > 19
 			L2Skill tempskill = newEffect.getSkill();
