@@ -86,7 +86,7 @@ public class Castle
 	public Castle(int castleId)
 	{
 		_castleId = castleId;
-		if (_castleId == 7 || castleId == 9) // Goddard and Schuttgart
+		if ((_castleId == 7) || (castleId == 9)) // Goddard and Schuttgart
 			_nbArtifact = 2;
 		load();
 		loadDoor();
@@ -133,11 +133,11 @@ public class Castle
 			}
 		}
 		if (!_name.equalsIgnoreCase("aden") && !_name.equalsIgnoreCase("Rune") && !_name.equalsIgnoreCase("Schuttgart") && !_name.equalsIgnoreCase("Goddard")) // If
-			// current
-			// castle
-			// instance is not Aden,
-			// Rune, Goddard or
-			// Schuttgart.
+		// current
+		// castle
+		// instance is not Aden,
+		// Rune, Goddard or
+		// Schuttgart.
 		{
 			Castle aden = CastleManager.getInstance().getCastle("aden");
 			if (aden != null)
@@ -306,7 +306,7 @@ public class Castle
 	public void setOwner(L2Clan clan)
 	{
 		// Remove old owner
-		if (getOwnerId() > 0 && (clan == null || clan.getClanId() != getOwnerId()))
+		if ((getOwnerId() > 0) && ((clan == null) || (clan.getClanId() != getOwnerId())))
 		{
 			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try
 			// to
@@ -362,16 +362,16 @@ public class Castle
 		int maxTax;
 		switch (SevenSigns.getInstance().getSealOwner(SevenSigns.SEAL_STRIFE))
 		{
-		case SevenSigns.CABAL_DAWN:
-			maxTax = 25;
-			break;
-		case SevenSigns.CABAL_DUSK:
-			maxTax = 5;
-			break;
-		default: // no owner
-			maxTax = 15;
+			case SevenSigns.CABAL_DAWN:
+				maxTax = 25;
+				break;
+			case SevenSigns.CABAL_DUSK:
+				maxTax = 5;
+				break;
+			default: // no owner
+				maxTax = 15;
 		}
-		if (taxPercent < 0 || taxPercent > maxTax)
+		if ((taxPercent < 0) || (taxPercent > maxTax))
 		{
 			activeChar.sendMessage("Tax value must be between 0 and " + maxTax + ".");
 			return;
@@ -449,7 +449,7 @@ public class Castle
 		L2DoorInstance door = getDoor(doorId);
 		if (door == null)
 			return;
-		if (door != null && door.getDoorId() == doorId)
+		if ((door != null) && (door.getDoorId() == doorId))
 		{
 			door.setCurrentHp(door.getMaxHp() + hp);
 			saveDoorUpgrade(doorId, hp, pDef, mDef);
@@ -478,10 +478,10 @@ public class Castle
 				_siegeDate = Calendar.getInstance();
 				_siegeDate.setTimeInMillis(rs.getLong("siegeDate"));
 				_siegeDayOfWeek = rs.getInt("siegeDayOfWeek");
-				if (_siegeDayOfWeek < 1 || _siegeDayOfWeek > 7)
+				if ((_siegeDayOfWeek < 1) || (_siegeDayOfWeek > 7))
 					_siegeDayOfWeek = 7;
 				_siegeHourOfDay = rs.getInt("siegeHourOfDay");
-				if (_siegeHourOfDay < 0 || _siegeHourOfDay > 23)
+				if ((_siegeHourOfDay < 0) || (_siegeHourOfDay > 23))
 					_siegeHourOfDay = 20;
 				_taxPercent = rs.getInt("taxPercent");
 				_treasury = rs.getInt("treasury");

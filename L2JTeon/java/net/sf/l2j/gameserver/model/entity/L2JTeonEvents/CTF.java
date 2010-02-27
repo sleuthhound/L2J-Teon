@@ -1024,47 +1024,47 @@ public class CTF
 			{
 				switch (seconds)
 				{
-				case 3600: // 1 hour left
-					if (_joining)
-					{
-						Announcements(_eventName + "(CTF): Joinable in " + _joiningLocationName + "!");
-						Announcements("CTF Event: " + seconds / 60 / 60 + " hour(s) till registration close!");
-					}
-					else if (_started)
-						Announcements("CTF Event: " + seconds / 60 / 60 + " hour(s) till event finish!");
-					break;
-				case 1800: // 30 minutes left
-				case 900: // 15 minutes left
-				case 600: // 10 minutes left
-				case 300: // 5 minutes left
-				case 240: // 4 minutes left
-				case 180: // 3 minutes left
-				case 120: // 2 minutes left
-				case 60: // 1 minute left
-					if (_joining)
-					{
-						removeOfflinePlayers();
-						Announcements(_eventName + "(CTF): Joinable in " + _joiningLocationName + "!");
-						Announcements("CTF Event: " + seconds / 60 + " minute(s) till registration close!");
-					}
-					else if (_started)
-						Announcements("CTF Event: " + seconds / 60 + " minute(s) till event finish!");
-					break;
-				case 30: // 30 seconds left
-				case 15: // 15 seconds left
-				case 10: // 10 seconds left
-				case 5: // 5 seconds left
-				case 4: // 4 seconds left
-				case 3: // 3 seconds left
-				case 2: // 2 seconds left
-				case 1: // 1 seconds left
-					if (_joining)
-						Announcements("CTF Event: " + seconds + " second(s) till registration close!");
-					else if (_teleport)
-						Announcements("CTF Event: " + seconds + " seconds(s) till start fight!");
-					else if (_started)
-						Announcements("CTF Event: " + seconds + " second(s) till event finish!");
-					break;
+					case 3600: // 1 hour left
+						if (_joining)
+						{
+							Announcements(_eventName + "(CTF): Joinable in " + _joiningLocationName + "!");
+							Announcements("CTF Event: " + seconds / 60 / 60 + " hour(s) till registration close!");
+						}
+						else if (_started)
+							Announcements("CTF Event: " + seconds / 60 / 60 + " hour(s) till event finish!");
+						break;
+					case 1800: // 30 minutes left
+					case 900: // 15 minutes left
+					case 600: // 10 minutes left
+					case 300: // 5 minutes left
+					case 240: // 4 minutes left
+					case 180: // 3 minutes left
+					case 120: // 2 minutes left
+					case 60: // 1 minute left
+						if (_joining)
+						{
+							removeOfflinePlayers();
+							Announcements(_eventName + "(CTF): Joinable in " + _joiningLocationName + "!");
+							Announcements("CTF Event: " + seconds / 60 + " minute(s) till registration close!");
+						}
+						else if (_started)
+							Announcements("CTF Event: " + seconds / 60 + " minute(s) till event finish!");
+						break;
+					case 30: // 30 seconds left
+					case 15: // 15 seconds left
+					case 10: // 10 seconds left
+					case 5: // 5 seconds left
+					case 4: // 4 seconds left
+					case 3: // 3 seconds left
+					case 2: // 2 seconds left
+					case 1: // 1 seconds left
+						if (_joining)
+							Announcements("CTF Event: " + seconds + " second(s) till registration close!");
+						else if (_teleport)
+							Announcements("CTF Event: " + seconds + " seconds(s) till start fight!");
+						else if (_started)
+							Announcements("CTF Event: " + seconds + " second(s) till event finish!");
+						break;
 				}
 			}
 			long startOneSecondWaiterStartTime = System.currentTimeMillis();
@@ -1775,7 +1775,7 @@ public class CTF
 		/*
 		 * !!! CAUTION !!! Do NOT fix multiple object Ids on this event or you will ruin the flag reposition check!!! All Multiple object Ids will be collected by the Garbage Collector, after the event ends, memory sweep is made!!!
 		 */
-		if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started) || Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE") && (_teleport || _started))
+		if ((Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE") && (_teleport || _started)))
 		{
 			if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
 			{
@@ -1819,7 +1819,7 @@ public class CTF
 				setTeamPlayersCount(player._teamNameCTF, teamPlayersCount(player._teamNameCTF) - 1);
 				_players.remove(player);
 			}
-			else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && !_playersShuffle.isEmpty() && _playersShuffle.contains(player))
+			else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
 				_playersShuffle.remove(player);
 		}
 	}
@@ -1950,9 +1950,9 @@ public class CTF
 		int centerX = 0, centerY = 0, centerZ = 0;
 		for (int x = 0; x < pos; x++)
 		{
-			centerX += locX[x] / division;
-			centerY += locY[x] / division;
-			centerZ += locZ[x] / division;
+			centerX += (locX[x] / division);
+			centerY += (locY[x] / division);
+			centerZ += (locZ[x] / division);
 		}
 		// now let's find the furthest distance from the "center" to the egg shaped sphere
 		// surrounding the polygon, size x1.5 (for maximum logical area to wander...):

@@ -221,7 +221,7 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onIntentionCast(L2Skill skill, L2Object target)
 	{
-		if (getIntention() == AI_INTENTION_REST && skill.isMagic())
+		if ((getIntention() == AI_INTENTION_REST) && skill.isMagic())
 		{
 			clientActionFailed();
 			return;
@@ -420,8 +420,8 @@ public class L2CharacterAI extends AbstractAI
 		changeIntention(AI_INTENTION_PICK_UP, object, null);
 		// Set the AI pick up target
 		setTarget(object);
-		if (object.getX() == 0 && object.getY() == 0) // TODO: Find the
-			// drop&spawn bug
+		if ((object.getX() == 0) && (object.getY() == 0)) // TODO: Find the
+		// drop&spawn bug
 		{
 			_log.warning("Object in coords 0,0 - using a temporary fix");
 			object.setXYZ(getActor().getX(), getActor().getY(), getActor().getZ() + 5);
@@ -968,7 +968,7 @@ public class L2CharacterAI extends AbstractAI
 				_actor.setRunning();
 			}
 			stopFollow();
-			if (target instanceof L2Character && !(target instanceof L2DoorInstance))
+			if ((target instanceof L2Character) && !(target instanceof L2DoorInstance))
 			{
 				if (((L2Character) target).isMoving())
 				{
@@ -1016,10 +1016,10 @@ public class L2CharacterAI extends AbstractAI
 	 */
 	protected boolean checkTargetLostOrDead(L2Character target)
 	{
-		if (target == null || target.isAlikeDead())
+		if ((target == null) || target.isAlikeDead())
 		{
 			// check if player is fakedeath
-			if (target != null && target.isFakeDeath())
+			if ((target != null) && target.isFakeDeath())
 			{
 				target.stopFakeDeath(null);
 				return false;

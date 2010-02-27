@@ -45,7 +45,7 @@ public class AdminTeleport implements IAdminCommandHandler
 {
 	private static final Logger _log = Logger.getLogger(AdminTeleport.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_show_moves", "admin_show_moves_other", "admin_show_teleport", "admin_show_teleport_fort", "admin_teleport_to_character", "admin_teleportto", "admin_move_to", "admin_teleport_character", "admin_recall", "admin_walk", "admin_explore", "teleportto", "recall", "admin_recall_npc", "admin_gonorth", "admin_gosouth", "admin_goeast",
-		"admin_gowest", "admin_goup", "admin_godown", "admin_tele", "admin_teleto", };
+			"admin_gowest", "admin_goup", "admin_godown", "admin_tele", "admin_teleto", };
 	private static final int REQUIRED_LEVEL = Config.GM_TELEPORT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_TELEPORT_OTHER;
 
@@ -362,7 +362,7 @@ public class AdminTeleport implements IAdminCommandHandler
 	private void teleportToCharacter(L2PcInstance activeChar, L2Object target)
 	{
 		L2PcInstance player = null;
-		if (target != null && target instanceof L2PcInstance)
+		if ((target != null) && (target instanceof L2PcInstance))
 		{
 			player = (L2PcInstance) target;
 		}
@@ -389,7 +389,7 @@ public class AdminTeleport implements IAdminCommandHandler
 	private void recallNPC(L2PcInstance activeChar)
 	{
 		L2Object obj = activeChar.getTarget();
-		if (obj != null && obj instanceof L2NpcInstance)
+		if ((obj != null) && (obj instanceof L2NpcInstance))
 		{
 			L2NpcInstance target = (L2NpcInstance) obj;
 			int monsterTemplate = target.getTemplate().npcId;

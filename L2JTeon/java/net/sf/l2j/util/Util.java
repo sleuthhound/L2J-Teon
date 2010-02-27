@@ -45,10 +45,10 @@ public class Util
 	{
 		return ipAddress.startsWith("192.168.") || ipAddress.startsWith("10.") ||
 		// ipAddress.startsWith("172.16.") ||
-		// Removed because there are some net IPs in this range.
-		// TODO: Use regexp or something to only include 172.16.0.0 =>
-		// 172.16.31.255
-		ipAddress.startsWith("127.0.0.1");
+				// Removed because there are some net IPs in this range.
+				// TODO: Use regexp or something to only include 172.16.0.0 =>
+				// 172.16.31.255
+				ipAddress.startsWith("127.0.0.1");
 	}
 
 	public static String printData(byte[] data, int len)
@@ -70,7 +70,7 @@ public class Util
 				for (int a = 0; a < 16; a++)
 				{
 					int t1 = data[charpoint++];
-					if (t1 > 0x1f && t1 < 0x80)
+					if ((t1 > 0x1f) && (t1 < 0x80))
 						result.append((char) t1);
 					else
 						result.append('.');
@@ -90,7 +90,7 @@ public class Util
 			for (int a = 0; a < rest; a++)
 			{
 				int t1 = data[charpoint++];
-				if (t1 > 0x1f && t1 < 0x80)
+				if ((t1 > 0x1f) && (t1 < 0x80))
 				{
 					result.append((char) t1);
 				}
@@ -134,7 +134,7 @@ public class Util
 			return;
 		}
 		int i;
-		for (i = 0; i < maxlength - slen; i++)
+		for (i = 0; i < (maxlength - slen); i++)
 			s = "=" + s;
 		System.out.println(s);
 	}
@@ -175,9 +175,9 @@ public class Util
 	private static void printRuntimeInfo()
 	{
 		_log.info("Runtime Information");
-		_log.info("Current Free Heap Size: " + Runtime.getRuntime().freeMemory() / 1024 / 1024 + " mb");
-		_log.info("Current Heap Size: " + Runtime.getRuntime().totalMemory() / 1024 / 1024 + " mb");
-		_log.info("Maximum Heap Size: " + Runtime.getRuntime().maxMemory() / 1024 / 1024 + " mb");
+		_log.info("Current Free Heap Size: " + (Runtime.getRuntime().freeMemory() / 1024 / 1024) + " mb");
+		_log.info("Current Heap Size: " + (Runtime.getRuntime().totalMemory() / 1024 / 1024) + " mb");
+		_log.info("Maximum Heap Size: " + (Runtime.getRuntime().maxMemory() / 1024 / 1024) + " mb");
 		_log.info("..................................................");
 		_log.info("..................................................");
 	}

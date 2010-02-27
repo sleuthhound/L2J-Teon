@@ -74,7 +74,7 @@ public class RecipeController
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(recipesData)));
 			while ((line = lnr.readLine()) != null)
 			{
-				if (line.trim().length() == 0 || line.startsWith("#"))
+				if ((line.trim().length() == 0) || line.startsWith("#"))
 					continue;
 				parseList(line);
 			}
@@ -170,9 +170,9 @@ public class RecipeController
 			return;
 		}
 		RecipeItemMaker maker;
-		if (Config.ALT_GAME_CREATION && (maker = _activeMakers.get(manufacturer)) != null) // check
-			// if
-			// busy
+		if (Config.ALT_GAME_CREATION && ((maker = _activeMakers.get(manufacturer)) != null)) // check
+		// if
+		// busy
 		{
 			player.sendMessage("Manufacturer is busy, please try later.");
 			return;
@@ -214,7 +214,7 @@ public class RecipeController
 		}
 		RecipeItemMaker maker;
 		// check if already busy (possible in alt mode only)
-		if (Config.ALT_GAME_CREATION && (maker = _activeMakers.get(player)) != null)
+		if (Config.ALT_GAME_CREATION && ((maker = _activeMakers.get(player)) != null))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("You are busy creating ");
@@ -347,7 +347,7 @@ public class RecipeController
 				return;
 			}
 			// validate recipe list
-			if (_recipeList == null || _recipeList.getRecipes().length == 0)
+			if ((_recipeList == null) || (_recipeList.getRecipes().length == 0))
 			{
 				_player.sendMessage("No such recipe");
 				_player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -368,10 +368,10 @@ public class RecipeController
 			{
 				for (L2ManufactureItem temp : _player.getCreateList().getList())
 					if (temp.getRecipeId() == _recipeList.getId()) // find
-						// recipe
-						// for item
-						// we want
-						// manufactured
+					// recipe
+					// for item
+					// we want
+					// manufactured
 					{
 						_price = temp.getCost();
 						if (_target.getAdena() < _price) // check price
@@ -405,7 +405,7 @@ public class RecipeController
 			// determine number of creation passes needed
 			// can "equip" skillLevel items each pass
 			_creationPasses = _totalItems / _skillLevel + (_totalItems % _skillLevel != 0 ? 1 : 0);
-			if (Config.ALT_GAME_CREATION && _creationPasses != 0) // update
+			if (Config.ALT_GAME_CREATION && (_creationPasses != 0)) // update
 				// mana
 				// required
 				// to "per
@@ -429,19 +429,19 @@ public class RecipeController
 				abort();
 				return;
 			}
-			if (_player == null || _target == null)
+			if ((_player == null) || (_target == null))
 			{
 				_log.warning("player or target == null (disconnected?), aborting" + _target + _player);
 				abort();
 				return;
 			}
-			if (_player.isOnline() == 0 || _target.isOnline() == 0)
+			if ((_player.isOnline() == 0) || (_target.isOnline() == 0))
 			{
 				_log.warning("player or target is not online, aborting " + _target + _player);
 				abort();
 				return;
 			}
-			if (Config.ALT_GAME_CREATION && _activeMakers.get(_player) == null)
+			if (Config.ALT_GAME_CREATION && (_activeMakers.get(_player) == null))
 			{
 				if (_target != _player)
 				{
@@ -504,8 +504,8 @@ public class RecipeController
 			if (!Config.ALT_GAME_CREATION)
 				_player.reduceCurrentMp(_manaRequired);
 			// first take adena for manufacture
-			if (_target != _player && _price > 0) // customer must pay for
-				// services
+			if ((_target != _player) && (_price > 0)) // customer must pay for
+			// services
 			{
 				// attempt to pay for item
 				L2ItemInstance adenatransfer = _target.transferItem("PayManufacture", _target.getInventory().getAdenaInstance().getObjectId(), _price, _player.getInventory(), _player);
@@ -517,8 +517,8 @@ public class RecipeController
 				}
 			}
 			if ((_items = listItems(true)) == null) // this line actually
-				// takes
-				// materials from inventory
+			// takes
+			// materials from inventory
 			{ // handle possible cheaters here
 				// (they click craft then try to get rid of items in order to
 				// get free craft)
@@ -569,7 +569,7 @@ public class RecipeController
 		private void grabSomeItems()
 		{
 			int numItems = _skillLevel;
-			while (numItems > 0 && !_items.isEmpty())
+			while ((numItems > 0) && !_items.isEmpty())
 			{
 				TempItem item = _items.get(0);
 				int count = item.getQuantity();
@@ -606,7 +606,7 @@ public class RecipeController
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 100 + _delay);
 				}
 				else
-					// no rest - report no mana
+				// no rest - report no mana
 				{
 					_target.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 					abort();
@@ -628,9 +628,9 @@ public class RecipeController
 				{
 					L2ItemInstance item = inv.getItemByItemId(recipe.getItemId());
 					// check materials
-					if (item == null || item.getCount() < quantity)
+					if ((item == null) || (item.getCount() < quantity))
 					{
-						_target.sendMessage("You dont have the right elements for making this item" + (_recipeList.isConsumable() && Config.RATE_CONSUMABLE_COST != 1 ? ".\nDue to server rates you need " + Config.RATE_CONSUMABLE_COST + "x more material than listed in recipe" : ""));
+						_target.sendMessage("You dont have the right elements for making this item" + (_recipeList.isConsumable() && (Config.RATE_CONSUMABLE_COST != 1) ? ".\nDue to server rates you need " + Config.RATE_CONSUMABLE_COST + "x more material than listed in recipe" : ""));
 						abort();
 						return null;
 					}
@@ -785,7 +785,7 @@ public class RecipeController
 	private L2RecipeList getValidRecipeList(L2PcInstance player, int id)
 	{
 		L2RecipeList recipeList = getRecipeList(id - 1);
-		if (recipeList == null || recipeList.getRecipes().length == 0)
+		if ((recipeList == null) || (recipeList.getRecipes().length == 0))
 		{
 			player.sendMessage("No recipe for: " + id);
 			player.isInCraftMode(false);

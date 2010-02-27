@@ -217,7 +217,7 @@ public class GameTimeController
 		{
 			if (!_timer.isAlive())
 			{
-				String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
+				String time = (new SimpleDateFormat("HH:mm:ss")).format(new Date());
 				_log.warning(time + " TimerThread stop with following error. restart it.");
 				if (_timer._error != null)
 					_timer._error.printStackTrace();

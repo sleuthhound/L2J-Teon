@@ -92,7 +92,7 @@ public class GameServerThread extends Thread
 				lengthLo = _in.read();
 				lengthHi = _in.read();
 				length = lengthHi * 256 + lengthLo;
-				if (lengthHi < 0 || _connection.isClosed())
+				if ((lengthHi < 0) || _connection.isClosed())
 				{
 					_log.finer("LoginServerThread: Login terminated the connection.");
 					break;
@@ -100,7 +100,7 @@ public class GameServerThread extends Thread
 				byte[] data = new byte[length - 2];
 				int receivedBytes = 0;
 				int newBytes = 0;
-				while (newBytes != -1 && receivedBytes < length - 2)
+				while ((newBytes != -1) && (receivedBytes < length - 2))
 				{
 					newBytes = _in.read(data, 0, length - 2);
 					receivedBytes = receivedBytes + newBytes;
@@ -123,33 +123,33 @@ public class GameServerThread extends Thread
 				int packetType = data[0] & 0xff;
 				switch (packetType)
 				{
-				case 00:
-					onReceiveBlowfishKey(data);
-					break;
-				case 01:
-					onGameServerAuth(data);
-					break;
-				case 02:
-					onReceivePlayerInGame(data);
-					break;
-				case 03:
-					onReceivePlayerLogOut(data);
-					break;
-				case 04:
-					onReceiveChangeAccessLevel(data);
-					break;
-				case 05:
-					onReceivePlayerAuthRequest(data);
-					break;
-				case 06:
-					onReceiveServerStatus(data);
-					break;
-				case 07:
-					onReceiveLoginRestart(data);
-					break;
-				default:
-					_log.warning("Unknown Opcode (" + Integer.toHexString(packetType).toUpperCase() + ") from GameServer, closing connection.");
-				forceClose(LoginServerFail.NOT_AUTHED);
+					case 00:
+						onReceiveBlowfishKey(data);
+						break;
+					case 01:
+						onGameServerAuth(data);
+						break;
+					case 02:
+						onReceivePlayerInGame(data);
+						break;
+					case 03:
+						onReceivePlayerLogOut(data);
+						break;
+					case 04:
+						onReceiveChangeAccessLevel(data);
+						break;
+					case 05:
+						onReceivePlayerAuthRequest(data);
+						break;
+					case 06:
+						onReceiveServerStatus(data);
+						break;
+					case 07:
+						onReceiveLoginRestart(data);
+						break;
+					default:
+						_log.warning("Unknown Opcode (" + Integer.toHexString(packetType).toUpperCase() + ") from GameServer, closing connection.");
+						forceClose(LoginServerFail.NOT_AUTHED);
 				}
 			}
 		}
@@ -250,7 +250,7 @@ public class GameServerThread extends Thread
 			if (Config.DEBUG)
 				_log.info("auth request received for Player " + par.getAccount());
 			SessionKey key = LoginController.getInstance().getKeyForAccount(par.getAccount());
-			if (key != null && key.equals(par.getKey()))
+			if ((key != null) && key.equals(par.getKey()))
 			{
 				if (Config.DEBUG)
 					_log.info("auth request: OK");
@@ -497,30 +497,30 @@ public class GameServerThread extends Thread
 		_gsi.setInternalIp(gameInternalHost);
 		if (!gameExternalHost.equals("*"))
 			try
-		{
+			{
 				_gsi.setExternalIp(InetAddress.getByName(gameExternalHost).getHostAddress());
-		}
-		catch (UnknownHostException e)
-		{
-			_log.warning("Couldn't resolve hostname \"" + gameExternalHost + "\"");
-		}
+			}
+			catch (UnknownHostException e)
+			{
+				_log.warning("Couldn't resolve hostname \"" + gameExternalHost + "\"");
+			}
 		else
 			_gsi.setExternalIp(_connectionIp);
 		if (!gameInternalHost.equals("*"))
 			try
-		{
+			{
 				_gsi.setInternalIp(InetAddress.getByName(gameInternalHost).getHostAddress());
-		}
-		catch (UnknownHostException e)
-		{
-			_log.warning("Couldn't resolve hostname \"" + gameInternalHost + "\"");
-		}
+			}
+			catch (UnknownHostException e)
+			{
+				_log.warning("Couldn't resolve hostname \"" + gameInternalHost + "\"");
+			}
 		else
 			_gsi.setInternalIp(_connectionIp);
 		_log.info("Updated Gameserver [" + getServerId() + "] " + GameServerTable.getInstance().getServerNameById(getServerId()) + " IP's:");
-		if (oldInternal == null || !oldInternal.equalsIgnoreCase(gameInternalHost))
+		if ((oldInternal == null) || !oldInternal.equalsIgnoreCase(gameInternalHost))
 			_log.info("InternalIP: " + gameInternalHost);
-		if (oldExternal == null || !oldExternal.equalsIgnoreCase(gameExternalHost))
+		if ((oldExternal == null) || !oldExternal.equalsIgnoreCase(gameExternalHost))
 			_log.info("ExternalIP: " + gameExternalHost);
 	}
 

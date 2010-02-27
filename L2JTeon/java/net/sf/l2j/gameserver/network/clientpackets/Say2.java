@@ -78,7 +78,7 @@ public final class Say2 extends L2GameClientPacket
 			_log.info("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");
 		}
 		// is message type valid?
-		if (_type < 0 || _type >= CHAT_NAMES.length)
+		if ((_type < 0) || (_type >= CHAT_NAMES.length))
 		{
 			_log.warning("Say2: Invalid type: " + _type);
 			return;
@@ -119,14 +119,14 @@ public final class Say2 extends L2GameClientPacket
 		// player jailed?
 		if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
 		{
-			if (_type == TELL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
+			if ((_type == TELL) || (_type == SHOUT) || (_type == TRADE) || (_type == HERO_VOICE))
 			{
 				activeChar.sendMessage("You Have been Chat Banned");
 				return;
 			}
 		}
 		// is it GM petition?
-		if (_type == PETITION_PLAYER && activeChar.isGM())
+		if ((_type == PETITION_PLAYER) && activeChar.isGM())
 		{
 			_type = PETITION_GM;
 		}
@@ -146,19 +146,19 @@ public final class Say2 extends L2GameClientPacket
 			_logChat.log(record);
 		}
 		// must we use chat filter?
-		if (Config.USE_CHAT_FILTER && _type != ALLIANCE && _type != CLAN && _type != TELL)
+		if (Config.USE_CHAT_FILTER && (_type != ALLIANCE) && (_type != CLAN) && (_type != TELL))
 		{
 			String filterText = ChatFilterCache.filterText(_text);
-			if (filterText != _text && Config.CHAT_FILTER_PUNISHMENT > 0 && Config.CHAT_FILTER_PUNISHMENT_TIME > 0)
+			if ((filterText != _text) && (Config.CHAT_FILTER_PUNISHMENT > 0) && (Config.CHAT_FILTER_PUNISHMENT_TIME > 0))
 			{
 				switch (Config.CHAT_FILTER_PUNISHMENT)
 				{
-				case 1:
-					activeChar.setChatBanned(true, Config.CHAT_FILTER_PUNISHMENT_TIME * 60, "Chat Filter");
-					break;
-				case 2:
-					activeChar.setInJail(true, Config.CHAT_FILTER_PUNISHMENT_TIME);
-					break;
+					case 1:
+						activeChar.setChatBanned(true, Config.CHAT_FILTER_PUNISHMENT_TIME * 60, "Chat Filter");
+						break;
+					case 2:
+						activeChar.setInJail(true, Config.CHAT_FILTER_PUNISHMENT_TIME);
+						break;
 				}
 				return;
 			}

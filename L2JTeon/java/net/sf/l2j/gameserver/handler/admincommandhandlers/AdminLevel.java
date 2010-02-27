@@ -25,9 +25,9 @@ public class AdminLevel implements IAdminCommandHandler
 {
 	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
 	private static final String[][] ADMIN_COMMANDS = { { "admin_remlevel", // remove level amount from your target
-		"Remove amount of levels from your target (player or pet).", "Usage: addlevel <num>", "Options:", "num - amount of levels to add/remove", }, { "admin_addlevel", // add a level amount to your target
+			"Remove amount of levels from your target (player or pet).", "Usage: addlevel <num>", "Options:", "num - amount of levels to add/remove", }, { "admin_addlevel", // add a level amount to your target
 			"Add a level amount to your target (player or pet).", "Usage: addlevel <num>", "Options:", "num - amount of levels to add/remove", }, { "admin_setlevel", // set level of your target
-				"Set level of your target (player or pet).", "Usage: setlevel <num>", "Options:", "num - level to set", } };
+			"Set level of your target (player or pet).", "Usage: setlevel <num>", "Options:", "num - level to set", } };
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
@@ -57,7 +57,7 @@ public class AdminLevel implements IAdminCommandHandler
 			{
 				target = (L2PlayableInstance) activeChar.getTarget();
 				curlevel = target.getLevel();
-				reslevel = cmd.equals("admin_addlevel") ? curlevel + lvl : cmd.equals("admin_remlevel") ? curlevel - lvl : lvl;
+				reslevel = cmd.equals("admin_addlevel") ? (curlevel + lvl) : cmd.equals("admin_remlevel") ? (curlevel - lvl) : lvl;
 				try
 				{
 					xpcur = target.getStat().getExp();

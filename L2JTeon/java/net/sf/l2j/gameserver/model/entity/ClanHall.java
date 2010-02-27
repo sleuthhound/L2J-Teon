@@ -160,7 +160,7 @@ public class ClanHall
 					{
 						int fee = _fee;
 						boolean newfc = true;
-						if (getEndTime() == 0 || getEndTime() == -1)
+						if ((getEndTime() == 0) || (getEndTime() == -1))
 						{
 							if (getEndTime() == -1)
 							{
@@ -372,7 +372,7 @@ public class ClanHall
 	public void setOwner(L2Clan clan)
 	{
 		// Verify that this ClanHall is Free and Clan isn't null
-		if (_ownerId > 0 || clan == null)
+		if ((_ownerId > 0) || (clan == null))
 			return;
 		_ownerId = clan.getClanId();
 		_isFree = false;
@@ -413,7 +413,7 @@ public class ClanHall
 	/** Open or Close Door */
 	public void openCloseDoor(L2PcInstance activeChar, int doorId, boolean open)
 	{
-		if (activeChar != null && activeChar.getClanId() == getOwnerId())
+		if ((activeChar != null) && (activeChar.getClanId() == getOwnerId()))
 			openCloseDoor(doorId, open);
 	}
 
@@ -433,7 +433,7 @@ public class ClanHall
 
 	public void openCloseDoors(L2PcInstance activeChar, boolean open)
 	{
-		if (activeChar != null && activeChar.getClanId() == getOwnerId())
+		if ((activeChar != null) && (activeChar.getClanId() == getOwnerId()))
 			openCloseDoors(open);
 	}
 
@@ -533,7 +533,7 @@ public class ClanHall
 		}
 		else
 		{
-			if (lvl == 0 && lease == 0)
+			if ((lvl == 0) && (lease == 0))
 				removeFunction(type);
 			else
 			{
@@ -641,7 +641,7 @@ public class ClanHall
 					_paid = false;
 					if (System.currentTimeMillis() > _paidUntil + _chRate)
 					{
-						if (GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded())
+						if ((GameServer.gameServer.getCHManager() != null) && GameServer.gameServer.getCHManager().loaded())
 						{
 							AuctionManager.getInstance().initNPC(getId());
 							ClanHallManager.getInstance().setFree(getId());

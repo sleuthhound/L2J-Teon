@@ -91,7 +91,7 @@ public final class L2Radar
 			try
 			{
 				RadarMarker temp = (RadarMarker) obj;
-				if (temp._x == _x && temp._y == _y && temp._z == _z && temp._type == _type)
+				if ((temp._x == _x) && (temp._y == _y) && (temp._z == _z) && (temp._type == _type))
 					return true;
 				return false;
 			}

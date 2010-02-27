@@ -104,7 +104,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private boolean autoAttackCondition(L2Character target)
 	{
 		// Check if the target isn't another guard, folk or a door
-		if (target == null || target instanceof L2SiegeGuardInstance || target instanceof L2FolkInstance || target instanceof L2DoorInstance || target.isAlikeDead() || target.isInvul())
+		if ((target == null) || (target instanceof L2SiegeGuardInstance) || (target instanceof L2FolkInstance) || (target instanceof L2DoorInstance) || target.isAlikeDead() || target.isInvul())
 			return false;
 		// Get the owner if the target is a summon
 		if (target instanceof L2Summon)
@@ -121,7 +121,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				return false;
 		}
 		// Los Check Here
-		return _actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target);
+		return (_actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target));
 	}
 
 	/**
@@ -280,7 +280,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			return;
 		}
 		// never attack defenders
-		if (_attackTarget instanceof L2PcInstance && sGuard.getCastle().getSiege().checkIsDefender(((L2PcInstance) _attackTarget).getClan()))
+		if ((_attackTarget instanceof L2PcInstance) && sGuard.getCastle().getSiege().checkIsDefender(((L2PcInstance) _attackTarget).getClan()))
 		{
 			// Cancel the target
 			sGuard.stopHating(_attackTarget);
@@ -298,20 +298,20 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			return;
 		}
 		// Check if the actor isn't muted and if it is far from target
-		if (!_actor.isMuted() && dist_2 > (range + 20) * (range + 20))
+		if (!_actor.isMuted() && (dist_2 > (range + 20) * (range + 20)))
 		{
 			// check for long ranged skills and heal/buff skills
-			if (!Config.ALT_GAME_MOB_ATTACK_AI || _actor instanceof L2MonsterInstance && Rnd.nextInt(100) <= 5)
+			if (!Config.ALT_GAME_MOB_ATTACK_AI || ((_actor instanceof L2MonsterInstance) && (Rnd.nextInt(100) <= 5)))
 				for (L2Skill sk : skills)
 				{
 					int castRange = sk.getCastRange();
-					if ((sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL || dist_2 >= castRange * castRange / 9 && dist_2 <= castRange * castRange && castRange > 70) && !_actor.isSkillDisabled(sk.getId()) && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive())
+					if ((((sk.getSkillType() == L2Skill.SkillType.BUFF) || (sk.getSkillType() == L2Skill.SkillType.HEAL)) || ((dist_2 >= castRange * castRange / 9) && (dist_2 <= castRange * castRange) && (castRange > 70))) && !_actor.isSkillDisabled(sk.getId()) && (_actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)) && !sk.isPassive())
 					{
 						L2Object OldTarget = _actor.getTarget();
-						if (sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL)
+						if ((sk.getSkillType() == L2Skill.SkillType.BUFF) || (sk.getSkillType() == L2Skill.SkillType.HEAL))
 						{
 							boolean useSkillSelf = true;
-							if (sk.getSkillType() == L2Skill.SkillType.HEAL && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+							if ((sk.getSkillType() == L2Skill.SkillType.HEAL) && (_actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5)))
 							{
 								useSkillSelf = false;
 								break;
@@ -319,7 +319,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 							if (sk.getSkillType() == L2Skill.SkillType.BUFF)
 							{
 								L2Effect[] effects = _actor.getAllEffects();
-								for (int i = 0; effects != null && i < effects.length; i++)
+								for (int i = 0; (effects != null) && (i < effects.length); i++)
 								{
 									L2Effect effect = effects[i];
 									if (effect.getSkill() == sk)
@@ -339,7 +339,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 					}
 				}
 			// Check if the L2SiegeGuardInstance is attacking, knows the target and can't run
-			if (!_actor.isAttackingNow() && _actor.getRunSpeed() == 0 && _actor.getKnownList().knowsObject(_attackTarget))
+			if (!(_actor.isAttackingNow()) && (_actor.getRunSpeed() == 0) && (_actor.getKnownList().knowsObject(_attackTarget)))
 			{
 				// Cancel the target
 				_actor.getKnownList().removeKnownObject(_attackTarget);
@@ -354,8 +354,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				double homeX = _attackTarget.getX() - sGuard.getHomeX();
 				double homeY = _attackTarget.getY() - sGuard.getHomeY();
 				// Check if the L2SiegeGuardInstance isn't too far from it's home location
-				if (dx * dx + dy * dy > 10000 && homeX * homeX + homeY * homeY > 3240000
-						&& _actor.getKnownList().knowsObject(_attackTarget))
+				if ((dx * dx + dy * dy > 10000) && (homeX * homeX + homeY * homeY > 3240000) // 1800 * 1800
+						&& (_actor.getKnownList().knowsObject(_attackTarget)))
 				{
 					// Cancel the target
 					_actor.getKnownList().removeKnownObject(_attackTarget);
@@ -363,7 +363,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 					setIntention(AI_INTENTION_IDLE, null, null);
 				}
 				else
-					// Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
+				// Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
 				{
 					// Temporary hack for preventing guards jumping off towers,
 					// before replacing this with effective geodata checks and AI modification
@@ -374,7 +374,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			return;
 		}
 		// Else, if the actor is muted and far from target, just "move to pawn"
-		else if (_actor.isMuted() && dist_2 > (range + 20) * (range + 20))
+		else if (_actor.isMuted() && (dist_2 > (range + 20) * (range + 20)))
 		{
 			// Temporary hack for preventing guards jumping off towers,
 			// before replacing this with effective geodata checks and AI modification
@@ -401,18 +401,18 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				_attackTarget = hated;
 			_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
 			// check for close combat skills && heal/buff skills
-			if (!_actor.isMuted() && Rnd.nextInt(100) <= 5)
+			if (!_actor.isMuted() && (Rnd.nextInt(100) <= 5))
 			{
 				for (L2Skill sk : skills)
 				{
 					int castRange = sk.getCastRange();
-					if (castRange * castRange >= dist_2 && castRange <= 70 && !sk.isPassive() && _actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !_actor.isSkillDisabled(sk.getId()))
+					if ((castRange * castRange >= dist_2) && (castRange <= 70) && !sk.isPassive() && (_actor.getCurrentMp() >= _actor.getStat().getMpConsume(sk)) && !_actor.isSkillDisabled(sk.getId()))
 					{
 						L2Object OldTarget = _actor.getTarget();
-						if (sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL)
+						if ((sk.getSkillType() == L2Skill.SkillType.BUFF) || (sk.getSkillType() == L2Skill.SkillType.HEAL))
 						{
 							boolean useSkillSelf = true;
-							if (sk.getSkillType() == L2Skill.SkillType.HEAL && _actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+							if ((sk.getSkillType() == L2Skill.SkillType.HEAL) && (_actor.getCurrentHp() > (int) (_actor.getMaxHp() / 1.5)))
 							{
 								useSkillSelf = false;
 								break;
@@ -420,7 +420,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 							if (sk.getSkillType() == L2Skill.SkillType.BUFF)
 							{
 								L2Effect[] effects = _actor.getAllEffects();
-								for (int i = 0; effects != null && i < effects.length; i++)
+								for (int i = 0; (effects != null) && (i < effects.length); i++)
 								{
 									L2Effect effect = effects[i];
 									if (effect.getSkill() == sk)
@@ -470,7 +470,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			}
 		}
 		// Check if target is dead or if timeout is expired to stop this attack
-		if (_attackTarget == null || _attackTarget.isAlikeDead() || _attackTimeout < GameTimeController.getGameTicks())
+		if ((_attackTarget == null) || _attackTarget.isAlikeDead() || (_attackTimeout < GameTimeController.getGameTicks()))
 		{
 			// Stop hating this target after the attack timeout or if target is dead
 			if (_attackTarget != null)
@@ -493,7 +493,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 	private final void factionNotify()
 	{
 		// Call all L2Object of its Faction inside the Faction Range
-		if (((L2NpcInstance) _actor).getFactionId() == null || _attackTarget == null || _actor == null)
+		if ((((L2NpcInstance) _actor).getFactionId() == null) || (_attackTarget == null) || (_actor == null))
 			return;
 		if (_attackTarget.isInvul())
 			return;
@@ -509,7 +509,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 			if (faction_id != npc.getFactionId())
 				continue;
 			// Check if the L2Object is inside the Faction Range of the actor
-			if ((npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE || npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_ACTIVE) && _actor.isInsideRadius(npc, npc.getFactionRange(), false, true) && npc.getTarget() == null && _attackTarget.isInsideRadius(npc, npc.getFactionRange(), false, true))
+			if (((npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE) || (npc.getAI().getIntention() == CtrlIntention.AI_INTENTION_ACTIVE)) && _actor.isInsideRadius(npc, npc.getFactionRange(), false, true) && (npc.getTarget() == null) && _attackTarget.isInsideRadius(npc, npc.getFactionRange(), false, true))
 			{
 				if (Config.GEODATA > 0)
 				{

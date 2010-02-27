@@ -128,15 +128,15 @@ public class Status extends Thread
 			int charSet = Rnd.nextInt(3);
 			switch (charSet)
 			{
-			case 0:
-				password.append(lowerChar.charAt(Rnd.nextInt(lowerChar.length() - 1)));
-				break;
-			case 1:
-				password.append(upperChar.charAt(Rnd.nextInt(upperChar.length() - 1)));
-				break;
-			case 2:
-				password.append(digits.charAt(Rnd.nextInt(digits.length() - 1)));
-				break;
+				case 0:
+					password.append(lowerChar.charAt(Rnd.nextInt(lowerChar.length() - 1)));
+					break;
+				case 1:
+					password.append(upperChar.charAt(Rnd.nextInt(upperChar.length() - 1)));
+					break;
+				case 2:
+					password.append(digits.charAt(Rnd.nextInt(digits.length() - 1)));
+					break;
 			}
 		}
 		return password.toString();

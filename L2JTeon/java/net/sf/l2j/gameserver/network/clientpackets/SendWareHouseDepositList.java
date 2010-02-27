@@ -51,7 +51,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 	{
 		_count = readD();
 		// check packet list size
-		if (_count < 0 || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if ((_count < 0) || (_count * 8 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 		{
 			_count = 0;
 		}
@@ -61,7 +61,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 			int objectId = readD();
 			_items[i * 2 + 0] = objectId;
 			long cnt = readD();
-			if (cnt > Integer.MAX_VALUE || cnt < 0)
+			if ((cnt > Integer.MAX_VALUE) || (cnt < 0))
 			{
 				_count = 0;
 				_items = null;
@@ -81,10 +81,10 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 		if (warehouse == null)
 			return;
 		L2FolkInstance manager = player.getLastFolkNPC();
-		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+		if (((manager == null) || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 			return;
 		player.cancelActiveTrade();
-		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			return;
@@ -109,7 +109,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 			return;
 		}
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0)
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && (player.getKarma() > 0))
 			return;
 		// Freight price from config or normal price per item slot (30)
 		int fee = _count * 30;
@@ -128,7 +128,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 				_items[i * 2 + 1] = 0;
 				continue;
 			}
-			if (warehouse instanceof ClanWarehouse && !item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
+			if (((warehouse instanceof ClanWarehouse) && !item.isTradeable()) || (item.getItemType() == L2EtcItemType.QUEST))
 				return;
 			// Calculate needed adena and slots
 			if (item.getItemId() == 57)
@@ -145,7 +145,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 			return;
 		}
 		// Check if enough adena and charge the fee
-		if (currentAdena < fee || !player.reduceAdena("Warehouse", fee, manager, false))
+		if ((currentAdena < fee) || !player.reduceAdena("Warehouse", fee, manager, false))
 		{
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			return;
@@ -157,7 +157,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 			int objectId = _items[i * 2 + 0];
 			int count = _items[i * 2 + 1];
 			// check for an invalid item
-			if (objectId == 0 && count == 0)
+			if ((objectId == 0) && (count == 0))
 				continue;
 			L2ItemInstance oldItem = player.getInventory().getItemByObjectId(objectId);
 			if (oldItem == null)
@@ -166,7 +166,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 				continue;
 			}
 			int itemId = oldItem.getItemId();
-			if (itemId >= 6611 && itemId <= 6621 || itemId == 6842)
+			if (((itemId >= 6611) && (itemId <= 6621)) || (itemId == 6842))
 				continue;
 			L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, manager);
 			if (newItem == null)
@@ -176,7 +176,7 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 			}
 			if (playerIU != null)
 			{
-				if (oldItem.getCount() > 0 && oldItem != newItem)
+				if ((oldItem.getCount() > 0) && (oldItem != newItem))
 					playerIU.addModifiedItem(oldItem);
 				else
 					playerIU.addRemovedItem(oldItem);

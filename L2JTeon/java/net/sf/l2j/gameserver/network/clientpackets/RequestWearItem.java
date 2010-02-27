@@ -114,17 +114,17 @@ public final class RequestWearItem extends L2GameClientPacket
 			return;
 		// If Alternate rule Karma punishment is set to true, forbid Wear to
 		// player with Karma
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && (player.getKarma() > 0))
 			return;
 		// Check current target of the player and the INTERACTION_DISTANCE
 		L2Object target = player.getTarget();
 		if (!player.isGM() && (target == null // No target (ie GM Shop))
-				|| !(target instanceof L2MerchantInstance || target instanceof L2MercManagerInstance) // Target not a merchant and not mercmanager
-				|| !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false))) // Distance is too far
+				|| !((target instanceof L2MerchantInstance) || (target instanceof L2MercManagerInstance)) // Target not a merchant and not mercmanager
+		|| !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false))) // Distance is too far
 			return;
 		L2TradeList list = null;
 		// Get the current merchant targeted by the player
-		L2MerchantInstance merchant = target != null && target instanceof L2MerchantInstance ? (L2MerchantInstance) target : null;
+		L2MerchantInstance merchant = (target != null) && (target instanceof L2MerchantInstance) ? (L2MerchantInstance) target : null;
 		List<L2TradeList> lists = TradeController.getInstance().getBuyListByNpcId(merchant.getNpcId());
 		if (lists == null)
 		{
@@ -145,7 +145,7 @@ public final class RequestWearItem extends L2GameClientPacket
 		}
 		_listId = list.getListId();
 		// Check if the quantity of Item to Wear
-		if (_count < 1 || _listId >= 1000000)
+		if ((_count < 1) || (_listId >= 1000000))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -187,7 +187,7 @@ public final class RequestWearItem extends L2GameClientPacket
 		}
 		// Charge buyer and add tax to castle treasury if not owned by npc clan
 		// because a Try On is not Free
-		if (totalPrice < 0 || !player.reduceAdena("Wear", (int) totalPrice, player.getLastFolkNPC(), false))
+		if ((totalPrice < 0) || !player.reduceAdena("Wear", (int) totalPrice, player.getLastFolkNPC(), false))
 		{
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			return;

@@ -59,7 +59,7 @@ public class PcStat extends PlayableStat
 	{
 		L2PcInstance activeChar = getActiveChar();
 		// Set new karma
-		if (!activeChar.isCursedWeaponEquiped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !activeChar.isInsideZone(L2Character.ZONE_PVP)))
+		if (!activeChar.isCursedWeaponEquiped() && (activeChar.getKarma() > 0) && (activeChar.isGM() || !activeChar.isInsideZone(L2Character.ZONE_PVP)))
 		{
 			int karmaLost = activeChar.calculateKarmaLost(value);
 			if (karmaLost > 0)
@@ -68,7 +68,7 @@ public class PcStat extends PlayableStat
 			}
 		}
 		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
-		if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
+		if (getActiveChar().isGM() && (getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP) && getActiveChar().isInParty())
 			return false;
 		if (!super.addExp(value))
 			return false;
@@ -96,7 +96,7 @@ public class PcStat extends PlayableStat
 		float ratioTakenByPet = 0;
 		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp/Sp
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar.isGM() && activeChar.getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && activeChar.isInParty())
+		if (activeChar.isGM() && (activeChar.getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP) && activeChar.isInParty())
 			return false;
 		// if this player has a pet that takes from the owner's Exp, give the pet Exp now
 		if (activeChar.getPet() instanceof L2PetInstance)
@@ -105,7 +105,7 @@ public class PcStat extends PlayableStat
 			ratioTakenByPet = pet.getPetData().getOwnerExpTaken();
 			// only give exp/sp to the pet by taking from the owner if the pet has a non-zero, positive ratio
 			// allow possible customizations that would have the pet earning more than 100% of the owner's exp/sp
-			if (ratioTakenByPet > 0 && !pet.isDead())
+			if ((ratioTakenByPet > 0) && !pet.isDead())
 				pet.addExpAndSp((long) (addToExp * ratioTakenByPet), (int) (addToSp * ratioTakenByPet));
 			// now adjust the max ratio to avoid the owner earning negative exp/sp
 			if (ratioTakenByPet > 1)
@@ -166,7 +166,7 @@ public class PcStat extends PlayableStat
 			 */
 			if (!Config.ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE)
 			{
-				if (getActiveChar().getLevel() >= Experience.MIN_NEWBIE_LEVEL && getActiveChar().getLevel() < Experience.MAX_NEWBIE_LEVEL && !getActiveChar().isNewbie())
+				if ((getActiveChar().getLevel() >= Experience.MIN_NEWBIE_LEVEL) && (getActiveChar().getLevel() < Experience.MAX_NEWBIE_LEVEL) && !getActiveChar().isNewbie())
 				{
 					java.sql.Connection con = null;
 					try
@@ -208,7 +208,7 @@ public class PcStat extends PlayableStat
 					}
 				}
 				;
-				if (getActiveChar().getLevel() >= 25 && getActiveChar().isNewbie())
+				if ((getActiveChar().getLevel() >= 25) && getActiveChar().isNewbie())
 				{
 					getActiveChar().setNewbie(false);
 					if (Config.DEBUG)

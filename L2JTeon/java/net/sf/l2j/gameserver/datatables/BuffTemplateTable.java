@@ -156,7 +156,7 @@ public class BuffTemplateTable
 		int _lowestLevel = 255;
 		for (L2BuffTemplate _bt : _buffs)
 		{
-			if (_bt.getId() == Id && _lowestLevel > _bt.getMinLevel())
+			if ((_bt.getId() == Id) && (_lowestLevel > _bt.getMinLevel()))
 			{
 				_lowestLevel = _bt.getMinLevel();
 			}
@@ -172,7 +172,7 @@ public class BuffTemplateTable
 		int _highestLevel = 0;
 		for (L2BuffTemplate _bt : _buffs)
 		{
-			if (_bt.getId() == Id && _highestLevel < _bt.getMaxLevel())
+			if ((_bt.getId() == Id) && (_highestLevel < _bt.getMaxLevel()))
 			{
 				_highestLevel = _bt.getMaxLevel();
 			}

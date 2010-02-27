@@ -32,7 +32,7 @@ public class PlayableStat extends CharStat
 	// Method - Public
 	public boolean addExp(long value)
 	{
-		if (getExp() + value < 0 || getExp() == getExpForLevel(Experience.MAX_LEVEL) - 1)
+		if ((getExp() + value < 0) || (getExp() == getExpForLevel(Experience.MAX_LEVEL) - 1))
 			return true;
 		if (getExp() + value >= getExpForLevel(Experience.MAX_LEVEL))
 			value = getExpForLevel(Experience.MAX_LEVEL) - 1 - getExp();
@@ -103,7 +103,7 @@ public class PlayableStat extends CharStat
 		value += getLevel();
 		setLevel(value);
 		// Sync up exp with current level
-		if (getExp() >= getExpForLevel(getLevel() + 1) || getExpForLevel(getLevel()) > getExp())
+		if ((getExp() >= getExpForLevel(getLevel() + 1)) || (getExpForLevel(getLevel()) > getExp()))
 			setExp(getExpForLevel(getLevel()));
 		if (!levelIncreased)
 			return false;

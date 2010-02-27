@@ -56,7 +56,7 @@ public class Lottery
 		_enddate = System.currentTimeMillis();
 		if (Config.ALLOW_LOTTERY)
 		{
-			new startLottery().run();
+			(new startLottery()).run();
 		}
 	}
 
@@ -155,7 +155,7 @@ public class Lottery
 						_enddate = rset.getLong("enddate");
 						if (_enddate <= System.currentTimeMillis() + 2 * MINUTE)
 						{
-							new finishLottery().run();
+							(new finishLottery()).run();
 							rset.close();
 							statement.close();
 							return;
@@ -333,7 +333,7 @@ public class Lottery
 				{
 					int curenchant = rset.getInt("enchant_level") & enchant;
 					int curtype2 = rset.getInt("custom_type2") & type2;
-					if (curenchant == 0 && curtype2 == 0)
+					if ((curenchant == 0) && (curtype2 == 0))
 					{
 						continue;
 					}
@@ -519,7 +519,7 @@ public class Lottery
 			{
 				int curenchant = rset.getInt("number1") & enchant;
 				int curtype2 = rset.getInt("number2") & type2;
-				if (curenchant == 0 && curtype2 == 0)
+				if ((curenchant == 0) && (curtype2 == 0))
 				{
 					rset.close();
 					statement.close();
@@ -543,23 +543,23 @@ public class Lottery
 				}
 				switch (count)
 				{
-				case 0:
-					break;
-				case 5:
-					res[0] = 1;
-					res[1] = rset.getInt("prize1");
-					break;
-				case 4:
-					res[0] = 2;
-					res[1] = rset.getInt("prize2");
-					break;
-				case 3:
-					res[0] = 3;
-					res[1] = rset.getInt("prize3");
-					break;
-				default:
-					res[0] = 4;
-				res[1] = 200;
+					case 0:
+						break;
+					case 5:
+						res[0] = 1;
+						res[1] = rset.getInt("prize1");
+						break;
+					case 4:
+						res[0] = 2;
+						res[1] = rset.getInt("prize2");
+						break;
+					case 3:
+						res[0] = 3;
+						res[1] = rset.getInt("prize3");
+						break;
+					default:
+						res[0] = 4;
+						res[1] = 200;
 				}
 				if (Config.DEBUG)
 				{

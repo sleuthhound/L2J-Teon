@@ -35,7 +35,7 @@ public class L2FriendlyMobInstance extends L2Attackable
 	@Override
 	public final FriendlyMobKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof FriendlyMobKnownList))
+		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof FriendlyMobKnownList))
 			setKnownList(new FriendlyMobKnownList(this));
 		return (FriendlyMobKnownList) super.getKnownList();
 	}
@@ -45,7 +45,7 @@ public class L2FriendlyMobInstance extends L2Attackable
 	{
 		if (attacker instanceof L2PcInstance)
 			return ((L2PcInstance) attacker).getKarma() > 0;
-			return false;
+		return false;
 	}
 
 	@Override

@@ -55,12 +55,12 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance targetItem = (L2ItemInstance) L2World.getInstance().findObject(_targetItemObjId);
 		L2ItemInstance refinerItem = (L2ItemInstance) L2World.getInstance().findObject(_refinerItemObjId);
-		if (targetItem == null || refinerItem == null)
+		if ((targetItem == null) || (refinerItem == null))
 			return;
 		int itemGrade = targetItem.getItem().getItemGrade();
 		int refinerItemId = refinerItem.getItem().getItemId();
 		// is the item a life stone?
-		if (refinerItemId < 8723 || refinerItemId > 8762)
+		if ((refinerItemId < 8723) || (refinerItemId > 8762))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
 			return;
@@ -71,45 +71,45 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 		SystemMessage sm = new SystemMessage(SystemMessageId.REQUIRES_S1_S2);
 		switch (itemGrade)
 		{
-		case L2Item.CRYSTAL_C:
-			gemstoneCount = 20;
-			gemstoneItemId = GEMSTONE_D;
-			sm.addNumber(gemstoneCount);
-			sm.addString("Gemstone D");
-			break;
-		case L2Item.CRYSTAL_B:
-			if (lifeStoneLevel < 3)
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
-				return;
-			}
-			gemstoneCount = 30;
-			gemstoneItemId = GEMSTONE_D;
-			sm.addNumber(gemstoneCount);
-			sm.addString("Gemstone D");
-			break;
-		case L2Item.CRYSTAL_A:
-			if (lifeStoneLevel < 6)
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
-				return;
-			}
-			gemstoneCount = 20;
-			gemstoneItemId = GEMSTONE_C;
-			sm.addNumber(gemstoneCount);
-			sm.addString("Gemstone C");
-			break;
-		case L2Item.CRYSTAL_S:
-			if (lifeStoneLevel != 10)
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
-				return;
-			}
-			gemstoneCount = 25;
-			gemstoneItemId = GEMSTONE_C;
-			sm.addNumber(gemstoneCount);
-			sm.addString("Gemstone C");
-			break;
+			case L2Item.CRYSTAL_C:
+				gemstoneCount = 20;
+				gemstoneItemId = GEMSTONE_D;
+				sm.addNumber(gemstoneCount);
+				sm.addString("Gemstone D");
+				break;
+			case L2Item.CRYSTAL_B:
+				if (lifeStoneLevel < 3)
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
+					return;
+				}
+				gemstoneCount = 30;
+				gemstoneItemId = GEMSTONE_D;
+				sm.addNumber(gemstoneCount);
+				sm.addString("Gemstone D");
+				break;
+			case L2Item.CRYSTAL_A:
+				if (lifeStoneLevel < 6)
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
+					return;
+				}
+				gemstoneCount = 20;
+				gemstoneItemId = GEMSTONE_C;
+				sm.addNumber(gemstoneCount);
+				sm.addString("Gemstone C");
+				break;
+			case L2Item.CRYSTAL_S:
+				if (lifeStoneLevel != 10)
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
+					return;
+				}
+				gemstoneCount = 25;
+				gemstoneItemId = GEMSTONE_C;
+				sm.addNumber(gemstoneCount);
+				sm.addString("Gemstone C");
+				break;
 		}
 		activeChar.sendPacket(new ExConfirmVariationRefiner(_refinerItemObjId, refinerItemId, gemstoneItemId, gemstoneCount));
 		activeChar.sendPacket(sm);

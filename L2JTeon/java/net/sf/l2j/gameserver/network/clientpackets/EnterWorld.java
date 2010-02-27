@@ -208,7 +208,7 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		// apply augmentation bonus for equipped items
 		for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
-			if (temp != null && temp.isEquipped())
+			if ((temp != null) && temp.isEquipped())
 				temp.getAugmentation().applyBonus(activeChar);
 		// Expand Skill
 		ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);
@@ -268,9 +268,9 @@ public class EnterWorld extends L2GameClientPacket
 		// Color System checks - Start =====================================================
 		// Check if the custom PvP and PK color systems are enabled and if so ==============
 		// check the character's counters and apply any color changes that must be done. ===
-		if (activeChar.getPvpKills() >= Config.PVP_AMOUNT1 && Config.PVP_COLOR_SYSTEM_ENABLED)
+		if (activeChar.getPvpKills() >= (Config.PVP_AMOUNT1) && (Config.PVP_COLOR_SYSTEM_ENABLED))
 			activeChar.updatePvPColor(activeChar.getPvpKills());
-		if (activeChar.getPkKills() >= Config.PK_AMOUNT1 && Config.PK_COLOR_SYSTEM_ENABLED)
+		if (activeChar.getPkKills() >= (Config.PK_AMOUNT1) && (Config.PK_COLOR_SYSTEM_ENABLED))
 			activeChar.updatePkColor(activeChar.getPkKills());
 		// Color System checks - End =======================================================
 		if (Config.ALLOW_AUTOHERBS_CMD)
@@ -312,7 +312,7 @@ public class EnterWorld extends L2GameClientPacket
 			WindowService.sendWindow(activeChar, "data/html/", "TeonInfo.htm");
 		}
 		// sends newbie htm if enabled.
-		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
+		if (Config.SHOW_HTML_NEWBIE && (activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE))
 		{
 			WindowService.sendWindow(activeChar, "data/html/", "newbie.htm");
 		}
@@ -322,7 +322,7 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.checkAllowedSkills();
 		}
 		// send user info again .. just like the real client sendPacket(ui);
-		if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
+		if ((activeChar.getClanId() != 0) && (activeChar.getClan() != null))
 		{
 			sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
 			sendPacket(new PledgeStatusChanged(activeChar.getClan()));
@@ -333,7 +333,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			sendPacket(new Die(activeChar));
 		}
-		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
+		if ((Hero.getInstance().getHeroes() != null) && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
 		{
 			activeChar.setHero(true);
 		}
@@ -368,7 +368,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
 		}
-		if (Config.SET_LVL_ON_START && activeChar.getLevel() >= 1 && activeChar.getLevel() < 80)
+		if (Config.SET_LVL_ON_START && (activeChar.getLevel() >= 1) && (activeChar.getLevel() < 80))
 		{
 			if (!Config.HIGH_LEVEL_ON_START_FOR_SUBCLASS && activeChar.isSubClassActive())
 				return;
@@ -489,7 +489,7 @@ public class EnterWorld extends L2GameClientPacket
 		int _chaid = cha.getObjectId();
 		for (Couple cl : CoupleManager.getInstance().getCouples())
 		{
-			if (cl.getPlayer1Id() == _chaid || cl.getPlayer2Id() == _chaid)
+			if ((cl.getPlayer1Id() == _chaid) || (cl.getPlayer2Id() == _chaid))
 			{
 				if (cl.getMaried())
 				{
@@ -607,7 +607,7 @@ public class EnterWorld extends L2GameClientPacket
 				if (clan.getHasCastle() > 0)
 				{
 					Castle castle = CastleManager.getInstance().getCastleById(clan.getHasCastle());
-					if (castle != null && activeChar.getObjectId() == clan.getLeaderId())
+					if ((castle != null) && (activeChar.getObjectId() == clan.getLeaderId()))
 					{
 						Announcements.getInstance().announceToAll("Castle Lord " + activeChar.getName() + " Of " + castle.getName() + " Castle Is Currently Online.");
 					}
@@ -621,9 +621,9 @@ public class EnterWorld extends L2GameClientPacket
 	 */
 	private void checkCrown(L2PcInstance activeChar)
 	{
-		if (activeChar.isClanLeader() && activeChar.getClan().getHasCastle() != 0)
+		if (activeChar.isClanLeader() && (activeChar.getClan().getHasCastle() != 0))
 		{
-			if (activeChar.getInventory().getItemByItemId(6841) == null && activeChar.getInventory().validateCapacity(1))
+			if ((activeChar.getInventory().getItemByItemId(6841) == null) && activeChar.getInventory().validateCapacity(1))
 			{
 				activeChar.getInventory().addItem("Crown", 6841, 1, activeChar, null);
 				activeChar.getInventory().updateDatabase();
@@ -691,7 +691,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			pledgeClass = activeChar.getClan().getClanMember(activeChar.getObjectId()).calculatePledgeClass(activeChar);
 		}
-		if (activeChar.isNoble() && pledgeClass < 5)
+		if (activeChar.isNoble() && (pledgeClass < 5))
 		{
 			pledgeClass = 5;
 		}

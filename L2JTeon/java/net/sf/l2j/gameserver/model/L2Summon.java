@@ -101,7 +101,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public final SummonKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof SummonKnownList))
+		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof SummonKnownList))
 			setKnownList(new SummonKnownList(this));
 		return (SummonKnownList) super.getKnownList();
 	}
@@ -109,7 +109,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public SummonStat getStat()
 	{
-		if (super.getStat() == null || !(super.getStat() instanceof SummonStat))
+		if ((super.getStat() == null) || !(super.getStat() instanceof SummonStat))
 			setStat(new SummonStat(this));
 		return (SummonStat) super.getStat();
 	}
@@ -117,7 +117,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public SummonStatus getStatus()
 	{
-		if (super.getStatus() == null || !(super.getStatus() instanceof SummonStatus))
+		if ((super.getStatus() == null) || !(super.getStatus() instanceof SummonStatus))
 			setStatus(new SummonStatus(this));
 		return (SummonStatus) super.getStatus();
 	}
@@ -168,7 +168,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (player == _owner && player.getTarget() == this)
+		if ((player == _owner) && (player.getTarget() == this))
 		{
 			player.sendPacket(new PetStatusShow(this));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -348,7 +348,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	public void broadcastStatusUpdate()
 	{
 		super.broadcastStatusUpdate();
-		if (getOwner() != null && isVisible())
+		if ((getOwner() != null) && isVisible())
 			getOwner().sendPacket(new PetStatusUpdate(this));
 	}
 
@@ -534,7 +534,7 @@ public abstract class L2Summon extends L2PlayableInstance
 	 */
 	public void useMagic(L2Skill skill, boolean forceUse, boolean dontMove)
 	{
-		if (skill == null || isDead())
+		if ((skill == null) || isDead())
 			return;
 		// Check if the skill is active
 		if (skill.isPassive())
@@ -557,20 +557,20 @@ public abstract class L2Summon extends L2PlayableInstance
 		L2Object target = null;
 		switch (skill.getTargetType())
 		{
-		// OWNER_PET should be cast even if no target has been found
-		case TARGET_OWNER_PET:
-			target = getOwner();
-			break;
+			// OWNER_PET should be cast even if no target has been found
+			case TARGET_OWNER_PET:
+				target = getOwner();
+				break;
 			// PARTY, AURA, SELF should be cast even if no target has been found
-		case TARGET_PARTY:
-		case TARGET_AURA:
-		case TARGET_SELF:
-			target = this;
-			break;
-		default:
-			// Get the first target of the list
-			target = skill.getFirstOfTargetList(this);
-		break;
+			case TARGET_PARTY:
+			case TARGET_AURA:
+			case TARGET_SELF:
+				target = this;
+				break;
+			default:
+				// Get the first target of the list
+				target = skill.getFirstOfTargetList(this);
+				break;
 		}
 		// Check the validity of the target
 		if (target == null)
@@ -582,7 +582,7 @@ public abstract class L2Summon extends L2PlayableInstance
 		// ************************************* Check skill availability
 		// *******************************************
 		// Check if this skill is enabled (ex : reuse time)
-		if (isSkillDisabled(skill.getId()) && getOwner() != null && getOwner().getAccessLevel() < Config.GM_PEACEATTACK)
+		if (isSkillDisabled(skill.getId()) && (getOwner() != null) && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_NOT_AVAILABLE);
 			sm.addString(skill.getName());
@@ -590,7 +590,7 @@ public abstract class L2Summon extends L2PlayableInstance
 			return;
 		}
 		// Check if all skills are disabled
-		if (isAllSkillsDisabled() && getOwner() != null && getOwner().getAccessLevel() < Config.GM_PEACEATTACK)
+		if (isAllSkillsDisabled() && (getOwner() != null) && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
 		{
 			return;
 		}
@@ -617,14 +617,14 @@ public abstract class L2Summon extends L2PlayableInstance
 		// Check if this is offensive magic skill
 		if (skill.isOffensive())
 		{
-			if (isInsidePeaceZone(this, target) && getOwner() != null && getOwner().getAccessLevel() < Config.GM_PEACEATTACK)
+			if (isInsidePeaceZone(this, target) && (getOwner() != null) && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
 			{
 				// If summon or target is in a peace zone, send a system message
 				// TARGET_IN_PEACEZONE
 				sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
 				return;
 			}
-			if (getOwner() != null && getOwner().isInOlympiadMode() && !getOwner().isOlympiadStart())
+			if ((getOwner() != null) && getOwner().isInOlympiadMode() && !getOwner().isOlympiadStart())
 			{
 				// if L2PcInstance is in Olympia and the match isn't already
 				// start, send a Server->Client packet ActionFailed
@@ -639,13 +639,13 @@ public abstract class L2Summon extends L2PlayableInstance
 			}
 			else
 			{
-				if (!target.isAttackable() && getOwner() != null && getOwner().getAccessLevel() < Config.GM_PEACEATTACK)
+				if (!target.isAttackable() && (getOwner() != null) && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
 				{
 					return;
 				}
 				// Check if a Forced ATTACK is in progress on non-attackable
 				// target
-				if (!target.isAutoAttackable(this) && !forceUse && skill.getTargetType() != SkillTargetType.TARGET_AURA && skill.getTargetType() != SkillTargetType.TARGET_CLAN && skill.getTargetType() != SkillTargetType.TARGET_ALLY && skill.getTargetType() != SkillTargetType.TARGET_PARTY && skill.getTargetType() != SkillTargetType.TARGET_SELF)
+				if (!target.isAutoAttackable(this) && !forceUse && (skill.getTargetType() != SkillTargetType.TARGET_AURA) && (skill.getTargetType() != SkillTargetType.TARGET_CLAN) && (skill.getTargetType() != SkillTargetType.TARGET_ALLY) && (skill.getTargetType() != SkillTargetType.TARGET_PARTY) && (skill.getTargetType() != SkillTargetType.TARGET_SELF))
 				{
 					return;
 				}

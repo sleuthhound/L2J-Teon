@@ -236,7 +236,7 @@ public class AutoChatHandler implements SpawnListener
 			if (_registeredChats.containsKey(npcId))
 			{
 				AutoChatInstance chatInst = _registeredChats.get(npcId);
-				if (chatInst != null && chatInst.isGlobal())
+				if ((chatInst != null) && chatInst.isGlobal())
 					chatInst.addChatDefinition(npc);
 			}
 		}

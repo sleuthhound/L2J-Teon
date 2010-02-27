@@ -57,7 +57,7 @@ public class L2BuffInstance extends L2NpcInstance
 			else
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-				html.setFile(new StringBuilder("data/html/mods/l2jteon-buffer/main.htm").toString());
+				html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/main.htm").toString()));
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				client.sendPacket(html);
 			}
@@ -128,8 +128,8 @@ public class L2BuffInstance extends L2NpcInstance
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">Buffer Information</font></center>");
 			html1.append("<br><br><br>");
-			html1.append(new StringBuilder("<br1><a action=\"bypass -h npc_").append(getObjectId()).append("_reload\">Reload buff.txt</a>").toString());
-			html1.append(new StringBuilder("<br1><a action=\"bypass -h npc_").append(getObjectId()).append("_storefavs\">Force to save fav.txt</a><br>").toString());
+			html1.append((new StringBuilder("<br1><a action=\"bypass -h npc_")).append(getObjectId()).append("_reload\">Reload buff.txt</a>").toString());
+			html1.append((new StringBuilder("<br1><a action=\"bypass -h npc_")).append(getObjectId()).append("_storefavs\">Force to save fav.txt</a><br>").toString());
 			html1.append("<br1><a action=\"bypass -h admin_kill\">Kill</a>");
 			html1.append("<br1><a action=\"bypass -h admin_delete\">Delete</a>");
 			html1.append("Respawn Time: " + (getSpawn() != null ? getSpawn().getRespawnDelay() / 1000 + "  Seconds<br>" : "?  Seconds<br>"));
@@ -178,16 +178,16 @@ public class L2BuffInstance extends L2NpcInstance
 	public void showChatWnd(L2PcInstance client, String id)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(new StringBuilder("data/html/mods/l2jteon-buffer/").append(id.equals("-1") ? "main" : new StringBuilder("main-").append(id).toString()).append(".htm").toString());
+		html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/").append(id.equals("-1") ? "main" : (new StringBuilder("main-")).append(id).toString()).append(".htm").toString()));
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%after%", id);
 		if (id.endsWith("_repl"))
 		{
 			net.sf.l2j.gameserver.model.entity.Npcbuffer.BuffGroup bg;
-			for (Iterator iterator = Npcbuffer.buffs().values().iterator(); iterator.hasNext(); html.replace(new StringBuilder("%e").append(bg.nId).append("i%").toString(), new StringBuilder("&#").append(bg.itemId).append(";").toString()))
+			for (Iterator iterator = Npcbuffer.buffs().values().iterator(); iterator.hasNext(); html.replace((new StringBuilder("%e")).append(bg.nId).append("i%").toString(), (new StringBuilder("&#")).append(bg.itemId).append(";").toString()))
 			{
 				bg = (net.sf.l2j.gameserver.model.entity.Npcbuffer.BuffGroup) iterator.next();
-				html.replace(new StringBuilder("%e").append(bg.nId).append("c%").toString(), String.valueOf(bg.itemCount));
+				html.replace((new StringBuilder("%e")).append(bg.nId).append("c%").toString(), String.valueOf(bg.itemCount));
 			}
 		}
 		client.sendPacket(html);
@@ -196,18 +196,18 @@ public class L2BuffInstance extends L2NpcInstance
 	public void showChatWnd(L2PcInstance client, String id, int count, int item)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(new StringBuilder("data/html/mods/l2jteon-buffer/main-notenought.htm").toString());
+		html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/main-notenought.htm").toString()));
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%after%", id);
 		html.replace("%count%", String.valueOf(count));
-		html.replace("%item%", new StringBuilder("&#").append(item).append(";").toString());
+		html.replace("%item%", (new StringBuilder("&#")).append(item).append(";").toString());
 		client.sendPacket(html);
 	}
 
 	public void showChatErrWnd(L2PcInstance client, String after, String text)
 	{
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile(new StringBuilder("data/html/mods/l2jteon-buffer/main-err.htm").toString());
+		html.setFile((new StringBuilder("data/html/mods/l2jteon-buffer/main-err.htm").toString()));
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%text%", text);
 		html.replace("%after%", after);

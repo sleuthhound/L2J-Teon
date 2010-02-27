@@ -122,7 +122,7 @@ public final class RequestExAskJoinMPCC extends L2GameClientPacket
 	private void askJoinMPCC(L2PcInstance requestor, L2PcInstance target)
 	{
 		boolean hasRight = false;
-		if (requestor.getClan() != null && requestor.getClan().getLeaderId() == requestor.getObjectId()) // Clanleader
+		if ((requestor.getClan() != null) && (requestor.getClan().getLeaderId() == requestor.getObjectId())) // Clanleader
 			hasRight = true;
 		else if (requestor.getInventory().getItemByItemId(8871) != null) // 8871
 			// Strategy

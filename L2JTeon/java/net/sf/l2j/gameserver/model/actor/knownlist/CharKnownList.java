@@ -70,7 +70,7 @@ public class CharKnownList extends ObjectKnownList
 	 */
 	public final boolean knowsThePlayer(L2PcInstance player)
 	{
-		return getActiveChar() == player || getKnownPlayers().containsKey(player.getObjectId());
+		return (getActiveChar() == player) || getKnownPlayers().containsKey(player.getObjectId());
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class CharKnownList extends ObjectKnownList
 		FastList<L2Character> result = new FastList<L2Character>();
 		for (L2Object obj : getKnownObjects().values())
 		{
-			if (obj != null && obj instanceof L2Character)
+			if ((obj != null) && (obj instanceof L2Character))
 				result.add((L2Character) obj);
 		}
 		return result;

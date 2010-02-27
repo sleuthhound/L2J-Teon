@@ -44,7 +44,7 @@ public final class RequestPetGetItem extends L2GameClientPacket
 	{
 		L2World world = L2World.getInstance();
 		L2ItemInstance item = (L2ItemInstance) world.findObject(_objectId);
-		if (item == null || getClient().getActiveChar() == null)
+		if ((item == null) || (getClient().getActiveChar() == null))
 			return;
 		if (getClient().getActiveChar().getPet() instanceof L2SummonInstance)
 		{
@@ -52,7 +52,7 @@ public final class RequestPetGetItem extends L2GameClientPacket
 			return;
 		}
 		L2PetInstance pet = (L2PetInstance) getClient().getActiveChar().getPet();
-		if (pet == null || pet.isDead() || pet.isOutOfControl())
+		if ((pet == null) || pet.isDead() || pet.isOutOfControl())
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;

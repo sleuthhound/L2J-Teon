@@ -263,41 +263,41 @@ abstract class AbstractAI implements Ctrl
 		 * if (Config.DEBUG) _log.warning("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
 		 */
 		// Stop the follow mode if necessary
-		if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK)
+		if ((intention != AI_INTENTION_FOLLOW) && (intention != AI_INTENTION_ATTACK))
 			stopFollow();
 		// Launch the onIntention method of the L2CharacterAI corresponding to the new Intention
 		switch (intention)
 		{
-		case AI_INTENTION_IDLE:
-			onIntentionIdle();
-			break;
-		case AI_INTENTION_ACTIVE:
-			onIntentionActive();
-			break;
-		case AI_INTENTION_REST:
-			onIntentionRest();
-			break;
-		case AI_INTENTION_ATTACK:
-			onIntentionAttack((L2Character) arg0);
-			break;
-		case AI_INTENTION_CAST:
-			onIntentionCast((L2Skill) arg0, (L2Object) arg1);
-			break;
-		case AI_INTENTION_MOVE_TO:
-			onIntentionMoveTo((L2CharPosition) arg0);
-			break;
-		case AI_INTENTION_MOVE_TO_IN_A_BOAT:
-			onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
-			break;
-		case AI_INTENTION_FOLLOW:
-			onIntentionFollow((L2Character) arg0);
-			break;
-		case AI_INTENTION_PICK_UP:
-			onIntentionPickUp((L2Object) arg0);
-			break;
-		case AI_INTENTION_INTERACT:
-			onIntentionInteract((L2Object) arg0);
-			break;
+			case AI_INTENTION_IDLE:
+				onIntentionIdle();
+				break;
+			case AI_INTENTION_ACTIVE:
+				onIntentionActive();
+				break;
+			case AI_INTENTION_REST:
+				onIntentionRest();
+				break;
+			case AI_INTENTION_ATTACK:
+				onIntentionAttack((L2Character) arg0);
+				break;
+			case AI_INTENTION_CAST:
+				onIntentionCast((L2Skill) arg0, (L2Object) arg1);
+				break;
+			case AI_INTENTION_MOVE_TO:
+				onIntentionMoveTo((L2CharPosition) arg0);
+				break;
+			case AI_INTENTION_MOVE_TO_IN_A_BOAT:
+				onIntentionMoveToInABoat((L2CharPosition) arg0, (L2CharPosition) arg1);
+				break;
+			case AI_INTENTION_FOLLOW:
+				onIntentionFollow((L2Character) arg0);
+				break;
+			case AI_INTENTION_PICK_UP:
+				onIntentionPickUp((L2Object) arg0);
+				break;
+			case AI_INTENTION_INTERACT:
+				onIntentionInteract((L2Object) arg0);
+				break;
 		}
 	}
 
@@ -353,60 +353,60 @@ abstract class AbstractAI implements Ctrl
 		 */
 		switch (evt)
 		{
-		case EVT_THINK:
-			onEvtThink();
-			break;
-		case EVT_ATTACKED:
-			onEvtAttacked((L2Character) arg0);
-			break;
-		case EVT_AGGRESSION:
-			onEvtAggression((L2Character) arg0, ((Number) arg1).intValue());
-			break;
-		case EVT_STUNNED:
-			onEvtStunned((L2Character) arg0);
-			break;
-		case EVT_SLEEPING:
-			onEvtSleeping((L2Character) arg0);
-			break;
-		case EVT_ROOTED:
-			onEvtRooted((L2Character) arg0);
-			break;
-		case EVT_CONFUSED:
-			onEvtConfused((L2Character) arg0);
-			break;
-		case EVT_MUTED:
-			onEvtMuted((L2Character) arg0);
-			break;
-		case EVT_READY_TO_ACT:
-			onEvtReadyToAct();
-			break;
-		case EVT_USER_CMD:
-			onEvtUserCmd(arg0, arg1);
-			break;
-		case EVT_ARRIVED:
-			onEvtArrived();
-			break;
-		case EVT_ARRIVED_REVALIDATE:
-			onEvtArrivedRevalidate();
-			break;
-		case EVT_ARRIVED_BLOCKED:
-			onEvtArrivedBlocked((L2CharPosition) arg0);
-			break;
-		case EVT_FORGET_OBJECT:
-			onEvtForgetObject((L2Object) arg0);
-			break;
-		case EVT_CANCEL:
-			onEvtCancel();
-			break;
-		case EVT_DEAD:
-			onEvtDead();
-			break;
-		case EVT_FAKE_DEATH:
-			onEvtFakeDeath();
-			break;
-		case EVT_FINISH_CASTING:
-			onEvtFinishCasting();
-			break;
+			case EVT_THINK:
+				onEvtThink();
+				break;
+			case EVT_ATTACKED:
+				onEvtAttacked((L2Character) arg0);
+				break;
+			case EVT_AGGRESSION:
+				onEvtAggression((L2Character) arg0, ((Number) arg1).intValue());
+				break;
+			case EVT_STUNNED:
+				onEvtStunned((L2Character) arg0);
+				break;
+			case EVT_SLEEPING:
+				onEvtSleeping((L2Character) arg0);
+				break;
+			case EVT_ROOTED:
+				onEvtRooted((L2Character) arg0);
+				break;
+			case EVT_CONFUSED:
+				onEvtConfused((L2Character) arg0);
+				break;
+			case EVT_MUTED:
+				onEvtMuted((L2Character) arg0);
+				break;
+			case EVT_READY_TO_ACT:
+				onEvtReadyToAct();
+				break;
+			case EVT_USER_CMD:
+				onEvtUserCmd(arg0, arg1);
+				break;
+			case EVT_ARRIVED:
+				onEvtArrived();
+				break;
+			case EVT_ARRIVED_REVALIDATE:
+				onEvtArrivedRevalidate();
+				break;
+			case EVT_ARRIVED_BLOCKED:
+				onEvtArrivedBlocked((L2CharPosition) arg0);
+				break;
+			case EVT_FORGET_OBJECT:
+				onEvtForgetObject((L2Object) arg0);
+				break;
+			case EVT_CANCEL:
+				onEvtCancel();
+				break;
+			case EVT_DEAD:
+				onEvtDead();
+				break;
+			case EVT_FAKE_DEATH:
+				onEvtFakeDeath();
+				break;
+			case EVT_FINISH_CASTING:
+				onEvtFinishCasting();
+				break;
 		}
 	}
 
@@ -493,7 +493,7 @@ abstract class AbstractAI implements Ctrl
 				offset = 10;
 			// prevent possible extra calls to this function (there is none?), also don't send movetopawn packets too often
 			boolean sendPacket = true;
-			if (_clientMoving && _target == pawn)
+			if (_clientMoving && (_target == pawn))
 			{
 				if (_clientMovingToPawnOffset == offset)
 				{
@@ -504,7 +504,7 @@ abstract class AbstractAI implements Ctrl
 				else if (_actor.isOnGeodataPath())
 				{
 					// minimum time to calculate new route is 2 seconds
-					if (GameTimeController.getGameTicks() < _moveToPawnTimeout + 10)
+					if (GameTimeController.getGameTicks() < (_moveToPawnTimeout + 10))
 						return;
 				}
 			}
@@ -514,7 +514,7 @@ abstract class AbstractAI implements Ctrl
 			_target = pawn;
 			_moveToPawnTimeout = GameTimeController.getGameTicks();
 			_moveToPawnTimeout += 1000 / GameTimeController.MILLIS_IN_TICK;
-			if (pawn == null || _accessor == null)
+			if ((pawn == null) || (_accessor == null))
 				return;
 			// Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
 			_accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
@@ -606,7 +606,7 @@ abstract class AbstractAI implements Ctrl
 		if (_actor.isMoving())
 			_accessor.stopMove(pos);
 		_clientMovingToPawnOffset = 0;
-		if (_clientMoving || pos != null)
+		if (_clientMoving || (pos != null))
 		{
 			_clientMoving = false;
 			// Send a Server->Client packet StopMove to the actor and all L2PcInstance in its _knownPlayers
@@ -714,7 +714,7 @@ abstract class AbstractAI implements Ctrl
 	{
 		if (_clientMoving)
 		{
-			if (_clientMovingToPawnOffset != 0 && _followTarget != null)
+			if ((_clientMovingToPawnOffset != 0) && (_followTarget != null))
 			{
 				// Send a Server->Client packet MoveToPawn to the actor and all L2PcInstance in its _knownPlayers
 				MoveToPawn msg = new MoveToPawn(_actor, _followTarget, _clientMovingToPawnOffset);

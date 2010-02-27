@@ -207,7 +207,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public double getVulnerability(Stats id)
 	{
-		if (_vulnerabilities == null || _vulnerabilities.get(id) == null)
+		if ((_vulnerabilities == null) || (_vulnerabilities.get(id) == null))
 			return 1;
 		return _vulnerabilities.get(id);
 	}
@@ -273,46 +273,46 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		if (_questEvents == null)
 			_questEvents = new FastMap<Quest.QuestEventType, Quest[]>();
-			if (_questEvents.get(EventType) == null)
+		if (_questEvents.get(EventType) == null)
+		{
+			_questEvents.put(EventType, new Quest[] { q });
+		}
+		else
+		{
+			Quest[] _quests = _questEvents.get(EventType);
+			int len = _quests.length;
+			// if only one registration per npc is allowed for this event type
+			// then only register this NPC if not already registered for the specified event.
+			// if a quest allows multiple registrations, then register regardless of count
+			// In all cases, check if this new registration is replacing an older copy of the SAME quest
+			if (!EventType.isMultipleRegistrationAllowed())
 			{
-				_questEvents.put(EventType, new Quest[] { q });
+				if (_quests[0].getName().equals(q.getName()))
+					_quests[0] = q;
+				else
+					_log.warning("Quest event not allowed in multiple quests.  Skipped addition of Event Type \"" + EventType + "\" for NPC \"" + name + "\" and quest \"" + q.getName() + "\".");
 			}
 			else
 			{
-				Quest[] _quests = _questEvents.get(EventType);
-				int len = _quests.length;
-				// if only one registration per npc is allowed for this event type
-				// then only register this NPC if not already registered for the specified event.
-				// if a quest allows multiple registrations, then register regardless of count
-				// In all cases, check if this new registration is replacing an older copy of the SAME quest
-				if (!EventType.isMultipleRegistrationAllowed())
+				// be ready to add a new quest to a new copy of the list, with larger size than previously.
+				Quest[] tmp = new Quest[len + 1];
+				// loop through the existing quests and copy them to the new list. While doing so, also
+				// check if this new quest happens to be just a replacement for a previously loaded quest.
+				// If so, just save the updated reference and do NOT use the new list. Else, add the new
+				// quest to the end of the new list
+				for (int i = 0; i < len; i++)
 				{
-					if (_quests[0].getName().equals(q.getName()))
-						_quests[0] = q;
-					else
-						_log.warning("Quest event not allowed in multiple quests.  Skipped addition of Event Type \"" + EventType + "\" for NPC \"" + name + "\" and quest \"" + q.getName() + "\".");
-				}
-				else
-				{
-					// be ready to add a new quest to a new copy of the list, with larger size than previously.
-					Quest[] tmp = new Quest[len + 1];
-					// loop through the existing quests and copy them to the new list. While doing so, also
-					// check if this new quest happens to be just a replacement for a previously loaded quest.
-					// If so, just save the updated reference and do NOT use the new list. Else, add the new
-					// quest to the end of the new list
-					for (int i = 0; i < len; i++)
+					if (_quests[i].getName().equals(q.getName()))
 					{
-						if (_quests[i].getName().equals(q.getName()))
-						{
-							_quests[i] = q;
-							return;
-						}
-						tmp[i] = _quests[i];
+						_quests[i] = q;
+						return;
 					}
-					tmp[len] = q;
-					_questEvents.put(EventType, tmp);
+					tmp[i] = _quests[i];
 				}
+				tmp[len] = q;
+				_questEvents.put(EventType, tmp);
 			}
+		}
 	}
 
 	public Quest[] getEventQuests(Quest.QuestEventType EventType)
@@ -331,78 +331,78 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		switch (raceId)
 		{
-		case 1:
-			race = L2NpcTemplate.Race.UNDEAD;
-			break;
-		case 2:
-			race = L2NpcTemplate.Race.MAGICCREATURE;
-			break;
-		case 3:
-			race = L2NpcTemplate.Race.BEAST;
-			break;
-		case 4:
-			race = L2NpcTemplate.Race.ANIMAL;
-			break;
-		case 5:
-			race = L2NpcTemplate.Race.PLANT;
-			break;
-		case 6:
-			race = L2NpcTemplate.Race.HUMANOID;
-			break;
-		case 7:
-			race = L2NpcTemplate.Race.SPIRIT;
-			break;
-		case 8:
-			race = L2NpcTemplate.Race.ANGEL;
-			break;
-		case 9:
-			race = L2NpcTemplate.Race.DEMON;
-			break;
-		case 10:
-			race = L2NpcTemplate.Race.DRAGON;
-			break;
-		case 11:
-			race = L2NpcTemplate.Race.GIANT;
-			break;
-		case 12:
-			race = L2NpcTemplate.Race.BUG;
-			break;
-		case 13:
-			race = L2NpcTemplate.Race.FAIRIE;
-			break;
-		case 14:
-			race = L2NpcTemplate.Race.HUMAN;
-			break;
-		case 15:
-			race = L2NpcTemplate.Race.ELVE;
-			break;
-		case 16:
-			race = L2NpcTemplate.Race.DARKELVE;
-			break;
-		case 17:
-			race = L2NpcTemplate.Race.ORC;
-			break;
-		case 18:
-			race = L2NpcTemplate.Race.DWARVE;
-			break;
-		case 19:
-			race = L2NpcTemplate.Race.OTHER;
-			break;
-		case 20:
-			race = L2NpcTemplate.Race.NONLIVING;
-			break;
-		case 21:
-			race = L2NpcTemplate.Race.SIEGEWEAPON;
-			break;
-		case 22:
-			race = L2NpcTemplate.Race.DEFENDINGARMY;
-			break;
-		case 23:
-			race = L2NpcTemplate.Race.MERCENARIE;
-			break;
-		default:
-			race = L2NpcTemplate.Race.UNKNOWN;
-		break;
+			case 1:
+				race = L2NpcTemplate.Race.UNDEAD;
+				break;
+			case 2:
+				race = L2NpcTemplate.Race.MAGICCREATURE;
+				break;
+			case 3:
+				race = L2NpcTemplate.Race.BEAST;
+				break;
+			case 4:
+				race = L2NpcTemplate.Race.ANIMAL;
+				break;
+			case 5:
+				race = L2NpcTemplate.Race.PLANT;
+				break;
+			case 6:
+				race = L2NpcTemplate.Race.HUMANOID;
+				break;
+			case 7:
+				race = L2NpcTemplate.Race.SPIRIT;
+				break;
+			case 8:
+				race = L2NpcTemplate.Race.ANGEL;
+				break;
+			case 9:
+				race = L2NpcTemplate.Race.DEMON;
+				break;
+			case 10:
+				race = L2NpcTemplate.Race.DRAGON;
+				break;
+			case 11:
+				race = L2NpcTemplate.Race.GIANT;
+				break;
+			case 12:
+				race = L2NpcTemplate.Race.BUG;
+				break;
+			case 13:
+				race = L2NpcTemplate.Race.FAIRIE;
+				break;
+			case 14:
+				race = L2NpcTemplate.Race.HUMAN;
+				break;
+			case 15:
+				race = L2NpcTemplate.Race.ELVE;
+				break;
+			case 16:
+				race = L2NpcTemplate.Race.DARKELVE;
+				break;
+			case 17:
+				race = L2NpcTemplate.Race.ORC;
+				break;
+			case 18:
+				race = L2NpcTemplate.Race.DWARVE;
+				break;
+			case 19:
+				race = L2NpcTemplate.Race.OTHER;
+				break;
+			case 20:
+				race = L2NpcTemplate.Race.NONLIVING;
+				break;
+			case 21:
+				race = L2NpcTemplate.Race.SIEGEWEAPON;
+				break;
+			case 22:
+				race = L2NpcTemplate.Race.DEFENDINGARMY;
+				break;
+			case 23:
+				race = L2NpcTemplate.Race.MERCENARIE;
+				break;
+			default:
+				race = L2NpcTemplate.Race.UNKNOWN;
+				break;
 		}
 	}
 

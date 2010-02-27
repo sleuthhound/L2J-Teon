@@ -71,7 +71,7 @@ public class NpcInfo extends L2GameServerPacket
 		{
 			_title = cha.getTitle();
 		}
-		if (Config.SHOW_NPC_LVL && _activeChar instanceof L2MonsterInstance)
+		if (Config.SHOW_NPC_LVL && (_activeChar instanceof L2MonsterInstance))
 		{
 			String t = "Lv " + cha.getLevel() + (cha.getAggroRange() > 0 ? "*" : "");
 			if (_title != null)
@@ -102,7 +102,7 @@ public class NpcInfo extends L2GameServerPacket
 		_isSummoned = cha.isShowSummonAnimation();
 		_collisionHeight = _activeChar.getTemplate().collisionHeight;
 		_collisionRadius = _activeChar.getTemplate().collisionRadius;
-		if (cha.getTemplate().serverSideName || cha instanceof L2PetInstance)
+		if (cha.getTemplate().serverSideName || (cha instanceof L2PetInstance))
 		{
 			_name = _activeChar.getName();
 			_title = cha.getTitle();
@@ -124,7 +124,7 @@ public class NpcInfo extends L2GameServerPacket
 	{
 		if (_activeChar instanceof L2Summon)
 		{
-			if (((L2Summon) _activeChar).getOwner() != null && ((L2Summon) _activeChar).getOwner().getAppearance().getInvisible())
+			if ((((L2Summon) _activeChar).getOwner() != null) && ((L2Summon) _activeChar).getOwner().getAppearance().getInvisible())
 			{
 				return;
 			}

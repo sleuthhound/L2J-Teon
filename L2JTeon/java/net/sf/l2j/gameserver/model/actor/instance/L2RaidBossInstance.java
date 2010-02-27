@@ -84,11 +84,11 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 			{
 				for (L2PcInstance member : player.getParty().getPartyMembers())
 				{
-					RaidBossPointsManager.addPoints(member, this.getNpcId(), this.getLevel() / 2 + Rnd.get(-5, 5));
+					RaidBossPointsManager.addPoints(member, this.getNpcId(), (this.getLevel() / 2) + Rnd.get(-5, 5));
 				}
 			}
 			else
-				RaidBossPointsManager.addPoints(player, this.getNpcId(), this.getLevel() / 2 + Rnd.get(-5, 5));
+				RaidBossPointsManager.addPoints(player, this.getNpcId(), (this.getLevel() / 2) + Rnd.get(-5, 5));
 		}
 		RaidBossSpawnManager.getInstance().updateStatus(this, true);
 		return true;

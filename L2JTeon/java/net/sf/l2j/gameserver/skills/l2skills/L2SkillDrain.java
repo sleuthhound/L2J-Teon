@@ -48,9 +48,9 @@ public class L2SkillDrain extends L2Skill
 		boolean bss = false;
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
-			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
+			if (target.isAlikeDead() && (getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
 				continue;
-			if (activeChar != target && target.isInvul())
+			if ((activeChar != target) && target.isInvul())
 				continue; // No effect on invulnerable chars unless they
 			// cast
 			// it themselves.
@@ -86,21 +86,21 @@ public class L2SkillDrain extends L2Skill
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar, activeChar.getMCriticalHit(target, this));
 			int damage = (int) Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
 
-			int _drain = 0;
-			int _cp = (int)target.getCurrentCp();
-			int _hp = (int)target.getCurrentHp();
+            int _drain = 0;
+            int _cp = (int)target.getCurrentCp();
+            int _hp = (int)target.getCurrentHp();
 
-			if (_cp > 0)
-			{
-				if (damage < _cp)
-					_drain = 0;
-				else
-					_drain = damage - _cp;
-			}
-			else if (damage > _hp)
-				_drain = _hp;
-			else
-				_drain = damage;
+            if (_cp > 0)
+            {
+            	if (damage < _cp)
+            		_drain = 0;
+            	else
+            		_drain = damage - _cp;
+            }
+            else if (damage > _hp)
+            	_drain = _hp;
+            else
+            	_drain = damage;
 
 			double hpAdd = _absorbAbs + _absorbPart * _drain;
 
@@ -110,7 +110,7 @@ public class L2SkillDrain extends L2Skill
 			suhp.addAttribute(StatusUpdate.CUR_HP, (int) hp);
 			activeChar.sendPacket(suhp);
 			// Check to see if we should damage the target
-			if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
+			if ((damage > 0) && (!target.isDead() || (getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)))
 			{
 				// Manage attack or cast break of the target (calculating rate,
 				// sending message...)
@@ -120,7 +120,7 @@ public class L2SkillDrain extends L2Skill
 					target.breakCast();
 				}
 				activeChar.sendDamageMessage(target, damage, mcrit, false, false);
-				if (hasEffects() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
+				if (hasEffects() && (getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
 				{
 					if (target.reflectSkill(this))
 					{
@@ -148,14 +148,14 @@ public class L2SkillDrain extends L2Skill
 				target.reduceCurrentHp(damage, activeChar);
 			}
 			// Check to see if we should do the decay right after the cast
-			if (target.isDead() && getTargetType() == SkillTargetType.TARGET_CORPSE_MOB && target instanceof L2NpcInstance)
+			if (target.isDead() && (getTargetType() == SkillTargetType.TARGET_CORPSE_MOB) && (target instanceof L2NpcInstance))
 			{
 				((L2NpcInstance) target).endDecayTask();
 			}
 		}
 		// effect self :]
 		L2Effect effect = activeChar.getFirstEffect(getId());
-		if (effect != null && effect.isSelfEffect())
+		if ((effect != null) && effect.isSelfEffect())
 		{
 			// Replace old effect with new one.
 			effect.exit();

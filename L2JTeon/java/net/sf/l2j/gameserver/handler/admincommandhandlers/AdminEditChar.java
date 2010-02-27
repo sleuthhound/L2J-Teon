@@ -48,37 +48,37 @@ public class AdminEditChar implements IAdminCommandHandler
 {
 	private static Logger _log = Logger.getLogger(AdminEditChar.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_edit_character", "admin_current_player", "admin_nokarma", // this
-		// is
-		// to
-		// remove
-		// karma
-		// from
-		// selected
-		// char...
-		"admin_setkarma", // sets karma of target char to any amount.
-		// //setkarma <karma>
-		"admin_character_list", // same as character_info, kept for
-		// compatibility purposes
-		"admin_character_info", // given a player name, displays an
-		// information window
-		"admin_show_characters",// list of characters
-		"admin_find_character", // find a player by his name or a part
-		// of it
-		// (case-insensitive)
-		"admin_find_ip", // find all the player connections from a given
-		// IPv4 number
-		"admin_find_account", // list all the characters from an
-		// account
-		// (useful for GMs w/o DB access)
-		"admin_save_modifications", // consider it deprecated...
-		"admin_rec", // gives recommendation points
-		"admin_settitle", // changes char title
-		"admin_setname", // changes char name
-		"admin_setsex", // changes characters' sex
-		"admin_setcolor", // change charnames' color display
-		"admin_delete_color", // remove selected color display
-		"admin_setclass", // changes chars' classId
-		"admin_fullfood" // fulfills a pet's food bar
+			// is
+			// to
+			// remove
+			// karma
+			// from
+			// selected
+			// char...
+			"admin_setkarma", // sets karma of target char to any amount.
+			// //setkarma <karma>
+			"admin_character_list", // same as character_info, kept for
+			// compatibility purposes
+			"admin_character_info", // given a player name, displays an
+			// information window
+			"admin_show_characters",// list of characters
+			"admin_find_character", // find a player by his name or a part
+			// of it
+			// (case-insensitive)
+			"admin_find_ip", // find all the player connections from a given
+			// IPv4 number
+			"admin_find_account", // list all the characters from an
+			// account
+			// (useful for GMs w/o DB access)
+			"admin_save_modifications", // consider it deprecated...
+			"admin_rec", // gives recommendation points
+			"admin_settitle", // changes char title
+			"admin_setname", // changes char name
+			"admin_setsex", // changes characters' sex
+			"admin_setcolor", // change charnames' color display
+			"admin_delete_color", // remove selected color display
+			"admin_setclass", // changes chars' classId
+			"admin_fullfood" // fulfills a pet's food bar
 	};
 	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_CHAR_EDIT_OTHER;
@@ -188,7 +188,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				String val = command.substring(15);
 				int karma = Integer.parseInt(val);
-				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+				if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
 				{
 					new GmAudit(activeChar.getName(), activeChar.getObjectId(), activeChar.getName(), command);
 				}
@@ -208,7 +208,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			try
 			{
 				String val = command.substring(24);
-				if (activeChar == activeChar.getTarget() || activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
+				if ((activeChar == activeChar.getTarget()) || (activeChar.getAccessLevel() >= REQUIRED_LEVEL2))
 				{
 					new GmAudit(activeChar.getName(), activeChar.getObjectId(), activeChar.getName(), command);
 				}
@@ -230,7 +230,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				int recVal = Integer.parseInt(val);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
+				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
 				{
 					return false;
 				}
@@ -259,7 +259,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				int classidval = Integer.parseInt(val);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
+				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
 				{
 					return false;
 				}
@@ -279,7 +279,7 @@ public class AdminEditChar implements IAdminCommandHandler
 						valid = true;
 					}
 				}
-				if (valid && player.getClassId().getId() != classidval)
+				if (valid && (player.getClassId().getId() != classidval))
 				{
 					player.setClassId(classidval);
 					if (!player.isSubClassActive())
@@ -306,7 +306,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				String val = command.substring(15);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
+				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
 				{
 					return false;
 				}
@@ -336,7 +336,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				String val = command.substring(14);
 				L2Object target = activeChar.getTarget();
 				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
+				if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
 				{
 					return false;
 				}
@@ -365,7 +365,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			if (activeChar != target && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
+			if ((activeChar != target) && (activeChar.getAccessLevel() < REQUIRED_LEVEL2))
 			{
 				return false;
 			}

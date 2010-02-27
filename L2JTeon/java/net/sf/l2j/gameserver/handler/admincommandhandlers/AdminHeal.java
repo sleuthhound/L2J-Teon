@@ -126,7 +126,7 @@ public class AdminHeal implements IAdminCommandHandler
 		{
 			obj = activeChar;
 		}
-		if (obj != null && obj instanceof L2Character)
+		if ((obj != null) && (obj instanceof L2Character))
 		{
 			L2Character target = (L2Character) obj;
 			target.setCurrentHpMp(target.getMaxHp(), target.getMaxMp());

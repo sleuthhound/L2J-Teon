@@ -57,7 +57,7 @@ public class L2EventChecks
 		// If there's not enough clan members online to fill the MinPeople
 		// requirement
 		// return false.
-		if (_eventPlayers.size() <= minPeople && eventType == (2 | 3))
+		if ((_eventPlayers.size() <= minPeople) && (eventType == (2 | 3)))
 		{
 			// Notify to the requester.
 			player.sendMessage("Not enough " + eType(eventType) + " members of the connected at this mommtent, try again later.");
@@ -87,24 +87,24 @@ public class L2EventChecks
 			 */
 			switch (eventType)
 			{
-			case 2:
-			{
-				if (_eventPlayers.contains(player) && member.getClan().getName().equals(player.getClan().getName()))
+				case 2:
+				{
+					if (_eventPlayers.contains(player) && member.getClan().getName().equals(player.getClan().getName()))
+						eventPoints += member.getEventPoints();
+					break;
+				}
+				case 3:
+				{
+					// Let's add the points of each member to the Party General
+					// Clan Score.
 					eventPoints += member.getEventPoints();
-				break;
-			}
-			case 3:
-			{
-				// Let's add the points of each member to the Party General
-				// Clan Score.
-				eventPoints += member.getEventPoints();
-				break;
-			}
-			default:
-			{
-				eventPoints = member.getEventPoints();
-				break;
-			}
+					break;
+				}
+				default:
+				{
+					eventPoints = member.getEventPoints();
+					break;
+				}
 			}
 		}
 		/*

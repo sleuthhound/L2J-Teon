@@ -80,7 +80,7 @@ public final class RequestHennaEquip extends L2GameClientPacket
 		catch (Exception e)
 		{
 		}
-		if (!cheater && _count >= temp.getAmountDyeRequire() && activeChar.getAdena() >= temp.getPrice() && activeChar.addHenna(temp))
+		if (!cheater && (_count >= temp.getAmountDyeRequire()) && (activeChar.getAdena() >= temp.getPrice()) && activeChar.addHenna(temp))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
 			sm.addNumber(temp.getItemIdDye());
@@ -101,7 +101,7 @@ public final class RequestHennaEquip extends L2GameClientPacket
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_DRAW_SYMBOL));
 		}
-		if (!activeChar.isGM() && cheater)
+		if ((!activeChar.isGM()) && (cheater))
 			Util.handleIllegalPlayerAction(activeChar, "Exploit attempt: Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " tryed to add a forbidden henna.", Config.DEFAULT_PUNISH);
 	}
 

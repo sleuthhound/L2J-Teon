@@ -78,7 +78,7 @@ public class BoatManager
 			String line = null;
 			while ((line = lnr.readLine()) != null)
 			{
-				if (line.trim().length() == 0 || line.startsWith("#"))
+				if ((line.trim().length() == 0) || line.startsWith("#"))
 					continue;
 				L2BoatInstance boat = parseLine(line);
 				boat.spawn();

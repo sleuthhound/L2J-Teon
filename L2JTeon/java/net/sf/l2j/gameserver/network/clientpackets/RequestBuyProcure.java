@@ -60,7 +60,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 			int itemId = readD();
 			_items[i * 2 + 0] = itemId;
 			long cnt = readD();
-			if (cnt > Integer.MAX_VALUE || cnt < 1)
+			if ((cnt > Integer.MAX_VALUE) || (cnt < 1))
 			{
 				_count = 0;
 				_items = null;
@@ -77,7 +77,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 		if (player == null)
 			return;
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && (player.getKarma() > 0))
 			return;
 		L2Object target = player.getTarget();
 		if (_count < 1)
@@ -90,7 +90,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 		// Check for buylist validity and calculates summary values
 		int slots = 0;
 		int weight = 0;
-		L2ManorManagerInstance manor = target != null && target instanceof L2ManorManagerInstance ? (L2ManorManagerInstance) target : null;
+		L2ManorManagerInstance manor = (target != null) && (target instanceof L2ManorManagerInstance) ? (L2ManorManagerInstance) target : null;
 		for (int i = 0; i < _count; i++)
 		{
 			int itemId = _items[i * 2 + 0];
@@ -136,7 +136,7 @@ public class RequestBuyProcure extends L2GameClientPacket
 			// Add item to Inventory and adjust update packet
 			L2ItemInstance item = player.getInventory().addItem("Manor", rewradItemId, rewradItemCount, player, manor);
 			L2ItemInstance iteme = player.getInventory().destroyItemByItemId("Manor", itemId, count, player, manor);
-			if (item == null || iteme == null)
+			if ((item == null) || (iteme == null))
 				continue;
 			playerIU.addRemovedItem(iteme);
 			if (item.getCount() > rewradItemCount)

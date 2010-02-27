@@ -66,7 +66,7 @@ public abstract class FloodProtectedListener extends Thread
 					else
 					{
 						fConnection.connectionNumber += 1;
-						if (fConnection.connectionNumber > Config.FAST_CONNECTION_LIMIT && System.currentTimeMillis() - fConnection.lastConnection < Config.NORMAL_CONNECTION_TIME || System.currentTimeMillis() - fConnection.lastConnection < Config.FAST_CONNECTION_TIME || fConnection.connectionNumber > Config.MAX_CONNECTION_PER_IP)
+						if (((fConnection.connectionNumber > Config.FAST_CONNECTION_LIMIT) && (System.currentTimeMillis() - fConnection.lastConnection < Config.NORMAL_CONNECTION_TIME)) || (System.currentTimeMillis() - fConnection.lastConnection < Config.FAST_CONNECTION_TIME) || (fConnection.connectionNumber > Config.MAX_CONNECTION_PER_IP))
 						{
 							fConnection.lastConnection = System.currentTimeMillis();
 							connection.close();
@@ -77,8 +77,8 @@ public abstract class FloodProtectedListener extends Thread
 							continue;
 						}
 						if (fConnection.isFlooding) // if connection was
-							// flooding server but now
-							// passed the check
+						// flooding server but now
+						// passed the check
 						{
 							fConnection.isFlooding = false;
 							_log.info(connection.getInetAddress().getHostAddress() + " is not considered as flooding anymore.");

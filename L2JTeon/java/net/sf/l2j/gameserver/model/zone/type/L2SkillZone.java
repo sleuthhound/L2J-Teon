@@ -43,7 +43,7 @@ public class L2SkillZone extends L2ZoneType
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if ((character instanceof L2PcInstance || character instanceof L2SummonInstance) && (!_onSiege || _onSiege && character.isInsideZone(4)))
+		if (((character instanceof L2PcInstance) || (character instanceof L2SummonInstance)) && (!_onSiege || _onSiege && character.isInsideZone(4)))
 		{
 			if (character instanceof L2PcInstance)
 				((L2PcInstance) character).enterDangerArea();
@@ -54,7 +54,7 @@ public class L2SkillZone extends L2ZoneType
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (character instanceof L2PcInstance || character instanceof L2SummonInstance)
+		if ((character instanceof L2PcInstance) || (character instanceof L2SummonInstance))
 		{
 			character.stopSkillEffects(_skillId);
 			if (character instanceof L2PcInstance)

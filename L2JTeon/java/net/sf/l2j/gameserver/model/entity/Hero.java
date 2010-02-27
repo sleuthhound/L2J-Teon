@@ -281,7 +281,7 @@ public class Hero
 		for (StatsSet hero : newHeroes)
 		{
 			int charId = hero.getInteger(Olympiad.CHAR_ID);
-			if (_completeHeroes != null && _completeHeroes.containsKey(charId))
+			if ((_completeHeroes != null) && _completeHeroes.containsKey(charId))
 			{
 				StatsSet oldHero = _completeHeroes.get(charId);
 				int count = oldHero.getInteger(COUNT);
@@ -389,7 +389,7 @@ public class Hero
 				for (Integer heroId : _heroes.keySet())
 				{
 					StatsSet hero = _heroes.get(heroId);
-					if (_completeHeroes == null || !_completeHeroes.containsKey(heroId))
+					if ((_completeHeroes == null) || !_completeHeroes.containsKey(heroId))
 					{
 						statement = con.prepareStatement(INSERT_HERO);
 						statement.setInt(1, heroId);

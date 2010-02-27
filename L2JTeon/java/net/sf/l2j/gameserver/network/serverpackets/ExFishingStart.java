@@ -55,7 +55,7 @@ public class ExFishingStart extends L2GameServerPacket
 		writeD(_z); // z poisson
 		writeC(0x00); // night lure
 		writeC(0x00); // ??
-		writeC(_fishType >= 7 && _fishType <= 9 ? 0x01 : 0x00); // 0 = day
+		writeC((_fishType >= 7) && (_fishType <= 9) ? 0x01 : 0x00); // 0 = day
 		// lure 1 =
 		// night
 		// lure

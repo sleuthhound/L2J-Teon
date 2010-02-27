@@ -47,7 +47,7 @@ public class PcColorTable
 				long regTime = rs.getLong("reg_time"), time = rs.getLong("time");
 				String charName = rs.getString("char_name");
 				int color = rs.getInt("color");
-				if (time == 0 || regTime + time > System.currentTimeMillis())
+				if ((time == 0) || (regTime + time > System.currentTimeMillis()))
 				{
 					_pcColors.put(charName, new PcColorContainer(color, regTime, time));
 				}
@@ -105,7 +105,7 @@ public class PcColorTable
 		if (colorContainer == null)
 			return;
 		long time = colorContainer.getTime();
-		if (time == 0 || colorContainer.getRegTime() + time > System.currentTimeMillis())
+		if ((time == 0) || (colorContainer.getRegTime() + time > System.currentTimeMillis()))
 			activeChar.getAppearance().setNameColor(colorContainer.getColor());
 		else
 			delete(activeChar.getName());

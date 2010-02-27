@@ -94,20 +94,20 @@ public final class L2Weapon extends L2Item
 		_mDam = set.getInteger("m_dam");
 		int sId = set.getInteger("item_skill_id");
 		int sLv = set.getInteger("item_skill_lvl");
-		if (sId > 0 && sLv > 0)
+		if ((sId > 0) && (sLv > 0))
 		{
 			_itemSkill = SkillTable.getInstance().getInfo(sId, sLv);
 		}
 		sId = set.getInteger("enchant4_skill_id");
 		sLv = set.getInteger("enchant4_skill_lvl");
-		if (sId > 0 && sLv > 0)
+		if ((sId > 0) && (sLv > 0))
 		{
 			_enchant4Skill = SkillTable.getInstance().getInfo(sId, sLv);
 		}
 		sId = set.getInteger("onCast_skill_id");
 		sLv = set.getInteger("onCast_skill_lvl");
 		int sCh = set.getInteger("onCast_skill_chance");
-		if (sId > 0 && sLv > 0 && sCh > 0)
+		if ((sId > 0) && (sLv > 0) && (sCh > 0))
 		{
 			L2Skill skill = SkillTable.getInstance().getInfo(sId, sLv);
 			skill.attach(new ConditionGameChance(sCh), true);
@@ -116,7 +116,7 @@ public final class L2Weapon extends L2Item
 		sId = set.getInteger("onCrit_skill_id");
 		sLv = set.getInteger("onCrit_skill_lvl");
 		sCh = set.getInteger("onCrit_skill_chance");
-		if (sId > 0 && sLv > 0 && sCh > 0)
+		if ((sId > 0) && (sLv > 0) && (sCh > 0))
 		{
 			L2Skill skill = SkillTable.getInstance().getInfo(sId, sLv);
 			skill.attach(new ConditionGameChance(sCh), true);
@@ -340,14 +340,14 @@ public final class L2Weapon extends L2Item
 	 */
 	public L2Effect[] getSkillEffects(L2Character caster, L2Character target, boolean crit)
 	{
-		if (_skillsOnCrit == null || !crit)
+		if ((_skillsOnCrit == null) || !crit)
 		{
 			return _emptyEffectSet;
 		}
 		List<L2Effect> effects = new FastList<L2Effect>();
 		for (L2Skill skill : _skillsOnCrit)
 		{
-			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT))
+			if (target.isRaid() && ((skill.getSkillType() == SkillType.CONFUSION) || (skill.getSkillType() == SkillType.MUTE) || (skill.getSkillType() == SkillType.PARALYZE) || (skill.getSkillType() == SkillType.ROOT)))
 			{
 				continue; // These skills should not work on RaidBoss
 			}
@@ -391,7 +391,7 @@ public final class L2Weapon extends L2Item
 		{
 			if (trigger.isOffensive() != skill.isOffensive())
 				continue; // Trigger only same type of skill
-			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT))
+			if (target.isRaid() && ((skill.getSkillType() == SkillType.CONFUSION) || (skill.getSkillType() == SkillType.MUTE) || (skill.getSkillType() == SkillType.PARALYZE) || (skill.getSkillType() == SkillType.ROOT)))
 				continue; // These skills should not work on RaidBoss
 			if (trigger.isToggle() && skill.getSkillType() == SkillType.BUFF)
 				continue; // No buffing with toggle skills

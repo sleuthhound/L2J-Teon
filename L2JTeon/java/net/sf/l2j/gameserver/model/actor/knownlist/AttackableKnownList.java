@@ -44,13 +44,13 @@ public class AttackableKnownList extends NpcKnownList
 		if (!super.removeKnownObject(object))
 			return false;
 		// Remove the L2Object from the _aggrolist of the L2Attackable
-		if (object != null && object instanceof L2Character)
+		if ((object != null) && (object instanceof L2Character))
 			getActiveChar().getAggroList().remove(object);
 		// Set the L2Attackable Intention to AI_INTENTION_IDLE
 		Collection<L2PcInstance> known = getKnownPlayers().values();
 		// FIXME: This is a temporary solution
 		L2CharacterAI ai = getActiveChar().getAI();
-		if (ai != null && (known == null || known.isEmpty()))
+		if ((ai != null) && ((known == null) || known.isEmpty()))
 		{
 			ai.setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
@@ -79,7 +79,7 @@ public class AttackableKnownList extends NpcKnownList
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
 	{
-		if (object instanceof L2FolkInstance || !(object instanceof L2Character))
+		if ((object instanceof L2FolkInstance) || !(object instanceof L2Character))
 			return 0;
 		if (object instanceof L2PlayableInstance)
 			return 1500;

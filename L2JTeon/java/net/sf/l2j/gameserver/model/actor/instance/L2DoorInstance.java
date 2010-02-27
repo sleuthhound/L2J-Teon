@@ -134,7 +134,7 @@ public class L2DoorInstance extends L2Character
 	@Override
 	public boolean hasAI()
 	{
-		return _ai != null;
+		return (_ai != null);
 	}
 
 	class CloseTask implements Runnable
@@ -173,7 +173,7 @@ public class L2DoorInstance extends L2Character
 					closeMe();
 				}
 				if (Config.DEBUG)
-					log.info("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + _autoActionDelay / 60000 + " minute(s).");
+					log.info("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + (_autoActionDelay / 60000) + " minute(s).");
 			}
 			catch (Exception e)
 			{
@@ -183,7 +183,7 @@ public class L2DoorInstance extends L2Character
 	}
 
 	/**
-	 */
+     */
 	public L2DoorInstance(int objectId, L2CharTemplate template, int doorId, String name, boolean unlockable)
 	{
 		super(objectId, template);
@@ -330,9 +330,9 @@ public class L2DoorInstance extends L2Character
 		 * int ClanHallID = _clanHall.getId(); if (ClanHallID == 34 && DevastatedCastleManager.getInstance().getIsInProgress()) return true; if (ClanHallID == 64 && FortressofTheDeadManager.getInstance().getIsInProgress()) return true;
 		 */
 		// Attackable during siege by attacker only
-		boolean isCastle = getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress() && getCastle().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan());
-		boolean isFort = getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress() && getFort().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan());
-		return isCastle || isFort;
+		boolean isCastle = (getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress() && getCastle().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan()));
+		boolean isFort = (getFort() != null && getFort().getFortId() > 0 && getFort().getSiege().getIsInProgress() && getFort().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan()));
+		return (isCastle || isFort);
 	}
 
 	public boolean isAttackable(L2Character attacker)

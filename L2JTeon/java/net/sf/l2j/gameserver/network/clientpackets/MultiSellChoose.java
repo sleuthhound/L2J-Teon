@@ -64,7 +64,7 @@ public class MultiSellChoose extends L2GameClientPacket
 	@Override
 	public void runImpl()
 	{
-		if (_amount < 1 || _amount > 5000)
+		if ((_amount < 1) || (_amount > 5000))
 		{
 			return;
 		}
@@ -152,7 +152,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				// the count
 				// this happens if 1 list entry has the same ingredient twice
 				// (example 2 swords = 1 dual)
-				if (ex.getItemId() == e.getItemId() && ex.getEnchantmentLevel() == e.getEnchantmentLevel())
+				if ((ex.getItemId() == e.getItemId()) && (ex.getEnchantmentLevel() == e.getEnchantmentLevel()))
 				{
 					if ((double) ex.getItemCount() + e.getItemCount() > Integer.MAX_VALUE)
 					{
@@ -293,8 +293,8 @@ public class MultiSellChoose extends L2GameClientPacket
 							}
 						}
 						else
-							// b) enchantment is not maintained. Get the
-							// instances with the LOWEST enchantment level
+						// b) enchantment is not maintained. Get the
+						// instances with the LOWEST enchantment level
 						{
 							/*
 							 * NOTE: There are 2 ways to achieve the above goal. 1) Get all items that have the correct itemId, loop through them until the lowest enchantment level is found. Repeat all this for the next item until proper count of items is reached. 2) Get all items that have the correct itemId, sort them once based on enchantment level, and get the range of items that is necessary.
@@ -384,7 +384,7 @@ public class MultiSellChoose extends L2GameClientPacket
 			}
 			else
 			{
-				if (maintainEnchantment && e.getEnchantmentLevel() > 0)
+				if (maintainEnchantment && (e.getEnchantmentLevel() > 0))
 				{
 					sm = new SystemMessage(SystemMessageId.ACQUIRED);
 					sm.addNumber(e.getEnchantmentLevel());
@@ -405,7 +405,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		player.sendPacket(su);
 		su = null;
 		// finally, give the tax to the castle...
-		if (merchant != null && merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
+		if ((merchant != null) && merchant.getIsInTown() && (merchant.getCastle().getOwnerId() > 0))
 		{
 			merchant.getCastle().addToTreasury(_transactionTax * _amount);
 		}
@@ -435,12 +435,12 @@ public class MultiSellChoose extends L2GameClientPacket
 		{
 			// load the ingredient from the template
 			MultiSellIngredient newIngredient = L2Multisell.getInstance().new MultiSellIngredient(ing);
-			if (newIngredient.getItemId() == 57 && newIngredient.isTaxIngredient())
+			if ((newIngredient.getItemId() == 57) && newIngredient.isTaxIngredient())
 			{
 				double taxRate = 0.0;
 				if (applyTaxes)
 				{
-					if (merchant != null && merchant.getIsInTown())
+					if ((merchant != null) && merchant.getIsInTown())
 					{
 						taxRate = merchant.getCastle().getTaxRate();
 					}
@@ -465,7 +465,7 @@ public class MultiSellChoose extends L2GameClientPacket
 			else if (maintainEnchantment)
 			{
 				L2Item tempItem = ItemTable.getInstance().createDummyItem(newIngredient.getItemId()).getItem();
-				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
+				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
 					hasIngredient = true;
@@ -491,7 +491,7 @@ public class MultiSellChoose extends L2GameClientPacket
 				// (note, if maintain enchantment is "false" this modification
 				// will result to a +0)
 				L2Item tempItem = ItemTable.getInstance().createDummyItem(newIngredient.getItemId()).getItem();
-				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
+				if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
 				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
 				}

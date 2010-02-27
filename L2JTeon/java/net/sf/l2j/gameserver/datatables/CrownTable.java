@@ -50,45 +50,45 @@ public class CrownTable
 		int CrownId = 0;
 		switch (CastleId)
 		{
-		// Gludio
-		case 1:
-			CrownId = 6838;
-			break;
+			// Gludio
+			case 1:
+				CrownId = 6838;
+				break;
 			// Dion
-		case 2:
-			CrownId = 6835;
-			break;
+			case 2:
+				CrownId = 6835;
+				break;
 			// Giran
-		case 3:
-			CrownId = 6839;
-			break;
+			case 3:
+				CrownId = 6839;
+				break;
 			// Oren
-		case 4:
-			CrownId = 6837;
-			break;
+			case 4:
+				CrownId = 6837;
+				break;
 			// Aden
-		case 5:
-			CrownId = 6840;
-			break;
+			case 5:
+				CrownId = 6840;
+				break;
 			// Innadril
-		case 6:
-			CrownId = 6834;
-			break;
+			case 6:
+				CrownId = 6834;
+				break;
 			// Goddard
-		case 7:
-			CrownId = 6836;
-			break;
+			case 7:
+				CrownId = 6836;
+				break;
 			// Rune
-		case 8:
-			CrownId = 8182;
-			break;
+			case 8:
+				CrownId = 8182;
+				break;
 			// Schuttgart
-		case 9:
-			CrownId = 8183;
-			break;
-		default:
-			CrownId = 0;
-		break;
+			case 9:
+				CrownId = 8183;
+				break;
+			default:
+				CrownId = 0;
+				break;
 		}
 		return CrownId;
 	}

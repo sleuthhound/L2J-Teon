@@ -50,8 +50,8 @@ public class L2Macro
 	}
 
 	/**
-	 *
-	 */
+     *
+     */
 	public L2Macro(int pId, int pIcon, String pName, String pDescr, String pAcronym, L2MacroCmd[] pCommands)
 	{
 		id = pId;

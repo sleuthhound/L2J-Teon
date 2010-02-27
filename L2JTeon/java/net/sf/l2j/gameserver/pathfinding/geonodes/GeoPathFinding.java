@@ -69,7 +69,7 @@ public class GeoPathFinding extends PathFinding
 	{
 		Node start = readNode(gx, gy, z);
 		Node end = readNode(gtx, gty, tz);
-		if (start == null || end == null)
+		if ((start == null) || (end == null))
 			return null;
 		if (start == end)
 			return null;

@@ -51,7 +51,7 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 public class AdminEventEngine implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_event", "admin_event_new", "admin_event_choose", "admin_event_store", "admin_event_set", "admin_event_change_teams_number", "admin_event_announce", "admin_event_panel", "admin_event_control_begin", "admin_event_control_teleport", "admin_add", "admin_event_see", "admin_event_del", "admin_delete_buffer", "admin_event_control_sit",
-		"admin_event_name", "admin_event_control_kill", "admin_event_control_res", "admin_event_control_poly", "admin_event_control_unpoly", "admin_event_control_prize", "admin_event_control_chatban", "admin_event_control_finish" };
+			"admin_event_name", "admin_event_control_kill", "admin_event_control_res", "admin_event_control_poly", "admin_event_control_unpoly", "admin_event_control_prize", "admin_event_control_chatban", "admin_event_control_finish" };
 	private static final int REQUIRED_LEVEL = Config.GM_MENU;
 	private static String tempBuffer = "";
 	private static String tempName = "";
@@ -330,7 +330,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		for (String file2 : files) {
 			File file = new File("data/events/" + file2);
 			result += "<font color=\"LEVEL\">" + file.getName() + " </font><br><button value=\"select\" action=\"bypass -h admin_event_set " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><button value=\"ver\" action=\"bypass -h admin_event_see " + file.getName()
-			+ "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><button value=\"delete\" action=\"bypass -h admin_event_del " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br><br>";
+					+ "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><button value=\"delete\" action=\"bypass -h admin_event_del " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br><br>";
 		}
 		return result;
 	}
@@ -407,7 +407,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 			}
 			for (L2PcInstance playertemp : player.getKnownList().getKnownPlayers().values())
 			{
-				if (Math.abs(playertemp.getX() - player.getX()) < 500 && Math.abs(playertemp.getY() - player.getY()) < 500 && Math.abs(playertemp.getZ() - player.getZ()) < 500)
+				if ((Math.abs(playertemp.getX() - player.getX()) < 500) && (Math.abs(playertemp.getY() - player.getY()) < 500) && (Math.abs(playertemp.getZ() - player.getZ()) < 500))
 					temp.add(playertemp);
 			}
 		}
@@ -438,7 +438,7 @@ public class AdminEventEngine implements IAdminCommandHandler
 		replyMSG.append("<tr><td>&nbsp;</td></tr>");
 		replyMSG.append("<tr><td>&nbsp;</td></tr>");
 		replyMSG
-		.append("<tr><td><button value=\"Give Item\" action=\"bypass -h admin_event_control_prize $team_number $n $id\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"> number <edit var=\"n\" width=100 height=15> item id <edit var=\"id\" width=100 height=15></td><td><font color=\"LEVEL\">Give the specified item id to every single member of the team, you can put 5*level, 5*kills or 5 in the number field for example</font></td></tr>");
+				.append("<tr><td><button value=\"Give Item\" action=\"bypass -h admin_event_control_prize $team_number $n $id\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"> number <edit var=\"n\" width=100 height=15> item id <edit var=\"id\" width=100 height=15></td><td><font color=\"LEVEL\">Give the specified item id to every single member of the team, you can put 5*level, 5*kills or 5 in the number field for example</font></td></tr>");
 		replyMSG.append("<tr><td>&nbsp;</td></tr>");
 		replyMSG.append("<tr><td><button value=\"End\" action=\"bypass -h admin_event_control_finish\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td><font color=\"LEVEL\">Will finish the event teleporting back all the players</font></td></tr>");
 		replyMSG.append("</table></body></html>");

@@ -47,7 +47,7 @@ public final class SendWareHouseWithDrawList extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_count = readD();
-		if (_count < 0 || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if ((_count < 0) || (_count * 8 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 		{
 			_count = 0;
 			_items = null;
@@ -59,7 +59,7 @@ public final class SendWareHouseWithDrawList extends L2GameClientPacket
 			int objectId = readD();
 			_items[i * 2 + 0] = objectId;
 			long cnt = readD();
-			if (cnt > Integer.MAX_VALUE || cnt < 0)
+			if ((cnt > Integer.MAX_VALUE) || (cnt < 0))
 			{
 				_count = 0;
 				_items = null;
@@ -79,9 +79,9 @@ public final class SendWareHouseWithDrawList extends L2GameClientPacket
 		if (warehouse == null)
 			return;
 		L2FolkInstance manager = player.getLastFolkNPC();
-		if ((manager == null || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+		if (((manager == null) || !player.isInsideRadius(manager, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
 			return;
-		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			return;
@@ -92,18 +92,18 @@ public final class SendWareHouseWithDrawList extends L2GameClientPacket
 			return;
 		}
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0)
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && (player.getKarma() > 0))
 			return;
 		if (Config.ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH)
 		{
-			if (warehouse instanceof ClanWarehouse && (player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
+			if ((warehouse instanceof ClanWarehouse) && ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE))
 			{
 				return;
 			}
 		}
 		else
 		{
-			if (warehouse instanceof ClanWarehouse && !player.isClanLeader() && !player.canWithdrawCWH)
+			if ((warehouse instanceof ClanWarehouse) && !player.isClanLeader() && !player.canWithdrawCWH)
 			{
 				// this msg is for depositing but maybe good to send some msg?
 				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE));
@@ -145,7 +145,7 @@ public final class SendWareHouseWithDrawList extends L2GameClientPacket
 			int objectId = _items[i * 2 + 0];
 			int count = _items[i * 2 + 1];
 			L2ItemInstance oldItem = warehouse.getItemByObjectId(objectId);
-			if (oldItem == null || oldItem.getCount() < count)
+			if ((oldItem == null) || (oldItem.getCount() < count))
 				player.sendMessage("Can't withdraw requested item" + (count > 1 ? "s" : ""));
 			L2ItemInstance newItem = warehouse.transferItem("Warehouse", objectId, count, player.getInventory(), player, manager);
 			if (newItem == null)

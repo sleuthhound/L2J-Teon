@@ -53,7 +53,7 @@ public class L2GroupSpawn extends L2Spawn
 				return null;
 			mob = (L2NpcInstance) tmp;
 			int newlocx, newlocy, newlocz;
-			if (getLocx() == 0 && getLocy() == 0)
+			if ((getLocx() == 0) && (getLocy() == 0))
 			{
 				if (getLocation() == 0)
 					return null;

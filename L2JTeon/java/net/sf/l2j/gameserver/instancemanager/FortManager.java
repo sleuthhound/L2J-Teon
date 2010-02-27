@@ -169,7 +169,7 @@ public class FortManager
 		for (int i = 0; i < getForts().size(); i++)
 		{
 			fort = getForts().get(i);
-			if (fort != null && fort.getFortId() == fortId)
+			if ((fort != null) && (fort.getFortId() == fortId))
 				return i;
 		}
 		return -1;
@@ -186,7 +186,7 @@ public class FortManager
 		for (int i = 0; i < getForts().size(); i++)
 		{
 			fort = getForts().get(i);
-			if (fort != null && fort.checkIfInZone(x, y, z))
+			if ((fort != null) && fort.checkIfInZone(x, y, z))
 				return i;
 		}
 		return -1;

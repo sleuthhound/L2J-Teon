@@ -329,7 +329,7 @@ public class SkillTreeTable
 			if (temp.getMinLevel() <= cha.getLevel())
 			{
 				boolean knownSkill = false;
-				for (int j = 0; j < oldSkills.length && !knownSkill; j++)
+				for (int j = 0; (j < oldSkills.length) && !knownSkill; j++)
 				{
 					if (oldSkills[j].getId() == temp.getId())
 					{
@@ -342,7 +342,7 @@ public class SkillTreeTable
 						}
 					}
 				}
-				if (!knownSkill && temp.getLevel() == 1)
+				if (!knownSkill && (temp.getLevel() == 1))
 				{
 					// this is a new skill
 					result.add(temp);
@@ -365,7 +365,7 @@ public class SkillTreeTable
 			_log.warning("Skilltree for fishing is not defined !");
 			return new L2SkillLearn[0];
 		}
-		if (cha.hasDwarvenCraft() && _expandDwarfCraftSkillTrees != null)
+		if (cha.hasDwarvenCraft() && (_expandDwarfCraftSkillTrees != null))
 		{
 			skills.addAll(_expandDwarfCraftSkillTrees);
 		}
@@ -375,7 +375,7 @@ public class SkillTreeTable
 			if (temp.getMinLevel() <= cha.getLevel())
 			{
 				boolean knownSkill = false;
-				for (int j = 0; j < oldSkills.length && !knownSkill; j++)
+				for (int j = 0; (j < oldSkills.length) && !knownSkill; j++)
 				{
 					if (oldSkills[j].getId() == temp.getId())
 					{
@@ -388,7 +388,7 @@ public class SkillTreeTable
 						}
 					}
 				}
-				if (!knownSkill && temp.getLevel() == 1)
+				if (!knownSkill && (temp.getLevel() == 1))
 				{
 					// this is a new skill
 					result.add(temp);
@@ -417,7 +417,7 @@ public class SkillTreeTable
 			if (76 <= cha.getLevel())
 			{
 				boolean knownSkill = false;
-				for (int j = 0; j < oldSkills.length && !knownSkill; j++)
+				for (int j = 0; (j < oldSkills.length) && !knownSkill; j++)
 				{
 					if (oldSkills[j].getId() == temp.getId())
 					{
@@ -455,7 +455,7 @@ public class SkillTreeTable
 			if (temp.getBaseLevel() <= cha.getClan().getLevel())
 			{
 				boolean knownSkill = false;
-				for (int j = 0; j < oldSkills.length && !knownSkill; j++)
+				for (int j = 0; (j < oldSkills.length) && !knownSkill; j++)
 				{
 					if (oldSkills[j].getId() == temp.getId())
 					{
@@ -468,7 +468,7 @@ public class SkillTreeTable
 						}
 					}
 				}
-				if (!knownSkill && temp.getLevel() == 1)
+				if (!knownSkill && (temp.getLevel() == 1))
 				{
 					// this is a new skill
 					result.add(temp);
@@ -503,9 +503,9 @@ public class SkillTreeTable
 		}
 		for (L2SkillLearn temp : skills)
 		{
-			if (temp.getMinLevel() > cha.getLevel() && temp.getSpCost() != 0)
+			if ((temp.getMinLevel() > cha.getLevel()) && (temp.getSpCost() != 0))
 			{
-				if (minLevel == 0 || temp.getMinLevel() < minLevel)
+				if ((minLevel == 0) || (temp.getMinLevel() < minLevel))
 				{
 					minLevel = temp.getMinLevel();
 				}
@@ -527,7 +527,7 @@ public class SkillTreeTable
 			_log.warning("SkillTree for fishing is not defined !");
 			return minLevel;
 		}
-		if (cha.hasDwarvenCraft() && _expandDwarfCraftSkillTrees != null)
+		if (cha.hasDwarvenCraft() && (_expandDwarfCraftSkillTrees != null))
 		{
 			skills.addAll(_expandDwarfCraftSkillTrees);
 		}
@@ -535,7 +535,7 @@ public class SkillTreeTable
 		{
 			if (s.getMinLevel() > cha.getLevel())
 			{
-				if (minLevel == 0 || s.getMinLevel() < minLevel)
+				if ((minLevel == 0) || (s.getMinLevel() < minLevel))
 				{
 					minLevel = s.getMinLevel();
 				}
@@ -564,7 +564,7 @@ public class SkillTreeTable
 					skillCost += skill.getCrossLearnAdd();
 					skillCost *= skill.getCrossLearnMul();
 				}
-				if (classId.getRace() != player.getRace() && !player.isSubClassActive())
+				if ((classId.getRace() != player.getRace()) && !player.isSubClassActive())
 				{
 					skillCost *= skill.getCrossLearnRace();
 				}

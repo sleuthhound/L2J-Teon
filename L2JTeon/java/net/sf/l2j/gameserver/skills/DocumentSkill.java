@@ -219,7 +219,7 @@ final class DocumentSkill extends DocumentBase
 				{
 					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
+					if ((condition != null) && (msg != null))
 						condition.setMessage(msg.getNodeValue());
 					_currentSkill.currentSkills.get(i).attach(condition, false);
 				}
@@ -240,7 +240,7 @@ final class DocumentSkill extends DocumentBase
 					found = true;
 					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
+					if ((condition != null) && (msg != null))
 						condition.setMessage(msg.getNodeValue());
 					_currentSkill.currentSkills.get(i).attach(condition, false);
 				}
@@ -262,7 +262,7 @@ final class DocumentSkill extends DocumentBase
 					{
 						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
+						if ((condition != null) && (msg != null))
 							condition.setMessage(msg.getNodeValue());
 						_currentSkill.currentSkills.get(i).attach(condition, false);
 					}
@@ -284,7 +284,7 @@ final class DocumentSkill extends DocumentBase
 					found = true;
 					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
+					if ((condition != null) && (msg != null))
 						condition.setMessage(msg.getNodeValue());
 					_currentSkill.currentSkills.get(i).attach(condition, false);
 				}
@@ -306,7 +306,7 @@ final class DocumentSkill extends DocumentBase
 					{
 						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
+						if ((condition != null) && (msg != null))
 							condition.setMessage(msg.getNodeValue());
 						_currentSkill.currentSkills.get(i).attach(condition, false);
 					}

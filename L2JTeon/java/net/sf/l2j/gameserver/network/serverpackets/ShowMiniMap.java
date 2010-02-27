@@ -27,7 +27,7 @@ public class ShowMiniMap extends L2GameServerPacket
 	private int _mapId;
 
 	/**
-	 */
+     */
 	public ShowMiniMap(int mapId)
 	{
 		_mapId = mapId;

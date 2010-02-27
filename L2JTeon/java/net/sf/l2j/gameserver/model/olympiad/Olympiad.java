@@ -87,8 +87,8 @@ public class Olympiad
 
 		protected boolean checkBattleStatus()
 		{
-			boolean _pOneCrash = _game._playerOne == null || _game._playerOneDisconnected;
-			boolean _pTwoCrash = _game._playerTwo == null || _game._playerTwoDisconnected;
+			boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected);
+			boolean _pTwoCrash = (_game._playerTwo == null || _game._playerTwoDisconnected);
 			if (_pOneCrash || _pTwoCrash || _game._aborted)
 			{
 				return false;
@@ -102,8 +102,8 @@ public class Olympiad
 		 */
 		protected boolean checkStatus()
 		{
-			boolean _pOneCrash = _game._playerOne == null || _game._playerOneDisconnected;
-			boolean _pTwoCrash = _game._playerTwo == null || _game._playerTwoDisconnected;
+			boolean _pOneCrash = (_game._playerOne == null || _game._playerOneDisconnected);
+			boolean _pTwoCrash = (_game._playerTwo == null || _game._playerTwoDisconnected);
 			StatsSet playerOneStat;
 			StatsSet playerTwoStat;
 			playerOneStat = _nobles.get(_game._playerOneID);
@@ -191,11 +191,11 @@ public class Olympiad
 					{
 						switch (i)
 						{
-						case 45:
-						case 30:
-						case 15:
-							_game.sendMessageToPlayers(false, i);
-							break;
+							case 45:
+							case 30:
+							case 15:
+								_game.sendMessageToPlayers(false, i);
+								break;
 						}
 						try
 						{
@@ -449,8 +449,8 @@ public class Olympiad
 	}
 
 	protected static final Stadia[] STADIUMS = { new Stadia(-20814, -21189, -3030), new Stadia(-120324, -225077, -3331), new Stadia(-102495, -209023, -3331), new Stadia(-120156, -207378, -3331), new Stadia(-87628, -225021, -3331), new Stadia(-81705, -213209, -3331), new Stadia(-87593, -207339, -3331), new Stadia(-93709, -218304, -3331), new Stadia(-77157, -218608, -3331),
-		new Stadia(-69682, -209027, -3331), new Stadia(-76887, -201256, -3331), new Stadia(-109985, -218701, -3331), new Stadia(-126367, -218228, -3331), new Stadia(-109629, -201292, -3331), new Stadia(-87523, -240169, -3331), new Stadia(-81748, -245950, -3331), new Stadia(-77123, -251473, -3331), new Stadia(-69778, -241801, -3331), new Stadia(-76754, -234014, -3331),
-		new Stadia(-93742, -251032, -3331), new Stadia(-87466, -257752, -3331), new Stadia(-114413, -213241, -3331) };
+			new Stadia(-69682, -209027, -3331), new Stadia(-76887, -201256, -3331), new Stadia(-109985, -218701, -3331), new Stadia(-126367, -218228, -3331), new Stadia(-109629, -201292, -3331), new Stadia(-87523, -240169, -3331), new Stadia(-81748, -245950, -3331), new Stadia(-77123, -251473, -3331), new Stadia(-69778, -241801, -3331), new Stadia(-76754, -234014, -3331),
+			new Stadia(-93742, -251032, -3331), new Stadia(-87466, -257752, -3331), new Stadia(-114413, -213241, -3331) };
 
 	private static enum COMP_TYPE
 	{
@@ -498,39 +498,39 @@ public class Olympiad
 		_nextWeeklyChange = Long.parseLong(OlympiadProperties.getProperty("NextWeeklyChange", "0"));
 		switch (_period)
 		{
-		case 0:
-			if (_olympiadEnd == 0 || _olympiadEnd < Calendar.getInstance().getTimeInMillis())
-				setNewOlympiadEnd();
-			else
-				_isOlympiadEnd = false;
-			break;
-		case 1:
-			if (_validationEnd > Calendar.getInstance().getTimeInMillis())
-			{
-				_isOlympiadEnd = true;
-				_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			case 0:
+				if (_olympiadEnd == 0 || _olympiadEnd < Calendar.getInstance().getTimeInMillis())
+					setNewOlympiadEnd();
+				else
+					_isOlympiadEnd = false;
+				break;
+			case 1:
+				if (_validationEnd > Calendar.getInstance().getTimeInMillis())
 				{
-					public void run()
+					_isOlympiadEnd = true;
+					_scheduledValdationTask = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 					{
-						_period = 0;
-						_currentCycle++;
-						deleteNobles();
-						setNewOlympiadEnd();
-						init();
-					}
-				}, getMillisToValidationEnd());
-			}
-			else
-			{
-				_currentCycle++;
-				_period = 0;
-				deleteNobles();
-				setNewOlympiadEnd();
-			}
-			break;
-		default:
-			_log.warning("Olympiad System: Omg something went wrong in loading!! Period = " + _period);
-		return;
+						public void run()
+						{
+							_period = 0;
+							_currentCycle++;
+							deleteNobles();
+							setNewOlympiadEnd();
+							init();
+						}
+					}, getMillisToValidationEnd());
+				}
+				else
+				{
+					_currentCycle++;
+					_period = 0;
+					deleteNobles();
+					setNewOlympiadEnd();
+				}
+				break;
+			default:
+				_log.warning("Olympiad System: Omg something went wrong in loading!! Period = " + _period);
+				return;
 		}
 		try
 		{
@@ -569,8 +569,8 @@ public class Olympiad
 				milliToEnd = getMillisToOlympiadEnd();
 			else
 				milliToEnd = getMillisToValidationEnd();
-			double numSecs = milliToEnd / 1000 % 60;
-			double countDown = (milliToEnd / 1000 - numSecs) / 60;
+			double numSecs = (milliToEnd / 1000) % 60;
+			double countDown = ((milliToEnd / 1000) - numSecs) / 60;
 			int numMins = (int) Math.floor(countDown % 60);
 			countDown = (countDown - numMins) / 60;
 			int numHours = (int) Math.floor(countDown % 24);
@@ -580,8 +580,8 @@ public class Olympiad
 			{
 				_log.info("Olympiad System: Next Weekly Change is in....");
 				milliToEnd = getMillisToWeekChange();
-				double numSecs2 = milliToEnd / 1000 % 60;
-				double countDown2 = (milliToEnd / 1000 - numSecs2) / 60;
+				double numSecs2 = (milliToEnd / 1000) % 60;
+				double countDown2 = ((milliToEnd / 1000) - numSecs2) / 60;
 				int numMins2 = (int) Math.floor(countDown2 % 60);
 				countDown2 = (countDown2 - numMins2) / 60;
 				int numHours2 = (int) Math.floor(countDown2 % 24);
@@ -846,7 +846,7 @@ public class Olympiad
 
 	public void removeDisconnectedCompetitor(L2PcInstance player)
 	{
-		if (_manager == null || _manager.getOlympiadInstance(player.getOlympiadGameId()) == null)
+		if (_manager == null || (_manager.getOlympiadInstance(player.getOlympiadGameId()) == null))
 			return;
 		_manager.getOlympiadInstance(player.getOlympiadGameId()).handleDisconnect(player);
 	}
@@ -857,8 +857,8 @@ public class Olympiad
 		synchronized (this)
 		{
 			long milliToStart = getMillisToCompBegin();
-			double numSecs = milliToStart / 1000 % 60;
-			double countDown = (milliToStart / 1000 - numSecs) / 60;
+			double numSecs = (milliToStart / 1000) % 60;
+			double countDown = ((milliToStart / 1000) - numSecs) / 60;
 			int numMins = (int) Math.floor(countDown % 60);
 			countDown = (countDown - numMins) / 60;
 			int numHours = (int) Math.floor(countDown % 24);
@@ -918,7 +918,7 @@ public class Olympiad
 	private long getMillisToOlympiadEnd()
 	{
 		// if (_olympiadEnd > Calendar.getInstance().getTimeInMillis())
-		return _olympiadEnd - Calendar.getInstance().getTimeInMillis();
+		return (_olympiadEnd - Calendar.getInstance().getTimeInMillis());
 		// return 10L;
 	}
 
@@ -967,7 +967,7 @@ public class Olympiad
 	protected long getMillisToValidationEnd()
 	{
 		if (_validationEnd > Calendar.getInstance().getTimeInMillis())
-			return _validationEnd - Calendar.getInstance().getTimeInMillis();
+			return (_validationEnd - Calendar.getInstance().getTimeInMillis());
 		return 10L;
 	}
 
@@ -1004,7 +1004,7 @@ public class Olympiad
 		if (_compStart.getTimeInMillis() < Calendar.getInstance().getTimeInMillis() && _compEnd > Calendar.getInstance().getTimeInMillis())
 			return 10L;
 		if (_compStart.getTimeInMillis() > Calendar.getInstance().getTimeInMillis())
-			return _compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+			return (_compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
 		return setNewCompBegin();
 	}
 
@@ -1016,20 +1016,20 @@ public class Olympiad
 		_compStart.add(Calendar.HOUR_OF_DAY, 24);
 		_compEnd = _compStart.getTimeInMillis() + COMP_PERIOD;
 		_log.info("Olympiad System: New Schedule @ " + _compStart.getTime());
-		return _compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+		return (_compStart.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
 	}
 
 	protected long getMillisToCompEnd()
 	{
 		// if (_compEnd > Calendar.getInstance().getTimeInMillis())
-		return _compEnd - Calendar.getInstance().getTimeInMillis();
+		return (_compEnd - Calendar.getInstance().getTimeInMillis());
 		// return 10L;
 	}
 
 	private long getMillisToWeekChange()
 	{
 		if (_nextWeeklyChange > Calendar.getInstance().getTimeInMillis())
-			return _nextWeeklyChange - Calendar.getInstance().getTimeInMillis();
+			return (_nextWeeklyChange - Calendar.getInstance().getTimeInMillis());
 		return 10L;
 	}
 
@@ -1064,12 +1064,12 @@ public class Olympiad
 
 	public String[] getMatchList()
 	{
-		return _manager == null ? null : _manager.getAllTitles();
+		return (_manager == null) ? null : _manager.getAllTitles();
 	}
 
 	public L2PcInstance[] getPlayers(int Id)
 	{
-		if (_manager == null || _manager.getOlympiadInstance(Id) == null)
+		if (_manager == null || (_manager.getOlympiadInstance(Id) == null))
 		{
 			return null;
 		}
@@ -1108,7 +1108,7 @@ public class Olympiad
 			spectator.sendMessage("You are already registered for a competition");
 			return;
 		}
-		if (_manager == null || _manager.getOlympiadInstance(id) == null)
+		if (_manager == null || (_manager.getOlympiadInstance(id) == null))
 		{
 			spectator.sendPacket(new SystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS));
 			return;
@@ -1122,7 +1122,7 @@ public class Olympiad
 
 	public void removeSpectator(int id, L2PcInstance spectator)
 	{
-		if (_manager == null || _manager.getOlympiadInstance(id) == null)
+		if (_manager == null || (_manager.getOlympiadInstance(id) == null))
 			return;
 		_manager.getOlympiadInstance(id).removeSpectator(spectator);
 	}
@@ -1141,7 +1141,7 @@ public class Olympiad
 
 	public boolean playerInStadia(L2PcInstance player)
 	{
-		return OlympiadStadiaManager.getInstance().getStadium(player) != null;
+		return (OlympiadStadiaManager.getInstance().getStadium(player) != null);
 	}
 
 	public int[] getWaitingList()
@@ -1643,7 +1643,7 @@ public class Olympiad
 
 		protected Map<Integer, L2OlympiadGame> getOlympiadGames()
 		{
-			return _olympiadInstances == null ? null : _olympiadInstances;
+			return (_olympiadInstances == null) ? null : _olympiadInstances;
 		}
 
 		private L2FastList<L2PcInstance> getRandomClassList(Map<Integer, L2FastList<L2PcInstance>> list)
@@ -1672,7 +1672,7 @@ public class Olympiad
 			L2FastList<L2PcInstance> opponents = new L2FastList<L2PcInstance>();
 			if (list.size() == 0)
 				return opponents;
-			int loopCount = list.size() / 2;
+			int loopCount = (list.size() / 2);
 			int first;
 			int second;
 			if (loopCount < 1)
@@ -1995,8 +1995,8 @@ public class Olympiad
 
 		protected boolean portPlayersToArena()
 		{
-			boolean _playerOneCrash = _playerOne == null || _playerOneDisconnected;
-			boolean _playerTwoCrash = _playerTwo == null || _playerTwoDisconnected;
+			boolean _playerOneCrash = (_playerOne == null || _playerOneDisconnected);
+			boolean _playerTwoCrash = (_playerTwo == null || _playerTwoDisconnected);
 			if (_playerOneCrash || _playerTwoCrash || _aborted)
 			{
 				_playerOne = null;
@@ -2209,16 +2209,16 @@ public class Olympiad
 			_players.set(1, _playerTwo);
 			switch (_type)
 			{
-			case NON_CLASSED:
-				_div = 3;
-				_gpreward = Config.ALT_OLY_NONCLASSED_RITEM_C;
-				break;
-			default:
-				_div = 3;
-			_gpreward = Config.ALT_OLY_CLASSED_RITEM_C;
-			break;
+				case NON_CLASSED:
+					_div = 3;
+					_gpreward = Config.ALT_OLY_NONCLASSED_RITEM_C;
+					break;
+				default:
+					_div = 3;
+					_gpreward = Config.ALT_OLY_CLASSED_RITEM_C;
+					break;
 			}
-			if (_playerTwo.isOnline() == 0 || playerTwoHp == 0 && playerOneHp != 0 || _playerOne.dmgDealt > _playerTwo.dmgDealt && playerTwoHp != 0 && playerOneHp != 0)
+			if (_playerTwo.isOnline() == 0 || (playerTwoHp == 0 && playerOneHp != 0) || (_playerOne.dmgDealt > _playerTwo.dmgDealt && playerTwoHp != 0 && playerOneHp != 0))
 			{
 				int pointDiff;
 				pointDiff = playerTwoPoints / _div;
@@ -2248,7 +2248,7 @@ public class Olympiad
 				{
 				}
 			}
-			else if (_playerOne.isOnline() == 0 || playerOneHp == 0 && playerTwoHp != 0 || _playerTwo.dmgDealt > _playerOne.dmgDealt && playerOneHp != 0 && playerTwoHp != 0)
+			else if (_playerOne.isOnline() == 0 || (playerOneHp == 0 && playerTwoHp != 0) || (_playerTwo.dmgDealt > _playerOne.dmgDealt && playerOneHp != 0 && playerTwoHp != 0))
 			{
 				int pointDiff;
 				pointDiff = playerOnePoints / _div;

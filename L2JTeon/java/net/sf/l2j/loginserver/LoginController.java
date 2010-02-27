@@ -309,7 +309,7 @@ public class LoginController
 	public int getOnlinePlayerCount(int serverId)
 	{
 		GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(serverId);
-		if (gsi != null && gsi.isAuthed())
+		if ((gsi != null) && gsi.isAuthed())
 		{
 			return gsi.getCurrentPlayerCount();
 		}
@@ -322,7 +322,7 @@ public class LoginController
 		for (GameServerInfo gsi : serverList)
 		{
 			GameServerThread gst = gsi.getGameServerThread();
-			if (gst != null && gst.hasAccountOnGameServer(account))
+			if ((gst != null) && gst.hasAccountOnGameServer(account))
 			{
 				return true;
 			}
@@ -336,7 +336,7 @@ public class LoginController
 		for (GameServerInfo gsi : serverList)
 		{
 			GameServerThread gst = gsi.getGameServerThread();
-			if (gst != null && gst.hasAccountOnGameServer(account))
+			if ((gst != null) && gst.hasAccountOnGameServer(account))
 			{
 				return gsi;
 			}
@@ -375,10 +375,10 @@ public class LoginController
 	{
 		GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(serverId);
 		int access = client.getAccessLevel();
-		if (gsi != null && gsi.isAuthed())
+		if ((gsi != null) && gsi.isAuthed())
 		{
-			boolean loginOk = gsi.getCurrentPlayerCount() < gsi.getMaxPlayers() && gsi.getStatus() != ServerStatus.STATUS_GM_ONLY || access >= Config.GM_MIN;
-			if (loginOk && client.getLastServer() != serverId)
+			boolean loginOk = ((gsi.getCurrentPlayerCount() < gsi.getMaxPlayers()) && (gsi.getStatus() != ServerStatus.STATUS_GM_ONLY)) || (access >= Config.GM_MIN);
+			if (loginOk && (client.getLastServer() != serverId))
 			{
 				java.sql.Connection con = null;
 				PreparedStatement statement = null;
@@ -563,7 +563,7 @@ public class LoginController
 			{
 				if (Config.AUTO_CREATE_ACCOUNTS)
 				{
-					if (user.length() >= 2 && user.length() <= 14)
+					if ((user.length() >= 2) && (user.length() <= 14))
 					{
 						statement = con.prepareStatement("INSERT INTO accounts (login,password,lastactive,access_level,lastIP) values(?,?,?,?,?)");
 						statement.setString(1, user);
@@ -765,7 +765,7 @@ public class LoginController
 
 		public boolean hasExpired()
 		{
-			return System.currentTimeMillis() > _expiration && _expiration > 0;
+			return (System.currentTimeMillis() > _expiration) && (_expiration > 0);
 		}
 	}
 

@@ -174,7 +174,7 @@ public class HtmCache
 	public String getHtm(String path)
 	{
 		String content = _cache.get(path.hashCode());
-		if (Config.LAZY_CACHE && content == null)
+		if (Config.LAZY_CACHE && (content == null))
 			content = loadFile(new File(Config.DATAPACK_ROOT, path));
 		return content;
 	}

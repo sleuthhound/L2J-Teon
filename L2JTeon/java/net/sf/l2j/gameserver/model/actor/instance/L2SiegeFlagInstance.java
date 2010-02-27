@@ -36,7 +36,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 		super(objectId, template);
 		_player = player;
 		_siege = SiegeManager.getInstance().getSiege(_player.getX(), _player.getY(), _player.getZ());
-		if (_player.getClan() == null || _siege == null && DevastatedCastleManager.getInstance().getIsInProgress())
+		if ((_player.getClan() == null) || (_siege == null) && DevastatedCastleManager.getInstance().getIsInProgress())
 		{
 			deleteMe();
 		}
@@ -60,7 +60,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 		if (DevastatedCastleManager.getInstance().getIsInProgress())
 			return true;
 		// Attackable during siege by attacker only
-		return getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress();
+		return (getCastle() != null) && (getCastle().getCastleId() > 0) && getCastle().getSiege().getIsInProgress();
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 		if (DevastatedCastleManager.getInstance().getIsInProgress())
 			return true;
 		// Attackable during siege by attacker only
-		return attacker != null && attacker instanceof L2PcInstance && getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress();
+		return (attacker != null) && (attacker instanceof L2PcInstance) && (getCastle() != null) && (getCastle().getCastleId() > 0) && getCastle().getSiege().getIsInProgress();
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (player == null || !canTarget(player))
+		if ((player == null) || !canTarget(player))
 		{
 			return;
 		}
@@ -118,7 +118,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 		}
 		else
 		{
-			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100)
+			if (isAutoAttackable(player) && (Math.abs(player.getZ() - getZ()) < 100))
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 			else
 			{

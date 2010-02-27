@@ -145,7 +145,7 @@ public class PostBBSManager extends BaseBBSManager
 	private void showEditPost(Topic topic, Forum forum, L2PcInstance activeChar, int idp)
 	{
 		Post p = getGPosttByTopic(topic);
-		if (forum == null || topic == null || p == null)
+		if ((forum == null) || (topic == null) || (p == null))
 		{
 			ShowBoard sb = new ShowBoard("<html><body><br><br><center>Error, this forum, topic or post does not exit !</center><br><br></body></html>", "101");
 			activeChar.sendPacket(sb);
@@ -167,7 +167,7 @@ public class PostBBSManager extends BaseBBSManager
 	 */
 	private void showPost(Topic topic, Forum forum, L2PcInstance activeChar, int ind)
 	{
-		if (forum == null || topic == null)
+		if ((forum == null) || (topic == null))
 		{
 			ShowBoard sb = new ShowBoard("<html><body><br><br><center>Error, this forum is not implemented yet</center><br><br></body></html>", "101");
 			activeChar.sendPacket(sb);

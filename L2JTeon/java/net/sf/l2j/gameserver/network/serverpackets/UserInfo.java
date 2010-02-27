@@ -182,7 +182,7 @@ public class UserInfo extends L2GameServerPacket
 		writeF(_moveMultiplier);
 		writeF(_activeChar.getAttackSpeedMultiplier());
 		L2Summon pet = _activeChar.getPet();
-		if (_activeChar.getMountType() != 0 && pet != null)
+		if ((_activeChar.getMountType() != 0) && (pet != null))
 		{
 			writeF(pet.getTemplate().collisionRadius);
 			writeF(pet.getTemplate().collisionHeight);
@@ -245,7 +245,7 @@ public class UserInfo extends L2GameServerPacket
 		writeD(_activeChar.getClanCrestLargeId());
 		writeC(_activeChar.isNoble() ? 1 : 0); // 0x01: symbol on char menu
 		// ctrl+I
-		writeC(_activeChar.isHero() || _activeChar.isGM() && Config.GM_HERO_AURA ? 1 : 0); // 0x01:
+		writeC(_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA) ? 1 : 0); // 0x01:
 		// Hero
 		// Aura
 		writeC(_activeChar.isFishing() ? 1 : 0); // Fishing Mode

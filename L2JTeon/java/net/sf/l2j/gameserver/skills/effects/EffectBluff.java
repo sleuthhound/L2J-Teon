@@ -49,7 +49,7 @@ final class EffectBluff extends L2Effect
 		// if(getEffected() instanceof L2SiegeGuardInstance) return;
 		// Cannot be used on Headquarters Flag.
 		// bluff now is a PVE PVP skill
-		if (getEffected() instanceof L2NpcInstance && ((L2NpcInstance) getEffected()).getNpcId() == 35062 || getSkill().getId() != 358)
+		if (((getEffected() instanceof L2NpcInstance) && (((L2NpcInstance) getEffected()).getNpcId() == 35062)) || (getSkill().getId() != 358))
 		{
 			return;
 		}

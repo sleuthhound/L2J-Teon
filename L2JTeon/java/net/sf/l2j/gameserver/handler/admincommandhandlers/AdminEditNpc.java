@@ -413,7 +413,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	private void showShopList(L2PcInstance activeChar, int tradeListID, int page)
 	{
 		L2TradeList tradeList = TradeController.getInstance().getBuyList(tradeListID);
-		if (page > tradeList.getItems().size() / PAGE_LIMIT + 1 || page < 1)
+		if ((page > tradeList.getItems().size() / PAGE_LIMIT + 1) || (page < 1))
 			return;
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		TextBuilder html = itemListHtml(tradeList, page);

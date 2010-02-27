@@ -94,7 +94,7 @@ public class L2TradeList
 		for (int i = 0; i < _items.size(); i++)
 		{
 			L2ItemInstance item = _items.get(i);
-			if (item.getCountDecrease() && item.getTime() == time)
+			if (item.getCountDecrease() && (item.getTime() == time))
 			{
 				item.restoreInitCount();
 			}
@@ -256,7 +256,7 @@ public class L2TradeList
 		{
 			temp = _items.get(y);
 			playerItem = playersInv.getItemByObjectId(temp.getObjectId());
-			if (playerItem == null || playerItem.getCount() < temp.getCount())
+			if ((playerItem == null) || (playerItem.getCount() < temp.getCount()))
 			{
 				return false;
 			}

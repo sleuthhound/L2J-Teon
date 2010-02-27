@@ -260,7 +260,7 @@ public class LoginStatusThread extends Thread
 		String _usrCommand = "";
 		try
 		{
-			while (_usrCommand.compareTo("quit") != 0 && _usrCommand.compareTo("exit") != 0)
+			while ((_usrCommand.compareTo("quit") != 0) && (_usrCommand.compareTo("exit") != 0))
 			{
 				_usrCommand = _read.readLine();
 				if (_usrCommand == null)

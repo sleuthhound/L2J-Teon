@@ -76,15 +76,15 @@ public final class L2ArmorSet
 
 	public boolean containAll(int chest, int legs, int head, int gloves, int feet)
 	{
-		if (_chest != 0 && _chest != chest)
+		if ((_chest != 0) && (_chest != chest))
 			return false;
-		if (_legs != 0 && _legs != legs)
+		if ((_legs != 0) && (_legs != legs))
 			return false;
-		if (_head != 0 && _head != head)
+		if ((_head != 0) && (_head != head))
 			return false;
-		if (_gloves != 0 && _gloves != gloves)
+		if ((_gloves != 0) && (_gloves != gloves))
 			return false;
-		if (_feet != 0 && _feet != feet)
+		if ((_feet != 0) && (_feet != feet))
 			return false;
 		return true;
 	}
@@ -93,18 +93,18 @@ public final class L2ArmorSet
 	{
 		switch (slot)
 		{
-		case Inventory.PAPERDOLL_CHEST:
-			return _chest == itemId;
-		case Inventory.PAPERDOLL_LEGS:
-			return _legs == itemId;
-		case Inventory.PAPERDOLL_HEAD:
-			return _head == itemId;
-		case Inventory.PAPERDOLL_GLOVES:
-			return _gloves == itemId;
-		case Inventory.PAPERDOLL_FEET:
-			return _feet == itemId;
-		default:
-			return false;
+			case Inventory.PAPERDOLL_CHEST:
+				return _chest == itemId;
+			case Inventory.PAPERDOLL_LEGS:
+				return _legs == itemId;
+			case Inventory.PAPERDOLL_HEAD:
+				return _head == itemId;
+			case Inventory.PAPERDOLL_GLOVES:
+				return _gloves == itemId;
+			case Inventory.PAPERDOLL_FEET:
+				return _feet == itemId;
+			default:
+				return false;
 		}
 	}
 
@@ -117,7 +117,7 @@ public final class L2ArmorSet
 	{
 		Inventory inv = player.getInventory();
 		L2ItemInstance shieldItem = inv.getPaperdollItem(Inventory.PAPERDOLL_LHAND);
-		if (shieldItem != null && shieldItem.getItemId() == _shield)
+		if ((shieldItem != null) && (shieldItem.getItemId() == _shield))
 			return true;
 		return false;
 	}
@@ -158,13 +158,13 @@ public final class L2ArmorSet
 		L2ItemInstance feetItem = inv.getPaperdollItem(Inventory.PAPERDOLL_FEET);
 		if (chestItem.getEnchantLevel() < 6)
 			return false;
-		if (_legs != 0 && legsItem.getEnchantLevel() < 6)
+		if ((_legs != 0) && (legsItem.getEnchantLevel() < 6))
 			return false;
-		if (_gloves != 0 && glovesItem.getEnchantLevel() < 6)
+		if ((_gloves != 0) && (glovesItem.getEnchantLevel() < 6))
 			return false;
-		if (_head != 0 && headItem.getEnchantLevel() < 6)
+		if ((_head != 0) && (headItem.getEnchantLevel() < 6))
 			return false;
-		if (_feet != 0 && feetItem.getEnchantLevel() < 6)
+		if ((_feet != 0) && (feetItem.getEnchantLevel() < 6))
 			return false;
 		return true;
 	}

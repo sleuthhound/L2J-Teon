@@ -44,14 +44,14 @@ public class AdminBanChat implements IAdminCommandHandler
 		}
 		String[] cmdParams = command.split(" ");
 		// checking syntax
-		if (cmdParams.length < 3 && command.startsWith("admin_banchat"))
+		if ((cmdParams.length < 3) && command.startsWith("admin_banchat"))
 		{
 			activeChar.sendMessage("BanChat Syntax:");
 			activeChar.sendMessage("  //banchat [<player_name>] [<time_in_seconds>]");
 			activeChar.sendMessage("  //banchat [<player_name>] [<time_in_seconds>] [<ban_chat_reason>]");
 			return false;
 		}
-		else if (cmdParams.length < 2 && command.startsWith("admin_unbanchat"))
+		else if ((cmdParams.length < 2) && command.startsWith("admin_unbanchat"))
 		{
 			activeChar.sendMessage("UnBanChat Syntax:");
 			activeChar.sendMessage("  //unbanchat [<player_name>]");

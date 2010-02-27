@@ -112,7 +112,7 @@ public class Sow implements ISkillHandler
 	private boolean calcSuccess()
 	{
 		// TODO: check all the chances
-		int basicSuccess = L2Manor.getInstance().isAlternative(_seedId) ? 20 : 90;
+		int basicSuccess = (L2Manor.getInstance().isAlternative(_seedId) ? 20 : 90);
 		int minlevelSeed = 0;
 		int maxlevelSeed = 0;
 		minlevelSeed = L2Manor.getInstance().getSeedMinLevel(_seedId);
@@ -127,7 +127,7 @@ public class Sow implements ISkillHandler
 			basicSuccess -= 5;
 		// 5% decrease in chance if player level
 		// is more than +/- 5 levels to _target's_ level
-		int diff = levelPlayer - levelTarget;
+		int diff = (levelPlayer - levelTarget);
 		if (diff < 0)
 			diff = -diff;
 		if (diff > 5)
@@ -136,7 +136,7 @@ public class Sow implements ISkillHandler
 		if (basicSuccess < 1)
 			basicSuccess = 1;
 		int rate = Rnd.nextInt(99);
-		return rate < basicSuccess;
+		return (rate < basicSuccess);
 	}
 
 	public SkillType[] getSkillIds()

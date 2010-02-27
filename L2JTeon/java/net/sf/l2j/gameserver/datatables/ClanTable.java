@@ -162,7 +162,7 @@ public class ClanTable
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN));
 			return null;
 		}
-		if (!Util.isAlphaNumeric(clanName) || 2 > clanName.length())
+		if (!Util.isAlphaNumeric(clanName) || (2 > clanName.length()))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
 			return null;
@@ -301,7 +301,7 @@ public class ClanTable
 	{
 		for (L2Clan clan : getClans())
 		{
-			if (clan.getAllyName() != null && clan.getAllyName().equalsIgnoreCase(allyName))
+			if ((clan.getAllyName() != null) && clan.getAllyName().equalsIgnoreCase(allyName))
 			{
 				return true;
 			}
@@ -427,7 +427,7 @@ public class ClanTable
 		int count = 0;
 		for (L2ClanMember player : clan1.getMembers())
 		{
-			if (player != null && player.getPlayerInstance().getWantsPeace() == 1)
+			if ((player != null) && (player.getPlayerInstance().getWantsPeace() == 1))
 				count++;
 		}
 		if (count == clan1.getMembers().length - 1)

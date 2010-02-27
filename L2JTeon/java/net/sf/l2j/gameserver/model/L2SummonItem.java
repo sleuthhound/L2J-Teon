@@ -47,6 +47,6 @@ public class L2SummonItem
 
 	public boolean isPetSummon()
 	{
-		return _type == 1 || _type == 2;
+		return (_type == 1) || (_type == 2);
 	}
 }

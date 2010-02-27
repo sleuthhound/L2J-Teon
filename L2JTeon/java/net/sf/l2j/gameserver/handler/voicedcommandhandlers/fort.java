@@ -31,7 +31,7 @@ public class fort implements IVoicedCommandHandler
 
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-		if (command.startsWith("open doors") && target.equals("fort") && activeChar.isClanLeader())
+		if (command.startsWith("open doors") && target.equals("fort") && (activeChar.isClanLeader()))
 		{
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());
@@ -42,7 +42,7 @@ public class fort implements IVoicedCommandHandler
 				door.openMe();
 			}
 		}
-		else if (command.startsWith("close doors") && target.equals("fort") && activeChar.isClanLeader())
+		else if (command.startsWith("close doors") && target.equals("fort") && (activeChar.isClanLeader()))
 		{
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());

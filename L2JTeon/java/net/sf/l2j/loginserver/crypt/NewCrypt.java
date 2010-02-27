@@ -53,7 +53,7 @@ public class NewCrypt
 	{
 		// check if size is multiple of 4 and if there is more then only the
 		// checksum
-		if ((size & 3) != 0 || size <= 4)
+		if (((size & 3) != 0) || (size <= 4))
 			return false;
 		long chksum = 0;
 		int count = size - 4;

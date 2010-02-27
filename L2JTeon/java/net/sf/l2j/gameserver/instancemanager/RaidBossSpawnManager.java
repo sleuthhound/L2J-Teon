@@ -209,7 +209,7 @@ public class RaidBossSpawnManager
 		int bossId = spawnDat.getNpcid();
 		long time = Calendar.getInstance().getTimeInMillis();
 		SpawnTable.getInstance().addNewSpawn(spawnDat, false);
-		if (respawnTime == 0L || time > respawnTime)
+		if ((respawnTime == 0L) || (time > respawnTime))
 		{
 			L2RaidBossInstance raidboss = null;
 			if (bossId == 25328)

@@ -47,21 +47,21 @@ public class PartyInfo implements IUserCommandHandler
 		activeChar.sendPacket(new SystemMessage(SystemMessageId.PARTY_INFORMATION));
 		switch (lootDistribution)
 		{
-		case L2Party.ITEM_LOOTER:
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_FINDERS_KEEPERS));
-			break;
-		case L2Party.ITEM_ORDER:
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_BY_TURN));
-			break;
-		case L2Party.ITEM_ORDER_SPOIL:
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_BY_TURN_INCLUDE_SPOIL));
-			break;
-		case L2Party.ITEM_RANDOM:
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_RANDOM));
-			break;
-		case L2Party.ITEM_RANDOM_SPOIL:
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_RANDOM_INCLUDE_SPOIL));
-			break;
+			case L2Party.ITEM_LOOTER:
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_FINDERS_KEEPERS));
+				break;
+			case L2Party.ITEM_ORDER:
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_BY_TURN));
+				break;
+			case L2Party.ITEM_ORDER_SPOIL:
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_BY_TURN_INCLUDE_SPOIL));
+				break;
+			case L2Party.ITEM_RANDOM:
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_RANDOM));
+				break;
+			case L2Party.ITEM_RANDOM_SPOIL:
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.LOOTING_RANDOM_INCLUDE_SPOIL));
+				break;
 		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.PARTY_LEADER_S1);
 		sm.addString(partyLeader);

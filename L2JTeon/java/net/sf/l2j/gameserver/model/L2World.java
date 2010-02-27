@@ -462,7 +462,7 @@ public final class L2World
 					// Remove the L2Object from the L2ObjectHashSet(L2Object) _knownObjects of the surrounding L2WorldRegion L2Characters
 					// If object is a L2PcInstance, remove the L2Object from the L2ObjectHashSet(L2PcInstance) _knownPlayer of the surrounding L2WorldRegion L2Characters
 					// If object is targeted by one of the surrounding L2WorldRegion L2Characters, cancel ATTACK and cast
-					if (obj != null && obj.getKnownList() != null)
+					if ((obj != null) && (obj.getKnownList() != null))
 						obj.getKnownList().removeKnownObject(object);
 					// Remove surrounding L2WorldRegion L2Characters from the L2ObjectHashSet(L2Object) _KnownObjects of object
 					// If surrounding L2WorldRegion L2Characters is a L2PcInstance, remove it from the L2ObjectHashSet(L2PcInstance) _knownPlayer of object
@@ -548,7 +548,7 @@ public final class L2World
 	 */
 	public FastList<L2Object> getVisibleObjects(L2Object object, int radius)
 	{
-		if (object == null || !object.isVisible())
+		if ((object == null) || !object.isVisible())
 			return new FastList<L2Object>();
 		int x = object.getX();
 		int y = object.getY();
@@ -604,7 +604,7 @@ public final class L2World
 	 */
 	public FastList<L2Object> getVisibleObjects3D(L2Object object, int radius)
 	{
-		if (object == null || !object.isVisible())
+		if ((object == null) || !object.isVisible())
 			return new FastList<L2Object>();
 		int x = object.getX();
 		int y = object.getY();
@@ -730,7 +730,7 @@ public final class L2World
 	 */
 	private boolean validRegion(int x, int y)
 	{
-		return x >= 0 && x <= REGIONS_X && y >= 0 && y <= REGIONS_Y;
+		return ((x >= 0) && (x <= REGIONS_X) && (y >= 0) && (y <= REGIONS_Y));
 	}
 
 	/**

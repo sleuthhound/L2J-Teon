@@ -43,7 +43,7 @@ public class Escape implements IUserCommandHandler
 		{
 			return false;
 		}
-		int unstuckTimer = activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 1000 : Config.UNSTUCK_INTERVAL * 1000;
+		int unstuckTimer = (activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		// int unstuckTimer = (activeChar.getAccessLevel() ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		// int unstuckTimer = activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 5000 : Config.UNSTUCK_INTERVAL * 1000;
 		// Check to see if the player is in a festival.

@@ -42,7 +42,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 	{
 		_packageSale = readD() == 1;
 		_count = readD();
-		if (_count <= 0 || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if ((_count <= 0) || (_count * 12 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 		{
 			_count = 0;
 			_items = null;
@@ -54,7 +54,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 			int objectId = readD();
 			_items[x * 3 + 0] = objectId;
 			long cnt = readD();
-			if (cnt > Integer.MAX_VALUE || cnt < 0)
+			if ((cnt > Integer.MAX_VALUE) || (cnt < 0))
 			{
 				_count = 0;
 				_items = null;
@@ -72,7 +72,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			return;

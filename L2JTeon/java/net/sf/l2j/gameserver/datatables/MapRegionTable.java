@@ -196,66 +196,66 @@ public class MapRegionTable
 		int castle;
 		switch (area)
 		{
-		case 0:
-			castle = 1;
-			break;// Talking Island Village
-		case 1:
-			castle = 4;
-			break; // Elven Village
-		case 2:
-			castle = 4;
-			break; // Dark Elven Village
-		case 3:
-			castle = 9;
-			break; // Orc Village
-		case 4:
-			castle = 9;
-			break; // Dwarven Village
-		case 5:
-			castle = 1;
-			break; // Town of Gludio
-		case 6:
-			castle = 1;
-			break; // Gludin Village
-		case 7:
-			castle = 2;
-			break; // Town of Dion
-		case 8:
-			castle = 3;
-			break; // Town of Giran
-		case 9:
-			castle = 4;
-			break; // Town of Oren
-		case 10:
-			castle = 5;
-			break; // Town of Aden
-		case 11:
-			castle = 5;
-			break; // Hunters Village
-		case 12:
-			castle = 3;
-			break; // Giran Harbor
-		case 13:
-			castle = 6;
-			break; // Heine
-		case 14:
-			castle = 8;
-			break; // Rune Township
-		case 15:
-			castle = 7;
-			break; // Town of Goddard
-		case 16:
-			castle = 9;
-			break; // Town of Shuttgart
-		case 17:
-			castle = 4;
-			break; // Ivory Tower
-		case 18:
-			castle = 8;
-			break; // Primeval Isle Wharf
-		default:
-			castle = 5;
-		break; // Town of Aden
+			case 0:
+				castle = 1;
+				break;// Talking Island Village
+			case 1:
+				castle = 4;
+				break; // Elven Village
+			case 2:
+				castle = 4;
+				break; // Dark Elven Village
+			case 3:
+				castle = 9;
+				break; // Orc Village
+			case 4:
+				castle = 9;
+				break; // Dwarven Village
+			case 5:
+				castle = 1;
+				break; // Town of Gludio
+			case 6:
+				castle = 1;
+				break; // Gludin Village
+			case 7:
+				castle = 2;
+				break; // Town of Dion
+			case 8:
+				castle = 3;
+				break; // Town of Giran
+			case 9:
+				castle = 4;
+				break; // Town of Oren
+			case 10:
+				castle = 5;
+				break; // Town of Aden
+			case 11:
+				castle = 5;
+				break; // Hunters Village
+			case 12:
+				castle = 3;
+				break; // Giran Harbor
+			case 13:
+				castle = 6;
+				break; // Heine
+			case 14:
+				castle = 8;
+				break; // Rune Township
+			case 15:
+				castle = 7;
+				break; // Town of Goddard
+			case 16:
+				castle = 9;
+				break; // Town of Shuttgart
+			case 17:
+				castle = 4;
+				break; // Ivory Tower
+			case 18:
+				castle = 8;
+				break; // Primeval Isle Wharf
+			default:
+				castle = 5;
+				break; // Town of Aden
 		}
 		return castle;
 	}
@@ -271,63 +271,63 @@ public class MapRegionTable
 		String nearestTown;
 		switch (nearestTownId)
 		{
-		case 0:
-			nearestTown = "Talking Island Village";
-			break;
-		case 1:
-			nearestTown = "Elven Village";
-			break;
-		case 2:
-			nearestTown = "Dark Elven Village";
-			break;
-		case 3:
-			nearestTown = "Orc Village";
-			break;
-		case 4:
-			nearestTown = "Dwarven Village";
-			break;
-		case 5:
-			nearestTown = "Town of Gludio";
-			break;
-		case 6:
-			nearestTown = "Gludin Village";
-			break;
-		case 7:
-			nearestTown = "Town of Dion";
-			break;
-		case 8:
-			nearestTown = "Town of Giran";
-			break;
-		case 9:
-			nearestTown = "Town of Oren";
-			break;
-		case 10:
-			nearestTown = "Town of Aden";
-			break;
-		case 11:
-			nearestTown = "Hunters Village";
-			break;
-		case 12:
-			nearestTown = "Giran Harbor";
-			break;
-		case 13:
-			nearestTown = "Heine";
-			break;
-		case 14:
-			nearestTown = "Rune Township";
-			break;
-		case 15:
-			nearestTown = "Town of Goddard";
-			break;
-		case 16:
-			nearestTown = "Town of Shuttgart";
-			break; // //TODO@ (Check mapregion table)[Luno]
-		case 18:
-			nearestTown = "Primeval Isle";
-			break;
-		default:
-			nearestTown = "Town of Aden";
-		break;
+			case 0:
+				nearestTown = "Talking Island Village";
+				break;
+			case 1:
+				nearestTown = "Elven Village";
+				break;
+			case 2:
+				nearestTown = "Dark Elven Village";
+				break;
+			case 3:
+				nearestTown = "Orc Village";
+				break;
+			case 4:
+				nearestTown = "Dwarven Village";
+				break;
+			case 5:
+				nearestTown = "Town of Gludio";
+				break;
+			case 6:
+				nearestTown = "Gludin Village";
+				break;
+			case 7:
+				nearestTown = "Town of Dion";
+				break;
+			case 8:
+				nearestTown = "Town of Giran";
+				break;
+			case 9:
+				nearestTown = "Town of Oren";
+				break;
+			case 10:
+				nearestTown = "Town of Aden";
+				break;
+			case 11:
+				nearestTown = "Hunters Village";
+				break;
+			case 12:
+				nearestTown = "Giran Harbor";
+				break;
+			case 13:
+				nearestTown = "Heine";
+				break;
+			case 14:
+				nearestTown = "Rune Township";
+				break;
+			case 15:
+				nearestTown = "Town of Goddard";
+				break;
+			case 16:
+				nearestTown = "Town of Shuttgart";
+				break; // //TODO@ (Check mapregion table)[Luno]
+			case 18:
+				nearestTown = "Primeval Isle";
+				break;
+			default:
+				nearestTown = "Town of Aden";
+				break;
 		}
 		return nearestTown;
 	}
@@ -360,7 +360,7 @@ public class MapRegionTable
 					}
 				}
 				// If teleport to castle
-				if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.SiegeFlag)
+				if ((teleportWhere == TeleportWhereType.Castle) || (teleportWhere == TeleportWhereType.SiegeFlag))
 				{
 					castle = CastleManager.getInstance().getCastleByOwner(player.getClan());
 					fort = FortManager.getInstance().getFortByOwner(player.getClan());
@@ -369,21 +369,21 @@ public class MapRegionTable
 						castle = CastleManager.getInstance().getCastle(player);
 					if (fort == null)
 						fort = FortManager.getInstance().getFort(player);
-					if (castle != null && castle.getCastleId() > 0)
+					if ((castle != null) && (castle.getCastleId() > 0))
 					{
 						// If Teleporting to castle or
 						// If is on caslte with siege and player's clan is
 						// defender
-						if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.Castle && castle.getSiege().getIsInProgress() && castle.getSiege().getDefenderClan(player.getClan()) != null)
+						if ((teleportWhere == TeleportWhereType.Castle) || ((teleportWhere == TeleportWhereType.Castle) && castle.getSiege().getIsInProgress() && (castle.getSiege().getDefenderClan(player.getClan()) != null)))
 						{
 							coord = castle.getZone().getSpawn();
 							return new Location(coord[0], coord[1], coord[2]);
 						}
-						if (teleportWhere == TeleportWhereType.SiegeFlag && castle.getSiege().getIsInProgress())
+						if ((teleportWhere == TeleportWhereType.SiegeFlag) && castle.getSiege().getIsInProgress())
 						{
 							// Check if player's clan is attacker
 							List<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
-							if (flags != null && !flags.isEmpty())
+							if ((flags != null) && !flags.isEmpty())
 							{
 								// Spawn to flag - Need more work to get player
 								// to the nearest flag
@@ -392,21 +392,21 @@ public class MapRegionTable
 							}
 						}
 					}
-					else if (fort != null && fort.getFortId() > 0)
+					else if ((fort != null) && (fort.getFortId() > 0))
 					{
 						// If Teleporting to castle or
 						// If is on caslte with siege and player's clan is
 						// defender
-						if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.Castle && fort.getSiege().getIsInProgress() && fort.getSiege().getDefenderClan(player.getClan()) != null)
+						if ((teleportWhere == TeleportWhereType.Castle) || ((teleportWhere == TeleportWhereType.Castle) && fort.getSiege().getIsInProgress() && (fort.getSiege().getDefenderClan(player.getClan()) != null)))
 						{
 							coord = fort.getZone().getSpawn();
 							return new Location(coord[0], coord[1], coord[2]);
 						}
-						if (teleportWhere == TeleportWhereType.SiegeFlag && fort.getSiege().getIsInProgress())
+						if ((teleportWhere == TeleportWhereType.SiegeFlag) && fort.getSiege().getIsInProgress())
 						{
 							// Check if player's clan is attacker
 							List<L2NpcInstance> flags = fort.getSiege().getFlag(player.getClan());
-							if (flags != null && !flags.isEmpty())
+							if ((flags != null) && !flags.isEmpty())
 							{
 								// Spawn to flag - Need more work to get player
 								// to the nearest flag
@@ -418,13 +418,13 @@ public class MapRegionTable
 				}
 			}
 			// teleport RED PK 5+ to Floran Village
-			if (player.getPkKills() > 5 && player.getKarma() > 1)
+			if ((player.getPkKills() > 5) && (player.getKarma() > 1))
 				return new Location(17817, 170079, -3530);
 			// Karma player land out of city
 			if (player.getKarma() > 1)
 			{
 				int closest = getMapRegion(activeChar.getX(), activeChar.getY());
-				if (closest >= 0 && closest < _pointsWithKarmas.length)
+				if ((closest >= 0) && (closest < _pointsWithKarmas.length))
 					return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
 				else
 					return new Location(17817, 170079, -3530);

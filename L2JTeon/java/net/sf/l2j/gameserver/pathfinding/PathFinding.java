@@ -62,7 +62,7 @@ public abstract class PathFinding
 		to_visit.add(start);
 		int i = 0;
 		while (i < 800)// TODO! Add limit to cfg. Worst case max distance is
-			// 1810..
+		// 1810..
 		{
 			Node node;
 			try
@@ -233,7 +233,7 @@ public abstract class PathFinding
 			// only add a new route point if moving direction changes
 			directionx = node.getLoc().getNodeX() - node.getParent().getLoc().getNodeX();
 			directiony = node.getLoc().getNodeY() - node.getParent().getLoc().getNodeY();
-			if (directionx != previousdirectionx || directiony != previousdirectiony)
+			if ((directionx != previousdirectionx) || (directiony != previousdirectiony))
 			{
 				previousdirectionx = directionx;
 				previousdirectiony = directiony;

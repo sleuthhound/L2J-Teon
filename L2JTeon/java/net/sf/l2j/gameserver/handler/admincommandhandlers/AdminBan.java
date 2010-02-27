@@ -67,7 +67,7 @@ public class AdminBan implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				L2Object target = activeChar.getTarget();
-				if (target != null && target instanceof L2PcInstance)
+				if ((target != null) && (target instanceof L2PcInstance))
 				{
 					plyr = (L2PcInstance) target;
 				}
@@ -76,7 +76,7 @@ public class AdminBan implements IAdminCommandHandler
 					activeChar.sendMessage("Usage: //ban [account_name] (if none, target char's account gets banned)");
 				}
 			}
-			if (plyr != null && plyr.equals(activeChar))
+			if ((plyr != null) && plyr.equals(activeChar))
 			{
 				plyr.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
 			}

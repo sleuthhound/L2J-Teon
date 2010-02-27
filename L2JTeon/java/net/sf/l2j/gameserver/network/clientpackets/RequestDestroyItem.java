@@ -82,19 +82,19 @@ public final class RequestDestroyItem extends L2GameClientPacket
 		// Cannot discard item that the skill is consumming
 		if (activeChar.isCastingNow())
 		{
-			if (activeChar.getCurrentSkill() != null && activeChar.getCurrentSkill().getSkill().getItemConsumeId() == itemToRemove.getItemId())
+			if ((activeChar.getCurrentSkill() != null) && (activeChar.getCurrentSkill().getSkill().getItemConsumeId() == itemToRemove.getItemId()))
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 				return;
 			}
 		}
 		int itemId = itemToRemove.getItemId();
-		if (itemToRemove == null || itemToRemove.isWear() || !itemToRemove.isDestroyable() || CursedWeaponsManager.getInstance().isCursed(itemId))
+		if ((itemToRemove == null) || itemToRemove.isWear() || !itemToRemove.isDestroyable() || CursedWeaponsManager.getInstance().isCursed(itemId))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 			return;
 		}
-		if (!itemToRemove.isStackable() && count > 1)
+		if (!itemToRemove.isStackable() && (count > 1))
 		{
 			Util.handleIllegalPlayerAction(activeChar, "[RequestDestroyItem] count > 1 but item is not stackable! oid: " + _objectId + " owner: " + activeChar.getName(), Config.DEFAULT_PUNISH);
 			return;
@@ -117,7 +117,7 @@ public final class RequestDestroyItem extends L2GameClientPacket
 			java.sql.Connection con = null;
 			try
 			{
-				if (activeChar.getPet() != null && activeChar.getPet().getControlItemId() == _objectId)
+				if ((activeChar.getPet() != null) && (activeChar.getPet().getControlItemId() == _objectId))
 				{
 					activeChar.getPet().unSummon(activeChar);
 				}

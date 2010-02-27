@@ -108,18 +108,18 @@ public final class L2EnchantSkillLearn
 		byte result;
 		switch (ply.getLevel())
 		{
-		case 76:
-			result = _rate76;
-			break;
-		case 77:
-			result = _rate77;
-			break;
-		case 78:
-			result = _rate78;
-			break;
-		default:
-			result = _rate78;
-		break;
+			case 76:
+				result = _rate76;
+				break;
+			case 77:
+				result = _rate77;
+				break;
+			case 78:
+				result = _rate78;
+				break;
+			default:
+				result = _rate78;
+				break;
 		}
 		return result;
 	}

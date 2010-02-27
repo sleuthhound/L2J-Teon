@@ -261,7 +261,7 @@ public class Wedding implements IVoicedCommandHandler
 			playerA.sendMessage("Your partner is inside a Boss Zone.");
 			return false;
 		}
-		else if (playerB.getClan() != null && CastleManager.getInstance().getCastleByOwner(playerB.getClan()) != null && CastleManager.getInstance().getCastleByOwner(playerB.getClan()).getSiege().getIsInProgress())
+		else if ((playerB.getClan() != null) && (CastleManager.getInstance().getCastleByOwner(playerB.getClan()) != null) && CastleManager.getInstance().getCastleByOwner(playerB.getClan()).getSiege().getIsInProgress())
 		{
 			playerA.sendMessage("Your partner is in siege, you can't go to your partner at this time.");
 			return false;
@@ -291,7 +291,7 @@ public class Wedding implements IVoicedCommandHandler
 			playerA.sendMessage("You are in a festival.");
 			return false;
 		}
-		else if (playerA.getClan() != null && CastleManager.getInstance().getCastleByOwner(playerA.getClan()) != null && CastleManager.getInstance().getCastleByOwner(playerA.getClan()).getSiege().getIsInProgress())
+		else if ((playerA.getClan() != null) && (CastleManager.getInstance().getCastleByOwner(playerA.getClan()) != null) && CastleManager.getInstance().getCastleByOwner(playerA.getClan()).getSiege().getIsInProgress())
 		{
 			playerA.sendMessage("You are in siege, you can't go to your partner.");
 			return false;

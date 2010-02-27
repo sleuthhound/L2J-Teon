@@ -90,25 +90,25 @@ public class Shutdown extends Thread
 		{
 			switch (seconds)
 			{
-			case 540:
-			case 480:
-			case 420:
-			case 360:
-			case 300:
-			case 240:
-			case 180:
-			case 120:
-			case 60:
-			case 30:
-			case 10:
-			case 5:
-			case 4:
-			case 3:
-			case 2:
-			case 1:
-				break;
-			default:
-				SendServerQuit(seconds);
+				case 540:
+				case 480:
+				case 420:
+				case 360:
+				case 300:
+				case 240:
+				case 180:
+				case 120:
+				case 60:
+				case 30:
+				case 10:
+				case 5:
+				case 4:
+				case 3:
+				case 2:
+				case 1:
+					break;
+				default:
+					SendServerQuit(seconds);
 			}
 		}
 		if (_counterInstance != null)
@@ -297,14 +297,14 @@ public class Shutdown extends Thread
 			_log.warning("GM shutdown countdown is over. " + MODE_TEXT[_shutdownMode] + " NOW!");
 			switch (_shutdownMode)
 			{
-			case GM_SHUTDOWN:
-				_instance.setMode(GM_SHUTDOWN);
-				System.exit(0);
-				break;
-			case GM_RESTART:
-				_instance.setMode(GM_RESTART);
-				System.exit(2);
-				break;
+				case GM_SHUTDOWN:
+					_instance.setMode(GM_SHUTDOWN);
+					System.exit(0);
+					break;
+				case GM_RESTART:
+					_instance.setMode(GM_RESTART);
+					System.exit(2);
+					break;
 			}
 		}
 	}
@@ -334,25 +334,25 @@ public class Shutdown extends Thread
 		{
 			switch (seconds)
 			{
-			case 540:
-			case 480:
-			case 420:
-			case 360:
-			case 300:
-			case 240:
-			case 180:
-			case 120:
-			case 60:
-			case 30:
-			case 10:
-			case 5:
-			case 4:
-			case 3:
-			case 2:
-			case 1:
-				break;
-			default:
-				SendServerQuit(seconds);
+				case 540:
+				case 480:
+				case 420:
+				case 360:
+				case 300:
+				case 240:
+				case 180:
+				case 120:
+				case 60:
+				case 30:
+				case 10:
+				case 5:
+				case 4:
+				case 3:
+				case 2:
+				case 1:
+					break;
+				default:
+					SendServerQuit(seconds);
 			}
 		}
 		if (_counterInstance != null)
@@ -411,55 +411,55 @@ public class Shutdown extends Thread
 			{
 				switch (_secondsShut)
 				{
-				case 540:
-					SendServerQuit(540);
-					break;
-				case 480:
-					SendServerQuit(480);
-					break;
-				case 420:
-					SendServerQuit(420);
-					break;
-				case 360:
-					SendServerQuit(360);
-					break;
-				case 300:
-					SendServerQuit(300);
-					break;
-				case 240:
-					SendServerQuit(240);
-					break;
-				case 180:
-					SendServerQuit(180);
-					break;
-				case 120:
-					SendServerQuit(120);
-					break;
-				case 60:
-					LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN); // avoids new players from logging in
-					SendServerQuit(60);
-					break;
-				case 30:
-					SendServerQuit(30);
-					break;
-				case 10:
-					SendServerQuit(10);
-					break;
-				case 5:
-					SendServerQuit(5);
-					break;
-				case 4:
-					SendServerQuit(4);
-					break;
-				case 3:
-					SendServerQuit(3);
-					break;
-				case 2:
-					SendServerQuit(2);
-					break;
-				case 1:
-					SendServerQuit(1);
-					break;
+					case 540:
+						SendServerQuit(540);
+						break;
+					case 480:
+						SendServerQuit(480);
+						break;
+					case 420:
+						SendServerQuit(420);
+						break;
+					case 360:
+						SendServerQuit(360);
+						break;
+					case 300:
+						SendServerQuit(300);
+						break;
+					case 240:
+						SendServerQuit(240);
+						break;
+					case 180:
+						SendServerQuit(180);
+						break;
+					case 120:
+						SendServerQuit(120);
+						break;
+					case 60:
+						LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN); // avoids new players from logging in
+						SendServerQuit(60);
+						break;
+					case 30:
+						SendServerQuit(30);
+						break;
+					case 10:
+						SendServerQuit(10);
+						break;
+					case 5:
+						SendServerQuit(5);
+						break;
+					case 4:
+						SendServerQuit(4);
+						break;
+					case 3:
+						SendServerQuit(3);
+						break;
+					case 2:
+						SendServerQuit(2);
+						break;
+					case 1:
+						SendServerQuit(1);
+						break;
 				}
 				_secondsShut--;
 				int delay = 1000; // milliseconds
@@ -481,15 +481,15 @@ public class Shutdown extends Thread
 	{
 		switch (_shutdownMode)
 		{
-		case SIGTERM:
-			System.err.println("SIGTERM received. Shutting down NOW!");
-			break;
-		case GM_SHUTDOWN:
-			System.err.println("GM shutdown received. Shutting down NOW!");
-			break;
-		case GM_RESTART:
-			System.err.println("GM restart received. Restarting NOW!");
-			break;
+			case SIGTERM:
+				System.err.println("SIGTERM received. Shutting down NOW!");
+				break;
+			case GM_SHUTDOWN:
+				System.err.println("GM shutdown received. Shutting down NOW!");
+				break;
+			case GM_RESTART:
+				System.err.println("GM restart received. Restarting NOW!");
+				break;
 		}
 		if (Config.ACTIVATE_POSITION_RECORDER)
 			Universe.getInstance().implode(true);

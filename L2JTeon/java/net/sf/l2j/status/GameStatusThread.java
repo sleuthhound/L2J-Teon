@@ -197,7 +197,7 @@ public class GameStatusThread extends Thread
 		String _usrCommand = "";
 		try
 		{
-			while (_usrCommand.compareTo("quit") != 0 && _usrCommand.compareTo("exit") != 0)
+			while ((_usrCommand.compareTo("quit") != 0) && (_usrCommand.compareTo("exit") != 0))
 			{
 				_usrCommand = _read.readLine();
 				if (_usrCommand == null)
@@ -600,7 +600,7 @@ public class GameStatusThread extends Thread
 							e.printStackTrace();
 					}
 				}
-				else if (_usrCommand.startsWith("debug") && _usrCommand.length() > 6)
+				else if (_usrCommand.startsWith("debug") && (_usrCommand.length() > 6))
 				{
 					StringTokenizer st = new StringTokenizer(_usrCommand.substring(6));
 					try

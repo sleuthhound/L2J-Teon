@@ -69,7 +69,7 @@ public class CharStat
 		int id = stat.ordinal();
 		Calculator c = _activeChar.getCalculators()[id];
 		// If no Func object found, no modifier is applied
-		if (c == null || c.size() == 0)
+		if ((c == null) || (c.size() == 0))
 			return init;
 		// Create and init an Env object to pass parameters to the Calculator
 		Env env = new Env();
@@ -81,9 +81,9 @@ public class CharStat
 		c.calc(env);
 		// avoid some troubles with negative stats (some stats should never be
 		// negative)
-		if (env.value <= 0
-				&& (stat == Stats.MAX_HP || stat == Stats.MAX_MP || stat == Stats.MAX_CP || stat == Stats.MAGIC_DEFENCE || stat == Stats.POWER_DEFENCE || stat == Stats.POWER_ATTACK || stat == Stats.MAGIC_ATTACK || stat == Stats.POWER_ATTACK_SPEED || stat == Stats.MAGIC_ATTACK_SPEED || stat == Stats.SHIELD_DEFENCE || stat == Stats.STAT_CON || stat == Stats.STAT_DEX
-						|| stat == Stats.STAT_INT || stat == Stats.STAT_MEN || stat == Stats.STAT_STR || stat == Stats.STAT_WIT))
+		if ((env.value <= 0)
+				&& ((stat == Stats.MAX_HP) || (stat == Stats.MAX_MP) || (stat == Stats.MAX_CP) || (stat == Stats.MAGIC_DEFENCE) || (stat == Stats.POWER_DEFENCE) || (stat == Stats.POWER_ATTACK) || (stat == Stats.MAGIC_ATTACK) || (stat == Stats.POWER_ATTACK_SPEED) || (stat == Stats.MAGIC_ATTACK_SPEED) || (stat == Stats.SHIELD_DEFENCE) || (stat == Stats.STAT_CON) || (stat == Stats.STAT_DEX)
+						|| (stat == Stats.STAT_INT) || (stat == Stats.STAT_MEN) || (stat == Stats.STAT_STR) || (stat == Stats.STAT_WIT)))
 		{
 			env.value = 1;
 		}
@@ -247,48 +247,48 @@ public class CharStat
 		{
 			switch (stat)
 			{
-			case AGGRESSION:
-				attack += _activeChar.getTemplate().baseAggression;
-				break;
-			case BLEED:
-				attack += _activeChar.getTemplate().baseBleed;
-				break;
-			case POISON:
-				attack += _activeChar.getTemplate().basePoison;
-				break;
-			case STUN:
-				attack += _activeChar.getTemplate().baseStun;
-				break;
-			case ROOT:
-				attack += _activeChar.getTemplate().baseRoot;
-				break;
-			case MOVEMENT:
-				attack += _activeChar.getTemplate().baseMovement;
-				break;
-			case CONFUSION:
-				attack += _activeChar.getTemplate().baseConfusion;
-				break;
-			case SLEEP:
-				attack += _activeChar.getTemplate().baseSleep;
-				break;
-			case FIRE:
-				attack += _activeChar.getTemplate().baseFire;
-				break;
-			case WIND:
-				attack += _activeChar.getTemplate().baseWind;
-				break;
-			case WATER:
-				attack += _activeChar.getTemplate().baseWater;
-				break;
-			case EARTH:
-				attack += _activeChar.getTemplate().baseEarth;
-				break;
-			case HOLY:
-				attack += _activeChar.getTemplate().baseHoly;
-				break;
-			case DARK:
-				attack += _activeChar.getTemplate().baseDark;
-				break;
+				case AGGRESSION:
+					attack += _activeChar.getTemplate().baseAggression;
+					break;
+				case BLEED:
+					attack += _activeChar.getTemplate().baseBleed;
+					break;
+				case POISON:
+					attack += _activeChar.getTemplate().basePoison;
+					break;
+				case STUN:
+					attack += _activeChar.getTemplate().baseStun;
+					break;
+				case ROOT:
+					attack += _activeChar.getTemplate().baseRoot;
+					break;
+				case MOVEMENT:
+					attack += _activeChar.getTemplate().baseMovement;
+					break;
+				case CONFUSION:
+					attack += _activeChar.getTemplate().baseConfusion;
+					break;
+				case SLEEP:
+					attack += _activeChar.getTemplate().baseSleep;
+					break;
+				case FIRE:
+					attack += _activeChar.getTemplate().baseFire;
+					break;
+				case WIND:
+					attack += _activeChar.getTemplate().baseWind;
+					break;
+				case WATER:
+					attack += _activeChar.getTemplate().baseWater;
+					break;
+				case EARTH:
+					attack += _activeChar.getTemplate().baseEarth;
+					break;
+				case HOLY:
+					attack += _activeChar.getTemplate().baseHoly;
+					break;
+				case DARK:
+					attack += _activeChar.getTemplate().baseDark;
+					break;
 			}
 		}
 		// Add the power of the skill to the attack effect
@@ -438,7 +438,7 @@ public class CharStat
 		float bonusAtk = 1;
 		if (Config.CHAMPION_ENABLE && _activeChar.isChampion())
 			bonusAtk = Config.CHAMPION_SPD_ATK;
-		int val = (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().basePAtkSpd * bonusAtk, null, null) / _activeChar.getArmourExpertisePenalty() / Config.AP_FIG);
+		int val = (int) ((calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().basePAtkSpd * bonusAtk, null, null) / _activeChar.getArmourExpertisePenalty()) / Config.AP_FIG);
 		if (val > Config.MAX_PATK_SPEED / Config.AP_FIG)
 			val = (int) (Config.MAX_PATK_SPEED / Config.AP_FIG);
 		return val;
@@ -574,7 +574,7 @@ public class CharStat
 			return 1;
 		if (_activeChar instanceof L2PcInstance)
 		{
-			return getRunSpeed() * 70 / 100;
+			return (getRunSpeed() * 70) / 100;
 		}
 		else
 		{
@@ -596,7 +596,7 @@ public class CharStat
 		if (skill == null)
 			return 1;
 		int mpconsume = skill.getMpConsume();
-		if (skill.isDance() && _activeChar != null && _activeChar.getDanceCount() > 0)
+		if (skill.isDance() && (_activeChar != null) && (_activeChar.getDanceCount() > 0))
 			mpconsume += _activeChar.getDanceCount() * skill.getNextDanceMpCost();
 		return (int) calcStat(Stats.MP_CONSUME, mpconsume, null, skill);
 	}

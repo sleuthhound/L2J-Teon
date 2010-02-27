@@ -92,12 +92,12 @@ public class WildBeastFarmSiege extends ClanHallSiege
 				endSiege(false);
 				return;
 			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() == null)
+			if ((_clansInfo.size() == 1) && (clanhall.getOwnerClan() == null))
 			{
 				endSiege(false);
 				return;
 			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
+			if ((_clansInfo.size() == 1) && (clanhall.getOwnerClan() != null))
 			{
 				L2Clan clan = null;
 				for (clanPlayersInfo a : _clansInfo.values())
@@ -334,7 +334,7 @@ public class WildBeastFarmSiege extends ClanHallSiege
 		if (_clanCounter == 5)
 			return 2;
 		L2ItemInstance item = player.getInventory().getItemByItemId(8293);
-		if (item != null && player.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false))
+		if ((item != null) && (player.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false)))
 		{
 			_clanCounter++;
 			clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
@@ -498,8 +498,8 @@ public class WildBeastFarmSiege extends ClanHallSiege
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
 				if /*
-				 * (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ()) &&
-				 */(player.getInstanceId() == 0)/* ) */
+					 * (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ()) &&
+					 */(player.getInstanceId() == 0)/* ) */
 				{
 					player.sendPacket(cs);
 				}

@@ -65,7 +65,7 @@ public abstract class L2PlayableInstance extends L2Character
 	@Override
 	public PlayableKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof PlayableKnownList))
+		if ((super.getKnownList() == null) || !(super.getKnownList() instanceof PlayableKnownList))
 		{
 			setKnownList(new PlayableKnownList(this));
 		}
@@ -75,7 +75,7 @@ public abstract class L2PlayableInstance extends L2Character
 	@Override
 	public PlayableStat getStat()
 	{
-		if (super.getStat() == null || !(super.getStat() instanceof PlayableStat))
+		if ((super.getStat() == null) || !(super.getStat() instanceof PlayableStat))
 		{
 			setStat(new PlayableStat(this));
 		}
@@ -85,7 +85,7 @@ public abstract class L2PlayableInstance extends L2Character
 	@Override
 	public PlayableStatus getStatus()
 	{
-		if (super.getStatus() == null || !(super.getStatus() instanceof PlayableStatus))
+		if ((super.getStatus() == null) || !(super.getStatus() instanceof PlayableStatus))
 		{
 			setStatus(new PlayableStatus(this));
 		}

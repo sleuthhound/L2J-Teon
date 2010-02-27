@@ -39,7 +39,7 @@ public final class SetPrivateStoreListBuy extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_count = readD();
-		if (_count <= 0 || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if ((_count <= 0) || (_count * 12 > _buf.remaining()) || (_count > Config.MAX_ITEM_IN_PACKET))
 		{
 			_count = 0;
 			_items = null;
@@ -53,7 +53,7 @@ public final class SetPrivateStoreListBuy extends L2GameClientPacket
 			readH();// TODO analyse this
 			readH();// TODO analyse this
 			long cnt = readD();
-			if (cnt > Integer.MAX_VALUE || cnt < 0)
+			if ((cnt > Integer.MAX_VALUE) || (cnt < 0))
 			{
 				_count = 0;
 				_items = null;
@@ -71,7 +71,7 @@ public final class SetPrivateStoreListBuy extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
 			return;
-		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+		if (Config.GM_DISABLE_TRANSACTION && (player.getAccessLevel() >= Config.GM_TRANSACTION_MIN) && (player.getAccessLevel() <= Config.GM_TRANSACTION_MAX))
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
 			return;
@@ -101,7 +101,7 @@ public final class SetPrivateStoreListBuy extends L2GameClientPacket
 			return;
 		}
 		// Check for available funds
-		if (cost > player.getAdena() || cost <= 0)
+		if ((cost > player.getAdena()) || (cost <= 0))
 		{
 			player.sendPacket(new PrivateStoreManageListBuy(player));
 			player.sendPacket(new SystemMessage(SystemMessageId.THE_PURCHASE_PRICE_IS_HIGHER_THAN_MONEY));

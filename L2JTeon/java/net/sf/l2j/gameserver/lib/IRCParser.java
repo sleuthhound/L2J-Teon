@@ -130,13 +130,13 @@ public class IRCParser
 			index++;
 		// command
 		command = buf.substring(index, (index = indexOf(' ', index)) != -1 ? index : (index = len));
-		while (index < len && buf.charAt(index) == ' ')
+		while ((index < len) && (buf.charAt(index) == ' '))
 			index++;
 		index--;
 		// middle & trailing
 		if ((trail = indexOf(" :", index)) != -1)
 			trailing = buf.substring(trail + 2, len);
-		else if ((trail = lastIndexOf(' ')) != -1 && trail >= index)
+		else if (((trail = lastIndexOf(' ')) != -1) && (trail >= index))
 			trailing = buf.substring(trail + 1, len);
 		middle = index < trail ? buf.substring(index + 1, trail) : "";
 		// save
@@ -180,7 +180,7 @@ public class IRCParser
 		int index = -1;
 		int j;
 		for (; i < len; i++)
-			for (index = i, j = 0; i < len && j < sublen; i++, j++)
+			for (index = i, j = 0; (i < len) && (j < sublen); i++, j++)
 				if (buf.charAt(i) != str.charAt(j))
 					break;
 				else if (j + 1 == sublen)
@@ -284,7 +284,7 @@ public class IRCParser
 	 */
 	public String getParameters()
 	{
-		return middle + (middle.length() != 0 && trailing.length() != 0 ? " " : "") + trailing;
+		return middle + ((middle.length() != 0) && (trailing.length() != 0) ? " " : "") + trailing;
 	}
 
 	// ------------------------------
@@ -294,7 +294,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-	 * </code><br />
+     * </code><br />
 	 * <br />
 	 * If no prefix is given in the whole line, <code>null</code> is returned. <br />
 	 * <br />
@@ -310,7 +310,7 @@ public class IRCParser
 	public String getNick()
 	{
 		int i = prefix.indexOf('!');
-		if (i != -1 || (i = prefix.indexOf('@')) != -1)
+		if ((i != -1) || ((i = prefix.indexOf('@')) != -1))
 			return prefix.substring(0, i);
 		return prefix.length() != 0 ? prefix : null;
 	}
@@ -322,7 +322,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-	 * </code><br />
+     * </code><br />
 	 * <br />
 	 * If no prefix is given in the whole line, <code>null</code> is returned. <br />
 	 * <br />
@@ -345,7 +345,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-	 * </code><br />
+     * </code><br />
 	 * <br />
 	 * If the username is not specified, this method returns <code>null</code>. <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.
@@ -373,7 +373,7 @@ public class IRCParser
 	 * <code>
 	 * &lt;servername&gt; | &lt;nick&gt;
 	 * [ '!' &lt;username&gt; ] [ '@' &lt;host&gt; ]
-	 * </code><br />
+     * </code><br />
 	 * <br />
 	 * If the host is not specified, this method returns <code>null</code>. <br />
 	 * <b>Note:</b> There is also the method <code>getUser</code> which returns an <code>IRCUser</code> object which holds the nickname, username and host. By the way, the <code>getUser</code> uses the <code>getNick</code>, <code>getUsername</code> and <code>getHost</code> methods to create this object.
@@ -432,7 +432,7 @@ public class IRCParser
 		if (parameters == null)
 			initParameters();
 		--i;
-		if (i >= 0 && i < parameters.length)
+		if ((i >= 0) && (i < parameters.length))
 			return parameters[i];
 		else
 			return "";

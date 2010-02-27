@@ -164,7 +164,7 @@ public class L2DropData
 	 */
 	public boolean isQuestDrop()
 	{
-		return _questID != null && _stateID != null;
+		return (_questID != null) && (_stateID != null);
 	}
 
 	/**

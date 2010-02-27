@@ -153,63 +153,63 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					int currentPeriod = SevenSigns.getInstance().getCurrentPeriod();
 					switch (currentPeriod)
 					{
-					case SevenSigns.PERIOD_COMP_RECRUITING:
-						html.replace("%ss_event%", "Quest Event Initialization");
-						break;
-					case SevenSigns.PERIOD_COMPETITION:
-						html.replace("%ss_event%", "Competition (Quest Event)");
-						break;
-					case SevenSigns.PERIOD_COMP_RESULTS:
-						html.replace("%ss_event%", "Quest Event Results");
-						break;
-					case SevenSigns.PERIOD_SEAL_VALIDATION:
-						html.replace("%ss_event%", "Seal Validation");
-						break;
+						case SevenSigns.PERIOD_COMP_RECRUITING:
+							html.replace("%ss_event%", "Quest Event Initialization");
+							break;
+						case SevenSigns.PERIOD_COMPETITION:
+							html.replace("%ss_event%", "Competition (Quest Event)");
+							break;
+						case SevenSigns.PERIOD_COMP_RESULTS:
+							html.replace("%ss_event%", "Quest Event Results");
+							break;
+						case SevenSigns.PERIOD_SEAL_VALIDATION:
+							html.replace("%ss_event%", "Seal Validation");
+							break;
 					}
 				}
 				{
 					int sealOwner1 = SevenSigns.getInstance().getSealOwner(1);
 					switch (sealOwner1)
 					{
-					case SevenSigns.CABAL_NULL:
-						html.replace("%ss_avarice%", "Not in Possession");
-						break;
-					case SevenSigns.CABAL_DAWN:
-						html.replace("%ss_avarice%", "Lords of Dawn");
-						break;
-					case SevenSigns.CABAL_DUSK:
-						html.replace("%ss_avarice%", "Revolutionaries of Dusk");
-						break;
+						case SevenSigns.CABAL_NULL:
+							html.replace("%ss_avarice%", "Not in Possession");
+							break;
+						case SevenSigns.CABAL_DAWN:
+							html.replace("%ss_avarice%", "Lords of Dawn");
+							break;
+						case SevenSigns.CABAL_DUSK:
+							html.replace("%ss_avarice%", "Revolutionaries of Dusk");
+							break;
 					}
 				}
 				{
 					int sealOwner2 = SevenSigns.getInstance().getSealOwner(2);
 					switch (sealOwner2)
 					{
-					case SevenSigns.CABAL_NULL:
-						html.replace("%ss_gnosis%", "Not in Possession");
-						break;
-					case SevenSigns.CABAL_DAWN:
-						html.replace("%ss_gnosis%", "Lords of Dawn");
-						break;
-					case SevenSigns.CABAL_DUSK:
-						html.replace("%ss_gnosis%", "Revolutionaries of Dusk");
-						break;
+						case SevenSigns.CABAL_NULL:
+							html.replace("%ss_gnosis%", "Not in Possession");
+							break;
+						case SevenSigns.CABAL_DAWN:
+							html.replace("%ss_gnosis%", "Lords of Dawn");
+							break;
+						case SevenSigns.CABAL_DUSK:
+							html.replace("%ss_gnosis%", "Revolutionaries of Dusk");
+							break;
 					}
 				}
 				{
 					int sealOwner3 = SevenSigns.getInstance().getSealOwner(3);
 					switch (sealOwner3)
 					{
-					case SevenSigns.CABAL_NULL:
-						html.replace("%ss_strife%", "Not in Possession");
-						break;
-					case SevenSigns.CABAL_DAWN:
-						html.replace("%ss_strife%", "Lords of Dawn");
-						break;
-					case SevenSigns.CABAL_DUSK:
-						html.replace("%ss_strife%", "Revolutionaries of Dusk");
-						break;
+						case SevenSigns.CABAL_NULL:
+							html.replace("%ss_strife%", "Not in Possession");
+							break;
+						case SevenSigns.CABAL_DAWN:
+							html.replace("%ss_strife%", "Lords of Dawn");
+							break;
+						case SevenSigns.CABAL_DUSK:
+							html.replace("%ss_strife%", "Revolutionaries of Dusk");
+							break;
 					}
 				}
 				player.sendPacket(html);
@@ -237,7 +237,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					}
 				}
 				L2TradeList list = TradeController.getInstance().getBuyList(buy);
-				if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
+				if ((list != null) && list.getNpcId().equals(String.valueOf(getNpcId())))
 				{
 					BuyList bl = new BuyList(list, player.getAdena(), 0);
 					player.sendPacket(bl);
@@ -267,7 +267,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					catch (NoSuchElementException e)
 					{
 					}
-					if (amount > 0 && (long) getCastle().getTreasury() + amount < Integer.MAX_VALUE)
+					if ((amount > 0) && ((long) getCastle().getTreasury() + amount < Integer.MAX_VALUE))
 					{
 						if (player.reduceAdena("Castle", amount, this, true))
 						{
@@ -375,16 +375,16 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					int cmd = Integer.parseInt(val);
 					switch (cmd)
 					{
-					case 0:
-						filename = "data/html/chamberlain/manor/manor.htm";
-						break;
+						case 0:
+							filename = "data/html/chamberlain/manor/manor.htm";
+							break;
 						// TODO: correct in html's to 1
-					case 4:
-						filename = "data/html/chamberlain/manor/manor_help00" + st.nextToken() + ".htm";
-						break;
-					default:
-						filename = "data/html/chamberlain/chamberlain-no.htm";
-					break;
+						case 4:
+							filename = "data/html/chamberlain/manor/manor_help00" + st.nextToken() + ".htm";
+							break;
+						default:
+							filename = "data/html/chamberlain/chamberlain-no.htm";
+							break;
 					}
 				}
 				if (filename.length() != 0)
@@ -419,45 +419,45 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					castleId = state;
 				switch (ask)
 				{ // Main action
-				case 3: // Current seeds (Manor info)
-					if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
-						player.sendPacket(new ExShowSeedInfo(castleId, null));
-					else
-						player.sendPacket(new ExShowSeedInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getSeedProduction(time)));
-					break;
-				case 4: // Current crops (Manor info)
-					if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
-						player.sendPacket(new ExShowCropInfo(castleId, null));
-					else
-						player.sendPacket(new ExShowCropInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getCropProcure(time)));
-					break;
-				case 5: // Basic info (Manor info)
-					player.sendPacket(new ExShowManorDefaultInfo());
-					break;
-				case 7: // Edit seed setup
-					if (getCastle().isNextPeriodApproved())
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
-					}
-					else
-					{
-						player.sendPacket(new ExShowSeedSetting(getCastle().getCastleId()));
-					}
-					break;
-				case 8: // Edit crop setup
-					if (getCastle().isNextPeriodApproved())
-					{
-						player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
-					}
-					else
-					{
-						player.sendPacket(new ExShowCropSetting(getCastle().getCastleId()));
-					}
-					break;
+					case 3: // Current seeds (Manor info)
+						if ((time == 1) && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+							player.sendPacket(new ExShowSeedInfo(castleId, null));
+						else
+							player.sendPacket(new ExShowSeedInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getSeedProduction(time)));
+						break;
+					case 4: // Current crops (Manor info)
+						if ((time == 1) && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+							player.sendPacket(new ExShowCropInfo(castleId, null));
+						else
+							player.sendPacket(new ExShowCropInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getCropProcure(time)));
+						break;
+					case 5: // Basic info (Manor info)
+						player.sendPacket(new ExShowManorDefaultInfo());
+						break;
+					case 7: // Edit seed setup
+						if (getCastle().isNextPeriodApproved())
+						{
+							player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
+						}
+						else
+						{
+							player.sendPacket(new ExShowSeedSetting(getCastle().getCastleId()));
+						}
+						break;
+					case 8: // Edit crop setup
+						if (getCastle().isNextPeriodApproved())
+						{
+							player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
+						}
+						else
+						{
+							player.sendPacket(new ExShowCropSetting(getCastle().getCastleId()));
+						}
+						break;
 				}
 			}
 			else if (actualCommand.equalsIgnoreCase("operate_door")) // door
-				// control
+			// control
 			{
 				if (val != "")
 				{
@@ -475,8 +475,8 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("tax_set")) // tax
-				// rates
-				// control
+			// rates
+			// control
 			{
 				if (val != "")
 					getCastle().setTaxPercent(player, Integer.parseInt(val));
@@ -554,7 +554,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 
 	protected int validateCondition(L2PcInstance player)
 	{
-		if (getCastle() != null && getCastle().getCastleId() > 0)
+		if ((getCastle() != null) && (getCastle().getCastleId() > 0))
 		{
 			if (player.getClan() != null)
 			{

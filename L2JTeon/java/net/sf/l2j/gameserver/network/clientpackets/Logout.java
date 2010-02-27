@@ -77,7 +77,7 @@ public final class Logout extends L2GameClientPacket
 		{
 			player.sendPacket(SystemMessage.sendString("You cant logout in event"));
 			return;
-		}
+			}
 		if (player.isAway())
 		{
 			player.sendMessage("You can't restart in Away mode.");

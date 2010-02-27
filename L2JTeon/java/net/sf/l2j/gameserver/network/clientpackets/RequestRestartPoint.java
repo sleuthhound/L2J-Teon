@@ -76,116 +76,116 @@ public final class RequestRestartPoint extends L2GameClientPacket
 				}
 				switch (_requestedPointType)
 				{
-				case 1: // to clanhall
-					if (activeChar.getClan().getHasHideout() == 0)
-					{
-						// cheater
-						activeChar.sendMessage("You may not use this respawn point!");
-						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
-						return;
-					}
-					loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
-					if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
-					{
-						activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl());
-					}
-					break;
-				case 2: // to castle
-					Boolean isInDefense = false;
-					castle = CastleManager.getInstance().getCastle(activeChar);
-					fort = FortManager.getInstance().getFort(activeChar);
-					if (castle != null)
-					{
-						if (castle.getSiege().getIsInProgress())
+					case 1: // to clanhall
+						if (activeChar.getClan().getHasHideout() == 0)
 						{
-							// siege in progress
-							if (castle.getSiege().checkIsDefender(activeChar.getClan()))
+							// cheater
+							activeChar.sendMessage("You may not use this respawn point!");
+							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+							return;
+						}
+						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
+						if ((ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null) && (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null))
+						{
+							activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl());
+						}
+						break;
+					case 2: // to castle
+						Boolean isInDefense = false;
+						castle = CastleManager.getInstance().getCastle(activeChar);
+						fort = FortManager.getInstance().getFort(activeChar);
+						if (castle != null)
+						{
+							if (castle.getSiege().getIsInProgress())
 							{
-								isInDefense = true;
+								// siege in progress
+								if (castle.getSiege().checkIsDefender(activeChar.getClan()))
+								{
+									isInDefense = true;
+								}
+							}
+							if ((activeChar.getClan().getHasCastle() == 0) && !isInDefense)
+							{
+								// cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
 							}
 						}
-						if (activeChar.getClan().getHasCastle() == 0 && !isInDefense)
+						else if (fort != null)
 						{
-							// cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
-							return;
-						}
-					}
-					else if (fort != null)
-					{
-						if (fort.getSiege().getIsInProgress())
-						{
-							// siege in progress
-							if (fort.getSiege().checkIsDefender(activeChar.getClan()))
+							if (fort.getSiege().getIsInProgress())
 							{
-								isInDefense = true;
+								// siege in progress
+								if (fort.getSiege().checkIsDefender(activeChar.getClan()))
+								{
+									isInDefense = true;
+								}
+							}
+							if ((activeChar.getClan().getHasFort() == 0) && !isInDefense)
+							{
+								// cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
 							}
 						}
-						if (activeChar.getClan().getHasFort() == 0 && !isInDefense)
+						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Castle);
+						break;
+					case 3: // to siege HQ
+						L2SiegeClan siegeClan = null;
+						castle = CastleManager.getInstance().getCastle(activeChar);
+						fort = FortManager.getInstance().getFort(activeChar);
+						if (castle != null)
+						{
+							if (castle.getSiege().getIsInProgress())
+							{
+								siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
+							}
+							if ((siegeClan == null) || (siegeClan.getFlag().size() == 0))
+							{
+								// cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
+							}
+						}
+						else if (fort != null)
+						{
+							if (fort.getSiege().getIsInProgress())
+							{
+								siegeClan = fort.getSiege().getAttackerClan(activeChar.getClan());
+							}
+							if ((siegeClan == null) || (siegeClan.getFlag().size() == 0))
+							{
+								// cheater
+								activeChar.sendMessage("You may not use this respawn point!");
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								return;
+							}
+						}
+						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.SiegeFlag);
+						break;
+					case 4: // Fixed or Player is a festival participant
+						if (!activeChar.isGM() && !activeChar.isFestivalParticipant())
 						{
 							// cheater
 							activeChar.sendMessage("You may not use this respawn point!");
 							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
 							return;
 						}
-					}
-					loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Castle);
-					break;
-				case 3: // to siege HQ
-					L2SiegeClan siegeClan = null;
-					castle = CastleManager.getInstance().getCastle(activeChar);
-					fort = FortManager.getInstance().getFort(activeChar);
-					if (castle != null)
-					{
-						if (castle.getSiege().getIsInProgress())
+						loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
+						break;
+					case 27: // to jail
+						if (!activeChar.isInJail())
 						{
-							siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
-						}
-						if (siegeClan == null || siegeClan.getFlag().size() == 0)
-						{
-							// cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
 							return;
 						}
-					}
-					else if (fort != null)
-					{
-						if (fort.getSiege().getIsInProgress())
-						{
-							siegeClan = fort.getSiege().getAttackerClan(activeChar.getClan());
-						}
-						if (siegeClan == null || siegeClan.getFlag().size() == 0)
-						{
-							// cheater
-							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
-							return;
-						}
-					}
-					loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.SiegeFlag);
-					break;
-				case 4: // Fixed or Player is a festival participant
-					if (!activeChar.isGM() && !activeChar.isFestivalParticipant())
-					{
-						// cheater
-						activeChar.sendMessage("You may not use this respawn point!");
-						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
-						return;
-					}
-					loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
-					break;
-				case 27: // to jail
-					if (!activeChar.isInJail())
-					{
-						return;
-					}
-					loc = new Location(-114356, -249645, -2984);
-					break;
-				default:
-					loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Town);
-				break;
+						loc = new Location(-114356, -249645, -2984);
+						break;
+					default:
+						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Town);
+						break;
 				}
 				// Teleport and revive
 				activeChar.setIsPendingRevive(true);
@@ -244,7 +244,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			}
 			activeChar.sendMessage("You've been erased from the event!");
 			int num = L2RaidEvent._participatingPlayers.size();
-			if (num > 0 && num != 1)
+			if ((num > 0) && (num != 1))
 				num -= 1;
 			else
 				L2RaidEvent.hardFinish();
