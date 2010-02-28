@@ -76,7 +76,7 @@ public class FaenorEventParser extends FaenorParser
 		}
 		catch (Exception e)
 		{
-			_log.warning("Error in Event Parser.");
+			_log.warning("Error in event parser.");
 			e.printStackTrace();
 		}
 	}
