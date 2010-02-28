@@ -115,7 +115,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 					int days = Integer.parseInt(val);
 					try
 					{
-						SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm");
+						SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 						int bid = 0;
 						if (st.countTokens() >= 1)
 							bid = Integer.parseInt(st.nextToken());

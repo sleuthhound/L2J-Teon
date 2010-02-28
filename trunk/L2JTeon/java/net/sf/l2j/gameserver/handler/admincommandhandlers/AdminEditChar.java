@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.model.entity.GmAudit;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
@@ -762,53 +761,25 @@ public class AdminEditChar implements IAdminCommandHandler
 	 */
 	private void findCharactersPerIp(L2PcInstance activeChar, String IpAdress) throws IllegalArgumentException
 	{
-		boolean findDisconnected = false; 
-	 	                 
-	 	                if (IpAdress.equals("disconnected")) 
-	 	                { 
-	 	                        findDisconnected = true; 
-	 	                } 
-	 	                else 
-	 	                { 
-	 	                        if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$")) 
-	 	                                throw new IllegalArgumentException("Malformed IPv4 number"); 
-	 	                }
+		if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
+		{
+			throw new IllegalArgumentException("Malformed IPv4 number");
+		}
 		Collection<L2PcInstance> allPlayers = L2World.getInstance().getAllPlayers();
 		L2PcInstance[] players = allPlayers.toArray(new L2PcInstance[allPlayers.size()]);
 		int CharactersFound = 0;
-		L2GameClient client;
 		String name, ip = "0.0.0.0";
 		TextBuilder replyMSG = new TextBuilder();
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/ipfind.htm");
-		for (int i = 0; i < players.length; i++)
 		for (L2PcInstance player : players) {
-			client = player.getClient(); 
-		 		                        if (client.isDetached()) 
-		 		                        { 
-		 		                                if (!findDisconnected) 
-		 		                                { 
-		 	                                        continue; 
-		 		                                } 
-		 		                        } 
-		 	                        else 
-		 		                        { 
-		 		                                if (findDisconnected) 
-		 		                                { 
-		 		                                        continue; 
-		 		                                } 
-		 		                                else 
-		 		                                { 
-		 		                                	ip = players[i].getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
-		 		                                        if (!ip.equals(IpAdress)) 
-		 		                                                continue; 
-		 		                                } 
-		 	                        } 
-		                          
-		 		                        name = player.getName(); 
-		 		                        CharactersFound = CharactersFound + 1; 
-		 	                        replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + player.getTemplate().className + "</td><td width=40>" + player.getLevel() 
-		 		                                        + "</td></tr>"); 
+			ip = player.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
+			if (ip.equals(IpAdress))
+			{
+				name = player.getName();
+				CharactersFound = CharactersFound + 1;
+				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + player.getTemplate().className + "</td><td width=40>" + player.getLevel() + "</td></tr>");
+			}
 			if (CharactersFound > 20)
 			{
 				break;

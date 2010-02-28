@@ -36,7 +36,6 @@ import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
-import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.util.EventData;
@@ -76,13 +75,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	// Task
 	@SuppressWarnings("unchecked")
 	protected/* final */ScheduledFuture _autoSaveInDB;
-	protected ScheduledFuture<?> _cleanupTask = null;
 	// Crypt
 	public GameCrypt crypt;
 	// Flood protection
 	public byte packetsSentInSec = 0;
 	public int packetsSentStartTick = 0;
-	private boolean _isDetached = false;
 	// UnknownPacket protection
 	private int unknownPacketCount = 0;
 
@@ -178,19 +175,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	public void sendPacket(L2GameServerPacket gsp)
 	{
-		if (_isDetached) return;
 		getConnection().sendPacket(gsp);
 		gsp.runImpl();
-	} 
- 		         
- 		        public boolean isDetached() 
- 		        { 
- 		                return _isDetached; 
- 		        } 
- 		         
- 		        public void isDetached(boolean b) 
- 		        { 
- 		                _isDetached = b; 
 	}
 
 	public L2PcInstance markToDeleteChar(int charslot) throws Exception
@@ -490,13 +476,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 	}
 
-	@Override 
- 		    public void closeNow() 
- 		    { 
- 		        super.closeNow(); 
- 		        cleanMe(true); 
- 		    } 
-	
 	/**
 	 * Produces the best possible string representation of this client.
 	 */
@@ -526,50 +505,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	class DisconnectTask implements Runnable
 	{
-		 /** 
-                 * @see java.lang.Runnable#run() 
-                 */ 
-                public void run() 
-                { 
-                        boolean fast = true; 
- 
-                        try 
-	                        { 
-                                isDetached(true); 
-	                                L2PcInstance player = L2GameClient.this.getActiveChar(); 
-	                                if (player != null && player.isInCombat()) 
-                                { 
-                                        fast = false; 
-	                                } 
-	                                cleanMe(fast); 
-                        } 
-	                        catch (Exception e1) 
-	                        { 
-                                _log.log(Level.WARNING, "Error while disconnecting client.", e1); 
-                        } 
-	                } 
-	        } 
-	         
-	        public void cleanMe(boolean fast) 
-	        { 
-	                try 
-                { 
-	                        synchronized(this) 
-	                        { 
-                    if (_cleanupTask == null) 
-	                                { 
-	                        _cleanupTask = ThreadPoolManager.getInstance().scheduleGeneral(new CleanupTask(), fast ? 5 : 15000L); 
-                                }                        
-                        } 
-	                } 
-	                catch (Exception e1) 
-                { 
-                        _log.log(Level.WARNING, "Error during cleanup.", e1);                    
-	                } 
-	        } 
-	                 
-	        class CleanupTask implements Runnable 
-        {
 		/**
 		 * @see java.lang.Runnable#run()
 		 */
@@ -590,21 +525,12 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 				// force the cancel
 				_autoSaveInDB.cancel(true);
 				L2PcInstance player = L2GameClient.this.getActiveChar();
-				if (player != null)
+				if (player != null) // this should only happen on connection
+				// loss
 				{
-										if (!player.isInOlympiadMode() && !player.isFestivalParticipant() && !player.isInJail())
-											{
-												if ((player.isInStoreMode() && Config.OFFLINE_TRADE_ENABLE) || (player.isInCraftMode() && Config.OFFLINE_CRAFT_ENABLE))
-												{
-													player.leaveParty();
-													if (Config.OFFLINE_SET_NAME_COLOR)
-													{
-														player.getAppearance().setNameColor(Config.OFFLINE_NAME_COLOR);
-														player.broadcastUserInfo();
-													}
-													return;
-												}
-											}
+					// we store all data from players who are disconnected
+					// while
+					// in an event in order to restore it in the next login
 					if (player.atEvent)
 					{
 						EventData data = new EventData(player.eventX, player.eventY, player.eventZ, player.eventkarma, player.eventpvpkills, player.eventpkkills, player.eventTitle, player.kills, player.eventSitForced);
@@ -614,7 +540,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 					{
 						player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 					}
-					isDetached(false);
 					// notify the world about our disconnect
 					player.deleteMe();
 					try
@@ -629,7 +554,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			}
 			catch (Exception e1)
 			{
-				_log.log(Level.WARNING, "Error while cleanup client.", e1);
+				_log.log(Level.WARNING, "error while disconnecting client", e1);
 			}
 			finally
 			{
