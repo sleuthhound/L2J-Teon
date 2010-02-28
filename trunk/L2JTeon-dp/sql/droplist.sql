@@ -16777,6 +16777,12 @@ INSERT INTO `droplist` VALUES
 (21526,1889,1,1,2,9796), -- Compound Braid
 (21526,4044,1,1,2,4898), -- Thons
 (21526,5549,1,1,2,14694), -- Metallic Thread
+(29099,6577,2,12,2,500000), -- Tallum Glaive Edge
+(29099,6578,2,12,2,500000), -- Adena
+(29099,6608,2,4,1,300000), -- Charcoal
+(29099,7577,2,5,1,300000), -- Compound Braid
+(29099,6622,5,20,1,100000), -- Coal
+(29099,57,180000,220000,0,1000000), -- Compound Braid
 (21527,4040,1,1,-1,52463), -- Mold Lubricant
 (21527,4081,1,1,-1,25854), -- Doom Plate Armor Temper
 (21527,5161,1,1,-1,3498), -- Recipe: Spiritshot (A) Compressed Package (100%)

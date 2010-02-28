@@ -113,6 +113,11 @@ public final class Logout extends L2GameClientPacket
 		{
 			player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 		}
+				if ((player.isInStoreMode() && Config.OFFLINE_TRADE_ENABLE) || (player.isInCraftMode() && Config.OFFLINE_CRAFT_ENABLE))
+					{
+						player.closeNetConnection();
+						return;
+					}
 		RegionBBSManager.getInstance().changeCommunityBoard();
 		player.deleteMe();
 		notifyFriends(player);
