@@ -501,6 +501,11 @@ public enum SystemMessageId
 	 */
 	SPOIL_CANNOT_USE(661),
 	/**
+	 * ID: 677<br>
+	 * Message: Your bid price must be higher than the minimum price that can be bid.
+	 */
+	BID_PRICE_MUST_BE_HIGHER(677),
+	/**
 	 * ID: 683<br>
 	 * Message: There are no priority rights on a sweeper.
 	 */
@@ -1850,6 +1855,16 @@ public enum SystemMessageId
 	 * Message: Sub classes may not be created or changed while a skill is in use.
 	 */
 	SUBCLASS_NO_CHANGE_OR_CREATE_WHILE_SKILL_IN_USE(1295),
+	/**
+	 * ID: 1005<br>
+	 * Message: There is not enough adena in the clan hall warehouse.
+	 */
+	NOT_ENOUGH_ADENA_IN_CWH(1005),
+	/**
+	 * ID: 1006<br>
+	 * Message: You have bid in a clan hall auction.
+	 */
+	BID_IN_CLANHALL_AUCTION(1006),
 	/**
 	 * ID: 1009<br>
 	 * Message: A strider cannot be ridden when dead.
