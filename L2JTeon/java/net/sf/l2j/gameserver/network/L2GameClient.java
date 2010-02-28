@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.util.EventData;
@@ -525,12 +526,21 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 				// force the cancel
 				_autoSaveInDB.cancel(true);
 				L2PcInstance player = L2GameClient.this.getActiveChar();
-				if (player != null) // this should only happen on connection
-				// loss
+				if (player != null)
 				{
-					// we store all data from players who are disconnected
-					// while
-					// in an event in order to restore it in the next login
+										if (!player.isInOlympiadMode() && !player.isFestivalParticipant() && !player.isInJail())
+											{
+												if ((player.isInStoreMode() && Config.OFFLINE_TRADE_ENABLE) || (player.isInCraftMode() && Config.OFFLINE_CRAFT_ENABLE))
+												{
+													player.leaveParty();
+													if (Config.OFFLINE_SET_NAME_COLOR)
+													{
+														player.getAppearance().setNameColor(Config.OFFLINE_NAME_COLOR);
+														player.broadcastUserInfo();
+													}
+													return;
+												}
+											}
 					if (player.atEvent)
 					{
 						EventData data = new EventData(player.eventX, player.eventY, player.eventZ, player.eventkarma, player.eventpvpkills, player.eventpkkills, player.eventTitle, player.kills, player.eventSitForced);

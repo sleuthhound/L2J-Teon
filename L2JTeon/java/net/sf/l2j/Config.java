@@ -830,6 +830,10 @@ public final class Config
 	public static boolean ALLOW_PK_REWARD;
 	public static int PK_REWARD_ITEM;
 	public static int PK_REWARD_COUNT;
+	public static boolean OFFLINE_TRADE_ENABLE;
+	public static boolean OFFLINE_CRAFT_ENABLE;
+	public static boolean OFFLINE_SET_NAME_COLOR;
+	public static int OFFLINE_NAME_COLOR;
 	// ** Colored pvp name system ** //
 	public static boolean PVP_COLOR_SYSTEM_ENABLED;
 	/** Colored pvp name system */
@@ -2776,6 +2780,10 @@ public final class Config
 				ALLOW_PK_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPkRewardSystem", "False"));
 				PK_REWARD_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardItem", "57"));
 				PK_REWARD_COUNT = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardAmount", "1"));
+				OFFLINE_TRADE_ENABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("OfflineTradeEnable", "false"));
+				OFFLINE_CRAFT_ENABLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("OfflineCraftEnable", "false"));
+				OFFLINE_SET_NAME_COLOR = Boolean.parseBoolean(L2JTeonCustom.getProperty("OfflineSetNameColor", "false"));
+				OFFLINE_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("OfflineNameColor", "808080"));
 			}
 			catch (Exception e)
 			{
