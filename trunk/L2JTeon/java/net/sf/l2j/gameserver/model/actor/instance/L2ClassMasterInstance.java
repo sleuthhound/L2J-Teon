@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.model.L2World;
@@ -25,8 +26,10 @@ import net.sf.l2j.gameserver.model.base.PlayerClass;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -55,72 +58,92 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (Config.DEBUG)
-			_log.fine("ClassMaster activated");
-		ClassId classId = player.getClassId();
-		int jobLevel = 0;
-		int level = player.getLevel();
-		ClassLevel lvl = PlayerClass.values()[classId.getId()].getLevel();
-		switch (lvl)
-		{
-			case First:
-				jobLevel = 1;
-				break;
-			case Second:
-				jobLevel = 2;
-				break;
-			case Third:
-				jobLevel = 3;
-				break;
-			default:
-				jobLevel = 4;
-		}
-		if (player.isGM())
-			showChatWindowChooseClass(player);
-		else if ((level >= 20 && jobLevel == 1 || level >= 40 && jobLevel == 2) && Config.ALLOW_CLASS_MASTERS)
-			showChatWindow(player, classId.getId());
-		else if (level >= 76 && Config.ALLOW_CLASS_MASTERS && classId.getId() < 88)
-		{
-			for (int i = 0; i < SECONDN_CLASS_IDS.length; i++)
-			{
-				if (classId.getId() == SECONDN_CLASS_IDS[i])
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					TextBuilder sb = new TextBuilder();
-					sb.append("<html><body<table width=200>");
-					sb.append("<tr><td><center>" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + " Class Master:</center></td></tr>");
-					sb.append("<tr><td><br></td></tr>");
-					sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (88 + i) + "\">Advance to " + CharTemplateTable.getClassNameById(88 + i) + "</a></td></tr>");
-					sb.append("<tr><td><br></td></tr>");
-					sb.append("</table></body></html>");
-					html.setHtml(sb.toString());
-					player.sendPacket(html);
-					break;
-				}
-			}
-		}
+        if (!canTarget(player) && !Config.ALLOW_REMOTE_CLASS_MASTERS)
+        	return;
+        // Check if the L2PcInstance already target the L2NpcInstance
+        if (getObjectId() != player.getTargetId() && !Config.ALLOW_REMOTE_CLASS_MASTERS)
+        {
+        	// Set the target of the L2PcInstance player
+        	player.setTarget(this);
+        	// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+        	player.sendPacket(new MyTargetSelected(getObjectId(), 0));
+        	// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+        	player.sendPacket(new ValidateLocation(this));
+       	}
 		else
 		{
-			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			TextBuilder sb = new TextBuilder();
-			sb.append("<html><body>");
-			switch (jobLevel)
+            if (!canInteract(player) && !Config.ALLOW_REMOTE_CLASS_MASTERS)
+            {
+                player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+                return;
+            }
+			if (Config.DEBUG)
+				_log.fine("ClassMaster activated");
+			ClassId classId = player.getClassId();
+			int jobLevel = 0;
+			int level = player.getLevel();
+			ClassLevel lvl = PlayerClass.values()[classId.getId()].getLevel();
+			switch (lvl)
 			{
-				case 1:
-					sb.append("Come back here when you reach level 20 to change your class.<br>");
+				case First:
+					jobLevel = 1;
 					break;
-				case 2:
-					sb.append("Come back here when you reach level 40 to change your class.<br>");
+				case Second:
+					jobLevel = 2;
 					break;
-				case 3:
-					sb.append("There are no more class changes for you.<br>");
+				case Third:
+					jobLevel = 3;
 					break;
+				default:
+					jobLevel = 4;
 			}
-			for (Quest q : Quest.findAllEvents())
-				sb.append("Event: <a action=\"bypass -h Quest " + q.getName() + "\">" + q.getDescr() + "</a><br>");
-			sb.append("</body></html>");
-			html.setHtml(sb.toString());
-			player.sendPacket(html);
+			if (player.isGM())
+				showChatWindowChooseClass(player);
+			else if ((level >= 20 && jobLevel == 1 || level >= 40 && jobLevel == 2) && Config.ALLOW_CLASS_MASTERS)
+				showChatWindow(player, classId.getId());
+			else if (level >= 76 && Config.ALLOW_CLASS_MASTERS && classId.getId() < 88)
+			{
+				for (int i = 0; i < SECONDN_CLASS_IDS.length; i++)
+				{
+					if (classId.getId() == SECONDN_CLASS_IDS[i])
+					{
+						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+						TextBuilder sb = new TextBuilder();
+						sb.append("<html><body<table width=200>");
+						sb.append("<tr><td><center>" + CharTemplateTable.getClassNameById(player.getClassId().getId()) + " Class Master:</center></td></tr>");
+						sb.append("<tr><td><br></td></tr>");
+						sb.append("<tr><td><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (88 + i) + "\">Advance to " + CharTemplateTable.getClassNameById(88 + i) + "</a></td></tr>");
+						sb.append("<tr><td><br></td></tr>");
+						sb.append("</table></body></html>");
+						html.setHtml(sb.toString());
+						player.sendPacket(html);
+						break;
+					}
+				}
+			}
+			else
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				TextBuilder sb = new TextBuilder();
+				sb.append("<html><body>");
+				switch (jobLevel)
+				{
+					case 1:
+						sb.append("Come back here when you reach level 20 to change your class.<br>");
+						break;
+					case 2:
+						sb.append("Come back here when you reach level 40 to change your class.<br>");
+						break;
+					case 3:
+						sb.append("There are no more class changes for you.<br>");
+						break;
+				}
+				for (Quest q : Quest.findAllEvents())
+					sb.append("Event: <a action=\"bypass -h Quest " + q.getName() + "\">" + q.getDescr() + "</a><br>");
+				sb.append("</body></html>");
+				html.setHtml(sb.toString());
+				player.sendPacket(html);
+			}
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
