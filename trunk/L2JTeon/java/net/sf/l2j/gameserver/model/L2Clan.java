@@ -394,9 +394,7 @@ public class L2Clan
 			if (player.isClanLeader())
 			{
 				SiegeManager.getInstance().removeSiegeSkills(player);
-				player.setClanCreateExpiryTime(System.currentTimeMillis() + Config.ALT_CLAN_CREATE_DAYS * 86400000L); // 24*60*60*1000
-				// =
-				// 86400000
+				player.setClanCreateExpiryTime(System.currentTimeMillis() + Config.ALT_CLAN_CREATE_DAYS * 86400000L); // 24*60*60*1000 = 86400000
 			}
 			// remove clan skills from players in Olympiad
 			for (L2Skill skill : player.getClan().getAllSkills())
@@ -836,9 +834,7 @@ public class L2Clan
 					setAllyPenaltyExpiryTime(0, 0);
 				}
 				setCharPenaltyExpiryTime(clanData.getLong("char_penalty_expiry_time"));
-				if (getCharPenaltyExpiryTime() + Config.ALT_CLAN_JOIN_DAYS * 86400000L < System.currentTimeMillis()) // 24*60*60*1000
-				// =
-				// 86400000
+				if (getCharPenaltyExpiryTime() + Config.ALT_CLAN_JOIN_DAYS * 86400000L < System.currentTimeMillis()) // 24*60*60*1000 = 86400000
 				{
 					setCharPenaltyExpiryTime(0);
 				}
@@ -2225,9 +2221,7 @@ public class L2Clan
 		}
 		setAllyId(0);
 		setAllyName(null);
-		setAllyPenaltyExpiryTime(currentTime + Config.ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED * 86400000L, L2Clan.PENALTY_TYPE_DISSOLVE_ALLY); // 24*60*60*1000
-		// =
-		// 86400000
+		setAllyPenaltyExpiryTime(currentTime + Config.ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED * 86400000L, L2Clan.PENALTY_TYPE_DISSOLVE_ALLY); // 24*60*60*1000 = 86400000
 		updateClanInDB();
 		// The clan leader should take the XP penalty of a full death.
 		player.deathPenalty(false);
