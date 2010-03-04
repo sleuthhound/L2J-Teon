@@ -48,6 +48,7 @@ public final class Config
 	public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
 	public static final String FLOODPROTECTOR_CONFIG_FILE = "./config/custom/FloodProtector.properties";
 	public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
+	public static final String ENCHANT_CONFIG_FILE = "./config/GMAccess.properties";
 	public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
 	public static final String IRC_FILE = "./config/irc.properties";
 	public static final String OPTIONS_FILE = "./config/options.properties";
@@ -1685,6 +1686,48 @@ public final class Config
 				e.printStackTrace();
 				throw new Error("Failed to Load " + CLANHALL_CONFIG_FILE + " File.");
 			}
+			// Enchant File
+			try
+			{
+				Properties Enchant = new Properties();
+				InputStream is = new FileInputStream(new File(ENCHANT_CONFIG_FILE));
+				Enchant.load(is);
+				is.close();
+
+				/* chance to enchant an item over +3 */
+				ENCHANT_CHANCE_WEAPON = Integer.parseInt(Enchant.getProperty("EnchantChanceWeapon", "68"));
+				ENCHANT_CHANCE_ARMOR = Integer.parseInt(Enchant.getProperty("EnchantChanceArmor", "52"));
+				ENCHANT_CHANCE_JEWELRY = Integer.parseInt(Enchant.getProperty("EnchantChanceJewelry", "54"));
+				ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(Enchant.getProperty("EnchantChanceWeaponCrystal", "85"));
+				ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(Enchant.getProperty("EnchantChanceArmorCrystal", "85"));
+				ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(Enchant.getProperty("EnchantChanceJewelryCrystal", "85"));
+				ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(Enchant.getProperty("EnchantChanceWeaponBlessed", "55"));
+				ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(Enchant.getProperty("EnchantChanceArmorBlessed", "55"));
+				ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(Enchant.getProperty("EnchantChanceJewelryBlessed", "55"));
+				ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(Enchant.getProperty("EnableDwarfEnchantBonus", "False"));
+				DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(Enchant.getProperty("DwarfEnchantMinLevel", "80"));
+				DWARF_ENCHANT_BONUS = Integer.parseInt(Enchant.getProperty("DwarfEnchantBonus", "15"));
+				ENCHANT_HERO_WEAPONS = Boolean.parseBoolean(Enchant.getProperty("EnchantHeroWeapons", "False"));
+				/* limit on enchant */
+				ENCHANT_MAX_WEAPON = Integer.parseInt(Enchant.getProperty("EnchantMaxWeapon", "255"));
+				ENCHANT_MAX_ARMOR = Integer.parseInt(Enchant.getProperty("EnchantMaxArmor", "255"));
+				ENCHANT_MAX_JEWELRY = Integer.parseInt(Enchant.getProperty("EnchantMaxJewelry", "255"));
+				/* limit of safe enchant normal */
+				ENCHANT_SAFE_MAX = Integer.parseInt(Enchant.getProperty("EnchantSafeMax", "3"));
+				/* limit of safe enchant full */
+				ENCHANT_SAFE_MAX_FULL = Integer.parseInt(Enchant.getProperty("EnchantSafeMaxFull", "4"));
+
+				GM_OVER_ENCHANT = Integer.parseInt(Enchant.getProperty("GMOverEnchant", "25"));
+				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedWeapon", "25"));
+				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedArmor", "25"));
+				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedJewelry", "25"));
+
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error("Failed to Load " + FLOODPROTECTOR_CONFIG_FILE + " File.");
+			}
 			// FloodProtector
 			try
 			{
@@ -1943,28 +1986,6 @@ public final class Config
 				WAREHOUSE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForDwarf", "120"));
 				WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
 				FREIGHT_SLOTS = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
-				/* chance to enchant an item over +3 */
-				ENCHANT_CHANCE_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeapon", "68"));
-				ENCHANT_CHANCE_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmor", "52"));
-				ENCHANT_CHANCE_JEWELRY = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelry", "54"));
-				ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponCrystal", "85"));
-				ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorCrystal", "85"));
-				ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryCrystal", "85"));
-				ENCHANT_CHANCE_WEAPON_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceWeaponBlessed", "55"));
-				ENCHANT_CHANCE_ARMOR_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceArmorBlessed", "55"));
-				ENCHANT_CHANCE_JEWELRY_BLESSED = Integer.parseInt(otherSettings.getProperty("EnchantChanceJewelryBlessed", "55"));
-				ENABLE_DWARF_ENCHANT_BONUS = Boolean.parseBoolean(otherSettings.getProperty("EnableDwarfEnchantBonus", "False"));
-				DWARF_ENCHANT_MIN_LEVEL = Integer.parseInt(otherSettings.getProperty("DwarfEnchantMinLevel", "80"));
-				DWARF_ENCHANT_BONUS = Integer.parseInt(otherSettings.getProperty("DwarfEnchantBonus", "15"));
-				ENCHANT_HERO_WEAPONS = Boolean.parseBoolean(otherSettings.getProperty("EnchantHeroWeapons", "False"));
-				/* limit on enchant */
-				ENCHANT_MAX_WEAPON = Integer.parseInt(otherSettings.getProperty("EnchantMaxWeapon", "255"));
-				ENCHANT_MAX_ARMOR = Integer.parseInt(otherSettings.getProperty("EnchantMaxArmor", "255"));
-				ENCHANT_MAX_JEWELRY = Integer.parseInt(otherSettings.getProperty("EnchantMaxJewelry", "255"));
-				/* limit of safe enchant normal */
-				ENCHANT_SAFE_MAX = Integer.parseInt(otherSettings.getProperty("EnchantSafeMax", "3"));
-				/* limit of safe enchant full */
-				ENCHANT_SAFE_MAX_FULL = Integer.parseInt(otherSettings.getProperty("EnchantSafeMaxFull", "4"));
 				/*
 				 * if different from 100 (ie 100%) heal rate is modified acordingly
 				 */
@@ -2651,10 +2672,6 @@ public final class Config
 				LOGIN_RESTART_BY_TIME = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartByTime", "False"));
 				LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
 				SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
-				GM_OVER_ENCHANT = Integer.parseInt(L2JTeonCustom.getProperty("GMOverEnchant", "26"));
-				ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedWeapon", "25"));
-				ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedArmor", "25"));
-				ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(L2JTeonCustom.getProperty("EnchantMaxAllowedJewelry", "25"));
 				STARTING_AA = Integer.parseInt(L2JTeonCustom.getProperty("StartingAA", "0"));
 				USE_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UseChatFilter", "False"));
 				USE_POWERFULL_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UsePowerfullChatFilter", "False"));
