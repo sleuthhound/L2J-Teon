@@ -1726,7 +1726,7 @@ public final class Config
 			catch (Exception e)
 			{
 				e.printStackTrace();
-				throw new Error("Failed to Load " + FLOODPROTECTOR_CONFIG_FILE + " File.");
+				throw new Error("Failed to Load " + ENCHANT_CONFIG_FILE + " File.");
 			}
 			// FloodProtector
 			try
