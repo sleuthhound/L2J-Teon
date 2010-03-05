@@ -1157,7 +1157,7 @@ public class TvT
 			eventPlayer.sendMessage("You already participated in the event!");
 			return false;
 		}
-		if (eventPlayer._inEventCTF || eventPlayer._inEventDM)
+		if (eventPlayer._inEventFOS || eventPlayer._inEventCTF || eventPlayer._inEventDM)
 		{
 			eventPlayer.sendMessage("You already participated in another event!");
 			return false;

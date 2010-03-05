@@ -64,6 +64,7 @@ import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -125,7 +126,7 @@ public class L2NpcInstance extends L2Character
 	private int _castleIndex = -2;
 	private int _fortIndex = -2;
 	public String _CTF_FlagTeamName;
-	public boolean isEventMob = false, _isEventMobTvT = false, _isEventMobDM = false, _isEventMobCTF = false, _isCTF_throneSpawn = false, _isCTF_Flag = false;
+	public boolean isEventMob = false, _isEventMobTvT = false, _isEventMobDM = false, _isEventMobCTF = false, _isCTF_throneSpawn = false, _isCTF_Flag = false, _isEventMobFOS = false, _isFOS_Artifact = false;
 	public boolean isPrivateEventMob = false;
 	private boolean _isInTown = false;
 	private int _isSpoiledBy = 0;
@@ -732,6 +733,14 @@ public class L2NpcInstance extends L2Character
 					{
 						CTF.CheckRestoreFlags();
 					}
+                    else if (_isEventMobFOS)
+                    {
+                    	FortressSiege.showEventHtml(player, String.valueOf(getObjectId()));
+                    }
+                    else if (_isFOS_Artifact)
+                    {
+                    	FortressSiege.showArtifactHtml(player, String.valueOf(getObjectId()));
+                    }
 					else
 					{
 						Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
@@ -2542,7 +2551,7 @@ public class L2NpcInstance extends L2Character
 			case 31770:
 			case 31771:
 			case 31772:
-				if (player.isHero())
+				if (player.isHero() && !player.isFakeHero())
 				{
 					filename = Olympiad.OLYMPIAD_HTML_FILE + "hero_main.htm";
 				}

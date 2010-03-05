@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEventEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminExpSp;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFightCalculator;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFort;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFortressSiegeEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeoEditor;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGeodata;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminGm;
@@ -166,6 +167,7 @@ public class AdminCommandHandler
 		registerAdminCommandHandler(new AdminTvTEngine());
 		registerAdminCommandHandler(new AdminCTFEngine());
 		registerAdminCommandHandler(new AdminDMEngine());
+        registerAdminCommandHandler(new AdminFortressSiegeEngine());
 		registerAdminCommandHandler(new AdminCursedWeapons());
 		registerAdminCommandHandler(new AdminGeodata());
 		registerAdminCommandHandler(new AdminGeoEditor());

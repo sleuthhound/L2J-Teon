@@ -587,6 +587,11 @@ public class DM
 			eventPlayer.sendMessage("You already participated in the event!");
 			return false;
 		}
+    	if (eventPlayer._inEventFOS)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!");
+            return false;
+    	}
 		return true;
 	}
 

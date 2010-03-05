@@ -764,6 +764,18 @@ public final class Config
 	public static boolean DM_ALLOW_SUMMON;
 	public static boolean DM_ON_START_REMOVE_ALL_EFFECTS;
 	public static boolean DM_ON_START_UNSUMMON_PET;
+	// * Fortress Siege Event Engine *//
+    public static String FortressSiege_EVEN_TEAMS;
+    public static boolean FortressSiege_SAME_IP_PLAYERS_ALLOWED;
+    public static boolean FortressSiege_ALLOW_INTERFERENCE;
+    public static boolean FortressSiege_ALLOW_POTIONS;
+    public static boolean FortressSiege_ALLOW_SUMMON;
+    public static boolean FortressSiege_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean FortressSiege_ON_START_UNSUMMON_PET;
+    public static boolean FortressSiege_ANNOUNCE_TEAM_STATS;
+    public static boolean FortressSiege_JOIN_CURSED;
+    public static boolean FortressSiege_REVIVE_RECOVERY;
+    public static boolean FortressSiege_PRICE_NO_KILLS;
 	// * Raid Event Engine *//
 	public static boolean RAID_SYSTEM_ENABLED;
 	public static int RAID_SYSTEM_MAX_EVENTS;
@@ -1907,7 +1919,7 @@ public final class Config
 				LOG_TRADES = Boolean.parseBoolean(optionsSettings.getProperty("LogTrades", "False"));
 				LOG_PDAM = Boolean.parseBoolean(optionsSettings.getProperty("LogPdam", "False"));
 				LOG_MDAM = Boolean.parseBoolean(optionsSettings.getProperty("LogMdam", "False"));
-				GMAUDIT = Boolean.parseBoolean(optionsSettings.getProperty("GMAudit", "True"));
+				GMAUDIT = Boolean.parseBoolean(optionsSettings.getProperty("GMAudit", "False"));
 				COMMUNITY_TYPE = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
 				BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
 				SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
@@ -2445,6 +2457,20 @@ public final class Config
 				DM_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMAllowSummon", "False"));
 				DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartRemoveAllEffects", "True"));
 				DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("DMOnStartUnsummonPet", "True"));
+				// -------------------- //
+				// Fortress Siege Event Engine //
+				// -------------------- //
+		           FortressSiege_EVEN_TEAMS = L2JTeonEventMods.getProperty("FortressSiegeEvenTeams", "BALANCE");
+		           FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeSameIPPlayersAllowed", "false"));
+		           FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowInterference", "false"));
+		           FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowPotions", "false"));
+		           FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowSummon", "false"));
+		           FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartRemoveAllEffects", "true"));
+		           FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartUnsummonPet", "true"));
+		           FortressSiege_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeReviveRecovery", "false"));
+		           FortressSiege_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAnnounceTeamStats", "false"));
+		           FortressSiege_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegePriceNoKills", "false"));
+		           FortressSiege_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeJoinWithCursedWeapon", "true"));
 				// -------------------- //
 				// KvN Engine //
 				// -------------------- //

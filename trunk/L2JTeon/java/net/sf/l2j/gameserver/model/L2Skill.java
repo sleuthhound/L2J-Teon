@@ -91,7 +91,7 @@ public abstract class L2Skill
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
 	public static enum SkillTargetType
 	{
-		TARGET_NONE, TARGET_SELF, TARGET_ONE, TARGET_PARTY, TARGET_ALLY, TARGET_CLAN, TARGET_PET, TARGET_AREA, TARGET_AURA, TARGET_CORPSE, TARGET_UNDEAD, TARGET_AREA_UNDEAD, TARGET_MULTIFACE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_ITEM, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_UNLOCKABLE, TARGET_HOLY, TARGET_PARTY_MEMBER, TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_PIG, TARGET_COUPLE, TARGET_PARTY_OTHER, TARGET_GROUND
+		TARGET_NONE, TARGET_SELF, TARGET_ONE, TARGET_PARTY, TARGET_ALLY, TARGET_CLAN, TARGET_PET, TARGET_AREA, TARGET_AURA, TARGET_CORPSE, TARGET_UNDEAD, TARGET_AREA_UNDEAD, TARGET_MULTIFACE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_ITEM, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_UNLOCKABLE, TARGET_HOLY, TARGET_PARTY_MEMBER, TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_ENEMY_ALLY, TARGET_PIG, TARGET_COUPLE, TARGET_PARTY_OTHER, TARGET_GROUND
 	}
 
 	public static enum SkillType
@@ -1257,6 +1257,10 @@ public abstract class L2Skill
 					{
 						return new L2Character[] { (L2ArtefactInstance) activeChar.getTarget() };
 					}
+					else if ( ((L2PcInstance)activeChar).checkFOS())
+					{
+						return new L2Character[] {(L2NpcInstance) activeChar.getTarget()};
+					}
 				}
 				return null;
 			}
@@ -1791,6 +1795,48 @@ public abstract class L2Skill
 				}
 				return targetList.toArray(new L2Character[targetList.size()]);
 			}
+	        case TARGET_ENEMY_ALLY:
+	        {
+	            //int charX, charY, charZ, targetX, targetY, targetZ, dx, dy, dz;
+	            int radius = getSkillRadius();
+	            L2Character newTarget;
+
+	            if (getCastRange() > -1 && target != null)
+	            {
+	                newTarget = target;
+	            }
+	            else
+	                newTarget = activeChar;
+
+	            if (newTarget != activeChar || isSkillTypeOffensive())
+	                targetList.add(newTarget);
+
+	            for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))
+	            {
+	                if (obj == newTarget || obj == activeChar)
+	                        continue;
+
+	                if (obj instanceof L2Attackable)
+	                {
+	                    if(!obj.isAlikeDead())
+	                    {
+	                        // Don't add this target if this is a PC->PC pvp casting and pvp condition not met
+	                        if (activeChar instanceof L2PcInstance && !((L2PcInstance)activeChar).checkPvpSkill(obj, this))
+	                            continue;
+
+	                        // check if both attacker and target are L2PcInstances and if they are in same party or clan
+	                        if (   activeChar instanceof L2PcInstance && obj instanceof L2PcInstance &&
+	                             (((L2PcInstance)activeChar).getClanId() != ((L2PcInstance)obj).getClanId() ||
+	                             ((L2PcInstance)activeChar).getAllyId() != ((L2PcInstance)obj).getAllyId() &&
+	                             ((L2PcInstance)activeChar).getParty() != null && ((L2PcInstance)obj).getParty() != null &&
+	                             ((L2PcInstance)activeChar).getParty().getPartyLeaderOID() != ((L2PcInstance)obj).getParty().getPartyLeaderOID()))
+	                            continue;
+
+	                        targetList.add(obj);
+	                    }
+	                }
+	            }
+	        }
 			case TARGET_CORPSE_CLAN:
 			case TARGET_CLAN:
 			{

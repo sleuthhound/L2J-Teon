@@ -125,6 +125,7 @@ import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2EventChecks;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2RaidEvent;
@@ -489,6 +490,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	/** true if the L2PcInstance is newbie */
 	private boolean _newbie;
 	private boolean _noble = false;
+    private boolean _fakeHero = false;
 	private boolean _hero = false;
 	private boolean _isDonator = false;
 	// Faction Koofs and Noobs by DaRkRaGe
@@ -623,6 +625,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	/** DM Engine parameters */
 	public int _originalNameColorDM, _countDMkills, _originalKarmaDM;
 	public boolean _inEventDM = false;
+    /** FOS Engine parameters */
+    public String 	_teamNameFOS;
+    public int 		_originalNameColorFOS,
+    				_countFOSKills,
+    				_originalKarmaFOS;
+    public boolean 	_inEventFOS = false,
+    				_FOSRulerSkills = false;
 	/** new loto ticket * */
 	private final int _loto[] = new int[5];
 	// public static int _loto_nums[] = {0,1,2,3,4,5,6,7,8,9,};
@@ -2418,7 +2427,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
 		else if (isAway())
 			sendMessage("You can't stand up if your Status is Away");
-		else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM)
+		else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || FortressSiege._sitForced && _inEventFOS)
 			sendMessage("The Admin/GM handle if you sit or stand in this match!");
 		else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
 		{
@@ -3412,13 +3421,18 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (TvT._started && !Config.TVT_ALLOW_INTERFERENCE || CTF._started && !Config.CTF_ALLOW_INTERFERENCE || DM._started && !Config.DM_ALLOW_INTERFERENCE)
+		if (TvT._started && !Config.TVT_ALLOW_INTERFERENCE || CTF._started && !Config.CTF_ALLOW_INTERFERENCE || DM._started && !Config.DM_ALLOW_INTERFERENCE  || FortressSiege._started && !Config.FortressSiege_ALLOW_INTERFERENCE)
 		{
 			if (_inEventTvT && !player._inEventTvT || !_inEventTvT && player._inEventTvT)
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
+            if (_inEventFOS && !player._inEventFOS || !_inEventFOS && player._inEventFOS)
+            {
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+                return;
+            }
 			else if (_inEventCTF && !player._inEventCTF || !_inEventCTF && player._inEventCTF)
 			{
 				player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -3464,7 +3478,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			else
 			{
 				// Check if this L2PcInstance is autoAttackable
-				if (isAutoAttackable(player) || player._inEventTvT && TvT._started || player._inEventCTF && CTF._started || player._inEventDM && DM._started)
+				if (isAutoAttackable(player) || player._inEventTvT && TvT._started || player._inEventCTF && CTF._started || player._inEventDM && DM._started  || player._inEventFOS && FortressSiege._started)
 				{
 					// Player with lvl < 21 can't attack a cursed weapon holder
 					// And a cursed weapon holder can't attack players with lvl < 21
@@ -3504,12 +3518,12 @@ public final class L2PcInstance extends L2PlayableInstance
 	@Override
 	public boolean isInFunEvent()
 	{
-		return atEvent || TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF;
+		return atEvent || TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF  || FortressSiege._started && _inEventFOS;
 	}
 
 	public boolean isInTargetEvent()
 	{
-	 		return atEvent || TvT._joining && _inEventTvT || TvT._teleport && _inEventTvT || TvT._sitForced && _inEventTvT || TvT._started && _inEventTvT || DM._joining && _inEventDM || DM._teleport && _inEventDM || DM._sitForced && _inEventDM || DM._started && _inEventDM || CTF._joining && _inEventCTF || CTF._teleport && _inEventCTF || CTF._sitForced && _inEventCTF || CTF._started && _inEventCTF;
+ 		return atEvent || TvT._joining && _inEventTvT || TvT._teleport && _inEventTvT || TvT._sitForced && _inEventTvT || TvT._started && _inEventTvT || DM._joining && _inEventDM || DM._teleport && _inEventDM || DM._sitForced && _inEventDM || DM._started && _inEventDM || CTF._joining && _inEventCTF || CTF._teleport && _inEventCTF || CTF._sitForced && _inEventCTF || CTF._started && _inEventCTF || FortressSiege._joining && _inEventFOS || FortressSiege._teleport && _inEventFOS || FortressSiege._sitForced && _inEventFOS || FortressSiege._started && _inEventFOS ;
 	}
 
 	/**
@@ -4216,6 +4230,38 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (killer != null)
 		{
 			L2PcInstance pk = null;
+            if (killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventFOS && _inEventFOS)
+            {
+                if (FortressSiege._teleport || FortressSiege._started)
+                {
+                    if (!((L2PcInstance)killer)._teamNameFOS.equals(_teamNameFOS))
+                        ((L2PcInstance)killer)._countFOSKills++;
+                    else{
+                        ((L2PcInstance)killer).sendMessage("Team Kills do not count as kills. They will only harm you in this event");
+                        ((L2PcInstance)killer)._countFOSKills--;
+                    }
+                    sendMessage("You will be revived and teleported to team spot in 10 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable(){
+                        public void run(){
+                            teleToLocation(FortressSiege._teamsX.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsY.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(_teamNameFOS)), false);
+                            doRevive();
+                            updateFOSTitleFlag();
+                        }
+                    }, 10000);
+                }
+            }
+            else if (_inEventFOS){
+                if (FortressSiege._teleport || FortressSiege._started){
+                    sendMessage("You will be revived and teleported to team spot in 10 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable(){
+                        public void run(){
+                        	teleToLocation(FortressSiege._teamsX.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsY.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(_teamNameFOS)), false);
+                            doRevive();
+                            updateFOSTitleFlag();
+                        }
+                    }, 10000);
+                }
+            }
 			if (killer instanceof L2PcInstance && ((L2PcInstance) killer)._inEventTvT && _inEventTvT)
 			{
 				if (TvT._teleport || TvT._started)
@@ -4454,7 +4500,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	private void onDieDropItem(L2Character killer)
 	{
-		if (atEvent || TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF || killer == null)
+		if (atEvent || TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF ||  FortressSiege._started && _inEventFOS || killer == null)
 			return;
 		if (getKarma() <= 0 && killer instanceof L2PcInstance && ((L2PcInstance) killer).getClan() != null && getClan() != null && ((L2PcInstance) killer).getClan().isAtWarWith(getClanId()))
 		// || this.getClan().isAtWarWith(((L2PcInstance)killer).getClanId()))
@@ -4713,7 +4759,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void increasePvpKills()
 	{
-		if (TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF)
+		if (TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF || FortressSiege._started && _inEventFOS)
 			return;
 		if (Config.ALLOW_PVP_REWARD)
 		{
@@ -4837,7 +4883,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public void increasePkKillsAndKarma(int targLVL)
 	{
-		if (TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF)
+		if (TvT._started && _inEventTvT || DM._started && _inEventDM || CTF._started && _inEventCTF || FortressSiege._started && _inEventFOS)
 			return;
 		int baseKarma = Config.KARMA_MIN_KARMA;
 		int newKarma = baseKarma;
@@ -4927,7 +4973,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			player_target = ((L2Summon) target).getOwner();
 		if (player_target == null)
 			return;
-		if (TvT._started && _inEventTvT && player_target._inEventTvT || DM._started && _inEventDM && player_target._inEventDM || CTF._started && _inEventCTF && player_target._inEventCTF)
+		if (TvT._started && _inEventTvT && player_target._inEventTvT || DM._started && _inEventDM && player_target._inEventDM || CTF._started && _inEventCTF && player_target._inEventCTF  || _inEventFOS && FortressSiege._started && player_target._inEventFOS)
 			return;
 		if (((L2PcInstance) this).isKoof() && ((L2PcInstance) target).isNoob())
 			return;
@@ -5623,45 +5669,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			for (L2ItemInstance element : unequiped) {
 				iu.addModifiedItem(element);
 			}
-			sendPacket(iu);
-			abortAttack();
-			broadcastUserInfo();
-			// this can be 0 if the user pressed the right mousebutton twice very fast
-			if (unequiped.length > 0)
-			{
-				SystemMessage sm = null;
-				if (unequiped[0].getEnchantLevel() > 0)
-				{
-					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-					sm.addNumber(unequiped[0].getEnchantLevel());
-					sm.addItemName(unequiped[0].getItemId());
-				}
-				else
-				{
-					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-					sm.addItemName(unequiped[0].getItemId());
-				}
-				sendPacket(sm);
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Disarm the player's shield.<BR>
-	 * <BR>
-	 */
-	public boolean disarmShield()
-	{
-		L2ItemInstance sld = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
-		if (sld != null)
-		{
-			if (sld.isWear())
-				return false;
-			L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(sld.getItem().getBodyPart());
-			InventoryUpdate iu = new InventoryUpdate();
-			for (L2ItemInstance itm : unequiped)
-				iu.addModifiedItem(itm);
 			sendPacket(iu);
 			abortAttack();
 			broadcastUserInfo();
@@ -7811,7 +7818,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 			}
 			// Check if a Forced ATTACK is in progress on non-attackable target
-			if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started))
+			if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started)  && !(_inEventFOS && FortressSiege._started))
 			{
 				switch (sklTargetType)
 				{
@@ -7956,12 +7963,16 @@ public final class L2PcInstance extends L2PlayableInstance
 					}
 				}
 		}
-		if (sklTargetType == SkillTargetType.TARGET_HOLY && !TakeCastle.checkIfOkToCastSealOfRule(this, false))
+		if (sklTargetType == SkillTargetType.TARGET_HOLY && !FortressSiege.checkIfOkToCastSealOfRule(this) && !TakeCastle.checkIfOkToCastSealOfRule(this, false))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			abortCast();
 			return;
 		}
+        if (sklTargetType == SkillTargetType.TARGET_HOLY && FortressSiege.checkIfOkToCastSealOfRule(this))
+        {
+        	FortressSiege.Announcements(getName()+" from team "+FortressSiege._teams.get(0)+" has begun engraving the Artifact.");
+        }
 		if (sklType == SkillType.SIEGEFLAG && !SiegeFlag.checkIfOkToPlaceFlag(this, false))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
@@ -8024,7 +8035,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	 */
 	public boolean checkPvpSkill(L2Object target, L2Skill skill)
 	{
-		if (_inEventTvT && TvT._started || _inEventDM && DM._started || _inEventCTF && CTF._started)
+		if (_inEventTvT && TvT._started || _inEventDM && DM._started || _inEventCTF && CTF._started || _inEventFOS && FortressSiege._started)
 			return true;
 		if (isNoob() || isKoof())
 			return true;
@@ -9091,6 +9102,10 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _blockList;
 	}
 
+    public void setFakeHero(boolean hero){
+    	_fakeHero = hero;
+    }
+
 	public void setHero(boolean hero)
 	{
 		if (hero && _baseClass == _activeClass)
@@ -9136,6 +9151,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return _OlympiadStart;
 	}
+
+    public boolean isFakeHero()
+    {
+        return _fakeHero;
+    }
 
 	public boolean isHero()
 	{
@@ -9947,7 +9967,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
 				getParty().getDimensionalRift().memberRessurected(this);
 		}
-		if (_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY || _inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY)
+		if (_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY || _inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY || _inEventFOS && FortressSiege._started && Config.FortressSiege_REVIVE_RECOVERY)
 		{
 			getStatus().setCurrentHp(getMaxHp());
 			getStatus().setCurrentMp(getMaxMp());
@@ -12182,5 +12202,17 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setNameColor(int red, int green, int blue)
 	{
 		_nameColor = (red & 0xFF) + ((green & 0xFF) << 8) + ((blue & 0xFF) << 16);
+	}
+
+	public boolean checkFOS(){
+		return FortressSiege.checkIfOkToCastSealOfRule(this);
+	}
+
+	public Map<Integer,L2Skill> returnSkills(){
+		return _skills;
+	}
+
+	public void updateFOSTitleFlag(){
+		FortressSiege.setTitleSiegeFlags(this);
 	}
 }
