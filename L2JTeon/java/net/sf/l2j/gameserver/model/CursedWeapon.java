@@ -26,6 +26,8 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.ExRedSky;
@@ -397,6 +399,13 @@ public class CursedWeapon
 				return;
 			}
 		}
+        if(player._inEventTvT && !Config.TVT_JOIN_CURSED || player._inEventCTF && !Config.CTF_JOIN_CURSED)
+        {
+        	if(player._inEventTvT)
+        		TvT.removePlayer(player);
+        	if(player._inEventCTF)
+        		CTF.removePlayer(player);
+        }
 		_isActivated = true;
 		// Player holding it data
 		_player = player;

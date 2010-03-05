@@ -81,6 +81,10 @@ public final class L2ArtefactInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
+		if (_isFOS_Artifact && player._inEventFOS){
+			super.onAction(player);
+			return;
+		}
 		if (!canTarget(player))
 			return;
 		if (this != player.getTarget())

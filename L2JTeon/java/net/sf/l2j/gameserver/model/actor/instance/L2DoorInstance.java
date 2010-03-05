@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.model.actor.status.DoorStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Fort;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.FortressSiege;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
@@ -326,6 +327,9 @@ public class L2DoorInstance extends L2Character
 	{
 		if (isUnlockable())
 			return true;
+        // Attackable during fortress sieges by event participators only
+        if (FortressSiege.isDoorAttackable(getDoorId(),attacker))
+        	return true;
 		/*
 		 * int ClanHallID = _clanHall.getId(); if (ClanHallID == 34 && DevastatedCastleManager.getInstance().getIsInProgress()) return true; if (ClanHallID == 64 && FortressofTheDeadManager.getInstance().getIsInProgress()) return true;
 		 */

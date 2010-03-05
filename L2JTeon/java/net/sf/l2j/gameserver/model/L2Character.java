@@ -72,6 +72,10 @@ import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList.KnownListAsyn
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Duel;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.FortressSiege;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.model.item.Inventory;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -97,6 +101,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.network.serverpackets.Revive;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
+import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -592,6 +597,9 @@ public abstract class L2Character extends L2Object
 		decayMe();
 		if (!(this instanceof L2PcInstance))
 			onTeleported();
+
+        else if (FortressSiege._started && this instanceof L2PcInstance && ((L2PcInstance)this)._inEventFOS)
+        	FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
 	}
 
 	public void teleToLocation(int x, int y, int z)
@@ -672,6 +680,16 @@ public abstract class L2Character extends L2Object
 		{
 			_log.fine(getName() + " doAttack: target=" + target);
 		}
+        if (target instanceof L2PlayableInstance && this instanceof L2PlayableInstance){
+        	L2Object[] o;
+        	if (FortressSiege._started)
+        		o = eventBlocker(new L2Object[] {target},true); // This adds another check for protected zone in fortress sieges.
+        	else
+        		o = eventBlocker(new L2Object[] {target},false); // A Filter to take out any players not in events.
+        	if (o!=null && o[0]!=null && o[0] instanceof L2Character)
+        		target = (L2Character)o[0];
+        	else target = null;
+        }
 		if (isAlikeDead() || target == null || this instanceof L2NpcInstance && target.isAlikeDead() || this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath() || !getKnownList().knowsObject(target) || this instanceof L2PcInstance && isDead() || target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD)
 		{
 			// If L2PcInstance is dead or the target is dead, the action is
@@ -1339,6 +1357,14 @@ public abstract class L2Character extends L2Object
 		}
 		// Get all possible targets of the skill in a table in function of the skill target type
 		L2Object[] targets = skill.getTargetList(this);
+        if (FortressSiege._started && this instanceof L2PcInstance && ((L2PcInstance)this)._inEventFOS && (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY))
+        	targets = getFOSTargets(skill);
+        if (this instanceof L2PlayableInstance){
+        	if (FortressSiege._started && skill.isOffensive())
+        		targets = eventBlocker(targets,true); // Special check made here, to not allow players in protected zone to be hit by players IN THE EVENT (a.k.a. safe zone)
+        	else
+        		targets = eventBlocker(targets,false); // A Filter to take out any playables not in events or vice versa.
+        }
 		if (targets == null || targets.length == 0)
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
@@ -1560,6 +1586,104 @@ public abstract class L2Character extends L2Object
 		else
 			onMagicLaunchedTimer(targets, skill, coolTime, true);
 	}
+
+    /**
+	    *Since in this event we create 2 clans, all ally,clan skills should be directed to the event participators
+	    *@param L2Skill skill that is casted
+	    *@return L2Object[] target list of the event participators
+	    **/
+	    private L2Object[] getFOSTargets(L2Skill skill){
+	    	L2Skill.SkillTargetType type = skill.getTargetType();
+	    	FastTable<L2PcInstance> targetList = new FastTable<L2PcInstance>();
+	    	if (type == L2Skill.SkillTargetType.TARGET_CLAN || type == L2Skill.SkillTargetType.TARGET_ALLY)
+	    		for(L2PcInstance member : FortressSiege._players)
+	    			if (member._teamNameFOS.equals(((L2PcInstance)this)._teamNameFOS) && member.isInsideRadius(this, skill.getSkillRadius(), true, false))
+	    				targetList.add(member);
+	    			else if (type == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY)
+	    				for(L2PcInstance target : FortressSiege._players)
+	    					if (!target._teamNameFOS.equals(((L2PcInstance)this)._teamNameFOS) && target.isInsideRadius(this, skill.getSkillRadius(), true, false))
+	    						targetList.add(target);
+	    	return targetList.toArray(new L2Object[targetList.size()]);
+	    }
+
+	    /**
+	     * Function is used to filter out targets during an event.
+	     * @param targets - Target list L2Object[] received
+	     * @param offensive - true to check Offensive skills or hits from players IN THE EVENT as well. false to check ALL interference
+	     * @return L2Object[] - New target list, with event participants excluded
+	     */
+	    private L2Object[] eventBlocker(L2Object[] targets, boolean offensive){
+	        try{
+	        	//If events are not running skip this check. Code efficiency.
+	        	if (!TvT._started && !CTF._started && !DM._started && !FortressSiege._started)
+	        		return targets;
+	        	//Let's find the caster:
+	        	L2PcInstance caster = null;
+	        	if (this instanceof L2PcInstance)
+	        		caster = (L2PcInstance)this;
+	        	else if (this instanceof L2Summon)
+	        		caster = ((L2Summon)this).getOwner();
+	        	if (caster == null)
+	        		return targets;
+	        	//Check the targets:
+	        	for (int x=0 ; x<targets.length ; x++){
+	            	if (targets[x] == null || !(targets[x] instanceof L2PlayableInstance))
+	            		continue; // Don't check mobs
+	            	//Find the player to check if he is in event confronting him with the caster:
+	            	L2PcInstance target = null;
+	            	if (targets[x] instanceof L2PcInstance)
+	            		target = (L2PcInstance)targets[x];
+	            	else if (targets[x] instanceof L2Summon)
+	            		target = ((L2Summon)targets[x]).getOwner();
+	            	if (target == null)
+	            		continue;
+	            	//Run the check, change off limit targets to null:
+	            	if (TvT._started && !Config.TVT_ALLOW_INTERFERENCE || CTF._started && !Config.CTF_ALLOW_INTERFERENCE || DM._started && !Config.DM_ALLOW_INTERFERENCE || FortressSiege._started && !Config.FortressSiege_ALLOW_INTERFERENCE)
+	            	{
+	                    if (target._inEventTvT && !caster._inEventTvT || !target._inEventTvT && caster._inEventTvT)
+	                        targets[x]=null;
+	                    else if (target._inEventCTF && !caster._inEventCTF || !target._inEventCTF && caster._inEventCTF)
+	                        targets[x]=null;
+	                    else if (target._inEventDM && !caster._inEventDM || !target._inEventDM && caster._inEventDM)
+	                    	targets[x]=null;
+	                    else if (target._inEventFOS && !caster._inEventFOS || !target._inEventFOS && caster._inEventFOS)
+	                    	targets[x]=null;
+	                    else if (FortressSiege._started && offensive) // only sent here when we called to check offensive attacks (not buffs, heals etc...)
+	                    	if (target._inEventFOS && FortressSiege.inProtectedZone((L2Character)targets[x],caster) || caster._inEventFOS && FortressSiege.inProtectedZone(this,caster))
+	                    		targets[x]=null;
+	            	}
+	        	}
+	        	//At this point we have an array of targets which some are null, let's clean this array:
+
+	        	return removeAllNullTargets(targets);
+	        }
+	        catch (Throwable t){
+	        	return removeAllNullTargets(targets);
+	        }
+	    }
+
+		/**
+		* @param targets a target list with null targets
+		* @return a target list without null targets
+		*/
+	    public L2Object[] removeAllNullTargets(L2Object[] targets){
+			if (targets == null)
+				return null;
+			int size = 0;
+			for (L2Object target : targets)
+				if (target!=null)
+					size++;
+			if (size == 0)
+				return null;
+			L2Object[] newTargets = new L2Object[size];
+			size = 0;
+			for (L2Object target : targets)
+				if (target!=null){
+					newTargets[size] = target;
+					size++;
+				}
+			return newTargets;
+		}
 
 	/**
 	 * Index according to skill id the current timestamp of use.<br>
@@ -6607,6 +6731,7 @@ public abstract class L2Character extends L2Object
 						handler.useSkill(this, skill, targets);
 					else
 						skill.useSkill(this, targets);
+
 					if (this instanceof L2PcInstance || this instanceof L2Summon)
 					{
 						L2PcInstance caster = this instanceof L2PcInstance ? (L2PcInstance) this : ((L2Summon) this).getOwner();
@@ -6646,6 +6771,18 @@ public abstract class L2Character extends L2Object
 				handler.useSkill(this, skill, targets);
 			else
 				skill.useSkill(this, targets);
+
+            if (skill.getTargetType() == SkillTargetType.TARGET_HOLY && this instanceof L2PcInstance && FortressSiege.checkIfOkToCastSealOfRule((L2PcInstance)this)){
+            	FortressSiege.Announcements(getName()+" finished casting Seal Of Ruler. "+((L2PcInstance)this)._teamNameFOS+" has taken "+FortressSiege._eventName+"!");
+            	if (!((L2PcInstance)this).isHero()){
+            		((L2PcInstance)this).sendMessage("You have been rewarded with a Hero status from this event");
+            		((L2PcInstance)this).setHero(true);
+            		((L2PcInstance)this).setFakeHero(true); // Since it's only for the event, we don't want him to get Hero gear from the event manager.
+            	}
+            	((L2PcInstance)this).getAppearance().setTitleColor(0, 0, 255);
+            	((L2PcInstance)this).sendPacket(new SocialAction(getObjectId(), 16));
+            	FortressSiege.doSwap();
+            }
 			if (this instanceof L2PcInstance || this instanceof L2Summon)
 			{
 				L2PcInstance caster = this instanceof L2PcInstance ? (L2PcInstance) this : ((L2Summon) this).getOwner();

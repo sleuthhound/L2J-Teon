@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.CTF;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.DM;
+import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -165,6 +166,22 @@ public final class RequestBypassToServer extends L2GameClientPacket
 						else
 							activeChar.sendMessage("The event is already started. You can not leave now!");
 					}
+                    else if (_command.substring(endOfId+1).startsWith("fos_player_join "))
+                    {
+                        String teamName = _command.substring(endOfId+1).substring(16);
+
+                        if (FortressSiege._joining)
+                        	FortressSiege.addPlayer(activeChar, teamName);
+                        else
+                            activeChar.sendMessage("The event has already begun. You can not join now!");
+                    }
+
+                    else if (_command.substring(endOfId+1).startsWith("fos_player_leave")){
+                        if (FortressSiege._joining)
+                        	FortressSiege.removePlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event has already begun. You can not withdraw your participation now!");
+                    }
 					if (Config.ALLOW_REMOTE_CLASS_MASTERS && object instanceof L2ClassMasterInstance || object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
 					{
 						((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId + 1));
