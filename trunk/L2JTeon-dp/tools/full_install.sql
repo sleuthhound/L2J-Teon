@@ -73,6 +73,7 @@ DROP TABLE IF EXISTS fort_functions;
 DROP TABLE IF EXISTS fort_spawnlist;
 DROP TABLE IF EXISTS fort_siege_guards;
 DROP TABLE IF EXISTS fort_staticobjects;
+DROP TABLE IF EXISTS fortress_siege;
 DROP TABLE IF EXISTS fortsiege_clans;
 DROP TABLE IF EXISTS forums;
 DROP TABLE IF EXISTS four_sepulchers_spawnlist;
