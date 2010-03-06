@@ -44,11 +44,12 @@ public final class Config
 	public static final String CONFIGURATION_FILE = "./config/server.properties";
 	public static final String LOGIN_CONFIGURATION_FILE = "./config/loginserver.properties";
 	public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
+	public static final String CLAN_SETTINGS_FILE = "./config/clan.properties";
 	public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
 	public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
 	public static final String FLOODPROTECTOR_CONFIG_FILE = "./config/custom/FloodProtector.properties";
 	public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
-	public static final String ENCHANT_CONFIG_FILE = "./config/GMAccess.properties";
+	public static final String ENCHANT_CONFIG_FILE = "./config/enchant.properties";
 	public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
 	public static final String IRC_FILE = "./config/irc.properties";
 	public static final String OPTIONS_FILE = "./config/options.properties";
@@ -1558,19 +1559,8 @@ public final class Config
 				MAX_SUBCLASSES = Integer.parseInt(altSettings.getProperty("MaxSubClasses", "3"));
 				KEEP_SUBCLASS_SKILLS = Boolean.parseBoolean(altSettings.getProperty("KeepSubClassSkills", "False"));
 				RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(altSettings.getProperty("RestoreEffectsOnSubClassChange", "False"));
-				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
-				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
-				ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(altSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
 				DWARF_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit", "50"));
 				COMMON_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit", "50"));
-				ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(altSettings.getProperty("AltClanMembersForWar", "15"));
-				ALT_CLAN_JOIN_DAYS = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAClan", "5"));
-				ALT_CLAN_CREATE_DAYS = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateAClan", "10"));
-				ALT_CLAN_DISSOLVE_DAYS = Integer.parseInt(altSettings.getProperty("DaysToPassToDissolveAClan", "7"));
-				ALT_ALLY_JOIN_DAYS_WHEN_LEAVED = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
-				ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
-				ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(altSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
-				ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
 				ALLOW_MANOR = Boolean.parseBoolean(altSettings.getProperty("AllowManor", "False"));
 				ALT_MANOR_REFRESH_TIME = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime", "20"));
 				ALT_MANOR_REFRESH_MIN = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin", "00"));
@@ -1634,6 +1624,48 @@ public final class Config
 			{
 				e.printStackTrace();
 				throw new Error("Failed to Load " + ALT_SETTINGS_FILE + " File.");
+			}
+			// clan settings
+			try
+			{
+				Properties clanSettings = new Properties();
+				InputStream is = new FileInputStream(new File(CLAN_SETTINGS_FILE));
+				clanSettings.load(is);
+				is.close();
+				
+				ALT_CLAN_JOIN_DAYS = Integer.parseInt(clanSettings.getProperty("DaysBeforeJoinAClan", "5"));
+				ALT_CLAN_CREATE_DAYS = Integer.parseInt(clanSettings.getProperty("DaysBeforeCreateAClan", "10"));
+				ALT_CLAN_DISSOLVE_DAYS = Integer.parseInt(clanSettings.getProperty("DaysToPassToDissolveAClan", "7"));
+				ALT_ALLY_JOIN_DAYS_WHEN_LEAVED = Integer.parseInt(clanSettings.getProperty("DaysBeforeJoinAllyWhenLeaved", "1"));
+				ALT_ALLY_JOIN_DAYS_WHEN_DISMISSED = Integer.parseInt(clanSettings.getProperty("DaysBeforeJoinAllyWhenDismissed", "1"));
+				ALT_ACCEPT_CLAN_DAYS_WHEN_DISMISSED = Integer.parseInt(clanSettings.getProperty("DaysBeforeAcceptNewClanWhenDismissed", "1"));
+				ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED = Integer.parseInt(clanSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+				ALT_MAX_NUM_OF_CLANS_IN_ALLY = Integer.parseInt(clanSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
+				ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clanSettings.getProperty("AltClanMembersForWar", "15"));
+				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(clanSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
+				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(clanSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
+				
+				// ********************//
+				/* Clan. Customizes. */
+				// ********************//
+				CLAN_RAISE_FIRST_COST = Integer.parseInt(clanSettings.getProperty("ClanFirstCost", "650000"));
+				CLAN_RAISE_SEC_COST = Integer.parseInt(clanSettings.getProperty("ClanSecondCOst", "2500000"));
+				CLAN_MEMBERS_FIRST = Integer.parseInt(clanSettings.getProperty("ClanMembersNeedSix", "30"));
+				CLAN_MEMBERS_SEC = Integer.parseInt(clanSettings.getProperty("ClanMembersNeedSeven", "80"));
+				CLAN_MEMBERS_THIRD = Integer.parseInt(clanSettings.getProperty("ClanMembersNeedEight", "120"));
+				CLAN_REPUTATION_FIRST = Integer.parseInt(clanSettings.getProperty("ClanReputationSix", "10000"));
+				CLAN_REPUTATION_SEC = Integer.parseInt(clanSettings.getProperty("ClanReputationSeven", "20000"));
+				CLAN_REPUTATION_THIRD = Integer.parseInt(clanSettings.getProperty("ClanReputationEight", "40000"));
+				CLAN_SP_FIRST = Integer.parseInt(clanSettings.getProperty("ClanSpFirst", "30000"));
+				CLAN_SP_SEC = Integer.parseInt(clanSettings.getProperty("ClanSpSecond", "150000"));
+				CLAN_SP_THIRD = Integer.parseInt(clanSettings.getProperty("ClanSpThird", "500000"));
+				CLAN_SP_FORTH = Integer.parseInt(clanSettings.getProperty("ClanSpForth", "1400000"));
+				CLAN_SP_FIFTH = Integer.parseInt(clanSettings.getProperty("ClanSpFifth", "3500000"));
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error("Failed to Load " + CLAN_SETTINGS_FILE + " File.");
 			}
 			// clanhall settings
 			try
@@ -2675,22 +2707,6 @@ public final class Config
 				NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY = Integer.parseInt(L2JTeonCustom.getProperty("AnnouncesPerDay", "20"));
 				NPC_ANNOUNCER_MIN_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MinLevelToAnnounce", "0"));
 				NPC_ANNOUNCER_MAX_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MaxLevelToAnnounce", "80"));
-				// ********************//
-				/* Clan. Customizes. */
-				// ********************//
-				CLAN_RAISE_FIRST_COST = Integer.parseInt(L2JTeonCustom.getProperty("ClanFirstCost", "650000"));
-				CLAN_RAISE_SEC_COST = Integer.parseInt(L2JTeonCustom.getProperty("ClanSecondCOst", "2500000"));
-				CLAN_MEMBERS_FIRST = Integer.parseInt(L2JTeonCustom.getProperty("ClanMembersNeedSix", "30"));
-				CLAN_MEMBERS_SEC = Integer.parseInt(L2JTeonCustom.getProperty("ClanMembersNeedSeven", "80"));
-				CLAN_MEMBERS_THIRD = Integer.parseInt(L2JTeonCustom.getProperty("ClanMembersNeedEight", "120"));
-				CLAN_REPUTATION_FIRST = Integer.parseInt(L2JTeonCustom.getProperty("ClanReputationSix", "10000"));
-				CLAN_REPUTATION_SEC = Integer.parseInt(L2JTeonCustom.getProperty("ClanReputationSeven", "20000"));
-				CLAN_REPUTATION_THIRD = Integer.parseInt(L2JTeonCustom.getProperty("ClanReputationEight", "40000"));
-				CLAN_SP_FIRST = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpFirst", "30000"));
-				CLAN_SP_SEC = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpSecond", "150000"));
-				CLAN_SP_THIRD = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpThird", "500000"));
-				CLAN_SP_FORTH = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpForth", "1400000"));
-				CLAN_SP_FIFTH = Integer.parseInt(L2JTeonCustom.getProperty("ClanSpFifth", "3500000"));
 				// ********************//
 				/* Serv. Customizes. */
 				// ********************//

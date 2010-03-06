@@ -1192,8 +1192,7 @@ public final class Formulas
 		}
 		// Multiplier should be removed, it's false ??
 		damage = attacker.calcStat(Stats.CRITICAL_DAMAGE, damage + power, target, skill);
-		// Add bonus from Critical Damage Passives, Vicious Stance and SA
-		// Critical Damage
+		// Add bonus from Critical Damage Passives, Vicious Stance and SA Critical Damage
 		damage += 6.1 * attacker.calcStat(Stats.CRITICAL_DAMAGE_BONUS, 0, target, skill);
 		// damage *= (double)attacker.getLevel()/target.getLevel();
 		// get the natural vulnerability for the template
@@ -1201,17 +1200,15 @@ public final class Formulas
 		{
 			damage *= ((L2NpcInstance) target).getTemplate().getVulnerability(Stats.DAGGER_WPN_VULN);
 		}
-		// get the vulnerability for the instance due to skills (buffs,
-		// passives, toggles, etc)
+		// get the vulnerability for the instance due to skills (buffs, passives, toggles, etc)
 		damage = target.calcStat(Stats.DAGGER_WPN_VULN, damage, target, null);
 		damage *= 70. / defence;
 		damage += Rnd.get() * attacker.getRandomDamage(target);
-		// Sami: Must be removed, after armor resistances are checked.
-		// These values are a quick fix to balance dagger gameplay and give
-		// armor resistances vs dagger. daggerWpnRes could also be used if a
-		// skill
-		// was given to all classes. The values here try to be a compromise.
-		// They were originally added in a late C4 rev (2289).
+		/**
+		 * L2J Teon Balance of Classes
+		 * @author Aleff Meykson
+		 * @version 1.0
+		 */
 		if (Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill != null
 				|| Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill == null)
 		{
@@ -1238,6 +1235,11 @@ public final class Formulas
 				break;
 			}
 		}
+		// Sami: Must be removed, after armor resistances are checked.
+		// These values are a quick fix to balance dagger gameplay and give
+		// armor resistances vs dagger. daggerWpnRes could also be used 
+		// if a skill was given to all classes. The values here try to be a compromise.
+		// They were originally added in a late C4 rev (2289).
 		L2Weapon weapon = attacker.getActiveWeaponItem();
 		if (target instanceof L2PcInstance && weapon != null && weapon.getItemType() == L2WeaponType.DAGGER && skill != null)
 		{
@@ -1490,8 +1492,10 @@ public final class Formulas
 				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 			}
 		}
-		/*
-		 * Balance Classes By: Meyknho
+		/**
+		 * L2J Teon Balance of Classes
+		 * @author Aleff Meykson
+		 * @version 1.0
 		 */
 		if (Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill != null
 				|| Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill == null)
@@ -1740,8 +1744,10 @@ public final class Formulas
 				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
 			}
 		}
-		/*
-		 * Balance Classes By: Meyknho
+		/**
+		 * L2J Teon Balance of Classes
+		 * @author Aleff Meykson
+		 * @version 1.0
 		 */
 		if (Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill != null
 				|| Config.ENABLE_BALANCE && attacker instanceof L2PcInstance && skill == null)
