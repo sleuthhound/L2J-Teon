@@ -114,6 +114,7 @@ import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
 import net.sf.l2j.gameserver.scripting.CompiledScriptCache;
 import net.sf.l2j.gameserver.scripting.L2ScriptEngineManager;
+import net.sf.l2j.gameserver.taskmanager.KnownListUpdateTaskManager;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.status.Status;
@@ -468,6 +469,7 @@ public class GameServer
 		}
 		Util.printSection("Game Server");
 		ForumsBBSManager.getInstance();
+        KnownListUpdateTaskManager.getInstance();
 		System.gc();
 		_log.config("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
 		// initialize the dynamic extension loader

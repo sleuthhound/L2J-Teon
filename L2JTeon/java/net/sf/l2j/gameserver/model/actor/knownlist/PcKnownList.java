@@ -232,9 +232,9 @@ public class PcKnownList extends PlayableKnownList
 		// extra charinfo packets are being sent (watch-forget-watch-forget)
 		int knownlistSize = getKnownObjects().size();
 		if (knownlistSize <= 25)
-			return 4200;
+			return 4000;
 		if (knownlistSize <= 35)
-			return 3600;
+			return 3500;
 		if (knownlistSize <= 70)
 			return 2910;
 		else
@@ -246,7 +246,7 @@ public class PcKnownList extends PlayableKnownList
 	{
 		int knownlistSize = getKnownObjects().size();
 		if (knownlistSize <= 25)
-			return 3500; // empty field
+			return 3400; // empty field
 		if (knownlistSize <= 35)
 			return 2900;
 		if (knownlistSize <= 70)

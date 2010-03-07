@@ -1237,7 +1237,7 @@ public final class Formulas
 		}
 		// Sami: Must be removed, after armor resistances are checked.
 		// These values are a quick fix to balance dagger gameplay and give
-		// armor resistances vs dagger. daggerWpnRes could also be used 
+		// armor resistances vs dagger. daggerWpnRes could also be used
 		// if a skill was given to all classes. The values here try to be a compromise.
 		// They were originally added in a late C4 rev (2289).
 		L2Weapon weapon = attacker.getActiveWeaponItem();

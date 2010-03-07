@@ -132,7 +132,7 @@ public class CharKnownList extends ObjectKnownList
 		FastList<L2Character> result = new FastList<L2Character>();
 		for (L2Object obj : getKnownObjects().values())
 		{
-			if (obj != null && obj instanceof L2Character)
+			if (obj instanceof L2Character)
 				result.add((L2Character) obj);
 		}
 		return result;
@@ -183,37 +183,5 @@ public class CharKnownList extends ObjectKnownList
 			if (Util.checkIfInRange((int) radius, getActiveChar(), player, true))
 				result.add(player);
 		return result;
-	}
-
-	/**
-	 * Asynchronous task use to update known objects periodically
-	 */
-	public static class KnownListAsynchronousUpdateTask implements Runnable
-	{
-		/**
-		 * active object
-		 */
-		private L2Character _obj;
-
-		/**
-		 * Constructor with the active object
-		 *
-		 * @param obj
-		 */
-		public KnownListAsynchronousUpdateTask(L2Character obj)
-		{
-			_obj = obj;
-		}
-
-		/**
-		 * Update known objects of active objects
-		 *
-		 * @see java.lang.Runnable#run()
-		 */
-		public void run()
-		{
-			if (_obj != null)
-				_obj.getKnownList().updateKnownObjects();
-		}
 	}
 }

@@ -116,7 +116,7 @@ public final class Config
 	public static boolean ALT_GAME_CANCEL_CAST;
 	public static boolean ALT_GAME_SHIELD_BLOCKS;
 	public static boolean ALT_GAME_MOB_ATTACK_AI;
-	public static boolean ALT_MOB_AGRO_IN_PEACEZONE;
+	public static boolean GUARD_ATTACK_AGGRO_MOB;
 	public static boolean ALT_GAME_FREIGHTS;
 	public static int ALT_GAME_FREIGHT_PRICE;
 	public static float ALT_GAME_EXPONENT_XP;
@@ -491,6 +491,8 @@ public final class Config
 	// GeoData Options
 	public static int GEODATA;
 	public static boolean FORCE_GEODATA;
+    public static boolean MOVE_BASED_KNOWNLIST;
+    public static long KNOWNLIST_UPDATE_INTERVAL;
 	public static boolean ACCEPT_GEOEDITOR_CONN;
 	/** The end options.properties */
 	/** Start other.properties */
@@ -1533,7 +1535,7 @@ public final class Config
 				ALT_GAME_DELEVEL = Boolean.parseBoolean(altSettings.getProperty("Delevel", "True"));
 				ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "False"));
 				ALT_GAME_MOB_ATTACK_AI = Boolean.parseBoolean(altSettings.getProperty("AltGameMobAttackAI", "False"));
-				ALT_MOB_AGRO_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "True"));
+				GUARD_ATTACK_AGGRO_MOB = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "True"));
 				ALT_GAME_EXPONENT_XP = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
 				ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
 				ALLOW_CLASS_MASTERS = Boolean.parseBoolean(altSettings.getProperty("AllowClassMasters", "False"));
@@ -1632,7 +1634,7 @@ public final class Config
 				InputStream is = new FileInputStream(new File(CLAN_SETTINGS_FILE));
 				clanSettings.load(is);
 				is.close();
-				
+
 				ALT_CLAN_JOIN_DAYS = Integer.parseInt(clanSettings.getProperty("DaysBeforeJoinAClan", "5"));
 				ALT_CLAN_CREATE_DAYS = Integer.parseInt(clanSettings.getProperty("DaysBeforeCreateAClan", "10"));
 				ALT_CLAN_DISSOLVE_DAYS = Integer.parseInt(clanSettings.getProperty("DaysToPassToDissolveAClan", "7"));
@@ -1644,7 +1646,7 @@ public final class Config
 				ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clanSettings.getProperty("AltClanMembersForWar", "15"));
 				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(clanSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(clanSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
-				
+
 				// ********************//
 				/* Clan. Customizes. */
 				// ********************//
@@ -1980,10 +1982,12 @@ public final class Config
 				GAMEGUARD_ENFORCE = Boolean.parseBoolean(optionsSettings.getProperty("GameGuardEnforce", "False"));
 				GAMEGUARD_PROHIBITACTION = Boolean.parseBoolean(optionsSettings.getProperty("GameGuardProhibitAction", "False"));
 				GRIDS_ALWAYS_ON = Boolean.parseBoolean(optionsSettings.getProperty("GridsAlwaysOn", "False"));
-				GRID_NEIGHBOR_TURNON_TIME = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "30"));
-				GRID_NEIGHBOR_TURNOFF_TIME = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "300"));
+				GRID_NEIGHBOR_TURNON_TIME = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "1"));
+				GRID_NEIGHBOR_TURNOFF_TIME = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "90"));
 				GEODATA = Integer.parseInt(optionsSettings.getProperty("GeoData", "0"));
 				FORCE_GEODATA = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True"));
+                MOVE_BASED_KNOWNLIST = Boolean.parseBoolean(optionsSettings.getProperty("MoveBasedKnownlist", "False"));
+                KNOWNLIST_UPDATE_INTERVAL = Long.parseLong(optionsSettings.getProperty("KnownListUpdateInterval", "1250"));
 				ACCEPT_GEOEDITOR_CONN = Boolean.parseBoolean(optionsSettings.getProperty("AcceptGeoeditorConn", "False"));
 				// ---------------------------------------------------
 				// Configuration values not found in config files
@@ -3609,7 +3613,7 @@ public final class Config
 		}
 		else if (pName.equalsIgnoreCase("AltMobAgroInPeaceZone"))
 		{
-			ALT_MOB_AGRO_IN_PEACEZONE = Boolean.parseBoolean(pValue);
+			GUARD_ATTACK_AGGRO_MOB = Boolean.parseBoolean(pValue);
 		}
 		else if (pName.equalsIgnoreCase("AltGameExponentXp"))
 		{
