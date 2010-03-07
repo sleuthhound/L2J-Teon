@@ -228,7 +228,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 			// depending on config, do not allow mobs to attack _new_
 			// players in peacezones, unless they are already following those players from outside the peacezone.
-			if (!Config.ALT_MOB_AGRO_IN_PEACEZONE && target.isInsideZone(L2Character.ZONE_PEACE))
+			if (!Config.GUARD_ATTACK_AGGRO_MOB && target.isInsideZone(L2Character.ZONE_PEACE))
 			{
 				return false;
 			}
@@ -604,7 +604,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					if (obj instanceof L2NpcInstance)
 					{
 						L2NpcInstance npc = (L2NpcInstance) obj;
-						if (npc == null || getAttackTarget() == null || faction_id != npc.getFactionId())
+						if (getAttackTarget() == null || faction_id != npc.getFactionId())
 						{
 							continue;
 						}

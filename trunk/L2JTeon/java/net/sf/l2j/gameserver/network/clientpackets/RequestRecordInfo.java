@@ -61,12 +61,9 @@ public class RequestRecordInfo extends L2GameClientPacket
 		L2PcInstance _activeChar = getClient().getActiveChar();
 		if (_activeChar == null)
 			return;
-		_activeChar.getKnownList().updateKnownObjects();
 		_activeChar.sendPacket(new UserInfo(_activeChar));
 		for (L2Object object : _activeChar.getKnownList().getKnownObjects().values())
 		{
-			if (object == null)
-				continue;
 			if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
 				_activeChar.sendPacket(new SpawnItemPoly(object));
 			else

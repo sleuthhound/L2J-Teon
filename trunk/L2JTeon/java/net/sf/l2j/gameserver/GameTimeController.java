@@ -21,6 +21,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Logger;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -246,7 +247,10 @@ public class GameTimeController
 			{
 				try
 				{
-					cha.getKnownList().updateKnownObjects();
+                    if (Config.MOVE_BASED_KNOWNLIST)
+                    {
+                    	cha.getKnownList().findObjects();
+                    }
 					cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
 				}
 				catch (NullPointerException e)

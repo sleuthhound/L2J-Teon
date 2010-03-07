@@ -85,8 +85,8 @@ public class AttackableKnownList extends NpcKnownList
 			return 1500;
 		if (getActiveChar().getAggroRange() > getActiveChar().getFactionRange())
 			return getActiveChar().getAggroRange();
-		if (getActiveChar().getFactionRange() > 200)
+		if (getActiveChar().getFactionRange() > 300)
 			return getActiveChar().getFactionRange();
-		return 200;
+		return 300;
 	}
 }

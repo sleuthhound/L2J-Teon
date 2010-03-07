@@ -923,7 +923,6 @@ public class L2CharacterAI extends AbstractAI
 	 *            The Interact area radius
 	 * @return true if a movement must be done
 	 */
-	@SuppressWarnings("static-access")
 	protected boolean maybeMoveToPawn(L2Object target, int offset)
 	{
 		// Get the distance between the current position of the L2Character and

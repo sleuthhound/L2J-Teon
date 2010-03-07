@@ -164,10 +164,6 @@ public class L2NpcInstance extends L2Character
 					{
 						return;
 					}
-					// update knownlist to remove playable which aren't in
-					// range
-					// any more
-					getKnownList().updateKnownObjects();
 				}
 				if (!(isDead() || isStunned() || isSleeping() || isParalyzed()))
 				{
@@ -673,17 +669,11 @@ public class L2NpcInstance extends L2Character
 		else
 		{
 			player.sendPacket(new ValidateLocation(this));
-			// Check if the player is attackable (without a forced attack)
-			// and
-			// isn't dead
+			// Check if the player is attackable (without a forced attack) and isn't dead
 			if (isAutoAttackable(player) && !isAlikeDead())
 			{
 				// Check the height difference
-				if (Math.abs(player.getZ() - getZ()) < 400) // this max
-				// heigth
-				// difference might
-				// need some
-				// tweaking
+				if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth difference might need some tweaking
 				{
 					// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
