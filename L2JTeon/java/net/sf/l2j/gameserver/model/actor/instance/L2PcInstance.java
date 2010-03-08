@@ -5692,6 +5692,44 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		return true;
 	}
+	
+	/**
+	 * Disarm the player's shield.<BR>
+	 */
+	public boolean disarmShield()
+	{
+		L2ItemInstance sld = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
+		if (sld != null)
+		{
+			if (sld.isWear())
+				return false;
+			L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(sld.getItem().getBodyPart());
+			InventoryUpdate iu = new InventoryUpdate();
+			for (L2ItemInstance itm : unequiped)
+				iu.addModifiedItem(itm);
+			sendPacket(iu);
+			abortAttack();
+			broadcastUserInfo();
+			// this can be 0 if the user pressed the right mousebutton twice very fast
+			if (unequiped.length > 0)
+			{
+				SystemMessage sm = null;
+				if (unequiped[0].getEnchantLevel() > 0)
+				{
+					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+					sm.addNumber(unequiped[0].getEnchantLevel());
+					sm.addItemName(unequiped[0].getItemId());
+				}
+				else
+				{
+					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
+					sm.addItemName(unequiped[0].getItemId());
+				}
+				sendPacket(sm);
+			}
+		}
+		return true;
+	}	
 
 	/**
 	 * Return true if the L2PcInstance use a dual weapon.<BR>
