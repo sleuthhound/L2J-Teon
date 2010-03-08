@@ -62,9 +62,12 @@ public class CpDam implements ISkillHandler
 					sps = true;
 				}
 			}
-			else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
+			else 
 			{
-				ss = true;
+				if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
+				{
+					ss = true;
+				}
 			}
 		}
 		// If there is no weapon equipped, check for an active summon.
