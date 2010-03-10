@@ -741,7 +741,7 @@ public class SagasSuperClass extends QuestJython
 		}
 		else if (npcId == Mob[1] && cond == 15)
 		{
-			if (st != st2 || (st == st2 && player.isInParty()))
+			if (st != st2 || st == st2 && player.isInParty())
 			{
 				AutoChat(npc,Text[5].replace("PLAYERNAME",player.getName()));
 				cancelQuestTimer("Archon Hellisha has despawned",npc,st2.getPlayer());

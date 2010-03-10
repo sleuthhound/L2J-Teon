@@ -1316,14 +1316,14 @@ public class VanHalter extends L2AttackableAIScript
 
 		if (GrandBossManager.getInstance().getBossStatus(29062) != INTERVAL)
 		{
-			int respawnTime =(Rnd.get(172800000, 172800000 + 8640000));
+			int respawnTime =Rnd.get(172800000, 172800000 + 8640000);
 			GrandBossManager.getInstance().setBossStatus(29062,INTERVAL);
 			StatsSet info = GrandBossManager.getInstance().getStatsSet(29062);
 			info.set("respawn_time",(System.currentTimeMillis() + respawnTime));
 			GrandBossManager.getInstance().setStatsSet(29062,info);
 		}
 		StatsSet info = GrandBossManager.getInstance().getStatsSet(29062);
-		long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
+		long temp = info.getLong("respawn_time") - System.currentTimeMillis();
 		_intervalTask = ThreadPoolManager.getInstance().scheduleGeneral(new Interval(), temp);
 	}
 
@@ -1869,7 +1869,7 @@ public class VanHalter extends L2AttackableAIScript
     	int npcId = npc.getNpcId();
     	if (npcId == 29062)
     	{
-    	      if ((npc.getCurrentHp() / npc.getMaxHp()) * 100 <= 20)
+    	      if (npc.getCurrentHp() / npc.getMaxHp() * 100 <= 20)
     	          callRoyalGuardHelper();
     	}
         return super.onAttack(npc, attacker, damage, isPet);

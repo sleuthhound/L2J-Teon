@@ -47,7 +47,7 @@ public class VarkaKetraAlly extends L2AttackableAIScript
 
 	public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
-		if ((attacker.getAllianceWithVarkaKetra() != 0) && (attacker.isAlliedWithKetra() && npc.getFactionId() == "ketra") || (attacker.isAlliedWithVarka() && npc.getFactionId() == "varka"))
+		if (attacker.getAllianceWithVarkaKetra() != 0 && attacker.isAlliedWithKetra() && npc.getFactionId() == "ketra" || attacker.isAlliedWithVarka() && npc.getFactionId() == "varka")
 		{
 			L2Skill skill = SkillTable.getInstance().getInfo(4578, 1);
 			if (skill != null)

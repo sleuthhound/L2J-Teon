@@ -197,7 +197,7 @@ public class Sailren extends L2AttackableAIScript
 
     public int canIntoSailrenLair(L2PcInstance pc)
     {
-    	if ((ExternalConfig.FWS_ENABLESINGLEPLAYER == false) && (pc.getParty() == null)) return 4;
+    	if (ExternalConfig.FWS_ENABLESINGLEPLAYER == false && pc.getParty() == null) return 4;
     	else if (_IsAlreadyEnteredOtherParty) return 2;
     	else if (_Alive == NOTSPAWN) return 0;
     	else if (_Alive == ALIVE || _Alive != DEAD) return 1;
@@ -207,7 +207,7 @@ public class Sailren extends L2AttackableAIScript
 
     public void setSailrenSpawnTask(int NpcId)
     {
-    	if ((NpcId == 22218) && (_PlayersInSailrenLair.size() >= 1)) return;
+    	if (NpcId == 22218 && _PlayersInSailrenLair.size() >= 1) return;
 
     	if (_SailrenSpawnTask == null)
         {

@@ -67,7 +67,7 @@ public class Chests extends L2AttackableAIScript
         	{
         		return super.onSkillSee(npc,caster,skill,targets,isPet);
         	}
-	        L2ChestInstance chest = ((L2ChestInstance)npc);
+	        L2ChestInstance chest = (L2ChestInstance)npc;
 	        int npcId = chest.getNpcId();
 	        int skillId = skill.getId();
 	        int skillLevel= skill.getLevel();
@@ -123,7 +123,7 @@ public class Chests extends L2AttackableAIScript
     {
         if (npc instanceof L2ChestInstance)
         {
-        	L2ChestInstance chest = ((L2ChestInstance)npc);
+        	L2ChestInstance chest = (L2ChestInstance)npc;
 	        int npcId = chest.getNpcId();
 	        // check if the chest and skills used are valid for this script.  Exit if invalid.
 	        if (!contains(NPC_IDS, npcId))
@@ -146,7 +146,7 @@ public class Chests extends L2AttackableAIScript
 	            	// todo: perhaps a self-buff (skill id 4245) with random chance goes here?
 	            	L2Character originalAttacker = isPet? attacker.getPet(): attacker;
 	                chest.setRunning();
-	                chest.addDamageHate(originalAttacker,0,(damage*100)/(chest.getLevel()+7));
+	                chest.addDamageHate(originalAttacker,0,damage*100/(chest.getLevel()+7));
 	                chest.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, originalAttacker);
 	            }
 	        }

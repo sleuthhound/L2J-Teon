@@ -61,7 +61,7 @@ public class Antharas extends L2AttackableAIScript
         if (status == DEAD)
         {
             // load the unlock date and time for antharas from DB
-            long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
+            long temp = info.getLong("respawn_time") - System.currentTimeMillis();
             // if antharas is locked until a certain time, mark it so and start the unlock timer
             // the unlock time has not yet expired.  Mark Antharas as currently locked.  Setup a timer
             // to fire at the correct time (calculate the time between now and the unlock time,
@@ -146,7 +146,7 @@ public class Antharas extends L2AttackableAIScript
             }
             else if (event.equalsIgnoreCase("antharas_despawn"))
             {
-                temp = (System.currentTimeMillis() - _LastAction);
+                temp = System.currentTimeMillis() - _LastAction;
                 if (temp > 900000)
                 {
                     npc.teleToLocation(185708,114298,-8221);

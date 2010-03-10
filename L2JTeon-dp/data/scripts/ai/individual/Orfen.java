@@ -194,7 +194,7 @@ public class Orfen extends L2AttackableAIScript
         }
         else if (event.equalsIgnoreCase("check_orfen_pos"))
         {
-            if ((_IsTeleported && npc.getCurrentHp() > npc.getMaxHp() * 0.95) || (!_Zone.isInsideZone(npc) && !_IsTeleported))
+            if (_IsTeleported && npc.getCurrentHp() > npc.getMaxHp() * 0.95 || !_Zone.isInsideZone(npc) && !_IsTeleported)
             {
                 setSpawnPoint(npc,Rnd.get(3)+1);
                 _IsTeleported = false;
@@ -266,7 +266,7 @@ public class Orfen extends L2AttackableAIScript
             int chance = 1;
             if (callerId == ORFEN)
                 chance = 9;
-            if (callerId != RIBA_IREN && caller.getCurrentHp() < (caller.getMaxHp() / 2) && Rnd.get(10) < chance)
+            if (callerId != RIBA_IREN && caller.getCurrentHp() < caller.getMaxHp() / 2 && Rnd.get(10) < chance)
             {
                 npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
                 npc.setTarget(caller);
@@ -281,7 +281,7 @@ public class Orfen extends L2AttackableAIScript
         int npcId = npc.getNpcId();
         if (npcId == ORFEN)
         {
-            if ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2) && !_IsTeleported)
+            if (npc.getCurrentHp() - damage < npc.getMaxHp() / 2 && !_IsTeleported)
             {
                 setSpawnPoint(npc,0);
                 _IsTeleported = true;
@@ -296,7 +296,7 @@ public class Orfen extends L2AttackableAIScript
         }
         else if (npcId == RIBA_IREN)
         {
-            if ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2))
+            if (npc.getCurrentHp() - damage < npc.getMaxHp() / 2)
             {
                 npc.setTarget(attacker);
                 npc.doCast(SkillTable.getInstance().getInfo(4516,1));

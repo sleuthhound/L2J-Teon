@@ -122,7 +122,7 @@ public class Baium extends L2AttackableAIScript
         if (status == DEAD)
         {
             // load the unlock date and time for baium from DB
-            long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
+            long temp = info.getLong("respawn_time") - System.currentTimeMillis();
             if (temp > 0)
             {
                 // the unlock time has not yet expired.  Mark Baium as currently locked (dead).  Setup a timer
@@ -373,12 +373,12 @@ public class Baium extends L2AttackableAIScript
         // spawn the "Teleportation Cubic" for 15 minutes (to allow players to exit the lair)
         addSpawn(29055,115203,16620,10078,0,false,900000); ////should we teleport everyone out if the cubic despawns??
         // "lock" baium for 5 days and 1 to 8 hours [i.e. 432,000,000 +  1*3,600,000 + random-less-than(8*3,600,000) millisecs]
-        long respawnTime = ((121 + Rnd.get(8)) * 3600000);
+        long respawnTime = (121 + Rnd.get(8)) * 3600000;
         GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM,DEAD);
         startQuestTimer("baium_unlock", respawnTime, null, null);
         // also save the respawn time so that the info is maintained past reboots
         StatsSet info = GrandBossManager.getInstance().getStatsSet(LIVE_BAIUM);
-        info.set("respawn_time",(System.currentTimeMillis()) + respawnTime);
+        info.set("respawn_time",System.currentTimeMillis() + respawnTime);
         GrandBossManager.getInstance().setStatsSet(LIVE_BAIUM,info);
 		if (getQuestTimer("skill_range", npc, null) != null)
 			getQuestTimer("skill_range", npc, null).cancel();
@@ -400,7 +400,7 @@ public class Baium extends L2AttackableAIScript
 			{
 				if (obj instanceof L2Character)
 				{
-					if (((L2Character) obj).getZ() < ( npc.getZ() - 100 ) && ((L2Character) obj).getZ() > ( npc.getZ() + 100 )
+					if (((L2Character) obj).getZ() < npc.getZ() - 100 && ((L2Character) obj).getZ() > npc.getZ() + 100
 							|| !GeoData.getInstance().canSeeTarget(obj, npc))
 						continue;
 				}
@@ -435,7 +435,7 @@ public class Baium extends L2AttackableAIScript
 			return;
 		}
 
-		if (_target == null || _target.isDead() || !(_Zone.isInsideZone(_target)))
+		if (_target == null || _target.isDead() || !_Zone.isInsideZone(_target))
 		{
 			_target = getRandomTarget(npc);
 			_skill = getRandomSkill(npc);
@@ -443,7 +443,7 @@ public class Baium extends L2AttackableAIScript
 
 		L2Character target = _target;
 		L2Skill skill = _skill;
-		if (target == null || target.isDead() || !(_Zone.isInsideZone(target)))
+		if (target == null || target.isDead() || !_Zone.isInsideZone(target))
 		{
 			return;
 		}
@@ -464,7 +464,7 @@ public class Baium extends L2AttackableAIScript
 	public L2Skill getRandomSkill(L2NpcInstance npc)
 	{
 		L2Skill skill;
-		if( npc.getCurrentHp() > ( ( npc.getMaxHp() * 3 ) / 4 ) )
+		if( npc.getCurrentHp() > npc.getMaxHp() * 3 / 4 )
 		{
 			if( Rnd.get(100) < 10 )
 			{
@@ -479,7 +479,7 @@ public class Baium extends L2AttackableAIScript
 				skill = SkillTable.getInstance().getInfo(4127,1);
 			}
 		}
-		else if( npc.getCurrentHp() > ( ( npc.getMaxHp() * 2 ) / 4) )
+		else if( npc.getCurrentHp() > npc.getMaxHp() * 2 / 4 )
 		{
 			if( Rnd.get(100) < 10 )
 			{
@@ -498,7 +498,7 @@ public class Baium extends L2AttackableAIScript
 				skill = SkillTable.getInstance().getInfo(4127,1);
 			}
 		}
-		else if( npc.getCurrentHp() > ( ( npc.getMaxHp() * 1 ) / 4 ) )
+		else if( npc.getCurrentHp() > npc.getMaxHp() * 1 / 4 )
 		{
 			if( Rnd.get(100) < 10 )
 			{

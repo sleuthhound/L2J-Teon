@@ -128,7 +128,7 @@ public class Frintezza extends L2AttackableAIScript
 		int status = GrandBossManager.getInstance().getBossStatus(FRINTEZZA);
 		if (status == DEAD)
 		{
-			long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
+			long temp = info.getLong("respawn_time") - System.currentTimeMillis();
 			if (temp > 0)
 				startQuestTimer("frintezza_unlock", temp, null, null);
 			else
@@ -960,7 +960,7 @@ public class Frintezza extends L2AttackableAIScript
 		}
 		else if (event.equalsIgnoreCase("frintezza_despawn"))
 		{
-			temp = (System.currentTimeMillis() - _LastAction);
+			temp = System.currentTimeMillis() - _LastAction;
 			if (temp > 900000)
 			{
 				_Zone.oustAllPlayers();
@@ -1027,7 +1027,7 @@ public class Frintezza extends L2AttackableAIScript
 		String htmltext = "";
 		if (GrandBossManager.getInstance().getBossStatus(FRINTEZZA) == DORMANT)
 		{
-			if ((!player.isInParty() || !player.getParty().isLeader(player)) || (player.getParty().getCommandChannel() == null) || (player.getParty().getCommandChannel().getChannelLeader() != player))
+			if (!player.isInParty() || !player.getParty().isLeader(player) || player.getParty().getCommandChannel() == null || player.getParty().getCommandChannel().getChannelLeader() != player)
 				htmltext = "<html><body>No reaction. Contact must be initiated by the Command Channel Leader.</body></html>";
 			else if (player.getInventory().getItemByItemId(8073) == null)
 				htmltext = "<html><body>You dont have required item.</body></html>";
