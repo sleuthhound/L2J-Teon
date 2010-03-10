@@ -67,7 +67,7 @@ public class PolymorphingOnAttack extends L2AttackableAIScript
         if (MOBSPAWNS.containsKey(npc.getNpcId()))
         {
             Integer[] tmp = MOBSPAWNS.get(npc.getNpcId());
-            if (npc.getCurrentHp() <= (npc.getMaxHp() * tmp[1]/100)&& Rnd.get(100) < tmp[2])
+            if (npc.getCurrentHp() <= npc.getMaxHp() * tmp[1]/100&& Rnd.get(100) < tmp[2])
             {
                 if (tmp[3] >= 0)
                 {

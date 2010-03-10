@@ -150,7 +150,7 @@ public class Gordon extends L2AttackableAIScript
 				// end check
 		        if (_isAttacked == true)
 		        	return super.onAdvEvent(event, npc, player);
-		        if (npc.getNpcId() == GORDON && (npc.getX()-50) <= X && (npc.getX()+50) >= X && (npc.getY()-50) <= Y && (npc.getY()+50) >= Y)
+		        if (npc.getNpcId() == GORDON && npc.getX()-50 <= X && npc.getX()+50 >= X && npc.getY()-50 <= Y && npc.getY()+50 >= Y)
 		        {
 		            _isWalkTo++;
 		            if (_isWalkTo > 55)

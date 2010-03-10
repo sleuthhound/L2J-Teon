@@ -45,7 +45,7 @@ public class HotSprings extends L2AttackableAIScript
 						int rheumatism = attacker.getFirstEffect(4551).getLevel();
 						if (rheumatism < 10)
 						{
-							int newrheumatism = (rheumatism + 1);
+							int newrheumatism = rheumatism + 1;
 							npc.setTarget(attacker);
 							npc.doCast(SkillTable.getInstance().getInfo(4551, newrheumatism));
 						}
@@ -66,7 +66,7 @@ public class HotSprings extends L2AttackableAIScript
 						int cholera = attacker.getFirstEffect(4552).getLevel();
 						if (cholera < 10)
 						{
-							int newcholera = (cholera + 1);
+							int newcholera = cholera + 1;
 							npc.setTarget(attacker);
 							npc.doCast(SkillTable.getInstance().getInfo(4552, newcholera));
 						}
@@ -87,7 +87,7 @@ public class HotSprings extends L2AttackableAIScript
 						int flu = attacker.getFirstEffect(4553).getLevel();
 						if (flu < 10)
 						{
-							int newflu = (flu + 1);
+							int newflu = flu + 1;
 							npc.setTarget(attacker);
 							npc.doCast(SkillTable.getInstance().getInfo(4553, newflu));
 						}
@@ -108,7 +108,7 @@ public class HotSprings extends L2AttackableAIScript
 						int malaria = attacker.getFirstEffect(4554).getLevel();
 						if (malaria < 10)
 						{
-							int newmalaria = (malaria + 1);
+							int newmalaria = malaria + 1;
 							npc.setTarget(attacker);
 							npc.doCast(SkillTable.getInstance().getInfo(4554, newmalaria));
 						}

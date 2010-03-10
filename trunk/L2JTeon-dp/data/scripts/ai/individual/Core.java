@@ -66,7 +66,7 @@ public class Core extends L2AttackableAIScript
         if (status == DEAD)
         {
             // load the unlock date and time for Core from DB
-            long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
+            long temp = info.getLong("respawn_time") - System.currentTimeMillis();
             // if Core is locked until a certain time, mark it so and start the unlock timer
             // the unlock time has not yet expired.
             if (temp > 0)
