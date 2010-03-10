@@ -980,7 +980,6 @@ public class Siege
 			default:
 				players = getPlayersInZone();
 		}
-		;
 		for (L2PcInstance player : players)
 		{
 			if (player.isGM() || player.isInJail())

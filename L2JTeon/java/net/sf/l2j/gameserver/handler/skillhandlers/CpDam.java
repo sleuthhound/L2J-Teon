@@ -62,7 +62,7 @@ public class CpDam implements ISkillHandler
 					sps = true;
 				}
 			}
-			else 
+			else
 			{
 				if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
 				{

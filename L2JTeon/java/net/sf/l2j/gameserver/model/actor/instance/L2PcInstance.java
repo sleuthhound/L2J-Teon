@@ -5692,7 +5692,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Disarm the player's shield.<BR>
 	 */
@@ -5729,7 +5729,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 		return true;
-	}	
+	}
 
 	/**
 	 * Return true if the L2PcInstance use a dual weapon.<BR>
