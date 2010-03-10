@@ -1025,7 +1025,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect name="Buff" time="7" count="1" val="0">
-      <add order="0x40" stat="reflectDam" val="100"/> <!-- 20 -->
+      <add order="0x40" stat="reflectDam" val="20"/> <!-- 20 -->
     </effect>
   </for>
 </skill>
