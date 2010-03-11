@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.entity.Fort;
 
 /**
  * sample 0b 952a1048 objectId 00000000 00000000 00000000 00000000 00000000 00000000 format dddddd rev 377 format ddddddd rev 417
- *
+ * 
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 18:46:18 $
  */
 public class Die extends L2GameServerPacket
@@ -41,6 +41,7 @@ public class Die extends L2GameServerPacket
 	private net.sf.l2j.gameserver.model.L2Clan _clan;
 	private static final int REQUIRED_LEVEL = net.sf.l2j.Config.GM_FIXED;
 	L2Character _activeChar;
+	private boolean _funEvent;
 
 	/**
 	 * @param _characters
@@ -54,6 +55,7 @@ public class Die extends L2GameServerPacket
 			_access = player.getAccessLevel();
 			_clan = player.getClan();
 			_donator = player.isDonator();
+			_funEvent = !player.isInFunEvent();
 		}
 		_charObjId = cha.getObjectId();
 		_fake = !cha.isDead();
@@ -79,27 +81,27 @@ public class Die extends L2GameServerPacket
 		// 6d 03 00 00 00 - to siege HQ
 		// sweepable
 		// 6d 04 00 00 00 - FIXED
-		writeD(0x01); // 6d 00 00 00 00 - to nearest village
-		if (_clan != null)
+		writeD(_funEvent ? 0x01 : 0); // 6d 00 00 00 00 - to nearest village
+		if (_funEvent && _clan != null)
 		{
 			L2SiegeClan siegeClan = null;
 			Boolean isInDefense = false;
 			Castle castle = CastleManager.getInstance().getCastle(_activeChar);
 			Fort fort = FortManager.getInstance().getFort(_activeChar);
-			if (castle != null && castle.getSiege().getIsInProgress())
+			if ((castle != null) && castle.getSiege().getIsInProgress())
 			{
 				// siege in progress
 				siegeClan = castle.getSiege().getAttackerClan(_clan);
-				if (siegeClan == null && castle.getSiege().checkIsDefender(_clan))
+				if ((siegeClan == null) && castle.getSiege().checkIsDefender(_clan))
 				{
 					isInDefense = true;
 				}
 			}
-			else if (fort != null && fort.getSiege().getIsInProgress())
+			else if ((fort != null) && fort.getSiege().getIsInProgress())
 			{
 				// fort siege in progress
 				siegeClan = fort.getSiege().getAttackerClan(_clan);
-				if (siegeClan == null && fort.getSiege().checkIsDefender(_clan))
+				if ((siegeClan == null) && fort.getSiege().checkIsDefender(_clan))
 				{
 					isInDefense = true;
 				}
@@ -107,14 +109,14 @@ public class Die extends L2GameServerPacket
 			writeD(_clan.getHasHideout() > 0 ? 0x01 : 0x00); // 6d 01 00 00
 			// 00 - to hide
 			// away
-			writeD(_clan.getHasCastle() > 0 || _clan.getHasFort() > 0 || isInDefense ? 0x01 : 0x00); // 6d
+			writeD((_clan.getHasCastle() > 0) || (_clan.getHasFort() > 0) || isInDefense ? 0x01 : 0x00); // 6d
 			// 02
 			// 00
 			// 00
 			// 00 -
 			// to
 			// castle
-			writeD(siegeClan != null && !isInDefense && siegeClan.getFlag().size() > 0 ? 0x01 : 0x00); // 6d
+			writeD((siegeClan != null) && !isInDefense && (siegeClan.getFlag().size() > 0) ? 0x01 : 0x00); // 6d
 			// 03
 			// 00 00
 			// 00 -
