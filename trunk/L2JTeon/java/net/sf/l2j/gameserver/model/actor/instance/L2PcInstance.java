@@ -4651,10 +4651,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			targetPlayer = ((L2Summon) target).getOwner();
 		}
-		else
-		{
-			return;
-		}
 		if (targetPlayer == this)
 		{
 			return; // target player is self
@@ -4719,10 +4715,15 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (player1.equals(player1target))
 				return;
 		}
-		if (checkIfPvP(target) && targetPlayer.getPvpFlag() != 0
-				|| isInsideZone(ZONE_PVP) && targetPlayer.isInsideZone(ZONE_PVP)) // Player is inside pvp zone and and Target player is inside pvp zone
+		if (checkIfPvP(target) && targetPlayer.getPvpFlag() != 0 || isInsideZone(ZONE_PVP) && targetPlayer.isInsideZone(ZONE_PVP)) // Player is inside pvp zone and and Target player is inside pvp zone
 		{
 			increasePvpKills();
+			return;
+		}
+		if (targetPlayer.getPvpFlag() != 0)
+		{
+			increasePvpKills();
+			return;
 		}
 		else
 		{
@@ -11405,7 +11406,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	private class JailTask implements Runnable
 	{
 		L2PcInstance _player;
-		@SuppressWarnings("unused")
 		protected long _startedAt;
 
 		protected JailTask(L2PcInstance player)
@@ -12187,7 +12187,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	private class PunishTask implements Runnable
 	{
 		L2PcInstance _player;
-		@SuppressWarnings("unused")
 		protected long _startedAt;
 
 		protected PunishTask(L2PcInstance player)
