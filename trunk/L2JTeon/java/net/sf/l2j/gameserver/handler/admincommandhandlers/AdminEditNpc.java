@@ -17,24 +17,30 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2TradeList;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoxInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -49,7 +55,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 {
 	private static Logger _log = Logger.getLogger(AdminEditChar.class.getName());
 	private final static int PAGE_LIMIT = 7;
-	private static final String[] ADMIN_COMMANDS = { "admin_edit_npc", "admin_save_npc", "admin_show_droplist", "admin_edit_drop", "admin_add_drop", "admin_del_drop", "admin_showShop", "admin_showShopList", "admin_addShopItem", "admin_delShopItem", "admin_box_access", "admin_editShopItem", "admin_close_window" };
+	private static final String[] ADMIN_COMMANDS = {"admin_show_skilllist_npc", "admin_add_skill_npc", "admin_edit_skill_npc", "admin_del_skill_npc", "admin_edit_npc", "admin_save_npc", "admin_show_droplist", "admin_edit_drop", "admin_add_drop", "admin_del_drop", "admin_showShop", "admin_showShopList", "admin_addShopItem", "admin_delShopItem", "admin_box_access", "admin_editShopItem", "admin_close_window" };
 	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_NPC_VIEW;
 
@@ -249,6 +255,151 @@ public class AdminEditNpc implements IAdminCommandHandler
 				deleteDropData(activeChar, npcId, itemId, category);
 			else
 				activeChar.sendMessage("Usage: //del_drop <npc_id> <item_id> <category>");
+		}
+		else if (command.startsWith("admin_show_skilllist_npc "))
+		{
+			StringTokenizer st = new StringTokenizer(command.substring(25), " ");
+			try
+			{
+				int npcId = -1;
+				int page = 0;
+				if (st.countTokens() <= 2)
+				{
+					if (st.hasMoreTokens())
+						npcId = Integer.parseInt(st.nextToken());
+					if (st.hasMoreTokens())
+						page = Integer.parseInt(st.nextToken());
+				}
+
+				if (npcId > 0)
+				{
+					showNpcSkillList(activeChar, npcId, page);
+				}
+				else
+					activeChar.sendMessage("Usage: //show_skilllist_npc <npc_id> <page>");
+			}
+			catch (Exception e)
+			{
+				activeChar.sendMessage("Usage: //show_skilllist_npc <npc_id> <page>");
+			}
+		}
+		else if (command.startsWith("admin_edit_skill_npc "))
+		{
+			int npcId = -1, skillId = -1;
+			try
+			{
+				StringTokenizer st = new StringTokenizer(command.substring(21).trim(), " ");
+				if (st.countTokens() == 2)
+				{
+					try
+					{
+						npcId = Integer.parseInt(st.nextToken());
+						skillId = Integer.parseInt(st.nextToken());
+						showNpcSkillEdit(activeChar, npcId, skillId);
+					}
+					catch (Exception e)
+					{
+					}
+				}
+				else if (st.countTokens() == 3)
+				{
+					try
+					{
+						npcId = Integer.parseInt(st.nextToken());
+						skillId = Integer.parseInt(st.nextToken());
+						int level = Integer.parseInt(st.nextToken());
+
+						updateNpcSkillData(activeChar, npcId, skillId, level);
+					}
+					catch (Exception e)
+					{
+						_log.warning("admin_edit_skill_npc parements error: " + command);
+					}
+				}
+				else
+				{
+					activeChar.sendMessage("Usage: //edit_skill_npc <npc_id> <item_id> [<level>]");
+				}
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{
+				activeChar.sendMessage("Usage: //edit_skill_npc <npc_id> <item_id> [<level>]");
+			}
+		}
+		else if (command.startsWith("admin_add_skill_npc "))
+		{
+			int npcId = -1, skillId = -1;
+			try
+			{
+				StringTokenizer st = new StringTokenizer(command.substring(20).trim(), " ");
+				if (st.countTokens() == 1)
+				{
+					try
+					{
+						String[] input = command.substring(20).split(" ");
+						if (input.length < 1)
+							return true;
+						npcId = Integer.parseInt(input[0]);
+					}
+					catch (Exception e)
+					{
+					}
+
+					if (npcId > 0)
+					{
+						L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
+						showNpcSkillAdd(activeChar, npcData);
+					}
+				}
+				else if (st.countTokens() == 3)
+				{
+					try
+					{
+						npcId = Integer.parseInt(st.nextToken());
+						skillId = Integer.parseInt(st.nextToken());
+						int level = Integer.parseInt(st.nextToken());
+
+						addNpcSkillData(activeChar, npcId, skillId, level);
+					}
+					catch (Exception e)
+					{
+						_log.warning("admin_add_skill_npc parements error: " + command);
+					}
+				}
+				else
+				{
+					activeChar.sendMessage("Usage: //add_skill_npc <npc_id> [<level>]");
+				}
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{
+				activeChar.sendMessage("Usage: //add_skill_npc <npc_id> [<level>]");
+			}
+		}
+		else if (command.startsWith("admin_del_skill_npc "))
+		{
+			int npcId = -1, skillId = -1;
+			try
+			{
+				String[] input = command.substring(20).split(" ");
+				if (input.length >= 2)
+				{
+					npcId = Integer.parseInt(input[0]);
+					skillId = Integer.parseInt(input[1]);
+				}
+			}
+			catch (Exception e)
+			{
+			}
+
+			if (npcId > 0)
+			{
+				deleteNpcSkillData(activeChar, npcId, skillId);
+			}
+			else
+			{
+				activeChar.sendMessage("Usage: //del_skill_npc <npc_id> <skill_id>");
+			}
 		}
 		else if (command.startsWith("admin_box_access"))
 		{
@@ -1074,9 +1225,414 @@ public class AdminEditNpc implements IAdminCommandHandler
 			{
 				con.close();
 			}
-			catch (Exception e)
+			catch (SQLException e)
 			{
+				e.printStackTrace();
 			}
 		}
 	}
-}
+		
+		private void showNpcSkillList(L2PcInstance activeChar, int npcId, int page)
+		{
+			L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
+			if (npcData == null)
+			{
+				activeChar.sendMessage("Template id unknown: " + npcId);
+				return;
+			}
+
+			Map<Integer, L2Skill>
+			skills = new FastMap<Integer, L2Skill>();
+			if (npcData.getSkills() != null)
+			{
+				skills = npcData.getSkills();
+			}
+
+			int _skillsize = skills.size();
+
+			int MaxSkillsPerPage = 10;
+			int MaxPages = _skillsize / MaxSkillsPerPage;
+			if (_skillsize > MaxSkillsPerPage * MaxPages)
+				MaxPages++;
+
+			if (page > MaxPages)
+				page = MaxPages;
+
+			int SkillsStart = MaxSkillsPerPage * page;
+			int SkillsEnd = _skillsize;
+			if (SkillsEnd - SkillsStart > MaxSkillsPerPage)
+				SkillsEnd = SkillsStart + MaxSkillsPerPage;
+
+			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+
+			StringBuffer replyMSG = new StringBuffer("");
+			replyMSG.append("<html><title>" + npcData.getNpcId() + " Skillist");
+			replyMSG.append("&nbsp;(ID:" + npcData.getNpcId() + "&nbsp;Skills " + _skillsize + ")</title>");
+			replyMSG.append("<body>");
+			String pages = "<center><table width=270><tr>";
+			for (int x = 0; x < MaxPages; x++)
+			{
+				int pagenr = x + 1;
+				if (page == x)
+				{
+					pages += "<td>Page " + pagenr + "</td>";
+				}
+				else
+				{
+					pages += "<td><a action=\"bypass -h admin_show_skilllist_npc " + npcData.getNpcId() + " " + x + "\">Page " + pagenr + "</a></td>";
+				}
+			}
+			pages += "</tr></table></center>";
+			replyMSG.append(pages);
+
+			replyMSG.append("<table width=270>");
+
+			Set<?> skillset = skills.keySet();
+			Iterator<?> skillite = skillset.iterator();
+			Object skillobj = null;
+
+			for (int i = 0; i < SkillsStart; i++)
+			{
+				if (skillite.hasNext())
+				{
+					skillobj = skillite.next();
+				}
+			}
+
+			int cnt = SkillsStart;
+			while (skillite.hasNext())
+			{
+				cnt++;
+				if (cnt > SkillsEnd)
+				{
+					break;
+				}
+				skillobj = skillite.next();
+				replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_skill_npc " + npcData.getNpcId() + " " + skills.get(skillobj).getId() + "\">"
+						+ skills.get(skillobj).getName() + "&nbsp;[" + skills.get(skillobj).getId() + "]" + "</a></td>" + "<td>" + skills.get(skillobj).getLevel()
+						+ "</td>" + "<td><a action=\"bypass -h admin_del_skill_npc " + npcData.getNpcId() + " " + skillobj + "\">Delete</a></td></tr>");
+
+			}
+			replyMSG.append("</table>");
+			replyMSG.append("<br><br>");
+			replyMSG.append("<center>");
+			replyMSG.append("<button value=\"Add Skill\" action=\"bypass -h admin_add_skill_npc " + npcId
+					+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+			replyMSG.append("<button value=\"Droplist\" action=\"bypass -h admin_show_droplist " + npcId
+					+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+			replyMSG.append("</center></body></html>");
+
+			adminReply.setHtml(replyMSG.toString());
+			activeChar.sendPacket(adminReply);
+
+		}
+
+		private void showNpcSkillEdit(L2PcInstance activeChar, int npcId, int skillId)
+		{
+			java.sql.Connection con = null;
+
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+
+				PreparedStatement statement = con.prepareStatement("SELECT npcid, skillid, level FROM npcskills WHERE npcid=" + npcId + " AND skillid=" + skillId);
+				ResultSet skillData = statement.executeQuery();
+
+				NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+
+				StringBuffer replyMSG = new StringBuffer("<html><title>(NPC:" + npcId + "&nbsp;SKILL:" + skillId + ")</title>");
+				replyMSG.append("<body>");
+
+				if (skillData.next())
+				{
+					L2Skill skill = SkillTable.getInstance().getInfo(skillData.getInt("skillid"), skillData.getInt("level"));
+
+					replyMSG.append("<table>");
+					replyMSG.append("<tr><td>NPC</td><td>" + NpcTable.getInstance().getTemplate(skillData.getInt("npcid")).getNpcId() + "</td></tr>");
+					replyMSG.append("<tr><td>SKILL</td><td>" + skill.getName() + "(" + skillData.getInt("skillid") + ")</td></tr>");
+					replyMSG.append("<tr><td>Lv(" + skill.getLevel() + ")</td><td><edit var=\"level\" width=50></td></tr>");
+					replyMSG.append("</table>");
+
+					replyMSG.append("<center>");
+					replyMSG.append("<button value=\"Edit Skill\" action=\"bypass -h admin_edit_skill_npc " + npcId + " " + skillId
+							+ " $level\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+					replyMSG.append("<br><button value=\"Back to Skillist\" action=\"bypass -h admin_show_skilllist_npc " + npcId
+							+ "\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+					replyMSG.append("</center>");
+				}
+
+				skillData.close();
+				statement.close();
+
+				replyMSG.append("</body></html>");
+				adminReply.setHtml(replyMSG.toString());
+
+				activeChar.sendPacket(adminReply);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+
+		private void updateNpcSkillData(L2PcInstance activeChar, int npcId, int skillId, int level)
+		{
+			java.sql.Connection con = null;
+
+			try
+			{
+				L2Skill skillData = SkillTable.getInstance().getInfo(skillId, level);
+				if (skillData == null)
+				{
+					NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+					StringBuffer replyMSG = new StringBuffer("<html><title>Update Npc Skill Data</title>");
+					replyMSG.append("<body>");
+					replyMSG.append("<center><button value=\"Back to Skillist\" action=\"bypass -h admin_show_skilllist_npc " + npcId
+							+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center>");
+					replyMSG.append("</body></html>");
+
+					adminReply.setHtml(replyMSG.toString());
+					activeChar.sendPacket(adminReply);
+					return;
+				}
+
+				con = L2DatabaseFactory.getInstance().getConnection();
+
+				PreparedStatement statement = con.prepareStatement("UPDATE npcskills SET level=? WHERE npcid=? AND skillid=?");
+				statement.setInt(1, level);
+				statement.setInt(2, npcId);
+				statement.setInt(3, skillId);
+
+				statement.execute();
+				statement.close();
+
+				if (npcId > 0)
+				{
+					reLoadNpcSkillList(npcId);
+
+					NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+					StringBuffer replyMSG = new StringBuffer("<html><title>Update Npc Skill Data</title>");
+					replyMSG.append("<body>");
+					replyMSG.append("<center><button value=\"Back to Skillist\" action=\"bypass -h admin_show_skilllist_npc " + npcId
+							+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center>");
+					replyMSG.append("</body></html>");
+
+					adminReply.setHtml(replyMSG.toString());
+					activeChar.sendPacket(adminReply);
+				}
+				else
+				{
+					activeChar.sendMessage("Unknown error");
+				}
+
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+
+		private void showNpcSkillAdd(L2PcInstance activeChar, L2NpcTemplate npcData)
+		{
+			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+
+			StringBuffer replyMSG = new StringBuffer("<html><title>Add Skill to " + npcData.getNpcId() + "(ID:" + npcData.getNpcId() + ")</title>");
+			replyMSG.append("<body>");
+			replyMSG.append("<table>");
+			replyMSG.append("<tr><td>SkillId</td><td><edit var=\"skillId\" width=80></td></tr>");
+			replyMSG.append("<tr><td>Level</td><td><edit var=\"level\" width=80></td></tr>");
+			replyMSG.append("</table>");
+
+			replyMSG.append("<center>");
+			replyMSG.append("<button value=\"Add Skill\" action=\"bypass -h admin_add_skill_npc " + npcData.getNpcId()
+					+ " $skillId $level\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+			replyMSG.append("<br><button value=\"Back to Skillist\" action=\"bypass -h admin_show_skilllist_npc " + npcData.getNpcId()
+					+ "\"  width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+			replyMSG.append("</center>");
+			replyMSG.append("</body></html>");
+			adminReply.setHtml(replyMSG.toString());
+
+			activeChar.sendPacket(adminReply);
+		}
+
+		private void addNpcSkillData(L2PcInstance activeChar, int npcId, int skillId, int level)
+		{
+			java.sql.Connection con = null;
+
+			try
+			{
+				// skill check
+				L2Skill skillData = SkillTable.getInstance().getInfo(skillId, level);
+				if (skillData == null)
+				{
+
+					NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+					StringBuffer replyMSG = new StringBuffer("<html><title>Add Skill to Npc</title>");
+					replyMSG.append("<body>");
+					replyMSG.append("<center><button value=\"Back to Skillist\" action=\"bypass -h admin_show_skilllist_npc " + npcId
+							+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center>");
+					replyMSG.append("</body></html>");
+
+					adminReply.setHtml(replyMSG.toString());
+					activeChar.sendPacket(adminReply);
+					return;
+				}
+
+				con = L2DatabaseFactory.getInstance().getConnection();
+
+				PreparedStatement statement = con.prepareStatement("INSERT INTO npcskills(npcid, skillid, level) values(?,?,?)");
+				statement.setInt(1, npcId);
+				statement.setInt(2, skillId);
+				statement.setInt(3, level);
+				statement.execute();
+				statement.close();
+
+				reLoadNpcSkillList(npcId);
+
+				NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+				StringBuffer replyMSG = new StringBuffer("<html><title>Add Skill to Npc (" + npcId + ", " + skillId + ", " + level + ")</title>");
+				replyMSG.append("<body>");
+				replyMSG.append("<center><button value=\"Add Skill\" action=\"bypass -h admin_add_skill_npc " + npcId
+						+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+				replyMSG.append("<br><br><button value=\"Back to Skillist\" action=\"bypass -h admin_show_skilllist_npc " + npcId
+						+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+				replyMSG.append("</center></body></html>");
+
+				adminReply.setHtml(replyMSG.toString());
+				activeChar.sendPacket(adminReply);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+
+		private void deleteNpcSkillData(L2PcInstance activeChar, int npcId, int skillId)
+		{
+			java.sql.Connection con = null;
+
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+
+				if (npcId > 0)
+				{
+					PreparedStatement statement2 = con.prepareStatement("DELETE FROM npcskills WHERE npcid=? AND skillid=?");
+					statement2.setInt(1, npcId);
+					statement2.setInt(2, skillId);
+					statement2.execute();
+					statement2.close();
+
+					reLoadNpcSkillList(npcId);
+
+					NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+					StringBuffer replyMSG = new StringBuffer("<html><title>Delete Skill (" + npcId + ", " + skillId + ")</title>");
+					replyMSG.append("<body>");
+					replyMSG.append("<center><button value=\"Back to Skillist\" action=\"bypass -h admin_show_skilllist_npc " + npcId
+							+ "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center>");
+					replyMSG.append("</body></html>");
+
+					adminReply.setHtml(replyMSG.toString());
+					activeChar.sendPacket(adminReply);
+				}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+
+		private void reLoadNpcSkillList(int npcId)
+		{
+			java.sql.Connection con = null;
+
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+				L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
+
+				npcData.clearSkills();
+
+				// with out race
+				String _sql = "SELECT npcid, skillid, level FROM npcskills WHERE npcid=? AND (skillid NOT BETWEEN 4290 AND 4302)";
+
+				PreparedStatement statement = con.prepareStatement(_sql);
+				statement.setInt(1, npcId);
+				ResultSet skillDataList = statement.executeQuery();
+
+				int i = 1;
+				while (skillDataList.next())
+				{
+					int idval = skillDataList.getInt("skillid");
+					int levelval = skillDataList.getInt("level");
+					L2Skill skillData = SkillTable.getInstance().getInfo(idval, levelval);
+					if (skillData != null)
+					{
+						npcData.addSkill(skillData);
+					}
+					i++;
+				}
+				skillDataList.close();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+	}
