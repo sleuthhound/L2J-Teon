@@ -1860,6 +1860,10 @@ public class Olympiad
 					player.setCurrentMp(player.getMaxMp());
 					// Remove Buffs
 					player.stopAllEffects();
+				 	// Avoid prefrenzy(and others) exploit 
+				 	player.stopSkillEffects(176); 
+				 	player.stopSkillEffects(139); 
+				 	player.stopSkillEffects(406); 
 					// Remove Summon's Buffs
 					if (player.getPet() != null)
 					{
