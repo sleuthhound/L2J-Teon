@@ -198,6 +198,12 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_skills.put(skill.getId(), skill);
 	}
 
+	public void clearSkills()
+	{
+		if (_skills != null)
+			_skills.clear();
+	}
+
 	public void addVulnerability(Stats id, double vuln)
 	{
 		if (_vulnerabilities == null)
