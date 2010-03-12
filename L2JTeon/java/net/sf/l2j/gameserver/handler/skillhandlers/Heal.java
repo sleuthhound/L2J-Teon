@@ -119,9 +119,9 @@ public class Heal implements ISkillHandler
 						activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 					}
 				}
-                else if (activeChar instanceof L2NpcInstance) 
+                else if (activeChar instanceof L2NpcInstance)
                 {
-                    if(((L2NpcInstance)activeChar).isUsingShot(false)) hp *= 1.5; 
+                    if(((L2NpcInstance)activeChar).isUsingShot(false)) hp *= 1.5;
                 }
 			}
 			// int cLev = activeChar.getLevel();

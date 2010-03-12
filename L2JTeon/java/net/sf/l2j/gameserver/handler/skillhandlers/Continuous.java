@@ -168,10 +168,10 @@ public class Continuous implements ISkillHandler
 						activeSummon.setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
 					}
 				}
-                else if (activeChar instanceof L2NpcInstance) 
-                { 
-                	bss = ((L2NpcInstance)activeChar).isUsingShot(false); 
-                	ss = ((L2NpcInstance)activeChar).isUsingShot(true); 
+                else if (activeChar instanceof L2NpcInstance)
+                {
+                	bss = ((L2NpcInstance)activeChar).isUsingShot(false);
+                	ss = ((L2NpcInstance)activeChar).isUsingShot(true);
                 }
 				boolean acted = Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss);
 				if (!acted)

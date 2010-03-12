@@ -39,8 +39,8 @@ import net.sf.l2j.gameserver.model.L2DropCategory;
 import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoxInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -1231,7 +1231,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			}
 		}
 	}
-		
+
 		private void showNpcSkillList(L2PcInstance activeChar, int npcId, int page)
 		{
 			L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);

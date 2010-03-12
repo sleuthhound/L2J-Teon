@@ -30,7 +30,7 @@ public class NpcInventory extends Inventory
     public static final int ANCIENT_ADENA_ID = 5575;
 
 	private final L2NpcInstance _owner;
-	
+
     public boolean sshotInUse = false;
     public boolean bshotInUse = false;
 
@@ -45,7 +45,7 @@ public class NpcInventory extends Inventory
 		if (_owner.getTemplate().ss > 0) this.addItem("Reset", 1835, _owner.getTemplate().ss, null, null);
 		if (_owner.getTemplate().bss > 0) this.addItem("Reset", 3947, _owner.getTemplate().bss, null, null);
 	}
-	
+
 	@Override
 	public L2NpcInstance getOwner() { return _owner; }
 	@Override
@@ -86,5 +86,5 @@ public class NpcInventory extends Inventory
     {
     	// not needed
     }
-	
+
 }

@@ -1046,7 +1046,7 @@ public class L2Attackable extends L2NpcInstance
 		}
 		return mostHated;
 	}
-	
+
     /**
      * Return the 2 most hated L2Character of the L2Attackable _aggroList.<BR><BR>
      */
@@ -1077,7 +1077,7 @@ public class L2Attackable extends L2NpcInstance
             }
         }
         result.add(mostHated);
-        if (getAttackByList().contains(secondMostHated)) 
+        if (getAttackByList().contains(secondMostHated))
         		result.add(secondMostHated);
         else result.add(null);
         return result;

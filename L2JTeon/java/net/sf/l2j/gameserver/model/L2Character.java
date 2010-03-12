@@ -846,9 +846,9 @@ public abstract class L2Character extends L2Object
 		}
 		// Verify if soulshots are charged.
 		boolean wasSSCharged;
-        if (this instanceof L2NpcInstance) 
-            wasSSCharged = ((L2NpcInstance)this).rechargeAutoSoulShot(true, false); 
-        else if (this instanceof L2Summon && !(this instanceof L2PetInstance)) 
+        if (this instanceof L2NpcInstance)
+            wasSSCharged = ((L2NpcInstance)this).rechargeAutoSoulShot(true, false);
+        else if (this instanceof L2Summon && !(this instanceof L2PetInstance))
 		{
 			wasSSCharged = ((L2Summon) this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE;
 		}
@@ -1339,9 +1339,9 @@ public abstract class L2Character extends L2Object
 			{
 				((L2Attackable) this).broadcastPacket(new ExAutoSoulShot(5789, 0));
 			}
-            if (this instanceof L2NpcInstance) 
-                ((L2NpcInstance)this).rechargeAutoSoulShot(true, false); 
-            else if (this instanceof L2PcInstance) 
+            if (this instanceof L2NpcInstance)
+                ((L2NpcInstance)this).rechargeAutoSoulShot(true, false);
+            else if (this instanceof L2PcInstance)
 			{
 				((L2PcInstance) this).rechargeAutoSoulShot(true, false, false);
 			}
@@ -1505,12 +1505,12 @@ public abstract class L2Character extends L2Object
 				}
 			}
 		}
-        else if (this instanceof L2NpcInstance && skill.useSpiritShot() && !effectWhileCasting) 
+        else if (this instanceof L2NpcInstance && skill.useSpiritShot() && !effectWhileCasting)
         {
-            if(((L2NpcInstance)this).rechargeAutoSoulShot(false, true)) 
+            if(((L2NpcInstance)this).rechargeAutoSoulShot(false, true))
             {
-                hitTime = (int)(0.70 * hitTime); 
-                coolTime = (int)(0.70 * coolTime); 
+                hitTime = (int)(0.70 * hitTime);
+                coolTime = (int)(0.70 * coolTime);
             }
         }
 		// Set the _castEndTime and _castInterruptTim. +10 ticks for lag

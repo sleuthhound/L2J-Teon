@@ -23,7 +23,9 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
-import java.util.List; 
+
+import java.util.List;
+
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Universe;
@@ -39,10 +41,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.templates.L2Weapon; 
-import net.sf.l2j.gameserver.templates.L2WeaponType; 
+import net.sf.l2j.gameserver.templates.L2Weapon;
+import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.util.Point3D;
-import net.sf.l2j.util.Rnd; 
+import net.sf.l2j.util.Rnd;
 
 /**
  * This class manages AI of L2Character.<BR>
@@ -66,7 +68,7 @@ public class L2CharacterAI extends AbstractAI
     		_arg1 = pArg1;
     	}
     }
-    
+
     /**
      * Constructor of L2CharacterAI.<BR><BR>
      *
@@ -81,8 +83,8 @@ public class L2CharacterAI extends AbstractAI
     public IntentionCommand getNextIntention()
     {
     	return null;
-    } 
-	
+    }
+
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
@@ -1091,13 +1093,13 @@ public class L2CharacterAI extends AbstractAI
 		}
 		return false;
 	}
-	
+
     protected class SelfAnalysis
     {
         public boolean isMage = false;
         public boolean isBalanced;
         public boolean isArcher = false;
-        public boolean isHealer = false; 
+        public boolean isHealer = false;
         public boolean isFighter = false;
         public boolean cannotMoveOnLand = false;
         public List<L2Skill> generalSkills = new FastList<L2Skill>();
@@ -1117,11 +1119,11 @@ public class L2CharacterAI extends AbstractAI
         public boolean hasLongRangeSkills = false;
         public boolean hasLongRangeDamageSkills = false;
         public int maxCastRange = 0;
-        
+
         public SelfAnalysis()
         {
         }
-        
+
         public void init()
         {
         	switch (((L2NpcTemplate)_actor.getTemplate()).AI)
@@ -1138,7 +1140,7 @@ public class L2CharacterAI extends AbstractAI
         		case ARCHER:
         			isArcher = true;
         			break;
-                case HEALER: 
+                case HEALER:
                     isHealer = true;
         			break;
         		default:
@@ -1149,7 +1151,7 @@ public class L2CharacterAI extends AbstractAI
             if (_actor instanceof L2NpcInstance)
             {
             	int npcId = ((L2NpcInstance)_actor).getNpcId();
-            	
+
             	switch (npcId)
             	{
             		case 20314: // great white shark
@@ -1176,7 +1178,7 @@ public class L2CharacterAI extends AbstractAI
                     case HOT:
                         healSkills.add(sk);
                         hasHealOrResurrect = true;
-                        continue; // won't be considered something for fighting 
+                        continue; // won't be considered something for fighting
                     case BUFF:
                         buffSkills.add(sk);
                         continue; // won't be considered something for fighting
@@ -1188,7 +1190,7 @@ public class L2CharacterAI extends AbstractAI
                     	switch(sk.getId())
                         {
                         	case 367: case 4111: case 4383:
-                        	case 4616: case 4578:	
+                        	case 4616: case 4578:
                         		sleepSkills.add(sk);
                         		break;
                         	default:
@@ -1199,7 +1201,7 @@ public class L2CharacterAI extends AbstractAI
                     case MUTE:
                         muteSkills.add(sk);
                         break;
-                    case SLEEP: 
+                    case SLEEP:
                         sleepSkills.add(sk);
                         break;
                     case ROOT:
@@ -1226,15 +1228,15 @@ public class L2CharacterAI extends AbstractAI
                     default:
                     	generalSkills.add(sk);
                     	hasLongRangeDamageSkill = true;
-                        break;  
+                        break;
                 }
                 if (castRange > 70) {
                     hasLongRangeSkills = true;
-                    if (hasLongRangeDamageSkill) 
+                    if (hasLongRangeDamageSkill)
                         hasLongRangeDamageSkills = true;
                 }
                 if (castRange > maxCastRange) maxCastRange = castRange;
-            
+
             }
             // Because of missing skills, some mages/balanced cannot play like mages
             if (!hasLongRangeDamageSkills && isMage)
@@ -1256,7 +1258,7 @@ public class L2CharacterAI extends AbstractAI
             }
         }
     }
-    
+
     protected class TargetAnalysis
     {
         public L2Character character;
@@ -1267,25 +1269,25 @@ public class L2CharacterAI extends AbstractAI
         public boolean isCanceled;
         public boolean isSlower;
         public boolean isMagicResistant;
-        
+
         public TargetAnalysis()
         {
         }
-            
+
         public void update(L2Character target)
         {
             // update status once in 4 seconds
             if (target == character && Rnd.nextInt(100) > 25)
                 return;
             character = target;
-            if (target == null) 
+            if (target == null)
                 return;
             isMage = false;
             isBalanced = false;
             isArcher = false;
             isFighter = false;
             isCanceled = false;
-            
+
             if (target.getMAtk(null, null) > 1.5*target.getPAtk(null))
                 isMage = true;
             else if (target.getPAtk(null)*0.8 < target.getMAtk(null, null)
@@ -1293,23 +1295,23 @@ public class L2CharacterAI extends AbstractAI
             {
                 isBalanced = true;
             }
-            else 
-            { 
+            else
+            {
                 L2Weapon weapon = target.getActiveWeaponItem();
-                if (weapon != null && (weapon.getItemType() == L2WeaponType.BOW))
+                if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
                     isArcher = true;
-                else 
+                else
                     isFighter = true;
             }
             if (target.getRunSpeed() < _actor.getRunSpeed()-3)
                 isSlower = true;
-            else 
+            else
                 isSlower = false;
             if (target.getMDef(null, null)*1.2 > _actor.getMAtk(null, null))
                 isMagicResistant = true;
-            else 
+            else
                 isMagicResistant = false;
-            if (target.getBuffCount() < 4) 
+            if (target.getBuffCount() < 4)
                 isCanceled = true;
         }
     }
