@@ -56,7 +56,7 @@ public final class L2ItemInstance extends L2Object
 	/** Enumeration of locations for item */
 	public static enum ItemLocation
 	{
-		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, FREIGHT
+		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, FREIGHT, NPC
 	}
 
 	/** ID of the owner */
@@ -1131,7 +1131,7 @@ public final class L2ItemInstance extends L2Object
 			{
 				return;
 			}
-			if (_loc == ItemLocation.VOID || _ownerId == 0)
+			if (_loc == ItemLocation.VOID || _loc == ItemLocation.NPC || _ownerId == 0)
 			{
 				return;
 			}
