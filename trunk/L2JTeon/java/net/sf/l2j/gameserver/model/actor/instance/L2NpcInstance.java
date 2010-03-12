@@ -114,9 +114,9 @@ public class L2NpcInstance extends L2Character
 	public static final int INTERACTION_DISTANCE = 150;
 	/** The L2Spawn object that manage this L2NpcInstance */
 	private L2Spawn _spawn;
-	
+
     private NpcInventory _inventory = null;
-	
+
 	/** The flag to specify if this L2NpcInstance is busy */
 	private boolean _isBusy = false;
 	/** The busy message for this L2NpcInstance */
@@ -856,7 +856,7 @@ public class L2NpcInstance extends L2Character
 			html.setHtml(html1.toString());
 			player.sendPacket(html);
 		}
-		
+
 		else if (Config.GAME_VIEWNPC || Config.GAME_VIEWNPC_COMBAT || Config.GAME_VIEWNPC_BASIC || Config.GAME_VIEWNPC_DROP)
 		{
 			// Set the target of the L2PcInstance player
@@ -2860,7 +2860,7 @@ public class L2NpcInstance extends L2Character
 		L2Skill skill = SkillTable.getInstance().getInfo(5182, 1);
 		doCast(skill);
 	}
-	
+
     public boolean rechargeAutoSoulShot(boolean physical, boolean magic)
 	{
     	if (this.getTemplate().ssRate == 0) return false;
@@ -2878,7 +2878,7 @@ public class L2NpcInstance extends L2Character
 	    		_inventory.bshotInUse = false;
 	    		return false;
 	    	}
-	    	
+
 			if (null != _inventory.destroyItemByItemId("Consume", 3947, weaponItem.getSpiritShotCount(), null, null))
 			{
 				_inventory.bshotInUse = true;
@@ -2886,17 +2886,17 @@ public class L2NpcInstance extends L2Character
 				return true;
 			}
 			else
-				_inventory.bshotInUse = false;	
-		
+				_inventory.bshotInUse = false;
+
 		}
 		if (physical)
 		{
 			if (this.getTemplate().ssRate < Rnd.get(100))
 	    	{
-				_inventory.sshotInUse = false;	    		
+				_inventory.sshotInUse = false;
 	    		return false;
 	    	}
-			
+
 			if (null != _inventory.destroyItemByItemId("Consume", 1835, weaponItem.getSoulShotCount(), null, null))
 			{
 				_inventory.sshotInUse = true;
@@ -2904,11 +2904,11 @@ public class L2NpcInstance extends L2Character
 				return true;
 			}
 			else
-				_inventory.sshotInUse = false;	
+				_inventory.sshotInUse = false;
 		}
 		return false;
 	}
-    
+
     public boolean isUsingShot(boolean physical)
     {
     	if (_inventory == null) return false;

@@ -406,7 +406,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 		{
 			return false;
 		}
-		// Check if the target is a L2PlayableInstance 
+		// Check if the target is a L2PlayableInstance
 		if (target instanceof L2PlayableInstance)
 		{
 			// Check if the target isn't in silent move mode

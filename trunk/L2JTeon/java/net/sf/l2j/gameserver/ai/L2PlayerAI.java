@@ -17,15 +17,14 @@ package net.sf.l2j.gameserver.ai;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_CAST;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_IDLE;
-import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
+import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
-import net.sf.l2j.gameserver.model.L2CharPosition; 
-
-import net.sf.l2j.gameserver.model.L2Skill; 
+import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Character.AIAccessor;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -36,9 +35,9 @@ public class L2PlayerAI extends L2CharacterAI
 {
 	private boolean _thinking; // to prevent recursive thinking
 
-    //private Stack<IntentionCommand> _interruptedIntentions = new Stack<IntentionCommand>(); 
-    IntentionCommand _nextIntention = null; 
-    
+    //private Stack<IntentionCommand> _interruptedIntentions = new Stack<IntentionCommand>();
+    IntentionCommand _nextIntention = null;
+
 	public L2PlayerAI(AIAccessor accessor)
 	{
 		super(accessor);
@@ -53,13 +52,13 @@ public class L2PlayerAI extends L2CharacterAI
 
     	_nextIntention = new IntentionCommand(intention, arg0, arg1);
     }
-    
+
     @Override
     public IntentionCommand getNextIntention()
     {
     	return _nextIntention;
     }
-	
+
 	/**
 	 * Saves the current Intention for this L2PlayerAI if necessary and calls changeIntention in AbstractAI.<BR>
 	 * <BR>
@@ -77,9 +76,9 @@ public class L2PlayerAI extends L2CharacterAI
 		/*
 		 * if (Config.DEBUG) _log.warning("L2PlayerAI: changeIntention -> " + intention + " " + arg0 + " " + arg1);
 		 */
-        // do nothing unless CAST intention 
+        // do nothing unless CAST intention
     	// however, forget interrupted actions when starting to use an offensive skill
-        if (intention != AI_INTENTION_CAST || (arg0 != null && ((L2Skill)arg0).isOffensive()))
+        if (intention != AI_INTENTION_CAST || arg0 != null && ((L2Skill)arg0).isOffensive())
         {
         	_nextIntention = null;
         	super.changeIntention(intention, arg0, arg1);
@@ -92,10 +91,10 @@ public class L2PlayerAI extends L2CharacterAI
 			return;
 		}
         // save current intention so it can be used after cast
-        saveNextIntention(_intention, _intentionArg0, _intentionArg1); 
+        saveNextIntention(_intention, _intentionArg0, _intentionArg1);
 		super.changeIntention(intention, arg0, arg1);
 	}
-	
+
     /**
      * Launch actions corresponding to the Event ReadyToAct.<BR><BR>
      *
@@ -114,7 +113,7 @@ public class L2PlayerAI extends L2CharacterAI
     	}
     	super.onEvtReadyToAct();
     }
-    
+
     /**
      * Launch actions corresponding to the Event Cancel.<BR><BR>
      *
@@ -183,7 +182,7 @@ public class L2PlayerAI extends L2CharacterAI
 	{
 		setIntention(AI_INTENTION_IDLE);
 	}
-	
+
     /**
      * Manage the Move To Intention : Stop current Attack and Launch a Move to Location Task.<BR><BR>
      *

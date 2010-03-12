@@ -331,10 +331,10 @@ public class NpcTable
 			npcDat.set("isUndead", NpcData.getString("isUndead"));
 			npcDat.set("absorb_level", NpcData.getString("absorb_level"));
 			npcDat.set("absorb_type", NpcData.getString("absorb_type"));
-            npcDat.set("ss", NpcData.getInt("ss")); 
-            npcDat.set("bss", NpcData.getInt("bss")); 
-            npcDat.set("ssRate", NpcData.getInt("ss_rate")); 
-            npcDat.set("AI", NpcData.getString("AI")); 
+            npcDat.set("ss", NpcData.getInt("ss"));
+            npcDat.set("bss", NpcData.getInt("bss"));
+            npcDat.set("ssRate", NpcData.getInt("ss_rate"));
+            npcDat.set("AI", NpcData.getString("AI"));
 			L2NpcTemplate template = new L2NpcTemplate(npcDat);
 			template.addVulnerability(Stats.BOW_WPN_VULN, 1);
 			template.addVulnerability(Stats.BLUNT_WPN_VULN, 1);

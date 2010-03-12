@@ -86,14 +86,14 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public void returnHome()
 	{
-        if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 40, false)) 
+        if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 40, false))
 		{
 			if (Config.DEBUG)
 				_log.fine(getObjectId() + ": moving home");
 			setisReturningToSpawnPoint(true);
 			clearAggroList();
 			if (hasAI())
-                getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0)); 		
+                getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
 		}
 	}
 
