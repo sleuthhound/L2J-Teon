@@ -35,10 +35,10 @@ public abstract class L2PlayableInstance extends L2Character
 {
 	private boolean _isNoblesseBlessed = false; // for Noblesse Blessing skill, restores buffs after death
 	private boolean _getCharmOfLuck = false; // Charm of Luck - During a Raid/Boss war, decreased chance for death penalty
+    private boolean _isSilentMoving = false;                // Silent Move 
 	private boolean _isSoulOfThePhoenix = false; // for Soul of The Phoenix skill, restores buffs after death and full CP/HP/MP
 	private boolean _isSalvation = false; // for Salvation skill, restores
 	private boolean _ProtectionBlessing = false;
-	private boolean _isSilentMoving = false;
 
 	// buffs after death and full CP/HP/MP
 	/**
@@ -221,6 +221,8 @@ public abstract class L2PlayableInstance extends L2Character
 		setIsSoulOfThePhoenix(false);
 		updateAbnormalEffect();
 	}
+	
+	
 
 	// Support for Salvation skill, where buffs are retained
 	// after resurrect and restore full CP/HP/MP
