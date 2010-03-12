@@ -846,7 +846,9 @@ public abstract class L2Character extends L2Object
 		}
 		// Verify if soulshots are charged.
 		boolean wasSSCharged;
-		if (this instanceof L2Summon && !(this instanceof L2PetInstance))
+        if (this instanceof L2NpcInstance) 
+            wasSSCharged = ((L2NpcInstance)this).rechargeAutoSoulShot(true, false); 
+        else if (this instanceof L2Summon && !(this instanceof L2PetInstance)) 
 		{
 			wasSSCharged = ((L2Summon) this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE;
 		}
@@ -1323,6 +1325,13 @@ public abstract class L2Character extends L2Object
 				return;
 			}
 		}
+		// Check if the caster own the weapon needed
+		if (!skill.getWeaponDependancy(this))
+		{
+			// Send a Server->Client packet ActionFailed to the L2PcInstance
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
 		// Recharge AutoSoulShot
 		if (skill.useSoulShot())
 		{
@@ -1330,7 +1339,9 @@ public abstract class L2Character extends L2Object
 			{
 				((L2Attackable) this).broadcastPacket(new ExAutoSoulShot(5789, 0));
 			}
-			if (this instanceof L2PcInstance)
+            if (this instanceof L2NpcInstance) 
+                ((L2NpcInstance)this).rechargeAutoSoulShot(true, false); 
+            else if (this instanceof L2PcInstance) 
 			{
 				((L2PcInstance) this).rechargeAutoSoulShot(true, false, false);
 			}
@@ -1494,6 +1505,14 @@ public abstract class L2Character extends L2Object
 				}
 			}
 		}
+        else if (this instanceof L2NpcInstance && skill.useSpiritShot() && !effectWhileCasting) 
+        {
+            if(((L2NpcInstance)this).rechargeAutoSoulShot(false, true)) 
+            {
+                hitTime = (int)(0.70 * hitTime); 
+                coolTime = (int)(0.70 * coolTime); 
+            }
+        }
 		// Set the _castEndTime and _castInterruptTim. +10 ticks for lag
 		// situations, will be reseted in onMagicFinalizer
 		setIsCastingNow(true);
@@ -1765,29 +1784,39 @@ public abstract class L2Character extends L2Object
 			if (((L2PlayableInstance) this).isSoulOfThePhoenix() && ((L2PcInstance) this)._reviveRequested == 0)
 			{
 				((L2PlayableInstance) this).stopSoulOfThePhoenix(null);
+				return false;
 			}
 			if (((L2PlayableInstance) this).isSalvation() && ((L2PcInstance) this)._reviveRequested == 0)
 			{
 				((L2PlayableInstance) this).stopSalvation(null);
+				return false;
 			}
+			return true;
 		}
 		else if (this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isNoblesseBlessed())
 		{
 			((L2PlayableInstance) this).stopNoblesseBlessing(null);
 			if (((L2PlayableInstance) this).getCharmOfLuck()) // remove Lucky Charm if player have Nobless blessing buff
+			{
 				((L2PlayableInstance) this).stopCharmOfLuck(null);
+				return false;
+			}
 			if (((L2PlayableInstance) this).isSoulOfThePhoenix() || ((L2PlayableInstance) this).isSalvation())
 			{
 				((L2PcInstance) this).reviveRequest((L2PcInstance) this, null, false);
 				if (((L2PlayableInstance) this).isSoulOfThePhoenix() && ((L2PcInstance) this)._reviveRequested == 0)
 				{
 					((L2PlayableInstance) this).stopSoulOfThePhoenix(null);
+					return false;
 				}
 				if (((L2PlayableInstance) this).isSalvation() && ((L2PcInstance) this)._reviveRequested == 0)
 				{
 					((L2PlayableInstance) this).stopSalvation(null);
+					return false;
 				}
+				return true;
 			}
+			return true;
 		}
 		else
 		{
