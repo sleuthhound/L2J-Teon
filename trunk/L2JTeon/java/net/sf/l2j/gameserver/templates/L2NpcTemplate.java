@@ -60,7 +60,11 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public final int factionRange;
 	public final int absorbLevel;
 	public final AbsorbCrystalType absorbType;
+    public final short   ss; 
+    public final short   bss; 
+    public final short   ssRate; 
 	public Race race;
+    public final AIType AI; 
 	public boolean isQuestMonster; // doesn't include all mobs that are involved in
 
 	// quests, just plain quest monsters for preventing champion spawn
@@ -68,6 +72,15 @@ public final class L2NpcTemplate extends L2CharTemplate
 	{
 		LAST_HIT, FULL_PARTY, PARTY_ONE_RANDOM
 	}
+	
+    public static enum AIType 
+    {
+        FIGHTER, 
+        ARCHER, 
+        BALANCED, 
+        MAGE,
+        HEALER
+    }
 
 	public static enum Race
 	{
@@ -122,9 +135,18 @@ public final class L2NpcTemplate extends L2CharTemplate
 		factionRange = set.getInteger("factionRange");
 		absorbLevel = set.getInteger("absorb_level", 0);
 		absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
+        ss  = (short)set.getInteger("ss", 0); 
+        bss  = (short)set.getInteger("bss", 0); 
+        ssRate  = (short)set.getInteger("ssRate", 0); 
 		race = null;
 		_npcStatsSet = set;
 		_teachInfo = null;
+        String ai = set.getString("AI", "fighter"); 
+        if (ai.equalsIgnoreCase("archer")) AI = AIType.ARCHER; 
+        else if (ai.equalsIgnoreCase("balanced")) AI = AIType.BALANCED; 
+        else if (ai.equalsIgnoreCase("mage")) AI = AIType.MAGE; 
+		else if (ai.equalsIgnoreCase("healer")) AI = AIType.HEALER;
+        else AI = AIType.FIGHTER; 
 	}
 
 	public void addTeachInfo(ClassId classId)

@@ -506,8 +506,6 @@ public final class Config
 	 * Allow lesser effects to be canceled if stronger effects are used when effects of the same stack group are used.<br> New effects that are added will be canceled if they are of lesser priority to the old one.
 	 */
 	public static boolean EFFECT_CANCELING;
-	// Disable the use of guards against agressive monsters ?
-	public static boolean ALLOW_GUARDS;
 	// Deep Blue Mobs' Drop Rules Enabled
 	public static boolean DEEPBLUE_DROP_RULES;
 	// Inventory slots limit
@@ -1534,7 +1532,6 @@ public final class Config
 				ALT_GAME_SHIELD_BLOCKS = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "False"));
 				ALT_GAME_DELEVEL = Boolean.parseBoolean(altSettings.getProperty("Delevel", "True"));
 				ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "False"));
-				ALT_GAME_MOB_ATTACK_AI = Boolean.parseBoolean(altSettings.getProperty("AltGameMobAttackAI", "False"));
 				GUARD_ATTACK_AGGRO_MOB = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "True"));
 				ALT_GAME_EXPONENT_XP = Float.parseFloat(altSettings.getProperty("AltGameExponentXp", "0."));
 				ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
@@ -2019,7 +2016,6 @@ public final class Config
 				otherSettings.load(is);
 				is.close();
 				DEEPBLUE_DROP_RULES = Boolean.parseBoolean(otherSettings.getProperty("UseDeepBlueDropRules", "True"));
-				ALLOW_GUARDS = Boolean.parseBoolean(otherSettings.getProperty("AllowGuards", "False"));
 				EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
 				WYVERN_SPEED = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));
 				STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
@@ -3346,10 +3342,6 @@ public final class Config
 		{
 			DEEPBLUE_DROP_RULES = Boolean.parseBoolean(pValue);
 		}
-		else if (pName.equalsIgnoreCase("AllowGuards"))
-		{
-			ALLOW_GUARDS = Boolean.parseBoolean(pValue);
-		}
 		else if (pName.equalsIgnoreCase("CancelLesserEffect"))
 		{
 			EFFECT_CANCELING = Boolean.parseBoolean(pValue);
@@ -3606,10 +3598,6 @@ public final class Config
 		else if (pName.equalsIgnoreCase("MagicFailures"))
 		{
 			ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(pValue);
-		}
-		else if (pName.equalsIgnoreCase("AltGameMobAttackAI"))
-		{
-			ALT_GAME_MOB_ATTACK_AI = Boolean.parseBoolean(pValue);
 		}
 		else if (pName.equalsIgnoreCase("AltMobAgroInPeaceZone"))
 		{
