@@ -1784,14 +1784,11 @@ public abstract class L2Character extends L2Object
 			if (((L2PlayableInstance) this).isSoulOfThePhoenix() && ((L2PcInstance) this)._reviveRequested == 0)
 			{
 				((L2PlayableInstance) this).stopSoulOfThePhoenix(null);
-				return false;
 			}
 			if (((L2PlayableInstance) this).isSalvation() && ((L2PcInstance) this)._reviveRequested == 0)
 			{
 				((L2PlayableInstance) this).stopSalvation(null);
-				return false;
 			}
-			return true;
 		}
 		else if (this instanceof L2PlayableInstance && ((L2PlayableInstance) this).isNoblesseBlessed())
 		{
@@ -1799,7 +1796,6 @@ public abstract class L2Character extends L2Object
 			if (((L2PlayableInstance) this).getCharmOfLuck()) // remove Lucky Charm if player have Nobless blessing buff
 			{
 				((L2PlayableInstance) this).stopCharmOfLuck(null);
-				return false;
 			}
 			if (((L2PlayableInstance) this).isSoulOfThePhoenix() || ((L2PlayableInstance) this).isSalvation())
 			{
@@ -1807,16 +1803,12 @@ public abstract class L2Character extends L2Object
 				if (((L2PlayableInstance) this).isSoulOfThePhoenix() && ((L2PcInstance) this)._reviveRequested == 0)
 				{
 					((L2PlayableInstance) this).stopSoulOfThePhoenix(null);
-					return false;
 				}
 				if (((L2PlayableInstance) this).isSalvation() && ((L2PcInstance) this)._reviveRequested == 0)
 				{
 					((L2PlayableInstance) this).stopSalvation(null);
-					return false;
 				}
-				return true;
 			}
-			return true;
 		}
 		else
 		{
