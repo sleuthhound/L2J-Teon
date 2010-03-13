@@ -1120,7 +1120,7 @@
   </cond>
   <for>
     <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="speed_up_special">
-      <add order="0x40" stat="runSpd" val="#spd"/>
+      <mul order="0x40" stat="runSpd" val="#spd"/>
     </effect>
   </for>
 </skill>

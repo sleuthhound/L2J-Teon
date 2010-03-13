@@ -224,8 +224,8 @@ echo "WARNING: A full install (f) will destroy all existing character data."
 echo -ne "GAMESERVER DB install type: (f) full install, (u) upgrade, (s) skip or (q) quit? "
 read INSTALLTYPE
 case "$INSTALLTYPE" in
-	"f"|"F") fullinstall; upgradeinstall I; experimental;;
-	"u"|"U") upgradeinstall U; experimental;;
+	"f"|"F") fullinstall; upgradeinstall I;;
+	"u"|"U") upgradeinstall U;;
 	"s"|"S") experimental;;
 	"q"|"Q") finish;;
 	*) asktype;;
