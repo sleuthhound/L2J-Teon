@@ -489,7 +489,7 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * net.sf.l2j.gameserver.network.clientpackets.ClientBasePacket#getType()
 	 */
