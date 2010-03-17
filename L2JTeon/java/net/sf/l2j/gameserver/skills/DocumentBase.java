@@ -59,6 +59,7 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionUsingSkill;
 import net.sf.l2j.gameserver.skills.conditions.ConditionWithSkill;
 import net.sf.l2j.gameserver.skills.conditions.ConditionGameTime.CheckGameTime;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
+import net.sf.l2j.gameserver.skills.effects.EffectChanceSkillTrigger;
 import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
 import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
 import net.sf.l2j.gameserver.skills.funcs.Lambda;
@@ -74,7 +75,6 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import net.sf.l2j.gameserver.skills.effects.EffectChanceSkillTrigger; 
 /**
  * @author mkizub TODO To change the template for this generated type comment go to Window - Preferences - Java - Code Style - Code Templates
  */
@@ -272,36 +272,36 @@ abstract class DocumentBase
 			stackOrder = Float.parseFloat(getValue(attrs.getNamedItem("stackOrder").getNodeValue(), template));
 		}
         EffectTemplate lt;
-        
-        final boolean isChanceSkillTrigger = (name == EffectChanceSkillTrigger.class.getName());
+
+        final boolean isChanceSkillTrigger = name == EffectChanceSkillTrigger.class.getName();
         int trigId = 0;
 		if (attrs.getNamedItem("triggeredId") != null)
 			trigId = Integer.parseInt(getValue(attrs.getNamedItem("triggeredId").getNodeValue(), template));
 		else if (isChanceSkillTrigger)
 			throw new NoSuchElementException(name + " requires triggerId");
-		
+
 		int trigLvl = 1;
 		if (attrs.getNamedItem("triggeredLevel") != null)
 			trigLvl = Integer.parseInt(getValue(attrs.getNamedItem("triggeredLevel").getNodeValue(), template));
-		
+
 		String chanceCond = null;
 		if (attrs.getNamedItem("chanceType") != null)
 			chanceCond = getValue(attrs.getNamedItem("chanceType").getNodeValue(), template);
 		else if (isChanceSkillTrigger)
 			throw new NoSuchElementException(name + " requires chanceType");
-		
+
 		int activationChance = 0;
 		if (attrs.getNamedItem("activationChance") != null)
 			activationChance = Integer.parseInt(getValue(attrs.getNamedItem("activationChance").getNodeValue(), template));
 		else if (isChanceSkillTrigger)
 			throw new NoSuchElementException(name + " requires activationChance");
-		
+
 		ChanceCondition chance = ChanceCondition.parse(chanceCond, activationChance);
-		
+
 		if (chance == null && isChanceSkillTrigger)
 			throw new NoSuchElementException("Invalid chance condition: " + chanceCond + " "
-			        + activationChance);        	
-        	
+			        + activationChance);
+
         lt = new EffectTemplate(attachCond, applayCond, name, lambda, count, time, abnormal, stackType, stackOrder, icon, trigId, trigLvl, chance);
 		parseTemplate(n, lt);
 		if (template instanceof L2Item)

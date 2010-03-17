@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -18,7 +18,6 @@ import javolution.util.FastMap;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
-import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
@@ -70,7 +69,7 @@ public class ChanceSkillList extends FastMap<IChanceSkillTrigger, ChanceConditio
 
 		onEvent(event, target);
 	}
-	
+
 	public void onEvadedHit(L2Character attacker)
 	{
 		onEvent(ChanceCondition.EVT_EVADED_HIT, attacker);
@@ -127,14 +126,14 @@ public class ChanceSkillList extends FastMap<IChanceSkillTrigger, ChanceConditio
 					skill = SkillTable.getInstance().getInfo(skill.getTriggeredChanceId(), skill.getTriggeredChanceLevel());
 			        if(skill == null || skill.getSkillType() == SkillType.NOTDONE)
 			        	return;
-			    } 
-				
+			    }
+
 			    ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 			    L2Object[] targets = skill.getTargetList(_owner, false);
-			 
+
 			    _owner.broadcastPacket(new MagicSkillLaunched(_owner, skill.getDisplayId(), skill.getLevel(), targets));
 			    _owner.broadcastPacket(new MagicSkillUser(_owner, (L2Character)targets[0], skill.getDisplayId(), skill.getLevel(), 0, 0));
-			 
+
 
 			    // Launch the magic skill and calculate its effects
 			    // TODO: once core will support all posible effects, use effects (not handler)
@@ -142,7 +141,7 @@ public class ChanceSkillList extends FastMap<IChanceSkillTrigger, ChanceConditio
 			    	handler.useSkill(_owner, skill, targets);
 			    else
 			    	skill.useSkill(_owner, targets);
-			            
+
 			}
         }
 		catch(Exception e)
@@ -150,25 +149,25 @@ public class ChanceSkillList extends FastMap<IChanceSkillTrigger, ChanceConditio
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void makeCast(EffectChanceSkillTrigger effect, L2Character target)
 	{
 		try
 		{
 			if (effect == null || !effect.triggersChanceSkill())
 				return;
-			
+
 			L2Skill triggered = SkillTable.getInstance().getInfo(effect.getTriggeredChanceId(), effect.getTriggeredChanceLevel());
-			
+
 			if (triggered == null || triggered.getSkillType() == SkillType.NOTDONE)
 				return;
-			
+
 			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(triggered.getSkillType());
 		    L2Object[] targets = triggered.getTargetList(_owner, false);
-		 
+
 		    _owner.broadcastPacket(new MagicSkillLaunched(_owner, triggered.getDisplayId(), triggered.getLevel(), targets));
 		    _owner.broadcastPacket(new MagicSkillUser(_owner, (L2Character)targets[0], triggered.getDisplayId(), triggered.getLevel(), 0, 0));
-		 
+
 
 		    // Launch the magic skill and calculate its effects
 		    // TODO: once core will support all posible effects, use effects (not handler)
@@ -176,7 +175,7 @@ public class ChanceSkillList extends FastMap<IChanceSkillTrigger, ChanceConditio
 		    	handler.useSkill(_owner, triggered, targets);
 		    else
 		    	triggered.useSkill(_owner, targets);
-			
+
 		}
 		catch (Exception e)
 		{

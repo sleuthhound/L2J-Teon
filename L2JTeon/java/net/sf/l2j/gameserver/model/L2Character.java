@@ -48,7 +48,6 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
-import net.sf.l2j.gameserver.skills.effects.EffectChanceSkillTrigger; 
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2CubicInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DecoInstance;
@@ -113,6 +112,7 @@ import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.skills.effects.EffectChanceSkillTrigger;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -6001,7 +6001,7 @@ public abstract class L2Character extends L2Object
 			if (oldSkill != null)
 		    {
 				// if skill came with another one, we should delete the other one too.
-				if(( oldSkill.triggerAnotherSkill()))
+				if(oldSkill.triggerAnotherSkill())
 				{
 					removeSkill(oldSkill.getTriggeredId(),true);
 				}
@@ -6018,15 +6018,15 @@ public abstract class L2Character extends L2Object
 			{
 				addChanceSkill(newSkill);
 			}
-			
+
 			/*if (!newSkill.isChance() && newSkill.triggerAnotherSkill() )
 			{
 				L2Skill bestowed = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(), newSkill.getTriggeredLevel());
-				addSkill(bestowed); 
-				//bestowed skills are invisible for player. Visible for gm's looking thru gm window. 
+				addSkill(bestowed);
+				//bestowed skills are invisible for player. Visible for gm's looking thru gm window.
 				//those skills should always be chance or passive, to prevent hlapex.
 			}
-			            
+
 			if(newSkill.isChance() && newSkill.triggerAnotherSkill())
 			{
 				L2Skill triggeredSkill = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(),newSkill.getTriggeredLevel());
@@ -6045,11 +6045,11 @@ public abstract class L2Character extends L2Object
 		if (oldSkill != null)
 		{
 			//this is just a fail-safe againts buggers and gm dummies...
-			if((oldSkill.triggerAnotherSkill()) && oldSkill.getTriggeredId()>0)
+			if(oldSkill.triggerAnotherSkill() && oldSkill.getTriggeredId()>0)
 			{
 				removeSkill(oldSkill.getTriggeredId(),true);
 			}
-			
+
 			if (cancelEffect || oldSkill.isToggle())
 			{
 				// for now, to support transformations, we have to let their
@@ -6070,7 +6070,7 @@ public abstract class L2Character extends L2Object
 	{
 		if (_chanceSkills == null)
 				_chanceSkills = new ChanceSkillList(this);
-			
+
 		_chanceSkills.put(skill, skill.getChanceCondition());
 	}
 
@@ -6081,22 +6081,22 @@ public abstract class L2Character extends L2Object
 		{
 			if (!(trigger instanceof L2Skill))
 				continue;
-			
+
 			L2Skill skill = (L2Skill)trigger;
-			
+
 			if (skill.getId() == id)
 				_chanceSkills.remove(skill);
 		}
-		
+
 		if (_chanceSkills.isEmpty())
 				_chanceSkills = null;
 	}
-	
+
 	public synchronized void addChanceEffect(EffectChanceSkillTrigger effect)
 	{
 		if (_chanceSkills == null)
 			_chanceSkills = new ChanceSkillList(this);
-		
+
 		_chanceSkills.put(effect, effect.getTriggeredChanceCondition());
 	}
 

@@ -104,23 +104,23 @@ public final class ChanceCondition
 		return null;
 	}
 
-    public static ChanceCondition parse(String chanceType, int chance) 
+    public static ChanceCondition parse(String chanceType, int chance)
     {
-        try 
+        try
         {
-            if (chance <= 0 || chanceType == null) 
-                return null; 
-            
-            TriggerType trigger = Enum.valueOf(TriggerType.class, chanceType); 
-            
-            if (trigger != null) 
-                return new ChanceCondition(trigger, chance); 
+            if (chance <= 0 || chanceType == null)
+                return null;
+
+            TriggerType trigger = Enum.valueOf(TriggerType.class, chanceType);
+
+            if (trigger != null)
+                return new ChanceCondition(trigger, chance);
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
-        return null; 
+        return null;
     }
 	public boolean trigger(int event)
 	{

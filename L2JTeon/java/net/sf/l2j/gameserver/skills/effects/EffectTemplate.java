@@ -44,7 +44,7 @@ public final class EffectTemplate
 	public final String stackType;
 	public final float stackOrder;
 	public final boolean icon;
-	
+
 	public final int triggeredId;
     public final int triggeredLevel;
     public final ChanceCondition chanceCondition;
@@ -60,7 +60,7 @@ public final class EffectTemplate
 		stackType = pStackType;
 		stackOrder = pStackOrder;
 		icon = showicon;
-		
+
 		triggeredId = trigId;
 	    triggeredLevel = trigLvl;
 	    chanceCondition = chanceCond;

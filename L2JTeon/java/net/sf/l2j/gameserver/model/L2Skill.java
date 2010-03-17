@@ -42,7 +42,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
-import net.sf.l2j.gameserver.skills.effects.EffectChanceSkillTrigger;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
 import net.sf.l2j.gameserver.skills.funcs.Func;
@@ -330,7 +329,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	// OP Chance
 	private final int _triggeredId;
 	private final int _triggeredLevel;
-    private final String _chanceType; 
+    private final String _chanceType;
 	protected ChanceCondition _chanceCondition = null;
 	private final int _forceId;
 	private final boolean _isHeroSkill; // If true the skill is a Hero Skill
@@ -429,8 +428,8 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		_numCharges = set.getInteger("num_charges", getLevel());
 		_triggeredId = set.getInteger("triggeredId", 0);
 		_triggeredLevel = set.getInteger("triggeredLevel", 0);
-        _chanceType = set.getString("chanceType", ""); 
-        if (_chanceType != "" && !_chanceType.isEmpty()) 
+        _chanceType = set.getString("chanceType", "");
+        if (_chanceType != "" && !_chanceType.isEmpty())
         	_chanceCondition = ChanceCondition.parse(set);
 		_forceId = set.getInteger("forceId", 0);
 		_isHeroSkill = HeroSkillTable.isHeroSkill(_id);
@@ -900,28 +899,28 @@ public abstract class L2Skill implements IChanceSkillTrigger
 
 	public final boolean isChance()
 	{
-        return _chanceCondition != null && isPassive(); 
+        return _chanceCondition != null && isPassive();
 	}
-	
-    public boolean triggersChanceSkill() 
-    { 
-    	return _triggeredId > 0 && isChance(); 
-    } 
-    
-    public int getTriggeredChanceId() 
-    { 
-    	return _triggeredId; 
-    } 
-    
- 
-    public int getTriggeredChanceLevel() 
-    { 
-    	return _triggeredLevel; 
-    } 
-    
-    public ChanceCondition getTriggeredChanceCondition() 
-    { 
-    	return _chanceCondition; 
+
+    public boolean triggersChanceSkill()
+    {
+    	return _triggeredId > 0 && isChance();
+    }
+
+    public int getTriggeredChanceId()
+    {
+    	return _triggeredId;
+    }
+
+
+    public int getTriggeredChanceLevel()
+    {
+    	return _triggeredLevel;
+    }
+
+    public ChanceCondition getTriggeredChanceCondition()
+    {
+    	return _chanceCondition;
     }
 
 	public ChanceCondition getChanceCondition()
