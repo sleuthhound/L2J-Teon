@@ -48,6 +48,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
+import net.sf.l2j.gameserver.skills.effects.EffectChanceSkillTrigger; 
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2CubicInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DecoInstance;
@@ -5989,18 +5990,26 @@ public abstract class L2Character extends L2Object
 	 */
 	public L2Skill addSkill(L2Skill newSkill)
 	{
-		L2Skill oldSkill = null;
+		L2Skill oldSkill    = null;
+
 		if (newSkill != null)
 		{
 			// Replace oldSkill by newSkill or Add the newSkill
 			oldSkill = _skills.put(newSkill.getId(), newSkill);
+
 			// If an old skill has been replaced, remove all its Func objects
 			if (oldSkill != null)
-			{
+		    {
+				// if skill came with another one, we should delete the other one too.
+				if(( oldSkill.triggerAnotherSkill()))
+				{
+					removeSkill(oldSkill.getTriggeredId(),true);
+				}
 				removeStatsOwner(oldSkill);
-			}
+		    }
 			// Add Func objects of newSkill to the calculator set of the L2Character
 			addStatFuncs(newSkill.getStatFuncs(null, this));
+
 			if (oldSkill != null && _chanceSkills != null)
 			{
 				removeChanceSkill(oldSkill.getId());
@@ -6009,24 +6018,94 @@ public abstract class L2Character extends L2Object
 			{
 				addChanceSkill(newSkill);
 			}
+			
+			/*if (!newSkill.isChance() && newSkill.triggerAnotherSkill() )
+			{
+				L2Skill bestowed = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(), newSkill.getTriggeredLevel());
+				addSkill(bestowed); 
+				//bestowed skills are invisible for player. Visible for gm's looking thru gm window. 
+				//those skills should always be chance or passive, to prevent hlapex.
+			}
+			            
+			if(newSkill.isChance() && newSkill.triggerAnotherSkill())
+			{
+				L2Skill triggeredSkill = SkillTable.getInstance().getInfo(newSkill.getTriggeredId(),newSkill.getTriggeredLevel());
+				addSkill(triggeredSkill);
+			}*/
 		}
+
+		return oldSkill;
+	}
+
+	public L2Skill removeSkill(int skillId, boolean cancelEffect)
+	{
+		// Remove the skill from the L2Character _skills
+		L2Skill oldSkill = _skills.remove(skillId);
+		// Remove all its Func objects from the L2Character calculator set
+		if (oldSkill != null)
+		{
+			//this is just a fail-safe againts buggers and gm dummies...
+			if((oldSkill.triggerAnotherSkill()) && oldSkill.getTriggeredId()>0)
+			{
+				removeSkill(oldSkill.getTriggeredId(),true);
+			}
+			
+			if (cancelEffect || oldSkill.isToggle())
+			{
+				// for now, to support transformations, we have to let their
+				// effects stay when skill is removed
+				L2Effect e = getFirstEffect(oldSkill);
+				if (e == null)
+				{
+					removeStatsOwner(oldSkill);
+					stopSkillEffects(oldSkill.getId());
+				}
+			}
+		}
+
 		return oldSkill;
 	}
 
 	public synchronized void addChanceSkill(L2Skill skill)
 	{
 		if (_chanceSkills == null)
-			_chanceSkills = new ChanceSkillList(this);
+				_chanceSkills = new ChanceSkillList(this);
+			
 		_chanceSkills.put(skill, skill.getChanceCondition());
 	}
 
 	public synchronized void removeChanceSkill(int id)
 	{
-		for (L2Skill skill : _chanceSkills.keySet())
+		if (_chanceSkills == null) return;
+		for (IChanceSkillTrigger trigger : _chanceSkills.keySet())
 		{
+			if (!(trigger instanceof L2Skill))
+				continue;
+			
+			L2Skill skill = (L2Skill)trigger;
+			
 			if (skill.getId() == id)
 				_chanceSkills.remove(skill);
 		}
+		
+		if (_chanceSkills.isEmpty())
+				_chanceSkills = null;
+	}
+	
+	public synchronized void addChanceEffect(EffectChanceSkillTrigger effect)
+	{
+		if (_chanceSkills == null)
+			_chanceSkills = new ChanceSkillList(this);
+		
+		_chanceSkills.put(effect, effect.getTriggeredChanceCondition());
+	}
+
+	public synchronized void removeChanceEffect(EffectChanceSkillTrigger effect)
+	{
+		if (_chanceSkills == null) return;
+
+		_chanceSkills.remove(effect);
+
 		if (_chanceSkills.isEmpty())
 			_chanceSkills = null;
 	}

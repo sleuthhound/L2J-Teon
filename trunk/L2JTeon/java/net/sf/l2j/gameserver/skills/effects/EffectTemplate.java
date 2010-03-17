@@ -18,6 +18,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Logger;
 
+import net.sf.l2j.gameserver.model.ChanceCondition;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
@@ -43,8 +44,12 @@ public final class EffectTemplate
 	public final String stackType;
 	public final float stackOrder;
 	public final boolean icon;
+	
+	public final int triggeredId;
+    public final int triggeredLevel;
+    public final ChanceCondition chanceCondition;
 
-	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect, String pStackType, float pStackOrder, boolean showicon)
+	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect, String pStackType, float pStackOrder, boolean showicon,  int trigId, int trigLvl, ChanceCondition chanceCond)
 	{
 		attachCond = pAttachCond;
 		applayCond = pApplayCond;
@@ -55,6 +60,10 @@ public final class EffectTemplate
 		stackType = pStackType;
 		stackOrder = pStackOrder;
 		icon = showicon;
+		
+		triggeredId = trigId;
+	    triggeredLevel = trigLvl;
+	    chanceCondition = chanceCond;
 		try
 		{
 			_func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect" + func);
