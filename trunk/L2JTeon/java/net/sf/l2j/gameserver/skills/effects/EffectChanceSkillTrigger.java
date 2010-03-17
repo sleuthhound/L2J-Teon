@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -18,19 +18,17 @@ import net.sf.l2j.gameserver.model.ChanceCondition;
 import net.sf.l2j.gameserver.model.IChanceSkillTrigger;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
-import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
-import net.sf.l2j.gameserver.model.L2Effect.EffectType;;
 
 public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTrigger
 {
 	private final int _triggeredId;
 	private final int _triggeredLevel;
 	private final ChanceCondition _chanceCondition;
-	
+
 	public EffectChanceSkillTrigger(Env env, EffectTemplate template)
     {
 		super(env, template);
-		
+
 		_triggeredId = template.triggeredId;
 	    _triggeredLevel = template.triggeredLevel;
 	    _chanceCondition = template.chanceCondition;
@@ -41,7 +39,8 @@ public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTr
     {
 	    return EffectType.CHANCE_SKILL_TRIGGER;
     }
-	
+
+	@Override
 	public void onStart()
 	{
 		getEffected().addChanceEffect(this);
@@ -52,10 +51,11 @@ public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTr
     {
 	    return false;
     }
-	
+
+	@Override
 	public void onExit()
 	{
-        getEffected().removeChanceEffect(this); 
+        getEffected().removeChanceEffect(this);
 	}
 
 	@Override
@@ -81,5 +81,5 @@ public class EffectChanceSkillTrigger extends L2Effect implements IChanceSkillTr
     {
 	    return _chanceCondition;
     }
-	
+
 }

@@ -22,12 +22,12 @@ import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
-import net.sf.l2j.gameserver.model.entity.GmAudit;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.GmAudit;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
@@ -50,7 +50,7 @@ public class AdminRes implements IAdminCommandHandler
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
 
-		String target = (activeChar.getTarget() != null) ? activeChar.getTarget().getName() : "no-target";
+		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 
 		if (command.startsWith("admin_res "))
@@ -72,7 +72,7 @@ public class AdminRes implements IAdminCommandHandler
 
 	private boolean checkLevel(int level)
 	{
-		return (level >= REQUIRED_LEVEL);
+		return level >= REQUIRED_LEVEL;
 	}
 
 	private void handleRes(L2PcInstance activeChar)
