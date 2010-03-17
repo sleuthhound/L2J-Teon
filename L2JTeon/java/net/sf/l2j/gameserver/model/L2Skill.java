@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.conditions.Condition;
+import net.sf.l2j.gameserver.skills.effects.EffectChanceSkillTrigger;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
 import net.sf.l2j.gameserver.skills.funcs.Func;
@@ -65,7 +66,7 @@ import net.sf.l2j.gameserver.util.Util;
  *
  * @version $Revision: 1.3.2.8.2.22 $ $Date: 2005/04/06 16:13:42 $
  */
-public abstract class L2Skill
+public abstract class L2Skill implements IChanceSkillTrigger
 {
 	protected static final Logger _log = Logger.getLogger(L2Skill.class.getName());
 	public static final int SKILL_CUBIC_MASTERY = 143;
@@ -85,7 +86,7 @@ public abstract class L2Skill
 
 	public static enum SkillOpType
 	{
-		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE, OP_CHANCE
+		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE
 	}
 
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
@@ -329,8 +330,7 @@ public abstract class L2Skill
 	// OP Chance
 	private final int _triggeredId;
 	private final int _triggeredLevel;
-	private final boolean _bestow;
-	private final boolean _bestowed;
+    private final String _chanceType; 
 	protected ChanceCondition _chanceCondition = null;
 	private final int _forceId;
 	private final boolean _isHeroSkill; // If true the skill is a Hero Skill
@@ -429,11 +429,10 @@ public abstract class L2Skill
 		_numCharges = set.getInteger("num_charges", getLevel());
 		_triggeredId = set.getInteger("triggeredId", 0);
 		_triggeredLevel = set.getInteger("triggeredLevel", 0);
-		_bestow = set.getBool("bestowTriggered", false);
-		_bestowed = set.getBool("bestowed", false);
+        _chanceType = set.getString("chanceType", ""); 
+        if (_chanceType != "" && !_chanceType.isEmpty()) 
+        	_chanceCondition = ChanceCondition.parse(set);
 		_forceId = set.getInteger("forceId", 0);
-		if (_operateType == SkillOpType.OP_CHANCE)
-			_chanceCondition = ChanceCondition.parse(set);
 		_isHeroSkill = HeroSkillTable.isHeroSkill(_id);
 		_baseCritRate = set.getInteger("baseCritRate", _skillType == SkillType.PDAM || _skillType == SkillType.BLOW ? 0 : -1);
 		_lethalEffect1 = set.getInteger("lethal1", 0);
@@ -710,16 +709,6 @@ public abstract class L2Skill
 		return _triggeredLevel;
 	}
 
-	public boolean bestowTriggered()
-	{
-		return _bestow;
-	}
-
-	public boolean bestowed()
-	{
-		return _bestowed;
-	}
-
 	public boolean triggerAnotherSkill()
 	{
 		return _triggeredId > 1;
@@ -911,8 +900,29 @@ public abstract class L2Skill
 
 	public final boolean isChance()
 	{
-		return _operateType == SkillOpType.OP_CHANCE;
+        return _chanceCondition != null && isPassive(); 
 	}
+	
+    public boolean triggersChanceSkill() 
+    { 
+    	return _triggeredId > 0 && isChance(); 
+    } 
+    
+    public int getTriggeredChanceId() 
+    { 
+    	return _triggeredId; 
+    } 
+    
+ 
+    public int getTriggeredChanceLevel() 
+    { 
+    	return _triggeredLevel; 
+    } 
+    
+    public ChanceCondition getTriggeredChanceCondition() 
+    { 
+    	return _chanceCondition; 
+    }
 
 	public ChanceCondition getChanceCondition()
 	{
