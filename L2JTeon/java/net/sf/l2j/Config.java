@@ -2493,15 +2493,15 @@ public final class Config
 				// Fortress Siege Event Engine //
 				// -------------------- //
 		           FortressSiege_EVEN_TEAMS = L2JTeonEventMods.getProperty("FortressSiegeEvenTeams", "BALANCE");
-		           FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeSameIPPlayersAllowed", "false"));
-		           FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowInterference", "false"));
-		           FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowPotions", "false"));
-		           FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowSummon", "false"));
+		           FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeSameIPPlayersAllowed", "False"));
+		           FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowInterference", "False"));
+		           FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowPotions", "False"));
+		           FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowSummon", "False"));
 		           FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartRemoveAllEffects", "True"));
 		           FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartUnsummonPet", "True"));
-		           FortressSiege_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeReviveRecovery", "false"));
-		           FortressSiege_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAnnounceTeamStats", "false"));
-		           FortressSiege_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegePriceNoKills", "false"));
+		           FortressSiege_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeReviveRecovery", "False"));
+		           FortressSiege_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAnnounceTeamStats", "False"));
+		           FortressSiege_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegePriceNoKills", "False"));
 		           FortressSiege_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeJoinWithCursedWeapon", "True"));
 				// -------------------- //
 				// KvN Engine //
