@@ -286,7 +286,7 @@ public class L2Attackable extends L2NpcInstance
 	{
 		_isReturningToSpawnPoint = value;
 	}
-	
+
 	private boolean _canReturnToSpawnPoint = true;
 
 	public final boolean canReturnToSpawnPoint()
@@ -604,7 +604,7 @@ public class L2Attackable extends L2NpcInstance
 					// Prevent unwanted behavior
 					if (damage > 1)
 					{
-						if ((attacker instanceof L2SummonInstance) || ((attacker instanceof L2PetInstance) && ((L2PetInstance)attacker).getPetData().getOwnerExpTaken() > 0))
+						if (attacker instanceof L2SummonInstance || attacker instanceof L2PetInstance && ((L2PetInstance)attacker).getPetData().getOwnerExpTaken() > 0)
 							ddealer = ((L2Summon)attacker).getOwner();
 						else
 							ddealer = info._attacker;
@@ -805,7 +805,7 @@ public class L2Attackable extends L2NpcInstance
 
 						// If the party didn't killed this L2Attackable alone
 						if (partyDmg < getMaxHp())
-							partyMul = ((float)partyDmg / (float)getMaxHp());
+							partyMul = (float)partyDmg / (float)getMaxHp();
 
 						// Avoid "over damage"
 						if (partyDmg > getMaxHp())
@@ -850,7 +850,7 @@ public class L2Attackable extends L2NpcInstance
 		}
 		catch (Exception e) { _log.log(Level.SEVERE, "", e); }
 	}
-	
+
 	/**
 	 * Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList.
 	 *
@@ -865,10 +865,10 @@ public class L2Attackable extends L2NpcInstance
 		{
 			try
 			{
-                if (attacker instanceof L2PcInstance || attacker instanceof L2Summon) 
+                if (attacker instanceof L2PcInstance || attacker instanceof L2Summon)
 				{
-                    L2PcInstance player = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner(); 
-                    
+                    L2PcInstance player = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
+
 					if (getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK) !=null)
 						for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.ON_ATTACK))
 					quest.notifyAttack(this, player, damage, attacker instanceof L2Summon);
@@ -905,10 +905,10 @@ public class L2Attackable extends L2NpcInstance
         ai._hate += aggro;
 
         /*if (targetPlayer != null && aggro == 0)*/
-        if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && aggro == 0 && !attacker.isAlikeDead()) 
+        if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && aggro == 0 && !attacker.isAlikeDead())
         {
-            L2PcInstance targetPlayer = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner(); 
-            
+            L2PcInstance targetPlayer = attacker instanceof L2PcInstance ? (L2PcInstance) attacker : ((L2Summon) attacker).getOwner();
+
         	if (getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER) !=null)
         		for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.ON_AGGRO_RANGE_ENTER))
         			quest.notifyAggroRangeEnter(this, targetPlayer, (attacker instanceof L2Summon));
@@ -2600,7 +2600,7 @@ public class L2Attackable extends L2NpcInstance
 	public long calculateOverhitExp(long normalExp)
 	{
 		// Get the percentage based on the total of extra (over-hit) damage done relative to the total (maximum) ammount of HP on the L2Attackable
-		double overhitPercentage = ((getOverhitDamage() * 100) / getMaxHp());
+		double overhitPercentage = getOverhitDamage() * 100 / getMaxHp();
 
 		// Over-hit damage percentages are limited to 25% max
 		if (overhitPercentage > 25)
@@ -2608,7 +2608,7 @@ public class L2Attackable extends L2NpcInstance
 
 		// Get the overhit exp bonus according to the above over-hit damage percentage
 		// (1/1 basis - 13% of over-hit damage, 13% of extra exp is given, and so on...)
-		double overhitExp = ((overhitPercentage / 100) * normalExp);
+		double overhitExp = overhitPercentage / 100 * normalExp;
 
 		// Return the rounded ammount of exp points to be added to the player's normal exp reward
 		long bonusOverhit = Math.round(overhitExp);
