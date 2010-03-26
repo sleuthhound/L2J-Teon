@@ -1045,10 +1045,6 @@ public final class Config
 	public static int MAX_RUN_SPEED;
 	public static int MAX_EVASION;
 	public static int MAX_MCRIT_RATE;
-	/**
-	 * Config option to either allow or disallow a player getting petrified by a raidboss, due to the 8+ level difference rule.
-	 */
-	public static boolean RAID_FOSSILIZATION_PENALTY;
 	/** Allow Manor system */
 	public static boolean ALLOW_MANOR;
 	/** Manor Refresh Starting time */
@@ -2682,7 +2678,6 @@ public final class Config
 				GAME_VIEWNPC_QUESTDROP = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcQuestDrop", "False"));
 				MIN_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MinMonsterAnimation", "0"));
 				MAX_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MaxMonsterAnimation", "0"));
-				RAID_FOSSILIZATION_PENALTY = Boolean.parseBoolean(L2JTeonCustom.getProperty("RaidFossilizationPenalty", "False"));
 				// ********************//
 				/* Player Command */
 				// ********************//
