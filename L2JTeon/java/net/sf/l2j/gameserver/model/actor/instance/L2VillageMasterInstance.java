@@ -401,6 +401,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					{
 						return;
 					}
+			        player.getInventory().setPaperdollItem(8, null);
+			        player.getInventory().setPaperdollItem(7, null);
+			        player.getInventory().setPaperdollItem(14, null);
+			        
 					player.setActiveClass(paramOne);
 					player.broadcastUserInfo();
 					player.abortCast();
@@ -450,6 +454,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					}
 					if (player.modifySubClass(paramOne, paramTwo))
 					{
+				        player.getInventory().setPaperdollItem(8, null);
+				        player.getInventory().setPaperdollItem(7, null);
+				        player.getInventory().setPaperdollItem(14, null);
+				          
 						player.setActiveClass(paramOne);
 						player.broadcastUserInfo();
 						player.abortCast();
@@ -463,6 +471,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					}
 					else
 					{
+				        player.getInventory().setPaperdollItem(8, null);
+				        player.getInventory().setPaperdollItem(7, null);
+				        player.getInventory().setPaperdollItem(14, null);
 						/*
 						 * This isn't good! modifySubClass() removed subclass from memory we must update _classIndex! Else IndexOutOfBoundsException can turn up some place down the line along with other seemingly unrelated problems.
 						 */
