@@ -38,8 +38,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.QuestTimer;
 import net.sf.l2j.gameserver.model.zone.type.L2BossZone;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
+import net.sf.l2j.gameserver.network.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
-import net.sf.l2j.gameserver.network.serverpackets.NpcSay;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
@@ -82,6 +82,7 @@ public class Baium extends L2AttackableAIScript
 	private static final int STONE_BAIUM = 29025;
 	private static final int ANGELIC_VORTEX = 31862;
 	private static final int LIVE_BAIUM = 29020;
+
 	private static final int ARCHANGEL = 29021;
 	private static FastList<L2Attackable> _Minions = new FastList<L2Attackable>();
 	// location of arcangels.
@@ -96,6 +97,7 @@ public class Baium extends L2AttackableAIScript
 			{ 114886, 14437, 10076, 16868 },
 			{ 115391, 17593, 10076, 55346 },
 			{ 115245, 17558, 10076, 35536 } };
+
 	//Baium status tracking
 	private static final byte ASLEEP = 0;  // baium is in the stone version, waiting to be woken up.  Entry is unlocked
 	private static final byte AWAKE = 1;   // baium is awake and fighting.  Entry is locked.
@@ -134,7 +136,7 @@ public class Baium extends L2AttackableAIScript
             {
                 // the time has already expired while the server was offline.  Delete the saved time and
                 // immediately spawn the stone-baium.  Also the state need not be changed from ASLEEP
-                addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);
+                addSpawn(STONE_BAIUM,116033,17447,10104,40188,false,0);
                 GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM,ASLEEP);
             }
         }
@@ -169,7 +171,7 @@ public class Baium extends L2AttackableAIScript
 			},100L);
         }
         else
-            addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);
+            addSpawn(STONE_BAIUM,116033,17447,10104,40188,false,0);
 	}
 
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
@@ -177,7 +179,7 @@ public class Baium extends L2AttackableAIScript
         if (event.equalsIgnoreCase("baium_unlock"))
         {
             GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM,ASLEEP);
-            addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);
+            addSpawn(STONE_BAIUM,116033,17447,10104,40188,false,0);
         }
         else if (event.equalsIgnoreCase("skill_range") && npc != null)
         {
@@ -191,7 +193,6 @@ public class Baium extends L2AttackableAIScript
         {
             if (npc.getNpcId() == LIVE_BAIUM)
             {
-		npc.broadcastPacket(new NpcSay(npc.getObjectId(),1,npc.getNpcId(),"Don't obstruct my sleep! Die!"));
                 npc.broadcastPacket(new SocialAction(npc.getObjectId(),1));
                 npc.broadcastPacket(new Earthquake(npc.getX(), npc.getY(), npc.getZ(),40,5));
                 // start monitoring baium's inactivity
@@ -199,8 +200,7 @@ public class Baium extends L2AttackableAIScript
                 startQuestTimer("baium_despawn", 60000, npc, null, true);
                 startQuestTimer("skill_range", 500, npc, null, true);
                 final L2NpcInstance baium = npc;
-                ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-		{
+                ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
     				public void run()
     				{
     					try
@@ -214,8 +214,8 @@ public class Baium extends L2AttackableAIScript
     		            }
     				}
     			},11100L);
-
-                for(int i = 0; i < 5; i++)
+    			
+    			                for(int i = 0; i < 5; i++)
                 	_Minions.add((L2Attackable) addSpawn(ARCHANGEL,ANGEL_LOCATION[i][0],ANGEL_LOCATION[i][1],ANGEL_LOCATION[i][2],ANGEL_LOCATION[i][3],false,0));
                 // TODO: the person who woke baium up should be knocked across the room, onto a wall, and
                 // lose massive amounts of HP.
@@ -233,17 +233,20 @@ public class Baium extends L2AttackableAIScript
                 if (_LastAttackVsBaiumTime + 1800000 < System.currentTimeMillis())
                 {
                     npc.deleteMe();   // despawn the live-baium
-                    addSpawn(STONE_BAIUM,116067,17484,10110,41740,false,0);  // spawn stone-baium
+                    addSpawn(STONE_BAIUM,116033,17447,10104,40188,false,0);  // spawn stone-baium
                     GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM,ASLEEP);    // mark that Baium is not awake any more
                     _Zone.oustAllPlayers();
                     cancelQuestTimer("baium_despawn", npc, null);
-            		for (L2Attackable minion : _Minions)
-            			if (minion != null)
-            				minion.deleteMe();
-            		_Minions.clear();
+                }
+                else if (_LastAttackVsBaiumTime + 300000 < System.currentTimeMillis() && npc.getCurrentHp() < npc.getMaxHp() * 3 / 4)
+                {
+                	npc.setIsCastingNow(false); //just in case
+                	npc.setTarget(npc);
+                	npc.doCast(SkillTable.getInstance().getInfo(4135,1));
+                	npc.setIsCastingNow(true);
                 }
                 else if (!_Zone.isInsideZone(npc))
-                	npc.teleToLocation(115213,16623,10080);
+                	npc.teleToLocation(116033,17447,10104);
             }
         }
         return super.onAdvEvent(event, npc, player);
@@ -267,7 +270,6 @@ public class Baium extends L2AttackableAIScript
                 npc.deleteMe();
                 L2GrandBossInstance baium = (L2GrandBossInstance) addSpawn(LIVE_BAIUM,npc);
                 GrandBossManager.getInstance().addBoss(baium);
-				player.reduceCurrentHp(player.getCurrentHp(),player);
                 final L2NpcInstance _baium = baium;
                 ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
     				public void run()
@@ -331,13 +333,13 @@ public class Baium extends L2AttackableAIScript
     {
     	if (!_Zone.isInsideZone(attacker))
     	{
-    		attacker.reduceCurrentHp(attacker.getCurrentHp(),attacker);
-    		return null;
+    		attacker.reduceCurrentHp(attacker.getCurrentHp(),attacker,false);
+    		return super.onAttack(npc, attacker, damage, isPet);
     	}
 		if (npc.isInvul())
 		{
 			npc.getAI().setIntention(AI_INTENTION_IDLE);
-			return null;
+			return super.onAttack(npc, attacker, damage, isPet);
 		}
 		else if (npc.getNpcId() == LIVE_BAIUM && !npc.isInvul())
     	{
@@ -382,12 +384,6 @@ public class Baium extends L2AttackableAIScript
         GrandBossManager.getInstance().setStatsSet(LIVE_BAIUM,info);
 		if (getQuestTimer("skill_range", npc, null) != null)
 			getQuestTimer("skill_range", npc, null).cancel();
-
-		for (L2Attackable minion : _Minions)
-			if (minion != null)
-				minion.deleteMe();
-		_Minions.clear();
-
         return super.onKill(npc,killer,isPet);
     }
 
@@ -404,15 +400,10 @@ public class Baium extends L2AttackableAIScript
 							|| !GeoData.getInstance().canSeeTarget(obj, npc))
 						continue;
 				}
-				if (obj instanceof L2PcInstance)
+				if (obj instanceof L2PcInstance || obj instanceof L2Summon)
 				{
-					if (Util.checkIfInRange(9000, npc, obj, true) && !((L2Character) obj).isDead())
-						result.add((L2PcInstance) obj);
-				}
-				if (obj instanceof L2Summon)
-				{
-					if (Util.checkIfInRange(9000, npc, obj, true) && !((L2Character) obj).isDead())
-						result.add((L2Summon) obj);
+					if (Util.checkIfInRange(9000, npc, obj, true) && !((L2Character) obj).isDead() && !((L2Character) obj).isAlikeDead())
+						result.add((L2Character) obj);
 				}
 			}
 		}
@@ -430,21 +421,22 @@ public class Baium extends L2AttackableAIScript
 
 	public synchronized void callSkillAI(L2NpcInstance npc)
 	{
-		if (npc.isInvul() || npc.isCastingNow())
-		{
-			return;
-		}
+		if (npc.isInvul() || npc.isCastingNow()) return;
 
-		if (_target == null || _target.isDead() || !_Zone.isInsideZone(_target))
+		if (_target == null || _target.isDead() || _target.isAlikeDead() || !_Zone.isInsideZone(_target))
 		{
 			_target = getRandomTarget(npc);
-			_skill = getRandomSkill(npc);
+			if (_target != null)
+				_skill = SkillTable.getInstance().getInfo(getRandomSkill(npc),1);
 		}
 
 		L2Character target = _target;
 		L2Skill skill = _skill;
-		if (target == null || target.isDead() || !_Zone.isInsideZone(target))
+		if (skill == null)
+			skill = SkillTable.getInstance().getInfo(getRandomSkill(npc),1);
+		if (target == null || target.isDead() || target.isAlikeDead() || !_Zone.isInsideZone(target))
 		{
+			npc.setIsCastingNow(false);
 			return;
 		}
 
@@ -452,95 +444,73 @@ public class Baium extends L2AttackableAIScript
 		{
 			npc.getAI().setIntention(AI_INTENTION_IDLE);
 			npc.setTarget(target);
+			npc.setIsCastingNow(true);
 			_target = null;
-			npc.doCast(skill);
+			_skill = null;
+			if (getDist(skill.getCastRange()) > 0)
+				npc.broadcastPacket(new MoveToPawn(npc,target,getDist(skill.getCastRange())));
+			try
+			{
+				Thread.sleep(1000);
+				npc.stopMove(null);
+				npc.doCast(skill);
+			}
+			catch (Exception e)
+			{e.printStackTrace();}
 		}
 		else
 		{
 			npc.getAI().setIntention(AI_INTENTION_FOLLOW, target, null);
+			npc.setIsCastingNow(false);
 		}
 	}
 
-	public L2Skill getRandomSkill(L2NpcInstance npc)
+	public int getRandomSkill(L2NpcInstance npc)
 	{
-		L2Skill skill;
+		int skill;
 		if( npc.getCurrentHp() > npc.getMaxHp() * 3 / 4 )
 		{
 			if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4128,1);
-			}
+				skill = 4128;
 			else if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4129,1);
-			}
+				skill = 4129;
 			else
-			{
-				skill = SkillTable.getInstance().getInfo(4127,1);
-			}
+				skill = 4127;
 		}
 		else if( npc.getCurrentHp() > npc.getMaxHp() * 2 / 4 )
 		{
 			if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4131,1);
-			}
+				skill = 4131;
 			else if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4128,1);
-			}
+				skill = 4128;
 			else if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4129,1);
-			}
+				skill = 4129;
 			else
-			{
-				skill = SkillTable.getInstance().getInfo(4127,1);
-			}
+				skill = 4127;
 		}
 		else if( npc.getCurrentHp() > npc.getMaxHp() * 1 / 4 )
 		{
 			if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4130,1);
-			}
+				skill = 4130;
 			else if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4131,1);
-			}
+				skill = 4131;
 			else if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4128,1);
-			}
+				skill = 4128;
 			else if( Rnd.get(100) < 10 )
-			{
-				skill = SkillTable.getInstance().getInfo(4129,1);
-			}
+				skill = 4129;
 			else
-			{
-				skill = SkillTable.getInstance().getInfo(4127,1);
-			}
+				skill = 4127;
 		}
 		else if( Rnd.get(100) < 10 )
-		{
-			skill = SkillTable.getInstance().getInfo(4130,1);
-		}
+			skill = 4130;
 		else if( Rnd.get(100) < 10 )
-		{
-			skill = SkillTable.getInstance().getInfo(4131,1);
-		}
+			skill = 4131;
 		else if( Rnd.get(100) < 10 )
-		{
-			skill = SkillTable.getInstance().getInfo(4128,1);
-		}
+			skill = 4128;
 		else if( Rnd.get(100) < 10 )
-		{
-			skill = SkillTable.getInstance().getInfo(4129,1);
-		}
+			skill = 4129;
 		else
-		{
-			skill = SkillTable.getInstance().getInfo(4127,1);
-		}
+			skill = 4127;
 		return skill;
 	}
 
@@ -553,6 +523,23 @@ public class Baium extends L2AttackableAIScript
 		}
 		npc.setTarget(caster);
 		return super.onSkillSee(npc, caster, skill, targets, isPet);
+	}
+
+	public int getDist(int range)
+	{
+		int dist = 0;
+		switch(range)
+		{
+			case -1:
+				break;
+			case 100:
+				dist = 85;
+				break;
+			default:
+				dist = range-85;
+				break;
+		}
+		return dist;
 	}
 
 	public static void main(String[] args)
