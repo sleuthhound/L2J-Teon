@@ -214,7 +214,7 @@ public class Baium extends L2AttackableAIScript
     		            }
     				}
     			},11100L);
-    			
+
     			                for(int i = 0; i < 5; i++)
                 	_Minions.add((L2Attackable) addSpawn(ARCHANGEL,ANGEL_LOCATION[i][0],ANGEL_LOCATION[i][1],ANGEL_LOCATION[i][2],ANGEL_LOCATION[i][3],false,0));
                 // TODO: the person who woke baium up should be knocked across the room, onto a wall, and

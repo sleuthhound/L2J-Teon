@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,17 +39,17 @@ import ai.group_template.L2AttackableAIScript;
  */
 public class QueenAnt extends L2AttackableAIScript
 {
-	
+
 	private static final int QUEEN = 29001;
 	private static final int LARVA = 29002;
 	private static final int NURSE = 29003;
 	private static final int GUARD = 29004;
 	private static final int ROYAL = 29005;
-	
+
 	//QUEEN Status Tracking :
 	private static final byte ALIVE = 0;	//Queen Ant is spawned.
 	private static final byte DEAD = 1;		//Queen Ant has been killed.
-	
+
 	private static L2BossZone _Zone;
 	private static List<L2Attackable> _Minions = new FastList<L2Attackable>();
 
@@ -184,8 +184,8 @@ public class QueenAnt extends L2AttackableAIScript
         return super.onAdvEvent(event, npc, player);
 	}
 
-    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
-    { 
+    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet)
+    {
         if (caller == null || npc == null)
         	return super.onFactionCall(npc, caller, attacker, isPet);
         int npcId = npc.getNpcId();
@@ -217,7 +217,7 @@ public class QueenAnt extends L2AttackableAIScript
     }
 
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
-    {	
+    {
         int npcId = npc.getNpcId();
         if (npcId == NURSE)
         {
@@ -226,9 +226,9 @@ public class QueenAnt extends L2AttackableAIScript
         }
         return super.onAttack(npc, attacker, damage, isPet);
     }
-        
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
-    { 
+
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+    {
         int npcId = npc.getNpcId();
         if (npcId == QUEEN)
         {

@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -22,11 +22,11 @@ import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.util.Rnd;
 import ai.group_template.L2AttackableAIScript;
 
-public class FleeNpc extends L2AttackableAIScript 
+public class FleeNpc extends L2AttackableAIScript
 {
 	private int[] _npcId = { 20432, 22228 ,18150,18151,18152,18153,18154,18155,18156,18157};
 
-	public FleeNpc(int questId, String name, String descr) 
+	public FleeNpc(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
 
@@ -36,7 +36,7 @@ public class FleeNpc extends L2AttackableAIScript
 		}
 	}
 
-	public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) 
+	public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
 	{
 		if (npc.getNpcId() >= 18150 && npc.getNpcId() <= 18157)
 		{
@@ -55,7 +55,7 @@ public class FleeNpc extends L2AttackableAIScript
 	}
 
 	// Register the new Script at the Script System
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		new FleeNpc(-1, "FleeNpc", "Ai for Flee Npcs");
 	}
