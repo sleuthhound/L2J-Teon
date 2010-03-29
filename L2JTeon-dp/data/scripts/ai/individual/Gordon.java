@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -58,8 +58,7 @@ public class Gordon extends L2AttackableAIScript
         {139279, -53781, -3091},{139810, -52687, -2866},{139657, -52041, -2793},
         {139215, -51355, -2698},{139334, -50514, -2594},{139817, -49715, -2449},
         {139824, -48976, -2263},{140130, -47578, -2213},{140483, -46339, -2382},
-        {141569, -45908, -2387}
-	};
+        {141569, -45908, -2387}};
 
 	private static boolean _isAttacked = false;
 	private static boolean _isSpawned = false;
@@ -71,7 +70,7 @@ public class Gordon extends L2AttackableAIScript
         registerMobs(mobs);
         // wait 2 minutes after Start AI
         startQuestTimer("check_ai", 120000, null, null, true);
-
+        
         _isSpawned = false;
         _isAttacked = false;
         _isWalkTo = 1;
@@ -150,7 +149,7 @@ public class Gordon extends L2AttackableAIScript
 				// end check
 		        if (_isAttacked == true)
 		        	return super.onAdvEvent(event, npc, player);
-		        if (npc.getNpcId() == GORDON && npc.getX()-50 <= X && npc.getX()+50 >= X && npc.getY()-50 <= Y && npc.getY()+50 >= Y)
+		        if (npc.getNpcId() == GORDON && (npc.getX()-50) <= X && (npc.getX()+50) >= X && (npc.getY()-50) <= Y && (npc.getY()+50) >= Y)
 		        {
 		            _isWalkTo++;
 		            if (_isWalkTo > 55)
@@ -161,7 +160,7 @@ public class Gordon extends L2AttackableAIScript
 		            npc.setWalking();
 		            npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,new L2CharPosition(X, Y, Z, 0));
 		        }
-
+		        
 		        // Test for unblock Npc
 		        if (npc.getX() != _npcMoveX && npc.getY() != _npcMoveY)
 		        {
@@ -186,19 +185,19 @@ public class Gordon extends L2AttackableAIScript
 		return super.onAdvEvent(event, npc, player);
 	}
 
-    public String onSpawn (L2NpcInstance npc)
-    {
+    public String onSpawn (L2NpcInstance npc) 
+    { 
         if (npc.getNpcId() == GORDON && _npcBlock == 0)
         {
             _isSpawned = true;
             _isWalkTo = 1;
             startQuestTimer("Start", 1000, npc, null, true);
         }
-    	return super.onSpawn(npc);
+    	return super.onSpawn(npc); 
     }
 
     public String onAttack (L2NpcInstance npc, L2PcInstance player, int damage, boolean isPet)
-    {
+    {	
         if (npc.getNpcId() == GORDON)
         {
             _isAttacked = true;
@@ -214,7 +213,7 @@ public class Gordon extends L2AttackableAIScript
     	return super.onAttack(npc, player, damage, isPet);
     }
 
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
     {
         if (npc.getNpcId() == GORDON)
         {
