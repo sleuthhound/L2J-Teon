@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -39,7 +39,7 @@ public class DrChaos extends Quest
 	private static final int STRANGE_MACHINE = 32032;
 	private static final int CHAOS_GOLEM = 25512;
 	private static boolean _IsGolemSpawned;
-	
+
 	public DrChaos(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
@@ -47,7 +47,7 @@ public class DrChaos extends Quest
 		addFirstTalkId(32033);
 		_IsGolemSpawned = false;
 	}
-	
+
   	public L2NpcInstance FindTemplate(int npcId)
   	{
 	    L2NpcInstance npcInstance = null;
