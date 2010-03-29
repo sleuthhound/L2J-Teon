@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -67,11 +67,11 @@ public class Zaken extends L2AttackableAIScript
 	private static final int[] Xcoords = {53950,55980,54950,55970,53930,55970,55980,54960,53950,53930,55970,55980,54960,53950,53930};
     private static final int[] Ycoords = {219860,219820,218790,217770,217760,217770,219920,218790,219860,217760,217770,219920,218790,219860,217760};
     private static final int[] Zcoords = {-3488,-3488,-3488,-3488,-3488,-3216,-3216,-3216,-3216,-3216,-2944,-2944,-2944,-2944,-2944};
-
+	
 	//ZAKEN Status Tracking :
 	private static final byte ALIVE = 0;	//Zaken is spawned.
 	private static final byte DEAD = 1;		//Zaken has been killed.
-
+	
 	private static L2BossZone _Zone;
 
 	public Zaken (int questId, String name, String descr)
@@ -208,7 +208,7 @@ public class Zaken extends L2AttackableAIScript
 	        }
 			if (GetTimeHour() < 5)
         	{
-				if( sk_4223 == 1 ) //use night face if zaken have day face
+				if( sk_4223 == 1 ) //use night face if zaken have day face 
 				{
 					npc.setTarget(npc);
 					npc.doCast(SkillTable.getInstance().getInfo(4224,1));
@@ -227,7 +227,7 @@ public class Zaken extends L2AttackableAIScript
 					int i1 = 1;
 					if( ((L2Attackable)npc).getMostHated() != null )
 					{
-						if( ( ((L2Attackable)npc).getMostHated().getX() - _ai1 ) * ( ((L2Attackable)npc).getMostHated().getX() - _ai1 ) + ( ((L2Attackable)npc).getMostHated().getY() - _ai2 ) * ( ((L2Attackable)npc).getMostHated().getY() - _ai2 ) > 1500 * 1500 )
+						if( ( ( ( ((L2Attackable)npc).getMostHated().getX() - _ai1 ) * ( ((L2Attackable)npc).getMostHated().getX() - _ai1 ) ) + ( ( ((L2Attackable)npc).getMostHated().getY() - _ai2 ) * ( ((L2Attackable)npc).getMostHated().getY() - _ai2 ) ) ) > ( 1500 * 1500 ) )
 							i0 = 1;
 						else
 							i0 = 0;
@@ -237,7 +237,7 @@ public class Zaken extends L2AttackableAIScript
 						{
 							if (c_quest0 == null)
 								i0 = 0;
-							else if( ( c_quest0.getX() - _ai1 ) * ( c_quest0.getX() - _ai1 ) + ( c_quest0.getY() - _ai2 ) * ( c_quest0.getY() - _ai2 ) > 1500 * 1500 )
+							else if( ( ( ( c_quest0.getX() - _ai1 ) * ( c_quest0.getX() - _ai1 ) ) + ( ( c_quest0.getY() - _ai2 ) * ( c_quest0.getY() - _ai2 ) ) ) > ( 1500 * 1500 ) )
 								i0 = 1;
 							else
 								i0 = 0;
@@ -248,7 +248,7 @@ public class Zaken extends L2AttackableAIScript
 						{
 							if (c_quest1 == null)
 								i0 = 0;
-							else if( ( c_quest1.getX() - _ai1 ) * ( c_quest1.getX() - _ai1 ) + ( c_quest1.getY() - _ai2 ) * ( c_quest1.getY() - _ai2 ) > 1500 * 1500 )
+							else if( ( ( ( c_quest1.getX() - _ai1 ) * ( c_quest1.getX() - _ai1 ) ) + ( ( c_quest1.getY() - _ai2 ) * ( c_quest1.getY() - _ai2 ) ) ) > ( 1500 * 1500 ) )
 								i0 = 1;
 							else
 								i0 = 0;
@@ -259,7 +259,7 @@ public class Zaken extends L2AttackableAIScript
 						{
 							if (c_quest2 == null)
 								i0 = 0;
-							else if( ( c_quest2.getX() - _ai1 ) * ( c_quest2.getX() - _ai1 ) + ( c_quest2.getY() - _ai2 ) * ( c_quest2.getY() - _ai2 ) > 1500 * 1500 )
+							else if( ( ( ( c_quest2.getX() - _ai1 ) * ( c_quest2.getX() - _ai1 ) ) + ( ( c_quest2.getY() - _ai2 ) * ( c_quest2.getY() - _ai2 ) ) ) > ( 1500 * 1500 ) )
 								i0 = 1;
 							else
 								i0 = 0;
@@ -270,7 +270,7 @@ public class Zaken extends L2AttackableAIScript
 						{
 							if (c_quest3 == null)
 								i0 = 0;
-							else if( ( c_quest3.getX() - _ai1 ) * ( c_quest3.getX() - _ai1 ) + ( c_quest3.getY() - _ai2 ) * ( c_quest3.getY() - _ai2 ) > 1500 * 1500 )
+							else if( ( ( ( c_quest3.getX() - _ai1 ) * ( c_quest3.getX() - _ai1 ) ) + ( ( c_quest3.getY() - _ai2 ) * ( c_quest3.getY() - _ai2 ) ) ) > ( 1500 * 1500 ) )
 								i0 = 1;
 							else
 								i0 = 0;
@@ -281,7 +281,7 @@ public class Zaken extends L2AttackableAIScript
 						{
 							if (c_quest4 == null)
 								i0 = 0;
-							else if( ( c_quest4.getX() - _ai1 ) * ( c_quest4.getX() - _ai1 ) + ( c_quest4.getY() - _ai2 ) * ( c_quest4.getY() - _ai2 ) > 1500 * 1500 )
+							else if( ( ( ( c_quest4.getX() - _ai1 ) * ( c_quest4.getX() - _ai1 ) ) + ( ( c_quest4.getY() - _ai2 ) * ( c_quest4.getY() - _ai2 ) ) ) > ( 1500 * 1500 ) )
 								i0 = 1;
 							else
 								i0 = 0;
@@ -321,7 +321,7 @@ public class Zaken extends L2AttackableAIScript
 					{
 						if( c_ai0 == ((L2Attackable)npc).getMostHated() )
 						{
-							_quest1 = _quest1 + 1;
+							_quest1 = ( _quest1 + 1 );
 						}
 						else
 						{
@@ -499,7 +499,7 @@ public class Zaken extends L2AttackableAIScript
 				cancelQuestTimer("1003", null, null);
 			}
 		}
-
+		
 		else if (event.equalsIgnoreCase("zaken_unlock"))
         {
             L2GrandBossInstance zaken = (L2GrandBossInstance) addSpawn(ZAKEN,55312, 219168, -3223,0,false,0);
@@ -513,13 +513,13 @@ public class Zaken extends L2AttackableAIScript
         return super.onAdvEvent(event, npc, player);
 	}
 
-    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet)
-    {
+    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
+    { 
         if (caller == null || npc == null)
         	return super.onFactionCall(npc, caller, attacker, isPet);
         int npcId = npc.getNpcId();
         int callerId = caller.getNpcId();
-
+        
         if (GetTimeHour() < 5 && callerId != ZAKEN && npcId == ZAKEN)
         {
         	int damage = 0; // well damage required :x
@@ -553,7 +553,7 @@ public class Zaken extends L2AttackableAIScript
     			L2Character nextTarget = ((L2Attackable)npc).getMostHated();
     			if (nextTarget != null)
     				npc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, nextTarget);
-
+    			
     		}
     		else if( skillId == 4217 )
     		{
@@ -562,9 +562,9 @@ public class Zaken extends L2AttackableAIScript
     			player.teleToLocation(Xcoords[i1]+Rnd.get(650),Ycoords[i1]+Rnd.get(650),Zcoords[i1]);
     			((L2Attackable)npc).stopHating(player);
 
-    			if(c_quest0 != null &&  _quest0 > 0 && c_quest0 != player && c_quest0.getZ() > player.getZ() - 100 && c_quest0.getZ() < player.getZ() + 100 )
+    			if(c_quest0 != null &&  _quest0 > 0 && c_quest0 != player && c_quest0.getZ() > ( player.getZ() - 100 ) && c_quest0.getZ() < ( player.getZ() + 100 ) )
     			{
-    				if( (c_quest0.getX() - player.getX() ) * ( c_quest0.getX() - player.getX() ) + ( c_quest0.getY() - player.getY() ) * ( c_quest0.getY() - player.getY() ) > 250 * 250 )
+    				if( ( ( (c_quest0.getX() - player.getX() ) * ( c_quest0.getX() - player.getX() ) ) + ( ( c_quest0.getY() - player.getY() ) * ( c_quest0.getY() - player.getY() ) ) ) > ( 250 * 250 ) )
     				{
     					i0 = 1;
     				}
@@ -579,9 +579,9 @@ public class Zaken extends L2AttackableAIScript
     					((L2Attackable)npc).stopHating(c_quest0);
     				}
     			}
-    			if(c_quest1 != null &&  _quest0 > 1 && c_quest1 != player && c_quest1.getZ() > player.getZ() - 100 && c_quest1.getZ() < player.getZ() + 100 )
+    			if(c_quest1 != null &&  _quest0 > 1 && c_quest1 != player && c_quest1.getZ() > ( player.getZ() - 100 ) && c_quest1.getZ() < ( player.getZ() + 100 ) )
     			{
-    				if( (c_quest1.getX() - player.getX() ) * ( c_quest1.getX() - player.getX() ) + ( c_quest1.getY() - player.getY() ) * ( c_quest1.getY() - player.getY() ) > 250 * 250 )
+    				if( ( ( (c_quest1.getX() - player.getX() ) * ( c_quest1.getX() - player.getX() ) ) + ( ( c_quest1.getY() - player.getY() ) * ( c_quest1.getY() - player.getY() ) ) ) > ( 250 * 250 ) )
     				{
     					i0 = 1;
     				}
@@ -596,9 +596,9 @@ public class Zaken extends L2AttackableAIScript
     					((L2Attackable)npc).stopHating(c_quest1);
     				}
     			}
-    			if(c_quest2 != null &&  _quest0 > 2 && c_quest2 != player && c_quest2.getZ() > player.getZ() - 100 && c_quest2.getZ() < player.getZ() + 100 )
+    			if(c_quest2 != null &&  _quest0 > 2 && c_quest2 != player && c_quest2.getZ() > ( player.getZ() - 100 ) && c_quest2.getZ() < ( player.getZ() + 100 ) )
     			{
-    				if( (c_quest2.getX() - player.getX() ) * ( c_quest2.getX() - player.getX() ) + ( c_quest2.getY() - player.getY() ) * ( c_quest2.getY() - player.getY() ) > 250 * 250 )
+    				if( ( ( (c_quest2.getX() - player.getX() ) * ( c_quest2.getX() - player.getX() ) ) + ( ( c_quest2.getY() - player.getY() ) * ( c_quest2.getY() - player.getY() ) ) ) > ( 250 * 250 ) )
     				{
     					i0 = 1;
     				}
@@ -613,9 +613,9 @@ public class Zaken extends L2AttackableAIScript
     					((L2Attackable)npc).stopHating(c_quest2);
     				}
     			}
-    			if(c_quest3 != null &&  _quest0 > 3 && c_quest3 != player && c_quest3.getZ() > player.getZ() - 100 && c_quest3.getZ() < player.getZ() + 100 )
+    			if(c_quest3 != null &&  _quest0 > 3 && c_quest3 != player && c_quest3.getZ() > ( player.getZ() - 100 ) && c_quest3.getZ() < ( player.getZ() + 100 ) )
     			{
-    				if( (c_quest3.getX() - player.getX() ) * ( c_quest3.getX() - player.getX() ) + ( c_quest3.getY() - player.getY() ) * ( c_quest3.getY() - player.getY() ) > 250 * 250 )
+    				if( ( ( (c_quest3.getX() - player.getX() ) * ( c_quest3.getX() - player.getX() ) ) + ( ( c_quest3.getY() - player.getY() ) * ( c_quest3.getY() - player.getY() ) ) ) > ( 250 * 250 ) )
     				{
     					i0 = 1;
     				}
@@ -630,9 +630,9 @@ public class Zaken extends L2AttackableAIScript
     					((L2Attackable)npc).stopHating(c_quest3);
     				}
     			}
-    			if(c_quest4 != null &&  _quest0 > 4 && c_quest4 != player && c_quest4.getZ() > player.getZ() - 100 && c_quest4.getZ() < player.getZ() + 100 )
+    			if(c_quest4 != null &&  _quest0 > 4 && c_quest4 != player && c_quest4.getZ() > ( player.getZ() - 100 ) && c_quest4.getZ() < ( player.getZ() + 100 ) )
     			{
-    				if( (c_quest4.getX() - player.getX() ) * ( c_quest4.getX() - player.getX() ) + ( c_quest4.getY() - player.getY() ) * ( c_quest4.getY() - player.getY() ) > 250 * 250 )
+    				if( ( ( (c_quest4.getX() - player.getX() ) * ( c_quest4.getX() - player.getX() ) ) + ( ( c_quest4.getY() - player.getY() ) * ( c_quest4.getY() - player.getY() ) ) ) > ( 250 * 250 ) )
     				{
     					i0 = 1;
     				}
@@ -656,7 +656,7 @@ public class Zaken extends L2AttackableAIScript
     }
 
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
-    {
+    {	
         int npcId = npc.getNpcId();
         if (npcId == ZAKEN)
         {
@@ -681,7 +681,7 @@ public class Zaken extends L2AttackableAIScript
     			}
         	}
         	L2Character originalAttacker = isPet? attacker.getPet(): attacker;
-        	int hate = (int) (damage / npc.getMaxHp()/ 0.05* 20000);
+        	int hate = (int) (((damage / npc.getMaxHp())/ 0.05)* 20000);
         	((L2Attackable)npc).addDamageHate(originalAttacker,0,hate);
         	if (Rnd.get(10) < 1)
         	{
@@ -716,7 +716,7 @@ public class Zaken extends L2AttackableAIScript
         				{
         					npc.setTarget(attacker);
         					npc.doCast(SkillTable.getInstance().getInfo(4221,1));
-        				}
+        				}    					
     				}
     			}
     			if( Rnd.get(2) < 1 )
@@ -731,9 +731,9 @@ public class Zaken extends L2AttackableAIScript
         	if (GetTimeHour() < 5)
         	{
         	}
-        	else if (npc.getCurrentHp() < npc.getMaxHp() * _quest2 / 4)
+        	else if (npc.getCurrentHp() < ((npc.getMaxHp() * _quest2) / 4))
     		{
-    			_quest2 = _quest2 - 1;
+    			_quest2 = ( _quest2 - 1 );
 				int i2 = Rnd.get(15);
 				_ai1 = Xcoords[i2]+Rnd.get(650);
 				_ai2 = Ycoords[i2]+Rnd.get(650);
@@ -744,9 +744,9 @@ public class Zaken extends L2AttackableAIScript
         }
         return super.onAttack(npc, attacker, damage, isPet);
     }
-
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
-    {
+        
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
+    { 
         int npcId = npc.getNpcId();
         if (npcId == ZAKEN)
         {
@@ -779,7 +779,7 @@ public class Zaken extends L2AttackableAIScript
         {
         	if(skill.getAggroPoints() > 0)
         	{
-        		((L2Attackable)npc).addDamageHate(caster,0,(skill.getAggroPoints() / npc.getMaxHp()*10*150));
+        		((L2Attackable)npc).addDamageHate(caster,0,(((skill.getAggroPoints() / npc.getMaxHp())*10)*150));
         	}
         	if (Rnd.get(12) < 1)
         	{
@@ -814,7 +814,7 @@ public class Zaken extends L2AttackableAIScript
         				{
         					npc.setTarget(caster);
         					npc.doCast(SkillTable.getInstance().getInfo(4221,1));
-        				}
+        				}    					
         			}
         		}
         		if( Rnd.get(2) < 1 )
@@ -830,7 +830,7 @@ public class Zaken extends L2AttackableAIScript
         return super.onSkillSee(npc, caster, skill, targets, isPet);
     }
 
-    public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet)
+    public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet) 
     {
         int npcId = npc.getNpcId();
         if (npcId == ZAKEN)
@@ -840,7 +840,7 @@ public class Zaken extends L2AttackableAIScript
 				L2Character target = isPet? player.getPet(): player;
 				((L2Attackable)npc).addDamageHate(target,1,200);
 			}
-        	if( player.getZ() > npc.getZ() - 100 && player.getZ() < npc.getZ() + 100 )
+        	if( player.getZ() > ( npc.getZ() - 100 ) && player.getZ() < ( npc.getZ() + 100 ) )
         	{
     			if( _quest0 < 5 && Rnd.get(3) < 1 )
     			{
@@ -899,7 +899,7 @@ public class Zaken extends L2AttackableAIScript
             				{
             					npc.setTarget(player);
             					npc.doCast(SkillTable.getInstance().getInfo(4221,1));
-            				}
+            				}    					
             			}
             		}
             		if( Rnd.get(2) < 1 )
@@ -913,12 +913,12 @@ public class Zaken extends L2AttackableAIScript
     			}
         	}
         }
-    	return super.onAggroRangeEnter(npc, player, isPet);
+    	return super.onAggroRangeEnter(npc, player, isPet); 
     }
 
     public int GetTimeHour()
     {
-    	return GameTimeController.getInstance().getGameTime()/60%24;
+    	return (GameTimeController.getInstance().getGameTime()/60)%24;
     }
 
     public static void main(String[] args)
