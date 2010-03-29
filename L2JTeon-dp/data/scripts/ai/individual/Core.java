@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -48,25 +48,25 @@ public class Core extends L2AttackableAIScript
 	//CORE Status Tracking :
 	private static final byte ALIVE = 0;    //Core is spawned.
 	private static final byte DEAD = 1;     //Core has been killed.
-
+	
 	private static boolean _FirstAttacked;
-
+	
 	List<L2Attackable> Minions = new FastList<L2Attackable>();
-
+	
     public Core (int id, String name, String descr)
     {
         super(id,name,descr);
-
+        
         int[] mobs = {CORE, DEATH_KNIGHT, DOOM_WRAITH, SUSCEPTOR};
         registerMobs(mobs);
-
+        
     	_FirstAttacked = false;
         StatsSet info = GrandBossManager.getInstance().getStatsSet(CORE);
         int status = GrandBossManager.getInstance().getBossStatus(CORE);
         if (status == DEAD)
         {
             // load the unlock date and time for Core from DB
-            long temp = info.getLong("respawn_time") - System.currentTimeMillis();
+            long temp = (info.getLong("respawn_time") - System.currentTimeMillis());
             // if Core is locked until a certain time, mark it so and start the unlock timer
             // the unlock time has not yet expired.
             if (temp > 0)
@@ -86,7 +86,7 @@ public class Core extends L2AttackableAIScript
                 _FirstAttacked = true;
             int loc_x = info.getInteger("loc_x");
             int loc_y = info.getInteger("loc_y");
-            int loc_z = -6480;
+            int loc_z = info.getInteger("loc_z");
             int heading = info.getInteger("heading");
             int hp = info.getInteger("currentHP");
             int mp = info.getInteger("currentMP");
@@ -159,7 +159,7 @@ public class Core extends L2AttackableAIScript
 	}
 
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
-    {
+    {	
         if (npc.getNpcId() == CORE)
         {
             if (_FirstAttacked)
@@ -177,8 +177,8 @@ public class Core extends L2AttackableAIScript
         return super.onAttack(npc, attacker, damage, isPet);
     }
 
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
-    {
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
+    { 
         int npcId = npc.getNpcId();
         if (npcId == CORE)
         {
