@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- *
+ * 
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -57,7 +57,7 @@ public class Orfen extends L2AttackableAIScript
 	private static final int RAIKEL_LEOS = 29016;
 	//private static final int RIBA = 29017;
 	private static final int RIBA_IREN = 29018;
-
+	
 	private static boolean _IsTeleported;
 	private static List<L2Attackable> _Minions = new FastList<L2Attackable>();
 	private static L2BossZone _Zone;
@@ -125,7 +125,7 @@ public class Orfen extends L2AttackableAIScript
             this.spawnBoss(orfen);
         }
 	}
-
+        
     public void setSpawnPoint(L2NpcInstance npc,int index)
     {
     	((L2Attackable) npc).clearAggroList();
@@ -165,7 +165,7 @@ public class Orfen extends L2AttackableAIScript
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
 	{
         if (event.equalsIgnoreCase("orfen_unlock"))
-        {
+        {                
             int i = Rnd.get(10);
             int x = 0;
             int y = 0;
@@ -194,7 +194,7 @@ public class Orfen extends L2AttackableAIScript
         }
         else if (event.equalsIgnoreCase("check_orfen_pos"))
         {
-            if (_IsTeleported && npc.getCurrentHp() > npc.getMaxHp() * 0.95 || !_Zone.isInsideZone(npc) && !_IsTeleported)
+            if ((_IsTeleported && npc.getCurrentHp() > npc.getMaxHp() * 0.95) || (!_Zone.isInsideZone(npc) && !_IsTeleported))
             {
                 setSpawnPoint(npc,Rnd.get(3)+1);
                 _IsTeleported = false;
@@ -234,8 +234,8 @@ public class Orfen extends L2AttackableAIScript
         return super.onAdvEvent(event, npc, player);
 	}
 
-	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
-    {
+	public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) 
+    { 
         if (npc.getNpcId() == ORFEN)
         {
             L2Character originalCaster = isPet? caster.getPet(): caster;
@@ -250,8 +250,8 @@ public class Orfen extends L2AttackableAIScript
         return super.onSkillSee(npc,caster,skill,targets,isPet);
     }
 
-    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet)
-    {
+    public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) 
+    { 
         if (caller == null || npc == null)
         	return super.onFactionCall(npc, caller, attacker, isPet);
         int npcId = npc.getNpcId();
@@ -266,7 +266,7 @@ public class Orfen extends L2AttackableAIScript
             int chance = 1;
             if (callerId == ORFEN)
                 chance = 9;
-            if (callerId != RIBA_IREN && caller.getCurrentHp() < caller.getMaxHp() / 2 && Rnd.get(10) < chance)
+            if (callerId != RIBA_IREN && caller.getCurrentHp() < (caller.getMaxHp() / 2) && Rnd.get(10) < chance)
             {
                 npc.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
                 npc.setTarget(caller);
@@ -275,13 +275,13 @@ public class Orfen extends L2AttackableAIScript
         }
         return super.onFactionCall(npc, caller, attacker, isPet);
     }
-
+        
     public String onAttack (L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
-    {
+    {	
         int npcId = npc.getNpcId();
         if (npcId == ORFEN)
         {
-            if (npc.getCurrentHp() - damage < npc.getMaxHp() / 2 && !_IsTeleported)
+            if ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2) && !_IsTeleported)
             {
                 setSpawnPoint(npc,0);
                 _IsTeleported = true;
@@ -296,7 +296,7 @@ public class Orfen extends L2AttackableAIScript
         }
         else if (npcId == RIBA_IREN)
         {
-            if (npc.getCurrentHp() - damage < npc.getMaxHp() / 2)
+            if ((npc.getCurrentHp() - damage) < (npc.getMaxHp() / 2))
             {
                 npc.setTarget(attacker);
                 npc.doCast(SkillTable.getInstance().getInfo(4516,1));
@@ -305,8 +305,8 @@ public class Orfen extends L2AttackableAIScript
         return super.onAttack(npc, attacker, damage, isPet);
     }
 
-    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
-    {
+    public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
+    { 
         if (npc.getNpcId() == ORFEN)
         {
             npc.broadcastPacket(new PlaySound(1, "BS02_D", 1, npc.getObjectId(), npc.getX(), npc.getY(), npc.getZ()));
