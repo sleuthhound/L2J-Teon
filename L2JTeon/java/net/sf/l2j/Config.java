@@ -123,7 +123,6 @@ public final class Config
 	public static float ALT_GAME_EXPONENT_SP;
 	public static boolean ALT_GAME_TIREDNESS;
 	// Soul Crystal Configs
-	public static int SOUL_CRYSTAL_BREAK_CHANCE;
 	public static int SOUL_CRYSTAL_LEVEL_CHANCE;
 	// Karma Punishment
 	public static boolean ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE;
@@ -1000,6 +999,7 @@ public final class Config
 	public static String ADD_CHAR_TITLE;
 	/** Configurable addition/subtraction to Running speed. */
 	public static int CUSTOM_RUN_SPEED;
+	public static double MULTIPLE_MCRIT;
 	/** Configurable for donators TO loose Buffs and effects on death */
 	public static boolean KEEP_BUFFS_ON_DEATH;
 	/** Death Penalty chance */
@@ -1513,7 +1513,6 @@ public final class Config
 				altSettings.load(is);
 				is.close();
 				ALT_GAME_TIREDNESS = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "False"));
-				SOUL_CRYSTAL_BREAK_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalBreakChance", "10"));
 				SOUL_CRYSTAL_LEVEL_CHANCE = Integer.parseInt(altSettings.getProperty("SoulCrystalLevelChance", "32"));
 				ALT_GAME_CREATION = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "False"));
 				ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
@@ -2219,6 +2218,8 @@ public final class Config
 				SIDE_BLOW_SUCCESS = Integer.parseInt(Balance.getProperty("SideBlow", "60"));
 
 				CUSTOM_RUN_SPEED = Integer.parseInt(Balance.getProperty("CustomRunSpeed", "0"));
+				
+				MULTIPLE_MCRIT = Double.parseDouble(Balance.getProperty("MultipleMCrit", "4.0"));
 			}
 			catch (Exception e)
 			{

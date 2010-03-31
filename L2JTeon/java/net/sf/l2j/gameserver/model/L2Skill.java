@@ -558,10 +558,16 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		{
 			case DEATHLINK:
 			{
-				if (activeChar.getCurrentHp() / activeChar.getMaxHp() > 0.005)
-					return _power * (-0.45 * Math.log(activeChar.getCurrentHp() / activeChar.getMaxHp()) + 1.);
-				else
-					return _power * (-0.45 * Math.log(0.005) + 1.);
+    			return _power * Math.pow(1.7165 - activeChar.getCurrentHp() / activeChar.getMaxHp(), 2) * 0.577; 
+    			/*
+    			 * DrHouse:
+    			 * Rolling back to old formula (look below) for DEATHLINK due to this one based on logarithm is not
+    			 * accurate enough. Commented here because probably is a matter of just adjusting a constant
+    			if(activeChar.getCurrentHp() / activeChar.getMaxHp() > 0.005)
+            		return _power*(-0.45*Math.log(activeChar.getCurrentHp()/activeChar.getMaxHp())+1.);
+            	else
+            		return _power*(-0.45*Math.log(0.005)+1.);
+            	*/
 			}
 			case FATALCOUNTER:
 			{
@@ -955,7 +961,16 @@ public abstract class L2Skill implements IChanceSkillTrigger
 
 	public final boolean useSoulShot()
 	{
-		return getSkillType() == SkillType.PDAM || getSkillType() == SkillType.STUN || getSkillType() == SkillType.CHARGEDAM || getSkillType() == SkillType.BLOW;
+        switch (getSkillType()) 
+        {
+        case PDAM:
+        case STUN:
+        case CHARGEDAM:
+        case BLOW:
+        	return true;
+        default: 
+        	return false;
+        }
 	}
 
 	public final boolean useSpiritShot()
