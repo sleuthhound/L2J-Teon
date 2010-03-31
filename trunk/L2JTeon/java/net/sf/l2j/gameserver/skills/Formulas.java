@@ -1730,7 +1730,7 @@ public final class Formulas
 		}
 		else if (mcrit)
 		{
-			damage *= 4;
+			damage *= Config.MULTIPLE_MCRIT;
 		}
 		// Pvp bonusses for dmg
 		if ((attacker instanceof L2PcInstance || attacker instanceof L2Summon) && (target instanceof L2PcInstance || target instanceof L2Summon))
@@ -1888,13 +1888,6 @@ public final class Formulas
 			damage = damage * Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
 		else if (attacker instanceof L2NpcInstance)
 			damage = damage * Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
-		if (skill != null)
-		{
-			if (target instanceof L2PlayableInstance) // aura flare de-buff, etc
-				damage *= skill.getPvpMulti();
-			if (skill.getSkillType() == SkillType.DEATHLINK)
-				damage = damage * (1.0 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()) * 2.0;
-		}
 		return damage;
 	}
 

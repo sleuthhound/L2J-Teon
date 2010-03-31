@@ -81,7 +81,6 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
-import net.sf.l2j.gameserver.model.ForceBuff;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -331,21 +330,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					break;
 			}
 		}
-	}
-
-	/*
-	 * Starts battle force / spell force on target.<br><br>
-	 * @param caster @param force type
-	 */
-	@Override
-	public void startForceBuff(L2Character target, L2Skill skill)
-	{
-		if (!(target instanceof L2PcInstance))
-			return;
-		if (skill.getSkillType() != SkillType.FORCE_BUFF)
-			return;
-		if (_forceBuff == null)
-			_forceBuff = new ForceBuff(this, (L2PcInstance) target, skill);
 	}
 
 	private L2GameClient _client;
@@ -718,9 +702,6 @@ public final class L2PcInstance extends L2PlayableInstance
 			}
 		}
 	}
-
-	// Current force buff this caster is casting to a target
-	protected ForceBuff _forceBuff;
 
 	/**
 	 * Skill casting information (used to queue when several skills are cast in a short time) *
@@ -10528,7 +10509,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		if (_forceBuff != null)
 		{
-			_forceBuff.delete();
+            abortCast(); 
 		}
 		for (L2Character character : getKnownList().getKnownCharacters())
 		{
@@ -10563,7 +10544,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (_forceBuff != null)
 			{
-				_forceBuff.delete();
+                abortCast(); 
 			}
 			for (L2Character character : getKnownList().getKnownCharacters())
 			{
@@ -11760,17 +11741,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			return;
 		}
-	}
-
-	@Override
-	public ForceBuff getForceBuff()
-	{
-		return _forceBuff;
-	}
-
-	public void setForceBuff(ForceBuff fb)
-	{
-		_forceBuff = fb;
 	}
 
 	/**

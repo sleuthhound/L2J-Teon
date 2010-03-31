@@ -2316,7 +2316,6 @@ public class L2Attackable extends L2NpcInstance
 		}
 		// ********
 		String[] crystalNFO = null;
-		String crystalNME = "";
 		int dice = Rnd.get(100);
 		int crystalQTY = 0;
 		int crystalLVL = 0;
@@ -2326,10 +2325,7 @@ public class L2Attackable extends L2NpcInstance
 		// Now we have four choices:
 		// 1- The Monster level is too low for the crystal. Nothing happens.
 		// 2- Everything is correct, but it failed. Nothing happens. (57.5%)
-		// 3- Everything is correct, but it failed. The crystal scatters. A
-		// sound event is played. (10%)
-		// 4- Everything is correct, the crystal level up. A sound event is
-		// played. (32.5%)
+        // 3- Everything is correct, the crystal level up. A sound event is played. (32.5%) 
 		List<L2PcInstance> players = new FastList<L2PcInstance>();
 		if (absorbType == L2NpcTemplate.AbsorbCrystalType.FULL_PARTY && killer.isInParty())
 		{
@@ -2395,8 +2391,6 @@ public class L2Attackable extends L2NpcInstance
 									crystalNFO = item.getItem().getName().trim().replace(" Grade ", "-").split("-");
 									// Set Level to 13
 									crystalLVL = 13;
-									// Get Name
-									crystalNME = crystalNFO[0].toLowerCase();
 								}
 								else
 								{
@@ -2406,8 +2400,6 @@ public class L2Attackable extends L2NpcInstance
 									crystalNFO = item.getItem().getName().trim().replace(" Stage ", "").split("-");
 									// Get Level
 									crystalLVL = Integer.parseInt(crystalNFO[1].trim());
-									// Get Name
-									crystalNME = crystalNFO[0].toLowerCase();
 								}
 								// Allocate current and levelup ids' for higher
 								// level crystals
@@ -2444,7 +2436,6 @@ public class L2Attackable extends L2NpcInstance
 						}
 						else
 						{
-							crystalNME = item.getItem().getName().toLowerCase().trim();
 							crystalNEW = id + 1;
 						}
 						// Done
@@ -2492,24 +2483,6 @@ public class L2Attackable extends L2NpcInstance
 			{
 				// Give staged crystal
 				exchangeCrystal(player, crystalOLD, crystalNEW, false);
-			}
-			// If true and not a last-hit mob, break the crystal.
-			else if (!isBossMob && dice >= 100.0 - SoulCrystal.BREAK_CHANCE)
-			{
-				// Remove current crystal an give a broken open.
-				if (crystalNME.startsWith("red"))
-				{
-					exchangeCrystal(player, crystalOLD, SoulCrystal.RED_BROKEN_CRYSTAL, true);
-				}
-				else if (crystalNME.startsWith("gre"))
-				{
-					exchangeCrystal(player, crystalOLD, SoulCrystal.GRN_BROKEN_CYRSTAL, true);
-				}
-				else if (crystalNME.startsWith("blu"))
-				{
-					exchangeCrystal(player, crystalOLD, SoulCrystal.BLU_BROKEN_CRYSTAL, true);
-				}
-				resetAbsorbList();
 			}
 			else
 			{

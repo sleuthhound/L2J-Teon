@@ -56,11 +56,6 @@ public final class RequestJoinParty extends L2GameClientPacket
 			requestor.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return;
 		}
-		if (target.isInTargetEvent() || requestor.isInTargetEvent())
-		{
-			requestor.sendMessage("You can not party into event.");
-		return;
-		}
 		if (target.isInParty())
 		{
 			SystemMessage msg = new SystemMessage(SystemMessageId.S1_IS_ALREADY_IN_PARTY);
