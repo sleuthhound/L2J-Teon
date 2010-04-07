@@ -580,6 +580,9 @@ public abstract class L2Character extends L2Object
 		setIsTeleporting(true);
 		setTarget(null);
 
+        // Remove from world regions zones 
+        if (getWorldRegion() != null) 
+            getWorldRegion().removeFromZones(this); 
 		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 		if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
 		{
@@ -590,9 +593,8 @@ public abstract class L2Character extends L2Object
 		if (Config.DEBUG)
 			_log.fine("Teleporting to: " + x + ", " + y + ", " + z);
 
-        // remove the object from its old location 
 		decayMe();
-
+		
 		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
 		broadcastPacket(new TeleportToLocation(this, x, y, z));
 		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
