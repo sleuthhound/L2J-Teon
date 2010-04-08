@@ -295,6 +295,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					/*
 					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice.
 					 */
+			        if (!player.getFloodProtectors().getSubclass().tryPerformAction("add subclass"))
+			        {
+			          player.sendMessage("Don't addition sub classes so rapidly, please wait.");
+			          player.sendPacket(ActionFailed.STATIC_PACKET);
+			          return;
+			        }
+                    if (!ItemRestriction(player))
+                    	return;//Check the player for items during subclass..to avoid bugs
+
 					if (player.getLevel() < 75)
 					{
 						player.sendMessage("You may not add a new sub class before you are level 75 on your previous class.");
@@ -392,6 +401,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
+                	if (player._inEventCTF || player._inEventDM || player._inEventTvT)
+    				{
+    					player.sendMessage("You may not add a new sub class while being registered on event.");
+    					return;
+    				}
+                	
+                    if (!ItemRestriction(player))
+                    	return;//Check the player for items during subclass..to avoid bugs
+
 					if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
@@ -452,6 +470,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 						return;
 					}
+                	if (!ItemRestriction(player))
+                    	return;//Check the player for items during subclass..to avoid bugs
+
 					if (player.modifySubClass(paramOne, paramTwo))
 					{
 				        player.getInventory().setPaperdollItem(8, null);
@@ -951,6 +972,16 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		return ClassType.Fighter;
 	}
 
+    private boolean ItemRestriction(L2PcInstance player)
+    {
+        if (player.getActiveWeaponInstance() != null)
+        {
+        	player.sendMessage("[Cheat Guard]: Unequip your weapon first!");
+			return false; 
+        }
+        return true; 
+    }
+	  
 	private Iterator<SubClass> iterSubClasses(L2PcInstance player)
 	{
 		return player.getSubClasses().values().iterator();
