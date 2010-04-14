@@ -245,28 +245,6 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 					Config.DEFAULT_PUNISH);
 			return;
 		}
-		// unequip item on enchant failure to avoid item skills stack
-		if (item.isEquipped()) {
-			if (item.getEnchantLevel() > 0) {
-				SystemMessage sm = new SystemMessage(
-						SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-				sm.addNumber(item.getEnchantLevel());
-				sm.addItemName(item.getItemId());
-				activeChar.sendPacket(sm);
-			} else {
-				SystemMessage sm = new SystemMessage(
-						SystemMessageId.S1_DISARMED);
-				sm.addItemName(item.getItemId());
-				activeChar.sendPacket(sm);
-			}
-			L2ItemInstance[] unequiped = activeChar.getInventory()
-					.unEquipItemInSlotAndRecord(item.getEquipSlot());
-			InventoryUpdate iu = new InventoryUpdate();
-			for (L2ItemInstance itm : unequiped)
-				iu.addModifiedItem(itm);
-			activeChar.sendPacket(iu);
-			activeChar.broadcastUserInfo();
-		}
 		// SystemMessage sm = new
 		// SystemMessage(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
 		// activeChar.sendPacket(sm);
