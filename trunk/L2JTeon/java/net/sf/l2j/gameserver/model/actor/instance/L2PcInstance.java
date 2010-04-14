@@ -10509,7 +10509,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 		if (_forceBuff != null)
 		{
-            abortCast(); 
+            abortCast();
 		}
 		for (L2Character character : getKnownList().getKnownCharacters())
 		{
@@ -10544,7 +10544,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (_forceBuff != null)
 			{
-                abortCast(); 
+                abortCast();
 			}
 			for (L2Character character : getKnownList().getKnownCharacters())
 			{

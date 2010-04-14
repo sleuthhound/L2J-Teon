@@ -21,7 +21,7 @@ import net.sf.l2j.Config;
  */
 public class SoulCrystal
 {
-	public static final int[][] HighSoulConvert = { 
+	public static final int[][] HighSoulConvert = {
 		{ 4639, 5577 }, // RED 10 - 11
 		{ 5577, 5580 }, // RED 11 - 12
 		{ 5580, 5908 }, // RED 12 - 13
