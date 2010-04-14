@@ -558,7 +558,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		{
 			case DEATHLINK:
 			{
-    			return _power * Math.pow(1.7165 - activeChar.getCurrentHp() / activeChar.getMaxHp(), 2) * 0.577; 
+    			return _power * Math.pow(1.7165 - activeChar.getCurrentHp() / activeChar.getMaxHp(), 2) * 0.577;
     			/*
     			 * DrHouse:
     			 * Rolling back to old formula (look below) for DEATHLINK due to this one based on logarithm is not
@@ -961,14 +961,14 @@ public abstract class L2Skill implements IChanceSkillTrigger
 
 	public final boolean useSoulShot()
 	{
-        switch (getSkillType()) 
+        switch (getSkillType())
         {
         case PDAM:
         case STUN:
         case CHARGEDAM:
         case BLOW:
         	return true;
-        default: 
+        default:
         	return false;
         }
 	}

@@ -406,7 +406,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     					player.sendMessage("You may not add a new sub class while being registered on event.");
     					return;
     				}
-                	
+
                     if (!ItemRestriction(player))
                     	return;//Check the player for items during subclass..to avoid bugs
 
@@ -422,7 +422,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			        player.getInventory().setPaperdollItem(8, null);
 			        player.getInventory().setPaperdollItem(7, null);
 			        player.getInventory().setPaperdollItem(14, null);
-			        
+
 					player.setActiveClass(paramOne);
 					player.broadcastUserInfo();
 					player.abortCast();
@@ -478,7 +478,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				        player.getInventory().setPaperdollItem(8, null);
 				        player.getInventory().setPaperdollItem(7, null);
 				        player.getInventory().setPaperdollItem(14, null);
-				          
+
 						player.setActiveClass(paramOne);
 						player.broadcastUserInfo();
 						player.abortCast();
@@ -977,11 +977,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         if (player.getActiveWeaponInstance() != null)
         {
         	player.sendMessage("[Cheat Guard]: Unequip your weapon first!");
-			return false; 
+			return false;
         }
-        return true; 
+        return true;
     }
-	  
+
 	private Iterator<SubClass> iterSubClasses(L2PcInstance player)
 	{
 		return player.getSubClasses().values().iterator();

@@ -196,8 +196,8 @@ public abstract class L2Character extends L2Object
 	protected final Map<Integer, L2Skill> _skills;
 	/** FastMap containing the active chance skills on this character */
 	protected ChanceSkillList _chanceSkills;
-    /** Current force buff this caster is casting to a target */ 
-    protected ForceBuff _forceBuff; 
+    /** Current force buff this caster is casting to a target */
+    protected ForceBuff _forceBuff;
 	/** Zone system */
 	public static final int ZONE_PVP = 1;
 	public static final int ZONE_PEACE = 2;
@@ -580,10 +580,10 @@ public abstract class L2Character extends L2Object
 		setIsTeleporting(true);
 		setTarget(null);
 
-        // Remove from world regions zones 
-        if (getWorldRegion() != null) 
-            getWorldRegion().removeFromZones(this); 
-        
+        // Remove from world regions zones
+        if (getWorldRegion() != null)
+            getWorldRegion().removeFromZones(this);
+
 		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 		if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
 		{
@@ -593,14 +593,14 @@ public abstract class L2Character extends L2Object
 		z += 5;
 		if (Config.DEBUG)
 			_log.fine("Teleporting to: " + x + ", " + y + ", " + z);
-		
+
 		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
 		broadcastPacket(new TeleportToLocation(this, x, y, z));
 		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
 		getPosition().setXYZ(x, y, z);
 
 		decayMe();
-		
+
 		if (!(this instanceof L2PcInstance))
 			onTeleported();
 
@@ -1729,11 +1729,11 @@ public abstract class L2Character extends L2Object
 	 */
 	public void startForceBuff(L2Character caster, L2Skill skill)
 	{
-        if (skill.getSkillType() != SkillType.FORCE_BUFF) 
-            return; 
-        
-        if (_forceBuff == null) 
-            _forceBuff = new ForceBuff(this, caster, skill); 
+        if (skill.getSkillType() != SkillType.FORCE_BUFF)
+            return;
+
+        if (_forceBuff == null)
+            _forceBuff = new ForceBuff(this, caster, skill);
 	}
 
 	/**
@@ -7599,12 +7599,12 @@ public abstract class L2Character extends L2Object
 
 	public ForceBuff getForceBuff()
 	{
-        return _forceBuff; 
+        return _forceBuff;
 	}
-	
-    public void setForceBuff(ForceBuff fb) 
+
+    public void setForceBuff(ForceBuff fb)
     {
-        _forceBuff = fb; 
+        _forceBuff = fb;
     }
 
 	public void disableCoreAI(boolean val)

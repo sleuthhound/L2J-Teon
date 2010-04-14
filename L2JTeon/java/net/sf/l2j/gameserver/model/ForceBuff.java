@@ -3,16 +3,16 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 package net.sf.l2j.gameserver.model;
 
 import java.util.concurrent.Future;
@@ -21,7 +21,6 @@ import java.util.logging.Logger;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.effects.EffectForce;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -43,12 +42,12 @@ public final class ForceBuff
     {
         return _caster;
     }
-    
+
     public L2Character getTarget()
     {
         return _target;
     }
-    
+
     public ForceBuff(L2Character caster, L2Character target, L2Skill skill)
     {
         _skillCastRange = skill.getCastRange();
@@ -56,7 +55,7 @@ public final class ForceBuff
         _target = target;
         _forceId = skill.getTriggeredId();
         _forceLevel = skill.getTriggeredLevel();
-        
+
         L2Effect effect = _target.getFirstEffect(_forceId);
         if (effect != null)
             ((EffectForce)effect).increaseForce();
@@ -77,7 +76,7 @@ public final class ForceBuff
         L2Effect effect = _target.getFirstEffect(_forceId);
         if (effect != null)
             ((EffectForce)effect).decreaseForce();
-        
+
         _geoCheckTask.cancel(true);
     }
 
@@ -89,7 +88,7 @@ public final class ForceBuff
             {
                 if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true))
                     _caster.abortCast();
-                
+
                 if (!GeoData.getInstance().canSeeTarget(_caster, _target))
                     _caster.abortCast();
             }

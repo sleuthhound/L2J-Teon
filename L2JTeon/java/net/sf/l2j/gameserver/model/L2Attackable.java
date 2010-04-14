@@ -2325,7 +2325,7 @@ public class L2Attackable extends L2NpcInstance
 		// Now we have four choices:
 		// 1- The Monster level is too low for the crystal. Nothing happens.
 		// 2- Everything is correct, but it failed. Nothing happens. (57.5%)
-        // 3- Everything is correct, the crystal level up. A sound event is played. (32.5%) 
+        // 3- Everything is correct, the crystal level up. A sound event is played. (32.5%)
 		List<L2PcInstance> players = new FastList<L2PcInstance>();
 		if (absorbType == L2NpcTemplate.AbsorbCrystalType.FULL_PARTY && killer.isInParty())
 		{
