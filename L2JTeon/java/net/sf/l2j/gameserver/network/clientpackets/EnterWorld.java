@@ -62,7 +62,6 @@ import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.Die;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExStorageMaxCount;
@@ -150,17 +149,18 @@ public class EnterWorld extends L2GameClientPacket
 				String name = activeChar.getName();
 				String text = "GameMaster " + name + " Is Currently Online.";
 				Announcements.getInstance().announceToAll(text);
-				// }
 			}
 		}
 		if (Config.PLAYER_SPAWN_PROTECTION > 0)
 			activeChar.setProtection(true);
+		
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+		
 		if (activeChar.getZ() < -15000 || activeChar.getZ() > 15000)
 		{
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			activeChar.setTarget(activeChar);
-			activeChar.teleToLocation(net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType.Town);
+			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		}
 		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
 			L2Event.restoreChar(activeChar);
@@ -255,7 +255,6 @@ public class EnterWorld extends L2GameClientPacket
 			sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==") + " " + Config.SERVER_BUILD_DATE);
 			sendPacket(sm);
 		}
-		sm = null;
 		SevenSigns.getInstance().sendCurrentPeriodMsg(activeChar);
 		Announcements.getInstance().showAnnouncements(activeChar);
 		CrownManager.getInstance().checkCrowns(activeChar);
@@ -327,10 +326,9 @@ public class EnterWorld extends L2GameClientPacket
 			sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
 			sendPacket(new PledgeStatusChanged(activeChar.getClan()));
 		}
-		// no broadcast needed since the player will already spawn dead to
-		// others
 		if (activeChar.isAlikeDead())
 		{
+			// no broadcast needed since the player will already spawn dead to others
 			sendPacket(new Die(activeChar));
 		}
 		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
@@ -409,7 +407,6 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
 		}
 		RegionBBSManager.getInstance().changeCommunityBoard();
-		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		if (Config.ALLOW_REMOTE_CLASS_MASTERS)
 		{
 			ClassLevel lvlnow = PlayerClass.values()[activeChar.getClassId().getId()].getLevel();
