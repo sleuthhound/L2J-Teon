@@ -140,7 +140,6 @@ public class GameServer
 	public static boolean _instanceOk = false;
 	public static GameServer gameServer;
 	private static ClanHallManager _cHManager;
-	private final Shutdown _shutdownHandler;
 	private final DoorTable _doorTable;
 	private final SevenSigns _sevenSignsEngine;
 	private final AutoChatHandler _autoChatHandler;
@@ -148,14 +147,11 @@ public class GameServer
 	private final LoginServerThread _loginThread;
 	private final HelperBuffTable _helperBuffTable;
 	private static Status _statusServer;
-	@SuppressWarnings("unused")
-	private final ThreadPoolManager _threadpools;
 	public static final Calendar dateTimeServerStarted = Calendar.getInstance();
 
 	public long getUsedMemoryMB()
 	{
-		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576;
-		// 1024 * 1024 = 1048576;
+		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576; //1024 * 1024 = 1048576;
 	}
 
 	public SelectorThread<L2GameClient> getSelectorThread()
@@ -178,8 +174,8 @@ public class GameServer
 		_log.finest("used mem:" + getUsedMemoryMB() + "MB");
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
+		ThreadPoolManager.getInstance();
 		_idFactory = IdFactory.getInstance();
-		_threadpools = ThreadPoolManager.getInstance();
 		new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
 		Util.printSection("World");
@@ -215,6 +211,7 @@ public class GameServer
 		{
 			NpcWalkerRoutesTable.getInstance().load();
 		}
+		GmListTable.getInstance();
 		SkillTreeTable.getInstance();
 		SkillSpellbookTable.getInstance();
 		NobleSkillTable.getInstance();
@@ -293,8 +290,6 @@ public class GameServer
 		CrestCache.getInstance();
 		Util.printSection("Clan");
 		ClanTable.getInstance();
-		Util.printSection("GM Table");
-		GmListTable.getInstance();
 		Util.printSection("Helper Buff Table");
 		_helperBuffTable = HelperBuffTable.getInstance();
 		/**
@@ -309,15 +304,9 @@ public class GameServer
 		Util.printSection("Teleport");
 		TeleportLocationTable.getInstance();
 		LevelUpData.getInstance();
-		Util.printSection("RaidBosses - GrandBosses");
-		RaidBossPointsManager.init();
-		GrandBossManager.getInstance();
-		FourSepulchersManager.getInstance().init();
-		VanHalterManager.getInstance().init();
-		Util.printSection("Dimensional Rift");
-		DimensionalRiftManager.getInstance();
 		Util.printSection("Announcements");
 		Announcements.getInstance();
+		AutoAnnouncementHandler.getInstance();
 		/** Load Manor data */
 		Util.printSection("Manor");
 		L2Manor.getInstance();
@@ -356,7 +345,6 @@ public class GameServer
 		StaticObjects.getInstance();
 		Util.printSection("Handlers");
 		AdminCommandHandler.getInstance();
-		AutoAnnouncementHandler.getInstance();
 		ChatHandler.getInstance();
 		ItemHandler.getInstance();
 		SkillHandler.getInstance();
@@ -405,15 +393,21 @@ public class GameServer
 			Util.printSection("Away System");
 			AwayManager.getInstance();
 		}
+		Util.printSection("Quest Manager");
+		QuestManager.getInstance();
+		Util.printSection("Dimensional Rift");
+		DimensionalRiftManager.getInstance();
 		Util.printSection("Olympiad");
 		Olympiad.getInstance();
 		Hero.getInstance();
 		TaskManager.getInstance();
 		GmListTable.getInstance();
-		_shutdownHandler = Shutdown.getInstance();
-		Runtime.getRuntime().addShutdownHook(_shutdownHandler);
+		Util.printSection("RaidBosses - GrandBosses");
+		RaidBossPointsManager.init();
+		GrandBossManager.getInstance();
+		FourSepulchersManager.getInstance().init();
+		VanHalterManager.getInstance().init();
 		Util.printSection("Quests - Scripts");
-		QuestManager.getInstance();
 		try
 		{
 			_log.info("Loading Server Scripts");
@@ -454,6 +448,7 @@ public class GameServer
 		}
 		QuestManager.getInstance().report();
 		FaenorScriptEngine.getInstance();
+		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		Util.printSection("L2JTeon EventManager");
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
