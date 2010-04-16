@@ -14,16 +14,20 @@
  */
 package net.sf.l2j;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
+import java.io.LineNumberReader;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -61,6 +65,7 @@ public final class Config
 	public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
 	public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
 	public static final String HEXID_FILE = "./config/hexid.txt";
+	public static final String CHAT_FILTER_FILE = "./config/chatfilter.txt";
 	public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
 	public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
 	public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";
@@ -228,6 +233,13 @@ public final class Config
 	public static float ALT_LOTTERY_4_NUMBER_RATE;
 	public static float ALT_LOTTERY_3_NUMBER_RATE;
 	public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
+	// Chat Filter Configs
+	public static boolean	USE_CHAT_FILTER;
+	public static ArrayList<String> FILTER_LIST = new ArrayList();
+	public static String	CHAT_FILTER_CHARS;
+	public static String	CHAT_FILTER_PUNISHMENT;
+	public static int		CHAT_FILTER_PUNISHMENT_PARAM1;
+	public static int		CHAT_FILTER_PUNISHMENT_PARAM2;
 	// For development
 	public static boolean ALT_DEV_NO_QUESTS;
 	public static boolean ALT_DEV_NO_SPAWNS;
@@ -1159,12 +1171,6 @@ public final class Config
 	public static int ENCHANT_MAX_ALLOWED_JEWELRY;
 	/** Amount of Ancient Adena when starting a new character */
 	public static int STARTING_AA;
-	/** This is the configuration for the Chat Filter */
-	public static boolean USE_CHAT_FILTER;
-	public static boolean USE_POWERFULL_CHAT_FILTER;
-	public static String CHAT_FILTER_CHARS;
-	public static int CHAT_FILTER_PUNISHMENT;
-	public static int CHAT_FILTER_PUNISHMENT_TIME;
 	/** Check players for illegitimate skills on player entering the server. */
 	public static boolean CHECK_SKILLS_ON_ENTER;
 	/** Code implementation by: Meyknho */
@@ -1610,6 +1616,31 @@ public final class Config
 				ALT_LOTTERY_4_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery4NumberRate", "0.2"));
 				ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate", "0.2"));
 				ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize", "200"));
+				USE_CHAT_FILTER = Boolean.parseBoolean(altSettings.getProperty("UseChatFilter", "False"));
+		        if (USE_CHAT_FILTER)
+		        {
+		          try
+		          {
+		            LineNumberReader lnr = new LineNumberReader(new BufferedReader(new FileReader(new File("./config/ChatFilter.txt"))));
+		            String line = null;
+		            while ((line = lnr.readLine()) != null)
+		            {
+		              if (line.trim().length() == 0) continue; if (line.startsWith("#"))
+		                continue;
+		              FILTER_LIST.add(line.trim());
+		            }
+		            _log.info("# Chat Filter: Loaded " + FILTER_LIST.size() + " words #");
+		          }
+		          catch (Exception e)
+		          {
+		            e.printStackTrace();
+		            throw new Error("Failed to Load ./config/ChatFilter.txt File.");
+		          }
+		        }
+				CHAT_FILTER_CHARS = altSettings.getProperty("ChatFilterChars", "***");
+				CHAT_FILTER_PUNISHMENT = altSettings.getProperty("ChatFilterPunishment", "off");
+				CHAT_FILTER_PUNISHMENT_PARAM1 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam1", "1")); 
+				CHAT_FILTER_PUNISHMENT_PARAM2 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam2", "1"));      
 				BUFFS_MAX_AMOUNT = Byte.parseByte(altSettings.getProperty("MaxBuffAmount", "20"));
 				ALT_DEV_NO_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
 				ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
@@ -2711,11 +2742,6 @@ public final class Config
 				LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
 				SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
 				STARTING_AA = Integer.parseInt(L2JTeonCustom.getProperty("StartingAA", "0"));
-				USE_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UseChatFilter", "False"));
-				USE_POWERFULL_CHAT_FILTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("UsePowerfullChatFilter", "False"));
-				CHAT_FILTER_CHARS = L2JTeonCustom.getProperty("ChatFilterChars", "***");
-				CHAT_FILTER_PUNISHMENT = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishment", "1"));
-				CHAT_FILTER_PUNISHMENT_TIME = Integer.parseInt(L2JTeonCustom.getProperty("ChatFilterPunishmentTime", "5"));
 				CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "False"));
 				ALLOWED_SKILLS = L2JTeonCustom.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
 				ALLOWED_SKILLS_LIST = new FastList<Integer>();
