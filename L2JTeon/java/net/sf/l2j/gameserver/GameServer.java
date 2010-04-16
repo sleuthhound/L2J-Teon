@@ -27,7 +27,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.ExternalConfig;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.Server;
-import net.sf.l2j.gameserver.cache.ChatFilterCache;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.ForumsBBSManager;
@@ -285,7 +284,6 @@ public class GameServer
 		RecipeController.getInstance();
 		Util.printSection("Cache");
 		// Call to load caches
-		ChatFilterCache.getInstance();
 		HtmCache.getInstance();
 		CrestCache.getInstance();
 		Util.printSection("Clan");

@@ -14,13 +14,16 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.nio.BufferUnderflowException;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.cache.ChatFilterCache;
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -145,24 +148,66 @@ public final class Say2 extends L2GameClientPacket
 			}
 			_logChat.log(record);
 		}
-		// must we use chat filter?
-		if (Config.USE_CHAT_FILTER && _type != ALLIANCE && _type != CLAN && _type != TELL)
-		{
-			String filterText = ChatFilterCache.filterText(_text);
-			if (filterText != _text && Config.CHAT_FILTER_PUNISHMENT > 0 && Config.CHAT_FILTER_PUNISHMENT_TIME > 0)
-			{
-				switch (Config.CHAT_FILTER_PUNISHMENT)
-				{
-					case 1:
-						activeChar.setChatBanned(true, Config.CHAT_FILTER_PUNISHMENT_TIME * 60, "Chat Filter");
-						break;
-					case 2:
-						activeChar.setInJail(true, Config.CHAT_FILTER_PUNISHMENT_TIME);
-						break;
-				}
-				return;
+				if (Config.USE_CHAT_FILTER && (_type == ALL ||_type == SHOUT ||_type == TRADE ||_type == HERO_VOICE))
+ 		{
+			String filteredText = _text;
+			for (String pattern : Config.FILTER_LIST)
+ 			{
+				filteredText = filteredText.replaceAll(pattern, Config.CHAT_FILTER_CHARS);
 			}
-		}
+			if (Config.CHAT_FILTER_PUNISHMENT.equalsIgnoreCase("jail") && _text != filteredText)
+			{
+				int punishmentLength = 0;
+				if (Config.CHAT_FILTER_PUNISHMENT_PARAM2 == 0)
+ 				{
+					punishmentLength = Config.CHAT_FILTER_PUNISHMENT_PARAM1;
+ 				}
+				else
+				{
+					java.sql.Connection con = null;
+					try
+					{
+						con = L2DatabaseFactory.getInstance().getConnection();
+						PreparedStatement statement;
+						statement = con.prepareStatement("SELECT value FROM account_data WHERE (account_name=?) AND (var='jail_time')");
+						statement.setString(1, activeChar.getAccountName());
+						ResultSet rset = statement.executeQuery();
+						if (!rset.next())
+						{
+							punishmentLength = Config.CHAT_FILTER_PUNISHMENT_PARAM1;
+							PreparedStatement statement1;
+							statement1 = con.prepareStatement("INSERT INTO account_data (account_name, var, value) VALUES (?, 'jail_time', ?)");
+							statement1.setString(1, activeChar.getAccountName());
+							statement1.setInt(2, punishmentLength);
+							statement1.executeUpdate();
+							statement1.close();
+						}
+						else
+						{
+							punishmentLength = rset.getInt("value") + Config.CHAT_FILTER_PUNISHMENT_PARAM2;
+							PreparedStatement statement1;
+							statement1 = con.prepareStatement("UPDATE account_data SET value=? WHERE (account_name=?) AND (var='jail_time')");
+							statement1.setInt(1, punishmentLength);
+							statement1.setString(2, activeChar.getAccountName());
+							statement1.executeUpdate();
+							statement1.close();
+						}
+						rset.close();
+						statement.close();
+					}
+					catch (SQLException e)
+					{
+						_log.warning("Could not check character for chat filter punishment data: " + e);
+					}
+					finally
+					{
+						try { con.close(); } catch (Exception e) {}
+					}
+				}
+				activeChar.setInJail(true, punishmentLength);
+ 			}
+			_text = filteredText;
+ 		}
 		// prepare packet
 		IChatHandler handler = ChatHandler.getInstance().getChatHandler(_type);
 		if (handler != null)

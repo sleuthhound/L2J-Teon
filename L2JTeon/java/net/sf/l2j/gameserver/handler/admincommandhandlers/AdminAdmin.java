@@ -18,7 +18,6 @@ import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GmListTable;
-import net.sf.l2j.gameserver.cache.ChatFilterCache;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.BufferSkillsTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
@@ -214,11 +213,6 @@ public class AdminAdmin implements IAdminCommandHandler
 			try
 			{
 				String type = st.nextToken();
-				if (type.equals("chatfilter"))
-				{
-					ChatFilterCache.reload();
-					activeChar.sendMessage("ChatFilterCache: Reloaded.");
-				}
 				if (type.equals("multisell"))
 				{
 					L2Multisell.getInstance().reload();
