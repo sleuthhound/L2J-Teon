@@ -1071,15 +1071,18 @@ public class Siege
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING));
 		}
-		else if (SiegeManager.getInstance().checkIsRegistered(player.getClan(), getCastle().getCastleId()))
-		{
-			player.sendMessage("You are already registered in a Siege.");
-		}
 		else
 		{
-			return true;
+	        for(int i=0; i<10; i++)
+	        {
+	            if (SiegeManager.getInstance().checkIsRegistered(player.getClan(), i))
+	            {
+	                player.sendMessage("You are already registered in a Siege.");
+	                return false;
+	            }
+	        }
 		}
-		return false;
+		return true;
 	}
 
 	/**
