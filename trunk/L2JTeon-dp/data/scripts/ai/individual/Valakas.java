@@ -122,7 +122,7 @@ public class Valakas extends L2AttackableAIScript
     		            {
     		            }
     				}
-    			},100L);
+                },100L);
                 startQuestTimer("1003", 60000, valakas, null, true);
             }
         }
@@ -144,14 +144,14 @@ public class Valakas extends L2AttackableAIScript
 					try
 		            {
 			            _valakas.setCurrentHpMp(hp,mp);
-			            if (_status != FIGHTING) _valakas.setIsInvul(true);
-		                _valakas.setRunning();
+                        if (_status != FIGHTING) _valakas.setIsInvul(true);
+                        _valakas.setRunning();
 		            }
 		            catch (Throwable e)
 		            {
 		            }
 				}
-			},100L);
+            },100L);
 
             startQuestTimer("1003", 60000, valakas, null, true);
             if (status == WAITING)
@@ -192,7 +192,7 @@ public class Valakas extends L2AttackableAIScript
     		            {
     		            }
     				}
-    			},1L);
+                },1L);
                 startQuestTimer("1004",2000, npc, null);
             }
             else if (event.equalsIgnoreCase("1002"))
@@ -268,47 +268,47 @@ public class Valakas extends L2AttackableAIScript
             else if (event.equalsIgnoreCase("1004"))
             {
                 startQuestTimer("1102",1500, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-1,1500,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-1,1500,15000,10000));
             }
             else if (event.equalsIgnoreCase("1102"))
             {
                 startQuestTimer("1103",3300, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-5,3000,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-5,3000,15000,10000));
             }
             else if (event.equalsIgnoreCase("1103"))
             {
                 startQuestTimer("1104",2900, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-8,600,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-8,600,15000,10000));
             }
             else if (event.equalsIgnoreCase("1104"))
             {
                 startQuestTimer("1105",2700, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-8,2700,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),180,-8,2700,15000,10000));
             }
             else if (event.equalsIgnoreCase("1105"))
             {
             	startQuestTimer("1106",1, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),250,70,0,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),250,70,0,15000,10000));
             }
             else if (event.equalsIgnoreCase("1106"))
             {
                 startQuestTimer("1107",3200, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),250,70,2500,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),250,70,2500,15000,10000));
             }
             else if (event.equalsIgnoreCase("1107"))
             {
                 startQuestTimer("1108",1400, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),150,30,0,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),150,30,0,15000,10000));
             }
             else if (event.equalsIgnoreCase("1108"))
             {
                 startQuestTimer("1109",6700, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),150,20,2900,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),150,20,2900,15000,10000));
             }
             else if (event.equalsIgnoreCase("1109"))
             {
                 startQuestTimer("1110",5700, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),170,-10,3400,15000,4000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),170,-10,3400,15000,4000));
             }
             else if (event.equalsIgnoreCase("1110"))
             {
@@ -321,36 +321,36 @@ public class Valakas extends L2AttackableAIScript
             else if (event.equalsIgnoreCase("1111"))
             {
                 startQuestTimer("1112",3500, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),210,-5,3000,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),210,-5,3000,15000,10000));
             }
             else if (event.equalsIgnoreCase("1112"))
             {
                 startQuestTimer("1113",4500, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),200,-8,3000,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),200,-8,3000,15000,10000));
             }
             else if (event.equalsIgnoreCase("1113"))
             {
                 startQuestTimer("1114",500, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),190,0,500,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),190,0,500,15000,10000));
             }
             else if (event.equalsIgnoreCase("1114"))
             {
                 startQuestTimer("1115",4600, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),120,0,2500,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),120,0,2500,15000,10000));
             }
             else if (event.equalsIgnoreCase("1115"))
             {
                 startQuestTimer("1116",750, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),20,0,700,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),20,0,700,15000,10000));
             }
             else if (event.equalsIgnoreCase("1116"))
             {
                 startQuestTimer("1117",2500, npc, null);
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),10,0,1000,15000,10000));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),10,0,1000,15000,10000));
             }
             else if (event.equalsIgnoreCase("1117"))
             {
-                //npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),10,0,300,15000,250));
+                npc.broadcastPacket(new SpecialCamera(npc.getObjectId(),10,0,300,15000,250));
                 addSpawn(31759,212852,-114842,-1632,0,false,900000);
                 int radius = 1500;
                 for (int i=0; i < 20; i++)
@@ -389,10 +389,10 @@ public class Valakas extends L2AttackableAIScript
 			return null;
 		}
 		i_quest1 = System.currentTimeMillis();
-        if (GrandBossManager.getInstance().getBossStatus(VALAKAS) != FIGHTING)
+        /*if (GrandBossManager.getInstance().getBossStatus(VALAKAS) != FIGHTING)
         {
         	attacker.teleToLocation(150037,-57255,-2976);
-        }
+        }*/
     	if (attacker.getMountType() == 1)
     	{
 			int sk_4258 = 0;
@@ -447,7 +447,7 @@ public class Valakas extends L2AttackableAIScript
 			}
 
 		}
-        L2Skill skill = null; // TODO: attack handler require skill
+		L2Skill skill = null; // TODO: attack handler require skill
 		int i1 = 0;
 		if (skill == null)
 		{
@@ -1260,7 +1260,7 @@ public class Valakas extends L2AttackableAIScript
 			return;
 		}
 
-		if (c2 == null || c2.isDead() || c2.isAlikeDead() || timer == null)
+		if (c2 == null || c2.isDead() || timer == null)
 		{
 			c2 = getRandomTarget(npc); // just in case if hate AI fail
 			if (timer == null)
@@ -1270,7 +1270,7 @@ public class Valakas extends L2AttackableAIScript
 			}
 		}
 		L2Character target = c2;
-		if (target == null || target.isDead() || target.isAlikeDead())
+		if (target == null || target.isDead())
 		{
 			if (timer == null)
 				startQuestTimer("1003", 500, npc, null, true);
