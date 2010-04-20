@@ -153,9 +153,9 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		if (Config.PLAYER_SPAWN_PROTECTION > 0)
 			activeChar.setProtection(true);
-		
+
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-		
+
 		if (activeChar.getZ() < -15000 || activeChar.getZ() > 15000)
 		{
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);

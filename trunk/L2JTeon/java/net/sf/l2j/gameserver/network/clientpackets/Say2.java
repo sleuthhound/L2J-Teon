@@ -14,10 +14,10 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import java.nio.BufferUnderflowException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.nio.BufferUnderflowException;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
