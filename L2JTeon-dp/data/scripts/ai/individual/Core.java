@@ -86,7 +86,7 @@ public class Core extends L2AttackableAIScript
                 _FirstAttacked = true;
             int loc_x = info.getInteger("loc_x");
             int loc_y = info.getInteger("loc_y");
-            int loc_z = info.getInteger("loc_z");
+            int loc_z = -6480;
             int heading = info.getInteger("heading");
             int hp = info.getInteger("currentHP");
             int mp = info.getInteger("currentMP");

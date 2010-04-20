@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.network.serverpackets.NpcSay;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SpecialCamera;
@@ -67,7 +68,13 @@ public class DrChaos extends Quest
 
 	public String onAdvEvent (String event, L2NpcInstance npc, L2PcInstance player)
 	{
-	    if (event.equalsIgnoreCase("1"))
+	    // if (event.equalsIgnoreCase("1"))
+	                if (event.equalsIgnoreCase("Chat"))
+	                {
+	                        npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "Fools! Why haven't you fled yet? Prepare you learn a lesson!"));
+	                        startQuestTimer("1", 3000, npc, player);
+	                }
+	                else if (event.equalsIgnoreCase("1"))
 	    {
 	       L2NpcInstance machine_instance = FindTemplate(STRANGE_MACHINE);
 	       if (machine_instance != null)
@@ -113,8 +120,9 @@ public class DrChaos extends Quest
 	{
 		if (npc.getNpcId() == DOCTER_CHAOS)
 		{
+			npc.broadcastPacket(new NpcSay(npc.getObjectId(), 0, npc.getNpcId(), "How dare you trespass into my territory? Have you no fear?"));
 			npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(96323,-110914,-3328,0));
-			this.startQuestTimer("1",3000,npc,player);
+			this.startQuestTimer("Chat",3000,npc,player);
 		}
 		return "";
 	}
