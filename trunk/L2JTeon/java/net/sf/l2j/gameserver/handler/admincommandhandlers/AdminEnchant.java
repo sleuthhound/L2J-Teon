@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
 /**
@@ -144,9 +143,9 @@ public class AdminEnchant implements IAdminCommandHandler
 						if(ench > Config.GM_OVER_ENCHANT && Config.GM_OVER_ENCHANT !=0 && !player.isGM())
 						{
 							player.sendMessage("A GM tried to overenchant you. You will both be banned.");
-							Util.handleIllegalPlayerAction(player,"The player "+player.getName()+" has been edited. BAN!", IllegalPlayerAction.PUNISH_KICKBAN);
+							Util.handleIllegalPlayerAction(player,"The player "+player.getName()+" has been edited. BAN!", Config.DEFAULT_PUNISH);
 							activeChar.sendMessage("You tried to overenchant somebody. You will both be banned.");
-							Util.handleIllegalPlayerAction(activeChar,"The GM "+activeChar.getName()+" has overenchanted the player "+player.getName()+". BAN!", IllegalPlayerAction.PUNISH_KICKBAN);;
+							Util.handleIllegalPlayerAction(activeChar,"The GM "+activeChar.getName()+" has overenchanted the player "+player.getName()+". BAN!", Config.DEFAULT_PUNISH);;
 						}
 						else
 							setEnchant(activeChar, ench, armorType);

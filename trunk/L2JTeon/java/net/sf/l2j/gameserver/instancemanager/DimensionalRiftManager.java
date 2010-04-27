@@ -454,6 +454,8 @@ public class DimensionalRiftManager
 		{
 			_log.warn("Player " + player.getName() + "(" + player.getObjectId() + ") was cheating in dimension rift area!");
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " tried to cheat in dimensional rift.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
+			return;
 		}
 	}
 }
