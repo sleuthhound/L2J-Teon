@@ -88,7 +88,7 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 			activeChar.sendMessage("Your trade canceled");
 			return;
 		}
-		if (item.isWear()) 
+		if (item.isWear())
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to enchant a weared Item", Config.DEFAULT_PUNISH);
 			activeChar.closeNetConnection(); // kick
@@ -103,7 +103,7 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 			}
 			break;
 		}
-		default: 
+		default:
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
 			activeChar.closeNetConnection(); // kick
@@ -235,7 +235,7 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 		}
 		scroll = activeChar.getInventory().destroyItem("Enchant", scroll,
 				activeChar, item);
-		if (scroll == null) 
+		if (scroll == null)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
 			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to enchant with a scroll he doesnt have", Config.DEFAULT_PUNISH);
