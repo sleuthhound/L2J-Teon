@@ -32,7 +32,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Rnd;
 
@@ -100,7 +99,8 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		if (counts == 0 && !Config.ALT_GAME_SKILL_LEARN)
 		{
 			player.sendMessage("You are trying to learn skill that u can't..");
-			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		if (player.getSp() >= _requiredSp)

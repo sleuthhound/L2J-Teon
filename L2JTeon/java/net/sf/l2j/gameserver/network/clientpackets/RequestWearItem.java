@@ -129,6 +129,7 @@ public final class RequestWearItem extends L2GameClientPacket
 		if (lists == null)
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		for (L2TradeList tradeList : lists)
@@ -141,6 +142,7 @@ public final class RequestWearItem extends L2GameClientPacket
 		if (list == null)
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		_listId = list.getListId();
@@ -161,6 +163,7 @@ public final class RequestWearItem extends L2GameClientPacket
 			if (!list.containsItemId(itemId))
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			L2Item template = ItemTable.getInstance().getTemplate(itemId);
@@ -170,6 +173,7 @@ public final class RequestWearItem extends L2GameClientPacket
 			if (totalPrice > Integer.MAX_VALUE)
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to purchase over " + Integer.MAX_VALUE + " adena worth of goods.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 		}
@@ -200,6 +204,7 @@ public final class RequestWearItem extends L2GameClientPacket
 			if (!list.containsItemId(itemId))
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			// If player doesn't own this item : Add this L2ItemInstance to

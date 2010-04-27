@@ -102,7 +102,11 @@ public final class RequestHennaEquip extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_DRAW_SYMBOL));
 		}
 		if (!activeChar.isGM() && cheater)
+		{
 			Util.handleIllegalPlayerAction(activeChar, "Exploit attempt: Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " tryed to add a forbidden henna.", Config.DEFAULT_PUNISH);
+			activeChar.closeNetConnection(); // kick
+			return;
+		}
 	}
 
 	/*

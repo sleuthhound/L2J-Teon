@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
 /**
@@ -82,7 +81,9 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 			{
 				L2PcInstance activeChar = getClient().getActiveChar();
 				activeChar.sendPacket(SystemMessageId.HACKING_TOOL);
-				Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " Tried to Use L2Walker And Got Kicked", IllegalPlayerAction.PUNISH_KICK);
+				Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " Tried to Use L2Walker And Got Kicked", Config.DEFAULT_PUNISH);
+				activeChar.closeNetConnection(); // kick
+				return;
 			}
 		}
 	}

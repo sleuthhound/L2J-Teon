@@ -116,6 +116,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to purchase over " + Integer.MAX_VALUE + " items at the same time.", Config.DEFAULT_PUNISH);
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				sendPacket(sm);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			try

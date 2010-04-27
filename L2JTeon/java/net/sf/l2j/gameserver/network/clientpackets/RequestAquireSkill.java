@@ -36,7 +36,6 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
 /**
@@ -106,7 +105,8 @@ public class RequestAquireSkill extends L2GameClientPacket
 			if (counts == 0 && !Config.ALT_GAME_SKILL_LEARN)
 			{
 				player.sendMessage("You are trying to learn skill that u can't..");
-				Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+				Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			if (player.getSp() >= _requiredSp)
@@ -162,7 +162,8 @@ public class RequestAquireSkill extends L2GameClientPacket
 			if (counts == 0)
 			{
 				player.sendMessage("You are trying to learn skill that u can't..");
-				Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+				Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			if (player.getSp() >= _requiredSp)
@@ -214,7 +215,8 @@ public class RequestAquireSkill extends L2GameClientPacket
 			if (counts == 0)
 			{
 				player.sendMessage("You are trying to learn skill that u can't..");
-				Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+				Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			if (player.getClan().getReputationScore() >= repCost)

@@ -31,7 +31,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
 /**
@@ -96,16 +95,14 @@ public final class SendWareHouseDepositList extends L2GameClientPacket
 		L2WarehouseInstance target = null;
 		if (player.getActiveEnchantItem() != null && target instanceof L2WarehouseInstance)
 		{
-			player.setAccessLevel(-100);
-			player.setAccountAccesslevel(-100);
-			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		if (player.getActiveEnchantItem() != null)
 		{
-			player.setAccessLevel(-100);
-			player.setAccountAccesslevel(-100);
-			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		// Alt game - Karma punishment

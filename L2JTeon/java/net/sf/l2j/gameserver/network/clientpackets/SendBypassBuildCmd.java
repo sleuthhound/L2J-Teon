@@ -51,6 +51,7 @@ public final class SendBypassBuildCmd extends L2GameClientPacket
 		if (!activeChar.isGM() && !"gm".equalsIgnoreCase(_command))
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Warning!! Non-gm character " + activeChar.getName() + " requests gm bypass handler, hack?", Config.DEFAULT_PUNISH);
+			activeChar.closeNetConnection(); // kick
 			return;
 		}
 		IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler("admin_" + _command);

@@ -124,16 +124,19 @@ public final class RequestRefine extends L2GameClientPacket
 		if (player.getInventory().getItemByObjectId(refinerItem.getObjectId()) == null)
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to refine an item with wrong LifeStone-id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(targetItem.getObjectId()) == null)
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to refine an item with wrong Weapon-id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return false;
 		}
 		if (player.getInventory().getItemByObjectId(gemstoneItem.getObjectId()) == null)
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to refine an item with wrong Gemstone-id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return false;
 		}
 		int itemGrade = targetItem.getItem().getItemGrade();

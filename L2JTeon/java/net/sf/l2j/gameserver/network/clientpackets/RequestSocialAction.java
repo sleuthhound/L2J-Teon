@@ -60,6 +60,7 @@ public class RequestSocialAction extends L2GameClientPacket
 		if (_actionId < 2 || _actionId > 13)
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Warning!! Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " requested an internal Social Action.", Config.DEFAULT_PUNISH);
+			activeChar.closeNetConnection(); // kick
 			return;
 		}
 		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null && !activeChar.isAlikeDead() && (!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) && activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)

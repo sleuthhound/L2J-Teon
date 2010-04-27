@@ -66,7 +66,10 @@ public final class RequestDestroyItem extends L2GameClientPacket
 		if (_count <= 0)
 		{
 			if (_count < 0)
-				Util.handleIllegalPlayerAction(activeChar, "[RequestDestroyItem] count < 0! ban! oid: " + _objectId + " owner: " + activeChar.getName(), Config.DEFAULT_PUNISH);
+			{	Util.handleIllegalPlayerAction(activeChar, "[RequestDestroyItem] count < 0! ban! oid: " + _objectId + " owner: " + activeChar.getName(), Config.DEFAULT_PUNISH);
+				activeChar.closeNetConnection(); // kick
+				return;
+			}
 			return;
 		}
 		int count = _count;
@@ -97,6 +100,7 @@ public final class RequestDestroyItem extends L2GameClientPacket
 		if (!itemToRemove.isStackable() && count > 1)
 		{
 			Util.handleIllegalPlayerAction(activeChar, "[RequestDestroyItem] count > 1 but item is not stackable! oid: " + _objectId + " owner: " + activeChar.getName(), Config.DEFAULT_PUNISH);
+			activeChar.closeNetConnection(); // kick
 			return;
 		}
 		if (_count > itemToRemove.getCount())
