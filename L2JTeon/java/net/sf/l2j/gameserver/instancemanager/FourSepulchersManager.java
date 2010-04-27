@@ -815,6 +815,8 @@ public class FourSepulchersManager
 				{
 					_log.warning("Player " + player.getName() + "(" + player.getObjectId() + ") tried to cheat in four sepulchers.");
 					Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " tried to enter four sepulchers with invalid npc id.", Config.DEFAULT_PUNISH);
+					player.closeNetConnection(); // kick
+					return;
 				}
 				return;
 		}

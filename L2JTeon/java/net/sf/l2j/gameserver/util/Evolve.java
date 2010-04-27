@@ -44,6 +44,7 @@ public final class Evolve
 		if (currentPet.isAlikeDead())
 		{
 			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use death pet exploit!", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return false;
 		}
 		L2ItemInstance item = null;

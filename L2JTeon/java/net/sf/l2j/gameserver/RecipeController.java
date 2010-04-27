@@ -167,6 +167,7 @@ public class RecipeController
 		if (!dwarfRecipes.contains(recipeList) && !commonRecipes.contains(recipeList))
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false recipe id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		RecipeItemMaker maker;
@@ -210,6 +211,7 @@ public class RecipeController
 		if (!dwarfRecipes.contains(recipeList) && !commonRecipes.contains(recipeList))
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false recipe id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		RecipeItemMaker maker;
