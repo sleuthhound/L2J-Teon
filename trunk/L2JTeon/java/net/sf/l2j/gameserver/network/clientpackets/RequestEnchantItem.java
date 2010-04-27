@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Rnd;
 
@@ -89,10 +88,10 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 			activeChar.sendMessage("Your trade canceled");
 			return;
 		}
-		if (item.isWear()) {
-			Util.handleIllegalPlayerAction(activeChar, "Player "
-					+ activeChar.getName() + " tried to enchant a weared Item",
-					IllegalPlayerAction.PUNISH_KICK);
+		if (item.isWear()) 
+		{
+			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to enchant a weared Item", Config.DEFAULT_PUNISH);
+			activeChar.closeNetConnection(); // kick
 			return;
 		}
 		switch (item.getLocation()) {
@@ -104,10 +103,10 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 			}
 			break;
 		}
-		default: {
-			Util.handleIllegalPlayerAction(activeChar, "Player "
-					+ activeChar.getName() + " tried to use enchant Exploit!",
-					IllegalPlayerAction.PUNISH_KICKBAN);
+		default: 
+		{
+			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
+			activeChar.closeNetConnection(); // kick
 			return;
 		}
 		}
@@ -236,13 +235,11 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 		}
 		scroll = activeChar.getInventory().destroyItem("Enchant", scroll,
 				activeChar, item);
-		if (scroll == null) {
-			activeChar.sendPacket(new SystemMessage(
-					SystemMessageId.NOT_ENOUGH_ITEMS));
-			Util.handleIllegalPlayerAction(activeChar, "Player "
-					+ activeChar.getName()
-					+ " tried to enchant with a scroll he doesnt have",
-					Config.DEFAULT_PUNISH);
+		if (scroll == null) 
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+			Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " tried to enchant with a scroll he doesnt have", Config.DEFAULT_PUNISH);
+			activeChar.closeNetConnection(); // kick
 			return;
 		}
 		// SystemMessage sm = new

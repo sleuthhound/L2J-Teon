@@ -91,6 +91,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 				Util.handleIllegalPlayerAction(getClient().getActiveChar(), msgErr, Config.DEFAULT_PUNISH);
 				_count = 0;
 				_items = null;
+				player.closeNetConnection(); // kick
 				return;
 			}
 			tradeList.addItem(objectId, count, price);

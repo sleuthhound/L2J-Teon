@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import java.util.logging.Logger;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -29,7 +30,6 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.model.entity.RaidEngine.L2RaidEvent;
 import net.sf.l2j.gameserver.network.serverpackets.Revive;
-import net.sf.l2j.gameserver.util.IllegalPlayerAction;
 import net.sf.l2j.gameserver.util.Util;
 
 /**
@@ -81,7 +81,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						{
 							// cheater
 							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", Config.DEFAULT_PUNISH);
+							activeChar.closeNetConnection(); // kick
 							return;
 						}
 						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
@@ -108,7 +109,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
-								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", Config.DEFAULT_PUNISH);
+								activeChar.closeNetConnection(); // kick
 								return;
 							}
 						}
@@ -126,7 +128,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
-								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", Config.DEFAULT_PUNISH);
+								activeChar.closeNetConnection(); // kick
 								return;
 							}
 						}
@@ -146,7 +149,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
-								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", Config.DEFAULT_PUNISH);
+								activeChar.closeNetConnection(); // kick
 								return;
 							}
 						}
@@ -160,7 +164,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
-								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", Config.DEFAULT_PUNISH);
+								activeChar.closeNetConnection(); // kick
 								return;
 							}
 						}
@@ -171,7 +176,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						{
 							// cheater
 							activeChar.sendMessage("You may not use this respawn point!");
-							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", Config.DEFAULT_PUNISH);
+							activeChar.closeNetConnection(); // kick
 							return;
 						}
 						loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died

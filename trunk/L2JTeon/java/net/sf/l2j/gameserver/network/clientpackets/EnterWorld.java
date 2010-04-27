@@ -435,9 +435,11 @@ public class EnterWorld extends L2GameClientPacket
 						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
 						// Punishment e log in audit
 						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+						activeChar.closeNetConnection(); // kick
 						// Log in console
 						_log.info("#### ATTENCTION ####");
 						_log.info(i + " item has been removed from player.");
+						return;
 					}
 				}
 				if (itemType2 == L2Item.TYPE2_SHIELD_ARMOR)
@@ -452,9 +454,11 @@ public class EnterWorld extends L2GameClientPacket
 						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
 						// Punishment e log in audit
 						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+						activeChar.closeNetConnection(); // kick
 						// Log in console
 						_log.info("#### ATTENCTION ####");
 						_log.info(i + " item has been removed from player.");
+						return;
 					}
 				}
 				if (itemType2 == L2Item.TYPE2_ACCESSORY)
@@ -469,9 +473,11 @@ public class EnterWorld extends L2GameClientPacket
 						activeChar.setPunishLevel(L2PcInstance.PunishLevel.JAIL, 1200);
 						// Punishment e log in audit
 						Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+						activeChar.closeNetConnection(); // kick
 						// Log in console
 						_log.info("#### ATTENCTION ####");
 						_log.info(i + " item has been removed from player.");
+						return;
 					}
 				}
 			}

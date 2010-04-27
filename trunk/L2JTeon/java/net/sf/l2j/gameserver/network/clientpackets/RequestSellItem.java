@@ -152,6 +152,7 @@ public final class RequestSellItem extends L2GameClientPacket
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				sendPacket(sm);
 				sm = null;
+				player.closeNetConnection(); // kick
 				return;
 			}
 			L2ItemInstance item = player.checkItemManipulation(objectId, count, "sell");
@@ -163,6 +164,7 @@ public final class RequestSellItem extends L2GameClientPacket
 			if (totalPrice > Integer.MAX_VALUE)
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to purchase over " + Integer.MAX_VALUE + " adena worth of goods.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			item = player.getInventory().destroyItem("Sell", objectId, count, player, null);

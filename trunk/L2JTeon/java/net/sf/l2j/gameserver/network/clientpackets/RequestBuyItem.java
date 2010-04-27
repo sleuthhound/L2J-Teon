@@ -141,6 +141,7 @@ public final class RequestBuyItem extends L2GameClientPacket
 				if (lists == null)
 				{
 					Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+					player.closeNetConnection(); // kick
 					return;
 				}
 				for (L2TradeList tradeList : lists)
@@ -163,6 +164,7 @@ public final class RequestBuyItem extends L2GameClientPacket
 		if (list == null)
 		{
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		_listId = list.getListId();
@@ -197,6 +199,7 @@ public final class RequestBuyItem extends L2GameClientPacket
 			if (!list.containsItemId(itemId))
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			L2Item template = ItemTable.getInstance().getTemplate(itemId);
@@ -210,6 +213,7 @@ public final class RequestBuyItem extends L2GameClientPacket
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
 				sendPacket(sm);
 				sm = null;
+				player.closeNetConnection(); // kick
 				return;
 			}
 			if (_listId < 1000000)
@@ -234,6 +238,7 @@ public final class RequestBuyItem extends L2GameClientPacket
 			{
 				player.sendMessage("Ohh Cheat dont work? You have a problem now!");
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried buy item for 0 adena.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			subTotal += (long) count * price; // Before tax
@@ -241,6 +246,7 @@ public final class RequestBuyItem extends L2GameClientPacket
 			if (subTotal + tax > Integer.MAX_VALUE)
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " tried to purchase over " + Integer.MAX_VALUE + " adena worth of goods.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			weight += (long) count * template.getWeight();
@@ -285,6 +291,7 @@ public final class RequestBuyItem extends L2GameClientPacket
 			if (!list.containsItemId(itemId))
 			{
 				Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " of account " + player.getAccountName() + " sent a false BuyList list_id.", Config.DEFAULT_PUNISH);
+				player.closeNetConnection(); // kick
 				return;
 			}
 			if (list.countDecrease(itemId))
