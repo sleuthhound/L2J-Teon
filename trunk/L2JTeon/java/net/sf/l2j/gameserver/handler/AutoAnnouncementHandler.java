@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.handler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
-import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.text.TextBuilder;
@@ -43,7 +42,7 @@ public class AutoAnnouncementHandler
 	protected static Log _log = LogFactory.getLog(AutoAnnouncementHandler.class.getName());
 	private static AutoAnnouncementHandler _instance;
 	private static final long DEFAULT_ANNOUNCEMENT_DELAY = 180000; // 3 mins by default
-	protected Map<Integer, AutoAnnouncementInstance> _registeredAnnouncements;
+	protected FastMap<Integer, AutoAnnouncementInstance> _registeredAnnouncements;
 
 	protected AutoAnnouncementHandler()
 	{
