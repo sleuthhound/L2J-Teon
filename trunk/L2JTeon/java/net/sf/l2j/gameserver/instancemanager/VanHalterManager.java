@@ -670,7 +670,7 @@ public class VanHalterManager
 	{
 		_vanHalter = (L2GrandBossInstance) _vanHalterSpawn.doSpawn();
 		_vanHalter.setIsImmobilized(true);
-		_vanHalter.setIsInvul(true);
+		_vanHalter.setIsInvul(false);
 		_isHalterSpawned = true;
 	}
 
