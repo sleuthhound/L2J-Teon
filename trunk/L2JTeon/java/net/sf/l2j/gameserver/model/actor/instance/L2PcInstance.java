@@ -583,7 +583,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	/**
 	 * Active shots. A FastSet variable would actually suffice but this was changed to fix threading stability...
 	 */
-	protected Map<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().setShared(true);
+	protected Map<Integer, Integer> _activeSoulShots = new FastMap<Integer, Integer>().shared();
 	public final ReentrantLock soulShotLock = new ReentrantLock();
 	/** Event parameters */
 	public int eventX;
@@ -4690,8 +4690,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		// Check if it's pvp
 		if (Config.PVP_SAME_IP)
 		{
-			String player1 = getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
-			String player1target = targetPlayer.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
+			String player1 = getClient().getConnection().getInetAddress().getHostAddress();
+			String player1target = targetPlayer.getClient().getConnection().getInetAddress().getHostAddress();
 			if (player1.equals(player1target))
 				return;
 		}
@@ -11502,7 +11502,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// sendPacket(new EtcStatusUpdate(this));
 	}
 
-	private final FastMap<Integer, TimeStamp> ReuseTimeStamps = new FastMap<Integer, TimeStamp>().setShared(true);
+	private final FastMap<Integer, TimeStamp> ReuseTimeStamps = new FastMap<Integer, TimeStamp>().shared();
 
 	/**
 	 * Simple class containing all neccessary information to maintain valid timestamps and reuse for skills upon relog. Filter this carefully as it becomes redundant to store reuse for small delays.
