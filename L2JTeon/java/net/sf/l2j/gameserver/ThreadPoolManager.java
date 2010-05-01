@@ -28,7 +28,7 @@ import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.network.L2GameClient;
 
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.ReceivablePacket;
 
 /**
  * <p>
