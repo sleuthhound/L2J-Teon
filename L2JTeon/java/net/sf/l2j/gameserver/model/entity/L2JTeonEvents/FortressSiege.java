@@ -1125,7 +1125,7 @@ public class FortressSiege
 	{
 		try
 		{
-			return player.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
+			return player.getClient().getConnection().getInetAddress().getHostAddress();
 		}
 		catch (Exception e)
 		{

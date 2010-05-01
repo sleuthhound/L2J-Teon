@@ -72,10 +72,10 @@ public final class L2World
 	private L2World()
 	{
 		// _allGms = new FastMap<String, L2PcInstance>();
-		_allPlayers = new FastMap<String, L2PcInstance>().setShared(true);
-		_allkoofPlayers = new FastMap<String, L2PcInstance>().setShared(true);
-		_allnoobPlayers = new FastMap<String, L2PcInstance>().setShared(true);
-		_petsInstance = new FastMap<Integer, L2PetInstance>().setShared(true);
+		_allPlayers = new FastMap<String, L2PcInstance>().shared();
+		_allkoofPlayers = new FastMap<String, L2PcInstance>().shared();
+		_allnoobPlayers = new FastMap<String, L2PcInstance>().shared();
+		_petsInstance = new FastMap<Integer, L2PetInstance>().shared();
 		_allObjects = L2ObjectMap.createL2ObjectMap();
 		initRegions();
 	}

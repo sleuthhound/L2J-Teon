@@ -40,8 +40,8 @@ import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.util.EventData;
 
-import com.l2jserver.mmocore.network.MMOClient;
-import com.l2jserver.mmocore.network.MMOConnection;
+import org.mmocore.network.MMOClient;
+import org.mmocore.network.MMOConnection;
 
 /**
  * Represents a client connected on Game Server
@@ -446,7 +446,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	}
 
 	@Override
-	protected void onDisconection()
+	protected void onDisconnection()
 	{
 		// no long running tasks here, do it async
 		try
@@ -484,7 +484,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	{
 		try
 		{
-			InetAddress address = getConnection().getSocketChannel().socket().getInetAddress();
+			InetAddress address = getConnection().getInetAddress();
 			switch (getState())
 			{
 				case CONNECTED:

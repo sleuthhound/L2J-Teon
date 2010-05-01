@@ -29,11 +29,11 @@ import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.network.clientpackets.*;
 import net.sf.l2j.util.Util;
 
-import com.l2jserver.mmocore.network.IClientFactory;
-import com.l2jserver.mmocore.network.IMMOExecutor;
-import com.l2jserver.mmocore.network.IPacketHandler;
-import com.l2jserver.mmocore.network.MMOConnection;
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.IClientFactory;
+import org.mmocore.network.IMMOExecutor;
+import org.mmocore.network.IPacketHandler;
+import org.mmocore.network.MMOConnection;
+import org.mmocore.network.ReceivablePacket;
 
 /**
  * Stateful Packet Handler<BR>
