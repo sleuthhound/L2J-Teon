@@ -38,7 +38,7 @@ import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
 public class AttackStanceTaskManager
 {
 	protected static final Logger _log = Logger.getLogger(AttackStanceTaskManager.class.getName());
-	protected Map<L2Character, Long> _attackStanceTasks = new FastMap<L2Character, Long>().setShared(true);
+	protected Map<L2Character, Long> _attackStanceTasks = new FastMap<L2Character, Long>().shared();
 	private static AttackStanceTaskManager _instance;
 
 	public AttackStanceTaskManager()

@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.network.L2GameClient;
 
-import com.l2jserver.mmocore.network.SendablePacket;
+import org.mmocore.network.SendablePacket;
 
 /**
  * @author KenM
@@ -29,7 +29,7 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	private static final Logger _log = Logger.getLogger(L2GameServerPacket.class.getName());
 
 	/**
-	 * @see com.l2jserver.mmocore.network.SendablePacket#write()
+	 * @see org.mmocore.network.SendablePacket#write()
 	 */
 	@Override
 	protected void write()
