@@ -57,7 +57,7 @@ public class RequestServerLogin extends L2LoginClientPacket
 	@Override
 	public boolean readImpl()
 	{
-		if (getAvaliableBytes() >= 9)
+		if (super._buf.remaining() >= 9)
 		{
 			_skey1 = readD();
 			_skey2 = readD();
@@ -69,7 +69,7 @@ public class RequestServerLogin extends L2LoginClientPacket
 	}
 
 	/**
-	 * @see com.l2jserver.mmocore.network.ReceivablePacket#run()
+	 * @see org.mmocore.network.ReceivablePacket#run()
 	 */
 	@Override
 	public void run()

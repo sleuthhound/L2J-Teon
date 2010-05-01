@@ -21,11 +21,11 @@ import java.util.concurrent.TimeUnit;
 
 import net.sf.l2j.loginserver.serverpackets.Init;
 
-import com.l2jserver.mmocore.network.IAcceptFilter;
-import com.l2jserver.mmocore.network.IClientFactory;
-import com.l2jserver.mmocore.network.IMMOExecutor;
-import com.l2jserver.mmocore.network.MMOConnection;
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.IAcceptFilter;
+import org.mmocore.network.IClientFactory;
+import org.mmocore.network.IMMOExecutor;
+import org.mmocore.network.MMOConnection;
+import org.mmocore.network.ReceivablePacket;
 
 /**
  * @author KenM
@@ -40,7 +40,7 @@ public class SelectorHelper implements IMMOExecutor<L2LoginClient>, IClientFacto
 	}
 
 	/**
-	 * @see com.l2jserver.mmocore.network.IMMOExecutor#execute(com.l2jserver.mmocore.network.ReceivablePacket)
+	 * @see org.mmocore.network.IMMOExecutor#execute(org.mmocore.network.ReceivablePacket)
 	 */
 	public void execute(ReceivablePacket<L2LoginClient> packet)
 	{
@@ -48,7 +48,7 @@ public class SelectorHelper implements IMMOExecutor<L2LoginClient>, IClientFacto
 	}
 
 	/**
-	 * @see com.l2jserver.mmocore.network.IClientFactory#create(com.l2jserver.mmocore.network.MMOConnection)
+	 * @see org.mmocore.network.IClientFactory#create(org.mmocore.network.MMOConnection)
 	 */
 	public L2LoginClient create(MMOConnection<L2LoginClient> con)
 	{
@@ -58,7 +58,7 @@ public class SelectorHelper implements IMMOExecutor<L2LoginClient>, IClientFacto
 	}
 
 	/**
-	 * @see com.l2jserver.mmocore.network.IAcceptFilter#accept(java.nio.channels.SocketChannel)
+	 * @see org.mmocore.network.IAcceptFilter#accept(java.nio.channels.SocketChannel)
 	 */
 	public boolean accept(SocketChannel sc)
 	{

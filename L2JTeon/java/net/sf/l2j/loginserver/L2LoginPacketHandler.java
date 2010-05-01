@@ -22,8 +22,8 @@ import net.sf.l2j.loginserver.clientpackets.RequestAuthLogin;
 import net.sf.l2j.loginserver.clientpackets.RequestServerList;
 import net.sf.l2j.loginserver.clientpackets.RequestServerLogin;
 
-import com.l2jserver.mmocore.network.IPacketHandler;
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.IPacketHandler;
+import org.mmocore.network.ReceivablePacket;
 
 /**
  * Handler for packets received by Login Server
@@ -33,7 +33,7 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
 public final class L2LoginPacketHandler implements IPacketHandler<L2LoginClient>
 {
 	/**
-	 * @see com.l2jserver.mmocore.network.IPacketHandler#handlePacket(java.nio.ByteBuffer, com.l2jserver.mmocore.interfaces.MMOClient)
+	 * @see org.mmocore.network.IPacketHandler#handlePacket(java.nio.ByteBuffer, org.mmocore.interfaces.MMOClient)
 	 */
 	public ReceivablePacket<L2LoginClient> handlePacket(ByteBuffer buf, L2LoginClient client)
 	{

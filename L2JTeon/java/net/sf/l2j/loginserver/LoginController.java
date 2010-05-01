@@ -56,8 +56,8 @@ public class LoginController
 	/** Clients that are on the LS but arent assocated with a account yet */
 	protected FastSet<L2LoginClient> _clients = new FastSet<L2LoginClient>();
 	/** Authed Clients on LoginServer */
-	protected FastMap<String, L2LoginClient> _loginServerClients = new FastMap<String, L2LoginClient>().setShared(true);
-	private final Map<InetAddress, BanInfo> _bannedIps = new FastMap<InetAddress, BanInfo>().setShared(true);
+	protected FastMap<String, L2LoginClient> _loginServerClients = new FastMap<String, L2LoginClient>().shared();
+	private final Map<InetAddress, BanInfo> _bannedIps = new FastMap<InetAddress, BanInfo>().shared();
 	private final Map<InetAddress, FailedLoginAttempt> _hackProtection;
 	protected ScrambledKeyPair[] _keyPairs;
 	protected byte[][] _blowfishKeys;
@@ -520,7 +520,7 @@ public class LoginController
 	// HackingException
 	{
 		boolean ok = false;
-		InetAddress address = client.getConnection().getSocketChannel().socket().getInetAddress();
+		InetAddress address = client.getConnection().getInetAddress();
 		// log it anyway
 		// Log.add("'" + (user == null ? "null" : user) + "' " + (address ==
 		// null ? "null" : address.getHostAddress()), "logins_ip");
