@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -119,8 +121,8 @@ import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.util.Util;
 
-import com.l2jserver.mmocore.network.SelectorServerConfig;
-import com.l2jserver.mmocore.network.SelectorThread;
+import org.mmocore.network.SelectorConfig;
+import org.mmocore.network.SelectorThread;
 
 /**
  * This class ...
@@ -139,6 +141,8 @@ public class GameServer
 	public static boolean _instanceOk = false;
 	public static GameServer gameServer;
 	private static ClanHallManager _cHManager;
+    private final Shutdown _shutdownHandler; 
+    private final ThreadPoolManager _threadpools; 
 	private final DoorTable _doorTable;
 	private final SevenSigns _sevenSignsEngine;
 	private final AutoChatHandler _autoChatHandler;
@@ -173,8 +177,8 @@ public class GameServer
 		_log.finest("used mem:" + getUsedMemoryMB() + "MB");
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
-		ThreadPoolManager.getInstance();
-		_idFactory = IdFactory.getInstance();
+        _threadpools = ThreadPoolManager.getInstance(); 
+        _idFactory = IdFactory.getInstance();
 		new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
 		Util.printSection("World");
@@ -446,7 +450,6 @@ public class GameServer
 		}
 		QuestManager.getInstance().report();
 		FaenorScriptEngine.getInstance();
-		Runtime.getRuntime().addShutdownHook(Shutdown.getInstance());
 		Util.printSection("L2JTeon EventManager");
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{
@@ -484,11 +487,50 @@ public class GameServer
 		_log.info("GameServer Started, free memory " + freeMem + " Mb of " + totalMem + " Mb");
 		_loginThread = LoginServerThread.getInstance();
 		_loginThread.start();
-		SelectorServerConfig ssc = new SelectorServerConfig(Config.PORT_GAME);
-		L2GamePacketHandler gph = new L2GamePacketHandler();
-		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
-		_selectorThread.openServerSocket();
+		
+        final SelectorConfig sc = new SelectorConfig(); 
+        sc.MAX_READ_PER_PASS = Config.MMO_MAX_READ_PER_PASS; 
+        sc.MAX_SEND_PER_PASS = Config.MMO_MAX_SEND_PER_PASS; 
+        sc.SLEEP_TIME = Config.MMO_SELECTOR_SLEEP_TIME; 
+        sc.HELPER_BUFFER_COUNT = Config.MMO_HELPER_BUFFER_COUNT; 
+        
+        final L2GamePacketHandler gph = new L2GamePacketHandler(); 
+        _selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, gph, null); 
+        
+		InetAddress bindAddress = null;
+		if (!Config.GAMESERVER_HOSTNAME.equals("*"))
+		{
+			try
+			{
+				bindAddress = InetAddress.getByName(Config.GAMESERVER_HOSTNAME);
+			}
+			catch (UnknownHostException e1)
+			{
+				_log.severe("WARNING: The GameServer bind address is invalid, using all avaliable IPs. Reason: "+e1.getMessage());
+				if (Config.DEVELOPER)
+				{
+					e1.printStackTrace();
+				}
+			}
+		}
+		
+		try
+		{
+			_selectorThread.openServerSocket(bindAddress, Config.PORT_GAME);
+		}
+		catch (IOException e)
+		{
+			_log.severe("FATAL: Failed to open server socket. Reason: "+e.getMessage());
+			if (Config.DEVELOPER)
+			{
+				e.printStackTrace();
+			}
+			System.exit(1);
+		}
+		
 		_selectorThread.start();
+        _shutdownHandler = Shutdown.getInstance(); 
+        Runtime.getRuntime().addShutdownHook(_shutdownHandler); 
 		_log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		// Start IRC Connection
 		if (Config.IRC_LOAD)

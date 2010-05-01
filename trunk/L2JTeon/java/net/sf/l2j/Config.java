@@ -61,6 +61,7 @@ public final class Config
 	public static final String RATES_CONFIG_FILE = "./config/rates.properties";
 	public static final String PVP_CONFIG_FILE = "./config/pvp.properties";
 	public static final String TELNET_FILE = "./config/telnet.properties";
+    public static final String MMO_CONFIG_FILE = "./config/mmo.properties"; 
 	public static final String SERVER_VERSION_FILE = "./config/l2j-version.properties";
 	public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
 	public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
@@ -1389,6 +1390,18 @@ public final class Config
 	public static int MIN_PROTOCOL_REVISION;
 	/** Maximal protocol revision */
 	public static int MAX_PROTOCOL_REVISION;
+	
+    /** ************************************************** **/ 
+    /** MMO Settings - Begin **/ 
+    /** ************************************************** **/
+    public static int MMO_SELECTOR_SLEEP_TIME; 
+    public static int MMO_MAX_SEND_PER_PASS; 
+    public static int MMO_MAX_READ_PER_PASS; 
+    public static int MMO_HELPER_BUFFER_COUNT; 
+    public static int MMO_IO_SELECTOR_THREAD_COUNT; 
+    /** ************************************************** **/ 
+    /** MMO Settings - End **/ 
+    /** ************************************************** **/ 
 	/** Use 3D Map ? */
 	public static boolean USE_3D_MAP;
 	public static boolean CHECK_KNOWN;
@@ -2419,6 +2432,23 @@ public final class Config
 				e.printStackTrace();
 				throw new Error("Failed to Load " + TELNET_FILE + " File.");
 			}
+            // MMO 
+            try 
+            {
+                Properties mmoSettings = new Properties(); 
+                InputStream is = new FileInputStream(new File(MMO_CONFIG_FILE)); 
+                mmoSettings.load(is); 
+                MMO_SELECTOR_SLEEP_TIME = Integer.parseInt(mmoSettings.getProperty("SleepTime", "20")); 
+                MMO_IO_SELECTOR_THREAD_COUNT = Integer.parseInt(mmoSettings.getProperty("IOSelectorThreadCount", "2")); 
+                MMO_MAX_SEND_PER_PASS = Integer.parseInt(mmoSettings.getProperty("MaxSendPerPass", "12")); 
+                MMO_MAX_READ_PER_PASS = Integer.parseInt(mmoSettings.getProperty("MaxReadPerPass", "12")); 
+                MMO_HELPER_BUFFER_COUNT = Integer.parseInt(mmoSettings.getProperty("HelperBufferCount", "20")); 
+            }
+            catch (Exception e) 
+            {
+                e.printStackTrace(); 
+                throw new Error("Failed to Load " + MMO_CONFIG_FILE + " File."); 
+            }
 			// rates
 			try
 			{
@@ -3026,6 +3056,23 @@ public final class Config
 				e.printStackTrace();
 				throw new Error("Failed to Load " + CONFIGURATION_FILE + " File.");
 			}
+            // MMO 
+            try 
+            {
+                Properties mmoSettings = new Properties(); 
+                InputStream is = new FileInputStream(new File(MMO_CONFIG_FILE)); 
+                mmoSettings.load(is); 
+                MMO_SELECTOR_SLEEP_TIME = Integer.parseInt(mmoSettings.getProperty("SleepTime", "20")); 
+                MMO_IO_SELECTOR_THREAD_COUNT = Integer.parseInt(mmoSettings.getProperty("IOSelectorThreadCount", "2")); 
+                MMO_MAX_SEND_PER_PASS = Integer.parseInt(mmoSettings.getProperty("MaxSendPerPass", "12")); 
+                MMO_MAX_READ_PER_PASS = Integer.parseInt(mmoSettings.getProperty("MaxReadPerPass", "12")); 
+                MMO_HELPER_BUFFER_COUNT = Integer.parseInt(mmoSettings.getProperty("HelperBufferCount", "20")); 
+            }
+            catch (Exception e) 
+            {
+                e.printStackTrace(); 
+                throw new Error("Failed to Load " + MMO_CONFIG_FILE + " File."); 
+            }
 			// telnet
 			try
 			{

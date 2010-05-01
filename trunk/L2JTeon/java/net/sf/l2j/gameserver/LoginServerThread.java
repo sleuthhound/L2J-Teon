@@ -117,7 +117,7 @@ public class LoginServerThread extends Thread
 		_gameExternalHost = Config.EXTERNAL_HOSTNAME;
 		_gameInternalHost = Config.INTERNAL_HOSTNAME;
 		_waitingClients = new FastList<WaitingClient>();
-		_accountsInGameServer = new FastMap<String, L2GameClient>().setShared(true);
+		_accountsInGameServer = new FastMap<String, L2GameClient>().shared();
 		_maxPlayer = Config.MAXIMUM_ONLINE_USERS;
 	}
 
@@ -329,7 +329,7 @@ public class LoginServerThread extends Thread
 								{
 									_log.warning("session key is not correct. closing connection");
 									wcToRemove.gameClient.getConnection().sendPacket(new AuthLoginFail(1));
-									wcToRemove.gameClient.closeNow();
+									wcToRemove.gameClient.getConnection().close(null);
 								}
 								_waitingClients.remove(wcToRemove);
 							}
@@ -496,7 +496,7 @@ public class LoginServerThread extends Thread
 	{
 		if (_accountsInGameServer.get(account) != null)
 		{
-			_accountsInGameServer.get(account).closeNow();
+			_accountsInGameServer.get(account).getConnection().close(null);
 			LoginServerThread.getInstance().sendLogout(account);
 		}
 	}
