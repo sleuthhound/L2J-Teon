@@ -254,9 +254,9 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		else
 			return "[" + (address == null ? "disconnected" : address.getHostAddress()) + "]";
 	}
-    @Override 
-    protected void onForcedDisconnection() 
+    @Override
+    protected void onForcedDisconnection()
     {
-        // Empty 
+        // Empty
     }
 }

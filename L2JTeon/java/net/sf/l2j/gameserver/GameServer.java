@@ -141,8 +141,8 @@ public class GameServer
 	public static boolean _instanceOk = false;
 	public static GameServer gameServer;
 	private static ClanHallManager _cHManager;
-    private final Shutdown _shutdownHandler; 
-    private final ThreadPoolManager _threadpools; 
+    private final Shutdown _shutdownHandler;
+    private final ThreadPoolManager _threadpools;
 	private final DoorTable _doorTable;
 	private final SevenSigns _sevenSignsEngine;
 	private final AutoChatHandler _autoChatHandler;
@@ -177,7 +177,7 @@ public class GameServer
 		_log.finest("used mem:" + getUsedMemoryMB() + "MB");
 		Util.printSection("Database");
 		L2DatabaseFactory.getInstance();
-        _threadpools = ThreadPoolManager.getInstance(); 
+        _threadpools = ThreadPoolManager.getInstance();
         _idFactory = IdFactory.getInstance();
 		new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
@@ -487,16 +487,16 @@ public class GameServer
 		_log.info("GameServer Started, free memory " + freeMem + " Mb of " + totalMem + " Mb");
 		_loginThread = LoginServerThread.getInstance();
 		_loginThread.start();
-		
-        final SelectorConfig sc = new SelectorConfig(); 
-        sc.MAX_READ_PER_PASS = Config.MMO_MAX_READ_PER_PASS; 
-        sc.MAX_SEND_PER_PASS = Config.MMO_MAX_SEND_PER_PASS; 
-        sc.SLEEP_TIME = Config.MMO_SELECTOR_SLEEP_TIME; 
-        sc.HELPER_BUFFER_COUNT = Config.MMO_HELPER_BUFFER_COUNT; 
-        
-        final L2GamePacketHandler gph = new L2GamePacketHandler(); 
-        _selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, gph, null); 
-        
+
+        final SelectorConfig sc = new SelectorConfig();
+        sc.MAX_READ_PER_PASS = Config.MMO_MAX_READ_PER_PASS;
+        sc.MAX_SEND_PER_PASS = Config.MMO_MAX_SEND_PER_PASS;
+        sc.SLEEP_TIME = Config.MMO_SELECTOR_SLEEP_TIME;
+        sc.HELPER_BUFFER_COUNT = Config.MMO_HELPER_BUFFER_COUNT;
+
+        final L2GamePacketHandler gph = new L2GamePacketHandler();
+        _selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, gph, null);
+
 		InetAddress bindAddress = null;
 		if (!Config.GAMESERVER_HOSTNAME.equals("*"))
 		{
@@ -513,7 +513,7 @@ public class GameServer
 				}
 			}
 		}
-		
+
 		try
 		{
 			_selectorThread.openServerSocket(bindAddress, Config.PORT_GAME);
@@ -527,10 +527,10 @@ public class GameServer
 			}
 			System.exit(1);
 		}
-		
+
 		_selectorThread.start();
-        _shutdownHandler = Shutdown.getInstance(); 
-        Runtime.getRuntime().addShutdownHook(_shutdownHandler); 
+        _shutdownHandler = Shutdown.getInstance();
+        Runtime.getRuntime().addShutdownHook(_shutdownHandler);
 		_log.config("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		// Start IRC Connection
 		if (Config.IRC_LOAD)
