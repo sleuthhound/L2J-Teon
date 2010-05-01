@@ -34,8 +34,8 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.Server;
 import net.sf.l2j.status.Status;
 
-import com.l2jserver.mmocore.network.SelectorServerConfig;
-import com.l2jserver.mmocore.network.SelectorThread;
+import org.mmocore.network.SelectorConfig;
+import org.mmocore.network.SelectorThread;
 
 /**
  * @author KenM
@@ -175,35 +175,45 @@ public class L2LoginServer
 					e1.printStackTrace();
 			}
 		}
-		SelectorServerConfig ssc = new SelectorServerConfig(bindAddress, Config.PORT_LOGIN);
-		L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
-		SelectorHelper sh = new SelectorHelper();
+        final SelectorConfig sc = new SelectorConfig(); 
+        sc.MAX_READ_PER_PASS = Config.MMO_MAX_READ_PER_PASS; 
+        sc.MAX_SEND_PER_PASS = Config.MMO_MAX_SEND_PER_PASS; 
+        sc.SLEEP_TIME = Config.MMO_SELECTOR_SLEEP_TIME; 
+        sc.HELPER_BUFFER_COUNT = Config.MMO_HELPER_BUFFER_COUNT; 
+        
+        final L2LoginPacketHandler lph = new L2LoginPacketHandler(); 
+        final SelectorHelper sh = new SelectorHelper(); 
 		try
 		{
-			_selectorThread = new SelectorThread<L2LoginClient>(ssc, loginPacketHandler, sh, sh);
-			_selectorThread.setAcceptFilter(sh);
+            _selectorThread = new SelectorThread<L2LoginClient>(sc, sh, lph, sh, sh); 
 		}
 		catch (IOException e)
 		{
 			_log.severe("FATAL: Failed to open Selector. Reason: " + e.getMessage());
 			if (Config.DEVELOPER)
+			{
 				e.printStackTrace();
+			}
 			System.exit(1);
 		}
+
 		try
 		{
 			_gameServerListener = new GameServerListener();
 			_gameServerListener.start();
-			_log.info("Listening for GameServers on " + Config.GAME_SERVER_LOGIN_HOST + ":" + Config.GAME_SERVER_LOGIN_PORT);
+			_log.info("Listening for GameServers on "+Config.GAME_SERVER_LOGIN_HOST+":"+Config.GAME_SERVER_LOGIN_PORT);
 		}
 		catch (IOException e)
 		{
-			_log.severe("FATAL: Failed to start the Game Server Listener. Reason: " + e.getMessage());
+			_log.severe("FATAL: Failed to start the Game Server Listener. Reason: "+e.getMessage());
 			if (Config.DEVELOPER)
+			{
 				e.printStackTrace();
+			}
 			System.exit(1);
 		}
-		if (Config.IS_TELNET_ENABLED)
+
+		if ( Config.IS_TELNET_ENABLED )
 		{
 			try
 			{
@@ -212,22 +222,29 @@ public class L2LoginServer
 			}
 			catch (IOException e)
 			{
-				_log.severe("Failed to start the Telnet Server. Reason: " + e.getMessage());
+				_log.severe("Failed to start the Telnet Server. Reason: "+e.getMessage());
 				if (Config.DEVELOPER)
+				{
 					e.printStackTrace();
+				}
 			}
 		}
 		else
-			System.out.println("Telnet server is currently disabled.");
+		{
+		    _log.info("Telnet server is currently disabled.");
+		}
+
 		try
 		{
-			_selectorThread.openServerSocket();
+			_selectorThread.openServerSocket(bindAddress, Config.PORT_LOGIN);
 		}
 		catch (IOException e)
 		{
-			_log.severe("FATAL: Failed to open server socket. Reason: " + e.getMessage());
+			_log.severe("FATAL: Failed to open server socket. Reason: "+e.getMessage());
 			if (Config.DEVELOPER)
+			{
 				e.printStackTrace();
+			}
 			System.exit(1);
 		}
 		_selectorThread.start();
