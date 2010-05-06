@@ -1803,10 +1803,6 @@ public abstract class L2Character extends L2Object
 		}
 		else
 		{
-			if (Config.KEEP_BUFFS_ON_DEATH && this instanceof L2PcInstance && ((L2PcInstance) this).isDonator())
-			{
-				return false;
-			}
 			stopAllEffects();
 		}
 

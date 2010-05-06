@@ -1013,8 +1013,6 @@ public final class Config
 	/** Configurable addition/subtraction to Running speed. */
 	public static int CUSTOM_RUN_SPEED;
 	public static double MULTIPLE_MCRIT;
-	/** Configurable for donators TO loose Buffs and effects on death */
-	public static boolean KEEP_BUFFS_ON_DEATH;
 	/** Death Penalty chance */
 	public static int DEATH_PENALTY_CHANCE;
 	/** Player can drop AA ? */
@@ -1027,10 +1025,6 @@ public final class Config
 	/** Player can loose Adena on die by pvp ? */
 	public static boolean LOOSE_ADENA_ON_DIE;
 	public static int ADENA_NUMBER_LOST_ON_DIE;
-	/** Player will be automatic 80 lvl on Join ? */
-	public static boolean SET_LVL_ON_START;
-	/** Configuration for an Admin to disallow subclassers to get max level 80 through the SetHighLevelOnStart */
-	public static boolean HIGH_LEVEL_ON_START_FOR_SUBCLASS;
 	/** Configuration to allow custom items to be given on character creation */
 	public static boolean CUSTOM_STARTER_ITEMS_ENABLED;
 	/** Configuration to disable official items given on character creation */
@@ -2696,10 +2690,7 @@ public final class Config
 				Config.ALLOW_DONATORS_UNLEGIT_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorsUnlegit", "False"));
 				CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
 				ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
-				KEEP_BUFFS_ON_DEATH = Boolean.parseBoolean(L2JTeonCustom.getProperty("KeepBuffsOnDeath", "False"));
 				DEATH_PENALTY_CHANCE = Integer.parseInt(L2JTeonCustom.getProperty("DeathPenaltyChance", "20"));
-				SET_LVL_ON_START = Boolean.parseBoolean(L2JTeonCustom.getProperty("SetHighLevelOnStart", "False"));
-				HIGH_LEVEL_ON_START_FOR_SUBCLASS = Boolean.parseBoolean(L2JTeonCustom.getProperty("HighLevelOnStartForSubclass", "True"));
 				CUSTOM_STARTER_ITEMS_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("CustomStarterItemsEnabled", "False"));
 				DISABLE_OFFICIAL_STARTER_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("DisableOfficialStarterItems", "False"));
 				if (Config.CUSTOM_STARTER_ITEMS_ENABLED)
