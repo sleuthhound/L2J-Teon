@@ -366,18 +366,6 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
 		}
-		if (Config.SET_LVL_ON_START && activeChar.getLevel() >= 1 && activeChar.getLevel() < 80)
-		{
-			if (!Config.HIGH_LEVEL_ON_START_FOR_SUBCLASS && activeChar.isSubClassActive())
-				return;
-			activeChar.getStat().addExp(840000000);
-			activeChar.getStat().addExp(840000000);
-			activeChar.getStat().addExp(840000000);
-			activeChar.getStat().addExp(840000000);
-			activeChar.getStat().addExp(840000000);
-			activeChar.getStat().addExp(100000000);
-			activeChar.getStat().addSp(99999999);
-		}
 		if (activeChar.getClan() != null)
 		{
 			activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
