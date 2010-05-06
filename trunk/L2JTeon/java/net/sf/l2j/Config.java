@@ -510,6 +510,9 @@ public final class Config
 	/** Start other.properties */
 	// Amount of adenas when starting a new character
 	public static int STARTING_ADENA;
+	/** Amount of Ancient Adena when starting a new character */
+	public static int STARTING_AA;
+	public static byte STARTING_LEVEL;
 	// Pets
 	public static int WYVERN_SPEED;
 	public static int STRIDER_SPEED;
@@ -1164,8 +1167,6 @@ public final class Config
 	public static int ENCHANT_MAX_ALLOWED_WEAPON;
 	public static int ENCHANT_MAX_ALLOWED_ARMOR;
 	public static int ENCHANT_MAX_ALLOWED_JEWELRY;
-	/** Amount of Ancient Adena when starting a new character */
-	public static int STARTING_AA;
 	/** Check players for illegitimate skills on player entering the server. */
 	public static boolean CHECK_SKILLS_ON_ENTER;
 	/** Code implementation by: Meyknho */
@@ -2076,6 +2077,8 @@ public final class Config
 				RAID_MIN_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMinRespawnMultiplier", "1.0"));
 				RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMaxRespawnMultiplier", "1.0"));
 				STARTING_ADENA = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
+				STARTING_AA = Integer.parseInt(otherSettings.getProperty("StartingAA", "0"));
+				STARTING_LEVEL = Byte.parseByte(otherSettings.getProperty("StartingLevel", "1")); 
 				UNSTUCK_INTERVAL = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
 				/* Player protection after teleport or login */
 				PLAYER_SPAWN_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerSpawnProtection", "0"));
@@ -2762,7 +2765,6 @@ public final class Config
 				LOGIN_RESTART_BY_TIME = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartByTime", "False"));
 				LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
 				SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
-				STARTING_AA = Integer.parseInt(L2JTeonCustom.getProperty("StartingAA", "0"));
 				CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "False"));
 				ALLOWED_SKILLS = L2JTeonCustom.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
 				ALLOWED_SKILLS_LIST = new FastList<Integer>();
@@ -3525,6 +3527,10 @@ public final class Config
 		else if (pName.equalsIgnoreCase("StartingAdena"))
 		{
 			STARTING_ADENA = Integer.parseInt(pValue);
+		}
+		else if (pName.equalsIgnoreCase("StartingLevel")) 
+		{
+			STARTING_LEVEL = Byte.parseByte(pValue);
 		}
 		else if (pName.equalsIgnoreCase("StartingAA"))
 		{
