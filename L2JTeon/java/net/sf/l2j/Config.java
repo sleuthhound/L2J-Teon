@@ -66,7 +66,7 @@ public final class Config
 	public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
 	public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
 	public static final String HEXID_FILE = "./config/hexid.txt";
-	public static final String CHAT_FILTER_FILE = "./config/chatfilter.txt";
+	public static final String CHAT_FILTER_FILE = "./config/ChatFilter.txt";
 	public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
 	public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
 	public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";
@@ -235,12 +235,12 @@ public final class Config
 	public static float ALT_LOTTERY_3_NUMBER_RATE;
 	public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
 	// Chat Filter Configs
-	public static boolean	USE_CHAT_FILTER;
-	public static ArrayList<String> FILTER_LIST = new ArrayList();
-	public static String	CHAT_FILTER_CHARS;
-	public static String	CHAT_FILTER_PUNISHMENT;
-	public static int		CHAT_FILTER_PUNISHMENT_PARAM1;
-	public static int		CHAT_FILTER_PUNISHMENT_PARAM2;
+	public static int     CHAT_FILTER_PUNISHMENT_PARAM1; 
+	public static int     CHAT_FILTER_PUNISHMENT_PARAM2; 
+	public static boolean USE_SAY_FILTER; 
+	public static String  CHAT_FILTER_CHARS; 
+	public static String  CHAT_FILTER_PUNISHMENT; 
+	public static ArrayList<String> FILTER_LIST = new ArrayList<String>();
 	// For development
 	public static boolean ALT_DEV_NO_QUESTS;
 	public static boolean ALT_DEV_NO_SPAWNS;
@@ -1624,29 +1624,8 @@ public final class Config
 				ALT_LOTTERY_4_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery4NumberRate", "0.2"));
 				ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate", "0.2"));
 				ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize", "200"));
-				USE_CHAT_FILTER = Boolean.parseBoolean(altSettings.getProperty("UseChatFilter", "False"));
-		        if (USE_CHAT_FILTER)
-		        {
-		          try
-		          {
-		            LineNumberReader lnr = new LineNumberReader(new BufferedReader(new FileReader(new File("./config/ChatFilter.txt"))));
-		            String line = null;
-		            while ((line = lnr.readLine()) != null)
-		            {
-		              if (line.trim().length() == 0) continue; if (line.startsWith("#"))
-		                continue;
-		              FILTER_LIST.add(line.trim());
-		            }
-		            _log.info("# Chat Filter: Loaded " + FILTER_LIST.size() + " words #");
-		          }
-		          catch (Exception e)
-		          {
-		            e.printStackTrace();
-		            throw new Error("Failed to Load ./config/ChatFilter.txt File.");
-		          }
-		        }
-				CHAT_FILTER_CHARS = altSettings.getProperty("ChatFilterChars", "***");
-				CHAT_FILTER_PUNISHMENT = altSettings.getProperty("ChatFilterPunishment", "off");
+				USE_SAY_FILTER = Boolean.parseBoolean(altSettings.getProperty("UseChatFilter", "false"));
+				CHAT_FILTER_CHARS = altSettings.getProperty("ChatFilterChars", "***");				CHAT_FILTER_PUNISHMENT = altSettings.getProperty("ChatFilterPunishment", "off");
 				CHAT_FILTER_PUNISHMENT_PARAM1 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam1", "1"));
 				CHAT_FILTER_PUNISHMENT_PARAM2 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam2", "1"));
 				BUFFS_MAX_AMOUNT = Byte.parseByte(altSettings.getProperty("MaxBuffAmount", "20"));
@@ -1804,6 +1783,30 @@ public final class Config
 			{
 				e.printStackTrace();
 				throw new Error("Failed to Load " + ENCHANT_CONFIG_FILE + " File.");
+			}
+			// Chat Filter File
+			try
+			{
+				Properties ChatFilter = new Properties();
+				InputStream is = new FileInputStream(new File(CHAT_FILTER_FILE));
+				ChatFilter.load(is);
+				is.close();
+
+				LineNumberReader lnr = new LineNumberReader(new BufferedReader(new FileReader(new File(CHAT_FILTER_FILE))));
+				String line = null;
+				while ((line = lnr.readLine()) != null)
+				{
+					if (line.trim().length() == 0 || line.startsWith("#"))
+						continue;
+		
+					FILTER_LIST.add(line.trim());
+				}
+				_log.info("Loaded " + FILTER_LIST.size() + " Filter Words.");
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				throw new Error("Failed to Load " + CHAT_FILTER_FILE + " File.");
 			}
 			// FloodProtector
 			try
@@ -4087,5 +4090,13 @@ public final class Config
 			_log.warning("Failed to save hex id to " + fileName + " File.");
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * Clear all buffered filter words on memory.
+	 */
+	public static void unallocateFilterBuffer()
+	{
+		_log.info("Cleaning Chat Filter..");
+		FILTER_LIST.clear();
 	}
 }
