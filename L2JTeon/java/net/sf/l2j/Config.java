@@ -2078,7 +2078,7 @@ public final class Config
 				RAID_MAX_RESPAWN_MULTIPLIER = Float.parseFloat(otherSettings.getProperty("RaidMaxRespawnMultiplier", "1.0"));
 				STARTING_ADENA = Integer.parseInt(otherSettings.getProperty("StartingAdena", "100"));
 				STARTING_AA = Integer.parseInt(otherSettings.getProperty("StartingAA", "0"));
-				STARTING_LEVEL = Byte.parseByte(otherSettings.getProperty("StartingLevel", "1")); 
+				STARTING_LEVEL = Byte.parseByte(otherSettings.getProperty("StartingLevel", "1"));
 				UNSTUCK_INTERVAL = Integer.parseInt(otherSettings.getProperty("UnstuckInterval", "300"));
 				/* Player protection after teleport or login */
 				PLAYER_SPAWN_PROTECTION = Integer.parseInt(otherSettings.getProperty("PlayerSpawnProtection", "0"));
@@ -3528,7 +3528,7 @@ public final class Config
 		{
 			STARTING_ADENA = Integer.parseInt(pValue);
 		}
-		else if (pName.equalsIgnoreCase("StartingLevel")) 
+		else if (pName.equalsIgnoreCase("StartingLevel"))
 		{
 			STARTING_LEVEL = Byte.parseByte(pValue);
 		}

@@ -173,7 +173,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		L2PcTemplate template = newChar.getTemplate();
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
 		newChar.addAncientAdena("Init", Config.STARTING_AA, null, false);
-		if (Config.STARTING_LEVEL > 1) 
+		if (Config.STARTING_LEVEL > 1)
 		{
 			newChar.getStat().addLevel(--Config.STARTING_LEVEL);
 		}
