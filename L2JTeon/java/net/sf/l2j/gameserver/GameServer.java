@@ -181,10 +181,6 @@ public class GameServer
         _idFactory = IdFactory.getInstance();
 		new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
-        if(Config.USE_SAY_FILTER)  
-        {
-            new File("ChatFilter.txt").createNewFile(); 
-        }
 		Util.printSection("World");
 		L2World.getInstance();
 		// load script engines
