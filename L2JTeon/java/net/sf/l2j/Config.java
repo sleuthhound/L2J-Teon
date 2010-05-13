@@ -235,11 +235,11 @@ public final class Config
 	public static float ALT_LOTTERY_3_NUMBER_RATE;
 	public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
 	// Chat Filter Configs
-	public static int     CHAT_FILTER_PUNISHMENT_PARAM1; 
-	public static int     CHAT_FILTER_PUNISHMENT_PARAM2; 
-	public static boolean USE_SAY_FILTER; 
-	public static String  CHAT_FILTER_CHARS; 
-	public static String  CHAT_FILTER_PUNISHMENT; 
+	public static int     CHAT_FILTER_PUNISHMENT_PARAM1;
+	public static int     CHAT_FILTER_PUNISHMENT_PARAM2;
+	public static boolean USE_SAY_FILTER;
+	public static String  CHAT_FILTER_CHARS;
+	public static String  CHAT_FILTER_PUNISHMENT;
 	public static ArrayList<String> FILTER_LIST = new ArrayList<String>();
 	// For development
 	public static boolean ALT_DEV_NO_QUESTS;
@@ -953,7 +953,8 @@ public final class Config
 	/** Config to Enable Donator Auto revive. */
 	public static boolean DONATORS_REVIVE;
 	/** Config to Enable Custom Hero Item */
-	public static boolean HERO_CUSTOM_ITEMS;
+	public static boolean ALLOW_HERO_CUSTOM_ITEM;
+	public static int HERO_CUSTOM_ITEM_ID;
 	/** Config to Enable Donators Pass Check Unlegit skills. */
 	public static boolean ALLOW_DONATORS_UNLEGIT_SKILLS;
 	/** Config to choose koofs Color on Enter. */
@@ -1642,7 +1643,7 @@ public final class Config
 					Properties clanSettings = new Properties();
 					is = new FileInputStream(new File(CLAN_SETTINGS_FILE));
 					clanSettings.load(is);
-	
+
 					ALT_CLAN_JOIN_DAYS = Integer.parseInt(clanSettings.getProperty("DaysBeforeJoinAClan", "5"));
 					ALT_CLAN_CREATE_DAYS = Integer.parseInt(clanSettings.getProperty("DaysBeforeCreateAClan", "10"));
 					ALT_CLAN_DISSOLVE_DAYS = Integer.parseInt(clanSettings.getProperty("DaysToPassToDissolveAClan", "7"));
@@ -1654,7 +1655,7 @@ public final class Config
 					ALT_CLAN_MEMBERS_FOR_WAR = Integer.parseInt(clanSettings.getProperty("AltClanMembersForWar", "15"));
 					ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(clanSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 					ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(clanSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
-	
+
 					// ********************//
 					/* Clan. Customizes. */
 					// ********************//
@@ -1745,7 +1746,7 @@ public final class Config
 					Properties Enchant = new Properties();
 					is = new FileInputStream(new File(ENCHANT_CONFIG_FILE));
 					Enchant.load(is);
-	
+
 					/* chance to enchant an item over +3 */
 					ENCHANT_CHANCE_WEAPON = Integer.parseInt(Enchant.getProperty("EnchantChanceWeapon", "68"));
 					ENCHANT_CHANCE_ARMOR = Integer.parseInt(Enchant.getProperty("EnchantChanceArmor", "52"));
@@ -1768,12 +1769,12 @@ public final class Config
 					ENCHANT_SAFE_MAX = Integer.parseInt(Enchant.getProperty("EnchantSafeMax", "3"));
 					/* limit of safe enchant full */
 					ENCHANT_SAFE_MAX_FULL = Integer.parseInt(Enchant.getProperty("EnchantSafeMaxFull", "4"));
-	
+
 					GM_OVER_ENCHANT = Integer.parseInt(Enchant.getProperty("GMOverEnchant", "25"));
 					ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedWeapon", "25"));
 					ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedArmor", "25"));
 					ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedJewelry", "25"));
-	
+
 				}
 				catch (Exception e)
 				{
@@ -1793,7 +1794,7 @@ public final class Config
 					{
 						if (line.trim().length() == 0 || line.startsWith("#"))
 							continue;
-			
+
 						FILTER_LIST.add(line.trim());
 					}
 					_log.info("Loaded " + FILTER_LIST.size() + " Filter Words.");
@@ -2159,7 +2160,7 @@ public final class Config
 					Properties CustomTables = new Properties();
 					is = new FileInputStream(new File(CUSTOM_TABLES_FILE));
 					CustomTables.load(is);
-	
+
 					CUSTOM_SPAWNLIST_TABLE = Boolean.parseBoolean(CustomTables.getProperty("CustomSpawnlistTable", "False"));
 					SAVE_GMSPAWN_ON_CUSTOM = Boolean.parseBoolean(CustomTables.getProperty("SaveGmSpawnOnCustom", "False"));
 					DELETE_GMSPAWN_ON_CUSTOM = Boolean.parseBoolean(CustomTables.getProperty("DeleteGmSpawnOnCustom", "False"));
@@ -2183,72 +2184,72 @@ public final class Config
 					Properties Balance = new Properties();
 					is = new FileInputStream(new File(BALANCE_CONFIG_FILE));
 					Balance.load(is);
-	
+
 					ENABLE_BALANCE = Boolean.parseBoolean(Balance.getProperty("EnableBalanceClasses", "False"));
-	
+
 					FIGHT_P_DMG = Float.parseFloat(Balance.getProperty("PDamageFightInitial", "1.0"));
 					FIGHT_M_DMG = Float.parseFloat(Balance.getProperty("MDamageFightInitial", "1.0"));
-	
+
 					KNIGHT_P_DMG = Float.parseFloat(Balance.getProperty("PDamageKnight", "1.0"));
 					KNIGHT_M_DMG = Float.parseFloat(Balance.getProperty("MDamageKnight", "1.0"));
-	
+
 					ROGUE_P_DMG = Float.parseFloat(Balance.getProperty("PDamageRogue", "1.0"));
 					ROGUE_M_DMG = Float.parseFloat(Balance.getProperty("MDamageRogue", "1.0"));
-	
+
 					MAGE_INI_P_DMG = Float.parseFloat(Balance.getProperty("PDamageMageInitial", "1.0"));
 					MAGE_INI_M_DMG = Float.parseFloat(Balance.getProperty("MDamageMageInitial", "1.0"));
-	
+
 					WIZARD_P_DMG = Float.parseFloat(Balance.getProperty("PDamageWizard", "1.0"));
 					WIZARD_M_DMG = Float.parseFloat(Balance.getProperty("MDamageWizard", "1.0"));
-	
+
 					DAGGER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageDagger", "1.0"));
 					DAGGER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageDagger", "1.0"));
-	
+
 					ARCHER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageArcher", "1.0"));
 					ARCHER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageArcher", "1.0"));
-	
+
 					TANKER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageTanker", "1.0"));
 					TANKER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageTanker", "1.0"));
-	
+
 					DUAL_P_DMG = Float.parseFloat(Balance.getProperty("PDamageDual", "1.0"));
 					DUAL_M_DMG = Float.parseFloat(Balance.getProperty("MDamageDual", "1.0"));
-	
+
 					POLE_P_DMG = Float.parseFloat(Balance.getProperty("PDamagePole", "1.0"));
 					POLE_M_DMG = Float.parseFloat(Balance.getProperty("MDamagePole", "1.0"));
-	
+
 					MAGE_P_DMG = Float.parseFloat(Balance.getProperty("PDamageMage", "1.0"));
 					MAGE_M_DMG = Float.parseFloat(Balance.getProperty("MDamageMage", "1.0"));
-	
+
 					ORC_MONK_P_DMG = Float.parseFloat(Balance.getProperty("PDamageOrcMonk", "1.0"));
 					ORC_MONK_M_DMG = Float.parseFloat(Balance.getProperty("MDamageOrcMonk", "1.0"));
-	
+
 					ORC_RAIDER_P_DMG = Float.parseFloat(Balance.getProperty("PDamageOrcRaider", "1.0"));
 					ORC_RAIDER_M_DMG = Float.parseFloat(Balance.getProperty("MDamageOrcRaider", "1.0"));
-	
+
 					DWARF_P_DMG = Float.parseFloat(Balance.getProperty("PDamageDwarf", "1.0"));
 					DWARF_M_DMG = Float.parseFloat(Balance.getProperty("MDamageDwarf", "1.0"));
-	
+
 					ALT_PETS_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltPDamagePets", "1.00"));
 					ALT_PETS_MAGICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltMDamagePets", "1.00"));
 					ALT_NPC_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltPDamageNpc", "1.00"));
 					ALT_NPC_MAGICAL_DAMAGE_MULTI = Float.parseFloat(Balance.getProperty("AltMDamageNpc", "1.00"));
-	
+
 					MAX_RUN_SPEED = Integer.parseInt(Balance.getProperty("MaxRunSpeed", "250"));
 					MAX_EVASION = Integer.parseInt(Balance.getProperty("MaxEvasion", "200"));
 					MAX_MCRIT_RATE = Integer.parseInt(Balance.getProperty("MaxMCritRate", "150"));
 					MAX_RCRIT = Integer.parseInt(Balance.getProperty("MaxCritical", "500"));
 					MAX_PATK_SPEED = Integer.parseInt(Balance.getProperty("MaxPAtkSpeed", "1800"));
 					MAX_MATK_SPEED = Integer.parseInt(Balance.getProperty("MaxMAtkSpeed", "2500"));
-	
+
 					DAGGER_RECUDE_DMG_VS_ROBE = Float.parseFloat(Balance.getProperty("DaggerReduceDmgVSRobe", "1.00"));
 					DAGGER_RECUDE_DMG_VS_LIGHT = Float.parseFloat(Balance.getProperty("DaggerReduceDmgVSLight", "1.00"));
 					DAGGER_RECUDE_DMG_VS_HEAVY = Float.parseFloat(Balance.getProperty("DaggerReduceDmgVSHeavy", "1.00"));
 					FRONT_BLOW_SUCCESS = Integer.parseInt(Balance.getProperty("FrontBlow", "50"));
 					BACK_BLOW_SUCCESS = Integer.parseInt(Balance.getProperty("BackBlow", "70"));
 					SIDE_BLOW_SUCCESS = Integer.parseInt(Balance.getProperty("SideBlow", "60"));
-	
+
 					CUSTOM_RUN_SPEED = Integer.parseInt(Balance.getProperty("CustomRunSpeed", "0"));
-	
+
 					MULTIPLE_MCRIT = Double.parseDouble(Balance.getProperty("MultipleMCrit", "4.0"));
 				}
 				catch (Exception e)
@@ -2668,7 +2669,8 @@ public final class Config
 					DONATOR_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("DonatorColorName", "00FFFF"));
 					DONATOR_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorItems", "False"));
 					DONATORS_REVIVE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorAutoRevive", "False"));
-					HERO_CUSTOM_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnableHeroCustomItem", "False"));
+					ALLOW_HERO_CUSTOM_ITEM = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowHeroCustomItem", "False"));
+					HERO_CUSTOM_ITEM_ID = Integer.parseInt(L2JTeonCustom.getProperty("HeroCustomItemID", "7196"));
 					Config.ALLOW_DONATORS_UNLEGIT_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorsUnlegit", "False"));
 					CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
 					ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
@@ -3026,7 +3028,7 @@ public final class Config
 					NORMAL_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("NormalConnectionTime", "700"));
 					FAST_CONNECTION_TIME = Integer.parseInt(serverSettings.getProperty("FastConnectionTime", "350"));
 					MAX_CONNECTION_PER_IP = Integer.parseInt(serverSettings.getProperty("MaxConnectionPerIP", "50"));
-	
+
 					DATABASE_AUTO_ANALYZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoAnalyze", "False"));
 					DATABASE_AUTO_CHECK = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoCheck", "False"));
 					DATABASE_AUTO_OPTIMIZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoOptimize", "False"));
