@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2WarehouseInstance;
 import net.sf.l2j.gameserver.model.item.ItemContainer;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -30,6 +31,7 @@ import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ... 32 SendWareHouseWithDrawList cd (dd) WootenGil rox :P
@@ -86,9 +88,23 @@ public final class SendWareHouseWithDrawList extends L2GameClientPacket
 			player.sendMessage("Transactions are disable for your Access Level");
 			return;
 		}
+		player.cancelActiveTrade();
 		if (!player.getFloodProtectors().getWerehouse().tryPerformAction("werehouse"))
 		{
 			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		L2WarehouseInstance target = null;
+		if (player.getActiveEnchantItem() != null && target instanceof L2WarehouseInstance)
+		{
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
+			return;
+		}
+		if (player.getActiveEnchantItem() != null)
+		{
+			Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to use enchant Exploit!", Config.DEFAULT_PUNISH);
+			player.closeNetConnection(); // kick
 			return;
 		}
 		// Alt game - Karma punishment
