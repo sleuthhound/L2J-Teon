@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 
 /**
- * @author Stefoulis15
+ * @author DaRkRaGe
  */
 public class HeroCustomItem  implements IItemHandler
 {
@@ -38,16 +38,24 @@ public class HeroCustomItem  implements IItemHandler
         if(Config.ALLOW_HERO_CUSTOM_ITEM)
         {
             if(!(playable instanceof L2PcInstance))
-                return;
+            {
+            	return;
+            }
             L2PcInstance activeChar = (L2PcInstance)playable;
-            if(activeChar.isHero())activeChar.sendMessage("You Are Already A Hero!");
-                if (activeChar.isInOlympiadMode())activeChar.sendMessage("This Item Cannot Be Used On Olympiad Games.");
-                if (!activeChar.isNoble() && Config.NOBLE_STATUS_NEEDED_TO_USE_HERO_ITEM)
-                {
-                 activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-                 activeChar.sendMessage("You Must be a Noblesse In Order To Use the Hero Item!");
-                }
-                else
+            if(activeChar.isHero())
+            {
+            	activeChar.sendMessage("You Are Already A Hero!");
+            }
+            if (activeChar.isInOlympiadMode())
+            {
+            	activeChar.sendMessage("This Item Cannot Be Used On Olympiad Games.");
+            }
+            if (!activeChar.isNoble())
+            {
+            	activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+            	activeChar.sendMessage("You Must be a Noblesse In Order To Use the Hero Item!");
+            }
+            else
             {
                 activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 16));
                 activeChar.setHero(true);
