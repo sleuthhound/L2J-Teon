@@ -23,39 +23,44 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 
 /**
- * @author DaRkRaGe
+ * @author Stefoulis15
  */
-public class HeroCustomItem implements IItemHandler
+public class HeroCustomItem  implements IItemHandler
 {
-	private static final int[] ITEM_IDS = { 3481 };
+    private static final int ITEM_IDS[] =
+    {
+        Config.HERO_CUSTOM_ITEM_ID
+    };
 
-	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
-	{
-		if (Config.HERO_CUSTOM_ITEMS)
-		{
-			if (!(playable instanceof L2PcInstance))
-			{
-				return;
-			}
-			L2PcInstance activeChar = (L2PcInstance) playable;
-			if (activeChar.isHero())
-			{
-				activeChar.sendMessage("U Allready have Hero Status.");
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-			}
-			else
-			{
-				activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 16));
-				activeChar.setHero(true);
-				activeChar.sendMessage("You are now a hero, you will remain a hero until you log off your character.");
-				activeChar.broadcastUserInfo();
-				playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-			}
-		}
-	}
+    public void useItem(L2PlayableInstance playable, L2ItemInstance item)
+    {
 
-	public int[] getItemIds()
-	{
-		return ITEM_IDS;
-	}
+        if(Config.ALLOW_HERO_CUSTOM_ITEM)
+        {
+            if(!(playable instanceof L2PcInstance))
+                return;
+            L2PcInstance activeChar = (L2PcInstance)playable;
+            if(activeChar.isHero())activeChar.sendMessage("You Are Already A Hero!");
+                if (activeChar.isInOlympiadMode())activeChar.sendMessage("This Item Cannot Be Used On Olympiad Games.");
+                if (!activeChar.isNoble() && Config.NOBLE_STATUS_NEEDED_TO_USE_HERO_ITEM)
+                {
+                 activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+                 activeChar.sendMessage("You Must be a Noblesse In Order To Use the Hero Item!");
+                }
+                else
+            {
+                activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 16));
+                activeChar.setHero(true);
+                activeChar.sendMessage("You Are Now a Hero,You Are Granted With Hero Status , Skills ,Aura. This Effect Will Stop When You Restart.");
+                activeChar.broadcastUserInfo();
+                playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
+                activeChar.getInventory().addItem("Wings", 6842, 1, activeChar, null);
+            }
+        }
+    }
+
+    public int[] getItemIds()
+    {
+        return ITEM_IDS;
+    }
 }

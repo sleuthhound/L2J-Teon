@@ -15,7 +15,7 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
 import java.nio.BufferUnderflowException;
-import java.sql.Connection;  
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -114,10 +114,10 @@ public final class Say2 extends L2GameClientPacket
 			_log.warning("Say2: Max input exceeded.");
 			return;
 		}
-        // Say Filter implementation  
-        if (Config.USE_SAY_FILTER)  
+        // Say Filter implementation
+        if (Config.USE_SAY_FILTER)
         {
-            checkText(activeChar); 
+            checkText(activeChar);
         }
 		// player chat banned?
 		if (activeChar.isChatBanned())
@@ -166,12 +166,12 @@ public final class Say2 extends L2GameClientPacket
 		if (Config.USE_SAY_FILTER)
 		{
 			String filteredText = _text;
-	
+
 			for (String pattern : Config.FILTER_LIST)
 			{
 				filteredText = filteredText.replaceAll("(?i)" + pattern, Config.CHAT_FILTER_CHARS);
 			}
-	
+
 			if (Config.CHAT_FILTER_PUNISHMENT.equalsIgnoreCase("jail") && _text != filteredText)
 			{
 				int punishmentLength = 0;
@@ -186,11 +186,11 @@ public final class Say2 extends L2GameClientPacket
 					{
 						con = L2DatabaseFactory.getInstance().getConnection();
 						PreparedStatement statement;
-	
+
 						statement = con.prepareStatement("SELECT value FROM account_data WHERE (account_name=?) AND (var='jail_time')");
 						statement.setString(1, activeChar.getAccountName());
 						ResultSet rset = statement.executeQuery();
-	
+
 						if (!rset.next())
 						{
 							punishmentLength = Config.CHAT_FILTER_PUNISHMENT_PARAM1;
