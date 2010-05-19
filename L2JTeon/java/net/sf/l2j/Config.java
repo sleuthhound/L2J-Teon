@@ -1411,6 +1411,7 @@ public final class Config
 	public static int PATH_NODE_RADIUS;
 	public static int NEW_NODE_ID;
 	public static int SELECTED_NODE_ID;
+	public static boolean TOGGLE_WEAPON_ALLOWED;
 	public static int LINKED_NODE_ID;
 	public static String NEW_NODE_TYPE;
 	/** Time between 2 updates of IP */
@@ -2137,6 +2138,7 @@ public final class Config
 					Properties General = new Properties();
 					is = new FileInputStream(new File(GENERAL_CONFIG_FILE));
 					General.load(is);
+					TOGGLE_WEAPON_ALLOWED = Boolean.parseBoolean(General.getProperty("ToggleWeaponIsAllowed", "True"));
 					/** Devastated Castle */
 					DEVASTATED_CASTLE_ENABLED = Boolean.parseBoolean(General.getProperty("DevastatedCastleEnabled", "False"));
 					/** Fortress of The Dead */

@@ -1872,7 +1872,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		for (L2Effect currenteffect : getAllEffects())
 		{
 			L2Skill effectSkill = currenteffect.getSkill();
-			if (currenteffect.getSkill().isToggle())
+			if (currenteffect.getSkill().isToggle() && !Config.TOGGLE_WEAPON_ALLOWED)
 				currenteffect.exit();
 			// Ignore all buff skills that are party related (ie. songs, dances)
 			// while still remaining weapon dependant on cast though.
