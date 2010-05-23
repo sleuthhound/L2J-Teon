@@ -238,22 +238,25 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			activeChar.inSoloEvent = false;
 			if (L2RaidEvent._eventType == 2)
 			{
-				if (L2RaidEvent._participatingPlayers.contains(activeChar))
+				if (L2RaidEvent._participatingPlayers.contains(activeChar)) {
 					// Clear player from Event.
 					L2RaidEvent._participatingPlayers.remove(activeChar);
+				}
 			}
 			if (L2RaidEvent._eventType == 3)
 			{
-				if (activeChar.getParty() != null)
+				if (activeChar.getParty() != null) {
 					activeChar.leaveParty();
+				}
 				activeChar.sendMessage("You have been kicked from the party");
 			}
 			activeChar.sendMessage("You've been erased from the event!");
 			int num = L2RaidEvent._participatingPlayers.size();
-			if (num > 0 && num != 1)
+			if (num > 0 && num != 1) {
 				num -= 1;
-			else
+			} else {
 				L2RaidEvent.hardFinish();
+			}
 		}
 		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 		if (castle != null && castle.getSiege().getIsInProgress())
@@ -263,8 +266,9 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			{
 				// Schedule respawn delay for attacker
 				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
-				if (castle.getSiege().getAttackerRespawnDelay() > 0)
+				if (castle.getSiege().getAttackerRespawnDelay() > 0) {
 					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay() / 1000 + " seconds");
+				}
 				return;
 			}
 		}

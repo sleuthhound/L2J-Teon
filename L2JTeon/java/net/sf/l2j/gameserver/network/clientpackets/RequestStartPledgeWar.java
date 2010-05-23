@@ -42,11 +42,13 @@ public final class RequestStartPledgeWar extends L2GameClientPacket
 	protected void runImpl()
 	{
 		player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		_clan = getClient().getActiveChar().getClan();
-		if (_clan == null)
+		if (_clan == null) {
 			return;
+		}
 		if (_clan.getLevel() < 3 || _clan.getMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER);
@@ -132,8 +134,9 @@ public final class RequestStartPledgeWar extends L2GameClientPacket
 		ClanTable.getInstance().storeclanswars(player.getClanId(), clan.getClanId());
 		for (L2PcInstance cha : L2World.getInstance().getAllPlayers())
 		{
-			if (cha.getClan() == player.getClan() || cha.getClan() == clan)
+			if (cha.getClan() == player.getClan() || cha.getClan() == clan) {
 				cha.broadcastUserInfo();
+			}
 		}
 	}
 

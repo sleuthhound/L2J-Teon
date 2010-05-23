@@ -44,14 +44,17 @@ public final class RequestExAskJoinMPCC extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		L2PcInstance player = L2World.getInstance().getPlayer(_name);
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		// invite yourself? ;)
-		if (activeChar.isInParty() && player.isInParty() && activeChar.getParty().equals(player.getParty()))
+		if (activeChar.isInParty() && player.isInParty() && activeChar.getParty().equals(player.getParty())) {
 			return;
+		}
 		// activeChar is in a Party?
 		if (activeChar.isInParty())
 		{
@@ -122,9 +125,9 @@ public final class RequestExAskJoinMPCC extends L2GameClientPacket
 	private void askJoinMPCC(L2PcInstance requestor, L2PcInstance target)
 	{
 		boolean hasRight = false;
-		if (requestor.getClan() != null && requestor.getClan().getLeaderId() == requestor.getObjectId()) // Clanleader
+		if (requestor.getClan() != null && requestor.getClan().getLeaderId() == requestor.getObjectId()) {
 			hasRight = true;
-		else if (requestor.getInventory().getItemByItemId(8871) != null) // 8871
+		} else if (requestor.getInventory().getItemByItemId(8871) != null) {
 			// Strategy
 			// Guide.
 			// Should
@@ -133,7 +136,7 @@ public final class RequestExAskJoinMPCC extends L2GameClientPacket
 			// sucessfull
 			// invite?
 			hasRight = true;
-		else
+		} else
 		{
 			for (L2Skill skill : requestor.getAllSkills())
 			{

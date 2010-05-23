@@ -186,11 +186,13 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk(getActiveChar()); if (Config.DEBUG) { _log.fine("active Char saved"); } this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0)
+		if (objid < 0) {
 			return null;
+		}
 		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0)
+		if (character.getClanId() != 0) {
 			return character;
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -227,11 +229,13 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if (Config.DEBUG) _log.fine("active Char saved"); this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0)
+		if (objid < 0) {
 			return null;
+		}
 		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0)
+		if (character.getClanId() != 0) {
 			return character;
+		}
 		deleteCharByObjId(objid);
 		return null;
 	}
@@ -258,8 +262,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if (Config.DEBUG) _log.fine("active Char saved"); this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0)
+		if (objid < 0) {
 			return;
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -287,8 +292,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	public static void deleteCharByObjId(int objid)
 	{
-		if (objid < 0)
+		if (objid < 0) {
 			return;
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -464,10 +470,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		if (this.getActiveChar() != null && !this.getActiveChar().getFloodProtectors().getWnk().tryPerformAction("unknownPacketCount"))
 		{
 			unknownPacketCount++;
-			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS)
+			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		}
 		else
 		{

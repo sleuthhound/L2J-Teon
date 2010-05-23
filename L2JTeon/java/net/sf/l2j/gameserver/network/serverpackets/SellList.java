@@ -71,8 +71,9 @@ public class SellList extends L2GameServerPacket
 				// summoned the pet
 				{
 					_selllist.add(item);
-					if (Config.DEBUG)
+					if (Config.DEBUG) {
 						_log.fine("item added to selllist: " + item.getItem().getName());
+					}
 				}
 			}
 		}
@@ -97,7 +98,7 @@ public class SellList extends L2GameServerPacket
 			writeH(item.getEnchantLevel());
 			writeH(0x00);
 			writeH(0x00);
-			if (_lease == null)
+			if (_lease == null) {
 				writeD(item.getItem().getReferencePrice() / 2); // wtf??? there
 			// is no
 			// conditional
@@ -113,6 +114,7 @@ public class SellList extends L2GameServerPacket
 			// use so the if
 			// allways
 			// exectues
+			}
 		}
 	}
 

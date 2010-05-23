@@ -51,11 +51,13 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("request unequip slot " + _slot);
+		}
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		if (activeChar._haveFlagCTF)
 		{
 			activeChar.sendMessage("You can't unequip a CTF flag.");
@@ -79,8 +81,9 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			activeChar.sendMessage("Your status does not allow you to do that.");
 			return;
 		}
-		if (activeChar.isCastingNow())
+		if (activeChar.isCastingNow()) {
 			return;
+		}
 		// Remove augmentation bonus
 		if (item != null && item.isAugmented())
 		{

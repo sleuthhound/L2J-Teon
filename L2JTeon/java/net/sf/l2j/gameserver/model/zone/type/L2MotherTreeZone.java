@@ -41,9 +41,11 @@ public class L2MotherTreeZone extends L2ZoneType
 			L2PcInstance player = (L2PcInstance) character;
 			if (player.isInParty())
 			{
-				for (L2PcInstance member : player.getParty().getPartyMembers())
-					if (member.getRace() != Race.elf)
+				for (L2PcInstance member : player.getParty().getPartyMembers()) {
+					if (member.getRace() != Race.elf) {
 						return;
+					}
+				}
 			}
 			player.setInsideZone(L2Character.ZONE_MOTHERTREE, true);
 			player.sendPacket(new SystemMessage(SystemMessageId.ENTER_SHADOW_MOTHER_TREE));

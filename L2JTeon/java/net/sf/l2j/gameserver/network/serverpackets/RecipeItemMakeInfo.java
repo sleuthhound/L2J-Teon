@@ -62,8 +62,9 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
 			writeD(_activeChar.getMaxMp());
 			writeD(_success ? 1 : 0); // item creation success/failed
 		}
-		else if (Config.DEBUG)
+		else if (Config.DEBUG) {
 			_log.info("No recipe found with ID = " + _id);
+		}
 	}
 
 	/*

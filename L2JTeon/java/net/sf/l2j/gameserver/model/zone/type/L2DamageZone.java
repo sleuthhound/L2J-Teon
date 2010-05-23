@@ -50,9 +50,9 @@ public class L2DamageZone extends L2ZoneType
 		else if (name.equals("dmgMPSec"))
 		{
 			_damageMPPerSec = Integer.parseInt(value);
-		}
-		else
+		} else {
 			super.setParameter(name, value);
+		}
 	}
 
 	@Override
@@ -104,10 +104,12 @@ public class L2DamageZone extends L2ZoneType
 			{
 				if (temp != null && !temp.isDead())
 				{
-					if (getHPDamagePerSecond() != 0)
+					if (getHPDamagePerSecond() != 0) {
 						temp.reduceCurrentHp(_dmgZone.getHPDamagePerSecond(), null);
-					if (getMPDamagePerSecond() != 0)
+					}
+					if (getMPDamagePerSecond() != 0) {
 						temp.reduceCurrentMp(_dmgZone.getMPDamagePerSecond());
+					}
 				}
 			}
 		}

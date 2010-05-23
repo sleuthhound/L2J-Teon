@@ -52,22 +52,25 @@ public final class AttackRequest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		// avoid using expensive operations if not needed
 		L2Object target;
-		if (activeChar.getTargetId() == _objectId)
+		if (activeChar.getTargetId() == _objectId) {
 			target = activeChar.getTarget();
-		else
+		} else {
 			target = L2World.getInstance().findObject(_objectId);
+		}
 		// Update next commit
 		// if (!activeChar.getFloodProtectors().getActionMwx().tryPerformAction("_objectId"))
 		// {
 		// activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		// return;
 		// }
-		if (target == null)
+		if (target == null) {
 			return;
+		}
 		if (activeChar.getTarget() != target)
 		{
 			target.onAction(activeChar);

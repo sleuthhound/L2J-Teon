@@ -43,8 +43,9 @@ public class RequestUserCommand extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		IUserCommandHandler handler = UserCommandHandler.getInstance().getUserCommandHandler(_command);
 		if (handler == null)
 		{

@@ -61,8 +61,9 @@ public class RequestSetSeed extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_size < 1)
+		if (_size < 1) {
 			return;
+		}
 		FastList<SeedProduction> seeds = new FastList<SeedProduction>();
 		for (int i = 0; i < _size; i++)
 		{
@@ -76,8 +77,9 @@ public class RequestSetSeed extends L2GameClientPacket
 			}
 		}
 		CastleManager.getInstance().getCastleById(_manorId).setSeedProduction(seeds, CastleManorManager.PERIOD_NEXT);
-		if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
+		if (Config.ALT_MANOR_SAVE_ALL_ACTIONS) {
 			CastleManager.getInstance().getCastleById(_manorId).saveSeedData(CastleManorManager.PERIOD_NEXT);
+		}
 	}
 
 	@Override

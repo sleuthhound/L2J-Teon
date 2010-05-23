@@ -30,14 +30,15 @@ public class L2SkillZone extends L2ZoneType
 	@Override
 	public void setParameter(String name, String value)
 	{
-		if (name.equals("skillId"))
+		if (name.equals("skillId")) {
 			_skillId = Integer.parseInt(value);
-		else if (name.equals("skillLvl"))
+		} else if (name.equals("skillLvl")) {
 			_skillLvl = Integer.parseInt(value);
-		else if (name.equals("onSiege"))
+		} else if (name.equals("onSiege")) {
 			_onSiege = Boolean.parseBoolean(value);
-		else
+		} else {
 			super.setParameter(name, value);
+		}
 	}
 
 	@Override
@@ -45,8 +46,9 @@ public class L2SkillZone extends L2ZoneType
 	{
 		if ((character instanceof L2PcInstance || character instanceof L2SummonInstance) && (!_onSiege || _onSiege && character.isInsideZone(4)))
 		{
-			if (character instanceof L2PcInstance)
+			if (character instanceof L2PcInstance) {
 				((L2PcInstance) character).enterDangerArea();
+			}
 			SkillTable.getInstance().getInfo(_skillId, _skillLvl).getEffects(character, character);
 		}
 	}
@@ -57,8 +59,9 @@ public class L2SkillZone extends L2ZoneType
 		if (character instanceof L2PcInstance || character instanceof L2SummonInstance)
 		{
 			character.stopSkillEffects(_skillId);
-			if (character instanceof L2PcInstance)
+			if (character instanceof L2PcInstance) {
 				((L2PcInstance) character).exitDangerArea();
+			}
 		}
 	}
 

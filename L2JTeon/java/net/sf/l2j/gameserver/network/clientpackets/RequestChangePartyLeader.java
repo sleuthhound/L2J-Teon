@@ -38,10 +38,12 @@ public final class RequestChangePartyLeader extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
-		if (activeChar.isInParty() && activeChar.getParty().isLeader(activeChar))
+		}
+		if (activeChar.isInParty() && activeChar.getParty().isLeader(activeChar)) {
 			activeChar.getParty().changePartyLeader(_name);
+		}
 	}
 
 	@Override

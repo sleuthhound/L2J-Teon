@@ -38,8 +38,9 @@ public final class RequestRecipeBookOpen extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (getClient().getActiveChar() == null)
+		if (getClient().getActiveChar() == null) {
 			return;
+		}
 		if (getClient().getActiveChar().getPrivateStoreType() != 0)
 		{
 			getClient().getActiveChar().sendMessage("Cannot use recipe book while trading");

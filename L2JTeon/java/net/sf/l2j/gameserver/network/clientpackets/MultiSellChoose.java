@@ -113,15 +113,18 @@ public class MultiSellChoose extends L2GameClientPacket
 		int weight = 0;
 		for (MultiSellIngredient e : entry.getProducts())
 		{
-			if (e.getItemId() < 0)
+			if (e.getItemId() < 0) {
 				continue;
+			}
 			L2Item template = ItemTable.getInstance().getTemplate(e.getItemId());
-			if (template == null)
+			if (template == null) {
 				continue;
-			if (!template.isStackable())
+			}
+			if (!template.isStackable()) {
 				slots += e.getItemCount() * _amount;
-			else if (player.getInventory().getItemByItemId(e.getItemId()) == null)
+			} else if (player.getInventory().getItemByItemId(e.getItemId()) == null) {
 				slots++;
+			}
 			weight += e.getItemCount() * _amount * template.getWeight();
 		}
 		if (!inv.validateWeight(weight))

@@ -52,8 +52,9 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 	@Override
 	protected void runImpl() {
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null || _objectId == 0)
+		if (activeChar == null || _objectId == 0) {
 			return;
+		}
 		if (activeChar.isProcessingTransaction() || activeChar.isInStoreMode()) {
 			activeChar.sendPacket(new SystemMessage(
 					SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
@@ -322,8 +323,9 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 		int rndValue = Rnd.get(100);
 		if (Config.ENABLE_DWARF_ENCHANT_BONUS
 				&& activeChar.getRace() == Race.dwarf) {
-			if (activeChar.getLevel() >= Config.DWARF_ENCHANT_MIN_LEVEL)
+			if (activeChar.getLevel() >= Config.DWARF_ENCHANT_MIN_LEVEL) {
 				rndValue -= Config.DWARF_ENCHANT_BONUS;
+			}
 		}
 		if (rndValue < chance) {
 			synchronized (item) {

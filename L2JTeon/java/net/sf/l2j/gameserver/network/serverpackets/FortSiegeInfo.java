@@ -57,8 +57,9 @@ public class FortSiegeInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		writeC(0xc9);
 		writeD(_fort.getFortId());
 		writeD(_fort.getOwnerId() == activeChar.getClanId() && activeChar.isClanLeader() ? 0x01 : 0x00);
@@ -72,9 +73,9 @@ public class FortSiegeInfo extends L2GameServerPacket
 				writeS(owner.getLeaderName()); // Clan Leader Name
 				writeD(owner.getAllyId()); // Ally ID
 				writeS(owner.getAllyName()); // Ally Name
-			}
-			else
+			} else {
 				_log.warning("Null owner for fort: " + _fort.getName());
+			}
 		}
 		else
 		{

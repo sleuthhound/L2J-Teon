@@ -36,17 +36,18 @@ public final class RequestPledgePower extends L2GameClientPacket
 		if (_action == 2)
 		{
 			_privs = readD();
-		}
-		else
+		} else {
 			_privs = 0;
+		}
 	}
 
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		if (_action == 2)
 		{
 			if (player.getClan() != null && player.isClanLeader())

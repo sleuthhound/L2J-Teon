@@ -49,8 +49,9 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 	{
 		// Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_magicId);
 		if (level <= 0)
@@ -80,8 +81,9 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 			// //for debug
 			// If Alternate rule Karma punishment is set to true, forbid
 			// skill Return to player with Karma
-			if (skill.getSkillType() == L2Skill.SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0)
+			if (skill.getSkillType() == L2Skill.SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0) {
 				return;
+			}
 			// activeChar.stopMove();
 			activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
 		}

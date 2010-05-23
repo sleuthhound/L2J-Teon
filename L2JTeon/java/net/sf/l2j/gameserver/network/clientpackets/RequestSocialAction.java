@@ -46,8 +46,9 @@ public class RequestSocialAction extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		// You cannot do anything else while fishing
 		if (activeChar.isFishing())
 		{
@@ -65,8 +66,9 @@ public class RequestSocialAction extends L2GameClientPacket
 		}
 		if (activeChar.getPrivateStoreType() == 0 && activeChar.getActiveRequester() == null && !activeChar.isAlikeDead() && (!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) && activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Social Action:" + _actionId);
+			}
 			SocialAction atk = new SocialAction(activeChar.getObjectId(), _actionId);
 			activeChar.broadcastPacket(atk);
 			/*

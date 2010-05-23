@@ -125,62 +125,70 @@ public final class RequestBypassToServer extends L2GameClientPacket
 					else if (_command.substring(endOfId + 1).startsWith("tvt_player_join "))
 					{
 						String teamName = _command.substring(endOfId + 1).substring(16);
-						if (TvT._joining)
+						if (TvT._joining) {
 							TvT.addPlayer(activeChar, teamName);
-						else
+						} else {
 							activeChar.sendMessage("The event is already started. You can not join now!");
+						}
 					}
 					else if (_command.substring(endOfId + 1).startsWith("tvt_player_leave"))
 					{
-						if (TvT._joining)
+						if (TvT._joining) {
 							TvT.removePlayer(activeChar);
-						else
+						} else {
 							activeChar.sendMessage("The event is already started. You can not leave now!");
+						}
 					}
 					else if (_command.substring(endOfId + 1).startsWith("dmevent_player_join"))
 					{
-						if (DM._joining)
+						if (DM._joining) {
 							DM.addPlayer(activeChar);
-						else
+						} else {
 							activeChar.sendMessage("The event is already started. You can not join now!");
+						}
 					}
 					else if (_command.substring(endOfId + 1).startsWith("dmevent_player_leave"))
 					{
-						if (DM._joining)
+						if (DM._joining) {
 							DM.removePlayer(activeChar);
-						else
+						} else {
 							activeChar.sendMessage("The event is already started. You can not leave now!");
+						}
 					}
 					else if (_command.substring(endOfId + 1).startsWith("ctf_player_join "))
 					{
 						String teamName = _command.substring(endOfId + 1).substring(16);
-						if (CTF._joining)
+						if (CTF._joining) {
 							CTF.addPlayer(activeChar, teamName);
-						else
+						} else {
 							activeChar.sendMessage("The event is already started. You can not join now!");
+						}
 					}
 					else if (_command.substring(endOfId + 1).startsWith("ctf_player_leave"))
 					{
-						if (CTF._joining)
+						if (CTF._joining) {
 							CTF.removePlayer(activeChar);
-						else
+						} else {
 							activeChar.sendMessage("The event is already started. You can not leave now!");
+						}
 					}
                     else if (_command.substring(endOfId+1).startsWith("fos_player_join "))
                     {
                         String teamName = _command.substring(endOfId+1).substring(16);
 
-                        if (FortressSiege._joining)
-                        	FortressSiege.addPlayer(activeChar, teamName);
-                        else
-                            activeChar.sendMessage("The event has already begun. You can not join now!");
+                        if (FortressSiege._joining) {
+							FortressSiege.addPlayer(activeChar, teamName);
+						} else {
+							activeChar.sendMessage("The event has already begun. You can not join now!");
+						}
                     }
 
                     else if (_command.substring(endOfId+1).startsWith("fos_player_leave")){
-                        if (FortressSiege._joining)
-                        	FortressSiege.removePlayer(activeChar);
-                        else
-                            activeChar.sendMessage("The event has already begun. You can not withdraw your participation now!");
+                        if (FortressSiege._joining) {
+							FortressSiege.removePlayer(activeChar);
+						} else {
+							activeChar.sendMessage("The event has already begun. You can not withdraw your participation now!");
+						}
                     }
 					if (Config.ALLOW_REMOTE_CLASS_MASTERS && object instanceof L2ClassMasterInstance || object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
 					{

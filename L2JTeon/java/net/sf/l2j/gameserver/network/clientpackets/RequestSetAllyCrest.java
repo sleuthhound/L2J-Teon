@@ -42,8 +42,9 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_length = readD();
-		if (_length < 0 || _length > 192)
+		if (_length < 0 || _length > 192) {
 			return;
+		}
 		_data = new byte[_length];
 		readB(_data);
 	}
@@ -52,8 +53,9 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		if (_length < 0)
 		{
 			activeChar.sendMessage("File transfer error.");
@@ -111,8 +113,9 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 				if (clan.getAllyId() == activeChar.getAllyId())
 				{
 					clan.setAllyCrestId(newId);
-					for (L2PcInstance member : clan.getOnlineMembers(""))
+					for (L2PcInstance member : clan.getOnlineMembers("")) {
 						member.broadcastUserInfo();
+					}
 				}
 			}
 		}

@@ -73,12 +73,13 @@ public final class BuyList extends L2GameServerPacket
 				writeH(item.getItem().getType1()); // item type1
 				writeD(item.getObjectId());
 				writeD(item.getItemId());
-				if (item.getCount() < 0)
+				if (item.getCount() < 0) {
 					writeD(0x00); // max amount of items that a player can
 				// buy
 				// at a time (with this itemid)
-				else
+				} else {
 					writeD(item.getCount());
+				}
 				writeH(item.getItem().getType2()); // item type2
 				writeH(0x00); // ?
 				if (item.getItem().getType1() != L2Item.TYPE1_ITEM_QUESTITEM_ADENA)
@@ -110,10 +111,11 @@ public final class BuyList extends L2GameServerPacket
 					writeH(0x00); // ?
 					writeH(0x00);
 				}
-				if (item.getItemId() >= 3960 && item.getItemId() <= 4026)// Config.RATE_SIEGE_GUARDS_PRICE-//'
+				if (item.getItemId() >= 3960 && item.getItemId() <= 4026) {
 					writeD((int) (item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * (1 + _taxRate)));
-				else
+				} else {
 					writeD((int) (item.getPriceToSell() * (1 + _taxRate)));
+				}
 			}
 		}
 	}

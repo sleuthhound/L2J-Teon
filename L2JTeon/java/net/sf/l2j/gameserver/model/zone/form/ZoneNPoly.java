@@ -39,8 +39,9 @@ public class ZoneNPoly extends L2ZoneForm
 	@Override
 	public boolean isInsideZone(int x, int y, int z)
 	{
-		if (z < _z1 || z > _z2)
+		if (z < _z1 || z > _z2) {
 			return false;
+		}
 		boolean inside = false;
 		for (int i = 0, j = _x.length - 1; i < _x.length; j = i++)
 		{
@@ -57,11 +58,13 @@ public class ZoneNPoly extends L2ZoneForm
 	{
 		int tX, tY, uX, uY;
 		// First check if a point of the polygon lies inside the rectangle
-		if (_x[0] > ax1 && _x[0] < ax2 && _y[0] > ay1 && _y[0] < ay2)
+		if (_x[0] > ax1 && _x[0] < ax2 && _y[0] > ay1 && _y[0] < ay2) {
 			return true;
+		}
 		// Or a point of the rectangle inside the polygon
-		if (isInsideZone(ax1, ay1, (_z2 - 1)))
+		if (isInsideZone(ax1, ay1, (_z2 - 1))) {
 			return true;
+		}
 		// If the first point wasn't inside the rectangle it might still have any line crossing any side
 		// of the rectangle
 		// Check every possible line of the polygon for a collision with any of the rectangles side
@@ -72,14 +75,18 @@ public class ZoneNPoly extends L2ZoneForm
 			uX = _x[(i + 1) % _x.length];
 			uY = _y[(i + 1) % _x.length];
 			// Check if this line intersects any of the four sites of the rectangle
-			if (lineSegmentsIntersect(tX, tY, uX, uY, ax1, ay1, ax1, ay2))
+			if (lineSegmentsIntersect(tX, tY, uX, uY, ax1, ay1, ax1, ay2)) {
 				return true;
-			if (lineSegmentsIntersect(tX, tY, uX, uY, ax1, ay1, ax2, ay1))
+			}
+			if (lineSegmentsIntersect(tX, tY, uX, uY, ax1, ay1, ax2, ay1)) {
 				return true;
-			if (lineSegmentsIntersect(tX, tY, uX, uY, ax2, ay2, ax1, ay2))
+			}
+			if (lineSegmentsIntersect(tX, tY, uX, uY, ax2, ay2, ax1, ay2)) {
 				return true;
-			if (lineSegmentsIntersect(tX, tY, uX, uY, ax2, ay2, ax2, ay1))
+			}
+			if (lineSegmentsIntersect(tX, tY, uX, uY, ax2, ay2, ax2, ay1)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -91,14 +98,16 @@ public class ZoneNPoly extends L2ZoneForm
 		// we just use the minimum z coordinate to prevent the
 		// function from saying we aren't in the zone because
 		// of a bad z coordinate.
-		if (isInsideZone(x, y, _z1))
+		if (isInsideZone(x, y, _z1)) {
 			return 0; // If you are inside the zone distance to zone is 0.
+		}
 		double test, shortestDist = Math.pow(_x[0] - x, 2) + Math.pow(_y[0] - y, 2);
 		for (int i = 1; i < _y.length; i++)
 		{
 			test = Math.pow(_x[i] - x, 2) + Math.pow(_y[i] - y, 2);
-			if (test < shortestDist)
+			if (test < shortestDist) {
 				shortestDist = test;
+			}
 		}
 		return Math.sqrt(shortestDist);
 	}

@@ -56,8 +56,9 @@ public class L2VanHalterZone extends L2ZoneType
 				player.sendMessage("You entered " + _zoneName);
 				return;
 			}
-			if (_zoneName.equalsIgnoreCase("Altar of Sacrifice"))
+			if (_zoneName.equalsIgnoreCase("Altar of Sacrifice")) {
 				VanHalterManager.getInstance().intruderDetection((L2PcInstance) character);
+			}
 		}
 	}
 

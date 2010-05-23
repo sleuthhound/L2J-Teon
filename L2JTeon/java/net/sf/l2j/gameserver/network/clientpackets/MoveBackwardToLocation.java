@@ -92,8 +92,9 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		_curX = activeChar.getX();
 		_curY = activeChar.getY();
 		_curZ = activeChar.getZ();
@@ -103,8 +104,9 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 		}
 		if (activeChar.getTeleMode() > 0)
 		{
-			if (activeChar.getTeleMode() == 1)
+			if (activeChar.getTeleMode() == 1) {
 				activeChar.setTeleMode(0);
+			}
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
 			return;
@@ -131,8 +133,9 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 				return;
 			}
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_targetX, _targetY, _targetZ, 0));
-			if (activeChar.getParty() != null)
+			if (activeChar.getParty() != null) {
 				activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
+			}
 		}
 	}
 

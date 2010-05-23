@@ -58,9 +58,9 @@ public class L2PoisonZone extends L2ZoneType
 		else if (name.equals("initialDelay"))
 		{
 			_initialDelay = Integer.parseInt(value);
-		}
-		else
+		} else {
 			super.setParameter(name, value);
+		}
 	}
 
 	@Override
@@ -110,8 +110,9 @@ public class L2PoisonZone extends L2ZoneType
 					L2Effect[] effects = temp.getAllEffects();
 					for (L2Effect e : effects)
 					{
-						if (e.getSkill().getId() != getSkillId())
+						if (e.getSkill().getId() != getSkillId()) {
 							e.getSkill().getEffects(temp, temp);
+						}
 					}
 				}
 			}

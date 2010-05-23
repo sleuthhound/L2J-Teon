@@ -41,8 +41,9 @@ public final class RequestRecipeShopMakeInfo extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		player.sendPacket(new RecipeShopItemInfo(_playerObjectId, _recipeId));
 	}
 

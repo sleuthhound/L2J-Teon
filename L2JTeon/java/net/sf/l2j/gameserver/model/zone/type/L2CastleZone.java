@@ -63,9 +63,9 @@ public class L2CastleZone extends L2ZoneType
 		else if (name.equals("spawnZ"))
 		{
 			_spawnLoc[2] = Integer.parseInt(value);
-		}
-		else
+		} else {
 			super.setParameter(name, value);
+		}
 	}
 
 	@Override
@@ -77,11 +77,12 @@ public class L2CastleZone extends L2ZoneType
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_CASTLE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
-			if (character instanceof L2PcInstance)
+			if (character instanceof L2PcInstance) {
 				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
-		}
-		else
+			}
+		} else {
 			character.setInsideZone(L2Character.ZONE_CASTLE, true);
+		}
 	}
 
 	@Override
@@ -97,12 +98,13 @@ public class L2CastleZone extends L2ZoneType
 			{
 				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 				// Set pvp flag
-				if (((L2PcInstance) character).getPvpFlag() == 0)
+				if (((L2PcInstance) character).getPvpFlag() == 0) {
 					((L2PcInstance) character).startPvPFlag();
+				}
 			}
-		}
-		else
+		} else {
 			character.setInsideZone(L2Character.ZONE_CASTLE, true);
+		}
 		if (character instanceof L2SiegeSummonInstance)
 		{
 			((L2SiegeSummonInstance) character).unSummon(((L2SiegeSummonInstance) character).getOwner());
@@ -144,8 +146,9 @@ public class L2CastleZone extends L2ZoneType
 					character.setInsideZone(L2Character.ZONE_SIEGE, false);
 					character.setInsideZone(L2Character.ZONE_CASTLE, false);
 					character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
-					if (character instanceof L2PcInstance)
+					if (character instanceof L2PcInstance) {
 						((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+					}
 					if (character instanceof L2SiegeSummonInstance)
 					{
 						((L2SiegeSummonInstance) character).unSummon(((L2SiegeSummonInstance) character).getOwner());
@@ -167,10 +170,12 @@ public class L2CastleZone extends L2ZoneType
 	{
 		for (L2Character temp : _characterList.values())
 		{
-			if (!(temp instanceof L2PcInstance))
+			if (!(temp instanceof L2PcInstance)) {
 				continue;
-			if (((L2PcInstance) temp).getClanId() == owningClanId)
+			}
+			if (((L2PcInstance) temp).getClanId() == owningClanId) {
 				continue;
+			}
 			((L2PcInstance) temp).teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		}
 	}
@@ -184,8 +189,9 @@ public class L2CastleZone extends L2ZoneType
 	{
 		for (L2Character temp : _characterList.values())
 		{
-			if (temp instanceof L2PcInstance)
+			if (temp instanceof L2PcInstance) {
 				((L2PcInstance) temp).sendMessage(message);
+			}
 		}
 	}
 
@@ -199,8 +205,9 @@ public class L2CastleZone extends L2ZoneType
 		FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 		for (L2Character temp : _characterList.values())
 		{
-			if (temp instanceof L2PcInstance)
+			if (temp instanceof L2PcInstance) {
 				players.add((L2PcInstance) temp);
+			}
 		}
 		return players;
 	}

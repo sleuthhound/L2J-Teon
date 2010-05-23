@@ -56,14 +56,17 @@ public final class Action extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Action:" + _actionId);
-		if (Config.DEBUG)
+		}
+		if (Config.DEBUG) {
 			_log.fine("oid:" + _objectId);
+		}
 		// Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		// Update next commit
 		// if (!activeChar.getFloodProtectors().getActionMWX().tryPerformAction("_objectId"))
 		// {
@@ -71,10 +74,11 @@ public final class Action extends L2GameClientPacket
 		// return;
 		// }
 		L2Object obj;
-		if (activeChar.getTargetId() == _objectId)
+		if (activeChar.getTargetId() == _objectId) {
 			obj = activeChar.getTarget();
-		else
+		} else {
 			obj = L2World.getInstance().findObject(_objectId);
+		}
 		// If object requested does not exist, add warn msg into logs
 		if (obj == null)
 		{
@@ -95,10 +99,11 @@ public final class Action extends L2GameClientPacket
 					obj.onAction(activeChar);
 					break;
 				case 1:
-					if (obj instanceof L2Character && ((L2Character) obj).isAlikeDead())
+					if (obj instanceof L2Character && ((L2Character) obj).isAlikeDead()) {
 						obj.onAction(activeChar);
-					else
+					} else {
 						obj.onActionShift(getClient());
+					}
 					break;
 				default:
 					// Ivalid action detected (probably client cheating), log
@@ -107,10 +112,10 @@ public final class Action extends L2GameClientPacket
 					getClient().sendPacket(ActionFailed.STATIC_PACKET);
 					break;
 			}
-		}
-		else
+		} else {
 			// Actions prohibited when in trade
 			getClient().sendPacket(ActionFailed.STATIC_PACKET);
+		}
 	}
 
 	/*

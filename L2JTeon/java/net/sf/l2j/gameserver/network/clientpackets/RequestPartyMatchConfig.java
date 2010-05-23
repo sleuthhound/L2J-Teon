@@ -44,8 +44,9 @@ public final class RequestPartyMatchConfig extends L2GameClientPacket
 	protected void runImpl()
 	{
 		// TODO: this packet is currently for creating a new party room
-		if (getClient().getActiveChar() == null)
+		if (getClient().getActiveChar() == null) {
 			return;
+		}
 		getClient().getActiveChar().setPartyMatchingAutomaticRegistration(_automaticRegistration == 1);
 		getClient().getActiveChar().setPartyMatchingShowLevel(_showLevel == 1);
 		getClient().getActiveChar().setPartyMatchingShowClass(_showClass == 1);

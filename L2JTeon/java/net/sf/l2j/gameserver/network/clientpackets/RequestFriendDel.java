@@ -49,8 +49,9 @@ public final class RequestFriendDel extends L2GameClientPacket
 		SystemMessage sm;
 		java.sql.Connection con = null;
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		try
 		{
 			L2PcInstance friend = L2World.getInstance().getPlayer(_name);

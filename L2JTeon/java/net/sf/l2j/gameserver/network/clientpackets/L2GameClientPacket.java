@@ -77,8 +77,9 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			{
 				// Removes onspawn protection - player has faster computer than
 				// average
-				if (getClient().getActiveChar() != null)
+				if (getClient().getActiveChar() != null) {
 					getClient().getActiveChar().onActionRequest();
+				}
 			}
 		}
 		catch (Throwable t)

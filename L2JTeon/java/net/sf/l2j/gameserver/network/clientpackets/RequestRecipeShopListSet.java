@@ -39,8 +39,9 @@ public final class RequestRecipeShopListSet extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_count = readD();
-		if (_count < 0 || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
+		if (_count < 0 || _count * 8 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET) {
 			_count = 0;
+		}
 		_items = new int[_count * 2];
 		for (int x = 0; x < _count; x++)
 		{
@@ -55,8 +56,9 @@ public final class RequestRecipeShopListSet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		if (player.isInDuel())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));

@@ -43,8 +43,9 @@ public final class RequestSkillList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance cha = getClient().getActiveChar();
-		if (cha == null)
+		if (cha == null) {
 			return;
+		}
 		cha.sendSkillList();
 	}
 

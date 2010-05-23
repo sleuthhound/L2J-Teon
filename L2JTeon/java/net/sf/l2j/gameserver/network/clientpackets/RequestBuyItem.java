@@ -107,21 +107,22 @@ public final class RequestBuyItem extends L2GameClientPacket
 		String htmlFolder = "";
 		if (target != null)
 		{
-			if (target instanceof L2MerchantInstance)
+			if (target instanceof L2MerchantInstance) {
 				htmlFolder = "merchant";
-			else if (target instanceof L2FishermanInstance)
+			} else if (target instanceof L2FishermanInstance) {
 				htmlFolder = "fisherman";
-			else if (target instanceof L2MercManagerInstance)
+			} else if (target instanceof L2MercManagerInstance) {
 				ok = true;
-			else if (target instanceof L2ClanHallManagerInstance)
+			} else if (target instanceof L2ClanHallManagerInstance) {
 				ok = true;
-			else if (target instanceof L2CastleChamberlainInstance)
+			} else if (target instanceof L2CastleChamberlainInstance) {
 				ok = true;
-			else
+			} else {
 				ok = false;
-		}
-		else
+			}
+		} else {
 			ok = false;
+		}
 		L2NpcInstance merchant = null;
 		if (ok)
 		{

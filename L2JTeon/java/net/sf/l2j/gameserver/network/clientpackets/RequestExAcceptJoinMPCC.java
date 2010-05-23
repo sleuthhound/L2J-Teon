@@ -46,8 +46,9 @@ public final class RequestExAcceptJoinMPCC extends L2GameClientPacket
 		if (player != null)
 		{
 			L2PcInstance requestor = player.getActiveRequester();
-			if (requestor == null)
+			if (requestor == null) {
 				return;
+			}
 			if (_response == 1)
 			{
 				if (!requestor.getParty().isInCommandChannel())

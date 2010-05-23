@@ -41,11 +41,13 @@ public final class RequestSurrenderPledgeWar extends L2GameClientPacket
 	protected void runImpl()
 	{
 		_activeChar = getClient().getActiveChar();
-		if (_activeChar == null)
+		if (_activeChar == null) {
 			return;
+		}
 		_clan = _activeChar.getClan();
-		if (_clan == null)
+		if (_clan == null) {
 			return;
+		}
 		L2Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);
 		if (clan == null)
 		{

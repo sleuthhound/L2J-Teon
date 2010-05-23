@@ -44,8 +44,9 @@ public final class RequestPetGetItem extends L2GameClientPacket
 	{
 		L2World world = L2World.getInstance();
 		L2ItemInstance item = (L2ItemInstance) world.findObject(_objectId);
-		if (item == null || getClient().getActiveChar() == null)
+		if (item == null || getClient().getActiveChar() == null) {
 			return;
+		}
 		if (getClient().getActiveChar().getPet() instanceof L2SummonInstance)
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);

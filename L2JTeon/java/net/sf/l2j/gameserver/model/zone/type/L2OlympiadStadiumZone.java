@@ -40,9 +40,9 @@ public class L2OlympiadStadiumZone extends L2ZoneType
 		if (name.equals("stadiumId"))
 		{
 			_stadiumId = Integer.parseInt(value);
-		}
-		else
+		} else {
 			super.setParameter(name, value);
+		}
 	}
 
 	@Override

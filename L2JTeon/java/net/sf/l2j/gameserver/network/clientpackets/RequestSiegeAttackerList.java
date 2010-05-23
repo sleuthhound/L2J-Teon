@@ -44,16 +44,18 @@ public final class RequestSiegeAttackerList extends L2GameClientPacket
 		if (_castleId < 100)
 		{
 			Castle castle = CastleManager.getInstance().getCastleById(_castleId);
-			if (castle == null)
+			if (castle == null) {
 				return;
+			}
 			SiegeAttackerList sal = new SiegeAttackerList(castle);
 			sendPacket(sal);
 		}
 		else
 		{
 			Fort fort = FortManager.getInstance().getFortById(_castleId);
-			if (fort == null)
+			if (fort == null) {
 				return;
+			}
 			FortSiegeAttackerList sal = new FortSiegeAttackerList(fort);
 			sendPacket(sal);
 		}
