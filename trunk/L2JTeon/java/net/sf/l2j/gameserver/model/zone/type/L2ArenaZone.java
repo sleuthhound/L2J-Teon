@@ -55,9 +55,9 @@ public class L2ArenaZone extends L2ZoneType
 		else if (name.equals("spawnZ"))
 		{
 			_spawnLoc[2] = Integer.parseInt(value);
-		}
-		else
+		} else {
 			super.setParameter(name, value);
+		}
 	}
 
 	@Override

@@ -50,8 +50,9 @@ public final class RequestDuelStart extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2PcInstance targetChar = L2World.getInstance().getPlayer(_player);
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		if (targetChar == null)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL));
@@ -115,8 +116,9 @@ public final class RequestDuelStart extends L2GameClientPacket
 			// targetChar's party
 			for (L2PcInstance temp : targetChar.getParty().getPartyMembers())
 			{
-				if (partyLeader == null)
+				if (partyLeader == null) {
 					partyLeader = temp;
+				}
 				if (!temp.canDuel())
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_OPPOSING_PARTY_IS_CURRENTLY_UNABLE_TO_ACCEPT_A_CHALLENGE_TO_A_DUEL));
@@ -128,8 +130,9 @@ public final class RequestDuelStart extends L2GameClientPacket
 			{
 				activeChar.onTransactionRequest(partyLeader);
 				partyLeader.sendPacket(new ExDuelAskStart(activeChar.getName(), _partyDuel));
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.fine(activeChar.getName() + " requested a duel with " + partyLeader.getName());
+				}
 				SystemMessage msg = new SystemMessage(SystemMessageId.S1S_PARTY_HAS_BEEN_CHALLENGED_TO_A_DUEL);
 				msg.addString(partyLeader.getName());
 				activeChar.sendPacket(msg);
@@ -151,8 +154,9 @@ public final class RequestDuelStart extends L2GameClientPacket
 			{
 				activeChar.onTransactionRequest(targetChar);
 				targetChar.sendPacket(new ExDuelAskStart(activeChar.getName(), _partyDuel));
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.fine(activeChar.getName() + " requested a duel with " + targetChar.getName());
+				}
 				SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BEEN_CHALLENGED_TO_A_DUEL);
 				msg.addString(targetChar.getName());
 				activeChar.sendPacket(msg);

@@ -44,8 +44,9 @@ public final class RequestFriendList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		SystemMessage sm;
 		java.sql.Connection con = null;
 		try

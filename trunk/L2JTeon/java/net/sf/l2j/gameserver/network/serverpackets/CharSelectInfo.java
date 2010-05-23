@@ -72,13 +72,15 @@ public class CharSelectInfo extends L2GameServerPacket
 		writeC(0x13);
 		writeD(size);
 		long lastAccess = 0L;
-		if (_activeId == -1)
-			for (int i = 0; i < size; i++)
+		if (_activeId == -1) {
+			for (int i = 0; i < size; i++) {
 				if (lastAccess < _characterPackages[i].getLastAccess())
 				{
 					lastAccess = _characterPackages[i].getLastAccess();
 					_activeId = i;
 				}
+			}
+		}
 		for (int i = 0; i < size; i++)
 		{
 			CharSelectInfoPackage charInfoPackage = _characterPackages[i];
@@ -90,10 +92,11 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(0x00); // ??
 			writeD(charInfoPackage.getSex());
 			writeD(charInfoPackage.getRace());
-			if (charInfoPackage.getClassId() == charInfoPackage.getBaseClassId())
+			if (charInfoPackage.getClassId() == charInfoPackage.getBaseClassId()) {
 				writeD(charInfoPackage.getClassId());
-			else
+			} else {
 				writeD(charInfoPackage.getBaseClassId());
+			}
 			writeD(0x01); // active ??
 			writeD(0x00); // x
 			writeD(0x00); // y
@@ -154,16 +157,18 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeF(charInfoPackage.getMaxMp()); // mp max
 			long deleteTime = charInfoPackage.getDeleteTimer();
 			int deletedays = 0;
-			if (deleteTime > 0)
+			if (deleteTime > 0) {
 				deletedays = (int) ((deleteTime - System.currentTimeMillis()) / 1000);
+			}
 			writeD(deletedays); // days left before
 			// delete .. if != 0
 			// then char is inactive
 			writeD(charInfoPackage.getClassId());
-			if (i == _activeId)
+			if (i == _activeId) {
 				writeD(0x01);
-			else
+			} else {
 				writeD(0x00); // c3 auto-select char
+			}
 			writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
 			writeD(charInfoPackage.getAugmentationId());
 		}
@@ -184,8 +189,9 @@ public class CharSelectInfo extends L2GameServerPacket
 			while (charList.next())// fills the package
 			{
 				charInfopackage = restoreChar(charList);
-				if (charInfopackage != null)
+				if (charInfopackage != null) {
 					characterList.add(charInfopackage);
+				}
 			}
 			charList.close();
 			statement.close();
@@ -254,8 +260,9 @@ public class CharSelectInfo extends L2GameServerPacket
 			{
 				L2PcInstance cha = L2PcInstance.load(objectId);
 				L2Clan clan = cha.getClan();
-				if (clan != null)
+				if (clan != null) {
 					clan.removeClanMember(cha.getName(), 0);
+				}
 				L2GameClient.deleteCharByObjId(objectId);
 				return null;
 			}
@@ -279,13 +286,15 @@ public class CharSelectInfo extends L2GameServerPacket
 		final int baseClassId = chardata.getInt("base_class");
 		final int activeClassId = chardata.getInt("classid");
 		// if is in subclass, load subclass exp, sp, lvl info
-		if (baseClassId != activeClassId)
+		if (baseClassId != activeClassId) {
 			loadCharacterSubclassInfo(charInfopackage, objectId, activeClassId);
+		}
 		charInfopackage.setClassId(activeClassId);
 		// Get the augmentation id for equipped weapon
 		int weaponObjId = charInfopackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND);
-		if (weaponObjId < 1)
+		if (weaponObjId < 1) {
 			weaponObjId = charInfopackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND);
+		}
 		if (weaponObjId > 0)
 		{
 			java.sql.Connection con = null;
@@ -320,10 +329,11 @@ public class CharSelectInfo extends L2GameServerPacket
 		/*
 		 * Check if the base class is set to zero and alse doesn't match with the current active class, otherwise send the base class ID. This prevents chars created before base class was introduced from being displayed incorrectly.
 		 */
-		if (baseClassId == 0 && activeClassId > 0)
+		if (baseClassId == 0 && activeClassId > 0) {
 			charInfopackage.setBaseClassId(activeClassId);
-		else
+		} else {
 			charInfopackage.setBaseClassId(baseClassId);
+		}
 		charInfopackage.setDeleteTimer(deletetime);
 		charInfopackage.setLastAccess(chardata.getLong("lastAccess"));
 		return charInfopackage;

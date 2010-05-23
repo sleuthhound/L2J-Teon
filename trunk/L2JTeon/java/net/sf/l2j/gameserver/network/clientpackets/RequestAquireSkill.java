@@ -114,10 +114,11 @@ public class RequestAquireSkill extends L2GameClientPacket
 				if (Config.ES_SP_BOOK_NEEDED)
 				{
 					int spbId = -1;
-					if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION)
+					if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION) {
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
-					else
+					} else {
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
+					}
 
                     if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1)
                     {

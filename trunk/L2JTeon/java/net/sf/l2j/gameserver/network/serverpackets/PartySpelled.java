@@ -55,8 +55,9 @@ public class PartySpelled extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		if (_activeChar == null)
+		if (_activeChar == null) {
 			return;
+		}
 		writeC(0xee);
 		writeD(_activeChar instanceof L2SummonInstance ? 2 : _activeChar instanceof L2PetInstance ? 1 : 0);
 		writeD(_activeChar.getObjectId());

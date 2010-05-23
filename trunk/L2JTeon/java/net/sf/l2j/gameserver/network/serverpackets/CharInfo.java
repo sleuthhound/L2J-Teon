@@ -101,10 +101,11 @@ public class CharInfo extends L2GameServerPacket
 		if (_activeChar.getAppearance().getInvisible())
 		{
 			L2PcInstance tmp = getClient().getActiveChar();
-			if (tmp != null && tmp.isGM())
+			if (tmp != null && tmp.isGM()) {
 				gmSeeInvis = true;
-			else
+			} else {
 				return;
+			}
 		}
 		if (_activeChar.getPoly().isMorphed())
 		{
@@ -208,10 +209,11 @@ public class CharInfo extends L2GameServerPacket
 			writeS(_activeChar.getName());
 			writeD(_activeChar.getRace().ordinal());
 			writeD(_activeChar.getAppearance().getSex() ? 1 : 0);
-			if (_activeChar.getClassIndex() == 0)
+			if (_activeChar.getClassIndex() == 0) {
 				writeD(_activeChar.getClassId().getId());
-			else
+			} else {
 				writeD(_activeChar.getBaseClass());
+			}
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DHAIR));
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
@@ -305,8 +307,9 @@ public class CharInfo extends L2GameServerPacket
 			// mount
 			writeC(_activeChar.getPrivateStoreType()); // 1 - sellshop
 			writeH(_activeChar.getCubics().size());
-			for (int id : _activeChar.getCubics().keySet())
+			for (int id : _activeChar.getCubics().keySet()) {
 				writeH(id);
+			}
 			writeC(0x00); // find party members
 			if (gmSeeInvis)
 			{
@@ -323,12 +326,13 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_maxCp);
 			writeD((int) _activeChar.getCurrentCp());
 			writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
-			if (_activeChar.getTeam() == 1)
+			if (_activeChar.getTeam() == 1) {
 				writeC(0x01); // team circle around feet 1= Blue, 2 = red
-			else if (_activeChar.getTeam() == 2)
+			} else if (_activeChar.getTeam() == 2) {
 				writeC(0x02); // team circle around feet 1= Blue, 2 = red
-			else
+			} else {
 				writeC(0x00); // team circle around feet 1= Blue, 2 = red
+			}
 			writeD(_activeChar.getClanCrestLargeId());
 			writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu
 			// ctrl+I
@@ -346,10 +350,11 @@ public class CharInfo extends L2GameServerPacket
 			writeD(0x00); // ??
 			writeD(_activeChar.getAppearance().getTitleColor());
 			// writeD(0x00); // ??
-			if (_activeChar.isCursedWeaponEquiped())
+			if (_activeChar.isCursedWeaponEquiped()) {
 				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
-			else
+			} else {
 				writeD(0x00);
+			}
 		}
 	}
 

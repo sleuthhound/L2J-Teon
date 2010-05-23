@@ -60,9 +60,11 @@ public enum SystemChatChannelId
 
 	public static SystemChatChannelId getChatType(int channelId)
 	{
-		for (SystemChatChannelId channel : SystemChatChannelId.values())
-			if (channel.getId() == channelId)
+		for (SystemChatChannelId channel : SystemChatChannelId.values()) {
+			if (channel.getId() == channelId) {
 				return channel;
+			}
+		}
 		return SystemChatChannelId.Chat_None;
 	}
 }

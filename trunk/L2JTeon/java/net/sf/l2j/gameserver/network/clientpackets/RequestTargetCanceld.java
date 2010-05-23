@@ -42,13 +42,15 @@ public final class RequestTargetCanceld extends L2GameClientPacket
 		{
 			if (_unselect == 0)
 			{
-				if (activeChar.isCastingNow() && activeChar.canAbortCast())
+				if (activeChar.isCastingNow() && activeChar.canAbortCast()) {
 					activeChar.abortCast();
-				else if (activeChar.getTarget() != null)
+				} else if (activeChar.getTarget() != null) {
 					activeChar.setTarget(null);
+				}
 			}
-			else if (activeChar.getTarget() != null)
+			else if (activeChar.getTarget() != null) {
 				activeChar.setTarget(null);
+			}
 		}
 	}
 

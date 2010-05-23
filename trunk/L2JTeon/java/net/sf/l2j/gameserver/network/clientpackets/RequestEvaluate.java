@@ -38,8 +38,9 @@ public final class RequestEvaluate extends L2GameClientPacket
 	{
 		SystemMessage sm;
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		if (!(activeChar.getTarget() instanceof L2PcInstance))
 		{
 			sm = new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT);

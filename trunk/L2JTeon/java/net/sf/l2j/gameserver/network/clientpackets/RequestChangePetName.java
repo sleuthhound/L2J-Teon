@@ -47,11 +47,13 @@ public final class RequestChangePetName extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2Character activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		final L2Summon pet = activeChar.getPet();
-		if (pet == null)
+		if (pet == null) {
 			return;
+		}
 		if (pet.getName() != null)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NAMING_YOU_CANNOT_SET_NAME_OF_THE_PET));

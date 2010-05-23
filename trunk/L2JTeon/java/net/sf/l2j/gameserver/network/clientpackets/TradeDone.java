@@ -44,8 +44,9 @@ public final class TradeDone extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		TradeList trade = player.getActiveTradeList();
 		if (trade == null)
 		{
@@ -55,8 +56,9 @@ public final class TradeDone extends L2GameClientPacket
 			}
 			return;
 		}
-		if (trade.isLocked())
+		if (trade.isLocked()) {
 			return;
+		}
 		if (_response == 1)
 		{
 			if (trade.getPartner() == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null)
@@ -68,8 +70,9 @@ public final class TradeDone extends L2GameClientPacket
 				msg = null;
 				return;
 			}
-			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null)
+			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null) {
 				return;
+			}
 			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{
 				player.cancelActiveTrade();
@@ -82,9 +85,9 @@ public final class TradeDone extends L2GameClientPacket
 				return;
 			}
 			trade.confirm();
-		}
-		else
+		} else {
 			player.cancelActiveTrade();
+		}
 	}
 
 	/*

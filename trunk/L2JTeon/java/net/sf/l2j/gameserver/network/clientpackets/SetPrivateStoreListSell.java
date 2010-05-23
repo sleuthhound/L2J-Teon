@@ -70,8 +70,9 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
@@ -110,10 +111,11 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
 			return;
 		}
 		player.sitDown();
-		if (_packageSale)
+		if (_packageSale) {
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_PACKAGE_SELL);
-		else
+		} else {
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_SELL);
+		}
 		player.broadcastUserInfo();
 		player.broadcastPacket(new PrivateStoreMsgSell(player));
 	}

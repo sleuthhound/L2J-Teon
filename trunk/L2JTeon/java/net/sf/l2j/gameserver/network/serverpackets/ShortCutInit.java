@@ -31,8 +31,9 @@ public class ShortCutInit extends L2GameServerPacket
 	public ShortCutInit(L2PcInstance activeChar)
 	{
 		_activeChar = activeChar;
-		if (_activeChar == null)
+		if (_activeChar == null) {
 			return;
+		}
 		_shortCuts = _activeChar.getAllShortCuts();
 	}
 

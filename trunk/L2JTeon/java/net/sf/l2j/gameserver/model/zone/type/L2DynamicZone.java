@@ -61,8 +61,9 @@ public class L2DynamicZone extends L2ZoneType
 	{
 		try
 		{
-			if (character instanceof L2PcInstance)
+			if (character instanceof L2PcInstance) {
 				((L2PcInstance) character).sendMessage("You have entered a temporary zone!");
+			}
 			_skill.getEffects(_owner, character);
 		}
 		catch (NullPointerException e)
@@ -87,8 +88,9 @@ public class L2DynamicZone extends L2ZoneType
 
 	protected void remove()
 	{
-		if (_task == null)
+		if (_task == null) {
 			return;
+		}
 		_task.cancel(false);
 		_task = null;
 		_region.removeZone(this);
@@ -108,10 +110,11 @@ public class L2DynamicZone extends L2ZoneType
 	@Override
 	public void onDieInside(L2Character character)
 	{
-		if (character == _owner)
+		if (character == _owner) {
 			remove();
-		else
+		} else {
 			character.stopSkillEffects(_skill.getId());
+		}
 	}
 
 	@Override

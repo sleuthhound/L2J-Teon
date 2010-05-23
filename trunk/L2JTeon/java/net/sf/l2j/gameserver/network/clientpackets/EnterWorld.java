@@ -121,28 +121,34 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		if (L2World.getInstance().findObject(activeChar.getObjectId()) != null)
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.warning("User already exist in OID map! User " + activeChar.getName() + " is character clone");
 			// activeChar.closeNetConnection();
+			}
 		}
 		if (activeChar.isGM())
 		{
-			if (Config.GM_STARTUP_INVULNERABLE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invul")))
+			if (Config.GM_STARTUP_INVULNERABLE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invul"))) {
 				activeChar.setIsInvul(true);
-			if (Config.GM_STARTUP_INVISIBLE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible")))
+			}
+			if (Config.GM_STARTUP_INVISIBLE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_GODMODE || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_invisible"))) {
 				activeChar.getAppearance().setInvisible();
-			if (Config.GM_STARTUP_SILENCE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_silence")))
+			}
+			if (Config.GM_STARTUP_SILENCE && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_silence"))) {
 				activeChar.setMessageRefusal(true);
-			if (Config.GM_STARTUP_AUTO_LIST && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_gmliston")))
+			}
+			if (Config.GM_STARTUP_AUTO_LIST && (!Config.ALT_PRIVILEGES_ADMIN && activeChar.getAccessLevel() >= Config.GM_MENU || Config.ALT_PRIVILEGES_ADMIN && AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_gmliston"))) {
 				GmListTable.getInstance().addGm(activeChar, false);
-			else
+			} else {
 				GmListTable.getInstance().addGm(activeChar, true);
+			}
 			if (Config.GM_NAME_COLOR_ENABLED)
 			{
-				if (activeChar.getAccessLevel() >= 100)
+				if (activeChar.getAccessLevel() >= 100) {
 					activeChar.getAppearance().setNameColor(Config.ADMIN_NAME_COLOR);
-				else if (activeChar.getAccessLevel() >= 75)
+				} else if (activeChar.getAccessLevel() >= 75) {
 					activeChar.getAppearance().setNameColor(Config.GM_NAME_COLOR);
+				}
 			}
 			if (Config.SHOW_GM_LOGIN)
 			{
@@ -151,8 +157,9 @@ public class EnterWorld extends L2GameClientPacket
 				Announcements.getInstance().announceToAll(text);
 			}
 		}
-		if (Config.PLAYER_SPAWN_PROTECTION > 0)
+		if (Config.PLAYER_SPAWN_PROTECTION > 0) {
 			activeChar.setProtection(true);
+		}
 
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 
@@ -162,14 +169,17 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.setTarget(activeChar);
 			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		}
-		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
+		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar)) {
 			L2Event.restoreChar(activeChar);
-		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
+		} else if (L2Event.connectionLossData.containsKey(activeChar.getName())) {
 			L2Event.restoreAndTeleChar(activeChar);
-		if (SevenSigns.getInstance().isSealValidationPeriod())
+		}
+		if (SevenSigns.getInstance().isSealValidationPeriod()) {
 			sendPacket(new SignsSky());
-		if (Config.STORE_SKILL_COOLTIME) // buff and status icons
+		}
+		if (Config.STORE_SKILL_COOLTIME) {
 			activeChar.restoreEffects();
+		}
 		activeChar.sendPacket(new EtcStatusUpdate(activeChar));
 		// engage and notify Partner
 		if (Config.ALLOW_WEDDING)
@@ -207,16 +217,19 @@ public class EnterWorld extends L2GameClientPacket
 			}
 		}
 		// apply augmentation bonus for equipped items
-		for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
-			if (temp != null && temp.isEquipped())
+		for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems()) {
+			if (temp != null && temp.isEquipped()) {
 				temp.getAugmentation().applyBonus(activeChar);
+			}
+		}
 		// Expand Skill
 		ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);
 		activeChar.sendPacket(esmc);
 		activeChar.getMacroses().sendUpdate();
 		// checkup and delete delayed donator rented items
-		if (Config.DONATOR_DELETE_RENTED_ITEMS)
+		if (Config.DONATOR_DELETE_RENTED_ITEMS) {
 			activeChar.donatorDeleteDelayedRentedItems();
+		}
 		// sends general packets
 		activeChar.getMacroses().sendUpdate();
 		sendPacket(new UserInfo(activeChar));
@@ -247,8 +260,9 @@ public class EnterWorld extends L2GameClientPacket
 			sm.addString(getText("V2VsY29tZSB0byA="));
 			sm.addString(LoginServerThread.getInstance().getServerName());
 			sendPacket(sm);
-			if (Config.SERVER_VERSION != null)
+			if (Config.SERVER_VERSION != null) {
 				sm = new SystemMessage(SystemMessageId.S1_S2);
+			}
 			sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==") + "   " + Config.SERVER_VERSION);
 			sendPacket(sm);
 			sm = new SystemMessage(SystemMessageId.S1_S2);
@@ -267,16 +281,20 @@ public class EnterWorld extends L2GameClientPacket
 		// Color System checks - Start =====================================================
 		// Check if the custom PvP and PK color systems are enabled and if so ==============
 		// check the character's counters and apply any color changes that must be done. ===
-		if (activeChar.getPvpKills() >= Config.PVP_AMOUNT1 && Config.PVP_COLOR_SYSTEM_ENABLED)
+		if (activeChar.getPvpKills() >= Config.PVP_AMOUNT1 && Config.PVP_COLOR_SYSTEM_ENABLED) {
 			activeChar.updatePvPColor(activeChar.getPvpKills());
-		if (activeChar.getPkKills() >= Config.PK_AMOUNT1 && Config.PK_COLOR_SYSTEM_ENABLED)
+		}
+		if (activeChar.getPkKills() >= Config.PK_AMOUNT1 && Config.PK_COLOR_SYSTEM_ENABLED) {
 			activeChar.updatePkColor(activeChar.getPkKills());
+		}
 		// Color System checks - End =======================================================
-		if (Config.ALLOW_AUTOHERBS_CMD)
+		if (Config.ALLOW_AUTOHERBS_CMD) {
 			activeChar.getAutoLootHerbs();
+		}
 		// restore info about withdraw state
-		if (Config.ALLOW_WITHDRAW_CWH_CMD)
+		if (Config.ALLOW_WITHDRAW_CWH_CMD) {
 			activeChar.getCanWithdrawCWH();
+		}
 		// donator's "Hello!"
 		if (activeChar.isDonator())
 		{
@@ -345,8 +363,9 @@ public class EnterWorld extends L2GameClientPacket
 		PcColorTable.getInstance().process(activeChar);
 		checkCrown(activeChar);
 		// NPCBuffer
-		if (Config.NPCBUFFER_FEATURE_ENABLED)
+		if (Config.NPCBUFFER_FEATURE_ENABLED) {
 			CharSchemesTable.getInstance().onPlayerLogin(activeChar.getObjectId());
+		}
 		// load points for that character
 		RaidBossPointsManager.loadPoints(activeChar);
 		if (activeChar.isCursedWeaponEquiped())
@@ -373,12 +392,14 @@ public class EnterWorld extends L2GameClientPacket
 			FortSiegeManager.getInstance().onEnterWorld(activeChar);
 			for (Siege siege : SiegeManager.getInstance().getSieges())
 			{
-				if (!siege.getIsInProgress())
+				if (!siege.getIsInProgress()) {
 					continue;
-				if (siege.checkIsAttacker(activeChar.getClan()))
+				}
+				if (siege.checkIsAttacker(activeChar.getClan())) {
 					activeChar.setSiegeState((byte) 1);
-				else if (siege.checkIsDefender(activeChar.getClan()))
+				} else if (siege.checkIsDefender(activeChar.getClan())) {
 					activeChar.setSiegeState((byte) 2);
+				}
 			}
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
 			if (clanHall != null)
@@ -398,12 +419,13 @@ public class EnterWorld extends L2GameClientPacket
 		if (Config.ALLOW_REMOTE_CLASS_MASTERS)
 		{
 			ClassLevel lvlnow = PlayerClass.values()[activeChar.getClassId().getId()].getLevel();
-			if (activeChar.getLevel() >= 20 && lvlnow == ClassLevel.First)
+			if (activeChar.getLevel() >= 20 && lvlnow == ClassLevel.First) {
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
-			else if (activeChar.getLevel() >= 40 && lvlnow == ClassLevel.Second)
+			} else if (activeChar.getLevel() >= 40 && lvlnow == ClassLevel.Second) {
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
-			else if (activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third)
+			} else if (activeChar.getLevel() >= 76 && lvlnow == ClassLevel.Third) {
 				L2ClassMasterInstance.ClassMaster.onAction(activeChar);
+			}
 		}
 		// check for over enchant
 		for (L2ItemInstance i : activeChar.getInventory().getItems())
@@ -696,8 +718,9 @@ public class EnterWorld extends L2GameClientPacket
 	private void loadTutorial(L2PcInstance player)
 	{
 		QuestState qs = player.getQuestState("255_Tutorial");
-		if (qs != null)
+		if (qs != null) {
 			qs.getQuest().notifyEvent("UC", null, player);
+		}
 	}
 
 	/*

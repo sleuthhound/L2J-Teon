@@ -40,8 +40,9 @@ public final class NewCharacter extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("CreateNewChar");
+		}
 		CharTemplates ct = new CharTemplates();
 		L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(0);
 		ct.addChar(template);

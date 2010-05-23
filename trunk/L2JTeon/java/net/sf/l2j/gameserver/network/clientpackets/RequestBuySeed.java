@@ -78,18 +78,21 @@ public class RequestBuySeed extends L2GameClientPacket
 		int slots = 0;
 		int totalWeight = 0;
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		if (_count < 1)
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		L2Object target = player.getTarget();
-		if (!(target instanceof L2ManorManagerInstance))
+		if (!(target instanceof L2ManorManagerInstance)) {
 			target = player.getLastFolkNPC();
-		if (!(target instanceof L2ManorManagerInstance))
+		}
+		if (!(target instanceof L2ManorManagerInstance)) {
 			return;
+		}
 		Castle castle = CastleManager.getInstance().getCastleById(_manorId);
 		for (int i = 0; i < _count; i++)
 		{
@@ -100,17 +103,20 @@ public class RequestBuySeed extends L2GameClientPacket
 			SeedProduction seed = castle.getSeed(seedId, CastleManorManager.PERIOD_CURRENT);
 			price = seed.getPrice();
 			residual = seed.getCanProduce();
-			if (price <= 0)
+			if (price <= 0) {
 				return;
-			if (residual < count)
+			}
+			if (residual < count) {
 				return;
+			}
 			totalPrice += count * price;
 			L2Item template = ItemTable.getInstance().getTemplate(seedId);
 			totalWeight += count * template.getWeight();
-			if (!template.isStackable())
+			if (!template.isStackable()) {
 				slots += count;
-			else if (player.getInventory().getItemByItemId(seedId) == null)
+			} else if (player.getInventory().getItemByItemId(seedId) == null) {
 				slots++;
+			}
 		}
 		if (totalPrice > Integer.MAX_VALUE)
 		{
@@ -142,19 +148,22 @@ public class RequestBuySeed extends L2GameClientPacket
 		{
 			int seedId = _items[i * 2 + 0];
 			int count = _items[i * 2 + 1];
-			if (count < 0)
+			if (count < 0) {
 				count = 0;
+			}
 			// Update Castle Seeds Amount
 			SeedProduction seed = castle.getSeed(seedId, CastleManorManager.PERIOD_CURRENT);
 			seed.setCanProduce(seed.getCanProduce() - count);
-			if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
+			if (Config.ALT_MANOR_SAVE_ALL_ACTIONS) {
 				CastleManager.getInstance().getCastleById(_manorId).updateSeed(seed.getId(), seed.getCanProduce(), CastleManorManager.PERIOD_CURRENT);
+			}
 			// Add item to Inventory and adjust update packet
 			L2ItemInstance item = player.getInventory().addItem("Buy", seedId, count, player, target);
-			if (item.getCount() > count)
+			if (item.getCount() > count) {
 				playerIU.addModifiedItem(item);
-			else
+			} else {
 				playerIU.addNewItem(item);
+			}
 			// Send Char Buy Messages
 			SystemMessage sm = null;
 			sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);

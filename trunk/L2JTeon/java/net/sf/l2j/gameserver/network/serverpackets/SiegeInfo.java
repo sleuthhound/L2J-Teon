@@ -57,8 +57,9 @@ public class SiegeInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		writeC(0xc9);
 		writeD(_castle.getCastleId());
 		writeD(_castle.getOwnerId() == activeChar.getClanId() && activeChar.isClanLeader() ? 0x01 : 0x00);
@@ -72,9 +73,9 @@ public class SiegeInfo extends L2GameServerPacket
 				writeS(owner.getLeaderName()); // Clan Leader Name
 				writeD(owner.getAllyId()); // Ally ID
 				writeS(owner.getAllyName()); // Ally Name
-			}
-			else
+			} else {
 				_log.warning("Null owner for castle: " + _castle.getName());
+			}
 		}
 		else
 		{

@@ -41,10 +41,11 @@ public class EtcStatusUpdate extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xF3); // several icons to a separate line (0 = disabled)
-		if (_effect != null)
+		if (_effect != null) {
 			writeD(_effect.getLevel()); // 1-7 increase force, lvl
-		else
+		} else {
 			writeD(0x00); // 1-7 increase force, lvl
+		}
 		writeD(_activeChar.getWeightPenalty()); // 1-4 weight penalty, lvl
 		// (1=50%, 2=66.6%, 3=80%,
 		// 4=100%)

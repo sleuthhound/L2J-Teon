@@ -40,9 +40,9 @@ public class L2SwampZone extends L2ZoneType
 		if (name.equals("move_bonus"))
 		{
 			_move_bonus = Integer.parseInt(value);
-		}
-		else
+		} else {
 			super.setParameter(name, value);
+		}
 	}
 
 	@Override

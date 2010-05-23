@@ -43,8 +43,9 @@ public final class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_size = readD();
-		if (_size > 2176)
+		if (_size > 2176) {
 			return;
+		}
 		if (_size > 0) // client CAN send a RequestExSetPledgeCrestLarge with the size set to 0 then format is just chd
 		{
 			_data = new byte[_size];
@@ -60,18 +61,21 @@ public final class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		L2Clan clan = activeChar.getClan();
-		if (clan == null)
+		if (clan == null) {
 			return;
+		}
 		if (_data == null)
 		{
 			CrestCache.getInstance().removePledgeCrestLarge(clan.getCrestId());
 			clan.setHasCrestLarge(false);
 			activeChar.sendMessage("The insignia has been removed.");
-			for (L2PcInstance member : clan.getOnlineMembers(""))
+			for (L2PcInstance member : clan.getOnlineMembers("")) {
 				member.broadcastUserInfo();
+			}
 			return;
 		}
 		if (_size > 2176)
@@ -124,8 +128,9 @@ public final class RequestExSetPledgeCrestLarge extends L2GameClientPacket
 			clan.setCrestLargeId(newId);
 			clan.setHasCrestLarge(true);
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED));
-			for (L2PcInstance member : clan.getOnlineMembers(""))
+			for (L2PcInstance member : clan.getOnlineMembers("")) {
 				member.broadcastUserInfo();
+			}
 		}
 	}
 

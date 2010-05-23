@@ -73,8 +73,9 @@ public class PetInventoryUpdate extends L2GameServerPacket
 
 	public void addItems(List<L2ItemInstance> items)
 	{
-		for (L2ItemInstance item : items)
+		for (L2ItemInstance item : items) {
 			_items.add(new ItemInfo(item));
+		}
 	}
 
 	private void showDebug()

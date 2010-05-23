@@ -78,8 +78,9 @@ public class SiegeDefenderList extends L2GameServerPacket
 			for (L2SiegeClan siegeclan : _castle.getSiege().getDefenderClans())
 			{
 				clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-				if (clan == null)
+				if (clan == null) {
 					continue;
+				}
 				writeD(clan.getClanId());
 				writeS(clan.getName());
 				writeS(clan.getLeaderName());

@@ -70,8 +70,9 @@ public class ItemList extends L2GameServerPacket
 		writeH(count);
 		for (L2ItemInstance temp : _items)
 		{
-			if (temp == null || temp.getItem() == null)
+			if (temp == null || temp.getItem() == null) {
 				continue;
+			}
 			writeH(temp.getItem().getType1()); // item type1
 			writeD(temp.getObjectId());
 			writeD(temp.getItemId());
@@ -83,10 +84,11 @@ public class ItemList extends L2GameServerPacket
 			writeH(temp.getEnchantLevel()); // enchant level
 			// race tickets
 			writeH(temp.getCustomType2()); // item type3
-			if (temp.isAugmented())
+			if (temp.isAugmented()) {
 				writeD(temp.getAugmentation().getAugmentationId());
-			else
+			} else {
 				writeD(0x00);
+			}
 			writeD(temp.getMana());
 		}
 	}

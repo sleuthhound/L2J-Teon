@@ -54,11 +54,13 @@ public final class RequestHennaEquip extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
-		if (template == null)
+		if (template == null) {
 			return;
+		}
 		L2HennaInstance temp = new L2HennaInstance(template);
 		int _count = 0;
 		/*

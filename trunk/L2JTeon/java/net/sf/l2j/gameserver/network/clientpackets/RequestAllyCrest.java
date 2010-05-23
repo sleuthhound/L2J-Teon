@@ -46,18 +46,21 @@ public final class RequestAllyCrest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		{
-			if (_crestId == 0)
+			if (_crestId == 0) {
 				return;
-			if (Config.DEBUG)
+			}
+			if (Config.DEBUG) {
 				_log.fine("allycrestid " + _crestId + " requested");
+			}
 			byte[] data = CrestCache.getInstance().getAllyCrest(_crestId);
 			if (data != null)
 			{
 				AllyCrest ac = new AllyCrest(_crestId, data);
 				sendPacket(ac);
 			}
-			else if (Config.DEBUG)
+			else if (Config.DEBUG) {
 				_log.fine("allycrest is missing:" + _crestId);
+			}
 		}
 	}
 

@@ -34,8 +34,9 @@ public class PlayerInGame extends GameServerBasePacket
 	{
 		writeC(0x02);
 		writeH(players.size());
-		for (String pc : players)
+		for (String pc : players) {
 			writeS(pc);
+		}
 	}
 
 	/*

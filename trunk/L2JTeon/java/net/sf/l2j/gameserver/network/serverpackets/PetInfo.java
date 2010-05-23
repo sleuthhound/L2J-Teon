@@ -176,10 +176,11 @@ public class PetInfo extends L2GameServerPacket
 		// poison &
 		// bleed=3; flame=4;
 		int npcId = _summon.getTemplate().npcId;
-		if (npcId >= 12526 && npcId <= 12528)
+		if (npcId >= 12526 && npcId <= 12528) {
 			writeH(1);// c2 ride button
-		else
+		} else {
 			writeH(0);
+		}
 		writeC(0); // c2
 		// Following all added in C4.
 		writeH(0); // ??

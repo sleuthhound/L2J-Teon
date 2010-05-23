@@ -46,15 +46,18 @@ public final class RequestJoinSiege extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
-		if (!activeChar.isClanLeader())
+		}
+		if (!activeChar.isClanLeader()) {
 			return;
+		}
 		if (_castleId < 100)
 		{
 			Castle castle = CastleManager.getInstance().getCastleById(_castleId);
-			if (castle == null)
+			if (castle == null) {
 				return;
+			}
 			if (_isJoining == 1)
 			{
 				if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
@@ -62,20 +65,22 @@ public final class RequestJoinSiege extends L2GameClientPacket
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
 					return;
 				}
-				if (_isAttacker == 1)
+				if (_isAttacker == 1) {
 					castle.getSiege().registerAttacker(activeChar);
-				else
+				} else {
 					castle.getSiege().registerDefender(activeChar);
-			}
-			else
+				}
+			} else {
 				castle.getSiege().removeSiegeClan(activeChar);
+			}
 			castle.getSiege().listRegisterClan(activeChar);
 		}
 		else
 		{
 			Fort fort = FortManager.getInstance().getFortById(_castleId);
-			if (fort == null)
+			if (fort == null) {
 				return;
+			}
 			if (_isJoining == 1)
 			{
 				if (System.currentTimeMillis() < activeChar.getClan().getDissolvingExpiryTime())
@@ -83,13 +88,14 @@ public final class RequestJoinSiege extends L2GameClientPacket
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS));
 					return;
 				}
-				if (_isAttacker == 1)
+				if (_isAttacker == 1) {
 					fort.getSiege().registerAttacker(activeChar);
-				else
+				} else {
 					fort.getSiege().registerDefender(activeChar);
-			}
-			else
+				}
+			} else {
 				fort.getSiege().removeSiegeClan(activeChar);
+			}
 			fort.getSiege().listRegisterClan(activeChar);
 		}
 	}

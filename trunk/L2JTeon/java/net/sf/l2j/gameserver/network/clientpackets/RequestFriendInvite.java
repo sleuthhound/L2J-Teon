@@ -51,8 +51,9 @@ public final class RequestFriendInvite extends L2GameClientPacket
 		SystemMessage sm;
 		java.sql.Connection con = null;
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		L2PcInstance friend = L2World.getInstance().getPlayer(_name);
 		_name = Util.capitalizeFirst(_name); // FIXME: is it right to
 		// capitalize a nickname?

@@ -124,10 +124,11 @@ public class SSQStatus extends L2GameServerPacket
 					_log.info("Dusk Score: " + duskTotalScore + " - Dawn Score: " + dawnTotalScore);
 					_log.info("Overall Score: " + totalOverallScore);
 					_log.info("");
-					if (totalStoneScore == 0)
+					if (totalStoneScore == 0) {
 						_log.info("Dusk Prop: 0 - Dawn Prop: 0");
-					else
+					} else {
 						_log.info("Dusk Prop: " + duskStoneScore / totalStoneScore * 500 + " - Dawn Prop: " + dawnStoneScore / totalStoneScore * 500);
+					}
 					_log.info("Dusk %: " + duskPercent + " - Dawn %: " + dawnPercent);
 				}
 				/* DUSK */
@@ -158,8 +159,9 @@ public class SSQStatus extends L2GameServerPacket
 					if (partyMembers != null)
 					{
 						writeC(partyMembers.length);
-						for (String partyMember : partyMembers)
+						for (String partyMember : partyMembers) {
 							writeS(partyMember);
+						}
 					}
 					else
 					{
@@ -172,8 +174,9 @@ public class SSQStatus extends L2GameServerPacket
 					if (partyMembers != null)
 					{
 						writeC(partyMembers.length);
-						for (String partyMember : partyMembers)
+						for (String partyMember : partyMembers) {
 							writeS(partyMember);
+						}
 					}
 					else
 					{
@@ -191,8 +194,9 @@ public class SSQStatus extends L2GameServerPacket
 				{
 					int dawnProportion = SevenSigns.getInstance().getSealProportion(i, SevenSigns.CABAL_DAWN);
 					int duskProportion = SevenSigns.getInstance().getSealProportion(i, SevenSigns.CABAL_DUSK);
-					if (Config.DEBUG)
+					if (Config.DEBUG) {
 						_log.info(SevenSigns.getSealName(i, true) + " = Dawn Prop: " + dawnProportion + "(" + dawnProportion / totalDawnMembers * 100 + "%)" + ", Dusk Prop: " + duskProportion + "(" + duskProportion / totalDuskMembers * 100 + "%)");
+					}
 					writeC(i);
 					writeC(SevenSigns.getInstance().getSealOwner(i));
 					if (totalDuskMembers == 0)

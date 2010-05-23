@@ -50,15 +50,17 @@ public final class CannotMoveAnymore extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2Character player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
-		if (Config.DEBUG)
+		}
+		if (Config.DEBUG) {
 			_log.fine("client: x:" + _x + " y:" + _y + " z:" + _z + " server x:" + player.getX() + " y:" + player.getY() + " z:" + player.getZ());
+		}
 		if (player.getAI() != null)
 		{
 			player.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED_BLOCKED, new L2CharPosition(_x, _y, _z, _heading));
 		}
-		if (player instanceof L2PcInstance && ((L2PcInstance) player).getParty() != null)
+		if (player instanceof L2PcInstance && ((L2PcInstance) player).getParty() != null) {
 			((L2PcInstance) player).getParty().broadcastToPartyMembers(((L2PcInstance) player), new PartyMemberPosition((L2PcInstance) player));
 		// player.stopMove();
 		//
@@ -73,6 +75,7 @@ public final class CannotMoveAnymore extends L2GameClientPacket
 		// _heading);
 		// getClient().getActiveChar().sendPacket(sr);
 		// getClient().getActiveChar().broadcastPacket(sr);
+		}
 	}
 
 	/*

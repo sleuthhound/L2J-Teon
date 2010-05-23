@@ -39,8 +39,9 @@ public final class RequestGetOffVehicle extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		L2BoatInstance boat = BoatManager.getInstance().GetBoat(_id);
 		GetOffVehicle Gon = new GetOffVehicle(activeChar, boat, _x, _y, _z);
 		activeChar.broadcastPacket(Gon);

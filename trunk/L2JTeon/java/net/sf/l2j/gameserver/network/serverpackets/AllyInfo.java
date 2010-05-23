@@ -37,8 +37,9 @@ public class AllyInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		if (activeChar.getAllyId() == 0)
 		{
 			_cha.sendPacket(new SystemMessage(SystemMessageId.NO_CURRENT_ALLIANCES));

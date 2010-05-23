@@ -38,8 +38,9 @@ public class RequestRecipeShopMessageSet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		/*
 		 * if (player.getCreateList() == null) { player.setCreateList(new L2ManufactureList()); }
 		 */

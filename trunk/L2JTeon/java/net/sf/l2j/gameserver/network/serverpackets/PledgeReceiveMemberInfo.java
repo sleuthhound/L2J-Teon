@@ -48,9 +48,9 @@ public class PledgeReceiveMemberInfo extends L2GameServerPacket
 		if (_member.getPledgeType() != 0)
 		{
 			writeS(_member.getClan().getSubPledge(_member.getPledgeType()).getName());
-		}
-		else
+		} else {
 			writeS(_member.getClan().getName());
+		}
 		writeS(_member.getApprenticeOrSponsorName()); // name of this member's
 		// apprentice/sponsor
 	}

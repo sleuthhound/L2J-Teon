@@ -74,34 +74,41 @@ public class InventoryUpdate extends L2GameServerPacket
 
 	public void addItem(L2ItemInstance item)
 	{
-		if (item != null)
+		if (item != null) {
 			_items.add(new ItemInfo(item));
+		}
 	}
 
 	public void addNewItem(L2ItemInstance item)
 	{
-		if (item != null)
+		if (item != null) {
 			_items.add(new ItemInfo(item, 1));
+		}
 	}
 
 	public void addModifiedItem(L2ItemInstance item)
 	{
-		if (item != null)
+		if (item != null) {
 			_items.add(new ItemInfo(item, 2));
+		}
 	}
 
 	public void addRemovedItem(L2ItemInstance item)
 	{
-		if (item != null)
+		if (item != null) {
 			_items.add(new ItemInfo(item, 3));
+		}
 	}
 
 	public void addItems(List<L2ItemInstance> items)
 	{
-		if (items != null)
-			for (L2ItemInstance item : items)
-				if (item != null)
+		if (items != null) {
+			for (L2ItemInstance item : items) {
+				if (item != null) {
 					_items.add(new ItemInfo(item));
+				}
+			}
+		}
 	}
 
 	private void showDebug()

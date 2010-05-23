@@ -69,9 +69,9 @@ public class MonRaceInfo extends L2GameServerPacket
 				if (_unknown1 == 0)
 				{
 					writeC(_speeds[i][j]);
-				}
-				else
+				} else {
 					writeC(0);
+				}
 			}// */
 			/*
 			 * writeD(0x77776666); writeD(0x99998888); writeD(0xBBBBAAAA); writeD(0xDDDDCCCC); writeD(0xFFFFEEEE); //

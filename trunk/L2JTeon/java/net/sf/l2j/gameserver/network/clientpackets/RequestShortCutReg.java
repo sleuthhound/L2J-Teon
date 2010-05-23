@@ -47,8 +47,9 @@ public final class RequestShortCutReg extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		switch (_type)
 		{
 			case 0x01: // item

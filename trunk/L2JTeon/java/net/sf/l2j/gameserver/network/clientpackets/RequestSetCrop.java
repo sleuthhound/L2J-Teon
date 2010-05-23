@@ -59,8 +59,9 @@ public class RequestSetCrop extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_size < 1)
+		if (_size < 1) {
 			return;
+		}
 		FastList<CropProcure> crops = new FastList<CropProcure>();
 		for (int i = 0; i < _size; i++)
 		{
@@ -75,8 +76,9 @@ public class RequestSetCrop extends L2GameClientPacket
 			}
 		}
 		CastleManager.getInstance().getCastleById(_manorId).setCropProcure(crops, CastleManorManager.PERIOD_NEXT);
-		if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
+		if (Config.ALT_MANOR_SAVE_ALL_ACTIONS) {
 			CastleManager.getInstance().getCastleById(_manorId).saveCropData(CastleManorManager.PERIOD_NEXT);
+		}
 	}
 
 	@Override

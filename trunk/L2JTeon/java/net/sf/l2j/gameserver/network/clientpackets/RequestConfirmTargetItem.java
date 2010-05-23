@@ -50,8 +50,9 @@ public final class RequestConfirmTargetItem extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance item = (L2ItemInstance) L2World.getInstance().findObject(_itemObjId);
-		if (item == null)
+		if (item == null) {
 			return;
+		}
 		if (activeChar.getLevel() < 46)
 		{
 			activeChar.sendMessage("You have to be level 46 in order to augment an item");

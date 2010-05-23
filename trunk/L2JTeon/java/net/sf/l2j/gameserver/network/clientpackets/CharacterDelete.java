@@ -44,15 +44,17 @@ public final class CharacterDelete extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("deleting slot:" + _charSlot);
+		}
 		L2PcInstance character = null;
 		try
 		{
-			if (Config.DELETE_DAYS == 0)
+			if (Config.DELETE_DAYS == 0) {
 				character = getClient().deleteChar(_charSlot);
-			else
+			} else {
 				character = getClient().markToDeleteChar(_charSlot);
+			}
 		}
 		catch (Exception e)
 		{

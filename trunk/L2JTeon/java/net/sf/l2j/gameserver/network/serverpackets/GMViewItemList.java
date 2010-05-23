@@ -46,8 +46,9 @@ public class GMViewItemList extends L2GameServerPacket
 		writeH(_items.length);
 		for (L2ItemInstance temp : _items)
 		{
-			if (temp == null || temp.getItem() == null)
+			if (temp == null || temp.getItem() == null) {
 				continue;
+			}
 			writeH(temp.getItem().getType1());
 			writeD(temp.getObjectId());
 			writeD(temp.getItemId());
@@ -58,10 +59,11 @@ public class GMViewItemList extends L2GameServerPacket
 			writeD(temp.getItem().getBodyPart());
 			writeH(temp.getEnchantLevel());
 			writeH(temp.getCustomType2());
-			if (temp.isAugmented())
+			if (temp.isAugmented()) {
 				writeD(temp.getAugmentation().getAugmentationId());
-			else
+			} else {
 				writeD(0x00);
+			}
 			writeD(-1); // C6
 		}
 	}

@@ -42,8 +42,9 @@ public class FriendList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		if (_activeChar == null)
+		if (_activeChar == null) {
 			return;
+		}
 		Connection con = null;
 		try
 		{
@@ -62,16 +63,18 @@ public class FriendList extends L2GameServerPacket
 				{
 					int friendId = rset.getInt("friend_id");
 					String friendName = rset.getString("friend_name");
-					if (friendId == _activeChar.getObjectId())
+					if (friendId == _activeChar.getObjectId()) {
 						continue;
+					}
 					L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
 					writeH(0); // ??
 					writeD(friendId);
 					writeS(friendName);
-					if (friend == null)
+					if (friend == null) {
 						writeD(0); // offline
-					else
+					} else {
 						writeD(1); // online
+					}
 					writeH(0); // ??
 				}
 			}

@@ -62,22 +62,28 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		L2FolkInstance trainer = player.getLastFolkNPC();
-		if (trainer == null)
+		if (trainer == null) {
 			return;
+		}
 		int npcid = trainer.getNpcId();
-		if ((trainer == null || !player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM())
+		if ((trainer == null || !player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !player.isGM()) {
 			return;
-		if (player.getSkillLevel(_skillId) >= _skillLvl)// already knows the
+		}
+		if (player.getSkillLevel(_skillId) >= _skillLvl) {
 			// skill with this level
 			return;
-		if (player.getClassId().getId() < 88) // requires to have 3rd class
+		}
+		if (player.getClassId().getId() < 88) {
 			// quest completed
 			return;
-		if (player.getLevel() < 76)
+		}
+		if (player.getLevel() < 76) {
 			return;
+		}
 		L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
 		int counts = 0;
 		int _requiredSp = 10000000;
@@ -88,8 +94,9 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		for (L2EnchantSkillLearn s : skills)
 		{
 			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-			if (sk == null || sk != skill || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcid))
+			if (sk == null || sk != skill || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcid)) {
 				continue;
+			}
 			counts++;
 			_requiredSp = s.getSpCost();
 			_requiredExp = s.getExp();
@@ -138,8 +145,9 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		if (Rnd.get(100) <= _rate)
 		{
 			player.addSkill(skill, true);
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Learned skill " + _skillId + " for " + _requiredSp + " SP.");
+			}
 			player.getStat().removeExpAndSp(_requiredExp, _requiredSp);
 			StatusUpdate su = new StatusUpdate(player.getObjectId());
 			su.addAttribute(StatusUpdate.SP, player.getSp());

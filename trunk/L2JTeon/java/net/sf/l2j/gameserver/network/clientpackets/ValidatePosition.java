@@ -73,8 +73,9 @@ public class ValidatePosition extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null || activeChar.isTeleporting())
+		if (activeChar == null || activeChar.isTeleporting()) {
 			return;
+		}
 		if (Config.COORD_SYNCHRONIZE > 0)
 		{
 			activeChar.setClientX(_x);
@@ -96,10 +97,11 @@ public class ValidatePosition extends L2GameClientPacket
 				if ((Config.COORD_SYNCHRONIZE & 1) == 1 && (!activeChar.isMoving() // character is not moving, take coordinates from client
 						|| !activeChar.validateMovementHeading(_heading))) // Heading changed on client = possible obstacle
 				{
-					if (diffSq < 2500) // 50*50 - attack won't work fluently if even small differences are corrected
+					if (diffSq < 2500) {
 						activeChar.setXYZ(realX, realY, _z);
-					else
+					} else {
 						activeChar.setXYZ(_x, _y, _z);
+					}
 					activeChar.setHeading(_heading);
 				}
 				else if ((Config.COORD_SYNCHRONIZE & 2) == 2 && diffSq > 10000) // more than can be considered to be result of latency
@@ -129,10 +131,12 @@ public class ValidatePosition extends L2GameClientPacket
 			double dx = _x - realX;
 			double dy = _y - realY;
 			double diffSq = dx * dx + dy * dy;
-			if (diffSq < 250000)
+			if (diffSq < 250000) {
 				activeChar.setXYZ(realX, realY, _z);
-			if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId()))
+			}
+			if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId())) {
 				Universe.getInstance().registerHeight(realX, realY, _z);
+			}
 			if (Config.DEVELOPER)
 			{
 				if (diffSq > 1000000)
@@ -148,11 +152,14 @@ public class ValidatePosition extends L2GameClientPacket
 				}
 			}
 		}
-		if (activeChar.getParty() != null)
+		if (activeChar.getParty() != null) {
 			activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
-		if (Config.ACCEPT_GEOEDITOR_CONN)
-			if (GeoEditorListener.getInstance().getThread() != null && GeoEditorListener.getInstance().getThread().isWorking() && GeoEditorListener.getInstance().getThread().isSend(activeChar))
+		}
+		if (Config.ACCEPT_GEOEDITOR_CONN) {
+			if (GeoEditorListener.getInstance().getThread() != null && GeoEditorListener.getInstance().getThread().isWorking() && GeoEditorListener.getInstance().getThread().isSend(activeChar)) {
 				GeoEditorListener.getInstance().getThread().sendGmPosition(_x, _y, (short) _z);
+			}
+		}
 		if (activeChar.getPet() != null)
 		{
 			activeChar.getPet().setInRange(true);

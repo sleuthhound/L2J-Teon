@@ -105,23 +105,26 @@ public final class CharacterCreate extends L2GameClientPacket
 		{
 			if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
 			{
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.fine("Max number of characters reached. Creation failed.");
+				}
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
 				sendPacket(ccf);
 				return;
 			}
 			else if (CharNameTable.getInstance().doesCharNameExist(_name))
 			{
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.fine("charname: " + _name + " already exists. creation failed.");
+				}
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
 				sendPacket(ccf);
 				return;
 			}
 			template = CharTemplateTable.getInstance().getTemplate(_classId);
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("charname: " + _name + " classId: " + _classId + " template: " + template);
+			}
 			if (template == null || template.classBaseLevel > 1)
 			{
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
@@ -278,10 +281,12 @@ public final class CharacterCreate extends L2GameClientPacket
 	{
 		QuestState qs = player.getQuestState("255_Tutorial");
 		Quest q = null;
-		if (qs == null)
+		if (qs == null) {
 			q = QuestManager.getInstance().getQuest("255_Tutorial");
-		if (q != null)
+		}
+		if (q != null) {
 			q.newQuestState(player);
+		}
 	}
 
 	/*
