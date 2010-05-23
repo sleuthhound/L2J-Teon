@@ -74,18 +74,20 @@ public class RecipeController
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(recipesData)));
 			while ((line = lnr.readLine()) != null)
 			{
-				if (line.trim().length() == 0 || line.startsWith("#"))
+				if (line.trim().length() == 0 || line.startsWith("#")) {
 					continue;
+				}
 				parseList(line);
 			}
 			_log.config("RecipeController: Loaded " + _lists.size() + " Recipes.");
 		}
 		catch (Exception e)
 		{
-			if (lnr != null)
+			if (lnr != null) {
 				_log.log(Level.WARNING, "error while creating recipe controller in linenr: " + lnr.getLineNumber(), e);
-			else
+			} else {
 				_log.warning("No recipes were found in data folder");
+			}
 		}
 		finally
 		{
@@ -138,8 +140,9 @@ public class RecipeController
 	public synchronized void requestBookOpen(L2PcInstance player, boolean isDwarvenCraft)
 	{
 		RecipeItemMaker maker = null;
-		if (Config.ALT_GAME_CREATION)
+		if (Config.ALT_GAME_CREATION) {
 			maker = _activeMakers.get(player);
+		}
 		if (maker == null)
 		{
 			RecipeBookItemList response = new RecipeBookItemList(isDwarvenCraft, player.getMaxMp());
@@ -160,8 +163,9 @@ public class RecipeController
 	public synchronized void requestManufactureItem(L2PcInstance manufacturer, int recipeListId, L2PcInstance player)
 	{
 		L2RecipeList recipeList = getValidRecipeList(player, recipeListId);
-		if (recipeList == null)
+		if (recipeList == null) {
 			return;
+		}
 		List<L2RecipeList> dwarfRecipes = Arrays.asList(manufacturer.getDwarvenRecipeBook());
 		List<L2RecipeList> commonRecipes = Arrays.asList(manufacturer.getCommonRecipeBook());
 		if (!dwarfRecipes.contains(recipeList) && !commonRecipes.contains(recipeList))
@@ -185,9 +189,9 @@ public class RecipeController
 			{
 				_activeMakers.put(manufacturer, maker);
 				ThreadPoolManager.getInstance().scheduleGeneral(maker, 100);
-			}
-			else
+			} else {
 				maker.run();
+			}
 		}
 	}
 
@@ -204,8 +208,9 @@ public class RecipeController
 			return;
 		}
 		L2RecipeList recipeList = getValidRecipeList(player, recipeListId);
-		if (recipeList == null)
+		if (recipeList == null) {
 			return;
+		}
 		List<L2RecipeList> dwarfRecipes = Arrays.asList(player.getDwarvenRecipeBook());
 		List<L2RecipeList> commonRecipes = Arrays.asList(player.getCommonRecipeBook());
 		if (!dwarfRecipes.contains(recipeList) && !commonRecipes.contains(recipeList))
@@ -231,9 +236,9 @@ public class RecipeController
 			{
 				_activeMakers.put(player, maker);
 				ThreadPoolManager.getInstance().scheduleGeneral(maker, 100);
-			}
-			else
+			} else {
 				maker.run();
+			}
 		}
 	}
 
@@ -248,11 +253,11 @@ public class RecipeController
 			String recipeTypeString = st.nextToken();
 			// now parse the string into a boolean
 			boolean isDwarvenRecipe;
-			if (recipeTypeString.equalsIgnoreCase("dwarven"))
+			if (recipeTypeString.equalsIgnoreCase("dwarven")) {
 				isDwarvenRecipe = true;
-			else if (recipeTypeString.equalsIgnoreCase("common"))
+			} else if (recipeTypeString.equalsIgnoreCase("common")) {
 				isDwarvenRecipe = false;
-			else
+			} else
 			{ // prints a helpfull message
 				_log.warning("Error parsing recipes.csv, unknown recipe type " + recipeTypeString);
 				return;
@@ -368,7 +373,7 @@ public class RecipeController
 			// check that customer can afford to pay for creation services
 			if (_player != _target)
 			{
-				for (L2ManufactureItem temp : _player.getCreateList().getList())
+				for (L2ManufactureItem temp : _player.getCreateList().getList()) {
 					if (temp.getRecipeId() == _recipeList.getId()) // find
 					// recipe
 					// for item
@@ -384,6 +389,7 @@ public class RecipeController
 						}
 						break;
 					}
+				}
 			}
 			// make temporary items
 			if ((_items = listItems(false)) == null)
@@ -407,12 +413,13 @@ public class RecipeController
 			// determine number of creation passes needed
 			// can "equip" skillLevel items each pass
 			_creationPasses = _totalItems / _skillLevel + (_totalItems % _skillLevel != 0 ? 1 : 0);
-			if (Config.ALT_GAME_CREATION && _creationPasses != 0) // update
+			if (Config.ALT_GAME_CREATION && _creationPasses != 0) {
 				// mana
 				// required
 				// to "per
 				// pass"
 				_manaRequired /= _creationPasses; // checks to
+			}
 			// validateMp()
 			// will only need portion of
 			// mp for one pass
@@ -459,8 +466,9 @@ public class RecipeController
 			}
 			if (Config.ALT_GAME_CREATION && !_items.isEmpty())
 			{
-				if (!validateMp())
+				if (!validateMp()) {
 					return; // check mana
+				}
 				_player.reduceCurrentMp(_manaRequired); // use some mp
 				updateCurMp(); // update craft window mp bar
 				grabSomeItems(); // grab (equip) some more items with a
@@ -497,14 +505,16 @@ public class RecipeController
 					}
 				}
 			} // for old craft mode just finish
-			else
+ else {
 				finishCrafting();
+			}
 		}
 
 		private void finishCrafting()
 		{
-			if (!Config.ALT_GAME_CREATION)
+			if (!Config.ALT_GAME_CREATION) {
 				_player.reduceCurrentMp(_manaRequired);
+			}
 			// first take adena for manufacture
 			if (_target != _player && _price > 0) // customer must pay for
 			// services
@@ -534,8 +544,9 @@ public class RecipeController
 			else
 			{
 				_player.sendMessage("Item(s) failed to create");
-				if (_target != _player)
+				if (_target != _player) {
 					_target.sendMessage("Item(s) failed to create");
+				}
 				updateMakeInfo(false);
 			}
 			// update load and mana bar of craft window
@@ -548,10 +559,11 @@ public class RecipeController
 
 		private void updateMakeInfo(boolean success)
 		{
-			if (_target == _player)
+			if (_target == _player) {
 				_target.sendPacket(new RecipeItemMakeInfo(_recipeList.getId(), _target, success));
-			else
+			} else {
 				_target.sendPacket(new RecipeShopItemInfo(_player.getObjectId(), _recipeList.getId()));
+			}
 		}
 
 		private void updateCurLoad()
@@ -575,13 +587,15 @@ public class RecipeController
 			{
 				TempItem item = _items.get(0);
 				int count = item.getQuantity();
-				if (count >= numItems)
+				if (count >= numItems) {
 					count = numItems;
+				}
 				item.setQuantity(item.getQuantity() - count);
-				if (item.getQuantity() <= 0)
+				if (item.getQuantity() <= 0) {
 					_items.remove(0);
-				else
+				} else {
 					_items.set(0, item);
+				}
 				numItems -= count;
 				if (_target == _player)
 				{
@@ -591,9 +605,9 @@ public class RecipeController
 					sm.addNumber(count);
 					sm.addItemName(item.getItemId());
 					_player.sendPacket(sm);
-				}
-				else
+				} else {
 					_target.sendMessage("Manufacturer " + _player.getName() + " used " + count + " " + item.getItemName());
+				}
 			}
 		}
 
@@ -767,12 +781,14 @@ public class RecipeController
 				// one variation
 				// exp -= materialsRefPrice; // mat. ref. price is not accurate
 				// so other method is better
-				if (exp < 0)
+				if (exp < 0) {
 					exp = 0;
+				}
 				// another variation
 				exp /= recipeLevel;
-				for (int i = _skillLevel; i > recipeLevel; i--)
+				for (int i = _skillLevel; i > recipeLevel; i--) {
 					exp /= 4;
+				}
 				int sp = exp / 10;
 				// Added multiplication of Creation speed with XP/SP gain
 				// slower crafting -> more XP, faster crafting -> less XP

@@ -117,11 +117,13 @@ public class AiManager
 										intersection.ids.add(id);
 									}
 								}
-								if (!intersection.isEmpty())
+								if (!intersection.isEmpty()) {
 									intersections.add(intersection);
+								}
 							}
-							if (perfectMatch)
+							if (perfectMatch) {
 								continue;
+							}
 							for (Intersection i : intersections)
 							{
 								// remove secant ids on both AiInstances
@@ -151,8 +153,9 @@ public class AiManager
 								newAi.addHandler(handler);
 								_aiList.add(newAi);
 							}
-							if (pparams.isEmpty())
+							if (pparams.isEmpty()) {
 								continue;
+							}
 							// create a new instance with the remaining ids
 							AiInstance newAi = new AiInstance(pparams);
 							newAi.addHandler(handler);
@@ -227,8 +230,9 @@ public class AiManager
 	{
 		String key = who + ":" + paramsType + ":" + param1 + ":" + param2;
 		String cacheResult = _paramcache.get(key);
-		if (cacheResult != null)
+		if (cacheResult != null) {
 			return cacheResult;
+		}
 		String result = null;
 		// get from SQL
 		_paramcache.put(key, result);

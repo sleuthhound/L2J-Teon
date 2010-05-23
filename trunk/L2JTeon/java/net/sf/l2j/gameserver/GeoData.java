@@ -34,9 +34,9 @@ public class GeoData
 	{
 		if (_instance == null)
 		{
-			if (Config.GEODATA > 0)
+			if (Config.GEODATA > 0) {
 				_instance = GeoEngine.getInstance();
-			else
+			} else
 			{
 				_instance = new GeoData();
 				_log.info("Geodata Engine: Disabled.");

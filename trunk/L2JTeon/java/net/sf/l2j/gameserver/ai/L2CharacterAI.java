@@ -89,8 +89,9 @@ public class L2CharacterAI extends AbstractAI
 	protected void onEvtAttacked(L2Character attacker)
 	{
 		// clientStartAutoAttack();
-		if (attacker instanceof L2Attackable && !((L2Attackable) attacker).isCoreAIDisabled())
+		if (attacker instanceof L2Attackable && !((L2Attackable) attacker).isCoreAIDisabled()) {
 			clientStartAutoAttack();
+		}
 	}
 
 	/**
@@ -902,14 +903,17 @@ public class L2CharacterAI extends AbstractAI
 			_log.warning("maybeMoveToPosition: worldPosition == NULL!");
 			return false;
 		}
-		if (offset < 0)
+		if (offset < 0) {
 			return false; // skill radius -1
+		}
 		if (!_actor.isInsideRadius(worldPosition.getX(), worldPosition.getY(), offset + _actor.getTemplate().collisionRadius, false))
 		{
-			if (_actor.isMovementDisabled())
+			if (_actor.isMovementDisabled()) {
 				return true;
-			if (!_actor.isRunning() && !(this instanceof L2PlayerAI))
+			}
+			if (!_actor.isRunning() && !(this instanceof L2PlayerAI)) {
 				_actor.setRunning();
+			}
 			stopFollow();
 			int x = _actor.getX();
 			int y = _actor.getY();
@@ -924,8 +928,9 @@ public class L2CharacterAI extends AbstractAI
 			moveTo(x, y, worldPosition.getZ());
 			return true;
 		}
-		if (getFollowTarget() != null)
+		if (getFollowTarget() != null) {
 			stopFollow();
+		}
 		return false;
 	}
 
@@ -1166,7 +1171,9 @@ public class L2CharacterAI extends AbstractAI
             // skill analysis
             for (L2Skill sk : _actor.getAllSkills())
             {
-                if (sk.isPassive()) continue;
+                if (sk.isPassive()) {
+					continue;
+				}
             	int castRange = sk.getCastRange();
                 boolean hasLongRangeDamageSkill = false;
                 switch(sk.getSkillType())
@@ -1232,10 +1239,13 @@ public class L2CharacterAI extends AbstractAI
                 }
                 if (castRange > 70) {
                     hasLongRangeSkills = true;
-                    if (hasLongRangeDamageSkill)
-                        hasLongRangeDamageSkills = true;
+                    if (hasLongRangeDamageSkill) {
+						hasLongRangeDamageSkills = true;
+					}
                 }
-                if (castRange > maxCastRange) maxCastRange = castRange;
+                if (castRange > maxCastRange) {
+					maxCastRange = castRange;
+				}
 
             }
             // Because of missing skills, some mages/balanced cannot play like mages
@@ -1277,20 +1287,22 @@ public class L2CharacterAI extends AbstractAI
         public void update(L2Character target)
         {
             // update status once in 4 seconds
-            if (target == character && Rnd.nextInt(100) > 25)
-                return;
+            if (target == character && Rnd.nextInt(100) > 25) {
+				return;
+			}
             character = target;
-            if (target == null)
-                return;
+            if (target == null) {
+				return;
+			}
             isMage = false;
             isBalanced = false;
             isArcher = false;
             isFighter = false;
             isCanceled = false;
 
-            if (target.getMAtk(null, null) > 1.5*target.getPAtk(null))
-                isMage = true;
-            else if (target.getPAtk(null)*0.8 < target.getMAtk(null, null)
+            if (target.getMAtk(null, null) > 1.5*target.getPAtk(null)) {
+				isMage = true;
+			} else if (target.getPAtk(null)*0.8 < target.getMAtk(null, null)
                     || target.getMAtk(null, null)*0.8 > target.getPAtk(null))
             {
                 isBalanced = true;
@@ -1298,21 +1310,25 @@ public class L2CharacterAI extends AbstractAI
             else
             {
                 L2Weapon weapon = target.getActiveWeaponItem();
-                if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
-                    isArcher = true;
-                else
-                    isFighter = true;
+                if (weapon != null && weapon.getItemType() == L2WeaponType.BOW) {
+					isArcher = true;
+				} else {
+					isFighter = true;
+				}
             }
-            if (target.getRunSpeed() < _actor.getRunSpeed()-3)
-                isSlower = true;
-            else
-                isSlower = false;
-            if (target.getMDef(null, null)*1.2 > _actor.getMAtk(null, null))
-                isMagicResistant = true;
-            else
-                isMagicResistant = false;
-            if (target.getBuffCount() < 4)
-                isCanceled = true;
+            if (target.getRunSpeed() < _actor.getRunSpeed()-3) {
+				isSlower = true;
+			} else {
+				isSlower = false;
+			}
+            if (target.getMDef(null, null)*1.2 > _actor.getMAtk(null, null)) {
+				isMagicResistant = true;
+			} else {
+				isMagicResistant = false;
+			}
+            if (target.getBuffCount() < 4) {
+				isCanceled = true;
+			}
         }
     }
 }

@@ -464,8 +464,9 @@ public class Shutdown extends Thread
 				_secondsShut--;
 				int delay = 1000; // milliseconds
 				Thread.sleep(delay);
-				if (_shutdownMode == ABORT)
+				if (_shutdownMode == ABORT) {
 					break;
+				}
 			}
 		}
 		catch (InterruptedException e)
@@ -491,8 +492,9 @@ public class Shutdown extends Thread
 				System.err.println("GM restart received. Restarting NOW!");
 				break;
 		}
-		if (Config.ACTIVATE_POSITION_RECORDER)
+		if (Config.ACTIVATE_POSITION_RECORDER) {
 			Universe.getInstance().implode(true);
+		}
 		try
 		{
 			Announcements _an = Announcements.getInstance();
@@ -504,8 +506,9 @@ public class Shutdown extends Thread
 		}
 		disconnectAllCharacters();
 		// seven signs data is now saved along with festival data
-		if (!SevenSigns.getInstance().isSealValidationPeriod())
+		if (!SevenSigns.getInstance().isSealValidationPeriod()) {
 			SevenSignsFestival.getInstance().saveFestivalData(false);
+		}
 		// save seven signs data before closing
 		SevenSigns.getInstance().saveSevenSignsData(null, true);
 		// save all Grandboss status
@@ -536,8 +539,9 @@ public class Shutdown extends Thread
 		// Save all global (non-player specific) Quest data that needs to persist after reboot
 		QuestManager.getInstance().save();
 		// NPCBuffer: save player schemes data
-		if (Config.NPCBUFFER_FEATURE_ENABLED && Config.NPCBUFFER_STORE_SCHEMES)
+		if (Config.NPCBUFFER_FEATURE_ENABLED && Config.NPCBUFFER_STORE_SCHEMES) {
 			CharSchemesTable.getInstance().onServerShutdown();
+		}
 		System.err.println("Quest Engine: Data Saved.");
 		// save items on ground
 		if (Config.SAVE_DROPPED_ITEM)

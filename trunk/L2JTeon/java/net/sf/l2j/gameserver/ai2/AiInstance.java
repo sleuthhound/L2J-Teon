@@ -31,8 +31,9 @@ public class AiInstance
 
 	public AiInstance(AiPlugingParameters params)
 	{
-		if (params.isConverted())
+		if (params.isConverted()) {
 			throw new IllegalArgumentException("AiPluginingParameters of an Ai instance must be converted");
+		}
 		_pluginigParams = params;
 		// TODO:update the params (bottom-up)
 		_eventHandlers = new FastMap<AiEventType, EventHandlerSet>();
@@ -96,8 +97,9 @@ public class AiInstance
 
 		public void run()
 		{
-			for (EventHandler handler : _set.getHandlers())
+			for (EventHandler handler : _set.getHandlers()) {
 				handler.runImpl(_ai, _event);
+			}
 			launchNextEvent(_ai);
 		}
 	}
@@ -127,8 +129,9 @@ public class AiInstance
 				restart = true;
 			}
 			aiParams.queueEvents(event);
-			if (restart)
+			if (restart) {
 				launchNextEvent(aiParams);
+			}
 		}
 	}
 

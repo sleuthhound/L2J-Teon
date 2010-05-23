@@ -46,8 +46,9 @@ public class CommunityBoard
 	public void handleCommands(L2GameClient client, String command)
 	{
 		L2PcInstance activeChar = client.getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		if (Config.COMMUNITY_TYPE.equals("full"))
 		{
 			if (command.startsWith("_bbsclan"))
@@ -105,8 +106,9 @@ public class CommunityBoard
 	public void handleWriteCommands(L2GameClient client, String url, String arg1, String arg2, String arg3, String arg4, String arg5)
 	{
 		L2PcInstance activeChar = client.getActiveChar();
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		if (Config.COMMUNITY_TYPE.equals("full"))
 		{
 			if (url.equals("Topic"))

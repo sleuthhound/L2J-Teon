@@ -232,7 +232,8 @@ public class Announcements
 	public void announceToPlayers(String message)
 	{
 		// Get all players
-		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers()) {
 			player.sendMessage(message);
+		}
 		}
 }

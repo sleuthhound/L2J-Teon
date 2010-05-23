@@ -1793,8 +1793,9 @@ public final class Config
 					String line = null;
 					while ((line = lnr.readLine()) != null)
 					{
-						if (line.trim().length() == 0 || line.startsWith("#"))
+						if (line.trim().length() == 0 || line.startsWith("#")) {
 							continue;
+						}
 
 						FILTER_LIST.add(line.trim());
 					}
@@ -2294,8 +2295,9 @@ public final class Config
 						{
 							int a1 = Integer.parseInt(t2.split("-")[0]);
 							int a2 = Integer.parseInt(t2.split("-")[1]);
-							for (int i = a1; i <= a2; i++)
+							for (int i = a1; i <= a2; i++) {
 								INVUL_NPC_LIST.add(Integer.valueOf(i));
+							}
 						}
 						else
 						{
@@ -2953,16 +2955,21 @@ public final class Config
 					FS_TIME_ENTRY = Integer.parseInt(Settings.getProperty("TimeOfEntry", "3"));
 					FS_TIME_WARMUP = Integer.parseInt(Settings.getProperty("TimeOfWarmUp", "2"));
 					FS_PARTY_MEMBER_COUNT = Integer.parseInt(Settings.getProperty("NumberOfNecessaryPartyMembers", "4"));
-					if (FS_TIME_ATTACK <= 0)
+					if (FS_TIME_ATTACK <= 0) {
 						FS_TIME_ATTACK = 50;
-					if (FS_TIME_COOLDOWN <= 0)
+					}
+					if (FS_TIME_COOLDOWN <= 0) {
 						FS_TIME_COOLDOWN = 5;
-					if (FS_TIME_ENTRY <= 0)
+					}
+					if (FS_TIME_ENTRY <= 0) {
 						FS_TIME_ENTRY = 3;
-					if (FS_TIME_ENTRY <= 0)
+					}
+					if (FS_TIME_ENTRY <= 0) {
 						FS_TIME_ENTRY = 3;
-					if (FS_TIME_ENTRY <= 0)
+					}
+					if (FS_TIME_ENTRY <= 0) {
 						FS_TIME_ENTRY = 3;
+					}
 				}
 				catch (Exception e)
 				{
@@ -3895,17 +3902,17 @@ public final class Config
 		{
 			CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
 		}
-		else if (pName.equalsIgnoreCase("DMAllowInterference"))
+		else if (pName.equalsIgnoreCase("DMAllowInterference")) {
 			DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("DMAllowPotions"))
+		} else if (pName.equalsIgnoreCase("DMAllowPotions")) {
 			DM_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("DMAllowSummon"))
+		} else if (pName.equalsIgnoreCase("DMAllowSummon")) {
 			DM_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("DMOnStartRemoveAllEffects"))
+		} else if (pName.equalsIgnoreCase("DMOnStartRemoveAllEffects")) {
 			DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet"))
+		} else if (pName.equalsIgnoreCase("DMOnStartUnsummonPet")) {
 			DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("MinKarma"))
+		} else if (pName.equalsIgnoreCase("MinKarma"))
 		{
 			KARMA_MIN_KARMA = Integer.parseInt(pValue);
 		}

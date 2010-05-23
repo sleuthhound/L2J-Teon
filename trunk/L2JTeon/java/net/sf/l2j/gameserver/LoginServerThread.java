@@ -466,8 +466,9 @@ public class LoginServerThread extends Thread
 		}
 		catch (IOException e)
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				e.printStackTrace();
+			}
 		}
 	}
 

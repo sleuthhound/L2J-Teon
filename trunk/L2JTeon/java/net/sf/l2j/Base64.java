@@ -297,8 +297,9 @@ public class Base64
 				gzos = new java.util.zip.GZIPOutputStream(b64os);
 				oos = new java.io.ObjectOutputStream(gzos);
 			} // end if: gzip
-			else
+ else {
 				oos = new java.io.ObjectOutputStream(b64os);
+			}
 			oos.writeObject(serializableObject);
 		} // end try
 		catch (java.io.IOException e)
@@ -665,8 +666,9 @@ public class Base64
 						outBuffPosn += decode4to3(b4, 0, outBuff, outBuffPosn);
 						b4Posn = 0;
 						// If that was the equals sign, break out of 'for' loop
-						if (sbiCrop == EQUALS_SIGN)
+						if (sbiCrop == EQUALS_SIGN) {
 							break;
+						}
 					} // end if: quartet built
 				} // end if: equals sign or better
 			} // end if: white space, equals sign or better
@@ -912,8 +914,9 @@ public class Base64
 						catch (java.io.IOException e)
 						{
 							// Only a problem if we got no data at all.
-							if (i == 0)
+							if (i == 0) {
 								throw e;
+							}
 						} // end catch
 					} // end for: each needed input byte
 					if (numBinaryBytes > 0)
@@ -941,8 +944,9 @@ public class Base64
 							b = in.read();
 						}
 						while (b >= 0 && DECODABET[b & 0x7f] <= WHITE_SPACE_ENC);
-						if (b < 0)
+						if (b < 0) {
 							break; // Reads a -1 if end of stream
+						}
 						b4[i] = (byte) b;
 					} // end for: each needed input byte
 					if (i == 4)
@@ -965,8 +969,9 @@ public class Base64
 			if (position >= 0)
 			{
 				// End of relevant data?
-				if ( /* !encode && */position >= numSigBytes)
+				if ( /* !encode && */position >= numSigBytes) {
 					return -1;
+				}
 				if (encode && breakLines && lineLength >= MAX_LINE_LENGTH)
 				{
 					lineLength = 0;
@@ -976,8 +981,9 @@ public class Base64
 				// but throwing an extra "if" seems
 				// just as wasteful.
 				int b = buffer[position++];
-				if (position >= bufferLength)
+				if (position >= bufferLength) {
 					position = -1;
+				}
 				return b & 0xFF; // This is how you "cast" a byte that's
 				// intended to be unsigned.
 				// end else
@@ -1009,12 +1015,13 @@ public class Base64
 				b = read();
 				// if( b < 0 && i == 0 )
 				// return -1;
-				if (b >= 0)
+				if (b >= 0) {
 					dest[off + i] = (byte) b;
-				else if (i == 0)
+				} else if (i == 0) {
 					return -1;
-				else
+				} else {
 					break; // Out of 'for' loop
+				}
 			} // end for: each byte read
 			return i;
 		} // end read
