@@ -32,9 +32,11 @@ public class AdminRideWyvern implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 				return false;
+			}
+		}
 		if (command.startsWith("admin_ride"))
 		{
 			if (activeChar.isMounted() || activeChar.getPet() != null)
@@ -59,8 +61,9 @@ public class AdminRideWyvern implements IAdminCommandHandler
 				activeChar.sendPacket(sm);
 				return false;
 			}
-			if (!activeChar.disarmWeapons())
+			if (!activeChar.disarmWeapons()) {
 				return false;
+			}
 			Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, _petRideId);
 			activeChar.sendPacket(mount);
 			activeChar.broadcastPacket(mount);

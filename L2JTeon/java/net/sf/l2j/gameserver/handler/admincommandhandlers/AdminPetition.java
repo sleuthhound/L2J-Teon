@@ -33,9 +33,11 @@ public class AdminPetition implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 				return false;
+			}
+		}
 		int petitionId = -1;
 		try
 		{
@@ -44,11 +46,11 @@ public class AdminPetition implements IAdminCommandHandler
 		catch (Exception e)
 		{
 		}
-		if (command.equals("admin_view_petitions"))
+		if (command.equals("admin_view_petitions")) {
 			PetitionManager.getInstance().sendPendingPetitionList(activeChar);
-		else if (command.startsWith("admin_view_petition"))
+		} else if (command.startsWith("admin_view_petition")) {
 			PetitionManager.getInstance().viewPetition(activeChar, petitionId);
-		else if (command.startsWith("admin_accept_petition"))
+		} else if (command.startsWith("admin_accept_petition"))
 		{
 			if (PetitionManager.getInstance().isPlayerInConsultation(activeChar))
 			{
@@ -60,13 +62,15 @@ public class AdminPetition implements IAdminCommandHandler
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 				return true;
 			}
-			if (!PetitionManager.getInstance().acceptPetition(activeChar, petitionId))
+			if (!PetitionManager.getInstance().acceptPetition(activeChar, petitionId)) {
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_UNDER_PETITION_CONSULTATION));
+			}
 		}
 		else if (command.startsWith("admin_reject_petition"))
 		{
-			if (!PetitionManager.getInstance().rejectPetition(activeChar, petitionId))
+			if (!PetitionManager.getInstance().rejectPetition(activeChar, petitionId)) {
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER));
+			}
 		}
 		else if (command.equals("admin_reset_petitions"))
 		{

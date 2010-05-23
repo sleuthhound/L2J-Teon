@@ -49,15 +49,18 @@ public class AdminFightCalculator implements IAdminCommandHandler
 		try
 		{
 			// don't check for gm status ;)
-			if (!Config.ALT_PRIVILEGES_ADMIN)
-				if (!checkLevel(activeChar.getAccessLevel()))
+			if (!Config.ALT_PRIVILEGES_ADMIN) {
+				if (!checkLevel(activeChar.getAccessLevel())) {
 					return false;
-			if (command.startsWith("admin_fight_calculator_show"))
+				}
+			}
+			if (command.startsWith("admin_fight_calculator_show")) {
 				handleShow(command.substring("admin_fight_calculator_show".length()), activeChar);
-			else if (command.startsWith("admin_fcs"))
+			} else if (command.startsWith("admin_fcs")) {
 				handleShow(command.substring("admin_fcs".length()), activeChar);
-			else if (command.startsWith("admin_fight_calculator"))
+			} else if (command.startsWith("admin_fight_calculator")) {
 				handleStart(command.substring("admin_fight_calculator".length()), activeChar);
+			}
 		}
 		catch (StringIndexOutOfBoundsException e)
 		{
@@ -107,11 +110,13 @@ public class AdminFightCalculator implements IAdminCommandHandler
 			}
 		}
 		L2NpcTemplate npc1 = null;
-		if (mid1 != 0)
+		if (mid1 != 0) {
 			npc1 = NpcTable.getInstance().getTemplate(mid1);
+		}
 		L2NpcTemplate npc2 = null;
-		if (mid2 != 0)
+		if (mid2 != 0) {
 			npc2 = NpcTable.getInstance().getTemplate(mid2);
+		}
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		TextBuilder replyMSG = new TextBuilder();
 		if (npc1 != null && npc2 != null)
@@ -215,14 +220,17 @@ public class AdminFightCalculator implements IAdminCommandHandler
 		for (int i = 0; i < 10000; i++)
 		{
 			boolean _miss1 = f.calcHitMiss(npc1, npc2);
-			if (_miss1)
+			if (_miss1) {
 				miss1++;
+			}
 			boolean _shld1 = f.calcShldUse(npc1, npc2);
-			if (_shld1)
+			if (_shld1) {
 				shld1++;
+			}
 			boolean _crit1 = f.calcCrit(npc1.getCriticalHit(npc2, null));
-			if (_crit1)
+			if (_crit1) {
 				crit1++;
+			}
 			double _patk1 = npc1.getPAtk(npc2);
 			_patk1 += Rnd.nextDouble() * npc1.getRandomDamage(npc2);
 			patk1 += _patk1;
@@ -239,14 +247,17 @@ public class AdminFightCalculator implements IAdminCommandHandler
 		for (int i = 0; i < 10000; i++)
 		{
 			boolean _miss2 = f.calcHitMiss(npc2, npc1);
-			if (_miss2)
+			if (_miss2) {
 				miss2++;
+			}
 			boolean _shld2 = f.calcShldUse(npc2, npc1);
-			if (_shld2)
+			if (_shld2) {
 				shld2++;
+			}
 			boolean _crit2 = f.calcCrit(npc2.getCriticalHit(npc1, null));
-			if (_crit2)
+			if (_crit2) {
 				crit2++;
+			}
 			double _patk2 = npc2.getPAtk(npc1);
 			_patk2 += Rnd.nextDouble() * npc2.getRandomDamage(npc1);
 			patk2 += _patk2;
@@ -303,14 +314,16 @@ public class AdminFightCalculator implements IAdminCommandHandler
 		replyMSG.append("<tr><td>got regen</td><td>" + hp1 + "</td><td>" + hp2 + "</td></tr>");
 		replyMSG.append("<tr><td>had HP</td><td>" + (int) maxHp1 + "</td><td>" + (int) maxHp2 + "</td></tr>");
 		replyMSG.append("<tr><td>die</td>");
-		if (tdmg2 - hp1 > 1)
+		if (tdmg2 - hp1 > 1) {
 			replyMSG.append("<td>" + (int) (100 * maxHp1 / (tdmg2 - hp1)) + " sec</td>");
-		else
+		} else {
 			replyMSG.append("<td>never</td>");
-		if (tdmg1 - hp2 > 1)
+		}
+		if (tdmg1 - hp2 > 1) {
 			replyMSG.append("<td>" + (int) (100 * maxHp2 / (tdmg1 - hp2)) + " sec</td>");
-		else
+		} else {
 			replyMSG.append("<td>never</td>");
+		}
 		replyMSG.append("</tr>");
 		replyMSG.append("</table>");
 		replyMSG.append("<center><br>");

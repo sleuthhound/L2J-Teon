@@ -143,10 +143,12 @@ public class ClanTable
 	 */
 	public L2Clan createClan(L2PcInstance player, String clanName)
 	{
-		if (null == player)
+		if (null == player) {
 			return null;
-		if (Config.DEBUG)
+		}
+		if (Config.DEBUG) {
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested a clan creation.");
+		}
 		if (10 > player.getLevel())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN));
@@ -189,8 +191,9 @@ public class ClanTable
 		player.setClan(clan);
 		player.setPledgeClass(leader.calculatePledgeClass(player));
 		player.setClanPrivileges(L2Clan.CP_ALL);
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("New clan created: " + clan.getClanId() + " " + clan.getName());
+		}
 		_clans.put(new Integer(clan.getClanId()), clan);
 		// should be update packet only
 		player.sendPacket(new PledgeShowInfoUpdate(clan));
@@ -218,10 +221,11 @@ public class ClanTable
 			}
 		}
 		L2ClanMember leaderMember = clan.getLeader();
-		if (leaderMember == null)
+		if (leaderMember == null) {
 			clan.getWarehouse().destroyAllItems("ClanRemove", null, null);
-		else
+		} else {
 			clan.getWarehouse().destroyAllItems("ClanRemove", clan.getLeader().getPlayerInstance(), null);
+		}
 		for (L2ClanMember member : clan.getMembers())
 		{
 			clan.removeClanMember(member.getName(), 0);
@@ -260,8 +264,9 @@ public class ClanTable
 				statement.execute();
 				statement.close();
 			}
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("clan removed in db: " + clanId);
+			}
 		}
 		catch (Exception e)
 		{
@@ -427,8 +432,9 @@ public class ClanTable
 		int count = 0;
 		for (L2ClanMember player : clan1.getMembers())
 		{
-			if (player != null && player.getPlayerInstance().getWantsPeace() == 1)
+			if (player != null && player.getPlayerInstance().getWantsPeace() == 1) {
 				count++;
+			}
 		}
 		if (count == clan1.getMembers().length - 1)
 		{

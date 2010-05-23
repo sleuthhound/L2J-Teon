@@ -55,8 +55,9 @@ public class ChatAll implements IChatHandler
 			else
 			{
 				command = text.substring(1);
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.info("Command: " + command);
+				}
 				vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
 			}
 			if (vch != null)
@@ -65,8 +66,9 @@ public class ChatAll implements IChatHandler
 			}
 			else
 			{
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.warning("No handler registered for bypass '" + command + "'");
+				}
 			}
 		}
 		else

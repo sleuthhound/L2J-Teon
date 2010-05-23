@@ -34,11 +34,14 @@ public class AdminTarget implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 				return false;
-		if (command.startsWith("admin_target"))
+			}
+		}
+		if (command.startsWith("admin_target")) {
 			handleTarget(command, activeChar);
+		}
 		return true;
 	}
 

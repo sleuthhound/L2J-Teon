@@ -52,8 +52,9 @@ public class PumpkinSeed implements IItemHandler
 			int k = 0;
 			do
 			{
-				if (k >= _itemIds.length)
+				if (k >= _itemIds.length) {
 					break;
+				}
 				if (_itemIds[k] == j)
 				{
 					l2npctemplate = NpcTable.getInstance().getTemplate(_npcIds[k]);
@@ -63,8 +64,9 @@ public class PumpkinSeed implements IItemHandler
 				k++;
 			}
 			while (true);
-			if (l2npctemplate == null)
+			if (l2npctemplate == null) {
 				return;
+			}
 			try
 			{
 				L2Spawn l2spawn = new L2Spawn(l2npctemplate);

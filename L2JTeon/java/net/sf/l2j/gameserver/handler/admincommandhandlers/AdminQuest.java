@@ -35,11 +35,14 @@ public class AdminQuest implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (activeChar == null)
+		if (activeChar == null) {
 			return false;
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
+		}
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL) {
 				return false;
+			}
+		}
 		// syntax will either be:
 		// //quest_reload <id>
 		// //quest_reload <questName>

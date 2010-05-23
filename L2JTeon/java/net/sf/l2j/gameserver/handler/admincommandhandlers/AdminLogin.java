@@ -43,8 +43,9 @@ public class AdminLogin implements IAdminCommandHandler
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 		{
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL) {
 				return false;
+			}
 		}
 		if (command.equals("admin_server_gm_only"))
 		{

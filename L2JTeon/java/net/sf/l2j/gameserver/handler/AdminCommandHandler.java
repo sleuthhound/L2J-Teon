@@ -180,8 +180,9 @@ public class AdminCommandHandler
 	{
 		String[] ids = handler.getAdminCommandList();
 		for (String id : ids) {
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Adding handler for command " + id);
+			}
 			_datatable.put(id, handler);
 		}
 	}
@@ -193,8 +194,9 @@ public class AdminCommandHandler
 		{
 			command = adminCommand.substring(0, adminCommand.indexOf(" "));
 		}
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
+		}
 		return _datatable.get(command);
 	}
 
@@ -209,10 +211,12 @@ public class AdminCommandHandler
 	public final void setPrivilegeValue(L2PcInstance player, String adminCommand, int newValue)
 	{
 		// Only a GM can execute an admin command
-		if (!player.isGM())
+		if (!player.isGM()) {
 			return;
-		if (_privileges == null)
+		}
+		if (_privileges == null) {
 			_privileges = new FastMap<String, Integer>();
+		}
 		if (_privileges.containsKey(adminCommand))
 		{
 			_privileges.remove(adminCommand);
@@ -223,21 +227,25 @@ public class AdminCommandHandler
 	public final boolean checkPrivileges(L2PcInstance player, String adminCommand)
 	{
 		// Only a GM can execute a admin command
-		if (!player.isGM())
+		if (!player.isGM()) {
 			return false;
+		}
 		// Skip special privileges handler?
-		if (!Config.ALT_PRIVILEGES_ADMIN || Config.EVERYBODY_HAS_ADMIN_RIGHTS)
+		if (!Config.ALT_PRIVILEGES_ADMIN || Config.EVERYBODY_HAS_ADMIN_RIGHTS) {
 			return true;
-		if (_privileges == null)
+		}
+		if (_privileges == null) {
 			_privileges = new FastMap<String, Integer>();
+		}
 		String command = adminCommand;
 		if (adminCommand.indexOf(" ") != -1)
 		{
 			command = adminCommand.substring(0, adminCommand.indexOf(" "));
 		}
 		// The command not exists
-		if (!_datatable.containsKey(command))
+		if (!_datatable.containsKey(command)) {
 			return false;
+		}
 		int requireLevel = 0;
 		if (!_privileges.containsKey(command))
 		{

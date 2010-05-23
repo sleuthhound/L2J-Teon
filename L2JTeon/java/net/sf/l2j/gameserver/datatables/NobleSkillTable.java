@@ -39,8 +39,9 @@ public class NobleSkillTable
 
 	public static NobleSkillTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new NobleSkillTable();
+		}
 		return _instance;
 	}
 

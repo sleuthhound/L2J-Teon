@@ -32,9 +32,11 @@ public class AdminHelpPage implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!checkLevel(activeChar.getAccessLevel()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!checkLevel(activeChar.getAccessLevel())) {
 				return false;
+			}
+		}
 		if (command.startsWith("admin_help"))
 		{
 			try

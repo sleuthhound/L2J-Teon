@@ -32,12 +32,14 @@ public class ExtractableItems implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return;
+		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2ExtractableItem exitem = ExtractableItemsData.getInstance().getExtractableItem(item.getItemId());
-		if (exitem == null)
+		if (exitem == null) {
 			return;
+		}
 
 			int itemID = item.getItemId();
 			int createItemID = 0, createAmount = 0, rndNum = Rnd.get(100), chanceFrom = 0;
@@ -61,12 +63,13 @@ public class ExtractableItems implements IItemHandler
 			PcInventory inv = activeChar.getInventory();
 			if (createItemID > 0)
 			{
-				if (ItemTable.getInstance().createDummyItem(createItemID).isStackable())
+				if (ItemTable.getInstance().createDummyItem(createItemID).isStackable()) {
 					inv.addItem("Extract", createItemID, createAmount, activeChar, null);
-				else
+				} else
 				{
-					for (int i = 0; i < createAmount; i++)
+					for (int i = 0; i < createAmount; i++) {
 						inv.addItem("Extract", createItemID, 1, activeChar, item);
+					}
 				}
 				SystemMessage sm;
 				if (createAmount > 1)

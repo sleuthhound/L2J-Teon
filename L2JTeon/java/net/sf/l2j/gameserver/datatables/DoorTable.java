@@ -42,8 +42,9 @@ public class DoorTable
 
 	public static DoorTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new DoorTable();
+		}
 		return _instance;
 	}
 
@@ -76,8 +77,9 @@ public class DoorTable
 			_log.warning("Searching clan halls doors:");
 			while ((line = lnr.readLine()) != null)
 			{
-				if (line.trim().length() == 0 || line.startsWith("#"))
+				if (line.trim().length() == 0 || line.startsWith("#")) {
 					continue;
+				}
 				L2DoorInstance door = parseList(line);
 				_staticItems.put(door.getDoorId(), door);
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
@@ -86,8 +88,9 @@ public class DoorTable
 				{
 					clanhall.getDoors().add(door);
 					door.setClanHall(clanhall);
-					if (Config.DEBUG)
+					if (Config.DEBUG) {
 						_log.warning("door " + door.getDoorName() + " attached to ch " + clanhall.getName());
+					}
 				}
 			}
 			_log.config("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");
@@ -132,19 +135,24 @@ public class DoorTable
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
 		boolean unlockable = false;
-		if (st.hasMoreTokens())
+		if (st.hasMoreTokens()) {
 			unlockable = Boolean.parseBoolean(st.nextToken());
-		if (rangeXMin > rangeXMax)
+		}
+		if (rangeXMin > rangeXMax) {
 			_log.severe("Error in door data, ID:" + id);
-		if (rangeYMin > rangeYMax)
+		}
+		if (rangeYMin > rangeYMax) {
 			_log.severe("Error in door data, ID:" + id);
-		if (rangeZMin > rangeZMax)
+		}
+		if (rangeZMin > rangeZMax) {
 			_log.severe("Error in door data, ID:" + id);
+		}
 		int collisionRadius; // (max) radius for movement checks
-		if (rangeXMax - rangeXMin > rangeYMax - rangeYMin)
+		if (rangeXMax - rangeXMin > rangeYMax - rangeYMin) {
 			collisionRadius = rangeYMax - rangeYMin;
-		else
+		} else {
 			collisionRadius = rangeXMax - rangeXMin;
+		}
 		StatsSet npcDat = new StatsSet();
 		npcDat.set("npcId", id);
 		npcDat.set("level", 0);
@@ -231,16 +239,16 @@ public class DoorTable
 	 */
 	public void checkAutoOpen()
 	{
-		for (L2DoorInstance doorInst : getDoors())
+		for (L2DoorInstance doorInst : getDoors()) {
 			// Garden of Eva (every 7 minutes)
-			if (doorInst.getDoorName().startsWith("goe"))
+			if (doorInst.getDoorName().startsWith("goe")) {
 				doorInst.setAutoActionDelay(420000);
-			// Tower of Insolence (every 5 minutes)
-			else if (doorInst.getDoorName().startsWith("aden_tower"))
+			} else if (doorInst.getDoorName().startsWith("aden_tower")) {
 				doorInst.setAutoActionDelay(300000);
-			// Cruma Tower (every 20 minutes)
-			else if (doorInst.getDoorName().startsWith("cruma"))
+			} else if (doorInst.getDoorName().startsWith("cruma")) {
 				doorInst.setAutoActionDelay(1200000);
+			}
+		}
 	}
 
 	public boolean checkIfDoorsBetween(AbstractNodeLoc start, AbstractNodeLoc end)
@@ -261,10 +269,12 @@ public class DoorTable
 		}
 		for (L2DoorInstance doorInst : getDoors())
 		{
-			if (doorInst.getMapRegion() != region)
+			if (doorInst.getMapRegion() != region) {
 				continue;
-			if (doorInst.getXMax() == 0)
+			}
+			if (doorInst.getXMax() == 0) {
 				continue;
+			}
 			if (x <= doorInst.getXMax() && tx >= doorInst.getXMin() || tx <= doorInst.getXMax() && x >= doorInst.getXMin())
 			{
 				// phase 2, y
@@ -273,8 +283,9 @@ public class DoorTable
 					// phase 3, z (there's a small problem when the other is above/under door level..)
 					if (z >= doorInst.getZMin() && z <= doorInst.getZMax() && tz >= doorInst.getZMin() && tz <= doorInst.getZMax())
 					{
-						if (!(doorInst.getCurrentHp() <= 0 || doorInst.getOpen() == 0))
+						if (!(doorInst.getCurrentHp() <= 0 || doorInst.getOpen() == 0)) {
 							return true;
+						}
 					}
 				}
 			}

@@ -32,9 +32,11 @@ public class AdminAnnouncements implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 				return false;
+			}
+		}
 		if (command.equals("admin_list_announcements"))
 		{
 			Announcements.getInstance().listAnnouncements(activeChar);

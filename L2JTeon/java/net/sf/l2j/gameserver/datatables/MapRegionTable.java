@@ -83,8 +83,9 @@ public class MapRegionTable
 			}
 			rset.close();
 			statement.close();
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine(count2 + " mapregion loaded");
+			}
 		}
 		catch (Exception e)
 		{
@@ -339,8 +340,9 @@ public class MapRegionTable
 		{
 			L2PcInstance player = (L2PcInstance) activeChar;
 			// If in Monster Derby Track
-			if (player.isInsideZone(L2Character.ZONE_MONSTERTRACK))
+			if (player.isInsideZone(L2Character.ZONE_MONSTERTRACK)) {
 				return new Location(12661, 181687, -3560);
+			}
 			Castle castle = null;
 			Fort fort = null;
 			ClanHall clanhall = null;
@@ -365,10 +367,12 @@ public class MapRegionTable
 					castle = CastleManager.getInstance().getCastleByOwner(player.getClan());
 					fort = FortManager.getInstance().getFortByOwner(player.getClan());
 					// Check if player is on castle ground
-					if (castle == null)
+					if (castle == null) {
 						castle = CastleManager.getInstance().getCastle(player);
-					if (fort == null)
+					}
+					if (fort == null) {
 						fort = FortManager.getInstance().getFort(player);
+					}
 					if (castle != null && castle.getCastleId() > 0)
 					{
 						// If Teleporting to castle or
@@ -418,16 +422,18 @@ public class MapRegionTable
 				}
 			}
 			// teleport RED PK 5+ to Floran Village
-			if (player.getPkKills() > 5 && player.getKarma() > 1)
+			if (player.getPkKills() > 5 && player.getKarma() > 1) {
 				return new Location(17817, 170079, -3530);
+			}
 			// Karma player land out of city
 			if (player.getKarma() > 1)
 			{
 				int closest = getMapRegion(activeChar.getX(), activeChar.getY());
-				if (closest >= 0 && closest < _pointsWithKarmas.length)
+				if (closest >= 0 && closest < _pointsWithKarmas.length) {
 					return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
-				else
+				} else {
 					return new Location(17817, 170079, -3530);
+				}
 			}
 			// Checking if in arena
 			L2ArenaZone arena = ArenaManager.getInstance().getArena(player);

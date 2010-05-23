@@ -46,9 +46,11 @@ public class AdminTest implements IAdminCommandHandler
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL) {
 				return false;
+			}
+		}
 		if (command.equals("admin_stats"))
 		{
 			for (String line : ThreadPoolManager.getInstance().getStats())

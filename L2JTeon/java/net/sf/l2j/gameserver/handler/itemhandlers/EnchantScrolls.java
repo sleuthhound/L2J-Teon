@@ -37,11 +37,13 @@ public class EnchantScrolls implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return;
+		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
-		if (activeChar.isCastingNow())
+		if (activeChar.isCastingNow()) {
 			return;
+		}
 		// NO enchant during restart/shutdown due to avoid an exploit.
 		// (Safe_Sigterm)
 		if (Config.SAFE_SIGTERM && Shutdown.getCounterInstance() != null)

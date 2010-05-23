@@ -43,8 +43,9 @@ public class AdminManor implements IAdminCommandHandler
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 				return false;
+			}
 		}
 		StringTokenizer st = new StringTokenizer(command);
 		command = st.nextToken();
@@ -114,10 +115,11 @@ public class AdminManor implements IAdminCommandHandler
 		{
 			boolean mode = CastleManorManager.getInstance().isUnderMaintenance();
 			CastleManorManager.getInstance().setUnderMaintenance(!mode);
-			if (mode)
+			if (mode) {
 				activeChar.sendMessage("Manor System: not under maintenance");
-			else
+			} else {
 				activeChar.sendMessage("Manor System: under maintenance");
+			}
 			showMainPage(activeChar);
 		}
 		else if (command.equals("admin_manor_save"))
@@ -130,10 +132,11 @@ public class AdminManor implements IAdminCommandHandler
 		{
 			boolean mode = CastleManorManager.getInstance().isDisabled();
 			CastleManorManager.getInstance().setDisabled(!mode);
-			if (mode)
+			if (mode) {
 				activeChar.sendMessage("Manor System: enabled");
-			else
+			} else {
 				activeChar.sendMessage("Manor System: disabled");
+			}
 			showMainPage(activeChar);
 		}
 		return true;
@@ -152,8 +155,9 @@ public class AdminManor implements IAdminCommandHandler
 		secs -= mins * 60;
 		int hours = mins / 60;
 		mins -= hours * 60;
-		if (hours > 0)
+		if (hours > 0) {
 			s += hours + ":";
+		}
 		s += mins + ":";
 		s += secs;
 		return s;

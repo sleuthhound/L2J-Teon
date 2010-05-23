@@ -44,8 +44,9 @@ public class Recipes implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return;
+		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2RecipeList rp = RecipeController.getInstance().getRecipeByItemId(item.getItemId());
 		if (activeChar.hasRecipeList(rp.getId()))

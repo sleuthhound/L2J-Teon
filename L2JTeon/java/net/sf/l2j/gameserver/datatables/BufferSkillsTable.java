@@ -156,8 +156,9 @@ public class BufferSkillsTable
 
 	public static BufferSkillsTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new BufferSkillsTable();
+		}
 		return _instance;
 	}
 

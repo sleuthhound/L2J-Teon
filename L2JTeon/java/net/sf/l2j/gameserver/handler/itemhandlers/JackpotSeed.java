@@ -81,8 +81,9 @@ public class JackpotSeed implements IItemHandler
 				break;
 			}
 		}
-		if (template1 == null)
+		if (template1 == null) {
 			return;
+		}
 		try
 		{
 			L2Spawn spawn = new L2Spawn(template1);

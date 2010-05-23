@@ -65,13 +65,16 @@ public class CharSchemesTable
 				int skillId = rs.getInt("id");
 				int skillLevel = rs.getInt("level");
 				String scheme = rs.getString("scheme");
-				if (!map.containsKey(scheme) && map.size() <= Config.NPCBUFFER_MAX_SCHEMES)
+				if (!map.containsKey(scheme) && map.size() <= Config.NPCBUFFER_MAX_SCHEMES) {
 					map.put(scheme, new FastList<L2Skill>());
-				if (map.get(scheme) != null && map.get(scheme).size() < Config.NPCBUFFER_MAX_SKILLS)
+				}
+				if (map.get(scheme) != null && map.get(scheme).size() < Config.NPCBUFFER_MAX_SKILLS) {
 					map.get(scheme).add(SkillTable.getInstance().getInfo(skillId, skillLevel));
+				}
 			}
-			if (!map.isEmpty())
+			if (!map.isEmpty()) {
 				_schemesTable.put(objectId, map);
+			}
 			statement.close();
 			rs.close();
 		}
@@ -93,8 +96,9 @@ public class CharSchemesTable
 
 	public void onPlayerLogin(int playerId)
 	{
-		if (_schemesTable.get(playerId) == null)
+		if (_schemesTable.get(playerId) == null) {
 			loadScheme(playerId);
+		}
 	}
 
 	/**
@@ -112,8 +116,9 @@ public class CharSchemesTable
 
 	public void clearDB()
 	{
-		if (_schemesTable.isEmpty())
+		if (_schemesTable.isEmpty()) {
 			return;
+		}
 		Connection con = null;
 		try
 		{
@@ -143,8 +148,9 @@ public class CharSchemesTable
 
 	public void saveDataToDB()
 	{
-		if (_schemesTable.isEmpty())
+		if (_schemesTable.isEmpty()) {
 			return;
+		}
 		Connection con = null;
 		int count = 0;
 		try
@@ -154,12 +160,14 @@ public class CharSchemesTable
 			for (FastMap.Entry<Integer, FastMap<String, FastList<L2Skill>>> e = _schemesTable.head(), end = _schemesTable.tail(); (e = e.getNext()) != end;)
 			{
 				// each profile
-				if (e.getValue() == null || e.getValue().isEmpty())
+				if (e.getValue() == null || e.getValue().isEmpty()) {
 					continue;
+				}
 				for (FastMap.Entry<String, FastList<L2Skill>> a = e.getValue().head(), enda = e.getValue().tail(); (a = a.getNext()) != enda;)
 				{
-					if (a.getValue() == null || a.getValue().isEmpty())
+					if (a.getValue() == null || a.getValue().isEmpty()) {
 						continue;
+					}
 					// each skill
 					for (L2Skill sk : a.getValue())
 					{
@@ -193,8 +201,9 @@ public class CharSchemesTable
 
 	public FastList<L2Skill> getScheme(int playerid, String scheme_key)
 	{
-		if (_schemesTable.get(playerid) == null)
+		if (_schemesTable.get(playerid) == null) {
 			return null;
+		}
 		return _schemesTable.get(playerid).get(scheme_key);
 	}
 
@@ -202,8 +211,9 @@ public class CharSchemesTable
 	{
 		for (L2Skill sk : getScheme(playerId, scheme_key))
 		{
-			if (sk.getId() == skillId)
+			if (sk.getId() == skillId) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -225,8 +235,9 @@ public class CharSchemesTable
 
 	public static CharSchemesTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new CharSchemesTable();
+		}
 		return _instance;
 	}
 }

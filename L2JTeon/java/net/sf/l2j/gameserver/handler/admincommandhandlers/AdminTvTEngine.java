@@ -38,11 +38,12 @@ public class AdminTvTEngine implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 			return false;
-		if (command.equals("admin_tvt"))
+		}
+		if (command.equals("admin_tvt")) {
 			showMainPage(activeChar);
-		else if (command.startsWith("admin_tvt_name "))
+		} else if (command.startsWith("admin_tvt_name "))
 		{
 			TvT._eventName = command.substring(15);
 			showMainPage(activeChar);
@@ -54,15 +55,17 @@ public class AdminTvTEngine implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_tvt_minlvl "))
 		{
-			if (!TvT.checkMinLevel(Integer.valueOf(command.substring(17))))
+			if (!TvT.checkMinLevel(Integer.valueOf(command.substring(17)))) {
 				return false;
+			}
 			TvT._minlvl = Integer.valueOf(command.substring(17));
 			showMainPage(activeChar);
 		}
 		else if (command.startsWith("admin_tvt_maxlvl "))
 		{
-			if (!TvT.checkMaxLevel(Integer.valueOf(command.substring(17))))
+			if (!TvT.checkMaxLevel(Integer.valueOf(command.substring(17)))) {
 				return false;
+			}
 			TvT._maxlvl = Integer.valueOf(command.substring(17));
 			showMainPage(activeChar);
 		}
@@ -179,10 +182,11 @@ public class AdminTvTEngine implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_tvt_autoevent"))
 		{
-			if (TvT._joinTime > 0 && TvT._eventTime > 0)
+			if (TvT._joinTime > 0 && TvT._eventTime > 0) {
 				TvT.autoEvent();
-			else
+			} else {
 				activeChar.sendMessage("Wrong usege: join time or event time invallid.");
+			}
 			showMainPage(activeChar);
 		}
 		else if (command.equals("admin_tvt_save"))
@@ -190,8 +194,9 @@ public class AdminTvTEngine implements IAdminCommandHandler
 			TvT.saveData();
 			showMainPage(activeChar);
 		}
-		else if (command.equals("admin_tvt_dump"))
+		else if (command.equals("admin_tvt_dump")) {
 			TvT.dumpData();
+		}
 		return true;
 	}
 
@@ -271,12 +276,13 @@ public class AdminTvTEngine implements IAdminCommandHandler
 		for (String team : TvT._teams)
 		{
 			replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>");
-			if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
+			if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")) {
 				replyMSG.append("&nbsp;(" + TvT.teamPlayersCount(team) + " joined)");
-			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+			} else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
 			{
-				if (TvT._teleport || TvT._started)
+				if (TvT._teleport || TvT._started) {
 					replyMSG.append("&nbsp;(" + TvT.teamPlayersCount(team) + " in)");
+				}
 			}
 			replyMSG.append("</td></tr><tr><td>");
 			replyMSG.append(TvT._teamColors.get(TvT._teams.indexOf(team)));
