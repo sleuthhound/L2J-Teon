@@ -32,20 +32,23 @@ public class L2FastMap<K extends Object, V extends Object> extends FastMap<K, V>
 
 	public final boolean ForEach(I2ForEach<K, V> func, boolean sync)
 	{
-		if (sync)
+		if (sync) {
 			synchronized (this)
 			{
 				return forEachP(func);
 			}
-		else
+		} else {
 			return forEachP(func);
+		}
 	}
 
 	private boolean forEachP(I2ForEach<K, V> func)
 	{
-		for (FastMap.Entry<K, V> e = head(), end = tail(); (e = func.getNext(e)) != end;)
-			if (!func.forEach(e.getKey(), e.getValue()))
+		for (FastMap.Entry<K, V> e = head(), end = tail(); (e = func.getNext(e)) != end;) {
+			if (!func.forEach(e.getKey(), e.getValue())) {
 				return false;
+			}
+		}
 		return true;
 	}
 }

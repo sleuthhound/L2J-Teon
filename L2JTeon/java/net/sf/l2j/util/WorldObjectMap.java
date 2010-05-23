@@ -112,8 +112,9 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	@Override
 	public boolean contains(T obj)
 	{
-		if (obj == null)
+		if (obj == null) {
 			return false;
+		}
 		return _objectMap.get(obj.getObjectId()) != null;
 	}
 
