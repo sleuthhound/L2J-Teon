@@ -106,9 +106,9 @@ public class Escape implements IUserCommandHandler
 			if (Config.UNSTUCK_INTERVAL > 100)
 			{
 				activeChar.sendMessage("You use Escape: " + unstuckTimer / 60000 + " minutes.");
-			}
-			else
+			} else {
 				activeChar.sendMessage("You use Escape: " + unstuckTimer / 1000 + " seconds.");
+			}
 		}
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		// SoE Animation section
@@ -145,12 +145,13 @@ public class Escape implements IUserCommandHandler
 			_activeChar.enableAllSkills();
 			try
 			{
-				if (_activeChar.isKoof())
+				if (_activeChar.isKoof()) {
 					_activeChar.teleToLocation(146334, 25767, -2013);
-				else if (_activeChar.isNoob())
+				} else if (_activeChar.isNoob()) {
 					_activeChar.teleToLocation(59669, -42221, -2992);
-				else
+				} else {
 					_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+				}
 			}
 			catch (Throwable e)
 			{

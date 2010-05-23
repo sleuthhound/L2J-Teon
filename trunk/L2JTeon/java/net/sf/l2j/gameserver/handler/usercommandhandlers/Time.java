@@ -28,15 +28,17 @@ public class Time implements IUserCommandHandler
 	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (COMMAND_IDS[0] != id)
+		if (COMMAND_IDS[0] != id) {
 			return false;
+		}
 		int t = GameTimeController.getInstance().getGameTime();
 		String h = "" + t / 60 % 24;
 		String m;
-		if (t % 60 < 10)
+		if (t % 60 < 10) {
 			m = "0" + t % 60;
-		else
+		} else {
 			m = "" + t % 60;
+		}
 		SystemMessage sm;
 		if (GameTimeController.getInstance().isNowNight())
 		{

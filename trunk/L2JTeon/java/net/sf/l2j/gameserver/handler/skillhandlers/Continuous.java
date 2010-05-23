@@ -75,8 +75,9 @@ public class Continuous implements ISkillHandler
 			{
 				_skill = SkillTable.getInstance().getInfo(skillEffectId, skillLevel);
 			}
-			if (_skill != null)
+			if (_skill != null) {
 				skill = _skill;
+			}
 		}
 		for (L2Object target2 : targets) {
 			target = (L2Character) target2;

@@ -40,8 +40,9 @@ public class Manadam implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		L2Character target = null;
-		if (activeChar.isAlikeDead())
+		if (activeChar.isAlikeDead()) {
 			return;
+		}
 		boolean ss = false;
 		boolean bss = false;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
@@ -81,8 +82,9 @@ public class Manadam implements ISkillHandler
 	 	}
 		for (L2Object target2 : targets) {
 			target = (L2Character) target2;
-			if (target.reflectSkill(skill))
+			if (target.reflectSkill(skill)) {
 				target = activeChar;
+			}
 			boolean acted = Formulas.getInstance().calcMagicAffected(activeChar, target, skill);
 			if (target.isInvul() || !acted)
 			{
@@ -93,9 +95,11 @@ public class Manadam implements ISkillHandler
 				double damage = Formulas.getInstance().calcManaDam(activeChar, target, skill, ss, bss);
 				double mp = damage > target.getCurrentMp() ? target.getCurrentMp() : damage;
 				target.reduceCurrentMp(mp);
-				if (damage > 0)
-					if (target.isSleeping())
+				if (damage > 0) {
+					if (target.isSleeping()) {
 						target.stopSleeping(null);
+					}
+				}
 				StatusUpdate sump = new StatusUpdate(target.getObjectId());
 				sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getCurrentMp());
 				// [L2J_JP EDIT START - TSL]

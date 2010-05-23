@@ -40,18 +40,20 @@ public class memcache
 
 	private void checkExpired()
 	{
-		for (Integer k : _hmi.keySet())
+		for (Integer k : _hmi.keySet()) {
 			if (_lastAccess.get(k) + 3600000 < System.currentTimeMillis())
 			{
 				// _hmi.remove(k);
 				// _last_access.remove(k);
 			}
-		for (Integer k : _hms.keySet())
+		}
+		for (Integer k : _hms.keySet()) {
 			if (_lastAccess.get(k) + 3600000 < System.currentTimeMillis())
 			{
 				// _hms.remove(k);
 				// _last_access.remove(k);
 			}
+		}
 	}
 
 	public void set(String type, String key, int value)
@@ -68,8 +70,9 @@ public class memcache
 	{
 		int hash = (type + "->" + key).hashCode();
 		boolean exists = _hmi.containsKey(hash) || _hms.containsKey(hash);
-		if (exists)
+		if (exists) {
 			_lastAccess.put(hash, System.currentTimeMillis());
+		}
 		checkExpired();
 		_log.fine("Check exists memcache " + type + "(" + key + ")[" + hash + "] is " + exists);
 		return exists;

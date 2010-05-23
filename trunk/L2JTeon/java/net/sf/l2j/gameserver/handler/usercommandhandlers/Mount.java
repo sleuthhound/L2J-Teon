@@ -37,8 +37,9 @@ public class Mount implements IUserCommandHandler
 	 */
 	public synchronized boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (id != COMMAND_IDS[0])
+		if (id != COMMAND_IDS[0]) {
 			return false;
+		}
 		L2Summon pet = activeChar.getPet();
 		if (pet != null && pet.isMountable() && !activeChar.isMounted())
 		{
@@ -74,8 +75,9 @@ public class Mount implements IUserCommandHandler
 			}
 			else if (!pet.isDead() && !activeChar.isMounted())
 			{
-				if (!activeChar.disarmWeapons())
+				if (!activeChar.disarmWeapons()) {
 					return false;
+				}
 				Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().npcId);
 				Broadcast.toSelfAndKnownPlayersInRadius(activeChar, mount, 810000/* 900 */);
 				activeChar.setMountType(mount.getMountType());

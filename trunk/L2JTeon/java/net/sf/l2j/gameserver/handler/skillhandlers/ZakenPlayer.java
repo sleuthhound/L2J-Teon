@@ -32,8 +32,9 @@ public class ZakenPlayer implements ISkillHandler
 		{
 			for (int index = 0; index < targets.length; index++)
 			{
-				if (!(targets[index] instanceof L2Character))
+				if (!(targets[index] instanceof L2Character)) {
 					continue;
+				}
 				L2Character target = (L2Character) targets[index];
 				int ch = Rnd.get(14) + 1;
 				if (ch == 1)
@@ -92,8 +93,9 @@ public class ZakenPlayer implements ISkillHandler
 		}
 		catch (Throwable e)
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				e.printStackTrace();
+			}
 		}
 	}
 

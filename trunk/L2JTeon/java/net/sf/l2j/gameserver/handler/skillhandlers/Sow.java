@@ -46,20 +46,23 @@ public class Sow implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (!(activeChar instanceof L2PcInstance))
+		if (!(activeChar instanceof L2PcInstance)) {
 			return;
+		}
 		_activeChar = (L2PcInstance) activeChar;
 		L2Object[] targetList = skill.getTargetList(activeChar);
 		if (targetList == null)
 		{
 			return;
 		}
-		if (_log.isDebugEnabled())
+		if (_log.isDebugEnabled()) {
 			_log.info("Casting sow");
+		}
 		for (int index = 0; index < targetList.length; index++)
 		{
-			if (!(targetList[0] instanceof L2MonsterInstance))
+			if (!(targetList[0] instanceof L2MonsterInstance)) {
 				continue;
+			}
 			_target = (L2MonsterInstance) targetList[0];
 			if (_target.isSeeded())
 			{
@@ -121,20 +124,25 @@ public class Sow implements ISkillHandler
 		int levelTarget = _target.getLevel(); // taret Level
 		// 5% decrease in chance if player level
 		// is more then +/- 5 levels to _seed's_ level
-		if (levelTarget < minlevelSeed)
+		if (levelTarget < minlevelSeed) {
 			basicSuccess -= 5;
-		if (levelTarget > maxlevelSeed)
+		}
+		if (levelTarget > maxlevelSeed) {
 			basicSuccess -= 5;
+		}
 		// 5% decrease in chance if player level
 		// is more than +/- 5 levels to _target's_ level
 		int diff = levelPlayer - levelTarget;
-		if (diff < 0)
+		if (diff < 0) {
 			diff = -diff;
-		if (diff > 5)
+		}
+		if (diff > 5) {
 			basicSuccess -= 5 * (diff - 5);
+		}
 		// chance can't be less than 1%
-		if (basicSuccess < 1)
+		if (basicSuccess < 1) {
 			basicSuccess = 1;
+		}
 		int rate = Rnd.nextInt(99);
 		return rate < basicSuccess;
 	}

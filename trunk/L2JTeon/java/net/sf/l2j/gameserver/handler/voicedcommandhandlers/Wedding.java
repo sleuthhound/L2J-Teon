@@ -52,12 +52,13 @@ public class Wedding implements IVoicedCommandHandler
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-		if (command.startsWith("engage"))
+		if (command.startsWith("engage")) {
 			return engage(activeChar);
-		else if (command.startsWith("divorce"))
+		} else if (command.startsWith("divorce")) {
 			return divorce(activeChar);
-		else if (command.startsWith("gotolove"))
+		} else if (command.startsWith("gotolove")) {
 			return gotolove(activeChar);
+		}
 		return false;
 	}
 

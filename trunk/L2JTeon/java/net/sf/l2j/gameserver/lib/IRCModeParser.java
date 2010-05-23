@@ -170,9 +170,11 @@ public class IRCModeParser
 	private int getModesCount(String modes)
 	{
 		int count = 0;
-		for (int i = 0, c, len = modes.length(); i < len; i++)
-			if ((c = modes.charAt(i)) != '+' && c != '-')
+		for (int i = 0, c, len = modes.length(); i < len; i++) {
+			if ((c = modes.charAt(i)) != '+' && c != '-') {
 				count++;
+			}
+		}
 		return count;
 	}
 

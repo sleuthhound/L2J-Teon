@@ -44,8 +44,9 @@ public class CpDam implements ISkillHandler
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead())
+		if (activeChar.isAlikeDead()) {
 			return;
+		}
 		boolean ss = false;
 		boolean sps = false;
 		boolean bss = false;
@@ -101,8 +102,9 @@ public class CpDam implements ISkillHandler
 			{
 				continue;
 			}
-			if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+			if (!Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss)) {
 				return;
+			}
 			int damage = (int) (target.getCurrentCp() * (1 - skill.getPower()));
 			// Manage attack or cast break of the target (calculating rate,
 			// sending message...)

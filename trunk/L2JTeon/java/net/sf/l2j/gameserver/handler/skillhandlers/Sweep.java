@@ -47,8 +47,9 @@ public class Sweep implements ISkillHandler
 		boolean send = false;
 		for (int index = 0; index < targets.length; index++)
 		{
-			if (!(targets[index] instanceof L2Attackable))
+			if (!(targets[index] instanceof L2Attackable)) {
 				continue;
+			}
 			L2Attackable target = (L2Attackable) targets[index];
 			L2Attackable.RewardItem[] items = null;
 			boolean isSweeping = false;
@@ -62,17 +63,19 @@ public class Sweep implements ISkillHandler
 			}
 			if (isSweeping)
 			{
-				if (items == null || items.length == 0)
+				if (items == null || items.length == 0) {
 					continue;
+				}
 				for (L2Attackable.RewardItem ritem : items)
 				{
-					if (player.isInParty())
+					if (player.isInParty()) {
 						player.getParty().distributeItem(player, ritem, true, target);
-					else
+					} else
 					{
 						L2ItemInstance item = player.getInventory().addItem("Sweep", ritem.getItemId(), ritem.getCount(), player, target);
-						if (iu != null)
+						if (iu != null) {
 							iu.addItem(item);
+						}
 						send = true;
 						SystemMessage smsg;
 						if (ritem.getCount() > 1)
@@ -95,10 +98,11 @@ public class Sweep implements ISkillHandler
 			target.endDecayTask();
 			if (send)
 			{
-				if (iu != null)
+				if (iu != null) {
 					player.sendPacket(iu);
-				else
+				} else {
 					player.sendPacket(new ItemList(player, false));
+				}
 			}
 		}
 	}

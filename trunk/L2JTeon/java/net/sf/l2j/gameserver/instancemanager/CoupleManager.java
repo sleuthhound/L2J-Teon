@@ -100,8 +100,9 @@ public class CoupleManager
 	public final Couple getCouple(int coupleId)
 	{
 		int index = getCoupleIndex(coupleId);
-		if (index >= 0)
+		if (index >= 0) {
 			return getCouples().get(index);
+		}
 		return null;
 	}
 
@@ -222,8 +223,9 @@ public class CoupleManager
 		int i = 0;
 		for (Couple temp : getCouples())
 		{
-			if (temp != null && temp.getId() == coupleId)
+			if (temp != null && temp.getId() == coupleId) {
 				return i;
+			}
 			i++;
 		}
 		return -1;
@@ -231,8 +233,9 @@ public class CoupleManager
 
 	public final FastList<Couple> getCouples()
 	{
-		if (_couples == null)
+		if (_couples == null) {
 			_couples = new FastList<Couple>();
+		}
 		return _couples;
 	}
 }

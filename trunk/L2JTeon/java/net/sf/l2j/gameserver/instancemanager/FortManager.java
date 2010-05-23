@@ -67,8 +67,9 @@ public class FortManager
 			for (int i = 0; i < getForts().size(); i++)
 			{
 				fort = getForts().get(i);
-				if (fort == null)
+				if (fort == null) {
 					continue;
+				}
 				distance = fort.getDistance(obj);
 				if (closestDistance > distance)
 				{
@@ -122,8 +123,9 @@ public class FortManager
 	{
 		for (Fort temp : getForts())
 		{
-			if (temp.getFortId() == fortId)
+			if (temp.getFortId() == fortId) {
 				return temp;
+			}
 		}
 		return null;
 	}
@@ -132,8 +134,9 @@ public class FortManager
 	{
 		for (Fort temp : getForts())
 		{
-			if (temp.getOwnerId() == clan.getClanId())
+			if (temp.getOwnerId() == clan.getClanId()) {
 				return temp;
+			}
 		}
 		return null;
 	}
@@ -142,8 +145,9 @@ public class FortManager
 	{
 		for (Fort temp : getForts())
 		{
-			if (temp.getName().equalsIgnoreCase(name.trim()))
+			if (temp.getName().equalsIgnoreCase(name.trim())) {
 				return temp;
+			}
 		}
 		return null;
 	}
@@ -152,8 +156,9 @@ public class FortManager
 	{
 		for (Fort temp : getForts())
 		{
-			if (temp.checkIfInZone(x, y, z))
+			if (temp.checkIfInZone(x, y, z)) {
 				return temp;
+			}
 		}
 		return null;
 	}
@@ -169,8 +174,9 @@ public class FortManager
 		for (int i = 0; i < getForts().size(); i++)
 		{
 			fort = getForts().get(i);
-			if (fort != null && fort.getFortId() == fortId)
+			if (fort != null && fort.getFortId() == fortId) {
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -186,16 +192,18 @@ public class FortManager
 		for (int i = 0; i < getForts().size(); i++)
 		{
 			fort = getForts().get(i);
-			if (fort != null && fort.checkIfInZone(x, y, z))
+			if (fort != null && fort.checkIfInZone(x, y, z)) {
 				return i;
+			}
 		}
 		return -1;
 	}
 
 	public final List<Fort> getForts()
 	{
-		if (_forts == null)
+		if (_forts == null) {
 			_forts = new FastList<Fort>();
+		}
 		return _forts;
 	}
 

@@ -37,12 +37,14 @@ public class castle implements IVoicedCommandHandler
 		if (command.startsWith("opendoor") && activeChar.getClan() != null)
 		{
 			// Can the player opene/close the doors ?
-			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR)
+			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR) {
 				return false;
+			}
 			// Is a door the target ?
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
-			if (door == null)
+			if (door == null) {
 				return false;
+			}
 			Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
 			if (castle != null)
 			{
@@ -66,11 +68,13 @@ public class castle implements IVoicedCommandHandler
 		else if (command.startsWith("closedoor") && activeChar.getClan() != null)
 		{
 			// Can the player open/close the doors ?
-			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR)
+			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR) {
 				return false;
+			}
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
-			if (door == null)
+			if (door == null) {
 				return false;
+			}
 			Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
 			if (castle != null)
 			{
@@ -97,8 +101,9 @@ public class castle implements IVoicedCommandHandler
 			{
 				if (castle.checkIfInZone(activeChar.getX(), activeChar.getY(), activeChar.getZ()))
 				{
-					if (!activeChar.disarmWeapons())
+					if (!activeChar.disarmWeapons()) {
 						return false;
+					}
 					Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, 12621);
 					activeChar.sendPacket(mount);
 					activeChar.broadcastPacket(mount);

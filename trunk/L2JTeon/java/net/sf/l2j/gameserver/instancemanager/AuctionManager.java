@@ -74,8 +74,9 @@ public class AuctionManager
 			con = L2DatabaseFactory.getInstance().getConnection();
 			statement = con.prepareStatement("SELECT id FROM auction ORDER BY id");
 			rs = statement.executeQuery();
-			while (rs.next())
+			while (rs.next()) {
 				_auctions.add(new Auction(rs.getInt("id")));
+			}
 			statement.close();
 			System.out.println("Loaded: " + getAuctions().size() + " auction(s)");
 		}
@@ -99,8 +100,9 @@ public class AuctionManager
 	public final Auction getAuction(int auctionId)
 	{
 		int index = getAuctionIndex(auctionId);
-		if (index >= 0)
+		if (index >= 0) {
 			return getAuctions().get(index);
+		}
 		return null;
 	}
 
@@ -110,8 +112,9 @@ public class AuctionManager
 		for (int i = 0; i < getAuctions().size(); i++)
 		{
 			auction = getAuctions().get(i);
-			if (auction != null && auction.getId() == auctionId)
+			if (auction != null && auction.getId() == auctionId) {
 				return i;
+			}
 		}
 		return -1;
 	}
@@ -126,9 +129,11 @@ public class AuctionManager
 	{
 		java.sql.Connection con = null;
 		int i = 0;
-		for (i = 0; i < ItemInitDataId.length; i++)
-			if (ItemInitDataId[i] == id)
+		for (i = 0; i < ItemInitDataId.length; i++) {
+			if (ItemInitDataId[i] == id) {
 				break;
+			}
+		}
 		if (i >= ItemInitDataId.length)
 		{
 			_log.warning("Clan Hall auction not found for Id :" + id);

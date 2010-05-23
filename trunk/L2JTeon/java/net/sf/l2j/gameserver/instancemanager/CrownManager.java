@@ -34,8 +34,9 @@ public class CrownManager
 
 	public static final CrownManager getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new CrownManager();
+		}
 		return _instance;
 	}
 
@@ -46,8 +47,9 @@ public class CrownManager
 
 	public void checkCrowns(L2Clan clan)
 	{
-		if (clan == null)
+		if (clan == null) {
 			return;
+		}
 		for (L2ClanMember member : clan.getMembers())
 		{
 			if (member != null && member.isOnline() && member.getPlayerInstance() != null)
@@ -59,17 +61,19 @@ public class CrownManager
 
 	public void checkCrowns(L2PcInstance activeChar)
 	{
-		if (activeChar == null)
+		if (activeChar == null) {
 			return;
+		}
 		boolean isLeader = false;
 		int crownId = -1;
 		L2Clan activeCharClan = activeChar.getClan();
 		// L2EMU_EDIT_BEGIN
 		L2ClanMember activeCharClanLeader;
-		if (activeCharClan != null)
+		if (activeCharClan != null) {
 			activeCharClanLeader = activeChar.getClan().getLeader();
-		else
+		} else {
 			activeCharClanLeader = null;
+		}
 		// L2EMU_EDIT_END
 		if (activeCharClan != null)
 		{

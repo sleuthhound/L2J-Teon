@@ -62,12 +62,15 @@ public class Pdam implements ISkillHandler
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead())
+		if (activeChar.isAlikeDead()) {
 			return;
+		}
 		int damage = 0;
-		if (Config.DEBUG)
-			if (Config.DEBUG)
+		if (Config.DEBUG) {
+			if (Config.DEBUG) {
 				_log.fine("Begin Skill processing in Pdam.java " + skill.getSkillType());
+			}
+		}
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
 			Formulas f = Formulas.getInstance();
@@ -76,38 +79,46 @@ public class Pdam implements ISkillHandler
 			{
 				target.stopFakeDeath(null);
 			}
-			else if (target.isAlikeDead())
+			else if (target.isAlikeDead()) {
 				continue;
+			}
 			boolean dual = activeChar.isUsingDualWeapon();
 			boolean shld = f.calcShldUse(activeChar, target);
 			// PDAM critical chance not affected by buffs, only by STR. Only some skills are meant to crit.
 			boolean crit = false;
-			if (skill.getBaseCritRate() > 0)
+			if (skill.getBaseCritRate() > 0) {
 				crit = f.calcCrit(skill.getBaseCritRate() * 10 * f.getSTRBonus(activeChar));
+			}
 			boolean soul = weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER;
-			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0)
+			if (!crit && (skill.getCondition() & L2Skill.COND_CRIT) != 0) {
 				damage = 0;
-			else
+			} else {
 				damage = (int) f.calcPhysDam(activeChar, target, skill, shld, false, dual, soul);
-			if (crit)
+			}
+			if (crit) {
 				damage *= 2; // PDAM Critical damage always 2x and not affected by buffs
+			}
 			if (damage > 5000 && activeChar instanceof L2PcInstance)
 			{
 				String name = "";
-				if (target instanceof L2RaidBossInstance)
+				if (target instanceof L2RaidBossInstance) {
 					name = "RaidBoss ";
-				if (target instanceof L2NpcInstance)
+				}
+				if (target instanceof L2NpcInstance) {
 					name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().npcId + ")";
-				if (target instanceof L2PcInstance)
+				}
+				if (target instanceof L2PcInstance) {
 					name = target.getName() + "(" + target.getObjectId() + ") ";
+				}
 				name += target.getLevel() + " lvl";
 				if (Config.LOG_PDAM)
 				{
 					Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage + " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_pdam");
 				}
 			}
-			if (soul && weapon != null)
+			if (soul && weapon != null) {
 				weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+			}
 			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, skill);
 			if (!skillIsEvaded)
 			{
@@ -170,9 +181,9 @@ public class Pdam implements ISkillHandler
 						// 2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
 						{
 							// If is a monster damage is (CurrentHp - 1) so HP = 1
-							if (target instanceof L2NpcInstance)
+							if (target instanceof L2NpcInstance) {
 								target.reduceCurrentHp(target.getCurrentHp() - 1, activeChar);
-							else if (target instanceof L2PcInstance) // If is a active player set his HP and CP to 1
+							} else if (target instanceof L2PcInstance) // If is a active player set his HP and CP to 1
 							{
 								L2PcInstance player = (L2PcInstance) target;
 								if (!player.isInvul())
@@ -197,9 +208,9 @@ public class Pdam implements ISkillHandler
 								{
 									if (damage >= player.getCurrentHp())
 									{
-										if (player.isInDuel())
+										if (player.isInDuel()) {
 											player.setCurrentHp(1);
-										else
+										} else
 										{
 											player.setCurrentHp(0);
 											if (player.isInOlympiadMode())
@@ -207,21 +218,21 @@ public class Pdam implements ISkillHandler
 												player.abortAttack();
 												player.abortCast();
 												player.getStatus().stopHpMpRegeneration();
-											}
-											else
+											} else {
 												player.doDie(activeChar);
+											}
 										}
-									}
-									else
+									} else {
 										player.setCurrentHp(player.getCurrentHp() - damage);
+									}
 								}
 								SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
 								smsg.addString(activeChar.getName());
 								smsg.addNumber(damage);
 								player.sendPacket(smsg);
-							}
-							else
+							} else {
 								target.reduceCurrentHp(damage, activeChar);
+							}
 						}
 						else
 						{

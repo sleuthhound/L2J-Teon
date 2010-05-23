@@ -34,10 +34,11 @@ public class Away implements IVoicedCommandHandler
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String text)
 	{
-		if (command.startsWith("away"))
+		if (command.startsWith("away")) {
 			return away(activeChar, text);
-		else if (command.startsWith("back"))
+		} else if (command.startsWith("back")) {
 			return back(activeChar);
+		}
 		return false;
 	}
 
@@ -62,8 +63,9 @@ public class Away implements IVoicedCommandHandler
 			return false;
 		}
 		// check player is death/fake death and movement disable
-		if (activeChar.isMovementDisabled() || activeChar.isAlikeDead())
+		if (activeChar.isMovementDisabled() || activeChar.isAlikeDead()) {
 			return false;
+		}
 		// Check if player is in Siege
 		if (siege != null && siege.getIsInProgress())
 		{
@@ -109,10 +111,12 @@ public class Away implements IVoicedCommandHandler
 			activeChar.sendMessage("Player in PVP or with Karma can't use the Away command!");
 			return false;
 		}
-		if (activeChar.isImmobilized())
+		if (activeChar.isImmobilized()) {
 			return false;
-		if (text == null)
+		}
+		if (text == null) {
 			text = "";
+		}
 		// check away text have not more then 10 letter
 		if (text.length() > 10)
 		{
@@ -120,9 +124,10 @@ public class Away implements IVoicedCommandHandler
 			return false;
 		}
 		// check if player have no one in target
-		if (activeChar.getTarget() == null && text.length() <= 1 || text.length() <= 10)
+		if (activeChar.getTarget() == null && text.length() <= 1 || text.length() <= 10) {
 			// set this Player status away in AwayManager
 			AwayManager.getInstance().setAway(activeChar, text);
+		}
 		return true;
 	}
 

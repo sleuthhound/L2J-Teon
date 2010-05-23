@@ -31,8 +31,9 @@ public class OlympiadStat implements IUserCommandHandler
 	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (id != COMMAND_IDS[0])
+		if (id != COMMAND_IDS[0]) {
 			return false;
+		}
 		SystemMessage sm = SystemMessage.sendString("Your current record for this Grand Olympiad is " + Olympiad.getInstance().getCompetitionDone(activeChar.getObjectId()) + " match(s) played. You have earned " + Olympiad.getInstance().getNoblePoints(activeChar.getObjectId()) + " Olympiad Point(s)");
 		activeChar.sendPacket(sm);
 		return true;
