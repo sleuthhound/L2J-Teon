@@ -1194,8 +1194,9 @@ public final class L2ItemInstance extends L2Object
 					// item
 				}
 				inst = new L2ItemInstance(objectId, item);
-				if (donatorRentTime > 0)
+				if (donatorRentTime > 0) {
 					inst.setDonatorRented(true); // state for feture
+				}
 				// enchant
 				// checkup
 				inst._existsInDb = true;
@@ -1285,8 +1286,9 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public final void dropMe(L2Character dropper, int x, int y, int z)
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() == null;
+		}
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2ItemInstance dropped and update its _worldregion
@@ -1300,8 +1302,9 @@ public final class L2ItemInstance extends L2Object
 		// this can synchronize on others instancies, so it's out of
 		// synchronized, to avoid deadlocks Add the L2ItemInstance dropped in the world as a visible object
 		L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), dropper);
-		if (Config.SAVE_DROPPED_ITEM)
+		if (Config.SAVE_DROPPED_ITEM) {
 			ItemsOnGroundManager.getInstance().save(this);
+		}
 	}
 
 	/**
@@ -1309,12 +1312,15 @@ public final class L2ItemInstance extends L2Object
 	 */
 	private void updateInDb()
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert _existsInDb;
-		if (_wear)
+		}
+		if (_wear) {
 			return;
-		if (_storedInDb)
+		}
+		if (_storedInDb) {
 			return;
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -1357,10 +1363,12 @@ public final class L2ItemInstance extends L2Object
 	 */
 	private void insertIntoDb()
 	{
-		if (_wear)
+		if (_wear) {
 			return;
-		if (Config.ASSERT)
+		}
+		if (Config.ASSERT) {
 			assert !_existsInDb && getObjectId() != 0;
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -1404,13 +1412,16 @@ public final class L2ItemInstance extends L2Object
 	 */
 	private void removeFromDb()
 	{
-		if (_wear)
+		if (_wear) {
 			return;
-		if (Config.ASSERT)
+		}
+		if (Config.ASSERT) {
 			assert _existsInDb;
+		}
 		// delete augmentation data
-		if (isAugmented())
+		if (isAugmented()) {
 			_augmentation.deleteAugmentationData();
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -1507,16 +1518,18 @@ public final class L2ItemInstance extends L2Object
 
 	public void restoreInitCount()
 	{
-		if (_decrease)
+		if (_decrease) {
 			_count = _initCount;
+		}
 	}
 
 	public void setTime(int time)
 	{
-		if (time > 0)
+		if (time > 0) {
 			_time = time;
-		else
+		} else {
 			_time = 0;
+		}
 	}
 
 	public int getTime()

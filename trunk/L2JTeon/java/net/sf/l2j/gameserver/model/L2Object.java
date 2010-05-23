@@ -97,22 +97,25 @@ public abstract class L2Object
 
 	public final int getX()
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() != null || _isVisible;
+		}
 		return getPosition().getX();
 	}
 
 	public final int getY()
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() != null || _isVisible;
+		}
 		return getPosition().getY();
 	}
 
 	public final int getZ()
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() != null || _isVisible;
+		}
 		return getPosition().getZ();
 	}
 
@@ -139,8 +142,9 @@ public abstract class L2Object
 	 */
 	public final void decayMe()
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() != null;
+		}
 		L2WorldRegion reg = getPosition().getWorldRegion();
 		synchronized (this)
 		{
@@ -152,8 +156,9 @@ public abstract class L2Object
 		// Remove the L2Object from the world
 		L2World.getInstance().removeVisibleObject(this, reg);
 		L2World.getInstance().removeObject(this);
-		if (Config.SAVE_DROPPED_ITEM)
+		if (Config.SAVE_DROPPED_ITEM) {
 			ItemsOnGroundManager.getInstance().removeObject(this);
+		}
 	}
 
 	/**
@@ -179,10 +184,12 @@ public abstract class L2Object
 	 */
 	public final void pickupMe(L2Character player) // NOTE: Should move this function into L2ItemInstance because it does not apply to L2Character
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert this instanceof L2ItemInstance;
-		if (Config.ASSERT)
+		}
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() != null;
+		}
 		L2WorldRegion oldregion = getPosition().getWorldRegion();
 		// Create a server->client GetItem packet to pick up the L2ItemInstance
 		GetItem gi = new GetItem((L2ItemInstance) this, player.getObjectId());
@@ -207,14 +214,16 @@ public abstract class L2Object
 				if (player instanceof L2Summon)
 				{
 					qs = ((L2Summon) player).getOwner().getQuestState("255_Tutorial");
-					if (qs != null)
+					if (qs != null) {
 						qs.getQuest().notifyEvent("CE" + itemId + "", null, ((L2Summon) player).getOwner());
+					}
 				}
 				else if (player instanceof L2PcInstance)
 				{
 					qs = ((L2PcInstance) player).getQuestState("255_Tutorial");
-					if (qs != null)
+					if (qs != null) {
 						qs.getQuest().notifyEvent("CE" + itemId + "", null, (L2PcInstance) player);
+					}
 				}
 			}
 		}
@@ -248,8 +257,9 @@ public abstract class L2Object
 	 */
 	public final void spawnMe()
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() == null && getPosition().getWorldPosition().getX() != 0 && getPosition().getWorldPosition().getY() != 0 && getPosition().getWorldPosition().getZ() != 0;
+		}
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2Object spawn and update its _worldregion
@@ -269,20 +279,25 @@ public abstract class L2Object
 
 	public final void spawnMe(int x, int y, int z)
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getPosition().getWorldRegion() == null;
+		}
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2Object spawn and update its _worldregion
 			_isVisible = true;
-			if (x > L2World.MAP_MAX_X)
+			if (x > L2World.MAP_MAX_X) {
 				x = L2World.MAP_MAX_X - 5000;
-			if (x < L2World.MAP_MIN_X)
+			}
+			if (x < L2World.MAP_MIN_X) {
 				x = L2World.MAP_MIN_X + 5000;
-			if (y > L2World.MAP_MAX_Y)
+			}
+			if (y > L2World.MAP_MAX_Y) {
 				y = L2World.MAP_MAX_Y - 5000;
-			if (y < L2World.MAP_MIN_Y)
+			}
+			if (y < L2World.MAP_MIN_Y) {
 				y = L2World.MAP_MIN_Y + 5000;
+			}
 			getPosition().setWorldPosition(x, y, z);
 			getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
 			// Add the L2Object spawn in the _allobjects of L2World
@@ -299,10 +314,11 @@ public abstract class L2Object
 
 	public void toggleVisible()
 	{
-		if (isVisible())
+		if (isVisible()) {
 			decayMe();
-		else
+		} else {
 			spawnMe();
+		}
 	}
 
 	// =========================================================
@@ -338,14 +354,16 @@ public abstract class L2Object
 	public final void setIsVisible(boolean value)
 	{
 		_isVisible = value;
-		if (!_isVisible)
+		if (!_isVisible) {
 			getPosition().setWorldRegion(null);
+		}
 	}
 
 	public ObjectKnownList getKnownList()
 	{
-		if (_knownList == null)
+		if (_knownList == null) {
 			_knownList = new ObjectKnownList(this);
+		}
 		return _knownList;
 	}
 
@@ -371,15 +389,17 @@ public abstract class L2Object
 
 	public final ObjectPoly getPoly()
 	{
-		if (_poly == null)
+		if (_poly == null) {
 			_poly = new ObjectPoly(this);
+		}
 		return _poly;
 	}
 
 	public final ObjectPosition getPosition()
 	{
-		if (_position == null)
+		if (_position == null) {
 			_position = new ObjectPosition(this);
+		}
 		return _position;
 	}
 

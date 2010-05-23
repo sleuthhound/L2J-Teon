@@ -41,11 +41,13 @@ public class AttackableKnownList extends NpcKnownList
 	@Override
 	public boolean removeKnownObject(L2Object object)
 	{
-		if (!super.removeKnownObject(object))
+		if (!super.removeKnownObject(object)) {
 			return false;
+		}
 		// Remove the L2Object from the _aggrolist of the L2Attackable
-		if (object != null && object instanceof L2Character)
+		if (object != null && object instanceof L2Character) {
 			getActiveChar().getAggroList().remove(object);
+		}
 		// Set the L2Attackable Intention to AI_INTENTION_IDLE
 		Collection<L2PcInstance> known = getKnownPlayers().values();
 		// FIXME: This is a temporary solution
@@ -70,23 +72,29 @@ public class AttackableKnownList extends NpcKnownList
 	@Override
 	public int getDistanceToForgetObject(L2Object object)
 	{
-		if (getActiveChar().getAggroList() != null)
-			if (getActiveChar().getAggroList().get(object) != null)
+		if (getActiveChar().getAggroList() != null) {
+			if (getActiveChar().getAggroList().get(object) != null) {
 				return 3000;
+			}
+		}
 		return Math.min(2200, 2 * getDistanceToWatchObject(object));
 	}
 
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
 	{
-		if (object instanceof L2FolkInstance || !(object instanceof L2Character))
+		if (object instanceof L2FolkInstance || !(object instanceof L2Character)) {
 			return 0;
-		if (object instanceof L2PlayableInstance)
+		}
+		if (object instanceof L2PlayableInstance) {
 			return 1500;
-		if (getActiveChar().getAggroRange() > getActiveChar().getFactionRange())
+		}
+		if (getActiveChar().getAggroRange() > getActiveChar().getFactionRange()) {
 			return getActiveChar().getAggroRange();
-		if (getActiveChar().getFactionRange() > 300)
+		}
+		if (getActiveChar().getFactionRange() > 300) {
 			return getActiveChar().getFactionRange();
+		}
 		return 300;
 	}
 }

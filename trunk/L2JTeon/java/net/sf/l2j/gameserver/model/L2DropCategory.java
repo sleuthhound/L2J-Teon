@@ -108,18 +108,20 @@ public class L2DropCategory
 	// (but may return 0 or many drops)
 	public int getCategoryChance()
 	{
-		if (getCategoryType() >= 0)
+		if (getCategoryType() >= 0) {
 			return _categoryChance;
-		else
+		} else {
 			return L2DropData.MAX_CHANCE;
+		}
 	}
 
 	public int getCategoryBalancedChance()
 	{
-		if (getCategoryType() >= 0)
+		if (getCategoryType() >= 0) {
 			return _categoryBalancedChance;
-		else
+		} else {
 			return L2DropData.MAX_CHANCE;
+		}
 	}
 
 	public int getCategoryType()
@@ -177,8 +179,9 @@ public class L2DropCategory
 		for (L2DropData drop : getAllDrops())
 		{
 			sum += Math.min((drop.getChance() * Config.RATE_DROP_ITEMS), L2DropData.MAX_CHANCE);
-			if (sum >= randomIndex) // drop this item and exit the function
+			if (sum >= randomIndex) {
 				return drop;
+			}
 		}
 		return null;
 	}

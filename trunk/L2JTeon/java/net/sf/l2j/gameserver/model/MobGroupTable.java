@@ -36,8 +36,9 @@ public class MobGroupTable
 
 	public static MobGroupTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new MobGroupTable();
+		}
 		return _instance;
 	}
 
@@ -58,9 +59,11 @@ public class MobGroupTable
 
 	public MobGroup getGroupForMob(L2ControllableMobInstance mobInst)
 	{
-		for (MobGroup mobGroup : _groupMap.values())
-			if (mobGroup.isGroupMember(mobInst))
+		for (MobGroup mobGroup : _groupMap.values()) {
+			if (mobGroup.isGroupMember(mobInst)) {
 				return mobGroup;
+			}
+		}
 		return null;
 	}
 

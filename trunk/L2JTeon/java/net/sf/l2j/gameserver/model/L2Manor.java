@@ -84,8 +84,9 @@ public class L2Manor
 	{
 		for (SeedData seed : _seeds.values())
 		{
-			if (seed.getCrop() == cropId)
+			if (seed.getCrop() == cropId) {
 				return getSeedBasicPrice(seed.getId());
+			}
 		}
 		return 0;
 	}
@@ -93,18 +94,20 @@ public class L2Manor
 	public int getCropBasicPrice(int cropId)
 	{
 		L2Item cropItem = ItemTable.getInstance().getTemplate(cropId);
-		if (cropItem != null)
+		if (cropItem != null) {
 			return cropItem.getReferencePrice();
-		else
+		} else {
 			return 0;
+		}
 	}
 
 	public int getMatureCrop(int cropId)
 	{
 		for (SeedData seed : _seeds.values())
 		{
-			if (seed.getCrop() == cropId)
+			if (seed.getCrop() == cropId) {
 				return seed.getMature();
+			}
 		}
 		return 0;
 	}
@@ -124,16 +127,18 @@ public class L2Manor
 	public int getSeedMinLevel(int seedId)
 	{
 		SeedData seed = _seeds.get(seedId);
-		if (seed != null)
+		if (seed != null) {
 			return seed.getLevel() - 5;
+		}
 		return -1;
 	}
 
 	public int getSeedMaxLevel(int seedId)
 	{
 		SeedData seed = _seeds.get(seedId);
-		if (seed != null)
+		if (seed != null) {
 			return seed.getLevel() + 5;
+		}
 		return -1;
 	}
 
@@ -174,8 +179,9 @@ public class L2Manor
 	public int getCropType(int seedId)
 	{
 		SeedData seed = _seeds.get(seedId);
-		if (seed != null)
+		if (seed != null) {
 			return seed.getCrop();
+		}
 		return -1;
 	}
 

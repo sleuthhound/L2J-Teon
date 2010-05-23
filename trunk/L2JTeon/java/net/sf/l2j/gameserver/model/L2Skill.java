@@ -429,8 +429,9 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		_triggeredId = set.getInteger("triggeredId", 0);
 		_triggeredLevel = set.getInteger("triggeredLevel", 0);
         _chanceType = set.getString("chanceType", "");
-        if (_chanceType != "" && !_chanceType.isEmpty())
-        	_chanceCondition = ChanceCondition.parse(set);
+        if (_chanceType != "" && !_chanceType.isEmpty()) {
+			_chanceCondition = ChanceCondition.parse(set);
+		}
 		_forceId = set.getInteger("forceId", 0);
 		_isHeroSkill = HeroSkillTable.isHeroSkill(_id);
 		_baseCritRate = set.getInteger("baseCritRate", _skillType == SkillType.PDAM || _skillType == SkillType.BLOW ? 0 : -1);
@@ -552,8 +553,9 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	 */
 	public final double getPower(L2Character activeChar)
 	{
-		if (activeChar == null)
+		if (activeChar == null) {
 			return _power;
+		}
 		switch (_skillType)
 		{
 			case DEATHLINK:
@@ -1151,12 +1153,15 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			return true;
 		}
 		int mask = 0;
-		if (activeChar.getActiveWeaponItem() != null)
+		if (activeChar.getActiveWeaponItem() != null) {
 			mask |= activeChar.getActiveWeaponItem().getItemType().mask();
-		if (activeChar.getSecondaryWeaponItem() != null)
+		}
+		if (activeChar.getSecondaryWeaponItem() != null) {
 			mask |= activeChar.getSecondaryWeaponItem().getItemType().mask();
-		if ((mask & weaponsAllowed) != 0)
+		}
+		if ((mask & weaponsAllowed) != 0) {
 			return true;
+		}
 		return false;
 	}
 
@@ -1180,8 +1185,9 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		Env env = new Env();
 		env.player = activeChar;
-		if (target instanceof L2Character) // TODO: object or char?
+		if (target instanceof L2Character) {
 			env.target = (L2Character) target;
+		}
 		env.skill = this;
 		if (!preCondition.test(env))
 		{
@@ -1716,21 +1722,23 @@ public abstract class L2Skill implements IChanceSkillTrigger
 							{
 								// FORCE BUFFS may cancel here but there should be a proper condition
 								case 426:
-									if (!player.isMageClass())
+									if (!player.isMageClass()) {
 										return new L2Character[] { target };
-									else
+									} else {
 										return null;
+									}
 								case 427:
-									if (player.isMageClass())
+									if (player.isMageClass()) {
 										return new L2Character[] { target };
-									else
+									} else {
 										return null;
+									}
 							}
 						}
 						return new L2Character[] { target };
-					}
-					else
+					} else {
 						return null;
+					}
 				}
 				else
 				{
@@ -1828,33 +1836,37 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	            if (getCastRange() > -1 && target != null)
 	            {
 	                newTarget = target;
-	            }
-	            else
-	                newTarget = activeChar;
+	            } else {
+					newTarget = activeChar;
+				}
 
-	            if (newTarget != activeChar || isSkillTypeOffensive())
-	                targetList.add(newTarget);
+	            if (newTarget != activeChar || isSkillTypeOffensive()) {
+					targetList.add(newTarget);
+				}
 
 	            for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 	            {
-	                if (obj == newTarget || obj == activeChar)
-	                        continue;
+	                if (obj == newTarget || obj == activeChar) {
+						continue;
+					}
 
 	                if (obj instanceof L2Attackable)
 	                {
 	                    if(!obj.isAlikeDead())
 	                    {
 	                        // Don't add this target if this is a PC->PC pvp casting and pvp condition not met
-	                        if (activeChar instanceof L2PcInstance && !((L2PcInstance)activeChar).checkPvpSkill(obj, this))
-	                            continue;
+	                        if (activeChar instanceof L2PcInstance && !((L2PcInstance)activeChar).checkPvpSkill(obj, this)) {
+								continue;
+							}
 
 	                        // check if both attacker and target are L2PcInstances and if they are in same party or clan
 	                        if (   activeChar instanceof L2PcInstance && obj instanceof L2PcInstance &&
 	                             (((L2PcInstance)activeChar).getClanId() != ((L2PcInstance)obj).getClanId() ||
 	                             ((L2PcInstance)activeChar).getAllyId() != ((L2PcInstance)obj).getAllyId() &&
 	                             ((L2PcInstance)activeChar).getParty() != null && ((L2PcInstance)obj).getParty() != null &&
-	                             ((L2PcInstance)activeChar).getParty().getPartyLeaderOID() != ((L2PcInstance)obj).getParty().getPartyLeaderOID()))
-	                            continue;
+	                             ((L2PcInstance)activeChar).getParty().getPartyLeaderOID() != ((L2PcInstance)obj).getParty().getPartyLeaderOID())) {
+								continue;
+							}
 
 	                        targetList.add(obj);
 	                    }
@@ -1868,12 +1880,14 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				{
 					int radius = getSkillRadius();
 					L2PcInstance player = null;
-					if (activeChar instanceof L2Summon)
+					if (activeChar instanceof L2Summon) {
 						player = ((L2Summon) activeChar).getOwner();
-					else
+					} else {
 						player = (L2PcInstance) activeChar;
-					if (player == null)
+					}
+					if (player == null) {
 						return null;
+					}
 					L2Clan clan = player.getClan();
 					if (player.isInOlympiadMode())
 					{
@@ -1951,8 +1965,9 @@ public abstract class L2Skill implements IChanceSkillTrigger
                 	{
                 		if (newTarget instanceof L2NpcInstance && ((L2NpcInstance)newTarget).getFactionId() == npc.getFactionId())
                 		{
-                			if (!Util.checkIfInRange(getCastRange(), activeChar, newTarget, true))
-                				continue;
+                			if (!Util.checkIfInRange(getCastRange(), activeChar, newTarget, true)) {
+								continue;
+							}
                 			if (((L2NpcInstance)newTarget).getFirstEffect(this) != null)
                 			{
                 				 targetList.add((L2NpcInstance)newTarget);

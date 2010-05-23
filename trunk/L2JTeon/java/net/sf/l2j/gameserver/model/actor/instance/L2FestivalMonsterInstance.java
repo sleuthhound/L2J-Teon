@@ -60,8 +60,9 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
-		if (attacker instanceof L2FestivalMonsterInstance)
+		if (attacker instanceof L2FestivalMonsterInstance) {
 			return false;
+		}
 		return true;
 	}
 
@@ -90,19 +91,22 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
 	public void doItemDrop(L2Character lastAttacker)
 	{
 		L2PcInstance killingChar = null;
-		if (!(lastAttacker instanceof L2PcInstance))
+		if (!(lastAttacker instanceof L2PcInstance)) {
 			return;
+		}
 		killingChar = (L2PcInstance) lastAttacker;
 		L2Party associatedParty = killingChar.getParty();
-		if (associatedParty == null)
+		if (associatedParty == null) {
 			return;
+		}
 		L2PcInstance partyLeader = associatedParty.getPartyMembers().get(0);
 		L2ItemInstance addedOfferings = partyLeader.getInventory().addItem("Sign", SevenSignsFestival.FESTIVAL_OFFERING_ID, _bonusMultiplier, partyLeader, this);
 		InventoryUpdate iu = new InventoryUpdate();
-		if (addedOfferings.getCount() != _bonusMultiplier)
+		if (addedOfferings.getCount() != _bonusMultiplier) {
 			iu.addModifiedItem(addedOfferings);
-		else
+		} else {
 			iu.addNewItem(addedOfferings);
+		}
 		partyLeader.sendPacket(iu);
 		super.doItemDrop(lastAttacker); // Normal drop
 	}

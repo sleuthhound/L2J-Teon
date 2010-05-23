@@ -67,8 +67,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 			player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
 			return;
 		}
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing stored items");
+		}
 		player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE));
 	}
 
@@ -77,8 +78,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setActiveWarehouse(player.getWarehouse());
 		player.tempInvetoryDisable();
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing items to deposit");
+		}
 		player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.PRIVATE));
 	}
 
@@ -87,14 +89,15 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		if (player.getClan() != null)
 		{
-			if (player.getClan().getLevel() == 0)
+			if (player.getClan().getLevel() == 0) {
 				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-			else
+			} else
 			{
 				player.setActiveWarehouse(player.getClan().getWarehouse());
 				player.tempInvetoryDisable();
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.fine("Showing items to deposit - clan");
+				}
 				WareHouseDepositList dl = new WareHouseDepositList(player, WareHouseDepositList.CLAN);
 				player.sendPacket(dl);
 			}
@@ -111,13 +114,14 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		}
 		else
 		{
-			if (player.getClan().getLevel() == 0)
+			if (player.getClan().getLevel() == 0) {
 				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-			else
+			} else
 			{
 				player.setActiveWarehouse(player.getClan().getWarehouse());
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.fine("Showing items to deposit - clan");
+				}
 				player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
 			}
 		}
@@ -126,8 +130,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 	private void showWithdrawWindowFreight(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing freightened items");
+		}
 		PcFreight freight = player.getFreight();
 		if (freight != null)
 		{
@@ -151,8 +156,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		}
 		else
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("no items freightened");
+			}
 		}
 	}
 
@@ -173,8 +179,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 				return;
 			}
 			player.sendPacket(new PackageToList(chars));
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Showing destination chars to freight - char src: " + player.getName());
+			}
 		}
 	}
 
@@ -185,8 +192,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		if (destChar == null)
 		{
 			// Something went wrong!
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.warning("Error retrieving a target object for char " + player.getName() + " - using freight.");
+			}
 			return;
 		}
 		PcFreight freight = destChar.getFreight();
@@ -201,8 +209,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		player.setActiveWarehouse(freight);
 		player.tempInvetoryDisable();
 		destChar.deleteMe();
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing items to freight");
+		}
 		player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.FREIGHT));
 	}
 

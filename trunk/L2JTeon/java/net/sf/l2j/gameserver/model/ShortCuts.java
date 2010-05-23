@@ -70,8 +70,9 @@ public class ShortCuts
 
 	private void registerShortCutInDb(L2ShortCut shortcut, L2ShortCut oldShortCut)
 	{
-		if (oldShortCut != null)
+		if (oldShortCut != null) {
 			deleteShortCutFromDb(oldShortCut);
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -109,8 +110,9 @@ public class ShortCuts
 	public synchronized void deleteShortCut(int slot, int page)
 	{
 		L2ShortCut old = _shortCuts.remove(slot + page * 12);
-		if (old == null || _owner == null)
+		if (old == null || _owner == null) {
 			return;
+		}
 		deleteShortCutFromDb(old);
 		if (old.getType() == L2ShortCut.TYPE_ITEM)
 		{
@@ -122,8 +124,9 @@ public class ShortCuts
 			}
 		}
 		_owner.sendPacket(new ShortCutInit(_owner));
-		for (int shotId : _owner.getAutoSoulShot().values())
+		for (int shotId : _owner.getAutoSoulShot().values()) {
 			_owner.sendPacket(new ExAutoSoulShot(shotId, 1));
+		}
 	}
 
 	public synchronized void deleteShortCutByObjectId(int objectId)
@@ -137,8 +140,9 @@ public class ShortCuts
 				break;
 			}
 		}
-		if (toRemove != null)
+		if (toRemove != null) {
 			deleteShortCut(toRemove.getSlot(), toRemove.getPage());
+		}
 	}
 
 	/**
@@ -217,8 +221,9 @@ public class ShortCuts
 		{
 			if (sc.getType() == L2ShortCut.TYPE_ITEM)
 			{
-				if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
+				if (_owner.getInventory().getItemByObjectId(sc.getId()) == null) {
 					deleteShortCut(sc.getSlot(), sc.getPage());
+				}
 			}
 		}
 	}

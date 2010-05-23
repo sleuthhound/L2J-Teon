@@ -71,39 +71,49 @@ public class L2Territory
 	public void add(int x, int y, int zmin, int zmax, int proc)
 	{
 		_points.add(new Point(x, y, zmin, zmax, proc));
-		if (x < _xMin)
+		if (x < _xMin) {
 			_xMin = x;
-		if (y < _yMin)
+		}
+		if (y < _yMin) {
 			_yMin = y;
-		if (x > _xMax)
+		}
+		if (x > _xMax) {
 			_xMax = x;
-		if (y > _yMax)
+		}
+		if (y > _yMax) {
 			_yMax = y;
-		if (zmin < _zMin)
+		}
+		if (zmin < _zMin) {
 			_zMin = zmin;
-		if (zmax > _zMax)
+		}
+		if (zmax > _zMax) {
 			_zMax = zmax;
+		}
 		_procMax += proc;
 	}
 
 	public void print()
 	{
-		for (Point p : _points)
+		for (Point p : _points) {
 			System.out.println("(" + p._x + "," + p._y + ")");
+		}
 	}
 
 	public boolean isIntersect(int x, int y, Point p1, Point p2)
 	{
 		double dy1 = p1._y - y;
 		double dy2 = p2._y - y;
-		if (Math.signum(dy1) == Math.signum(dy2))
+		if (Math.signum(dy1) == Math.signum(dy2)) {
 			return false;
+		}
 		double dx1 = p1._x - x;
 		double dx2 = p2._x - x;
-		if (dx1 >= 0 && dx2 >= 0)
+		if (dx1 >= 0 && dx2 >= 0) {
 			return true;
-		if (dx1 < 0 && dx2 < 0)
+		}
+		if (dx1 < 0 && dx2 < 0) {
 			return false;
+		}
 		double dx0 = dy1 * (p1._x - p2._x) / (p1._y - p2._y);
 		return dx0 <= dx1;
 	}
@@ -115,8 +125,9 @@ public class L2Territory
 		{
 			Point p1 = _points.get(i > 0 ? i - 1 : _points.size() - 1);
 			Point p2 = _points.get(i);
-			if (isIntersect(x, y, p1, p2))
+			if (isIntersect(x, y, p1, p2)) {
 				intersect_count++;
+			}
 		}
 		return intersect_count % 2 == 1;
 	}

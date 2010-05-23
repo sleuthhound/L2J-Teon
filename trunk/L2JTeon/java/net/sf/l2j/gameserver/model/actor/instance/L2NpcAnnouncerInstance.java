@@ -41,10 +41,11 @@ public class L2NpcAnnouncerInstance extends L2NpcInstance
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
-		if (val == 0)
+		if (val == 0) {
 			pom = "" + npcId;
-		else
+		} else {
 			pom = npcId + "-" + val;
+		}
 		return HtmlPathService.ANNOUNCER_NPC_HTML_PATH + pom + ".htm";
 	}
 

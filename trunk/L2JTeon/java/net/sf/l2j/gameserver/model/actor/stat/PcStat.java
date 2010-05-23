@@ -68,10 +68,12 @@ public class PcStat extends PlayableStat
 			}
 		}
 		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
-		if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
+		if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty()) {
 			return false;
-		if (!super.addExp(value))
+		}
+		if (!super.addExp(value)) {
 			return false;
+		}
 		activeChar.sendPacket(new UserInfo(activeChar));
 		return true;
 	}
@@ -96,8 +98,9 @@ public class PcStat extends PlayableStat
 		float ratioTakenByPet = 0;
 		// Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp/Sp
 		L2PcInstance activeChar = getActiveChar();
-		if (activeChar.isGM() && activeChar.getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && activeChar.isInParty())
+		if (activeChar.isGM() && activeChar.getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && activeChar.isInParty()) {
 			return false;
+		}
 		// if this player has a pet that takes from the owner's Exp, give the pet Exp now
 		if (activeChar.getPet() instanceof L2PetInstance)
 		{
@@ -105,16 +108,19 @@ public class PcStat extends PlayableStat
 			ratioTakenByPet = pet.getPetData().getOwnerExpTaken();
 			// only give exp/sp to the pet by taking from the owner if the pet has a non-zero, positive ratio
 			// allow possible customizations that would have the pet earning more than 100% of the owner's exp/sp
-			if (ratioTakenByPet > 0 && !pet.isDead())
+			if (ratioTakenByPet > 0 && !pet.isDead()) {
 				pet.addExpAndSp((long) (addToExp * ratioTakenByPet), (int) (addToSp * ratioTakenByPet));
+			}
 			// now adjust the max ratio to avoid the owner earning negative exp/sp
-			if (ratioTakenByPet > 1)
+			if (ratioTakenByPet > 1) {
 				ratioTakenByPet = 1;
+			}
 			addToExp = (long) (addToExp * (1 - ratioTakenByPet));
 			addToSp = (int) (addToSp * (1 - ratioTakenByPet));
 		}
-		if (!super.addExpAndSp(addToExp, addToSp))
+		if (!super.addExpAndSp(addToExp, addToSp)) {
 			return false;
+		}
 		// Send a Server->Client System Message to the L2PcInstance
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP);
 		sm.addNumber((int) addToExp);
@@ -126,8 +132,9 @@ public class PcStat extends PlayableStat
 	@Override
 	public boolean removeExpAndSp(long addToExp, int addToSp)
 	{
-		if (!super.removeExpAndSp(addToExp, addToSp))
+		if (!super.removeExpAndSp(addToExp, addToSp)) {
 			return false;
+		}
 		// Send a Server->Client System Message to the L2PcInstance
 		SystemMessage sm = new SystemMessage(SystemMessageId.EXP_DECREASED_BY_S1);
 		sm.addNumber((int) addToExp);
@@ -141,25 +148,28 @@ public class PcStat extends PlayableStat
 	@Override
 	public final boolean addLevel(byte value)
 	{
-		if (getLevel() + value > Experience.MAX_LEVEL - 1)
+		if (getLevel() + value > Experience.MAX_LEVEL - 1) {
 			return false;
+		}
 		boolean levelIncreased = super.addLevel(value);
 		/** Remote Class By Daniemwx **/
 		if (Config.ALLOW_REMOTE_CLASS_MASTERS)
 		{
 			ClassLevel lvlnow = PlayerClass.values()[getActiveChar().getClassId().getId()].getLevel();
-			if (getLevel() >= 20 && lvlnow == ClassLevel.First)
+			if (getLevel() >= 20 && lvlnow == ClassLevel.First) {
 				L2ClassMasterInstance.ClassMaster.onAction(getActiveChar());
-			else if (getLevel() >= 40 && lvlnow == ClassLevel.Second)
+			} else if (getLevel() >= 40 && lvlnow == ClassLevel.Second) {
 				L2ClassMasterInstance.ClassMaster.onAction(getActiveChar());
-			else if (getLevel() >= 76 && lvlnow == ClassLevel.Third)
+			} else if (getLevel() >= 76 && lvlnow == ClassLevel.Third) {
 				L2ClassMasterInstance.ClassMaster.onAction(getActiveChar());
+			}
 		}
 		if (levelIncreased)
 		{
 			QuestState qs = getActiveChar().getQuestState("255_Tutorial");
-			if (qs != null)
+			if (qs != null) {
 				qs.getQuest().notifyEvent("CE40", null, getActiveChar());
+			}
 			/**
 			 * If there are no characters on the server, the bonuses will be applied to the first character that becomes level 6 and end if this character reaches level 25 or above. If the first character that becomes level 6 is deleted, the rest of the characters may not receive the new character bonus If the first character to become level 6 loses a level, and the player makes another character
 			 * level 6, the bonus will be applied to only the first character to achieve level 6. If the character loses a level after reaching level 25, the character may not receive the bonus.
@@ -185,8 +195,9 @@ public class PcStat extends PlayableStat
 							statement1.executeUpdate();
 							statement1.close();
 							getActiveChar().setNewbie(true);
-							if (Config.DEBUG)
+							if (Config.DEBUG) {
 								_log.info("New newbie character: " + getActiveChar().getCharId());
+							}
 						}
 						;
 						rset.close();
@@ -211,8 +222,9 @@ public class PcStat extends PlayableStat
 				if (getActiveChar().getLevel() >= 25 && getActiveChar().isNewbie())
 				{
 					getActiveChar().setNewbie(false);
-					if (Config.DEBUG)
+					if (Config.DEBUG) {
 						_log.info("Newbie character ended: " + getActiveChar().getCharId());
+					}
 				}
 				;
 			}
@@ -228,8 +240,9 @@ public class PcStat extends PlayableStat
 			getActiveChar().getClan().broadcastToOnlineMembers(new PledgeShowMemberListUpdate(getActiveChar()));
 		}
 		// Recalculate the party level
-		if (getActiveChar().isInParty())
+		if (getActiveChar().isInParty()) {
 			getActiveChar().getParty().recalculatePartyLevel();
+		}
 		StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
 		su.addAttribute(StatusUpdate.LEVEL, getLevel());
 		su.addAttribute(StatusUpdate.MAX_CP, getMaxCp());
@@ -247,16 +260,18 @@ public class PcStat extends PlayableStat
 	public int getEvasionRate(L2Character target)
 	{
 		int val = super.getEvasionRate(target);
-		if (val > Config.MAX_EVASION && Config.MAX_EVASION > 0 && !getActiveChar().isGM())
+		if (val > Config.MAX_EVASION && Config.MAX_EVASION > 0 && !getActiveChar().isGM()) {
 			return Config.MAX_EVASION;
+		}
 		return val;
 	}
 
 	@Override
 	public boolean addSp(int value)
 	{
-		if (!super.addSp(value))
+		if (!super.addSp(value)) {
 			return false;
+		}
 		StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
 		su.addAttribute(StatusUpdate.SP, getSp());
 		getActiveChar().sendPacket(su);
@@ -282,37 +297,42 @@ public class PcStat extends PlayableStat
 	@Override
 	public final long getExp()
 	{
-		if (getActiveChar().isSubClassActive())
+		if (getActiveChar().isSubClassActive()) {
 			return getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).getExp();
+		}
 		return super.getExp();
 	}
 
 	@Override
 	public final void setExp(long value)
 	{
-		if (getActiveChar().isSubClassActive())
+		if (getActiveChar().isSubClassActive()) {
 			getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).setExp(value);
-		else
+		} else {
 			super.setExp(value);
+		}
 	}
 
 	@Override
 	public final byte getLevel()
 	{
-		if (getActiveChar().isSubClassActive())
+		if (getActiveChar().isSubClassActive()) {
 			return getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).getLevel();
+		}
 		return super.getLevel();
 	}
 
 	@Override
 	public final void setLevel(byte value)
 	{
-		if (value > Experience.MAX_LEVEL - 1)
+		if (value > Experience.MAX_LEVEL - 1) {
 			value = Experience.MAX_LEVEL - 1;
-		if (getActiveChar().isSubClassActive())
+		}
+		if (getActiveChar().isSubClassActive()) {
 			getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).setLevel(value);
-		else
+		} else {
 			super.setLevel(value);
+		}
 	}
 
 	@Override
@@ -324,9 +344,10 @@ public class PcStat extends PlayableStat
 		{
 			_oldMaxHp = val;
 			// Launch a regen task if the new Max HP is higher than the old one
-			if (getActiveChar().getStatus().getCurrentHp() != val)
+			if (getActiveChar().getStatus().getCurrentHp() != val) {
 				getActiveChar().getStatus().setCurrentHp(getActiveChar().getStatus().getCurrentHp());
 			// trigger start of regeneration
+			}
 		}
 		return val;
 	}
@@ -340,9 +361,10 @@ public class PcStat extends PlayableStat
 		{
 			_oldMaxMp = val;
 			// Launch a regen task if the new Max MP is higher than the old one
-			if (getActiveChar().getStatus().getCurrentMp() != val)
+			if (getActiveChar().getStatus().getCurrentMp() != val) {
 				getActiveChar().getStatus().setCurrentMp(getActiveChar().getStatus().getCurrentMp());
 			// trigger start of regeneration
+			}
 		}
 		return val;
 	}
@@ -365,17 +387,19 @@ public class PcStat extends PlayableStat
 	@Override
 	public final int getSp()
 	{
-		if (getActiveChar().isSubClassActive())
+		if (getActiveChar().isSubClassActive()) {
 			return getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).getSp();
+		}
 		return super.getSp();
 	}
 
 	@Override
 	public final void setSp(int value)
 	{
-		if (getActiveChar().isSubClassActive())
+		if (getActiveChar().isSubClassActive()) {
 			getActiveChar().getSubClasses().get(getActiveChar().getClassIndex()).setSp(value);
-		else
+		} else {
 			super.setSp(value);
+		}
 	}
 }

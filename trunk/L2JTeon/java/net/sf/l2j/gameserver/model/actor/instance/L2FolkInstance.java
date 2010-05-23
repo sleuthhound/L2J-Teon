@@ -57,8 +57,9 @@ public class L2FolkInstance extends L2NpcInstance
 	 */
 	public void showSkillList(L2PcInstance player, ClassId classId)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("SkillList activated on: " + getObjectId());
+		}
 		int npcId = getTemplate().npcId;
 		if (_classesToTeach == null)
 		{
@@ -88,8 +89,9 @@ public class L2FolkInstance extends L2NpcInstance
 		for (L2SkillLearn s : skills)
 		{
 			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-			if (sk == null || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcId))
+			if (sk == null || !sk.getCanLearn(player.getClassId()) || !sk.canTeachBy(npcId)) {
 				continue;
+			}
 			int cost = SkillTreeTable.getInstance().getSkillCost(player, sk);
 			counts++;
 			asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), cost, 0);
@@ -123,8 +125,9 @@ public class L2FolkInstance extends L2NpcInstance
 	 */
 	public void showEnchantSkillList(L2PcInstance player, ClassId classId)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("EnchantSkillList activated on: " + getObjectId());
+		}
 		int npcId = getTemplate().npcId;
 		if (_classesToTeach == null)
 		{
@@ -165,8 +168,9 @@ public class L2FolkInstance extends L2NpcInstance
 		for (L2EnchantSkillLearn s : skills)
 		{
 			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-			if (sk == null)
+			if (sk == null) {
 				continue;
+			}
 			counts++;
 			esl.addSkill(s.getId(), s.getLevel(), s.getSpCost(), s.getExp());
 		}
@@ -240,10 +244,12 @@ public class L2FolkInstance extends L2NpcInstance
 						{
 							for (ClassId cid : _classesToTeach)
 							{
-								if (cid.level() != classCheck.level())
+								if (cid.level() != classCheck.level()) {
 									continue;
-								if (SkillTreeTable.getInstance().getAvailableSkills(player, cid).length == 0)
+								}
+								if (SkillTreeTable.getInstance().getAvailableSkills(player, cid).length == 0) {
 									continue;
+								}
 								text += "<a action=\"bypass -h npc_%objectId%_SkillList " + cid.getId() + "\">Learn " + cid + "'s class Skills</a><br>\n";
 								count++;
 							}

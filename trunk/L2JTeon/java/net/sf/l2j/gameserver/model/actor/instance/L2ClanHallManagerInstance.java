@@ -63,9 +63,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 	{
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE)
+		if (condition <= COND_ALL_FALSE) {
 			return;
-		else if (condition == COND_OWNER)
+		} else if (condition == COND_OWNER)
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
 			String actualCommand = st.nextToken(); // Get actual command
@@ -83,48 +83,49 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE)
 				{
-					if (val.equalsIgnoreCase("deposit"))
+					if (val.equalsIgnoreCase("deposit")) {
 						showVaultWindowDeposit(player);
-					else if (val.equalsIgnoreCase("withdraw"))
+					} else if (val.equalsIgnoreCase("withdraw")) {
 						showVaultWindowWithdraw(player);
-					else
+					} else
 					{
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						html.setFile("data/html/clanHallManager/vault.htm");
 						sendHtmlMessage(player, html);
 					}
-				}
-				else
+				} else {
 					player.sendMessage("You are not authorized to do this!");
+				}
 				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("door"))
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CH_OPEN_DOOR) == L2Clan.CP_CH_OPEN_DOOR)
 				{
-					if (val.equalsIgnoreCase("open"))
+					if (val.equalsIgnoreCase("open")) {
 						getClanHall().openCloseDoors(true);
-					else if (val.equalsIgnoreCase("close"))
+					} else if (val.equalsIgnoreCase("close")) {
 						getClanHall().openCloseDoors(false);
-					else
+					} else
 					{
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						html.setFile("data/html/clanHallManager/door.htm");
 						sendHtmlMessage(player, html);
 					}
-				}
-				else
+				} else {
 					player.sendMessage("You are not authorized to do this!");
+				}
 			}
 			else if (actualCommand.equalsIgnoreCase("functions"))
 			{
 				if (val.equalsIgnoreCase("tele"))
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
-					if (getClanHall().getFunction(ClanHall.FUNC_TELEPORT) == null)
+					if (getClanHall().getFunction(ClanHall.FUNC_TELEPORT) == null) {
 						html.setFile("data/html/clanHallManager/chamberlain-nac.htm");
-					else
+					} else {
 						html.setFile("data/html/clanHallManager/tele" + getClanHall().getLocation() + getClanHall().getFunction(ClanHall.FUNC_TELEPORT).getLvl() + ".htm");
+					}
 					sendHtmlMessage(player, html);
 				}
 				else if (val.equalsIgnoreCase("item_creation"))
@@ -136,41 +137,45 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 						sendHtmlMessage(player, html);
 						return;
 					}
-					if (st.countTokens() < 1)
+					if (st.countTokens() < 1) {
 						return;
+					}
 					int valbuy = Integer.parseInt(st.nextToken()) + getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE).getLvl() * 100000;
 					showBuyWindow(player, valbuy);
 				}
 				else if (val.equalsIgnoreCase("support"))
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
-					if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT) == null)
+					if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT) == null) {
 						html.setFile("data/html/clanHallManager/chamberlain-nac.htm");
-					else
+					} else
 					{
 						html.setFile("data/html/clanHallManager/support" + getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() + ".htm");
 						html.replace("%mp%", String.valueOf(getCurrentMp()));
 					}
 					sendHtmlMessage(player, html);
 				}
-				else if (val.equalsIgnoreCase("back"))
+				else if (val.equalsIgnoreCase("back")) {
 					showMessageWindow(player);
-				else
+				} else
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
 					html.setFile("data/html/clanHallManager/functions.htm");
-					if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
+					if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP) != null) {
 						html.replace("%xp_regen%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl()) + "%");
-					else
+					} else {
 						html.replace("%xp_regen%", "0");
-					if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP) != null)
+					}
+					if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP) != null) {
 						html.replace("%hp_regen%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()) + "%");
-					else
+					} else {
 						html.replace("%hp_regen%", "0");
-					if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP) != null)
+					}
+					if (getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP) != null) {
 						html.replace("%mp_regen%", String.valueOf(getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()) + "%");
-					else
+					} else {
 						html.replace("%mp_regen", "0");
+					}
 					sendHtmlMessage(player, html);
 				}
 			}
@@ -193,8 +198,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Hp editing invoked");
+									}
 									val = st.nextToken();
 									int percent = Integer.valueOf(val);
 									switch (percent)
@@ -242,10 +248,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_HPREG13_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_HP, percent, fee, Config.CH_HPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_HP, percent, fee, Config.CH_HPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_HP) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 							else if (val.equalsIgnoreCase("mp"))
@@ -253,8 +260,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Hp editing invoked");
+									}
 									val = st.nextToken();
 									int percent = Integer.valueOf(val);
 									switch (percent)
@@ -278,10 +286,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_MPREG5_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_MP, percent, fee, Config.CH_MPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_MP, percent, fee, Config.CH_MPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_MP) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 							else if (val.equalsIgnoreCase("exp"))
@@ -289,8 +298,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Exp editing invoked");
+									}
 									val = st.nextToken();
 									int percent = Integer.valueOf(val);
 									switch (percent)
@@ -320,10 +330,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_EXPREG7_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_EXP, percent, fee, Config.CH_EXPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_RESTORE_EXP, percent, fee, Config.CH_EXPREG_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_RESTORE_EXP) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 						}
@@ -392,8 +403,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 										player.sendMessage("This clan Hall have no owner, you cannot change configuration");
 										return;
 									}
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Item editing invoked");
+									}
 									val = st.nextToken();
 									int fee;
 									int lvl = Integer.valueOf(val);
@@ -412,10 +424,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_ITEM3_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_ITEM_CREATE, lvl, fee, Config.CH_ITEM_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_ITEM_CREATE, lvl, fee, Config.CH_ITEM_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_ITEM_CREATE) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 							else if (val.equalsIgnoreCase("tele"))
@@ -423,8 +436,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Tele editing invoked");
+									}
 									val = st.nextToken();
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
@@ -439,10 +453,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_TELE2_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_TELEPORT, lvl, fee, Config.CH_TELE_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_TELEPORT) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_TELEPORT, lvl, fee, Config.CH_TELE_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_TELEPORT) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 							else if (val.equalsIgnoreCase("support"))
@@ -450,8 +465,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Support editing invoked");
+									}
 									val = st.nextToken();
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
@@ -484,10 +500,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_SUPPORT8_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_SUPPORT, lvl, fee, Config.CH_SUPPORT_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_SUPPORT) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_SUPPORT, lvl, fee, Config.CH_SUPPORT_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_SUPPORT) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 						}
@@ -552,8 +569,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Deco curtains editing invoked");
+									}
 									val = st.nextToken();
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
@@ -568,10 +586,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_CURTAIN2_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_DECO_CURTAINS, lvl, fee, Config.CH_CURTAIN_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_DECO_CURTAINS) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_DECO_CURTAINS, lvl, fee, Config.CH_CURTAIN_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_DECO_CURTAINS) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 							else if (val.equalsIgnoreCase("porch"))
@@ -579,8 +598,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG)
+									if (Config.DEBUG) {
 										_log.warning("Deco curtains editing invoked");
+									}
 									val = st.nextToken();
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
@@ -595,10 +615,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 											fee = Config.CH_FRONT2_FEE;
 											break;
 									}
-									if (!getClanHall().updateFunctions(ClanHall.FUNC_DECO_FRONTPLATEFORM, lvl, fee, Config.CH_FRONT_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_DECO_FRONTPLATEFORM) == null)))
+									if (!getClanHall().updateFunctions(ClanHall.FUNC_DECO_FRONTPLATEFORM, lvl, fee, Config.CH_FRONT_FEE_RATIO, (getClanHall().getFunction(ClanHall.FUNC_DECO_FRONTPLATEFORM) == null))) {
 										player.sendMessage("You don't have enough adena in your clan's warehouse");
-									else
+									} else {
 										revalidateDeco(player);
+									}
 								}
 							}
 						}
@@ -634,43 +655,48 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 						}
 						sendHtmlMessage(player, html);
 					}
-					else if (val.equalsIgnoreCase("back"))
+					else if (val.equalsIgnoreCase("back")) {
 						showMessageWindow(player);
-					else
+					} else
 					{
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						html.setFile("data/html/clanHallManager/manage.htm");
 						sendHtmlMessage(player, html);
 					}
-				}
-				else
+				} else {
 					player.sendMessage("You are not authorized to do this!");
+				}
 				return;
 			}
 			else if (actualCommand.equalsIgnoreCase("support"))
 			{
 				setTarget(player);
 				L2Skill skill;
-				if (val == "")
+				if (val == "") {
 					return;
+				}
 				try
 				{
 					int skill_id = Integer.parseInt(val);
 					try
 					{
 						int skill_lvl = 0;
-						if (st.countTokens() >= 1)
+						if (st.countTokens() >= 1) {
 							skill_lvl = Integer.parseInt(st.nextToken());
+						}
 						skill = SkillTable.getInstance().getInfo(skill_id, skill_lvl);
-						if (skill.getSkillType() == SkillType.SUMMON)
+						if (skill.getSkillType() == SkillType.SUMMON) {
 							player.doCast(skill);
-						else
+						} else {
 							doCast(skill);
-						if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT) == null)
+						}
+						if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT) == null) {
 							return;
+						}
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
-						if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0)
+						if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0) {
 							return;
+						}
 						html.setFile("data/html/clanHallManager/support" + getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() + ".htm");
 						html.replace("%mp%", String.valueOf(getCurrentMp()));
 						sendHtmlMessage(player, html);
@@ -705,8 +731,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 	public void onAction(L2PcInstance player)
 	{
 		player.setLastFolkNPC(this);
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -749,10 +776,12 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/clanHallManager/chamberlain-no.htm";
 		int condition = validateCondition(player);
-		if (condition == COND_OWNER)
+		if (condition == COND_OWNER) {
 			filename = "data/html/clanHallManager/chamberlain.htm";// Owner message window
-		if (condition == COND_OWNER_FALSE)
+		}
+		if (condition == COND_OWNER_FALSE) {
 			filename = "data/html/clanHallManager/chamberlain-of.htm";
+		}
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -763,15 +792,17 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
 	protected int validateCondition(L2PcInstance player)
 	{
-		if (getClanHall() == null)
+		if (getClanHall() == null) {
 			return COND_ALL_FALSE;
+		}
 		// if (player.isGM()) return COND_OWNER;
 		if (player.getClan() != null)
 		{
-			if (getClanHall().getOwnerId() == player.getClanId())
+			if (getClanHall().getOwnerId() == player.getClanId()) {
 				return COND_OWNER;
-			else
+			} else {
 				return COND_OWNER_FALSE;
+			}
 		}
 		return COND_ALL_FALSE;
 	}
@@ -782,10 +813,12 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 		if (_clanHallId < 0)
 		{
 			ClanHall temp = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
-			if (temp != null)
+			if (temp != null) {
 				_clanHallId = temp.getId();
-			if (_clanHallId < 0)
+			}
+			if (_clanHallId < 0) {
 				return null;
+			}
 		}
 		return ClanHallManager.getInstance().getClanHallById(_clanHallId);
 	}
@@ -806,8 +839,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
 	private void doTeleport(L2PcInstance player, int val)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			player.sendMessage("doTeleport(L2PcInstance player, int val) is called");
+		}
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
 		if (list != null)
 		{
@@ -819,8 +853,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 			}
 			else if (player.reduceAdena("Teleport", list.getPrice(), this, true))
 			{
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					_log.warning("Teleporting player " + player.getName() + " for CH to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
+				}
 				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
 			}
 		}
@@ -834,11 +869,13 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 	private void showBuyWindow(L2PcInstance player, int val)
 	{
 		double taxRate = 0;
-		if (getIsInTown())
+		if (getIsInTown()) {
 			taxRate = getCastle().getTaxRate();
+		}
 		player.tempInvetoryDisable();
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing buylist :" + player.getName() + " List ID :" + val);
+		}
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
 		if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
 		{

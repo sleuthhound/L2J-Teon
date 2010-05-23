@@ -96,8 +96,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 	@Override
 	public final RaceManagerKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof RaceManagerKnownList))
+		if (super.getKnownList() == null || !(super.getKnownList() instanceof RaceManagerKnownList)) {
 			setKnownList(new RaceManagerKnownList(this));
+		}
 		return (RaceManagerKnownList) super.getKnownList();
 	}
 
@@ -173,8 +174,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 	{
 		for (L2RaceManagerInstance manager : _managers)
 		{
-			if (!manager.isDead())
+			if (!manager.isDead()) {
 				Broadcast.toKnownPlayers(manager, pkt);
+			}
 		}
 	}
 
@@ -228,15 +230,16 @@ public class L2RaceManagerInstance extends L2NpcInstance
 				player.setRace(0, 0);
 				player.setRace(1, 0);
 			}
-			if (val == 10 && player.getRace(0) == 0 || val == 20 && player.getRace(0) == 0 && player.getRace(1) == 0)
+			if (val == 10 && player.getRace(0) == 0 || val == 20 && player.getRace(0) == 0 && player.getRace(1) == 0) {
 				val = 0;
+			}
 			showBuyTicket(player, val);
 		}
-		else if (command.equals("ShowOdds"))
+		else if (command.equals("ShowOdds")) {
 			showOdds(player);
-		else if (command.equals("ShowInfo"))
+		} else if (command.equals("ShowInfo")) {
 			showMonsterInfo(player);
-		else if (command.equals("calculateWin"))
+		} else if (command.equals("calculateWin"))
 		{
 			// displayCalculateWinnings(player);
 		}
@@ -253,8 +256,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 
 	public void showOdds(L2PcInstance player)
 	{
-		if (_state == ACCEPTING_BETS)
+		if (_state == ACCEPTING_BETS) {
 			return;
+		}
 		int npcId = getTemplate().npcId;
 		String filename, search;
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -292,8 +296,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 
 	public void showBuyTicket(L2PcInstance player, int val)
 	{
-		if (_state != ACCEPTING_BETS)
+		if (_state != ACCEPTING_BETS) {
 			return;
+		}
 		int npcId = getTemplate().npcId;
 		SystemMessage sm;
 		String filename, search, replace;
@@ -309,9 +314,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 				html.replace(search, MonsterRace.getInstance().getMonsters()[i].getTemplate().name);
 			}
 			search = "No1";
-			if (val == 0)
+			if (val == 0) {
 				html.replace(search, "");
-			else
+			} else
 			{
 				html.replace(search, "" + val);
 				player.setRace(0, val);
@@ -319,8 +324,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 		}
 		else if (val < 20)
 		{
-			if (player.getRace(0) == 0)
+			if (player.getRace(0) == 0) {
 				return;
+			}
 			filename = getHtmlPath(npcId, 3);
 			html.setFile(filename);
 			html.replace("0place", "" + player.getRace(0));
@@ -328,9 +334,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 			replace = MonsterRace.getInstance().getMonsters()[player.getRace(0) - 1].getTemplate().name;
 			html.replace(search, replace);
 			search = "0adena";
-			if (val == 10)
+			if (val == 10) {
 				html.replace(search, "");
-			else
+			} else
 			{
 				html.replace(search, "" + _cost[val - 11]);
 				player.setRace(1, val - 10);
@@ -338,8 +344,9 @@ public class L2RaceManagerInstance extends L2NpcInstance
 		}
 		else if (val == 20)
 		{
-			if (player.getRace(0) == 0 || player.getRace(1) == 0)
+			if (player.getRace(0) == 0 || player.getRace(1) == 0) {
 				return;
+			}
 			filename = getHtmlPath(npcId, 4);
 			html.setFile(filename);
 			html.replace("0place", "" + player.getRace(0));
@@ -358,12 +365,14 @@ public class L2RaceManagerInstance extends L2NpcInstance
 		}
 		else
 		{
-			if (player.getRace(0) == 0 || player.getRace(1) == 0)
+			if (player.getRace(0) == 0 || player.getRace(1) == 0) {
 				return;
+			}
 			int ticket = player.getRace(0);
 			int priceId = player.getRace(1);
-			if (!player.reduceAdena("Race", _cost[priceId - 1], this, true))
+			if (!player.reduceAdena("Race", _cost[priceId - 1], this, true)) {
 				return;
+			}
 			player.setRace(0, 0);
 			player.setRace(1, 0);
 			sm = new SystemMessage(SystemMessageId.ACQUIRED);

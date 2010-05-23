@@ -42,7 +42,9 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) return;
+		if (!canTarget(player)) {
+			return;
+		}
 
 		if (this != player.getTarget())
 		{
@@ -96,10 +98,11 @@ public class L2CabaleBufferInstance extends L2NpcInstance
             final int winningCabal = SevenSigns.getInstance().getCabalHighestScore();
             int losingCabal = SevenSigns.CABAL_NULL;
 
-            if (winningCabal == SevenSigns.CABAL_DAWN)
-                losingCabal = SevenSigns.CABAL_DUSK;
-            else if (winningCabal == SevenSigns.CABAL_DUSK)
-                losingCabal = SevenSigns.CABAL_DAWN;
+            if (winningCabal == SevenSigns.CABAL_DAWN) {
+				losingCabal = SevenSigns.CABAL_DUSK;
+			} else if (winningCabal == SevenSigns.CABAL_DUSK) {
+				losingCabal = SevenSigns.CABAL_DAWN;
+			}
 
             /**
              * For each known player in range, cast either the positive or negative buff.
@@ -157,8 +160,9 @@ public class L2CabaleBufferInstance extends L2NpcInstance
                     }
                 }
 
-                if (isBuffAWinner && isBuffALoser)
-                    break;
+                if (isBuffAWinner && isBuffALoser) {
+					break;
+				}
             }
         }
 
@@ -166,8 +170,9 @@ public class L2CabaleBufferInstance extends L2NpcInstance
         {
             int skillLevel = player.getLevel() > 40 ? 1 : 2;
 
-            if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false))
-                return false;
+            if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false)) {
+				return false;
+			}
 
             L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
             if (player.getFirstEffect(skill) == null)
@@ -189,8 +194,9 @@ public class L2CabaleBufferInstance extends L2NpcInstance
     {
         super(objectId, template);
 
-        if (_aiTask != null)
-        	_aiTask.cancel(true);
+        if (_aiTask != null) {
+			_aiTask.cancel(true);
+		}
 
         _aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new CabalaAI(this), 3000, 3000);
     }

@@ -59,8 +59,9 @@ public class L2ControlTowerInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -98,8 +99,9 @@ public class L2ControlTowerInstance extends L2NpcInstance
 			{
 				for (L2Spawn spawn : getGuards())
 				{
-					if (spawn == null)
+					if (spawn == null) {
 						continue;
+					}
 					spawn.stopRespawn();
 					// spawn.getLastSpawn().doDie(spawn.getLastSpawn());
 				}
@@ -114,8 +116,9 @@ public class L2ControlTowerInstance extends L2NpcInstance
 
 	public final List<L2Spawn> getGuards()
 	{
-		if (_guards == null)
+		if (_guards == null) {
 			_guards = new FastList<L2Spawn>();
+		}
 		return _guards;
 	}
 }

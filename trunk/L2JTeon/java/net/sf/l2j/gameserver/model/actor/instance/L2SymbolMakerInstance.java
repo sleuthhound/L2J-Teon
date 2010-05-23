@@ -69,8 +69,9 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 				html1.append("<a action=\"bypass -h npc_%objectId%_Remove " + i + "\">" + henna.getName() + "</a><br>");
 			}
 		}
-		if (!hasHennas)
+		if (!hasHennas) {
 			html1.append("You don't have any symbol to remove!");
+		}
 		html1.append("</body></html>");
 		insertObjectIdAndShowChatWindow(player, html1.toString());
 	}

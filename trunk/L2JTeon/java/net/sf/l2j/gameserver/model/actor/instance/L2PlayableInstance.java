@@ -314,10 +314,11 @@ public abstract class L2PlayableInstance extends L2Character
 	 */
 	public void stopProtectionBlessing(L2Effect effect)
 	{
-		if (effect == null)
+		if (effect == null) {
 			stopEffects(L2Effect.EffectType.PROTECTION_BLESSING);
-		else
+		} else {
 			removeEffect(effect);
+		}
 		setProtectionBlessing(false);
 		updateAbnormalEffect();
 	}
@@ -342,10 +343,11 @@ public abstract class L2PlayableInstance extends L2Character
 
 	public final void stopCharmOfLuck(L2Effect effect)
 	{
-		if (effect == null)
+		if (effect == null) {
 			stopEffects(L2Effect.EffectType.CHARM_OF_LUCK);
-		else
+		} else {
 			removeEffect(effect);
+		}
 		setCharmOfLuck(false);
 		updateAbnormalEffect();
 	}

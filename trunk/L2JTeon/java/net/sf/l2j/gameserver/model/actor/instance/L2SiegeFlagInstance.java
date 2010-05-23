@@ -57,8 +57,9 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	@Override
 	public boolean isAttackable()
 	{
-		if (DevastatedCastleManager.getInstance().getIsInProgress())
+		if (DevastatedCastleManager.getInstance().getIsInProgress()) {
 			return true;
+		}
 		// Attackable during siege by attacker only
 		return getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress();
 	}
@@ -66,8 +67,9 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
-		if (DevastatedCastleManager.getInstance().getIsInProgress())
+		if (DevastatedCastleManager.getInstance().getIsInProgress()) {
 			return true;
+		}
 		// Attackable during siege by attacker only
 		return attacker != null && attacker instanceof L2PcInstance && getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress();
 	}
@@ -118,9 +120,9 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 		}
 		else
 		{
-			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100)
+			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100) {
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-			else
+			} else
 			{
 				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 				player.sendPacket(ActionFailed.STATIC_PACKET);

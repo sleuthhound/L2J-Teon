@@ -37,8 +37,9 @@ public class L2CHSiegeInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -56,11 +57,12 @@ public class L2CHSiegeInstance extends L2NpcInstance
 		{
 			// Calculate the distance between the L2PcInstance and the
 			// L2NpcInstance
-			if (!canInteract(player))
+			if (!canInteract(player)) {
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			else
+			} else {
 				showChatWindow(player, 0);
+			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
@@ -95,10 +97,11 @@ public class L2CHSiegeInstance extends L2NpcInstance
 			catch (IndexOutOfBoundsException ioobe)
 			{
 			}
-			if (quest.length() == 0)
+			if (quest.length() == 0) {
 				showQuestWindow(player);
-			else
+			} else {
 				showQuestWindow(player, quest);
+			}
 		}
 		else if (command.startsWith("Registration"))
 		{
@@ -181,9 +184,9 @@ public class L2CHSiegeInstance extends L2NpcInstance
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(html);
 				}
-			}
-			else
+			} else {
 				_log.warning("Attention!!! player " + player.getName() + " use packet hack, try unregister clan.");
+			}
 		}
 	}
 
@@ -194,10 +197,11 @@ public class L2CHSiegeInstance extends L2NpcInstance
 		long startSiege = 0;
 		int npcId = getTemplate().getNpcId();
 		String filename;
-		if (val == 0)
+		if (val == 0) {
 			filename = "data/html/siege/clanhall/" + npcId + ".htm";
-		else
+		} else {
 			filename = "data/html/siege/clanhall/" + npcId + "-" + val + ".htm";
+		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		if (npcId == 35639)
@@ -227,10 +231,11 @@ public class L2CHSiegeInstance extends L2NpcInstance
 			html.replace("%clan%", String.valueOf(clans));
 			L2Clan clan = clanhall.getOwnerClan();
 			String clanName;
-			if (clan == null)
+			if (clan == null) {
 				clanName = "NPC";
-			else
+			} else {
 				clanName = clan.getName();
+			}
 			html.replace("%clanname%", String.valueOf(clanName));
 		}
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");

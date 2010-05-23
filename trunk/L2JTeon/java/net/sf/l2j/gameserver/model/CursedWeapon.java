@@ -300,8 +300,9 @@ public class CursedWeapon
 	{
 		for (L2Skill sk : _player.getAllSkills())
 		{
-			if (sk != null)
+			if (sk != null) {
 				_player.removeSkill(sk, false);
+			}
 		}
 		_player.sendSkillList();
 	}
@@ -401,10 +402,12 @@ public class CursedWeapon
 		}
         if(player._inEventTvT && !Config.TVT_JOIN_CURSED || player._inEventCTF && !Config.CTF_JOIN_CURSED)
         {
-        	if(player._inEventTvT)
-        		TvT.removePlayer(player);
-        	if(player._inEventCTF)
-        		CTF.removePlayer(player);
+        	if(player._inEventTvT) {
+				TvT.removePlayer(player);
+			}
+        	if(player._inEventCTF) {
+				CTF.removePlayer(player);
+			}
         }
 		_isActivated = true;
 		// Player holding it data

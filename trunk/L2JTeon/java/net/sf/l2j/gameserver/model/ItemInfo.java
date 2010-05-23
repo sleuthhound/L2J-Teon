@@ -50,8 +50,9 @@ public class ItemInfo
 	 */
 	public ItemInfo(L2ItemInstance item)
 	{
-		if (item == null)
+		if (item == null) {
 			return;
+		}
 		// Get the Identifier of the L2ItemInstance
 		_objectId = item.getObjectId();
 		// Get the L2Item of the L2ItemInstance
@@ -59,10 +60,11 @@ public class ItemInfo
 		// Get the enchant level of the L2ItemInstance
 		_enchant = item.getEnchantLevel();
 		// Get the augmentation boni
-		if (item.isAugmented())
+		if (item.isAugmented()) {
 			_augmentation = item.getAugmentation().getAugmentationId();
-		else
+		} else {
 			_augmentation = 0;
+		}
 		// Get the quantity of the L2ItemInstance
 		_count = item.getCount();
 		// Get custom item types (used loto, race tickets)
@@ -95,8 +97,9 @@ public class ItemInfo
 
 	public ItemInfo(L2ItemInstance item, int change)
 	{
-		if (item == null)
+		if (item == null) {
 			return;
+		}
 		// Get the Identifier of the L2ItemInstance
 		_objectId = item.getObjectId();
 		// Get the L2Item of the L2ItemInstance
@@ -104,10 +107,11 @@ public class ItemInfo
 		// Get the enchant level of the L2ItemInstance
 		_enchant = item.getEnchantLevel();
 		// Get the augmentation boni
-		if (item.isAugmented())
+		if (item.isAugmented()) {
 			_augmentation = item.getAugmentation().getAugmentationId();
-		else
+		} else {
 			_augmentation = 0;
+		}
 		// Get the quantity of the L2ItemInstance
 		_count = item.getCount();
 		// Get custom item types (used loto, race tickets)

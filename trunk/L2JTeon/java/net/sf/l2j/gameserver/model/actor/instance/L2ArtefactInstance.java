@@ -85,8 +85,9 @@ public final class L2ArtefactInstance extends L2NpcInstance
 			super.onAction(player);
 			return;
 		}
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		if (this != player.getTarget())
 		{
 			// Set the target of the L2PcInstance player

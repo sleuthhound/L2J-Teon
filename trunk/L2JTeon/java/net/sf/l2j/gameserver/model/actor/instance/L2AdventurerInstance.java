@@ -84,10 +84,11 @@ public class L2AdventurerInstance extends L2FolkInstance
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
-		if (val == 0)
+		if (val == 0) {
 			pom = "" + npcId;
-		else
+		} else {
 			pom = npcId + "-" + val;
+		}
 		return "data/html/adventurer_guildsman/" + pom + ".htm";
 	}
 

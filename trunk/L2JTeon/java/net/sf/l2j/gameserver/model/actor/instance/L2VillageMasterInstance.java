@@ -301,8 +301,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			          player.sendPacket(ActionFailed.STATIC_PACKET);
 			          return;
 			        }
-                    if (!ItemRestriction(player))
-                    	return;//Check the player for items during subclass..to avoid bugs
+                    if (!ItemRestriction(player)) {
+						return;//Check the player for items during subclass..to avoid bugs
+					}
 
 					if (player.getLevel() < 75)
 					{
@@ -407,8 +408,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     					return;
     				}
 
-                    if (!ItemRestriction(player))
-                    	return;//Check the player for items during subclass..to avoid bugs
+                    if (!ItemRestriction(player)) {
+						return;//Check the player for items during subclass..to avoid bugs
+					}
 
 					if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 					{
@@ -470,8 +472,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 						return;
 					}
-                	if (!ItemRestriction(player))
-                    	return;//Check the player for items during subclass..to avoid bugs
+                	if (!ItemRestriction(player)) {
+						return;//Check the player for items during subclass..to avoid bugs
+					}
 
 					if (player.modifySubClass(paramOne, paramTwo))
 					{
@@ -541,8 +544,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	// Private stuff
 	public void dissolveClan(L2PcInstance player, int clanId)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested dissolve a clan from " + getObjectId() + "(" + getName() + ")");
+		}
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));

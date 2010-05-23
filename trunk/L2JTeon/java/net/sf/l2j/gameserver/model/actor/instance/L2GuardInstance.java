@@ -176,8 +176,9 @@ public final class L2GuardInstance extends L2Attackable
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2GuardInstance
 		if (getObjectId() != player.getTargetId())
 		{
@@ -231,13 +232,15 @@ public final class L2GuardInstance extends L2Attackable
 					// Open a chat window on client with the text of the
 					// L2GuardInstance
 					Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
-					if (qlsa != null && qlsa.length > 0)
+					if (qlsa != null && qlsa.length > 0) {
 						player.setLastQuestNpcObject(getObjectId());
+					}
 					Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
-					if (qlst != null && qlst.length == 1)
+					if (qlst != null && qlst.length == 1) {
 						qlst[0].notifyFirstTalk(this, player);
-					else
+					} else {
 						showChatWindow(player, 0);
+					}
 				}
 			}
 		}

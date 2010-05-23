@@ -52,8 +52,9 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 	@Override
 	public void setAI(L2CharacterAI newAI)
 	{
-		if (_ai == null || !(_ai instanceof L2NpcWalkerAI))
+		if (_ai == null || !(_ai instanceof L2NpcWalkerAI)) {
 			_ai = newAI;
+		}
 	}
 
 	@Override
@@ -75,8 +76,9 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 		Map<Integer, L2PcInstance> _knownPlayers = getKnownList().getKnownPlayers();
 		if (_knownPlayers == null)
 		{
-			if (Config.DEVELOPER)
+			if (Config.DEVELOPER) {
 				_log.info("broadcastChat _players == null");
+			}
 			return;
 		}
 		// we send message to known players only!
@@ -84,9 +86,10 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 		{
 			CreatureSay cs = new CreatureSay(getObjectId(), 0, getName(), chat);
 			// we interact and list players here
-			for (L2PcInstance players : _knownPlayers.values())
+			for (L2PcInstance players : _knownPlayers.values()) {
 				// finally send packet :D
 				players.sendPacket(cs);
+			}
 		}
 	}
 
