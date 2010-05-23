@@ -41,10 +41,12 @@ public class State
 	// discover the state from its string representation (for reconstruction after DB read)
 	public static byte getStateId(String statename)
 	{
-		if (statename.equals("Started"))
+		if (statename.equals("Started")) {
 			return 1;
-		if (statename.equals("Completed"))
+		}
+		if (statename.equals("Completed")) {
 			return 2;
+		}
 		return 0;
 	}
 }

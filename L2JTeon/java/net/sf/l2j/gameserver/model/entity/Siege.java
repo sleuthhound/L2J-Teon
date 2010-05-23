@@ -786,8 +786,9 @@ public class Siege
 	public void killedCT(L2NpcInstance ct)
 	{
 		_controlTowerCount--;
-		if (_controlTowerCount < 0)
+		if (_controlTowerCount < 0) {
 			_controlTowerCount = 0;
+		}
 	}
 
 	/** Remove the flag that was killed */
@@ -982,8 +983,9 @@ public class Siege
 		}
 		for (L2PcInstance player : players)
 		{
-			if (player.isGM() || player.isInJail())
+			if (player.isGM() || player.isInJail()) {
 				continue;
+			}
 			player.teleToLocation(teleportWhere);
 		}
 	}

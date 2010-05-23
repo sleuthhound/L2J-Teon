@@ -310,8 +310,9 @@ public class Auction
 	/** Return Item in WHC */
 	private void returnItem(String Clan, int itemId, int quantity, boolean penalty)
 	{
-		if (penalty)
+		if (penalty) {
 			quantity *= 0.9; // take 10% tax fee if needed
+		}
 		ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", _adenaId, quantity, null, null);
 	}
 

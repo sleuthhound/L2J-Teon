@@ -149,23 +149,27 @@ public class FortressSiege
 		{
 			for (L2PcInstance player: _players)
 			{
-				if (player == null)
+				if (player == null) {
 					continue;
+				}
 				player._countFOSKills=0;
 				removeSealOfRuler(player);
 				player._inEventFOS=false;
-				if (player.getKarma()== player._originalKarmaFOS)
+				if (player.getKarma()== player._originalKarmaFOS) {
 					player.setKarma(0);
-				else
+				} else {
 					player.setKarma(player._originalKarmaFOS);
-				if (player.getAppearance().getNameColor() ==  player._originalNameColorFOS)
+				}
+				if (player.getAppearance().getNameColor() ==  player._originalNameColorFOS) {
 					player.getAppearance().setNameColor(0xFFFFFF);
-				else
+				} else {
 					player.getAppearance().setNameColor(player._originalNameColorFOS);
+				}
 				player.setSiegeState((byte)0);
 				player.sendPacket(new UserInfo(player));
-				for (L2PcInstance p : _players)
+				for (L2PcInstance p : _players) {
 					p.sendPacket(new RelationChanged(player, player.getRelation(p), player.isAutoAttackable(p)));
+				}
 				player.broadcastUserInfo();
 			}
 		}
@@ -174,8 +178,9 @@ public class FortressSiege
 		{
 			for (L2PcInstance player: _playersShuffle)
 			{
-				if (player == null)
+				if (player == null) {
 					continue;
+				}
 				player._countFOSKills=0;
 				player._inEventFOS=false;
 			}
@@ -286,8 +291,9 @@ public class FortressSiege
 				_door[3] = rs.getInt("innerDoor4");
 				_door[4] = rs.getInt("outerDoor1");
 				_door[5] = rs.getInt("outerDoor2");
-				if(_eventName.equalsIgnoreCase(fortressSiege))
+				if(_eventName.equalsIgnoreCase(fortressSiege)) {
 					break;
+				}
 			}
 			statement.close();
 		}
@@ -381,16 +387,17 @@ public class FortressSiege
 			_teamsX.set(index, activeChar.getX());
 			_teamsY.set(index, activeChar.getY());
 			_teamsZ.set(index, activeChar.getZ());
-		}
-		else
+		} else {
 			activeChar.sendMessage("No such team name.");
+		}
 	}
 
 	public static void setTeamColor(String teamName, int color)
 	{
 		int index = _teams.indexOf(teamName);
-		if (index > -1)
+		if (index > -1) {
 			_teamColors.set(index, color);
+		}
 	}
 
 	public static void dumpData()
@@ -429,31 +436,37 @@ public class FortressSiege
 		_log.info("##########################");
 		_log.info("# _teams(Vector<String>) #");
 		_log.info("##########################");
-		for (String team : _teams)
+		for (String team : _teams) {
 			_log.info(team + " Siege Flags Taken :" + _teamPointsCount.get(_teams.indexOf(team)));
+		}
 		if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
 		{
 			_log.info("");
 			_log.info("#########################################");
 			_log.info("# _playersShuffle(Vector<L2PcInstance>) #");
 			_log.info("#########################################");
-			for (L2PcInstance player : _playersShuffle)
-				if (player != null)
+			for (L2PcInstance player : _playersShuffle) {
+				if (player != null) {
 					_log.info("Name: " + player.getName());
+				}
+			}
 		}
 		_log.info("");
 		_log.info("##################################");
 		_log.info("# _players(Vector<L2PcInstance>) #");
 		_log.info("##################################");
-		for (L2PcInstance player : _players)
-			if (player != null)
+		for (L2PcInstance player : _players) {
+			if (player != null) {
 				_log.info("Name: " + player.getName() + "   Team: " + player._teamNameFOS);
+			}
+		}
 		_log.info("");
 		_log.info("#####################################################################");
 		_log.info("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
 		_log.info("#####################################################################");
-		for (String player : _savePlayers)
+		for (String player : _savePlayers) {
 			_log.info("Name: " + player + "	Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
+		}
 		_log.info("");
 		_log.info("");
 		System.out.println("**********==Fortress Siege==************");
@@ -471,7 +484,9 @@ public class FortressSiege
 		if (!startJoinOk())
 		{
 			activeChar.sendMessage("Event not setted propertly.");
-			if (_log.isDebugEnabled())_log.debug("Fortress Siege Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+			if (_log.isDebugEnabled()) {
+				_log.debug("Fortress Siege Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
+			}
 				return;
 		}
 		_joining = true;
@@ -484,7 +499,9 @@ public class FortressSiege
 		if (!startJoinOk())
 		{
 			_log.warn("Event not setted propertly.");
-			if (_log.isDebugEnabled())_log.debug("Fortress Siege Engine[startJoin(startJoinOk() = false");
+			if (_log.isDebugEnabled()) {
+				_log.debug("Fortress Siege Engine[startJoin(startJoinOk() = false");
+			}
 				return;
 		}
 		_joining = true;
@@ -497,8 +514,9 @@ public class FortressSiege
 		if (_started || _teleport || _joining || _teams.size() > 2 || _teams.size() < 1 || _eventName.equals("") ||
 			_joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 || _flagX == 0 || _flagY == 0 || _flagZ == 0 ||
 			_npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 || _door[0]==0 || _door[1] == 0 || _door[2]==0 ||
-			_door[3]==0 || _door[4]==0 || _door[5]==0 || _teamsX.contains(0) || _teamsY.contains(0) || _teamsZ.contains(0))
+			_door[3]==0 || _door[4]==0 || _door[5]==0 || _teamsX.contains(0) || _teamsY.contains(0) || _teamsZ.contains(0)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -510,9 +528,11 @@ public class FortressSiege
 		{
 			for (L2PcInstance player: L2World.getInstance().getAllPlayers())
 			{
-				if (player != null)
-					if (player.isOnline()!=0)
+				if (player != null) {
+					if (player.isOnline()!=0) {
 						player.sendPacket(cs);
+					}
+				}
 			}
 		}
 		else
@@ -521,9 +541,11 @@ public class FortressSiege
 			{
 				for (L2PcInstance player: _players)
 				{
-					if (player != null)
-						if (player.isOnline()!=0)
+					if (player != null) {
+						if (player.isOnline()!=0) {
 							player.sendPacket(cs);
+						}
+					}
 				}
 			}
 		}
@@ -559,8 +581,9 @@ public class FortressSiege
 
 	public static void unspawnEventNpc()
 	{
-		if (_npcSpawn == null)
+		if (_npcSpawn == null) {
 			return;
+		}
 		_npcSpawn.getLastSpawn().deleteMe();
 		_npcSpawn.stopRespawn();
 		SpawnTable.getInstance().deleteSpawn(_npcSpawn, true);
@@ -580,20 +603,23 @@ public class FortressSiege
 
 	public static void showArtifactHtml(L2PcInstance eventPlayer, String objectId)
 	{
-		if (eventPlayer == null)
+		if (eventPlayer == null) {
 			return;
+		}
 		try
 		{
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 			TextBuilder replyMSG = new TextBuilder("<html><head><body><center>");
 			replyMSG.append("Sacred Artifact<br><br>");
 			replyMSG.append("<font color=\"00FF00\">" + _eventName + " Artifact</font><br1>");
-			if (eventPlayer._teamNameFOS!=null && eventPlayer._teamNameFOS.equals(_teams.get(1)))
+			if (eventPlayer._teamNameFOS!=null && eventPlayer._teamNameFOS.equals(_teams.get(1))) {
 				replyMSG.append("<font color=\"LEVEL\">This is your Sacred Artifact. Defend it!</font><br1>");
-			else
+			} else {
 				replyMSG.append("<font color=\"LEVEL\">Use the Seal Of Ruler Skill to Complete this Siege!</font><br1>");
-			if (!_started)
+			}
+			if (!_started) {
 				replyMSG.append("The Siege is not in progress yet.<br>Wait for a Admin/GM to start the event.<br>");
+			}
 			replyMSG.append("</center></body></html>");
 			adminReply.setHtml(replyMSG.toString());
 			eventPlayer.sendPacket(adminReply);
@@ -614,9 +640,9 @@ public class FortressSiege
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
 			replyMSG.append("    ... description:&nbsp;<font color=\"00FF00\">" + _eventDesc + "</font><br><br>");
-			if (!_started && !_joining)
+			if (!_started && !_joining) {
 				replyMSG.append("<center>Wait till the admin/gm starts the participation.</center>");
-			else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && !checkMaxPlayers(_playersShuffle.size()))
+			} else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && !checkMaxPlayers(_playersShuffle.size()))
 			{
 				if (!_started)
 				{
@@ -625,15 +651,16 @@ public class FortressSiege
 					replyMSG.append("<font color=\"FFFF00\">You can't participate in this event.</font><br>");
 				}
 			}
-			else if (eventPlayer.isCursedWeaponEquiped() && !Config.FortressSiege_JOIN_CURSED)
+			else if (eventPlayer.isCursedWeaponEquiped() && !Config.FortressSiege_JOIN_CURSED) {
 				replyMSG.append("<font color=\"FFFF00\">You can't participate to this event with a cursed Weapon.</font><br>");
-			else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl){
+			} else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl){
 				if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
 				{
-					if (Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE"))
+					if (Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE")) {
 						replyMSG.append("You participated already in team <font color=\"LEVEL\">" + eventPlayer._teamNameFOS + "</font><br><br>");
-					else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
+					} else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE")) {
 						replyMSG.append("You participated already!<br><br>");
+					}
 					replyMSG.append("<table border=\"0\"><tr>");
 					replyMSG.append("<td width=\"200\">Wait util the event starts or</td>");
 					replyMSG.append("<td width=\"60\"><center><button value=\"Remove\" action=\"bypass -h npc_" + objectId + "_fos_player_leave\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
@@ -658,17 +685,18 @@ public class FortressSiege
 					else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
 					{
 						replyMSG.append("<center><table border=\"0\">");
-						for (String team : _teams)
+						for (String team : _teams) {
 							replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font></td>");
+						}
 						replyMSG.append("</table></center><br>");
 						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_fos_player_join eventShuffle\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 						replyMSG.append("Teams will be generated randomly!");
 					}
 				}
 			}
-			else if (_started && !_joining)
+			else if (_started && !_joining) {
 				replyMSG.append("<center>The Fortress Siege has already begun.</center>");
-			else if (eventPlayer.getLevel()<_minlvl || eventPlayer.getLevel()>_maxlvl )
+			} else if (eventPlayer.getLevel()<_minlvl || eventPlayer.getLevel()>_maxlvl )
 			{
 				replyMSG.append("You are level : <font color=\"00FF00\">" + eventPlayer.getLevel() +"</font><br>");
 				replyMSG.append("Admin set Minimum level : <font color=\"00FF00\">" + _minlvl + "</font><br>");
@@ -731,8 +759,9 @@ public class FortressSiege
 	public static void setTeamPointsCount(String teamName, int teamPointCount)
 	{
 		int index = _teams.indexOf(teamName);
-		if (index > -1)
+		if (index > -1) {
 			_teamPointsCount.set(index, teamPointCount);
+		}
 	}
 
 	public static int teamPlayersCount(String teamName)
@@ -744,30 +773,34 @@ public class FortressSiege
 	public static void setTeamPlayersCount(String teamName, int teamPlayersCount)
 	{
 		int index = _teams.indexOf(teamName);
-		if (index > -1)
+		if (index > -1) {
 			_teamPlayersCount.set(index, teamPlayersCount);
+		}
 	}
 
 	public static void addPlayer(L2PcInstance player, String teamName)
 	{
-		if (!_joining || !addPlayerOk(teamName, player))
+		if (!_joining || !addPlayerOk(teamName, player)) {
 			return;
+		}
 		if (Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE"))
 		{
 			player._teamNameFOS = teamName;
 			_players.add(player);
 			setTeamPlayersCount(teamName, teamPlayersCount(teamName)+1);
 		}
-		else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
+		else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE")) {
 			_playersShuffle.add(player);
+		}
 		player._inEventFOS = true;
 		player._countFOSKills = 0;
 	}
 
 	public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
 	{
-		if (teamName == null || eventPlayer == null)
+		if (teamName == null || eventPlayer == null) {
 			return false;
+		}
 		if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventFOS)
 		{
 			eventPlayer.sendMessage("You already participated in this event!");
@@ -796,16 +829,17 @@ public class FortressSiege
 			eventPlayer.sendMessage("You already participated in another event!");
 			return false;
 		}
-		if (Config.FortressSiege_EVEN_TEAMS.equals("NO"))
+		if (Config.FortressSiege_EVEN_TEAMS.equals("NO")) {
 			return true;
-		else if (Config.FortressSiege_EVEN_TEAMS.equals("BALANCE"))
+		} else if (Config.FortressSiege_EVEN_TEAMS.equals("BALANCE"))
 		{
 			boolean allTeamsEqual = true;
 			int countBefore = -1;
 			for (int playersCount : _teamPlayersCount)
 			{
-				if (countBefore == -1)
+				if (countBefore == -1) {
 					countBefore = playersCount;
+				}
 				if (countBefore != playersCount)
 				{
 					allTeamsEqual = false;
@@ -813,25 +847,30 @@ public class FortressSiege
 				}
 				countBefore = playersCount;
 			}
-			if (allTeamsEqual)
+			if (allTeamsEqual) {
 				return true;
+			}
 			countBefore = Integer.MAX_VALUE;
 			for (int teamPlayerCount : _teamPlayersCount)
 			{
-				if (teamPlayerCount < countBefore)
+				if (teamPlayerCount < countBefore) {
 					countBefore = teamPlayerCount;
+				}
 			}
 			Vector<String> joinableTeams = new Vector<String>();
 			for (String team : _teams)
 			{
-				if (teamPlayersCount(team) == countBefore)
+				if (teamPlayersCount(team) == countBefore) {
 					joinableTeams.add(team);
+				}
 			}
-			if (joinableTeams.contains(teamName))
+			if (joinableTeams.contains(teamName)) {
 				return true;
+			}
 		}
-		else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
+		else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE")) {
 			return true;
+		}
 		eventPlayer.sendMessage("Too many players in team \"" + teamName + "\"");
 		return false;
 	}
@@ -854,8 +893,9 @@ public class FortressSiege
 				setTeamPlayersCount(player._teamNameFOS, teamPlayersCount(player._teamNameFOS)-1);
 				_players.remove(player);
 			}
-			else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && !_playersShuffle.isEmpty() && _playersShuffle.contains(player))
+			else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && !_playersShuffle.isEmpty() && _playersShuffle.contains(player)) {
 				_playersShuffle.remove(player);
+			}
 		}
 	}
 
@@ -863,11 +903,14 @@ public class FortressSiege
 	{
 		try
 		{
-			if(_playersShuffle== null || _playersShuffle.isEmpty())
+			if(_playersShuffle== null || _playersShuffle.isEmpty()) {
 				return;
-			for(L2PcInstance player: _playersShuffle)
-				if(player==null || player.isOnline()==0)
+			}
+			for(L2PcInstance player: _playersShuffle) {
+				if(player==null || player.isOnline()==0) {
 					_playersShuffle.remove(player);
+				}
+			}
 		}
 		catch (Exception e)
 		{
@@ -878,8 +921,9 @@ public class FortressSiege
 
 	public static void teleportStart()
 	{
-		if (!_joining || _started || _teleport)
+		if (!_joining || _started || _teleport) {
 			return;
+		}
 		if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && checkMinPlayers(_playersShuffle.size()))
 		{
 			removeOfflinePlayers();
@@ -909,19 +953,28 @@ public class FortressSiege
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects())
-									if (e != null) e.exit();
-								if (summon instanceof L2PetInstance)
+								for (L2Effect e : summon.getAllEffects()) {
+									if (e != null) {
+										e.exit();
+									}
+								}
+								if (summon instanceof L2PetInstance) {
 									summon.unSummon(player);
+								}
 							}
 						}
-						if (Config.FortressSiege_ON_START_REMOVE_ALL_EFFECTS)
-							for (L2Effect e : player.getAllEffects())
-								if (e != null) e.exit();
+						if (Config.FortressSiege_ON_START_REMOVE_ALL_EFFECTS) {
+							for (L2Effect e : player.getAllEffects()) {
+								if (e != null) {
+									e.exit();
+								}
+							}
+						}
 						//Remove player from his party
 						L2Party party = player.getParty();
-						if (party != null)
+						if (party != null) {
 							party.removePartyMember(player);
+						}
 						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameFOS)), _teamsY.get(_teams.indexOf(player._teamNameFOS)), _teamsZ.get(_teams.indexOf(player._teamNameFOS)));
 					}
 				}
@@ -933,12 +986,14 @@ public class FortressSiege
 	/** Sets the Player name color and karma, and adds siege properties*/
 	public static void setUserData()
 	{
-		if (_players==null || _players.isEmpty())
+		if (_players==null || _players.isEmpty()) {
 			return;
+		}
 		for (L2PcInstance player : _players)
 		{
-			if (player==null)
+			if (player==null) {
 				continue;
+			}
 			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameFOS)));
 			player.setKarma(0);
 			player.broadcastUserInfo();
@@ -948,36 +1003,40 @@ public class FortressSiege
 
 	public static void setTitleSiegeFlags(L2PcInstance player)
 	{
-		if (player==null)
+		if (player==null) {
 			return;
+		}
 		if (player._teamNameFOS.equals(_teams.get(0))) // attacking team = attackers siege flag sign
 		{
 			player.setSiegeState((byte)1);
 			player.sendPacket(new UserInfo(player));
-			for (L2PcInstance p : _players)
+			for (L2PcInstance p : _players) {
 				p.sendPacket(new RelationChanged(player, player.getRelation(p), player.isAutoAttackable(p)));
+			}
 		}
 		if (player._teamNameFOS.equals(_teams.get(1))) // defending team = defender siege flag sign
 		{
 			player.setSiegeState((byte)2);
 			player.sendPacket(new UserInfo(player));
-			for (L2PcInstance p : _players)
+			for (L2PcInstance p : _players) {
 				p.sendPacket(new RelationChanged(player, player.getRelation(p), player.isAutoAttackable(p)));
+			}
 		}
 	}
 
 	public static boolean checkIfOkToCastSealOfRule(L2PcInstance player)
 	{
-		if (!_started)
+		if (!_started) {
 			return false;
-
-		else if (Math.abs(player.getZ() - _flagZ) > 50)
+		} else if (Math.abs(player.getZ() - _flagZ) > 50) {
 			return false;
+		}
 
 		if (player.getTarget() instanceof L2NpcInstance &&
 			((L2NpcInstance)player.getTarget())._isFOS_Artifact &&
-			player._inEventFOS && player._teamNameFOS.equals(_teams.get(0)))
+			player._inEventFOS && player._teamNameFOS.equals(_teams.get(0))) {
 			return true;
+		}
 
 		return false;
 	}
@@ -987,10 +1046,11 @@ public class FortressSiege
 		try
 		{
 			L2Skill sealOfRuler = SkillTable.getInstance().getInfo(246, 1);
-			if (!player.returnSkills().containsValue(sealOfRuler))
+			if (!player.returnSkills().containsValue(sealOfRuler)) {
 				player.addSkill(sealOfRuler, false);
-			else // must keep this skill after the semi-siege
+			} else {
 				player._FOSRulerSkills = true;
+			}
 			player.sendSkillList();
 			player.sendMessage("You have been given the Seal Of Ruler skill for this event.");
 		}catch (Throwable t){return;}
@@ -1005,9 +1065,9 @@ public class FortressSiege
 			{
 				player.removeSkill(sealOfRuler, false);
 				player.sendSkillList();
-			}
-			else
+			} else {
 				player._FOSRulerSkills = false;
+			}
 		}
 		catch (Exception e)
 		{
@@ -1022,8 +1082,9 @@ public class FortressSiege
 		_teamPlayersCount.set(1,0);
 		while(true)
 		{
-			if (_playersShuffle.isEmpty() || _playersShuffle==null)
+			if (_playersShuffle.isEmpty() || _playersShuffle==null) {
 				break;
+			}
 			int randomIndex = Rnd.nextInt(_playersShuffle.size());
 			L2PcInstance player = _playersShuffle.get(randomIndex);
 			player._originalNameColorFOS = player.getAppearance().getNameColor();
@@ -1035,15 +1096,17 @@ public class FortressSiege
 			_savePlayerTeams.add(_teams.get(teamCount));
 			_teamPlayersCount.set(teamCount,_teamPlayersCount.get(teamCount)+1);
 			checkForSameIP(player, teamCount); // Checks for more players from the same IP and puts them in the same team
-			if (teamCount == _teams.size()-1)
+			if (teamCount == _teams.size()-1) {
 				teamCount = 0;
-			else
+			} else {
 				teamCount++;
+			}
 		}
 		//Since we add same IPs to same teams this may cause the teams to be uneven in numbers.
 		//so we shift amount of players until the teams are even.
-		while (_teamPlayersCount.get(0)>_teamPlayersCount.get(1)+1)
+		while (_teamPlayersCount.get(0)>_teamPlayersCount.get(1)+1) {
 			movePlayerFromTeamToTeam(0,1);
+		}
 		while (_teamPlayersCount.get(1)>_teamPlayersCount.get(0)+1){
 			movePlayerFromTeamToTeam(1,0);
 		}
@@ -1081,8 +1144,9 @@ public class FortressSiege
 		try
 		{
 			String playerIP = getIP(player);
-			if (playerIP == null)
+			if (playerIP == null) {
 				return;
+			}
 			for (L2PcInstance same : _playersShuffle)
 			{
 				if (same == null)
@@ -1091,10 +1155,12 @@ public class FortressSiege
 					continue;
 				}
 				String sameIP = getIP(same);
-				if (sameIP == null)
+				if (sameIP == null) {
 					continue;
-				if (!sameIP.equals(playerIP))
+				}
+				if (!sameIP.equals(playerIP)) {
 					continue;
+				}
 				//Now we are left with equal IPs:
 				if (!Config.FortressSiege_SAME_IP_PLAYERS_ALLOWED)
 				{
@@ -1135,10 +1201,11 @@ public class FortressSiege
 
 	public static void sit()
 	{
-		if (_sitForced)
+		if (_sitForced) {
 			_sitForced = false;
-		else
+		} else {
 			_sitForced = true;
+		}
 		for (L2PcInstance player : _players)
 		{
 			if (player != null)
@@ -1148,11 +1215,13 @@ public class FortressSiege
 					player.stopMove(null, false);
 					player.abortAttack();
 					player.abortCast();
-					if (!player.isSitting())
+					if (!player.isSitting()) {
 						player.sitDown();
+					}
 				}
-				else if (player.isSitting())
-						player.standUp();
+				else if (player.isSitting()) {
+					player.standUp();
+				}
 			}
 		}
 	}
@@ -1162,12 +1231,13 @@ public class FortressSiege
 	{
 		int[] flagId = {31508,31509,31541,35514,35515,
 						35322,35323,35469,31512};
-		if (_eventName.contains("Ketra"))
+		if (_eventName.contains("Ketra")) {
 			return 31558;
-		else if (_eventName.contains("Varka"))
+		} else if (_eventName.contains("Varka")) {
 			return 31560;
-		else if (_eventName.contains("Saint"))
+		} else if (_eventName.contains("Saint")) {
 			return 31510;
+		}
 		return flagId[Rnd.get(flagId.length)];
 	}
 
@@ -1201,8 +1271,9 @@ public class FortressSiege
 	{
 		try
 		{
-			if (_flagSpawn == null || _teams == null)
+			if (_flagSpawn == null || _teams == null) {
 				return;
+			}
 			_flagSpawn.getLastSpawn().deleteMe();
 			_flagSpawn.stopRespawn();
 			SpawnTable.getInstance().deleteSpawn(_flagSpawn, true);
@@ -1217,7 +1288,9 @@ public class FortressSiege
 	{
 		if (!startEventOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("Fortress Siege Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+			if (_log.isDebugEnabled()) {
+				_log.debug("Fortress Siege Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
+			}
 			return;
 		}
 		_teleport = false;
@@ -1227,9 +1300,11 @@ public class FortressSiege
 		Announcements(_eventName + "(FOS): Started. Let the battles begin!");
 		try
 		{
-			for (int x=0 ; x<4 ; x++)
-				if (DoorTable.getInstance().getDoor(_door[x])!=null)
+			for (int x=0 ; x<4 ; x++) {
+				if (DoorTable.getInstance().getDoor(_door[x])!=null) {
 					DoorTable.getInstance().getDoor(_door[x]).openMe();
+				}
+			}
 		}
 		catch(Exception e)
 		{
@@ -1241,7 +1316,9 @@ public class FortressSiege
 	{
 		if (!startEventOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("Fortress Siege Engine[startEvent]: startEventOk() = false");
+			if (_log.isDebugEnabled()) {
+				_log.debug("Fortress Siege Engine[startEvent]: startEventOk() = false");
+			}
 			return false;
 		}
 		_teleport = false;
@@ -1250,9 +1327,11 @@ public class FortressSiege
 		Announcements(_eventName + "(FOS): Started. Let the battles begin!");
 		try
 		{
-			for (int x=0 ; x<4 ; x++)
-				if (DoorTable.getInstance().getDoor(_door[x])!=null)
+			for (int x=0 ; x<4 ; x++) {
+				if (DoorTable.getInstance().getDoor(_door[x])!=null) {
 					DoorTable.getInstance().getDoor(_door[x]).openMe();
+				}
+			}
 		}
 		catch(Exception e)
 		{
@@ -1263,19 +1342,22 @@ public class FortressSiege
 
 	private static boolean startEventOk()
 	{
-		if (_joining || !_teleport || _started)
+		if (_joining || !_teleport || _started) {
 			return false;
+		}
 		if (Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE")){
-			if (_teamPlayersCount.contains(0))
+			if (_teamPlayersCount.contains(0)) {
 				return false;
+			}
 		}
 		return true;
 	}
 
 	public static void abortEvent()
 	{
-		if (!_joining && !_teleport && !_started)
+		if (!_joining && !_teleport && !_started) {
 			return;
+		}
 		if (_joining && !_teleport && !_started){
 			unspawnEventNpc();
 			resetData();
@@ -1301,8 +1383,9 @@ public class FortressSiege
 			{
 				for (L2PcInstance player : _players)
 				{
-					if (player !=  null && player.isOnline()!=0)
+					if (player !=  null && player.isOnline()!=0) {
 						player.teleToLocation(_npcX, _npcY, _npcZ);
+					}
 				}
 				resetData();
 			}
@@ -1313,15 +1396,18 @@ public class FortressSiege
 	{
 		if (!finishEventOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("FortressSiege Engine[finishEvent]: finishEventOk() = false");
+			if (_log.isDebugEnabled()) {
+				_log.debug("FortressSiege Engine[finishEvent]: finishEventOk() = false");
+			}
 			return;
 		}
 		_started = false;
 		unspawnEventNpc();
 		unspawnFlag();
 		processTopTeam(); // and also divides team points to get the number of successful sieges
-		if (_topScore != 0)
+		if (_topScore != 0) {
 			playKneelAnimation(_topTeam);
+		}
 		if(Config.FortressSiege_ANNOUNCE_TEAM_STATS)
 		{
 			Announcements(_eventName + " Team Statistics:");
@@ -1372,10 +1458,12 @@ public class FortressSiege
 	/** In this event if both team made EQUAL successful sieges, prize is divided into 2 ONLY if it's stackable */
 	public static void rewardTeam(String teamName)
 	{
-		if (!ItemTable.getInstance().createDummyItem(_rewardId).isStackable() && teamName == null)
+		if (!ItemTable.getInstance().createDummyItem(_rewardId).isStackable() && teamName == null) {
 			return; // If the prize is not stackable, and no Winning team, return
-		if (teamName == null)
+		}
+		if (teamName == null) {
 			Announcements(_eventName + "(FOS): The prize will be divided between both teams.");
+		}
 		int stackableCount = _rewardAmount;
 		for (L2PcInstance player : _players)
 		{
@@ -1384,14 +1472,17 @@ public class FortressSiege
 				if ((teamName == null || player._teamNameFOS.equals(teamName)) && (player._countFOSKills>0 || Config.FortressSiege_PRICE_NO_KILLS))
 				{
 					_rewardAmount = stackableCount;
-					if (teamName==null && _rewardAmount>1)
+					if (teamName==null && _rewardAmount>1) {
 						_rewardAmount = (_rewardAmount+1)/2;
+					}
 					PcInventory inv = player.getInventory();
-					if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
+					if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable()) {
 						inv.addItem("FortressSiege: " + _eventName, _rewardId, _rewardAmount, player, null);
-					else
-						for (int i=0;i<=_rewardAmount-1;i++)
+					} else {
+						for (int i=0;i<=_rewardAmount-1;i++) {
 							inv.addItem("FortressSiege: " + _eventName, _rewardId, 1, player, null);
+						}
+					}
 					SystemMessage sm;
 					if (_rewardAmount > 1)
 					{
@@ -1457,21 +1548,24 @@ public class FortressSiege
 		_teamPointsCount.set(0,_teamPointsCount.get(1));
 		_teamPointsCount.set(1,points);
 
-		for (L2PcInstance player : _players)//swap title flags
+		for (L2PcInstance player : _players) {
 			setTitleSiegeFlags(player);
+		}
 
 		try
 		{
 			for (int x=0 ; x<4 ; x++)
 			{
-				if (DoorTable.getInstance().getDoor(_door[x])!=null)
+				if (DoorTable.getInstance().getDoor(_door[x])!=null) {
 					DoorTable.getInstance().getDoor(_door[x]).closeMe();
+				}
 			}
 		}
 		catch(Throwable t){}
 
-		for (L2PcInstance player : _players)
+		for (L2PcInstance player : _players) {
 			player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameFOS)), _teamsY.get(_teams.indexOf(player._teamNameFOS)), _teamsZ.get(_teams.indexOf(player._teamNameFOS)), false);
+		}
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() //teleport players back to reverse positions
 		{
@@ -1479,18 +1573,21 @@ public class FortressSiege
 			{
 				try
 				{
-					for (int x=0 ; x<4 ; x++)
-						if (DoorTable.getInstance().getDoor(_door[x])!=null)
+					for (int x=0 ; x<4 ; x++) {
+						if (DoorTable.getInstance().getDoor(_door[x])!=null) {
 							DoorTable.getInstance().getDoor(_door[x]).openMe();
+						}
+					}
 				}
 				catch(Throwable t){}
 				sit();
-				if (Rnd.get(30)<11)
+				if (Rnd.get(30)<11) {
 					Announcements(_eventName + "(FOS): Let the sieges continue!");//announce to players
-				else if (Rnd.get(30)<11)
+				} else if (Rnd.get(30)<11) {
 					Announcements(_eventName + "(FOS): ...and the battles begin again!");//announce to players
-				else
+				} else {
 					Announcements(_eventName + "(FOS): May the best team win!");//announce to players
+				}
 			}
 		}, 20000);
 	}
@@ -1501,9 +1598,9 @@ public class FortressSiege
 		{
 			for (int x=0 ; x<6 ; x++)
 			{
-				if (_door[x]<=0)
+				if (_door[x]<=0) {
 					continue;
-				else if (DoorTable.getInstance().getDoor(_door[x])!=null)
+				} else if (DoorTable.getInstance().getDoor(_door[x])!=null)
 				{
 					DoorTable.getInstance().getDoor(_door[x]).closeMe();
 				}
@@ -1518,9 +1615,9 @@ public class FortressSiege
 		{
 			for (int x=0 ; x<6 ; x++)
 			{
-				if (_door[x]<=0)
+				if (_door[x]<=0) {
 					continue;
-				else if (DoorTable.getInstance().getDoor(_door[x])!=null)
+				} else if (DoorTable.getInstance().getDoor(_door[x])!=null)
 				{
 					DoorTable.getInstance().getDoor(_door[x]).doRevive();
 					DoorTable.getInstance().getDoor(_door[x]).spawnMe();
@@ -1532,18 +1629,21 @@ public class FortressSiege
 
 	public static boolean isDoorAttackable(int id,L2Character attacker)
 	{
-		 if (!_started)
-			 return false;
+		 if (!_started) {
+			return false;
+		}
 		for (int doorId : _door)
 		{
-			if (doorId!=id)
+			if (doorId!=id) {
 				continue;
-			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker)._inEventFOS)
+			}
+			if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker)._inEventFOS) {
 				return true;
-			else if (attacker instanceof L2Summon && ((L2Summon)attacker).getOwner()._inEventFOS)
+			} else if (attacker instanceof L2Summon && ((L2Summon)attacker).getOwner()._inEventFOS) {
 				return true;
-			else if (attacker instanceof L2PetInstance && ((L2PetInstance)attacker).getOwner()._inEventFOS)
+			} else if (attacker instanceof L2PetInstance && ((L2PetInstance)attacker).getOwner()._inEventFOS) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -1551,8 +1651,9 @@ public class FortressSiege
 	/** Returns true if the L2Character is in the protected siege spawn zone (both attacker/defender spawns are protected) */
 	public static boolean inProtectedZone(L2Character cha, L2PcInstance attacker)
 	{
-		if (cha == null || attacker == null)
+		if (cha == null || attacker == null) {
 			return false;
+		}
 		//This is the function: isInsideRadius(object.getX(), object.getY(), object.getZ(), radius, checkZ, strictCheck); (corners are left unchecked)
 		if (cha.isInsideRadius(eventCenterX, eventCenterY, eventCenterZ, 584, true, true) ||
 			cha.isInsideRadius(_teamsX.get(0), _teamsY.get(0), _teamsZ.get(0), 300, true, true) )
@@ -1569,15 +1670,19 @@ public class FortressSiege
 	{
 		if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started) || Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE")  && (_teleport || _started))
 		{
-			if (Config.FortressSiege_ON_START_REMOVE_ALL_EFFECTS)
-				for (L2Effect e : player.getAllEffects())
-					if (e != null)
+			if (Config.FortressSiege_ON_START_REMOVE_ALL_EFFECTS) {
+				for (L2Effect e : player.getAllEffects()) {
+					if (e != null) {
 						e.exit();
+					}
+				}
+			}
 
 			player._teamNameFOS = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
 			player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameFOS)), _teamsY.get(_teams.indexOf(player._teamNameFOS)), _teamsZ.get(_teams.indexOf(player._teamNameFOS)));
-			if(!_players.contains(player.getName()))
+			if(!_players.contains(player.getName())) {
 				_players.add(player);
+			}
 
 			player._originalNameColorFOS = player.getAppearance().getNameColor();
 			player._originalKarmaFOS = player.getKarma();
@@ -1599,8 +1704,9 @@ public class FortressSiege
 	{
 		if(startAutoJoin())
 		{
-			if(_joinTime > 0) waiter(_joinTime * 60 * 1000); // minutes for join event
-			else if(_joinTime <= 0)
+			if(_joinTime > 0) {
+				waiter(_joinTime * 60 * 1000); // minutes for join event
+			} else if(_joinTime <= 0)
 			{
 				abortEvent();
 				return;
@@ -1614,15 +1720,17 @@ public class FortressSiege
 					finishEvent();
 				}
 			}
-			else if (!teleportAutoStart())
+			else if (!teleportAutoStart()) {
 				abortEvent();
+			}
 		}
 	}
 
 	public static boolean teleportAutoStart()
 	{
-		if (!_joining || _started || _teleport)
+		if (!_joining || _started || _teleport) {
 			return false;
+		}
 		if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && checkMinPlayers(_playersShuffle.size()))
 		{
 			removeOfflinePlayers();
@@ -1652,16 +1760,23 @@ public class FortressSiege
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects())
-									if (e != null) e.exit();
-								if (summon instanceof L2PetInstance)
+								for (L2Effect e : summon.getAllEffects()) {
+									if (e != null) {
+										e.exit();
+									}
+								}
+								if (summon instanceof L2PetInstance) {
 									summon.unSummon(player);
+								}
 							}
 						}
 						if (Config.FortressSiege_ON_START_REMOVE_ALL_EFFECTS)
 						{
-							for (L2Effect e : player.getAllEffects())
-								if (e != null) e.exit();
+							for (L2Effect e : player.getAllEffects()) {
+								if (e != null) {
+									e.exit();
+								}
+							}
 						}
 						//Remove player from his party
 						if (player.getParty() != null)
@@ -1682,7 +1797,9 @@ public class FortressSiege
 	{
 		if (!startJoinOk())
 		{
-			if (_log.isDebugEnabled())_log.debug("FortressSiege Engine[startJoin]: startJoinOk() = false");
+			if (_log.isDebugEnabled()) {
+				_log.debug("FortressSiege Engine[startJoin]: startJoinOk() = false");
+			}
 				return false;
 		}
 		_joining = true;
@@ -1698,8 +1815,9 @@ public class FortressSiege
 		while (startWaiterTime + interval > System.currentTimeMillis())
 		{
 			seconds--; // here because we don't want to see two time announce at the same time
-			if (!_joining && !_started && !_teleport)
+			if (!_joining && !_started && !_teleport) {
 				break;
+			}
 			if (_joining || _started || _teleport)
 			{
 				switch (seconds)
@@ -1710,8 +1828,9 @@ public class FortressSiege
 							Announcements(_eventName + "(FOS): Joinable in " + _joiningLocationName + "!");
 							Announcements("Fortress Siege Event: " + seconds / 60 / 60 + " hour(s) till registration close!");
 						}
-						else if (_started)
+						else if (_started) {
 							Announcements("Fortress Siege Event: " + seconds / 60 / 60 + " hour(s) till event finish!");
+						}
 						break;
 					case 1800: // 30 minutes left
 					case 900: // 15 minutes left
@@ -1727,8 +1846,9 @@ public class FortressSiege
 							Announcements(_eventName + "(FOS): Joinable in " + _joiningLocationName + "!");
 							Announcements("Fortress Siege Event: " + seconds / 60 + " minute(s) till registration close!");
 						}
-						else if (_started)
+						else if (_started) {
 							Announcements("Fortress Siege Event: " + seconds / 60 + " minute(s) till event finish!");
+						}
 						break;
 					case 30: // 30 seconds left
 					case 15: // 15 seconds left
@@ -1738,12 +1858,13 @@ public class FortressSiege
 					case 3: // 3 seconds left
 					case 2: // 2 seconds left
 					case 1: // 1 seconds left
-						if (_joining)
+						if (_joining) {
 							Announcements("Fortress Siege Event: " + seconds + " second(s) till registration close!");
-						else if (_teleport)
+						} else if (_teleport) {
 							Announcements("Fortress Siege Event: " + seconds + " seconds(s) till start fight!");
-						else if (_started)
+						} else if (_started) {
 							Announcements("Fortress Siege Event: " + seconds + " second(s) till event finish!");
+						}
 
 						break;
 				}

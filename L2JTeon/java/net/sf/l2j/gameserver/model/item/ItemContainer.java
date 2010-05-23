@@ -90,9 +90,11 @@ public abstract class ItemContainer
 	 */
 	public L2ItemInstance getItemByItemId(int itemId)
 	{
-		for (L2ItemInstance item : _items)
-			if (item != null && item.getItemId() == itemId)
+		for (L2ItemInstance item : _items) {
+			if (item != null && item.getItemId() == itemId) {
 				return item;
+			}
+		}
 		return null;
 	}
 
@@ -108,9 +110,11 @@ public abstract class ItemContainer
 	 */
 	public L2ItemInstance getItemByItemId(int itemId, L2ItemInstance itemToIgnore)
 	{
-		for (L2ItemInstance item : _items)
-			if (item != null && item.getItemId() == itemId && !item.equals(itemToIgnore))
+		for (L2ItemInstance item : _items) {
+			if (item != null && item.getItemId() == itemId && !item.equals(itemToIgnore)) {
 				return item;
+			}
+		}
 		return null;
 	}
 
@@ -123,9 +127,11 @@ public abstract class ItemContainer
 	 */
 	public L2ItemInstance getItemByObjectId(int objectId)
 	{
-		for (L2ItemInstance item : _items)
-			if (item.getObjectId() == objectId)
+		for (L2ItemInstance item : _items) {
+			if (item.getObjectId() == objectId) {
 				return item;
+			}
+		}
 		return null;
 	}
 
@@ -141,14 +147,17 @@ public abstract class ItemContainer
 	public int getInventoryItemCount(int itemId, int enchantLevel)
 	{
 		int count = 0;
-		for (L2ItemInstance item : _items)
-			if (item.getItemId() == itemId && (item.getEnchantLevel() == enchantLevel || enchantLevel < 0))
+		for (L2ItemInstance item : _items) {
+			if (item.getItemId() == itemId && (item.getEnchantLevel() == enchantLevel || enchantLevel < 0)) {
 				// if (item.isAvailable((L2PcInstance)getOwner(), true) ||
 				// item.getItem().getType2() == 3)//available or quest item
-				if (item.isStackable())
+				if (item.isStackable()) {
 					count = item.getCount();
-				else
+				} else {
 					count++;
+				}
+			}
+		}
 		return count;
 	}
 
@@ -182,11 +191,12 @@ public abstract class ItemContainer
 			if (item.getItemId() == 57 && count < 10000 * Config.RATE_DROP_ADENA)
 			{
 				// Small adena changes won't be saved to database all the time
-				if (GameTimeController.getGameTicks() % 5 == 0)
+				if (GameTimeController.getGameTicks() % 5 == 0) {
 					item.updateDatabase();
-			}
-			else
+				}
+			} else {
 				item.updateDatabase();
+			}
 		}
 		// If item hasn't be found in inventory, create new one
 		else
@@ -230,11 +240,12 @@ public abstract class ItemContainer
 			if (itemId == 57 && count < 10000 * Config.RATE_DROP_ADENA)
 			{
 				// Small adena changes won't be saved to database all the time
-				if (GameTimeController.getGameTicks() % 5 == 0)
+				if (GameTimeController.getGameTicks() % 5 == 0) {
 					item.updateDatabase();
-			}
-			else
+				}
+			} else {
 				item.updateDatabase();
+			}
 		}
 		// If item hasn't be found in inventory, create new one
 		else
@@ -257,8 +268,9 @@ public abstract class ItemContainer
 				item.updateDatabase();
 				// If stackable, end loop as entire count is included in 1
 				// instance of item
-				if (template.isStackable() || !Config.MULTIPLE_ITEM_DROP)
+				if (template.isStackable() || !Config.MULTIPLE_ITEM_DROP) {
 					break;
+				}
 			}
 		}
 		refreshWeight();
@@ -284,8 +296,9 @@ public abstract class ItemContainer
 		// Surch the item in the inventory of the player
 		L2ItemInstance item = getItemByItemId(itemId);
 		// There is such item already in inventory
-		if (item != null)
+		if (item != null) {
 			return item;
+		}
 		// Create and Init the L2ItemInstance corresponding to the Item
 		// Identifier and quantity
 		// Add the L2ItemInstance object to _allObjects of L2world
@@ -338,8 +351,9 @@ public abstract class ItemContainer
 				return null;
 			}
 			// Check if requested quantity is available
-			if (count > sourceitem.getCount())
+			if (count > sourceitem.getCount()) {
 				count = sourceitem.getCount();
+			}
 			// If possible, move entire item object
 			if (sourceitem.getCount() == count && targetitem == null)
 			{
@@ -373,10 +387,12 @@ public abstract class ItemContainer
 			}
 			// Updates database
 			sourceitem.updateDatabase();
-			if (targetitem != sourceitem && targetitem != null)
+			if (targetitem != sourceitem && targetitem != null) {
 				targetitem.updateDatabase();
-			if (sourceitem.isAugmented())
+			}
+			if (sourceitem.isAugmented()) {
 				sourceitem.getAugmentation().removeBonus(actor);
+			}
 			refreshWeight();
 		}
 		return targetitem;
@@ -430,8 +446,9 @@ public abstract class ItemContainer
 	public L2ItemInstance destroyItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByObjectId(objectId);
-		if (item == null)
+		if (item == null) {
 			return null;
+		}
 		// Adjust item quantity
 		if (item.getCount() > count)
 		{
@@ -445,8 +462,9 @@ public abstract class ItemContainer
 			return item;
 		}
 		// Directly drop entire item
-		else
+ else {
 			return destroyItem(process, item, actor, reference);
+		}
 	}
 
 	/**
@@ -467,8 +485,9 @@ public abstract class ItemContainer
 	public L2ItemInstance destroyItemByItemId(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByItemId(itemId);
-		if (item == null)
+		if (item == null) {
 			return null;
+		}
 		synchronized (item)
 		{
 			// Adjust item quantity
@@ -478,8 +497,9 @@ public abstract class ItemContainer
 				item.setLastChange(L2ItemInstance.MODIFIED);
 			}
 			// Directly drop entire item
-			else
+ else {
 				return destroyItem(process, item, actor, reference);
+			}
 			item.updateDatabase();
 			refreshWeight();
 		}
@@ -498,8 +518,9 @@ public abstract class ItemContainer
 	 */
 	public synchronized void destroyAllItems(String process, L2PcInstance actor, L2Object reference)
 	{
-		for (L2ItemInstance item : _items)
+		for (L2ItemInstance item : _items) {
 			destroyItem(process, item, actor, reference);
+		}
 	}
 
 	/**
@@ -508,12 +529,13 @@ public abstract class ItemContainer
 	public int getAdena()
 	{
 		int count = 0;
-		for (L2ItemInstance item : _items)
+		for (L2ItemInstance item : _items) {
 			if (item.getItemId() == 57)
 			{
 				count = item.getCount();
 				return count;
 			}
+		}
 		return count;
 	}
 
@@ -573,8 +595,9 @@ public abstract class ItemContainer
 		{
 			for (L2ItemInstance item : _items)
 			{
-				if (item != null)
+				if (item != null) {
 					item.updateDatabase();
+				}
 			}
 		}
 	}
@@ -597,15 +620,17 @@ public abstract class ItemContainer
 			{
 				int objectId = inv.getInt(1);
 				item = L2ItemInstance.restoreFromDb(objectId);
-				if (item == null)
+				if (item == null) {
 					continue;
+				}
 				L2World.getInstance().storeObject(item);
 				// If stackable item is found in inventory just add to current
 				// quantity
-				if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
+				if (item.isStackable() && getItemByItemId(item.getItemId()) != null) {
 					addItem("Restore", item, null, getOwner());
-				else
+				} else {
 					addItem(item);
+				}
 			}
 			inv.close();
 			statement.close();

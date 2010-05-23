@@ -59,8 +59,9 @@ public class QuestStateManager
 	public void addQuestState(Quest quest, L2PcInstance player, byte state)
 	{
 		QuestState qs = getQuestState(player);
-		if (qs == null)
+		if (qs == null) {
 			qs = new QuestState(quest, player, state);
+		}
 	}
 
 	/**
@@ -92,8 +93,9 @@ public class QuestStateManager
 	// Property - Public
 	public static final QuestStateManager getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new QuestStateManager();
+		}
 		return _instance;
 	}
 
@@ -104,8 +106,9 @@ public class QuestStateManager
 	{
 		for (int i = 0; i < getQuestStates().size(); i++)
 		{
-			if (getQuestStates().get(i).getPlayer() != null && getQuestStates().get(i).getPlayer().getObjectId() == player.getObjectId())
+			if (getQuestStates().get(i).getPlayer() != null && getQuestStates().get(i).getPlayer().getObjectId() == player.getObjectId()) {
 				return getQuestStates().get(i);
+			}
 		}
 		return null;
 	}
@@ -115,8 +118,9 @@ public class QuestStateManager
 	 */
 	public List<QuestState> getQuestStates()
 	{
-		if (_questStates == null)
+		if (_questStates == null) {
 			_questStates = new FastList<QuestState>();
+		}
 		return _questStates;
 	}
 }

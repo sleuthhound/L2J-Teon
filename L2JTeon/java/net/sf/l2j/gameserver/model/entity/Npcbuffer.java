@@ -70,8 +70,9 @@ public class Npcbuffer
 
 	public static Npcbuffer getInstance()
 	{
-		if (i == null)
+		if (i == null) {
 			i = new Npcbuffer();
+		}
 		return i;
 	}
 
@@ -147,13 +148,15 @@ public class Npcbuffer
 			jj.showChatWnd(client, after, buff.itemCount, buff.itemId);
 			return;
 		}
-		if (buff.itemId == 57)
+		if (buff.itemId == 57) {
 			client.reduceAdena("getbuff", buff.itemCount, jj, true);
-		else
+		} else {
 			client.destroyItem("getbuff", item.getObjectId(), buff.itemCount, jj, true);
+		}
 		int ef[];
-		for (Iterator iterator = buff.entries.iterator(); iterator.hasNext(); affect(jj, client, ef))
+		for (Iterator iterator = buff.entries.iterator(); iterator.hasNext(); affect(jj, client, ef)) {
 			ef = (int[]) iterator.next();
+		}
 		client.updateEffectIcons();
 		jj.showChatWnd(client, after);
 	}
@@ -180,8 +183,9 @@ public class Npcbuffer
 		for (int j = 0; j < k; j++)
 		{
 			L2Effect ef = al2effect[j];
-			if (ef.getSkill().getId() == skill.getId())
+			if (ef.getSkill().getId() == skill.getId()) {
 				ef.exit();
+			}
 		}
 	}
 
@@ -203,25 +207,30 @@ public class Npcbuffer
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(new File("config/npcbuffer.properties"))));
 			while ((ln = lnr.readLine()) != null)
 			{
-				if (ln.trim().length() == 0 || ln.startsWith("//"))
+				if (ln.trim().length() == 0 || ln.startsWith("//")) {
 					continue;
+				}
 				if (ln.startsWith("@param"))
 				{
 					String h[] = ln.split(" ");
-					if (h[1].equalsIgnoreCase("cp_restore"))
+					if (h[1].equalsIgnoreCase("cp_restore")) {
 						cp_restore = Integer.parseInt(h[2]);
-					if (h[1].equalsIgnoreCase("hp_restore"))
+					}
+					if (h[1].equalsIgnoreCase("hp_restore")) {
 						hp_restore = Integer.parseInt(h[2]);
-					if (h[1].equalsIgnoreCase("mp_restore"))
+					}
+					if (h[1].equalsIgnoreCase("mp_restore")) {
 						mp_restore = Integer.parseInt(h[2]);
+					}
 					continue;
 				}
 				if (ln.contains("//"))
 				{
 					ln = ln.split("//")[0];
 					ln = ln.replaceAll(" ", "");
-					if (ln.trim().length() < 1)
+					if (ln.trim().length() < 1) {
 						continue;
+					}
 					ln = ln.replaceAll("\t", "");
 				}
 				String t[] = ln.split(";");
@@ -245,8 +254,9 @@ public class Npcbuffer
 						buffGroup.addSkill(Integer.parseInt(e.split(",")[0]), Integer.parseInt(e.split(",")[1]));
 					}
 				}
-				if (buffGroup != null)
+				if (buffGroup != null) {
 					buffs.put(Integer.valueOf(buffGroup.nId), buffGroup);
+				}
 			}
 		}
 		catch (Exception e)
