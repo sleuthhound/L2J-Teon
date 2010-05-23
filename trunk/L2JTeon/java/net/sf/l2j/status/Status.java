@@ -46,13 +46,14 @@ public class Status extends Thread
 			try
 			{
 				Socket connection = statusServerSocket.accept();
-				if (_mode == Server.MODE_GAMESERVER)
+				if (_mode == Server.MODE_GAMESERVER) {
 					new GameStatusThread(connection, _uptime, _statusPw);
-				else if (_mode == Server.MODE_LOGINSERVER)
+				} else if (_mode == Server.MODE_LOGINSERVER)
 				{
 					LoginStatusThread lst = new LoginStatusThread(connection, _uptime);
-					if (lst.isAlive())
+					if (lst.isAlive()) {
 						_loginStatus.add(lst);
+					}
 				}
 				if (this.isInterrupted())
 				{
@@ -147,10 +148,11 @@ public class Status extends Thread
 		List<LoginStatusThread> lsToRemove = new FastList<LoginStatusThread>();
 		for (LoginStatusThread ls : _loginStatus)
 		{
-			if (ls.isInterrupted())
+			if (ls.isInterrupted()) {
 				lsToRemove.add(ls);
-			else
+			} else {
 				ls.printToTelnet(msg);
+			}
 		}
 	}
 }

@@ -50,16 +50,17 @@ public class LoginStatusThread extends Thread
 
 	private void telnetOutput(int type, String text)
 	{
-		if (type == 1)
+		if (type == 1) {
 			System.out.println("TELNET | " + text);
-		else if (type == 2)
+		} else if (type == 2) {
 			System.out.print("TELNET | " + text);
-		else if (type == 3)
+		} else if (type == 3) {
 			System.out.print(text);
-		else if (type == 4)
+		} else if (type == 4) {
 			System.out.println(text);
-		else
+		} else {
 			System.out.println("TELNET | " + text);
+		}
 	}
 
 	private boolean isValidIP(Socket client)
@@ -70,8 +71,9 @@ public class LoginStatusThread extends Thread
 		String clientStringIP = ClientIP.getHostAddress();
 		telnetOutput(1, "Connection from: " + clientStringIP);
 		// read and loop thru list of IPs, compare with newIP
-		if (Config.DEVELOPER)
+		if (Config.DEVELOPER) {
 			telnetOutput(2, "");
+		}
 		try
 		{
 			Properties telnetSettings = new Properties();
@@ -79,8 +81,9 @@ public class LoginStatusThread extends Thread
 			telnetSettings.load(telnetIS);
 			telnetIS.close();
 			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
-			if (Config.DEVELOPER)
+			if (Config.DEVELOPER) {
 				telnetOutput(3, "Comparing ip to list...");
+			}
 			// compare
 			String ipToCompare = null;
 			for (String ip : HostList.split(","))
@@ -88,21 +91,25 @@ public class LoginStatusThread extends Thread
 				if (!result)
 				{
 					ipToCompare = InetAddress.getByName(ip).getHostAddress();
-					if (clientStringIP.equals(ipToCompare))
+					if (clientStringIP.equals(ipToCompare)) {
 						result = true;
-					if (Config.DEVELOPER)
+					}
+					if (Config.DEVELOPER) {
 						telnetOutput(3, clientStringIP + " = " + ipToCompare + "(" + ip + ") = " + result);
+					}
 				}
 			}
 		}
 		catch (IOException e)
 		{
-			if (Config.DEVELOPER)
+			if (Config.DEVELOPER) {
 				telnetOutput(4, "");
+			}
 			telnetOutput(1, "Error: " + e);
 		}
-		if (Config.DEVELOPER)
+		if (Config.DEVELOPER) {
 			telnetOutput(4, "Allow IP: " + result);
+		}
 		return result;
 	}
 
@@ -219,8 +226,9 @@ public class LoginStatusThread extends Thread
 	 */
 	private boolean validLogin(String login)
 	{
-		if (!LoginController.getInstance().isGM(login))
+		if (!LoginController.getInstance().isGM(login)) {
 			return false;
+		}
 		java.sql.Connection con = null;
 		try
 		{

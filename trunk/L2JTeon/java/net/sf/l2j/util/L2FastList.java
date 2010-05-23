@@ -32,20 +32,23 @@ public class L2FastList<T extends Object> extends FastList<T>
 
 	public final boolean forEach(I2ForEach<T> func, boolean sync)
 	{
-		if (sync)
+		if (sync) {
 			synchronized (this)
 			{
 				return forEachP(func);
 			}
-		else
+		} else {
 			return forEachP(func);
+		}
 	}
 
 	private boolean forEachP(I2ForEach<T> func)
 	{
-		for (FastList.Node<T> e = head(), end = tail(); (e = func.getNext(e)) != end;)
-			if (!func.ForEach(e.getValue()))
+		for (FastList.Node<T> e = head(), end = tail(); (e = func.getNext(e)) != end;) {
+			if (!func.ForEach(e.getValue())) {
 				return false;
+			}
+		}
 		return true;
 	}
 }

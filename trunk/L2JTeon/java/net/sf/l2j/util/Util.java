@@ -70,10 +70,11 @@ public class Util
 				for (int a = 0; a < 16; a++)
 				{
 					int t1 = data[charpoint++];
-					if (t1 > 0x1f && t1 < 0x80)
+					if (t1 > 0x1f && t1 < 0x80) {
 						result.append((char) t1);
-					else
+					} else {
 						result.append('.');
+					}
 				}
 				result.append("\n");
 				counter = 0;
@@ -134,8 +135,9 @@ public class Util
 			return;
 		}
 		int i;
-		for (i = 0; i < maxlength - slen; i++)
+		for (i = 0; i < maxlength - slen; i++) {
 			s = "=" + s;
+		}
 		System.out.println(s);
 	}
 

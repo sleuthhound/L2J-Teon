@@ -32,8 +32,9 @@ public class RandomIntGenerator
 
 	public static final RandomIntGenerator getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new RandomIntGenerator();
+		}
 		return _instance;
 	}
 
