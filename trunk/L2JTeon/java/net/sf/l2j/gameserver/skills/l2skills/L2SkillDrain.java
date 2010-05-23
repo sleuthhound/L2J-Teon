@@ -42,16 +42,19 @@ public class L2SkillDrain extends L2Skill
 	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead())
+		if (activeChar.isAlikeDead()) {
 			return;
+		}
 		boolean ss = false;
 		boolean bss = false;
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
-			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
+			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB) {
 				continue;
-			if (activeChar != target && target.isInvul())
+			}
+			if (activeChar != target && target.isInvul()) {
 				continue; // No effect on invulnerable chars unless they
+			}
 			// cast
 			// it themselves.
 			L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
@@ -97,15 +100,17 @@ public class L2SkillDrain extends L2Skill
 
             if (_cp > 0)
             {
-            	if (damage < _cp)
-            		_drain = 0;
-            	else
-            		_drain = damage - _cp;
+            	if (damage < _cp) {
+					_drain = 0;
+				} else {
+					_drain = damage - _cp;
+				}
             }
-            else if (damage > _hp)
-            	_drain = _hp;
-            else
-            	_drain = damage;
+            else if (damage > _hp) {
+				_drain = _hp;
+			} else {
+				_drain = damage;
+			}
 
 			double hpAdd = _absorbAbs + _absorbPart * _drain;
 
@@ -139,9 +144,9 @@ public class L2SkillDrain extends L2Skill
 					{
 						// activate attacked effects, if any
 						target.stopSkillEffects(getId());
-						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, this, false, ss, bss))
+						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, this, false, ss, bss)) {
 							getEffects(activeChar, target);
-						else
+						} else
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
 							sm.addString(target.getName());

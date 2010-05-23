@@ -59,14 +59,16 @@ final class EffectConfusion extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			System.out.println(getEffected());
+		}
 		List<L2Character> targetList = new FastList<L2Character>();
 		// Getting the possible targets
 		for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
 		{
-			if (obj instanceof L2Character && obj != getEffected())
+			if (obj instanceof L2Character && obj != getEffected()) {
 				targetList.add((L2Character) obj);
+			}
 		}
 		// if there is no target, exit function
 		if (targetList.size() == 0)

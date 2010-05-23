@@ -46,8 +46,9 @@ public class TaskLoginRestart extends Task
 	@Override
 	public void onTimeElapsed(ExecutedTask task)
 	{
-		if (!Config.LOGIN_RESTART_BY_TIME)
+		if (!Config.LOGIN_RESTART_BY_TIME) {
 			return;
+		}
 		LoginServerThread.getInstance().sendLoginRestart();
 		_log.config("LoginRestart Global Task: launched.");
 	}

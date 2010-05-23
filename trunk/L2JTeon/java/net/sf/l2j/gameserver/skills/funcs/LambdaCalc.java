@@ -35,8 +35,9 @@ public final class LambdaCalc extends Lambda
 		try
 		{
 			env.value = 0;
-			for (Func f : funcs)
+			for (Func f : funcs) {
 				f.calc(env);
+			}
 			return env.value;
 		}
 		finally
@@ -49,8 +50,9 @@ public final class LambdaCalc extends Lambda
 	{
 		int len = funcs.length;
 		Func[] tmp = new Func[len + 1];
-		for (int i = 0; i < len; i++)
+		for (int i = 0; i < len; i++) {
 			tmp[i] = funcs[i];
+		}
 		tmp[len] = f;
 		funcs = tmp;
 	}

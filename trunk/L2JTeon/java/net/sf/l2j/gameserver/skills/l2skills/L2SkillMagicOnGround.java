@@ -34,8 +34,9 @@ public final class L2SkillMagicOnGround extends L2Skill
 	@Override
 	public void useSkill(L2Character caster, L2Object[] targets)
 	{
-		if (caster.isAlikeDead())
+		if (caster.isAlikeDead()) {
 			return;
+		}
 		getEffectsSelf(caster);
 	}
 }

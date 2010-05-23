@@ -38,8 +38,9 @@ public class DecayTaskManager
 
 	public static DecayTaskManager getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new DecayTaskManager();
+		}
 		return _instance;
 	}
 
@@ -77,19 +78,21 @@ public class DecayTaskManager
 			int delay;
 			try
 			{
-				if (_decayTasks != null)
+				if (_decayTasks != null) {
 					for (L2Character actor : _decayTasks.keySet())
 					{
-						if (actor.isRaid() && !actor.isRaidMinion())
+						if (actor.isRaid() && !actor.isRaidMinion()) {
 							delay = 30000;
-						else
+						} else {
 							delay = 8500;
+						}
 						if (current - _decayTasks.get(actor) > delay)
 						{
 							actor.onDecay();
 							_decayTasks.remove(actor);
 						}
 					}
+				}
 			}
 			catch (Exception e)
 			{

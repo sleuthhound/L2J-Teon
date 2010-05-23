@@ -34,8 +34,9 @@ class EffectManaHealOverTime extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected().isDead())
+		if (getEffected().isDead()) {
 			return false;
+		}
 		double mp = getEffected().getCurrentMp();
 		double maxmp = getEffected().getMaxMp();
 		mp += calc();

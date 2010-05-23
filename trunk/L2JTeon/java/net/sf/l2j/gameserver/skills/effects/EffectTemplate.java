@@ -84,8 +84,9 @@ public final class EffectTemplate
 
 	public L2Effect getEffect(Env env)
 	{
-		if (attachCond != null && !attachCond.test(env))
+		if (attachCond != null && !attachCond.test(env)) {
 			return null;
+		}
 		try
 		{
 			L2Effect effect = (L2Effect) _constructor.newInstance(env, this);

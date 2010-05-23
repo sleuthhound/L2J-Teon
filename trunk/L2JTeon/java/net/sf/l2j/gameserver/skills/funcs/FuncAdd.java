@@ -30,7 +30,8 @@ public class FuncAdd extends Func
 	@Override
 	public void calc(Env env)
 	{
-		if (cond == null || cond.test(env))
+		if (cond == null || cond.test(env)) {
 			env.value += _lambda.calc(env);
+		}
 	}
 }

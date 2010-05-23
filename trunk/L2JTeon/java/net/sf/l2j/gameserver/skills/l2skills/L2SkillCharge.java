@@ -37,8 +37,9 @@ public class L2SkillCharge extends L2Skill
 	@Override
 	public void useSkill(L2Character caster, L2Object[] targets)
 	{
-		if (caster.isAlikeDead())
+		if (caster.isAlikeDead()) {
 			return;
+		}
 		// get the effect
 		EffectCharge effect = (EffectCharge) caster.getFirstEffect(this);
 		if (effect != null)

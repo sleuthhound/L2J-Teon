@@ -64,7 +64,8 @@ public abstract class Condition implements ConditionListener
 
 	public void notifyChanged()
 	{
-		if (_listener != null)
+		if (_listener != null) {
 			_listener.notifyChanged();
+		}
 	}
 }

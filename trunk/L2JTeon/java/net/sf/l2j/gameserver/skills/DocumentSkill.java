@@ -133,10 +133,12 @@ final class DocumentSkill extends DocumentBase
 		String skillName = attrs.getNamedItem("name").getNodeValue();
 		String levels = attrs.getNamedItem("levels").getNodeValue();
 		int lastLvl = Integer.parseInt(levels);
-		if (attrs.getNamedItem("enchantLevels1") != null)
+		if (attrs.getNamedItem("enchantLevels1") != null) {
 			enchantLevels1 = Integer.parseInt(attrs.getNamedItem("enchantLevels1").getNodeValue());
-		if (attrs.getNamedItem("enchantLevels2") != null)
+		}
+		if (attrs.getNamedItem("enchantLevels2") != null) {
 			enchantLevels2 = Integer.parseInt(attrs.getNamedItem("enchantLevels2").getNodeValue());
+		}
 		_currentSkill.id = skillId;
 		_currentSkill.name = skillName;
 		_currentSkill.sets = new StatsSet[lastLvl];
@@ -149,20 +151,23 @@ final class DocumentSkill extends DocumentBase
 			_currentSkill.sets[i].set("level", i + 1);
 			_currentSkill.sets[i].set("name", _currentSkill.name);
 		}
-		if (_currentSkill.sets.length != lastLvl)
+		if (_currentSkill.sets.length != lastLvl) {
 			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + lastLvl + " levels expected");
+		}
 		Node first = n.getFirstChild();
 		for (n = first; n != null; n = n.getNextSibling())
 		{
-			if ("table".equalsIgnoreCase(n.getNodeName()))
+			if ("table".equalsIgnoreCase(n.getNodeName())) {
 				parseTable(n);
+			}
 		}
 		for (int i = 1; i <= lastLvl; i++)
 		{
 			for (n = first; n != null; n = n.getNextSibling())
 			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
+				if ("set".equalsIgnoreCase(n.getNodeName())) {
 					parseBeanSet(n, _currentSkill.sets[i - 1], i);
+				}
 			}
 		}
 		for (int i = 0; i < enchantLevels1; i++)
@@ -176,17 +181,20 @@ final class DocumentSkill extends DocumentBase
 			// currentSkill.enchsets1[i].set("skillType", "NOTDONE");
 			for (n = first; n != null; n = n.getNextSibling())
 			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
+				if ("set".equalsIgnoreCase(n.getNodeName())) {
 					parseBeanSet(n, _currentSkill.enchsets1[i], _currentSkill.sets.length);
+				}
 			}
 			for (n = first; n != null; n = n.getNextSibling())
 			{
-				if ("enchant1".equalsIgnoreCase(n.getNodeName()))
+				if ("enchant1".equalsIgnoreCase(n.getNodeName())) {
 					parseBeanSet(n, _currentSkill.enchsets1[i], i + 1);
+				}
 			}
 		}
-		if (_currentSkill.enchsets1.length != enchantLevels1)
+		if (_currentSkill.enchsets1.length != enchantLevels1) {
 			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + enchantLevels1 + " levels expected");
+		}
 		for (int i = 0; i < enchantLevels2; i++)
 		{
 			_currentSkill.enchsets2[i] = new StatsSet();
@@ -198,17 +206,20 @@ final class DocumentSkill extends DocumentBase
 			// currentSkill.enchsets2[i].set("skillType", "NOTDONE");
 			for (n = first; n != null; n = n.getNextSibling())
 			{
-				if ("set".equalsIgnoreCase(n.getNodeName()))
+				if ("set".equalsIgnoreCase(n.getNodeName())) {
 					parseBeanSet(n, _currentSkill.enchsets2[i], _currentSkill.sets.length);
+				}
 			}
 			for (n = first; n != null; n = n.getNextSibling())
 			{
-				if ("enchant2".equalsIgnoreCase(n.getNodeName()))
+				if ("enchant2".equalsIgnoreCase(n.getNodeName())) {
 					parseBeanSet(n, _currentSkill.enchsets2[i], i + 1);
+				}
 			}
 		}
-		if (_currentSkill.enchsets2.length != enchantLevels2)
+		if (_currentSkill.enchsets2.length != enchantLevels2) {
 			throw new RuntimeException("Skill id=" + skillId + " number of levels missmatch, " + enchantLevels2 + " levels expected");
+		}
 		makeSkills();
 		for (int i = 0; i < lastLvl; i++)
 		{
@@ -219,8 +230,9 @@ final class DocumentSkill extends DocumentBase
 				{
 					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
+					if (condition != null && msg != null) {
 						condition.setMessage(msg.getNodeValue());
+					}
 					_currentSkill.currentSkills.get(i).attach(condition, false);
 				}
 				if ("for".equalsIgnoreCase(n.getNodeName()))
@@ -240,8 +252,9 @@ final class DocumentSkill extends DocumentBase
 					found = true;
 					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
+					if (condition != null && msg != null) {
 						condition.setMessage(msg.getNodeValue());
+					}
 					_currentSkill.currentSkills.get(i).attach(condition, false);
 				}
 				if ("enchant1for".equalsIgnoreCase(n.getNodeName()))
@@ -262,8 +275,9 @@ final class DocumentSkill extends DocumentBase
 					{
 						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
+						if (condition != null && msg != null) {
 							condition.setMessage(msg.getNodeValue());
+						}
 						_currentSkill.currentSkills.get(i).attach(condition, false);
 					}
 					if ("for".equalsIgnoreCase(n.getNodeName()))
@@ -284,8 +298,9 @@ final class DocumentSkill extends DocumentBase
 					found = true;
 					Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 					Node msg = n.getAttributes().getNamedItem("msg");
-					if (condition != null && msg != null)
+					if (condition != null && msg != null) {
 						condition.setMessage(msg.getNodeValue());
+					}
 					_currentSkill.currentSkills.get(i).attach(condition, false);
 				}
 				if ("enchant2for".equalsIgnoreCase(n.getNodeName()))
@@ -306,8 +321,9 @@ final class DocumentSkill extends DocumentBase
 					{
 						Condition condition = parseCondition(n.getFirstChild(), _currentSkill.currentSkills.get(i));
 						Node msg = n.getAttributes().getNamedItem("msg");
-						if (condition != null && msg != null)
+						if (condition != null && msg != null) {
 							condition.setMessage(msg.getNodeValue());
+						}
 						_currentSkill.currentSkills.get(i).attach(condition, false);
 					}
 					if ("for".equalsIgnoreCase(n.getNodeName()))

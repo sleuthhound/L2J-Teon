@@ -121,13 +121,15 @@ final class DocumentItem extends DocumentBase
 		Node first = n.getFirstChild();
 		for (n = first; n != null; n = n.getNextSibling())
 		{
-			if ("table".equalsIgnoreCase(n.getNodeName()))
+			if ("table".equalsIgnoreCase(n.getNodeName())) {
 				parseTable(n);
+			}
 		}
 		for (n = first; n != null; n = n.getNextSibling())
 		{
-			if ("set".equalsIgnoreCase(n.getNodeName()))
+			if ("set".equalsIgnoreCase(n.getNodeName())) {
 				parseBeanSet(n, _itemData.get(_currentItem.id).set, 1);
+			}
 		}
 		for (n = first; n != null; n = n.getNextSibling())
 		{
@@ -141,16 +143,18 @@ final class DocumentItem extends DocumentBase
 
 	private void makeItem()
 	{
-		if (_currentItem.item != null)
+		if (_currentItem.item != null) {
 			return;
-		if (_currentItem.type instanceof L2ArmorType)
+		}
+		if (_currentItem.type instanceof L2ArmorType) {
 			_currentItem.item = new L2Armor((L2ArmorType) _currentItem.type, _currentItem.set);
-		else if (_currentItem.type instanceof L2WeaponType)
+		} else if (_currentItem.type instanceof L2WeaponType) {
 			_currentItem.item = new L2Weapon((L2WeaponType) _currentItem.type, _currentItem.set);
-		else if (_currentItem.type instanceof L2EtcItemType)
+		} else if (_currentItem.type instanceof L2EtcItemType) {
 			_currentItem.item = new L2EtcItem((L2EtcItemType) _currentItem.type, _currentItem.set);
-		else
+		} else {
 			throw new Error("Unknown item type " + _currentItem.type);
+		}
 	}
 
 	/**

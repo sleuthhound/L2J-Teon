@@ -39,17 +39,19 @@ public class L2SkillElemental extends L2Skill
 		_seeds[0] = set.getInteger("seed1", 0);
 		_seeds[1] = set.getInteger("seed2", 0);
 		_seeds[2] = set.getInteger("seed3", 0);
-		if (set.getInteger("seed_any", 0) == 1)
+		if (set.getInteger("seed_any", 0) == 1) {
 			_seedAny = true;
-		else
+		} else {
 			_seedAny = false;
+		}
 	}
 
 	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead())
+		if (activeChar.isAlikeDead()) {
 			return;
+		}
 		boolean ss = false;
 		boolean bss = false;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
@@ -98,8 +100,9 @@ public class L2SkillElemental extends L2Skill
         }
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
-			if (target.isAlikeDead())
+			if (target.isAlikeDead()) {
 				continue;
+			}
 			boolean charged = true;
 			if (!_seedAny)
 			{

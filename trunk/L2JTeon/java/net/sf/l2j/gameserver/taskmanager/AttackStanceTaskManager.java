@@ -48,8 +48,9 @@ public class AttackStanceTaskManager
 
 	public static AttackStanceTaskManager getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new AttackStanceTaskManager();
+		}
 		return _instance;
 	}
 
@@ -80,7 +81,7 @@ public class AttackStanceTaskManager
 			Long current = System.currentTimeMillis();
 			try
 			{
-				if (_attackStanceTasks != null)
+				if (_attackStanceTasks != null) {
 					synchronized (this)
 					{
 						for (L2Character actor : _attackStanceTasks.keySet())
@@ -93,6 +94,7 @@ public class AttackStanceTaskManager
 							}
 						}
 					}
+				}
 			}
 			catch (Throwable e)
 			{

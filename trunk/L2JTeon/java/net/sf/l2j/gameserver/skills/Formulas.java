@@ -77,18 +77,24 @@ public final class Formulas
 	// better to have everything precalculated and use values directly (saves CPU)
 	static
 	{
-		for (int i = 0; i < STRbonus.length; i++)
+		for (int i = 0; i < STRbonus.length; i++) {
 			STRbonus[i] = Math.floor(Math.pow(STRCompute[0], i - STRCompute[1]) * 100 + .5d) / 100;
-		for (int i = 0; i < INTbonus.length; i++)
+		}
+		for (int i = 0; i < INTbonus.length; i++) {
 			INTbonus[i] = Math.floor(Math.pow(INTCompute[0], i - INTCompute[1]) * 100 + .5d) / 100;
-		for (int i = 0; i < DEXbonus.length; i++)
+		}
+		for (int i = 0; i < DEXbonus.length; i++) {
 			DEXbonus[i] = Math.floor(Math.pow(DEXCompute[0], i - DEXCompute[1]) * 100 + .5d) / 100;
-		for (int i = 0; i < WITbonus.length; i++)
+		}
+		for (int i = 0; i < WITbonus.length; i++) {
 			WITbonus[i] = Math.floor(Math.pow(WITCompute[0], i - WITCompute[1]) * 100 + .5d) / 100;
-		for (int i = 0; i < CONbonus.length; i++)
+		}
+		for (int i = 0; i < CONbonus.length; i++) {
 			CONbonus[i] = Math.floor(Math.pow(CONCompute[0], i - CONCompute[1]) * 100 + .5d) / 100;
-		for (int i = 0; i < MENbonus.length; i++)
+		}
+		for (int i = 0; i < MENbonus.length; i++) {
 			MENbonus[i] = Math.floor(Math.pow(MENCompute[0], i - MENCompute[1]) * 100 + .5d) / 100;
+		}
 	}
 
 	static class FuncAddLevel3 extends Func
@@ -98,8 +104,9 @@ public final class Formulas
 		static Func getInstance(Stats stat)
 		{
 			int pos = stat.ordinal();
-			if (_instancies[pos] == null)
+			if (_instancies[pos] == null) {
 				_instancies[pos] = new FuncAddLevel3(stat);
+			}
 			return _instancies[pos];
 		}
 
@@ -122,8 +129,9 @@ public final class Formulas
 		static Func getInstance(Stats stat)
 		{
 			int pos = stat.ordinal();
-			if (_instancies[pos] == null)
+			if (_instancies[pos] == null) {
 				_instancies[pos] = new FuncMultLevelMod(stat);
+			}
 			return _instancies[pos];
 		}
 
@@ -150,8 +158,9 @@ public final class Formulas
 		static Func getInstance(Stats stat)
 		{
 			int pos = stat.ordinal();
-			if (_instancies[pos] == null)
+			if (_instancies[pos] == null) {
 				_instancies[pos] = new FuncMultRegenResting(stat);
+			}
 			return _instancies[pos];
 		}
 
@@ -172,8 +181,9 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (!cond.test(env))
+			if (!cond.test(env)) {
 				return;
+			}
 			env.value *= 1.45;
 		}
 	}
@@ -242,16 +252,21 @@ public final class Formulas
 			if (env.player instanceof L2PcInstance)
 			{
 				L2PcInstance p = (L2PcInstance) env.player;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LFINGER) != null)
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LFINGER) != null) {
 					env.value -= 5;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RFINGER) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RFINGER) != null) {
 					env.value -= 5;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEAR) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEAR) != null) {
 					env.value -= 9;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_REAR) != null) {
 					env.value -= 9;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_NECK) != null) {
 					env.value -= 13;
+				}
 			}
 			env.value *= MENbonus[env.player.getMEN()] * env.player.getLevelMod();
 		}
@@ -277,16 +292,21 @@ public final class Formulas
 			if (env.player instanceof L2PcInstance)
 			{
 				L2PcInstance p = (L2PcInstance) env.player;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_HEAD) != null)
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_HEAD) != null) {
 					env.value -= 12;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST) != null) {
 					env.value -= p.getClassId().isMage() ? 15 : 31;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEGS) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LEGS) != null) {
 					env.value -= p.getClassId().isMage() ? 8 : 18;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_GLOVES) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_GLOVES) != null) {
 					env.value -= 8;
-				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_FEET) != null)
+				}
+				if (p.getInventory().getPaperdollItem(Inventory.PAPERDOLL_FEET) != null) {
 					env.value -= 7;
+				}
 			}
 			env.value *= env.player.getLevelMod();
 		}
@@ -310,8 +330,9 @@ public final class Formulas
 		@Override
 		public void calc(Env env)
 		{
-			if (!cond.test(env))
+			if (!cond.test(env)) {
 				return;
+			}
 			env.value += 450;
 		}
 	}
@@ -337,8 +358,9 @@ public final class Formulas
 			// [Square(DEX)]*6 + lvl + weapon hitbonus;
 			env.value += Math.sqrt(p.getDEX()) * 6;
 			env.value += p.getLevel();
-			if (p instanceof L2Summon)
+			if (p instanceof L2Summon) {
 				env.value += p.getLevel() < 60 ? 4 : 5;
+			}
 		}
 	}
 
@@ -384,16 +406,17 @@ public final class Formulas
 		public void calc(Env env)
 		{
 			L2Character p = env.player;
-			if (p instanceof L2Summon)
+			if (p instanceof L2Summon) {
 				env.value = 40;
-			else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null)
+			} else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null) {
 				env.value = 40;
-			else
+			} else
 			{
 				env.value *= DEXbonus[p.getDEX()];
 				env.value *= 10;
-				if (env.value > Config.MAX_RCRIT)
+				if (env.value > Config.MAX_RCRIT) {
 					env.value = Config.MAX_RCRIT;
+				}
 			}
 		}
 	}
@@ -416,11 +439,11 @@ public final class Formulas
 		public void calc(Env env)
 		{
 			L2Character p = env.player;
-			if (p instanceof L2Summon)
+			if (p instanceof L2Summon) {
 				env.value = 8;
-			else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null)
+			} else if (p instanceof L2PcInstance && p.getActiveWeaponInstance() == null) {
 				env.value = 8;
-			else
+			} else
 			{
 				env.value *= WITbonus[p.getWIT()];
 			}
@@ -512,8 +535,9 @@ public final class Formulas
 		{
 			// L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
 			L2PcInstance pc = (L2PcInstance) env.player;
-			if (pc != null)
+			if (pc != null) {
 				env.value += pc.getHennaStatSTR();
+			}
 		}
 	}
 
@@ -917,8 +941,9 @@ public final class Formulas
 		if (cha instanceof L2GrandBossInstance)
 		{
 			L2GrandBossInstance boss = (L2GrandBossInstance) cha;
-			if (boss.getNpcId() == 29022 && GrandBossManager.getInstance().checkIfInZone("SunlightRoom", boss))
+			if (boss.getNpcId() == 29022 && GrandBossManager.getInstance().checkIfInZone("SunlightRoom", boss)) {
 				hpRegenMultiplier *= 0.75;
+			}
 		}
 		if (Config.CHAMPION_ENABLE && cha.isChampion())
 		{
@@ -961,9 +986,11 @@ public final class Formulas
 						if (fortIndex > 0)
 						{
 							Fort fort = FortManager.getInstance().getFortById(fortIndex);
-							if (fort != null)
-								if (fort.getFunction(Fort.FUNC_RESTORE_HP) != null)
+							if (fort != null) {
+								if (fort.getFunction(Fort.FUNC_RESTORE_HP) != null) {
 									hpRegenMultiplier *= 1 + fort.getFunction(Fort.FUNC_RESTORE_HP).getLvl() / 100;
+								}
+							}
 						}
 					}
 				}
@@ -1039,9 +1066,11 @@ public final class Formulas
 						if (fortIndex > 0)
 						{
 							Fort fort = FortManager.getInstance().getFortById(fortIndex);
-							if (fort != null)
-								if (fort.getFunction(Fort.FUNC_RESTORE_MP) != null)
+							if (fort != null) {
+								if (fort.getFunction(Fort.FUNC_RESTORE_MP) != null) {
 									mpRegenMultiplier *= 1 + fort.getFunction(Fort.FUNC_RESTORE_MP).getLvl() / 100;
+								}
+							}
 						}
 					}
 				}
@@ -1245,12 +1274,15 @@ public final class Formulas
 			L2Armor armor = ((L2PcInstance) target).getActiveChestArmorItem();
 			if (armor != null)
 			{
-				if (((L2PcInstance) target).isWearingHeavyArmor())
+				if (((L2PcInstance) target).isWearingHeavyArmor()) {
 					damage /= Config.DAGGER_RECUDE_DMG_VS_HEAVY;
-				if (((L2PcInstance) target).isWearingLightArmor())
+				}
+				if (((L2PcInstance) target).isWearingLightArmor()) {
 					damage /= Config.DAGGER_RECUDE_DMG_VS_LIGHT;
-				if (((L2PcInstance) target).isWearingMagicArmor())
+				}
+				if (((L2PcInstance) target).isWearingMagicArmor()) {
 					damage /= Config.DAGGER_RECUDE_DMG_VS_ROBE;
+				}
 			}
 		}
 		return damage < 1 ? 1. : damage;
@@ -1425,8 +1457,9 @@ public final class Formulas
 		if (attacker instanceof L2NpcInstance)
 		{
 			// Skill Race : Undead
-			if (((L2NpcInstance) attacker).getTemplate().getRace() == L2NpcTemplate.Race.UNDEAD)
+			if (((L2NpcInstance) attacker).getTemplate().getRace() == L2NpcTemplate.Race.UNDEAD) {
 				damage /= attacker.getPDefUndead(target);
+			}
 		}
 		if (target instanceof L2NpcInstance)
 		{
@@ -1460,8 +1493,9 @@ public final class Formulas
 		}
 		if (skill != null)
 		{
-			if (skill.getSkillType() == SkillType.FATALCOUNTER)
+			if (skill.getSkillType() == SkillType.FATALCOUNTER) {
 				damage *= (1.0 - attacker.getStatus().getCurrentHp() / attacker.getMaxHp()) * 2.0;
+			}
 		}
 		if (shld)
 		{
@@ -1631,10 +1665,11 @@ public final class Formulas
 				break;
 			}
 		}
-		if (attacker instanceof L2Summon)
+		if (attacker instanceof L2Summon) {
 			damage = damage * Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
-		else if (attacker instanceof L2NpcInstance)
+		} else if (attacker instanceof L2NpcInstance) {
 			damage = damage * Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
+		}
 		return damage;
 	}
 
@@ -1883,10 +1918,11 @@ public final class Formulas
 				break;
 			}
 		}
-		if (attacker instanceof L2Summon)
+		if (attacker instanceof L2Summon) {
 			damage = damage * Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
-		else if (attacker instanceof L2NpcInstance)
+		} else if (attacker instanceof L2NpcInstance) {
 			damage = damage * Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
+		}
 		return damage;
 	}
 
@@ -1917,9 +1953,9 @@ public final class Formulas
 			// hp to 1)
 			if (skill.getLethalChance2() > 0 && chance < calcLethal(activeChar, target, skill.getLethalChance2()))
 			{
-				if (target instanceof L2NpcInstance)
+				if (target instanceof L2NpcInstance) {
 					target.reduceCurrentHp(target.getCurrentHp() - 1, activeChar);
-				else if (target instanceof L2PcInstance) // If is a active
+				} else if (target instanceof L2PcInstance) // If is a active
 				// player set his HP
 				// and CP to 1
 				{
@@ -1937,21 +1973,23 @@ public final class Formulas
 				if (target instanceof L2PcInstance)
 				{
 					L2PcInstance player = (L2PcInstance) target;
-					if (!player.isInvul())
+					if (!player.isInvul()) {
 						player.setCurrentCp(1); // Set CP to 1
+					}
 				}
-				else if (target instanceof L2NpcInstance) // If is a monster
+				else if (target instanceof L2NpcInstance) {
 					// remove first
 					// damage and after
 					// 50% of current hp
 					target.reduceCurrentHp(target.getCurrentHp() / 2, activeChar);
+				}
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
-			}
-			else
+			} else {
 				return false;
-		}
-		else
+			}
+		} else {
 			return false;
+		}
 		return true;
 	}
 
@@ -1974,8 +2012,9 @@ public final class Formulas
 	{
 		if (target instanceof L2PcInstance)
 		{
-			if (((L2PcInstance) target).getForceBuff() != null)
+			if (((L2PcInstance) target).getForceBuff() != null) {
 				return true;
+			}
 		}
 		double init = 0;
 		if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow())
@@ -2202,8 +2241,9 @@ public final class Formulas
 			SkillType type = skill.getSkillType();
 			// For additional effects on PDAM and MDAM skills (like STUN,
 			// SHOCK, PARALYZE...)
-			if (type != null && (type == SkillType.PDAM || type == SkillType.MDAM))
+			if (type != null && (type == SkillType.PDAM || type == SkillType.MDAM)) {
 				type = skill.getEffectType();
+			}
 			if (type != null)
 			{
 				switch (type)
@@ -2476,8 +2516,9 @@ public final class Formulas
 
 	public static boolean calcPhysicalSkillEvasion(L2Character target, L2Skill skill)
 	{
-		if (skill.isMagic() && skill.getSkillType() != SkillType.BLOW)
+		if (skill.isMagic() && skill.getSkillType() != SkillType.BLOW) {
 			return false;
+		}
 		return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
 	}
 }

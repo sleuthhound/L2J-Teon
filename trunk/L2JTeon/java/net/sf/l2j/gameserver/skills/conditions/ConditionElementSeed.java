@@ -51,10 +51,11 @@ public class ConditionElementSeed extends Condition
 		for (int i = 0; i < Seeds.length; i++)
 		{
 			Seeds[i] = env.player.getFirstEffect(seedSkills[i]) instanceof EffectSeed ? ((EffectSeed) env.player.getFirstEffect(seedSkills[i])).getPower() : 0;
-			if (Seeds[i] >= _requiredSeeds[i])
+			if (Seeds[i] >= _requiredSeeds[i]) {
 				Seeds[i] -= _requiredSeeds[i];
-			else
+			} else {
 				return false;
+			}
 		}
 		// if (Config.DEVELOPER) System.out.println("Seeds: " + Seeds[0] + ", "
 		// + Seeds[1] + ", " + Seeds[2]);
@@ -69,8 +70,9 @@ public class ConditionElementSeed extends Condition
 					count++;
 				}
 			}
-			if (count < _requiredSeeds[3])
+			if (count < _requiredSeeds[3]) {
 				return false;
+			}
 		}
 		if (_requiredSeeds[4] > 0)
 		{
@@ -79,8 +81,9 @@ public class ConditionElementSeed extends Condition
 			{
 				count += Seeds[i];
 			}
-			if (count < _requiredSeeds[4])
+			if (count < _requiredSeeds[4]) {
 				return false;
+			}
 		}
 		return true;
 	}

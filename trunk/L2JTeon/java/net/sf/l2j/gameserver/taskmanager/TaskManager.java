@@ -142,8 +142,9 @@ public final class TaskManager
 		public void stopTask()
 		{
 			task.onDestroy();
-			if (scheduled != null)
+			if (scheduled != null) {
 				scheduled.cancel(true);
+			}
 			_currentTasks.remove(this);
 		}
 	}
@@ -198,14 +199,16 @@ public final class TaskManager
 				while (rset.next())
 				{
 					Task task = _tasks.get(rset.getString("task").trim().toLowerCase().hashCode());
-					if (task == null)
+					if (task == null) {
 						continue;
+					}
 					TaskTypes type = TaskTypes.valueOf(rset.getString("type"));
 					if (type != TYPE_NONE)
 					{
 						ExecutedTask current = new ExecutedTask(task, type, rset);
-						if (launchTask(current))
+						if (launchTask(current)) {
 							_currentTasks.add(current);
+						}
 					}
 				}
 				rset.close();

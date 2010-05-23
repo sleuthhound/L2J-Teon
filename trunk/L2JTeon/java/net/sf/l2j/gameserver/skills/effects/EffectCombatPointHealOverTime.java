@@ -34,8 +34,9 @@ class EffectCombatPointHealOverTime extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected().isDead())
+		if (getEffected().isDead()) {
 			return false;
+		}
 		double cp = getEffected().getCurrentCp();
 		double maxcp = getEffected().getMaxCp();
 		cp += calc();
