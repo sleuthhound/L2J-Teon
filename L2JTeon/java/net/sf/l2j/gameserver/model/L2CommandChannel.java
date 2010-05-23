@@ -57,8 +57,9 @@ public class L2CommandChannel
 	public void addParty(L2Party party)
 	{
 		_partys.add(party);
-		if (party.getLevel() > _channelLvl)
+		if (party.getLevel() > _channelLvl) {
 			_channelLvl = party.getLevel();
+		}
 		party.setCommandChannel(this);
 		party.broadcastToPartyMembers(new ExOpenMPCC());
 	}
@@ -74,8 +75,9 @@ public class L2CommandChannel
 		_channelLvl = 0;
 		for (L2Party pty : _partys)
 		{
-			if (pty.getLevel() > _channelLvl)
+			if (pty.getLevel() > _channelLvl) {
 				_channelLvl = pty.getLevel();
+			}
 		}
 		party.setCommandChannel(null);
 		party.broadcastToPartyMembers(new ExCloseMPCC());
@@ -94,8 +96,9 @@ public class L2CommandChannel
 	{
 		for (L2Party party : _partys)
 		{
-			if (party != null)
+			if (party != null) {
 				removeParty(party);
+			}
 		}
 		_partys = null;
 	}
@@ -108,8 +111,9 @@ public class L2CommandChannel
 		int count = 0;
 		for (L2Party party : _partys)
 		{
-			if (party != null)
+			if (party != null) {
 				count += party.getMemberCount();
+			}
 		}
 		return count;
 	}
@@ -125,8 +129,9 @@ public class L2CommandChannel
 		{
 			for (L2Party party : _partys)
 			{
-				if (party != null)
+				if (party != null) {
 					party.broadcastToPartyMembers(gsp);
+				}
 			}
 		}
 	}
@@ -189,8 +194,9 @@ public class L2CommandChannel
 	 */
 	public boolean meetRaidWarCondition(L2Object obj)
 	{
-		if (!(obj instanceof L2RaidBossInstance) || !(obj instanceof L2GrandBossInstance))
+		if (!(obj instanceof L2RaidBossInstance) || !(obj instanceof L2GrandBossInstance)) {
 			return false;
+		}
 		int npcId = ((L2Attackable) obj).getNpcId();
 		switch (npcId)
 		{

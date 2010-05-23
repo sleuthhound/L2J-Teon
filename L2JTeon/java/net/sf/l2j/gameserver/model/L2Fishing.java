@@ -62,9 +62,9 @@ public class L2Fishing implements Runnable
 			// Time is up, so that fish got away
 			_fisher.sendPacket(new SystemMessage(SystemMessageId.FISH_SPIT_THE_HOOK));
 			doDie(false);
-		}
-		else
+		} else {
 			aiTask();
+		}
 	}
 
 	// =========================================================
@@ -101,8 +101,9 @@ public class L2Fishing implements Runnable
 	public void changeHp(int hp, int pen)
 	{
 		_fishCurHp -= hp;
-		if (_fishCurHp < 0)
+		if (_fishCurHp < 0) {
 			_fishCurHp = 0;
+		}
 		ExFishingHpRegen efhr = new ExFishingHpRegen(_fisher, _time, _fishCurHp, _mode, _goodUse, _anim, pen, _deceptiveMode);
 		_fisher.broadcastPacket(efhr);
 		_anim = 0;
@@ -122,8 +123,9 @@ public class L2Fishing implements Runnable
 	public synchronized void doDie(boolean win)
 	{
 		_fishAiTask = null;
-		if (_fisher == null)
+		if (_fisher == null) {
 			return;
+		}
 		if (win)
 		{
 			int check = Rnd.get(100);
@@ -143,21 +145,24 @@ public class L2Fishing implements Runnable
 
 	protected void aiTask()
 	{
-		if (_thinking)
+		if (_thinking) {
 			return;
+		}
 		_thinking = true;
 		_time--;
 		try
 		{
 			if (_mode == 1)
 			{
-				if (_deceptiveMode == 0)
+				if (_deceptiveMode == 0) {
 					_fishCurHp += (int) _regenHp;
+				}
 			}
 			else
 			{
-				if (_deceptiveMode == 1)
+				if (_deceptiveMode == 1) {
 					_fishCurHp += (int) _regenHp;
+				}
 			}
 			if (_stop == 0)
 			{
@@ -170,8 +175,9 @@ public class L2Fishing implements Runnable
 				if (_isUpperGrade)
 				{
 					check = Rnd.get(100);
-					if (check >= 90)
+					if (check >= 90) {
 						_deceptiveMode = _deceptiveMode == 0 ? 1 : 0;
+					}
 				}
 			}
 			else
@@ -183,10 +189,11 @@ public class L2Fishing implements Runnable
 		{
 			_thinking = false;
 			ExFishingHpRegen efhr = new ExFishingHpRegen(_fisher, _time, _fishCurHp, _mode, 0, _anim, 0, _deceptiveMode);
-			if (_anim != 0)
+			if (_anim != 0) {
 				_fisher.broadcastPacket(efhr);
-			else
+			} else {
 				_fisher.sendPacket(efhr);
+			}
 		}
 	}
 
@@ -200,8 +207,9 @@ public class L2Fishing implements Runnable
 			changeHp(0, pen);
 			return;
 		}
-		if (_fisher == null)
+		if (_fisher == null) {
 			return;
+		}
 		if (_mode == 1)
 		{
 			if (_deceptiveMode == 0)
@@ -268,8 +276,9 @@ public class L2Fishing implements Runnable
 			changeHp(0, pen);
 			return;
 		}
-		if (_fisher == null)
+		if (_fisher == null) {
 			return;
+		}
 		if (_mode == 0)
 		{
 			if (_deceptiveMode == 0)

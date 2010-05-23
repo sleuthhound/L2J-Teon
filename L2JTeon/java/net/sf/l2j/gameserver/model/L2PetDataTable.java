@@ -33,8 +33,9 @@ public class L2PetDataTable
 
 	public static L2PetDataTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new L2PetDataTable();
+		}
 		return _instance;
 	}
 
@@ -83,8 +84,9 @@ public class L2PetDataTable
 				petData.setOwnerExpTaken(rset.getFloat("owner_exp_taken"));
 				// if its the first data for this petid, we initialize its level
 				// FastMap
-				if (!_petTable.containsKey(petId))
+				if (!_petTable.containsKey(petId)) {
 					_petTable.put(petId, new FastMap<Integer, L2PetData>());
+				}
 				_petTable.get(petId).put(petLevel, petData);
 			}
 			rset.close();
@@ -121,8 +123,9 @@ public class L2PetDataTable
 
 	public void addPetData(L2PetData[] petLevelsList)
 	{
-		for (L2PetData element : petLevelsList)
+		for (L2PetData element : petLevelsList) {
 			addPetData(element);
+		}
 	}
 
 	public L2PetData getPetData(int petID, int petLevel)
@@ -201,18 +204,19 @@ public class L2PetDataTable
 
 	public static int getFoodItemId(int npcId)
 	{
-		if (isWolf(npcId))
+		if (isWolf(npcId)) {
 			return 2515;
-		else if (isSinEater(npcId))
+		} else if (isSinEater(npcId)) {
 			return 2515;
-		else if (isHatchling(npcId))
+		} else if (isHatchling(npcId)) {
 			return 4038;
-		else if (isStrider(npcId))
+		} else if (isStrider(npcId)) {
 			return 5168;
-		else if (isBaby(npcId))
+		} else if (isBaby(npcId)) {
 			return 7582;
-		else
+		} else {
 			return 0;
+		}
 	}
 
 	public static int getPetIdByItemId(int itemId)

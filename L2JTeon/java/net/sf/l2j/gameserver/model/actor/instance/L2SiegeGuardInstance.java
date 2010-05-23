@@ -50,8 +50,9 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public final SiegeGuardKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof SiegeGuardKnownList))
+		if (super.getKnownList() == null || !(super.getKnownList() instanceof SiegeGuardKnownList)) {
 			setKnownList(new SiegeGuardKnownList(this));
+		}
 		return (SiegeGuardKnownList) super.getKnownList();
 	}
 
@@ -60,8 +61,9 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	{
 		synchronized (this)
 		{
-			if (_ai == null)
+			if (_ai == null) {
 				_ai = new L2SiegeGuardAI(new AIAccessor());
+			}
 		}
 		return _ai;
 	}
@@ -88,12 +90,14 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	{
         if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 40, false))
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine(getObjectId() + ": moving home");
+			}
 			setisReturningToSpawnPoint(true);
 			clearAggroList();
-			if (hasAI())
-                getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
+			if (hasAI()) {
+				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
+			}
 		}
 	}
 
@@ -103,13 +107,15 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("new target selected:" + getObjectId());
+			}
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
@@ -157,8 +163,9 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
-		if (attacker == null)
+		if (attacker == null) {
 			return;
+		}
 		if (!(attacker instanceof L2SiegeGuardInstance))
 		{
 			super.addDamageHate(attacker, damage, aggro);

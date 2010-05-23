@@ -58,17 +58,20 @@ public class L2SiegeClan
 
 	public boolean removeFlag(L2NpcInstance flag)
 	{
-		if (flag == null)
+		if (flag == null) {
 			return false;
+		}
 		boolean ret = getFlag().remove(flag);
 		// flag.deleteMe();
 		// check if null objects or dups remain in the list.
 		// for some reason, this might be happenning sometimes...
 		// delete false dupplicates: if this flag got deleted, delete its copies
 		// too.
-		if (ret)
-			while (getFlag().remove(flag))
+		if (ret) {
+			while (getFlag().remove(flag)) {
 				;
+			}
+		}
 		// now delete nulls
 		int n;
 		boolean more = true;
@@ -76,14 +79,16 @@ public class L2SiegeClan
 		{
 			more = false;
 			n = getFlag().size();
-			if (n > 0)
-				for (int i = 0; i < n; i++)
+			if (n > 0) {
+				for (int i = 0; i < n; i++) {
 					if (getFlag().get(i) == null)
 					{
 						getFlag().remove(i);
 						more = true;
 						break;
 					}
+				}
+			}
 		}
 		flag.deleteMe();
 		return ret;
@@ -91,8 +96,9 @@ public class L2SiegeClan
 
 	public void removeFlags()
 	{
-		for (L2NpcInstance flag : getFlag())
+		for (L2NpcInstance flag : getFlag()) {
 			removeFlag(flag);
+		}
 	}
 
 	// =========================================================
@@ -104,8 +110,9 @@ public class L2SiegeClan
 
 	public final List<L2NpcInstance> getFlag()
 	{
-		if (_flag == null)
+		if (_flag == null) {
 			_flag = new FastList<L2NpcInstance>();
+		}
 		return _flag;
 	}
 

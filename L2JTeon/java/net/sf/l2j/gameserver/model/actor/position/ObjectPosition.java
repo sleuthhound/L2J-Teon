@@ -59,20 +59,22 @@ public class ObjectPosition
 	 */
 	public final void setXYZ(int x, int y, int z)
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getWorldRegion() != null;
+		}
 		setWorldPosition(x, y, z);
 		try
 		{
-			if (L2World.getInstance().getRegion(getWorldPosition()) != getWorldRegion())
+			if (L2World.getInstance().getRegion(getWorldPosition()) != getWorldRegion()) {
 				updateWorldRegion();
+			}
 		}
 		catch (Exception e)
 		{
 			_log.warning("Object Id at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
-			if (getActiveObject() instanceof L2Character)
+			if (getActiveObject() instanceof L2Character) {
 				getActiveObject().decayMe();
-			else if (getActiveObject() instanceof L2PcInstance)
+			} else if (getActiveObject() instanceof L2PcInstance)
 			{
 				// ((L2PcInstance)obj).deleteMe();
 				((L2PcInstance) getActiveObject()).teleToLocation(0, 0, 0, false);
@@ -98,16 +100,21 @@ public class ObjectPosition
 	 */
 	public final void setXYZInvisible(int x, int y, int z)
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert getWorldRegion() == null;
-		if (x > L2World.MAP_MAX_X)
+		}
+		if (x > L2World.MAP_MAX_X) {
 			x = L2World.MAP_MAX_X - 5000;
-		if (x < L2World.MAP_MIN_X)
+		}
+		if (x < L2World.MAP_MIN_X) {
 			x = L2World.MAP_MIN_X + 5000;
-		if (y > L2World.MAP_MAX_Y)
+		}
+		if (y > L2World.MAP_MAX_Y) {
 			y = L2World.MAP_MAX_Y - 5000;
-		if (y < L2World.MAP_MIN_Y)
+		}
+		if (y < L2World.MAP_MIN_Y) {
 			y = L2World.MAP_MIN_Y + 5000;
+		}
 		setWorldPosition(x, y, z);
 		getActiveObject().setIsVisible(false);
 	}
@@ -117,8 +124,9 @@ public class ObjectPosition
 	 */
 	public void updateWorldRegion()
 	{
-		if (!getActiveObject().isVisible())
+		if (!getActiveObject().isVisible()) {
 			return;
+		}
 		L2WorldRegion newRegion = L2World.getInstance().getRegion(getWorldPosition());
 		if (newRegion != getWorldRegion())
 		{
@@ -184,8 +192,9 @@ public class ObjectPosition
 
 	public final Point3D getWorldPosition()
 	{
-		if (_worldPosition == null)
+		if (_worldPosition == null) {
 			_worldPosition = new Point3D(0, 0, 0);
+		}
 		return _worldPosition;
 	}
 

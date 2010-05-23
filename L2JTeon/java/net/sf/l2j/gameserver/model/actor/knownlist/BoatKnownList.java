@@ -35,16 +35,18 @@ public class BoatKnownList extends CharKnownList
 	@Override
 	public int getDistanceToForgetObject(L2Object object)
 	{
-		if (!(object instanceof L2PcInstance))
+		if (!(object instanceof L2PcInstance)) {
 			return 0;
+		}
 		return 8000;
 	}
 
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
 	{
-		if (!(object instanceof L2PcInstance))
+		if (!(object instanceof L2PcInstance)) {
 			return 0;
+		}
 		return 4000;
 	}
 }

@@ -270,8 +270,9 @@ public class CharSelectInfoPackage
 
 	public int getEnchantEffect()
 	{
-		if (_paperdoll[Inventory.PAPERDOLL_RHAND][2] > 0)
+		if (_paperdoll[Inventory.PAPERDOLL_RHAND][2] > 0) {
 			return _paperdoll[Inventory.PAPERDOLL_RHAND][2];
+		}
 		return _paperdoll[Inventory.PAPERDOLL_LRHAND][2];
 	}
 

@@ -300,8 +300,9 @@ public class L2NpcInstance extends L2Character
 		}
 		// Set the name of the L2Character
 		setName(template.name);
-        if ((template.ss > 0 || template.bss > 0) && template.ssRate > 0)
-            _inventory = new NpcInventory(this);
+        if ((template.ss > 0 || template.bss > 0) && template.ssRate > 0) {
+			_inventory = new NpcInventory(this);
+		}
 	}
 
 	@Override
@@ -353,10 +354,11 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public boolean isAttackable()
 	{
-		if (Config.NPC_ATTACKABLE)
+		if (Config.NPC_ATTACKABLE) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	/**
@@ -603,8 +605,9 @@ public class L2NpcInstance extends L2Character
 		// TODO: NPC busy check etc...
 		// if (!canTarget(player))
 		// return false;
-		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -639,8 +642,9 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -751,9 +755,9 @@ public class L2NpcInstance extends L2Character
 						}
 					}
 				}
-			}
-			else
+			} else {
 				player.sendPacket(ActionFailed.STATIC_PACKET);
+			}
 		}
 	}
 
@@ -1698,8 +1702,9 @@ public class L2NpcInstance extends L2Character
 		if (qs != null)
 		{
 			// If the quest is alreday started, no need to show a window
-			if (!qs.getQuest().notifyTalk(this, qs))
+			if (!qs.getQuest().notifyTalk(this, qs)) {
 				return;
+			}
 			questId = qs.getQuest().getName();
 			String stateId = State.getStateName(qs.getState());
 			String path = "data/scripts/quests/" + questId + "/" + stateId + ".htm";
@@ -1717,8 +1722,9 @@ public class L2NpcInstance extends L2Character
 			}
 		}
 		// Send a Server->Client packet NpcHtmlMessage to the L2PcInstance in order to display the message of the L2NpcInstance
-		if (content != null)
+		if (content != null) {
 			insertObjectIdAndShowChatWindow(player, content);
+		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -1742,18 +1748,22 @@ public class L2NpcInstance extends L2Character
 		{
 			for (QuestState x : awaits)
 			{
-				if (!options.contains(x))
-					if (x.getQuest().getQuestIntId() > 0 && x.getQuest().getQuestIntId() < 1000)
+				if (!options.contains(x)) {
+					if (x.getQuest().getQuestIntId() > 0 && x.getQuest().getQuestIntId() < 1000) {
 						options.add(x.getQuest());
+					}
+				}
 			}
 		}
 		if (starts != null)
 		{
 			for (Quest x : starts)
 			{
-				if (!options.contains(x))
-					if (x.getQuestIntId() > 0 && x.getQuestIntId() < 1000)
+				if (!options.contains(x)) {
+					if (x.getQuestIntId() > 0 && x.getQuestIntId() < 1000) {
 						options.add(x);
+					}
+				}
 			}
 		}
 		// Display a QuestChooseWindow (if several quests are available) or QuestWindow
@@ -2686,12 +2696,16 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public void onSpawn()
 	{
-        if (_inventory != null) _inventory.Reset();
+        if (_inventory != null) {
+			_inventory.Reset();
+		}
 
 		super.onSpawn();
-		if (getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN) != null)
-			for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN))
+		if (getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN) != null) {
+			for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN)) {
 				quest.notifySpawn(this);
+			}
+		}
 	}
 
 	/**
@@ -2842,10 +2856,12 @@ public class L2NpcInstance extends L2Character
 
 	public void giveBlessingSupport(L2PcInstance player)
 	{
-		if (player == null)
+		if (player == null) {
 			return;
-		if (!player.getFloodProtectors().getSubclass().tryPerformAction("buffer"))
+		}
+		if (!player.getFloodProtectors().getSubclass().tryPerformAction("buffer")) {
 			return;
+		}
 		// Blessing of protection - author kerberos_20. Used codes from Rayan - L2Emu project.
 		int player_level = player.getLevel();
 		// Select the player
@@ -2863,7 +2879,9 @@ public class L2NpcInstance extends L2Character
 
     public boolean rechargeAutoSoulShot(boolean physical, boolean magic)
 	{
-    	if (this.getTemplate().ssRate == 0) return false;
+    	if (this.getTemplate().ssRate == 0) {
+			return false;
+		}
 
     	L2Weapon weaponItem = getActiveWeaponItem();
     	if (weaponItem == null)
@@ -2884,9 +2902,9 @@ public class L2NpcInstance extends L2Character
 				_inventory.bshotInUse = true;
 				broadcastPacket(new MagicSkillUser(this, this, 2061, 1, 0, 0), 360000); // no grade
 				return true;
-			}
-			else
+			} else {
 				_inventory.bshotInUse = false;
+			}
 
 		}
 		if (physical)
@@ -2902,18 +2920,24 @@ public class L2NpcInstance extends L2Character
 				_inventory.sshotInUse = true;
 	       		broadcastPacket(new MagicSkillUser(this, this, 2039, 1, 0, 0), 360000); // no grade
 				return true;
-			}
-			else
+			} else {
 				_inventory.sshotInUse = false;
+			}
 		}
 		return false;
 	}
 
     public boolean isUsingShot(boolean physical)
     {
-    	if (_inventory == null) return false;
-    	if (physical && _inventory.sshotInUse) return true;
-    	if (!physical && _inventory.bshotInUse) return true;
+    	if (_inventory == null) {
+			return false;
+		}
+    	if (physical && _inventory.sshotInUse) {
+			return true;
+		}
+    	if (!physical && _inventory.bshotInUse) {
+			return true;
+		}
     	return false;
     }
 }

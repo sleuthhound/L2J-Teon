@@ -111,8 +111,9 @@ public class L2Spawn
 			try
 			{
 				// doSpawn();
-				if (_doRespawn)
+				if (_doRespawn) {
 					respawnNpc(_oldNpc);
+				}
 			}
 			catch (Exception e)
 			{
@@ -283,8 +284,9 @@ public class L2Spawn
 	{
 		// [L2J_JP EDIT SANDMAN]
 		// _maximumCount = amount;
-		if (amount < 1)
+		if (amount < 1) {
 			amount = 1;
+		}
 		_maximumCount = amount;
 	}
 

@@ -43,8 +43,9 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -80,9 +81,9 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 	 */
 	public void showSiegeInfoWindow(L2PcInstance player)
 	{
-		if (validateCondition(player))
+		if (validateCondition(player)) {
 			getCastle().getSiege().listRegisterClan(player);
-		else
+		} else
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile("data/html/siege/" + getTemplate().npcId + "-busy.htm");
@@ -95,8 +96,9 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 
 	private boolean validateCondition(L2PcInstance player)
 	{
-		if (getCastle().getSiege().getIsInProgress())
+		if (getCastle().getSiege().getIsInProgress()) {
 			return false; // Busy because of siege
+		}
 		return true;
 	}
 }

@@ -53,18 +53,20 @@ public class L2MerchantInstance extends L2FolkInstance
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
-		if (val == 0)
+		if (val == 0) {
 			pom = "" + npcId;
-		else
+		} else {
 			pom = npcId + "-" + val;
+		}
 		return "data/html/merchant/" + pom + ".htm";
 	}
 
 	private void showWearWindow(L2PcInstance player, int val)
 	{
 		player.tempInvetoryDisable();
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing wearlist");
+		}
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
 		if (list != null)
 		{
@@ -81,11 +83,13 @@ public class L2MerchantInstance extends L2FolkInstance
 	private void showBuyWindow(L2PcInstance player, int val)
 	{
 		double taxRate = 0;
-		if (getIsInTown())
+		if (getIsInTown()) {
 			taxRate = getCastle().getTaxRate();
+		}
 		player.tempInvetoryDisable();
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing buylist");
+		}
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
 		if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
 		{
@@ -102,11 +106,13 @@ public class L2MerchantInstance extends L2FolkInstance
 
 	private void showSellWindow(L2PcInstance player)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing selllist");
+		}
 		player.sendPacket(new SellList(player));
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Showing sell window");
+		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
@@ -117,8 +123,9 @@ public class L2MerchantInstance extends L2FolkInstance
 		String actualCommand = st.nextToken(); // Get actual command
 		if (actualCommand.equalsIgnoreCase("Buy"))
 		{
-			if (st.countTokens() < 1)
+			if (st.countTokens() < 1) {
 				return;
+			}
 			int val = Integer.parseInt(st.nextToken());
 			showBuyWindow(player, val);
 		}
@@ -143,22 +150,25 @@ public class L2MerchantInstance extends L2FolkInstance
 		}
 		else if (actualCommand.equalsIgnoreCase("Wear") && Config.ALLOW_WEAR)
 		{
-			if (st.countTokens() < 1)
+			if (st.countTokens() < 1) {
 				return;
+			}
 			int val = Integer.parseInt(st.nextToken());
 			showWearWindow(player, val);
 		}
 		else if (actualCommand.equalsIgnoreCase("Multisell"))
 		{
-			if (st.countTokens() < 1)
+			if (st.countTokens() < 1) {
 				return;
+			}
 			int val = Integer.parseInt(st.nextToken());
 			L2Multisell.getInstance().SeparateAndSend(val, player, false, getCastle().getTaxRate());
 		}
 		else if (actualCommand.equalsIgnoreCase("Exc_Multisell"))
 		{
-			if (st.countTokens() < 1)
+			if (st.countTokens() < 1) {
 				return;
+			}
 			int val = Integer.parseInt(st.nextToken());
 			L2Multisell.getInstance().SeparateAndSend(val, player, true, getCastle().getTaxRate());
 		}
@@ -173,8 +183,9 @@ public class L2MerchantInstance extends L2FolkInstance
 
 	public void showRentPetWindow(L2PcInstance player)
 	{
-		if (!Config.LIST_PET_RENT_NPC.contains(getTemplate().npcId))
+		if (!Config.LIST_PET_RENT_NPC.contains(getTemplate().npcId)) {
 			return;
+		}
 		TextBuilder html1 = new TextBuilder("<html><body>Pet Manager:<br>");
 		html1.append("You can rent a wyvern or strider for adena.<br>My prices:<br1>");
 		html1.append("<table border=0><tr><td>Ride</td></tr>");
@@ -190,10 +201,12 @@ public class L2MerchantInstance extends L2FolkInstance
 
 	public void tryRentPet(L2PcInstance player, int val)
 	{
-		if (player == null || player.getPet() != null || player.isMounted() || player.isRentedPet())
+		if (player == null || player.getPet() != null || player.isMounted() || player.isRentedPet()) {
 			return;
-		if (!player.disarmWeapons())
+		}
+		if (!player.disarmWeapons()) {
 			return;
+		}
 		int petId;
 		double price = 1;
 		int cost[] = { 1800, 7200, 720000, 6480000 };
@@ -208,12 +221,14 @@ public class L2MerchantInstance extends L2FolkInstance
 		{
 			petId = 12621;
 		}
-		if (val < 1 || val > 4)
+		if (val < 1 || val > 4) {
 			return;
+		}
 		price *= cost[val - 1];
 		int time = ridetime[val - 1];
-		if (!player.reduceAdena("Rent", (int) price, player.getLastFolkNPC(), true))
+		if (!player.reduceAdena("Rent", (int) price, player.getLastFolkNPC(), true)) {
 			return;
+		}
 		Ride mount = new Ride(player.getObjectId(), Ride.ACTION_MOUNT, petId);
 		player.broadcastPacket(mount);
 		player.setMountType(mount.getMountType());
@@ -224,8 +239,9 @@ public class L2MerchantInstance extends L2FolkInstance
 	public void onActionShift(L2GameClient client)
 	{
 		L2PcInstance player = client.getActiveChar();
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 		{
 			player.setTarget(this);

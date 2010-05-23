@@ -110,13 +110,15 @@ public class L2BuffInstance extends L2NpcInstance
 			catch (IndexOutOfBoundsException ioobe)
 			{
 			}
-			if (quest.length() == 0)
+			if (quest.length() == 0) {
 				showQuestWindow(client);
-			else
+			} else {
 				showQuestWindow(client, quest);
+			}
 		}
-		if (bFail)
+		if (bFail) {
 			client.sendPacket(ActionFailed.STATIC_PACKET);
+		}
 	}
 
 	@Override

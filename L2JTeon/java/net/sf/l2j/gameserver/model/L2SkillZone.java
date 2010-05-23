@@ -99,8 +99,9 @@ public class L2SkillZone
 			// global things
 			// effects
 			regionCheck(_region);
-			for (L2WorldRegion neighbour : _region.getSurroundingRegions())
+			for (L2WorldRegion neighbour : _region.getSurroundingRegions()) {
 				regionCheck(neighbour);
+			}
 			// scheduling
 			if (shouldContinue())
 			{

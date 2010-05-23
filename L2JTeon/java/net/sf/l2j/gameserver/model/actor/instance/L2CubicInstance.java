@@ -92,17 +92,19 @@ public class L2CubicInstance
 				_skills.add(5116);
 				break;
 		}
-		if (_disappearTask == null)
+		if (_disappearTask == null) {
 			_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 1200000); // disappear
 		// in
 		// 20
 		// mins
+		}
 	}
 
 	public void doAction(L2Character target)
 	{
-		if (_target == target)
+		if (_target == target) {
 			return;
+		}
 		stopAction();
 		_target = target;
 		switch (_id)
@@ -283,8 +285,9 @@ public class L2CubicInstance
 										x = caster.getX() - partyMember.getX();
 										y = caster.getY() - partyMember.getY();
 										z = caster.getZ() - partyMember.getZ();
-										if (x * x + y * y + z * z > range * range)
+										if (x * x + y * y + z * z > range * range) {
 											continue;
+										}
 										// member is in cubic casting range,
 										// check if he need heal and if he have
 										// the lowest HP
@@ -302,8 +305,9 @@ public class L2CubicInstance
 						}
 						else
 						{
-							if (_owner.getCurrentHp() < _owner.getMaxHp())
+							if (_owner.getCurrentHp() < _owner.getMaxHp()) {
 								target = _owner;
+							}
 						}
 						if (target != null)
 						{

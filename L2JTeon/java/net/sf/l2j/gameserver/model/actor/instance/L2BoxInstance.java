@@ -70,10 +70,12 @@ public class L2BoxInstance extends L2NpcInstance
 		public int compareTo(Object o)
 		{
 			int r = name.compareToIgnoreCase(((L2BoxItem) o).name);
-			if (r != 0)
+			if (r != 0) {
 				return r;
-			if (id < ((L2BoxItem) o).id)
+			}
+			if (id < ((L2BoxItem) o).id) {
 				return -1;
+			}
 			return 1;
 		}
 	}
@@ -98,27 +100,31 @@ public class L2BoxInstance extends L2NpcInstance
 		boolean access = hasAccess(playerName);
 		if (command.startsWith("Withdraw"))
 		{
-			if (access)
+			if (access) {
 				showWithdrawWindow(player, command.substring(9));
+			}
 		}
 		else if (command.startsWith("Deposit"))
 		{
-			if (access)
+			if (access) {
 				showDepositWindow(player, command.substring(8));
+			}
 		}
 		else if (command.startsWith("InBox"))
 		{
-			if (access)
+			if (access) {
 				putInBox(player, command.substring(6));
+			}
 		}
 		else if (command.startsWith("OutBox"))
 		{
-			if (access)
+			if (access) {
 				takeOutBox(player, command.substring(7));
-		}
-		else
+			}
+		} else {
 			super.onBypassFeedback(player, command);
 		// else _log.info("onBypassFeedback unknown command "+command);
+		}
 	}
 
 	@Override
@@ -153,8 +159,9 @@ public class L2BoxInstance extends L2NpcInstance
 			st.setString(1, player);
 			st.setInt(2, getSpawn().getId());
 			ResultSet rs = st.executeQuery();
-			if (rs.next())
+			if (rs.next()) {
 				result = true;
+			}
 			rs.close();
 			st.close();
 		}
@@ -217,10 +224,11 @@ public class L2BoxInstance extends L2NpcInstance
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			String _query;
-			if (what)
+			if (what) {
 				_query = INSERT_GRANT;
-			else
+			} else {
 				_query = DELETE_GRANT;
+			}
 			PreparedStatement st = con.prepareStatement(_query);
 			st.setString(1, player);
 			st.setInt(2, getSpawn().getId());
@@ -247,19 +255,23 @@ public class L2BoxInstance extends L2NpcInstance
 	private void showWithdrawWindow(L2PcInstance player, String command)
 	{
 		String drawername = "trash";
-		if (command == null)
+		if (command == null) {
 			return;
+		}
 		String[] cmd = command.split(" ");
 		int startPos = 0;
-		if (cmd != null)
+		if (cmd != null) {
 			drawername = cmd[0];
-		if (cmd.length > 1)
+		}
+		if (cmd.length > 1) {
 			startPos = Integer.parseInt(cmd[1]);
+		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		int nitems = 0;
 		Set<L2BoxItem> _items = getItems(drawername);
-		if (startPos >= _items.size())
+		if (startPos >= _items.size()) {
 			startPos = 0;
+		}
 		String button = "<button value=\"Withdraw\" width=80 height=15 action=\"bypass -h npc_" + getObjectId() + "_OutBox " + drawername;
 		String next = "<button value=\"next\" width=50 height=15 action=\"bypass -h npc_" + getObjectId() + "_Withdraw " + drawername + " " + (startPos + MAX_ITEMS_PER_PAGE) + "\">";
 		String back = "<button value=\"back\" width=50 height=15 action=\"bypass -h npc_" + getObjectId() + "_Chat 0\">";
@@ -268,14 +280,16 @@ public class L2BoxInstance extends L2NpcInstance
 		for (L2BoxItem i : _items)
 		{
 			nitems++;
-			if (nitems < startPos)
+			if (nitems < startPos) {
 				continue;
+			}
 			String varname = VARIABLE_PREFIX.charAt(nitems - startPos) + String.valueOf(i.itemid);
 			content += "<tr><td>" + i.name + "</td><td align=\"right\">" + i.count + "</td>";
 			content += "<td><edit var=\"" + varname + "\" width=30></td></tr>";
 			button += " ," + varname + " $" + varname;
-			if (nitems - startPos >= MAX_ITEMS_PER_PAGE)
+			if (nitems - startPos >= MAX_ITEMS_PER_PAGE) {
 				break;
+			}
 		}
 		button += "\">";
 		content += "</table><br>" + button + "</body></html>";
@@ -288,26 +302,31 @@ public class L2BoxInstance extends L2NpcInstance
 	private void showDepositWindow(L2PcInstance player, String command)
 	{
 		String drawername = "trash";
-		if (command == null)
+		if (command == null) {
 			return;
+		}
 		String[] cmd = command.split(" ");
 		int startPos = 0;
-		if (cmd != null)
+		if (cmd != null) {
 			drawername = cmd[0];
-		if (cmd.length > 1)
+		}
+		if (cmd.length > 1) {
 			startPos = Integer.parseInt(cmd[1]);
+		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		int nitems = 0;
 		Set<L2BoxItem> _items = new FastSet<L2BoxItem>();
 		for (L2ItemInstance i : player.getInventory().getItems())
 		{
-			if (i.getItemId() == 57 || i.isEquipped())
+			if (i.getItemId() == 57 || i.isEquipped()) {
 				continue;
+			}
 			L2BoxItem bi = new L2BoxItem(i.getItemId(), i.getCount(), i.getItem().getName(), i.getObjectId(), i.getEnchantLevel());
 			_items.add(bi);
 		}
-		if (startPos >= _items.size())
+		if (startPos >= _items.size()) {
 			startPos = 0;
+		}
 		String button = "<button value=\"Deposit\" width=80 height=15 action=\"bypass -h npc_" + getObjectId() + "_InBox " + drawername;
 		String next = "<button value=\"next\" width=50 height=15 action=\"bypass -h npc_" + getObjectId() + "_Deposit " + drawername + " " + (startPos + MAX_ITEMS_PER_PAGE) + "\">";
 		String back = "<button value=\"back\" width=50 height=15 action=\"bypass -h npc_" + getObjectId() + "_Chat 0\">";
@@ -316,14 +335,16 @@ public class L2BoxInstance extends L2NpcInstance
 		for (L2BoxItem i : _items)
 		{
 			nitems++;
-			if (nitems < startPos)
+			if (nitems < startPos) {
 				continue;
+			}
 			String varname = VARIABLE_PREFIX.charAt(nitems - startPos) + String.valueOf(i.itemid);
 			content += "<tr><td>" + i.name + "</td><td align=\"right\">" + i.count + "</td>";
 			content += "<td><edit var=\"" + varname + "\" width=30></td></tr>";
 			button += " ," + varname + " $" + varname;
-			if (nitems - startPos >= MAX_ITEMS_PER_PAGE)
+			if (nitems - startPos >= MAX_ITEMS_PER_PAGE) {
 				break;
+			}
 		}
 		button += "\">";
 		content += "</table><br>" + button + "</body></html>";

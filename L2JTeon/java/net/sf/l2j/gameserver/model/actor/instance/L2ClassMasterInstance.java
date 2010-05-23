@@ -58,8 +58,9 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-        if (!canTarget(player) && !Config.ALLOW_REMOTE_CLASS_MASTERS)
-        	return;
+        if (!canTarget(player) && !Config.ALLOW_REMOTE_CLASS_MASTERS) {
+			return;
+		}
         // Check if the L2PcInstance already target the L2NpcInstance
         if (getObjectId() != player.getTargetId() && !Config.ALLOW_REMOTE_CLASS_MASTERS)
         {
@@ -77,8 +78,9 @@ public final class L2ClassMasterInstance extends L2FolkInstance
                 player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
                 return;
             }
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("ClassMaster activated");
+			}
 			ClassId classId = player.getClassId();
 			int jobLevel = 0;
 			int level = player.getLevel();
@@ -97,11 +99,11 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 				default:
 					jobLevel = 4;
 			}
-			if (player.isGM())
+			if (player.isGM()) {
 				showChatWindowChooseClass(player);
-			else if ((level >= 20 && jobLevel == 1 || level >= 40 && jobLevel == 2) && Config.ALLOW_CLASS_MASTERS)
+			} else if ((level >= 20 && jobLevel == 1 || level >= 40 && jobLevel == 2) && Config.ALLOW_CLASS_MASTERS) {
 				showChatWindow(player, classId.getId());
-			else if (level >= 76 && Config.ALLOW_CLASS_MASTERS && classId.getId() < 88)
+			} else if (level >= 76 && Config.ALLOW_CLASS_MASTERS && classId.getId() < 88)
 			{
 				for (int i = 0; i < SECONDN_CLASS_IDS.length; i++)
 				{
@@ -138,8 +140,9 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 						sb.append("There are no more class changes for you.<br>");
 						break;
 				}
-				for (Quest q : Quest.findAllEvents())
+				for (Quest q : Quest.findAllEvents()) {
 					sb.append("Event: <a action=\"bypass -h Quest " + q.getName() + "\">" + q.getDescr() + "</a><br>");
+				}
 				sb.append("</body></html>");
 				html.setHtml(sb.toString());
 				player.sendPacket(html);
@@ -198,10 +201,11 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 			{
 				changeClass(player, val);
 				player.rewardSkills();
-				if (val >= 88)
+				if (val >= 88) {
 					player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system sound 3rd occupation
-				else
+				} else {
 					player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // system sound for 1st and 2nd occupation
+				}
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				TextBuilder sb = new TextBuilder();
 				sb.append("<html><body>");
@@ -225,8 +229,9 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 				default:
 					jobLevel = 4;
 			}
-			if (jobLevel == 4)
+			if (jobLevel == 4) {
 				return; // no more job changes
+			}
 			ClassLevel lvlnext = PlayerClass.values()[val].getLevel();
 			switch (lvlnext)
 			{
@@ -243,21 +248,26 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 					newJobLevel = 4;
 			}
 			// prevents changing between same level jobs
-			if (newJobLevel != jobLevel + 1)
+			if (newJobLevel != jobLevel + 1) {
 				return;
-			if (level < 20 && newJobLevel > 1)
+			}
+			if (level < 20 && newJobLevel > 1) {
 				return;
-			if (level < 40 && newJobLevel > 2)
+			}
+			if (level < 40 && newJobLevel > 2) {
 				return;
-			if (level < 75 && newJobLevel > 3)
+			}
+			if (level < 75 && newJobLevel > 3) {
 				return;
+			}
 			// -- prevention ends
 			changeClass(player, val);
 			player.rewardSkills();
-			if (val >= 88)
+			if (val >= 88) {
 				player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER)); // system sound 3rd occupation
-			else
+			} else {
 				player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // system sound for 1st and 2nd occupation
+			}
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder sb = new TextBuilder();
 			sb.append("<html><body>");
@@ -453,13 +463,15 @@ public final class L2ClassMasterInstance extends L2FolkInstance
 
 	private void changeClass(L2PcInstance player, int val)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Changing class to ClassId:" + val);
+		}
 		player.setClassId(val);
-		if (player.isSubClassActive())
+		if (player.isSubClassActive()) {
 			player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
-		else
+		} else {
 			player.setBaseClass(player.getActiveClass());
+		}
 		player.broadcastUserInfo();
 	}
 }

@@ -241,8 +241,9 @@ public class BlockList
 			{
 			}
 		}
-		if (!found)
+		if (!found) {
 			throw new IllegalArgumentException();
+		}
 		return acl;
 	}
 

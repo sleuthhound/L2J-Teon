@@ -34,8 +34,9 @@ public class L2FortSiegeNpcInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		if (player == null)
+		if (player == null) {
 			return;
+		}
 		super.onBypassFeedback(player, command);
 	}
 
@@ -50,8 +51,9 @@ public class L2FortSiegeNpcInstance extends L2FolkInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setTarget(this);
 		player.sendPacket(new MyTargetSelected(getObjectId(), -15));
-		if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+		if (isInsideRadius(player, INTERACTION_DISTANCE, false, false)) {
 			showSiegeInfoWindow(player);
+		}
 	}
 
 	/**
@@ -62,9 +64,9 @@ public class L2FortSiegeNpcInstance extends L2FolkInstance
 	 */
 	public void showSiegeInfoWindow(L2PcInstance player)
 	{
-		if (validateCondition(player))
+		if (validateCondition(player)) {
 			getFort().getSiege().listRegisterClan(player);
-		else
+		} else
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile("data/html/fortsiege/" + getTemplate().npcId + "-busy.htm");
@@ -77,8 +79,9 @@ public class L2FortSiegeNpcInstance extends L2FolkInstance
 
 	private boolean validateCondition(L2PcInstance player)
 	{
-		if (getFort().getSiege().getIsInProgress())
+		if (getFort().getSiege().getIsInProgress()) {
 			return false; // Busy because of siege
+		}
 		return true;
 	}
 }

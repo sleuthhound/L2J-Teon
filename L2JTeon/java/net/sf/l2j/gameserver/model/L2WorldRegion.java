@@ -60,10 +60,11 @@ public final class L2WorldRegion
 		_tileX = pTileX;
 		_tileY = pTileY;
 		// default a newly initialized region to inactive, unless always on is specified
-		if (Config.GRIDS_ALWAYS_ON)
+		if (Config.GRIDS_ALWAYS_ON) {
 			_active = true;
-		else
+		} else {
 			_active = false;
+		}
 		_zones = new FastList<L2ZoneType>();
 	}
 
@@ -95,16 +96,21 @@ public final class L2WorldRegion
 			{
 				if (e instanceof L2PeaceZone)
 				{
-					if (e.isInsideZone(x, up, z))
+					if (e.isInsideZone(x, up, z)) {
 						return false;
-					if (e.isInsideZone(x, down, z))
+					}
+					if (e.isInsideZone(x, down, z)) {
 						return false;
-					if (e.isInsideZone(left, y, z))
+					}
+					if (e.isInsideZone(left, y, z)) {
 						return false;
-					if (e.isInsideZone(right, y, z))
+					}
+					if (e.isInsideZone(right, y, z)) {
 						return false;
-					if (e.isInsideZone(x, y, z))
+					}
+					if (e.isInsideZone(x, y, z)) {
 						return false;
+					}
 				}
 			}
 			return true;
@@ -116,12 +122,14 @@ public final class L2WorldRegion
 	{
 		// do NOT update the world region while the character is still in the process of teleporting
 		// Once the teleport is COMPLETED, revalidation occurs safely, at that time.
-		if (character.isTeleporting())
+		if (character.isTeleporting()) {
 			return;
+		}
 		for (L2ZoneType z : getZones())
 		{
-			if (z != null)
+			if (z != null) {
 				z.revalidateInZone(character);
+			}
 		}
 	}
 
@@ -129,8 +137,9 @@ public final class L2WorldRegion
 	{
 		for (L2ZoneType z : getZones())
 		{
-			if (z != null)
+			if (z != null) {
 				z.removeCharacter(character);
+			}
 		}
 	}
 
@@ -138,8 +147,9 @@ public final class L2WorldRegion
 	{
 		for (L2ZoneType z : getZones())
 		{
-			if (z != null)
+			if (z != null) {
 				z.onDieInside(character);
+			}
 		}
 	}
 
@@ -147,8 +157,9 @@ public final class L2WorldRegion
 	{
 		for (L2ZoneType z : getZones())
 		{
-			if (z != null)
+			if (z != null) {
 				z.onReviveInside(character);
+			}
 		}
 	}
 
@@ -167,17 +178,21 @@ public final class L2WorldRegion
 			if (_isActivating)
 			{
 				// for each neighbor, if it's not active, activate.
-				for (L2WorldRegion neighbor : getSurroundingRegions())
+				for (L2WorldRegion neighbor : getSurroundingRegions()) {
 					neighbor.setActive(true);
+				}
 			}
 			else
 			{
-				if (areNeighborsEmpty())
+				if (areNeighborsEmpty()) {
 					setActive(false);
+				}
 				// check and deactivate
-				for (L2WorldRegion neighbor : getSurroundingRegions())
-					if (neighbor.areNeighborsEmpty())
+				for (L2WorldRegion neighbor : getSurroundingRegions()) {
+					if (neighbor.areNeighborsEmpty()) {
 						neighbor.setActive(false);
+					}
+				}
 			}
 		}
 	}
@@ -246,12 +261,15 @@ public final class L2WorldRegion
 	public Boolean areNeighborsEmpty()
 	{
 		// if this region is occupied, return false.
-		if (isActive() && _allPlayable.size() > 0)
+		if (isActive() && _allPlayable.size() > 0) {
 			return false;
+		}
 		// if any one of the neighbors is occupied, return false
-		for (L2WorldRegion neighbor : _surroundingRegions)
-			if (neighbor.isActive() && neighbor._allPlayable.size() > 0)
+		for (L2WorldRegion neighbor : _surroundingRegions) {
+			if (neighbor.isActive() && neighbor._allPlayable.size() > 0) {
 				return false;
+			}
+		}
 		// in all other cases, return true.
 		return true;
 	}
@@ -263,17 +281,19 @@ public final class L2WorldRegion
 	 */
 	public void setActive(boolean value)
 	{
-		if (_active == value)
+		if (_active == value) {
 			return;
+		}
 		_active = value;
 		// turn the AI on or off to match the region's activation.
 		switchAI(value);
 		// TODO
 		// turn the geodata on or off to match the region's activation.
-		if (value)
+		if (value) {
 			_log.fine("Starting Grid " + _tileX + "," + _tileY);
-		else
+		} else {
 			_log.fine("Stoping Grid " + _tileX + "," + _tileY);
+		}
 	}
 
 	/**
@@ -316,17 +336,20 @@ public final class L2WorldRegion
 	 */
 	public void addVisibleObject(L2Object object)
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert object.getWorldRegion() == this;
-		if (object == null)
+		}
+		if (object == null) {
 			return;
+		}
 		_visibleObjects.put(object);
 		if (object instanceof L2PlayableInstance)
 		{
 			_allPlayable.put((L2PlayableInstance) object);
 			// if this is the first player to enter the region, activate self & neighbors
-			if (_allPlayable.size() == 1 && !Config.GRIDS_ALWAYS_ON)
+			if (_allPlayable.size() == 1 && !Config.GRIDS_ALWAYS_ON) {
 				startActivation();
+			}
 		}
 	}
 
@@ -338,16 +361,19 @@ public final class L2WorldRegion
 	 */
 	public void removeVisibleObject(L2Object object)
 	{
-		if (Config.ASSERT)
+		if (Config.ASSERT) {
 			assert object.getWorldRegion() == this || object.getWorldRegion() == null;
-		if (object == null)
+		}
+		if (object == null) {
 			return;
+		}
 		_visibleObjects.remove(object);
 		if (object instanceof L2PlayableInstance)
 		{
 			_allPlayable.remove((L2PlayableInstance) object);
-			if (_allPlayable.size() == 0 && !Config.GRIDS_ALWAYS_ON)
+			if (_allPlayable.size() == 0 && !Config.GRIDS_ALWAYS_ON) {
 				startDeactivation();
+			}
 		}
 	}
 

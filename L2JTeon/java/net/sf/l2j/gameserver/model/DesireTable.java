@@ -127,8 +127,9 @@ public class DesireTable
 	public float getDesireValue(L2Object object, DesireType type)
 	{
 		Desires desireList = _objectDesireTable.get(object);
-		if (desireList == null)
+		if (desireList == null) {
 			return 0f;
+		}
 		return desireList.getDesireValue(type).getValue();
 	}
 
@@ -140,8 +141,9 @@ public class DesireTable
 	public void addDesireValue(L2Object object, DesireType type, float value)
 	{
 		Desires desireList = _objectDesireTable.get(object);
-		if (desireList != null)
+		if (desireList != null) {
 			desireList.addValue(type, value);
+		}
 	}
 
 	public void createDesire(DesireType type)
@@ -157,15 +159,17 @@ public class DesireTable
 	public void createDesire(L2Object object, DesireType type)
 	{
 		Desires desireList = _objectDesireTable.get(object);
-		if (desireList != null)
+		if (desireList != null) {
 			desireList.createDesire(type);
+		}
 	}
 
 	public void deleteDesire(L2Object object, DesireType type)
 	{
 		Desires desireList = _objectDesireTable.get(object);
-		if (desireList != null)
+		if (desireList != null) {
 			desireList.deleteDesire(type);
+		}
 	}
 
 	public void addKnownObject(L2Object object)
@@ -178,7 +182,8 @@ public class DesireTable
 
 	public void addKnownObject(L2Object object, DesireType... desireList)
 	{
-		if (object != null)
+		if (object != null) {
 			_objectDesireTable.put(object, new Desires(desireList));
+		}
 	}
 }

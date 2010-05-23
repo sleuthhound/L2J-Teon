@@ -47,10 +47,11 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 			int delay;
 			if (!getTask())
 			{
-				if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0)
+				if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0) {
 					delay = 480000;
-				else
+				} else {
 					delay = 30000;
+				}
 				setTask(true);
 				ThreadPoolManager.getInstance().scheduleGeneral(new oustAllPlayers(), delay);
 			}
@@ -59,9 +60,9 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 			html.setFile(filename);
 			player.sendPacket(html);
 			return;
-		}
-		else
+		} else {
 			super.onBypassFeedback(player, command);
+		}
 	}
 
 	@Override
@@ -70,13 +71,14 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		String filename;
 		if (!getTask())
 		{
-			if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0)
+			if (getCastle().getSiege().getIsInProgress() && getCastle().getSiege().getControlTowerCount() == 0) {
 				filename = "data/html/castleteleporter/MassGK-2.htm";
-			else
+			} else {
 				filename = "data/html/castleteleporter/MassGK.htm";
-		}
-		else
+			}
+		} else {
 			filename = "data/html/castleteleporter/MassGK-1.htm";
+		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -121,8 +123,9 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{

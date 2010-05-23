@@ -114,15 +114,15 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 			player.closeNetConnection();
 			return;
 		}
-		if (command.startsWith("WithdrawP"))
+		if (command.startsWith("WithdrawP")) {
 			showRetrieveWindow(player);
-		else if (command.equals("DepositP"))
+		} else if (command.equals("DepositP")) {
 			showDepositWindow(player);
-		else if (command.equals("WithdrawC"))
+		} else if (command.equals("WithdrawC")) {
 			showWithdrawWindowClan(player);
-		else if (command.equals("DepositC"))
+		} else if (command.equals("DepositC")) {
 			showDepositWindowClan(player);
-		else if (command.startsWith("Chat"))
+		} else if (command.startsWith("Chat"))
 		{
 			int val = 0;
 			try
@@ -136,9 +136,9 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 			{
 			}
 			showChatWindow(player, val);
-		}
-		else
+		} else {
 			super.onBypassFeedback(player, command);
+		}
 	}
 
 	@Override
@@ -149,14 +149,15 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
 		{
-			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
 				filename = "data/html/castlewarehouse/castlewarehouse-busy.htm"; // Busy because of siege
-			else if (condition == COND_OWNER) // Clan owns castle
+			} else if (condition == COND_OWNER) // Clan owns castle
 			{
-				if (val == 0)
+				if (val == 0) {
 					filename = "data/html/castlewarehouse/castlewarehouse.htm";
-				else
+				} else {
 					filename = "data/html/castlewarehouse/castlewarehouse-" + val + ".htm";
+				}
 			}
 		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -168,16 +169,18 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 
 	protected int validateCondition(L2PcInstance player)
 	{
-		if (player.isGM())
+		if (player.isGM()) {
 			return COND_OWNER;
+		}
 		if (getCastle() != null && getCastle().getCastleId() > 0)
 		{
 			if (player.getClan() != null)
 			{
-				if (getCastle().getSiege().getIsInProgress())
+				if (getCastle().getSiege().getIsInProgress()) {
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
+				} else if (getCastle().getOwnerId() == player.getClanId()) {
 					return COND_OWNER;
+				}
 			}
 		}
 		return COND_ALL_FALSE;

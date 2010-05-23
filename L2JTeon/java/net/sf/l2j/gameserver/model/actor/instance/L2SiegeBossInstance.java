@@ -81,15 +81,17 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 		super.reduceCurrentHp(damage, attacker, awake);
 		if (this.getNpcId() == 35368)
 		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
+			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null) {
 				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
+			}
 		}
 		else
 		{
 			if (this.getNpcId() == 35410)
 			{
-				if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
+				if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null) {
 					DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
+				}
 			}
 		}
 	}
@@ -97,14 +99,16 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!super.doDie(killer))
+		if (!super.doDie(killer)) {
 			return false;
-		if (getNpcId() == 35368 && FortResistSiegeManager.getInstance().getIsInProgress()) // Bloody Lord Nurka
+		}
+		if (getNpcId() == 35368 && FortResistSiegeManager.getInstance().getIsInProgress()) {
 			FortResistSiegeManager.getInstance().endSiege(true);
-		else if (getNpcId() == 35410 && DevastatedCastleManager.getInstance().getIsInProgress()) // Gustav
+		} else if (getNpcId() == 35410 && DevastatedCastleManager.getInstance().getIsInProgress()) {
 			DevastatedCastleManager.getInstance().endSiege(true);
-		else if (getNpcId() == 35629 && FortressofTheDeadManager.getInstance().getIsInProgress()) // Lidia von Hellmann
+		} else if (getNpcId() == 35629 && FortressofTheDeadManager.getInstance().getIsInProgress()) {
 			FortressofTheDeadManager.getInstance().endSiege(true);
+		}
 		return true;
 	}
 

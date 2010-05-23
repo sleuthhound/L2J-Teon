@@ -218,13 +218,17 @@ public class TradeList
 	 */
 	public TradeItem adjustAvailableItem(L2ItemInstance item)
 	{
-		if (item.isStackable())
-			for (TradeItem exclItem : _items)
-				if (exclItem.getItem().getItemId() == item.getItemId())
-					if (item.getCount() <= exclItem.getCount())
+		if (item.isStackable()) {
+			for (TradeItem exclItem : _items) {
+				if (exclItem.getItem().getItemId() == item.getItemId()) {
+					if (item.getCount() <= exclItem.getCount()) {
 						return null;
-					else
+					} else {
 						return new TradeItem(item, item.getCount() - exclItem.getCount(), item.getReferencePrice());
+					}
+				}
+			}
+		}
 		return new TradeItem(item, item.getCount(), item.getReferencePrice());
 	}
 
@@ -236,13 +240,15 @@ public class TradeList
 	 */
 	public void adjustItemRequest(ItemRequest item)
 	{
-		for (TradeItem filtItem : _items)
+		for (TradeItem filtItem : _items) {
 			if (filtItem.getObjectId() == item.getObjectId())
 			{
-				if (filtItem.getCount() < item.getCount())
+				if (filtItem.getCount() < item.getCount()) {
 					item.setCount(filtItem.getCount());
+				}
 				return;
 			}
+		}
 		item.setCount(0);
 	}
 
@@ -254,13 +260,15 @@ public class TradeList
 	 */
 	public void adjustItemRequestByItemId(ItemRequest item)
 	{
-		for (TradeItem filtItem : _items)
+		for (TradeItem filtItem : _items) {
 			if (filtItem.getItem().getItemId() == item.getItemId())
 			{
-				if (filtItem.getCount() < item.getCount())
+				if (filtItem.getCount() < item.getCount()) {
 					item.setCount(filtItem.getCount());
+				}
 				return;
 			}
+		}
 		item.setCount(0);
 	}
 
@@ -303,10 +311,12 @@ public class TradeList
 			return null;
 		}
 		L2ItemInstance item = (L2ItemInstance) o;
-		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
+		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) {
 			return null;
-		if (count > item.getCount())
+		}
+		if (count > item.getCount()) {
 			return null;
+		}
 		if (!item.isStackable() && count > 1)
 		{
 			_log.warning(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
@@ -314,8 +324,9 @@ public class TradeList
 		}
 		for (TradeItem checkitem : _items)
 		{
-			if (checkitem.getObjectId() == objectId)
+			if (checkitem.getObjectId() == objectId) {
 				return null;
+			}
 		}
 		TradeItem titem = new TradeItem(item, count, price);
 		_items.add(titem);
@@ -349,8 +360,9 @@ public class TradeList
 			_log.warning(_owner.getName() + ": Attempt to add invalid item to TradeList!");
 			return null;
 		}
-		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
+		if (!item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) {
 			return null;
+		}
 		if (!item.isStackable() && count > 1)
 		{
 			_log.warning(_owner.getName() + ": Attempt to add non-stackable item to TradeList with count > 1!");
@@ -380,7 +392,7 @@ public class TradeList
 			_log.warning(_owner.getName() + ": Attempt to modify locked TradeList!");
 			return null;
 		}
-		for (TradeItem titem : _items)
+		for (TradeItem titem : _items) {
 			if (titem.getObjectId() == objectId || titem.getItem().getItemId() == itemId)
 			{
 				// If Partner has already confirmed this trade, invalidate the
@@ -396,12 +408,14 @@ public class TradeList
 					partnerList.invalidateConfirmation();
 				}
 				// Reduce item count or complete item
-				if (count != -1 && titem.getCount() > count)
+				if (count != -1 && titem.getCount() > count) {
 					titem.setCount(titem.getCount() - count);
-				else
+				} else {
 					_items.remove(titem);
+				}
 				return titem;
 			}
+		}
 		return null;
 	}
 
@@ -413,10 +427,11 @@ public class TradeList
 		for (TradeItem titem : _items)
 		{
 			L2ItemInstance item = _owner.getInventory().getItemByObjectId(titem.getObjectId());
-			if (item == null || titem.getCount() < 1)
+			if (item == null || titem.getCount() < 1) {
 				removeItem(titem.getObjectId(), -1, -1);
-			else if (item.getCount() < titem.getCount())
+			} else if (item.getCount() < titem.getCount()) {
 				titem.setCount(item.getCount());
+			}
 		}
 	}
 
@@ -444,8 +459,9 @@ public class TradeList
 	 */
 	public boolean confirm()
 	{
-		if (_confirmed)
+		if (_confirmed) {
 			return true; // Already confirmed
+		}
 		// If Partner has already confirmed this trade, proceed exchange
 		if (_partner != null)
 		{
@@ -476,19 +492,21 @@ public class TradeList
 					{
 						partnerList.lock();
 						lock();
-						if (!partnerList.validate())
+						if (!partnerList.validate()) {
 							return false;
-						if (!validate())
+						}
+						if (!validate()) {
 							return false;
+						}
 						doExchange(partnerList);
-					}
-					else
+					} else {
 						_partner.onTradeConfirm(_owner);
+					}
 				}
 			}
-		}
-		else
+		} else {
 			_confirmed = true;
+		}
 		return _confirmed;
 	}
 
@@ -532,25 +550,29 @@ public class TradeList
 		for (TradeItem titem : _items)
 		{
 			L2ItemInstance oldItem = _owner.getInventory().getItemByObjectId(titem.getObjectId());
-			if (oldItem == null)
+			if (oldItem == null) {
 				return false;
+			}
 			L2ItemInstance newItem = _owner.getInventory().transferItem("Trade", titem.getObjectId(), titem.getCount(), partner.getInventory(), _owner, _partner);
-			if (newItem == null)
+			if (newItem == null) {
 				return false;
+			}
 			// Add changes to inventory update packets
 			if (ownerIU != null)
 			{
-				if (oldItem.getCount() > 0 && oldItem != newItem)
+				if (oldItem.getCount() > 0 && oldItem != newItem) {
 					ownerIU.addModifiedItem(oldItem);
-				else
+				} else {
 					ownerIU.addRemovedItem(oldItem);
+				}
 			}
 			if (partnerIU != null)
 			{
-				if (newItem.getCount() > titem.getCount())
+				if (newItem.getCount() > titem.getCount()) {
 					partnerIU.addModifiedItem(newItem);
-				else
+				} else {
 					partnerIU.addNewItem(newItem);
+				}
 			}
 		}
 		return true;
@@ -564,15 +586,18 @@ public class TradeList
 		int slots = 0;
 		for (TradeItem item : _items)
 		{
-			if (item == null)
+			if (item == null) {
 				continue;
+			}
 			L2Item template = ItemTable.getInstance().getTemplate(item.getItem().getItemId());
-			if (template == null)
+			if (template == null) {
 				continue;
-			if (!template.isStackable())
+			}
+			if (!template.isStackable()) {
 				slots += item.getCount();
-			else if (partner.getInventory().getItemByItemId(item.getItem().getItemId()) == null)
+			} else if (partner.getInventory().getItemByItemId(item.getItem().getItemId()) == null) {
 				slots++;
+			}
 		}
 		return slots;
 	}
@@ -585,11 +610,13 @@ public class TradeList
 		int weight = 0;
 		for (TradeItem item : _items)
 		{
-			if (item == null)
+			if (item == null) {
 				continue;
+			}
 			L2Item template = ItemTable.getInstance().getTemplate(item.getItem().getItemId());
-			if (template == null)
+			if (template == null) {
 				continue;
+			}
 			weight += item.getCount() * template.getWeight();
 		}
 		return weight;
@@ -621,14 +648,16 @@ public class TradeList
 			partnerList.TransferItems(getOwner(), partnerIU, ownerIU);
 			TransferItems(partnerList.getOwner(), ownerIU, partnerIU);
 			// Send inventory update packet
-			if (ownerIU != null)
+			if (ownerIU != null) {
 				_owner.sendPacket(ownerIU);
-			else
+			} else {
 				_owner.sendPacket(new ItemList(_owner, false));
-			if (partnerIU != null)
+			}
+			if (partnerIU != null) {
 				_partner.sendPacket(partnerIU);
-			else
+			} else {
 				_partner.sendPacket(new ItemList(_partner, false));
+			}
 			// Update current load as well
 			StatusUpdate playerSU = new StatusUpdate(_owner.getObjectId());
 			playerSU.addAttribute(StatusUpdate.CUR_LOAD, _owner.getCurrentLoad());
@@ -650,8 +679,9 @@ public class TradeList
 	 */
 	public synchronized boolean PrivateStoreBuy(L2PcInstance player, ItemRequest[] items, int price)
 	{
-		if (_locked)
+		if (_locked) {
 			return false;
+		}
 		if (!validate())
 		{
 			lock();
@@ -661,16 +691,19 @@ public class TradeList
 		int weight = 0;
 		for (ItemRequest item : items)
 		{
-			if (item == null)
+			if (item == null) {
 				continue;
+			}
 			L2Item template = ItemTable.getInstance().getTemplate(item.getItemId());
-			if (template == null)
+			if (template == null) {
 				continue;
+			}
 			weight += item.getCount() * template.getWeight();
-			if (!template.isStackable())
+			if (!template.isStackable()) {
 				slots += item.getCount();
-			else if (player.getInventory().getItemByItemId(item.getItemId()) == null)
+			} else if (player.getInventory().getItemByItemId(item.getItemId()) == null) {
 				slots++;
+			}
 		}
 		if (!player.getInventory().validateWeight(weight))
 		{
@@ -705,8 +738,9 @@ public class TradeList
 			// Check if requested item is sill on the list and adjust its
 			// count
 			adjustItemRequest(item);
-			if (item.getCount() == 0)
+			if (item.getCount() == 0) {
 				continue;
+			}
 			// Check if requested item is available for manipulation
 			L2ItemInstance oldItem = _owner.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
 			if (oldItem == null)
@@ -716,18 +750,21 @@ public class TradeList
 			}
 			// Proceed with item transfer
 			L2ItemInstance newItem = ownerInventory.transferItem("PrivateStore", item.getObjectId(), item.getCount(), playerInventory, _owner, player);
-			if (newItem == null)
+			if (newItem == null) {
 				return false;
+			}
 			removeItem(item.getObjectId(), -1, item.getCount());
 			// Add changes to inventory update packets
-			if (oldItem.getCount() > 0 && oldItem != newItem)
+			if (oldItem.getCount() > 0 && oldItem != newItem) {
 				ownerIU.addModifiedItem(oldItem);
-			else
+			} else {
 				ownerIU.addRemovedItem(oldItem);
-			if (newItem.getCount() > item.getCount())
+			}
+			if (newItem.getCount() > item.getCount()) {
 				playerIU.addModifiedItem(newItem);
-			else
+			} else {
 				playerIU.addNewItem(newItem);
+			}
 			// Send messages about the transaction to both players
 			if (newItem.isStackable())
 			{
@@ -767,8 +804,9 @@ public class TradeList
 	 */
 	public synchronized boolean PrivateStoreSell(L2PcInstance player, ItemRequest[] items, int price)
 	{
-		if (_locked)
+		if (_locked) {
 			return false;
+		}
 		PcInventory ownerInventory = _owner.getInventory();
 		PcInventory playerInventory = player.getInventory();
 		// we must check item are available before begining transaction, TODO:
@@ -780,8 +818,9 @@ public class TradeList
 		{
 			// Check if requested item is available for manipulation
 			L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
-			if (oldItem == null)
+			if (oldItem == null) {
 				return false;
+			}
 			if (oldItem.getAugmentation() != null)
 			{
 				String msg = "Transaction failed. Augmented items may not be exchanged.";
@@ -799,26 +838,31 @@ public class TradeList
 			// Check if requested item is sill on the list and adjust its
 			// count
 			adjustItemRequestByItemId(item);
-			if (item.getCount() == 0)
+			if (item.getCount() == 0) {
 				continue;
+			}
 			// Check if requested item is available for manipulation
 			L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
-			if (oldItem == null)
+			if (oldItem == null) {
 				return false;
+			}
 			// Proceed with item transfer
 			L2ItemInstance newItem = playerInventory.transferItem("PrivateStore", item.getObjectId(), item.getCount(), ownerInventory, player, _owner);
-			if (newItem == null)
+			if (newItem == null) {
 				return false;
+			}
 			removeItem(-1, item.getItemId(), item.getCount());
 			// Add changes to inventory update packets
-			if (oldItem.getCount() > 0 && oldItem != newItem)
+			if (oldItem.getCount() > 0 && oldItem != newItem) {
 				playerIU.addModifiedItem(oldItem);
-			else
+			} else {
 				playerIU.addRemovedItem(oldItem);
-			if (newItem.getCount() > item.getCount())
+			}
+			if (newItem.getCount() > item.getCount()) {
 				ownerIU.addModifiedItem(newItem);
-			else
+			} else {
 				ownerIU.addNewItem(newItem);
+			}
 			// Send messages about the transaction to both players
 			if (newItem.isStackable())
 			{
@@ -846,8 +890,9 @@ public class TradeList
 			}
 		}
 		// Transfer adena
-		if (price > ownerInventory.getAdena())
+		if (price > ownerInventory.getAdena()) {
 			return false;
+		}
 		L2ItemInstance adenaItem = ownerInventory.getAdenaInstance();
 		ownerInventory.reduceAdena("PrivateStore", price, _owner, player);
 		ownerIU.addItem(adenaItem);
@@ -867,8 +912,9 @@ public class TradeList
 	{
 		for (TradeItem item : _items)
 		{
-			if (item.getObjectId() == objectId)
+			if (item.getObjectId() == objectId) {
 				return item;
+			}
 		}
 		return null;
 	}

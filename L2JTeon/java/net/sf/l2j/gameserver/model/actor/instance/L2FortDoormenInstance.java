@@ -51,8 +51,9 @@ public class L2FortDoormenInstance extends L2FolkInstance
 
 	public final ClanHall getClanHall()
 	{
-		if (_clanHall == null)
+		if (_clanHall == null) {
 			_clanHall = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
+		}
 		return _clanHall;
 	}
 
@@ -60,11 +61,12 @@ public class L2FortDoormenInstance extends L2FolkInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE)
+		if (condition <= COND_ALL_FALSE) {
 			return;
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
+		}
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
 			return;
-		else if (condition == COND_FORT_OWNER || condition == COND_HALL_OWNER)
+		} else if (condition == COND_FORT_OWNER || condition == COND_HALL_OWNER)
 		{
 			if (command.startsWith("Chat"))
 			{
@@ -128,8 +130,9 @@ public class L2FortDoormenInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player))
+		if (!canTarget(player)) {
 			return;
+		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -163,10 +166,11 @@ public class L2FortDoormenInstance extends L2FolkInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/FortDoormen/" + getTemplate().npcId + "-no.htm";
 		int condition = validateCondition(player);
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
 			filename = "data/html/FortDoormen/" + getTemplate().npcId + "-busy.htm"; // Busy because of siege
-		else if (condition == COND_FORT_OWNER) // Clan owns castle
+		} else if (condition == COND_FORT_OWNER) {
 			filename = "data/html/FortDoormen/" + getTemplate().npcId + ".htm"; // Owner message window
+		}
 		// Prepare doormen for clan hall
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		String str;
@@ -186,14 +190,14 @@ public class L2FortDoormenInstance extends L2FolkInstance
 					str = "<html><body>Hello there!<br>This clan hall is owned by <font color=\"55FFFF\">" + owner.getLeader().getName() + " who is the Lord of the ";
 					str += owner.getName() + "</font> clan.<br>";
 					str += "I am sorry, but only the clan members who belong to the " + owner.getName() + " clan can enter the clan hall.</body></html>";
-				}
-				else
+				} else {
 					str = "<html><body>" + getName() + ":<br1>Clan hall <font color=\"LEVEL\">" + getClanHall().getName() + "</font> have no owner clan.<br>You can rent it at auctioneers..</body></html>";
+				}
 			}
 			html.setHtml(str);
-		}
-		else
+		} else {
 			html.setFile(filename);
+		}
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
@@ -205,18 +209,20 @@ public class L2FortDoormenInstance extends L2FolkInstance
 			// Prepare doormen for clan hall
 			if (getClanHall() != null)
 			{
-				if (player.getClanId() == getClanHall().getOwnerId())
+				if (player.getClanId() == getClanHall().getOwnerId()) {
 					return COND_HALL_OWNER;
-				else
+				} else {
 					return COND_ALL_FALSE;
+				}
 			}
 			if (getFort() != null && getFort().getFortId() > 0)
 			{
 				// if (getCastle().getSiege().getIsInProgress())
 				// return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
 				// else
-				if (getFort().getOwnerId() == player.getClanId()) // Clan owns castle
+				if (getFort().getOwnerId() == player.getClanId()) {
 					return COND_FORT_OWNER; // Owner
+				}
 			}
 		}
 		return COND_ALL_FALSE;
