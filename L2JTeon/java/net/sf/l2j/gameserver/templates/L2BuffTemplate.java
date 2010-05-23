@@ -66,8 +66,9 @@ public class L2BuffTemplate
 		_skillId = set.getInteger("skillId");
 		_skillLevel = set.getInteger("skillLevel");
 		_skillOrder = set.getInteger("skillOrder");
-		if (_skillLevel == 0)
+		if (_skillLevel == 0) {
 			_skillLevel = SkillTable.getInstance().getMaxLevel(_skillId, _skillLevel);
+		}
 		_skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
 		_forceCast = set.getInteger("forceCast") == 1;
 		_minLevel = set.getInteger("minLevel");
@@ -189,18 +190,24 @@ public class L2BuffTemplate
 	public boolean checkRace(L2PcInstance player)
 	{
 		boolean cond = false;
-		if (_race == 0 || _race == 31)
+		if (_race == 0 || _race == 31) {
 			return true;
-		if (player.getRace() == Race.human && (_race & 16) != 0)
+		}
+		if (player.getRace() == Race.human && (_race & 16) != 0) {
 			cond = true;
-		if (player.getRace() == Race.elf && (_race & 8) != 0)
+		}
+		if (player.getRace() == Race.elf && (_race & 8) != 0) {
 			cond = true;
-		if (player.getRace() == Race.darkelf && (_race & 4) != 0)
+		}
+		if (player.getRace() == Race.darkelf && (_race & 4) != 0) {
 			cond = true;
-		if (player.getRace() == Race.orc && (_race & 2) != 0)
+		}
+		if (player.getRace() == Race.orc && (_race & 2) != 0) {
 			cond = true;
-		if (player.getRace() == Race.dwarf && (_race & 1) != 0)
+		}
+		if (player.getRace() == Race.dwarf && (_race & 1) != 0) {
 			cond = true;
+		}
 		return cond;
 	}
 
@@ -234,8 +241,9 @@ public class L2BuffTemplate
 	 */
 	public boolean checkPoints(L2PcInstance player)
 	{
-		if (player.getEventPoints() >= _points)
+		if (player.getEventPoints() >= _points) {
 			return true;
+		}
 		return false;
 	}
 

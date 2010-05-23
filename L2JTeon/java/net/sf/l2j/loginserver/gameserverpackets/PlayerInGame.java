@@ -34,8 +34,9 @@ public class PlayerInGame extends ClientBasePacket
 		super(decrypt);
 		_accounts = new FastList<String>();
 		int size = readH();
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < size; i++) {
 			_accounts.add(readS());
+		}
 	}
 
 	/**

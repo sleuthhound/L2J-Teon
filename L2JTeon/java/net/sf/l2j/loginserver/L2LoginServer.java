@@ -86,8 +86,9 @@ public class L2LoginServer
 		{
 			try
 			{
-				if (is != null)
+				if (is != null) {
 					is.close();
+				}
 			}
 			catch (IOException e)
 			{
@@ -104,8 +105,9 @@ public class L2LoginServer
 		catch (SQLException e)
 		{
 			_log.severe("FATAL: Failed initializing database. Reason: " + e.getMessage());
-			if (Config.DEVELOPER)
+			if (Config.DEVELOPER) {
 				e.printStackTrace();
+			}
 			System.exit(1);
 		}
 		try
@@ -138,8 +140,9 @@ public class L2LoginServer
 		catch (GeneralSecurityException e)
 		{
 			_log.severe("FATAL: Failed initializing LoginController. Reason: " + e.getMessage());
-			if (Config.DEVELOPER)
+			if (Config.DEVELOPER) {
 				e.printStackTrace();
+			}
 			System.exit(1);
 		}
 		try
@@ -149,15 +152,17 @@ public class L2LoginServer
 		catch (GeneralSecurityException e)
 		{
 			_log.severe("FATAL: Failed to load GameServerTable. Reason: " + e.getMessage());
-			if (Config.DEVELOPER)
+			if (Config.DEVELOPER) {
 				e.printStackTrace();
+			}
 			System.exit(1);
 		}
 		catch (SQLException e)
 		{
 			_log.severe("FATAL: Failed to load GameServerTable. Reason: " + e.getMessage());
-			if (Config.DEVELOPER)
+			if (Config.DEVELOPER) {
 				e.printStackTrace();
+			}
 			System.exit(1);
 		}
 		loadBanFile();
@@ -171,8 +176,9 @@ public class L2LoginServer
 			catch (UnknownHostException e1)
 			{
 				_log.severe("WARNING: The LoginServer bind address is invalid, using all avaliable IPs. Reason: " + e1.getMessage());
-				if (Config.DEVELOPER)
+				if (Config.DEVELOPER) {
 					e1.printStackTrace();
+				}
 			}
 		}
         final SelectorConfig sc = new SelectorConfig();
@@ -274,8 +280,9 @@ public class L2LoginServer
 			catch (FileNotFoundException e)
 			{
 				_log.warning("Failed to load banned IPs file (" + bannedFile.getName() + ") for reading. Reason: " + e.getMessage());
-				if (Config.DEVELOPER)
+				if (Config.DEVELOPER) {
 					e.printStackTrace();
+				}
 				return;
 			}
 			LineNumberReader reader = new LineNumberReader(new InputStreamReader(fis));
@@ -322,13 +329,14 @@ public class L2LoginServer
 			catch (IOException e)
 			{
 				_log.warning("Error while reading the bans file (" + bannedFile.getName() + "). Details: " + e.getMessage());
-				if (Config.DEVELOPER)
+				if (Config.DEVELOPER) {
 					e.printStackTrace();
+				}
 			}
 			_log.config("Loaded " + LoginController.getInstance().getBannedIps().size() + " IP Bans.");
-		}
-		else
+		} else {
 			_log.config("IP Bans file (" + bannedFile.getName() + ") is missing or is a directory, skipped.");
+		}
 	}
 
 	public void shutdown(boolean restart)

@@ -63,10 +63,12 @@ public final class StatsSet
 	public boolean getBool(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Boolean value required, but not specified");
-		if (val instanceof Boolean)
+		}
+		if (val instanceof Boolean) {
 			return ((Boolean) val).booleanValue();
+		}
 		try
 		{
 			return Boolean.parseBoolean((String) val);
@@ -89,10 +91,12 @@ public final class StatsSet
 	public boolean getBool(String name, boolean deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (val instanceof Boolean)
+		}
+		if (val instanceof Boolean) {
 			return ((Boolean) val).booleanValue();
+		}
 		try
 		{
 			return Boolean.parseBoolean((String) val);
@@ -115,10 +119,12 @@ public final class StatsSet
 	public byte getByte(String name, byte deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).byteValue();
+		}
 		try
 		{
 			return Byte.parseByte((String) val);
@@ -139,10 +145,12 @@ public final class StatsSet
 	public byte getByte(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Byte value required, but not specified");
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).byteValue();
+		}
 		try
 		{
 			return Byte.parseByte((String) val);
@@ -165,10 +173,12 @@ public final class StatsSet
 	public short getShort(String name, short deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).shortValue();
+		}
 		try
 		{
 			return Short.parseShort((String) val);
@@ -189,10 +199,12 @@ public final class StatsSet
 	public short getShort(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Short value required, but not specified");
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).shortValue();
+		}
 		try
 		{
 			return Short.parseShort((String) val);
@@ -213,10 +225,12 @@ public final class StatsSet
 	public int getInteger(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Integer value required, but not specified");
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).intValue();
+		}
 		try
 		{
 			return Integer.parseInt((String) val);
@@ -239,10 +253,12 @@ public final class StatsSet
 	public int getInteger(String name, int deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).intValue();
+		}
 		try
 		{
 			return Integer.parseInt((String) val);
@@ -263,8 +279,9 @@ public final class StatsSet
 	public int[] getIntegerArray(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Integer value required, but not specified");
+		}
 		if (val instanceof Number)
 		{
 			int[] result = { ((Number) val).intValue() };
@@ -298,10 +315,12 @@ public final class StatsSet
 	public long getLong(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Integer value required, but not specified");
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).longValue();
+		}
 		try
 		{
 			return Long.parseLong((String) val);
@@ -324,10 +343,12 @@ public final class StatsSet
 	public long getLong(String name, int deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).longValue();
+		}
 		try
 		{
 			return Long.parseLong((String) val);
@@ -348,10 +369,12 @@ public final class StatsSet
 	public float getFloat(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Float value required, but not specified");
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).floatValue();
+		}
 		try
 		{
 			return (float) Double.parseDouble((String) val);
@@ -374,10 +397,12 @@ public final class StatsSet
 	public float getFloat(String name, float deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).floatValue();
+		}
 		try
 		{
 			return (float) Double.parseDouble((String) val);
@@ -398,10 +423,12 @@ public final class StatsSet
 	public double getDouble(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Float value required, but not specified");
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).doubleValue();
+		}
 		try
 		{
 			return Double.parseDouble((String) val);
@@ -424,10 +451,12 @@ public final class StatsSet
 	public double getDouble(String name, float deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (val instanceof Number)
+		}
+		if (val instanceof Number) {
 			return ((Number) val).doubleValue();
+		}
 		try
 		{
 			return Double.parseDouble((String) val);
@@ -448,8 +477,9 @@ public final class StatsSet
 	public String getString(String name)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("String value required, but not specified");
+		}
 		return String.valueOf(val);
 	}
 
@@ -465,8 +495,9 @@ public final class StatsSet
 	public String getString(String name, String deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
+		}
 		return String.valueOf(val);
 	}
 
@@ -485,10 +516,12 @@ public final class StatsSet
 	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			throw new IllegalArgumentException("Enum value of type " + enumClass.getName() + " required, but not specified");
-		if (enumClass.isInstance(val))
+		}
+		if (enumClass.isInstance(val)) {
 			return (T) val;
+		}
 		try
 		{
 			return Enum.valueOf(enumClass, String.valueOf(val));
@@ -516,10 +549,12 @@ public final class StatsSet
 	public <T extends Enum<T>> T getEnum(String name, Class<T> enumClass, T deflt)
 	{
 		Object val = _set.get(name);
-		if (val == null)
+		if (val == null) {
 			return deflt;
-		if (enumClass.isInstance(val))
+		}
+		if (enumClass.isInstance(val)) {
 			return (T) val;
+		}
 		try
 		{
 			return Enum.valueOf(enumClass, String.valueOf(val));

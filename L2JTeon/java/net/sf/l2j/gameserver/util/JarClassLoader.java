@@ -64,8 +64,9 @@ public class JarClassLoader extends ClassLoader
 				ZipFile zipFile = new ZipFile(file);
 				String fileName = name.replace('.', '/') + ".class";
 				ZipEntry entry = zipFile.getEntry(fileName);
-				if (entry == null)
+				if (entry == null) {
 					continue;
+				}
 				classData = new byte[(int) entry.getSize()];
 				DataInputStream zipStream = new DataInputStream(zipFile.getInputStream(entry));
 				zipStream.readFully(classData, 0, (int) entry.getSize());
@@ -77,8 +78,9 @@ public class JarClassLoader extends ClassLoader
 				continue;
 			}
 		}
-		if (classData == null)
+		if (classData == null) {
 			throw new IOException("class not found in " + _jars);
+		}
 		return classData;
 	}
 }

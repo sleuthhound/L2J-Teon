@@ -92,10 +92,11 @@ public final class Rnd
 	 */
 	public static int get(int min, int max)
 	{
-		if (min < max)
+		if (min < max) {
 			return min + RND.nextInt(max - min + 1);
-		else
+		} else {
 			return max + RND.nextInt(min - max + 1);
+		}
 	}
 
 	public static boolean calcChance(int chance, int maxChance)

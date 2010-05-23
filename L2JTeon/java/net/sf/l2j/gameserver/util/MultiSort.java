@@ -66,8 +66,9 @@ public class MultiSort
 	private final List<Integer> getIntList(int[] valueList)
 	{
 		Integer[] tempIntList = new Integer[valueList.length];
-		for (int i = 0; i < valueList.length; i++)
+		for (int i = 0; i < valueList.length; i++) {
 			tempIntList[i] = new Integer(valueList[i]);
+		}
 		return Arrays.asList(tempIntList);
 	}
 
@@ -88,18 +89,21 @@ public class MultiSort
 
 	public final int getHarmonicMean()
 	{
-		if (getValues().isEmpty())
+		if (getValues().isEmpty()) {
 			return -1;
+		}
 		int totalValue = 0;
-		for (int currValue : getValues())
+		for (int currValue : getValues()) {
 			totalValue += 1 / currValue;
+		}
 		return getCount() / totalValue;
 	}
 
 	public final List<?> getKeys()
 	{
-		if (_keyList == null)
+		if (_keyList == null) {
 			return new FastList<Object>();
+		}
 		return _keyList;
 	}
 
@@ -120,15 +124,17 @@ public class MultiSort
 
 	public final int getMean()
 	{
-		if (getValues().isEmpty())
+		if (getValues().isEmpty()) {
 			return -1;
+		}
 		return getTotalValue() / getCount();
 	}
 
 	public final double getStandardDeviation()
 	{
-		if (getValues().isEmpty())
+		if (getValues().isEmpty()) {
 			return -1;
+		}
 		List<Double> tempValList = new FastList<Double>();
 		int meanValue = getMean();
 		int numValues = getCount();
@@ -138,25 +144,29 @@ public class MultiSort
 			tempValList.add(adjValue);
 		}
 		double totalValue = 0;
-		for (double storedVal : tempValList)
+		for (double storedVal : tempValList) {
 			totalValue += storedVal;
+		}
 		return Math.sqrt(totalValue / (numValues - 1));
 	}
 
 	public final int getTotalValue()
 	{
-		if (getValues().isEmpty())
+		if (getValues().isEmpty()) {
 			return 0;
+		}
 		int totalValue = 0;
-		for (int currValue : getValues())
+		for (int currValue : getValues()) {
 			totalValue += currValue;
+		}
 		return totalValue;
 	}
 
 	public final List<Integer> getValues()
 	{
-		if (_valueList == null)
+		if (_valueList == null) {
 			return new FastList<Integer>();
+		}
 		return _valueList;
 	}
 
@@ -188,8 +198,9 @@ public class MultiSort
 			{
 				// If there are no keys, just return the ascendingly sorted
 				// values.
-				if (getKeys().isEmpty())
+				if (getKeys().isEmpty()) {
 					return true;
+				}
 				// Iterate through the list of ordered numerical values.
 				for (int i = getValues().size() - 1; i > -1; i--)
 				{
@@ -199,8 +210,9 @@ public class MultiSort
 					// at least one
 					// duplicate that has been outputted already, so
 					// continue.
-					if (currValue == lastValue)
+					if (currValue == lastValue) {
 						continue;
+					}
 					// Set the last value to the current value, to prevent
 					// duplication.
 					lastValue = currValue;
@@ -233,8 +245,9 @@ public class MultiSort
 				for (int i = 0; i < getValues().size(); i++)
 				{
 					int currValue = getValues().get(i);
-					if (currValue == lastValue)
+					if (currValue == lastValue) {
 						continue;
+					}
 					lastValue = currValue;
 					for (int j = 0; j < getKeys().size(); j++)
 					{

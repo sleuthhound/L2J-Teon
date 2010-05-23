@@ -35,11 +35,13 @@ public final class Evolve
 {
 	public static final boolean doEvolve(L2PcInstance player, L2NpcInstance npc, int itemIdtake, int itemIdgive, int petminlvl)
 	{
-		if (itemIdtake == 0 || itemIdgive == 0 || petminlvl == 0)
+		if (itemIdtake == 0 || itemIdgive == 0 || petminlvl == 0) {
 			return false;
+		}
 		L2Summon summon = player.getPet();
-		if (summon == null || !(summon instanceof L2PetInstance))
+		if (summon == null || !(summon instanceof L2PetInstance)) {
 			return false;
+		}
 		L2PetInstance currentPet = (L2PetInstance) summon;
 		if (currentPet.isAlikeDead())
 		{
@@ -54,17 +56,21 @@ public final class Evolve
 		int oldY = currentPet.getY();
 		int oldZ = currentPet.getZ();
 		L2SummonItem olditem = SummonItemsData.getInstance().getSummonItem(itemIdtake);
-		if (olditem == null)
+		if (olditem == null) {
 			return false;
+		}
 		int oldnpcID = olditem.getNpcId();
-		if (currentPet.getStat().getLevel() < petminlvl || currentPet.getNpcId() != oldnpcID)
+		if (currentPet.getStat().getLevel() < petminlvl || currentPet.getNpcId() != oldnpcID) {
 			return false;
+		}
 		L2SummonItem sitem = SummonItemsData.getInstance().getSummonItem(itemIdgive);
-		if (sitem == null)
+		if (sitem == null) {
 			return false;
+		}
 		int npcID = sitem.getNpcId();
-		if (npcID == 0)
+		if (npcID == 0) {
 			return false;
+		}
 		L2NpcTemplate npcTemplate = NpcTable.getInstance().getTemplate(npcID);
 		currentPet.unSummon(player);
 		// deleting old pet item
@@ -72,8 +78,9 @@ public final class Evolve
 		item = player.getInventory().addItem("Evolve", itemIdgive, 1, player, npc);
 		// Summoning new pet
 		L2PetInstance petSummon = L2PetInstance.spawnPet(npcTemplate, player, item);
-		if (petSummon == null)
+		if (petSummon == null) {
 			return false;
+		}
 		petSummon.getStat().addExp(petexp);
 		petSummon.setCurrentHp(petSummon.getMaxHp());
 		petSummon.setCurrentMp(petSummon.getMaxMp());
@@ -90,8 +97,9 @@ public final class Evolve
 		// petSummon.startFeed();
 		item.setEnchantLevel(petSummon.getLevel());
 		ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFinalizer(player, petSummon), 900);
-		if (petSummon.getCurrentFed() <= 0)
+		if (petSummon.getCurrentFed() <= 0) {
 			ThreadPoolManager.getInstance().scheduleGeneral(new EvolveFeedWait(player, petSummon), 60000);
+		}
 		// else
 		// petSummon.startFeed();
 		return true;
@@ -112,11 +120,12 @@ public final class Evolve
 		{
 			try
 			{
-				if (_petSummon.getCurrentFed() <= 0)
+				if (_petSummon.getCurrentFed() <= 0) {
 					_petSummon.unSummon(_activeChar);
 				/*
 				 * else _petSummon.startFeed();
 				 */
+				}
 			}
 			catch (Exception e)
 			{

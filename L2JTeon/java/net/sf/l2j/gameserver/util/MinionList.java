@@ -127,9 +127,9 @@ public class MinionList
 		synchronized (minionReferences)
 		{
 			minionReferences.remove(minion);
-			if (_respawnTasks.get(current) == null)
+			if (_respawnTasks.get(current) == null) {
 				_respawnTasks.put(current, minion.getNpcId());
-			else
+			} else
 			{
 				// nice AoE
 				for (int i = 1; i < 30; i++)
@@ -155,10 +155,11 @@ public class MinionList
 	 */
 	public void maintainMinions()
 	{
-		if (master == null || master.isAlikeDead())
+		if (master == null || master.isAlikeDead()) {
 			return;
+		}
 		Long current = System.currentTimeMillis();
-		if (_respawnTasks != null)
+		if (_respawnTasks != null) {
 			for (long deathTime : _respawnTasks.keySet())
 			{
 				double delay = Config.RAID_MINION_RESPAWN_TIMER;
@@ -168,6 +169,7 @@ public class MinionList
 					_respawnTasks.remove(deathTime);
 				}
 			}
+		}
 	}
 
 	/**
@@ -183,8 +185,9 @@ public class MinionList
 	 */
 	public void spawnMinions()
 	{
-		if (master == null || master.isAlikeDead())
+		if (master == null || master.isAlikeDead()) {
 			return;
+		}
 		List<L2MinionData> minions = master.getTemplate().getMinionData();
 		synchronized (minionReferences)
 		{
@@ -232,17 +235,20 @@ public class MinionList
 		spawnConstant = Rnd.nextInt(randSpawnLim);
 		// randomize +/-
 		randPlusMin = Rnd.nextInt(2);
-		if (randPlusMin == 1)
+		if (randPlusMin == 1) {
 			spawnConstant *= -1;
+		}
 		int newX = master.getX() + Math.round(spawnConstant);
 		spawnConstant = Rnd.nextInt(randSpawnLim);
 		// randomize +/-
 		randPlusMin = Rnd.nextInt(2);
-		if (randPlusMin == 1)
+		if (randPlusMin == 1) {
 			spawnConstant *= -1;
+		}
 		int newY = master.getY() + Math.round(spawnConstant);
 		monster.spawnMe(newX, newY, master.getZ());
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Spawned minion template " + minionTemplate.npcId + " with objid: " + monster.getObjectId() + " to boss " + master.getObjectId() + " ,at: " + monster.getX() + " x, " + monster.getY() + " y, " + monster.getZ() + " z");
+		}
 	}
 }
