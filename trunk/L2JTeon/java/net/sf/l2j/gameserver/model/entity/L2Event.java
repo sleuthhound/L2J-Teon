@@ -62,8 +62,9 @@ public class L2Event
 			Iterator it = temp.iterator();
 			while (it.hasNext())
 			{
-				if (it.next().equals(name))
+				if (it.next().equals(name)) {
 					return i;
+				}
 			}
 		}
 		return 0;
@@ -143,10 +144,11 @@ public class L2Event
 			TextBuilder replyMSG = new TextBuilder("<html><body>");
 			replyMSG.append("<center><font color=\"LEVEL\">" + eventName + "</font><font color=\"FF0000\"> bY " + inbr.readLine() + "</font></center><br>");
 			replyMSG.append("<br>" + inbr.readLine());
-			if (L2Event.participatingPlayers.contains(player.getName()))
+			if (L2Event.participatingPlayers.contains(player.getName())) {
 				replyMSG.append("<br><center>You are already in the event players list !!</center></body></html>");
-			else
+			} else {
 				replyMSG.append("<br><center><button value=\"Participate !! \" action=\"bypass -h npc_" + objectid + "_event_participate\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>");
+			}
 			adminReply.setHtml(replyMSG.toString());
 			player.sendPacket(adminReply);
 		}
@@ -205,8 +207,9 @@ public class L2Event
 			while (it.hasNext())
 			{
 				temp = player.getName().equalsIgnoreCase(it.next().toString());
-				if (temp)
+				if (temp) {
 					return true;
+				}
 			}
 		}
 		return false;

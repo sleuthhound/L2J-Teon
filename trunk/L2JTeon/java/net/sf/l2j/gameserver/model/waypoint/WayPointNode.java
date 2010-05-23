@@ -222,8 +222,9 @@ public class WayPointNode extends L2Object
 	public static void eraseLine(WayPointNode target, WayPointNode selectedNode)
 	{
 		List<WayPointNode> lineNodes = target.getLineInfo(selectedNode);
-		if (lineNodes == null)
+		if (lineNodes == null) {
 			return;
+		}
 		for (WayPointNode node : lineNodes)
 		{
 			node.decayMe();

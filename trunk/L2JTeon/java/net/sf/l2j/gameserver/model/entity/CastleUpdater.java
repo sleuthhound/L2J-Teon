@@ -61,10 +61,11 @@ public class CastleUpdater implements Runnable
 				}
 				if (_runCount % 24 == 0)
 				{
-					if (castle.getCastleId() >= 1 && castle.getCastleId() < 5 || castle.getCastleId() == 6)
+					if (castle.getCastleId() >= 1 && castle.getCastleId() < 5 || castle.getCastleId() == 6) {
 						warehouse.addItem("Castle", 6622, 1, null, null);
-					else
+					} else {
 						warehouse.addItem("Castle", 6622, 2, null, null);
+					}
 				}
 				if (_runCount % 6 == 0)
 				{

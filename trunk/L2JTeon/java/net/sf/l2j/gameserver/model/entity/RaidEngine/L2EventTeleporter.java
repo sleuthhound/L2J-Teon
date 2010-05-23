@@ -54,33 +54,38 @@ public class L2EventTeleporter implements Runnable
 		_removeBuffs = removeBuffs;
 		// Espera para hacer el teleport
 		long _delay = delay * 1000L;
-		if (delay == 0)
+		if (delay == 0) {
 			_delay = 0;
+		}
 		ThreadPoolManager.getInstance().scheduleGeneral(this, _delay);
 	}
 
 	public void run()
 	{
-		if (_player == null)
+		if (_player == null) {
 			return;
+		}
 		if (_player.isMounted())
 		{
-			if (_player.isFlying())
+			if (_player.isFlying()) {
 				_player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+			}
 			Ride dismount = new Ride(_player.getObjectId(), Ride.ACTION_DISMOUNT, 0);
 			_player.broadcastPacket(dismount);
 			_player.setMountType(0);
 			_player.setMountObjectID(0);
 		}
 		L2Summon summon = _player.getPet();
-		if (_removeBuffs && summon != null)
+		if (_removeBuffs && summon != null) {
 			summon.unSummon(_player);
+		}
 		if (_removeBuffs)
 		{
 			for (L2Effect effect : _player.getAllEffects())
 			{
-				if (effect != null)
+				if (effect != null) {
 					effect.exit();
+				}
 			}
 		}
 		_player.setCurrentCp(_player.getMaxCp() + 5000);

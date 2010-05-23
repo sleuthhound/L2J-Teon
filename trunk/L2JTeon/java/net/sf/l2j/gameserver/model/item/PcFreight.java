@@ -68,8 +68,9 @@ public class PcFreight extends ItemContainer
 		int size = 0;
 		for (L2ItemInstance item : _items)
 		{
-			if (item.getEquipSlot() == 0 || _activeLocationId == 0 || item.getEquipSlot() == _activeLocationId)
+			if (item.getEquipSlot() == 0 || _activeLocationId == 0 || item.getEquipSlot() == _activeLocationId) {
 				size++;
+			}
 		}
 		return size;
 	}
@@ -85,8 +86,9 @@ public class PcFreight extends ItemContainer
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
 		{
-			if (item.getEquipSlot() == 0 || item.getEquipSlot() == _activeLocationId)
+			if (item.getEquipSlot() == 0 || item.getEquipSlot() == _activeLocationId) {
 				list.add(item);
+			}
 		}
 		return list.toArray(new L2ItemInstance[list.size()]);
 	}
@@ -101,9 +103,11 @@ public class PcFreight extends ItemContainer
 	@Override
 	public L2ItemInstance getItemByItemId(int itemId)
 	{
-		for (L2ItemInstance item : _items)
-			if (item.getItemId() == itemId && (item.getEquipSlot() == 0 || _activeLocationId == 0 || item.getEquipSlot() == _activeLocationId))
+		for (L2ItemInstance item : _items) {
+			if (item.getItemId() == itemId && (item.getEquipSlot() == 0 || _activeLocationId == 0 || item.getEquipSlot() == _activeLocationId)) {
 				return item;
+			}
+		}
 		return null;
 	}
 
@@ -117,8 +121,9 @@ public class PcFreight extends ItemContainer
 	protected void addItem(L2ItemInstance item)
 	{
 		super.addItem(item);
-		if (_activeLocationId > 0)
+		if (_activeLocationId > 0) {
 			item.setLocation(item.getLocation(), _activeLocationId);
+		}
 	}
 
 	/**

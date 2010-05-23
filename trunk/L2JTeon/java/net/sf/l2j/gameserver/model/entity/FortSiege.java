@@ -890,8 +890,9 @@ public class FortSiege
 		{
 			saveSiegeClan(player.getClan(), 1, false); // Save to database
 			// if the first registering we start the timer
-			if (getAttackerClans().size() == 1)
+			if (getAttackerClans().size() == 1) {
 				startAutoTask();
+			}
 		}
 	}
 

@@ -45,8 +45,9 @@ public abstract class ClanHallSiege
 			PreparedStatement statement = con.prepareStatement("SELECT siege_data FROM clanhall_siege WHERE id=?");
 			statement.setInt(1, ClanHallId);
 			ResultSet rs = statement.executeQuery();
-			if (rs.next())
+			if (rs.next()) {
 				res = rs.getLong("siege_data");
+			}
 			rs.close();
 			statement.close();
 		}
@@ -58,8 +59,9 @@ public abstract class ClanHallSiege
 		{
 			try
 			{
-				if (con != null)
+				if (con != null) {
 					con.close();
+				}
 			}
 			catch (SQLException e)
 			{
@@ -99,8 +101,9 @@ public abstract class ClanHallSiege
 			{
 				try
 				{
-					if (con != null)
+					if (con != null) {
 						con.close();
+					}
 				}
 				catch (SQLException e)
 				{
