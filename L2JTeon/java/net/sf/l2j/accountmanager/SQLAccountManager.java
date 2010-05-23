@@ -60,24 +60,27 @@ public class SQLAccountManager
 		}
 		if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3"))
 		{
-			if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3"))
+			if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3")) {
 				while (_uname.length() == 0)
 				{
 					System.out.print("Username: ");
 					_uname = _in.readLine().toLowerCase();
 				}
-			if (_mode.equals("1"))
+			}
+			if (_mode.equals("1")) {
 				while (_pass.length() == 0)
 				{
 					System.out.print("Password: ");
 					_pass = _in.readLine();
 				}
-			if (_mode.equals("1") || _mode.equals("2"))
+			}
+			if (_mode.equals("1") || _mode.equals("2")) {
 				while (_level.length() == 0)
 				{
 					System.out.print("Access level: ");
 					_level = _in.readLine();
 				}
+			}
 		}
 		if (_mode.equals("1"))
 		{

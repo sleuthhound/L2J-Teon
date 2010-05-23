@@ -58,8 +58,9 @@ class PacketHistory
 		{
 			// TODO Auto-generated method stub
 			xml.setAttribute("time-stamp", new Date(packetHistory._timeStamp).toString());
-			for (Class cls : packetHistory._info.keySet())
+			for (Class cls : packetHistory._info.keySet()) {
 				xml.setAttribute(cls.getSimpleName(), packetHistory._info.get(cls));
+			}
 		}
 		// public void format(PacketHistory packetHistory, XmlElement xml)
 		// {

@@ -34,8 +34,9 @@ public class EventHandlerSet implements Comparable<EventHandlerSet>
 		_comparatorPrio = (prio.ordinal() + 1) * 3;
 		_handlers = new FastList<EventHandler>();
 		_eventType = event;
-		for (EventHandler handler : handlers)
+		for (EventHandler handler : handlers) {
 			addHandler(handler);
+		}
 	}
 
 	public EventHandlerSet(EventHandler handler, TaskPriority prio)
@@ -48,8 +49,9 @@ public class EventHandlerSet implements Comparable<EventHandlerSet>
 
 	public void addHandler(EventHandler handler)
 	{
-		if (handler == null)
+		if (handler == null) {
 			return;
+		}
 		int prio = handler.getPriority();
 		int index = -1;
 		for (EventHandler eventHandler : _handlers)

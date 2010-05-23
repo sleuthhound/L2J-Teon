@@ -37,8 +37,9 @@ public class HtmCache
 
 	public static HtmCache getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new HtmCache();
+		}
 		return _instance;
 	}
 
@@ -104,10 +105,11 @@ public class HtmCache
 		File[] files = dir.listFiles(filter);
 		for (File file : files)
 		{
-			if (!file.isDirectory())
+			if (!file.isDirectory()) {
 				loadFile(file);
-			else
+			} else {
 				parseDir(file);
+			}
 		}
 	}
 
@@ -174,8 +176,9 @@ public class HtmCache
 	public String getHtm(String path)
 	{
 		String content = _cache.get(path.hashCode());
-		if (Config.LAZY_CACHE && content == null)
+		if (Config.LAZY_CACHE && content == null) {
 			content = loadFile(new File(Config.DATAPACK_ROOT, path));
+		}
 		return content;
 	}
 
@@ -194,8 +197,9 @@ public class HtmCache
 	{
 		File file = new File(path);
 		HtmFilter filter = new HtmFilter();
-		if (file.exists() && filter.accept(file) && !file.isDirectory())
+		if (file.exists() && filter.accept(file) && !file.isDirectory()) {
 			return true;
+		}
 		return false;
 	}
 }

@@ -30,8 +30,9 @@ public class WarehouseCacheManager
 
 	public static WarehouseCacheManager getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new WarehouseCacheManager();
+		}
 		return _instance;
 	}
 

@@ -109,11 +109,13 @@ public class Universe implements java.io.Serializable
 		{
 			Position o = (Position) obj;
 			int res = Integer.valueOf(_x).compareTo(o._x);
-			if (res != 0)
+			if (res != 0) {
 				return res;
+			}
 			res = Integer.valueOf(_y).compareTo(o._y);
-			if (res != 0)
+			if (res != 0) {
 				return res;
+			}
 			res = Integer.valueOf(_z).compareTo(o._z);
 			return res;
 		}
@@ -154,11 +156,13 @@ public class Universe implements java.io.Serializable
 		{
 			Position o = (Position) obj;
 			int res = Integer.valueOf(_x).compareTo(o._x);
-			if (res != 0)
+			if (res != 0) {
 				return res;
+			}
 			res = Integer.valueOf(_y).compareTo(o._y);
-			if (res != 0)
+			if (res != 0) {
 				return res;
+			}
 			res = Integer.valueOf(_z).compareTo(o._z);
 			return res;
 		}
@@ -263,17 +267,21 @@ public class Universe implements java.io.Serializable
 		int min_z = 0, max_z = 0;
 		for (Coord pos : _coordList)
 		{
-			if (pos == null)
+			if (pos == null) {
 				continue;
-			if (pos._z < min_z)
+			}
+			if (pos._z < min_z) {
 				min_z = pos._z;
-			if (pos._z > max_z)
+			}
+			if (pos._z > max_z) {
 				max_z = pos._z;
+			}
 		}
 		for (Coord pos : _coordList)
 		{
-			if (pos == null)
+			if (pos == null) {
 				continue;
+			}
 			int x = (pos._x - MIN_X) / zoom;
 			int y = (pos._y - MIN_Y) / zoom;
 			int color = (int) (((long) pos._z - MIN_Z) * 0xFFFFFF / (MAX_Z - MIN_Z));
@@ -442,8 +450,9 @@ public class Universe implements java.io.Serializable
 	public int size()
 	{
 		int size = 0;
-		if (_coordList != null)
+		if (_coordList != null) {
 			size = _coordList.size();
+		}
 		return size;
 	}
 
@@ -452,8 +461,9 @@ public class Universe implements java.io.Serializable
 		try
 		{
 			String pad = "";
-			if (b)
+			if (b) {
 				pad = "" + System.currentTimeMillis();
+			}
 			FileOutputStream fos = new FileOutputStream("data/universe" + pad + ".fin"); // Save
 			// to
 			// file

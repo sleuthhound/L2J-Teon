@@ -112,24 +112,28 @@ public class L2DatabaseFactory
 			_source.setPassword(Config.DATABASE_PASSWORD);
 			/* Test the connection */
 			_source.getConnection().close();
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Database Connection Working");
-			if (Config.DATABASE_DRIVER.toLowerCase().contains("microsoft"))
+			}
+			if (Config.DATABASE_DRIVER.toLowerCase().contains("microsoft")) {
 				_providerType = ProviderType.MsSql;
-			else
+			} else {
 				_providerType = ProviderType.MySql;
+			}
 		}
 		catch (SQLException x)
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Database Connection FAILED");
+			}
 			// rethrow the exception
 			throw x;
 		}
 		catch (Exception e)
 		{
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Database Connection FAILED");
+			}
 			throw new SQLException("could not init DB connection:" + e);
 		}
 	}
@@ -142,10 +146,12 @@ public class L2DatabaseFactory
 		String mySqlTop1 = "";
 		if (returnOnlyTopRecord)
 		{
-			if (getProviderType() == ProviderType.MsSql)
+			if (getProviderType() == ProviderType.MsSql) {
 				msSqlTop1 = " Top 1 ";
-			if (getProviderType() == ProviderType.MySql)
+			}
+			if (getProviderType() == ProviderType.MySql) {
 				mySqlTop1 = " Limit 1 ";
+			}
 		}
 		String query = "SELECT " + msSqlTop1 + safetyString(fields) + " FROM " + tableName + " WHERE " + whereClause + mySqlTop1;
 		return query;
@@ -185,8 +191,9 @@ public class L2DatabaseFactory
 		String result = "";
 		for (String word : whatToCheck)
 		{
-			if (result != "")
+			if (result != "") {
 				result += ", ";
+			}
 			result += braceLeft + word + braceRight;
 		}
 		return result;
@@ -196,8 +203,9 @@ public class L2DatabaseFactory
 	// Property - Public
 	public static L2DatabaseFactory getInstance() throws SQLException
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new L2DatabaseFactory();
+		}
 		return _instance;
 	}
 
