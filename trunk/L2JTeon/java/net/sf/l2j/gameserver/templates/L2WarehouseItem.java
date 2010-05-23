@@ -45,9 +45,9 @@ public class L2WarehouseItem
 		{
 			_isAugmented = true;
 			_augmentationId = item.getAugmentation().getAugmentationId();
-		}
-		else
+		} else {
 			_isAugmented = false;
+		}
 	}
 
 	/**

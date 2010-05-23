@@ -55,12 +55,14 @@ public final class Broadcast
 	 */
 	public static void toPlayersTargettingMyself(L2Character character, L2GameServerPacket mov)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:" + mov.getType());
+		}
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (player == null || player.getTarget() != character)
+			if (player == null || player.getTarget() != character) {
 				continue;
+			}
 			player.sendPacket(mov);
 		}
 	}
@@ -77,8 +79,9 @@ public final class Broadcast
 	 */
 	public static void toKnownPlayers(L2Character character, L2GameServerPacket mov)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("players to notify:" + character.getKnownList().getKnownPlayers().size() + " packet:" + mov.getType());
+		}
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
 			try
@@ -87,8 +90,9 @@ public final class Broadcast
 				if (mov instanceof CharInfo && character instanceof L2PcInstance)
 				{
 					int relation = ((L2PcInstance) character).getRelation(player);
-					if (character.getKnownList().getKnownRelations().get(player.getObjectId()) != null && character.getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
+					if (character.getKnownList().getKnownRelations().get(player.getObjectId()) != null && character.getKnownList().getKnownRelations().get(player.getObjectId()) != relation) {
 						player.sendPacket(new RelationChanged((L2PcInstance) character, relation, player.isAutoAttackable(character)));
+					}
 				}
 			}
 			catch (NullPointerException e)
@@ -109,14 +113,17 @@ public final class Broadcast
 	 */
 	public static void toKnownPlayersInRadius(L2Character character, L2GameServerPacket mov, int radius)
 	{
-		if (radius < 0)
+		if (radius < 0) {
 			radius = 1500;
+		}
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (player == null)
+			if (player == null) {
 				continue;
-			if (character.isInsideRadius(player, radius, false, false))
+			}
+			if (character.isInsideRadius(player, radius, false, false)) {
 				player.sendPacket(mov);
+			}
 		}
 	}
 
@@ -141,14 +148,17 @@ public final class Broadcast
 	// calculating sqrt all the time
 	public static void toSelfAndKnownPlayersInRadius(L2Character character, L2GameServerPacket mov, long radiusSq)
 	{
-		if (radiusSq < 0)
+		if (radiusSq < 0) {
 			radiusSq = 360000;
-		if (character instanceof L2PcInstance)
+		}
+		if (character instanceof L2PcInstance) {
 			character.sendPacket(mov);
+		}
 		for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
 		{
-			if (player != null && character.getDistanceSq(player) <= radiusSq)
+			if (player != null && character.getDistanceSq(player) <= radiusSq) {
 				player.sendPacket(mov);
+			}
 		}
 	}
 
@@ -163,12 +173,14 @@ public final class Broadcast
 	 */
 	public static void toAllOnlinePlayers(L2GameServerPacket mov)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("Players to notify: " + L2World.getInstance().getAllPlayersCount() + " (with packet " + mov.getType() + ")");
+		}
 		for (L2PcInstance onlinePlayer : L2World.getInstance().getAllPlayers())
 		{
-			if (onlinePlayer == null)
+			if (onlinePlayer == null) {
 				continue;
+			}
 			onlinePlayer.sendPacket(mov);
 		}
 	}

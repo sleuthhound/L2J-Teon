@@ -114,10 +114,11 @@ public final class L2NpcTemplate extends L2CharTemplate
 		name = set.getString("name");
 		serverSideName = set.getBool("serverSideName");
 		title = set.getString("title");
-		if (title.equalsIgnoreCase("Quest Monster"))
+		if (title.equalsIgnoreCase("Quest Monster")) {
 			isQuestMonster = true;
-		else
+		} else {
 			isQuestMonster = false;
+		}
 		serverSideTitle = set.getBool("serverSideTitle");
 		sex = set.getString("sex");
 		level = set.getByte("level");
@@ -128,10 +129,11 @@ public final class L2NpcTemplate extends L2CharTemplate
 		lhand = set.getInteger("lhand");
 		armor = set.getInteger("armor");
 		String f = set.getString("factionId", null);
-		if (f == null)
+		if (f == null) {
 			factionId = null;
-		else
+		} else {
 			factionId = f.intern();
+		}
 		factionRange = set.getInteger("factionRange");
 		absorbLevel = set.getInteger("absorb_level", 0);
 		absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
@@ -142,35 +144,45 @@ public final class L2NpcTemplate extends L2CharTemplate
 		_npcStatsSet = set;
 		_teachInfo = null;
         String ai = set.getString("AI", "fighter");
-        if (ai.equalsIgnoreCase("archer")) AI = AIType.ARCHER;
-        else if (ai.equalsIgnoreCase("balanced")) AI = AIType.BALANCED;
-        else if (ai.equalsIgnoreCase("mage")) AI = AIType.MAGE;
-		else if (ai.equalsIgnoreCase("healer")) AI = AIType.HEALER;
-        else AI = AIType.FIGHTER;
+        if (ai.equalsIgnoreCase("archer")) {
+			AI = AIType.ARCHER;
+		} else if (ai.equalsIgnoreCase("balanced")) {
+			AI = AIType.BALANCED;
+		} else if (ai.equalsIgnoreCase("mage")) {
+			AI = AIType.MAGE;
+		} else if (ai.equalsIgnoreCase("healer")) {
+			AI = AIType.HEALER;
+		} else {
+			AI = AIType.FIGHTER;
+		}
 	}
 
 	public void addTeachInfo(ClassId classId)
 	{
-		if (_teachInfo == null)
+		if (_teachInfo == null) {
 			_teachInfo = new FastList<ClassId>();
+		}
 		_teachInfo.add(classId);
 	}
 
 	public ClassId[] getTeachInfo()
 	{
-		if (_teachInfo == null)
+		if (_teachInfo == null) {
 			return null;
+		}
 		return _teachInfo.toArray(new ClassId[_teachInfo.size()]);
 	}
 
 	public boolean canTeach(ClassId classId)
 	{
-		if (_teachInfo == null)
+		if (_teachInfo == null) {
 			return false;
+		}
 		// If the player is on a third class, fetch the class teacher
 		// information for its parent class.
-		if (classId.getId() >= 88)
+		if (classId.getId() >= 88) {
 			return _teachInfo.contains(classId.getParent());
+		}
 		return _teachInfo.contains(classId);
 	}
 
@@ -189,7 +201,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 			synchronized (_categories)
 			{
 				boolean catExists = false;
-				for (L2DropCategory cat : _categories)
+				for (L2DropCategory cat : _categories) {
 					// if the category exists, add the drop to this category.
 					if (cat.getCategoryType() == categoryType)
 					{
@@ -197,6 +209,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 						catExists = true;
 						break;
 					}
+				}
 				// if the category doesn't exit, create it and add the drop
 				if (!catExists)
 				{
@@ -215,28 +228,32 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public void addSkill(L2Skill skill)
 	{
-		if (_skills == null)
+		if (_skills == null) {
 			_skills = new FastMap<Integer, L2Skill>();
+		}
 		_skills.put(skill.getId(), skill);
 	}
 
 	public void clearSkills()
 	{
-		if (_skills != null)
+		if (_skills != null) {
 			_skills.clear();
+		}
 	}
 
 	public void addVulnerability(Stats id, double vuln)
 	{
-		if (_vulnerabilities == null)
+		if (_vulnerabilities == null) {
 			_vulnerabilities = new FastMap<Stats, Double>();
+		}
 		_vulnerabilities.put(id, new Double(vuln));
 	}
 
 	public double getVulnerability(Stats id)
 	{
-		if (_vulnerabilities == null || _vulnerabilities.get(id) == null)
+		if (_vulnerabilities == null || _vulnerabilities.get(id) == null) {
 			return 1;
+		}
 		return _vulnerabilities.get(id);
 	}
 
@@ -299,8 +316,9 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public void addQuestEvent(Quest.QuestEventType EventType, Quest q)
 	{
-		if (_questEvents == null)
+		if (_questEvents == null) {
 			_questEvents = new FastMap<Quest.QuestEventType, Quest[]>();
+		}
 		if (_questEvents.get(EventType) == null)
 		{
 			_questEvents.put(EventType, new Quest[] { q });
@@ -315,10 +333,11 @@ public final class L2NpcTemplate extends L2CharTemplate
 			// In all cases, check if this new registration is replacing an older copy of the SAME quest
 			if (!EventType.isMultipleRegistrationAllowed())
 			{
-				if (_quests[0].getName().equals(q.getName()))
+				if (_quests[0].getName().equals(q.getName())) {
 					_quests[0] = q;
-				else
+				} else {
 					_log.warning("Quest event not allowed in multiple quests.  Skipped addition of Event Type \"" + EventType + "\" for NPC \"" + name + "\" and quest \"" + q.getName() + "\".");
+				}
 			}
 			else
 			{
@@ -345,8 +364,9 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public Quest[] getEventQuests(Quest.QuestEventType EventType)
 	{
-		if (_questEvents == null)
+		if (_questEvents == null) {
 			return null;
+		}
 		return _questEvents.get(EventType);
 	}
 
@@ -436,8 +456,9 @@ public final class L2NpcTemplate extends L2CharTemplate
 
 	public L2NpcTemplate.Race getRace()
 	{
-		if (race == null)
+		if (race == null) {
 			race = L2NpcTemplate.Race.UNKNOWN;
+		}
 		return race;
 	}
 

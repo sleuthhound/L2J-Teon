@@ -207,8 +207,12 @@ public final class Util
  	*/
     public static boolean checkIfInShortRadius(int radius, L2Object obj1, L2Object obj2, boolean includeZAxis)
     {
-        if (obj1 == null || obj2 == null) return false;
-        if (radius == -1) return true; // not limited
+        if (obj1 == null || obj2 == null) {
+			return false;
+		}
+        if (radius == -1) {
+			return true; // not limited
+		}
 
         int dx = obj1.getX() - obj2.getX();
         int dy = obj1.getY() - obj2.getY();
@@ -344,18 +348,20 @@ public final class Util
 	public static int calcCameraAngle(int heading)
 	{
 		int angle;
-		if (heading == 0)
+		if (heading == 0) {
 			angle = 360;
-		else
+		} else {
 			angle = (int) (heading / 182.04);
-		if (angle <= 90)
+		}
+		if (angle <= 90) {
 			angle = angle + 90;
-		else if (angle > 90 && angle <= 180)
+		} else if (angle > 90 && angle <= 180) {
 			angle = angle - 90;
-		else if (angle > 180 && angle <= 270)
+		} else if (angle > 180 && angle <= 270) {
 			angle = angle + 90;
-		else if (angle > 270 && angle <= 360)
+		} else if (angle > 270 && angle <= 360) {
 			angle = angle - 90;
+		}
 		return angle;
 	}
 

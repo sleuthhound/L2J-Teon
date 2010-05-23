@@ -57,10 +57,11 @@ public class GameServerTable
 
 	public static void load() throws SQLException, GeneralSecurityException
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new GameServerTable();
-		else
+		} else {
 			throw new IllegalStateException("Load can only be invoked a single time.");
+		}
 	}
 
 	public static GameServerTable getInstance()
@@ -84,8 +85,9 @@ public class GameServerTable
 		RSAKeyGenParameterSpec spec = new RSAKeyGenParameterSpec(512, RSAKeyGenParameterSpec.F4);
 		keyGen.initialize(spec);
 		_keyPairs = new KeyPair[KEYS_SIZE];
-		for (int i = 0; i < KEYS_SIZE; i++)
+		for (int i = 0; i < KEYS_SIZE; i++) {
 			_keyPairs[i] = keyGen.genKeyPair();
+		}
 	}
 
 	private void loadServerNames()
@@ -96,14 +98,16 @@ public class GameServerTable
 			in = new FileInputStream("servername.xml");
 			XMLStreamReaderImpl xpp = new XMLStreamReaderImpl();
 			xpp.setInput(new UTF8StreamReader().setInput(in));
-			for (int e = xpp.getEventType(); e != XMLStreamConstants.END_DOCUMENT; e = xpp.next())
-				if (e == XMLStreamConstants.START_ELEMENT)
+			for (int e = xpp.getEventType(); e != XMLStreamConstants.END_DOCUMENT; e = xpp.next()) {
+				if (e == XMLStreamConstants.START_ELEMENT) {
 					if (xpp.getLocalName().toString().equals("server"))
 					{
 						Integer id = new Integer(xpp.getAttributeValue(null, "id").toString());
 						String name = xpp.getAttributeValue(null, "name").toString();
 						_serverNames.put(id, name);
 					}
+				}
+			}
 		}
 		catch (FileNotFoundException e)
 		{
@@ -165,13 +169,14 @@ public class GameServerTable
 		// avoid two servers registering with the same "free" id
 		synchronized (_gameServerTable)
 		{
-			for (Entry<Integer, String> entry : _serverNames.entrySet())
+			for (Entry<Integer, String> entry : _serverNames.entrySet()) {
 				if (!_gameServerTable.containsKey(entry.getKey()))
 				{
 					_gameServerTable.put(entry.getKey(), gsi);
 					gsi.setId(entry.getKey());
 					return true;
 				}
+			}
 		}
 		return false;
 	}
@@ -255,8 +260,9 @@ public class GameServerTable
 
 	private String hexToString(byte[] hex)
 	{
-		if (hex == null)
+		if (hex == null) {
 			return "null";
+		}
 		return new BigInteger(hex).toString(16);
 	}
 
@@ -341,8 +347,9 @@ public class GameServerTable
 
 		public int getCurrentPlayerCount()
 		{
-			if (_gst == null)
+			if (_gst == null) {
 				return 0;
+			}
 			return _gst.getPlayerCount();
 		}
 

@@ -68,9 +68,9 @@ public class AuthGameGuard extends L2LoginClientPacket
 			_data3 = readD();
 			_data4 = readD();
 			return true;
-		}
-		else
+		} else {
 			return false;
+		}
 	}
 
 	/**
@@ -83,8 +83,8 @@ public class AuthGameGuard extends L2LoginClientPacket
 		{
 			getClient().setState(LoginClientState.AUTHED_GG);
 			getClient().sendPacket(new GGAuth(getClient().getSessionId()));
-		}
-		else
+		} else {
 			getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
+		}
 	}
 }

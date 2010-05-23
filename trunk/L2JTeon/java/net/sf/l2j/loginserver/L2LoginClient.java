@@ -67,8 +67,9 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		_state = LoginClientState.CONNECTED;
 		String ip = getConnection().getInetAddress().getHostAddress();
 		// TODO unhardcode this
-		if (ip.startsWith("192.168") || ip.startsWith("10.0") || ip.equals("127.0.0.1"))
+		if (ip.startsWith("192.168") || ip.startsWith("10.0") || ip.equals("127.0.0.1")) {
 			_usesInternalIP = true;
+		}
 		_scrambledPair = LoginController.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginController.getInstance().getBlowfishKey();
 		_sessionId = Rnd.nextInt();
@@ -237,22 +238,25 @@ public final class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	@Override
 	public void onDisconnection()
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.info("DISCONNECTED: " + toString());
-		if (getState() != LoginClientState.AUTHED_LOGIN)
+		}
+		if (getState() != LoginClientState.AUTHED_LOGIN) {
 			LoginController.getInstance().removeLoginClient(this);
-		else if (!hasJoinedGS())
+		} else if (!hasJoinedGS()) {
 			LoginController.getInstance().removeAuthedLoginClient(getAccount());
+		}
 	}
 
 	@Override
 	public String toString()
 	{
 		InetAddress address = getConnection().getInetAddress();
-		if (getState() == LoginClientState.AUTHED_LOGIN)
+		if (getState() == LoginClientState.AUTHED_LOGIN) {
 			return "[" + getAccount() + " (" + (address == null ? "disconnected" : address.getHostAddress()) + ")]";
-		else
+		} else {
 			return "[" + (address == null ? "disconnected" : address.getHostAddress()) + "]";
+		}
 	}
     @Override
     protected void onForcedDisconnection()
