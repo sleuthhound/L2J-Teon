@@ -48,16 +48,19 @@ public class ArenaManager
 	// Property - Public
 	public void addArena(L2ArenaZone arena)
 	{
-		if (_arenas == null)
+		if (_arenas == null) {
 			_arenas = new FastList<L2ArenaZone>();
+		}
 		_arenas.add(arena);
 	}
 
 	public final L2ArenaZone getArena(L2Character character)
 	{
-		for (L2ArenaZone temp : _arenas)
-			if (temp.isCharacterInZone(character))
+		for (L2ArenaZone temp : _arenas) {
+			if (temp.isCharacterInZone(character)) {
 				return temp;
+			}
+		}
 		return null;
 	}
 }

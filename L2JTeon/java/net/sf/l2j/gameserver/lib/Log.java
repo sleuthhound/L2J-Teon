@@ -45,8 +45,9 @@ public class Log
 			_log.warning("saving chat log failed: " + e);
 			e.printStackTrace();
 		}
-		if (cat != null)
+		if (cat != null) {
 			add(text, null);
+		}
 	}
 
 	@Deprecated
@@ -88,8 +89,9 @@ public class Log
 
 	public static final void Assert(boolean exp, String cmt)
 	{
-		if (exp || !Config.ASSERT)
+		if (exp || !Config.ASSERT) {
 			return;
+		}
 		System.out.println("Assertion error [" + cmt + "]");
 		Thread.dumpStack();
 	}

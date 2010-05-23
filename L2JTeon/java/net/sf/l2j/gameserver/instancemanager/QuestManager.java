@@ -84,8 +84,9 @@ public class QuestManager extends ScriptManager<Quest>
 			// unload all scripts
 			for (Quest quest : _quests.values())
 			{
-				if (quest != null)
+				if (quest != null) {
 					quest.unload();
+				}
 			}
 			// now load all scripts
 			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
@@ -122,8 +123,9 @@ public class QuestManager extends ScriptManager<Quest>
 	{
 		for (Quest q : _quests.values())
 		{
-			if (q.getQuestIntId() == questId)
+			if (q.getQuestIntId() == questId) {
 				return q;
+			}
 		}
 		return null;
 	}

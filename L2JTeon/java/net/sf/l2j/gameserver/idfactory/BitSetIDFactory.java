@@ -102,9 +102,9 @@ public class BitSetIDFactory extends IdFactory
 		{
 			_freeIds.clear(objectID - FIRST_OID);
 			_freeIdCount.incrementAndGet();
-		}
-		else
+		} else {
 			_log.warning("BitSet ID Factory: release objectID " + objectID + " failed (< " + FIRST_OID + ")");
+		}
 	}
 
 	@Override

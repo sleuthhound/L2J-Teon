@@ -136,8 +136,9 @@ public class Blow implements ISkillHandler
 						{
 							int tDmg = (int) damage * (int) player.getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) / 100;
 							// Only transfer dmg up to current HP, it should not be killed
-							if (summon.getCurrentHp() < tDmg)
+							if (summon.getCurrentHp() < tDmg) {
 								tDmg = (int) summon.getCurrentHp() - 1;
+							}
 							if (tDmg > 0)
 							{
 								summon.reduceCurrentHp(tDmg, activeChar);

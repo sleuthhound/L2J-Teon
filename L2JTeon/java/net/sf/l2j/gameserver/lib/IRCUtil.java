@@ -160,16 +160,19 @@ public class IRCUtil implements IRCConstants
 					if ('0' <= c && c <= '9')
 					{ // first int
 						c = buf.charAt(++j);
-						if ('0' <= c && c <= '9')
+						if ('0' <= c && c <= '9') {
 							c = buf.charAt(++j); // second int
+						}
 					}
-					if (c == ',')
+					if (c == ',') {
 						c = buf.charAt(++j); // comma
+					}
 					if ('0' <= c && c <= '9')
 					{ // first int
 						c = buf.charAt(++j);
-						if ('0' <= c && c <= '9')
+						if ('0' <= c && c <= '9') {
 							c = buf.charAt(++j); // second int
+						}
 					}
 					// ACTION / BOLD / UNDERLINE / COLOR END
 					// (format: <actionIndicator> / <boldIndicator> etc.)
@@ -224,10 +227,12 @@ public class IRCUtil implements IRCConstants
 			}
 			index++;
 		}
-		if (last != len)
+		if (last != len) {
 			items.add(str.substring(last));
-		if (trailing != null && trailing.length() != 0)
+		}
+		if (trailing != null && trailing.length() != 0) {
 			items.add(trailing);
+		}
 		String[] result = new String[items.size()];
 		items.copyInto(result);
 		return result;

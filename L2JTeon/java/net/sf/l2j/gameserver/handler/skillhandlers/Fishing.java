@@ -43,8 +43,9 @@ public class Fishing implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
 			return;
+		}
 		L2PcInstance player = (L2PcInstance) activeChar;
 		/*
 		 * If fishing is disabled, there isn't much point in doing anything else, unless you are GM. so this got moved up here, before anything else.
@@ -89,10 +90,11 @@ public class Fishing implements ISkillHandler
 		}
 		if (player.isFishing())
 		{
-			if (player.GetFishCombat() != null)
+			if (player.GetFishCombat() != null) {
 				player.GetFishCombat().doDie(false);
-			else
+			} else {
 				player.EndFishing(false);
+			}
 			// Cancels fishing
 			player.sendPacket(new SystemMessage(SystemMessageId.FISHING_ATTEMPT_CANCELLED));
 			return;
@@ -101,8 +103,9 @@ public class Fishing implements ISkillHandler
 		{
 			// You can't fish while you are on boat
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_ON_BOAT));
-			if (!player.isGM())
+			if (!player.isGM()) {
 				return;
+			}
 		}
 		/*
 		 * Of course since you can define fishing water volumes of any height, the function needs to be changed to cope with that. Still, this is assuming that fishing zones water surfaces, are always above "sea level".
@@ -111,14 +114,16 @@ public class Fishing implements ISkillHandler
 		{
 			// You can't fish in water
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_UNDER_WATER));
-			if (!player.isGM())
+			if (!player.isGM()) {
 				return;
+			}
 		}
 		if (player.isInCraftMode() || player.isInStoreMode())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_WHILE_USING_RECIPE_BOOK));
-			if (!player.isGM())
+			if (!player.isGM()) {
 				return;
+			}
 		}
 		L2Weapon weaponItem = player.getActiveWeaponItem();
 		if (weaponItem == null || weaponItem.getItemType() != L2WeaponType.ROD)

@@ -51,25 +51,30 @@ public class OlympiadStadiaManager
 	// Property - Public
 	public void addStadium(L2OlympiadStadiumZone arena)
 	{
-		if (_olympiadStadias == null)
+		if (_olympiadStadias == null) {
 			_olympiadStadias = new FastList<L2OlympiadStadiumZone>();
+		}
 		_olympiadStadias.add(arena);
 	}
 
 	public final L2OlympiadStadiumZone getStadium(L2Character character)
 	{
-		for (L2OlympiadStadiumZone temp : _olympiadStadias)
-			if (temp.isCharacterInZone(character))
+		for (L2OlympiadStadiumZone temp : _olympiadStadias) {
+			if (temp.isCharacterInZone(character)) {
 				return temp;
+			}
+		}
 		return null;
 	}
 
 	@Deprecated
 	public final L2OlympiadStadiumZone getOlympiadStadiumById(int olympiadStadiumId)
 	{
-		for (L2OlympiadStadiumZone temp : _olympiadStadias)
-			if (temp.getStadiumId() == olympiadStadiumId)
+		for (L2OlympiadStadiumZone temp : _olympiadStadias) {
+			if (temp.getStadiumId() == olympiadStadiumId) {
 				return temp;
+			}
+		}
 		return null;
 	}
 }

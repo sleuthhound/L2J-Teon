@@ -148,8 +148,9 @@ public class GrandBossManager
 		}
 		for (L2BossZone zone : _zones)
 		{
-			if (zone == null)
+			if (zone == null) {
 				continue;
+			}
 			zones.put(zone.getId(), new L2FastList<Integer>());
 		}
 		try
@@ -188,8 +189,9 @@ public class GrandBossManager
 		}
 		for (L2BossZone zone : _zones)
 		{
-			if (zone == null)
+			if (zone == null) {
 				continue;
+			}
 			zone.setAllowedPlayers(zones.get(zone.getId()));
 		}
 		zones.clear();
@@ -209,8 +211,9 @@ public class GrandBossManager
 		{
 			for (L2BossZone temp : _zones)
 			{
-				if (temp.isCharacterInZone(character))
+				if (temp.isCharacterInZone(character)) {
 					return temp;
+				}
 			}
 		}
 		return null;
@@ -222,8 +225,9 @@ public class GrandBossManager
 		{
 			for (L2BossZone temp : _zones)
 			{
-				if (temp.isInsideZone(x, y, z))
+				if (temp.isInsideZone(x, y, z)) {
 					return temp;
+				}
 			}
 		}
 		return null;
@@ -232,18 +236,21 @@ public class GrandBossManager
 	public boolean checkIfInZone(String zoneType, L2Object obj)
 	{
 		L2BossZone temp = getZone(obj.getX(), obj.getY(), obj.getZ());
-		if (temp == null)
+		if (temp == null) {
 			return false;
+		}
 		return temp.getZoneName().equalsIgnoreCase(zoneType);
 	}
 
 	public boolean checkIfInZone(L2PcInstance player)
 	{
-		if (player == null)
+		if (player == null) {
 			return false;
+		}
 		L2BossZone temp = getZone(player.getX(), player.getY(), player.getZ());
-		if (temp == null)
+		if (temp == null) {
 			return false;
+		}
 		return true;
 	}
 
@@ -253,10 +260,11 @@ public class GrandBossManager
 	public int getBossStatus(int bossId)
 	{
 		// return _bossStatus.get(bossId);
-		if (_bossStatus.get(bossId) == null)
+		if (_bossStatus.get(bossId) == null) {
 			return 0;
-		else
+		} else {
 			return _bossStatus.get(bossId);
+		}
 	}
 
 	public void setBossStatus(int bossId, int status)
@@ -272,8 +280,9 @@ public class GrandBossManager
 	{
 		if (boss != null)
 		{
-			if (_bosses.containsKey(boss.getNpcId()))
+			if (_bosses.containsKey(boss.getNpcId())) {
 				_bosses.remove(boss.getNpcId());
+			}
 			_bosses.put(boss.getNpcId(), boss);
 		}
 	}
@@ -290,8 +299,9 @@ public class GrandBossManager
 
 	public void setStatsSet(int bossId, StatsSet info)
 	{
-		if (_storedInfo.containsKey(bossId))
+		if (_storedInfo.containsKey(bossId)) {
 			_storedInfo.remove(bossId);
+		}
 		_storedInfo.put(bossId, info);
 		storeToDb();
 	}
@@ -308,12 +318,14 @@ public class GrandBossManager
 			statement.close();
 			for (L2BossZone zone : _zones)
 			{
-				if (zone == null)
+				if (zone == null) {
 					continue;
+				}
 				Integer id = zone.getId();
 				L2FastList<Integer> list = zone.getAllowedPlayers();
-				if (list == null || list.isEmpty())
+				if (list == null || list.isEmpty()) {
 					continue;
+				}
 				for (Integer player : list)
 				{
 					statement = con.prepareStatement(INSERT_GRAND_BOSS_LIST);
@@ -394,9 +406,10 @@ public class GrandBossManager
 	public long getInterval(int bossId)
 	{
 		long interval = this.getStatsSet(bossId).getLong("respawn_time") - Calendar.getInstance().getTimeInMillis();
-		if (interval < 0)
+		if (interval < 0) {
 			return 0;
-		else
+		} else {
 			return interval;
+		}
 	}
 }

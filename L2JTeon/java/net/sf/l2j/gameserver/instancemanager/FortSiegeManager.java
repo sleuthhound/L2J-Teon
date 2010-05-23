@@ -103,19 +103,21 @@ public class FortSiegeManager
 	 */
 	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance))
+		if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
 			return false;
+		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
 		Fort fort = FortManager.getInstance().getFort(player);
-		if (fort == null || fort.getFortId() <= 0)
+		if (fort == null || fort.getFortId() <= 0) {
 			sm.addString("You must be on fort ground to summon this");
-		else if (!fort.getSiege().getIsInProgress())
+		} else if (!fort.getSiege().getIsInProgress()) {
 			sm.addString("You can only summon this during a siege.");
-		else if (player.getClanId() != 0 && fort.getSiege().getAttackerClan(player.getClanId()) == null)
+		} else if (player.getClanId() != 0 && fort.getSiege().getAttackerClan(player.getClanId()) == null) {
 			sm.addString("You can only summon this as a registered attacker.");
-		else
+		} else {
 			return true;
+		}
 		if (!isCheckOnly)
 		{
 			player.sendPacket(sm);
@@ -132,10 +134,12 @@ public class FortSiegeManager
 	 */
 	public final boolean checkIsRegistered(L2Clan clan, int fortid)
 	{
-		if (clan == null)
+		if (clan == null) {
 			return false;
-		if (clan.getHasFort() > 0)
+		}
+		if (clan.getHasFort() > 0) {
 			return true;
+		}
 		java.sql.Connection con = null;
 		boolean register = false;
 		try
@@ -205,8 +209,9 @@ public class FortSiegeManager
 				for (int i = 1; i < 0xFF; i++)
 				{
 					String _spawnParams = siegeSettings.getProperty(fort.getName() + "ControlTower" + Integer.toString(i), "");
-					if (_spawnParams.length() == 0)
+					if (_spawnParams.length() == 0) {
 						break;
+					}
 					StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
 					try
 					{
@@ -226,8 +231,9 @@ public class FortSiegeManager
 				for (int i = 1; i < 0xFF; i++)
 				{
 					String _spawnParams = siegeSettings.getProperty(fort.getName() + "Artefact" + Integer.toString(i), "");
-					if (_spawnParams.length() == 0)
+					if (_spawnParams.length() == 0) {
 						break;
+					}
 					StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
 					try
 					{
@@ -259,18 +265,20 @@ public class FortSiegeManager
 	// Property - Public
 	public final FastList<SiegeSpawn> getArtefactSpawnList(int _fortId)
 	{
-		if (_artefactSpawnList.containsKey(_fortId))
+		if (_artefactSpawnList.containsKey(_fortId)) {
 			return _artefactSpawnList.get(_fortId);
-		else
+		} else {
 			return null;
+		}
 	}
 
 	public final FastList<SiegeSpawn> getControlTowerSpawnList(int _fortId)
 	{
-		if (_controlTowerSpawnList.containsKey(_fortId))
+		if (_controlTowerSpawnList.containsKey(_fortId)) {
 			return _controlTowerSpawnList.get(_fortId);
-		else
+		} else {
 			return null;
+		}
 	}
 
 	public final int getAttackerMaxClans()
@@ -310,9 +318,11 @@ public class FortSiegeManager
 
 	public final FortSiege getSiege(int x, int y, int z)
 	{
-		for (Fort fort : FortManager.getInstance().getForts())
-			if (fort.getSiege().checkIfInZone(x, y, z))
+		for (Fort fort : FortManager.getInstance().getForts()) {
+			if (fort.getSiege().checkIfInZone(x, y, z)) {
 				return fort.getSiege();
+			}
+		}
 		return null;
 	}
 
@@ -328,22 +338,25 @@ public class FortSiegeManager
 
 	public final List<FortSiege> getSieges()
 	{
-		if (_sieges == null)
+		if (_sieges == null) {
 			_sieges = new FastList<FortSiege>();
+		}
 		return _sieges;
 	}
 
 	public final void addSiege(FortSiege fortSiege)
 	{
-		if (_sieges == null)
+		if (_sieges == null) {
 			_sieges = new FastList<FortSiege>();
+		}
 		_sieges.add(fortSiege);
 	}
 
 	public final void removeSiege(FortSiege fortSiege)
 	{
-		if (_sieges == null)
+		if (_sieges == null) {
 			_sieges = new FastList<FortSiege>();
+		}
 		_sieges.remove(fortSiege);
 	}
 

@@ -108,8 +108,9 @@ public class StackIDFactory extends IdFactory
 		}
 		// int hole = id - _curOID;
 		int hole = id - _tempOID;
-		if (hole > N - idx)
+		if (hole > N - idx) {
 			hole = N - idx;
+		}
 		for (int i = 1; i <= hole; i++)
 		{
 			// System.out.println("Free ID added " + (_tempOID));
@@ -117,8 +118,9 @@ public class StackIDFactory extends IdFactory
 			_tempOID++;
 			// _curOID++;
 		}
-		if (hole < N - idx)
+		if (hole < N - idx) {
 			_tempOID++;
+		}
 		return N - hole;
 	}
 
@@ -131,9 +133,9 @@ public class StackIDFactory extends IdFactory
 	public synchronized int getNextId()
 	{
 		int id;
-		if (!_freeOIDStack.empty())
+		if (!_freeOIDStack.empty()) {
 			id = _freeOIDStack.pop();
-		else
+		} else
 		{
 			id = _curOID;
 			_curOID = _curOID + 1;

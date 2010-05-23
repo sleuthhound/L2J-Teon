@@ -63,8 +63,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 
 	public static final BanditStrongholdSiege getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new BanditStrongholdSiege();
+		}
 		return _instance;
 	}
 
@@ -98,8 +99,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
 			{
 				L2Clan clan = null;
-				for (clanPlayersInfo a : _clansInfo.values())
+				for (clanPlayersInfo a : _clansInfo.values()) {
 					clan = ClanTable.getInstance().getClanByName(a._clanName);
+				}
 				setIsInProgress(true);
 				/* ((L2ClanhallZone)zone).updateSiegeStatus(); */
 				startSecondStep(clan);
@@ -150,9 +152,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 			{
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), winner);
 				anonce("Attention! Clan hall, castle was conquered by the clan of robbers " + winner.getName(), 2);
-			}
-			else
+			} else {
 				anonce("Attention! Clan hall, Fortress robbers did not get a new owner", 2);
+			}
 		}
 		setIsInProgress(false);
 		/* ((L2ClanhallZone)zone).updateSiegeStatus(); */
@@ -171,10 +173,12 @@ public class BanditStrongholdSiege extends ClanHallSiege
 			L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
 			L2MonsterInstance mob = getQuestMob(clan);
 			L2SiegeFlagInstance flag = getSiegeFlag(clan);
-			if (mob != null)
+			if (mob != null) {
 				mob.deleteMe();
-			if (flag != null)
+			}
+			if (flag != null) {
 				flag.deleteMe();
+			}
 		}
 	}
 
@@ -198,13 +202,15 @@ public class BanditStrongholdSiege extends ClanHallSiege
 
 	public void teleportPlayers()
 	{
-		for (L2Character cha : zone.getCharactersInside().values())
+		for (L2Character cha : zone.getCharactersInside().values()) {
 			if (cha instanceof L2PcInstance)
 			{
 				L2Clan clan = ((L2PcInstance) cha).getClan();
-				if (!isPlayerRegister(clan, cha.getName()))
+				if (!isPlayerRegister(clan, cha.getName())) {
 					cha.teleToLocation(88404, -21821, -2276);
+				}
 			}
+		}
 	}
 
 	public L2Clan checkHaveWinner()
@@ -220,8 +226,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 				questMobCount++;
 			}
 		}
-		if (questMobCount > 1)
+		if (questMobCount > 1) {
 			return null;
+		}
 		return res;
 	}
 
@@ -238,9 +245,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 					ClanHallManager.getInstance().setOwner(clanhall.getId(), winner);
 					anonce("Attention! Clan hall, castle was conquered by the clan of robbers " + winner.getName(), 2);
 					endSiege(false);
-				}
-				else
+				} else {
 					startSecondStep(winner);
+				}
 			}
 			else
 			{
@@ -267,16 +274,17 @@ public class BanditStrongholdSiege extends ClanHallSiege
 				L2MonsterInstance questMob = new L2MonsterInstance(IdFactory.getInstance().getNextId(), template);
 				questMob.setHeading(100);
 				questMob.getStatus().setCurrentHpMp(questMob.getMaxHp(), questMob.getMaxMp());
-				if (mobCounter == 1)
+				if (mobCounter == 1) {
 					questMob.spawnMe(83752, -17354, -1828);
-				else if (mobCounter == 2)
+				} else if (mobCounter == 2) {
 					questMob.spawnMe(82018, -15126, -1829);
-				else if (mobCounter == 3)
+				} else if (mobCounter == 3) {
 					questMob.spawnMe(85320, -16191, -1823);
-				else if (mobCounter == 4)
+				} else if (mobCounter == 4) {
 					questMob.spawnMe(81522, -16503, -1829);
-				else if (mobCounter == 5)
+				} else if (mobCounter == 5) {
 					questMob.spawnMe(83786, -15369, -1828);
+				}
 				clanPlayersInfo regPlayers = _clansInfo.get(clan.getClanId());
 				regPlayers._mob = questMob;
 				mobCounter++;
@@ -306,19 +314,23 @@ public class BanditStrongholdSiege extends ClanHallSiege
 
 	public boolean isPlayerRegister(L2Clan playerClan, String playerName)
 	{
-		if (playerClan == null)
+		if (playerClan == null) {
 			return false;
+		}
 		clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
-		if (regPlayers != null)
-			if (regPlayers._players.contains(playerName))
+		if (regPlayers != null) {
+			if (regPlayers._players.contains(playerName)) {
 				return true;
+			}
+		}
 		return false;
 	}
 
 	public boolean isClanOnSiege(L2Clan playerClan)
 	{
-		if (playerClan == clanhall.getOwnerClan())
+		if (playerClan == clanhall.getOwnerClan()) {
 			return true;
+		}
 		clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
 		if (regPlayers == null)
 		{
@@ -329,8 +341,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 
 	public synchronized int registerClanOnSiege(L2PcInstance player, L2Clan playerClan)
 	{
-		if (_clanCounter == 5)
+		if (_clanCounter == 5) {
 			return 2;
+		}
 		L2ItemInstance item = player.getInventory().getItemByItemId(5009);
 		if (item != null && player.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false))
 		{
@@ -342,9 +355,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 				regPlayers._clanName = playerClan.getName();
 				_clansInfo.put(playerClan.getClanId(), regPlayers);
 			}
-		}
-		else
+		} else {
 			return 1;
+		}
 		return 0;
 	}
 
@@ -370,66 +383,80 @@ public class BanditStrongholdSiege extends ClanHallSiege
 
 	public FastList<String> getRegisteredPlayers(L2Clan playerClan)
 	{
-		if (playerClan == clanhall.getOwnerClan())
+		if (playerClan == clanhall.getOwnerClan()) {
 			return _ownerClanInfo._players;
+		}
 		clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
-		if (regPlayers != null)
+		if (regPlayers != null) {
 			return regPlayers._players;
+		}
 		return null;
 	}
 
 	public L2SiegeFlagInstance getSiegeFlag(L2Clan playerClan)
 	{
 		clanPlayersInfo clanInfo = _clansInfo.get(playerClan.getClanId());
-		if (clanInfo != null)
+		if (clanInfo != null) {
 			return clanInfo._flag;
+		}
 		return null;
 	}
 
 	public L2MonsterInstance getQuestMob(L2Clan clan)
 	{
 		clanPlayersInfo clanInfo = _clansInfo.get(clan.getClanId());
-		if (clanInfo != null)
+		if (clanInfo != null) {
 			return clanInfo._mob;
+		}
 		return null;
 	}
 
 	public int getPlayersCount(String playerClan)
 	{
-		for (clanPlayersInfo a : _clansInfo.values())
-			if (a._clanName == playerClan)
+		for (clanPlayersInfo a : _clansInfo.values()) {
+			if (a._clanName == playerClan) {
 				return a._players.size();
+			}
+		}
 		return 0;
 	}
 
 	public void addPlayer(L2Clan playerClan, String playerName)
 	{
-		if (playerClan == clanhall.getOwnerClan())
-			if (_ownerClanInfo._players.size() < 18)
+		if (playerClan == clanhall.getOwnerClan()) {
+			if (_ownerClanInfo._players.size() < 18) {
 				if (!_ownerClanInfo._players.contains(playerName))
 				{
 					_ownerClanInfo._players.add(playerName);
 					return;
 				}
+			}
+		}
 		clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
-		if (regPlayers != null)
-			if (regPlayers._players.size() < 18)
-				if (!regPlayers._players.contains(playerName))
+		if (regPlayers != null) {
+			if (regPlayers._players.size() < 18) {
+				if (!regPlayers._players.contains(playerName)) {
 					regPlayers._players.add(playerName);
+				}
+			}
+		}
 	}
 
 	public void removePlayer(L2Clan playerClan, String playerName)
 	{
-		if (playerClan == clanhall.getOwnerClan())
+		if (playerClan == clanhall.getOwnerClan()) {
 			if (_ownerClanInfo._players.contains(playerName))
 			{
 				_ownerClanInfo._players.remove(playerName);
 				return;
 			}
+		}
 		clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
-		if (regPlayers != null)
-			if (regPlayers._players.contains(playerName))
+		if (regPlayers != null) {
+			if (regPlayers._players.contains(playerName)) {
 				regPlayers._players.remove(playerName);
+			}
+		}
 	}
 
 	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
@@ -452,10 +479,11 @@ public class BanditStrongholdSiege extends ClanHallSiege
 			{
 				if (!isRegistrationPeriod())
 				{
-					if (clanhall.getOwnerClan() != null)
+					if (clanhall.getOwnerClan() != null) {
 						_ownerClanInfo._clanName = clanhall.getOwnerClan().getName();
-					else
+					} else {
 						_ownerClanInfo._clanName = "";
+					}
 					setRegistrationPeriod(true);
 					anonce("Attention! The period of registration at the siege clan hall, castle robbers.", 2);
 					remaining = siegeTimeRemaining;
@@ -482,8 +510,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 				for (String playerName : getRegisteredPlayers(clan))
 				{
 					L2PcInstance cha = L2World.getInstance().getPlayer(playerName);
-					if (cha != null)
+					if (cha != null) {
 						cha.sendPacket(cs);
+					}
 				}
 			}
 		}
@@ -529,16 +558,17 @@ public class BanditStrongholdSiege extends ClanHallSiege
 		protected void onElapsed()
 		{
 			int mobCount = 0;
-			for (clanPlayersInfo cl : _clansInfo.values())
+			for (clanPlayersInfo cl : _clansInfo.values()) {
 				if (cl._mob.isDead())
 				{
 					L2Clan clan = ClanTable.getInstance().getClanByName(cl._clanName);
 					unRegisterClan(clan);
-				}
-				else
+				} else {
 					mobCount++;
+				}
+			}
 			teleportPlayers();
-			if (mobCount < 2)
+			if (mobCount < 2) {
 				if (_finalStage)
 				{
 					_siegeEndDate = Calendar.getInstance();
@@ -550,8 +580,9 @@ public class BanditStrongholdSiege extends ClanHallSiege
 					_midTimer.cancel(false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new midSiegeStep(), 5000);
 				}
-			else
+			} else {
 				schedule(3000);
+			}
 		}
 	};
 

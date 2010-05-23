@@ -50,8 +50,9 @@ public class FishingZoneManager
 	// Property - Public
 	public void addFishingZone(L2FishingZone fishingZone)
 	{
-		if (_fishingZones == null)
+		if (_fishingZones == null) {
 			_fishingZones = new FastList<L2FishingZone>();
+		}
 		_fishingZones.add(fishingZone);
 	}
 
@@ -61,9 +62,11 @@ public class FishingZoneManager
 	 */
 	public final L2FishingZone isInsideFishingZone(int x, int y, int z)
 	{
-		for (L2FishingZone temp : _fishingZones)
-			if (temp.isInsideZone(x, y, temp.getWaterZ() - 10))
+		for (L2FishingZone temp : _fishingZones) {
+			if (temp.isInsideZone(x, y, temp.getWaterZ() - 10)) {
 				return temp;
+			}
+		}
 		return null;
 	}
 }

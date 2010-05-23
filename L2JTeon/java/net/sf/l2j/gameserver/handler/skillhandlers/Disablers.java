@@ -181,7 +181,7 @@ public class Disablers implements ISkillHandler
 					}
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
+						if (activeChar instanceof L2PcInstance) {
 							if (!skill.isAugmentationSkill())
 							{
 								SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -189,6 +189,7 @@ public class Disablers implements ISkillHandler
 								sm.addSkillName(skill.getDisplayId());
 								activeChar.sendPacket(sm);
 							}
+						}
 					}
 					break;
 				}
@@ -205,7 +206,7 @@ public class Disablers implements ISkillHandler
 					}
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
+						if (activeChar instanceof L2PcInstance) {
 							if (!skill.isAugmentationSkill())
 							{
 								SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -213,6 +214,7 @@ public class Disablers implements ISkillHandler
 								sm.addSkillName(skill.getDisplayId());
 								activeChar.sendPacket(sm);
 							}
+						}
 					}
 					break;
 				}
@@ -242,7 +244,7 @@ public class Disablers implements ISkillHandler
 						}
 						else
 						{
-							if (activeChar instanceof L2PcInstance)
+							if (activeChar instanceof L2PcInstance) {
 								if (!skill.isAugmentationSkill())
 								{
 									SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -250,11 +252,12 @@ public class Disablers implements ISkillHandler
 									sm.addSkillName(skill.getDisplayId());
 									activeChar.sendPacket(sm);
 								}
+							}
 						}
 					}
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
+						if (activeChar instanceof L2PcInstance) {
 							if (!skill.isAugmentationSkill())
 							{
 								SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -262,6 +265,7 @@ public class Disablers implements ISkillHandler
 								sm.addSkillName(skill.getDisplayId());
 								activeChar.sendPacket(sm);
 							}
+						}
 					}
 					break;
 				}
@@ -327,7 +331,7 @@ public class Disablers implements ISkillHandler
 					}
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
+						if (activeChar instanceof L2PcInstance) {
 							if (!skill.isAugmentationSkill())
 							{
 								SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -335,6 +339,7 @@ public class Disablers implements ISkillHandler
 								sm.addSkillName(skill.getId());
 								activeChar.sendPacket(sm);
 							}
+						}
 					}
 					break;
 				}
@@ -359,7 +364,7 @@ public class Disablers implements ISkillHandler
 						}
 						else
 						{
-							if (activeChar instanceof L2PcInstance)
+							if (activeChar instanceof L2PcInstance) {
 								if (!skill.isAugmentationSkill())
 								{
 									SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -367,6 +372,7 @@ public class Disablers implements ISkillHandler
 									sm.addSkillName(skill.getId());
 									activeChar.sendPacket(sm);
 								}
+							}
 						}
 					}
 					break;
@@ -397,7 +403,7 @@ public class Disablers implements ISkillHandler
 					}
 					else
 					{
-						if (activeChar instanceof L2PcInstance)
+						if (activeChar instanceof L2PcInstance) {
 							if (!skill.isAugmentationSkill())
 							{
 								SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -405,13 +411,15 @@ public class Disablers implements ISkillHandler
 								sm.addSkillName(skill.getId());
 								activeChar.sendPacket(sm);
 							}
+						}
 					}
 					break;
 				}
                 case MAGE_BANE:
             	{
-            		if(target.reflectSkill(skill))
-            			target = activeChar;
+            		if(target.reflectSkill(skill)) {
+						target = activeChar;
+					}
 
             		if (! Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
             		{
@@ -441,8 +449,9 @@ public class Disablers implements ISkillHandler
             	}
                 case WARRIOR_BANE:
             	{
-            		if(target.reflectSkill(skill))
-            			target = activeChar;
+            		if(target.reflectSkill(skill)) {
+						target = activeChar;
+					}
 
             		if (! Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
             		{
@@ -550,7 +559,7 @@ public class Disablers implements ISkillHandler
 						}
 						else
 						{
-							if (activeChar instanceof L2PcInstance)
+							if (activeChar instanceof L2PcInstance) {
 								if (!skill.isAugmentationSkill())
 								{
 									SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -558,6 +567,7 @@ public class Disablers implements ISkillHandler
 									sm.addSkillName(skill.getDisplayId());
 									activeChar.sendPacket(sm);
 								}
+							}
 						}
 						break;
 					}

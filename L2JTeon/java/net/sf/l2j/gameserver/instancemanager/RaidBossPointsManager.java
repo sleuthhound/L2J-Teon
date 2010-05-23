@@ -94,8 +94,9 @@ public class RaidBossPointsManager
 
 	public final static void loadPoints(L2PcInstance player)
 	{
-		if (_points == null)
+		if (_points == null) {
 			_points = new FastMap<Integer, Map<Integer, Integer>>();
+		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -170,8 +171,9 @@ public class RaidBossPointsManager
 	{
 		int ownerId = player.getObjectId();
 		Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
-		if (_points == null)
+		if (_points == null) {
 			_points = new FastMap<Integer, Map<Integer, Integer>>();
+		}
 		tmpPoint = _points.get(ownerId);
 		if (tmpPoint == null || tmpPoint.isEmpty())
 		{
@@ -195,12 +197,14 @@ public class RaidBossPointsManager
 	public final static int getPointsByOwnerId(int ownerId)
 	{
 		Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
-		if (_points == null)
+		if (_points == null) {
 			_points = new FastMap<Integer, Map<Integer, Integer>>();
+		}
 		tmpPoint = _points.get(ownerId);
 		int totalPoints = 0;
-		if (tmpPoint == null || tmpPoint.isEmpty())
+		if (tmpPoint == null || tmpPoint.isEmpty()) {
 			return 0;
+		}
 		for (int bossId : tmpPoint.keySet())
 		{
 			totalPoints += tmpPoint.get(bossId);
@@ -269,14 +273,16 @@ public class RaidBossPointsManager
 		for (Map.Entry<Integer, Integer> entry : list)
 		{
 			Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
-			if (tmpPoints.get(entry.getKey()) != null)
+			if (tmpPoints.get(entry.getKey()) != null) {
 				tmpPoint = tmpPoints.get(entry.getKey());
+			}
 			tmpPoint.put(-1, ranking++);
 			tmpPoints.put(entry.getKey(), tmpPoint);
 		}
 		Map<Integer, Integer> rank = tmpPoints.get(player.getObjectId());
-		if (rank != null)
+		if (rank != null) {
 			return rank.get(-1);
+		}
 		return 0;
 	}
 }

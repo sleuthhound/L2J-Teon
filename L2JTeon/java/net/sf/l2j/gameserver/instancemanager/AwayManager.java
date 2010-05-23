@@ -116,18 +116,21 @@ public final class AwayManager
 
 		public void run()
 		{
-			if (_activeChar == null)
+			if (_activeChar == null) {
 				return;
-			if (_activeChar.isAttackingNow() || _activeChar.isCastingNow())
+			}
+			if (_activeChar.isAttackingNow() || _activeChar.isCastingNow()) {
 				return;
+			}
 			_awayPlayers.put(_activeChar, new RestoreData(_activeChar));
 			_activeChar.disableAllSkills();
 			_activeChar.abortAttack();
 			_activeChar.abortCast();
 			_activeChar.setTarget(null);
 			_activeChar.setIsImmobilized(false);
-			if (!_activeChar.isSitting())
+			if (!_activeChar.isSitting()) {
 				_activeChar.sitDown();
+			}
 			if (_awayText.length() <= 1)
 			{
 				_activeChar.sendMessage("You are now *Away*");
@@ -162,16 +165,19 @@ public final class AwayManager
 
 		public void run()
 		{
-			if (_activeChar == null)
+			if (_activeChar == null) {
 				return;
+			}
 			RestoreData rd = _awayPlayers.get(_activeChar);
-			if (rd == null)
+			if (rd == null) {
 				return;
+			}
 			_activeChar.setIsParalyzed(false);
 			_activeChar.enableAllSkills();
 			_activeChar.setIsAway(false);
-			if (rd.isSitForced())
+			if (rd.isSitForced()) {
 				_activeChar.standUp();
+			}
 			rd.restore(_activeChar);
 			_awayPlayers.remove(_activeChar);
 			_activeChar.broadcastUserInfo();

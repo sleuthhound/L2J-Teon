@@ -32,8 +32,9 @@ public class PartyInfo implements IUserCommandHandler
 	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (id != COMMAND_IDS[0])
+		if (id != COMMAND_IDS[0]) {
 			return false;
+		}
 		if (!activeChar.isInParty())
 		{
 			SystemMessage sm = SystemMessage.sendString("You are not in a party.");

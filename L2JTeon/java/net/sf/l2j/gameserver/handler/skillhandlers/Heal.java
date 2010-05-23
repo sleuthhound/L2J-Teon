@@ -56,8 +56,9 @@ public class Heal implements ISkillHandler
 		try
 		{
 			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
-			if (handler != null)
+			if (handler != null) {
 				handler.useSkill(activeChar, skill, targets);
+			}
 		}
 		catch (Exception e)
 		{
@@ -65,23 +66,27 @@ public class Heal implements ISkillHandler
 		L2Character target = null;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2PcInstance player = null;
-		if (activeChar instanceof L2PcInstance)
+		if (activeChar instanceof L2PcInstance) {
 			player = (L2PcInstance) activeChar;
+		}
 		for (L2Object target2 : targets) {
 			target = (L2Character) target2;
 			// We should not heal if char is dead
-			if (target == null || target.isDead())
+			if (target == null || target.isDead()) {
 				continue;
+			}
 			// We should not heal walls and door
-			if (target instanceof L2DoorInstance)
+			if (target instanceof L2DoorInstance) {
 				continue;
+			}
 			// Player holding a cursed weapon can't be healed and can't heal
 			if (target != activeChar)
 			{
-				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquiped())
+				if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquiped()) {
 					continue;
-				else if (player != null && player.isCursedWeaponEquiped())
+				} else if (player != null && player.isCursedWeaponEquiped()) {
 					continue;
+				}
 			}
 			double hp = skill.getPower();
 			if (skill.getSkillType() == SkillType.HEAL_PERCENT)
@@ -121,15 +126,18 @@ public class Heal implements ISkillHandler
 				}
                 else if (activeChar instanceof L2NpcInstance)
                 {
-                    if(((L2NpcInstance)activeChar).isUsingShot(false)) hp *= 1.5;
+                    if(((L2NpcInstance)activeChar).isUsingShot(false)) {
+						hp *= 1.5;
+					}
                 }
 			}
 			// int cLev = activeChar.getLevel();
 			// hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
-			if (skill.getSkillType() == SkillType.HEAL_STATIC)
+			if (skill.getSkillType() == SkillType.HEAL_STATIC) {
 				hp = skill.getPower();
-			else if (skill.getSkillType() != SkillType.HEAL_PERCENT)
+			} else if (skill.getSkillType() != SkillType.HEAL_PERCENT) {
 				hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
+			}
 			target.setCurrentHp(hp + target.getCurrentHp());
 			target.setLastHealAmount((int) hp);
 			StatusUpdate su = new StatusUpdate(target.getObjectId());

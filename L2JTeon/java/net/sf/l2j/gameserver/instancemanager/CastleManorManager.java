@@ -221,10 +221,11 @@ public class CastleManorManager
 					int startProduce = rs.getInt("start_produce");
 					int price = rs.getInt("seed_price");
 					int period = rs.getInt("period");
-					if (period == PERIOD_CURRENT)
+					if (period == PERIOD_CURRENT) {
 						production.add(new SeedProduction(seedId, canProduce, price, startProduce));
-					else
+					} else {
 						productionNext.add(new SeedProduction(seedId, canProduce, price, startProduce));
+					}
 				}
 				statement.close();
 				rs.close();
@@ -242,17 +243,19 @@ public class CastleManorManager
 					int rewardType = rs.getInt("reward_type");
 					int price = rs.getInt("price");
 					int period = rs.getInt("period");
-					if (period == PERIOD_CURRENT)
+					if (period == PERIOD_CURRENT) {
 						procure.add(new CropProcure(cropId, canBuy, rewardType, startBuy, price));
-					else
+					} else {
 						procureNext.add(new CropProcure(cropId, canBuy, rewardType, startBuy, price));
+					}
 				}
 				statement.close();
 				rs.close();
 				castle.setCropProcure(procure, PERIOD_CURRENT);
 				castle.setCropProcure(procureNext, PERIOD_NEXT);
-				if (!procure.isEmpty() || !procureNext.isEmpty() || !production.isEmpty() || !productionNext.isEmpty())
+				if (!procure.isEmpty() || !procureNext.isEmpty() || !production.isEmpty() || !productionNext.isEmpty()) {
 					_log.info(castle.getName() + ": Data loaded");
+				}
 			}
 		}
 		catch (Exception e)
@@ -336,8 +339,9 @@ public class CastleManorManager
 
 	public long getMillisToManorRefresh()
 	{
-		if (_manorRefresh.getTimeInMillis() > Calendar.getInstance().getTimeInMillis())
+		if (_manorRefresh.getTimeInMillis() > Calendar.getInstance().getTimeInMillis()) {
 			return _manorRefresh.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+		}
 		return setNewManorRefresh();
 	}
 
@@ -353,8 +357,9 @@ public class CastleManorManager
 
 	public long getMillisToNextPeriodApprove()
 	{
-		if (_periodApprove.getTimeInMillis() > Calendar.getInstance().getTimeInMillis())
+		if (_periodApprove.getTimeInMillis() > Calendar.getInstance().getTimeInMillis()) {
 			return _periodApprove.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+		}
 		return setNewPeriodApprove();
 	}
 
@@ -372,11 +377,13 @@ public class CastleManorManager
 	{
 		for (Castle c : CastleManager.getInstance().getCastles())
 		{
-			if (c.getOwnerId() <= 0)
+			if (c.getOwnerId() <= 0) {
 				continue;
+			}
 			L2Clan clan = ClanTable.getInstance().getClan(c.getOwnerId());
-			if (clan == null)
+			if (clan == null) {
 				continue;
+			}
 			ItemContainer cwh = clan.getWarehouse();
 			if (!(cwh instanceof ClanWarehouse))
 			{
@@ -385,8 +392,9 @@ public class CastleManorManager
 			}
 			for (CropProcure crop : c.getCropProcure(PERIOD_CURRENT))
 			{
-				if (crop.getStartAmount() == 0)
+				if (crop.getStartAmount() == 0) {
 					continue;
+				}
 				// adding bought crops to clan warehouse
 				if (crop.getStartAmount() - crop.getAmount() > 0)
 				{
@@ -394,8 +402,9 @@ public class CastleManorManager
 					count = count * 90 / 100;
 					if (count < 1)
 					{
-						if (Rnd.nextInt(99) < 90)
+						if (Rnd.nextInt(99) < 90) {
 							count = 1;
+						}
 					}
 					if (count > 0)
 					{
@@ -439,10 +448,12 @@ public class CastleManorManager
 			}
 			// Sending notification to a clan leader
 			L2PcInstance clanLeader = null;
-			if (clan != null)
+			if (clan != null) {
 				clanLeader = L2World.getInstance().getPlayer(clan.getLeader().getName());
-			if (clanLeader != null)
+			}
+			if (clanLeader != null) {
 				clanLeader.sendPacket(new SystemMessage(SystemMessageId.THE_MANOR_INFORMATION_HAS_BEEN_UPDATED));
+			}
 			c.setNextPeriodApproved(false);
 		}
 	}
@@ -476,8 +487,9 @@ public class CastleManorManager
 				{
 					if (crop.getStartAmount() > 0)
 					{
-						if (cwh.getItemByItemId(L2Manor.getInstance().getMatureCrop(crop.getId())) == null)
+						if (cwh.getItemByItemId(L2Manor.getInstance().getMatureCrop(crop.getId())) == null) {
 							slots++;
+						}
 					}
 				}
 				if (!cwh.validateCapacity(slots))
@@ -493,10 +505,12 @@ public class CastleManorManager
 			{
 				L2Clan clan = ClanTable.getInstance().getClan(c.getOwnerId());
 				L2PcInstance clanLeader = null;
-				if (clan != null)
+				if (clan != null) {
 					clanLeader = L2World.getInstance().getPlayer(clan.getLeader().getName());
-				if (clanLeader != null)
+				}
+				if (clanLeader != null) {
 					clanLeader.sendPacket(new SystemMessage(SystemMessageId.THE_AMOUNT_IS_NOT_SUFFICIENT_AND_SO_THE_MANOR_IS_NOT_IN_OPERATION));
+				}
 			}
 		}
 	}

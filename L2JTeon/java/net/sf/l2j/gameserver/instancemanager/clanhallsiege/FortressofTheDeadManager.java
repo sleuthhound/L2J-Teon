@@ -56,8 +56,9 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	public static final FortressofTheDeadManager getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new FortressofTheDeadManager();
+		}
 		return _instance;
 	}
 
@@ -98,16 +99,18 @@ public class FortressofTheDeadManager extends ClanHallSiege
 			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
 			{
 				L2Clan clan = null;
-				for (clansInfo a : _clansInfo.values())
+				for (clansInfo a : _clansInfo.values()) {
 					clan = ClanTable.getInstance().getClanByName(a._clanName);
+				}
 				setIsInProgress(true);
 				_siegeEndDate = Calendar.getInstance();
 				_siegeEndDate.add(Calendar.MINUTE, 60);
 				_endSiegeTask.schedule(1000);
 				return;
 			}
-			if (!_clansDamageInfo.isEmpty())
+			if (!_clansDamageInfo.isEmpty()) {
 				_clansDamageInfo.clear();
+			}
 			setIsInProgress(true);
 			ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(64);
 			if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
@@ -177,19 +180,23 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	public boolean isClanRegister(L2Clan Clan, String clanName)
 	{
-		if (Clan == null)
+		if (Clan == null) {
 			return false;
+		}
 		clansInfo regClans = _clansInfo.get(Clan.getClanId());
-		if (regClans != null)
-			if (regClans._clans.contains(clanName))
+		if (regClans != null) {
+			if (regClans._clans.contains(clanName)) {
 				return true;
+			}
+		}
 		return false;
 	}
 
 	public boolean isClanOnSiege(L2Clan Clan)
 	{
-		if (Clan == clanhall.getOwnerClan())
+		if (Clan == clanhall.getOwnerClan()) {
 			return true;
+		}
 		clansInfo regClans = _clansInfo.get(Clan.getClanId());
 		if (regClans == null)
 		{
@@ -200,13 +207,15 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	public synchronized int registerClanOnSiege(L2PcInstance player, L2Clan Clan)
 	{
-		if (_clanCounter == 5)
+		if (_clanCounter == 5) {
 			return 2;
+		}
 		{
 			_clanCounter++;
 			clansInfo regClans = _clansInfo.get(Clan.getClanId());
-			if (regClans == null)
+			if (regClans == null) {
 				regClans = new clansInfo();
+			}
 			regClans._clanName = Clan.getName();
 			_clansInfo.put(Clan.getClanId(), regClans);
 		}
@@ -281,9 +290,9 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		{
 			clan = ClanTable.getInstance().getClanByName(clanName);
 			DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
-			if (clanDamage != null)
+			if (clanDamage != null) {
 				clanDamage._damage += damage;
-			else
+			} else
 			{
 				clanDamage = new DamageInfo();
 				clanDamage._clan = clan;
@@ -295,9 +304,11 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	public int getClansCount(String Clan)
 	{
-		for (clansInfo a : _clansInfo.values())
-			if (a._clanName == Clan)
+		for (clansInfo a : _clansInfo.values()) {
+			if (a._clanName == Clan) {
 				return a._clans.size();
+			}
+		}
 		return 0;
 	}
 }
