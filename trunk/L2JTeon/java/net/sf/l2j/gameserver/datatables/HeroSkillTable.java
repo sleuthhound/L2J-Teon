@@ -36,8 +36,9 @@ public class HeroSkillTable
 
 	public static HeroSkillTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new HeroSkillTable();
+		}
 		return _instance;
 	}
 
@@ -51,8 +52,9 @@ public class HeroSkillTable
 		Integer[] _HeroSkillsId = new Integer[] { 395, 396, 1374, 1375, 1376 };
 		for (int id : _HeroSkillsId)
 		{
-			if (id == skillid)
+			if (id == skillid) {
 				return true;
+			}
 		}
 		return false;
 	}

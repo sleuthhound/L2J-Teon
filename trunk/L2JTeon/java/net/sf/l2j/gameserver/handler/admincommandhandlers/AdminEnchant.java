@@ -146,9 +146,9 @@ public class AdminEnchant implements IAdminCommandHandler
 							Util.handleIllegalPlayerAction(player,"The player "+player.getName()+" has been edited. BAN!", Config.DEFAULT_PUNISH);
 							activeChar.sendMessage("You tried to overenchant somebody. You will both be banned.");
 							Util.handleIllegalPlayerAction(activeChar,"The GM "+activeChar.getName()+" has overenchanted the player "+player.getName()+". BAN!", Config.DEFAULT_PUNISH);;
-						}
-						else
+						} else {
 							setEnchant(activeChar, ench, armorType);
+						}
 					}
 				}
 				catch (StringIndexOutOfBoundsException e)

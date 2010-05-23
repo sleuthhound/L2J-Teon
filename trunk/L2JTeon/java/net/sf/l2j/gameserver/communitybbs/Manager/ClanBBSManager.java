@@ -126,10 +126,11 @@ public class ClanBBSManager extends BaseBBSManager
 				if (activeChar.isClanLeader())
 				{
 					StringUtil.append(html, "<br><br><center>" + "<table width=610 border=0 cellspacing=0 cellpadding=0>" + "<tr><td fixwidth=610><font color=\"AAAAAA\">The Clan Notice function allows the clan leader to send messages through a pop-up window to clan members at login.</font> </td></tr>" + "<tr><td height=20></td></tr>");
-					if (activeChar.getClan().isNoticeEnabled())
+					if (activeChar.getClan().isNoticeEnabled()) {
 						StringUtil.append(html, "<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;on&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_disable\">off</a>");
-					else
+					} else {
 						StringUtil.append(html, "<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_enable\">on</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;off");
+					}
 					StringUtil.append(html, "</td></tr>" + "</table>" + "<img src=\"L2UI.Squaregray\" width=\"610\" height=\"1\">" + "<br> <br>" + "<table width=610 border=0 cellspacing=2 cellpadding=0>" + "<tr><td>Edit Notice: </td></tr>" + "<tr><td height=5></td></tr>" + "<tr><td>" + "<MultiEdit var =\"Content\" width=610 height=100>" + "</td></tr>" + "</table>" + "<br>"
 							+ "<table width=610 border=0 cellspacing=0 cellpadding=0>" + "<tr><td height=5></td></tr>" + "<tr>" + "<td align=center FIXWIDTH=65><button value=\"&$140;\" action=\"Write Notice Set _ Content Content Content\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>" + "<td align=center FIXWIDTH=45></td>"
 							+ "<td align=center FIXWIDTH=500></td>" + "</tr>" + "</table>" + "</center>" + "</body>" + "</html>");

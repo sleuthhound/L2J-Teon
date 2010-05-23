@@ -49,10 +49,12 @@ public class Seed implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return;
-		if (CastleManorManager.getInstance().isDisabled())
+		}
+		if (CastleManorManager.getInstance().isDisabled()) {
 			return;
+		}
 		_activeChar = (L2PcInstance) playable;
 		L2Object target = _activeChar.getTarget();
 		if (!(target instanceof L2NpcInstance))

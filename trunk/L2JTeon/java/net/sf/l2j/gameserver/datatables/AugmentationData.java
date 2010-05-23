@@ -107,8 +107,9 @@ public class AugmentationData
 
 		public L2Skill getSkill(int level)
 		{
-			if (level > _maxSkillLevel)
+			if (level > _maxSkillLevel) {
 				return SkillTable.getInstance().getInfo(_skillId, _maxSkillLevel);
+			}
 			return SkillTable.getInstance().getInfo(_skillId, level);
 		}
 
@@ -146,12 +147,16 @@ public class AugmentationData
 
 		public float getSingleStatValue(int i)
 		{
-			if (i >= _singleSize || i < 0) return _singleValues[_singleSize-1];
+			if (i >= _singleSize || i < 0) {
+				return _singleValues[_singleSize-1];
+			}
 			return _singleValues[i];
 		}
 		public float getCombinedStatValue(int i)
 		{
-			if (i >= _combinedSize || i < 0) return _combinedValues[_combinedSize-1];
+			if (i >= _combinedSize || i < 0) {
+				return _combinedValues[_combinedSize-1];
+			}
 			return _combinedValues[i];
 		}
 
@@ -175,8 +180,9 @@ public class AugmentationData
 			File file = new File(Config.DATAPACK_ROOT+"/data/stats/augmentation/augmentation_skillmap.xml");
 			if (!file.exists())
 			{
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					System.out.println("The augmentation skillmap file is missing.");
+				}
 				return;
 			}
 
@@ -203,12 +209,13 @@ public class AugmentationData
 
 							}
 
-						    if (augmentationId < PURPLE_START)
-                               _blueSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
-                            else if (augmentationId < RED_START)
-                               _purpleSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
-                            else
-                               _redSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId)); 						}
+						    if (augmentationId < PURPLE_START) {
+								_blueSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
+							} else if (augmentationId < RED_START) {
+								_purpleSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
+							} else {
+								_redSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
+							} 						}
 					}
 				}
 			}
@@ -232,8 +239,9 @@ public class AugmentationData
 				File file = new File(Config.DATAPACK_ROOT+"/data/stats/augmentation/augmentation_stats"+i+".xml");
 				if (!file.exists())
 				{
-					if (Config.DEBUG)
+					if (Config.DEBUG) {
 						System.out.println("The augmentation stat data file "+i+" is missing.");
+					}
 					return;
 				}
 
@@ -260,22 +268,25 @@ public class AugmentationData
 
 										StringTokenizer data = new StringTokenizer(cd.getFirstChild().getNodeValue());
 										List<Float> array = new FastList<Float>();
-										while (data.hasMoreTokens())
+										while (data.hasMoreTokens()) {
 											array.add(Float.parseFloat(data.nextToken()));
+										}
 
 										if (tableName.equalsIgnoreCase("#soloValues"))
 										{
 											soloValues = new float[array.size()];
 											int x=0;
-											for (float value : array)
+											for (float value : array) {
 												soloValues[x++] = value;
+											}
 										}
 										else
 										{
 											combinedValues = new float[array.size()];
 											int x=0;
-											for (float value : array)
+											for (float value : array) {
 												combinedValues[x++] = value;
+											}
 										}
 									}
 								}
@@ -306,47 +317,54 @@ public class AugmentationData
         {
  case 0:
     skill_Chance = Config.AUGMENTATION_NG_SKILL_CHANCE;
-    if (Rnd.get(1,100) <= Config.AUGMENTATION_NG_GLOW_CHANCE)
-       generateGlow = true;
+    if (Rnd.get(1,100) <= Config.AUGMENTATION_NG_GLOW_CHANCE) {
+		generateGlow = true;
+	}
     break;
  case 1:
     skill_Chance = Config.AUGMENTATION_MID_SKILL_CHANCE;
-    if (Rnd.get(1,100) <= Config.AUGMENTATION_MID_GLOW_CHANCE)
-       generateGlow = true;
+    if (Rnd.get(1,100) <= Config.AUGMENTATION_MID_GLOW_CHANCE) {
+		generateGlow = true;
+	}
     break;
  case 2:
     skill_Chance = Config.AUGMENTATION_HIGH_SKILL_CHANCE;
-    if (Rnd.get(1,100) <= Config.AUGMENTATION_HIGH_GLOW_CHANCE)
-       generateGlow = true;
+    if (Rnd.get(1,100) <= Config.AUGMENTATION_HIGH_GLOW_CHANCE) {
+		generateGlow = true;
+	}
     break;
  case 3:
     skill_Chance = Config.AUGMENTATION_TOP_SKILL_CHANCE;
-    if (Rnd.get(1,100) <= Config.AUGMENTATION_TOP_GLOW_CHANCE)
-       generateGlow = true;
+    if (Rnd.get(1,100) <= Config.AUGMENTATION_TOP_GLOW_CHANCE) {
+		generateGlow = true;
+	}
 }
 
-if (Rnd.get(1, 100) <= skill_Chance)
-   generateSkill = true;
-else if (Rnd.get(1, 100) <= Config.AUGMENTATION_BASESTAT_CHANCE)
-   stat34 = Rnd.get(BASESTAT_STR, BASESTAT_MEN);
+if (Rnd.get(1, 100) <= skill_Chance) {
+	generateSkill = true;
+} else if (Rnd.get(1, 100) <= Config.AUGMENTATION_BASESTAT_CHANCE) {
+	stat34 = Rnd.get(BASESTAT_STR, BASESTAT_MEN);
+}
 
 if (stat34 == 0 && !generateSkill)
 {
         resultColor = Rnd.get(0, 100);
-        if (resultColor <= 15 * lifeStoneGrade + 40)
-                resultColor = 1;
-         else
-                 resultColor = 0;
+        if (resultColor <= 15 * lifeStoneGrade + 40) {
+			resultColor = 1;
+		} else {
+			resultColor = 0;
+		}
 }
 else
 {
          resultColor = Rnd.get(0, 100);
-         if (resultColor <= 10 * lifeStoneGrade + 5 || stat34 != 0)
-                 resultColor = 3;
-         else if (resultColor <= 10 * lifeStoneGrade + 10)
-                 resultColor = 1;
-         else
-                 resultColor = 2;
+         if (resultColor <= 10 * lifeStoneGrade + 5 || stat34 != 0) {
+			resultColor = 3;
+		} else if (resultColor <= 10 * lifeStoneGrade + 10) {
+			resultColor = 1;
+		} else {
+			resultColor = 2;
+		}
 }
 
         int stat12 = 0;
@@ -358,19 +376,21 @@ else
             int offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + colorOffset;
 
             stat34 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
-             if (generateGlow && lifeStoneGrade >= 2)
-                     offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + (temp - 2) * STAT_BLOCKSIZE + lifeStoneGrade * 10 * STAT_SUBBLOCKSIZE + 1;
-             else
-                     offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + (temp - 2) * STAT_BLOCKSIZE + Rnd.get(0, 1) * 10 * STAT_SUBBLOCKSIZE + 1;
+             if (generateGlow && lifeStoneGrade >= 2) {
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + (temp - 2) * STAT_BLOCKSIZE + lifeStoneGrade * 10 * STAT_SUBBLOCKSIZE + 1;
+			} else {
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + (temp - 2) * STAT_BLOCKSIZE + Rnd.get(0, 1) * 10 * STAT_SUBBLOCKSIZE + 1;
+			}
              stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
     }
     else
     {
              int offset;
-             if (!generateGlow)
-                     offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + Rnd.get(0, 1) * STAT_BLOCKSIZE + 1;
-             else
-                     offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + Rnd.get(0, 1) * STAT_BLOCKSIZE + (lifeStoneGrade + resultColor) / 2 * 10 * STAT_SUBBLOCKSIZE+ 1;
+             if (!generateGlow) {
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + Rnd.get(0, 1) * STAT_BLOCKSIZE + 1;
+			} else {
+				offset = (lifeStoneLevel - 1) * STAT_SUBBLOCKSIZE + Rnd.get(0, 1) * STAT_BLOCKSIZE + (lifeStoneGrade + resultColor) / 2 * 10 * STAT_SUBBLOCKSIZE+ 1;
+			}
              stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
     }
 
@@ -394,8 +414,9 @@ else
                     break;
 			}
 		}
-        if (Config.DEBUG)
-            _log.info("Augmentation success: stat12=" + stat12 + "; stat34=" + stat34 + "; resultColor=" + resultColor + "; level=" + lifeStoneLevel + "; grade=" + lifeStoneGrade);
+        if (Config.DEBUG) {
+			_log.info("Augmentation success: stat12=" + stat12 + "; stat34=" + stat34 + "; resultColor=" + resultColor + "; level=" + lifeStoneLevel + "; grade=" + lifeStoneGrade);
+		}
 		return new L2Augmentation(item, ((stat34<<16)+stat12), skill, true);
 	}
 
@@ -456,17 +477,19 @@ else
 					}
 
 					augmentationStat as = (augmentationStat)_augmentationStats[block].get(rescales);
-					if (rescales == 0)
+					if (rescales == 0) {
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock)));
-					else
+					} else {
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock*2+1)));
+					}
 
 
 					as = (augmentationStat)_augmentationStats[block].get(rescales+stats[i]);
-					if (as.getStat() == Stats.CRITICAL_DAMAGE)
+					if (as.getStat() == Stats.CRITICAL_DAMAGE) {
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock)));
-					else
+					} else {
 						temp.add(new AugStat(as.getStat(), as.getCombinedStatValue(subblock*2)));
+					}
 				}
 			}
 

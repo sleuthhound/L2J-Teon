@@ -44,8 +44,9 @@ public class SoulCrystals implements IItemHandler
 	// Our main method, where everything goes on
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return;
+		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2Object target = activeChar.getTarget();
 		if (!(target instanceof L2MonsterInstance))
@@ -90,8 +91,9 @@ public class SoulCrystals implements IItemHandler
 
 		public void run()
 		{
-			if (_activeChar.isDead() || _target.isDead())
+			if (_activeChar.isDead() || _target.isDead()) {
 				return;
+			}
 			_activeChar.enableAllSkills();
 			try
 			{

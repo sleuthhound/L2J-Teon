@@ -69,8 +69,9 @@ public class BuffTemplateTable
 				while (rset.next())
 				{
 					StatsSet Buff = new StatsSet();
-					if (templateId != rset.getInt("id"))
+					if (templateId != rset.getInt("id")) {
 						_buffTemplates++;
+					}
 					templateId = rset.getInt("id");
 					Buff.set("id", templateId);
 					Buff.set("name", rset.getString("name"));
@@ -90,9 +91,9 @@ public class BuffTemplateTable
 					if (template.getSkill() == null)
 					{
 						_log.warn("Error while loading buff template Id " + template.getId() + " skill Id " + template.getSkillId());
-					}
-					else
+					} else {
 						_buffs.add(template);
+					}
 				}
 				_log.info("BuffTemplateTable: Loaded " + _buffTemplates + " Buff Templates.");
 				rset.close();

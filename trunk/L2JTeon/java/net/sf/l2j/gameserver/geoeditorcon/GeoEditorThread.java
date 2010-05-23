@@ -67,22 +67,26 @@ public class GeoEditorThread extends Thread
 			int timer = 0;
 			while (_working)
 			{
-				if (!isConnected())
+				if (!isConnected()) {
 					_working = false;
+				}
 				if (_mode == 2 && timer > _sendDelay)
 				{
-					for (L2PcInstance gm : _gms)
-						if (!gm.getClient().getConnection().isClosed())
+					for (L2PcInstance gm : _gms) {
+						if (!gm.getClient().getConnection().isClosed()) {
 							sendGmPosition(gm);
-						else
+						} else {
 							_gms.remove(gm);
+						}
+					}
 					timer = 0;
 				}
 				try
 				{
 					sleep(100);
-					if (_mode == 2)
+					if (_mode == 2) {
 						timer += 100;
+					}
 				}
 				catch (Exception e)
 				{
@@ -112,8 +116,9 @@ public class GeoEditorThread extends Thread
 
 	public void sendGmPosition(int gx, int gy, short z)
 	{
-		if (!isConnected())
+		if (!isConnected()) {
 			return;
+		}
 		try
 		{
 			synchronized (_out)
@@ -152,8 +157,9 @@ public class GeoEditorThread extends Thread
 
 	public void sendPing()
 	{
-		if (!isConnected())
+		if (!isConnected()) {
 			return;
+		}
 		try
 		{
 			synchronized (_out)
@@ -209,30 +215,34 @@ public class GeoEditorThread extends Thread
 
 	public void setTimer(int value)
 	{
-		if (value < 500)
+		if (value < 500) {
 			_sendDelay = 500; // maximum - 2 times per second!
-		else if (value > 60000)
+		} else if (value > 60000) {
 			_sendDelay = 60000; // Minimum - 1 time per minute.
-		else
+		} else {
 			_sendDelay = value;
+		}
 	}
 
 	public void addGM(L2PcInstance gm)
 	{
-		if (!_gms.contains(gm))
+		if (!_gms.contains(gm)) {
 			_gms.add(gm);
+		}
 	}
 
 	public void removeGM(L2PcInstance gm)
 	{
-		if (_gms.contains(gm))
+		if (_gms.contains(gm)) {
 			_gms.remove(gm);
+		}
 	}
 
 	public boolean isSend(L2PcInstance gm)
 	{
-		if (_mode == 1 && _gms.contains(gm))
+		if (_mode == 1 && _gms.contains(gm)) {
 			return true;
+		}
 		return false;
 	}
 

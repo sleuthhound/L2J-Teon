@@ -35,8 +35,9 @@ public class ExtractableItemsData
 
 	public static ExtractableItemsData getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new ExtractableItemsData();
+		}
 		return _instance;
 	}
 
@@ -58,10 +59,11 @@ public class ExtractableItemsData
 		{
 			lineCount++;
 			String line = s.nextLine();
-			if (line.startsWith("#"))
+			if (line.startsWith("#")) {
 				continue;
-			else if (line.equals(""))
+			} else if (line.equals("")) {
 				continue;
+			}
 			String[] lineSplit = line.split(";");
 			boolean ok = true;
 			int itemID = 0;
@@ -75,8 +77,9 @@ public class ExtractableItemsData
 				System.out.println("		" + line);
 				ok = false;
 			}
-			if (!ok)
+			if (!ok) {
 				continue;
+			}
 			FastList<L2ExtractableProductItem> product_temp = new FastList<L2ExtractableProductItem>();
 			for (int i = 0; i < lineSplit.length - 1; i++)
 			{
@@ -88,8 +91,9 @@ public class ExtractableItemsData
 					System.out.println("		" + line);
 					ok = false;
 				}
-				if (!ok)
+				if (!ok) {
 					continue;
+				}
 				int production = 0, amount = 0, chance = 0;
 				try
 				{
@@ -103,14 +107,16 @@ public class ExtractableItemsData
 					System.out.println("		" + line);
 					ok = false;
 				}
-				if (!ok)
+				if (!ok) {
 					continue;
+				}
 				L2ExtractableProductItem product = new L2ExtractableProductItem(production, amount, chance);
 				product_temp.add(product);
 			}
 			int fullChances = 0;
-			for (L2ExtractableProductItem Pi : product_temp)
+			for (L2ExtractableProductItem Pi : product_temp) {
 				fullChances += Pi.getChance();
+			}
 			if (fullChances > 100)
 			{
 				System.out.println("Extractable items data: Error in line " + lineCount + " -> all chances together are more then 100!");

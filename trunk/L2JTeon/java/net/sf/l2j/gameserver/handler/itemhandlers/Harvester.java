@@ -37,10 +37,12 @@ public class Harvester implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance _item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return;
-		if (CastleManorManager.getInstance().isDisabled())
+		}
+		if (CastleManorManager.getInstance().isDisabled()) {
 			return;
+		}
 		_activeChar = (L2PcInstance) playable;
 		if (_activeChar.getTarget() == null || !(_activeChar.getTarget() instanceof L2MonsterInstance))
 		{

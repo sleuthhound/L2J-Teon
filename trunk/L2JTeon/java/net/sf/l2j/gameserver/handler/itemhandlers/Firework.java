@@ -35,8 +35,9 @@ public class Firework implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return; // prevent Class cast exception
+		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
 		if (activeChar.isInOlympiadMode())

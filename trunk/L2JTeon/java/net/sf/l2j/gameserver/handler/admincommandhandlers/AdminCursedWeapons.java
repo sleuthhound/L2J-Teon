@@ -40,9 +40,11 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!checkLevel(activeChar.getAccessLevel()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!checkLevel(activeChar.getAccessLevel())) {
 				return false;
+			}
+		}
 		CursedWeaponsManager cwm = CursedWeaponsManager.getInstance();
 		int id = 0;
 		StringTokenizer st = new StringTokenizer(command);
@@ -125,9 +127,9 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 			try
 			{
 				String parameter = st.nextToken();
-				if (parameter.matches("[0-9]*"))
+				if (parameter.matches("[0-9]*")) {
 					id = Integer.parseInt(parameter);
-				else
+				} else
 				{
 					parameter = parameter.replace('_', ' ');
 					for (CursedWeapon cwp : cwm.getCursedWeapons())
@@ -165,15 +167,16 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 					activeChar.sendMessage("Usage: //cw_add <itemid|name>");
 					return false;
 				}
-				else if (cw.isActive())
+				else if (cw.isActive()) {
 					activeChar.sendMessage("This cursed weapon is already active.");
-				else
+				} else
 				{
 					L2Object target = activeChar.getTarget();
-					if (target != null && target instanceof L2PcInstance)
+					if (target != null && target instanceof L2PcInstance) {
 						((L2PcInstance) target).addItem("AdminCursedWeaponAdd", id, 1, target, true);
-					else
+					} else {
 						activeChar.addItem("AdminCursedWeaponAdd", id, 1, activeChar, true);
+					}
 				}
 			}
 			else

@@ -155,8 +155,9 @@ public class CharTemplateTable
 		int currId = 1;
 		for (String name : CHAR_CLASSES)
 		{
-			if (name.equalsIgnoreCase(className))
+			if (name.equalsIgnoreCase(className)) {
 				break;
+			}
 			currId++;
 		}
 		return currId;

@@ -52,8 +52,9 @@ public class PetNameTable
 			String cond = "";
 			for (int it : L2PetDataTable.getPetItemsAsNpc(petNpcId))
 			{
-				if (cond != "")
+				if (cond != "") {
 					cond += ", ";
+				}
 				cond += it;
 			}
 			statement.setString(2, cond);
@@ -82,8 +83,9 @@ public class PetNameTable
 	public boolean isValidPetName(String name)
 	{
 		boolean result = true;
-		if (!isAlphaNumeric(name))
+		if (!isAlphaNumeric(name)) {
 			return result;
+		}
 		Pattern pattern;
 		try
 		{

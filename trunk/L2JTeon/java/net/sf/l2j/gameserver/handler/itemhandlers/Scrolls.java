@@ -120,14 +120,15 @@ public class Scrolls implements IItemHandler
 			// (S
 			// Grade)
 			{
-				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
+				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
 					return;
+				}
 				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2168, activeChar.getExpertiseIndex() + 1, 1, 0));
 				useScroll(activeChar, 2168, activeChar.getExpertiseIndex() + 1);
 				activeChar.setCharmOfLuck(true);
-			}
-			else
+			} else {
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE));
+			}
 			return;
 		}
 		else if (itemId >= 8515 && itemId <= 8520) // Charm of Courage XML:

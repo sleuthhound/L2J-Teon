@@ -50,9 +50,9 @@ public class PcColorTable
 				if (time == 0 || regTime + time > System.currentTimeMillis())
 				{
 					_pcColors.put(charName, new PcColorContainer(color, regTime, time));
-				}
-				else
+				} else {
 					deleteNames.add(charName);
+				}
 			}
 			ps.close();
 			rs.close();
@@ -89,8 +89,9 @@ public class PcColorTable
 	 */
 	public static PcColorTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new PcColorTable();
+		}
 		return _instance;
 	}
 
@@ -102,13 +103,15 @@ public class PcColorTable
 	public synchronized void process(L2PcInstance activeChar)
 	{
 		PcColorContainer colorContainer = _pcColors.get(activeChar.getName());
-		if (colorContainer == null)
+		if (colorContainer == null) {
 			return;
+		}
 		long time = colorContainer.getTime();
-		if (time == 0 || colorContainer.getRegTime() + time > System.currentTimeMillis())
+		if (time == 0 || colorContainer.getRegTime() + time > System.currentTimeMillis()) {
 			activeChar.getAppearance().setNameColor(colorContainer.getColor());
-		else
+		} else {
 			delete(activeChar.getName());
+		}
 	}
 
 	/**
@@ -125,8 +128,9 @@ public class PcColorTable
 		PcColorContainer colorContainer = _pcColors.get(charName);
 		if (colorContainer != null)
 		{
-			if (!delete(charName))
+			if (!delete(charName)) {
 				return;
+			}
 		}
 		java.sql.Connection con = null;
 		try
@@ -169,8 +173,9 @@ public class PcColorTable
 	public synchronized boolean delete(String charName)
 	{
 		PcColorContainer colorContainer = _pcColors.get(charName);
-		if (colorContainer == null)
+		if (colorContainer == null) {
 			return false;
+		}
 		colorContainer = null;
 		java.sql.Connection con = null;
 		try

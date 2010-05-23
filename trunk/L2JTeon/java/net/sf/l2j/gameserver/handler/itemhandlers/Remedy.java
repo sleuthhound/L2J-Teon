@@ -37,12 +37,13 @@ public class Remedy implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar;
-		if (playable instanceof L2PcInstance)
+		if (playable instanceof L2PcInstance) {
 			activeChar = (L2PcInstance) playable;
-		else if (playable instanceof L2PetInstance)
+		} else if (playable instanceof L2PetInstance) {
 			activeChar = ((L2PetInstance) playable).getOwner();
-		else
+		} else {
 			return;
+		}
 		if (activeChar.isInOlympiadMode())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
@@ -118,12 +119,14 @@ public class Remedy implements IItemHandler
 			L2Effect[] effects = activeChar.getAllEffects();
 			for (L2Effect e : effects)
 			{
-				if (e.getSkill().getId() == 4082)
+				if (e.getSkill().getId() == 4082) {
 					e.exit();
+				}
 			}
 			activeChar.setIsImmobilized(false);
-			if (activeChar.getFirstEffect(L2Effect.EffectType.ROOT) == null)
+			if (activeChar.getFirstEffect(L2Effect.EffectType.ROOT) == null) {
 				activeChar.stopRooting(null);
+			}
 			MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2042, 1, 0, 0);
 			activeChar.sendPacket(MSU);
 			activeChar.broadcastPacket(MSU);

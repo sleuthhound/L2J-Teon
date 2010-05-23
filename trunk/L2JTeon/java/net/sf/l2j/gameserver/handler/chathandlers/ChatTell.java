@@ -40,8 +40,9 @@ public class ChatTell implements IChatHandler
 	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
 	{
 		// Return if no target is set
-		if (target == null)
+		if (target == null) {
 			return;
+		}
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 		L2PcInstance receiver = null;
 		receiver = L2World.getInstance().getPlayer(target);

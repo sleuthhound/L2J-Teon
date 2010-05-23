@@ -37,9 +37,11 @@ public class AdminPForge implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 				return false;
+			}
+		}
 		if (command.equals("admin_forge"))
 		{
 			showMainPage(activeChar);
@@ -170,12 +172,14 @@ public class AdminPForge implements IAdminCommandHandler
 		adminReply.setFile("data/html/admin/pforge2.htm");
 		adminReply.replace("%format%", format);
 		TextBuilder replyMSG = new TextBuilder();
-		for (int i = 0; i < format.length(); i++)
+		for (int i = 0; i < format.length(); i++) {
 			replyMSG.append(format.charAt(i) + " : <edit var=\"v" + i + "\" width=100><br1>");
+		}
 		adminReply.replace("%valueditors%", replyMSG.toString());
 		replyMSG.clear();
-		for (int i = 0; i < format.length(); i++)
+		for (int i = 0; i < format.length(); i++) {
 			replyMSG.append(" \\$v" + i);
+		}
 		adminReply.replace("%send%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}

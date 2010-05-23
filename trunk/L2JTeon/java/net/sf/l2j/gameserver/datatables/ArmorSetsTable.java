@@ -38,8 +38,9 @@ public class ArmorSetsTable
 
 	public static ArmorSetsTable getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new ArmorSetsTable();
+		}
 		return _instance;
 	}
 

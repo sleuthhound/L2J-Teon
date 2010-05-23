@@ -37,8 +37,9 @@ public class MercTicket implements IItemHandler
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		Castle castle = CastleManager.getInstance().getCastle(activeChar);
 		int castleId = -1;
-		if (castle != null)
+		if (castle != null) {
 			castleId = castle.getCastleId();
+		}
 		// add check that certain tickets can only be placed in certain castles
 		if (MercTicketManager.getInstance().getTicketCastleId(itemId) != castleId)
 		{

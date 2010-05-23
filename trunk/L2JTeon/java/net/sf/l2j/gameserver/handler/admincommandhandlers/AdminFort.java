@@ -41,43 +41,49 @@ public class AdminFort implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
 			if (activeChar.getAccessLevel() < REQUIRED_LEVEL || !activeChar.isGM())
 			{
 				return false;
 			}
+		}
 		StringTokenizer st = new StringTokenizer(command, " ");
 		command = st.nextToken(); // Get actual command
 		// Get fort
 		Fort fort = null;
-		if (st.hasMoreTokens())
+		if (st.hasMoreTokens()) {
 			fort = FortManager.getInstance().getFort(st.nextToken());
+		}
 		// Get fort
 		String val = "";
-		if (st.hasMoreTokens())
+		if (st.hasMoreTokens()) {
 			val = st.nextToken();
-		if (fort == null || fort.getFortId() < 0)
+		}
+		if (fort == null || fort.getFortId() < 0) {
 			// No fort specified
 			showFortSelectPage(activeChar);
-		else
+		} else
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			if (target instanceof L2PcInstance)
+			if (target instanceof L2PcInstance) {
 				player = (L2PcInstance) target;
+			}
 			if (command.equalsIgnoreCase("admin_add_fort_attacker"))
 			{
-				if (player == null)
+				if (player == null) {
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				else
+				} else {
 					fort.getSiege().registerAttacker(player, true);
+				}
 			}
 			else if (command.equalsIgnoreCase("admin_add_fort_defender"))
 			{
-				if (player == null)
+				if (player == null) {
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				else
+				} else {
 					fort.getSiege().registerDefender(player, true);
+				}
 			}
 			else if (command.equalsIgnoreCase("admin_add_fort_guard"))
 			{
@@ -110,18 +116,20 @@ public class AdminFort implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_setfort"))
 			{
-				if (player == null || player.getClan() == null)
+				if (player == null || player.getClan() == null) {
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				else
+				} else {
 					fort.setOwner(player.getClan());
+				}
 			}
 			else if (command.equalsIgnoreCase("admin_removefort"))
 			{
 				L2Clan clan = ClanTable.getInstance().getClan(fort.getOwnerId());
-				if (clan != null)
+				if (clan != null) {
 					fort.removeOwner(clan);
-				else
+				} else {
 					activeChar.sendMessage("Unable to remove fort");
+				}
 			}
 			else if (command.equalsIgnoreCase("admin_spawn_fort_doors"))
 			{

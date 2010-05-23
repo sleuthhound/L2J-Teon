@@ -60,12 +60,14 @@ public class AdminEventEngine implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN)
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+		if (!Config.ALT_PRIVILEGES_ADMIN) {
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
 				return false;
-		if (command.equals("admin_event"))
+			}
+		}
+		if (command.equals("admin_event")) {
 			showMainPage(activeChar);
-		else if (command.equals("admin_event_new"))
+		} else if (command.equals("admin_event_new"))
 		{
 			showNewEventPage(activeChar);
 		}
@@ -244,8 +246,9 @@ public class AdminEventEngine implements IAdminCommandHandler
 			StringTokenizer st1 = new StringTokenizer(n, "*");
 			n = st1.nextToken();
 			String type = "";
-			if (st1.hasMoreElements())
+			if (st1.hasMoreElements()) {
 				type = st1.nextToken();
+			}
 			String id = st0.nextToken();
 			while (st.hasMoreElements())
 			{
@@ -354,17 +357,20 @@ public class AdminEventEngine implements IAdminCommandHandler
 		TextBuilder replyMSG = new TextBuilder("<html><body>");
 		replyMSG.append("<center><font color=\"LEVEL\">[ L2J EVENT ENGINE ]</font></center><br>");
 		replyMSG.append("<br><center>Event's Title <br><font color=\"LEVEL\">");
-		if (tempName.equals(""))
+		if (tempName.equals("")) {
 			replyMSG.append("Use //event_name text to insert a new title");
-		else
+		} else {
 			replyMSG.append(tempName);
+		}
 		replyMSG.append("</font></center><br><br>Event's description<br>");
-		if (tempBuffer.equals(""))
+		if (tempBuffer.equals("")) {
 			replyMSG.append("Use //add text o //delete_buffer to modify this text field");
-		else
+		} else {
 			replyMSG.append(tempBuffer);
-		if (!(tempName.equals("") && tempBuffer.equals("")))
+		}
+		if (!(tempName.equals("") && tempBuffer.equals(""))) {
 			replyMSG.append("<br><button value=\"Crear\" action=\"bypass -h admin_event_store\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+		}
 		replyMSG.append("</body></html>");
 		adminReply.setHtml(replyMSG.toString());
 		activeChar.sendPacket(adminReply);
@@ -407,8 +413,9 @@ public class AdminEventEngine implements IAdminCommandHandler
 			}
 			for (L2PcInstance playertemp : player.getKnownList().getKnownPlayers().values())
 			{
-				if (Math.abs(playertemp.getX() - player.getX()) < 500 && Math.abs(playertemp.getY() - player.getY()) < 500 && Math.abs(playertemp.getZ() - player.getZ()) < 500)
+				if (Math.abs(playertemp.getX() - player.getX()) < 500 && Math.abs(playertemp.getY() - player.getY()) < 500 && Math.abs(playertemp.getZ() - player.getZ()) < 500) {
 					temp.add(playertemp);
+				}
 			}
 		}
 		L2Event.announceAllPlayers(activeChar.getName() + " wants to make an event !!! (you'll find a npc with the details around)");
@@ -421,8 +428,9 @@ public class AdminEventEngine implements IAdminCommandHandler
 		replyMSG.append("<center><font color=\"LEVEL\">[ L2J EVENT ENGINE ]</font></center><br><font color=\"LEVEL\">" + L2Event.eventName + "</font><br><br><table width=200>");
 		replyMSG.append("<tr><td>Apply this command to teams number </td><td><edit var=\"team_number\" width=100 height=15></td></tr>");
 		replyMSG.append("<tr><td>&nbsp;</td></tr>");
-		if (!npcsDeleted)
+		if (!npcsDeleted) {
 			replyMSG.append("<tr><td><button value=\"Start\" action=\"bypass -h admin_event_control_begin\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td><font color=\"LEVEL\">Destroys all event npcs so no more people can't participate now on</font></td></tr>");
+		}
 		replyMSG.append("<tr><td>&nbsp;</td></tr>");
 		replyMSG.append("<tr><td><button value=\"Teleport\" action=\"bypass -h admin_event_control_teleport $team_number\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td><font color=\"LEVEL\">Teleports the specified team to your position</font></td></tr>");
 		replyMSG.append("<tr><td>&nbsp;</td></tr>");
@@ -534,10 +542,11 @@ public class AdminEventEngine implements IAdminCommandHandler
 			{
 				L2PcInstance pc = L2World.getInstance().getPlayer(it.next().toString());
 				pc.eventSitForced = !pc.eventSitForced;
-				if (pc.eventSitForced)
+				if (pc.eventSitForced) {
 					pc.sitDown();
-				else
+				} else {
 					pc.standUp();
+				}
 			}
 			catch (Exception e)
 			{
@@ -659,12 +668,13 @@ public class AdminEventEngine implements IAdminCommandHandler
 			try
 			{
 				L2PcInstance target = L2World.getInstance().getPlayer(it.next().toString());
-				if (type.equalsIgnoreCase("level"))
+				if (type.equalsIgnoreCase("level")) {
 					temp = n * target.getLevel();
-				else if (type.equalsIgnoreCase("kills"))
+				} else if (type.equalsIgnoreCase("kills")) {
 					temp = n * target.kills.size();
-				else
+				} else {
 					temp = n;
+				}
 				createItem(activeChar, target, id, temp);
 			}
 			catch (Exception e)

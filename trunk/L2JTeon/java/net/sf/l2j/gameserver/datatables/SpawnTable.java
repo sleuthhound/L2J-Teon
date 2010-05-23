@@ -49,8 +49,9 @@ public class SpawnTable
 
 	private SpawnTable()
 	{
-		if (!Config.ALT_DEV_NO_SPAWNS)
+		if (!Config.ALT_DEV_NO_SPAWNS) {
 			fillSpawnTable();
+		}
 	}
 
 	public Map<Integer, L2Spawn> getSpawnTable()
@@ -124,8 +125,9 @@ public class SpawnTable
 								break;
 						}
 						_spawntable.put(spawnDat.getId(), spawnDat);
-						if (spawnDat.getId() > _highestId)
+						if (spawnDat.getId() > _highestId) {
 							_highestId = spawnDat.getId();
+						}
 					}
 				}
 				else
@@ -214,8 +216,9 @@ public class SpawnTable
 									break;
 							}
 							_spawntable.put(spawnDat.getId(), spawnDat);
-							if (spawnDat.getId() > _highestId)
+							if (spawnDat.getId() > _highestId) {
 								_highestId = spawnDat.getId();
+							}
 						}
 					}
 					else
@@ -241,11 +244,13 @@ public class SpawnTable
 				{
 				}
 			}
-			if (_cusSpawnCount > 0)
+			if (_cusSpawnCount > 0) {
 				_log.config("SpawnTable: Loaded " + _cusSpawnCount + " Custom Spawn Locations.");
+			}
 		}
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("SpawnTable: Spawning completed, total number of NPCs in the world: " + (_npcSpawnCount + _cusSpawnCount));
+		}
 	}
 
 	public L2Spawn getTemplate(int id)
@@ -297,10 +302,12 @@ public class SpawnTable
 
 	public void deleteSpawn(L2Spawn spawn, boolean updateDb)
 	{
-		if (Config.SAVE_GMSPAWN_ON_CUSTOM && !spawn.isCustom())
+		if (Config.SAVE_GMSPAWN_ON_CUSTOM && !spawn.isCustom()) {
 			return;
-		if (_spawntable.remove(spawn.getId()) == null)
+		}
+		if (_spawntable.remove(spawn.getId()) == null) {
 			return;
+		}
 		if (updateDb)
 		{
 			java.sql.Connection con = null;
@@ -384,8 +391,9 @@ public class SpawnTable
 				index++;
 				if (teleportIndex > -1)
 				{
-					if (teleportIndex == index)
+					if (teleportIndex == index) {
 						activeChar.teleToLocation(spawn.getLocx(), spawn.getLocy(), spawn.getLocz(), true);
+					}
 				}
 				else
 				{
@@ -393,7 +401,8 @@ public class SpawnTable
 				}
 			}
 		}
-		if (index == 0)
+		if (index == 0) {
 			activeChar.sendMessage("No current spawns found.");
+		}
 	}
 }

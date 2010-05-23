@@ -51,11 +51,13 @@ public class ChristmasTree implements IItemHandler
 				break;
 			}
 		}
-		if (template1 == null)
+		if (template1 == null) {
 			return;
+		}
 		L2Object target = activeChar.getTarget();
-		if (target == null)
+		if (target == null) {
 			target = activeChar;
+		}
 		try
 		{
 			L2Spawn spawn = new L2Spawn(template1);

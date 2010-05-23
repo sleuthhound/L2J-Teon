@@ -51,11 +51,13 @@ public class ScrollOfEscape implements IItemHandler
 	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance))
+		if (!(playable instanceof L2PcInstance)) {
 			return;
+		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
-		if (checkConditions(activeChar))
+		if (checkConditions(activeChar)) {
 			return;
+		}
 		if (activeChar.isSitting())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
@@ -103,8 +105,9 @@ public class ScrollOfEscape implements IItemHandler
 		// Check if this is a blessed scroll, if it is then shorten the cast time.
 		int itemId = item.getItemId();
 		int escapeSkill = itemId == 1538 || itemId == 5858 || itemId == 5859 || itemId == 3958 ? 2036 : 2013;
-		if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
+		if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
 			return;
+		}
 		activeChar.disableAllSkills();
 		L2Object oldtarget = activeChar.getTarget();
 		activeChar.setTarget(activeChar);
@@ -137,8 +140,9 @@ public class ScrollOfEscape implements IItemHandler
 
 		public void run()
 		{
-			if (_activeChar.isDead())
+			if (_activeChar.isDead()) {
 				return;
+			}
 			_activeChar.enableAllSkills();
 			_activeChar.setIsIn7sDungeon(false);
 			try
@@ -165,12 +169,13 @@ public class ScrollOfEscape implements IItemHandler
 				{
 					if (_itemId < 7117)
 					{
-						if (_activeChar.isKoof())
+						if (_activeChar.isKoof()) {
 							_activeChar.teleToLocation(146334, 25767, -2013);
-						else if (_activeChar.isNoob())
+						} else if (_activeChar.isNoob()) {
 							_activeChar.teleToLocation(59669, -42221, -2992);
-						else
+						} else {
 							_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+						}
 					}
 					else
 					{
@@ -322,8 +327,9 @@ public class ScrollOfEscape implements IItemHandler
 			}
 			catch (Throwable e)
 			{
-				if (Config.DEBUG)
+				if (Config.DEBUG) {
 					e.printStackTrace();
+				}
 			}
 		}
 	}

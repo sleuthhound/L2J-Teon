@@ -66,16 +66,18 @@ public class UserCommandHandler
 	{
 		int[] ids = handler.getUserCommandList();
 		for (int id : ids) {
-			if (Config.DEBUG)
+			if (Config.DEBUG) {
 				_log.fine("Adding handler for user command " + id);
+			}
 			_datatable.put(Integer.valueOf(id), handler);
 		}
 	}
 
 	public IUserCommandHandler getUserCommandHandler(int userCommand)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.fine("getting handler for user command: " + userCommand);
+		}
 		return _datatable.get(Integer.valueOf(userCommand));
 	}
 

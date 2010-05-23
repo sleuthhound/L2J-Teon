@@ -99,8 +99,9 @@ public class NpcTable
 					fillNpcTable(npcdata);
 					npcdata.close();
 					statement.close();
-					if (_npcs.size() > npc_count)
+					if (_npcs.size() > npc_count) {
 						_log.info("NpcTable: Loaded " + (_npcs.size() - npc_count) + " Custom Npc Templates.");
+					}
 				}
 				catch (Exception e)
 				{
