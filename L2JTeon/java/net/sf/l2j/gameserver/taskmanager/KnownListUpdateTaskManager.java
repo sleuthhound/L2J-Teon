@@ -79,10 +79,11 @@ public class KnownListUpdateTaskManager
             	_log.warning(e.toString());
 			}
             updatePass = !updatePass;
-            if (_fullUpdateTimer > 0)
-            	_fullUpdateTimer--;
-            else
-            	_fullUpdateTimer = FULL_UPDATE_TIMER;
+            if (_fullUpdateTimer > 0) {
+				_fullUpdateTimer--;
+			} else {
+				_fullUpdateTimer = FULL_UPDATE_TIMER;
+			}
             ThreadPoolManager.getInstance().scheduleAi(new KnownListUpdate(), Config.KNOWNLIST_UPDATE_INTERVAL);
         }
     }
@@ -91,8 +92,9 @@ public class KnownListUpdateTaskManager
     {
     	for (L2Object object : region.getVisibleObjects()) // and for all members in region
 		{
-        	if (object == null || !object.isVisible())
-        		continue;   // skip dying objects
+        	if (object == null || !object.isVisible()) {
+				continue;   // skip dying objects
+			}
         	if (forgetObjects)
         	{
         		object.getKnownList().forgetObjects((object instanceof L2PlayableInstance || Config.GUARD_ATTACK_AGGRO_MOB && object instanceof L2GuardInstance || fullUpdate));
@@ -115,13 +117,15 @@ public class KnownListUpdateTaskManager
         	{
         		for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
         		{
-        			if (regi.isActive()) for (L2Object _object : regi.getVisiblePlayable())
-        			{
-        				if (_object != object)
-        				{
-        					object.getKnownList().addKnownObject(_object);
-        				}
-        			}
+        			if (regi.isActive()) {
+						for (L2Object _object : regi.getVisiblePlayable())
+						{
+							if (_object != object)
+							{
+								object.getKnownList().addKnownObject(_object);
+							}
+						}
+					}
         		}
         	}
 		}

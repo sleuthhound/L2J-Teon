@@ -26,17 +26,19 @@ public class ConditionLogicNot extends Condition
 	public ConditionLogicNot(Condition condition)
 	{
 		_condition = condition;
-		if (getListener() != null)
+		if (getListener() != null) {
 			_condition.setListener(this);
+		}
 	}
 
 	@Override
 	void setListener(ConditionListener listener)
 	{
-		if (listener != null)
+		if (listener != null) {
 			_condition.setListener(this);
-		else
+		} else {
 			_condition.setListener(null);
+		}
 		super.setListener(listener);
 	}
 

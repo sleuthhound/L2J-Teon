@@ -63,8 +63,9 @@ final class EffectConfuseMob extends L2Effect
 		// Getting the possible targets
 		for (L2Object obj : getEffected().getKnownList().getKnownObjects().values())
 		{
-			if (obj instanceof L2Attackable && obj != getEffected())
+			if (obj instanceof L2Attackable && obj != getEffected()) {
 				targetList.add((L2Character) obj);
+			}
 		}
 		// if there is no target, exit function
 		if (targetList.size() == 0)

@@ -34,8 +34,9 @@ public final class LambdaRnd extends Lambda
 	@Override
 	public double calc(Env env)
 	{
-		if (_linear)
+		if (_linear) {
 			return _max.calc(env) * Rnd.nextDouble();
+		}
 		return _max.calc(env) * Rnd.nextGaussian();
 	}
 }

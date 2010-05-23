@@ -35,10 +35,12 @@ class EffectHealOverTime extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected().isDead())
+		if (getEffected().isDead()) {
 			return false;
-		if (getEffected() instanceof L2DoorInstance)
+		}
+		if (getEffected() instanceof L2DoorInstance) {
 			return false;
+		}
 		double hp = getEffected().getCurrentHp();
 		double maxhp = getEffected().getMaxHp();
 		hp += calc();

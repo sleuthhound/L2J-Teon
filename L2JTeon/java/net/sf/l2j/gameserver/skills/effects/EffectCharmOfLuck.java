@@ -38,16 +38,18 @@ public class EffectCharmOfLuck extends L2Effect
 	@Override
 	public void onStart()
 	{
-		if (getEffected() instanceof L2PlayableInstance)
+		if (getEffected() instanceof L2PlayableInstance) {
 			((L2PlayableInstance) getEffected()).startCharmOfLuck();
+		}
 	}
 
 	/** Notify exited */
 	@Override
 	public void onExit()
 	{
-		if (getEffected() instanceof L2PlayableInstance)
+		if (getEffected() instanceof L2PlayableInstance) {
 			((L2PlayableInstance) getEffected()).stopCharmOfLuck(this);
+		}
 	}
 
 	@Override

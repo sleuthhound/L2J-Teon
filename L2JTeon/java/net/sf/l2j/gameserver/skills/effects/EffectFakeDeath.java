@@ -52,8 +52,9 @@ final class EffectFakeDeath extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected().isDead())
+		if (getEffected().isDead()) {
 			return false;
+		}
 		double manaDam = calc();
 		if (manaDam > getEffected().getCurrentMp())
 		{

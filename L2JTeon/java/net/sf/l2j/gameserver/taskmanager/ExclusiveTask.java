@@ -92,18 +92,21 @@ public abstract class ExclusiveTask
 
 	private synchronized boolean tryLock()
 	{
-		if (_returnIfAlreadyRunning)
+		if (_returnIfAlreadyRunning) {
 			return !_isRunning;
+		}
 		_currentThread = Thread.currentThread();
 		for (;;)
 		{
 			try
 			{
 				notifyAll();
-				if (_currentThread != Thread.currentThread())
+				if (_currentThread != Thread.currentThread()) {
 					return false;
-				if (!_isRunning)
+				}
+				if (!_isRunning) {
 					return true;
+				}
 				wait();
 			}
 			catch (InterruptedException e)

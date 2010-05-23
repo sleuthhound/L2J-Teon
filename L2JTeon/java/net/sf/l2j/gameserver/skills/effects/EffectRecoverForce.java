@@ -46,10 +46,11 @@ public class EffectRecoverForce extends L2Effect
 		{
 			L2PcInstance player = (L2PcInstance) getEffected();
 			L2Skill skill = null;
-			if (player.getSkillLevel(8) > 0)
+			if (player.getSkillLevel(8) > 0) {
 				skill = SkillTable.getInstance().getInfo(8, player.getSkillLevel(8));
-			else if (player.getSkillLevel(50) > 0)
+			} else if (player.getSkillLevel(50) > 0) {
 				skill = SkillTable.getInstance().getInfo(50, player.getSkillLevel(50));
+			}
 			if (skill != null)
 			{
 				EffectCharge effect = (EffectCharge) player.getFirstEffect(skill);
@@ -63,9 +64,9 @@ public class EffectRecoverForce extends L2Effect
 						sm.addNumber(effect.numCharges);
 						player.sendPacket(sm);
 					}
-				}
-				else
+				} else {
 					skill.getEffects(player, player);
+				}
 			}
 		}
 		return true;

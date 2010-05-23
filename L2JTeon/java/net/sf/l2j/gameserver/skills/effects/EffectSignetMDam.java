@@ -61,10 +61,11 @@ final class EffectSignetMDam extends L2Effect
 	public void onStart()
 	{
 		L2NpcTemplate template;
-		if (getSkill() instanceof L2SkillSignetCasttime)
+		if (getSkill() instanceof L2SkillSignetCasttime) {
 			template = NpcTable.getInstance().getTemplate(((L2SkillSignetCasttime) getSkill())._effectNpcId);
-		else
+		} else {
 			return;
+		}
 		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template, getEffector());
 		effectPoint.setCurrentHp(effectPoint.getMaxHp());
 		effectPoint.setCurrentMp(effectPoint.getMaxMp());
@@ -90,8 +91,9 @@ final class EffectSignetMDam extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getCount() >= getTotalCount() - 2)
+		if (getCount() >= getTotalCount() - 2) {
 			return true; // do nothing first 2 times
+		}
 		int mpConsume = getSkill().getMpConsume();
 		L2PcInstance caster = (L2PcInstance) getEffector();
 		boolean ss = false;
@@ -116,21 +118,24 @@ final class EffectSignetMDam extends L2Effect
 		FastList<L2Character> targets = new FastList<L2Character>();
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
 		{
-			if (cha == null || cha == caster)
+			if (cha == null || cha == caster) {
 				continue;
+			}
 			if (cha instanceof L2Attackable || cha instanceof L2PlayableInstance)
 			{
-				if (cha.isAlikeDead())
+				if (cha.isAlikeDead()) {
 					continue;
+				}
 				if (mpConsume > caster.getCurrentMp())
 				{
 					caster.sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 					return false;
-				}
-				else
+				} else {
 					caster.reduceCurrentMp(mpConsume);
-				if (cha instanceof L2PcInstance || cha instanceof L2Summon)
+				}
+				if (cha instanceof L2PcInstance || cha instanceof L2Summon) {
 					caster.updatePvPStatus(cha);
+				}
 				targets.add(cha);
 			}
 		}
@@ -143,10 +148,11 @@ final class EffectSignetMDam extends L2Effect
 				int mdam = (int) Formulas.getInstance().calcMagicDam(caster, target, getSkill(), ss, bss, mcrit);
 				if (target instanceof L2Summon)
 				{
-					if (caster.equals(((L2Summon) target).getOwner()))
+					if (caster.equals(((L2Summon) target).getOwner())) {
 						caster.sendPacket(new PetInfo((L2Summon) target));
-					else
+					} else {
 						caster.sendPacket(new NpcInfo((L2Summon) target, caster));
+					}
 				}
 				if (mdam > 0)
 				{

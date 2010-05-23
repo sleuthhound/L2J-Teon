@@ -38,16 +38,18 @@ final class EffectSalvation extends L2Effect
 	@Override
 	public void onStart()
 	{
-		if (getEffected() instanceof L2PlayableInstance)
+		if (getEffected() instanceof L2PlayableInstance) {
 			((L2PlayableInstance) getEffected()).startSalvation();
+		}
 	}
 
 	/** Notify exited */
 	@Override
 	public void onExit()
 	{
-		if (getEffected() instanceof L2PlayableInstance)
+		if (getEffected() instanceof L2PlayableInstance) {
 			((L2PlayableInstance) getEffected()).stopSalvation(this);
+		}
 	}
 
 	@Override

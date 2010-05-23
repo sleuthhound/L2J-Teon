@@ -35,8 +35,9 @@ public class ConditionTargetBodyPart extends Condition
 	public boolean testImpl(Env env)
 	{
 		// target is attacker
-		if (env.target == null)
+		if (env.target == null) {
 			return true;
+		}
 		int bodypart = env.target.getAttackingBodyPart();
 		int armor_part = _armor.getBodyPart();
 		switch (bodypart)

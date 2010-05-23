@@ -42,9 +42,9 @@ class EffectRelax extends L2Effect
 		{
 			setRelax(true);
 			((L2PcInstance) getEffected()).sitDown();
-		}
-		else
+		} else {
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
+		}
 		super.onStart();
 	}
 
@@ -63,12 +63,14 @@ class EffectRelax extends L2Effect
 	public boolean onActionTime()
 	{
 		boolean retval = true;
-		if (getEffected().isDead())
+		if (getEffected().isDead()) {
 			retval = false;
+		}
 		if (getEffected() instanceof L2PcInstance)
 		{
-			if (!((L2PcInstance) getEffected()).isSitting())
+			if (!((L2PcInstance) getEffected()).isSitting()) {
 				retval = false;
+			}
 		}
 		if (getEffected().getCurrentHp() + 1 > getEffected().getMaxHp())
 		{
@@ -94,16 +96,18 @@ class EffectRelax extends L2Effect
 				retval = false;
 			}
 		}
-		if (!retval)
+		if (!retval) {
 			setRelax(retval);
-		else
+		} else {
 			getEffected().reduceCurrentMp(manaDam);
+		}
 		return retval;
 	}
 
 	private void setRelax(boolean val)
 	{
-		if (getEffected() instanceof L2PcInstance)
+		if (getEffected() instanceof L2PcInstance) {
 			((L2PcInstance) getEffected()).setRelax(val);
+		}
 	}
 }

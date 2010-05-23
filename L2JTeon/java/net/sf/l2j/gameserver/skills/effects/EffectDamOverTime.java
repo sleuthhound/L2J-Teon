@@ -37,8 +37,9 @@ class EffectDamOverTime extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getEffected().isDead())
+		if (getEffected().isDead()) {
 			return false;
+		}
 		double damage = calc();
 		if (damage >= getEffected().getCurrentHp())
 		{
@@ -51,8 +52,9 @@ class EffectDamOverTime extends L2Effect
 			// ** This is just hotfix, needs better solution **
 			// 1947: "DOT skills shouldn't kill"
 			// Well, some of them should ;-)
-			if (getSkill().getId() != 4082)
+			if (getSkill().getId() != 4082) {
 				damage = getEffected().getCurrentHp() - 1;
+			}
 		}
 		boolean awake = !(getEffected() instanceof L2Attackable) && !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF && getSkill().isToggle());
 		getEffected().reduceCurrentHp(damage, getEffector(), awake);
