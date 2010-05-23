@@ -57,8 +57,9 @@ public abstract class FaenorParser extends Parser
 		}
 		catch (Exception e)
 		{
-			if (defaultValue != null)
+			if (defaultValue != null) {
 				return defaultValue;
+			}
 			throw new NullPointerException(e.getMessage());
 		}
 	}
@@ -80,8 +81,9 @@ public abstract class FaenorParser extends Parser
 		catch (Exception e)
 		{
 		}
-		if (defaultValue != null)
+		if (defaultValue != null) {
 			return defaultValue;
+		}
 		throw new NullPointerException();
 	}
 

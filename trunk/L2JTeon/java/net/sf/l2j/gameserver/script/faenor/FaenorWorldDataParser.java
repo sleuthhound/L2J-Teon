@@ -40,8 +40,9 @@ public class FaenorWorldDataParser extends FaenorParser
 	@Override
 	public void parseScript(Node eventNode, ScriptContext context)
 	{
-		if (Config.DEBUG)
+		if (Config.DEBUG) {
 			_log.info("Parsing WorldData");
+		}
 		for (Node node = eventNode.getFirstChild(); node != null; node = node.getNextSibling())
 		{
 			if (isNodeName(node, PET_DATA))

@@ -80,8 +80,9 @@ public class FaenorScriptEngine extends ScriptEngine
 			}
 		};
 		File[] files = packDirectory.listFiles(fileFilter);
-		if (files == null)
+		if (files == null) {
 			return;
+		}
 		ZipFile zipPack;
 		for (File file : files) {
 			try
@@ -188,8 +189,9 @@ public class FaenorScriptEngine extends ScriptEngine
 	@Override
 	public String toString()
 	{
-		if (_scripts.isEmpty())
+		if (_scripts.isEmpty()) {
 			return "No Packages Loaded.";
+		}
 		String out = "Script Packages currently loaded:\n";
 		for (ScriptDocument script : _scripts)
 		{

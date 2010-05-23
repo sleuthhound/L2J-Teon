@@ -95,8 +95,9 @@ public class ScriptPackage
 	@Override
 	public String toString()
 	{
-		if (getScriptFiles().isEmpty() && getOtherFiles().isEmpty())
+		if (getScriptFiles().isEmpty() && getOtherFiles().isEmpty()) {
 			return "Empty Package.";
+		}
 		String out = "Package Name: " + getName() + "\n";
 		if (!getScriptFiles().isEmpty())
 		{
