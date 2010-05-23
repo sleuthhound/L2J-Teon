@@ -46,8 +46,9 @@ public class ScriptDocument
 		{
 			// Error generated during parsing)
 			Exception x = sxe;
-			if (sxe.getException() != null)
+			if (sxe.getException() != null) {
 				x = sxe.getException();
+			}
 			x.printStackTrace();
 		}
 		catch (ParserConfigurationException pce)

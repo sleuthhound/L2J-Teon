@@ -74,16 +74,17 @@ public abstract class PathFinding
 				// No Path found
 				return null;
 			}
-			if (node.equals(end)) // path found!
+			if (node.equals(end)) {
 				return constructPath(node);
-			else
+			} else
 			{
 				i++;
 				visited.add(node);
 				node.attacheNeighbors();
 				Node[] neighbors = node.getNeighbors();
-				if (neighbors == null)
+				if (neighbors == null) {
 					continue;
+				}
 				for (Node n : neighbors)
 				{
 					if (!visited.contains(n) && !to_visit.contains(n))
@@ -134,16 +135,17 @@ public abstract class PathFinding
 				// No Path found
 				return null;
 			}
-			if (node.equals(end)) // path found!
+			if (node.equals(end)) {
 				return constructPath(node);
-			else
+			} else
 			{
 				i++;
 				visited.add(node);
 				node.attacheNeighbors();
 				Node[] neighbors = node.getNeighbors();
-				if (neighbors == null)
+				if (neighbors == null) {
 					continue;
+				}
 				for (Node n : neighbors)
 				{
 					if (!visited.containsRev(n) && !to_visit.contains(n))
@@ -163,8 +165,9 @@ public abstract class PathFinding
 								break;
 							}
 						}
-						if (!added)
+						if (!added) {
 							to_visit.addLast(n);
+						}
 					}
 				}
 			}
@@ -199,9 +202,9 @@ public abstract class PathFinding
 				// No Path found
 				return null;
 			}
-			if (node.equals(end)) // path found!
+			if (node.equals(end)) {
 				return constructPath(node);
-			else
+			} else
 			{
 				visited.add(node);
 				node.attacheNeighbors();

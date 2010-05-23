@@ -227,10 +227,11 @@ public class TimeService
 	// m�do que esta comparando as datas
 	public boolean execBkp()
 	{
-		if (next.after(last))
+		if (next.after(last)) {
 			historico = "Backup efetuado com sucesso";
-		else
+		} else {
 			historico = "Backup n�efetuado";
+		}
 		return false;
 	}
 }

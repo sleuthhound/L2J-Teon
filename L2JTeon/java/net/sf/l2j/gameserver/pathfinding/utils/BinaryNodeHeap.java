@@ -44,9 +44,9 @@ public class BinaryNodeHeap
 				_list[p2] = _list[pos];
 				_list[pos] = temp;
 				pos = p2;
-			}
-			else
+			} else {
 				break;
+			}
 		}
 	}
 
@@ -66,36 +66,41 @@ public class BinaryNodeHeap
 			dblcpos = cpos * 2;
 			if (dblcpos + 1 <= _size)
 			{
-				if (_list[cpos].getCost() >= _list[dblcpos].getCost())
+				if (_list[cpos].getCost() >= _list[dblcpos].getCost()) {
 					pos = dblcpos;
-				if (_list[pos].getCost() >= _list[dblcpos + 1].getCost())
+				}
+				if (_list[pos].getCost() >= _list[dblcpos + 1].getCost()) {
 					pos = dblcpos + 1;
+				}
 			}
 			else if (dblcpos <= _size)
 			{
-				if (_list[cpos].getCost() >= _list[dblcpos].getCost())
+				if (_list[cpos].getCost() >= _list[dblcpos].getCost()) {
 					pos = dblcpos;
+				}
 			}
 			if (cpos != pos)
 			{
 				temp = _list[cpos];
 				_list[cpos] = _list[pos];
 				_list[pos] = temp;
-			}
-			else
+			} else {
 				break;
+			}
 		}
 		return first;
 	}
 
 	public boolean contains(Node n)
 	{
-		if (_size == 0)
+		if (_size == 0) {
 			return false;
+		}
 		for (int i = 1; i <= _size; i++)
 		{
-			if (_list[i].equals(n))
+			if (_list[i].equals(n)) {
 				return true;
+			}
 		}
 		return false;
 	}

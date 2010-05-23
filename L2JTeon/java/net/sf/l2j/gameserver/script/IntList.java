@@ -41,8 +41,9 @@ public class IntList
 	private static int[] getIntegerList(String[] numbers)
 	{
 		int[] list = new int[numbers.length];
-		for (int i = 0; i < list.length; i++)
+		for (int i = 0; i < list.length; i++) {
 			list[i] = getInt(numbers[i]);
+		}
 		return list;
 	}
 }

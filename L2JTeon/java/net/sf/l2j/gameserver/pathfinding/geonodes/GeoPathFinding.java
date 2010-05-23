@@ -47,8 +47,9 @@ public class GeoPathFinding extends PathFinding
 
 	public static GeoPathFinding getInstance()
 	{
-		if (_instance == null)
+		if (_instance == null) {
 			_instance = new GeoPathFinding();
+		}
 		return _instance;
 	}
 
@@ -69,10 +70,12 @@ public class GeoPathFinding extends PathFinding
 	{
 		Node start = readNode(gx, gy, z);
 		Node end = readNode(gtx, gty, tz);
-		if (start == null || end == null)
+		if (start == null || end == null) {
 			return null;
-		if (start == end)
+		}
+		if (start == end) {
 			return null;
+		}
 		// return searchAStar(start, end);
 		return searchByClosest(start, end);
 	}
@@ -97,8 +100,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = node_x;
 			new_node_y = (short) (node_y - 1);
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		neighbor = pn.get(idx); // NE
 		idx++;
@@ -108,8 +112,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = (short) (node_x + 1);
 			new_node_y = (short) (node_y - 1);
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		neighbor = pn.get(idx); // E
 		idx++;
@@ -119,8 +124,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = (short) (node_x + 1);
 			new_node_y = node_y;
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		neighbor = pn.get(idx); // SE
 		idx++;
@@ -130,8 +136,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = (short) (node_x + 1);
 			new_node_y = (short) (node_y + 1);
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		neighbor = pn.get(idx); // S
 		idx++;
@@ -141,8 +148,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = node_x;
 			new_node_y = (short) (node_y + 1);
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		neighbor = pn.get(idx); // SW
 		idx++;
@@ -152,8 +160,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = (short) (node_x - 1);
 			new_node_y = (short) (node_y + 1);
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		neighbor = pn.get(idx); // W
 		idx++;
@@ -163,8 +172,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = (short) (node_x - 1);
 			new_node_y = node_y;
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		neighbor = pn.get(idx); // NW
 		idx++;
@@ -174,8 +184,9 @@ public class GeoPathFinding extends PathFinding
 			new_node_x = (short) (node_x - 1);
 			new_node_y = (short) (node_y - 1);
 			newNode = readNode(new_node_x, new_node_y, neighbor);
-			if (newNode != null)
+			if (newNode != null) {
 				Neighbors.add(newNode);
+			}
 		}
 		Node[] result = new Node[Neighbors.size()];
 		return Neighbors.toArray(result);
@@ -185,8 +196,9 @@ public class GeoPathFinding extends PathFinding
 	private Node readNode(short node_x, short node_y, byte layer)
 	{
 		short regoffset = getRegionOffset(getRegionX(node_x), getRegionY(node_y));
-		if (!pathNodesExist(regoffset))
+		if (!pathNodesExist(regoffset)) {
 			return null;
+		}
 		short nbx = getNodeBlock(node_x);
 		short nby = getNodeBlock(node_y);
 		int idx = _pathNodesIndex.get(regoffset).get((nby << 8) + nbx);
@@ -208,8 +220,9 @@ public class GeoPathFinding extends PathFinding
 		short node_x = getNodePos(gx);
 		short node_y = getNodePos(gy);
 		short regoffset = getRegionOffset(getRegionX(node_x), getRegionY(node_y));
-		if (!pathNodesExist(regoffset))
+		if (!pathNodesExist(regoffset)) {
 			return null;
+		}
 		short nbx = getNodeBlock(node_x);
 		short nby = getNodeBlock(node_y);
 		int idx = _pathNodesIndex.get(regoffset).get((nby << 8) + nbx);
@@ -240,8 +253,9 @@ public class GeoPathFinding extends PathFinding
 		{
 			_log.info("PathFinding Engine: - Loading Path Nodes...");
 			File Data = new File("./data/pathnode/pn_index.txt");
-			if (!Data.exists())
+			if (!Data.exists()) {
 				return;
+			}
 			lnr = new LineNumberReader(new BufferedReader(new FileReader(Data)));
 		}
 		catch (Exception e)
@@ -254,8 +268,9 @@ public class GeoPathFinding extends PathFinding
 		{
 			while ((line = lnr.readLine()) != null)
 			{
-				if (line.trim().length() == 0)
+				if (line.trim().length() == 0) {
 					continue;
+				}
 				StringTokenizer st = new StringTokenizer(line, "_");
 				byte rx = Byte.parseByte(st.nextToken());
 				byte ry = Byte.parseByte(st.nextToken());
@@ -282,13 +297,14 @@ public class GeoPathFinding extends PathFinding
 			FileChannel roChannel = new RandomAccessFile(Pn, "r").getChannel();
 			size = (int) roChannel.size();
 			MappedByteBuffer nodes;
-			if (Config.FORCE_GEODATA) // Force O/S to Loads this buffer's
+			if (Config.FORCE_GEODATA) {
 				// content into physical memory.
 				// it is not guarantee, because the underlying operating system
 				// may have paged out some of the buffer's data
 				nodes = roChannel.map(FileChannel.MapMode.READ_ONLY, 0, size).load();
-			else
+			} else {
 				nodes = roChannel.map(FileChannel.MapMode.READ_ONLY, 0, size);
+			}
 			// Indexing pathnode files, so we will know where each block
 			// starts
 			IntBuffer indexs = IntBuffer.allocate(65536);
