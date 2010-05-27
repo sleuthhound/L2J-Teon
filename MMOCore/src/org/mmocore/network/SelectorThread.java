@@ -107,9 +107,13 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
         ServerSocket ss = selectable.socket();
 
         if (address == null)
+        {
             ss.bind(new InetSocketAddress(tcpPort));
+        }
         else
+        {
             ss.bind(new InetSocketAddress(address, tcpPort));
+        }
 
         selectable.register(_selector, SelectionKey.OP_ACCEPT);
     }
@@ -117,7 +121,9 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
     final ByteBuffer getPooledBuffer()
     {
         if (_bufferPool.isEmpty())
+        {
             return ByteBuffer.wrap(new byte[HELPER_BUFFER_SIZE]).order(BYTE_ORDER);
+        }
 
         return _bufferPool.removeFirst();
     }
@@ -181,7 +187,9 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                         case SelectionKey.OP_READ | SelectionKey.OP_WRITE:
                             writePacket(key, con);
                             if (key.isValid())
+                            {
                                 readPacket(key, con);
+                            }
                             break;
                     }
                 }
@@ -247,7 +255,9 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                     clientKey.attach(con);
                 }
                 else
+                {
                     sc.socket().close();
+                }
             }
         }
         catch (IOException e)
@@ -270,7 +280,9 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
             // read 0 bytes
             // going into infinite loop
             if (buf.position() == buf.limit())
+            {
                 System.exit(0);
+            }
 
             int result = -2;
 
@@ -292,7 +304,9 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                 for (int i = 0; i < MAX_READ_PER_PASS; i++)
                 {
                     if (!tryReadPacket(key, client, buf, con))
+                    {
                         return;
+                    }
                 }
 
                 // only reachable if MAX_READ_PER_PASS has been reached
@@ -302,11 +316,15 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                 {
                     // did we use the READ_BUFFER ?
                     if (buf == READ_BUFFER)
+                    {
                         // move the pending byte to the connections READ_BUFFER
                         allocateReadBuffer(con);
+                    }
                     else
+                    {
                         // move the first byte to the beginning :)
                         buf.compact();
+                    }
                 }
             }
             else
@@ -340,11 +358,15 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
 
                 // did we use the READ_BUFFER ?
                 if (buf == READ_BUFFER)
+                {
                     // move the pending byte to the connections READ_BUFFER
                     allocateReadBuffer(con);
+                }
                 else
+                {
                     // move the first byte to the beginning :)
                     buf.compact();
+                }
                 return false;
             default:
                 // data size excluding header size :>
@@ -425,7 +447,9 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                 cp._client = client;
 
                 if (cp.read())
+                {
                     _executor.execute(cp);
+                }
 
                 cp._buf = null;
                 cp._sbuf = null;
@@ -496,8 +520,10 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                 }
             }
             else
+            {
                 // incomplete write
                 con.createWriteBuffer(DIRECT_WRITE_BUFFER);
+            }
         }
         else
         {
@@ -529,13 +555,19 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                 synchronized (con.getSendQueue())
                 {
                     if (sendQueue.isEmpty())
+                    {
                         sp = null;
+                    }
                     else
+                    {
                         sp = sendQueue.removeFirst();
+                    }
                 }
 
                 if (sp == null)
+                {
                     break;
+                }
 
                 hasPending = true;
 
@@ -545,7 +577,9 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
                 WRITE_BUFFER.flip();
 
                 if (DIRECT_WRITE_BUFFER.remaining() >= WRITE_BUFFER.limit())
+                {
                     DIRECT_WRITE_BUFFER.put(WRITE_BUFFER);
+                }
                 else
                 {
                     con.createWriteBuffer(WRITE_BUFFER);

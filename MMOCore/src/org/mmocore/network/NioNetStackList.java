@@ -94,7 +94,9 @@ public final class NioNetStackList<E>
         final NioNetStackNode removeFirst()
         {
             if (_start._next == _end)
+            {
                 return new NioNetStackNode();
+            }
 
             final NioNetStackNode old = _start._next;
             _start._next = old._next;
