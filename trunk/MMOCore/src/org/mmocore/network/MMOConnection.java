@@ -218,7 +218,9 @@ public final class MMOConnection<T extends MMOClient<?>>
         synchronized (getSendQueue())
         {
             if (!_pendingClose)
+            {
                 _pendingClose = true;
+            }
 
             _sendQueue.clear();
         }
