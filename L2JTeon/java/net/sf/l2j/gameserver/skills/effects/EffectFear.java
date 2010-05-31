@@ -31,7 +31,8 @@ import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.util.Rnd;
 
 /**
- * @author Harpun
+ * @author littlecrow Implementation of the Fear Effect
+ * @no author (Harpun) -.-
  */
 final class EffectFear extends L2Effect
 {
@@ -55,51 +56,7 @@ final class EffectFear extends L2Effect
 		if (!getEffected().isAfraid())
 		{
 			getEffected().startFear();
-			// Fear skills cannot be used l2pcinstance to l2pcinstance. Heroic
-			// Dread, Curse: Fear, Fear and Horror , Sword Symphony, Word of Fear and Mass Curse Fear are the exceptions.
-			if (getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance && getSkill().getId() != 1376 && getSkill().getId() != 1169 && getSkill().getId() != 65 && getSkill().getId() != 1092 && getSkill().getId() != 98 && getSkill().getId() != 1272 && getSkill().getId() != 1272 && getSkill().getId() != 1381) {
-				return;
-			}
-			if (getEffected() instanceof L2FolkInstance) {
-				return;
-			}
-			if (getEffected() instanceof L2SiegeGuardInstance) {
-				return;
-			}
-			// Fear skills cannot be used on Headquarters Flag.
-			if (getEffected() instanceof L2SiegeFlagInstance) {
-				return;
-			}
-			if (getEffected() instanceof L2SiegeSummonInstance) {
-				return;
-			}
-			int posX = getEffected().getX();
-			int posY = getEffected().getY();
-			int posZ = getEffected().getZ();
-			int signx = -1;
-			int signy = -1;
-			if (getEffected().getX() > getEffector().getX()) {
-				signx = 1;
-			}
-			if (getEffected().getY() > getEffector().getY()) {
-				signy = 1;
-			}
-			posX += signx * FEAR_RANGE;
-			posY += signy * FEAR_RANGE;
-			if (!getEffected().isRaid() && !(getEffected() instanceof L2DoorInstance) && !(getEffected() instanceof L2NpcInstance && ((L2NpcInstance) getEffected()).getNpcId() == 35062))
-			{
-				int chance = Rnd.get(100);
-				if (getSkill().getLethalChance2() > 0 && chance < Formulas.getInstance().calcLethal(getEffector(), getEffected(), getSkill().getLethalChance2()))
-				{
-					if (getEffected() instanceof L2NpcInstance)
-					{
-						getEffected().reduceCurrentHp(getEffected().getCurrentHp() - 1, getEffector());
-						getEffector().sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
-					}
-				}
-			}
-			getEffected().setRunning();
-			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(posX, posY, posZ, 0));
+			onActionTime();
 		}
 	}
 
@@ -113,6 +70,27 @@ final class EffectFear extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
+		if(getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance && getSkill().getId() != 1376 && getSkill().getId() != 1169 && getSkill().getId() != 65 && getSkill().getId() != 1092) return false;
+		if(getEffected() instanceof L2FolkInstance) return false;
+		if(getEffected() instanceof L2SiegeGuardInstance) return false;
+		if(getEffected() instanceof L2SiegeFlagInstance) return false;
+		if(getEffected() instanceof L2SiegeSummonInstance) return false;
+
+		int posX = getEffected().getX();
+		int posY = getEffected().getY();
+		int posZ = getEffected().getZ();
+		
+		int signx=-1;
+		int signy=-1;
+		if (getEffected().getX()>getEffector().getX())
+			signx=1;
+		if (getEffected().getY()>getEffector().getY())
+			signy=1;
+		posX += signx*FEAR_RANGE;
+		posY += signy*FEAR_RANGE;
+		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
+		getEffected().setRunning();
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(destiny.getX(), destiny.getY(), destiny.getZ(), 0));
 		return true;
 	}
 }
