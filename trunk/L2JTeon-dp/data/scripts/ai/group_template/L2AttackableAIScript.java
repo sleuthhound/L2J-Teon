@@ -31,10 +31,8 @@ import net.sf.l2j.gameserver.model.quest.jython.QuestJython;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
- *
  * Overarching Superclass for all mob AI
  * @author Fulminus
- *
  */
 public class L2AttackableAIScript extends QuestJython
 {
@@ -63,8 +61,9 @@ public class L2AttackableAIScript extends QuestJython
 	 */
 	public static <T> boolean contains(T[] array, T obj)
 	{
-		for (T element : array) {
-			if (element == obj)
+		for (int i = 0; i < array.length; i++)
+		{
+			if (array[i] == obj)
 			{
 				return true;
 			}
@@ -74,8 +73,9 @@ public class L2AttackableAIScript extends QuestJython
 
 	public static boolean contains(int[] array, int obj)
 	{
-		for (int element : array) {
-			if (element == obj)
+		for (int i = 0; i < array.length; i++)
+		{
+			if (array[i] == obj)
 			{
 				return true;
 			}
@@ -143,7 +143,7 @@ public class L2AttackableAIScript extends QuestJython
     	L2Character originalAttackTarget = isPet? attacker.getPet(): attacker;
 		if ( attacker.isInParty()
 				&& attacker.getParty().isInDimensionalRift())
-		{
+			{
 			byte riftType = attacker.getParty().getDimensionalRift().getType();
 			byte riftRoom = attacker.getParty().getDimensionalRift().getCurrentRoom();
 
