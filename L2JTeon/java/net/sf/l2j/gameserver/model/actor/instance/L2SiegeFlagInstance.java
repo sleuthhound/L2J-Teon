@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.entity.Siege;
@@ -36,30 +35,21 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 		super(objectId, template);
 		_player = player;
 		_siege = SiegeManager.getInstance().getSiege(_player.getX(), _player.getY(), _player.getZ());
-		if (_player.getClan() == null || _siege == null && DevastatedCastleManager.getInstance().getIsInProgress())
+		if (_player.getClan() == null || _siege == null)
 		{
 			deleteMe();
-		}
-		else
-		{
+		} else {
 			L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
 			if (sc == null)
-			{
 				deleteMe();
-			}
 			else
-			{
 				sc.addFlag(this);
-			}
 		}
 	}
 
 	@Override
 	public boolean isAttackable()
 	{
-		if (DevastatedCastleManager.getInstance().getIsInProgress()) {
-			return true;
-		}
 		// Attackable during siege by attacker only
 		return getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress();
 	}
@@ -67,9 +57,6 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
-		if (DevastatedCastleManager.getInstance().getIsInProgress()) {
-			return true;
-		}
 		// Attackable during siege by attacker only
 		return attacker != null && attacker instanceof L2PcInstance && getCastle() != null && getCastle().getCastleId() > 0 && getCastle().getSiege().getIsInProgress();
 	}
@@ -78,14 +65,10 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
-		{
 			return false;
-		}
 		L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
 		if (sc != null)
-		{
 			sc.removeFlag(this);
-		}
 		return true;
 	}
 
@@ -99,9 +82,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 	public void onAction(L2PcInstance player)
 	{
 		if (player == null || !canTarget(player))
-		{
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
