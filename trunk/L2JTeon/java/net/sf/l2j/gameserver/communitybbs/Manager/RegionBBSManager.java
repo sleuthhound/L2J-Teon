@@ -412,10 +412,6 @@ public class RegionBBSManager extends BaseBBSManager
 				}
 				else
 				{
-					if (player.isAway() && Config.ALLOW_AWAY_STATUS)
-					{
-						htmlCode.append(player.getName() + "*Away*");
-					}
 					htmlCode.append(player.getName());
 				}
 				htmlCode.append("</a></td>");

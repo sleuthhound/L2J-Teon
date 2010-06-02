@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Away;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Banking;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.OnlinePlayers;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayersWithdrawCWH;
@@ -55,9 +54,6 @@ public class VoicedCommandHandler
 		}
 		if (Config.ALLOW_TRADEOFF_VOICE_COMMAND) {
 			registerVoicedCommandHandler(new tradeoff());
-		}
-		if (Config.ALLOW_AWAY_STATUS) {
-			registerVoicedCommandHandler(new Away());
 		}
 		registerVoicedCommandHandler(new PlayersWithdrawCWH());
 		registerVoicedCommandHandler(new version());

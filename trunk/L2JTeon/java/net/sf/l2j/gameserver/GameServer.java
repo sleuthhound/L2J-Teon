@@ -73,7 +73,6 @@ import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
-import net.sf.l2j.gameserver.instancemanager.AwayManager;
 import net.sf.l2j.gameserver.instancemanager.BoatManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
@@ -390,11 +389,6 @@ public class GameServer
 		}
 		Util.printSection("Augmentation Data");
 		AugmentationData.getInstance();
-		if (Config.ALLOW_AWAY_STATUS)
-		{
-			Util.printSection("Away System");
-			AwayManager.getInstance();
-		}
 		Util.printSection("Quest Manager");
 		QuestManager.getInstance();
 		Util.printSection("Dimensional Rift");

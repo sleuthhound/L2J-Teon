@@ -1049,13 +1049,7 @@ public abstract class Inventory extends ItemContainer
 		if (getOwner() instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance) getOwner();
-			if (Config.STRICT_HERO_SYSTEM && !player.isGM() && !player.isHero())
-			{
-				if (item.isHeroitem())
-				{
-					return;
-				}
-			}
+
 			if (player.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
 			{
 				player.sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_EQUIP_ITEM_WHEN_PK_COUNT_GREATER_OR_EQUAL_THAN_ONE));
@@ -1330,14 +1324,11 @@ public abstract class Inventory extends ItemContainer
 						item.setLocation(ItemLocation.INVENTORY);
 					}
 					if (!player.isGM()) {
-						if (Config.STRICT_HERO_SYSTEM)
+						if (!player.isHero())
 						{
-							if (!player.isHero())
-							{
-								int itemId = item.getItemId();
-								if (itemId >= 6611 && itemId <= 6621 || itemId == 6842) {
-									item.setLocation(ItemLocation.INVENTORY);
-								}
+							int itemId = item.getItemId();
+							if (itemId >= 6611 && itemId <= 6621 || itemId == 6842) {
+								item.setLocation(ItemLocation.INVENTORY);
 							}
 						}
 					}

@@ -904,13 +904,6 @@ public final class Config
 	/** Colored pk name system */
 	public static int TITLE_COLOR_FOR_PK_AMOUNT5;
 	/** Colored pk name system */
-	// * Baby Pets Customizations *//
-	/** Can Baby Pets Grow Up? * */
-	public static boolean BABY_PETS_CAN_GROWUP;
-	/** Can Wolf Pets Grow Up? * */
-	public static boolean WOLF_PETS_CAN_GROWUP;
-	/** Min Grow Up Pet Level? * */
-	public static int BABY_PETS_GROWUP_LVL;
 	// *Character Customizations*//
 	/** Max Critical Rate. */
 	public static int MAX_RCRIT;
@@ -993,14 +986,6 @@ public final class Config
 	public static int REBIRTH_SKILL9_LVL;
 	public static int REBIRTH_SKILL10;
 	public static int REBIRTH_SKILL10_LVL;
-	/** Away System Requested by untamed **/
-	public static boolean ALLOW_AWAY_STATUS;
-	public static int AWAY_TIMER;
-	public static int BACK_TIMER;
-	public static int AWAY_TITLE_COLOR;
-	public static boolean AWAY_ALLOW_INTERFERENCE;
-	public static boolean AWAY_PLAYER_TAKE_AGGRO;
-	public static boolean AWAY_PEACE_ZONE;
 	/** Remote class Master By Danielmwx **/
 	public static boolean ALLOW_REMOTE_CLASS_MASTERS;
 	/** L2Walker protectio Master By Danielmwx **/
@@ -1037,16 +1022,6 @@ public final class Config
 	 */
 	public static List<int[]> CUSTOM_STARTER_ITEMS = new FastList<int[]>();
 	// * NPC Customizations*//
-	/** View NPC Information for non-GM Characters. */
-	public static boolean GAME_VIEWNPC;
-	/** View NPC Combat Information. */
-	public static boolean GAME_VIEWNPC_COMBAT;
-	/** View NPC Basic Information. */
-	public static boolean GAME_VIEWNPC_BASIC;
-	/** View NPC Drop Information. */
-	public static boolean GAME_VIEWNPC_DROP;
-	/** View NPC Quest Drop Information. */
-	public static boolean GAME_VIEWNPC_QUESTDROP;
 	/** Minimal time between animations of a MONSTER */
 	public static int MIN_MONSTER_ANIMATION;
 	/** Maximal time between animations of a MONSTER */
@@ -1089,9 +1064,6 @@ public final class Config
 	public static boolean SHOW_GM_LOGIN;
 	/** Show L2J License at login */
 	public static boolean SHOW_L2J_LICENSE;
-	/** Show html window at login for newbies */
-	public static boolean SHOW_HTML_NEWBIE;
-	public static int LEVEL_HTML_NEWBIE;
 	/** Show Online Players announcement */
 	public static boolean ONLINE_PLAYERS_AT_STARTUP;
 	/** Increases the # of players announcment by this set amount */
@@ -1152,12 +1124,6 @@ public final class Config
 	public static int CLAN_SP_FORTH;
 	public static int CLAN_SP_FIFTH;
 	// * Server Customizations *//
-	/** Restart Login Server when Game Server restarts. */
-	public static boolean LOGIN_RESTART_WITH_GAMESERVER;
-	/** Restart Login Server on a scheduled time */
-	public static boolean LOGIN_RESTART_BY_TIME;
-	/** Restart time for Login Server */
-	public static int LOGIN_RESTART_TIME;
 	/**
 	 * Safe Sigterm will disable some features during restart/shutdown to prevent enchant and sublcass exploits! *
 	 */
@@ -1209,8 +1175,6 @@ public final class Config
 	/** GM Audit ? */
 	public static boolean GMAUDIT;
 	// * Miscellaneous Customizations *//
-	/** Config to enable or disable strict enforcement of the Hero System. */
-	public static boolean STRICT_HERO_SYSTEM;
 	/** Enchant hero weapons? */
 	public static boolean ENCHANT_HERO_WEAPONS;
 	/** Allow subclass with only subclass items and no quest. */
@@ -2639,17 +2603,6 @@ public final class Config
 					Properties L2JTeonCustom = new Properties();
 					is = new FileInputStream(new File(L2J_TEON_CUSTOM));
 					L2JTeonCustom.load(is);
-					// **************************//
-					/* Away System */
-					// **************************//
-					/** Away System **/
-					ALLOW_AWAY_STATUS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowAwayStatus", "False"));
-					AWAY_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayAllowInterference", "False"));
-					AWAY_PLAYER_TAKE_AGGRO = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayPlayerTakeAggro", "False"));
-					AWAY_TITLE_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("AwayTitleColor", "0000FF"));
-					AWAY_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("AwayTimer", "30"));
-					BACK_TIMER = Integer.parseInt(L2JTeonCustom.getProperty("BackTimer", "30"));
-					AWAY_PEACE_ZONE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AwayOnlyInPeaceZone", "False"));
 					/** Remote Class Master by Danielmwx **/
 					ALLOW_REMOTE_CLASS_MASTERS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowRemoteClassMasters", "False"));
 					/** L2Walker Protection by Danielmwx **/
@@ -2657,12 +2610,6 @@ public final class Config
 					PVP_SAME_IP = Boolean.parseBoolean(L2JTeonCustom.getProperty("PvPSameIP", "False"));
 					ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("TradeOffCommand", "False"));
 					ONLINE_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("OnlineVCommand", "False"));
-					// **************************//
-					/* Baby Pets Customizations */
-					// **************************//
-					BABY_PETS_CAN_GROWUP = Boolean.parseBoolean(L2JTeonCustom.getProperty("BabyPetsCanGrowUp", "False"));
-					WOLF_PETS_CAN_GROWUP = Boolean.parseBoolean(L2JTeonCustom.getProperty("WolfPetsCanGrowUp", "False"));
-					BABY_PETS_GROWUP_LVL = Integer.parseInt(L2JTeonCustom.getProperty("BabyPetsGrowUpLvl", "65"));
 					// ********************//
 					/* Character Statistics */
 					// ********************//
@@ -2712,11 +2659,6 @@ public final class Config
 					// ********************//
 					/* NPC Customizations */
 					// ********************//
-					GAME_VIEWNPC = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpc", "False"));
-					GAME_VIEWNPC_COMBAT = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcCombat", "False"));
-					GAME_VIEWNPC_BASIC = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcBasic", "False"));
-					GAME_VIEWNPC_DROP = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcDrop", "False"));
-					GAME_VIEWNPC_QUESTDROP = Boolean.parseBoolean(L2JTeonCustom.getProperty("GameViewNpcQuestDrop", "False"));
 					MIN_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MinMonsterAnimation", "0"));
 					MAX_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MaxMonsterAnimation", "0"));
 					// ********************//
@@ -2730,8 +2672,6 @@ public final class Config
 					SHOW_HTML_WELCOME = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowTeonInfo", "True"));
 					SHOW_GM_LOGIN = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowGMLogin", "False"));
 					SHOW_L2J_LICENSE = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowL2JLicense", "False"));
-					SHOW_HTML_NEWBIE = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowHTMLNewbie", "False"));
-					LEVEL_HTML_NEWBIE = Integer.parseInt(L2JTeonCustom.getProperty("LevelShowHTMLNewbie", "10"));
 					ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowOnlinePlayersAtStartup", "False"));
 					PLAYERS_ONLINE_TRICK = Integer.parseInt(L2JTeonCustom.getProperty("OnlinePlayerCountTrick", "0"));
 					ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(L2JTeonCustom.getProperty("OnlinePlayersAnnounceInterval", "900000"));
@@ -2746,9 +2686,6 @@ public final class Config
 					// ********************//
 					/* Serv. Customizes. */
 					// ********************//
-					LOGIN_RESTART_WITH_GAMESERVER = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartWithGameserver", "False"));
-					LOGIN_RESTART_BY_TIME = Boolean.parseBoolean(L2JTeonCustom.getProperty("LoginRestartByTime", "False"));
-					LOGIN_RESTART_TIME = Integer.parseInt(L2JTeonCustom.getProperty("LoginRestartTime", "60"));
 					SAFE_SIGTERM = Boolean.parseBoolean(L2JTeonCustom.getProperty("SafeSigterm", "False"));
 					CHECK_SKILLS_ON_ENTER = Boolean.parseBoolean(L2JTeonCustom.getProperty("CheckSkillsOnEnter", "False"));
 					ALLOWED_SKILLS = L2JTeonCustom.getProperty("AllowedSkills", "541,542,543,544,545,546,547,548,549,550,551,552,553,554,555,556,557,558,617,618,619");
@@ -2765,7 +2702,6 @@ public final class Config
 					// ********************//
 					/* Misc. Customizes. */
 					// ********************//
-					STRICT_HERO_SYSTEM = Boolean.parseBoolean(L2JTeonCustom.getProperty("StrictHeroSystem", "True"));
 					FLYING_WYVERN_DURING_SIEGE = Boolean.parseBoolean(L2JTeonCustom.getProperty("FlyingWyvernDuringSiege", "False"));
 					ES_SP_BOOK_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnchantSkillSpBookNeeded", "True"));
 					LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(L2JTeonCustom.getProperty("LifeCrystalNeeded", "True"));
