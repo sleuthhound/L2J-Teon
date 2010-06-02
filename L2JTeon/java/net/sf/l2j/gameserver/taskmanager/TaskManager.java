@@ -37,7 +37,6 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskCleanUp;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskJython;
-import net.sf.l2j.gameserver.taskmanager.tasks.TaskLoginRestart;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskOlympiadSave;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskRecom;
 import net.sf.l2j.gameserver.taskmanager.tasks.TaskRestart;
@@ -173,7 +172,6 @@ public final class TaskManager
 		registerTask(new TaskRestart());
 		registerTask(new TaskSevenSignsUpdate());
 		registerTask(new TaskShutdown());
-		registerTask(new TaskLoginRestart());
 	}
 
 	public void registerTask(Task task)

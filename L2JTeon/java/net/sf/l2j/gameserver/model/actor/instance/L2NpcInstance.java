@@ -45,8 +45,6 @@ import net.sf.l2j.gameserver.instancemanager.games.Lottery;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2DropCategory;
-import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -779,7 +777,6 @@ public class L2NpcInstance extends L2Character
 	 * @param client
 	 *            The thread that manage the player that pessed Shift and click on the L2NpcInstance
 	 */
-	@SuppressWarnings("static-access")
 	@Override
 	public void onActionShift(L2GameClient client)
 	{
@@ -794,27 +791,20 @@ public class L2NpcInstance extends L2Character
 		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-			// Send a Server->Client packet MyTargetSelected to the
-			// L2PcInstance
-			// player
-			// The player.getLevel() - getLevel() permit to display the
-			// correct
-			// color in the select window
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			// The player.getLevel() - getLevel() permit to display the correct color in the select window
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
 			player.sendPacket(my);
 			// Check if the player is attackable (without a forced attack)
 			if (isAutoAttackable(player))
 			{
-				// Send a Server->Client packet StatusUpdate of the
-				// L2NpcInstance to the L2PcInstance to update its HP bar
+				// Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
 				StatusUpdate su = new StatusUpdate(getObjectId());
 				su.addAttribute(StatusUpdate.CUR_HP, (int) getCurrentHp());
 				su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 				player.sendPacket(su);
 			}
-			// Send a Server->Client NpcHtmlMessage() containing the GM
-			// console
-			// about this L2NpcInstance
+			// Send a Server->Client NpcHtmlMessage() containing the GM console about this L2NpcInstance
 			NpcHtmlMessage html = new NpcHtmlMessage(0);
 			TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">NPC Information</font></center>");
 			String className = getClass().getName().substring(43);
@@ -860,109 +850,7 @@ public class L2NpcInstance extends L2Character
 			html.setHtml(html1.toString());
 			player.sendPacket(html);
 		}
-
-		else if (Config.GAME_VIEWNPC || Config.GAME_VIEWNPC_COMBAT || Config.GAME_VIEWNPC_BASIC || Config.GAME_VIEWNPC_DROP)
-		{
-			// Set the target of the L2PcInstance player
-			player.setTarget(this);
-			// Send a Server->Client packet MyTargetSelected to the
-			// L2PcInstance player
-			// The player.getLevel() - getLevel() permit to display the
-			// correct color in the select window
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
-			// Check if the player is attackable (without a forced attack)
-			if (isAutoAttackable(player))
-			{
-				// Send a Server->Client packet StatusUpdate of the
-				// L2NpcInstance to the L2PcInstance to update its HP bar
-				StatusUpdate su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.CUR_HP, (int) getCurrentHp());
-				su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
-				player.sendPacket(su);
-			}
-			NpcHtmlMessage html = new NpcHtmlMessage(0);
-			TextBuilder html1 = new TextBuilder("<html><body>");
-			// npc name
-			html1.append("<center><font color=\"LEVEL\">[Npc]</font></center><br>");
-			html1.append(getName());
-			// shows npc combat stats
-			if (Config.GAME_VIEWNPC_COMBAT)
-			{
-				html1.append("<br><center><font color=\"LEVEL\">[Combat Stats]</font></center>");
-				html1.append("<table border=0 width=\"100%\">");
-				html1.append("<tr><td>Max.HP</td><td>" + (int) (getMaxHp() / getStat().calcStat(Stats.MAX_HP, 1, this, null)) + "*" + (int) getStat().calcStat(Stats.MAX_HP, 1, this, null) + "</td><td>Max.MP</td><td>" + getMaxMp() + "</td></tr>");
-				html1.append("<tr><td>P.Atk.</td><td>" + getPAtk(null) + "</td><td>M.Atk.</td><td>" + getMAtk(null, null) + "</td></tr>");
-				html1.append("<tr><td>P.Def.</td><td>" + getPDef(null) + "</td><td>M.Def.</td><td>" + getMDef(null, null) + "</td></tr>");
-				html1.append("<tr><td>Accuracy</td><td>" + getAccuracy() + "</td><td>Evasion</td><td>" + getEvasionRate(null) + "</td></tr>");
-				html1.append("<tr><td>Critical</td><td>" + getCriticalHit(null, null) + "</td><td>Speed</td><td>" + getRunSpeed() + "</td></tr>");
-				html1.append("<tr><td>Atk.Speed</td><td>" + getPAtkSpd() + "</td><td>Cast.Speed</td><td>" + getMAtkSpd() + "</td></tr>");
-				html1.append("<tr><td>Race</td><td>" + getTemplate().race + "</td><td></td><td></td></tr>");
-				html1.append("</table>");
-			}
-			// shows basic stats
-			if (Config.GAME_VIEWNPC_BASIC)
-			{
-				html1.append("<br><center><font color=\"LEVEL\">[Basic Stats]</font></center>");
-				html1.append("<table border=0 width=\"100%\">");
-				html1.append("<tr><td>STR</td><td>" + getSTR() + "</td><td>DEX</td><td>" + getDEX() + "</td><td>CON</td><td>" + getCON() + "</td></tr>");
-				html1.append("<tr><td>INT</td><td>" + getINT() + "</td><td>WIT</td><td>" + getWIT() + "</td><td>MEN</td><td>" + getMEN() + "</td></tr>");
-				html1.append("</table>");
-			}
-			// shows drop stats
-			if (Config.GAME_VIEWNPC_DROP)
-			{
-				html1.append("<br><center><font color=\"LEVEL\">[Drop Info]</font></center>");
-				html1.append("<br>");
-				for (L2DropCategory cat : getTemplate().getDropData())
-				{
-					for (L2DropData drop : cat.getAllDrops())
-					{
-						if (!Config.GAME_VIEWNPC_QUESTDROP)
-						{
-							// default info about drop item
-							String name = ItemTable.getInstance().getTemplate(drop.getItemId()).getName();
-							int chance = drop.getChance(); // drop chance
-							int min_qty = drop.getMinDrop(); // min. q-ty
-							// of items
-							int max_qty = drop.getMaxDrop(); // max. q-ty
-							// of items
-							// calculating stats using drop-config
-							if (drop.getItemId() == 57)
-							{
-								chance *= Config.RATE_DROP_ADENA;
-								min_qty *= Config.RATE_DROP_ADENA; // temporary
-								// calculation
-								max_qty *= Config.RATE_DROP_ADENA; // temporary
-								// calculation
-							}
-							else if (cat.isSweep())
-							{
-								chance *= Config.RATE_DROP_SPOIL;
-							}
-							else
-							{
-								chance *= Config.RATE_DROP_ITEMS;
-							}
-							// chance in percents
-							if (chance > drop.MAX_CHANCE)
-							{
-								chance = drop.getChance();
-							}
-							double percentChance = chance * 0.0001;
-							// output line (if min. q-ty = max. q-ty shows
-							// only min.)
-							html1.append((drop.isQuestDrop() ? "Quest: " : cat.isSweep() ? "Spoil: " : "Drop: ") + name + "   " + percentChance + "%" + "   [" + min_qty + (min_qty == max_qty ? "" : " - " + max_qty) + "]<br1>");
-						}
-					}
-				}
-				html1.append("</body></html>");
-			}
-			html.setHtml(html1.toString());
-			player.sendPacket(html);
-		}
-		// Send a Server->Client ActionFailed to the L2PcInstance in order to
-		// avoid that the client wait another packet
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 

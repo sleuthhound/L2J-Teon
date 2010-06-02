@@ -3530,13 +3530,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				return;
 			}
 		}
-		// Away Sys
-		if (isAway() && !Config.AWAY_ALLOW_INTERFERENCE)
-		{
-			sendMessage("You can't target Away Players");
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
 		// Check if the L2PcInstance is confused
 		if (player.isOutOfControl())
 		{

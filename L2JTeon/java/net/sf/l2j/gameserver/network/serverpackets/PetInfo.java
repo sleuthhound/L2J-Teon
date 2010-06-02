@@ -70,38 +70,32 @@ public class PetInfo extends L2GameServerPacket
 			_curFed = pet.getCurrentFed(); // how fed it is
 			_maxFed = pet.getMaxFed(); // max fed it can be
 		}
-		if (Config.BABY_PETS_CAN_GROWUP && _summon.getLevel() >= Config.BABY_PETS_GROWUP_LVL)
+		switch (_templateId)
 		{
-			switch (_templateId)
-			{
-				// Baby Buffalo -> Buffalo
-				case 12780:
-					_templateId = 21286;
-					_collisionRadius = 22;
-					_collisionHeight = 31;
-					break;
-				// Baby Kookaburra -> Kookaburra
-				case 12781:
-					_templateId = 21274;
-					_collisionRadius = 8;
-					_collisionHeight = Float.parseFloat("26.4");
-					break;
-				// Baby Cougar -> Beast Lord
-				case 12782:
-					_templateId = 21058;
-					_collisionRadius = 34;
-					_collisionHeight = 28;
-					break;
-				// Wolf -> Dire Wolf
-				case 12077:
-					if (Config.WOLF_PETS_CAN_GROWUP)
-					{
-						_templateId = 20205;
-						_collisionRadius = 13;
-						_collisionHeight = 11;
-					}
-					break;
-			}
+			// Baby Buffalo -> Buffalo
+			case 12780:
+				_templateId = 21286;
+				_collisionRadius = 22;
+				_collisionHeight = 31;
+				break;
+			// Baby Kookaburra -> Kookaburra
+			case 12781:
+				_templateId = 21274;
+				_collisionRadius = 8;
+				_collisionHeight = Float.parseFloat("26.4");
+				break;
+			// Baby Cougar -> Beast Lord
+			case 12782:
+				_templateId = 21058;
+				_collisionRadius = 34;
+				_collisionHeight = 28;
+				break;
+			// Wolf -> Dire Wolf
+			case 12077:
+				_templateId = 20205;
+				_collisionRadius = 13;
+				_collisionHeight = 11;
+				break;
 		}
 	}
 

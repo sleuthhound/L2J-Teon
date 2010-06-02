@@ -328,11 +328,6 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			WindowService.sendWindow(activeChar, "data/html/", "TeonInfo.htm");
 		}
-		// sends newbie htm if enabled.
-		if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
-		{
-			WindowService.sendWindow(activeChar, "data/html/", "newbie.htm");
-		}
 		// check player for unlegit skills
 		if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
 		{
