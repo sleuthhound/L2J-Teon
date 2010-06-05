@@ -894,7 +894,7 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="7000"/>
@@ -920,7 +920,7 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="0.0"/>
+  <set name="power" val="10"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="120000"/>
   <set name="hitTime" val="4000"/>
@@ -930,7 +930,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="5" name="ConfuseMob" time="6" val="0"/>
+    <effect count="5" name="ConfuseMob" time="5" val="0"/>
   </for>
 </skill>
 <skill id="1164" levels="19" name="Curse: Weakness" enchantLevels1="30" enchantLevels2="30" >
@@ -955,7 +955,7 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="15000"/>
@@ -1074,7 +1074,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="150000"/>
   <set name="hitTime" val="6000"/>
-  <set name="skillType" val="PARALYZE"/>
+  <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>

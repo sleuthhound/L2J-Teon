@@ -1385,12 +1385,12 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="60000"/>
   <set name="hitTime" val="4000"/>
-  <set name="skillType" val="DEBUFF"/>
+  <set name="skillType" val="MUTE"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
@@ -1470,7 +1470,7 @@
   <table name="#ench1Power"> 80 81 82 82 83 84 84 85 86 86 87 88 88 89 90 90 91 92 92 93 94 94 95 96 96 97 98 98 99 100 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
@@ -2100,7 +2100,7 @@
   <table name="#magicLvl"> 7 14 20 25 30 35 40 44 48 52 56 58 60 62 64 66 68 70 72 74 </table>
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>

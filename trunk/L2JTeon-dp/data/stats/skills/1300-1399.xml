@@ -889,7 +889,7 @@
   <set name="mpInitialConsume" val="14"/>
   <set name="mpConsume" val="56"/>
   <set name="magicLvl" val="77"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="120000"/>
@@ -907,7 +907,7 @@
   <set name="mpInitialConsume" val="15"/>
   <set name="mpConsume" val="57"/>
   <set name="magicLvl" val="78"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="300000"/>
@@ -1419,7 +1419,7 @@
   <set name="mpInitialConsume" val="14"/>
   <set name="mpConsume" val="56"/>
   <set name="magicLvl" val="77"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="30000"/>
@@ -1440,7 +1440,7 @@
   <set name="mpInitialConsume" val="14"/>
   <set name="mpConsume" val="56"/>
   <set name="magicLvl" val="77"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="30000"/>
@@ -1460,7 +1460,7 @@
   <set name="mpInitialConsume" val="21"/>
   <set name="mpConsume" val="84"/>
   <set name="magicLvl" val="77"/>
-  <set name="power" val="80"/>
+  <set name="power" val="60"/>
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="200"/>
@@ -1481,7 +1481,7 @@
   <set name="mpInitialConsume" val="22"/>
   <set name="mpConsume" val="85"/>
   <set name="magicLvl" val="78"/>
-  <set name="power" val="80"/>
+  <set name="power" val="60"/>
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="200"/>
@@ -1947,12 +1947,12 @@
   <table name="#mAtkSpd"> 1.11 1.13 1.15 1.16 1.18 1.21 1.24 1.26 1.29 1.32 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="80"/>
+  <set name="power" val="70"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="18000"/>
   <set name="hitTime" val="4000"/>
-  <set name="skillType" val="DEBUFF"/>
+  <set name="skillType" val="MUTE"/>
   <set name="isMagic" val="true"/> 
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
@@ -2118,7 +2118,7 @@
 <!-- Done by KID -->
   <table name="#mpConsume"> 27 28 28 29 30 32 33 33 34 35 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="80"/>
+  <set name="power" val="60"/>
   <set name="lvlDepend" val="2"/>
   <!-- reuse delay should be "nearly instant" -->
   <set name="reuseDelay" val="4000"/>
