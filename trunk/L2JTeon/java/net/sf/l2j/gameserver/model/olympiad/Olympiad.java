@@ -1577,45 +1577,45 @@ public class Olympiad
     		for (L2PcInstance player : _players)
     		{
     		  try{
-    			//Remove Clan Skills
-				if (player.getClan() != null)
-				{
-					for(L2Skill skill: player.getClan().getAllSkills()) {
-						player.removeSkill(skill,false);
-					}
-				}
-				//Abort casting if player casting
-				if (player.isCastingNow())
-				{
-					player.abortCast();
-				}
+    	   			//Remove Clan Skills
+  				if (player.getClan() != null)
+  				{
+  					for(L2Skill skill: player.getClan().getAllSkills())
+  						player.removeSkill(skill,false);
+  				}
+  				//Abort casting if player casting  
+  				if (player.isCastingNow())
+  				{
+  					player.abortCast();  
+  				}
 
-				//Remove Hero Skills
-				if (player.isHero())
-				{
-					for(L2Skill skill: HeroSkillTable.GetHeroSkills()) {
-						player.removeSkill(skill,false);
-					}
-				}
+                                  //Force the character to be visible
+  				player.getAppearance().setVisible();  
 
-				// Heal Player fully
-				player.setCurrentCp(player.getMaxCp());
-				player.setCurrentHp(player.getMaxHp());
-				player.setCurrentMp(player.getMaxMp());
+  				//Remove Hero Skills
+  				if (player.isHero())
+  				{
+  					for(L2Skill skill: HeroSkillTable.GetHeroSkills())
+  						player.removeSkill(skill,false);
+  				}
+  				
+  				//Remove Buffs
+  				player.stopAllEffects();
+                  player.stopSkillEffects(176);
+  				player.stopSkillEffects(139);
+  				player.stopSkillEffects(406);
+  				player.stopSkillEffects(420);
 
-				//Remove Buffs
-				player.stopAllEffects();
-
-				//Remove Summon's Buffs
-				if (player.getPet() != null)
-				{
-					L2Summon summon = player.getPet();
-					summon.stopAllEffects();
-
-					if (summon instanceof L2PetInstance) {
-						summon.unSummon(player);
-					}
-		    	}
+  				
+  				//Remove Summon's Buffs
+  				if (player.getPet() != null)
+  				{
+  					L2Summon summon = player.getPet();
+  					summon.stopAllEffects();
+  					
+  					if (summon instanceof L2PetInstance)
+  						summon.unSummon(player);
+  		    	}
 
                 /*if (player.getCubics() != null)
                 {
