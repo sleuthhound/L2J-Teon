@@ -20,7 +20,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class allows a player to type in the command .joinvip and join the vip event.
- *
  * @author DaRkRaGe
  */
 public class version implements IVoicedCommandHandler
@@ -31,7 +30,7 @@ public class version implements IVoicedCommandHandler
 	{
 		if (command.equalsIgnoreCase("version"))
 		{
-			activeChar.sendMessage("L2JOneo Rev " + Config.SERVER_VERSION + " http://www.oneodevteam.com");
+			activeChar.sendMessage("L2JTeon Rev " + Config.SERVER_VERSION + " http://www.assembla.com/spaces/L2JTeon/stream");
 		}
 		return true;
 	}
