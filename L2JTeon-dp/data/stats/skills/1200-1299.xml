@@ -1343,7 +1343,7 @@
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="20000"/>
   <set name="hitTime" val="4000"/>
-  <set name="skillType" val="MUTE"/>
+  <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
