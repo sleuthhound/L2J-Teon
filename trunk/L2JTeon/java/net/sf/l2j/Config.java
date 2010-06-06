@@ -105,6 +105,7 @@ public final class Config
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_GLOBAL = new FloodProtectorConfig("GlobalFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_TRADE = new FloodProtectorConfig("TradeFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_POTION = new FloodProtectorConfig("PotionFloodProtector");
+	public static final FloodProtectorConfig FLOOD_PROTECTOR_ENCHANT = new FloodProtectorConfig("EnchantFloodProtector");
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
@@ -3975,6 +3976,7 @@ public final class Config
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_GLOBAL, "Global", "500");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_TRADE, "Trade", "500");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_POTION, "Potion", "10");
+		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_ENCHANT, "Enchant", "10");
 	}
 
 	private static void loadFloodProtectorConfig(final Properties properties, final FloodProtectorConfig config, final String configString, final String defaultInterval)
@@ -3984,11 +3986,6 @@ public final class Config
 		config.PUNISHMENT_LIMIT = Integer.parseInt(properties.getProperty(StringUtil.concat("FloodProtector", configString, "PunishmentLimit"), "0"));
 		config.PUNISHMENT_TYPE = properties.getProperty(StringUtil.concat("FloodProtector", configString, "PunishmentType"), "none");
 		config.PUNISHMENT_TIME = Integer.parseInt(properties.getProperty(StringUtil.concat("FloodProtector", configString, "PunishmentTime"), "0"));
-	}
-
-	// it has no instancies
-	private Config()
-	{
 	}
 
 	/**

@@ -100,6 +100,10 @@ public final class FloodProtectors
 	 * Potion Flood Protector.
 	 */
 	private final FloodProtectorAction _potion;
+	/**
+	 * Enchant Flood Protector.
+	 */
+	private final FloodProtectorAction _enchant;
 
 	/**
 	 * Creates new instance of FloodProtectors.
@@ -129,6 +133,7 @@ public final class FloodProtectors
 		_global = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_GLOBAL);
 		_trade = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_TRADE);
 		_potion = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_POTION);
+		_enchant = new FloodProtectorAction(player, Config.FLOOD_PROTECTOR_ENCHANT);
 	}
 
 	/**
@@ -319,5 +324,9 @@ public final class FloodProtectors
 	public FloodProtectorAction getPotion()
 	{
 		return _potion;
+	}
+	public FloodProtectorAction getEnchant()
+	{
+		return _enchant;
 	}
 }
