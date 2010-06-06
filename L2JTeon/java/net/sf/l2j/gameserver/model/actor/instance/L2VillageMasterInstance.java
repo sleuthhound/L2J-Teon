@@ -295,7 +295,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					/*
 					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice.
 					 */
-			        if (!player.getFloodProtectors().getSubclass().tryPerformAction("add subclass"))
+			        if (player.getFloodProtectors().getSubclass().tryPerformAction("subclass"))
 			        {
 			          player.sendMessage("Don't addition sub classes so rapidly, please wait.");
 			          player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -396,7 +396,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					/*
 					 * If the character is less than level 75 on any of their previously chosen classes then disallow them to change to their most recently added sub-class choice. Note: paramOne = classIndex
 					 */
-					if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
+					if (player.getFloodProtectors().getSubclass().tryPerformAction("subclass"))
 					{
 						player.sendMessage("Don't change sub classes so rapidly, please wait.");
 						player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -461,7 +461,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					/*
 					 * Warning: the information about this subclass will be removed from the subclass list even if false!
 					 */
-					if (!player.getFloodProtectors().getSubclass().tryPerformAction("change class"))
+					if (player.getFloodProtectors().getSubclass().tryPerformAction("subclass"))
 					{
 						player.sendMessage("Don't change sub classes so rapidly, please wait.");
 						player.sendPacket(ActionFailed.STATIC_PACKET);
