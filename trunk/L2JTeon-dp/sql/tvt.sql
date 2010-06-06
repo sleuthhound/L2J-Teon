@@ -20,4 +20,5 @@ CREATE TABLE IF NOT EXISTS `tvt` (
   `eventTime` int(11) NOT NULL default '0',
   `minPlayers` int(4) NOT NULL default '0',
   `maxPlayers` int(4) NOT NULL default '0'
+  `delayForNextEvent` BIGINT NOT NULL DEFAULT '0'
 ) DEFAULT CHARSET=utf8;
