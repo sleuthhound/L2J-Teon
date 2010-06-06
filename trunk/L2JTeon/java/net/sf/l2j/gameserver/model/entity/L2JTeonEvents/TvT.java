@@ -32,6 +32,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -446,6 +447,11 @@ public class TvT
 
 	public static void startEvent(L2PcInstance activeChar)
 	{
+		if (_inProgress)
+		{
+			activeChar.sendMessage("A TvT event is already in progress, try abort.");
+			return;
+		}
 		if (!startEventOk())
 		{
 			if (_log.isDebugEnabled()) {
@@ -455,8 +461,13 @@ public class TvT
 		}
 		_teleport = false;
 		sit();
+		
+		if (Config.TVT_CLOSE_COLISEUM_DOORS)
+			closeColiseumDoors();
+
 		Announcements.getInstance().announceToAll(_eventName + "(TvT): Started. Go to kill your enemies!");
 		_started = true;
+		_inProgress = true;
 	}
 
 	public static void setJoinTime(int time)
@@ -480,34 +491,64 @@ public class TvT
 		}
 		_teleport = false;
 		sit();
+		
+		if (Config.TVT_CLOSE_COLISEUM_DOORS)
+			closeColiseumDoors();
+		
 		Announcements.getInstance().announceToAll(_eventName + "(TvT): Started. Go to kill your enemies!");
 		_started = true;
 		return true;
 	}
 
-	public static void autoEvent()
+	public static synchronized void autoEvent()
 	{
+		_log.info("Starting TvT!");
+		_log.info("Matchs Are Restarted At Every: " + getIntervalBetweenMatchs() + " Minutes.");
 		if (startAutoJoin())
 		{
-			if (_joinTime > 0) {
+			_eventType = 2;
+
+			if (_joinTime > 0)
 				waiter(_joinTime * 60 * 1000); // minutes for join event
-			} else if (_joinTime <= 0)
+			else if (_joinTime <= 0)
 			{
+				_log.info("TvT: join time <=0 aborting event.");
 				abortEvent();
 				return;
 			}
 			if (teleportAutoStart())
 			{
-				waiter(1 * 60 * 1000); // 1 min wait time untill start fight after teleported
+				waiter(30 * 1000); // 30 sec wait time untill start fight after teleported
 				if (startAutoEvent())
 				{
+					_log.debug("TvT: waiting.....minutes for event time " + TvT._eventTime);
+
 					waiter(_eventTime * 60 * 1000); // minutes for event time
 					finishEvent();
+
+					_log.info("TvT: waiting... delay for final messages ");
+					waiter(60000);//just a give a delay delay for final messages
+					sendFinalMessages();
+
+					if (_finished && _eventType == 2)
+						_log.info("TVT: waiting.....delay for restart event  " + TvT.getIntervalBetweenMatchs() + " minutes.");
+					waiter(60000);//just a give a delay to next restart
+
+					try
+					{
+						restartEvent();
+					}
+					catch (Exception e)
+					{
+						_log.error("Error while tying to Restart Event", e);
+						e.printStackTrace();
+					}
 				}
 			}
 			else if (!teleportAutoStart())
 			{
 				abortEvent();
+				restartEvent();
 			}
 		}
 	}
@@ -705,9 +746,13 @@ public class TvT
 
 	private static boolean finishEventOk()
 	{
-		if (!_started) {
+		if (!_started)
 			return false;
-		}
+
+		_inProgress = false;
+		if (Config.TVT_CLOSE_COLISEUM_DOORS)
+			openColiseumDoors();
+
 		return true;
 	}
 
@@ -760,6 +805,7 @@ public class TvT
 		_joining = false;
 		_teleport = false;
 		_started = false;
+		_inProgress = false;
 		unspawnEventNpc();
 		Announcements.getInstance().announceToAll(_eventName + "(TvT): Match aborted!");
 		teleportFinish();
@@ -904,6 +950,7 @@ public class TvT
 		_eventTime = 0;
 		_minPlayers = 0;
 		_maxPlayers = 0;
+		_intervalBetweenMatchs = 0;
 		java.sql.Connection con = null;
 		try
 		{
@@ -932,6 +979,7 @@ public class TvT
 				_eventTime = rs.getInt("eventTime");
 				_minPlayers = rs.getInt("minPlayers");
 				_maxPlayers = rs.getInt("maxPlayers");
+				_intervalBetweenMatchs = rs.getLong("delayForNextEvent");
 			}
 			statement.close();
 			int index = -1;
@@ -987,7 +1035,7 @@ public class TvT
 			statement = con.prepareStatement("Delete from tvt");
 			statement.execute();
 			statement.close();
-			statement = con.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, npcHeading, rewardId, rewardAmount, teamsCount, joinTime, eventTime, minPlayers, maxPlayers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			statement = con.prepareStatement("INSERT INTO tvt (eventName, eventDesc, joiningLocation, minlvl, maxlvl, npcId, npcX, npcY, npcZ, npcHeading, rewardId, rewardAmount, teamsCount, joinTime, eventTime, minPlayers, maxPlayers, delayForNextEvent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			statement.setString(1, _eventName);
 			statement.setString(2, _eventDesc);
 			statement.setString(3, _joiningLocationName);
@@ -1005,6 +1053,7 @@ public class TvT
 			statement.setInt(15, _eventTime);
 			statement.setInt(16, _minPlayers);
 			statement.setInt(17, _maxPlayers);
+			statement.setLong(18, _intervalBetweenMatchs);
 			statement.execute();
 			statement.close();
 			statement = con.prepareStatement("Delete from tvt_teams");
@@ -1440,5 +1489,135 @@ public class TvT
 			return;
 		}
 		_teamPlayersCount.set(index, teamPlayersCount);
+	}
+	public static long _intervalBetweenMatchs = 0;
+
+	/**
+	 * The type of TvT Event
+	 * 1 = Manual
+	 * 2 = Automatic
+	 */
+	public static int _eventType = 0;
+
+	private static boolean _inProgress = false;
+	private static boolean _finished = false;
+	private static boolean _aborted	= false;
+
+	/**
+	 * Opens All Coliseum Doors
+	 */
+	private static void closeColiseumDoors()
+	{
+		Announcements.getInstance().announceToAll("Closing Coliseum Doors, TvT event has just started !");
+		DoorTable.getInstance().getDoor(24190001).closeMe();//west gate out
+		DoorTable.getInstance().getDoor(24190002).closeMe();//west gate in
+		DoorTable.getInstance().getDoor(24190003).closeMe();//east gate out
+		DoorTable.getInstance().getDoor(24190004).closeMe();//east gate in
+
+		try
+		{
+			//just to give a lil delay :P
+			Thread.sleep(20);
+		}
+		catch (InterruptedException ie)
+		{
+			_log.fatal("Error, " + ie.getMessage());
+		}
+	}
+
+	/**
+	 * Open all Coliseum Doors
+	 */
+	private static void openColiseumDoors()
+	{
+		Announcements.getInstance().announceToAll("Opening Coliseum Doors, TvT event has finished!");
+		DoorTable.getInstance().getDoor(24190001).openMe();
+		DoorTable.getInstance().getDoor(24190002).openMe();
+		DoorTable.getInstance().getDoor(24190003).openMe();
+		DoorTable.getInstance().getDoor(24190004).openMe();
+
+	}
+
+	/**
+	 * Restarts Event
+	 * checks if event was aborted. and if true cancels restart task
+	 */
+	public synchronized static void restartEvent()
+	{
+		if (_aborted)
+		{
+			_log.debug("TvT: restart skipped, event was aborted.");
+			return;
+		}
+		_log.info("TvT: Event has been restarted...");
+		_joining = false;
+		_started = false;
+		_finished = false;
+		_inProgress = false;
+		long delay = _intervalBetweenMatchs;
+
+		Announcements.getInstance().announceToAll("TvT: joining period will be avaible again in " + getIntervalBetweenMatchs() + " minute(s)!");
+
+		waiter(delay);
+
+		try
+		{
+			autoEvent(); //start a new event
+		}
+		catch (Exception e)
+		{
+			_log.fatal("TvT: Error While Trying to restart Event...", e);
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Returns the event type by name.
+	 * @param value
+	 * @return
+	 */
+	public static String getEventTypeByName(int value)
+	{
+		String type = String.valueOf(value);
+
+		switch (value)
+		{
+		case 0:
+			type = ("None");
+			break;
+
+		case 1:
+			type = ("Manual");
+			break;
+
+		case 2:
+			type = ("Automatic");
+			break;
+		}
+		return type;
+	}
+
+	/**
+	 * just an announcer to send termination messages
+	 *
+	 */
+	public static void sendFinalMessages()
+	{
+		if (_finished && !_aborted)
+			Announcements.getInstance().announceToAll("TvT: Thank you For Participating At, " + "TVT Event.");
+	}
+
+	/**
+	 * returns the interval between each event
+	 * @return
+	 */
+	public static int getIntervalBetweenMatchs()
+	{
+		long actualTime = System.currentTimeMillis();
+		long totalTime = actualTime + _intervalBetweenMatchs;
+		long interval = totalTime - actualTime;
+		int seconds = (int) (interval / 1000);
+
+		return Math.round(seconds / 60);
 	}
 }

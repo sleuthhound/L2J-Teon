@@ -765,6 +765,7 @@ public final class Config
 	public static boolean TVT_ANNOUNCE_TEAM_STATS;
 	public static boolean TVT_PRICE_NO_KILLS;
 	public static boolean TVT_JOIN_CURSED;
+	public static boolean TVT_CLOSE_COLISEUM_DOORS;
 	// * CTF Event Engine *//
 	public static String CTF_EVEN_TEAMS;
 	public static boolean CTF_ALLOW_INTERFERENCE;
@@ -2479,6 +2480,7 @@ public final class Config
 					TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtAnnounceTeamStats", "False"));
 					TVT_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtPriceNoKills", "False"));
 					TVT_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvtJoinWithCursedWeapon", "True"));
+					TVT_CLOSE_COLISEUM_DOORS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("TvTCloseColiseumDoors", "False"));
 					// -------------------- //
 					// CTF Event Engine //
 					// -------------------- //

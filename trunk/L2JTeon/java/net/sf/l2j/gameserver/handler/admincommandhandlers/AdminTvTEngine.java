@@ -29,11 +29,12 @@ import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2JTeonEvents.TvT;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.util.Util;
 
 public class AdminTvTEngine implements IAdminCommandHandler
 {
 	private static final String[] ADMIN_COMMANDS = { "admin_tvt", "admin_tvt_name", "admin_tvt_desc", "admin_tvt_join_loc", "admin_tvt_minlvl", "admin_tvt_maxlvl", "admin_tvt_npc", "admin_tvt_npc_pos", "admin_tvt_reward", "admin_tvt_reward_amount", "admin_tvt_team_add", "admin_tvt_team_remove", "admin_tvt_team_pos", "admin_tvt_team_color", "admin_tvt_join", "admin_tvt_teleport",
-			"admin_tvt_start", "admin_tvt_abort", "admin_tvt_finish", "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load", "admin_tvt_jointime", "admin_tvt_eventtime", "admin_tvt_autoevent", "admin_tvt_minplayers", "admin_tvt_maxplayers" };
+			"admin_tvt_start", "admin_tvt_abort", "admin_tvt_finish", "admin_tvt_sit", "admin_tvt_dump", "admin_tvt_save", "admin_tvt_load", "admin_tvt_jointime", "admin_tvt_eventtime", "admin_tvt_autoevent", "admin_tvt_minplayers", "admin_tvt_maxplayers", "admin_tvt_interval" };
 	private static final int REQUIRED_LEVEL = 100;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -197,6 +198,13 @@ public class AdminTvTEngine implements IAdminCommandHandler
 		else if (command.equals("admin_tvt_dump")) {
 			TvT.dumpData();
 		}
+		else if (command.startsWith("admin_tvt_interval "))
+		{
+			int value = Integer.valueOf(command.substring(19));
+
+			TvT._intervalBetweenMatchs = Util.convertMinutesToMiliseconds(value);
+			showMainPage(activeChar);
+		}
 		return true;
 	}
 
@@ -247,6 +255,9 @@ public class AdminTvTEngine implements IAdminCommandHandler
 		replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_tvt_join\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 		replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_tvt_teleport\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 		replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_tvt_start\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+		//L2EMU_ADD
+		replyMSG.append("</tr></table><table><tr>");
+		replyMSG.append("<td width=\"100\"><button value=\"Set Interval\" action=\"bypass -h admin_tvt_interval $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 		replyMSG.append("</tr></table><table><tr>");
 		replyMSG.append("<td width=\"100\"><button value=\"Abort\" action=\"bypass -h admin_tvt_abort\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 		replyMSG.append("<td width=\"100\"><button value=\"Finish\" action=\"bypass -h admin_tvt_finish\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");

@@ -369,4 +369,8 @@ public final class Util
 	{
 		return calcCameraAngle(target.getHeading());
 	}
+	public static int convertMinutesToMiliseconds(int minutesToConvert)
+	{
+		return minutesToConvert * 60000;
+	}
 }
