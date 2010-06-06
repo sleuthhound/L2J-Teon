@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.EnchantResult;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
@@ -53,6 +54,11 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 	protected void runImpl() {
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null || _objectId == 0) {
+			return;
+		}
+		if (activeChar.getFloodProtectors().getUseItem().tryPerformAction("enchant"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (activeChar.isProcessingTransaction() || activeChar.isInStoreMode()) {
