@@ -83,6 +83,10 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	// UnknownPacket protection
 	private int unknownPacketCount = 0;
 
+	protected ScheduledFuture<?> _cleanupTask = null;
+	//offline_shop
+	private boolean _isDetached = false;
+	
 	public L2GameClient(MMOConnection<L2GameClient> con)
 	{
 		super(con);
@@ -175,10 +179,25 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	public void sendPacket(L2GameServerPacket gsp)
 	{
+		if (_isDetached) return;
+		
 		getConnection().sendPacket(gsp);
 		gsp.runImpl();
 	}
 
+	public boolean isDetached(){
+		return _isDetached;
+	}
+	
+	public void isDetached(boolean b){
+		_isDetached = b;
+	}
+	
+	public void closeNow(){
+		super.getConnection().close(null);
+		cleanMe(true);
+	}
+	
 	public L2PcInstance markToDeleteChar(int charslot) throws Exception
 	{
 		// have to make sure active character must be nulled
@@ -517,6 +536,81 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 */
 		public void run()
 		{
+			
+			boolean fast = true;
+						
+			try{
+				L2PcInstance player = L2GameClient.this.getActiveChar();
+				isDetached(true);
+					
+				if (player != null){
+						
+					//_log.info("called disconnect task on player "+player.getName());
+						
+					if (!player.isInOlympiadMode() /*&& player.isInsideZone(L2Character.ZONE_PEACE)*/ && !player.isInDuel() &&
+						(player.getParty()==null || !player.getParty().isInDimensionalRift()) && !player.isFestivalParticipant() &&
+				    	!player.atEvent && !player.isInJail()){
+				   			
+						//_log.info("checking offline mode");
+							
+						if (!player.offline_shop_enabled && (player.isInStoreMode() && Config.ALLOW_OFFLINE_TRADE) || (player.isInCraftMode() && Config.ALLOW_OFFLINE_CRAFT)){
+				   			
+								
+							player.leaveParty();
+				   				
+							if (Config.OFFLINE_TARGET_COLOR){
+				   					player.getAppearance().setNameColor(Config.OFFLINE_COLOR);
+				    				player.broadcastUserInfo();
+				    		}
+								
+							//_log.info("player in offline mode");
+								
+							player.offline_shop_enabled = true;
+								
+							//if is in offline mode, dnt call the clean me
+				   			return;
+				    			
+				    	}else if (player.offline_shop_enabled){
+							//player.offline_shop_enabled = false;
+							isDetached(false);
+						}
+				    }
+						
+					if (player.isInCombat()){
+				    	fast = false;
+					}
+						
+				}
+			  	
+				cleanMe(fast);
+					
+					
+			}catch (Exception e1){
+			  	e1.printStackTrace();
+			  	_log.warning("Error while disconnecting client.");
+			}
+		}
+	}
+				
+    public void cleanMe(boolean fast){
+					
+		try{
+			synchronized(this){
+				if (_cleanupTask == null){
+				   	_cleanupTask = ThreadPoolManager.getInstance().scheduleGeneral(new CleanupTask(), fast ? 5 : 15000L);
+				}
+			}
+					
+		}catch (Exception e1){
+			_log.warning("Error during cleanup.");
+		}
+	}
+
+				
+    class CleanupTask implements Runnable{
+			
+		public void run(){
+						
 			try
 			{
 				// Update BBS
@@ -551,6 +645,14 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 					player.deleteMe();
 					try
 					{
+						if(isDetached()){
+							isDetached(false);
+						}else{
+							// notify the world about our disconnect
+							player.deleteMe();	
+							//_log.info("called deleteme");
+						}
+						
 						saveCharToDisk(player);
 					}
 					catch (Exception e2)

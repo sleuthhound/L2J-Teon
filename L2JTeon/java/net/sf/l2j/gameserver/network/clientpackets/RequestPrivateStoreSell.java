@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.model.ItemRequest;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -140,6 +141,14 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		{
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
+			
+			// Logout seller if is offline
+			if(storePlayer.getClient().isDetached()){
+				storePlayer.getClient().isDetached(false);
+				storePlayer.deleteMe();
+				LoginServerThread.getInstance().sendLogout(storePlayer.getClient().getAccountName());
+			}
+			
 		}
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{

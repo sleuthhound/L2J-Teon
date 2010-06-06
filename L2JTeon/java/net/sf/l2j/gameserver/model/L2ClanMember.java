@@ -116,7 +116,18 @@ public class L2ClanMember
 
 	public boolean isOnline()
 	{
-		return _player != null;
+		//return _player != null;
+		if (_player == null)
+			return false;
+		
+		if (_player.getClient() == null)
+			return false;
+		
+		if (_player.getClient().isDetached())
+			return false;
+		
+		return true;
+		
 	}
 
 	/**

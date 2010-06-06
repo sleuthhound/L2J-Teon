@@ -99,6 +99,12 @@ public final class RequestJoinParty extends L2GameClientPacket
 			requestor.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
+                 
+	        if (target.getClient().isDetached()){ 
+            requestor.sendMessage("Player is in offline mode."); 
+	        return; 
+	    } 
+	                 
 		if (target.isInOlympiadMode() || requestor.isInOlympiadMode()) {
 			return;
 		}
