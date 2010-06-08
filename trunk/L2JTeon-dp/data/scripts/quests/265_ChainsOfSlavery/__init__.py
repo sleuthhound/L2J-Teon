@@ -63,7 +63,7 @@ class Quest (JQuest) :
           st.giveItems(ADENA,13*count)
        st.takeItems(IMP_SHACKLES,-1)
        # check the player state against this quest newbie rewarding mark.
-       newbie = player.getNewbie()
+       newbie = player.isNewbie()
        if newbie | NEWBIE_REWARD != newbie :
           player.setNewbie(newbie|NEWBIE_REWARD)
           st.showQuestionMark(26)

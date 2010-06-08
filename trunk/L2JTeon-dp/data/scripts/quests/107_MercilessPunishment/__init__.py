@@ -119,7 +119,7 @@ class Quest (JQuest) :
             st.giveItems(CRYSTAL_FEAST,int(10*Config.RATE_QUESTS_REWARD)) 
             st.giveItems(CRYSTAL_CELEBRATION,int(10*Config.RATE_QUESTS_REWARD))
             # check the player state against this quest newbie rewarding mark.
-            newbie = player.getNewbie()
+            newbie = player.isNewbie()
             if newbie | NEWBIE_REWARD != newbie :
                player.setNewbie(newbie|NEWBIE_REWARD)
                if player.getClassId().isMage() :

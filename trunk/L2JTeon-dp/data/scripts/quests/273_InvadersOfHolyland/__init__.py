@@ -80,7 +80,7 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_finish")
      if red+black != 0 :
         # check the player state against this quest newbie rewarding mark.
-       newbie = player.getNewbie()
+       newbie = player.isNewbie()
        if newbie | NEWBIE_REWARD != newbie :
           player.setNewbie(newbie|NEWBIE_REWARD)
           st.showQuestionMark(26)

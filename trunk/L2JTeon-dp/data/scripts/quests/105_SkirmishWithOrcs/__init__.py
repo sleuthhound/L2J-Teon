@@ -116,7 +116,7 @@ class Quest (JQuest) :
             if st.getQuestItemsCount(KENDNELLS_ORDER8) : 
                 st.takeItems(KENDNELLS_ORDER8,1) 
             st.takeItems(KABOO_CHIEF_TORC2,1)
-            newbie = player.getNewbie()
+            newbie = player.isNewbie()
             mage = player.getClassId().isMage()
             if mage :
                st.giveItems(RED_SUNSET_STAFF,1)

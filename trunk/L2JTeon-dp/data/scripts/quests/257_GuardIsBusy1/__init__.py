@@ -62,7 +62,7 @@ class Quest (JQuest) :
        htmltext = "30039-04.htm"
      else :
        # check the player state against this quest newbie rewarding mark.
-       newbie = player.getNewbie()
+       newbie = player.isNewbie()
        if newbie | NEWBIE_REWARD != newbie :
           player.setNewbie(newbie|NEWBIE_REWARD)
           st.showQuestionMark(26)

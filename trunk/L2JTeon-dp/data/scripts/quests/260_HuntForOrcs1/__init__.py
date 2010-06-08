@@ -65,7 +65,7 @@ class Quest (JQuest) :
        st.takeItems(ORC_AMULET,-1)
        st.takeItems(ORC_NECKLACE,-1)
        # check the player state against this quest newbie rewarding mark.
-       newbie = player.getNewbie()
+       newbie = player.isNewbie()
        if newbie | NEWBIE_REWARD != newbie :
           player.setNewbie(newbie|NEWBIE_REWARD)
           st.showQuestionMark(26)
