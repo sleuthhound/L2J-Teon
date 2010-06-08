@@ -30,7 +30,7 @@ class Quest (JQuest) :
  def onAdvEvent (self,event,npc,player) :
     if not QUEEN_ENABLED : return
     st = player.getQuestState(qn)
-    newbie = player.getNewbie()
+    newbie = player.isNewbie()
     level = player.getLevel()
     occupation_level = player.getClassId().level()
     pkkills = player.getPkKills()

@@ -91,7 +91,7 @@ class Quest (JQuest) :
    elif npcId == 30523 and st.getInt("cond")==1 and st.getQuestItemsCount(STAR_DIAMOND) : 
           htmltext = "30523-08.htm"
           # check the player state against this quest newbie rewarding mark.
-          newbie = player.getNewbie()
+          newbie = player.isNewbie()
           if newbie | NEWBIE_REWARD != newbie :
              player.setNewbie(newbie|NEWBIE_REWARD)
              if player.getClassId().isMage() :

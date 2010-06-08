@@ -22,7 +22,7 @@ SOULSHOT_FOR_BEGINNERS = 5789
 def newbie_rewards(st) :
   # check the player state against this quest newbie rewarding mark.
   player=st.getPlayer()
-  newbie = player.getNewbie()
+  newbie = player.isNewbie()
   if newbie | NEWBIE_REWARD != newbie :
      player.setNewbie(newbie|NEWBIE_REWARD)
      st.giveItems(SOULSHOT_FOR_BEGINNERS,6000)
