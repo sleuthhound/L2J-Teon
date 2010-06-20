@@ -47,12 +47,9 @@ import net.sf.l2j.util.Point3D;
 import net.sf.l2j.util.Rnd;
 
 /**
- * This class manages AI of L2Character.<BR>
- * <BR>
- * L2CharacterAI :<BR>
- * <BR>
- * <li>L2AttackableAI</li> <li>L2DoorAI</li> <li>L2PlayerAI</li> <li>L2SummonAI</li> <BR>
- * <BR>
+ * This class manages AI of L2Character.
+ * L2CharacterAI :
+ * <li>L2AttackableAI L2DoorAI L2PlayerAI L2SummonAI
  */
 public class L2CharacterAI extends AbstractAI
 {
@@ -70,10 +67,8 @@ public class L2CharacterAI extends AbstractAI
     }
 
     /**
-     * Constructor of L2CharacterAI.<BR><BR>
-     *
+     * Constructor of L2CharacterAI.
      * @param accessor The AI accessor of the L2Character
-     *
      */
     public L2CharacterAI(L2Character.AIAccessor accessor)
     {

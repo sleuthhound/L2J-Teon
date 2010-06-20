@@ -490,9 +490,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						int hating = npc.getHating(target);
 
 						// Add the attacker to the L2Attackable _aggroList with 0 damage and 1 hate
-						if (hating == 0) {
-							npc.addDamageHate(target, 0, 1);
-						}
+						if (hating == 0) npc.addDamageHate(target, 0, 1);
 					}
 				}
 			}
@@ -706,7 +704,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 		L2Character originalAttackTarget = getAttackTarget();
 		// Check if target is dead or if timeout is expired to stop this attack
-		if (originalAttackTarget == null || originalAttackTarget.isAlikeDead() || _attackTimeout < GameTimeController.getGameTicks())
+		if (originalAttackTarget == null
+            		|| originalAttackTarget.isAlikeDead()
+           		|| _attackTimeout < GameTimeController.getGameTicks())
 		{
 			// Stop hating this target after the attack timeout or if target is dead
 			if (originalAttackTarget != null) {
@@ -1128,9 +1128,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					for (L2Skill sk : _selfAnalysis.generalDisablers)
 					{
 						int castRange = sk.getCastRange() + combinedCollision;
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+						if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange)
 							continue;
-						}
+
 						if (Rnd.nextInt(100) <= (_selfAnalysis.isFighter && _actor.isRooted() ? 15 : 7))
 						{
 							clientStopMoving(null);
@@ -1144,16 +1144,16 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				{
 					for (L2Skill sk : _selfAnalysis.healSkills)
 					{
-						if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk)) {
+						if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk))
 							continue;
-						}
+
 						int chance = 7;
-						if (_mostHatedAnalysis.character.isAttackingDisabled()) {
+						if (_mostHatedAnalysis.character.isAttackingDisabled())
 							chance += 10;
-						}
-						if (_secondMostHatedAnalysis.character == null || _secondMostHatedAnalysis.character.isAttackingDisabled()) {
+
+						if (_secondMostHatedAnalysis.character == null || _secondMostHatedAnalysis.character.isAttackingDisabled())
 							chance += 10;
-						}
+
 						if (Rnd.nextInt(100) <= chance)
 						{
 							_actor.setTarget(_actor);
@@ -1167,27 +1167,25 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
 				// chance decision for launching long range skills
 				int castingChance = 5;
-				if (_selfAnalysis.isMage || _selfAnalysis.isHealer) {
+				if (_selfAnalysis.isMage || _selfAnalysis.isHealer)
 					castingChance = 50; // mages
-				}
+
 				if (_selfAnalysis.isBalanced)
 				{
-					if (!_mostHatedAnalysis.isFighter) {
+					if (!_mostHatedAnalysis.isFighter)
 						castingChance = 15;
-					} else {
+					else
 						castingChance = 25; // stay away from fighters
-					}
 				}
 				if (_selfAnalysis.isFighter)
 				{
-					if (_mostHatedAnalysis.isMage) {
+					if (_mostHatedAnalysis.isMage)
 						castingChance = 3;
-					} else {
+					else
 						castingChance = 7;
-					}
-					if (_actor.isRooted()) {
+
+					if (_actor.isRooted())
 						castingChance = 20; // doesn't matter if no success first round
-					}
 				}
 				for (L2Skill sk : _selfAnalysis.generalSkills)
 				{
@@ -1214,22 +1212,20 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				if (_actor.getMaxMp() / 3 < _actor.getCurrentMp())
 				{
 					range = _selfAnalysis.maxCastRange;
-					if (dist2 < range * range) {
+					if (dist2 < range * range)
 						return;
-					}
 				}
 			}
 			// healers do not even follow
-			if (_selfAnalysis.isHealer) {
+			if (_selfAnalysis.isHealer)
 				return;
-			}
 
-			if (_mostHatedAnalysis.character.isMoving()) {
+			if (_mostHatedAnalysis.character.isMoving())
 				range -= 100;
-			}
-			if (range < 5) {
+
+			if (range < 5)
 				range = 5;
-			}
+
 			moveToPawn(_mostHatedAnalysis.character, range);
 			return;
 		}
@@ -1246,13 +1242,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					if (nearby instanceof L2Attackable && nearby != _mostHatedAnalysis.character)
 					{
 						int diffx = Rnd.get(combinedCollision, combinedCollision + 40);
-						if (Rnd.get(10) < 5) {
+						if (Rnd.get(10) < 5)
 							diffx = -diffx;
-						}
+
 						int diffy = Rnd.get(combinedCollision, combinedCollision + 40);
-						if (Rnd.get(10) < 5) {
+						if (Rnd.get(10) < 5)
 							diffy = -diffy;
-						}
+
 						moveTo(_mostHatedAnalysis.character.getX() + diffx, _mostHatedAnalysis.character.getY() + diffy, _mostHatedAnalysis.character.getZ());
 						return;
 					}
@@ -1268,13 +1264,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				for (L2Skill sk : _selfAnalysis.cancelSkills)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
+
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange)
 						continue;
-					}
+
 					if (Rnd.nextInt(100) <= 8)
 					{
 						clientStopMoving(null);
@@ -1288,32 +1284,32 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				for (L2Skill sk : _selfAnalysis.debuffSkills)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
+
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange)
 						continue;
-					}
+
 					int chance = 5;
-					if (_selfAnalysis.isFighter && _mostHatedAnalysis.isMage) {
+					if (_selfAnalysis.isFighter && _mostHatedAnalysis.isMage)
 						chance = 3;
-					}
-					if (_selfAnalysis.isFighter && _mostHatedAnalysis.isArcher) {
+
+					if (_selfAnalysis.isFighter && _mostHatedAnalysis.isArcher)
 						chance = 3;
-					}
-					if (_selfAnalysis.isMage && !_mostHatedAnalysis.isMage) {
+
+					if (_selfAnalysis.isMage && !_mostHatedAnalysis.isMage)
 						chance = 4;
-					}
-					if (_selfAnalysis.isHealer) {
+
+					if (_selfAnalysis.isHealer)
 						chance = 12;
-					}
-					if (_mostHatedAnalysis.isMagicResistant) {
+
+					if (_mostHatedAnalysis.isMagicResistant)
 						chance /= 2;
-					}
-					if (sk.getCastRange() < 200) {
+
+					if (sk.getCastRange() < 200)
 						chance += 3;
-					}
+
 					if (Rnd.nextInt(100) <= chance)
 					{
 						clientStopMoving(null);
@@ -1327,13 +1323,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				for (L2Skill sk : _selfAnalysis.muteSkills)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
+
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange)
 						continue;
-					}
+
 					if (Rnd.nextInt(100) <= 7)
 					{
 						clientStopMoving(null);
@@ -1347,13 +1343,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				double secondHatedDist2 = _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY());
 				for (L2Skill sk : _selfAnalysis.muteSkills)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
+
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || secondHatedDist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || secondHatedDist2 > castRange * castRange)
 						continue;
-					}
+
 					if (Rnd.nextInt(100) <= 3)
 					{
 						_actor.setTarget(_secondMostHatedAnalysis.character);
@@ -1369,9 +1365,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				for (L2Skill sk : _selfAnalysis.sleepSkills)
 				{
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange)
 						continue;
-					}
+
 					if (Rnd.nextInt(100) <= 10)
 					{
 						clientStopMoving(null);
@@ -1386,13 +1382,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				double secondHatedDist2 = _actor.getPlanDistanceSq(_secondMostHatedAnalysis.character.getX(), _secondMostHatedAnalysis.character.getY());
 				for (L2Skill sk : _selfAnalysis.sleepSkills)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
+
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || secondHatedDist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || secondHatedDist2 > castRange * castRange)
 						continue;
-					}
+
 					if (Rnd.nextInt(100) <= (_selfAnalysis.isHealer ? 10 : 4))
 					{
 						_actor.setTarget(_secondMostHatedAnalysis.character);
@@ -1407,13 +1403,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				for (L2Skill sk : _selfAnalysis.rootSkills)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
+
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange)
 						continue;
-					}
+
 					if (Rnd.nextInt(100) <= (_selfAnalysis.isHealer ? 10 : 4))
 					{
 						clientStopMoving(null);
@@ -1426,13 +1422,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				for (L2Skill sk : _selfAnalysis.generalDisablers)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
+
 					int castRange = sk.getCastRange() + combinedCollision;
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange)
 						continue;
-					}
+
 					if (Rnd.nextInt(100) <= (sk.getCastRange() < 200 ? 10 : 7))
 					{
 						clientStopMoving(null);
@@ -1445,19 +1441,19 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				for (L2Skill sk : _selfAnalysis.healSkills)
 				{
-					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+					if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic())
 						continue;
-					}
-					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk)) {
+
+					if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk))
 						continue;
-					}
+
 					int chance = _selfAnalysis.isHealer ? 15 : 7;
-					if (_mostHatedAnalysis.character.isAttackingDisabled()) {
+					if (_mostHatedAnalysis.character.isAttackingDisabled())
 						chance += 10;
-					}
-					if (_secondMostHatedAnalysis.character == null || _secondMostHatedAnalysis.character.isAttackingDisabled()) {
+
+					if (_secondMostHatedAnalysis.character == null || _secondMostHatedAnalysis.character.isAttackingDisabled())
 						chance += 10;
-					}
+
 					if (Rnd.nextInt(100) <= chance)
 					{
 						_actor.setTarget(_actor);
@@ -1470,50 +1466,49 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 			for (L2Skill sk : _selfAnalysis.generalSkills)
 			{
-				if (_actor.isMuted() && sk.isMagic() || _actor.isPsychicalMuted() && !sk.isMagic()) {
+				if (_actor.isMuted() && sk.isMagic() 
+						|| _actor.isPsychicalMuted() && !sk.isMagic())
 					continue;
-				}
+
 				int castRange = sk.getCastRange() + combinedCollision;
-				if (_actor.isSkillDisabled(sk.getId()) || _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) || dist2 > castRange * castRange) {
+				if (_actor.isSkillDisabled(sk.getId()) 
+						|| _actor.getCurrentMp() < _actor.getStat().getMpConsume(sk) 
+						|| dist2 > castRange * castRange)
 					continue;
-				}
 
 				// chance decision for launching general skills in melee fight
 				// close range skills should be higher, long range lower
 				int castingChance = 5;
 				if (_selfAnalysis.isMage || _selfAnalysis.isHealer)
 				{
-					if (sk.getCastRange() < 200) {
+					if (sk.getCastRange() < 200)
 						castingChance = 35;
-					} else {
+					else
 						castingChance = 25; // mages
-					}
 				}
 				if (_selfAnalysis.isBalanced)
 				{
-					if (sk.getCastRange() < 200) {
+					if (sk.getCastRange() < 200)
 						castingChance = 12;
-					} else
+					else
 					{
-						if (_mostHatedAnalysis.isMage) {
+						if (_mostHatedAnalysis.isMage)
 							castingChance = 2;
-						} else {
+						else
 							castingChance = 5;
-						}
 					}
 
 				}
 				if (_selfAnalysis.isFighter)
 				{
-					if (sk.getCastRange() < 200) {
+					if (sk.getCastRange() < 200)
 						castingChance = 12;
-					} else
+					else
 					{
-						if (_mostHatedAnalysis.isMage) {
+						if (_mostHatedAnalysis.isMage)
 							castingChance = 1;
-						} else {
+						else
 							castingChance = 3;
-						}
 					}
 				}
 				if (Rnd.nextInt(100) <= castingChance)
@@ -1542,22 +1537,18 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	{
 		// Check if the actor can't use skills and if a thinking action isn't already in progress
 		if (_thinking || _actor.isAllSkillsDisabled() || _actor.isCastingNow())
-		{
 			return;
-		}
+
 		// Start thinking action
 		_thinking = true;
 		try
 		{
 			// Manage AI thinks of a L2Attackable
 			if (getIntention() == AI_INTENTION_ACTIVE)
-			{
 				thinkActive();
-			}
+
 			else if (getIntention() == AI_INTENTION_ATTACK)
-			{
 				thinkAttack();
-			}
 		}
 		finally
 		{
@@ -1580,40 +1571,36 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
-		// if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isInteracted())
-		// {
-		// ((L2ChestInstance)_actor).deleteMe();
-		// ((L2ChestInstance)_actor).getSpawn().startRespawn();
-		// return;
-		// }
+/*		 if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isInteracted())
+		 {
+			 ((L2ChestInstance)_actor).deleteMe();
+			 ((L2ChestInstance)_actor).getSpawn().startRespawn();
+			 return;
+		}*/
 		// Calculate the attack timeout
 		_attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
 		// Set the _globalAggro to 0 to permit attack even just after spawn
 		if (_globalAggro < 0)
-		{
 			_globalAggro = 0;
-		}
+
 		// Add the attacker to the _aggroList of the actor
-        if (!((L2Attackable) _actor).isCoreAIDisabled()) {
+        if (!((L2Attackable) _actor).isCoreAIDisabled())
 			((L2Attackable) _actor).addDamageHate(attacker, 0, 1);
-		}
+
 		// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 		if (!_actor.isRunning())
-		{
 			_actor.setRunning();
-		}
+
 		// Set the Intention to AI_INTENTION_ATTACK
 		if (getIntention() != AI_INTENTION_ATTACK  && !((L2Attackable) _actor).isCoreAIDisabled())
-		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
-		}
+
 		else if (((L2Attackable) _actor).getMostHated() != getAttackTarget() && !((L2Attackable) _actor).isCoreAIDisabled())
-		{
 			setIntention(CtrlIntention.AI_INTENTION_ATTACK, attacker);
-		}
-        else if (getIntention() != AI_INTENTION_INTERACT && ((L2Attackable) _actor).isCoreAIDisabled()) {
+
+        else if (getIntention() != AI_INTENTION_INTERACT && ((L2Attackable) _actor).isCoreAIDisabled())
 			setIntention(CtrlIntention.AI_INTENTION_INTERACT, attacker);
-		}
+
 		super.onEvtAttacked(attacker);
 	}
 
@@ -1638,14 +1625,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			// Add the target to the actor _aggroList or update hate if already present
 			me.addDamageHate(target, 0, aggro);
+
 			// Set the actor AI Intention to AI_INTENTION_ATTACK
 			if (getIntention() != CtrlIntention.AI_INTENTION_ATTACK)
 			{
 				// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
 				if (!_actor.isRunning())
-				{
 					_actor.setRunning();
-				}
+
 				setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
 			}
 		}
