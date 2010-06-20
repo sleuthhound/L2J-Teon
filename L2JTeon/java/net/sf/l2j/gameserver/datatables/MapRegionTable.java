@@ -26,6 +26,8 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -42,7 +44,6 @@ import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
 public class MapRegionTable
 {
 	private static Logger _log = Logger.getLogger(MapRegionTable.class.getName());
-	private static MapRegionTable _instance;
 	private final int[][] _regions = new int[19][21];
 	private final int[][] _pointsWithKarmas;
 
@@ -53,11 +54,7 @@ public class MapRegionTable
 
 	public static MapRegionTable getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new MapRegionTable();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private MapRegionTable()
@@ -78,14 +75,12 @@ public class MapRegionTable
 				{
 					_regions[j][region] = rset.getInt(j + 2);
 					count2++;
-					// _log.fine(j+","+region+" -> "+rset.getInt(j+2));
 				}
 			}
 			rset.close();
 			statement.close();
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine(count2 + " mapregion loaded");
-			}
 		}
 		catch (Exception e)
 		{
@@ -171,9 +166,9 @@ public class MapRegionTable
 		_pointsWithKarmas[16][1] = -138560;
 		_pointsWithKarmas[16][2] = -2256;
 		// Primeval Isle
-		// _pointsWithKarmas[18][0] = 10468;
-		// _pointsWithKarmas[18][1] = -24569;
-		// _pointsWithKarmas[18][2] = -3645;
+		//_pointsWithKarmas[18][0] = 10468;
+		//_pointsWithKarmas[18][1] = -24569;
+		//_pointsWithKarmas[18][2] = -3645;
 	}
 
 	public final int getMapRegion(int posX, int posY)
@@ -340,13 +335,13 @@ public class MapRegionTable
 		{
 			L2PcInstance player = (L2PcInstance) activeChar;
 			// If in Monster Derby Track
-			if (player.isInsideZone(L2Character.ZONE_MONSTERTRACK)) {
+			if (player.isInsideZone(L2Character.ZONE_MONSTERTRACK))
 				return new Location(12661, 181687, -3560);
-			}
+
 			Castle castle = null;
 			Fort fort = null;
 			ClanHall clanhall = null;
-			if (player.getClan() != null)
+			if (player.getClan() != null && !player.isFlying())
 			{
 				// If teleport to clan hall
 				if (teleportWhere == TeleportWhereType.ClanHall)
@@ -355,10 +350,8 @@ public class MapRegionTable
 					if (clanhall != null)
 					{
 						L2ClanHallZone zone = clanhall.getZone();
-						if (zone != null)
-						{
+						if (zone != null && !player.isFlying())
 							return zone.getSpawn();
-						}
 					}
 				}
 				// If teleport to castle
@@ -367,17 +360,15 @@ public class MapRegionTable
 					castle = CastleManager.getInstance().getCastleByOwner(player.getClan());
 					fort = FortManager.getInstance().getFortByOwner(player.getClan());
 					// Check if player is on castle ground
-					if (castle == null) {
+					if (castle == null)
 						castle = CastleManager.getInstance().getCastle(player);
-					}
-					if (fort == null) {
+
+					if (fort == null)
 						fort = FortManager.getInstance().getFort(player);
-					}
+
 					if (castle != null && castle.getCastleId() > 0)
 					{
-						// If Teleporting to castle or
-						// If is on caslte with siege and player's clan is
-						// defender
+						// If Teleporting to castle or If is on caslte with siege and player's clan is defender
 						if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.Castle && castle.getSiege().getIsInProgress() && castle.getSiege().getDefenderClan(player.getClan()) != null)
 						{
 							coord = castle.getZone().getSpawn();
@@ -389,8 +380,7 @@ public class MapRegionTable
 							List<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
 							if (flags != null && !flags.isEmpty())
 							{
-								// Spawn to flag - Need more work to get player
-								// to the nearest flag
+								// Spawn to flag - Need more work to get player to the nearest flag
 								L2NpcInstance flag = flags.get(0);
 								return new Location(flag.getX(), flag.getY(), flag.getZ());
 							}
@@ -398,9 +388,7 @@ public class MapRegionTable
 					}
 					else if (fort != null && fort.getFortId() > 0)
 					{
-						// If Teleporting to castle or
-						// If is on caslte with siege and player's clan is
-						// defender
+						// If Teleporting to castle or If is on caslte with siege and player's clan is defender
 						if (teleportWhere == TeleportWhereType.Castle || teleportWhere == TeleportWhereType.Castle && fort.getSiege().getIsInProgress() && fort.getSiege().getDefenderClan(player.getClan()) != null)
 						{
 							coord = fort.getZone().getSpawn();
@@ -412,28 +400,38 @@ public class MapRegionTable
 							List<L2NpcInstance> flags = fort.getSiege().getFlag(player.getClan());
 							if (flags != null && !flags.isEmpty())
 							{
-								// Spawn to flag - Need more work to get player
-								// to the nearest flag
+								// Spawn to flag - Need more work to get player to the nearest flag
 								L2NpcInstance flag = flags.get(0);
 								return new Location(flag.getX(), flag.getY(), flag.getZ());
 							}
+						}
+						else if (BanditStrongholdSiege.getInstance().isPlayerRegister(((L2PcInstance)activeChar).getClan(),activeChar.getName()))
+						{
+							L2NpcInstance flag = BanditStrongholdSiege.getInstance().getSiegeFlag(((L2PcInstance)activeChar).getClan());
+							if (flag != null)
+								return new Location(flag.getX(), flag.getY(), flag.getZ()); 
+						}
+						else if (WildBeastFarmSiege.getInstance().isPlayerRegister(((L2PcInstance)activeChar).getClan(),activeChar.getName()))
+						{
+							L2NpcInstance flag = WildBeastFarmSiege.getInstance().getSiegeFlag(((L2PcInstance)activeChar).getClan());
+							if (flag != null)
+								return new Location(flag.getX(), flag.getY(), flag.getZ()); 
 						}
 					}
 				}
 			}
 			// teleport RED PK 5+ to Floran Village
-			if (player.getPkKills() > 5 && player.getKarma() > 1) {
+			if (player.getPkKills() > 5 && player.getKarma() > 1)
 				return new Location(17817, 170079, -3530);
-			}
+
 			// Karma player land out of city
 			if (player.getKarma() > 1)
 			{
 				int closest = getMapRegion(activeChar.getX(), activeChar.getY());
-				if (closest >= 0 && closest < _pointsWithKarmas.length) {
+				if (closest >= 0 && closest < _pointsWithKarmas.length)
 					return new Location(_pointsWithKarmas[closest][0], _pointsWithKarmas[closest][1], _pointsWithKarmas[closest][2]);
-				} else {
+				else
 					return new Location(17817, 170079, -3530);
-				}
 			}
 			// Checking if in arena
 			L2ArenaZone arena = ArenaManager.getInstance().getArena(player);
@@ -448,5 +446,11 @@ public class MapRegionTable
 		// here.
 		coord = TownManager.getInstance().getClosestTown(activeChar).getSpawnLoc();
 		return new Location(coord[0], coord[1], coord[2]);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MapRegionTable _instance = new MapRegionTable();
 	}
 }
