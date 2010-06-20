@@ -446,44 +446,41 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 
 			L2NpcInstance npc = (L2NpcInstance) cha;
 
-			if (faction_id != npc.getFactionId()) {
-				continue;
-			}
+			if (faction_id != npc.getFactionId()) continue;
 
 			if (npc.getAI() != null) // TODO: possibly check not needed
 			{
-				if (!npc.isDead() && Math.abs(target.getZ() - npc.getZ()) < 600
-				//&& _actor.getAttackByList().contains(getAttackTarget())
-						&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
-						//limiting aggro for siege guards
-						&& target.isInsideRadius(npc, 1500, true, false) && GeoData.getInstance().canSeeTarget(npc, target))
+				if (Math.abs(target.getZ() - npc.getZ()) < 600
+					&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE
+						|| npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE)
+					//limiting aggro for siege guards
+					&& target.isInsideRadius(npc, 1500, true, false)
+					&& GeoData.getInstance().canSeeTarget(npc, target))
 				{
 					// Notify the L2Object AI with EVT_AGGRESSION
 					npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
 				}
 				// heal friends
-				if (_selfAnalysis.hasHealOrResurrect && !_actor.isAttackingDisabled() && npc.getCurrentHp() < npc.getMaxHp() * 0.6 && _actor.getCurrentHp() > _actor.getMaxHp() / 2 && _actor.getCurrentMp() > _actor.getMaxMp() / 2
-						&& npc.isInCombat())
+				if (_selfAnalysis.hasHealOrResurrect && !_actor.isAttackingDisabled()
+                        		&& npc.getCurrentHp() < npc.getMaxHp() * 0.6
+                        		&& _actor.getCurrentHp() > _actor.getMaxHp() / 2
+                        		&& _actor.getCurrentMp() > _actor.getMaxMp() / 2
+					&& npc.isInCombat())
 				{
 					for (L2Skill sk : _selfAnalysis.healSkills)
 					{
-						if (_actor.getCurrentMp() < sk.getMpConsume()) {
-							continue;
-						}
-						if (_actor.isSkillDisabled(sk.getId())) {
-							continue;
-						}
-						if (!Util.checkIfInRange(sk.getCastRange(), _actor, npc, true)) {
-							continue;
-						}
+						if (_actor.getCurrentMp() < sk.getMpConsume())
+                        				continue;
+						if (_actor.isSkillDisabled(sk.getId()))
+                        				continue;
+						if (!Util.checkIfInRange(sk.getCastRange(), _actor, npc, true))
+                        				continue;
 
 						int chance = 4;
-						if (chance >= Rnd.get(100)) {
+						if (chance >= Rnd.get(100))
 							continue;
-						}
-						if (!GeoData.getInstance().canSeeTarget(_actor, npc)) {
+						if (!GeoData.getInstance().canSeeTarget(_actor, npc))
 							break;
-						}
 
 						L2Object OldTarget = _actor.getTarget();
 						_actor.setTarget(npc);
@@ -871,7 +868,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
 				_globalAggro = -25;
 				return;
 			} else {
-				for (L2Character aggroed : me.getAggroList().keySet()) {
+				for (L2Character aggroed : me.getAggroListRP().keySet()) {
 					me.addDamageHate(aggroed, 0, aggro);
 				}
 			}
