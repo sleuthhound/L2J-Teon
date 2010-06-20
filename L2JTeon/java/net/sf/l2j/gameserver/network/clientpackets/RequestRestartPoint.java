@@ -22,9 +22,12 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Fort;
@@ -67,17 +70,15 @@ public final class RequestRestartPoint extends L2GameClientPacket
 				Castle castle = null;
 				Fort fort = null;
 				if (activeChar.isInJail())
-				{
 					_requestedPointType = 27;
-				}
+
 				else if (activeChar.isFestivalParticipant())
-				{
 					_requestedPointType = 4;
-				}
+				
 				switch (_requestedPointType)
 				{
 					case 1: // to clanhall
-						if (activeChar.getClan().getHasHideout() == 0)
+						if (activeChar.getClan() == null || activeChar.getClan().getHasHideout() == 0)
 						{
 							// cheater
 							activeChar.sendMessage("You may not use this respawn point!");
@@ -85,11 +86,10 @@ public final class RequestRestartPoint extends L2GameClientPacket
 							activeChar.closeNetConnection(); // kick
 							return;
 						}
-						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
-						if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
-						{
+						  loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
+						  if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null 
+								&& ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
 							activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl());
-						}
 						break;
 					case 2: // to castle
 						Boolean isInDefense = false;
@@ -142,9 +142,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						if (castle != null)
 						{
 							if (castle.getSiege().getIsInProgress())
-							{
 								siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
-							}
 							if (siegeClan == null || siegeClan.getFlag().size() == 0)
 							{
 								// cheater
@@ -157,15 +155,22 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						else if (fort != null)
 						{
 							if (fort.getSiege().getIsInProgress())
-							{
 								siegeClan = fort.getSiege().getAttackerClan(activeChar.getClan());
-							}
 							if (siegeClan == null || siegeClan.getFlag().size() == 0)
 							{
 								// cheater
 								activeChar.sendMessage("You may not use this respawn point!");
 								Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", Config.DEFAULT_PUNISH);
 								activeChar.closeNetConnection(); // kick
+								return;
+							}
+						}
+						if (!BanditStrongholdSiege.getInstance().isPlayerRegister(activeChar.getClan(),activeChar.getName()) &&
+								!WildBeastFarmSiege.getInstance().isPlayerRegister(activeChar.getClan(),activeChar.getName()))
+						{
+							if (siegeClan == null || siegeClan.getFlag().size() == 0)
+							{
+								_log.warning("Player [" + activeChar.getName() + "] called RestartPointPacket - To Siege HQ and he doesn't have Siege HQ!");
 								return;
 							}
 						}
@@ -183,10 +188,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
 						break;
 					case 27: // to jail
-						if (!activeChar.isInJail())
-						{
-							return;
-						}
+						if (!activeChar.isInJail()) return;
+
 						loc = new Location(-114356, -249645, -2984);
 						break;
 					default:
@@ -208,18 +211,13 @@ public final class RequestRestartPoint extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-		{
-			return;
-		}
+		if (activeChar == null) return;
+
 		if (activeChar.isInFunEvent())
 		{
 			activeChar.sendMessage("You cant logout in event.");
 			return;
 		}
-		// SystemMessage sm2 = new SystemMessage(SystemMessage.S1_S2);
-		// sm2.addString("type:"+requestedPointType);
-		// activeChar.sendPacket(sm2);
 		if (activeChar.isFakeDeath())
 		{
 			activeChar.stopFakeDeath(null);
@@ -238,25 +236,23 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			activeChar.inSoloEvent = false;
 			if (L2RaidEvent._eventType == 2)
 			{
-				if (L2RaidEvent._participatingPlayers.contains(activeChar)) {
+				if (L2RaidEvent._participatingPlayers.contains(activeChar)) 
 					// Clear player from Event.
 					L2RaidEvent._participatingPlayers.remove(activeChar);
-				}
 			}
 			if (L2RaidEvent._eventType == 3)
 			{
-				if (activeChar.getParty() != null) {
+				if (activeChar.getParty() != null)
 					activeChar.leaveParty();
-				}
+
 				activeChar.sendMessage("You have been kicked from the party");
 			}
 			activeChar.sendMessage("You've been erased from the event!");
 			int num = L2RaidEvent._participatingPlayers.size();
-			if (num > 0 && num != 1) {
+			if (num > 0 && num != 1)
 				num -= 1;
-			} else {
+			else
 				L2RaidEvent.hardFinish();
-			}
 		}
 		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 		if (castle != null && castle.getSiege().getIsInProgress())
@@ -266,9 +262,8 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			{
 				// Schedule respawn delay for attacker
 				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
-				if (castle.getSiege().getAttackerRespawnDelay() > 0) {
+				if (castle.getSiege().getAttackerRespawnDelay() > 0)
 					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay() / 1000 + " seconds");
-				}
 				return;
 			}
 		}
