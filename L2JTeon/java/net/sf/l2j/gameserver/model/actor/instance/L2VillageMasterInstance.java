@@ -452,6 +452,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.setActiveClass(paramOne);
 						content.append("Change Subclass:<br>Your sub class has been changed to <font color=\"LEVEL\">" + CharTemplateTable.getClassNameById(paramTwo) + "</font>.");
 						player.sendPacket(new SystemMessage(SystemMessageId.ADD_NEW_SUBCLASS)); // Subclass added.
+						// check player skills 
+						if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN);
 					}
 					else
 					{
