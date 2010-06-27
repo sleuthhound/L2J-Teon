@@ -105,7 +105,6 @@ public final class Config
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_GLOBAL = new FloodProtectorConfig("GlobalFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_TRADE = new FloodProtectorConfig("TradeFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_POTION = new FloodProtectorConfig("PotionFloodProtector");
-	public static final FloodProtectorConfig FLOOD_PROTECTOR_ENCHANT = new FloodProtectorConfig("EnchantFloodProtector");
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
@@ -228,6 +227,7 @@ public final class Config
 	public static int ALT_OLY_HERO_POINTS;
 	public static String ALT_OLY_RESTRICTED_ITEMS;
 	public static List<Integer> LIST_OLY_RESTRICTED_ITEMS = new FastList<Integer>();
+	public static boolean ALT_OLY_SAME_IP;
 	// Lottery configs
 	public static int ALT_LOTTERY_PRIZE;
 	public static int ALT_LOTTERY_TICKET_PRICE;
@@ -1590,6 +1590,7 @@ public final class Config
 					{
 						LIST_OLY_RESTRICTED_ITEMS.add(Integer.parseInt(id));
 					}
+					ALT_OLY_SAME_IP = Boolean.parseBoolean(altSettings.getProperty("AltOlySameIp", "True"));
 					ALT_LOTTERY_PRIZE = Integer.parseInt(altSettings.getProperty("AltLotteryPrize", "50000"));
 					ALT_LOTTERY_TICKET_PRICE = Integer.parseInt(altSettings.getProperty("AltLotteryTicketPrice", "2000"));
 					ALT_LOTTERY_5_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery5NumberRate", "0.6"));
@@ -3990,7 +3991,6 @@ public final class Config
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_GLOBAL, "Global", "500");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_TRADE, "Trade", "500");
 		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_POTION, "Potion", "10");
-		loadFloodProtectorConfig(properties, FLOOD_PROTECTOR_ENCHANT, "Enchant", "10");
 	}
 
 	private static void loadFloodProtectorConfig(final Properties properties, final FloodProtectorConfig config, final String configString, final String defaultInterval)
