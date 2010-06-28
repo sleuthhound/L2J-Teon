@@ -23,6 +23,7 @@ import java.util.Set;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
@@ -31,6 +32,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.L2Clan.SubPledge;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -156,6 +158,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		else if (command.startsWith("Subclass"))
 		{
 			int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
+            /* 
+            * NO subclass during restart/shutdown due to avoid an exploit. (Safe_Sigterm) 
+            */ 
+			if (Config.SAFE_SIGTERM && Shutdown.getCounterInstance() != null)
+			{
+				player.sendMessage("You are not allowed to Subclass during server restart/shutdown!");
+				return;
+			}
+	                         
 			// Subclasses may not be changed while a skill is in use.
 
 			if (player.isCastingNow() || player.isAllSkillsDisabled() || player.isInCombat())
@@ -285,7 +296,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendMessage("You are too far away!");
 						return;
 					}
-                    if (player.isInOlympiadMode() || player.isInCombat() || player.isSilentMoving() || player.isEnchanting() || player.isCastingNow() || player.isDead() || player.isAlikeDead())
+                    if (player.isInOlympiadMode() || player.isInCombat() || player.isSilentMoving() || player.isEnchanting() || player.isCastingNow() || player.isDead() || player.isAlikeDead() || player._inEventCTF || player._inEventDM || player._inEventTvT)
 					{
                         player.sendPacket(ActionFailed.STATIC_PACKET);
                         player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
@@ -328,8 +339,28 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					}
 					/*
 					 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass) and Fate's Whisper (A Grade Weapon) quests by checking for instances of their unique reward items. If they both exist, remove both unique items and continue with adding the sub-class.
-					 */
-					if (!Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
+					*/
+					if (Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST)
+					{
+						L2ItemInstance elixirItem = player.getInventory().getItemByItemId(6319);
+						L2ItemInstance destinyItem = player.getInventory().getItemByItemId(5011);
+						if (elixirItem == null)
+						{
+							player.sendMessage("You must have \"Mimir's Elixir\" in your inventory.");
+							return;
+						}
+						if (destinyItem == null)
+						{
+							player.sendMessage("You must have the \"Star of Destiny\" in your inventory.");
+							return;
+						}
+						if (allowAddition)
+						{
+							player.destroyItemByItemId("Quest", 6319, 1, this, true);
+							player.destroyItemByItemId("Quest", 5011, 1, this, true);
+						}
+					}
+					if (!Config.SUBCLASS_WITH_ITEM_AND_NO_QUEST && !Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
 					{
 						QuestState qs = player.getQuestState("235_MimirsElixir");
 						if (qs == null || !qs.isCompleted())
@@ -344,7 +375,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 							return;
 						}
 					}
-					// //////////////// \\\\\\\\\\\\\\\\\\
 					if (allowAddition)
 					{
 						String className = CharTemplateTable.getClassNameById(paramOne);
@@ -354,6 +384,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 							return;
 						}
 						player.setActiveClass(player.getTotalSubClasses());
+						player.broadcastUserInfo();
+						player.abortCast();
 						content.append("Add Subclass:<br>The sub class of <font color=\"LEVEL\">" + className + "</font> has been added.");
 						player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // Transfer to new class.
 					}
@@ -454,6 +486,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(new SystemMessage(SystemMessageId.ADD_NEW_SUBCLASS)); // Subclass added.
 						// check player skills 
 						if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN);
+						player.checkAllowedSkills(); 
 					}
 					else
 					{
@@ -512,7 +545,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
-			return;
+            return;
+		}
+		/* 
+		* Until proper clan leader change support is done, this is a little exploit fix (leader, while fliying wyvern changes clan leader and the new leader can ride the wyvern too) DrHouse 
+		*/
+		if (player.isFlying())
+		{
+			player.sendMessage("Please, stop flying");
+			return; 
 		}
 		L2Clan clan = player.getClan();
 		if (clan.getAllyId() != 0)
@@ -605,6 +646,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		if (!member.isOnline())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.INVITED_USER_NOT_ONLINE));
+			return;
+		}
+		if (player.isFlying())
+		{
+			player.sendMessage("Please, stop flying");
 			return;
 		}
 		clan.setNewLeader(member, player);
