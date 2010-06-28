@@ -17,7 +17,7 @@
   <set name="save" val="6"/>  
   <set name="reuseDelay" val="9000"/>
   <set name="hitTime" val="4000"/>
-  <set name="target" val="TARGET_UNDEAD"/>
+  <set name="target" val="TARGET_AREA_UNDEAD"/>
   <set name="skillRadius" val="200"/>
   <set name="skillType" val="FEAR"/>
   <set name="operateType" val="OP_ACTIVE"/>
