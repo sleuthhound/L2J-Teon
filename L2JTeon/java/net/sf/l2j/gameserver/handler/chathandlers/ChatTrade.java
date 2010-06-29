@@ -24,41 +24,41 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 /**
  * A chat handler
- *
+ * 
  * @author durgus
  */
-public class ChatTrade implements IChatHandler
-{
+public class ChatTrade implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 8 };
 
 	/**
 	 * Handle chat type 'trade'
-	 *
-	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
+	 * 
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int,
+	 *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance,
+	 *      java.lang.String)
 	 */
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (!activeChar.getFloodProtectors().getTrade().tryPerformAction("trade"))
-		{
+	public void handleChat(int type, L2PcInstance activeChar, String target,
+			String text) {
+		if (!activeChar.getFloodProtectors().getTrade().tryPerformAction(
+				"trade")) {
 			activeChar.sendMessage("You can not talk so fast wait a little.");
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-		if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") || Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM())
-		{
-			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type,
+				activeChar.getName(), text);
+		if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on")
+				|| Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm")
+				&& activeChar.isGM()) {
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers()) {
 				player.sendPacket(cs);
 			}
-		}
-		else if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("limited"))
-		{
-			int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
-			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
-				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(), player.getY()))
-				{
+		} else if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("limited")) {
+			int region = MapRegionTable.getInstance().getMapRegion(
+					activeChar.getX(), activeChar.getY());
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers()) {
+				if (region == MapRegionTable.getInstance().getMapRegion(
+						player.getX(), player.getY())) {
 					player.sendPacket(cs);
 				}
 			}
@@ -67,11 +67,10 @@ public class ChatTrade implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
-	 *
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

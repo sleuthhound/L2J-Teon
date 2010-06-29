@@ -180,6 +180,8 @@ public final class Config
 	public static float ORC_MONK_M_DMG;
 	public static float ORC_RAIDER_M_DMG;
 	public static float DWARF_M_DMG;
+	public static boolean ALLOW_DAGGERS_WEAR_HEAVY;
+	public static boolean ALLOW_ARCHERS_WEAR_HEAVY;
 	// Balance Classes END
 
 	// multiples damages Pet's and Mobs
@@ -1329,14 +1331,9 @@ public final class Config
 	public static int FS_TIME_WARMUP;
 	public static int FS_PARTY_MEMBER_COUNT;
 	/*******************************************
-	 * /** ClanHallSiege Settings
+	 ** ClanHallSiege Settings
 	 **/
 	/** ************************************************** **/
-	public static boolean DEVASTATED_CASTLE_ENABLED;
-	public static boolean FORTRESS_OF_THE_DEAD_ENABLED;
-	/**
-	 * **************************************************
-	 **/
 	/** General Settings -Begin **/
 	/** ************************************************** **/
 	/** Config for Fake Death Faild Feature **/
@@ -1383,6 +1380,7 @@ public final class Config
 	public static int NEW_NODE_ID;
 	public static int SELECTED_NODE_ID;
 	public static boolean TOGGLE_WEAPON_ALLOWED;
+	public static boolean NOT_WEAPON_CHANCE_SUBCLASS;
 	public static int LINKED_NODE_ID;
 	public static String NEW_NODE_TYPE;
 	/** Time between 2 updates of IP */
@@ -2112,10 +2110,7 @@ public final class Config
 					is = new FileInputStream(new File(GENERAL_CONFIG_FILE));
 					General.load(is);
 					TOGGLE_WEAPON_ALLOWED = Boolean.parseBoolean(General.getProperty("ToggleWeaponIsAllowed", "True"));
-					/** Devastated Castle */
-					DEVASTATED_CASTLE_ENABLED = Boolean.parseBoolean(General.getProperty("DevastatedCastleEnabled", "False"));
-					/** Fortress of The Dead */
-					FORTRESS_OF_THE_DEAD_ENABLED = Boolean.parseBoolean(General.getProperty("FortressofTheDeadEnabled", "False"));
+					NOT_WEAPON_CHANCE_SUBCLASS = Boolean.parseBoolean(General.getProperty("NotWeaponChanceSubClass", "False"));
 					FAILD_FAKEDEATH = Boolean.parseBoolean(General.getProperty("FaildFakeDeath", "True"));
 					/** L2J NPC Buffer by House */
 					NPCBUFFER_FEATURE_ENABLED = Boolean.parseBoolean(General.getProperty("NPCBufferEnabled", "False"));
@@ -2226,6 +2221,9 @@ public final class Config
 					CUSTOM_RUN_SPEED = Integer.parseInt(Balance.getProperty("CustomRunSpeed", "0"));
 
 					MULTIPLE_MCRIT = Double.parseDouble(Balance.getProperty("MultipleMCrit", "4.0"));
+
+		            ALLOW_DAGGERS_WEAR_HEAVY = Boolean.parseBoolean(Balance.getProperty("AllowDaggersUseHeavy", "True"));
+		            ALLOW_ARCHERS_WEAR_HEAVY = Boolean.parseBoolean(Balance.getProperty("AllowArchersUseHeavy", "True"));
 				}
 				catch (Exception e)
 				{
