@@ -26,58 +26,54 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 /**
  * A chat handler
- *
+ * 
  * @author durgus
  */
-public class ChatAll implements IChatHandler
-{
+public class ChatAll implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 0 };
 	private static Logger _log = Logger.getLogger(ChatAll.class.getName());
 
 	/**
 	 * Handle chat type 'all'
-	 *
-	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
+	 * 
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int,
+	 *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance,
+	 *      java.lang.String)
 	 */
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (text.startsWith("."))
-		{
+	public void handleChat(int type, L2PcInstance activeChar, String target,
+			String text) {
+		if (text.startsWith(".")) {
 			StringTokenizer st = new StringTokenizer(text);
 			IVoicedCommandHandler vch;
 			String command = "";
-			if (st.countTokens() > 1)
-			{
+			if (st.countTokens() > 1) {
 				command = st.nextToken().substring(1);
 				target = text.substring(command.length() + 2);
-				vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
-			}
-			else
-			{
+				vch = VoicedCommandHandler.getInstance()
+						.getVoicedCommandHandler(command);
+			} else {
 				command = text.substring(1);
 				if (Config.DEBUG) {
 					_log.info("Command: " + command);
 				}
-				vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
+				vch = VoicedCommandHandler.getInstance()
+						.getVoicedCommandHandler(command);
 			}
-			if (vch != null)
-			{
+			if (vch != null) {
 				vch.useVoicedCommand(command, activeChar, target);
-			}
-			else
-			{
+			} else {
 				if (Config.DEBUG) {
-					_log.warning("No handler registered for bypass '" + command + "'");
+					_log.warning("No handler registered for bypass '" + command
+							+ "'");
 				}
 			}
-		}
-		else
-		{
-			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-			for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-			{
-				if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
-				{
+		} else {
+			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type,
+					activeChar.getName(), text);
+			for (L2PcInstance player : activeChar.getKnownList()
+					.getKnownPlayers().values()) {
+				if (player != null
+						&& activeChar.isInsideRadius(player, 1250, false, true)) {
 					player.sendPacket(cs);
 				}
 			}
@@ -87,11 +83,10 @@ public class ChatAll implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
-	 *
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

@@ -23,32 +23,32 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 /**
  * A chat handler
- *
+ * 
  * @author durgus
  */
-public class ChatHeroVoice implements IChatHandler
-{
+public class ChatHeroVoice implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 17 };
 
 	/**
 	 * Handle chat type 'hero voice'
-	 *
-	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
+	 * 
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int,
+	 *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance,
+	 *      java.lang.String)
 	 */
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (activeChar.isHero() || activeChar.isGM())
-		{
-			if (!activeChar.getFloodProtectors().getHeroVoice().tryPerformAction("hero voice") && !activeChar.isGM())
-			{
+	public void handleChat(int type, L2PcInstance activeChar, String target,
+			String text) {
+		if (activeChar.isHero() || activeChar.isGM()) {
+			if (!activeChar.getFloodProtectors().getHeroVoice()
+					.tryPerformAction("hero voice")
+					&& !activeChar.isGM()) {
 				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
-				if (!BlockList.isBlocked(player, activeChar))
-				{
+			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type,
+					activeChar.getName(), text);
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers()) {
+				if (!BlockList.isBlocked(player, activeChar)) {
 					player.sendPacket(cs);
 				}
 			}
@@ -57,11 +57,10 @@ public class ChatHeroVoice implements IChatHandler
 
 	/**
 	 * Returns the chat types registered to this handler
-	 *
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }

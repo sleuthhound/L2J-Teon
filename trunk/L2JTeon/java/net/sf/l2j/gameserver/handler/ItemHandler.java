@@ -54,9 +54,6 @@ import net.sf.l2j.gameserver.handler.itemhandlers.SpecialXMas;
 import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 
-/**
- * @author Maxi
- */
 public class ItemHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());

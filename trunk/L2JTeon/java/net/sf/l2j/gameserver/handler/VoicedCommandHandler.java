@@ -26,9 +26,6 @@ import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.tradeoff;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.version;
 
-/**
- * @author Maxi56
- */
 public class VoicedCommandHandler
 {
 	private static Logger _log = Logger.getLogger(ItemHandler.class.getName());

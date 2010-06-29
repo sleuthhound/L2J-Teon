@@ -22,35 +22,36 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * A chat handler
- *
+ * 
  * @author durgus
  */
-public class ChatPetition implements IChatHandler
-{
+public class ChatPetition implements IChatHandler {
 	private static final int[] COMMAND_IDS = { 6, 7 };
 
 	/**
 	 * Handle chat type 'petition player'
-	 *
-	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int, net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
+	 * 
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#handleChat(int,
+	 *      net.sf.l2j.gameserver.model.actor.instance.L2PcInstance,
+	 *      java.lang.String)
 	 */
-	public void handleChat(int type, L2PcInstance activeChar, String target, String text)
-	{
-		if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
+	public void handleChat(int type, L2PcInstance activeChar, String target,
+			String text) {
+		if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar)) {
+			activeChar.sendPacket(new SystemMessage(
+					SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
 			return;
 		}
-		PetitionManager.getInstance().sendActivePetitionMessage(activeChar, text);
+		PetitionManager.getInstance().sendActivePetitionMessage(activeChar,
+				text);
 	}
 
 	/**
 	 * Returns the chat types registered to this handler
-	 *
+	 * 
 	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypeList()
 	 */
-	public int[] getChatTypeList()
-	{
+	public int[] getChatTypeList() {
 		return COMMAND_IDS;
 	}
 }
