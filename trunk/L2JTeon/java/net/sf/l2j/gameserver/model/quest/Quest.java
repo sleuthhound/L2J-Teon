@@ -222,7 +222,8 @@ public class Quest extends ManagedScript
 		ON_SPELL_FINISHED(true), // on spell finished action when npc finish casting skill
 		ON_SKILL_LEARN(false), // control the AcquireSkill dialog from quest script
 		ON_ENTER_ZONE(true), // on zone enter
-		ON_EXIT_ZONE(true); // on zone exit
+		ON_EXIT_ZONE(true), // on zone exit
+		ON_ARRIVED(true); // on
 		// control whether this event type is allowed for the same npc template in multiple quests
 		// or if the npc must be registered in at most one quest for the specified event
 		private boolean _allowMultipleRegistration;
@@ -574,16 +575,34 @@ public class Quest extends ManagedScript
 			return showError(player, e);
 		}
 		// if the quest returns text to display, display it.
-		if (res != null && res.length() > 0) {
+		if (res != null && res.length() > 0)
 			return showResult(player, res);
 		// else tell the player that
-		} else {
+		else
 			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
+
 		// note: if the default html for this npc needs to be shown, onFirstTalk should
 		// call npc.showChatWindow(player) and then return null.
 		return true;
 	}
+
+	public final boolean notifyMoveFinished(L2Character character)
+	{
+		L2PcInstance player = character.getActingPlayer();
+		String res = null;
+		try
+		{
+			res = onArrived(character);
+		}
+		catch (Exception e)
+		{
+			if (player != null)
+				return showError(player, e);
+			}
+		if (player != null)
+			return showResult(player, res);
+		return true;
+		}
 
 	public final boolean notifyAcquireSkillList(L2NpcInstance npc, L2PcInstance player)
 	{
@@ -712,6 +731,11 @@ public class Quest extends ManagedScript
 		}
 	}
 
+	public String onArrived(L2Character character)
+	{
+		return null;
+	}
+
 	public final boolean notifyAggroRangeEnter(L2NpcInstance npc, L2PcInstance player, boolean isPet)
 	{
 		ThreadPoolManager.getInstance().executeAi(new tmpOnAggroEnter(npc, player, isPet));
@@ -728,16 +752,14 @@ public class Quest extends ManagedScript
 		}
 		catch (Exception e)
 		{
-			if (player != null) {
+			if (player != null)
 				return showError(player, e);
-			}
 		}
-		if (player != null) {
+		if (player != null)
 			return showResult(player, res);
-		}
 		return true;
 	}
-
+	
 	public final boolean notifyExitZone(L2Character character, L2ZoneType zone)
 	{
 		L2PcInstance player = character.getActingPlayer();
@@ -748,13 +770,11 @@ public class Quest extends ManagedScript
 		}
 		catch (Exception e)
 		{
-			if (player != null) {
+			if (player != null)
 				return showError(player, e);
-			}
 		}
-		if (player != null) {
+		if (player != null)
 			return showResult(player, res);
-		}
 		return true;
 	}
 

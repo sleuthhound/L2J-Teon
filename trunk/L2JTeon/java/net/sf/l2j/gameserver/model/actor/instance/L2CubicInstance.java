@@ -65,9 +65,7 @@ public class L2CubicInstance
 				break;
 			case LIFE_CUBIC:
 				_skills.add(4051);
-				_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 3600000); // disappear
-				// in 60
-				// mins
+				_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 3600000); // disappear in 60 mins
 				doAction(_owner);
 				break;
 			case VIPER_CUBIC:
@@ -93,18 +91,14 @@ public class L2CubicInstance
 				break;
 		}
 		if (_disappearTask == null) {
-			_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 1200000); // disappear
-		// in
-		// 20
-		// mins
+			_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 1200000); // disappear in 20 mins
 		}
 	}
 
 	public void doAction(L2Character target)
 	{
-		if (_target == target) {
-			return;
-		}
+		if (_target == target) return;
+
 		stopAction();
 		_target = target;
 		switch (_id)
@@ -267,13 +261,11 @@ public class L2CubicInstance
 							if (party != null)
 							{
 								// Get all visible objects in a spheric area
-								// near the L2Character
-								// Get a list of Party Members
+								// near the L2Character Get a list of Party Members
 								List<L2PcInstance> partyList = party.getPartyMembers();
 								L2Character partyMember = null;
 								int x, y, z;
-								// temporary range check until real behavior of
-								// cubics is known/coded
+								// temporary range check until real behavior of cubics is known/coded
 								int range = 400; // skill.getCastRange();
 								for (int i = 0; i < partyList.size(); i++)
 								{
@@ -285,12 +277,11 @@ public class L2CubicInstance
 										x = caster.getX() - partyMember.getX();
 										y = caster.getY() - partyMember.getY();
 										z = caster.getZ() - partyMember.getZ();
-										if (x * x + y * y + z * z > range * range) {
+										if (x * x + y * y + z * z > range * range)
 											continue;
-										}
+
 										// member is in cubic casting range,
-										// check if he need heal and if he have
-										// the lowest HP
+										// check if he need heal and if he have the lowest HP
 										if (partyMember.getCurrentHp() < partyMember.getMaxHp())
 										{
 											if (percentleft > partyMember.getCurrentHp() / partyMember.getMaxHp())
@@ -305,22 +296,17 @@ public class L2CubicInstance
 						}
 						else
 						{
-							if (_owner.getCurrentHp() < _owner.getMaxHp()) {
+							if (_owner.getCurrentHp() < _owner.getMaxHp())
 								target = _owner;
-							}
 						}
 						if (target != null)
 						{
 							L2Character[] targets = { target };
 							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 							if (handler != null)
-							{
 								handler.useSkill(_owner, skill, targets);
-							}
 							else
-							{
 								skill.useSkill(_owner, targets);
-							}
 							MagicSkillUser msu = new MagicSkillUser(_owner, target, skill.getId(), _level, 0, 0);
 							_owner.broadcastPacket(msu);
 						}

@@ -17,8 +17,11 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
@@ -26,7 +29,6 @@ import net.sf.l2j.gameserver.model.entity.Fort;
 
 /**
  * sample 0b 952a1048 objectId 00000000 00000000 00000000 00000000 00000000 00000000 format dddddd rev 377 format ddddddd rev 417
- *
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 18:46:18 $
  */
 public class Die extends L2GameServerPacket
@@ -34,12 +36,11 @@ public class Die extends L2GameServerPacket
 	private static final String _S__0B_DIE = "[S] 06 Die";
 	private final int _charObjId;
 	private final boolean _fake;
-	private boolean _inL2JOneoEvent;
 	private boolean _donator;
 	private boolean _sweepable;
 	private int _access;
-	private net.sf.l2j.gameserver.model.L2Clan _clan;
-	private static final int REQUIRED_LEVEL = net.sf.l2j.Config.GM_FIXED;
+	private L2Clan _clan;
+	private static final int REQUIRED_LEVEL = Config.GM_FIXED;
 	L2Character _activeChar;
 	private boolean _funEvent;
 
@@ -60,18 +61,14 @@ public class Die extends L2GameServerPacket
 		_charObjId = cha.getObjectId();
 		_fake = !cha.isDead();
 		if (cha instanceof L2Attackable)
-		{
 			_sweepable = ((L2Attackable) cha).isSweepActive();
-		}
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		if (_fake || _inL2JOneoEvent)
-		{
-			return;
-		}
+		if (_fake) return;
+
 		writeC(0x06);
 		writeD(_charObjId);
 		// NOTE:
@@ -93,36 +90,22 @@ public class Die extends L2GameServerPacket
 				// siege in progress
 				siegeClan = castle.getSiege().getAttackerClan(_clan);
 				if (siegeClan == null && castle.getSiege().checkIsDefender(_clan))
-				{
 					isInDefense = true;
-				}
 			}
 			else if (fort != null && fort.getSiege().getIsInProgress())
 			{
 				// fort siege in progress
 				siegeClan = fort.getSiege().getAttackerClan(_clan);
 				if (siegeClan == null && fort.getSiege().checkIsDefender(_clan))
-				{
 					isInDefense = true;
-				}
 			}
-			writeD(_clan.getHasHideout() > 0 ? 0x01 : 0x00); // 6d 01 00 00
-			// 00 - to hide
-			// away
-			writeD(_clan.getHasCastle() > 0 || _clan.getHasFort() > 0 || isInDefense ? 0x01 : 0x00); // 6d
-			// 02
-			// 00
-			// 00
-			// 00 -
-			// to
-			// castle
-			writeD(siegeClan != null && !isInDefense && siegeClan.getFlag().size() > 0 ? 0x01 : 0x00); // 6d
-			// 03
-			// 00 00
-			// 00 -
-			// to
-			// siege
-			// HQ
+			writeD(_clan.getHasHideout() > 0 ? 0x01 : 0x00); // 6d 01 00 00 00 - to hide away
+			writeD(_clan.getHasCastle() > 0 || _clan.getHasFort() > 0 || isInDefense ? 0x01 : 0x00); // 6d 02 00 00 00 - to castle
+			writeD((WildBeastFarmSiege.getInstance().isPlayerRegister(_clan,_activeChar.getName())) 
+					|| (BanditStrongholdSiege.getInstance().isPlayerRegister(_clan,_activeChar.getName())) 
+					|| siegeClan != null 
+					&& !isInDefense 
+					&& siegeClan.getFlag().size() > 0 ? 0x01 : 0x00);
 		}
 		else
 		{
@@ -133,11 +116,7 @@ public class Die extends L2GameServerPacket
 		writeD(_sweepable ? 0x01 : 0x00); // sweepable (blue glow)
 		writeD(_access >= REQUIRED_LEVEL ? 0x01 : 0x00); // 6d 04 00 00
 		if (Config.DONATORS_REVIVE)
-		{
-			writeD(_donator ? 0x01 : 0x00); // 6d 04 00 00
-		}
-		// 00 -
-		// to FIXED
+			writeD(_donator ? 0x01 : 0x00); // 6d 04 00 00 00 - to FIXED
 	}
 
 	/*

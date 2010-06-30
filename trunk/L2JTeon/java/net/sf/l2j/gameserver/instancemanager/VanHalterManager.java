@@ -57,9 +57,11 @@ public class VanHalterManager
 {
 	protected static Logger _log = Logger.getLogger(VanHalterManager.class.getName());
 	private static VanHalterManager _instance;
+
 	// list of intruders.
 	protected List<L2PcInstance> _PlayersInLair = new FastList<L2PcInstance>();
 	protected Map<Integer, List<L2PcInstance>> _BleedingPlayers = new FastMap<Integer, List<L2PcInstance>>();
+
 	// spawn data of monsters.
 	protected Map<Integer, L2Spawn> _MonsterSpawn = new FastMap<Integer, L2Spawn>();
 	protected List<L2Spawn> _RoyalGuardSpawn = new FastList<L2Spawn>();
@@ -72,6 +74,7 @@ public class VanHalterManager
 	protected L2Spawn _RitualOfferingSpawn = null;
 	protected L2Spawn _RitualSacrificeSpawn = null;
 	protected L2Spawn _vanHalterSpawn = null;
+
 	// instance of monsters.
 	protected List<L2NpcInstance> _Monsters = new FastList<L2NpcInstance>();
 	protected List<L2NpcInstance> _RoyalGuard = new FastList<L2NpcInstance>();
@@ -85,6 +88,7 @@ public class VanHalterManager
 	protected L2NpcInstance _RitualOffering = null;
 	protected L2NpcInstance _RitualSacrifice = null;
 	protected L2GrandBossInstance _vanHalter = null;
+
 	// Task
 	protected ScheduledFuture<?> _MovieTask = null;
 	protected ScheduledFuture<?> _closeDoorOfAltarTask = null;
@@ -95,18 +99,19 @@ public class VanHalterManager
 	protected ScheduledFuture<?> _IntervalTask = null;
 	protected ScheduledFuture<?> _HalterEscapeTask = null;
 	protected ScheduledFuture<?> _SetBleedTask = null;
+
 	// state of High Priestess van Halter
 	boolean _isLocked = false;
 	boolean _isHalterSpawned = false;
 	boolean _isSacrificeSpawned = false;
 	boolean _isCaptainSpawned = false;
 	boolean _isHelperCalled = false;
-	protected String _ZoneType;
-	protected String _QuestName;
+
 	protected StatsSet _StateSet;
 	protected int _Alive;
 	protected int _BossId = 29062;
 	protected int _DummyId = 29059;
+
 	public static final int NOTSPAWN = 0;
 	public static final int ALIVE = 1;
 	public static final int DEAD = 2;
@@ -118,9 +123,8 @@ public class VanHalterManager
 
 	public static VanHalterManager getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new VanHalterManager();
-		}
 		return _instance;
 	}
 
@@ -129,8 +133,6 @@ public class VanHalterManager
 	{
 		// clear intruder.
 		_PlayersInLair.clear();
-		_ZoneType = "Altar of Sacrifice";
-		_QuestName = "vanhalter";
 		_StateSet = GrandBossManager.getInstance().getStatsSet(_BossId);
 		_Alive = GrandBossManager.getInstance().getBossStatus(_BossId);
 		// clear flag.
@@ -217,19 +219,18 @@ public class VanHalterManager
 			_log.warning("VanHalter : " + e.getMessage());
 		}
 		// set bleeding to palyers.
-		if (_SetBleedTask != null) {
+		if (_SetBleedTask != null)
 			_SetBleedTask.cancel(true);
-		}
+
 		_SetBleedTask = ThreadPoolManager.getInstance().scheduleGeneral(new Bleeding(), 2000);
 		// check state of High Priestess van Halter.
 		_log.info("VanHalter : State of High Priestess van Halter is " + _Alive + ".");
-		if (_Alive == INTERVAL) {
+		if (_Alive == INTERVAL)
 			enterInterval();
-		} else
-		{
+		else
 			// spawn monsters.
 			setupAltar();
-		}
+
 		Date dt = new Date(_StateSet.getLong("respawn_time"));
 		_log.info("VanHalter : Next spawn date of High Priestess van Halter is " + dt + ".");
 		_log.info("VanHalter : Init VanHalter.");
@@ -449,9 +450,9 @@ public class VanHalterManager
 
 	protected void spawnRoyalGuardCaptain()
 	{
-		if (!_RoyalGuardCaptain.isEmpty()) {
+		if (!_RoyalGuardCaptain.isEmpty())
 			deleteRoyalGuardCaptain();
-		}
+
 		for (L2Spawn trs : _RoyalGuardCaptainSpawn)
 		{
 			trs.startRespawn();
@@ -1005,17 +1006,16 @@ public class VanHalterManager
 
 	public void checkRoyalGuardCaptainDestroy()
 	{
-		if (!_isHalterSpawned) {
-			return;
-		}
+		if (!_isHalterSpawned) return;
+
 		deleteRoyalGuard();
 		deleteRoyalGuardCaptain();
 		spawnGuardOfAltar();
 		openDoorOfSacrifice();
 		for (L2NpcInstance goa : _GuardOfAltar)
 		{
-			// CreatureSay cs = new CreatureSay(goa.getObjectId(),1,goa.getName(),"The door of the 3rd floor in the altar was opened.");
-			CreatureSay cs = new CreatureSay(0, 1, "Altar's Gatekeeper", "The door of the 3rd floor in the altar was opened.");
+			CreatureSay cs = new CreatureSay(goa.getObjectId(),1,goa.getName(),"The door of the 3rd floor in the altar was opened.");
+			// CreatureSay cs = new CreatureSay(0, 1, "Altar's Gatekeeper", "The door of the 3rd floor in the altar was opened.");
 			for (L2PcInstance pc : _PlayersInLair)
 			{
 				pc.sendPacket(cs);
@@ -1025,9 +1025,9 @@ public class VanHalterManager
 		_vanHalter.setIsImmobilized(true);
 		_vanHalter.setIsInvul(true);
 		spawnCameraMarker();
-		if (_TimeUpTask != null) {
+		if (_TimeUpTask != null)
 			_TimeUpTask.cancel(true);
-		}
+
 		_TimeUpTask = null;
 		_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(1), ExternalConfig.HPH_APPTIMEOFHALTER * 1000);
 	}
@@ -1045,9 +1045,9 @@ public class VanHalterManager
 	// start fight against High Priestess van Halter.
 	protected void combatBeginning()
 	{
-		if (_TimeUpTask != null) {
+		if (_TimeUpTask != null)
 			_TimeUpTask.cancel(true);
-		}
+
 		_TimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), ExternalConfig.HPH_FIGHTTIMEOFHALTER * 1000);
 		Map<Integer, L2PcInstance> _targets = new FastMap<Integer, L2PcInstance>();
 		int i = 0;
@@ -1081,16 +1081,16 @@ public class VanHalterManager
 			spawnRoyalGuardHepler();
 			if (_RoyalGuardHepler.size() <= ExternalConfig.HPH_CALLROYALGUARDHELPERCOUNT && !_vanHalter.isDead())
 			{
-				if (_CallRoyalGuardHelperTask != null) {
+				if (_CallRoyalGuardHelperTask != null)
 					_CallRoyalGuardHelperTask.cancel(true);
-				}
+
 				_CallRoyalGuardHelperTask = ThreadPoolManager.getInstance().scheduleGeneral(new CallRoyalGuardHelper(), ExternalConfig.HPH_CALLROYALGUARDHELPERINTERVAL * 1000);
 			}
 			else
 			{
-				if (_CallRoyalGuardHelperTask != null) {
+				if (_CallRoyalGuardHelperTask != null)
 					_CallRoyalGuardHelperTask.cancel(true);
-				}
+
 				_CallRoyalGuardHelperTask = null;
 			}
 		}
@@ -1107,9 +1107,7 @@ public class VanHalterManager
 			if (_RoyalGuardHepler.size() <= ExternalConfig.HPH_CALLROYALGUARDHELPERCOUNT && !_vanHalter.isDead())
 			{
 				if (_vanHalter.isAfraid())
-				{
 					_vanHalter.stopFear(null);
-				}
 				else
 				{
 					_vanHalter.startFear();
@@ -1117,13 +1115,9 @@ public class VanHalterManager
 					{
 						L2CharPosition pos = new L2CharPosition(-16397, -53308, -10448, 0);
 						if (_vanHalter.getX() == pos.x && _vanHalter.getY() == pos.y)
-						{
 							_vanHalter.stopFear(null);
-						}
 						else
-						{
 							_vanHalter.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
-						}
 					}
 					else if (_vanHalter.getX() >= -16397)
 					{
@@ -1136,17 +1130,16 @@ public class VanHalterManager
 						_vanHalter.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, pos);
 					}
 				}
-				if (_HalterEscapeTask != null) {
+				if (_HalterEscapeTask != null)
 					_HalterEscapeTask.cancel(true);
-				}
 				_HalterEscapeTask = ThreadPoolManager.getInstance().scheduleGeneral(new HalterEscape(), 5000);
 			}
 			else
 			{
 				_vanHalter.stopFear(null);
-				if (_HalterEscapeTask != null) {
+				if (_HalterEscapeTask != null)
 					_HalterEscapeTask.cancel(true);
-				}
+
 				_HalterEscapeTask = null;
 			}
 		}
@@ -1158,9 +1151,9 @@ public class VanHalterManager
 		L2Skill bleed = SkillTable.getInstance().getInfo(4615, 12);
 		for (L2NpcInstance tr : _TriolRevelation)
 		{
-			if (tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()).size() == 0 || tr.isDead()) {
+			if (tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()).size() == 0 || tr.isDead())
 				continue;
-			}
+
 			List<L2PcInstance> bpc = new FastList<L2PcInstance>();
 			for (L2PcInstance pc : tr.getKnownList().getKnownPlayersInRadius(tr.getAggroRange()))
 			{
@@ -1178,14 +1171,13 @@ public class VanHalterManager
 
 	public void removeBleeding(int npcId)
 	{
-		if (_BleedingPlayers.get(npcId) == null) {
+		if (_BleedingPlayers.get(npcId) == null)
 			return;
-		}
+
 		for (L2PcInstance pc : (FastList<L2PcInstance>) _BleedingPlayers.get(npcId))
 		{
-			if (pc.getFirstEffect(EffectType.DMG_OVER_TIME) != null) {
+			if (pc.getFirstEffect(EffectType.DMG_OVER_TIME) != null)
 				pc.stopEffects(EffectType.DMG_OVER_TIME);
-			}
 		}
 		_BleedingPlayers.remove(npcId);
 	}
@@ -1199,9 +1191,9 @@ public class VanHalterManager
 		public void run()
 		{
 			addBleeding();
-			if (_SetBleedTask != null) {
+			if (_SetBleedTask != null)
 				_SetBleedTask.cancel(true);
-			}
+
 			_SetBleedTask = ThreadPoolManager.getInstance().scheduleGeneral(new Bleeding(), 2000);
 		}
 	}
@@ -1211,13 +1203,10 @@ public class VanHalterManager
 	{
 		// delete monsters
 		if (_vanHalter != null && _vanHalter.isDead())
-		{
 			_vanHalter.getSpawn().stopRespawn();
-		}
 		else
-		{
 			deleteVanHalter();
-		}
+
 		deleteRoyalGuardHepler();
 		deleteRoyalGuardCaptain();
 		deleteRoyalGuard();
@@ -1233,37 +1222,37 @@ public class VanHalterManager
 			GrandBossManager.getInstance().setStatsSet(_BossId, _StateSet);
 		}
 		// cancel all task
-		if (_CallRoyalGuardHelperTask != null) {
+		if (_CallRoyalGuardHelperTask != null)
 			_CallRoyalGuardHelperTask.cancel(true);
-		}
+
 		_CallRoyalGuardHelperTask = null;
-		if (_closeDoorOfAltarTask != null) {
+		if (_closeDoorOfAltarTask != null)
 			_closeDoorOfAltarTask.cancel(false);
-		}
+
 		_closeDoorOfAltarTask = null;
-		if (_HalterEscapeTask != null) {
+		if (_HalterEscapeTask != null)
 			_HalterEscapeTask.cancel(true);
-		}
+
 		_HalterEscapeTask = null;
-		if (_lockUpDoorOfAltarTask != null) {
+		if (_lockUpDoorOfAltarTask != null)
 			_lockUpDoorOfAltarTask.cancel(false);
-		}
+
 		_lockUpDoorOfAltarTask = null;
-		if (_MovieTask != null) {
+		if (_MovieTask != null)
 			_MovieTask.cancel(true);
-		}
+
 		_MovieTask = null;
-		if (_openDoorOfAltarTask != null) {
+		if (_openDoorOfAltarTask != null)
 			_openDoorOfAltarTask.cancel(false);
-		}
+
 		_openDoorOfAltarTask = null;
-		if (_TimeUpTask != null) {
+		if (_TimeUpTask != null)
 			_TimeUpTask.cancel(true);
-		}
+
 		_TimeUpTask = null;
-		if (_IntervalTask != null) {
+		if (_IntervalTask != null)
 			_IntervalTask.cancel(true);
-		}
+
 		_IntervalTask = null;
 		_IntervalTask = ThreadPoolManager.getInstance().scheduleGeneral(new Interval(), GrandBossManager.getInstance().getInterval(_BossId));
 		_log.info("VanHalter : Interval START.");
@@ -1313,37 +1302,37 @@ public class VanHalterManager
 		_Alive = ALIVE;
 		GrandBossManager.getInstance().setBossStatus(_BossId, _Alive);
 		// cancel all task
-		if (_CallRoyalGuardHelperTask != null) {
+		if (_CallRoyalGuardHelperTask != null)
 			_CallRoyalGuardHelperTask.cancel(true);
-		}
+
 		_CallRoyalGuardHelperTask = null;
-		if (_closeDoorOfAltarTask != null) {
+		if (_closeDoorOfAltarTask != null)
 			_closeDoorOfAltarTask.cancel(false);
-		}
+
 		_closeDoorOfAltarTask = null;
-		if (_HalterEscapeTask != null) {
+		if (_HalterEscapeTask != null)
 			_HalterEscapeTask.cancel(true);
-		}
+
 		_HalterEscapeTask = null;
-		if (_lockUpDoorOfAltarTask != null) {
+		if (_lockUpDoorOfAltarTask != null)
 			_lockUpDoorOfAltarTask.cancel(false);
-		}
+
 		_lockUpDoorOfAltarTask = null;
-		if (_MovieTask != null) {
+		if (_MovieTask != null)
 			_MovieTask.cancel(true);
-		}
+
 		_MovieTask = null;
-		if (_openDoorOfAltarTask != null) {
+		if (_openDoorOfAltarTask != null)
 			_openDoorOfAltarTask.cancel(false);
-		}
+
 		_openDoorOfAltarTask = null;
-		if (_TimeUpTask != null) {
+		if (_TimeUpTask != null)
 			_TimeUpTask.cancel(true);
-		}
+
 		_TimeUpTask = null;
-		if (_IntervalTask != null) {
+		if (_IntervalTask != null)
 			_IntervalTask.cancel(true);
-		}
+
 		_IntervalTask = null;
 		// set time up.
 		_TimeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), ExternalConfig.HPH_ACTIVITYTIMEOFHALTER * 1000);
@@ -1392,14 +1381,12 @@ public class VanHalterManager
 							pc.specialCamera(_vanHalter, 50, 90, 0, 0, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(2), 16);
 					break;
@@ -1413,14 +1400,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(5), 1842, 100, -3, 0, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(3), 1);
 					break;
@@ -1434,14 +1419,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(5), 1861, 97, -10, 1500, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(4), 1500);
 					break;
@@ -1455,14 +1438,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(4), 1876, 97, 12, 0, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(5), 1);
 					break;
@@ -1476,14 +1457,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(4), 1839, 94, 0, 1500, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(6), 1500);
 					break;
@@ -1497,14 +1476,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(3), 1872, 94, 15, 0, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(7), 1);
 					break;
@@ -1518,14 +1495,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(3), 1839, 92, 0, 1500, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(8), 1500);
 					break;
@@ -1539,14 +1514,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(2), 1872, 92, 15, 0, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(9), 1);
 					break;
@@ -1560,14 +1533,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(2), 1839, 90, 5, 1500, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(10), 1500);
 					break;
@@ -1581,14 +1552,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(1), 1872, 90, 5, 0, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(11), 1);
 					break;
@@ -1602,14 +1571,12 @@ public class VanHalterManager
 							pc.specialCamera(_CameraMarker.get(1), 2002, 90, 2, 1500, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(12), 2000);
 					break;
@@ -1623,14 +1590,12 @@ public class VanHalterManager
 							pc.specialCamera(_vanHalter, 50, 90, 10, 0, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(13), 1000);
 					break;
@@ -1643,9 +1608,9 @@ public class VanHalterManager
 					_vanHalter.doCast(skill);
 					_vanHalter.setIsImmobilized(true);
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(14), 4700);
 					break;
@@ -1653,9 +1618,9 @@ public class VanHalterManager
 					_RitualOffering.setIsInvul(false);
 					_RitualOffering.reduceCurrentHp(_RitualOffering.getMaxHp() * 2, _vanHalter);
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(15), 4300);
 					break;
@@ -1671,14 +1636,12 @@ public class VanHalterManager
 							pc.specialCamera(_vanHalter, 100, 90, 15, 1500, 15000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(16), 2000);
 					break;
@@ -1692,14 +1655,12 @@ public class VanHalterManager
 							pc.specialCamera(_vanHalter, 5200, 90, -10, 9500, 6000);
 						}
 						else
-						{
 							pc.leaveMovieMode();
-						}
 					}
 					// set next task.
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(17), 6000);
 					break;
@@ -1713,17 +1674,16 @@ public class VanHalterManager
 					deleteCameraMarker();
 					_vanHalter.setIsImmobilized(false);
 					_vanHalter.setIsInvul(false);
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
+
 					_MovieTask = null;
 					_MovieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(18), 1000);
 					break;
 				case 18:
 					combatBeginning();
-					if (_MovieTask != null) {
+					if (_MovieTask != null)
 						_MovieTask.cancel(true);
-					}
 					_MovieTask = null;
 			}
 		}

@@ -14,6 +14,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import net.sf.l2j.gameserver.model.L2Party;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
 /**
  * Format: ch d[Sdd]
  *
@@ -22,6 +25,12 @@ package net.sf.l2j.gameserver.network.serverpackets;
 public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
 {
 	private static final String _S__FE_4A_EXMPCCSHOWPARTYMEMBERINFO = "[S] FE:4A ExMPCCShowPartyMemberInfo";
+	private L2Party _party;
+
+	public ExMPCCShowPartyMemberInfo(L2Party party)
+	{
+		this._party = party;
+	}
 
 	/**
 	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
@@ -31,7 +40,13 @@ public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x4a);
-		// TODO this packet has a list, so im not going to add temp vars ^^
+		writeD(_party.getMemberCount()); // Number of Members
+		for (L2PcInstance pc : _party.getPartyMembers())
+		{
+			writeS(pc.getName()); // Membername
+			writeD(pc.getObjectId()); // ObjId
+			writeD(pc.getClassId().getId()); // Classid
+		}
 	}
 
 	/**

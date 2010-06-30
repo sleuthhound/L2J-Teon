@@ -76,9 +76,7 @@ public class ZoneManager
 	public static final ZoneManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new ZoneManager();
-		}
 		return _instance;
 	}
 
@@ -97,8 +95,10 @@ public class ZoneManager
 		// Get the world regions
 		int count = 0;
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
-		for (L2WorldRegion[] worldRegion : worldRegions) {
-			for (L2WorldRegion element : worldRegion) {
+		for (L2WorldRegion[] worldRegion : worldRegions)
+		{
+			for (L2WorldRegion element : worldRegion)
+			{
 				element.getZones().clear();
 				count++;
 			}
@@ -130,9 +130,8 @@ public class ZoneManager
 			File file = new File(Config.DATAPACK_ROOT + "/data/zones/zone.xml");
 			if (!file.exists())
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.info("The zone.xml file is missing.");
-				}
 				return;
 			}
 			Document doc = factory.newDocumentBuilder().parse(file);
@@ -152,53 +151,53 @@ public class ZoneManager
 							String zoneShape = attrs.getNamedItem("shape").getNodeValue();
 							// Create the zone
 							L2ZoneType temp = null;
-							if (zoneType.equals("FishingZone")) {
+							if (zoneType.equals("FishingZone"))
 								temp = new L2FishingZone(zoneId);
-							} else if (zoneType.equals("ClanHallZone")) {
+							else if (zoneType.equals("ClanHallZone"))
 								temp = new L2ClanHallZone(zoneId);
-							} else if (zoneType.equals("PaganZone")) {
+							else if (zoneType.equals("PaganZone"))
 								temp = new L2PaganZone(zoneId);
-							} else if (zoneType.equals("PeaceZone")) {
+							else if (zoneType.equals("PeaceZone"))
 								temp = new L2PeaceZone(zoneId);
-							} else if (zoneType.equals("PoisonZone")) {
+							else if (zoneType.equals("PoisonZone"))
 								temp = new L2PoisonZone(zoneId);
-							} else if (zoneType.equals("SwampZone")) {
+							else if (zoneType.equals("SwampZone"))
 								temp = new L2SwampZone(zoneId);
-							} else if (zoneType.equals("Town")) {
+							else if (zoneType.equals("Town"))
 								temp = new L2TownZone(zoneId);
-							} else if (zoneType.equals("OlympiadStadium")) {
+							else if (zoneType.equals("OlympiadStadium"))
 								temp = new L2OlympiadStadiumZone(zoneId);
-							} else if (zoneType.equals("CastleZone")) {
+							else if (zoneType.equals("CastleZone"))
 								temp = new L2CastleZone(zoneId);
-							} else if (zoneType.equals("CastleTeleportZone")) {
+							else if (zoneType.equals("CastleTeleportZone"))
 								temp = new L2CastleTeleportZone(zoneId);
-							} else if (zoneType.equals("FortZone")) {
+							else if (zoneType.equals("FortZone"))
 								temp = new L2FortZone(zoneId);
-							} else if (zoneType.equals("DamageZone")) {
+							else if (zoneType.equals("DamageZone"))
 								temp = new L2DamageZone(zoneId);
-							} else if (zoneType.equals("Arena")) {
+							else if (zoneType.equals("Arena"))
 								temp = new L2ArenaZone(zoneId);
-							} else if (zoneType.equals("MotherTree")) {
+							else if (zoneType.equals("MotherTree"))
 								temp = new L2MotherTreeZone(zoneId);
-							} else if (zoneType.equals("BigheadZone")) {
+							else if (zoneType.equals("BigheadZone"))
 								temp = new L2BigheadZone(zoneId);
-							} else if (zoneType.equals("NoLandingZone")) {
+							else if (zoneType.equals("NoLandingZone"))
 								temp = new L2NoLandingZone(zoneId);
-							} else if (zoneType.equals("JailZone")) {
+							else if (zoneType.equals("JailZone"))
 								temp = new L2JailZone(zoneId);
-							} else if (zoneType.equals("DerbyTrackZone")) {
+							else if (zoneType.equals("DerbyTrackZone"))
 								temp = new L2DerbyTrackZone(zoneId);
-							} else if (zoneType.equals("BossZone")) {
+							else if (zoneType.equals("BossZone"))
 								temp = new L2BossZone(zoneId);
-							} else if (zoneType.equals("WaterZone")) {
+							else if (zoneType.equals("WaterZone"))
 								temp = new L2WaterZone(zoneId);
-							} else if (zoneType.equals("SkillZone")) {
+							else if (zoneType.equals("SkillZone"))
 								temp = new L2SkillZone(zoneId);
-							} else if (zoneType.equals("ClanHallSiegeZone")) {
+							else if (zoneType.equals("ClanHallSiegeZone"))
 								temp = new L2ClanHallSiegeZone(zoneId);
-							} else if (zoneType.equals("VanHalterZone")) {
+							else if (zoneType.equals("VanHalterZone"))
 								temp = new L2VanHalterZone(zoneId);
-							}
+
 							// Check for unknown type
 							if (temp == null)
 							{
@@ -216,8 +215,7 @@ public class ZoneManager
 								// Create this zone. Parsing for cuboids is a
 								// bit different than for other polygons
 								// cuboids need exactly 2 points to be defined.
-								// Other polygons need at least 3 (one per
-								// vertex)
+								// Other polygons need at least 3 (one per vertex)
 								if (zoneShape.equalsIgnoreCase("Cuboid"))
 								{
 									int[] x = { 0, 0 };
@@ -239,11 +237,10 @@ public class ZoneManager
 											break;
 										}
 									}
-									if (successfulLoad) {
+									if (successfulLoad)
 										temp.setZone(new ZoneCuboid(x[0], x[1], y[0], y[1], minZ, maxZ));
-									} else {
+									else
 										continue;
-									}
 								}
 								else if (zoneShape.equalsIgnoreCase("NPoly"))
 								{
@@ -281,8 +278,7 @@ public class ZoneManager
 								}
 								else if (zoneShape.equalsIgnoreCase("Cylinder"))
 								{
-									// A Cylinder zone requires a centre point
-									// at x,y and a radius
+									// A Cylinder zone requires a centre point at x,y and a radius
 									int zoneRad = Integer.parseInt(attrs.getNamedItem("rad").getNodeValue());
 									if (rset.next() && zoneRad > 0)
 									{
@@ -323,10 +319,8 @@ public class ZoneManager
 									String val = attrs.getNamedItem("val").getNodeValue();
 									temp.setParameter(name, val);
 								}
-								// L2JTeon add Maxi
-								if ("spawn".equalsIgnoreCase(cd.getNodeName())) {
+								if ("spawn".equalsIgnoreCase(cd.getNodeName()))
 									temp.setSpawnLocs(cd);
-								}
 							}
 							// Skip checks for fishing zones & add to fishing zone manager
 							if (temp instanceof L2FishingZone)
@@ -349,23 +343,22 @@ public class ZoneManager
 									if (temp.getZone().intersectsRectangle(ax, bx, ay, by))
 									{
 										if (Config.DEBUG)
-										{
 											_log.info("Zone (" + zoneId + ") added to: " + x + " " + y);
-										}
+
 										worldRegions[x][y].addZone(temp);
 									}
 								}
 							}
 							// Special managers for arenas, towns...
-							if (temp instanceof L2ArenaZone) {
+							if (temp instanceof L2ArenaZone)
 								ArenaManager.getInstance().addArena((L2ArenaZone) temp);
-							} else if (temp instanceof L2TownZone) {
+							else if (temp instanceof L2TownZone)
 								TownManager.getInstance().addTown((L2TownZone) temp);
-							} else if (temp instanceof L2OlympiadStadiumZone) {
+							else if (temp instanceof L2OlympiadStadiumZone)
 								OlympiadStadiaManager.getInstance().addStadium((L2OlympiadStadiumZone) temp);
-							} else if (temp instanceof L2BossZone) {
+							else if (temp instanceof L2BossZone)
 								GrandBossManager.getInstance().addZone((L2BossZone) temp);
-							}
+
 							// Increase the counter
 							zoneCount++;
 						}
@@ -440,9 +433,8 @@ public class ZoneManager
 		FastList<L2ZoneType> temp = new FastList<L2ZoneType>();
 		for (L2ZoneType zone : region.getZones())
 		{
-			if (zone.isInsideZone(x, y)) {
+			if (zone.isInsideZone(x, y))
 				temp.add(zone);
-			}
 		}
 		return temp;
 	}
@@ -461,9 +453,8 @@ public class ZoneManager
 		FastList<L2ZoneType> temp = new FastList<L2ZoneType>();
 		for (L2ZoneType zone : region.getZones())
 		{
-			if (zone.isInsideZone(x, y, z)) {
+			if (zone.isInsideZone(x, y, z))
 				temp.add(zone);
-			}
 		}
 		return temp;
 	}

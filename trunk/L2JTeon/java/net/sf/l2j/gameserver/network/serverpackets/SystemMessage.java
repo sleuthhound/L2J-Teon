@@ -16,7 +16,9 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import java.util.Vector;
 
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class ...
@@ -78,6 +80,16 @@ public class SystemMessage extends L2GameServerPacket
 		_types.add(new Integer(TYPE_NPC_NAME));
 		_values.add(new Integer(1000000 + id));
 		return this;
+	}
+	
+	public SystemMessage addItemName(L2ItemInstance item)
+	{
+		return addItemName(item.getItem().getItemId());
+	}
+
+	public SystemMessage addItemName(L2Item item)
+	{
+		return addItemName(item.getItemId());
 	}
 
 	public SystemMessage addItemName(int id)

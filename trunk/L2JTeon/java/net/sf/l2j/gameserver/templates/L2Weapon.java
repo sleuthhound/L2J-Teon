@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.conditions.ConditionGameChance;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
@@ -341,33 +342,32 @@ public final class L2Weapon extends L2Item
 	public L2Effect[] getSkillEffects(L2Character caster, L2Character target, boolean crit)
 	{
 		if (_skillsOnCrit == null || !crit)
-		{
 			return _emptyEffectSet;
-		}
+
 		List<L2Effect> effects = new FastList<L2Effect>();
 		for (L2Skill skill : _skillsOnCrit)
 		{
-			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT))
-			{
+			if (target.isRaid() 
+					&& (skill.getSkillType() == SkillType.CONFUSION 
+					|| skill.getSkillType() == SkillType.MUTE 
+					|| skill.getSkillType() == SkillType.PARALYZE 
+					|| skill.getSkillType() == SkillType.ROOT))
 				continue; // These skills should not work on RaidBoss
-			}
+
 			if (!skill.checkCondition(caster, target, true))
-			{
 				continue; // Skill condition not met
-			}
+
 			if (target.getFirstEffect(skill.getId()) != null)
-			{
 				target.getFirstEffect(skill.getId()).exit();
-			}
+
 			for (L2Effect e : skill.getEffects(caster, target))
 			{
 				effects.add(e);
 			}
 		}
 		if (effects.size() == 0)
-		{
 			return _emptyEffectSet;
-		}
+
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
@@ -384,24 +384,27 @@ public final class L2Weapon extends L2Item
 	 */
 	public L2Effect[] getSkillEffects(L2Character caster, L2Character target, L2Skill trigger)
 	{
-		if (_skillsOnCast == null) {
+		if (_skillsOnCast == null)
 			return _emptyEffectSet;
-		}
+
 		List<L2Effect> effects = new FastList<L2Effect>();
 		for (L2Skill skill : _skillsOnCast)
 		{
-			if (trigger.isOffensive() != skill.isOffensive()) {
+			if (trigger.isOffensive() != skill.isOffensive())
 				continue; // Trigger only same type of skill
-			}
-			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT)) {
+
+			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION 
+					|| skill.getSkillType() == SkillType.MUTE 
+					|| skill.getSkillType() == SkillType.PARALYZE 
+					|| skill.getSkillType() == SkillType.ROOT))
 				continue; // These skills should not work on RaidBoss
-			}
-			if (trigger.isToggle() && skill.getSkillType() == SkillType.BUFF) {
+
+			if (trigger.isToggle() && skill.getSkillType() == SkillType.BUFF)
 				continue; // No buffing with toggle skills
-			}
-			if (!skill.checkCondition(caster, target, true)) {
+
+			if (!skill.checkCondition(caster, target, true))
 				continue; // Skill condition not met
-			}
+
 			try
 			{
 				// Get the skill handler corresponding to the skill type
@@ -409,28 +412,27 @@ public final class L2Weapon extends L2Item
 				L2Character[] targets = new L2Character[1];
 				targets[0] = target;
 				// Launch the magic skill and calculate its effects
-				if (handler != null) {
+				if (handler != null)
 					handler.useSkill(caster, skill, targets);
-				} else {
+				else
 					skill.useSkill(caster, targets);
-				}
+
 				// notify quests of a skill use
 				if (caster instanceof L2PcInstance)
 				{
 					// Mobs in range 1000 see spell
 					Collection<L2Object> objs = caster.getKnownList().getKnownObjects().values();
-					// synchronized (caster.getKnownList().getKnownObjects())
+					//synchronized (caster.getKnownList().getKnownObjects())
 					{
 						for (L2Object spMob : objs)
 						{
 							if (spMob instanceof L2NpcInstance)
 							{
 								L2NpcInstance npcMob = (L2NpcInstance) spMob;
-								if (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) != null) {
-									for (Quest quest : npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE)) {
-										quest.notifySkillSee(npcMob, (L2PcInstance) caster, _skillsOnCast[0], targets, false);// XXX not sure of this
-									}
-								}
+								
+								if (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) != null)
+									for (Quest quest : npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE))
+										quest.notifySkillSee(npcMob, (L2PcInstance) caster, _skillsOnCast[0], targets, false);
 							}
 						}
 					}
@@ -440,9 +442,9 @@ public final class L2Weapon extends L2Item
 			{
 			}
 		}
-		if (effects.size() == 0) {
+		if (effects.size() == 0)
 			return _emptyEffectSet;
-		}
+
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
@@ -455,18 +457,15 @@ public final class L2Weapon extends L2Item
 	public void attachOnCrit(L2Skill skill)
 	{
 		if (_skillsOnCrit == null)
-		{
 			_skillsOnCrit = new L2Skill[] { skill };
-		}
+
 		else
 		{
 			int len = _skillsOnCrit.length;
 			L2Skill[] tmp = new L2Skill[len + 1];
-			// Definition : arraycopy(array source, begins copy at this
-			// position
+			// Definition : arraycopy(array source, begins copy at this position
 			// of source, array destination, begins copy at this position in
-			// dest,
-			// number of components to be copied)
+			// dest, number of components to be copied)
 			System.arraycopy(_skillsOnCrit, 0, tmp, 0, len);
 			tmp[len] = skill;
 			_skillsOnCrit = tmp;
@@ -482,18 +481,17 @@ public final class L2Weapon extends L2Item
 	public void attachOnCast(L2Skill skill)
 	{
 		if (_skillsOnCast == null)
-		{
 			_skillsOnCast = new L2Skill[] { skill };
-		}
+
 		else
 		{
 			int len = _skillsOnCast.length;
 			L2Skill[] tmp = new L2Skill[len + 1];
-			// Definition : arraycopy(array source, begins copy at this
-			// position
-			// of source, array destination, begins copy at this position in
-			// dest,
-			// number of components to be copied)
+			/** Definition : arraycopy(array source, 
+			 * begins copy at this position of source, 
+			 * array destination, begins copy at this position in dest, 
+			 * number of components to be copied)
+			 **/
 			System.arraycopy(_skillsOnCast, 0, tmp, 0, len);
 			tmp[len] = skill;
 			_skillsOnCast = tmp;

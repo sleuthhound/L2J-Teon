@@ -17,11 +17,11 @@ package net.sf.l2j.gameserver.network.serverpackets;
 public class TutorialShowQuestionMark extends L2GameServerPacket
 {
 	private static final String _S__A1_TUTORIALSHOWQUESTIONMARK = "[S] a1 TutorialShowQuestionMark";
-	private int _blink;
+	private int _markId;
 
 	public TutorialShowQuestionMark(int blink)
 	{
-		_blink = blink; // this influences the blinking frequancy :S
+		_markId = blink; // this influences the blinking frequancy :S
 	}
 
 	/*
@@ -32,7 +32,7 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xa1);
-		writeD(_blink);
+		writeD(_markId);
 	}
 
 	/*

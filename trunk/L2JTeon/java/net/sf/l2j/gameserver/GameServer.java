@@ -87,17 +87,19 @@ import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
+import net.sf.l2j.gameserver.instancemanager.PcCafePointsManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.CHSiegeGuardsManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.RainbowSpringSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.lib.L2jConnect;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
@@ -108,6 +110,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.Npcbuffer;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
+import net.sf.l2j.gameserver.model.quest.ai.AILoader;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
@@ -125,7 +128,6 @@ import org.mmocore.network.SelectorThread;
 
 /**
  * This class ...
- *
  * @version $Revision: 1.29.2.15.2.19 $ $Date: 2005/04/05 19:41:23 $
  */
 public class GameServer
@@ -141,7 +143,7 @@ public class GameServer
 	public static GameServer gameServer;
 	private static ClanHallManager _cHManager;
     private final Shutdown _shutdownHandler;
-    private final ThreadPoolManager _threadpools;
+	private final ThreadPoolManager _threadpools;
 	private final DoorTable _doorTable;
 	private final SevenSigns _sevenSignsEngine;
 	private final AutoChatHandler _autoChatHandler;
@@ -268,18 +270,14 @@ public class GameServer
 		FortSiegeManager.getInstance();
 		// Load clan hall data before zone data
 		_cHManager = ClanHallManager.getInstance();
-		Util.printSection("Clan Hall Siege");
-		FortResistSiegeManager.getInstance();
+		Util.printSection("Clan Hall Sieges");
 		BanditStrongholdSiege.getInstance();
+		DevastatedCastleManager.load();
+		FortResistSiegeManager.getInstance();
+		FortressofTheDeadManager.load();
+		CHSiegeGuardsManager.getInstance().init();
+		RainbowSpringSiegeManager.load();
 		WildBeastFarmSiege.getInstance();
-		if (Config.DEVASTATED_CASTLE_ENABLED)
-		{
-			DevastatedCastleManager.getInstance();
-		}
-		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
-		{
-			FortressofTheDeadManager.getInstance();
-		}
 		Util.printSection("Zones");
 		ZoneManager.getInstance();
 		MapRegionTable.getInstance();
@@ -291,6 +289,7 @@ public class GameServer
 		CrestCache.getInstance();
 		Util.printSection("Clan");
 		ClanTable.getInstance();
+        PcCafePointsManager.getInstance();
 		Util.printSection("Helper Buff Table");
 		_helperBuffTable = HelperBuffTable.getInstance();
 		/**
@@ -339,8 +338,7 @@ public class GameServer
 		if (!Config.ALLOW_WEDDING)
 		{
 			CoupleManager.getInstance();
-			// if ( _log.isDebugEnabled())_log.debug("CoupleManager
-			// initialized");
+			// if ( _log.isDebugEnabled())_log.debug("CoupleManager initialized");
 		}
 		MonsterRace.getInstance();
 		StaticObjects.getInstance();
@@ -402,8 +400,9 @@ public class GameServer
 		RaidBossPointsManager.init();
 		GrandBossManager.getInstance();
 		FourSepulchersManager.getInstance().init();
-		VanHalterManager.getInstance().init();
+//		VanHalterManager.getInstance().init(); // 
 		Util.printSection("Quests - Scripts");
+		AILoader.init();
 		try
 		{
 			_log.info("Loading Server Scripts");

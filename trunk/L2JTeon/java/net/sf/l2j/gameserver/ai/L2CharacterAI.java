@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -722,23 +723,30 @@ public class L2CharacterAI extends AbstractAI
 		// Stop the actor movement server side AND client side by sending
 		// Server->Client packet StopMove/StopRotation (broadcast)
 		clientStopMoving(blocked_at_pos);
+
 		if (Config.ACTIVATE_POSITION_RECORDER && Universe.getInstance().shouldLog(_accessor.getActor().getObjectId()))
 		{
 			if (!_accessor.getActor().isFlying())
-			{
 				Universe.getInstance().registerObstacle(blocked_at_pos.x, blocked_at_pos.y, blocked_at_pos.z);
-			}
+
 			if (_accessor.getActor() instanceof L2PcInstance)
-			{
 				((L2PcInstance) _accessor.getActor()).explore();
-			}
 		}
-		// If the Intention was AI_INTENTION_MOVE_TO, tet the Intention to
-		// AI_INTENTION_ACTIVE
-		if (getIntention() == AI_INTENTION_MOVE_TO)
+		if (_actor != null)
 		{
+		// Currently done for NPCs only
+			Quest[] quests = null;
+			if (_actor instanceof L2NpcInstance)
+				quests = ((L2NpcInstance) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
+			if (quests != null)
+				for (Quest quest: quests)
+					quest.notifyMoveFinished(_actor);
+			}
+
+		// If the Intention was AI_INTENTION_MOVE_TO, tet the Intention to AI_INTENTION_ACTIVE
+		if (getIntention() == AI_INTENTION_MOVE_TO)
 			setIntention(AI_INTENTION_ACTIVE);
-		}
+
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
 	}

@@ -64,12 +64,10 @@ public class SiegeManager
 	private int _attackerRespawnDelay = 0; // Time in ms. Changeable in
 	// siege.config
 	private int _defenderMaxClans = 500; // Max number of clans
-	// siege.config
-	// Siege settings
+	// siege.config Siege settings
 	private FastMap<Integer, FastList<SiegeSpawn>> _artefactSpawnList;
 	private FastMap<Integer, FastList<SiegeSpawn>> _controlTowerSpawnList;
-	// Changeable in
-	// siege.config
+	// Changeable in siege.config
 	private int _flagMaxCount = 1; // Changeable in siege.config
 	private int _siegeClanMinLevel = 4; // Changeable in siege.config
 	private int _siegeLength = 120; // Time in minute. Changeable in
@@ -99,28 +97,27 @@ public class SiegeManager
 	 */
 	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
-		}
+
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
 		Castle castle = CastleManager.getInstance().getCastle(player);
-        if (FortressSiege._started && ((L2PcInstance)activeChar)._inEventFOS && ((L2PcInstance)activeChar)._teamNameFOS.equals(FortressSiege._teams.get(0)) && activeChar.isInsideRadius(FortressSiege.eventCenterX, FortressSiege.eventCenterY, 10000, false)) {
+        if (FortressSiege._started && ((L2PcInstance)activeChar)._inEventFOS && ((L2PcInstance)activeChar)._teamNameFOS.equals(FortressSiege._teams.get(0)) && activeChar.isInsideRadius(FortressSiege.eventCenterX, FortressSiege.eventCenterY, 10000, false))
 			return true;
-		}
-		if (castle == null || castle.getCastleId() <= 0) {
+
+		if (castle == null || castle.getCastleId() <= 0)
 			sm.addString("You must be on castle ground to summon this");
-		} else if (!castle.getSiege().getIsInProgress()) {
+		else if (!castle.getSiege().getIsInProgress())
 			sm.addString("You can only summon this during a siege.");
-		} else if (player.getClanId() != 0 && castle.getSiege().getAttackerClan(player.getClanId()) == null) {
+		else if (player.getClanId() != 0 && castle.getSiege().getAttackerClan(player.getClanId()) == null)
 			sm.addString("You can only summon this as a registered attacker.");
-		} else {
+		else
 			return true;
-		}
+
 		if (!isCheckOnly)
-		{
 			player.sendPacket(sm);
-		}
+
 		return false;
 	}
 

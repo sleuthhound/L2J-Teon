@@ -52,8 +52,6 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class L2CastleChamberlainInstance extends L2FolkInstance
 {
-	// private static Logger _log =
-	// Logger.getLogger(L2CastleChamberlainInstance.class.getName());
 	protected static final int COND_ALL_FALSE = 0;
 	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
 	protected static final int COND_OWNER = 2;
@@ -73,9 +71,8 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
-			return;
-		}
+		if (!canTarget(player)) return;
+
 		player.setLastFolkNPC(this);
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
@@ -119,12 +116,11 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		}
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE) {
-			return;
-		}
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
-			return;
-		} else if (condition == COND_OWNER)
+		if (condition <= COND_ALL_FALSE) return;
+
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) return;
+
+		else if (condition == COND_OWNER)
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
 			String actualCommand = st.nextToken(); // Get actual command
@@ -543,9 +539,9 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 
 	private void doTeleport(L2PcInstance player, int val)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.warning("doTeleport(L2PcInstance player, int val) is called");
-		}
+
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
 		if (list != null)
 		{

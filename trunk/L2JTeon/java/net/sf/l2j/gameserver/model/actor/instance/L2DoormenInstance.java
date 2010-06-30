@@ -14,12 +14,16 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.util.Collection;
 import java.util.StringTokenizer;
+
+import javolution.util.FastList;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
@@ -51,9 +55,9 @@ public class L2DoormenInstance extends L2NpcInstance
 
 	public final ClanHall getClanHall()
 	{
-		if (_clanHall == null) {
+		if (_clanHall == null)
 			_clanHall = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
-		}
+
 		return _clanHall;
 	}
 
@@ -61,12 +65,13 @@ public class L2DoormenInstance extends L2NpcInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE) {
+		if (condition <= COND_ALL_FALSE)
 			return;
-		}
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
-		} else if (condition == COND_CASTLE_OWNER || condition == COND_HALL_OWNER || condition == COND_FORT_OWNER)
+
+		else if (condition == COND_CASTLE_OWNER || condition == COND_HALL_OWNER || condition == COND_FORT_OWNER)
 		{
 			if (command.startsWith("Chat"))
 			{
@@ -147,6 +152,16 @@ public class L2DoormenInstance extends L2NpcInstance
 						return;
 					}
 				}
+			}
+			else if (condition == COND_FORT_OWNER && command.startsWith("open_near_doors"))
+			{
+				for (L2DoorInstance door : getKnownDoors(player))
+					door.openMe();
+			}
+			else if (condition == COND_FORT_OWNER && command.startsWith("close_near_doors"))
+			{
+				for (L2DoorInstance door : getKnownDoors(player))
+					door.closeMe();
 			}
 		}
 		super.onBypassFeedback(player, command);
@@ -272,5 +287,34 @@ public class L2DoormenInstance extends L2NpcInstance
 			}
 		}
 		return COND_ALL_FALSE;
+	}
+	
+	/**
+	 * Funtion get the doors near the Doormen
+	 * can be open by the player
+	 * @param player
+	 */
+	private Collection<L2DoorInstance> getKnownDoors(L2PcInstance player)
+	{
+		//Container
+		FastList<L2DoorInstance> _doors = new FastList<L2DoorInstance>();
+
+		// Get all objects in the doorman knownlist and select the doors
+		for (L2Object object : getKnownList().getKnownObjects().values())
+		{
+			if (object instanceof L2DoorInstance)
+			{
+				L2DoorInstance door = null;
+				door = (L2DoorInstance) object;
+
+				if (door != null)
+				{
+					if (door.getCastle() != null && door.getCastle().getOwnerId() == player.getClanId() || door.getFort() != null
+							&& door.getFort().getOwnerId() == player.getClanId())
+						_doors.add(door);
+				}
+			}
+		}
+		return _doors;
 	}
 }

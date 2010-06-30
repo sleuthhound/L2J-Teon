@@ -37,7 +37,7 @@ public class SpawnTable
 {
 	private static Logger _log = Logger.getLogger(SpawnTable.class.getName());
 	private static final SpawnTable _instance = new SpawnTable();
-	private Map<Integer, L2Spawn> _spawntable = new FastMap<Integer, L2Spawn>();
+	  private Map<Integer, L2Spawn> _spawntable	= new FastMap<Integer, L2Spawn>();
 	private int _npcSpawnCount;
 	private int _cusSpawnCount;
 	private int _highestId;
@@ -49,9 +49,8 @@ public class SpawnTable
 
 	private SpawnTable()
 	{
-		if (!Config.ALT_DEV_NO_SPAWNS) {
+		if (!Config.ALT_DEV_NO_SPAWNS)
 			fillSpawnTable();
-		}
 	}
 
 	public Map<Integer, L2Spawn> getSpawnTable()
@@ -83,10 +82,6 @@ public class SpawnTable
 				if (template1 != null)
 				{
 					if (template1.type.equalsIgnoreCase("L2SiegeGuard"))
-					{
-					}
-					else if (rset.getInt("npc_templateid") == 35369 || rset.getInt("npc_templateid") == 35368 || rset.getInt("npc_templateid") == 35370 || rset.getInt("npc_templateid") == 35371 || rset.getInt("npc_templateid") == 35372 || rset.getInt("npc_templateid") == 35373 || rset.getInt("npc_templateid") == 35374 || rset.getInt("npc_templateid") == 35375
-							|| rset.getInt("npc_templateid") == 35376 || rset.getInt("npc_templateid") == 35377 || rset.getInt("npc_templateid") == 35378 || rset.getInt("npc_templateid") == 35379 || rset.getInt("npc_templateid") == 35380 || rset.getInt("npc_templateid") == 35381)
 					{
 						// Don't spawn
 					}
@@ -256,6 +251,11 @@ public class SpawnTable
 	public L2Spawn getTemplate(int id)
 	{
 		return _spawntable.get(id);
+	}
+
+	public Map<Integer, L2Spawn> getAllTemplates()
+	{
+		return _spawntable;
 	}
 
 	public void addNewSpawn(L2Spawn spawn, boolean storeInDb)

@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.instancemanager.GrandBossManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.RainbowSpringSiegeManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
@@ -504,6 +505,7 @@ public class Shutdown extends Thread
 		{
 			_log.log(Level.INFO, "", t);
 		}
+		RainbowSpringSiegeManager.getInstance().shutdown();
 		disconnectAllCharacters();
 		// seven signs data is now saved along with festival data
 		if (!SevenSigns.getInstance().isSealValidationPeriod()) {

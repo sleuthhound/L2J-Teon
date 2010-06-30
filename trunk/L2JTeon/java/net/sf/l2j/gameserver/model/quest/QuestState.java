@@ -304,10 +304,10 @@ public final class QuestState
 	 */
 	public void addNotifyOfDeath(L2Character character)
 	{
-		if (character == null) {
+		if (character == null || !(character instanceof L2PcInstance))
 			return;
-		}
-		character.addNotifyQuestOfDeath(this);
+
+		((L2PcInstance)character).addNotifyQuestOfDeath(this);
 	}
 
 	/**
@@ -700,9 +700,12 @@ public final class QuestState
 	 */
 	public QuestState exitQuest(boolean repeatable)
 	{
-		if (isCompleted()) {
+		// remove this quest from the notifyDeath list of this character if its on this list
+		_player.removeNotifyQuestOfDeath(this);
+
+		if (isCompleted())
 			return this;
-		}
+
 		// Say quest is completed
 		setState(State.COMPLETED);
 		// Clean registered quest items

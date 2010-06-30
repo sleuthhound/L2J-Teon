@@ -14,12 +14,17 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-// import java.util.Calendar; //signed time related
-// import java.util.logging.Logger;
+import java.util.List;
+
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FOTDSiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.ClanHall;
 
 /**
  * Populates the Siege Attacker List in the SiegeInfo Window<BR>
@@ -50,52 +55,64 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 public class SiegeAttackerList extends L2GameServerPacket
 {
 	private static final String _S__CA_SiegeAttackerList = "[S] ca SiegeAttackerList";
-	// private static Logger _log =
-	// Logger.getLogger(SiegeAttackerList.class.getName());
 	private Castle _castle;
+	private ClanHall _clanHall;
 
-	public SiegeAttackerList(Castle castle)
+	public SiegeAttackerList(Castle castle,ClanHall clanHall)
 	{
 		_castle = castle;
+		_clanHall = clanHall;
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xca);
-		writeD(_castle.getCastleId());
-		writeD(0x00); // 0
-		writeD(0x01); // 1
-		writeD(0x00); // 0
-		int size = _castle.getSiege().getAttackerClans().size();
-		if (size > 0)
-		{
-			L2Clan clan;
-			writeD(size);
-			writeD(size);
-			for (L2SiegeClan siegeclan : _castle.getSiege().getAttackerClans())
+			List<L2SiegeClan> clans = new FastList<L2SiegeClan>();
+			if (_castle==null)
 			{
-				clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-				if (clan == null) {
-					continue;
+				if (_clanHall.getId() == 34)
+					clans = DevastatedCastleManager.getInstance().getRegisteredClans();
+				if (_clanHall.getId() == 64)
+					clans = FortressofTheDeadManager.getInstance().getRegisteredClans();
+			}
+			else
+				clans = _castle.getSiege().getAttackerClans();
+			writeC(0xca);
+			if (_castle==null)
+				writeD(_clanHall.getId());
+			else
+				writeD(_castle.getCastleId());
+			writeD(0x00); //0
+			writeD(0x01); //1
+			writeD(0x00); //0
+			int size = clans.size();
+			if (size > 0)
+			{
+				L2Clan clan;
+				writeD(size);
+				writeD(size);
+				for (L2SiegeClan siegeclan : clans)
+				{
+					clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+					if (clan == null) continue;
+
+					writeD(clan.getClanId());
+					writeS(clan.getName());
+					writeS(clan.getLeaderName());
+					writeD(clan.getCrestId());
+					writeD(0x00); //signed time (seconds) (not storated by L2J)
+					writeD(clan.getAllyId());
+					writeS(clan.getAllyName());
+					writeS(""); //AllyLeaderName
+					writeD(clan.getAllyCrestId());
 				}
-				writeD(clan.getClanId());
-				writeS(clan.getName());
-				writeS(clan.getLeaderName());
-				writeD(clan.getCrestId());
-				writeD(0x00); // signed time (seconds) (not storated by L2J)
-				writeD(clan.getAllyId());
-				writeS(clan.getAllyName());
-				writeS(""); // AllyLeaderName
-				writeD(clan.getAllyCrestId());
+			}
+			else
+			{
+				writeD(0x00);
+				writeD(0x00);
 			}
 		}
-		else
-		{
-			writeD(0x00);
-			writeD(0x00);
-		}
-	}
 
 	/*
 	 * (non-Javadoc)

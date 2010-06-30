@@ -26,19 +26,12 @@ import net.sf.l2j.gameserver.script.DateRange;
  */
 public class EventDroplist
 {
-	// private static Logger _log =
-	// Logger.getLogger(EventDroplist.class.getName());
-	private static EventDroplist _instance;
 	/** The table containing all DataDrop object */
 	private List<DateDrop> _allNpcDateDrops;
 
 	public static EventDroplist getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new EventDroplist();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public class DateDrop
@@ -100,14 +93,16 @@ public class EventDroplist
 		for (DateDrop drop : _allNpcDateDrops)
 		{
 			Date currentDate = new Date();
-			// System.out.println("From: "+drop.from+" To: "+drop.to+" Now:
-			// "+
-			// currentDate);
+			// System.out.println("From: "+drop.from+" To: "+drop.to+" Now: "+ currentDate);
 			if (drop.dateRange.isWithinRange(currentDate))
-			{
 				list.add(drop);
-			}
 		}
 		return list;
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final EventDroplist _instance = new EventDroplist();
 	}
 }

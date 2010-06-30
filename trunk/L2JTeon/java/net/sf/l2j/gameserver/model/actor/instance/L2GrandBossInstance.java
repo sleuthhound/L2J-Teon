@@ -45,11 +45,8 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 
 	/**
 	 * Constructor for L2GrandBossInstance. This represent all grandbosses.
-	 *
-	 * @param objectId
-	 *            ID of the instance
-	 * @param template
-	 *            L2NpcTemplate of the instance
+	 * @param objectIdID of the instance
+	 * @param templateL2NpcTemplate of the instance
 	 */
 	public L2GrandBossInstance(int objectId, L2NpcTemplate template)
 	{
@@ -66,15 +63,14 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	public void onSpawn()
 	{
 		setIsRaid(true);
-		if (getNpcId() == 29020 || getNpcId() == 29028) {
+		if (getNpcId() == 29020 || getNpcId() == 29028)
 			super.disableCoreAI(true);
-		}
+
 		super.onSpawn();
 	}
 
 	/**
-	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR>
-	 * <BR>
+	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.
 	 */
 	@Override
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
@@ -88,15 +84,15 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!super.doDie(killer)) {
+		if (!super.doDie(killer))
 			return false;
-		}
+
 		L2PcInstance player = null;
-		if (killer instanceof L2PcInstance) {
+		if (killer instanceof L2PcInstance)
 			player = (L2PcInstance) killer;
-		} else if (killer instanceof L2Summon) {
+		else if (killer instanceof L2Summon)
 			player = ((L2Summon) killer).getOwner();
-		}
+
 		if (player != null)
 		{
 			broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));

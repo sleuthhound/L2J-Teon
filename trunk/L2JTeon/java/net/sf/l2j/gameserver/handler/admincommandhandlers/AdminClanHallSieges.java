@@ -37,61 +37,121 @@ public class AdminClanHallSieges implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+		{
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
 		}
 		if (command.startsWith("admin_startfortresist"))
 		{
 			FortResistSiegeManager.getInstance().startSiege();
-			activeChar.sendMessage("Start Siege Fortress of Resistence");
+			validateStartSiege(activeChar,1);
 		}
 		else if (command.startsWith("admin_endfortresist"))
 		{
 			FortResistSiegeManager.getInstance().endSiege(true);
-			activeChar.sendMessage("End Siege Fortress of Resistence");
+			getSendMessage(activeChar,1);
 		}
 		else if (command.startsWith("admin_startdevastated"))
 		{
 			DevastatedCastleManager.getInstance().startSiege();
-			activeChar.sendMessage("Start Siege Devastated Castle");
+			validateStartSiege(activeChar,2);
 		}
 		else if (command.startsWith("admin_enddevastated"))
 		{
-			DevastatedCastleManager.getInstance().endSiege(true);
-			activeChar.sendMessage("End Siege Devastated Castle");
+			DevastatedCastleManager.getInstance().endSiege(activeChar);
+			getSendMessage(activeChar,2);
 		}
 		else if (command.startsWith("admin_startbandit"))
 		{
 			BanditStrongholdSiege.getInstance().startSiege();
-			activeChar.sendMessage("Start Siege Bandit Stronghold Siege");
+			validateStartSiege(activeChar,3);
 		}
 		else if (command.startsWith("admin_endbandit"))
 		{
 			BanditStrongholdSiege.getInstance().endSiege(true);
-			activeChar.sendMessage("End Siege Bandit Stronghold Siege");
+			getSendMessage(activeChar,3);
 		}
 		else if (command.startsWith("admin_startwildbeastfarm"))
 		{
 			WildBeastFarmSiege.getInstance().startSiege();
-			activeChar.sendMessage("Start Siege Wild Beast Farm");
+			validateStartSiege(activeChar,4);
 		}
 		else if (command.startsWith("admin_endwildbeastfarm"))
 		{
 			WildBeastFarmSiege.getInstance().endSiege(true);
-			activeChar.sendMessage("End Siege Wild Beast Farm");
+			getSendMessage(activeChar,4);
 		}
 		else if (command.startsWith("admin_startfortress"))
 		{
 			FortressofTheDeadManager.getInstance().startSiege();
-			activeChar.sendMessage("Start Siege Fortress of The Dead");
+			validateStartSiege(activeChar,5);
 		}
 		else if (command.startsWith("admin_endfortress"))
 		{
-			FortressofTheDeadManager.getInstance().endSiege(true);
-			activeChar.sendMessage("End Siege Fortress of The Dead");
+			FortressofTheDeadManager.getInstance().endSiege(activeChar);
+			getSendMessage(activeChar,5);
 		}
+		return true;
+	}
+	
+	public boolean getSendMessage(L2PcInstance activeChar,int val)
+	{
+		if (val ==1)
+			if (!FortResistSiegeManager.getInstance().getIsInProgress())
+				activeChar.sendMessage("End siege Fortress of Resistance");
+			else
+				activeChar.sendMessage("Failed end siege Fortress of Resistance");
+		if (val ==2)
+			if (!DevastatedCastleManager.getInstance().getIsInProgress())
+				activeChar.sendMessage("End Siege Devastated Castle");
+			else
+				activeChar.sendMessage("Failed end siege Devastated Castle");
+		if (val ==3)
+			if (!BanditStrongholdSiege.getInstance().getIsInProgress())
+				activeChar.sendMessage("End siege Bandit Stronghold");
+			else
+				activeChar.sendMessage("Failed end siege Bandit Stronghold");
+		if (val ==4)
+			if (!WildBeastFarmSiege.getInstance().getIsInProgress())
+				activeChar.sendMessage("End siege Wild Beast Farm");
+			else
+				activeChar.sendMessage("Failed end siege Wild Beast Farm");
+		if (val ==5)
+			if (!FortressofTheDeadManager.getInstance().getIsInProgress())
+				activeChar.sendMessage("End Siege Fortress of The Dead");
+			else
+				activeChar.sendMessage("Failed end siege Fortress of The Dead");
+		return true;
+	}
+
+	public boolean validateStartSiege(L2PcInstance activeChar,int val)
+	{
+		if (val ==1)
+			if (FortResistSiegeManager.getInstance().getIsInProgress())
+				activeChar.sendMessage("Start Siege Fortress of Resistance");
+			else
+				activeChar.sendMessage("Failed Start Siege Fortress of Resistance");
+		if (val ==2)
+			if (DevastatedCastleManager.getInstance().getIsInProgress())
+				activeChar.sendMessage("Start Siege Devastated Castle");
+			else
+				activeChar.sendMessage("Failed start siege Devastated Castle");
+		if (val ==3)
+			if (BanditStrongholdSiege.getInstance().getIsInProgress())
+				activeChar.sendMessage("Start siege Bandit Stronghold");
+			else
+				activeChar.sendMessage("Failed start siege Bandit Stronghlod");
+		if (val ==4)
+			if (WildBeastFarmSiege.getInstance().getIsInProgress())
+				activeChar.sendMessage("Start siege Wild Beast Farm");
+			else
+				activeChar.sendMessage("Failed start siege Wild Beast Farm");
+		if (val ==5)
+			if (FortressofTheDeadManager.getInstance().getIsInProgress())
+				activeChar.sendMessage("Start siege Fortress of The Dead");
+			else
+				activeChar.sendMessage("Failed start siege Fortress of The Dead");
 		return true;
 	}
 

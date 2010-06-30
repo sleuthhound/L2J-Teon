@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.skills.funcs.LambdaConst;
 public final class L2Augmentation
 {
 	private static final Logger _log = Logger.getLogger(L2Augmentation.class.getName());
+
 	private L2ItemInstance _item;
 	private int _effectsId = 0;
 	private augmentationStatBoni _boni = null;
@@ -47,9 +48,8 @@ public final class L2Augmentation
 		_boni = new augmentationStatBoni(_effectsId);
 		_skill = skill;
 		// write to DB if save is true
-		if (save) {
+		if (save)
 			saveAugmentationData();
-		}
 	}
 
 	public L2Augmentation(L2ItemInstance item, int effects, int skill, int skillLevel, boolean save)
@@ -83,10 +83,11 @@ public final class L2Augmentation
 		public void applyBonus(L2PcInstance player)
 		{
 			// make sure the Bonus are not applyed twice..
-			if (_active) {
+			if (_active)
 				return;
-			}
-			for (int i = 0; i < _stats.length; i++) {
+
+			for (int i = 0; i < _stats.length; i++)
+			{
 				((L2Character) player).addStatFunc(new FuncAdd(_stats[i], 0x40, this, new LambdaConst(_values[i])));
 			}
 			_active = true;
@@ -95,9 +96,9 @@ public final class L2Augmentation
 		public void removeBonus(L2PcInstance player)
 		{
 			// make sure the Bonus is not removed twice
-			if (!_active) {
+			if (!_active)
 				return;
-			}
+
 			((L2Character) player).removeStatsOwner(this);
 			_active = false;
 		}
@@ -143,9 +144,9 @@ public final class L2Augmentation
 
 	public void deleteAugmentationData()
 	{
-		if (!_item.isAugmented()) {
+		if (!_item.isAugmented())
 			return;
-		}
+
 		// delete the augmentation from the database
 		java.sql.Connection con = null;
 		try

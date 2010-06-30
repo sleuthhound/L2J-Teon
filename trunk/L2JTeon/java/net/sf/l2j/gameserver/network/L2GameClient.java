@@ -74,7 +74,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	private List<Integer> _charSlotMapping = new FastList<Integer>();
 	// Task
 	@SuppressWarnings("unchecked")
-	protected/* final */ScheduledFuture _autoSaveInDB;
+	protected ScheduledFuture _autoSaveInDB;
 	// Crypt
 	public GameCrypt crypt;
 	// Flood protection
@@ -142,9 +142,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	{
 		activeChar = pActiveChar;
 		if (activeChar != null)
-		{
 			L2World.getInstance().storeObject(getActiveChar());
-		}
 	}
 
 	public ReentrantLock getActiveCharLock()
@@ -205,21 +203,19 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk(getActiveChar()); if (Config.DEBUG) { _log.fine("active Char saved"); } this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0) {
+		if (objid < 0)
 			return null;
-		}
+
 		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0) {
+		if (character.getClanId() != 0)
 			return character;
-		}
+
 		java.sql.Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("UPDATE characters SET deletetime=? WHERE obj_id=?");
-			statement.setLong(1, System.currentTimeMillis() + Config.DELETE_DAYS * 86400000L); // 24*60*60*1000
-			// =
-			// 86400000
+			statement.setLong(1, System.currentTimeMillis() + Config.DELETE_DAYS * 86400000L); // 24*60*60*1000 = 86400000
 			statement.setInt(2, objid);
 			statement.execute();
 			statement.close();
@@ -248,13 +244,13 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if (Config.DEBUG) _log.fine("active Char saved"); this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0) {
+		if (objid < 0)
 			return null;
-		}
+
 		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0) {
+		if (character.getClanId() != 0)
 			return character;
-		}
+
 		deleteCharByObjId(objid);
 		return null;
 	}
@@ -281,9 +277,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if (Config.DEBUG) _log.fine("active Char saved"); this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0) {
+		if (objid < 0)
 			return;
-		}
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -311,9 +307,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	public static void deleteCharByObjId(int objid)
 	{
-		if (objid < 0) {
+		if (objid < 0)
 			return;
-		}
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -438,7 +434,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	public void setCharSelection(CharSelectInfoPackage[] chars)
 	{
 		_charSlotMapping.clear();
-		for (CharSelectInfoPackage c : chars) {
+		for (CharSelectInfoPackage c : chars)
+		{
 			int objectId = c.getObjectId();
 			_charSlotMapping.add(new Integer(objectId));
 		}
@@ -489,11 +486,10 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		if (this.getActiveChar() != null && !this.getActiveChar().getFloodProtectors().getWnk().tryPerformAction("unknownPacketCount"))
 		{
 			unknownPacketCount++;
-			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS) {
+			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS)
 				return true;
-			} else {
+			else
 				return false;
-			}
 		}
 		else
 		{
@@ -626,11 +622,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 				// force the cancel
 				_autoSaveInDB.cancel(true);
 				L2PcInstance player = L2GameClient.this.getActiveChar();
-				if (player != null) // this should only happen on connection
-				// loss
+				if (player != null) // this should only happen on connection loss
 				{
-					// we store all data from players who are disconnected
-					// while
+					// we store all data from players who are disconnected while
 					// in an event in order to restore it in the next login
 					if (player.atEvent)
 					{
@@ -638,9 +632,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 						L2Event.connectionLossData.put(player.getName(), data);
 					}
 					if (player.isFlying())
-					{
 						player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-					}
+
 					// notify the world about our disconnect
 					player.deleteMe();
 					try
@@ -655,9 +648,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 						
 						saveCharToDisk(player);
 					}
-					catch (Exception e2)
-					{ /* ignore any problems here */
-					}
+					catch (Exception e2) { }
 				}
 				L2GameClient.this.setActiveChar(null);
 			}
@@ -680,9 +671,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			{
 				L2PcInstance player = L2GameClient.this.getActiveChar();
 				if (player != null)
-				{
 					saveCharToDisk(player);
-				}
 			}
 			catch (Throwable e)
 			{

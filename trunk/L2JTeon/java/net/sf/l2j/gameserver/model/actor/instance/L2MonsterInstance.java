@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.knownlist.MonsterKnownList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -64,9 +66,8 @@ public class L2MonsterInstance extends L2Attackable
 	public final MonsterKnownList getKnownList()
 	{
 		if (super.getKnownList() == null || !(super.getKnownList() instanceof MonsterKnownList))
-		{
 			setKnownList(new MonsterKnownList(this));
-		}
+		
 		return (MonsterKnownList) super.getKnownList();
 	}
 
@@ -78,25 +79,114 @@ public class L2MonsterInstance extends L2Attackable
 	public boolean isAutoAttackable(L2Character attacker)
 	{
 		if (attacker instanceof L2MonsterInstance)
-		{
 			return false;
-		}
+		
 		return !isEventMob;
 	}
 
 	/**
-	 * Return true if the L2MonsterInstance is Agressive (aggroRange > 0).<BR>
-	 * <BR>
+	 * Return true if the L2MonsterInstance is Agressive (aggroRange > 0).
 	 */
 	@Override
 	public boolean isAggressive()
 	{
+		switch (getTemplate().npcId)
+        {
+	        case 35633:
+	        case 35634:
+	        case 35635:
+	        case 35636:
+	        case 35637:
+	        case 35411:
+	        case 35412:
+	        case 35413:
+	        case 35414:
+	        case 35415:
+	        case 35416:
+				break;
+	        default:
+	        	return getTemplate().aggroRange > 1200;
+        }
 		return getTemplate().aggroRange > 0 && !isEventMob;
+	}
+
+	/**
+	 * This method forces guard to return to home location previously set
+	 */
+	@Override
+	public void returnHome()
+	{
+		switch (getTemplate().npcId)
+        {
+	        case 35633:
+	        case 35634:
+	        case 35635:
+	        case 35636:
+	        case 35637:
+	        case 35411:
+	        case 35412:
+	        case 35413:
+	        case 35414:
+	        case 35415:
+	        case 35416:
+				break;
+	        default:
+	    		if (getStat().getWalkSpeed() <= 0)
+	    			return;
+
+			if (getSpawn() != null && !isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 40, false))
+			{
+				setisReturningToSpawnPoint(true);
+				clearAggroList();
+				if (hasAI())
+					getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
+			}
+        }
+	}
+
+    @Override
+	public boolean hasRandomAnimation()
+	{
+		switch (getTemplate().npcId)
+        {
+	        case 35633:
+	        case 35634:
+	        case 35635:
+	        case 35636:
+	        case 35637:
+	        case 35411:
+	        case 35412:
+	        case 35413:
+	        case 35414:
+	        case 35415:
+	        case 35416:
+				break;
+	        default:
+	    		return false;
+        }
+		return true;
 	}
 
 	@Override
 	public void onSpawn()
 	{
+			switch (getTemplate().npcId)
+	        {
+		        case 35633:
+		        case 35634:
+		        case 35635:
+		        case 35636:
+		        case 35637:
+		        case 35411:
+		        case 35412:
+		        case 35413:
+		        case 35414:
+		        case 35415:
+		        case 35416:
+					super.disableCoreAI(true);
+					break;
+		        default:
+	        }
 		super.onSpawn();
 		if (getTemplate().getMinionData() != null)
 		{
@@ -104,10 +194,7 @@ public class L2MonsterInstance extends L2Attackable
 			{
 				for (L2MinionInstance minion : getSpawnedMinions())
 				{
-					if (minion == null)
-					{
-						continue;
-					}
+					if (minion == null) continue;
 					getSpawnedMinions().remove(minion);
 					minion.deleteMe();
 				}
@@ -149,15 +236,11 @@ public class L2MonsterInstance extends L2Attackable
 				// far away from this L2MonsterInstance
 				if (!isInsideRadius(minion, 200, false, false))
 				{
-					// Get the coords of the master to use as a base to move
-					// the
-					// minion to
+					// Get the coords of the master to use as a base to move the minion to
 					int masterX = getX();
 					int masterY = getY();
 					int masterZ = getZ();
-					// Calculate a new random coord for the minion based on
-					// the
-					// master's coord
+					// Calculate a new random coord for the minion based on the master's coord
 					int minionX = masterX + Rnd.nextInt(401) - 200;
 					int minionY = masterY + Rnd.nextInt(401) - 200;
 					int minionZ = masterZ;
@@ -191,11 +274,10 @@ public class L2MonsterInstance extends L2Attackable
 					// Trigger the aggro condition of the minion
 					if (minion != null && !minion.isDead())
 					{
-						if (isRaid() && !isRaidMinion()) {
+						if (isRaid() && !isRaidMinion())
 							minion.addDamage(attacker, 100);
-						} else {
+						else
 							minion.addDamage(attacker, 1);
-						}
 					}
 				}
 			}
@@ -205,15 +287,15 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!super.doDie(killer)) {
+		if (!super.doDie(killer))
 			return false;
-		}
-		if (_minionMaintainTask != null) {
+
+		if (_minionMaintainTask != null)
 			_minionMaintainTask.cancel(true); // doesn't do it?
-		}
-		if (isRaid() && !isRaidMinion()) {
+
+		if (isRaid() && !isRaidMinion())
 			deleteSpawnedMinions();
-		}
+
 		return true;
 	}
 
@@ -251,9 +333,7 @@ public class L2MonsterInstance extends L2Attackable
 	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
 		if (!(attacker instanceof L2MonsterInstance))
-		{
 			super.addDamageHate(attacker, damage, aggro);
-		}
 	}
 
 	@Override
@@ -262,9 +342,7 @@ public class L2MonsterInstance extends L2Attackable
 		if (hasMinions())
 		{
 			if (_minionMaintainTask != null)
-			{
 				_minionMaintainTask.cancel(true);
-			}
 			deleteSpawnedMinions();
 		}
 		super.deleteMe();
@@ -274,10 +352,8 @@ public class L2MonsterInstance extends L2Attackable
 	{
 		for (L2MinionInstance minion : getSpawnedMinions())
 		{
-			if (minion == null)
-			{
-				continue;
-			}
+			if (minion == null) continue;
+
 			minion.abortAttack();
 			minion.abortCast();
 			minion.deleteMe();
