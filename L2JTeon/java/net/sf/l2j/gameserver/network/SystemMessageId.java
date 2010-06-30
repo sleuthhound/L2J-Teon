@@ -3823,10 +3823,89 @@ public enum SystemMessageId
 	 * L2 Manor<br>
 	 * All Sys Ids for L2 Manor Implentation
 	 */
-	THE_SEED_HAS_BEEN_SOWN(871), THIS_SEED_MAY_NOT_BE_SOWN_HERE(872), THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE(879), THE_TRANSACTION_IS_COMPLETE(880), THERE_IS_A_DISCREPANCY_ON_THE_INVOICE(881), THE_SEED_QUANTITY_IS_INCORRECT(882), THE_SEED_INFORMATION_IS_INCORRECT(883), THE_MANOR_INFORMATION_HAS_BEEN_UPDATED(884), THE_NUMBER_OF_CROPS_IS_INCORRECT(885), THE_CROPS_ARE_PRICED_INCORRECTLY(886), THE_TYPE_IS_INCORRECT(
-			887), NO_CROPS_CAN_BE_PURCHASED_AT_THIS_TIME(888), THE_SEED_WAS_SUCCESSFULLY_SOWN(889), THE_SEED_WAS_NOT_SOWN(890), YOU_ARE_NOT_AUTHORIZED_TO_HARVEST(891), THE_HARVEST_HAS_FAILED(892), THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN(893), THE_SEED_PRICING_GREATLY_DIFFERS_FROM_STANDARD_SEED_PRICES(933), THE_AMOUNT_IS_NOT_SUFFICIENT_AND_SO_THE_MANOR_IS_NOT_IN_OPERATION(935), THE_NEXT_SEED_PURCHASE_PRICE_IS_S1_ADENA(
-			104), THE_SALES_PRICE_FOR_SEEDS_IS_S1_ADENA(1058), THE_REMAINDER_AFTER_SELLING_THE_SEEDS_IS_$S1(1060), S1_HARVESTED_S3_S2S(1137), S1_HARVESTED_S2S(1138), TRADED_$S2_OF_CROP_S1(1490), FAILED_IN_TRADING_S2_OF_CROP_S1(1491), THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING(1516), SEED_PRICE_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_$S2(1557), THE_QUANTITY_OF_SEED_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_S2(
-			1558), CROP_PRICE_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_S2(1559), THE_QUANTITY_OF_CROP_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_S2(1560), HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR(1605), A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM(1675), YOUR_SEED_OR_REMAINING_PURCHASE_AMOUNT_IS_INADEQUATE(2013),
+	THE_SEED_HAS_BEEN_SOWN(871),
+	THIS_SEED_MAY_NOT_BE_SOWN_HERE(872),
+	THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE(879),
+	THE_TRANSACTION_IS_COMPLETE(880),
+	THERE_IS_A_DISCREPANCY_ON_THE_INVOICE(881),
+	THE_SEED_QUANTITY_IS_INCORRECT(882),
+	THE_SEED_INFORMATION_IS_INCORRECT(883),
+	THE_MANOR_INFORMATION_HAS_BEEN_UPDATED(884),
+	THE_NUMBER_OF_CROPS_IS_INCORRECT(885),
+	THE_CROPS_ARE_PRICED_INCORRECTLY(886),
+	THE_TYPE_IS_INCORRECT(887),
+	NO_CROPS_CAN_BE_PURCHASED_AT_THIS_TIME(888),
+	THE_SEED_WAS_SUCCESSFULLY_SOWN(889),
+	THE_SEED_WAS_NOT_SOWN(890),
+	YOU_ARE_NOT_AUTHORIZED_TO_HARVEST(891),
+	THE_HARVEST_HAS_FAILED(892),
+	THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN(893),
+	THE_SEED_PRICING_GREATLY_DIFFERS_FROM_STANDARD_SEED_PRICES(933),
+	THE_AMOUNT_IS_NOT_SUFFICIENT_AND_SO_THE_MANOR_IS_NOT_IN_OPERATION(935),
+	THE_NEXT_SEED_PURCHASE_PRICE_IS_S1_ADENA(104),
+	THE_SALES_PRICE_FOR_SEEDS_IS_S1_ADENA(1058),
+	THE_REMAINDER_AFTER_SELLING_THE_SEEDS_IS_$S1(1060),
+	S1_HARVESTED_S3_S2S(1137),
+	S1_HARVESTED_S2S(1138),
+	TRADED_$S2_OF_CROP_S1(1490),
+	FAILED_IN_TRADING_S2_OF_CROP_S1(1491),
+	THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING(1516),
+	SEED_PRICE_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_$S2(1557),
+	THE_QUANTITY_OF_SEED_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_S2(1558),
+	CROP_PRICE_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_S2(1559),
+	THE_QUANTITY_OF_CROP_SHOULD_BE_MORE_THAN_S1_AND_LESS_THAN_S2(1560),
+	HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR(1605),
+	A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM(1675),
+	YOUR_SEED_OR_REMAINING_PURCHASE_AMOUNT_IS_INADEQUATE(2013),
+
+	/** ID: 1823, Message: The registration period for a clan hall war has ended.*/
+	CLANHALL_WAR_REGISTRATION_PERIOD_ENDED(1823),
+
+	/** ID: 1824, Message: You have been registered for a clan hall war. Please move to the left side of the clan hall's arena and get ready.*/
+	REGISTERED_FOR_CLANHALL_WAR(1824),
+
+	/** ID: 1825, Message: You have failed in your attempt to register for the clan hall war. Please try again.*/
+	CLANHALL_WAR_REGISTRATION_FAILED(1825),
+
+	/** ID: 1826, Message: In $s1 minute(s), the game will begin. All players must hurry and move to the left side of the clan hall's arena.*/
+	CLANHALL_WAR_BEGINS_IN_S1_MINUTES(1826),
+
+	/** ID: 1827, Message: In $s1 minute(s), the game will begin. All players must, please enter the arena now*/
+	CLANHALL_WAR_BEGINS_IN_S1_MINUTES_ENTER_NOW(1827),
+
+	/** ID: 1828, Message: In $s1 seconds(s), the game will begin.*/
+	CLANHALL_WAR_BEGINS_IN_S1_SECONDS(1828),
+
+	/** ID: 1829, Message: The Command Channel is full.*/
+	COMMAND_CHANNEL_FULL(1829),
+
+	/** ID: 1830, Message: $s1 is not allowed to use the party room invite command. Please update the waiting list.*/
+	S1_NOT_ALLOWED_INVITE_TO_PARTY_ROOM(1830),
+
+	/** ID: 1831, Message: $s1 does not meet the conditions of the party room. Please update the waiting list.*/
+	S1_NOT_MEET_CONDITIONS_FOR_PARTY_ROOM(1831),
+
+	/* ID: 1832, Message: Only a room leader may invite others to a party room.*/
+	ONLY_ROOM_LEADER_CAN_INVITE(1832),
+
+	/** ID: 1833, Message: All of $s1 will be dropped. Would you like to continue?*/
+	CONFIRM_DROP_ALL_OF_S1(1833),
+
+	/** ID: 1834, Message: The party room is full. No more characters can be invitet in*/
+	PARTY_ROOM_FULL(1834),
+
+	/** ID: 1838, Message: 1. The coupon an be used once per character.*/
+	COUPON_ONCE_PER_CHARACTER(1838),
+
+	/** ID: 1839, Message: 2. A used serial number may not be used again.*/
+	SERIAL_MAY_USED_ONCE(1839),
+
+	/** ID: 1840, Message: 3. If you enter the incorrect serial number more than 5 times, ...*/
+	SERIAL_INPUT_INCORRECT(1840),
+
+	/** ID: 1841, Message: The clan hall war has been cancelled. Not enough clans have registered.*/
+	CLANHALL_WAR_CANCELLED(1841),
+
 	/**
 	 * ID: 1607<br>
 	 * Message: $s1 adena has been withdrawn to pay for purchasing fees.
@@ -3846,13 +3925,135 @@ public enum SystemMessageId
 	 * ID: 1916<br>
 	 * Message: Your Death Penalty is now level $s1.
 	 */
-	DEATH_PENALTY_LEVEL_S1_ADDED(1916), THE_SIEGE_OF_THE_CLAN_HALL_IS_FINISHED(792), THE_SIEGE_OF_THE_CLAN_HALL_HAS_BEGUN(793), ONLY_CLAN_LEADERS_ARE_AUTHORIZED_TO_SET_RIGHTS(795), YOUR_REMAINING_OBSERVATION_TIME_IS_S1_MINUTES(796), YOU_MAY_CREATE_UP_TO_48_MACROS(797), ITEM_REGISTRATION_IS_IRREVERSIBLE_DO_YOU_WISH_TO_CONTINUE(798), THE_OBSERVATION_TIME_HAS_EXPIRED(799), YOU_ARE_TOO_LATE_THE_REGISTRATION_PERIOD_IS_OVER(
-			800),
+
+	DEATH_PENALTY_LEVEL_S1_ADDED(1916),
+	THE_SIEGE_OF_THE_CLAN_HALL_IS_FINISHED(792),
+	THE_SIEGE_OF_THE_CLAN_HALL_HAS_BEGUN(793),
+	ONLY_CLAN_LEADERS_ARE_AUTHORIZED_TO_SET_RIGHTS(795),
+	YOUR_REMAINING_OBSERVATION_TIME_IS_S1_MINUTES(796),
+	YOU_MAY_CREATE_UP_TO_48_MACROS(797),
+	ITEM_REGISTRATION_IS_IRREVERSIBLE_DO_YOU_WISH_TO_CONTINUE(798),
+	THE_OBSERVATION_TIME_HAS_EXPIRED(799),
+	YOU_ARE_TOO_LATE_THE_REGISTRATION_PERIOD_IS_OVER(800),
+
+	/** ID: 635, Message: The time limit for the clan war has been exceeded. War with the clan is over.*/
+	TIME_UP_WAR_OVER(635),
+
+	/** ID: 636, Message: You are not involved in a clan war.*/
+	NOT_INVOLVED_IN_WAR(636),
+
+	/** ID: 637, Message: A clan ally has registered itself to the opponent.*/
+	ALLY_REGISTERED_SELF_TO_OPPONENT(637),
+
+	/** ID: 638, Message: You have already requested a Siege Battle.*/
+	ALREADY_REQUESTED_SIEGE_BATTLE(638),
+
+	/** ID: 639, Message: Your application has been denied because you have already submitted a request for another Siege Battle.*/
+	APPLICATION_DENIED_BECAUSE_ALREADY_SUBMITTED_A_REQUEST_FOR_ANOTHER_SIEGE_BATTLE(639),
+
+	/** ID: 642, Message: You are already registered to the attacker side and must not cancel your registration before submitting your request*/
+	ALREADY_ATTACKER_NOT_CANCEL(642),
+
+	/** ID: 643, Message: You are already registered to the defender side and must not cancel your registration before submitting your request*/
+	ALREADY_DEFENDER_NOT_CANCEL(643),
+
+	/** ID: 644, Message: You are not yet registered for the castle siege.*/
+	NOT_REGISTERED_FOR_SIEGE(644),
+
+	/** ID: 645, Message: Only clans of level 4 or higher may register for a castle siege.*/
+	ONLY_CLAN_LEVEL_4_ABOVE_MAY_SIEGE(645),
+
+	/** ID: 648, Message: No more registrations may be accepted for the attacker side.*/
+	ATTACKER_SIDE_FULL(648),
+
+	/** ID: 649, Message: No more registrations may be accepted for the defender side.*/
+	DEFENDER_SIDE_FULL(649),
+
+	/** ID: 1917, Message: Your Death Penalty has been lifted.*/
+	DEATH_PENALTY_LIFTED(1917),
+
+	/** ID: 659, Message: This is not the time for siege registration and so registrations cannot be accepted or rejected.*/
+	NOT_SIEGE_REGISTRATION_TIME1(659),
+
+	/** ID: 659, Message: This is not the time for siege registration and so registration and cancellation cannot be done.*/
+	NOT_SIEGE_REGISTRATION_TIME2(660),
+
+	/** ID: 664, Message: Please choose a person to receive.*/
+	CHOOSE_PERSON_TO_RECEIVE(664),
+
+	/** ID: 665, Message:  of alliance is applying for alliance war. Do you want to accept the challenge?*/
+	APPLYING_ALLIANCE_WAR(665),
+
+	/** ID: 843, Message: The siege of $s1 is finished.*/
+	SIEGE_OF_S1_FINISHED(843),
+
+	/** ID: 844, Message: The siege to conquer $s1 has begun.*/
+	SIEGE_OF_S1_BEGUN(844),
+
+	/** ID: 845, Message: The deadline to register for the siege of $s1 has passed.*/
+	DEADLINE_FOR_SIEGE_S1_PASSED(845),
+
+	/** ID: 847, Message: A clan that owns a clan hall may not participate in a clan hall siege.*/
+	CLAN_OWNING_CLANHALL_MAY_NOT_SIEGE_CLANHALL(847),
+
+	/** ID: 848, Message: $s1 has been deleted.*/
+	S1_HAS_BEEN_DELETED(848),
+
+	/** ID: 849, Message: $s1 cannot be found.*/
+	S1_NOT_FOUND(849),
+
+	/** ID: 850, Message: $s1 already exists.*/
+	S1_ALREADY_EXISTS_2(850),
+
+	/** ID: 851, Message: $s1 has been added.*/
+	S1_ADDED(851),
+
+	/** ID: 852, Message: The recipe is incorrect.*/
+	RECIPE_INCORRECT(852),
+
+	/** ID: 854, Message: You are missing $s2 $s1 required to create that.*/
+	MISSING_S2_S1_TO_CREATE(854),
+
+	/** ID: 855, Message: $s1 clan has defeated $s2.*/
+	S1_CLAN_DEFEATED_S2(855),
+
+	/** ID: 856, Message: The siege of $s1 has ended in a draw.*/
+	SIEGE_S1_DRAW(856),
+
+	/** ID: 857, Message: $s1 clan has won in the preliminary match of $s2.*/
+	S1_CLAN_WON_MATCH_S2(857),
+
+	/** ID: 858, Message: The preliminary match of $s1 has ended in a draw.*/
+	MATCH_OF_S1_DRAW(858),
+
+	/** ID: 859, Message: Please register a recipe.*/
+	PLEASE_REGISTER_RECIPE(859),
 	/**
-	 * ID: 1917<br>
-	 * Message: Your Death Penalty has been lifted.
+	 * ID: 1705<br>
+	 * Message: PC Bang Points acquisition period. Points acquisition period left $s1 hour.
 	 */
-	DEATH_PENALTY_LIFTED(1917);
+	PCPOINT_ACQUISITION_PERIOD(1705),
+	/**
+	 * ID: 1706<br>
+	 * Message: PC Bang Points use period. Points acquisition period left $s1 hour.
+	 */
+	PCPOINT_USE_PERIOD(1706),
+	/**
+	 * ID: 1707<br>
+	 * Message: You acquired $s1 PC Bang Point.
+	 */
+	ACQUIRED_S1_PCPOINT(1707),
+	/**
+	 * ID: 1708<br>
+	 * Message: Double points! You acquired $s1 PC Bang Point.
+	 */
+	ACQUIRED_S1_PCPOINT_DOUBLE(1708),
+
+	/**
+	 * ID: 860<br>
+	 * Message: You may not buld your headquarters in close proximity to another headquarters.*/
+	HEADQUARTERS_TOO_CLOSE(860);
+
 	private int _id;
 
 	private SystemMessageId(int id)

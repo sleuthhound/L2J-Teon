@@ -14,17 +14,26 @@
  */
 package net.sf.l2j.gameserver.instancemanager.clanhallsiege;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
-import net.sf.l2j.gameserver.GameServer;
+import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
-import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,9 +45,16 @@ import org.apache.commons.logging.LogFactory;
 public class FortResistSiegeManager extends ClanHallSiege
 {
 	protected static Log _log = LogFactory.getLog(FortResistSiegeManager.class.getName());
-	private static FortResistSiegeManager _instance;
-	private Map<Integer, DamageInfo> _clansDamageInfo;
-	private L2Clan _clan;
+	private static FortResistSiegeManager	_instance;
+	private Calendar _siegeEndDate;
+	private Map<Integer, DamageInfo> _clansDamageInfo = new HashMap<Integer, DamageInfo>();
+	protected L2Spawn _BrakelSpawn = null;
+	protected L2NpcInstance _Brakel = null;
+	private ScheduledFuture<?> _Nurka;
+	protected ScheduledFuture<?> _scheduledStartSiegeTask = null;
+	private static final int NURKA = 35368;					// RaidBoss loc x(44525) y(108867) z(-2020).
+	// npc messenger loc x(50335) y(111275) z(-1970).
+	private static final int REPUTATIONSCORE = 600;			// Reputacion para el clan ganador del Clan Hall Fortress of Resistance.
 
 	private class DamageInfo
 	{
@@ -48,15 +64,15 @@ public class FortResistSiegeManager extends ClanHallSiege
 
 	public static final FortResistSiegeManager getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new FortResistSiegeManager();
-		}
 		return _instance;
 	}
 
 	private FortResistSiegeManager()
 	{
-		_log.info("Fortress Of Resistence");
+		setIsInProgress(false);
+		_log.info("Siege of Fortress Of Resistence");
 		long siegeDate = restoreSiegeDate(21);
 		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
@@ -64,61 +80,18 @@ public class FortResistSiegeManager extends ClanHallSiege
 		setNewSiegeDate(siegeDate, 21, 22);
 		_clansDamageInfo = new HashMap<Integer, DamageInfo>();
 		// Schedule siege auto start
-		_startSiegeTask.schedule(1000);
+		ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(), 1000);
 	}
-
-	private final ExclusiveTask _endSiegeTask = new ExclusiveTask()
-	{
-		@Override
-		protected void onElapsed()
-		{
-			if (!getIsInProgress())
-			{
-				cancel();
-				return;
-			}
-			final long timeRemaining = _siegeEndDate.getTimeInMillis() - System.currentTimeMillis();
-			if (timeRemaining <= 0)
-			{
-				endSiege(false);
-				cancel();
-				return;
-			}
-			schedule(timeRemaining);
-		}
-	};
-	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
-	{
-		@Override
-		protected void onElapsed()
-		{
-			if (getIsInProgress())
-			{
-				cancel();
-				return;
-			}
-			final long timeRemaining = getSiegeDate().getTimeInMillis() - System.currentTimeMillis();
-			if (timeRemaining <= 0)
-			{
-				startSiege();
-				cancel();
-				return;
-			}
-			schedule(timeRemaining);
-		}
-	};
 
 	public void startSiege()
 	{
-		if (GameServer._instanceOk)
-		{
-			setIsInProgress(true);
-			if (!_clansDamageInfo.isEmpty()) {
-				_clansDamageInfo.clear();
-			}
+		BossSpawn();
+		setIsInProgress(true);
+		if (!_clansDamageInfo.isEmpty())
+			_clansDamageInfo.clear();
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 30);
-			_endSiegeTask.schedule(1000);
+			ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(), 1000);
 			ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(21);
 			if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
 			{
@@ -126,12 +99,12 @@ public class FortResistSiegeManager extends ClanHallSiege
 				ClanHallManager.getInstance().setFree(clanhall.getId());
 				clanhall.banishForeigners();
 			}
-		}
 	}
 
 	public void endSiege(boolean type)
 	{
 		setIsInProgress(false);
+		_Nurka.cancel(true);
 		if (type = true)
 		{
 			L2Clan clanIdMaxDamage = null;
@@ -149,29 +122,179 @@ public class FortResistSiegeManager extends ClanHallSiege
 			}
 			if (clanIdMaxDamage != null)
 			{
-				ClanHall clanhall = null;
-				clanhall = ClanHallManager.getInstance().getClanHallById(21);
-				ClanHallManager.getInstance().setOwner(clanhall.getId(), clanIdMaxDamage);
-				_clan.setReputationScore(_clan.getReputationScore() + 600, true);
+				ClanHallManager.getInstance().setOwner(21 , clanIdMaxDamage);
+				clanIdMaxDamage.setReputationScore(clanIdMaxDamage.getReputationScore() + REPUTATIONSCORE, true);
 			}
 			_log.info("the siege of Fortress of Resistance to finish");
 		}
 		setNewSiegeDate(getSiegeDate().getTimeInMillis(), 21, 22);
-		_startSiegeTask.schedule(1000);
+		ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(), 1000);
 	}
 
-	public void addSiegeDamage(L2Clan clan, double damage)
+	public long restoreSiegeDate(int ClanHallId)
 	{
-		setIsInProgress(true);
-		DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
-		if (clanDamage != null) {
+		long res = 0;
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection();
+			PreparedStatement statement = con.prepareStatement("SELECT siege_data FROM clanhall_siege WHERE id=?");
+			statement.setInt(1, ClanHallId);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next())
+				res = rs.getLong("siege_data");
+			rs.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.error("Exception: can't get clan hall siege date: " + e.getMessage(), e);
+		}
+		finally
+		{
+			try
+			{
+				if (con != null)
+					con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		return res;
+	}
+
+	public void setNewSiegeDate(long siegeDate, int ClanHallId, int hour)
+	{
+		Calendar tmpDate = Calendar.getInstance();
+		if (siegeDate <= System.currentTimeMillis())
+		{
+			tmpDate.setTimeInMillis(System.currentTimeMillis());
+			tmpDate.add(Calendar.DAY_OF_MONTH, 3);
+			tmpDate.set(Calendar.DAY_OF_WEEK, 6);
+			tmpDate.set(Calendar.HOUR_OF_DAY, hour);
+			tmpDate.set(Calendar.MINUTE, 0);
+			tmpDate.set(Calendar.SECOND, 0);
+			setSiegeDate(tmpDate);
+			Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+				PreparedStatement statement = con.prepareStatement("UPDATE clanhall_siege SET siege_data=? WHERE id = ?");
+				statement.setLong(1, getSiegeDate().getTimeInMillis());
+				statement.setInt(2, ClanHallId);
+				statement.execute();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.error("Exception: can't save clan hall siege date: " + e.getMessage(), e);
+			}
+			finally
+			{
+				try
+				{
+					if (con != null)
+						con.close();
+				}
+				catch (SQLException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public void addSiegeDamage(L2Clan clan,double damage)
+	{
+		DamageInfo clanDamage=_clansDamageInfo.get(clan.getClanId());
+		if (clanDamage != null)
 			clanDamage._damage += damage;
-		} else
+		else
 		{
 			clanDamage = new DamageInfo();
-			clanDamage._clan = clan;
+			clanDamage._clan=clan;
 			clanDamage._damage += damage;
+
 			_clansDamageInfo.put(clan.getClanId(), clanDamage);
 		}
 	}
+
+	public class ScheduleEndSiegeTask implements Runnable
+	{
+		public ScheduleEndSiegeTask()
+		{
+		}
+		public void run()
+		{
+			if (!getIsInProgress())
+				return;
+
+			final long timeRemaining = _siegeEndDate.getTimeInMillis() - System.currentTimeMillis();
+				if (timeRemaining <= 0)
+				{
+					endSiege(true);
+					return;
+			}
+		}
+	}
+
+	public class ScheduleStartSiegeTask implements Runnable
+	{
+		public ScheduleStartSiegeTask()
+		{
+		}
+
+		public void run()
+		{
+			_scheduledStartSiegeTask.cancel(false);
+			if (getIsInProgress())
+				return;
+
+			final long timeRemaining = getSiegeDate().getTimeInMillis() - System.currentTimeMillis();
+			if (timeRemaining <= 0)
+			{
+				startSiege();
+				return;
+			}
+		}
+	}
+	
+
+	public void BossSpawn()
+    {
+		if (!_clansDamageInfo.isEmpty())
+			_clansDamageInfo.clear();
+
+		L2NpcInstance result = null;
+		try {
+			L2NpcTemplate template = NpcTable.getInstance().getTemplate(NURKA);
+
+			L2Spawn spawn = new L2Spawn(template);
+			spawn.setLocx(44525);
+			spawn.setLocy(108867);
+			spawn.setLocz(-2020);
+			spawn.stopRespawn();
+			result = spawn.spawnOne();
+			template = null;
+		} catch(Exception e) { e.printStackTrace(); }
+			_log.info("Fortress of Resistanse: Bloody Lord Nurka spawned!");
+			_Nurka = ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnTimer(result), _siegeEndDate.getTimeInMillis() - System.currentTimeMillis());
+		}
+	
+	protected class DeSpawnTimer implements Runnable
+    {
+        L2NpcInstance _npc = null;
+
+        public DeSpawnTimer(L2NpcInstance npc)
+        {
+        	_npc = npc;
+        }
+
+        public void run()
+        {
+        	_npc.onDecay();
+        }
+    }
 }

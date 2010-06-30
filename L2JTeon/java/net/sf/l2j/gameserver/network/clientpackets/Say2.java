@@ -78,9 +78,8 @@ public final class Say2 extends L2GameClientPacket
 	protected void runImpl()
 	{
 		if (Config.DEBUG)
-		{
 			_log.info("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");
-		}
+
 		// is message type valid?
 		if (_type < 0 || _type >= CHAT_NAMES.length)
 		{
@@ -116,11 +115,10 @@ public final class Say2 extends L2GameClientPacket
 		}
         // Say Filter implementation
         if (Config.USE_SAY_FILTER)
-        {
             checkText(activeChar);
-        }
+
 		// player chat banned?
-		if (activeChar.isChatBanned())
+		if (activeChar.isChatBanned() && !activeChar.isGM())
 		{
 			activeChar.checkBanChat(true);
 			return;
@@ -136,30 +134,23 @@ public final class Say2 extends L2GameClientPacket
 		}
 		// is it GM petition?
 		if (_type == PETITION_PLAYER && activeChar.isGM())
-		{
 			_type = PETITION_GM;
-		}
+
 		// must we log chat text?
 		if (Config.LOG_CHAT)
 		{
 			LogRecord record = new LogRecord(Level.INFO, _text);
 			record.setLoggerName("chat");
 			if (_type == TELL)
-			{
 				record.setParameters(new Object[] { CHAT_NAMES[_type], "[" + activeChar.getName() + " to " + _target + "]" });
-			}
 			else
-			{
 				record.setParameters(new Object[] { CHAT_NAMES[_type], "[" + activeChar.getName() + "]" });
-			}
 			_logChat.log(record);
 		}
 		// prepare packet
 		IChatHandler handler = ChatHandler.getInstance().getChatHandler(_type);
 		if (handler != null)
-		{
 			handler.handleChat(_type, activeChar, _target, _text);
-		}
 	}
 	private void checkText(L2PcInstance activeChar)
 	{
@@ -176,9 +167,7 @@ public final class Say2 extends L2GameClientPacket
 			{
 				int punishmentLength = 0;
 				if (Config.CHAT_FILTER_PUNISHMENT_PARAM2 == 0)
-				{
 					punishmentLength = Config.CHAT_FILTER_PUNISHMENT_PARAM1;
-				}
 				else
 				{
 					Connection con = null;

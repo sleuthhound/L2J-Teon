@@ -37,7 +37,6 @@ public class L2BossZone extends L2ZoneType
 	private String _zoneName;
 	private int _timeInvade;
 	private boolean _enabled = true; // default value, unless overridden by xml...
-	private String _QuestName = null;
 	// track the times that players got disconnected. Players are allowed
 	// to log back into the zone as long as their log-out was within _timeInvade
 	// time...
@@ -78,31 +77,25 @@ public class L2BossZone extends L2ZoneType
 			_oustLoc[0] = Integer.parseInt(value);
 		}
 		else if (name.equals("oustY"))
-		{
 			_oustLoc[1] = Integer.parseInt(value);
-		}
 		else if (name.equals("oustZ"))
-		{
 			_oustLoc[2] = Integer.parseInt(value);
-		}
 		else
-		{
 			super.setParameter(name, value);
-		}
 	}
 
-	@Override
 	/*
 	 * Boss zones have special behaviors for player characters. Players are automatically teleported out when the attempt to enter these zones, except if the time at which they enter the zone is prior to the entry expiration time set for that player. Entry expiration times are set by any one of the following: 1) A player logs out while in a zone (Expiration gets set to logoutTime + _timeInvade) 2)
 	 * An external source (such as a quest or AI of NPC) set up the player for entry. There exists one more case in which the player will be allowed to enter. That is if the server recently rebooted (boot-up time more recent than currentTime - _timeInvade) AND the player was in the zone prior to reboot.
 	 */
+	@Override
 	protected void onEnter(L2Character character)
 	{
+		this.aOnEnter(character);
 		if (_enabled)
 		{
 			if (character instanceof L2PcInstance)
 			{
-				this.aOnEnter(character);
 				L2PcInstance player = (L2PcInstance) character;
 				player.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 				if (player.isGM())
@@ -120,26 +113,22 @@ public class L2BossZone extends L2ZoneType
 					if (expirationTime == null) // legal null expirationTime entries
 					{
 						long serverStartTime = GameServer.dateTimeServerStarted.getTimeInMillis();
-						if (serverStartTime > System.currentTimeMillis() - _timeInvade) {
-							return;
-						}
+						if (serverStartTime > System.currentTimeMillis() - _timeInvade) return;
 					}
 					else
 					{
 						// legal non-null logoutTime entries
 						_playerAllowedReEntryTimes.remove(player.getObjectId());
-						if (expirationTime.longValue() > System.currentTimeMillis()) {
+						if (expirationTime.longValue() > System.currentTimeMillis())
 							return;
-						}
 					}
 					_playersAllowed.remove(_playersAllowed.indexOf(player.getObjectId()));
 				}
 				// teleport out all players who attempt "illegal" (re-)entry
-				if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0) {
+				if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 					player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2]);
-				} else {
+				else
 					player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-				}
 			}
 		}
 	}
@@ -169,9 +158,9 @@ public class L2BossZone extends L2ZoneType
 				}
 				else
 				{
-					if (_playersAllowed.contains(player.getObjectId())) {
+					if (_playersAllowed.contains(player.getObjectId()))
 						_playersAllowed.remove(_playersAllowed.indexOf(player.getObjectId()));
-					}
+
 					_playerAllowedReEntryTimes.remove(player.getObjectId());
 				}
 			}
@@ -183,15 +172,12 @@ public class L2BossZone extends L2ZoneType
 					int count = 0;
 					for (L2Character obj : getCharactersInside().values())
 					{
-						if (obj == null) {
-							continue;
-						}
-						if (obj instanceof L2PlayableInstance) {
+						if (obj == null) continue;
+
+						if (obj instanceof L2PlayableInstance)
 							count++;
-						} else if (obj instanceof L2Attackable && obj.isRaid())
-						{
+						else if (obj instanceof L2Attackable && obj.isRaid())
 							_raidList.add(obj);
-						}
 					}
 					// if inside zone isnt any player, force all boss instance return to its spawn points
 					if (count == 0 && !_raidList.isEmpty())
@@ -199,12 +185,10 @@ public class L2BossZone extends L2ZoneType
 						for (int i = 0; i < _raidList.size(); i++)
 						{
 							L2Attackable raid = (L2Attackable) _raidList.get(i);
-							if (raid == null || raid.isDead()) {
-								continue;
-							}
-							if (!raid.isInsideRadius(raid.getSpawn().getLocx(), raid.getSpawn().getLocy(), 150, false)) {
+							if (raid == null || raid.isDead()) continue;
+
+							if (!raid.isInsideRadius(raid.getSpawn().getLocx(), raid.getSpawn().getLocy(), 150, false))
 								raid.returnHome();
-							}
 						}
 					}
 				}
@@ -218,9 +202,9 @@ public class L2BossZone extends L2ZoneType
 
 	public void setZoneEnabled(boolean flag)
 	{
-		if (_enabled != flag) {
+		if (_enabled != flag)
 			oustAllPlayers();
-		}
+
 		_enabled = flag;
 	}
 
@@ -236,9 +220,8 @@ public class L2BossZone extends L2ZoneType
 
 	public void setAllowedPlayers(L2FastList<Integer> players)
 	{
-		if (players != null) {
+		if (players != null)
 			_playersAllowed = players;
-		}
 	}
 
 	public L2FastList<Integer> getAllowedPlayers()
@@ -248,17 +231,17 @@ public class L2BossZone extends L2ZoneType
 
 	public boolean isPlayerAllowed(L2PcInstance player)
 	{
-		if (player.isGM()) {
+		if (player.isGM())
 			return true;
-		} else if (_playersAllowed.contains(player.getObjectId())) {
+		else if (_playersAllowed.contains(player.getObjectId()))
 			return true;
-		} else
+		else
 		{
-			if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0) {
+			if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 				player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2]);
-			} else {
+			else
 				player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-			}
+
 			return false;
 		}
 	}
@@ -272,17 +255,15 @@ public class L2BossZone extends L2ZoneType
 	 */
 	public void movePlayersTo(int x, int y, int z)
 	{
-		if (_characterList.isEmpty()) {
-			return;
-		}
+		if (_characterList.isEmpty()) return;
+
 		for (L2Character character : _characterList.values())
 		{
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
-				if (player.isOnline() == 1) {
+				if (player.isOnline() == 1)
 					player.teleToLocation(x, y, z);
-				}
 			}
 		}
 	}
@@ -292,9 +273,8 @@ public class L2BossZone extends L2ZoneType
 	 */
 	public void oustAllPlayers()
 	{
-		if (_characterList.isEmpty()) {
-			return;
-		}
+		if (_characterList.isEmpty()) return;
+
 		for (L2Character character : _characterList.values())
 		{
 			if (character instanceof L2PcInstance)
@@ -302,11 +282,10 @@ public class L2BossZone extends L2ZoneType
 				L2PcInstance player = (L2PcInstance) character;
 				if (player.isOnline() == 1)
 				{
-					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0) {
+					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 						player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2]);
-					} else {
+					else
 						player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-					}
 				}
 			}
 		}
@@ -326,9 +305,9 @@ public class L2BossZone extends L2ZoneType
 	{
 		if (!player.isGM())
 		{
-			if (!_playersAllowed.contains(player.getObjectId())) {
+			if (!_playersAllowed.contains(player.getObjectId()))
 				_playersAllowed.add(player.getObjectId());
-			}
+
 			_playerAllowedReEntryTimes.put(player.getObjectId(), System.currentTimeMillis() + durationInSec * 1000);
 		}
 	}
@@ -344,23 +323,19 @@ public class L2BossZone extends L2ZoneType
 	}
 
 	// these are methods that java calls to invoke scripts
-	@Override
 	public void broadcastPacket(L2GameServerPacket packet)
 	{
-		if (_characterList == null || _characterList.isEmpty()) {
-			return;
-		}
+		if (_characterList == null || _characterList.isEmpty()) return;
+
 		for (L2Character character : _characterList.values())
 		{
-			if (character == null) {
-				continue;
-			}
+			if (character == null) continue;
+
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
-				if (player.isOnline() == 1) {
+				if (player.isOnline() == 1)
 					player.sendPacket(packet);
-				}
 			}
 		}
 	}
@@ -368,38 +343,45 @@ public class L2BossZone extends L2ZoneType
 	// these are methods that java calls to invoke scripts
 	public void updateKnownList(L2NpcInstance npc)
 	{
-		if (_characterList == null || _characterList.isEmpty()) {
-			return;
-		}
+		if (_characterList == null || _characterList.isEmpty()) return;
+
 		Map<Integer, L2PcInstance> npcKnownPlayers = npc.getKnownList().getKnownPlayers();
 		for (L2Character character : _characterList.values())
 		{
-			if (character == null) {
-				continue;
-			}
+			if (character == null) continue;
+
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
-				if (player.isOnline() == 1) {
+				if (player.isOnline() == 1)
 					npcKnownPlayers.put(player.getObjectId(), player);
-				}
 			}
 		}
 		return;
 	}
 
-	// When the player has been annihilated, the player is banished from the lair.
+	// L2JTeon: added custom to use VanHalterManager and others managers.
 	protected void aOnEnter(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance) character;
-			if (player.isGM())
+	        // When the player invades the flight prohibition zone.
+	        // player is banished.
+	        if (!player.isGM() && player.isFlying() && !player.isInJail())
+		    {
+	        	player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+	        	return;
+	        }
+			if (!player.isGM())
 			{
-				if (_zoneName.equalsIgnoreCase("AltarofSacrifice")) {
+				player.sendMessage("You entered " + _zoneName);
+				if (_zoneName.equalsIgnoreCase("Altar of Sacrifice"))
 					VanHalterManager.getInstance().intruderDetection((L2PcInstance) character);
-				}
 			}
+			else
+				if (_zoneName.equalsIgnoreCase("Alter of Sacrifice"))
+					VanHalterManager.getInstance().intruderDetection((L2PcInstance) character);
 		}
 	}
 }

@@ -288,13 +288,12 @@ public class Auction
 	}
 
 	/** Set a bid */
-	public void setBid(L2PcInstance bidder, int bid)
+	public synchronized void setBid(L2PcInstance bidder, int bid)
 	{
 		int requiredAdena = bid;
 		if (getHighestBidderName().equals(bidder.getClan().getLeaderName()))
-		{
 			requiredAdena = bid - getHighestBidderMaxBid();
-		}
+
 		if (getHighestBidderId() > 0 && bid > getHighestBidderMaxBid() || getHighestBidderId() == 0 && bid >= getStartingBid())
 		{
 			if (takeItem(bidder, 57, requiredAdena))
@@ -310,9 +309,9 @@ public class Auction
 	/** Return Item in WHC */
 	private void returnItem(String Clan, int itemId, int quantity, boolean penalty)
 	{
-		if (penalty) {
+		if (penalty)
 			quantity *= 0.9; // take 10% tax fee if needed
-		}
+
 		ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", _adenaId, quantity, null, null);
 	}
 

@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.instancemanager.BenomManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -32,8 +33,7 @@ import net.sf.l2j.util.Rnd;
  */
 public final class L2RaidBossInstance extends L2MonsterInstance
 {
-	private static final int RAIDBOSS_MAINTENANCE_INTERVAL = 30000; // 30
-	// sec
+	private static final int RAIDBOSS_MAINTENANCE_INTERVAL = 30000; // 30 sec
 	private RaidBossSpawnManager.StatusEnum _raidStatus;
 
 	/**
@@ -70,15 +70,21 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!super.doDie(killer)) {
+
+		if(getNpcId() == 29054)
+		{
+			BenomManager.getInstance().onKillBenom();
+		}
+
+		if (!super.doDie(killer))
 			return false;
-		}
+
 		L2PcInstance player = null;
-		if (killer instanceof L2PcInstance) {
+		if (killer instanceof L2PcInstance)
 			player = (L2PcInstance) killer;
-		} else if (killer instanceof L2Summon) {
+		else if (killer instanceof L2Summon)
 			player = ((L2Summon) killer).getOwner();
-		}
+
 		if (player != null)
 		{
 			broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
@@ -88,9 +94,8 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 				{
 					RaidBossPointsManager.addPoints(member, this.getNpcId(), this.getLevel() / 2 + Rnd.get(-5, 5));
 				}
-			} else {
+			} else
 				RaidBossPointsManager.addPoints(player, this.getNpcId(), this.getLevel() / 2 + Rnd.get(-5, 5));
-			}
 		}
 		RaidBossSpawnManager.getInstance().updateStatus(this, true);
 		return true;
@@ -107,8 +112,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 		{
 			public void run()
 			{
-				// teleport raid boss home if it's too far from home
-				// location
+				// teleport raid boss home if it's too far from home location
 				L2Spawn bossSpawn = getSpawn();
 				if (!isInsideRadius(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), 5000, true, false))
 				{

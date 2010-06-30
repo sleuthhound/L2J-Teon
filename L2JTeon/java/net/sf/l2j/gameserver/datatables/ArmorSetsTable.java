@@ -33,15 +33,11 @@ import net.sf.l2j.gameserver.model.L2ArmorSet;
 public class ArmorSetsTable
 {
 	private static Logger _log = Logger.getLogger(ArmorSetsTable.class.getName());
-	private static ArmorSetsTable _instance;
 	private FastMap<Integer, L2ArmorSet> _armorSets;
 
 	public static ArmorSetsTable getInstance()
 	{
-		if (_instance == null) {
-			_instance = new ArmorSetsTable();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private ArmorSetsTable()
@@ -121,5 +117,11 @@ public class ArmorSetsTable
 	public L2ArmorSet getSet(int chestId)
 	{
 		return _armorSets.get(chestId);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ArmorSetsTable _instance = new ArmorSetsTable();
 	}
 }

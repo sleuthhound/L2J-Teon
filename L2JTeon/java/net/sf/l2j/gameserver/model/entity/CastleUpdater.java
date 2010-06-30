@@ -56,21 +56,18 @@ public class CastleUpdater implements Runnable
 					}
 				}
 				if (_runCount % 3 == 0)
-				{
 					warehouse.addItem("Castle", 5126, 1, null, null);
-				}
+
 				if (_runCount % 24 == 0)
 				{
-					if (castle.getCastleId() >= 1 && castle.getCastleId() < 5 || castle.getCastleId() == 6) {
+					if (castle.getCastleId() >= 1 && castle.getCastleId() < 5 || castle.getCastleId() == 6)
 						warehouse.addItem("Castle", 6622, 1, null, null);
-					} else {
+					else
 						warehouse.addItem("Castle", 6622, 2, null, null);
-					}
 				}
 				if (_runCount % 6 == 0)
-				{
 					_clan.setReputationScore(_clan.getReputationScore() + 1, true);
-				}
+
 				_runCount++;
 				CastleUpdater cu = new CastleUpdater(_clan, _runCount);
 				ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);

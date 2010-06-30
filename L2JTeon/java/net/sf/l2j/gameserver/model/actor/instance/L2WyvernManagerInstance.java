@@ -17,6 +17,8 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -77,9 +79,8 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 					}
 					else
 					{
-						if (!player.disarmWeapons()) {
-							return;
-						}
+						if (!player.disarmWeapons()) return;
+
 						player.getPet().unSummon(player);
 						player.getInventory().destroyItemByItemId("Wyvern", 1460, 10, player, player.getTarget());
 						Ride mount = new Ride(player.getObjectId(), Ride.ACTION_MOUNT, 12621);
@@ -108,17 +109,15 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 				player.sendPacket(sm);
 				return;
 			}
-		} else {
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
-			return;
-		}
+		if (!canTarget(player)) return;
+
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -139,9 +138,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 			}
 			else
-			{
 				showMessageWindow(player);
-			}
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -150,18 +147,17 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/wyvernmanager/wyvernmanager-no.htm";
-		if (getClanHall() != null) {
+		if (getClanHall() != null)
 			filename = "data/html/wyvernmanager/wyvernmanager-clan-no.htm";
-		}
+
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
 		{
-			if (condition == COND_OWNER) {
+			if (condition == COND_OWNER)
 				// Owner message window
 				filename = "data/html/wyvernmanager/wyvernmanager.htm";
-			} else if (condition == COND_CLAN_OWNER) {
+			else if (condition == COND_CLAN_OWNER)
 				filename = "data/html/wyvernmanager/wyvernmanager-clan.htm";
-			}
 		}
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setFile(filename);
@@ -176,12 +172,11 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 		if (_clanHallId < 0)
 		{
 			ClanHall temp = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
-			if (temp != null) {
+			if (temp != null)
 				_clanHallId = temp.getId();
-			}
-			if (_clanHallId < 0) {
+
+			if (_clanHallId < 0)
 				return null;
-			}
 		}
 		return ClanHallManager.getInstance().getClanHallById(_clanHallId);
 	}
@@ -191,20 +186,22 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 	{
 		if (getClanHall() != null && player.getClan() != null)
 		{
-			if (getClanHall().getOwnerId() == player.getClanId() && player.isClanLeader()) {
+			ClanHallManager.getInstance().getClanHallById(_clanHallId);
+			if (_clanHallId == 34 && DevastatedCastleManager.getInstance().getIsInProgress() 
+					|| _clanHallId == 64 && FortressofTheDeadManager.getInstance().getIsInProgress())
+				return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
+			else if (getClanHall().getOwnerId() == player.getClanId() && player.isClanLeader())
 				return COND_CLAN_OWNER; // Owner of the clanhall
-			}
 		}
 		else if (super.getCastle() != null && super.getCastle().getCastleId() > 0)
 		{
 			if (player.getClan() != null)
 			{
-				if (super.getCastle().getSiege().getIsInProgress()) {
+				if (super.getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				} else if (super.getCastle().getOwnerId() == player.getClanId() // Clan owns castle
-						&& player.isClanLeader()) {
+				else if (super.getCastle().getOwnerId() == player.getClanId() // Clan owns castle
+						&& player.isClanLeader())
 					return COND_OWNER; // Owner
-				}
 			}
 		}
 		return COND_ALL_FALSE;

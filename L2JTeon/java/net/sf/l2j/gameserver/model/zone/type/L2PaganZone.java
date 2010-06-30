@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.zone.type;
 
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -22,6 +23,8 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class L2PaganZone extends L2ZoneType
 {
+	L2ItemInstance fadedMark;
+
 	public L2PaganZone(int id)
 	{
 		super(id);
@@ -33,12 +36,15 @@ public class L2PaganZone extends L2ZoneType
 		if (character instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance) character;
-			player.getInventory().getItemByItemId(8064);
-			player.destroyItemByItemId("Mark", 8064, 1, player, true);
-			player.getInventory().addItem("Faded Mark", 8065, 1, player, player);
-			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-			sm.addItemName(/* fadedMark */8065);
-			player.sendPacket(sm);
+			L2ItemInstance item = player.getInventory().getItemByItemId(8064);
+			if (item != null)
+			{
+				player.destroyItemByItemId("Mark", 8064, 1, player, true);
+				L2ItemInstance fadedMark = player.getInventory().addItem("Faded Mark", 8065, 1, player, player);
+				SystemMessage ms = new SystemMessage(SystemMessageId.EARNED_ITEM);
+				ms.addItemName(fadedMark);
+				player.sendPacket(ms);
+			}
 		}
 	}
 

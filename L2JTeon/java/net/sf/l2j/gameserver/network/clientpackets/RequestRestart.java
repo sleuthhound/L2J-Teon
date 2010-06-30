@@ -57,42 +57,55 @@ public final class RequestRestart extends L2GameClientPacket
 			_log.warning("[RequestRestart] activeChar null!?");
 			return;
 		}
+
 		if (player.isInFunEvent())
 		{
 			player.sendMessage("You cant logout in event.");
 			return;
 		}
+
 		if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player) || player.getOlympiadGameId() != -1)
 		{
 			player.sendMessage("You cant logout in olympiad mode");
 			return;
 		}
+
+		if (player.isTeleporting())
+		{
+			player.abortCast();
+			player.setIsTeleporting(false);
+		}
+
 		if (player.getActiveEnchantItem() != null)
 		{
 			player.sendMessage("You cant logout while enchanting!");
 			return;
 		}
+
 		player.getInventory().updateDatabase();
+
 		if (player.getPrivateStoreType() != 0)
 		{
 			player.sendMessage("Cannot restart while trading");
 			return;
 		}
+
 		if (player.getActiveRequester() != null)
 		{
 			player.getActiveRequester().onTradeCancel(player);
 			player.onTradeCancel(player.getActiveRequester());
 		}
+
 		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player) && !player.isGM())
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine("Player " + player.getName() + " tried to logout while fighting.");
-			}
+
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_RESTART_WHILE_FIGHTING));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
+
 		// Prevent player from restarting if they are a festival participant
 		// and it is in progress, otherwise notify party members that the player
 		// is not longer a participant.
@@ -105,30 +118,40 @@ public final class RequestRestart extends L2GameClientPacket
 				return;
 			}
 			L2Party playerParty = player.getParty();
+
 			if (playerParty != null)
-			{
-				player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName() + " has been removed from the upcoming festival."));
-			}
+				player.getParty().broadcastToPartyMembers(
+				SystemMessage.sendString(player.getName() 
+				+ " has been removed from the upcoming festival."));
 		}
+
 		if (player.isFlying())
 		{
 			player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
 		}
+
 		L2GameClient client = getClient();
-		// detach the client from the char so that the connection isnt closed in
-		// the deleteMe
+
+		// detach the client from the char so that the connection isnt closed in the deleteMe
 		player.setClient(null);
+
 		RegionBBSManager.getInstance().changeCommunityBoard();
+
 		// removing player from the world
 		player.deleteMe();
 		L2GameClient.saveCharToDisk(client.getActiveChar());
+
 		getClient().setActiveChar(null);
+
 		// return the client to the authed status
 		client.setState(GameClientState.AUTHED);
+
 		RestartResponse response = new RestartResponse();
 		sendPacket(response);
+
 		// send char list
 		CharSelectInfo cl = new CharSelectInfo(client.getAccountName(), client.getSessionId().playOkID1);
+
 		sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
 	}

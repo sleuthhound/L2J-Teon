@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager.CropProcure;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager.SeedProduction;
@@ -80,6 +81,7 @@ public class Castle
 	private L2Clan _formerOwner = null;
 	private int _nbArtifact = 1;
 	private Map<Integer, Integer> _engrave = new FastMap<Integer, Integer>();
+    private boolean _bossKilled = false;
 
 	// =========================================================
 	// Constructor
@@ -319,34 +321,29 @@ public class Castle
 		// Remove old owner
 		if (getOwnerId() > 0 && (clan == null || clan.getClanId() != getOwnerId()))
 		{
-			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try
-			// to
-			// find
-			// clan
-			// instance
+			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try to find clan instance
 			if (oldOwner != null)
 			{
 				if (_formerOwner == null)
 				{
 					_formerOwner = oldOwner;
 					if (Config.REMOVE_CASTLE_CIRCLETS)
-					{
 						CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
-					}
 				}
 				oldOwner.setHasCastle(0); // Unset has castle flag for old
 				// owner
 				Announcements.getInstance().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
+                CrownManager.getInstance().checkCrowns(oldOwner); 
 			}
 		}
 		updateOwnerInDB(clan); // Update in database
 		// if clan have fortress, remove it
-		if (clan.getHasFort() > 0) {
+		if (clan.getHasFort() > 0)
 			FortManager.getInstance().getFortByOwner(clan).removeOwner(clan);
-		}
-		if (getSiege().getIsInProgress()) {
+
+		if (getSiege().getIsInProgress())
 			getSiege().midVictory(); // Mid victory phase of siege
-		}
+
 		updateClansReputation();
 	}
 
@@ -557,10 +554,21 @@ public class Castle
 			ResultSet rs = statement.executeQuery();
 			while (rs.next())
 			{
-				// Create list of the door default for use when respawning dead
-				// doors
-				_doorDefault.add(rs.getString("name") + ";" + rs.getInt("id") + ";" + rs.getInt("x") + ";" + rs.getInt("y") + ";" + rs.getInt("z") + ";" + rs.getInt("range_xmin") + ";" + rs.getInt("range_ymin") + ";" + rs.getInt("range_zmin") + ";" + rs.getInt("range_xmax") + ";" + rs.getInt("range_ymax") + ";" + rs.getInt("range_zmax") + ";" + rs.getInt("hp") + ";" + rs.getInt("pDef") + ";"
-						+ rs.getInt("mDef"));
+				// Create list of the door default for use when respawning dead doors
+				_doorDefault.add(rs.getString("name") 
+						+ ";" + rs.getInt("id") 
+						+ ";" + rs.getInt("x") 
+						+ ";" + rs.getInt("y") 
+						+ ";" + rs.getInt("z") 
+						+ ";" + rs.getInt("range_xmin") 
+						+ ";" + rs.getInt("range_ymin") 
+						+ ";" + rs.getInt("range_zmin") 
+						+ ";" + rs.getInt("range_xmax") 
+						+ ";" + rs.getInt("range_ymax") 
+						+ ";" + rs.getInt("range_zmax") 
+						+ ";" + rs.getInt("hp") 
+						+ ";" + rs.getInt("pDef") 
+						+ ";" + rs.getInt("mDef"));
 				L2DoorInstance door = DoorTable.parseList(_doorDefault.get(_doorDefault.size() - 1));
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				_doors.add(door);
@@ -710,10 +718,8 @@ public class Castle
 				Announcements.getInstance().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory", 0, 0, 0, 0, 0));
-				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule
-				// owner tasks
-				// to start
-				// running
+				CrownManager.getInstance().checkCrowns(clan);
+				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running
 			}
 		}
 		catch (Exception e)
@@ -1244,6 +1250,44 @@ public class Castle
 			{
 				owner.setReputationScore(owner.getReputationScore() + 1000, true);
 				owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
+			}
+		}
+	}
+
+	public boolean isBossKilled()
+	{
+		return _bossKilled;
+	}
+
+	public void setBossKilled(boolean killed)
+	{
+		if(killed != _bossKilled)
+		{
+			_bossKilled = killed;
+			java.sql.Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection();
+				PreparedStatement statement = con.prepareStatement("Update castle_boss set bossKilled = ? where id = ?");
+				statement.setLong(1, killed ? 1 : 0);
+				statement.setInt(2, getCastleId());
+				statement.execute();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.warning("Exception: saveBossKilled(): " + e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try
+				{
+					con.close();
+				}
+				catch (Exception e)
+				{
+				}
 			}
 		}
 	}

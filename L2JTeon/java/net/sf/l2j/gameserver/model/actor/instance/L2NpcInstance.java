@@ -19,6 +19,7 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
 import java.text.DateFormat;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
@@ -41,6 +42,7 @@ import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.RainbowSpringSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -104,8 +106,7 @@ import net.sf.l2j.util.Rnd;
  */
 public class L2NpcInstance extends L2Character
 {
-	// private static Logger _log =
-	// Logger.getLogger(L2NpcInstance.class.getName());
+	// private static Logger _log = Logger.getLogger(L2NpcInstance.class.getName());
 	/**
 	 * The interaction distance of the L2NpcInstance(is used as offset in MovetoLocation method)
 	 */
@@ -139,6 +140,9 @@ public class L2NpcInstance extends L2Character
 	private int _currentCollisionHeight; // used for npc grow effect skills
 	private int _currentCollisionRadius; // used for npc grow effect skills
 
+	private boolean _serverSideTitle = getTemplate().serverSideTitle;
+	private boolean _serverSideName = getTemplate().serverSideName;
+
 	/** Task launching the function onRandomAnimation() */
 	protected class RandomAnimationTask implements Runnable
 	{
@@ -147,31 +151,18 @@ public class L2NpcInstance extends L2Character
 			try
 			{
 				if (this != _rAniTask)
-				{
-					return; // Shouldn't happen, but who knows... just to
-					// make
-					// sure every active npc has only one timer.
-				}
+					return; // Shouldn't happen, but who knows... just to make sure every active npc has only one timer.
+
 				if (isMob())
-				{
-					// Cancel further animation timers until intention is
-					// changed to ACTIVE again.
-					if (getAI().getIntention() != AI_INTENTION_ACTIVE)
-					{
-						return;
-					}
-				}
+					// Cancel further animation timers until intention is changed to ACTIVE again.
+					if (getAI().getIntention() != AI_INTENTION_ACTIVE) return;
+
 				else
-				{
-					if (!isInActiveRegion())
-					{
-						return;
-					}
-				}
+					if (!isInActiveRegion()) return;
+
 				if (!(isDead() || isStunned() || isSleeping() || isParalyzed()))
-				{
 					onRandomAnimation();
-				}
+
 				startRandomAnimationTimer();
 			}
 			catch (Throwable t)
@@ -186,8 +177,7 @@ public class L2NpcInstance extends L2Character
 	 */
 	public void onRandomAnimation()
 	{
-		// Send a packet SocialAction to all L2PcInstance in the _KnownPlayers
-		// of the L2NpcInstance
+		// Send a packet SocialAction to all L2PcInstance in the _KnownPlayers of the L2NpcInstance
 		SocialAction sa = new SocialAction(getObjectId(), Rnd.get(2, 3));
 		broadcastPacket(sa);
 	}
@@ -198,16 +188,13 @@ public class L2NpcInstance extends L2Character
 	 */
 	public void startRandomAnimationTimer()
 	{
-		if (!hasRandomAnimation())
-		{
-			return;
-		}
+		if (!hasRandomAnimation()) return;
+
 		int minWait = isMob() ? Config.MIN_MONSTER_ANIMATION : Config.MIN_NPC_ANIMATION;
 		int maxWait = isMob() ? Config.MAX_MONSTER_ANIMATION : Config.MAX_NPC_ANIMATION;
 		// Calculate the delay before the next animation
 		int interval = Rnd.get(minWait, maxWait) * 1000;
-		// Create a RandomAnimation Task that will be launched after the
-		// calculated delay
+		// Create a RandomAnimation Task that will be launched after the calculated delay
 		_rAniTask = new RandomAnimationTask();
 		ThreadPoolManager.getInstance().scheduleGeneral(_rAniTask, interval);
 	}
@@ -298,18 +285,16 @@ public class L2NpcInstance extends L2Character
 		}
 		// Set the name of the L2Character
 		setName(template.name);
-        if ((template.ss > 0 || template.bss > 0) && template.ssRate > 0) {
+        if ((template.ss > 0 || template.bss > 0) && template.ssRate > 0)
 			_inventory = new NpcInventory(this);
-		}
 	}
 
 	@Override
 	public NpcKnownList getKnownList()
 	{
 		if (super.getKnownList() == null || !(super.getKnownList() instanceof NpcKnownList))
-		{
 			setKnownList(new NpcKnownList(this));
-		}
+
 		return (NpcKnownList) super.getKnownList();
 	}
 
@@ -317,9 +302,8 @@ public class L2NpcInstance extends L2Character
 	public NpcStat getStat()
 	{
 		if (super.getStat() == null || !(super.getStat() instanceof NpcStat))
-		{
 			setStat(new NpcStat(this));
-		}
+
 		return (NpcStat) super.getStat();
 	}
 
@@ -327,9 +311,8 @@ public class L2NpcInstance extends L2Character
 	public NpcStatus getStatus()
 	{
 		if (super.getStatus() == null || !(super.getStatus() instanceof NpcStatus))
-		{
 			setStatus(new NpcStatus(this));
-		}
+
 		return (NpcStatus) super.getStatus();
 	}
 
@@ -352,11 +335,10 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public boolean isAttackable()
 	{
-		if (Config.NPC_ATTACKABLE) {
+		if (Config.NPC_ATTACKABLE)
 			return true;
-		} else {
+		else
 			return false;
-		}
 	}
 
 	/**
@@ -433,9 +415,7 @@ public class L2NpcInstance extends L2Character
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 		{
 			if (player != null)
-			{
 				player.sendPacket(new NpcInfo(this, player));
-			}
 		}
 	}
 
@@ -457,17 +437,14 @@ public class L2NpcInstance extends L2Character
 	public int getDistanceToWatchObject(L2Object object)
 	{
 		if (object instanceof L2FestivalGuideInstance)
-		{
 			return 10000;
-		}
+
 		if (object instanceof L2FolkInstance || !(object instanceof L2Character))
-		{
 			return 0;
-		}
+
 		if (object instanceof L2PlayableInstance)
-		{
 			return 1500;
-		}
+
 		return 500;
 	}
 
@@ -603,9 +580,9 @@ public class L2NpcInstance extends L2Character
 		// TODO: NPC busy check etc...
 		// if (!canTarget(player))
 		// return false;
-		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) {
+		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
 			return false;
-		}
+
 		return true;
 	}
 
@@ -640,16 +617,15 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
+
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine("new target selected:" + getObjectId());
-			}
+
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 			// Check if the player is attackable (without a forced attack)
@@ -709,53 +685,41 @@ public class L2NpcInstance extends L2Character
 					broadcastPacket(sa);
 					// Open a chat window on client with the text of the L2NpcInstance
 					if (isEventMob)
-					{
 						L2Event.showEventHtml(player, String.valueOf(getObjectId()));
-					}
+
 					else if (_isEventMobTvT)
-					{
 						TvT.showEventHtml(player, String.valueOf(getObjectId()));
-					}
+
 					else if (_isEventMobDM)
-					{
 						DM.showEventHtml(player, String.valueOf(getObjectId()));
-					}
+
 					else if (_isEventMobCTF)
-					{
 						CTF.showEventHtml(player, String.valueOf(getObjectId()));
-					}
+
 					else if (_isCTF_Flag && player._inEventCTF)
-					{
 						CTF.showFlagHtml(player, String.valueOf(this.getObjectId()), _CTF_FlagTeamName);
-					}
+
 					else if (_isCTF_throneSpawn)
-					{
 						CTF.CheckRestoreFlags();
-					}
+
                     else if (_isEventMobFOS)
-                    {
                     	FortressSiege.showEventHtml(player, String.valueOf(getObjectId()));
-                    }
+
                     else if (_isFOS_Artifact)
-                    {
                     	FortressSiege.showArtifactHtml(player, String.valueOf(getObjectId()));
-                    }
+
 					else
 					{
 						Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
 						if (qlst != null && qlst.length == 1)
-						{
 							qlst[0].notifyFirstTalk(this, player);
-						}
 						else
-						{
 							showChatWindow(player, 0);
-						}
 					}
 				}
-			} else {
+			} 
+			else
 				player.sendPacket(ActionFailed.STATIC_PACKET);
-			}
 		}
 	}
 
@@ -782,10 +746,8 @@ public class L2NpcInstance extends L2Character
 	{
 		// Get the L2PcInstance corresponding to the thread
 		L2PcInstance player = client.getActiveChar();
-		if (player == null)
-		{
-			return;
-		}
+		if (player == null) return;
+
 		// Check if the L2PcInstance is a GM
 		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 		{
@@ -811,13 +773,10 @@ public class L2NpcInstance extends L2Character
 			html1.append("<br>");
 			html1.append("Instance Type: " + className + "<br1>Faction: " + getFactionId() + "<br1>Location ID: " + (getSpawn() != null ? getSpawn().getLocation() : 0) + "<br1>");
 			if (this instanceof L2ControllableMobInstance)
-			{
 				html1.append("Mob Group: " + MobGroupTable.getInstance().getGroupForMob((L2ControllableMobInstance) this).getGroupId() + "<br>");
-			}
 			else
-			{
 				html1.append("Respawn Time: " + (getSpawn() != null ? getSpawn().getRespawnDelay() / 1000 + "  Seconds<br>" : "?  Seconds<br>"));
-			}
+
 			html1.append("<table border=\"0\" width=\"100%\">");
 			html1.append("<tr><td>Object ID</td><td>" + getObjectId() + "</td><td>NPC ID</td><td>" + getTemplate().npcId + "</td></tr>");
 			html1.append("<tr><td>Castle</td><td>" + getCastle().getCastleId() + "</td><td>Coords</td><td>" + getX() + "," + getY() + "," + getZ() + "</td></tr>");
@@ -862,22 +821,17 @@ public class L2NpcInstance extends L2Character
 		{
 			L2TownZone town = TownManager.getTown(getX(), getY(), getZ());
 			if (town != null)
-			{
 				_castleIndex = CastleManager.getInstance().getCastleIndex(town.getTaxById());
-			}
+
 			if (_castleIndex < 0)
-			{
 				_castleIndex = CastleManager.getInstance().findNearestCastleIndex(this);
-			}
+
 			else
-			{
 				_isInTown = true; // Npc was spawned in town
-			}
 		}
 		if (_castleIndex < 0)
-		{
 			return null;
-		}
+
 		return CastleManager.getInstance().getCastles().get(_castleIndex);
 	}
 
@@ -889,27 +843,22 @@ public class L2NpcInstance extends L2Character
 		{
 			Fort fort = FortManager.getInstance().getFort(getX(), getY(), getZ());
 			if (fort != null)
-			{
 				_fortIndex = FortManager.getInstance().getFortIndex(fort.getFortId());
-			}
+
 			if (_fortIndex < 0)
-			{
 				_fortIndex = FortManager.getInstance().findNearestFortIndex(this);
-			}
 		}
 		if (_fortIndex < 0)
-		{
 			return null;
-		}
+
 		return FortManager.getInstance().getForts().get(_fortIndex);
 	}
 
 	public final boolean getIsInTown()
 	{
 		if (_castleIndex < 0)
-		{
 			getCastle();
-		}
+
 		return _isInTown;
 	}
 
@@ -950,22 +899,16 @@ public class L2NpcInstance extends L2Character
 						html.replace("%clanleadername%", clan.getLeaderName());
 					}
 					else
-					{
 						html.setFile("data/html/territorynoclan.htm");
-					}
 				}
 				html.replace("%castlename%", getCastle().getName());
 				html.replace("%taxpercent%", "" + getCastle().getTaxPercent());
 				html.replace("%objectId%", String.valueOf(getObjectId()));
 				{
 					if (getCastle().getCastleId() > 6)
-					{
 						html.replace("%territory%", "The Kingdom of Elmore");
-					}
 					else
-					{
 						html.replace("%territory%", "The Kingdom of Aden");
-					}
 				}
 				player.sendPacket(html);
 			}
@@ -980,13 +923,9 @@ public class L2NpcInstance extends L2Character
 				{
 				}
 				if (quest.length() == 0)
-				{
 					showQuestWindow(player);
-				}
 				else
-				{
 					showQuestWindow(player, quest);
-				}
 			}
 			else if (command.startsWith("Chat"))
 			{
@@ -1007,9 +946,8 @@ public class L2NpcInstance extends L2Character
 			{
 				String path = command.substring(5).trim();
 				if (path.indexOf("..") != -1)
-				{
 					return;
-				}
+
 				String filename = "data/html/" + path;
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile(filename);
@@ -1057,6 +995,39 @@ public class L2NpcInstance extends L2Character
 					}
 				}
 				return;
+			}
+			else if (command.startsWith("event"))
+			{
+				int val = 0;
+				try
+				{
+					val = Integer.parseInt(command.substring(6));
+				}
+				catch (IndexOutOfBoundsException ioobe)
+				{
+				}
+				catch (NumberFormatException nfe)
+				{
+				}
+				if (val==0)
+					return;/*
+				if (getNpcId()==31864)
+					Cristmas.exchangeItem(player,val);
+				if (getNpcId()==32130)
+					L2day.exchangeItem(player,val);
+				if (getNpcId()==31255)
+					BigSquash.exchangeItem(player,val);*/
+				if (getNpcId()==35596)
+					RainbowSpringSiegeManager.getInstance().exchangeItem(player,val);
+			}
+			else if (command.startsWith("HotSpringsArena"))
+			{
+				if (!RainbowSpringSiegeManager.getInstance().enterOnArena(player))
+				{
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setFile("data/html/default/35603-no.htm");
+					player.sendPacket(html);
+				}
 			}
 			else if (command.startsWith("NobleTeleport"))
 			{
@@ -1107,25 +1078,20 @@ public class L2NpcInstance extends L2Character
 				showLotoWindow(player, val);
 			}
 			else if (command.startsWith("CPRecovery"))
-			{
 				makeCPRecovery(player);
-			}
+
 			else if (command.startsWith("SupportMagic"))
-			{
 				makeSupportMagic(player);
-			}
+
 			else if (command.startsWith("GiveBlessing"))
-			{
 				giveBlessingSupport(player);
-			}
+
 			else if (command.startsWith("multisell"))
-			{
 				L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
-			}
+
 			else if (command.startsWith("exc_multisell"))
-			{
 				L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(13).trim()), player, true, getCastle().getTaxRate());
-			}
+
 			else if (command.startsWith("Augment"))
 			{
 				int cmdChoice = Integer.parseInt(command.substring(8, 9).trim());
@@ -1142,18 +1108,15 @@ public class L2NpcInstance extends L2Character
 				}
 			}
 			else if (command.startsWith("MakeBuffs"))
-			{
 				makeBuffs(player, command.substring(9).trim());
-			}
+
 			else if (command.startsWith("npcfind_byid"))
 			{
 				try
 				{
 					L2Spawn spawn = SpawnTable.getInstance().getTemplate(Integer.parseInt(command.substring(12).trim()));
 					if (spawn != null)
-					{
 						player.sendPacket(new RadarControl(0, 1, spawn.getLocx(), spawn.getLocy(), spawn.getLocz()));
-					}
 				}
 				catch (NumberFormatException nfe)
 				{
@@ -1199,11 +1162,7 @@ public class L2NpcInstance extends L2Character
 						player.sendPacket(html);
 					}
 					else
-					/*
-					 * if (player.getCoupon(0)) { html.setFile("data/html/adventurers_guide/31760-1.htm"); player.sendPacket(html); } else
-					 */{
 						L2Multisell.getInstance().SeparateAndSend(10010, player, false, getCastle().getTaxRate());
-					}
 				}
 				catch (NumberFormatException nfe)
 				{
@@ -1221,11 +1180,7 @@ public class L2NpcInstance extends L2Character
 						player.sendPacket(html);
 					}
 					else
-					/*
-					 * if (player.getCoupon(0) || !player.isNewbie()) { html.setFile("data/html/adventurers_guide/31760-1.htm"); player.sendPacket(html); } else
-					 */{
 						L2Multisell.getInstance().SeparateAndSend(10011, player, false, getCastle().getTaxRate());
-					}
 				}
 				catch (NumberFormatException nfe)
 				{
@@ -1271,11 +1226,7 @@ public class L2NpcInstance extends L2Character
 						player.sendPacket(html);
 					}
 					else
-					/*
-					 * if (player.getCoupon(1)) { html.setFile("data/html/adventurers_guide/31760-4.htm"); player.sendPacket(html); } else
-					 */{
 						L2Multisell.getInstance().SeparateAndSend(10012, player, false, getCastle().getTaxRate());
-					}
 				}
 				catch (NumberFormatException nfe)
 				{
@@ -1293,11 +1244,7 @@ public class L2NpcInstance extends L2Character
 						player.sendPacket(html);
 					}
 					else
-					/*
-					 * if (player.getCoupon(1)) { html.setFile("data/html/adventurers_guide/31760-4.htm"); player.sendPacket(html); } else
-					 */{
 						L2Multisell.getInstance().SeparateAndSend(10013, player, false, getCastle().getTaxRate());
-					}
 				}
 				catch (NumberFormatException nfe)
 				{
@@ -1308,11 +1255,7 @@ public class L2NpcInstance extends L2Character
 			{
 				try
 				{
-					Byte b1 = Byte.parseByte(command.substring(10)); // Selected
-					// Area:
-					// Recruit,
-					// Soldier
-					// etc
+					Byte b1 = Byte.parseByte(command.substring(10)); // Selected Area: Recruit, Soldier etc
 					DimensionalRiftManager.getInstance().start(player, b1, this);
 				}
 				catch (Exception e)
@@ -1322,24 +1265,16 @@ public class L2NpcInstance extends L2Character
 			else if (command.startsWith("ChangeRiftRoom"))
 			{
 				if (player.isInParty() && player.getParty().isInDimensionalRift())
-				{
 					player.getParty().getDimensionalRift().manualTeleport(player, this);
-				}
 				else
-				{
 					DimensionalRiftManager.getInstance().handleCheat(player, this);
-				}
 			}
 			else if (command.startsWith("ExitRift"))
 			{
 				if (player.isInParty() && player.getParty().isInDimensionalRift())
-				{
 					player.getParty().getDimensionalRift().manualExitRift(player, this);
-				}
 				else
-				{
 					DimensionalRiftManager.getInstance().handleCheat(player, this);
-				}
 			}
 		}
 	}
@@ -1364,9 +1299,7 @@ public class L2NpcInstance extends L2Character
 			_templateId = BuffTemplateTable.getInstance().getTemplateIdByName(buffTemplate);
 		}
 		if (_templateId > 0)
-		{
 			L2BufferTeonInstance.makeBuffs(player, _templateId, this, true);
-		}
 	}
 
 	/**
@@ -1391,15 +1324,13 @@ public class L2NpcInstance extends L2Character
 		// L2NpcInstance
 		int weaponId = getTemplate().rhand;
 		if (weaponId < 1)
-		{
 			return null;
-		}
+
 		// Get the weapon item equiped in the right hand of the L2NpcInstance
 		L2Item item = ItemTable.getInstance().getTemplate(getTemplate().rhand);
 		if (!(item instanceof L2Weapon))
-		{
 			return null;
-		}
+
 		return (L2Weapon) item;
 	}
 
@@ -1425,15 +1356,13 @@ public class L2NpcInstance extends L2Character
 		// L2NpcInstance
 		int weaponId = getTemplate().lhand;
 		if (weaponId < 1)
-		{
 			return null;
-		}
+
 		// Get the weapon item equiped in the right hand of the L2NpcInstance
 		L2Item item = ItemTable.getInstance().getTemplate(getTemplate().lhand);
 		if (!(item instanceof L2Weapon))
-		{
 			return null;
-		}
+
 		return (L2Weapon) item;
 	}
 
@@ -1477,32 +1406,22 @@ public class L2NpcInstance extends L2Character
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		String temp = "data/html/default/" + pom + ".htm";
 		if (!Config.LAZY_CACHE)
 		{
-			// If not running lazy cache the file must be in the cache or it
-			// doesnt exist
+			// If not running lazy cache the file must be in the cache or it doesnt exist
 			if (HtmCache.getInstance().contains(temp))
-			{
 				return temp;
-			}
 		}
 		else
 		{
 			if (HtmCache.getInstance().isLoadable(temp))
-			{
 				return temp;
-			}
 		}
-		// If the file is not found, the standard message "I have nothing to say
-		// to you" is returned
+		// If the file is not found, the standard message "I have nothing to say to you" is returned
 		return "data/html/npcdefault.htm";
 	}
 
@@ -1552,10 +1471,8 @@ public class L2NpcInstance extends L2Character
 		// Get the state of the selected quest
 		QuestState qs = player.getQuestState(questId);
 		if (q == null)
-		{
 			// no quests found
 			content = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
-		}
 		else
 		{
 			if (q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000 && (player.getWeightPenalty() >= 3 || player.GetInventoryLimit() * 0.8 <= player.getInventory().getSize()))
@@ -1568,17 +1485,15 @@ public class L2NpcInstance extends L2Character
 				if (q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000)
 				{
 					Quest[] questList = player.getAllActiveQuests();
-					if (questList.length >= 25)
-					{
-						return;
-					}
+					if (questList.length >= 25) return;
 				}
 				// check for start point
 				Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
 				if (qlst != null && qlst.length > 0)
 				{
-					for (Quest element : qlst) {
-						if (element == q)
+					for (int i = 0; i < qlst.length; i++)
+					{
+						if (qlst[i] == q)
 						{
 							qs = q.newQuestState(player);
 							break;
@@ -1590,9 +1505,8 @@ public class L2NpcInstance extends L2Character
 		if (qs != null)
 		{
 			// If the quest is alreday started, no need to show a window
-			if (!qs.getQuest().notifyTalk(this, qs)) {
-				return;
-			}
+			if (!qs.getQuest().notifyTalk(this, qs)) return;
+
 			questId = qs.getQuest().getName();
 			String stateId = State.getStateName(qs.getState());
 			String path = "data/scripts/quests/" + questId + "/" + stateId + ".htm";
@@ -1600,19 +1514,15 @@ public class L2NpcInstance extends L2Character
 			if (Config.DEBUG)
 			{
 				if (content != null)
-				{
 					_log.fine("Showing quest window for quest " + questId + " html path: " + path);
-				}
 				else
-				{
 					_log.fine("File not exists for quest " + questId + " html path: " + path);
-				}
 			}
 		}
 		// Send a Server->Client packet NpcHtmlMessage to the L2PcInstance in order to display the message of the L2NpcInstance
-		if (content != null) {
+		if (content != null)
 			insertObjectIdAndShowChatWindow(player, content);
-		}
+
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -1636,10 +1546,10 @@ public class L2NpcInstance extends L2Character
 		{
 			for (QuestState x : awaits)
 			{
-				if (!options.contains(x)) {
-					if (x.getQuest().getQuestIntId() > 0 && x.getQuest().getQuestIntId() < 1000) {
+				if (!options.contains(x))
+				{
+					if (x.getQuest().getQuestIntId() > 0 && x.getQuest().getQuestIntId() < 1000)
 						options.add(x.getQuest());
-					}
 				}
 			}
 		}
@@ -1647,26 +1557,20 @@ public class L2NpcInstance extends L2Character
 		{
 			for (Quest x : starts)
 			{
-				if (!options.contains(x)) {
-					if (x.getQuestIntId() > 0 && x.getQuestIntId() < 1000) {
+				if (!options.contains(x))
+				{
+					if (x.getQuestIntId() > 0 && x.getQuestIntId() < 1000)
 						options.add(x);
-					}
 				}
 			}
 		}
 		// Display a QuestChooseWindow (if several quests are available) or QuestWindow
 		if (options.size() > 1)
-		{
 			showQuestChooseWindow(player, options.toArray(new Quest[options.size()]));
-		}
 		else if (options.size() == 1)
-		{
 			showQuestWindow(player, options.get(0).getName());
-		}
 		else
-		{
 			showQuestWindow(player, "");
-		}
 	}
 
 	/**
@@ -1699,9 +1603,7 @@ public class L2NpcInstance extends L2Character
 			filename = getHtmlPath(npcId, 1);
 			html.setFile(filename);
 		}
-		else if (val >= 1 && val <= 21) // 1-20 - buttons, 21 - second
-		// buy
-		// lottery ticket window
+		else if (val >= 1 && val <= 21) // 1-20 - buttons, 21 - second buy lottery ticket window
 		{
 			if (!Lottery.getInstance().isStarted())
 			{
@@ -1729,9 +1631,7 @@ public class L2NpcInstance extends L2Character
 					found = 1;
 				}
 				else if (player.getLoto(i) > 0)
-				{
 					count++;
-				}
 			}
 			// if not rearched limit 5 and not unseted value
 			if (count < 5 && found == 0 && val <= 20)
@@ -1754,9 +1654,8 @@ public class L2NpcInstance extends L2Character
 					count++;
 					String button = String.valueOf(player.getLoto(i));
 					if (player.getLoto(i) < 10)
-					{
 						button = "0" + button;
-					}
+
 					String search = "fore=\"L2UI.lottoNum" + button + "\" back=\"L2UI.lottoNum" + button + "a_check\"";
 					String replace = "fore=\"L2UI.lottoNum" + button + "a_check\" back=\"L2UI.lottoNum" + button + "\"";
 					html.replace(search, replace);
@@ -1789,18 +1688,12 @@ public class L2NpcInstance extends L2Character
 			int type2 = 0;
 			for (int i = 0; i < 5; i++)
 			{
-				if (player.getLoto(i) == 0)
-				{
-					return;
-				}
+				if (player.getLoto(i) == 0) return;
+
 				if (player.getLoto(i) < 17)
-				{
 					enchant += Math.pow(2, player.getLoto(i) - 1);
-				}
 				else
-				{
 					type2 += Math.pow(2, player.getLoto(i) - 17);
-				}
 			}
 			if (player.getAdena() < price)
 			{
@@ -1809,9 +1702,8 @@ public class L2NpcInstance extends L2Character
 				return;
 			}
 			if (!player.reduceAdena("Loto", price, this, true))
-			{
 				return;
-			}
+
 			Lottery.getInstance().increasePrize(price);
 			sm = new SystemMessage(SystemMessageId.ACQUIRED);
 			sm.addNumber(lotonumber);
@@ -2828,4 +2720,43 @@ public class L2NpcInstance extends L2Character
 		}
     	return false;
     }
+
+	public boolean getServerSideTitle()
+	{
+		return _serverSideTitle;
+	}
+
+	public void setServerSideTitle(boolean status)
+	{
+		_serverSideTitle = status;
+	}
+
+	public boolean getServerSideName()
+	{
+		return _serverSideName;
+	}
+
+	public void setServerSideName(boolean status)
+	{
+		_serverSideName = status;
+	}
+	
+	protected final void notifyQuestEventSkillFinished(L2Skill skill, L2Object target)
+	{
+		try
+		{
+			if (getTemplate().getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED) != null)
+			{
+				L2PcInstance player = target.getActingPlayer();
+				for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED))
+				{
+					quest.notifySpellFinished(this, player, skill);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			_log.log(Level.SEVERE, "", e);
+		}
+	}
 }

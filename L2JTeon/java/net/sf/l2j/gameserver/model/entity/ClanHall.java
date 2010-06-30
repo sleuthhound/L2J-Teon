@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -60,8 +61,10 @@ public class ClanHall
 	private int _grade;
 	protected final int _chRate = 604800000;
 	protected boolean _isFree = true;
+	protected boolean _isUnderSiege = false;
 	private Map<Integer, ClanHallFunction> _functions;
 	protected boolean _paid;
+	private Castle _castle;
 	/** Clan Hall Functions */
 	public static final int FUNC_TELEPORT = 1;
 	public static final int FUNC_ITEM_CREATE = 2;
@@ -135,13 +138,16 @@ public class ClanHall
 
 		private void initializeTask()
 		{
-			if (_isFree) {
+			if (_isFree)
+			{
 				return;
 			}
 			long currentTime = System.currentTimeMillis();
-			if (_endDate > currentTime) {
+			if (_endDate > currentTime)
+			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(), _endDate - currentTime);
-			} else {
+			} else
+			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(), 0);
 			}
 		}
@@ -241,12 +247,13 @@ public class ClanHall
 		_clanHallId = clanHallId;
 		_name = name;
 		_ownerId = ownerId;
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.warning("Init Owner : " + _ownerId);
-		}
+
 		_lease = lease;
 		_desc = desc;
 		_location = location;
+		_castle = CastleManager.getInstance().getCastle/*ByName*/(_location);
 		_paidUntil = paidUntil;
 		_grade = Grade;
 		_paid = paid;
@@ -258,6 +265,16 @@ public class ClanHall
 			initialyzeTask(false);
 			loadFunctions();
 		}
+	}
+
+	public final boolean isUnderSiege()
+	{
+		return _isUnderSiege;
+	}
+
+	public void setUnderSiege(boolean par)
+	{
+		_isUnderSiege = par;
 	}
 
 	/** Return if clanHall is paid or not */
@@ -643,23 +660,37 @@ public class ClanHall
 		{
 			try
 			{
-				if (_isFree) {
-					return;
-				}
+				if (_isFree) return;
+
 				L2Clan Clan = ClanTable.getInstance().getClan(getOwnerId());
 				if (ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= getLease())
 				{
-					if (_paidUntil != 0) {
-						while (_paidUntil < System.currentTimeMillis()) {
+					if (_paidUntil != 0)
+					{
+						while (_paidUntil < System.currentTimeMillis())
 							_paidUntil += _chRate;
-						}
-					} else {
+					} else
 						_paidUntil = System.currentTimeMillis() + _chRate;
-					}
+
 					ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
-					if (Config.DEBUG) {
-						_log.warning("deducted " + getLease() + " adena from " + getName() + " owner's cwh for ClanHall _paidUntil" + _paidUntil);
+					if (Config.DEBUG) _log.warning("deducted " 
+							+ getLease() 
+							+ " adena from " 
+							+ getName() 
+							+ " owner's cwh for ClanHall _paidUntil" 
+							+ _paidUntil);
+
+					getOwnerClan().getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
+					if (_castle != null)
+					{
+						if (_castle.getOwnerId()>0)
+						{
+							L2Clan castleOwner = ClanTable.getInstance().getClan(_castle.getOwnerId());
+							if (castleOwner != null)
+								castleOwner.getWarehouse().addItem("CH_rental_fee", 57, getLease(), null, null);
+						}
 					}
+					
 					ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _paidUntil - System.currentTimeMillis());
 					_paid = true;
 					updateDb();
@@ -674,9 +705,8 @@ public class ClanHall
 							AuctionManager.getInstance().initNPC(getId());
 							ClanHallManager.getInstance().setFree(getId());
 							Clan.broadcastToOnlineMembers(new SystemMessage(SystemMessageId.THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED));
-						} else {
+						} else
 							ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), 3000);
-						}
 					}
 					else
 					{
@@ -684,11 +714,10 @@ public class ClanHall
 						SystemMessage sm = new SystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW);
 						sm.addNumber(getLease());
 						Clan.broadcastToOnlineMembers(sm);
-						if (System.currentTimeMillis() + 1000 * 60 * 60 * 24 <= _paidUntil + _chRate) {
+						if (System.currentTimeMillis() + 1000 * 60 * 60 * 24 <= _paidUntil + _chRate)
 							ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), System.currentTimeMillis() + 1000 * 60 * 60 * 24);
-						} else {
+						else
 							ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _paidUntil + _chRate - System.currentTimeMillis());
-						}
 					}
 				}
 			}

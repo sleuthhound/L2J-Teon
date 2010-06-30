@@ -16,33 +16,69 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Format: ch ddcdc
- *
  * @author KenM
  */
 public class ExPCCafePointInfo extends L2GameServerPacket
 {
-	private static final String _S__FE_31_EXPCCAFEPOINTINFO = "[S] FE:31 ExPCCafePointInfo";
-	private int _unk1, _unk2, _unk3, _unk4, _unk5 = 0;
+    private static final String _S__FE_31_EXPCCAFEPOINTINFO = "[S] FE:31 ExPCCafePointInfo";
 
-	public ExPCCafePointInfo(int val1, int val2, int val3, int val4, int val5)
-	{
-		_unk1 = val1;
-		_unk2 = val2;
-		_unk3 = val3;
-		_unk4 = val4;
-		_unk5 = val5;
-	}
+    private final int _points;
+    private final int _mAddPoint;
+    private int _mPeriodType;
+    private int _remainTime;
+    private int _pointType = 0;
+
+    public ExPCCafePointInfo()
+    {
+        _points = 0;
+        _mAddPoint = 0;
+        _remainTime = 0;
+        _mPeriodType = 0;
+        _pointType = 0;
+    }
+
+    public ExPCCafePointInfo(final int points, final int modify_points, final boolean mod, final boolean _double, final int hours_left)
+    {
+        _points = points;
+        _mAddPoint = modify_points;
+        _remainTime = hours_left;
+        if (mod && _double)
+        {
+            _mPeriodType = 1;
+            _pointType = 0;
+        }
+        else if (mod)
+        {
+            _mPeriodType = 1;
+            _pointType = 1;
+        }
+        else
+        {
+            _mPeriodType = 2;
+            _pointType = 2;
+        }
+    }
+
+    public ExPCCafePointInfo(final int val1, final int val2, final int val3, final int val4, final int val5, final int val6)
+    {
+        _points = val1;
+        _mAddPoint = val2;
+        _mPeriodType = val3;
+        _remainTime = val4;
+        _remainTime = val5;
+        _pointType = val6;
+    }
 
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xFE);
-		writeH(0x31);
-		writeD(_unk1);
-		writeD(_unk2);
-		writeC(_unk3);
-		writeD(_unk4);
-		writeC(_unk5);
+        writeC(254);
+        writeH(49);
+        writeD(_points); // num points
+        writeD(_mAddPoint); // points inc display
+        writeC(_mPeriodType); // period(0=don't show window,1=acquisition,2=use points)
+        writeD(_remainTime); // period hours left
+        writeC(_pointType); // points inc display color(0=yellow,1=cyan-blue,2=red,all other black)
 	}
 
 	/**
@@ -51,6 +87,6 @@ public class ExPCCafePointInfo extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_31_EXPCCAFEPOINTINFO;
+        return _S__FE_31_EXPCCAFEPOINTINFO;
 	}
 }

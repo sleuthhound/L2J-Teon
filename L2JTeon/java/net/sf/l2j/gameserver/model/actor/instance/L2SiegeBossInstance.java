@@ -30,6 +30,8 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 {
 	private static final int RAIDBOSS_MAINTENANCE_INTERVAL = 30000;
 
+	protected boolean _isInSocialAction = false;
+
 	public L2SiegeBossInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -58,8 +60,7 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 		{
 			public void run()
 			{
-				// teleport raid boss home if it's too far from home
-				// location
+				// teleport raid boss home if it's too far from home location
 				L2Spawn bossSpawn = getSpawn();
 				if (!isInsideRadius(bossSpawn.getLocx(), bossSpawn.getLocy(), bossSpawn.getLocz(), 5000, true, false))
 				{
@@ -72,8 +73,7 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 	}
 
 	/**
-	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR>
-	 * <BR>
+	 * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.
 	 */
 	@Override
 	public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
@@ -81,40 +81,55 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 		super.reduceCurrentHp(damage, attacker, awake);
 		if (this.getNpcId() == 35368)
 		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null) {
+			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
 				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
-			}
-		}
-		else
-		{
-			if (this.getNpcId() == 35410)
-			{
-				if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null) {
-					DevastatedCastleManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
-				}
-			}
 		}
 	}
 
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!super.doDie(killer)) {
+		if (!super.doDie(killer))
 			return false;
-		}
-		if (getNpcId() == 35368 && FortResistSiegeManager.getInstance().getIsInProgress()) {
+
+		if (getNpcId() == 35368 && FortResistSiegeManager.getInstance().getIsInProgress())
 			FortResistSiegeManager.getInstance().endSiege(true);
-		} else if (getNpcId() == 35410 && DevastatedCastleManager.getInstance().getIsInProgress()) {
-			DevastatedCastleManager.getInstance().endSiege(true);
-		} else if (getNpcId() == 35629 && FortressofTheDeadManager.getInstance().getIsInProgress()) {
-			FortressofTheDeadManager.getInstance().endSiege(true);
-		}
+
+		else if (getNpcId() == 35410 && DevastatedCastleManager.getInstance().getIsInProgress())
+			DevastatedCastleManager.getInstance().endSiege(killer);
+
+		else if (getNpcId() == 35629 && FortressofTheDeadManager.getInstance().getIsInProgress())
+			FortressofTheDeadManager.getInstance().endSiege(killer);
 		return true;
+	}
+
+	@Override
+	public void deleteMe()
+	{
+		super.deleteMe();
 	}
 
 	public void healFull()
 	{
 		super.setCurrentHp(super.getMaxHp());
 		super.setCurrentMp(super.getMaxMp());
+	}
+
+	public boolean IsInSocialAction()
+	{
+		return _isInSocialAction;
+	}
+
+	public void setIsInSocialAction(boolean value)
+	{
+		_isInSocialAction = value;
+	}
+
+	@Override
+	public boolean isAutoAttackable(L2Character attacker)
+	{
+		if (!FortResistSiegeManager.getInstance().getIsInProgress() || FortressofTheDeadManager.getInstance().getIsInProgress() || DevastatedCastleManager.getInstance().getIsInProgress())
+			return false;
+		return true;
 	}
 }

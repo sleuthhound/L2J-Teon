@@ -92,9 +92,8 @@ public final class CharacterCreate extends L2GameClientPacket
 		if (_name.length() < 3 || _name.length() > 16 || !Util.isAlphaNumeric(_name) || !isValidName(_name))
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine("charname: " + _name + " is invalid. creation failed.");
-			}
+
 			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_16_ENG_CHARS);
 			sendPacket(ccf);
 			return;
@@ -105,26 +104,26 @@ public final class CharacterCreate extends L2GameClientPacket
 		{
 			if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("Max number of characters reached. Creation failed.");
-				}
+
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
 				sendPacket(ccf);
 				return;
 			}
 			else if (CharNameTable.getInstance().doesCharNameExist(_name))
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("charname: " + _name + " already exists. creation failed.");
-				}
+
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
 				sendPacket(ccf);
 				return;
 			}
 			template = CharTemplateTable.getInstance().getTemplate(_classId);
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("charname: " + _name + " classId: " + _classId + " template: " + template);
-			}
+
 			if (template == null || template.classBaseLevel > 1)
 			{
 				CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
@@ -160,37 +159,31 @@ public final class CharacterCreate extends L2GameClientPacket
 		}
 		Matcher regexp = pattern.matcher(test);
 		if (!regexp.matches())
-		{
 			result = false;
-		}
+
 		return result;
 	}
 
 	private void initNewChar(L2GameClient client, L2PcInstance newChar)
 	{
 		if (Config.DEBUG)
-		{
 			_log.fine("Character init start");
-		}
+
 		L2World.getInstance().storeObject(newChar);
 		L2PcTemplate template = newChar.getTemplate();
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
 		newChar.addAncientAdena("Init", Config.STARTING_AA, null, false);
 		if (Config.STARTING_LEVEL > 1)
-		{
 			newChar.getStat().addLevel(--Config.STARTING_LEVEL);
-		}
+
 		for (int[] startingItems : Config.CUSTOM_STARTER_ITEMS)
 		{
 			if (newChar == null)
-			{
 				continue;
-			}
+
 			PcInventory inv = newChar.getInventory();
 			if (ItemTable.getInstance().createDummyItem(startingItems[0]).isStackable())
-			{
 				inv.addItem("Starter Items", startingItems[0], startingItems[1], newChar, null);
-			}
 			else
 			{
 				for (int i = 0; i < startingItems[1]; i++)
@@ -200,21 +193,15 @@ public final class CharacterCreate extends L2GameClientPacket
 			}
 		}
 		if (Config.SPAWN_CHAR)
-		{
 			newChar.setXYZInvisible(Config.SPAWN_X, Config.SPAWN_Y, Config.SPAWN_Z);
-		}
 		else
-		{
 			newChar.setXYZInvisible(template.spawnX, template.spawnY, template.spawnZ);
-		}
+
 		if (Config.CHAR_TITLE)
-		{
 			newChar.setTitle(Config.ADD_CHAR_TITLE);
-		}
 		else
-		{
 			newChar.setTitle("");
-		}
+
 		L2ShortCut shortcut;
 		// add attack shortcut
 		shortcut = new L2ShortCut(0, 0, 3, 2, -1, 1);
@@ -229,7 +216,8 @@ public final class CharacterCreate extends L2GameClientPacket
 		{
 			ItemTable itemTable = ItemTable.getInstance();
 			L2Item[] items = template.getItems();
-			for (L2Item item2 : items) {
+			for (L2Item item2 : items)
+			{
 				L2ItemInstance item = newChar.getInventory().addItem("Init", item2.getItemId(), 1, newChar, null);
 				if (item.getItemId() == 5588)
 				{
@@ -240,9 +228,7 @@ public final class CharacterCreate extends L2GameClientPacket
 				if (item.isEquipable())
 				{
 					if (newChar.getActiveWeaponItem() == null || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
-					{
 						newChar.getInventory().equipItemAndRecord(item);
-					}
 				}
 			}
 		}
@@ -260,9 +246,8 @@ public final class CharacterCreate extends L2GameClientPacket
 				newChar.registerShortCut(shortcut);
 			}
 			if (Config.DEBUG)
-			{
 				_log.fine("adding starter skill:" + startSkill.getId() + " / " + startSkill.getLevel());
-			}
+
 		}
 		L2GameClient.saveCharToDisk(newChar);
 		newChar.deleteMe(); // release the world of this character and it's inventory send char list
@@ -272,21 +257,17 @@ public final class CharacterCreate extends L2GameClientPacket
 		client.getConnection().sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
 		if (Config.DEBUG)
-		{
 			_log.fine("Character init end");
-		}
 	}
 
 	public void startTutorialQuest(L2PcInstance player)
 	{
 		QuestState qs = player.getQuestState("255_Tutorial");
 		Quest q = null;
-		if (qs == null) {
+		if (qs == null)
 			q = QuestManager.getInstance().getQuest("255_Tutorial");
-		}
-		if (q != null) {
+		if (q != null)
 			q.newQuestState(player);
-		}
 	}
 
 	/*

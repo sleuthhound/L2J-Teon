@@ -14,19 +14,16 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
 /**
  * This class describes [S]->[C] PetInfo packet.
  *
- * @version $Revision: 1.6.2.5.2.12 $ $Date: 2005/03/31 09:19:16 $ Last update: baby pets grow up. Updated by schursin (L2JOneo Dev Team) www.oneodevteam.com
+ * @version $Revision: 1.6.2.5.2.12 $ $Date: 2005/03/31 09:19:16 $ Last update: baby pets grow up. Updated by schursin
  */
 public class PetInfo extends L2GameServerPacket
 {
-	// private static Logger _log =
-	// Logger.getLogger(PetInfo.class.getName());
 	private static final String _S__CA_PETINFO = "[S] b1 PetInfo";
 	private L2Summon _summon;
 	private int _x, _y, _z, _heading;
@@ -134,14 +131,11 @@ public class PetInfo extends L2GameServerPacket
 		writeC(_summon.isRunning() ? 1 : 0); // running=1
 		writeC(_summon.isInCombat() ? 1 : 0); // attacking 1=true
 		writeC(_summon.isAlikeDead() ? 1 : 0); // dead 1=true
-		writeC(_isSummoned ? 2 : 0); // invisible ?? 0=false 1=true
-		// 2=summoned (only works if model has a
-		// summon animation)
+		writeC(_isSummoned ? 2 : 0); // invisible ?? 0=false 1=true 2=summoned (only works if model has a summon animation)
 		writeS(_summon.getName());
 		writeS(_summon.getTitle());
 		writeD(1);
-		writeD(_summon.getPvpFlag()); // 0 = white,2= purpleblink, if its
-		// greater then karma = purple
+		writeD(_summon.getPvpFlag()); // 0 = white,2= purpleblink, if its greater then karma = purple
 		writeD(_summon.getKarma()); // hmm karma ??
 		writeD(_curFed); // how fed it is
 		writeD(_maxFed); // max fed it can be
@@ -166,23 +160,18 @@ public class PetInfo extends L2GameServerPacket
 		writeD(_runSpd); // speed
 		writeD(_summon.getPAtkSpd()); // atkspeed
 		writeD(_summon.getMAtkSpd()); // casting speed
-		writeD(0); // c2 abnormal visual effect... bleed=1; poison=2;
-		// poison &
-		// bleed=3; flame=4;
+		writeD(0); // c2 abnormal visual effect... bleed=1; poison=2; poison & bleed=3; flame=4;
 		int npcId = _summon.getTemplate().npcId;
-		if (npcId >= 12526 && npcId <= 12528) {
+		if (npcId >= 12526 && npcId <= 12528)
 			writeH(1);// c2 ride button
-		} else {
+		else
 			writeH(0);
-		}
-		writeC(0); // c2
-		// Following all added in C4.
+
+		writeC(0); // c2 Following all added in C4.
 		writeH(0); // ??
 		writeC(0); // team aura (1 = blue, 2 = red)
-		writeD(_summon.getSoulShotsPerHit()); // How many soulshots this
-		// servitor uses per hit
-		writeD(_summon.getSpiritShotsPerHit()); // How many spiritshots this
-		// servitor uses per hit
+		writeD(_summon.getSoulShotsPerHit()); // How many soulshots this servitor uses per hit
+		writeD(_summon.getSpiritShotsPerHit()); // How many spiritshots this servitor uses per hit
 	}
 
 	/*

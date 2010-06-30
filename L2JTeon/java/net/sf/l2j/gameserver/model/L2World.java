@@ -171,6 +171,26 @@ public final class L2World
 		return _allObjects.get(oID);
 	}
 
+	public L2Character findCharacter(int objectId)
+	{
+		L2Object obj = _allObjects.get(objectId);
+
+		if (obj instanceof L2Character)
+			return (L2Character)obj;
+
+		return null;
+	}
+
+	public L2PcInstance findPlayer(int objectId)
+	{
+		L2Object obj = _allObjects.get(objectId);
+
+		if (obj instanceof L2PcInstance)
+			return (L2PcInstance)obj;
+
+		return null;
+	}
+
 	public long timeFindObject(int objectID)
 	{
 		long time = System.currentTimeMillis();

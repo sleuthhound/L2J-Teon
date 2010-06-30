@@ -16,12 +16,16 @@ package net.sf.l2j.gameserver.model.zone.type;
 
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.zone.L2ZoneType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ClanHallDecoration;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * A clan hall zone
@@ -67,23 +71,92 @@ public class L2ClanHallZone extends L2ZoneType
 	@Override
 	protected void onEnter(L2Character character)
 	{
+		if (_clanHallId == 35 && BanditStrongholdSiege.getInstance().getIsInProgress())
+		{
+			character.setInsideZone(L2Character.ZONE_PVP, true);
+			if (character instanceof L2PcInstance)
+				character.sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));		
+		}
+		if (_clanHallId == 63 && WildBeastFarmSiege.getInstance().getIsInProgress())
+		{
+			character.setInsideZone(L2Character.ZONE_PVP, true);
+			if (character instanceof L2PcInstance)
+				character.sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));			
+		}
 		if (character instanceof L2PcInstance)
 		{
 			// Set as in clan hall
 			character.setInsideZone(L2Character.ZONE_CLANHALL, true);
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallById(_clanHallId);
-			if (clanHall == null) {
+			if (clanHall == null)
 				return;
-			}
 			// Send decoration packet
 			ClanHallDecoration deco = new ClanHallDecoration(clanHall);
 			((L2PcInstance) character).sendPacket(deco);
 		}
 	}
 
+	public void updateSiegeStatus()
+	{
+		if (_clanHallId == 35 && BanditStrongholdSiege.getInstance().getIsInProgress())
+		{
+			for (L2Character character : _characterList.values())
+			{
+				try
+				{
+					onEnter(character);
+				}
+				catch (Exception e)
+				{
+				}
+			}	
+		}
+		else if (_clanHallId == 63 && WildBeastFarmSiege.getInstance().getIsInProgress())
+		{
+			for (L2Character character : _characterList.values())
+			{
+				try
+				{
+					onEnter(character);
+				}
+				catch (Exception e)
+				{
+				}
+			}	
+		}
+		else
+		{
+			for (L2Character character : _characterList.values())
+			{
+				try
+				{
+					character.setInsideZone(L2Character.ZONE_PVP, false);
+
+					if (character instanceof L2PcInstance)
+						character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+				}
+				catch (Exception e)
+				{
+				}
+			}			
+		}
+	}
+
 	@Override
 	protected void onExit(L2Character character)
 	{
+		if (_clanHallId == 35 && BanditStrongholdSiege.getInstance().getIsInProgress())
+		{
+			character.setInsideZone(L2Character.ZONE_PVP, false);
+			if (character instanceof L2PcInstance)
+				character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));			
+		}
+		if (_clanHallId == 63 && WildBeastFarmSiege.getInstance().getIsInProgress())
+		{
+			character.setInsideZone(L2Character.ZONE_PVP, false);
+			if (character instanceof L2PcInstance)
+				character.sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));			
+		}
 		if (character instanceof L2PcInstance)
 		{
 			// Unset clanhall zone
