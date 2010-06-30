@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.text.SimpleDateFormat;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -24,11 +23,9 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.item.PcInventory;
@@ -61,13 +58,6 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		super(objectId, template);
 	}
 
-	private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
-	{
-		html.replace("%objectId%", String.valueOf(getObjectId()));
-		html.replace("%npcId%", String.valueOf(getNpcId()));
-		player.sendPacket(html);
-	}
-
 	@Override
 	public void onAction(L2PcInstance player)
 	{
@@ -94,14 +84,10 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			// Calculate the distance between the L2PcInstance and the
 			// L2NpcInstance
 			if (!canInteract(player))
-			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
 			else
-			{
 				showMessageWindow(player);
-			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -111,10 +97,8 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		// BypassValidation Exploit plug.
-		if (player.getLastFolkNPC().getObjectId() != this.getObjectId()) {
-			return;
-		}
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		if (player.getLastFolkNPC().getObjectId() != this.getObjectId()) return;
+
 		int condition = validateCondition(player);
 		if (condition <= COND_ALL_FALSE) return;
 
@@ -126,9 +110,8 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			String actualCommand = st.nextToken(); // Get actual command
 			String val = "";
 			if (st.countTokens() >= 1)
-			{
 				val = st.nextToken();
-			}
+
 			if (actualCommand.equalsIgnoreCase("banish_foreigner"))
 			{
 				getCastle().banishForeigners(); // Move non-clan members off castle area
@@ -216,26 +199,21 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			}
 			else if (actualCommand.equalsIgnoreCase("items"))
 			{
-				if (val == "") {
-					return;
-				}
+				if (val == "") return;
+
 				player.tempInvetoryDisable();
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("Showing chamberlain buylist");
-				}
+
 				int buy;
 				{
 					int castleId = getCastle().getCastleId();
 					int circlet = CastleManager.getInstance().getCircletByCastleId(castleId);
 					PcInventory s = player.getInventory();
 					if (s.getItemByItemId(circlet) == null)
-					{
 						buy = Integer.parseInt(val + "1");
-					}
 					else
-					{
 						buy = Integer.parseInt(val + "2");
-					}
 				}
 				L2TradeList list = TradeController.getInstance().getBuyList(buy);
 				if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
@@ -271,13 +249,9 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					if (amount > 0 && (long) getCastle().getTreasury() + amount < Integer.MAX_VALUE)
 					{
 						if (player.reduceAdena("Castle", amount, this, true))
-						{
 							getCastle().addToTreasuryNoTax(amount);
-						}
 						else
-						{
 							sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
-						}
 					}
 				}
 				else if (val.equalsIgnoreCase("withdraw"))
@@ -292,14 +266,11 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 					if (amount > 0)
 					{
 						if (getCastle().getTreasury() < amount)
-						{
 							filename = "data/html/chamberlain/chamberlain-vault-no.htm";
-						}
 						else
 						{
-							if (getCastle().addToTreasuryNoTax(-1 * amount)) {
+							if (getCastle().addToTreasuryNoTax(-1 * amount))
 								player.addAdena("Castle", amount, this, true);
-							}
 						}
 					}
 				}
@@ -369,9 +340,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			{
 				String filename = "";
 				if (CastleManorManager.getInstance().isDisabled())
-				{
 					filename = "data/html/npcdefault.htm";
-				}
 				else
 				{
 					int cmd = Integer.parseInt(val);
@@ -414,55 +383,44 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 				int state = Integer.parseInt(str.nextToken().split("=")[1]);
 				int time = Integer.parseInt(str.nextToken().split("=")[1]);
 				int castleId;
-				if (state == -1) {
+				if (state == -1)
 					castleId = getCastle().getCastleId();
-				} else {
+				else
 					// info for requested manor
 					castleId = state;
-				}
+
 				switch (ask)
 				{ // Main action
 					case 3: // Current seeds (Manor info)
-						if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved()) {
+						if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
 							player.sendPacket(new ExShowSeedInfo(castleId, null));
-						} else {
+						else
 							player.sendPacket(new ExShowSeedInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getSeedProduction(time)));
-						}
 						break;
 					case 4: // Current crops (Manor info)
-						if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved()) {
+						if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
 							player.sendPacket(new ExShowCropInfo(castleId, null));
-						} else {
+						else
 							player.sendPacket(new ExShowCropInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getCropProcure(time)));
-						}
 						break;
 					case 5: // Basic info (Manor info)
 						player.sendPacket(new ExShowManorDefaultInfo());
 						break;
 					case 7: // Edit seed setup
 						if (getCastle().isNextPeriodApproved())
-						{
 							player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
-						}
 						else
-						{
 							player.sendPacket(new ExShowSeedSetting(getCastle().getCastleId()));
-						}
 						break;
 					case 8: // Edit crop setup
 						if (getCastle().isNextPeriodApproved())
-						{
 							player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
-						}
 						else
-						{
 							player.sendPacket(new ExShowCropSetting(getCastle().getCastleId()));
-						}
 						break;
 				}
 			}
-			else if (actualCommand.equalsIgnoreCase("operate_door")) // door
-			// control
+			else if (actualCommand.equalsIgnoreCase("operate_door")) // door control
 			{
 				if (val != "")
 				{
@@ -479,13 +437,11 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 				player.sendPacket(html);
 				return;
 			}
-			else if (actualCommand.equalsIgnoreCase("tax_set")) // tax
-			// rates
-			// control
+			else if (actualCommand.equalsIgnoreCase("tax_set")) // tax rates control
 			{
-				if (val != "") {
+				if (val != "")
 					getCastle().setTaxPercent(player, Integer.parseInt(val));
-				}
+
 				TextBuilder msg = new TextBuilder("<html><body>");
 				msg.append(getName() + ":<br>");
 				msg.append("Current tax rate: " + getCastle().getTaxPercent() + "%<br>");
@@ -521,13 +477,10 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
 		{
-			if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/chamberlain/chamberlain-busy.htm"; // Busy
-			} else if (condition == COND_OWNER) {
-				filename = "data/html/chamberlain/chamberlain.htm"; // Owner
-			// message
-			// window
-			}
+			else if (condition == COND_OWNER)
+				filename = "data/html/chamberlain/chamberlain.htm"; // Owner message window
 		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
@@ -535,27 +488,6 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		html.replace("%npcId%", String.valueOf(getNpcId()));
 		html.replace("%npcname%", getName());
 		player.sendPacket(html);
-	}
-
-	private void doTeleport(L2PcInstance player, int val)
-	{
-		if (Config.DEBUG)
-			_log.warning("doTeleport(L2PcInstance player, int val) is called");
-
-		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
-		if (list != null)
-		{
-			if (player.reduceAdena("Teleport", list.getPrice(), this, true))
-			{
-				if (Config.DEBUG) {
-					_log.warning("Teleporting player " + player.getName() + " for Castle to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
-				}
-				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
-			}
-		} else {
-			_log.warning("No teleport destination with id:" + val);
-		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	protected int validateCondition(L2PcInstance player)

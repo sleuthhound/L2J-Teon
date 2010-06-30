@@ -38,7 +38,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -732,16 +731,6 @@ public class L2CharacterAI extends AbstractAI
 			if (_accessor.getActor() instanceof L2PcInstance)
 				((L2PcInstance) _accessor.getActor()).explore();
 		}
-		if (_actor != null)
-		{
-		// Currently done for NPCs only
-			Quest[] quests = null;
-			if (_actor instanceof L2NpcInstance)
-				quests = ((L2NpcInstance) _actor).getTemplate().getEventQuests(Quest.QuestEventType.ON_ARRIVED);
-			if (quests != null)
-				for (Quest quest: quests)
-					quest.notifyMoveFinished(_actor);
-			}
 
 		// If the Intention was AI_INTENTION_MOVE_TO, tet the Intention to AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)

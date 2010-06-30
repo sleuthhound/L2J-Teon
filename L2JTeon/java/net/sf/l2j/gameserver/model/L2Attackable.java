@@ -297,10 +297,6 @@ public class L2Attackable extends L2NpcInstance
 	private int _seedType = 0;
 	private L2PcInstance _seeder = null;
 
-	private boolean								_beenAttacked;
-	private int									_fleeing;
-	private L2CharPosition						_moveAroundPos;
-
 	/**
 	 * true if an over-hit enabled skill has successfully landed on the L2Attackable
 	 */
@@ -326,11 +322,6 @@ public class L2Attackable extends L2NpcInstance
 	private FastMap<L2PcInstance, AbsorberInfo> _absorbersList = new FastMap<L2PcInstance, AbsorberInfo>().shared();
 	/** Have this L2Attackable to reward Exp and SP on Die? * */
 	private boolean _mustGiveExpSp;
-
-	public static final int FLEEING_NOT_STARTED		= 0;
-	public static final int FLEEING_STARTED			= 1;
-	public static final int FLEEING_DONE_WAITING	= 2;
-	public static final int FLEEING_DONE_RETURNING	= 3;
 
 	/**
 	 * Constructor of L2Attackable (use L2Character and L2NpcInstance constructor).<BR>
@@ -2836,34 +2827,5 @@ public class L2Attackable extends L2NpcInstance
 		clearAggroList();
 		if (hasAI() && getSpawn() != null)
 			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
-	}
-
-	public boolean hasBeenAttacked()
-	{
-		return _beenAttacked;
-	}
-
-	public void setBeenAttacked(boolean has)
-	{
-		_beenAttacked = has;
-	}
-
-	public int getFleeingStatus()
-	{
-		return _fleeing;
-	}
-
-	public void setFleeingStatus(int fleeing)
-	{
-		_fleeing = fleeing;
-	}
-	public L2CharPosition getMoveAroundPos()
-	{
-		return _moveAroundPos;
-	}
-
-	public void setMoveAroundPos(L2CharPosition pos)
-	{
-		_moveAroundPos = pos;
 	}
 }

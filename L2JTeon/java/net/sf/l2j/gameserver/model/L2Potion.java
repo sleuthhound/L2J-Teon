@@ -56,9 +56,8 @@ public class L2Potion extends L2Object
 				{
 					double nowHp = _instance.getCurrentHp();
 					if (_duration == 0)
-					{
 						stopPotionHpRegeneration();
-					}
+
 					if (_duration != 0)
 					{
 						nowHp += _effect;
@@ -83,21 +82,17 @@ public class L2Potion extends L2Object
 	public void stopPotionHpRegeneration()
 	{
 		if (_potionhpRegTask != null)
-		{
 			_potionhpRegTask.cancel(false);
-		}
+
 		_potionhpRegTask = null;
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Potion HP regen stop");
-		}
 	}
 
 	public void setCurrentHpPotion2()
 	{
 		if (_duration == 0)
-		{
 			stopPotionHpRegeneration();
-		}
 	}
 
 	public void setCurrentHpPotion1(L2Character activeChar, int item)
@@ -110,18 +105,16 @@ public class L2Potion extends L2Object
 				double nowHp = activeChar.getCurrentHp();
 				nowHp += 435;
 				if (nowHp >= activeChar.getMaxHp())
-				{
 					nowHp = activeChar.getMaxHp();
-				}
+
 				activeChar.setCurrentHp(nowHp);
 				break;
 			case 728:
 				double nowMp = activeChar.getMaxMp();
 				nowMp += 435;
 				if (nowMp >= activeChar.getMaxMp())
-				{
 					nowMp = activeChar.getMaxMp();
-				}
+
 				activeChar.setCurrentMp(nowMp);
 				break;
 			case 726:
@@ -150,9 +143,8 @@ public class L2Potion extends L2Object
 				{
 					double nowMp = _instance.getCurrentMp();
 					if (_duration == 0)
-					{
 						stopPotionMpRegeneration();
-					}
+
 					if (_duration != 0)
 					{
 						nowMp += _effect;
@@ -172,29 +164,25 @@ public class L2Potion extends L2Object
 	private void startPotionMpRegeneration(L2Character activeChar)
 	{
 		_potionmpRegTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new PotionMpHealing(activeChar), 1000, _milliseconds);
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Potion MP regen Started");
-		}
 	}
 
 	public void stopPotionMpRegeneration()
 	{
 		if (_potionmpRegTask != null)
-		{
 			_potionmpRegTask.cancel(false);
-		}
+
 		_potionmpRegTask = null;
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Potion MP regen stop");
-		}
+
 	}
 
 	public void setCurrentMpPotion2()
 	{
 		if (_duration == 0)
-		{
 			stopPotionMpRegeneration();
-		}
 	}
 
 	public void setCurrentMpPotion1(L2Character activeChar, int item)

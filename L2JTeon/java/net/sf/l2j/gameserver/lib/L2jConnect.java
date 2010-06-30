@@ -76,4 +76,5 @@ public class L2jConnect
 			ioexc.printStackTrace();
 		}
 	}
+
 }

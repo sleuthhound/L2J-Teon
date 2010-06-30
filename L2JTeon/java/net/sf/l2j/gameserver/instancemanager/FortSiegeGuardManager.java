@@ -45,6 +45,7 @@ public class FortSiegeGuardManager
 	 */
 	public void spawnSiegeGuard()
 	{
+		loadSiegeGuard();
 		try
 		{
 			FastList<L2Spawn> monsterList = getSiegeGuardSpawn().get(getFort().getFortId());

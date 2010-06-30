@@ -512,14 +512,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				if (aggro + _globalAggro > 0)
 				{
 					// Set the L2Character movement type to run and send Server->Client packet ChangeMoveType to all others L2PcInstance
-					if (!_actor.isRunning()) {
+					if (!_actor.isRunning())
 						_actor.setRunning();
-					}
 
 					// Set the AI Intention to AI_INTENTION_ATTACK
 					setIntention(CtrlIntention.AI_INTENTION_ATTACK, hated);
 				}
-
 				return;
 			}
 
@@ -533,31 +531,27 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		}
 
 		// If this is a festival monster, then it remains in the same location.
-		if (_actor instanceof L2FestivalMonsterInstance) {
+		if (_actor instanceof L2FestivalMonsterInstance)
 			return;
-		}
 
 		// Check if the mob should not return to spawn point
-		if (!npc.canReturnToSpawnPoint()) {
+		if (!npc.canReturnToSpawnPoint())
 			return;
-		}
 
 		// Minions following leader
 		if (_actor instanceof L2MinionInstance && ((L2MinionInstance) _actor).getLeader() != null)
 		{
 			int offset;
 
-			if (_actor.isRaidMinion()) {
+			if (_actor.isRaidMinion())
 				offset = 500; // for Raids - need correction
-			} else {
+			else
 				offset = 200; // for normal minions - need correction :)
-			}
 
-			if (((L2MinionInstance) _actor).getLeader().isRunning()) {
+			if (((L2MinionInstance) _actor).getLeader().isRunning())
 				_actor.setRunning();
-			} else {
+			else
 				_actor.setWalking();
-			}
 
 			if (_actor.getPlanDistanceSq(((L2MinionInstance) _actor).getLeader()) > offset * offset)
 			{
@@ -577,15 +571,15 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					if (_actor.getFirstEffect(sk.getId()) == null)
 					{
 						// if clan buffs, don't buff every time
-						if (sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF && Rnd.nextInt(2) != 0) {
+						if (sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF && Rnd.nextInt(2) != 0)
 							continue;
-						}
-						if (_actor.getCurrentMp() < sk.getMpConsume()) {
+
+						if (_actor.getCurrentMp() < sk.getMpConsume())
 							continue;
-						}
-						if (_actor.isSkillDisabled(sk.getId())) {
+
+						if (_actor.isSkillDisabled(sk.getId()))
 							continue;
-						}
+
 						L2Object OldTarget = _actor.getTarget();
 						_actor.setTarget(_actor);
 						clientStopMoving(null);
@@ -665,20 +659,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 					y1 += Rnd.nextInt(range * 2) - range;
 					z1 = npc.getZ();
 				}
-				if (npc.getFleeingStatus() == L2Attackable.FLEEING_NOT_STARTED || npc.getMoveAroundPos() == null)
-				{
-					x1 = npc.getSpawn().getLocx();
-					y1 = npc.getSpawn().getLocy();
-					z1 = npc.getSpawn().getLocz();
-				}
-				else
-				{
-					x1 = npc.getMoveAroundPos().x;
-					y1 = npc.getMoveAroundPos().y;
-					z1 = npc.getMoveAroundPos().z;
-				}
 			}
-
 			//_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
 			// Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
 			moveTo(x1, y1, z1);
@@ -778,7 +759,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 									if (npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL) != null)
 									{
 										L2PcInstance player = originalAttackTarget instanceof L2PcInstance ? (L2PcInstance) originalAttackTarget : ((L2Summon) originalAttackTarget).getOwner();
-										for (Quest quest : npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL)) {
+										for (Quest quest : npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL))
+										{
 											quest.notifyFactionCall(npc, (L2NpcInstance) _actor, player, (originalAttackTarget instanceof L2Summon));
 										}
 									}
@@ -879,22 +861,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		if (_actor.isAttackingDisabled())
 			return;
 
-		switch (((L2Attackable) _actor).getFleeingStatus())
-		{
-		// 10 million
-		case L2Attackable.FLEEING_STARTED:
-		// 1 million
-		case L2Attackable.FLEEING_DONE_RETURNING:
-			return;
-		}
-
 		// Get 2 most hated chars
 		List<L2Character> hated = ((L2Attackable) _actor).get2MostHated();
 		if (_actor.isConfused())
 		{
-			if (hated != null) {
+			if (hated != null)
 				hated.set(0, originalAttackTarget); // effect handles selection
-			} else
+			else
 			{
 				hated = new FastList<L2Character>();
 				hated.add(originalAttackTarget);

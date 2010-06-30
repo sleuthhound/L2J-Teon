@@ -144,41 +144,38 @@ public abstract class L2Character extends L2Object
 	// =========================================================
 	// Data Field
 	private List<L2Character> _attackByList;
+	@SuppressWarnings("unused")
 	private volatile boolean _isCastingNow = false;
-	// private L2Character _attackingChar;
-	private L2Skill _lastSkillCast;
-	private boolean _isAfraid = false; // Flee in a random direction
-	private boolean _isConfused = false; // Attack anyone randomly
-	private boolean _isFakeDeath = false; // Fake death
-	private boolean _isFallsdown;
-	private boolean _isFlying = false; // Is flying Wyvern?
-	private boolean _isRaid = false;
-	private boolean _isMuted = false; // Cannot use magic
-	private boolean _isPsychicalMuted = false; // Cannot use psychical skills
-	private boolean _isKilledAlready = false;
-	private boolean _isImmobilized = false;
-	private boolean _isOverloaded = false; // the char is carrying too much
-	private boolean _isParalyzed = false;
-	private boolean _isPetrified = false;
-	private boolean _isRiding = false; // Is Riding strider?
-	private boolean _isPendingRevive = false;
-	private boolean _isRooted = false; // Cannot move until root timed out
-	private boolean _isRunning = false;
-	private boolean _isSleeping = false; // Cannot move/attack until
-	// sleep
-	// timed out or monster is attacked
-	private boolean _isStunned = false; // Cannot move/attack until stun timed
-	// out
-	private boolean _isImmobileUntilAttacked = false;
-	private boolean _isBetrayed = false; // Betrayed by own summon
-	private boolean _buffImmunity = false; // Immunity to buff/debuffs
-	protected boolean _showSummonAnimation = false;
-	protected boolean _isTeleporting = false;
-	private L2Character _lastBuffer = null;
-	protected boolean _isInvul = false;
-	private boolean _AIdisabled = false;
-	private boolean _isMinion = false;
-	private int _lastHealAmount = 0;
+	private L2Skill 	_lastSkillCast;
+	private boolean 	_isFallsdown;
+	private boolean 	_isAfraid 					= false; // Flee in a random direction
+	private boolean 	_isConfused 				= false; // Attack anyone randomly
+	private boolean 	_isFakeDeath 				= false; // Fake death
+	private boolean 	_isFlying 					= false; // Is flying Wyvern?
+	private boolean 	_isRaid 					= false;
+	private boolean 	_isMuted 					= false; // Cannot use magic
+	private boolean 	_isPsychicalMuted 			= false; // Cannot use psychical skills
+	private boolean 	_isKilledAlready 			= false;
+	private boolean		_isImmobilized 				= false;
+	private boolean		_isOverloaded 				= false; // the char is carrying too much
+	private boolean		_isParalyzed 				= false;
+	private boolean		_isPetrified 				= false;
+	private boolean		_isRiding 					= false; // Is Riding strider?
+	private boolean		_isPendingRevive 			= false;
+	private boolean		_isRooted 					= false; // Cannot move until root timed out
+	private boolean		_isRunning 					= false;
+	private boolean		_isSleeping 				= false; // Cannot move/attack until sleep timed out or monster is attacked
+	private boolean 	_isStunned 					= false; // Cannot move/attack until stun timed out
+	private boolean 	_isImmobileUntilAttacked 	= false;
+	private boolean 	_isBetrayed 				= false; // Betrayed by own summon
+	private boolean 	_buffImmunity 				= false; // Immunity to buff/debuffs
+	protected boolean 	_showSummonAnimation 		= false;
+	protected boolean 	_isTeleporting 				= false;
+	protected boolean 	_isInvul 					= false;
+	private boolean 	_AIdisabled 				= false;
+	private boolean 	_isMinion 					= false;
+	private int 		_lastHealAmount 			= 0;
+	private L2Character _lastBuffer 				= null;
 	private CharStat _stat;
 	private CharStatus _status;
 	private L2CharTemplate _template; // The link on the L2CharTemplate object
@@ -6689,6 +6686,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	// Quest event ON_SPELL_FINISHED
+	@SuppressWarnings("unused")
 	private void notifyQuestEventSkillFinished(L2Skill skill, L2Object target)
 	{
 		if (this instanceof L2NpcInstance)
@@ -6698,11 +6696,10 @@ public abstract class L2Character extends L2Object
 				if (((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED) != null)
 				{
 					L2PcInstance player = null;
-					if (this instanceof L2PcInstance) {
+					if (this instanceof L2PcInstance)
 						player = (L2PcInstance) this;
-					} else if (this instanceof L2Summon) {
+					else if (this instanceof L2Summon)
 						player = ((L2Summon) this).getOwner();
-					}
 
 					for (Quest quest : ((L2NpcTemplate) getTemplate()).getEventQuests(Quest.QuestEventType.ON_SPELL_FINISHED))
 					{
