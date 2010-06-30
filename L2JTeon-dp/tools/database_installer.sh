@@ -262,12 +262,14 @@ $MYG < ../sql/castle_doorupgrade.sql &> /dev/null
 $MYG < ../sql/castle_manor_procure.sql &> /dev/null
 $MYG < ../sql/castle_manor_production.sql &> /dev/null
 $MYG < ../sql/castle_siege_guards.sql &> /dev/null
+$MYG < ../sql/cch_guards.sql &> /dev/null
 $MYG < ../sql/char_templates.sql &> /dev/null
 $MYG < ../sql/character_blocklist.sql &> /dev/null
 $MYG < ../sql/character_colors.sql &> /dev/null
 $MYG < ../sql/character_friends.sql &> /dev/null
 $MYG < ../sql/character_hennas.sql &> /dev/null
 $MYG < ../sql/character_macroses.sql &> /dev/null
+$MYG < ../sql/character_pccafe_points.sql &> /dev/null
 $MYG < ../sql/character_quests.sql &> /dev/null
 $MYG < ../sql/character_raid_points.sql &> /dev/null
 $MYG < ../sql/character_recipebook.sql &> /dev/null
