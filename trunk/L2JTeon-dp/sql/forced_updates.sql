@@ -808,17 +808,6 @@ UPDATE `clanhall` SET `location` = 'Devastated' WHERE `id` = '34';
 -- Update existing NPCs
 UPDATE `npc` SET `type` = 'L2ClanHallManager' WHERE `id` = '35421';
 
--- Insert new NPCs
-INSERT IGNORE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
-	(75014,35419,'Hell''s Doorman',1,'',1,'Monster.human_ghost',10.00,20.00,70,'male','L2Doormen',40,11586,1319,13.43,3.09,40,43,30,21,20,10,490,0,2297,469,779,381,278,0,333,0,0,0,88,132,'gustav_clan',1000,1,0,'LAST_HIT');
-
--- Spawns
-INSERT IGNORE INTO `spawnlist` VALUES 
-	(NULL,'Devastated Castle - Clan Hall NPC',1,75014,178388,-18544,-2262,0,0,65268,60,0,'0'),
-	(NULL,'Devastated Castle - Clan Hall NPC',1,75014,178076,-18144,-2230,0,0,17352,60,0,'0'),
-	(NULL,'Devastated Castle - Clan Hall NPC',1,75014,178147,-15208,-2262,0,0,50449,60,0,'0'),
-	(NULL,'Devastated Castle - Clan Hall NPC',1,75014,178221,-14963,-2261,0,0,15911,60,0,'0');
-
 -- Insert new Teleports
 INSERT IGNORE INTO teleport VALUES 
 	('Clan Hall -> Town of Aden',75015,147450,28081,-2294,500,0),
