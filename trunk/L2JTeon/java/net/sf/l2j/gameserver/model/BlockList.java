@@ -45,6 +45,7 @@ public class BlockList
 {
 	private static final Logger _log = Logger.getLogger(BlockList.class.getName());
 	private final Set<String> _blockSet;
+	@SuppressWarnings("unused")
 	private boolean _blockAll;
 	private L2PcInstance _owner;
 

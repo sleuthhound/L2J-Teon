@@ -183,14 +183,14 @@ public class Quest extends ManagedScript
 		_questId = questId;
 		_name = name;
 		_descr = descr;
-		if (questId != 0) {
+		if (questId != 0)
 			QuestManager.getInstance().addQuest(Quest.this);
-		} else {
+		else
 			_allEventsS.put(name, this);
-		}
-		if (Config.DEBUG) {
+
+		if (Config.DEBUG)
 			_log.info("Loaded Script: " + name);
-		}
+
 		init_LoadGlobalData();
 	}
 
@@ -222,8 +222,7 @@ public class Quest extends ManagedScript
 		ON_SPELL_FINISHED(true), // on spell finished action when npc finish casting skill
 		ON_SKILL_LEARN(false), // control the AcquireSkill dialog from quest script
 		ON_ENTER_ZONE(true), // on zone enter
-		ON_EXIT_ZONE(true), // on zone exit
-		ON_ARRIVED(true); // on
+		ON_EXIT_ZONE(true); // on zone exit
 		// control whether this event type is allowed for the same npc template in multiple quests
 		// or if the npc must be registered in at most one quest for the specified event
 		private boolean _allowMultipleRegistration;
@@ -388,18 +387,16 @@ public class Quest extends ManagedScript
 	public void cancelQuestTimers(String name)
 	{
 		FastList<QuestTimer> timers = getQuestTimers(name);
-		if (timers == null) {
+		if (timers == null)
 			return;
-		}
+
 		try
 		{
 			_rwLock.writeLock().lock();
 			for (QuestTimer timer : timers)
 			{
 				if (timer != null)
-				{
 					timer.cancel();
-				}
 			}
 		}
 		finally
@@ -411,20 +408,19 @@ public class Quest extends ManagedScript
 	public void cancelQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
 	{
 		QuestTimer timer = getQuestTimer(name, npc, player);
-		if (timer != null) {
+		if (timer != null)
 			timer.cancel();
-		}
 	}
 
 	public void removeQuestTimer(QuestTimer timer)
 	{
-		if (timer == null) {
+		if (timer == null)
 			return;
-		}
+
 		FastList<QuestTimer> timers = getQuestTimers(timer.getName());
-		if (timers == null) {
+		if (timers == null)
 			return;
-		}
+
 		try
 		{
 			_rwLock.writeLock().lock();
@@ -586,24 +582,6 @@ public class Quest extends ManagedScript
 		return true;
 	}
 
-	public final boolean notifyMoveFinished(L2Character character)
-	{
-		L2PcInstance player = character.getActingPlayer();
-		String res = null;
-		try
-		{
-			res = onArrived(character);
-		}
-		catch (Exception e)
-		{
-			if (player != null)
-				return showError(player, e);
-			}
-		if (player != null)
-			return showResult(player, res);
-		return true;
-		}
-
 	public final boolean notifyAcquireSkillList(L2NpcInstance npc, L2PcInstance player)
 	{
 		String res = null;
@@ -729,11 +707,6 @@ public class Quest extends ManagedScript
 			}
 			showResult(_pc, res);
 		}
-	}
-
-	public String onArrived(L2Character character)
-	{
-		return null;
 	}
 
 	public final boolean notifyAggroRangeEnter(L2NpcInstance npc, L2PcInstance player, boolean isPet)

@@ -30,6 +30,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2SkillZone
 {
+	@SuppressWarnings("unused")
 	private static final Log _log = LogFactory.getLog(L2SkillZone.class.getName());
 	private final L2PcInstance _caster;
 	private final L2WorldRegion _region;
@@ -86,27 +87,25 @@ public class L2SkillZone
 			_count--;
 			if (!_standAlone)
 			{
-				if (!_caster.isCastingNow() || _caster.getCurrentSkill() == null || _triggerSkill.getId() != _caster.getCurrentSkill().getSkillId())
-				{
+				if (!_caster.isCastingNow() 
+						|| _caster.getCurrentSkill() == null 
+						|| _triggerSkill.getId() != _caster.getCurrentSkill().getSkillId())
 					return false;
-				}
 			}
 			return _count > 0;
 		}
 
 		public void run()
 		{
-			// global things
-			// effects
+			// global things effects
 			regionCheck(_region);
-			for (L2WorldRegion neighbour : _region.getSurroundingRegions()) {
+			for (L2WorldRegion neighbour : _region.getSurroundingRegions())
+			{
 				regionCheck(neighbour);
 			}
 			// scheduling
 			if (shouldContinue())
-			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new ZoneCheck(_count), _triggeredDelay);
-			}
 			else
 			{
 				// destroy of the zone

@@ -143,6 +143,7 @@ public class GameServer
 	public static GameServer gameServer;
 	private static ClanHallManager _cHManager;
     private final Shutdown _shutdownHandler;
+    @SuppressWarnings("unused")
 	private final ThreadPoolManager _threadpools;
 	private final DoorTable _doorTable;
 	private final SevenSigns _sevenSignsEngine;

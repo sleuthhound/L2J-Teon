@@ -13,7 +13,7 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.model.quest.ai;
-
+/*
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
@@ -188,4 +188,4 @@ public class SummonMinions extends Quest implements Runnable
 	{
     	//new SummonMinions(-1, "SummonMinions", "ai");
     }
-}
+}*/

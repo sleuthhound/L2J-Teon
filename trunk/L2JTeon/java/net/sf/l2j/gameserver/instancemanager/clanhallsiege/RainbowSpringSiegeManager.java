@@ -41,9 +41,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
-import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.CreatureSay2;
+import net.sf.l2j.gameserver.network.clientpackets.Say2;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
@@ -507,15 +507,13 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	}
 	public void anonce(String text)
 	{
-	       CreatureSay2 cs = new CreatureSay2(0, SystemChatChannelId.Chat_Shout, "Journal", text);
+			CreatureSay cs = new CreatureSay(0, Say2.SHOUT, "Messenger", text);
 			L2WorldRegion region = L2World.getInstance().getRegion(143944, -119196);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (region == L2World.getInstance().getRegion(player.getX(), player.getY())
+				if (region == L2World.getInstance().getRegion(player.getX(), player.getY()) 
 						&& (player.getInstanceId() == 0))
-				{
 					player.sendPacket(cs);
-				}
 			}
 	}
 
