@@ -121,6 +121,7 @@ public abstract class L2Item
 	private boolean _dropable;
 	private boolean _destroyable;
 	private boolean _tradeable;
+	private final boolean _depositable;
 	@SuppressWarnings("unchecked")
 	protected final Enum _type;
 	protected FuncTemplate[] _funcTemplates;
@@ -165,6 +166,7 @@ public abstract class L2Item
 		_dropable = set.getBool("dropable", true);
 		_destroyable = set.getBool("destroyable", true);
 		_tradeable = set.getBool("tradeable", true);
+		_depositable = set.getBool("depositable", true);
 	}
 
 	/**
@@ -447,6 +449,15 @@ public abstract class L2Item
 		return _tradeable;
 	}
 
+	/**
+	 * Returns if the item can be put into warehouse
+	 * @return boolean
+	 */
+	public final boolean isDepositable()
+	{
+		return _depositable;
+	}
+
 	public final void setTradeable(boolean value)
 	{
 		_tradeable = value;
@@ -661,10 +672,8 @@ public abstract class L2Item
 		{
 			int len = _skills.length;
 			L2Skill[] tmp = new L2Skill[len + 1];
-			// Definition : arraycopy(array source, begins copy at this
-			// position
-			// of source, array destination, begins copy at this position in
-			// dest,
+			// Definition : arraycopy(array source, begins copy at this position
+			// of source, array destination, begins copy at this position in dest,
 			// number of components to be copied)
 			System.arraycopy(_skills, 0, tmp, 0, len);
 			tmp[len] = skill;
