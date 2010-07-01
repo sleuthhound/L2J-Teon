@@ -1484,4 +1484,22 @@ public final class L2ItemInstance extends L2Object
 	{
 		_donatorRentedItem = value;
 	}
+
+	/**
+	 * Returns if item can be deposited in warehouse or freight
+	 * @return boolean
+	 */
+	public boolean isDepositable(boolean isPrivateWareHouse)
+	{
+		// equipped, hero and quest items
+		if (isEquipped() || !_item.isDepositable())
+			return false;
+		if (!isPrivateWareHouse)
+		{
+			// augmented not tradeable
+			if (!isTradeable() || isShadowItem())
+				return false;
+		}
+		return true;
+	}
 }

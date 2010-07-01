@@ -81,7 +81,9 @@ public final class L2SiegeBossInstance extends L2MonsterInstance
 		super.reduceCurrentHp(damage, attacker, awake);
 		if (this.getNpcId() == 35368)
 		{
-			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getClan() != null)
+			if (attacker instanceof L2PcInstance 
+					&& ((L2PcInstance) attacker).getClan() != null 
+					&& FortResistSiegeManager.getInstance().getIsInProgress())
 				FortResistSiegeManager.getInstance().addSiegeDamage(((L2PcInstance) attacker).getClan(), damage);
 		}
 	}
