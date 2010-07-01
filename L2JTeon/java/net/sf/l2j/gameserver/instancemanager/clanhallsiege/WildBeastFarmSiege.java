@@ -72,7 +72,7 @@ public class WildBeastFarmSiege extends ClanHallSiege
 
 	private WildBeastFarmSiege()
 	{
-		_log.info("SiegeManager of Wild Beasts Farm");
+		_log.info("ClanHallSiege: Wild Beasts Farm");
 		long siegeDate = restoreSiegeDate(63);
 		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);

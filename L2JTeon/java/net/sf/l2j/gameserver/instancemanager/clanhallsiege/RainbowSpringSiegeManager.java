@@ -58,31 +58,23 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RainbowSpringSiegeManager extends ClanHallSiege
 {
-	protected static Log					_log				= LogFactory.getLog(RainbowSpringSiegeManager.class.getName());
+	protected static Log							_log						= LogFactory.getLog(RainbowSpringSiegeManager.class.getName());
+	private boolean									_registrationPeriod			= false;
+	public ClanHall 								clanhall 					= ClanHallManager.getInstance().getClanHallById(62);
+	private Map<Integer, clanPlayersInfo>			_clansInfo					= new HashMap<Integer, clanPlayersInfo>();
+	private L2NpcInstance[]							eti 						= new L2NpcInstance[] {null, null, null, null };
+	private L2HotSpringSquashInstance[]				squash 						= new L2HotSpringSquashInstance[] { null, null, null, null};
 	
+	private FastList<L2ChestInstance> 				arena1chests 				= new FastList<L2ChestInstance>();
+	private FastList<L2ChestInstance> 				arena2chests 				= new FastList<L2ChestInstance>();
+	private FastList<L2ChestInstance> 				arena3chests 				= new FastList<L2ChestInstance>();
+	private FastList<L2ChestInstance> 				arena4chests 				= new FastList<L2ChestInstance>();
+
+	private int[] 									arenaChestsCnt 				= {0, 0, 0, 0};
+	private FastList<Integer> 						_playersOnArena 			= new FastList<Integer>();
+	private int 									currArena;
+	private L2NpcInstance 							teleporter;
 	private static RainbowSpringSiegeManager		_instance;
-	private boolean							_registrationPeriod	= false;
-	public ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(62);
-	private Map<Integer, clanPlayersInfo>		_clansInfo		= new HashMap<Integer, clanPlayersInfo>();
-	private L2NpcInstance[]	eti = new L2NpcInstance[]{null,null,null,null};
-	private L2HotSpringSquashInstance[]	squash = new L2HotSpringSquashInstance[]{null,null,null,null};
-	private int[] arenaChestsCnt = {0,0,0,0};
-	private int currArena;
-	private FastList<Integer> _playersOnArena = new FastList<Integer>();
-	private L2NpcInstance teleporter;
-	
-	private FastList<L2ChestInstance> arena1chests = new FastList<L2ChestInstance>();
-	private FastList<L2ChestInstance> arena2chests = new FastList<L2ChestInstance>();
-	private FastList<L2ChestInstance> arena3chests = new FastList<L2ChestInstance>();
-	private FastList<L2ChestInstance> arena4chests = new FastList<L2ChestInstance>();
-	
-	public static final RainbowSpringSiegeManager load()
-	{
-		_log.info("Siege of Rainbow Springs Chateau");
-		if (_instance == null)
-			_instance = new RainbowSpringSiegeManager();
-		return _instance;
-	}
 
 	public static final RainbowSpringSiegeManager getInstance()
 	{
@@ -93,8 +85,9 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	
 	private RainbowSpringSiegeManager()
 	{
-		long siegeDate=restoreSiegeDate(62);
-		Calendar tmpDate=Calendar.getInstance();
+		_log.info("ClanHallSiege: Rainbow Springs Chateau");
+		long siegeDate = restoreSiegeDate(62);
+		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
 		setSiegeDate(tmpDate);
 		setNewSiegeDate(siegeDate,62,22);
@@ -105,12 +98,12 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	{
 		if(_startSiegeTask.isScheduled())
 			_startSiegeTask.cancel();
-		if(_clansInfo.size()==0)
+		if(_clansInfo.size() == 0)
 		{
 			endSiege(false);
 			return;
 		}
-		if (_clansInfo.size()>4)
+		if (_clansInfo.size() > 4)
 		{
 			for (int x = 1;x < _clansInfo.size()-4; x++)
 			{
@@ -118,16 +111,16 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 				int minVal = Integer.MAX_VALUE;
 				for (clanPlayersInfo cl: _clansInfo.values())
 				{
-					if(cl._decreeCnt<minVal)
+					if(cl._decreeCnt < minVal)
 					{
-						minVal=cl._decreeCnt;
-						minClan=cl;
+						minVal = cl._decreeCnt;
+						minClan = cl;
 					}
 				}
 				_clansInfo.remove(minClan);
 			}
 		}
-		else if (_clansInfo.size()<2)
+		else if (_clansInfo.size() < 2)
 		{
 			shutdown();
 			anonce("Attention! Clan Hall, Palace Rainbow Sources did not receive new Owner");			
@@ -139,7 +132,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 			if (sp.getTemplate().getNpcId() == 35603)
 				teleporter = sp.getLastSpawn();
 		}
-		currArena=0;
+		currArena = 0;
 		setIsInProgress(true);		
 		anonce("Attention! competition for the clan hall, the Palace Rainbow Sources will start 5 minutes.");
 		anonce("Attention! representatives of the clan must enter the arena.");
@@ -147,7 +140,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		{
 			L2Clan clan = ClanTable.getInstance().getClanByName(cl._clanName);
 			L2PcInstance clanLeader = clan.getLeader().getPlayerInstance();
-			if (clanLeader!=null)
+			if (clanLeader != null)
 				clanLeader.sendMessage("Your clan takes part in the competition. go to the arena.");
 		}
 		_firstStepSiegeTask.schedule(60000*5);
@@ -161,7 +154,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	{
 		L2NpcTemplate template;
 		template = NpcTable.getInstance().getTemplate(35596);
-		for (int x=0;x<=3;x++)
+		for (int x = 0;x <= 3; x++)
 		{
 			eti[x] = new L2NpcInstance(IdFactory.getInstance().getNextId(),template);
 			eti[x].getStatus().setCurrentHpMp(eti[x].getMaxHp(), eti[x].getMaxMp());			
@@ -171,7 +164,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		eti[2].spawnMe(151560, -127075, -2221);
 		eti[3].spawnMe(156657, -125753, -2221);
 		template = NpcTable.getInstance().getTemplate(35588);
-		for (int x=0;x<=3;x++)
+		for (int x = 0;x <= 3; x++)
 		{
 			squash[x] = new L2HotSpringSquashInstance(IdFactory.getInstance().getNextId(),template);
 			squash[x].getStatus().setCurrentHpMp(squash[x].getMaxHp(), squash[x].getMaxMp());			
@@ -181,11 +174,11 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		squash[2].spawnMe(151560+50, -127075+50, -2221);
 		squash[3].spawnMe(156657+50, -125753+50, -2221);
 		
-		int mobs[]={35593};
-		int item[]={8035,8037,8039,8040,8046,8047,8050,8051,8052,8053,8054};
-		int cnt[]={1,1,1,1,1,1,1,1,1,1,1};
-		int chance[]={400,400,400,400,400,400,400,400,400,400,400};
-		EventsDropManager.getInstance().addRule("RainbowSpring", ruleType.BY_NPCID,mobs,item,cnt,chance,false);		
+		int mobs[] = {35593};
+		int item[] = {8035, 8037, 8039, 8040, 8046, 8047, 8050, 8051, 8052, 8053, 8054};
+		int cnt[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+		int chance[] = { 400, 400, 400, 400, 400, 400, 400, 400, 400, 400, 400};
+		EventsDropManager.getInstance().addRule("RainbowSpring", ruleType.BY_NPCID, mobs, item, cnt, chance, false);		
 		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ChestsSpawn(), 5000, 5000);
 	}
 	
@@ -215,13 +208,13 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 
 	public void exchangeItem(L2PcInstance player,int val)
 	{
-		if (val==1) //WATERS
+		if (val == 1) //WATERS
 		{
-			if (player.destroyItemByItemId("Quest", 8054, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8035, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8052, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8039, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8050, 1, player, true)&&
+			if (player.destroyItemByItemId("Quest", 8054, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8035, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8052, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8039, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8050, 1, player, true) &&
 					player.destroyItemByItemId("Quest", 8051, 1, player, true))
 			{
 				L2ItemInstance item = player.getInventory().addItem("Quest", 8032, 1, player, player.getTarget());
@@ -236,13 +229,13 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 				return;
 			}
 		}
-		if (val==2) //WATERS
+		if (val == 2) //WATERS
 		{
-			if (player.destroyItemByItemId("Quest", 8054, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8035, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8052, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8039, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8050, 1, player, true)&&
+			if (player.destroyItemByItemId("Quest", 8054, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8035, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8052, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8039, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8050, 1, player, true) &&
 					player.destroyItemByItemId("Quest", 8051, 1, player, true))
 			{
 				L2ItemInstance item = player.getInventory().addItem("Quest", 8031, 1, player, player.getTarget());
@@ -258,13 +251,13 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 			}
 		}
 
-		if (val==3) //NECTAR
+		if (val == 3) //NECTAR
 		{
-			if (player.destroyItemByItemId("Quest", 8047, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8039, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8037, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8052, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8035, 1, player, true)&&
+			if (player.destroyItemByItemId("Quest", 8047, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8039, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8037, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8052, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8035, 1, player, true) &&
 					player.destroyItemByItemId("Quest", 8050, 1, player, true))
 			{
 				L2ItemInstance item = player.getInventory().addItem("Quest", 8030, 1, player, player.getTarget());
@@ -279,12 +272,12 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 				return;
 			}
 		}
-		if (val==4) //SULFUR
+		if (val == 4) //SULFUR
 		{
-			if (player.destroyItemByItemId("Quest", 8051, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8053, 2, player, true)&&
-					player.destroyItemByItemId("Quest", 8046, 1, player, true)&&
-					player.destroyItemByItemId("Quest", 8040, 1, player, true)&&
+			if (player.destroyItemByItemId("Quest", 8051, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8053, 2, player, true) &&
+					player.destroyItemByItemId("Quest", 8046, 1, player, true) &&
+					player.destroyItemByItemId("Quest", 8040, 1, player, true) &&
 					player.destroyItemByItemId("Quest", 8050, 1, player, true))
 			{
 				L2ItemInstance item = player.getInventory().addItem("Quest", 8033, 1, player, player.getTarget());
@@ -303,14 +296,10 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	
 	public boolean usePotion(L2PlayableInstance activeChar,int potionId)
 	{
-		if (activeChar instanceof L2PcInstance
-				&& isPlayerInArena((L2PcInstance)activeChar)
-				&& (activeChar.getTarget() instanceof L2NpcInstance)
-				&& (((L2NpcInstance)activeChar.getTarget()).getTemplate().getNpcId()==35596))
-		{
-			
+		if (activeChar instanceof L2PcInstance && isPlayerInArena((L2PcInstance)activeChar) && activeChar.getTarget() instanceof L2NpcInstance
+				&& ((L2NpcInstance)activeChar.getTarget()).getTemplate().getNpcId() == 35596)
 			return true;
-		}
+
 		return false;
 	}
 	
@@ -318,46 +307,46 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	{
 		public void run()
 		{
-			if (arenaChestsCnt[0]<4)
+			if (arenaChestsCnt[0] < 4)
 			{
 				L2NpcTemplate template;
 				template = NpcTable.getInstance().getTemplate(35593);
-				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(),template);
+				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(), template);
 				newChest.getStatus().setCurrentHpMp(newChest.getMaxHp(), newChest.getMaxMp());
-				newChest.spawnMe(153129+Rnd.get(-400, 400), -125337+Rnd.get(-400, 400), -2221);
+				newChest.spawnMe(153129 + Rnd.get(-400, 400), -125337 + Rnd.get(-400, 400), -2221);
 				newChest.setSpecialDrop();				
 				arena1chests.add(newChest);
 				arenaChestsCnt[0]++;
 			}
-			if (arenaChestsCnt[1]<4)
+			if (arenaChestsCnt[1] < 4)
 			{
 				L2NpcTemplate template;
 				template = NpcTable.getInstance().getTemplate(35593);
-				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(),template);
+				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(), template);
 				newChest.getStatus().setCurrentHpMp(newChest.getMaxHp(), newChest.getMaxMp());
-				newChest.spawnMe(153884+Rnd.get(-400, 400), -127534+Rnd.get(-400, 400), -2221);
+				newChest.spawnMe(153884 + Rnd.get(-400, 400), -127534 + Rnd.get(-400, 400), -2221);
 				newChest.setSpecialDrop();				
 				arena2chests.add(newChest);
 				arenaChestsCnt[1]++;
 			}
-			if (arenaChestsCnt[2]<4)
+			if (arenaChestsCnt[2] < 4)
 			{
 				L2NpcTemplate template;
 				template = NpcTable.getInstance().getTemplate(35593);
-				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(),template);
+				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(), template);
 				newChest.getStatus().setCurrentHpMp(newChest.getMaxHp(), newChest.getMaxMp());
-				newChest.spawnMe(151560+Rnd.get(-400, 400), -127075+Rnd.get(-400, 400), -2221);
+				newChest.spawnMe(151560 + Rnd.get(-400, 400), -127075 + Rnd.get(-400, 400), -2221);
 				newChest.setSpecialDrop();				
 				arena3chests.add(newChest);
 				arenaChestsCnt[2]++;
 			}
-			if (arenaChestsCnt[3]<4)
+			if (arenaChestsCnt[3] < 4)
 			{
 				L2NpcTemplate template;
 				template = NpcTable.getInstance().getTemplate(35593);
-				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(),template);
+				L2ChestInstance newChest = new L2ChestInstance(IdFactory.getInstance().getNextId(), template);
 				newChest.getStatus().setCurrentHpMp(newChest.getMaxHp(), newChest.getMaxMp());
-				newChest.spawnMe(155657+Rnd.get(-400, 400), -125753+Rnd.get(-400, 400), -2221);
+				newChest.spawnMe(155657 + Rnd.get(-400, 400), -125753 + Rnd.get(-400, 400), -2221);
 				newChest.setSpecialDrop();				
 				arena4chests.add(newChest);
 				arenaChestsCnt[3]++;
@@ -373,7 +362,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		for (int id : _playersOnArena)
 		{
 			L2PcInstance pl = L2World.getInstance().findPlayer(id);
-			if (pl!=null)
+			if (pl != null)
 				pl.teleToLocation(150717, -124818, -2355);
 		}
 		_playersOnArena = new FastList<Integer>();
@@ -390,31 +379,31 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	}
 	public boolean isClanOnSiege(L2Clan playerClan)
 	{
-		if (playerClan==clanhall.getOwnerClan())
-			return true;		
+		if (playerClan == clanhall.getOwnerClan())
+			return true;
+
 		clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
 		if (regPlayers == null)
-		{
 			return false;
-		}
+
 		return true;
 	}
 	public synchronized int registerClanOnSiege(L2PcInstance player,L2Clan playerClan)
 	{
-		L2ItemInstance item=player.getInventory().getItemByItemId(8034);
-		int itemCnt=0;
-		if (item!=null)
+		L2ItemInstance item = player.getInventory().getItemByItemId(8034);
+		int itemCnt = 0;
+		if (item != null)
 		{
 			itemCnt = item.getCount();
 			if (player.destroyItem("RegOnSiege", item.getObjectId(), itemCnt, player, true))
 			{
-				_log.info("Rainbow Springs Chateau: registered clan "+playerClan.getName()+" get: "+itemCnt+" decree.");
+				_log.info("Rainbow Springs Chateau: registered clan " + playerClan.getName() + " get: " + itemCnt + " decree.");
 				clanPlayersInfo regPlayers = _clansInfo.get(playerClan.getClanId());
 				if (regPlayers == null)
 				{
 					regPlayers = new clanPlayersInfo();
-					regPlayers._clanName=playerClan.getName();
-					regPlayers._decreeCnt=itemCnt;
+					regPlayers._clanName = playerClan.getName();
+					regPlayers._decreeCnt = itemCnt;
 					_clansInfo.put(playerClan.getClanId(), regPlayers);
 				}
 			}
@@ -441,21 +430,21 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 	{
 		L2Clan clan = pl.getClan();
 		L2Party party = pl.getParty(); 
-		if (clan==null || party==null)
+		if (clan == null || party == null)
 			return false;
-		if (!isClanOnSiege(clan)
-				|| !getIsInProgress()
-				|| currArena>3
-				|| !pl.isClanLeader()
-				|| party.getMemberCount()<5)
+
+		if (!isClanOnSiege(clan) || !getIsInProgress()
+				|| currArena > 3 || !pl.isClanLeader()
+				|| party.getMemberCount() < 5)
 			return false;
 		
 		clanPlayersInfo ci = _clansInfo.get(clan.getClanId());
-		if (ci==null)
+		if (ci == null)
 			return false;
+
 		for (L2PcInstance pm : party.getPartyMembers())
 		{
-			if (pm==null || pm.getRangeToTarget(teleporter)>500)
+			if (pm == null || pm.getRangeToTarget(teleporter) > 500)
 				return false;
 		}
 			
@@ -464,23 +453,23 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		
 		for (L2PcInstance pm : party.getPartyMembers())
 		{
-			if(pm.getPet()!=null)
+			if(pm.getPet() != null)
 				pm.getPet().unSummon(pm);
 			_playersOnArena.add(pm.getObjectId());
 			
 			switch (ci._arenaNumber)
 			{
 			case 0:
-				pm.teleToLocation(153129+Rnd.get(-400, 400), -125337+Rnd.get(-400, 400), -2221);
+				pm.teleToLocation(153129 + Rnd.get(-400, 400), -125337 + Rnd.get(-400, 400), -2221);
 				break;
 			case 1:
-				pm.teleToLocation(153884+Rnd.get(-400, 400), -127534+Rnd.get(-400, 400), -2221);				
+				pm.teleToLocation(153884 + Rnd.get(-400, 400), -127534 + Rnd.get(-400, 400), -2221);				
 				break;
 			case 2:
-				pm.teleToLocation(151560+Rnd.get(-400, 400), -127075+Rnd.get(-400, 400), -2221);				
+				pm.teleToLocation(151560 + Rnd.get(-400, 400), -127075 + Rnd.get(-400, 400), -2221);				
 				break;
 			case 3:
-				pm.teleToLocation(155657+Rnd.get(-400, 400), -125753+Rnd.get(-400, 400), -2221);				
+				pm.teleToLocation(155657 + Rnd.get(-400, 400), -125753 + Rnd.get(-400, 400), -2221);				
 				break;
 			}
 		}
@@ -492,8 +481,8 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		L2Clan playerClan = player.getClan();
 		if(_clansInfo.containsKey(playerClan.getClanId()))
 		{
-			int decreeCnt = _clansInfo.get(playerClan.getClanId())._decreeCnt/2;
-			if (decreeCnt>0)
+			int decreeCnt = _clansInfo.get(playerClan.getClanId())._decreeCnt / 2;
+			if (decreeCnt > 0)
 			{
 				L2ItemInstance item = player.getInventory().addItem("UnRegOnSiege", 8034, decreeCnt, player, player.getTarget());
 				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
@@ -505,6 +494,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		}
 		return false;		
 	}
+
 	public void anonce(String text)
 	{
 			CreatureSay cs = new CreatureSay(0, Say2.SHOUT, "Messenger", text);
@@ -512,7 +502,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
 				if (region == L2World.getInstance().getRegion(player.getX(), player.getY()) 
-						&& (player.getInstanceId() == 0))
+						&& player.getInstanceId() == 0)
 					player.sendPacket(cs);
 			}
 	}
@@ -524,10 +514,10 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 			for(clanPlayersInfo cl:_clansInfo.values())
 			{
 				L2Clan clan = ClanTable.getInstance().getClanByName(cl._clanName);
-				if (clan!=null && cl._decreeCnt>0)
+				if (clan != null && cl._decreeCnt>0)
 				{
 					L2PcInstance pl = L2World.getInstance().getPlayer(clan.getLeaderName());
-					if (pl!=null)
+					if (pl != null)
 						pl.sendMessage("In the repository Klan returned evidenced by participation in the War of the clan hall hot spring");
 					clan.getWarehouse().addItem("revert", 8034, cl._decreeCnt, null, null);
 				}
@@ -536,12 +526,11 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 		for (int id : _playersOnArena)
 		{
 			L2PcInstance pl = L2World.getInstance().findPlayer(id);
-			if (pl!=null)
+			if (pl != null)
 				pl.teleToLocation(150717, -124818, -2355);
 		}
 	}
-	
-	
+
 	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
 	{
 		@Override
@@ -552,12 +541,12 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 				cancel();
 				return;
 			}
-			Calendar siegeStart=Calendar.getInstance();
+			Calendar siegeStart = Calendar.getInstance();
 			siegeStart.setTimeInMillis(getSiegeDate().getTimeInMillis());
 			final long registerTimeRemaining = siegeStart.getTimeInMillis() - System.currentTimeMillis();
 			siegeStart.add(Calendar.HOUR, 1);
 			final long siegeTimeRemaining = siegeStart.getTimeInMillis() - System.currentTimeMillis();
-			long remaining=registerTimeRemaining;
+			long remaining = registerTimeRemaining;
 			if (registerTimeRemaining <= 0)
 			{
 				if (!isRegistrationPeriod())
@@ -565,7 +554,7 @@ public class RainbowSpringSiegeManager extends ClanHallSiege
 					setRegistrationPeriod(true);
 					anonce("Attention! A period of registration at the siege of the clan hall, the Palace Rainbow sources.");
 					anonce("Attention! Battle of the clan hall, the Palace Rainbow Sources begin an hour later.");
-					remaining=siegeTimeRemaining;
+					remaining = siegeTimeRemaining;
 				}
 			}
 			if (siegeTimeRemaining <= 0)

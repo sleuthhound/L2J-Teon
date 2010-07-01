@@ -27,9 +27,8 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeBossInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -46,9 +45,8 @@ public class CHSiegeGuardsManager extends ClanHallSiege
 	protected L2Spawn _gustavSpawn = null;
 
 	protected List<L2NpcInstance> _SiegeGuard = new FastList<L2NpcInstance>();
-	protected List<L2MonsterInstance> _SiegeGuard1 = new FastList<L2MonsterInstance>();
-	protected L2GrandBossInstance _lidiaHellmann = null;
-	protected L2GrandBossInstance _gustav = null;
+	protected L2SiegeBossInstance _lidiaHellmann = null;
+	protected L2SiegeBossInstance _gustav = null;
 
 	private static final int GUSTAV = 35410;
 	private static final int GMINION1 = 35408;
@@ -166,7 +164,7 @@ public class CHSiegeGuardsManager extends ClanHallSiege
 			_lidiaHellmann.deleteMe();
 		}
 		else {
-			_lidiaHellmann = (L2GrandBossInstance) _lidiaHellmannSpawn.doSpawn();
+			_lidiaHellmann = (L2SiegeBossInstance) _lidiaHellmannSpawn.doSpawn();
 			_lidiaHellmann.setIsImmobilized(false);
 			_lidiaHellmann.setIsInvul(false);
 		}
@@ -358,7 +356,7 @@ public class CHSiegeGuardsManager extends ClanHallSiege
 
 	protected void spawnGustav()
 	{
-		_gustav = (L2GrandBossInstance) _gustavSpawn.doSpawn();
+		_gustav = (L2SiegeBossInstance) _gustavSpawn.doSpawn();
 		_gustav.setIsImmobilized(false);
 		_gustav.setIsInvul(false);
 		spawnDCSiegeGuards();
