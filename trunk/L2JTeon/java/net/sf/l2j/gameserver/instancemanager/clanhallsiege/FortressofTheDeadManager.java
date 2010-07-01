@@ -51,24 +51,16 @@ import org.apache.commons.logging.LogFactory;
 
 public class FortressofTheDeadManager extends ClanHallSiege
 {
-	protected static Log _log = LogFactory.getLog(FortressofTheDeadManager.class.getName());
-	public ClanHall _clanhall = ClanHallManager.getInstance().getClanHallById(64);
-	private FastList<L2SiegeClan> _registeredClans = new FastList<L2SiegeClan>();	// L2SiegeClan
-	private FastList<L2DoorInstance> _doors = new FastList<L2DoorInstance>();
-	private FastList<String> _doorDefault = new FastList<String>();
-	private L2ClanHallSiegeZone _zone = null;	
-	private L2MonsterInstance _questMob = null;
-	protected boolean _isRegistrationOver	= false;
+	protected static Log					_log					= LogFactory.getLog(FortressofTheDeadManager.class.getName());
+	public ClanHall							_clanhall				= ClanHallManager.getInstance().getClanHallById(64);
+	private FastList<L2SiegeClan>			_registeredClans		= new FastList<L2SiegeClan>();	// L2SiegeClan
+	private FastList<L2DoorInstance>		_doors					= new FastList<L2DoorInstance>();
+	private FastList<String>				_doorDefault			= new FastList<String>();
+	private L2ClanHallSiegeZone				_zone					= null;	
+	private L2MonsterInstance				_questMob				= null;
+	protected boolean						_isRegistrationOver		= false;
 
 	private static FortressofTheDeadManager	_instance;
-
-	public static final FortressofTheDeadManager load()
-	{
-		_log.info("SiegeManager of Fortres Of Dead");
-		if (_instance == null)
-			_instance = new FortressofTheDeadManager();
-		return _instance;
-	}
 
 	public static final FortressofTheDeadManager getInstance()
 	{
@@ -79,8 +71,9 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	private FortressofTheDeadManager()
 	{
-		long siegeDate=restoreSiegeDate(64);
-		Calendar tmpDate=Calendar.getInstance();
+		_log.info("Fortres of The Dead Siege");
+		long siegeDate = restoreSiegeDate(64);
+		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
 		setSiegeDate(tmpDate);
 		setNewSiegeDate(siegeDate,64,22);
@@ -129,12 +122,12 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		if (getIsInProgress())
 		{
 			setIsInProgress(false);
-			if (par!=null)
+			if (par != null)
 			{
 				if (par instanceof L2PcInstance)
 				{
-					L2PcInstance killer=((L2PcInstance)par);
-					if ((killer.getClan()!=null)&& (checkIsRegistered(killer.getClan())))
+					L2PcInstance killer = (L2PcInstance)par;
+					if (killer.getClan() != null && checkIsRegistered(killer.getClan()))
 					{
 						ClanHallManager.getInstance().setOwner(_clanhall.getId(), killer.getClan());
 						announceToPlayer("The Siege Clan Hall: " + _clanhall.getName () + " finished.");
@@ -158,7 +151,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 			_zone.updateSiegeStatus();
 			updatePlayerSiegeStateFlags(true);
 			clearSiegeClan(); // Clear siege clan from db
-			if (_clanhall.getOwnerClan()!=null)
+			if (_clanhall.getOwnerClan() != null)
 				saveSiegeClan(_clanhall.getOwnerClan());
 			setNewSiegeDate(getSiegeDate().getTimeInMillis(),64,22);
 			_startSiegeTask.schedule(1000);
@@ -238,7 +231,6 @@ public class FortressofTheDeadManager extends ClanHallSiege
 				DoorTable.getInstance().putDoor(door);
 				door.closeMe();
 			}
-
 			rs.close();
 			statement.close();
 		}
@@ -260,7 +252,8 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		}
 	}
 
-	private final ExclusiveTask _endSiegeTask = new ExclusiveTask() {
+	private final ExclusiveTask _endSiegeTask = new ExclusiveTask()
+	{
 		@Override
 		protected void onElapsed()
 		{
@@ -425,8 +418,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	public final boolean checkIsRegistered(L2Clan clan)
 	{
-		if (clan == null)
-			return false;
+		if (clan == null) return false;
 
 		Connection con = null;
 		boolean register = false;
@@ -546,8 +538,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	public void removeSiegeClan(int clanId)
 	{
-		if (clanId <= 0)
-			return;
+		if (clanId <= 0) return;
 
 		Connection con = null;
 		try
@@ -634,48 +625,3 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		player.sendPacket(new SiegeInfo(null,_clanhall,getSiegeDate()));
 	}
 }
-
-/*	public L2NpcInstance addSpawn(int npcId)
-	{
-		return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, 0);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, int despawnDelay)
-	{
-		return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, despawnDelay);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, int x, int y, int z)
-	{
-		return addSpawn(npcId, x, y, z, 0, false, 0);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, L2Character cha)
-	{
-		return addSpawn(npcId, cha, true, 0);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, L2Character cha, int despawnDelay)
-	{
-		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), true, despawnDelay);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int despawnDelay)
-	{
-		return addSpawn(npcId, x, y, z, 0, false, despawnDelay);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, L2Character cha, boolean randomOffset, int despawnDelay)
-	{
-		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), randomOffset, despawnDelay);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay)
-	{
-		return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, false);
-	}
-
-	public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int heading, boolean randomOffset, int despawnDelay, boolean isSummonSpawn)
-	{
-		return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay, isSummonSpawn);
-	}*/

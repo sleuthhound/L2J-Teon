@@ -81,6 +81,7 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.EventsDropManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
@@ -273,11 +274,11 @@ public class GameServer
 		_cHManager = ClanHallManager.getInstance();
 		Util.printSection("Clan Hall Sieges");
 		BanditStrongholdSiege.getInstance();
-		DevastatedCastleManager.load();
+		DevastatedCastleManager.getInstance();
 		FortResistSiegeManager.getInstance();
-		FortressofTheDeadManager.load();
+		FortressofTheDeadManager.getInstance();
 		CHSiegeGuardsManager.getInstance().init();
-		RainbowSpringSiegeManager.load();
+		RainbowSpringSiegeManager.getInstance();
 		WildBeastFarmSiege.getInstance();
 		Util.printSection("Zones");
 		ZoneManager.getInstance();
@@ -326,6 +327,7 @@ public class GameServer
 		// Spawn the Orators/Preachers if in the Seal Validation period.
 		_sevenSignsEngine.spawnSevenSignsNPC();
 		Util.printSection("Event Drop");
+		EventsDropManager.getInstance();
 		EventDroplist.getInstance();
 		if (Config.SAVE_DROPPED_ITEM)
 		{
