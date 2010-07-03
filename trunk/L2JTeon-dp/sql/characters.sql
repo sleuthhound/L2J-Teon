@@ -88,7 +88,8 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `withdraw_cwh` int(1) NOT NULL DEFAULT 0,
   `koof` decimal(1,0) NOT NULL DEFAULT 0,
   `noob` decimal(1,0) NOT NULL DEFAULT 0,
- PRIMARY KEY  (`obj_Id`),
+  `pccafe` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY  (`obj_Id`),
   KEY `clanid` (`clanid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 #----------------------------
