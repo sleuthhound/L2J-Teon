@@ -712,17 +712,9 @@ public class L2Attackable extends L2NpcInstance
 							{
 								long addexp = Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null));
 								int addsp = (int) attacker.calcStat(Stats.EXPSP_RATE, sp, null, null);
-
+								attacker.addExpAndSp(addexp, addsp);
 								if (attacker instanceof L2PcInstance)
-								{
-									if (addexp > 0)
 									PcCafePointsManager.getInstance().givePcCafePoint(((L2PcInstance) attacker), addexp);
-								}
-								else
-									attacker.addExpAndSp(addexp, addsp);
-/*								long addexp = Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null));
-								int addsp = (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null);
-								attacker.addExpAndSp(addexp,addsp);*/
 							}
 						}
 					}
