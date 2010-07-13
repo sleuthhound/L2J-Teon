@@ -24,9 +24,18 @@
  */
 package net.sf.l2j.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javolution.io.UTF8StreamReader;
+import javolution.io.UTF8StreamWriter;
 import javolution.text.TextBuilder;
 
 import org.apache.commons.logging.Log;
@@ -224,5 +233,99 @@ public class Util
 		printRuntimeInfo();
 		printJreInfo();
 		printJvmInfo();
+	}
+
+	private static final String DATE_FORMAT = "yyyy/MM/dd HH:mm (E)";
+
+	public static String dateFormat()
+	{
+		return new java.text.SimpleDateFormat(DATE_FORMAT).format(new java.util.Date());
+	}
+
+	public static String dateFormat(long d)
+	{
+		return new java.text.SimpleDateFormat(DATE_FORMAT).format(new java.util.Date(d));
+	}
+
+	public static String dateFormat(java.util.Date d)
+	{
+		return new java.text.SimpleDateFormat(DATE_FORMAT).format(d);
+	}
+
+	public static String dateFormat(java.util.Calendar d)
+	{
+		return new java.text.SimpleDateFormat(DATE_FORMAT).format(d.getTime());
+	}
+
+	public static String strTimeLeft(int time)
+	{
+		if (time % 86400 == 0) return (time / 86400) + "";
+		if (time %  3600 == 0) return (time /  3600) + "";
+		if (time %    60 == 0) return (time /    60) + "";
+		return time + "";
+	}
+
+	public static String strTime(int time)
+	{
+		if (time == 0) return "";
+		StringBuilder sb = new StringBuilder();
+		long n;
+		if ((n = time / 86400) > 0)
+		{
+			sb.append(n).append("");
+			time %= 86400;
+		}
+		if ((n = time / 3600) > 0)
+		{
+			sb.append(n).append("");
+			time %=  3600;
+		}
+		if ((n = time / 60) > 0)
+		{ 
+			sb.append(n).append("");
+			time %= 60;
+		}
+		if ((n = time) > 0)
+		{ 
+			sb.append(n).append("");
+		}
+		return sb.toString();
+	}
+
+	public static String strMillTime(long milliTime)
+	{
+		if (milliTime == 0) return milliTime + "";
+		if (milliTime <= 999) return milliTime + "";
+		return strTime((int)((milliTime + 999) / 1000));
+	}
+
+	public static BufferedReader utf8BufferedReader(String name) throws FileNotFoundException
+	{
+		return skipBOM(new BufferedReader(new UTF8StreamReader().setInput(new FileInputStream(name))));
+	}
+	public static BufferedReader utf8BufferedReader(File file) throws FileNotFoundException
+	{
+		return skipBOM(new BufferedReader(new UTF8StreamReader().setInput(new FileInputStream(file))));
+	}
+	public static UTF8StreamWriter utf8StreamWriter(String name) throws FileNotFoundException
+	{
+		return new UTF8StreamWriter().setOutput(new FileOutputStream(name));
+	}
+
+	public static UTF8StreamWriter utf8StreamWriter(File file) throws FileNotFoundException
+	{
+		return new UTF8StreamWriter().setOutput(new FileOutputStream(file));
+	}
+
+	private static BufferedReader skipBOM(BufferedReader reader)
+	{
+		return reader;
+	}
+
+	public static String getStackTrace(Throwable t)
+	{
+		StringWriter sw = new StringWriter();
+		t.printStackTrace(new PrintWriter(sw));
+		return sw.toString();
 	}
 }

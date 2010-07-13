@@ -15,7 +15,6 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.instancemanager.BenomManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -70,12 +69,6 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-
-		if(getNpcId() == 29054)
-		{
-			BenomManager.getInstance().onKillBenom();
-		}
-
 		if (!super.doDie(killer))
 			return false;
 

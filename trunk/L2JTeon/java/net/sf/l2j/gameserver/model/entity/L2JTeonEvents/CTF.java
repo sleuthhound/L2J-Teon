@@ -62,24 +62,43 @@ public class CTF
 {
 	private final static Log _log = LogFactory.getLog(CTF.class.getName());
 	private static int _FlagNPC = 35062, _FLAG_IN_HAND_ITEM_ID = 6718;
-	public static String _eventName = new String(), _eventDesc = new String(), _topTeam = new String(), _joiningLocationName = new String();
-	public static Vector<String> _teams = new Vector<String>(), _savePlayers = new Vector<String>(), _savePlayerTeams = new Vector<String>();
-	public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>(), _playersShuffle = new Vector<L2PcInstance>();
-	public static Vector<Integer> _teamPlayersCount = new Vector<Integer>(), _teamColors = new Vector<Integer>(), _teamsX = new Vector<Integer>(), _teamsY = new Vector<Integer>(), _teamsZ = new Vector<Integer>();
+	public static String _eventName = new String(), _eventDesc = new String(), 
+	_topTeam = new String(), 
+	_joiningLocationName = new String();
+
+	public static Vector<String> _teams = new Vector<String>(), 
+	_savePlayers = new Vector<String>(), 
+	_savePlayerTeams = new Vector<String>();
+
+	public static Vector<L2PcInstance> _players = new Vector<L2PcInstance>(), 
+	_playersShuffle = new Vector<L2PcInstance>();
+
+	public static Vector<Integer> _teamPlayersCount = new Vector<Integer>(), 
+	_teamColors = new Vector<Integer>(), _teamsX = new Vector<Integer>(),
+	_teamsY = new Vector<Integer>(), _teamsZ = new Vector<Integer>();
+
 	public static boolean _joining = false, _teleport = false, _started = false, _sitForced = false;
+
 	public static L2Spawn _npcSpawn;
-	public static int _npcId = 0, _npcX = 0, _npcY = 0, _npcZ = 0, _npcHeading = 0, _rewardId = 0, _rewardAmount = 0, _minlvl = 0, _maxlvl = 0, _joinTime = 0, _eventTime = 0, _minPlayers = 0, _maxPlayers = 0;
+
+	public static int _npcId = 0, _npcX = 0, _npcY = 0, _npcZ = 0, _npcHeading = 0, _rewardId = 0, 
+	_rewardAmount = 0, _minlvl = 0, _maxlvl = 0, _joinTime = 0, _eventTime = 0, _minPlayers = 0, _maxPlayers = 0;
+
 	public static Vector<Integer> _teamPointsCount = new Vector<Integer>();
+
 	public static Vector<Integer> _flagIds = new Vector<Integer>(), _flagsX = new Vector<Integer>(), _flagsY = new Vector<Integer>(), _flagsZ = new Vector<Integer>();
+
 	public static Vector<L2Spawn> _flagSpawns = new Vector<L2Spawn>(), _throneSpawns = new Vector<L2Spawn>();
+
 	public static Vector<Boolean> _flagsTaken = new Vector<Boolean>();
+
 	public static int _topScore = 0, eventCenterX = 0, eventCenterY = 0, eventCenterZ = 0, eventOffset = 0;
 
 	public static void showFlagHtml(L2PcInstance eventPlayer, String objectId, String teamName)
 	{
-		if (eventPlayer == null) {
+		if (eventPlayer == null)
 			return;
-		}
+
 		try
 		{
 			NpcHtmlMessage adminReply = new NpcHtmlMessage(5);

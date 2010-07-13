@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -23,7 +24,6 @@ import java.util.logging.Logger;
 
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
@@ -150,7 +150,7 @@ public class Auction
 	/** Load auctions */
 	private void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -182,13 +182,7 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -198,7 +192,7 @@ public class Auction
 		_highestBidderId = 0;
 		_highestBidderName = "";
 		_highestBidderMaxBid = 0;
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -226,13 +220,7 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -247,9 +235,8 @@ public class Auction
 			saveAuctionDate();
 		}
 		else
-		{
 			taskDelay = _endDate - currentTime;
-		}
+
 		ThreadPoolManager.getInstance().scheduleGeneral(new AutoEndTask(), taskDelay);
 	}
 
@@ -261,7 +248,7 @@ public class Auction
 	/** Save Auction Data End */
 	private void saveAuctionDate()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -277,13 +264,7 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -294,7 +275,8 @@ public class Auction
 		if (getHighestBidderName().equals(bidder.getClan().getLeaderName()))
 			requiredAdena = bid - getHighestBidderMaxBid();
 
-		if (getHighestBidderId() > 0 && bid > getHighestBidderMaxBid() || getHighestBidderId() == 0 && bid >= getStartingBid())
+		if (getHighestBidderId() > 0 && bid > getHighestBidderMaxBid() 
+				|| getHighestBidderId() == 0 && bid >= getStartingBid())
 		{
 			if (takeItem(bidder, 57, requiredAdena))
 			{
@@ -330,7 +312,7 @@ public class Auction
 	/** Update auction in DB */
 	private void updateInDB(L2PcInstance bidder, int bid)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -360,17 +342,13 @@ public class Auction
 				statement.execute();
 				statement.close();
 				if (L2World.getInstance().getPlayer(_highestBidderName) != null)
-				{
 					L2World.getInstance().getPlayer(_highestBidderName).sendMessage("You have been out bidded");
-				}
 			}
 			_highestBidderId = bidder.getClanId();
 			_highestBidderMaxBid = bid;
 			_highestBidderName = bidder.getClan().getLeaderName();
 			if (_bidders.get(_highestBidderId) == null)
-			{
 				_bidders.put(_highestBidderId, new Bidder(_highestBidderName, bidder.getClan().getName(), bid, Calendar.getInstance().getTimeInMillis()));
-			}
 			else
 			{
 				_bidders.get(_highestBidderId).setBid(bid);
@@ -385,20 +363,14 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
 	/** Remove bids */
 	private void removeBids()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -414,27 +386,16 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 		for (Bidder b : _bidders.values())
 		{
 			if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() == 0)
-			{
-				returnItem(b.getClanName(), 57, 9 * b.getBid() / 10, false); // 10 %
-				// tax
-			}
+				returnItem(b.getClanName(), 57, 9 * b.getBid() / 10, false); // 10 % tax
 			else
 			{
 				if (L2World.getInstance().getPlayer(b.getName()) != null)
-				{
 					L2World.getInstance().getPlayer(b.getName()).sendMessage("Congratulation you have won ClanHall!");
-				}
 			}
 			ClanTable.getInstance().getClanByName(b.getClanName()).setAuctionBiddedAt(0, true);
 		}
@@ -445,7 +406,7 @@ public class Auction
 	public void deleteAuctionFromDB()
 	{
 		AuctionManager.getInstance().getAuctions().remove(this);
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -461,20 +422,15 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
 	/** End of auction */
 	public void endAuction()
 	{
-		if (GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded())
+		if (ClanHallManager.getInstance().loaded())
+		//if (GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded())
 		{
 			if (_highestBidderId == 0 && _sellerId == 0)
 			{
@@ -512,7 +468,7 @@ public class Auction
 	/** Cancel bid */
 	public void cancelBid(int bidder)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -529,13 +485,7 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 		returnItem(_bidders.get(bidder).getClanName(), 57, _bidders.get(bidder).getBid(), true);
 		ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0, true);
@@ -554,7 +504,7 @@ public class Auction
 	public void confirmAuction()
 	{
 		AuctionManager.getInstance().getAuctions().add(this);
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -582,13 +532,7 @@ public class Auction
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 

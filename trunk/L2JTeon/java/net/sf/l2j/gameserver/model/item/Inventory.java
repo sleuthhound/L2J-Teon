@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.item;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -47,8 +48,6 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  */
 public abstract class Inventory extends ItemContainer
 {
-	// protected static final Logger _log =
-	// Logger.getLogger(Inventory.class.getName());
 	public interface PaperdollListener
 	{
 		public void notifyEquiped(int slot, L2ItemInstance inst);
@@ -87,32 +86,27 @@ public abstract class Inventory extends ItemContainer
 	{
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
-			if (!(getOwner() != null && getOwner() instanceof L2PcInstance)) {
+			if (!(getOwner() != null && getOwner() instanceof L2PcInstance))
 				return;
-			}
+
 			L2PcInstance owner = (L2PcInstance) getOwner();
-			if (item.getItemId() == 6408) {
+			if (item.getItemId() == 6408)
 				owner.setIsWearingFormalWear(false);
-			}
 		}
 
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
-			if (!(getOwner() != null && getOwner() instanceof L2PcInstance)) {
+			if (!(getOwner() != null && getOwner() instanceof L2PcInstance))
 				return;
-			}
+
 			L2PcInstance owner = (L2PcInstance) getOwner();
-			// If player equip Formal Wear unequip weapons and abort
-			// cast/attack
+			// If player equip Formal Wear unequip weapons and abort cast/attack
 			if (item.getItemId() == 6408)
-			{
 				owner.setIsWearingFormalWear(true);
-			}
 			else
 			{
-				if (!owner.isWearingFormalWear()) {
+				if (!owner.isWearingFormalWear())
 					return;
-				}
 			}
 		}
 	}
@@ -142,9 +136,8 @@ public abstract class Inventory extends ItemContainer
 		 */
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
-			if (!_changed.contains(item)) {
+			if (!_changed.contains(item))
 				_changed.add(item);
-			}
 		}
 
 		/**
@@ -152,9 +145,8 @@ public abstract class Inventory extends ItemContainer
 		 */
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
-			if (!_changed.contains(item)) {
+			if (!_changed.contains(item))
 				_changed.add(item);
-			}
 		}
 
 		/**
@@ -172,35 +164,33 @@ public abstract class Inventory extends ItemContainer
 	{
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
-			if (slot != PAPERDOLL_LRHAND) {
+			if (slot != PAPERDOLL_LRHAND)
 				return;
-			}
-			if (Config.ASSERT) {
+
+			if (Config.ASSERT)
 				assert null == getPaperdollItem(PAPERDOLL_LRHAND);
-			}
+
 			if (item.getItemType() == L2WeaponType.BOW)
 			{
 				L2ItemInstance arrow = getPaperdollItem(PAPERDOLL_LHAND);
-				if (arrow != null) {
+				if (arrow != null)
 					setPaperdollItem(PAPERDOLL_LHAND, null);
-				}
 			}
 		}
 
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
-			if (slot != PAPERDOLL_LRHAND) {
+			if (slot != PAPERDOLL_LRHAND)
 				return;
-			}
-			if (Config.ASSERT) {
+
+			if (Config.ASSERT)
 				assert item == getPaperdollItem(PAPERDOLL_LRHAND);
-			}
+
 			if (item.getItemType() == L2WeaponType.BOW)
 			{
 				L2ItemInstance arrow = findArrowForBow(item.getItem());
-				if (arrow != null) {
+				if (arrow != null)
 					setPaperdollItem(PAPERDOLL_LHAND, arrow);
-				}
 			}
 		}
 	}
@@ -209,17 +199,17 @@ public abstract class Inventory extends ItemContainer
 	{
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
-			if (slot == PAPERDOLL_LRHAND) {
+			if (slot == PAPERDOLL_LRHAND)
 				return;
-			}
+
 			getOwner().removeStatsOwner(item);
 		}
 
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
-			if (slot == PAPERDOLL_LRHAND) {
+			if (slot == PAPERDOLL_LRHAND)
 				return;
-			}
+
 			getOwner().addStatFuncs(item.getStatFuncs(getOwner()));
 		}
 	}
@@ -230,11 +220,10 @@ public abstract class Inventory extends ItemContainer
 		{
 			L2PcInstance player;
 			if (getOwner() instanceof L2PcInstance)
-			{
 				player = (L2PcInstance) getOwner();
-			} else {
+			else
 				return;
-			}
+
 			L2Skill passiveSkill = null;
 			L2Skill enchant4Skill = null;
 			L2Item it = item.getItem();
@@ -253,9 +242,9 @@ public abstract class Inventory extends ItemContainer
 					player.removeSkill(SkillTable.getInstance().getInfo(3262, 1), false);
 				}
 			}
-			else if (it instanceof L2Armor) {
+			else if (it instanceof L2Armor)
 				passiveSkill = ((L2Armor) it).getSkill();
-			}
+
 			if (passiveSkill != null)
 			{
 				player.removeSkill(passiveSkill, false);
@@ -272,24 +261,23 @@ public abstract class Inventory extends ItemContainer
 		{
 			L2PcInstance player;
 			if (getOwner() instanceof L2PcInstance)
-			{
 				player = (L2PcInstance) getOwner();
-			} else {
+			else
 				return;
-			}
+
 			L2Skill passiveSkill = null;
 			L2Skill enchant4Skill = null;
 			L2Item it = item.getItem();
 			if (it instanceof L2Weapon)
 			{
 				// Apply augmentation bonuses on equip
-				if (item.isAugmented() && getOwner() instanceof L2PcInstance) {
+				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().applyBonus((L2PcInstance) getOwner());
-				}
+
 				passiveSkill = ((L2Weapon) it).getSkill();
-				if (item.getEnchantLevel() >= 4) {
+				if (item.getEnchantLevel() >= 4)
 					enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
-				}
+
 				if (it.getItemId() == 9140 || it.getItemId() == 9141)
 				{
 					player.addSkill(SkillTable.getInstance().getInfo(3260, 1), false);
@@ -297,9 +285,9 @@ public abstract class Inventory extends ItemContainer
 					player.addSkill(SkillTable.getInstance().getInfo(3262, 1), false);
 				}
 			}
-			else if (it instanceof L2Armor) {
+			else if (it instanceof L2Armor)
 				passiveSkill = ((L2Armor) it).getSkill();
-			}
+
 			if (passiveSkill != null)
 			{
 				player.addSkill(passiveSkill, false);
@@ -317,20 +305,20 @@ public abstract class Inventory extends ItemContainer
 	{
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
-			if (!(getOwner() instanceof L2PcInstance)) {
+			if (!(getOwner() instanceof L2PcInstance))
 				return;
-			}
+
 			L2PcInstance player = (L2PcInstance) getOwner();
 			// checks if player worns chest item
 			L2ItemInstance chestItem = getPaperdollItem(PAPERDOLL_CHEST);
-			if (chestItem == null) {
+			if (chestItem == null)
 				return;
-			}
+
 			// checks if there is armorset for chest item that player worns
 			L2ArmorSet armorSet = ArmorSetsTable.getInstance().getSet(chestItem.getItemId());
-			if (armorSet == null) {
+			if (armorSet == null)
 				return;
-			}
+
 			// checks if equiped item is part of set
 			if (armorSet.containItem(slot, item.getItemId()))
 			{
@@ -341,9 +329,9 @@ public abstract class Inventory extends ItemContainer
 					{
 						player.addSkill(skill, false);
 						player.sendSkillList();
-					} else {
+					} else
 						_log.warning("Inventory.ArmorSetListener: Incorrect skill: " + armorSet.getSkillId() + ".");
-					}
+
 					if (armorSet.containShield(player)) // has shield from set
 					{
 						L2Skill skills = SkillTable.getInstance().getInfo(armorSet.getShieldSkillId(), 1);
@@ -351,13 +339,10 @@ public abstract class Inventory extends ItemContainer
 						{
 							player.addSkill(skills, false);
 							player.sendSkillList();
-						} else {
+						} else
 							_log.warning("Inventory.ArmorSetListener: Incorrect skill: " + armorSet.getShieldSkillId() + ".");
-						}
 					}
-					if (armorSet.isEnchanted6(player)) // has all parts of set
-					// enchanted to 6 or
-					// more
+					if (armorSet.isEnchanted6(player)) // has all parts of set enchanted to 6 or more
 					{
 						int skillId = armorSet.getEnchant6skillId();
 						if (skillId > 0)
@@ -367,9 +352,8 @@ public abstract class Inventory extends ItemContainer
 							{
 								player.addSkill(skille, false);
 								player.sendSkillList();
-							} else {
+							} else
 								_log.warning("Inventory.ArmorSetListener: Incorrect skill: " + armorSet.getEnchant6skillId() + ".");
-							}
 						}
 					}
 				}
@@ -383,18 +367,17 @@ public abstract class Inventory extends ItemContainer
 					{
 						player.addSkill(skills, false);
 						player.sendSkillList();
-					} else {
+					} else
 						_log.warning("Inventory.ArmorSetListener: Incorrect skill: " + armorSet.getShieldSkillId() + ".");
-					}
 				}
 			}
 		}
 
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
-			if (!(getOwner() instanceof L2PcInstance)) {
+			if (!(getOwner() instanceof L2PcInstance))
 				return;
-			}
+
 			L2PcInstance player = (L2PcInstance) getOwner();
 			boolean remove = false;
 			int removeSkillId1 = 0; // set skill
@@ -403,9 +386,9 @@ public abstract class Inventory extends ItemContainer
 			if (slot == PAPERDOLL_CHEST)
 			{
 				L2ArmorSet armorSet = ArmorSetsTable.getInstance().getSet(item.getItemId());
-				if (armorSet == null) {
+				if (armorSet == null)
 					return;
-				}
+
 				remove = true;
 				removeSkillId1 = armorSet.getSkillId();
 				removeSkillId2 = armorSet.getShieldSkillId();
@@ -414,13 +397,13 @@ public abstract class Inventory extends ItemContainer
 			else
 			{
 				L2ItemInstance chestItem = getPaperdollItem(PAPERDOLL_CHEST);
-				if (chestItem == null) {
+				if (chestItem == null)
 					return;
-				}
+
 				L2ArmorSet armorSet = ArmorSetsTable.getInstance().getSet(chestItem.getItemId());
-				if (armorSet == null) {
+				if (armorSet == null)
 					return;
-				}
+
 				if (armorSet.containItem(slot, item.getItemId())) // removed part of set
 				{
 					remove = true;
@@ -439,29 +422,26 @@ public abstract class Inventory extends ItemContainer
 				if (removeSkillId1 != 0)
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId1, 1);
-					if (skill != null) {
+					if (skill != null)
 						player.removeSkill(skill);
-					} else {
+					else
 						_log.warning("Inventory.ArmorSetListener: Incorrect skill: " + removeSkillId1 + ".");
-					}
 				}
 				if (removeSkillId2 != 0)
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId2, 1);
-					if (skill != null) {
+					if (skill != null)
 						player.removeSkill(skill);
-					} else {
+					else
 						_log.warning("Inventory.ArmorSetListener: Incorrect skill: " + removeSkillId2 + ".");
-					}
 				}
 				if (removeSkillId3 != 0)
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId3, 1);
-					if (skill != null) {
+					if (skill != null)
 						player.removeSkill(skill);
-					} else {
+					else
 						_log.warning("Inventory.ArmorSetListener: Incorrect skill: " + removeSkillId3 + ".");
-					}
 				}
 				player.sendSkillList();
 			}
@@ -511,9 +491,9 @@ public abstract class Inventory extends ItemContainer
 	{
 		synchronized (item)
 		{
-			if (!_items.contains(item)) {
+			if (!_items.contains(item))
 				return null;
-			}
+
 			removeItem(item);
 			item.setOwnerId(process, 0, actor, reference);
 			item.setLocation(ItemLocation.VOID);
@@ -542,9 +522,9 @@ public abstract class Inventory extends ItemContainer
 	public L2ItemInstance dropItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
 	{
 		L2ItemInstance item = getItemByObjectId(objectId);
-		if (item == null) {
+		if (item == null)
 			return null;
-		}
+
 		// Adjust item quantity and create new instance to drop
 		if (item.getCount() > count)
 		{
@@ -557,9 +537,8 @@ public abstract class Inventory extends ItemContainer
 			return item;
 		}
 		// Directly drop entire item
- else {
+		else
 			return dropItem(process, item, actor, reference);
-		}
 	}
 
 	/**
@@ -573,9 +552,8 @@ public abstract class Inventory extends ItemContainer
 	protected void addItem(L2ItemInstance item)
 	{
 		super.addItem(item);
-		if (item.isEquipped()) {
+		if (item.isEquipped())
 			equipItem(item);
-		}
 	}
 
 	/**
@@ -590,10 +568,10 @@ public abstract class Inventory extends ItemContainer
 		// Unequip item if equiped
 		// if (item.isEquipped())
 		// unEquipItemInSlotAndRecord(item.getEquipSlot());
-		for (int i = 0; i < _paperdoll.length; i++) {
-			if (_paperdoll[i] == item) {
+		for (int i = 0; i < _paperdoll.length; i++)
+		{
+			if (_paperdoll[i] == item)
 				unEquipItemInSlot(i);
-			}
 		}
 		super.removeItem(item);
 	}
@@ -669,14 +647,13 @@ public abstract class Inventory extends ItemContainer
 	public int getPaperdollItemId(int slot)
 	{
 		L2ItemInstance item = _paperdoll[slot];
-		if (item != null) {
+		if (item != null)
 			return item.getItemId();
-		} else if (slot == PAPERDOLL_HAIR)
+		else if (slot == PAPERDOLL_HAIR)
 		{
 			item = _paperdoll[PAPERDOLL_DHAIR];
-			if (item != null) {
+			if (item != null)
 				return item.getItemId();
-			}
 		}
 		return 0;
 	}
@@ -686,11 +663,10 @@ public abstract class Inventory extends ItemContainer
 		L2ItemInstance item = _paperdoll[slot];
 		if (item != null)
 		{
-			if (item.getAugmentation() != null) {
+			if (item.getAugmentation() != null)
 				return item.getAugmentation().getAugmentationId();
-			} else {
+			else
 				return 0;
-			}
 		}
 		return 0;
 	}
@@ -705,14 +681,13 @@ public abstract class Inventory extends ItemContainer
 	public int getPaperdollObjectId(int slot)
 	{
 		L2ItemInstance item = _paperdoll[slot];
-		if (item != null) {
+		if (item != null)
 			return item.getObjectId();
-		} else if (slot == PAPERDOLL_HAIR)
+		else if (slot == PAPERDOLL_HAIR)
 		{
 			item = _paperdoll[PAPERDOLL_DHAIR];
-			if (item != null) {
+			if (item != null)
 				return item.getObjectId();
-			}
 		}
 		return 0;
 	}
@@ -725,9 +700,9 @@ public abstract class Inventory extends ItemContainer
 	 */
 	public synchronized void addPaperdollListener(PaperdollListener listener)
 	{
-		if (Config.ASSERT) {
+		if (Config.ASSERT)
 			assert !_paperdollListeners.contains(listener);
-		}
+
 		_paperdollListeners.add(listener);
 	}
 
@@ -767,18 +742,16 @@ public abstract class Inventory extends ItemContainer
 				for (int i = 0; i < PAPERDOLL_LRHAND; i++)
 				{
 					L2ItemInstance pi = _paperdoll[i];
-					if (pi != null) {
+					if (pi != null)
 						mask |= pi.getItem().getItemMask();
-					}
 				}
 				_wearedMask = mask;
-				// Notify all paperdoll listener in order to unequip old item in
-				// slot
+				// Notify all paperdoll listener in order to unequip old item in slot
 				for (PaperdollListener listener : _paperdollListeners)
 				{
-					if (listener == null) {
+					if (listener == null)
 						continue;
-					}
+
 					listener.notifyUnequiped(slot, old);
 				}
 				old.updateDatabase();
@@ -790,7 +763,8 @@ public abstract class Inventory extends ItemContainer
 				item.setLocation(getEquipLocation(), slot);
 				item.setLastChange(L2ItemInstance.MODIFIED);
 				_wearedMask |= item.getItem().getItemMask();
-				for (PaperdollListener listener : _paperdollListeners) {
+				for (PaperdollListener listener : _paperdollListeners)
+				{
 					listener.notifyEquiped(slot, item);
 				}
 				item.updateDatabase();
@@ -886,9 +860,8 @@ public abstract class Inventory extends ItemContainer
 		try
 		{
 			unEquipItemInBodySlot(slot);
-			if (getOwner() instanceof L2PcInstance) {
+			if (getOwner() instanceof L2PcInstance)
 				((L2PcInstance) getOwner()).refreshExpertisePenalty();
-			}
 		}
 		finally
 		{
@@ -922,9 +895,8 @@ public abstract class Inventory extends ItemContainer
 		try
 		{
 			unEquipItemInSlot(slot);
-			if (getOwner() instanceof L2PcInstance) {
+			if (getOwner() instanceof L2PcInstance)
 				((L2PcInstance) getOwner()).refreshExpertisePenalty();
-			}
 		}
 		finally
 		{
@@ -941,9 +913,9 @@ public abstract class Inventory extends ItemContainer
 	 */
 	private void unEquipItemInBodySlot(int slot)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("--- unequip body slot:" + slot);
-		}
+
 		int pdollSlot = -1;
 		switch (slot)
 		{
@@ -970,8 +942,7 @@ public abstract class Inventory extends ItemContainer
 				break;
 			case L2Item.SLOT_DHAIR:
 				setPaperdollItem(PAPERDOLL_HAIR, null);
-				setPaperdollItem(PAPERDOLL_FACE, null);// this should be the
-				// same as in DHAIR
+				setPaperdollItem(PAPERDOLL_FACE, null);// this should be the same as in DHAIR
 				pdollSlot = PAPERDOLL_DHAIR;
 				break;
 			case L2Item.SLOT_HEAD:
@@ -1004,14 +975,12 @@ public abstract class Inventory extends ItemContainer
 				break;
 			case L2Item.SLOT_LR_HAND:
 				setPaperdollItem(PAPERDOLL_LHAND, null);
-				setPaperdollItem(PAPERDOLL_RHAND, null);// this should be the
-				// same as in LRHAND
+				setPaperdollItem(PAPERDOLL_RHAND, null);// this should be the same as in LRHAND
 				pdollSlot = PAPERDOLL_LRHAND;
 				break;
 		}
-		if (pdollSlot >= 0) {
+		if (pdollSlot >= 0)
 			setPaperdollItem(pdollSlot, null);
-		}
 	}
 
 	/**
@@ -1043,9 +1012,9 @@ public abstract class Inventory extends ItemContainer
 	 */
 	public synchronized void equipItem(L2ItemInstance item)
 	{
-		if (getOwner() instanceof L2PcInstance && ((L2PcInstance) getOwner()).getPrivateStoreType() != 0) {
+		if (getOwner() instanceof L2PcInstance && ((L2PcInstance) getOwner()).getPrivateStoreType() != 0)
 			return;
-		}
+
 		if (getOwner() instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance) getOwner();
@@ -1055,14 +1024,13 @@ public abstract class Inventory extends ItemContainer
 				player.sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_EQUIP_ITEM_WHEN_PK_COUNT_GREATER_OR_EQUAL_THAN_ONE));
 				return;
 			}
-			if (!player.isGM()) {
+			if (!player.isGM())
+			{
 				if (!player.isHero())
 				{
 					int itemId = item.getItemId();
 					if (itemId >= 6611 && itemId <= 6621 || itemId == 6842)
-					{
 						return;
-					}
 				}
 			}
 		}
@@ -1078,9 +1046,7 @@ public abstract class Inventory extends ItemContainer
 					setPaperdollItem(PAPERDOLL_LHAND, null);
 				}
 				else
-				{
 					setPaperdollItem(PAPERDOLL_RHAND, null);
-				}
 				setPaperdollItem(PAPERDOLL_RHAND, item);
 				setPaperdollItem(PAPERDOLL_LRHAND, item);
 				break;
@@ -1091,9 +1057,7 @@ public abstract class Inventory extends ItemContainer
 				{
 					L2ItemInstance old1 = setPaperdollItem(PAPERDOLL_LRHAND, null);
 					if (old1 != null)
-					{
 						setPaperdollItem(PAPERDOLL_RHAND, null);
-					}
 				}
 				setPaperdollItem(PAPERDOLL_LHAND, null);
 				setPaperdollItem(PAPERDOLL_LHAND, item);
@@ -1108,9 +1072,7 @@ public abstract class Inventory extends ItemContainer
 					setPaperdollItem(PAPERDOLL_RHAND, null);
 				}
 				else
-				{
 					setPaperdollItem(PAPERDOLL_RHAND, null);
-				}
 				setPaperdollItem(PAPERDOLL_RHAND, item);
 				break;
 			}
@@ -1119,13 +1081,9 @@ public abstract class Inventory extends ItemContainer
 			case L2Item.SLOT_L_EAR | L2Item.SLOT_R_EAR:
 			{
 				if (_paperdoll[PAPERDOLL_LEAR] == null)
-				{
 					setPaperdollItem(PAPERDOLL_LEAR, item);
-				}
 				else if (_paperdoll[PAPERDOLL_REAR] == null)
-				{
 					setPaperdollItem(PAPERDOLL_REAR, item);
-				}
 				else
 				{
 					setPaperdollItem(PAPERDOLL_LEAR, null);
@@ -1138,13 +1096,9 @@ public abstract class Inventory extends ItemContainer
 			case L2Item.SLOT_L_FINGER | L2Item.SLOT_R_FINGER:
 			{
 				if (_paperdoll[PAPERDOLL_LFINGER] == null)
-				{
 					setPaperdollItem(PAPERDOLL_LFINGER, item);
-				}
 				else if (_paperdoll[PAPERDOLL_RFINGER] == null)
-				{
 					setPaperdollItem(PAPERDOLL_RFINGER, item);
-				}
 				else
 				{
 					setPaperdollItem(PAPERDOLL_LFINGER, null);
@@ -1168,9 +1122,7 @@ public abstract class Inventory extends ItemContainer
 				// handle full armor
 				L2ItemInstance chest = getPaperdollItem(PAPERDOLL_CHEST);
 				if (chest != null && chest.getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)
-				{
 					setPaperdollItem(PAPERDOLL_CHEST, null);
-				}
 				setPaperdollItem(PAPERDOLL_LEGS, null);
 				setPaperdollItem(PAPERDOLL_LEGS, item);
 				break;
@@ -1190,9 +1142,9 @@ public abstract class Inventory extends ItemContainer
 					setPaperdollItem(PAPERDOLL_DHAIR, null);
 					setPaperdollItem(PAPERDOLL_HAIR, null);
 					setPaperdollItem(PAPERDOLL_FACE, null);
-				} else {
+				} else
 					setPaperdollItem(PAPERDOLL_HAIR, null);
-				}
+
 				setPaperdollItem(PAPERDOLL_HAIR, item);
 				break;
 			case L2Item.SLOT_FACE:
@@ -1201,9 +1153,9 @@ public abstract class Inventory extends ItemContainer
 					setPaperdollItem(PAPERDOLL_DHAIR, null);
 					setPaperdollItem(PAPERDOLL_HAIR, null);
 					setPaperdollItem(PAPERDOLL_FACE, null);
-				} else {
+				} else
 					setPaperdollItem(PAPERDOLL_FACE, null);
-				}
+
 				setPaperdollItem(PAPERDOLL_FACE, item);
 				break;
 			case L2Item.SLOT_DHAIR:
@@ -1213,9 +1165,7 @@ public abstract class Inventory extends ItemContainer
 					setPaperdollItem(PAPERDOLL_FACE, null);
 				}
 				else
-				{
 					setPaperdollItem(PAPERDOLL_FACE, null);
-				}
 				setPaperdollItem(PAPERDOLL_DHAIR, item);
 				break;
 			case L2Item.SLOT_UNDERWEAR:
@@ -1238,9 +1188,8 @@ public abstract class Inventory extends ItemContainer
 		int weight = 0;
 		for (L2ItemInstance item : _items)
 		{
-			if (item != null && item.getItem() != null) {
+			if (item != null && item.getItem() != null)
 				weight += item.getItem().getWeight() * item.getCount();
-			}
 		}
 		_totalWeight = weight;
 	}
@@ -1288,8 +1237,7 @@ public abstract class Inventory extends ItemContainer
 				arrowsId = 1345;
 				break; // Shining arrow
 		}
-		// Get the L2ItemInstance corresponding to the item identifier and
-		// return it
+		// Get the L2ItemInstance corresponding to the item identifier and return it
 		return getItemByItemId(arrowsId);
 	}
 
@@ -1299,7 +1247,7 @@ public abstract class Inventory extends ItemContainer
 	@Override
 	public void restore()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -1313,34 +1261,31 @@ public abstract class Inventory extends ItemContainer
 			{
 				int objectId = inv.getInt(1);
 				item = L2ItemInstance.restoreFromDb(objectId);
-				if (item == null) {
+				if (item == null)
 					continue;
-				}
+
 				if (getOwner() instanceof L2PcInstance)
 				{
 					L2PcInstance player = (L2PcInstance) getOwner();
 					if (player.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
-					{
 						item.setLocation(ItemLocation.INVENTORY);
-					}
-					if (!player.isGM()) {
+
+					if (!player.isGM())
+					{
 						if (!player.isHero())
 						{
 							int itemId = item.getItemId();
-							if (itemId >= 6611 && itemId <= 6621 || itemId == 6842) {
+							if (itemId >= 6611 && itemId <= 6621 || itemId == 6842)
 								item.setLocation(ItemLocation.INVENTORY);
-							}
 						}
 					}
 				}
 				L2World.getInstance().storeObject(item);
-				// If stackable item is found in inventory just add to current
-				// quantity
-				if (item.isStackable() && getItemByItemId(item.getItemId()) != null) {
+				// If stackable item is found in inventory just add to current quantity
+				if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
 					addItem("Restore", item, null, getOwner());
-				} else {
+				else
 					addItem(item);
-				}
 			}
 			inv.close();
 			statement.close();
@@ -1352,13 +1297,7 @@ public abstract class Inventory extends ItemContainer
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1369,17 +1308,18 @@ public abstract class Inventory extends ItemContainer
 	{
 		L2ItemInstance item;
 		int slot;
-		for (L2ItemInstance element : _paperdoll) {
+		for (L2ItemInstance element : _paperdoll)
+		{
 			item = element;
-			if (item == null) {
+			if (item == null)
 				continue;
-			}
+
 			slot = item.getEquipSlot();
 			for (PaperdollListener listener : _paperdollListeners)
 			{
-				if (listener == null) {
+				if (listener == null)
 					continue;
-				}
+
 				listener.notifyUnequiped(slot, item);
 				listener.notifyEquiped(slot, item);
 			}

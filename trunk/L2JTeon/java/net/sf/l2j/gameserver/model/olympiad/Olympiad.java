@@ -890,66 +890,52 @@ public class Olympiad
         {
         	_log.warning("Olympiad System: Couldnt save nobles info in db");
         }
-        finally
-        {
-            try
-            {
-            	con.close();
-            }
-            catch(Exception e)
-            {
-            	e.printStackTrace();
-            }
-        }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
     }
 
     protected void sortHerosToBe()
     {
-        if (_period != 1) return;
-         _heroesToBe = new FastList<StatsSet>();
+    	if (_period != 1) return;
+    	_heroesToBe = new FastList<StatsSet>();
 
-         Connection con = null;
-         try
-         {
-             con = L2DatabaseFactory.getInstance().getConnection();
-             PreparedStatement statement;
-             ResultSet rset;
-             StatsSet hero;
+    	Connection con = null;
+    	try
+    	{
+    		con = L2DatabaseFactory.getInstance().getConnection();
+    		PreparedStatement statement;
+    		ResultSet rset;
+    		StatsSet hero;
 
-             for (int i = 88; i < 119; i++)
-             {
-                 statement = con.prepareStatement(OLYMPIAD_GET_HEROS);
-                 statement.setInt(1, i);
-                 rset = statement.executeQuery();
+    		for (int i = 88; i < 119; i++)
+    		{
+    			statement = con.prepareStatement(OLYMPIAD_GET_HEROS);
+    			statement.setInt(1, i);
+    			rset = statement.executeQuery();
 
-                 if (rset.next())
-                 {
-                     hero = new StatsSet();
-                     hero.set(CLASS_ID, i);
-                     hero.set(CHAR_ID, rset.getInt(CHAR_ID));
-                     hero.set(CHAR_NAME, rset.getString(CHAR_NAME));
+    			if (rset.next())
+    			{
+    				hero = new StatsSet();
+    				hero.set(CLASS_ID, i);
+    				hero.set(CHAR_ID, rset.getInt(CHAR_ID));
+    				hero.set(CHAR_NAME, rset.getString(CHAR_NAME));
 
-                     _heroesToBe.add(hero);
-                 }
-                 statement.close();
-                 rset.close();
-             }
-         }
-         catch(SQLException e)
-         {
+    				_heroesToBe.add(hero);
+    			}
+    			statement.close();
+    			rset.close();
+    		}
+    	}
+    	catch(SQLException e)
+        {
         	 _log.warning("Olympiad System: Couldnt heros from db");
-         }
-         finally
-         {
-             try
-             {
-            	 con.close();
-             }
-             catch(Exception e)
-             {
-            	 e.printStackTrace();
-             }
-         }
+        }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
     }
 
     public List<String> getClassLeaderBoard(int classId)
@@ -980,17 +966,10 @@ public class Olympiad
          {
         	 _log.warning("Olympiad System: Couldn't load heros from the db");
          }
-         finally
-         {
-             try
-             {
-            	 con.close();
-             }
-             catch(Exception e)
-             {
-            	 e.printStackTrace();
-             }
-         }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
          return names;
     }
 
@@ -1101,10 +1080,10 @@ public class Olympiad
         {
         	_log.warning("Olympiad System: Couldnt delete nobles from db");
         }
-        finally
-        {
-            try{con.close();}catch(Exception e){e.printStackTrace();}
-        }
+		finally
+		{
+			L2DatabaseFactory.close(con);
+		}
         _nobles.clear();
     }
 

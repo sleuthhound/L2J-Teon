@@ -14,9 +14,15 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
+
+import javolution.util.FastMap;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossPointsManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -31,6 +37,9 @@ import net.sf.l2j.util.Rnd;
 public final class L2GrandBossInstance extends L2MonsterInstance
 {
 	private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
+    protected static final Map<Integer, Integer> _radius = new FastMap<Integer, Integer>();
+    protected ScheduledFuture<?> _locationMaintainTask = null;
+
 	protected boolean _isInSocialAction = false;
 
 	public boolean IsInSocialAction()
@@ -51,6 +60,8 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	public L2GrandBossInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
+		if(_radius.size() == 0)
+			_radius.put(29001, 4000);	// Queen Ant
 	}
 
 	@Override
@@ -63,8 +74,11 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	public void onSpawn()
 	{
 		setIsRaid(true);
-		if (getNpcId() == 29020 || getNpcId() == 29028)
-			super.disableCoreAI(true);
+    	if (getNpcId() == 29020 || getNpcId() == 29028 || getNpcId() == 29019 
+    			|| getNpcId() == 29046 || getNpcId() == 29047) // baium and valakas are all the time in passive mode, theirs attack AI handled in AI scripts
+    		super.disableCoreAI(true);
+		if (getNpcId() == 35368)
+			super.disableCoreAI(false);
 
 		super.onSpawn();
 	}
@@ -90,6 +104,7 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 		L2PcInstance player = null;
 		if (killer instanceof L2PcInstance)
 			player = (L2PcInstance) killer;
+
 		else if (killer instanceof L2Summon)
 			player = ((L2Summon) killer).getOwner();
 
@@ -102,9 +117,8 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 				{
 					RaidBossPointsManager.addPoints(member, getNpcId(), getLevel() / 2 + Rnd.get(-5, 5));
 				}
-			} else {
+			} else
 				RaidBossPointsManager.addPoints(player, getNpcId(), getLevel() / 2 + Rnd.get(-5, 5));
-			}
 		}
 		return true;
 	}
@@ -112,20 +126,35 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	@Override
 	public void doAttack(L2Character target)
 	{
-		if (_isInSocialAction) {
+		if (_isInSocialAction)
 			return;
-		} else {
+		else
 			super.doAttack(target);
-		}
 	}
 
 	@Override
 	public void doCast(L2Skill skill)
 	{
-		if (_isInSocialAction) {
+		if (_isInSocialAction)
 			return;
-		} else {
+		else
 			super.doCast(skill);
-		}
 	}
+
+    protected void manageLocation()
+    {
+    	if(!_radius.containsKey(getNpcId()))
+    		return;
+
+    	_locationMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
+    	{
+    		public void run()
+    		{
+    			// teleport raid boss home if it's too far from home location
+    			L2Spawn bossSpawn = getSpawn();
+    			if(!isInsideRadius(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), _radius.get(getNpcId()), true, false))
+    				teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
+    		}
+    	}, 20000, getMaintenanceInterval() + Rnd.get(5000));
+    }
 }

@@ -248,8 +248,7 @@ public class CastleManager
 
 	public void removeCirclet(L2ClanMember member, int castleId)
 	{
-		if (member == null)
-			return;
+		if (member == null) return;
 
 		L2PcInstance player = member.getPlayerInstance();
 		int circletId = getCircletByCastleId(castleId);

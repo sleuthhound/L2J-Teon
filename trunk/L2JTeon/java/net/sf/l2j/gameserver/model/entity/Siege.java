@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -27,7 +28,6 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.instancemanager.BenomManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeGuardManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -290,11 +290,6 @@ public class Siege
 			getCastle().spawnDoor(); // Respawn door to castle
 			getCastle().getZone().updateZoneStatusForCharactersInside();
 			SiegeManager.getInstance().removeSiege(this);
-			if(getCastle().getCastleId() == 8)
-			{
-				BenomManager.getInstance().scheduleBenom(true);
-				getCastle().setBossKilled(false);
-			}
 		}
 	}
 
@@ -596,7 +591,7 @@ public class Siege
 	/** Clear all registered siege clans from database for castle */
 	public void clearSiegeClan()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -622,20 +617,14 @@ public class Siege
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
 	/** Clear all siege clans waiting for approval from database for castle */
 	public void clearSiegeWaitingClan()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -652,13 +641,7 @@ public class Siege
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -748,9 +731,6 @@ public class Siege
 	/** Control Tower was skilled */
 	public void killedCT(L2NpcInstance ct)
 	{
-		_ctKilled++;
-		if(_ctKilled == 2 && getCastle().getCastleId() == 8)
-			BenomManager.getInstance().spawnBenomOnCtKilled();
 		_controlTowerCount--;
 		if (_controlTowerCount < 0)
 			_controlTowerCount = 0;
@@ -837,10 +817,9 @@ public class Siege
 	 */
 	public void removeSiegeClan(int clanId)
 	{
-		if (clanId <= 0)
-			return;
+		if (clanId <= 0) return;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -856,13 +835,7 @@ public class Siege
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1065,7 +1038,7 @@ public class Siege
 	/** Load siege clans. */
 	private void loadSiegeClan()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			getAttackerClans().clear();
@@ -1101,13 +1074,7 @@ public class Siege
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1177,7 +1144,7 @@ public class Siege
 	/** Save siege date to database. */
 	private void saveSiegeDate()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -1194,13 +1161,7 @@ public class Siege
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
@@ -1218,7 +1179,7 @@ public class Siege
 		if (clan.getHasCastle() > 0)
 			return;
 
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			if (typeId == 0 || typeId == 2 || typeId == -1)
@@ -1274,13 +1235,7 @@ public class Siege
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			L2DatabaseFactory.close(con);
 		}
 	}
 
