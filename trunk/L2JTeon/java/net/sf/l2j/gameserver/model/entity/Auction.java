@@ -466,7 +466,7 @@ public class Auction
 	}
 
 	/** Cancel bid */
-	public void cancelBid(int bidder)
+	public synchronized void cancelBid(int bidder)
 	{
 		Connection con = null;
 		try
