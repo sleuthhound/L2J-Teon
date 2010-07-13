@@ -386,7 +386,7 @@ public class CharStatus
 		{
 			if (newHp >= maxHp)
 			{
-				getActiveChar().setIsKilledAlready(false);
+				getActiveChar().setIsDead(false);
 				// Set the RegenActive flag to false
 				_currentHp = maxHp;
 				_flagsRegenActive &= ~REGEN_FLAG_HP;
@@ -400,7 +400,7 @@ public class CharStatus
 				_currentHp = newHp;
 				_flagsRegenActive |= REGEN_FLAG_HP;
 				if (!getActiveChar().isDead())
-					getActiveChar().setIsKilledAlready(false);
+					getActiveChar().setIsDead(false);
 
 				// Start the HP/MP/CP Regeneration task with Medium priority
 				startHpMpRegeneration();

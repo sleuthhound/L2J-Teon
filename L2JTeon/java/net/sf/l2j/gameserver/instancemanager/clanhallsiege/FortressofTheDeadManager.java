@@ -82,6 +82,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		// Schedule siege auto start
 		_startSiegeTask.schedule(1000);
 		_isRegistrationOver = false;
+		loadFOTDSiegeGuards();
 	}
 
 	public void startSiege()
@@ -113,7 +114,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 60);
 			_endSiegeTask.schedule(1000);
-			CHSiegeGuardsManager.getInstance().spawnLidia();
+			spawnFOTDGuards();
 		}
 	}
 
@@ -156,7 +157,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 			setNewSiegeDate(getSiegeDate().getTimeInMillis(),64,22);
 			_startSiegeTask.schedule(1000);
 			_isRegistrationOver = false;
-			CHSiegeGuardsManager.getInstance().deleteLidia();
+			deleteFOTDGuards();
 		}
 	}
 

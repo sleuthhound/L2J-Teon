@@ -83,6 +83,7 @@ public class DevastatedCastleManager extends ClanHallSiege
 		// Schedule siege auto start
 		_startSiegeTask.schedule(1000);
 		_isRegistrationOver = false;
+		loadDCSiegeGuards();
 	}
 
 	public void startSiege()
@@ -107,8 +108,7 @@ public class DevastatedCastleManager extends ClanHallSiege
 			_isRegistrationOver = true;
 			updatePlayerSiegeStateFlags(false);
 			spawnDoor();
-			CHSiegeGuardsManager.getInstance().spawnDCSiegeGuards();
-			CHSiegeGuardsManager.getInstance().spawnGustav();
+			spawnDCSiegeGuards();
 			L2NpcTemplate template = NpcTable.getInstance().getTemplate(35410);
 			_questMob = new L2SiegeBossInstance(IdFactory.getInstance().getNextId(), template);
 			_questMob.getStatus().setCurrentHpMp(_questMob.getMaxHp(), _questMob.getMaxMp());
@@ -116,7 +116,6 @@ public class DevastatedCastleManager extends ClanHallSiege
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 60);
 			_endSiegeTask.schedule(1000);
-			CHSiegeGuardsManager.getInstance().spawnGustav();
 		}
 	}
 
@@ -149,8 +148,7 @@ public class DevastatedCastleManager extends ClanHallSiege
 				announceToPlayer("The owner of the clan hall remains the same");
 				_questMob.doDie(_questMob);
 			}
-			CHSiegeGuardsManager.getInstance().deleteDCSiegeGuards();
-			CHSiegeGuardsManager.getInstance().deleteGustav();
+			deleteDCSiegeGuards();
 			_questMob.deleteMe();
 			spawnDoor();
 			_clanhall.setUnderSiege(false);
@@ -162,7 +160,6 @@ public class DevastatedCastleManager extends ClanHallSiege
 			setNewSiegeDate(getSiegeDate().getTimeInMillis(),34,22);
 			_startSiegeTask.schedule(1000);
 			_isRegistrationOver = false;
-			CHSiegeGuardsManager.getInstance().deleteGustav();
 		}
 	}
 

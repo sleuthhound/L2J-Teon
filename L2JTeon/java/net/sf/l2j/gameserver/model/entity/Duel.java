@@ -102,9 +102,9 @@ public class Duel
 
 		public PlayerCondition(L2PcInstance player, boolean partyDuel)
 		{
-			if (player == null) {
+			if (player == null)
 				return;
-			}
+
 			_player = player;
 			_hp = _player.getCurrentHp();
 			_mp = _player.getCurrentMp();
@@ -120,39 +120,37 @@ public class Duel
 
 		public void restoreCondition()
 		{
-			if (_player == null) {
+			if (_player == null)
 				return;
-			}
+
 			_player.setCurrentHp(_hp);
 			_player.setCurrentMp(_mp);
 			_player.setCurrentCp(_cp);
 			if (_paDuel)
-			{
 				teleportBack();
-			}
+
 			if (_debuffs != null) // Debuff removal
 			{
-				for (L2Effect temp : _debuffs) {
-					if (temp != null) {
+				for (L2Effect temp : _debuffs)
+				{
+					if (temp != null)
 						temp.exit();
-					}
 				}
 			}
 		}
 
 		public void registerDebuff(L2Effect debuff)
 		{
-			if (_debuffs == null) {
+			if (_debuffs == null)
 				_debuffs = new FastList<L2Effect>();
-			}
+
 			_debuffs.add(debuff);
 		}
 
 		public void teleportBack()
 		{
-			if (_paDuel) {
+			if (_paDuel)
 				_player.teleToLocation(_x, _y, _z);
-			}
 		}
 
 		public L2PcInstance getPlayer()
@@ -311,8 +309,7 @@ public class Duel
 	{
 		if (_partyDuel)
 		{
-			// Party duels take place in arenas - should be no other players
-			// there
+			// Party duels take place in arenas - should be no other players there
 			return false;
 		}
 		else if (_playerA.getPvpFlag() != 0 || _playerB.getPvpFlag() != 0)
@@ -455,9 +452,9 @@ public class Duel
 			_playerB.broadcastUserInfo();
 		}
 		// if it is an abnormal DuelEnd do not restore hp, mp, cp
-		if (abnormalDuelEnd) {
+		if (abnormalDuelEnd)
 			return;
-		}
+
 		// restore player conditions
 		for (FastList.Node<PlayerCondition> e = _playerConditions.head(), end = _playerConditions.tail(); (e = e.getNext()) != end;)
 		{
@@ -831,8 +828,7 @@ public class Duel
 			if (isDuelistInPvp(true)) {
 				return DuelResultEnum.Canceled;
 			}
-			// is one of the players in a Siege, Peace or PvP
-			// zone?
+			// is one of the players in a Siege, Peace or PvP zone?
 			if (_playerA.isInsideZone(L2Character.ZONE_PEACE) || _playerB.isInsideZone(L2Character.ZONE_PEACE) || _playerA.isInsideZone(L2Character.ZONE_SIEGE) || _playerB.isInsideZone(L2Character.ZONE_SIEGE) || _playerA.isInsideZone(L2Character.ZONE_PVP) || _playerB.isInsideZone(L2Character.ZONE_PVP)) {
 				return DuelResultEnum.Canceled;
 			}

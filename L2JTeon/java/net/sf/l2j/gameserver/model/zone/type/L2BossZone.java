@@ -384,4 +384,21 @@ public class L2BossZone extends L2ZoneType
 					VanHalterManager.getInstance().intruderDetection((L2PcInstance) character);
 		}
 	}
+
+	public synchronized boolean isPlayersAnnihilated()
+	{
+		if (_characterList == null)
+			return false;
+
+		for (L2Character character : _characterList.values())
+		{
+			if (character instanceof L2PcInstance)
+			{
+				L2PcInstance pc = (L2PcInstance)character;
+				if (!pc.isDead() && pc.isOnline() == 1)
+					return false;
+			}
+		}
+		return true;
+	}
 }

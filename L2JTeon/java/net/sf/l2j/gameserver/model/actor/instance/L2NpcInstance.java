@@ -2740,7 +2740,7 @@ public class L2NpcInstance extends L2Character
 	{
 		_serverSideName = status;
 	}
-	
+
 	protected final void notifyQuestEventSkillFinished(L2Skill skill, L2Object target)
 	{
 		try

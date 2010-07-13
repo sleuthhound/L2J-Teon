@@ -96,7 +96,6 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.CHSiegeGuardsManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
@@ -142,7 +141,6 @@ public class GameServer
 	private final IdFactory _idFactory;
 	public static boolean _instanceOk = false;
 	public static GameServer gameServer;
-	private static ClanHallManager _cHManager;
     private final Shutdown _shutdownHandler;
     @SuppressWarnings("unused")
 	private final ThreadPoolManager _threadpools;
@@ -157,17 +155,13 @@ public class GameServer
 
 	public long getUsedMemoryMB()
 	{
+		//_log.finest("used mem:" + ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024 / 1024) + "MB");
 		return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576; //1024 * 1024 = 1048576;
 	}
 
 	public SelectorThread<L2GameClient> getSelectorThread()
 	{
 		return _selectorThread;
-	}
-
-	public ClanHallManager getCHManager()
-	{
-		return _cHManager;
 	}
 
 	public GameServer() throws Exception
@@ -270,14 +264,13 @@ public class GameServer
 		SiegeManager.getInstance();
 		FortManager.getInstance();
 		FortSiegeManager.getInstance();
-		// Load clan hall data before zone data
-		_cHManager = ClanHallManager.getInstance();
+		// Load clan hall data before zone data and doors table
+		ClanHallManager.getInstance();
 		Util.printSection("Clan Hall Sieges");
 		BanditStrongholdSiege.getInstance();
 		DevastatedCastleManager.getInstance();
 		FortResistSiegeManager.getInstance();
 		FortressofTheDeadManager.getInstance();
-		CHSiegeGuardsManager.getInstance().init();
 		RainbowSpringSiegeManager.getInstance();
 		WildBeastFarmSiege.getInstance();
 		Util.printSection("Zones");
@@ -411,9 +404,7 @@ public class GameServer
 			_log.info("Loading Server Scripts");
 			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
 			if (!Config.ALT_DEV_NO_QUESTS)
-			{
 				L2ScriptEngineManager.getInstance().executeScriptList(scripts);
-			}
 		}
 		catch (IOException ioe)
 		{
@@ -475,11 +466,11 @@ public class GameServer
 		}
 		L2Manor.getInstance();
 		// maxMemory is the upper limit the jvm can use, totalMemory the size of
-		// the current allocation pool, freeMemory the unused memory in the
-		// allocation pool
+		// the current allocation pool, freeMemory the unused memory in the allocation pool
 		long freeMem = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1048576;
 		// 1024 * 1024 = 1048576;
 		long totalMem = Runtime.getRuntime().maxMemory() / 1048576;
+
 		_log.info("GameServer Started, free memory " + freeMem + " Mb of " + totalMem + " Mb");
 		_loginThread = LoginServerThread.getInstance();
 		_loginThread.start();

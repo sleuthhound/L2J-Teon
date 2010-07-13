@@ -528,9 +528,8 @@ public class L2CharacterAI extends AbstractAI
 		// packet AutoAttackStop (broadcast)
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
 		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
-		{
 			AttackStanceTaskManager.getInstance().removeAttackStanceTask(_actor);
-		}
+
 		// Stop Server AutoAttack also
 		setAutoAttacking(false);
 		// Stop the actor movement server side AND client side by sending
@@ -539,6 +538,21 @@ public class L2CharacterAI extends AbstractAI
 		// Launch actions corresponding to the Event onAttacked (only for
 		// L2AttackableAI after the stunning periode)
 		onEvtAttacked(attacker);
+	}
+
+	@Override
+	protected void onEvtParalyzed(L2Character attacker)
+	{
+        // Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
+        _actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
+        if (AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
+        	AttackStanceTaskManager.getInstance().removeAttackStanceTask(_actor);
+        // Stop Server AutoAttack also
+        setAutoAttacking(false);
+        // Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
+        clientStopMoving(null);
+        // Launch actions corresponding to the Event onAttacked (only for L2AttackableAI after the stunning periode)
+        onEvtAttacked(attacker);
 	}
 
 	/**
@@ -557,9 +571,8 @@ public class L2CharacterAI extends AbstractAI
 		// packet AutoAttackStop (broadcast)
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
 		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
-		{
 			AttackStanceTaskManager.getInstance().removeAttackStanceTask(_actor);
-		}
+
 		// stop Server AutoAttack also
 		setAutoAttacking(false);
 		// Stop the actor movement server side AND client side by sending
@@ -581,8 +594,7 @@ public class L2CharacterAI extends AbstractAI
 		// Stop the actor auto-attack client side by sending Server->Client
 		// packet AutoAttackStop (broadcast)
 		// _actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
-		// if
-		// (AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
+		// if (AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
 		// AttackStanceTaskManager.getInstance().removeAttackStanceTask(_actor);
 		// Stop the actor movement server side AND client side by sending
 		// Server->Client packet StopMove/StopRotation (broadcast)
@@ -620,8 +632,7 @@ public class L2CharacterAI extends AbstractAI
 	@Override
 	protected void onEvtMuted(L2Character attacker)
 	{
-		// Break a cast and send Server->Client ActionFailed packet and a System
-		// Message to the L2Character
+		// Break a cast and send Server->Client ActionFailed packet and a System Message to the L2Character
 		onEvtAttacked(attacker);
 	}
 
@@ -665,32 +676,23 @@ public class L2CharacterAI extends AbstractAI
 		if (_accessor.getActor() instanceof L2PcInstance)
 		{
 			if (Config.ACTIVATE_POSITION_RECORDER)
-			{
 				((L2PcInstance) _accessor.getActor()).explore();
-			}
+
 			((L2PcInstance) _accessor.getActor()).revalidateZone(true);
 		}
 		else
-		{
 			_accessor.getActor().revalidateZone();
-		}
-		if (_accessor.getActor().moveToNextRoutePoint())
-		{
-			return;
-		}
+
+		if (_accessor.getActor().moveToNextRoutePoint()) return;
+
 		clientStoppedMoving();
-		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to
-		// AI_INTENTION_ACTIVE
+		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)
-		{
 			setIntention(AI_INTENTION_ACTIVE);
-		}
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
 		if (_actor instanceof L2BoatInstance)
-		{
 			((L2BoatInstance) _actor).evtArrived();
-		}
 	}
 
 	/**
@@ -753,19 +755,14 @@ public class L2CharacterAI extends AbstractAI
 	protected void onEvtForgetObject(L2Object object)
 	{
 		// If the object was targeted and the Intention was
-		// AI_INTENTION_INTERACT or AI_INTENTION_PICK_UP, set the Intention to
-		// AI_INTENTION_ACTIVE
+		// AI_INTENTION_INTERACT or AI_INTENTION_PICK_UP, set the Intention to AI_INTENTION_ACTIVE
 		if (getTarget() == object)
 		{
 			setTarget(null);
 			if (getIntention() == AI_INTENTION_INTERACT)
-			{
 				setIntention(AI_INTENTION_ACTIVE);
-			}
 			else if (getIntention() == AI_INTENTION_PICK_UP)
-			{
 				setIntention(AI_INTENTION_ACTIVE);
-			}
 		}
 		// Check if the object was targeted to attack
 		if (getAttackTarget() == object)
@@ -786,8 +783,7 @@ public class L2CharacterAI extends AbstractAI
 		// Check if the object was targeted to follow
 		if (getFollowTarget() == object)
 		{
-			// Stop the actor movement server side AND client side by
-			// sending
+			// Stop the actor movement server side AND client side by sending
 			// Server->Client packet StopMove/StopRotation (broadcast)
 			clientStopMoving(null);
 			// Stop an AI Follow Task
@@ -827,9 +823,8 @@ public class L2CharacterAI extends AbstractAI
 		// Stop an AI Follow Task
 		stopFollow();
 		if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
-		{
 			_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
-		}
+
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
 	}
@@ -851,9 +846,7 @@ public class L2CharacterAI extends AbstractAI
 		// AutoAttackStop, StopMove/StopRotation, Die (broadcast)
 		clientNotifyDead();
 		if (!(_actor instanceof L2PcInstance))
-		{
 			_actor.setWalking();
-		}
 	}
 
 	/**
@@ -895,17 +888,17 @@ public class L2CharacterAI extends AbstractAI
 			_log.warning("maybeMoveToPosition: worldPosition == NULL!");
 			return false;
 		}
-		if (offset < 0) {
+		if (offset < 0)
 			return false; // skill radius -1
-		}
+
 		if (!_actor.isInsideRadius(worldPosition.getX(), worldPosition.getY(), offset + _actor.getTemplate().collisionRadius, false))
 		{
-			if (_actor.isMovementDisabled()) {
+			if (_actor.isMovementDisabled())
 				return true;
-			}
-			if (!_actor.isRunning() && !(this instanceof L2PlayerAI)) {
+
+			if (!_actor.isRunning() && !(this instanceof L2PlayerAI))
 				_actor.setRunning();
-			}
+
 			stopFollow();
 			int x = _actor.getX();
 			int y = _actor.getY();
@@ -920,9 +913,9 @@ public class L2CharacterAI extends AbstractAI
 			moveTo(x, y, worldPosition.getZ());
 			return true;
 		}
-		if (getFollowTarget() != null) {
+		if (getFollowTarget() != null)
 			stopFollow();
-		}
+
 		return false;
 	}
 
@@ -947,72 +940,56 @@ public class L2CharacterAI extends AbstractAI
 	 */
 	protected boolean maybeMoveToPawn(L2Object target, int offset)
 	{
-		// Get the distance between the current position of the L2Character and
-		// the target (x,y)
+		// Get the distance between the current position of the L2Character and the target (x,y)
 		if (target == null)
 		{
 			_log.warning("maybeMoveToPawn: target == NULL!");
 			return false;
 		}
 		if (offset < 0)
-		{
 			return false; // skill radius -1
-		}
+
 		offset += _actor.getTemplate().collisionRadius;
 		if (target instanceof L2Character)
-		{
 			offset += ((L2Character) target).getTemplate().collisionRadius;
-		}
+
 		if (!_actor.isInsideRadius(target, offset, false, false))
 		{
 			if (getFollowTarget() != null)
 			{
-				// allow larger hit range when the target is moving (check is
-				// run only once per second)
+				// allow larger hit range when the target is moving (check is run only once per second)
 				if (!_actor.isInsideRadius(target, offset + 100, false, false))
-				{
 					return true;
-				}
+
 				stopFollow();
 				return false;
 			}
 			if (_actor.isMovementDisabled())
-			{
 				return true;
-			}
-			// If not running, set the L2Character movement type to run and
-			// send
-			// Server->Client packet ChangeMoveType to all others
-			// L2PcInstance
+
+			// If not running, set the L2Character movement type to run and send
+			// Server->Client packet ChangeMoveType to all others L2PcInstance
 			if (!_actor.isRunning() && !(this instanceof L2PlayerAI))
-			{
 				_actor.setRunning();
-			}
+
 			stopFollow();
 			if (target instanceof L2Character && !(target instanceof L2DoorInstance))
 			{
 				if (((L2Character) target).isMoving())
-				{
 					offset -= 100;
-				}
 				if (offset < 5)
-				{
 					offset = 5;
-				}
 				startFollow((L2Character) target, offset);
 			}
 			else
-			{
-				// Move the actor to Pawn server side AND client side by sending
-				// Server->Client packet MoveToPawn (broadcast)
+				// Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn (broadcast)
 				moveToPawn(target, offset);
-			}
+
 			return true;
 		}
 		if (getFollowTarget() != null)
-		{
 			stopFollow();
-		}
+
 		// Stop the actor movement server side AND client side by sending
 		// Server->Client packet StopMove/StopRotation (broadcast)
 		// clientStopMoving(null);
@@ -1073,9 +1050,7 @@ public class L2CharacterAI extends AbstractAI
 		// check if player is fakedeath
 		if (target instanceof L2PcInstance)
 		{
-			L2PcInstance target2 = (L2PcInstance) target; // convert
-			// object to
-			// chara
+			L2PcInstance target2 = (L2PcInstance) target; // convert object to chara
 			if (target2.isFakeDeath())
 			{
 				target2.stopFakeDeath(null);
@@ -1163,9 +1138,9 @@ public class L2CharacterAI extends AbstractAI
             // skill analysis
             for (L2Skill sk : _actor.getAllSkills())
             {
-                if (sk.isPassive()) {
+                if (sk.isPassive())
 					continue;
-				}
+
             	int castRange = sk.getCastRange();
                 boolean hasLongRangeDamageSkill = false;
                 switch(sk.getSkillType())
@@ -1229,16 +1204,14 @@ public class L2CharacterAI extends AbstractAI
                     	hasLongRangeDamageSkill = true;
                         break;
                 }
-                if (castRange > 70) {
+                if (castRange > 70)
+                {
                     hasLongRangeSkills = true;
-                    if (hasLongRangeDamageSkill) {
+                    if (hasLongRangeDamageSkill)
 						hasLongRangeDamageSkills = true;
-					}
                 }
-                if (castRange > maxCastRange) {
+                if (castRange > maxCastRange)
 					maxCastRange = castRange;
-				}
-
             }
             // Because of missing skills, some mages/balanced cannot play like mages
             if (!hasLongRangeDamageSkills && isMage)
@@ -1279,48 +1252,40 @@ public class L2CharacterAI extends AbstractAI
         public void update(L2Character target)
         {
             // update status once in 4 seconds
-            if (target == character && Rnd.nextInt(100) > 25) {
-				return;
-			}
+            if (target == character && Rnd.nextInt(100) > 25) return;
+
             character = target;
-            if (target == null) {
-				return;
-			}
+            if (target == null) return;
+
             isMage = false;
             isBalanced = false;
             isArcher = false;
             isFighter = false;
             isCanceled = false;
 
-            if (target.getMAtk(null, null) > 1.5*target.getPAtk(null)) {
+            if (target.getMAtk(null, null) > 1.5*target.getPAtk(null))
 				isMage = true;
-			} else if (target.getPAtk(null)*0.8 < target.getMAtk(null, null)
+			else if (target.getPAtk(null)*0.8 < target.getMAtk(null, null)
                     || target.getMAtk(null, null)*0.8 > target.getPAtk(null))
-            {
                 isBalanced = true;
-            }
             else
             {
                 L2Weapon weapon = target.getActiveWeaponItem();
-                if (weapon != null && weapon.getItemType() == L2WeaponType.BOW) {
+                if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
 					isArcher = true;
-				} else {
+				else
 					isFighter = true;
-				}
             }
-            if (target.getRunSpeed() < _actor.getRunSpeed()-3) {
+            if (target.getRunSpeed() < _actor.getRunSpeed()-3)
 				isSlower = true;
-			} else {
+			else
 				isSlower = false;
-			}
-            if (target.getMDef(null, null)*1.2 > _actor.getMAtk(null, null)) {
+            if (target.getMDef(null, null)*1.2 > _actor.getMAtk(null, null))
 				isMagicResistant = true;
-			} else {
+			else
 				isMagicResistant = false;
-			}
-            if (target.getBuffCount() < 4) {
+            if (target.getBuffCount() < 4)
 				isCanceled = true;
-			}
         }
     }
 }
