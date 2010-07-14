@@ -1003,7 +1003,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 		// events
 		for (String name : _allEventsS.keySet())
@@ -1040,7 +1046,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1076,7 +1088,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 		return result;
 	}
@@ -1106,7 +1124,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1131,7 +1155,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1166,7 +1196,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1206,7 +1242,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1238,7 +1280,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1267,7 +1315,13 @@ public class Quest extends ManagedScript
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 

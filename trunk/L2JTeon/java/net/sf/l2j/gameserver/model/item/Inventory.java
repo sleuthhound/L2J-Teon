@@ -1297,7 +1297,13 @@ public abstract class Inventory extends ItemContainer
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 

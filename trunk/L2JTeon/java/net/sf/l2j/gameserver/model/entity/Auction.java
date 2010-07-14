@@ -182,7 +182,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -220,7 +226,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -264,7 +276,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -363,7 +381,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -386,7 +410,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 		for (Bidder b : _bidders.values())
 		{
@@ -422,7 +452,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -485,7 +521,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 		returnItem(_bidders.get(bidder).getClanName(), 57, _bidders.get(bidder).getBid(), true);
 		ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0, true);
@@ -532,7 +574,13 @@ public class Auction
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 

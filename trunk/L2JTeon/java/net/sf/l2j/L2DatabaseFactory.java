@@ -19,8 +19,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.ThreadPoolManager;
-
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class L2DatabaseFactory
@@ -29,8 +27,7 @@ public class L2DatabaseFactory
 
 	public static enum ProviderType
 	{
-		MySql,
-		MsSql
+		MySql, MsSql
 	}
 
 	// =========================================================
@@ -50,40 +47,35 @@ public class L2DatabaseFactory
 				Config.DATABASE_MAX_CONNECTIONS = 2;
 				_log.warning("at least " + Config.DATABASE_MAX_CONNECTIONS + " db connections are required.");
 			}
-
 			_source = new ComboPooledDataSource();
 			_source.setAutoCommitOnClose(true);
-
 			_source.setInitialPoolSize(10);
 			_source.setMinPoolSize(Config.DATABASE_MIN_POOLSIZE);
-			_source.setMaxPoolSize(Math.max(10, Config.DATABASE_MAX_POOLSIZE));
-
+			_source.setMaxPoolSize(Config.DATABASE_MAX_POOLSIZE);
 			_source.setAcquireRetryAttempts(0); // try to obtain connections indefinitely (0 = never quit)
 			_source.setAcquireRetryDelay(500); // 500 miliseconds wait before try to acquire connection again
-			_source.setCheckoutTimeout(0); // 0 = wait indefinitely for new connection
-			// if pool is exhausted
-			_source.setAcquireIncrement(Config.DATABASE_ACQUIREINCREMENT); // if pool is exhausted, get 1 more connections at a time
+			_source.setCheckoutTimeout(0); // 0 = wait indefinitely for new
+			// connection if pool is exhausted
+			_source.setAcquireIncrement(Config.DATABASE_ACQUIREINCREMENT); // if
+			// pool is exhausted, get 1 more connections at a time
 			// cause there is a "long" delay on acquire connection
-			// so taking more than one connection at once will make connection pooling
-			// more effective.
-
+			// so taking more than one connection at once will make
+			// connection pooling more effective.
 			// this "connection_test_table" is automatically created if not already there
 			_source.setAutomaticTestTable("connection_test_table");
 			_source.setTestConnectionOnCheckin(false);
-
 			// testing OnCheckin used with IdleConnectionTestPeriod is faster than testing on checkout
-
 			_source.setIdleConnectionTestPeriod(Config.DATABASE_IDLECONNECTIONTEST); // test idle connection every 3minutes
-			_source.setMaxIdleTime(Config.DATABASE_MAXIDLETIME); // 0 = idle connections never expire
+			_source.setMaxIdleTime(Config.DATABASE_MAXIDLETIME); // 0 =
+			// idle connections never expire
 			// *THANKS* to connection testing configured above
 			// but I prefer to disconnect all connections not used
 			// for more than 1 hour
-
-			// enables statement caching, there is a "semi-bug" in c3p0 0.9.0 but in 0.9.0.2 and later it's fixed
+			// enables statement caching, there is a "semi-bug" in c3p0 0.9.0
+			// but in 0.9.0.2 and later it's fixed
 			_source.setMaxStatementsPerConnection(Config.DATABASE_MAXSTATEMENTS);
-
-			_source.setBreakAfterAcquireFailure(false); // never fail if any way possible
-			// setting this to true will make
+			_source.setBreakAfterAcquireFailure(false); // never fail if any way
+			// possible setting this to true will make
 			// c3p0 "crash" and refuse to work
 			// till restart thus making acquire
 			// errors "FATAL" ... we don't want that
@@ -92,10 +84,8 @@ public class L2DatabaseFactory
 			_source.setJdbcUrl(Config.DATABASE_URL);
 			_source.setUser(Config.DATABASE_LOGIN);
 			_source.setPassword(Config.DATABASE_PASSWORD);
-
 			/* Test the connection */
 			_source.getConnection().close();
-
 			if (Config.DEBUG)
 				_log.fine("Database Connection Working");
 
@@ -108,6 +98,7 @@ public class L2DatabaseFactory
 		{
 			if (Config.DEBUG)
 				_log.fine("Database Connection FAILED");
+
 			// rethrow the exception
 			throw x;
 		}
@@ -115,7 +106,8 @@ public class L2DatabaseFactory
 		{
 			if (Config.DEBUG)
 				_log.fine("Database Connection FAILED");
-			throw new SQLException("could not init DB connection:" + e.getMessage());
+
+			throw new SQLException("could not init DB connection:" + e);
 		}
 	}
 
@@ -129,6 +121,7 @@ public class L2DatabaseFactory
 		{
 			if (getProviderType() == ProviderType.MsSql)
 				msSqlTop1 = " Top 1 ";
+
 			if (getProviderType() == ProviderType.MySql)
 				mySqlTop1 = " Limit 1 ";
 		}
@@ -156,123 +149,53 @@ public class L2DatabaseFactory
 		}
 	}
 
-	public final String safetyString(String... whatToCheck)
+	public final String safetyString(String[] whatToCheck)
 	{
-		// NOTE: Use brace as a safty percaution just incase name is a reserved word
-		final char braceLeft;
-		final char braceRight;
-
+		// NOTE: Use brace as a safty percaution just incase name is a reserved
+		// word
+		String braceLeft = "`";
+		String braceRight = "`";
 		if (getProviderType() == ProviderType.MsSql)
 		{
-			braceLeft = '[';
-			braceRight = ']';
+			braceLeft = "[";
+			braceRight = "]";
 		}
-		else
-		{
-			braceLeft = '`';
-			braceRight = '`';
-		}
-		
-		int length = 0;
-		
+		String result = "";
 		for (String word : whatToCheck)
 		{
-			length += word.length() + 4;
+			if (result != "")
+				result += ", ";
+
+			result += braceLeft + word + braceRight;
 		}
-		
-		final StringBuilder sbResult = new StringBuilder(length);
-		
-		for (String word : whatToCheck)
-		{
-			if (sbResult.length() > 0)
-			{
-				sbResult.append(", ");
-			}
-			
-			sbResult.append(braceLeft);
-			sbResult.append(word);
-			sbResult.append(braceRight);
-		}
-		
-		return sbResult.toString();
+		return result;
 	}
 
 	// =========================================================
 	// Property - Public
 	public static L2DatabaseFactory getInstance() throws SQLException
 	{
-		synchronized (L2DatabaseFactory.class)
-		{
-			if (_instance == null)
-				_instance = new L2DatabaseFactory();
-		}
+		if (_instance == null)
+			_instance = new L2DatabaseFactory();
+
 		return _instance;
 	}
 
 	public Connection getConnection() // throws SQLException
 	{
 		Connection con = null;
-
 		while (con == null)
 		{
 			try
 			{
 				con = _source.getConnection();
-				if (Server.serverMode == Server.MODE_GAMESERVER)
-					ThreadPoolManager.getInstance().scheduleGeneral(new ConnectionCloser(con, new RuntimeException()), 60000);
 			}
 			catch (SQLException e)
 			{
-				_log.log(Level.WARNING, "L2DatabaseFactory: getConnection() failed, trying again " + e.getMessage(), e);
+				_log.warning("L2DatabaseFactory: getConnection() failed, trying again " + e);
 			}
 		}
 		return con;
-	}
-
-	private class ConnectionCloser implements Runnable
-	{
-		private Connection c ;
-		private RuntimeException exp;
-		
-		public ConnectionCloser(Connection con, RuntimeException e)
-		{
-			c = con;
-			exp = e;
-		}
-		/* (non-Javadoc)
-		 * @see java.lang.Runnable#run()
-		 */
-		@Override
-		public void run()
-		{
-			try
-			{
-				if (!c.isClosed())
-				{
-					_log.log(Level.WARNING, "Unclosed connection! Trace: " + exp.getStackTrace()[1], exp);
-				}
-			}
-			catch (SQLException e)
-			{
-				e.printStackTrace();
-			}
-			
-		}
-	}
-
-	public static void close(Connection con)
-	{
-		if (con == null)
-			return;
-		
-		try
-		{
-			con.close();
-		}
-		catch (SQLException e)
-		{
-			_log.log(Level.WARNING, "Failed to close database connection!", e);
-		}
 	}
 
 	public int getBusyConnectionCount() throws SQLException

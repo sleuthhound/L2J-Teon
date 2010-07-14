@@ -191,7 +191,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 		return true;
 	}
@@ -337,9 +343,9 @@ public class Castle
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 		}
 		updateOwnerInDB(null);
-		if (getSiege().getIsInProgress()) {
+		if (getSiege().getIsInProgress())
 			getSiege().midVictory();
-		}
+
 		updateClansReputation();
 	}
 
@@ -386,7 +392,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -494,7 +506,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -539,7 +557,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -566,7 +590,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -588,7 +618,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -613,7 +649,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -660,7 +702,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -879,7 +927,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -927,7 +981,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -994,7 +1054,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1042,7 +1108,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1067,7 +1139,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
@@ -1092,7 +1170,13 @@ public class Castle
 		}
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+			catch (Exception e)
+			{
+			}
 		}
 	}
 
