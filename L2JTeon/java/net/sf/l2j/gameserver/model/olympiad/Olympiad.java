@@ -892,7 +892,13 @@ public class Olympiad
         }
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+	        catch(Exception e)
+	        {
+	        }
 		}
     }
 
@@ -934,7 +940,13 @@ public class Olympiad
         }
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+	        catch(Exception e)
+	        {
+	        }
 		}
     }
 
@@ -968,7 +980,13 @@ public class Olympiad
          }
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+	        catch(Exception e)
+	        {
+	        }
 		}
          return names;
     }
@@ -1082,7 +1100,13 @@ public class Olympiad
         }
 		finally
 		{
-			L2DatabaseFactory.close(con);
+			try
+			{
+				con.close();
+			}
+	        catch(Exception e)
+	        {
+	        }
 		}
         _nobles.clear();
     }
