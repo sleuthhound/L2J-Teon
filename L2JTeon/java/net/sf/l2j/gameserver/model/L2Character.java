@@ -104,6 +104,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.TargetUnselected;
 import net.sf.l2j.gameserver.network.serverpackets.TeleportToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc;
@@ -154,7 +155,7 @@ public abstract class L2Character extends L2Object
 	private boolean 	_isRaid 					= false;
 	private boolean 	_isMuted 					= false; // Cannot use magic
 	private boolean 	_isPsychicalMuted 			= false; // Cannot use psychical skills
-	private boolean 	_isDead						= false;
+	private boolean 	_isKilledAlready			= false;
 	private boolean		_isImmobilized 				= false;
 	private boolean		_isOverloaded 				= false; // the char is carrying too much
 	private boolean		_isParalyzed 				= false;
@@ -699,7 +700,9 @@ public abstract class L2Character extends L2Object
 				target = null;
 			}
         }
-		if (isAlikeDead() || target == null || this instanceof L2NpcInstance && target.isAlikeDead() || this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath() || !getKnownList().knowsObject(target) || this instanceof L2PcInstance && isDead() || target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD)
+		if (isAlikeDead() || target == null || this instanceof L2NpcInstance 
+				&& target.isAlikeDead() || this instanceof L2PcInstance 
+				&& target.isDead() && !target.isFakeDeath() || !getKnownList().knowsObject(target) || this instanceof L2PcInstance && isDead() || target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD)
 		{
 			// If L2PcInstance is dead or the target is dead, the action is
 			// stoped
@@ -1783,11 +1786,9 @@ public abstract class L2Character extends L2Object
 		// killing is only possible one time
 		synchronized (this)
 		{
-			if (isDead()) return false;
-			// now reset currentHp to zero
-			setCurrentHp(0);
-			if (isFakeDeath()) stopFakeDeath(null);
-			setIsDead(true);
+			if (isKilledAlready())
+				return false;
+			setIsKilledAlready(true);
 		}
 		// Set target to null and cancel Attack or Cast
 		setTarget(null);
@@ -1840,7 +1841,7 @@ public abstract class L2Character extends L2Object
 	/** Sets HP, MP and CP and revives the L2Character. */
 	public void doRevive()
 	{
-		if (!isDead()) return;
+		//if (!isDead()) return;
 
 		if (!isTeleporting())
 		{
@@ -2018,7 +2019,7 @@ public abstract class L2Character extends L2Object
 	/** Return true if the L2Character is dead or use fake death. */
 	public final boolean isAlikeDead()
 	{
-		return isFakeDeath() || _isDead;
+		return isFakeDeath() || !(getCurrentHp() > 0.5);
 	}
 
 	/**
@@ -2068,11 +2069,16 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character is dead. */
 	public final boolean isDead()
 	{
-		return _isDead;
+		return !isFakeDeath() && !(getCurrentHp() > 0.5);
 	}
-	public final void setIsDead(boolean value)
+
+	public final boolean isKilledAlready()
 	{
-		_isDead = value;
+		return _isKilledAlready;
+	}
+	public final void setIsKilledAlready(boolean value)
+	{
+		_isKilledAlready = value;
 	}
 
 	public final boolean isFakeDeath()
@@ -4588,6 +4594,12 @@ public abstract class L2Character extends L2Object
 		{
 			getKnownList().addKnownObject(object);
 			object.getKnownList().addKnownObject(this);
+		}
+		// If object==null, Cancel Attak or Cast
+		if (object == null)
+		{
+			if (_target != null)
+				broadcastPacket(new TargetUnselected(this));
 		}
 		_target = object;
 	}
