@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -22,7 +21,6 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.knownlist.PlayableKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.PlayableStat;
 import net.sf.l2j.gameserver.model.actor.status.PlayableStatus;
-import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 
 /**
@@ -68,8 +66,9 @@ public abstract class L2PlayableInstance extends L2Character
 	public PlayableKnownList getKnownList()
 	{
 		if (super.getKnownList() == null || !(super.getKnownList() instanceof PlayableKnownList))
+		{
 			setKnownList(new PlayableKnownList(this));
-
+		}
 		return (PlayableKnownList) super.getKnownList();
 	}
 
@@ -77,8 +76,9 @@ public abstract class L2PlayableInstance extends L2Character
 	public PlayableStat getStat()
 	{
 		if (super.getStat() == null || !(super.getStat() instanceof PlayableStat))
+		{
 			setStat(new PlayableStat(this));
-
+		}
 		return (PlayableStat) super.getStat();
 	}
 
@@ -86,8 +86,9 @@ public abstract class L2PlayableInstance extends L2Character
 	public PlayableStatus getStatus()
 	{
 		if (super.getStatus() == null || !(super.getStatus() instanceof PlayableStatus))
+		{
 			setStatus(new PlayableStatus(this));
-
+		}
 		return (PlayableStatus) super.getStatus();
 	}
 
@@ -95,107 +96,88 @@ public abstract class L2PlayableInstance extends L2Character
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
-			return false;
-
-/*		// killing is only possible one time
-		synchronized (this)
 		{
-			if (isDead())
-				return false;
-			// now reset currentHp to zero
-			setCurrentHp(0);
- 	       setIsDead(true);
- 	   }*/
-
-		// now reset currentHp to zero
-		setCurrentHp(0);
-
-        // Set target to null and cancel Attack or Cast
-		setTarget(null);
-
-		// Stop movement
-		stopMove(null);
-
-		// Stop HP/MP/CP Regeneration task
-		getStatus().stopHpMpRegeneration();
-
-/*		if (killer != null)
+			return false;
+		}
+		if (killer != null)
 		{
 			L2PcInstance player = null;
 			if (killer instanceof L2PcInstance)
+			{
 				player = (L2PcInstance) killer;
-
+			}
 			else if (killer instanceof L2Summon)
+			{
 				player = ((L2Summon) killer).getOwner();
-
+			}
 			if (player != null)
+			{
 				player.onKillUpdatePvPKarma(this);
-		}*/
-
-		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
-		broadcastStatusUpdate();
-
-		if (getWorldRegion() != null)
-			 getWorldRegion().onDeath(this);
-
-		// Notify Quest of L2Playable's death
-		L2PcInstance actingPlayer = getActingPlayer();
-		for (QuestState qs : actingPlayer.getNotifyQuestOfDeath())
-		{
-			qs.getQuest().notifyDeath((killer == null ? this : killer), this, qs);
+			}
 		}
-
-		L2PcInstance player = killer.getActingPlayer();
-
-		if (killer instanceof L2PcInstance)
-			player = (L2PcInstance) killer;
-
-		else if (killer instanceof L2Summon)
-			player = ((L2Summon) killer).getOwner();
-
-		if (player != null)
-			player.onKillUpdatePvPKarma(this);
-
-	    // Notify L2Character AI
-		getAI().notifyEvent(CtrlEvent.EVT_DEAD);
-
 		return true;
 	}
 
 	public boolean checkIfPvP(L2Character target)
 	{
-		if (target == null) return false; // Target is null
-		if (target == this) return false; // Target is self
-		if (!(target instanceof L2PlayableInstance)) return false; // Target is not a L2PlayableInstance
-
+		if (target == null)
+		{
+			return false; // Target is null
+		}
+		if (target == this)
+		{
+			return false; // Target is self
+		}
+		if (!(target instanceof L2PlayableInstance))
+		{
+			return false; // Target is not a L2PlayableInstance
+		}
 		L2PcInstance player = null;
 		if (this instanceof L2PcInstance)
+		{
 			player = (L2PcInstance) this;
+		}
 		else if (this instanceof L2Summon)
+		{
 			player = ((L2Summon) this).getOwner();
-
-		if (player == null) return false; // Active player is null
-		if (player.getKarma() != 0) return false; // Active player has karma
-
+		}
+		if (player == null)
+		{
+			return false; // Active player is null
+		}
+		if (player.getKarma() != 0)
+		{
+			return false; // Active player has karma
+		}
 		L2PcInstance targetPlayer = null;
 		if (target instanceof L2PcInstance)
-			targetPlayer = (L2PcInstance) target;
-		else if (target instanceof L2Summon)
-			targetPlayer = ((L2Summon) target).getOwner();
-
-		if (targetPlayer == null) return false; // Target player is null
-		if (targetPlayer == this) return false; // Target player is self
-		if (targetPlayer.getKarma() != 0) return false; // Target player has karma
-		if (targetPlayer.getPvpFlag() == 0) return false;
-
-		return true;
-
-		 // Even at war, there should be PvP flag
-/*		if( player.getClan() == null || targetPlayer.getClan() == null || (!targetPlayer.getClan().isAtWarWith(player.getClanId()) && targetPlayer.getWantsPeace() == 0 && player.getWantsPeace() == 0 ))
 		{
-			return true;
+			targetPlayer = (L2PcInstance) target;
 		}
-		return false;*/
+		else if (target instanceof L2Summon)
+		{
+			targetPlayer = ((L2Summon) target).getOwner();
+		}
+		if (targetPlayer == null)
+		{
+			return false; // Target player is null
+		}
+		if (targetPlayer == this)
+		{
+			return false; // Target player is self
+		}
+		if (targetPlayer.getKarma() != 0)
+		{
+			return false; // Target player has karma
+		}
+		if (targetPlayer.getPvpFlag() == 0)
+		{
+			return false;
+		}
+		return true;
+		/*
+		 * Even at war, there should be PvP flag if( player.getClan() == null || targetPlayer.getClan() == null || ( !targetPlayer.getClan().isAtWarWith(player.getClanId()) && targetPlayer.getWantsPeace() == 0 && player.getWantsPeace() == 0 ) ) { return true; } return false;
+		 */
 	}
 
 	/**
@@ -229,13 +211,18 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void stopSoulOfThePhoenix(L2Effect effect)
 	{
 		if (effect == null)
+		{
 			stopEffects(L2Effect.EffectType.SOUL_OF_THE_PHOENIX);
+		}
 		else
+		{
 			removeEffect(effect);
-
+		}
 		setIsSoulOfThePhoenix(false);
 		updateAbnormalEffect();
 	}
+
+
 
 	// Support for Salvation skill, where buffs are retained
 	// after resurrect and restore full CP/HP/MP
@@ -258,9 +245,13 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void stopSalvation(L2Effect effect)
 	{
 		if (effect == null)
+		{
 			stopEffects(L2Effect.EffectType.SALVATION);
+		}
 		else
+		{
 			removeEffect(effect);
+		}
 		setIsSalvation(false);
 		updateAbnormalEffect();
 	}
@@ -286,10 +277,13 @@ public abstract class L2PlayableInstance extends L2Character
 	public final void stopNoblesseBlessing(L2Effect effect)
 	{
 		if (effect == null)
+		{
 			stopEffects(L2Effect.EffectType.NOBLESSE_BLESSING);
+		}
 		else
+		{
 			removeEffect(effect);
-
+		}
 		setIsNoblesseBlessed(false);
 		updateAbnormalEffect();
 	}
@@ -320,11 +314,11 @@ public abstract class L2PlayableInstance extends L2Character
 	 */
 	public void stopProtectionBlessing(L2Effect effect)
 	{
-		if (effect == null)
+		if (effect == null) {
 			stopEffects(L2Effect.EffectType.PROTECTION_BLESSING);
-		else
+		} else {
 			removeEffect(effect);
-
+		}
 		setProtectionBlessing(false);
 		updateAbnormalEffect();
 	}
@@ -349,11 +343,11 @@ public abstract class L2PlayableInstance extends L2Character
 
 	public final void stopCharmOfLuck(L2Effect effect)
 	{
-		if (effect == null)
+		if (effect == null) {
 			stopEffects(L2Effect.EffectType.CHARM_OF_LUCK);
-		else
+		} else {
 			removeEffect(effect);
-
+		}
 		setCharmOfLuck(false);
 		updateAbnormalEffect();
 	}
