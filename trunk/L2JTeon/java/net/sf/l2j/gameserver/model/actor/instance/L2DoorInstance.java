@@ -62,9 +62,9 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  * 
  * @version $Revision: 1.3.2.2.2.5 $ $Date: 2005/03/27 15:29:32 $
  */
-public class L2DoorInstance extends L2Character {
-	protected static final Logger log = Logger.getLogger(L2DoorInstance.class
-			.getName());
+public class L2DoorInstance extends L2Character
+{
+	protected static final Logger log = Logger.getLogger(L2DoorInstance.class.getName());
 	/** The castle index in the array of L2Castle this L2NpcInstance belongs to */
 	private int _castleIndex = -2;
 	private int _mapRegion = -1;
@@ -88,58 +88,74 @@ public class L2DoorInstance extends L2Character {
 	private ScheduledFuture _autoActionTask;
 
 	/** This class may be created only by L2Character and only for AI */
-	public class AIAccessor extends L2Character.AIAccessor {
-		protected AIAccessor() {
+	public class AIAccessor extends L2Character.AIAccessor
+	{
+		protected AIAccessor()
+		{
 		}
 
 		@Override
-		public L2DoorInstance getActor() {
+		public L2DoorInstance getActor()
+		{
 			return L2DoorInstance.this;
 		}
 
 		@Override
-		public void moveTo(int x, int y, int z, int offset) {
+		public void moveTo(int x, int y, int z, int offset)
+		{
 		}
 
 		@Override
-		public void moveTo(int x, int y, int z) {
+		public void moveTo(int x, int y, int z)
+		{
 		}
 
 		@Override
-		public void stopMove(L2CharPosition pos) {
+		public void stopMove(L2CharPosition pos)
+		{
 		}
 
 		@Override
-		public void doAttack(L2Character target) {
+		public void doAttack(L2Character target)
+		{
 		}
 
 		@Override
-		public void doCast(L2Skill skill) {
+		public void doCast(L2Skill skill)
+		{
 		}
 	}
 
 	@Override
-	public L2CharacterAI getAI() {
-		if (_ai == null) {
-			synchronized (this) {
-				if (_ai == null) {
+	public L2CharacterAI getAI()
+	{
+		if (_ai == null)
+		{
+			synchronized (this)
+			{
+				if (_ai == null)
 					_ai = new L2DoorAI(new AIAccessor());
-				}
 			}
 		}
 		return _ai;
 	}
 
 	@Override
-	public boolean hasAI() {
+	public boolean hasAI()
+	{
 		return _ai != null;
 	}
 
-	class CloseTask implements Runnable {
-		public void run() {
-			try {
+	class CloseTask implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
 				onClose();
-			} catch (Throwable e) {
+			}
+			catch (Throwable e)
+			{
 				log.log(Level.SEVERE, "", e);
 			}
 		}
@@ -148,33 +164,37 @@ public class L2DoorInstance extends L2Character {
 	/**
 	 * Manages the auto open and closing of a door.
 	 */
-	class AutoOpenClose implements Runnable {
-		public void run() {
-			try {
+	class AutoOpenClose implements Runnable
+	{
+		public void run()
+		{
+			try
+			{
 				String doorAction;
-				if (getOpen() == 1) {
+				if (getOpen() == 1)
+				{
 					doorAction = "opened";
 					openMe();
-				} else {
+				} else
+				{
 					doorAction = "closed";
 					closeMe();
 				}
-				if (Config.DEBUG) {
-					log.info("Auto " + doorAction + " door ID " + _doorId
-							+ " (" + _name + ") for " + _autoActionDelay
+				if (Config.DEBUG)
+				{
+					log.info("Auto " + doorAction + " door ID " + _doorId + " (" + _name + ") for " + _autoActionDelay
 							/ 60000 + " minute(s).");
 				}
-			} catch (Exception e) {
-				log.warning("Could not auto open/close door ID " + _doorId
-						+ " (" + _name + ")");
+			}
+			catch (Exception e)
+			{
+				log.warning("Could not auto open/close door ID " + _doorId + " (" + _name + ")");
 			}
 		}
 	}
 
-	/**
-     */
-	public L2DoorInstance(int objectId, L2CharTemplate template, int doorId,
-			String name, boolean unlockable) {
+	public L2DoorInstance(int objectId, L2CharTemplate template, int doorId, String name, boolean unlockable)
+	{
 		super(objectId, template);
 		getKnownList(); // init knownlist
 		getStat(); // init stats
@@ -185,24 +205,27 @@ public class L2DoorInstance extends L2Character {
 	}
 
 	@Override
-	public final DoorKnownList getKnownList() {
+	public final DoorKnownList getKnownList()
+	{
 		if (super.getKnownList() == null
-				|| !(super.getKnownList() instanceof DoorKnownList)) {
+				|| !(super.getKnownList() instanceof DoorKnownList))
 			setKnownList(new DoorKnownList(this));
-		}
+
 		return (DoorKnownList) super.getKnownList();
 	}
 
 	@Override
-	public final DoorStat getStat() {
-		if (super.getStat() == null || !(super.getStat() instanceof DoorStat)) {
+	public final DoorStat getStat()
+	{
+		if (super.getStat() == null || !(super.getStat() instanceof DoorStat))
 			setStat(new DoorStat(this));
-		}
+
 		return (DoorStat) super.getStat();
 	}
 
 	@Override
-	public final DoorStatus getStatus() {
+	public final DoorStatus getStatus()
+	{
 		if (super.getStatus() == null
 				|| !(super.getStatus() instanceof DoorStatus))
 			setStatus(new DoorStatus(this));
@@ -210,30 +233,35 @@ public class L2DoorInstance extends L2Character {
 		return (DoorStatus) super.getStatus();
 	}
 
-	public void setCHDoor(boolean par) {
+	public void setCHDoor(boolean par)
+	{
 		_isCHDoor = par;
 	}
 
-	public final boolean isUnlockable() {
+	public final boolean isUnlockable()
+	{
 		return _unlockable;
 	}
 
 	@Override
-	public final int getLevel() {
+	public final int getLevel()
+	{
 		return 1;
 	}
 
 	/**
 	 * @return Returns the doorId.
 	 */
-	public int getDoorId() {
+	public int getDoorId()
+	{
 		return _doorId;
 	}
 
 	/**
 	 * @return Returns the open.
 	 */
-	public int getOpen() {
+	public int getOpen()
+	{
 		return _open;
 	}
 
@@ -241,7 +269,8 @@ public class L2DoorInstance extends L2Character {
 	 * @param open
 	 *            The open to set.
 	 */
-	public void setOpen(int open) {
+	public void setOpen(int open)
+	{
 		_open = open;
 	}
 
@@ -252,69 +281,79 @@ public class L2DoorInstance extends L2Character {
 	 * 
 	 * @param int actionDelay
 	 */
-	public void setAutoActionDelay(int actionDelay) {
-		if (_autoActionDelay == actionDelay) {
-			return;
-		}
-		if (actionDelay > -1) {
+	public void setAutoActionDelay(int actionDelay)
+	{
+		if (_autoActionDelay == actionDelay) return;
+
+		if (actionDelay > -1)
+		{
 			AutoOpenClose ao = new AutoOpenClose();
-			ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(ao,
-					actionDelay, actionDelay);
-		} else {
-			if (_autoActionTask != null) {
+			ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(ao, actionDelay, actionDelay);
+		} else
+		{
+			if (_autoActionTask != null)
 				_autoActionTask.cancel(false);
-			}
 		}
 		_autoActionDelay = actionDelay;
 	}
 
-	public int getDamage() {
+	public int getDamage()
+	{
 		int dmg = 6 - (int) Math.ceil(getCurrentHp() / getMaxHp() * 6);
-		if (dmg > 6) {
+		if (dmg > 6)
 			return 6;
-		}
-		if (dmg < 0) {
+
+		if (dmg < 0)
 			return 0;
-		}
+
 		return dmg;
 	}
 
-	public final Castle getCastle() {
-		if (_castleIndex < 0) {
+	public final Castle getCastle()
+	{
+		if (_castleIndex < 0)
 			_castleIndex = CastleManager.getInstance().getCastleIndex(this);
-		}
-		if (_castleIndex < 0) {
+
+		if (_castleIndex < 0)
 			return null;
-		}
+
 		return CastleManager.getInstance().getCastles().get(_castleIndex);
 	}
 
-	public final Fort getFort() {
-		if (_fortIndex < 0) {
+	public final Fort getFort()
+	{
+		if (_fortIndex < 0)
 			_fortIndex = FortManager.getInstance().getFortIndex(this);
-		}
-		if (_fortIndex < 0) {
+
+		if (_fortIndex < 0)
 			return null;
-		}
+
 		return FortManager.getInstance().getForts().get(_fortIndex);
 	}
 
-	public void setClanHall(ClanHall clanhall) {
+	public void setClanHall(ClanHall clanhall)
+	{
 		_clanHall = clanhall;
 	}
 
-	public ClanHall getClanHall() {
+	public ClanHall getClanHall()
+	{
 		return _clanHall;
 	}
 
-	public boolean isEnemyOf(L2Character cha) {
+	public boolean isEnemyOf(L2Character cha)
+	{
 		return true;
 	}
 
 	@Override
-	public boolean isAutoAttackable(L2Character attacker) {
+	public boolean isAutoAttackable(L2Character attacker)
+	{
 		if (isUnlockable())
 			return true;
+
+		if (getClanHall() != null)
+			return false;
 
 		// Attackable during fortress sieges by event participators only
 		if (FortressSiege.isDoorAttackable(getDoorId(), attacker))
@@ -329,28 +368,29 @@ public class L2DoorInstance extends L2Character {
 		boolean isCastle = getCastle() != null
 				&& getCastle().getCastleId() > 0
 				&& getCastle().getSiege().getIsInProgress()
-				&& getCastle().getSiege().checkIsAttacker(
-						((L2PcInstance) attacker).getClan());
+				&& getCastle().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan());
 		boolean isFort = getFort() != null
 				&& getFort().getFortId() > 0
 				&& getFort().getSiege().getIsInProgress()
-				&& getFort().getSiege().checkIsAttacker(
-						((L2PcInstance) attacker).getClan());
+				&& getFort().getSiege().checkIsAttacker(((L2PcInstance) attacker).getClan());
 		return isCastle || isFort;
 	}
 
-	public boolean isAttackable(L2Character attacker) {
+	public boolean isAttackable(L2Character attacker)
+	{
 		return isAutoAttackable(attacker);
 	}
 
 	@Override
-	public void updateAbnormalEffect() {
+	public void updateAbnormalEffect()
+	{
 	}
 
-	public int getDistanceToWatchObject(L2Object object) {
-		if (!(object instanceof L2PcInstance)) {
+	public int getDistanceToWatchObject(L2Object object)
+	{
+		if (!(object instanceof L2PcInstance))
 			return 0;
-		}
+
 		return 2000;
 	}
 
@@ -364,10 +404,11 @@ public class L2DoorInstance extends L2Character {
 	 * : 0</li><BR>
 	 * <BR>
 	 */
-	public int getDistanceToForgetObject(L2Object object) {
-		if (!(object instanceof L2PcInstance)) {
+	public int getDistanceToForgetObject(L2Object object)
+	{
+		if (!(object instanceof L2PcInstance))
 			return 0;
-		}
+
 		return 4000;
 	}
 
@@ -376,57 +417,65 @@ public class L2DoorInstance extends L2Character {
 	 * <BR>
 	 */
 	@Override
-	public L2ItemInstance getActiveWeaponInstance() {
+	public L2ItemInstance getActiveWeaponInstance()
+	{
 		return null;
 	}
 
 	@Override
-	public L2Weapon getActiveWeaponItem() {
+	public L2Weapon getActiveWeaponItem()
+	{
 		return null;
 	}
 
 	@Override
-	public L2ItemInstance getSecondaryWeaponInstance() {
+	public L2ItemInstance getSecondaryWeaponInstance()
+	{
 		return null;
 	}
 
 	@Override
-	public L2Weapon getSecondaryWeaponItem() {
+	public L2Weapon getSecondaryWeaponItem()
+	{
 		return null;
 	}
 
 	@Override
-	public void onAction(L2PcInstance player) {
-		if (player == null) {
-			return;
-		}
+	public void onAction(L2PcInstance player)
+	{
+		if (player == null) return;
+
 		boolean opp = false;
 		Siege siege = SiegeManager.getInstance().getSiege(player);
 		L2Clan oppClan = player.getClan();
-		if (siege != null && siege.getIsInProgress()) {
-			if (oppClan != null) {
-				for (L2SiegeClan clan : siege.getAttackerClans()) {
-					L2Clan cl = ClanTable.getInstance().getClan(
-							clan.getClanId());
+		if (siege != null && siege.getIsInProgress())
+		{
+			if (oppClan != null)
+			{
+				for (L2SiegeClan clan : siege.getAttackerClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
 
-					if (cl == oppClan || cl.getAllyId() == player.getAllyId()) {
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
 						opp = true;
 						break;
 					}
 				}
 
-				for (L2SiegeClan clan : siege.getDefenderClans()) {
-					L2Clan cl = ClanTable.getInstance().getClan(
-							clan.getClanId());
+				for (L2SiegeClan clan : siege.getDefenderClans())
+				{
+					L2Clan cl = ClanTable.getInstance().getClan(clan.getClanId());
 
-					if (cl == oppClan || cl.getAllyId() == player.getAllyId()) {
+					if (cl == oppClan || cl.getAllyId() == player.getAllyId())
+					{
 						opp = true;
 						break;
 					}
 				}
-			} else if (_isCHDoor
-					&& (DevastatedCastleManager.getInstance().getIsInProgress() || FortressofTheDeadManager
-							.getInstance().getIsInProgress())) {
+			} else if (_isCHDoor && DevastatedCastleManager.getInstance().getIsInProgress() 
+					|| FortressofTheDeadManager.getInstance().getIsInProgress())
+			{
 				opp = true;
 			} else
 				opp = true;
@@ -435,47 +484,37 @@ public class L2DoorInstance extends L2Character {
 				return;
 		}
 		// Check if the L2PcInstance already target the L2NpcInstance
-		if (this != player.getTarget()) {
+		if (this != player.getTarget())
+		{
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
-			// Send a Server->Client packet MyTargetSelected to the L2PcInstance
-			// player
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
-			// if (isAutoAttackable(player))
-			// {
 			DoorStatusUpdate su = new DoorStatusUpdate(this);
 			player.sendPacket(su);
-			// }
 			// Send a Server->Client packet ValidateLocation to correct the
 			// L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		} else {
-			// MyTargetSelected my = new MyTargetSelected(getObjectId(),
-			// player.getLevel());
-			// player.sendPacket(my);
-			if (isAutoAttackable(player)) {
-				if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth
-															// difference might
-															// need some
-															// tweaking
+		} else
+		{
+			if (isAutoAttackable(player))
+			{
+				if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth difference might need some tweaking
+					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+
+			} else if (player.getClan() != null && getClanHall() != null && player.getClanId() == getClanHall().getOwnerId())
+			{
+				if (!isInsideRadius(player, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+
+				else
 				{
-					player.getAI().setIntention(
-							CtrlIntention.AI_INTENTION_ATTACK, this);
-				}
-			} else if (player.getClan() != null && getClanHall() != null
-					&& player.getClanId() == getClanHall().getOwnerId()) {
-				if (!isInsideRadius(player, L2NpcInstance.INTERACTION_DISTANCE,
-						false, false)) {
-					player.getAI().setIntention(
-							CtrlIntention.AI_INTENTION_INTERACT, this);
-				} else {
 					player.gatesRequest(this);
-					if (getOpen() == 1) {
+					if (getOpen() == 1)
 						player.sendPacket(new ConfirmDlg(1140));
-					} else {
+					else
 						player.sendPacket(new ConfirmDlg(1141));
-					}
 				}
 			}
 		}
@@ -485,122 +524,125 @@ public class L2DoorInstance extends L2Character {
 	}
 
 	@Override
-	public void onActionShift(L2GameClient client) {
+	public void onActionShift(L2GameClient client)
+	{
 		L2PcInstance player = client.getActiveChar();
-		if (player == null) {
-			return;
-		}
-		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL) {
+		if (player == null) return;
+
+		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
+		{
 			player.setTarget(this);
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player
-					.getLevel());
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel());
 			player.sendPacket(my);
-			if (isAutoAttackable(player)) {
+			if (isAutoAttackable(player))
+			{
 				DoorStatusUpdate su = new DoorStatusUpdate(this);
 				player.sendPacket(su);
 			}
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			TextBuilder html1 = new TextBuilder("<html><body><table border=0>");
 			html1.append("<tr><td>S.Y.L. Says:</td></tr>");
-			html1
-					.append("<tr><td>Current HP  " + getCurrentHp()
-							+ "</td></tr>");
+			html1.append("<tr><td>Current HP  " + getCurrentHp() + "</td></tr>");
 			html1.append("<tr><td>Max HP      " + getMaxHp() + "</td></tr>");
 			html1.append("<tr><td>Object ID: " + getObjectId() + "</td></tr>");
 			html1.append("<tr><td>Door ID:<br>" + getDoorId() + "</td></tr>");
 			html1.append("<tr><td><br></td></tr>");
-			html1.append("<tr><td>Class: " + getClass().getName()
-					+ "</td></tr>");
+			html1.append("<tr><td>Class: " + getClass().getName() + "</td></tr>");
 			html1.append("<tr><td><br></td></tr>");
 			html1.append("</table>");
 			html1.append("<table><tr>");
-			html1
-					.append("<td><button value=\"Open\" action=\"bypass -h admin_open "
-							+ getDoorId()
-							+ "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-			html1
-					.append("<td><button value=\"Close\" action=\"bypass -h admin_close "
-							+ getDoorId()
-							+ "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-			html1
-					.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-			html1
-					.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+			html1.append("<td><button value=\"Open\" action=\"bypass -h admin_open " + getDoorId() + "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+			html1.append("<td><button value=\"Close\" action=\"bypass -h admin_close " + getDoorId() + "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+			html1.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+			html1.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
 			html1.append("</tr></table></body></html>");
 			html.setHtml(html1.toString());
 			player.sendPacket(html);
-		} else {
+		} else
+		{
 			// ATTACK the mob without moving?
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
-	public void broadcastStatusUpdate() {
-		Collection<L2PcInstance> knownPlayers = getKnownList()
-				.getKnownPlayers().values();
-		if (knownPlayers == null || knownPlayers.isEmpty()) {
-			return;
-		}
+	public void broadcastStatusUpdate()
+	{
+		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
+		if (knownPlayers == null || knownPlayers.isEmpty()) return;
+
 		DoorStatusUpdate su = new DoorStatusUpdate(this);
-		for (L2PcInstance player : knownPlayers) {
+		for (L2PcInstance player : knownPlayers)
+		{
 			player.sendPacket(su);
 		}
 	}
 
-	public void onOpen() {
+	public void onOpen()
+	{
 		ThreadPoolManager.getInstance().scheduleGeneral(new CloseTask(), 60000);
 	}
 
-	public void onClose() {
+	public void onClose()
+	{
 		closeMe();
 	}
 
-	public final void closeMe() {
+	public final void closeMe()
+	{
 		setOpen(1);
 		broadcastStatusUpdate();
 	}
 
-	public final void openMe() {
+	public final void openMe()
+	{
 		setOpen(0);
 		broadcastStatusUpdate();
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "door " + _doorId;
 	}
 
-	public String getDoorName() {
+	public String getDoorName()
+	{
 		return _name;
 	}
 
-	public int getXMin() {
+	public int getXMin()
+	{
 		return _rangeXMin;
 	}
 
-	public int getYMin() {
+	public int getYMin()
+	{
 		return _rangeYMin;
 	}
 
-	public int getZMin() {
+	public int getZMin()
+	{
 		return _rangeZMin;
 	}
 
-	public int getXMax() {
+	public int getXMax()
+	{
 		return _rangeXMax;
 	}
 
-	public int getYMax() {
+	public int getYMax()
+	{
 		return _rangeYMax;
 	}
 
-	public int getZMax() {
+	public int getZMax()
+	{
 		return _rangeZMax;
 	}
 
-	public void setRange(int xMin, int yMin, int zMin, int xMax, int yMax,
-			int zMax) {
+	public void setRange(int xMin, int yMin, int zMin, int xMax, int yMax, int zMax)
+	{
 		_rangeXMin = xMin;
 		_rangeYMin = yMin;
 		_rangeZMin = zMin;
@@ -609,20 +651,23 @@ public class L2DoorInstance extends L2Character {
 		_rangeZMax = zMax;
 	}
 
-	public int getMapRegion() {
+	public int getMapRegion()
+	{
 		return _mapRegion;
 	}
 
-	public void setMapRegion(int region) {
+	public void setMapRegion(int region)
+	{
 		_mapRegion = region;
 	}
 
-	public Collection<L2SiegeGuardInstance> getKnownSiegeGuards() {
+	public Collection<L2SiegeGuardInstance> getKnownSiegeGuards()
+	{
 		FastList<L2SiegeGuardInstance> result = new FastList<L2SiegeGuardInstance>();
-		for (L2Object obj : getKnownList().getKnownObjects().values()) {
-			if (obj instanceof L2SiegeGuardInstance) {
+		for (L2Object obj : getKnownList().getKnownObjects().values())
+		{
+			if (obj instanceof L2SiegeGuardInstance)
 				result.add((L2SiegeGuardInstance) obj);
-			}
 		}
 		return result;
 	}
