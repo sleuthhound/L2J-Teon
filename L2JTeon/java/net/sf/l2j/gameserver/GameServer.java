@@ -110,7 +110,6 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.Npcbuffer;
 import net.sf.l2j.gameserver.model.olympiad.Olympiad;
-import net.sf.l2j.gameserver.model.quest.ai.AILoader;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GamePacketHandler;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
@@ -396,9 +395,9 @@ public class GameServer
 		RaidBossPointsManager.init();
 		GrandBossManager.getInstance();
 		FourSepulchersManager.getInstance().init();
-//		VanHalterManager.getInstance().init(); // 
+//		VanHalterManager.getInstance().init(); // future implementation in DataPack
 		Util.printSection("Quests - Scripts");
-		AILoader.init();
+//		AILoader.init(); // temporarily disabled
 		try
 		{
 			_log.info("Loading Server Scripts");
