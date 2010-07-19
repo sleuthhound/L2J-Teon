@@ -176,12 +176,12 @@ public class AdminSpawn implements IAdminCommandHandler
 	private void spawnMonster(L2PcInstance activeChar, String monsterId, int respawnTime, int mobCount, boolean permanent)
 	{
 		L2Object target = activeChar.getTarget();
-		if (target == null) {
+		if (target == null)
 			target = activeChar;
-		}
-		if (target != activeChar && activeChar.getAccessLevel() < REQUIRED_LEVEL2) {
+
+		if (target != activeChar && activeChar.getAccessLevel() < REQUIRED_LEVEL2)
 			return;
-		}
+
 		L2NpcTemplate template1;
 		if (monsterId.matches("[0-9]*"))
 		{
@@ -204,22 +204,22 @@ public class AdminSpawn implements IAdminCommandHandler
 			spawn.setAmount(mobCount);
 			spawn.setHeading(activeChar.getHeading());
 			spawn.setRespawnDelay(respawnTime);
-			if (Config.SAVE_GMSPAWN_ON_CUSTOM) {
-				spawn.setCustom();
-			}
-			if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid())) {
+			if (Config.SAVE_GMSPAWN_ON_CUSTOM)
+				spawn.setCustom(true);
+
+			if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()))
 				activeChar.sendMessage("You cannot spawn another instance of " + template1.name + ".");
-			} else
+			else
 			{
-				if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null) {
+				if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
 					RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template1.getStatsSet().getDouble("baseHpMax"), template1.getStatsSet().getDouble("baseMpMax"), permanent);
-				} else {
+				else
 					SpawnTable.getInstance().addNewSpawn(spawn, permanent);
-				}
+
 				spawn.init();
-				if (!permanent) {
+				if (!permanent)
 					spawn.stopRespawn();
-				}
+
 				activeChar.sendMessage("Created " + template1.name + " on " + target.getObjectId());
 			}
 		}
