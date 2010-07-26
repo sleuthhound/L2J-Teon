@@ -60,10 +60,11 @@ public final class UseItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null) return;
 
-		// Flood protect UseItem
 		if (!activeChar.getFloodProtectors().getUseItem().tryPerformAction("use item"))
+		{
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
-
+		}
 		if (activeChar.getPrivateStoreType() != 0)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
@@ -98,14 +99,9 @@ public final class UseItem extends L2GameClientPacket
 		 * Private Academy 7128 Scroll of Escape to Heine 7129 Scroll of Escape to the Town of Oren 7130 Scroll of Escape to Ivory Tower 7131 Scroll of Escape to Hunters Village 7132 Scroll of Escape to Aden Castle Town 7133 Scroll of Escape to the Town of Goddard 7134 Scroll of Escape to the Rune Township 7135 Scroll of Escape to the Town of Schuttgart. 7554 Scroll of Escape to Talking Island
 		 * 7555 Scroll of Escape to Elven Village 7556 Scroll of Escape to Dark Elf Village 7557 Scroll of Escape to Orc Village 7558 Scroll of Escape to Dwarven Village 7559 Scroll of Escape to Giran Castle Town 7618 Scroll of Escape - Ketra Orc Village 7619 Scroll of Escape - Varka Silenos Village
 		 */
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0 
-				&& (itemId == 736 || itemId == 1538 || itemId == 1829 
-					|| itemId == 1830 || itemId == 3958 || itemId == 5858 
-					|| itemId == 5859 || itemId == 6663 || itemId == 6664 
-					|| itemId >= 7117 && itemId <= 7135 || itemId >= 7554 
-					&& itemId <= 7559 || itemId == 7618 || itemId == 7619))
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0 && (itemId == 736 || itemId == 1538 || itemId == 1829 || itemId == 1830 || itemId == 3958 || itemId == 5858 || itemId == 5859 || itemId == 6663 || itemId == 6664 || itemId >= 7117 && itemId <= 7135 || itemId >= 7554 && itemId <= 7559 || itemId == 7618 || itemId == 7619)) {
 			return;
-
+		}
 		L2Clan cl = activeChar.getClan();
 		if ((cl == null || cl.getHasCastle() == 0) && itemId == 7015 && Config.CASTLE_SHIELD)
 		{
@@ -250,7 +246,6 @@ public final class UseItem extends L2GameClientPacket
 				activeChar.sendMessage("Your status does not allow you to do that.");
 				return;
 			}
-
 			int bodyPart = item.getItem().getBodyPart();
 			// Prevent player to remove the weapon on special conditions
 			if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted() || activeChar._inEventCTF && activeChar._haveFlagCTF) && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND))
