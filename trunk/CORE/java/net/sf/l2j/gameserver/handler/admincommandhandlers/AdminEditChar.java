@@ -766,9 +766,9 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			throw new IllegalArgumentException("Malformed IPv4 number");
 		}
-		
+
 		boolean findDisconnected = false;
-		
+
 		if (IpAdress.equals("disconnected")){
 			findDisconnected = true;
 		}
@@ -776,12 +776,12 @@ public class AdminEditChar implements IAdminCommandHandler
 			if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
 				throw new IllegalArgumentException("Malformed IPv4 number");
 		}
-		
+
 		Collection<L2PcInstance> allPlayers = L2World.getInstance().getAllPlayers();
 		L2PcInstance[] players = allPlayers.toArray(new L2PcInstance[allPlayers.size()]);
-		
+
 		L2GameClient client;
-		
+
 		int CharactersFound = 0;
 		String name, ip = "0.0.0.0";
 		TextBuilder replyMSG = new TextBuilder();
@@ -805,12 +805,12 @@ public class AdminEditChar implements IAdminCommandHandler
 							continue;
 					}
 				}
-						
+
 				name = activeChar.getName();
 				CharactersFound = CharactersFound + 1;
 				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + activeChar.getTemplate().className + "</td><td width=40>" + activeChar.getLevel() + "</td></tr>");
-							
-				
+
+
 			}
 			if (CharactersFound > 20)
 			{
