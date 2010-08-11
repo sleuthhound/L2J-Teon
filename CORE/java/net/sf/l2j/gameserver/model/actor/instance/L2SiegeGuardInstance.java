@@ -75,15 +75,15 @@ public final class L2SiegeGuardInstance extends L2Attackable
 		{
 			if (!(attacker instanceof L2PcInstance))
 				return false;
-    	
-			boolean isCastle = ( getCastle() != null && getCastle().getCastleId() > 0 
+
+			boolean isCastle = ( getCastle() != null && getCastle().getCastleId() > 0
                     && getCastle().getSiege().getIsInProgress()
                              && !getCastle().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
 
-			boolean isFort = ( getFort() != null && getFort().getFortId() > 0 
+			boolean isFort = ( getFort() != null && getFort().getFortId() > 0
                     && getFort().getSiege().getIsInProgress()
                              && !getFort().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
-        
+
 			// Attackable during siege by all except defenders ( Castle or Fort )
 			return (isCastle || isFort);
 		}
@@ -161,7 +161,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 						// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 						player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 					}
-					else 
+					else
 					{
 						SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
 						broadcastPacket(sa);

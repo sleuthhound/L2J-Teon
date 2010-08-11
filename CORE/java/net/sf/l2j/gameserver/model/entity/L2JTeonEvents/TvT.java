@@ -461,7 +461,7 @@ public class TvT
 		}
 		_teleport = false;
 		sit();
-		
+
 		if (Config.TVT_CLOSE_COLISEUM_DOORS)
 			closeColiseumDoors();
 
@@ -491,10 +491,10 @@ public class TvT
 		}
 		_teleport = false;
 		sit();
-		
+
 		if (Config.TVT_CLOSE_COLISEUM_DOORS)
 			closeColiseumDoors();
-		
+
 		Announcements.getInstance().announceToAll(_eventName + "(TvT): Started. Go to kill your enemies!");
 		_started = true;
 		return true;
