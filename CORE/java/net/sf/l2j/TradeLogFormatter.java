@@ -41,28 +41,22 @@ public class TradeLogFormatter extends Formatter
 		output.append(record.getMessage());
 		for (Object p : record.getParameters())
 		{
-			if (p == null) {
+			if (p == null)
 				continue;
-			}
 			output.append(',');
 			output.append(' ');
 			if (p instanceof L2ItemInstance)
 			{
 				L2ItemInstance item = (L2ItemInstance) p;
 				output.append("item " + item.getObjectId() + ":");
-				if (item.getEnchantLevel() > 0) {
+				if (item.getEnchantLevel() > 0)
 					output.append("+" + item.getEnchantLevel() + " ");
-				}
 				output.append(item.getItem().getName());
 				output.append("(" + item.getCount() + ")");
-			}
-			// else if (p instanceof L2PcInstance)
-			// output.append(((L2PcInstance)p).getName());
- else {
+			} else
 				output.append(p.toString()/*
 										 * + ":" + ((L2Object)p).getObjectId()
 										 */);
-			}
 		}
 		output.append(CRLF);
 		return output.toString();

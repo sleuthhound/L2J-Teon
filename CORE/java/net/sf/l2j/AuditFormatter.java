@@ -40,9 +40,8 @@ public class AuditFormatter extends Formatter
 		output.append(record.getMessage());
 		for (Object p : record.getParameters())
 		{
-			if (p == null) {
+			if (p == null)
 				continue;
-			}
 			output.append(',');
 			output.append(' ');
 			output.append(p.toString());

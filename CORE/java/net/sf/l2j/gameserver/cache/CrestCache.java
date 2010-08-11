@@ -47,9 +47,7 @@ public class CrestCache
 	public static CrestCache getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new CrestCache();
-		}
 		return _instance;
 	}
 
@@ -87,17 +85,11 @@ public class CrestCache
 					content = new byte[(int) f.length()];
 					f.readFully(content);
 					if (file.getName().startsWith("Crest_Large_"))
-					{
 						_mapPledgeLarge.put(Integer.valueOf(file.getName().substring(12, file.getName().length() - 4)), content);
-					}
 					else if (file.getName().startsWith("Crest_"))
-					{
 						_mapPledge.put(Integer.valueOf(file.getName().substring(6, file.getName().length() - 4)), content);
-					}
 					else if (file.getName().startsWith("AllyCrest_"))
-					{
 						_mapAlly.put(Integer.valueOf(file.getName().substring(10, file.getName().length() - 4)), content);
-					}
 					_loadedFiles++;
 					_bytesBuffLen += content.length;
 				}

@@ -37,9 +37,8 @@ public class HtmCache
 
 	public static HtmCache getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new HtmCache();
-		}
 		return _instance;
 	}
 
@@ -92,9 +91,7 @@ public class HtmCache
 		public boolean accept(File file)
 		{
 			if (!file.isDirectory())
-			{
 				return file.getName().endsWith(".htm") || file.getName().endsWith(".html");
-			}
 			return true;
 		}
 	}
@@ -104,13 +101,10 @@ public class HtmCache
 		FileFilter filter = new HtmFilter();
 		File[] files = dir.listFiles(filter);
 		for (File file : files)
-		{
-			if (!file.isDirectory()) {
+			if (!file.isDirectory())
 				loadFile(file);
-			} else {
+			else
 				parseDir(file);
-			}
-		}
 	}
 
 	public String loadFile(File file)
@@ -136,11 +130,8 @@ public class HtmCache
 				{
 					_bytesBuffLen += bytes;
 					_loadedFiles++;
-				}
-				else
-				{
+				} else
 					_bytesBuffLen = _bytesBuffLen - oldContent.length() + bytes;
-				}
 				_cache.put(hashcode, content);
 				return content;
 			}
@@ -176,9 +167,8 @@ public class HtmCache
 	public String getHtm(String path)
 	{
 		String content = _cache.get(path.hashCode());
-		if (Config.LAZY_CACHE && content == null) {
+		if (Config.LAZY_CACHE && content == null)
 			content = loadFile(new File(Config.DATAPACK_ROOT, path));
-		}
 		return content;
 	}
 
@@ -197,9 +187,8 @@ public class HtmCache
 	{
 		File file = new File(path);
 		HtmFilter filter = new HtmFilter();
-		if (file.exists() && filter.accept(file) && !file.isDirectory()) {
+		if (file.exists() && filter.accept(file) && !file.isDirectory())
 			return true;
-		}
 		return false;
 	}
 }

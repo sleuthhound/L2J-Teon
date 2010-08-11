@@ -42,9 +42,7 @@ public class MonsterRace
 	public static MonsterRace getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new MonsterRace();
-		}
 		return _instance;
 	}
 
@@ -58,13 +56,11 @@ public class MonsterRace
 			while (true)
 			{
 				for (int j = i - 1; j >= 0; j--)
-				{
 					if (_monsters[j].getTemplate().npcId == id + random)
 					{
 						random = Rnd.get(24);
 						continue;
 					}
-				}
 				break;
 			}
 			try
@@ -94,11 +90,10 @@ public class MonsterRace
 			total = 0;
 			for (int j = 0; j < 20; j++)
 			{
-				if (j == 19) {
+				if (j == 19)
 					_speeds[i][j] = 100;
-				} else {
+				else
 					_speeds[i][j] = Rnd.get(60) + 65;
-				}
 				total += _speeds[i][j];
 			}
 			if (total >= _first[1])

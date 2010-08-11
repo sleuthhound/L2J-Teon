@@ -51,9 +51,8 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	public L2NpcWalkerAI(L2Character.AIAccessor accessor)
 	{
 		super(accessor);
-		if (!Config.ALLOW_NPC_WALKERS) {
+		if (!Config.ALLOW_NPC_WALKERS)
 			return;
-		}
 		_route = NpcWalkerRoutesTable.getInstance().getRouteForNpc(getActor().getNpcId());
 		// Here we need 1 second initial delay cause getActor().hasAI() will return null...
 		// Constructor of L2NpcWalkerAI is called faster then ai object is attached in L2NpcWalkerInstance
@@ -68,17 +67,15 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 	@Override
 	protected void onEvtThink()
 	{
-		if (!Config.ALLOW_NPC_WALKERS) {
+		if (!Config.ALLOW_NPC_WALKERS)
 			return;
-		}
 		if (isWalkingToNextPoint())
 		{
 			checkArrived();
 			return;
 		}
-		if (_nextMoveTime < System.currentTimeMillis()) {
+		if (_nextMoveTime < System.currentTimeMillis())
 			walkToLocation();
-		}
 	}
 
 	/**
@@ -107,7 +104,6 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 		{
 			String chat = _route.get(_currentPos).getChatText();
 			if (chat != null && !chat.equals(""))
-			{
 				try
 				{
 					getActor().broadcastChat(chat);
@@ -116,16 +112,14 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 				{
 					_log.info("L2NpcWalkerInstance: Error, " + e);
 				}
-			}
 			// time in millis
 			long delay = _route.get(_currentPos).getDelay() * 1000;
 			// sleeps between each move
 			if (delay <= 0)
 			{
 				delay = DEFAULT_MOVE_DELAY;
-				if (Config.DEVELOPER) {
+				if (Config.DEVELOPER)
 					_log.warning("Wrong Delay Set in Npc Walker Functions = " + delay + " secs, using default delay: " + DEFAULT_MOVE_DELAY + " secs instead.");
-				}
 			}
 			_nextMoveTime = System.currentTimeMillis() + delay;
 			setWalkingToNextPoint(false);
@@ -134,20 +128,18 @@ public class L2NpcWalkerAI extends L2CharacterAI implements Runnable
 
 	private void walkToLocation()
 	{
-		if (_currentPos < _route.size() - 1) {
+		if (_currentPos < _route.size() - 1)
 			_currentPos++;
-		} else {
+		else
 			_currentPos = 0;
-		}
 		boolean moveType = _route.get(_currentPos).getRunning();
 		/**
 		 * false - walking true - Running
 		 */
-		if (moveType) {
+		if (moveType)
 			getActor().setRunning();
-		} else {
+		else
 			getActor().setWalking();
-		}
 		// now we define destination
 		int destinationX = _route.get(_currentPos).getMoveX();
 		int destinationY = _route.get(_currentPos).getMoveY();

@@ -46,9 +46,7 @@ public class AiManager
 	public static AiManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new AiManager();
-		}
 		return _instance;
 	}
 
@@ -76,9 +74,7 @@ public class AiManager
 			}
 			File directory = new File(url.getFile());
 			for (String file : directory.list())
-			{
 				if (file.endsWith(".class"))
-				{
 					try
 					{
 						Class managerClass = Class.forName("net.sf.l2j.gameserver.ai.managers." + file.substring(0, file.length() - 6));
@@ -110,20 +106,14 @@ public class AiManager
 								}
 								Intersection intersection = new Intersection(ai);
 								for (int id : pparams.getIDs())
-								{
 									if (ai.getPluginingParamaters().contains(id))
-									{
 										// intersection with this AI
 										intersection.ids.add(id);
-									}
-								}
-								if (!intersection.isEmpty()) {
+								if (!intersection.isEmpty())
 									intersections.add(intersection);
-								}
 							}
-							if (perfectMatch) {
+							if (perfectMatch)
 								continue;
-							}
 							for (Intersection i : intersections)
 							{
 								// remove secant ids on both AiInstances
@@ -153,9 +143,8 @@ public class AiManager
 								newAi.addHandler(handler);
 								_aiList.add(newAi);
 							}
-							if (pparams.isEmpty()) {
+							if (pparams.isEmpty())
 								continue;
-							}
 							// create a new instance with the remaining ids
 							AiInstance newAi = new AiInstance(pparams);
 							newAi.addHandler(handler);
@@ -186,8 +175,6 @@ public class AiManager
 					{
 						e.printStackTrace();
 					}
-				}
-			}
 		}
 		catch (IOException e1)
 		{
@@ -196,12 +183,8 @@ public class AiManager
 		}
 		// build a mighty map
 		for (AiInstance ai : _aiList)
-		{
 			for (Integer i : ai.getHandledNPCIds())
-			{
 				_aiMap.put(i, ai);
-			}
-		}
 	}
 
 	public void executeEventHandler(QueueEventRunner runner)
@@ -230,9 +213,8 @@ public class AiManager
 	{
 		String key = who + ":" + paramsType + ":" + param1 + ":" + param2;
 		String cacheResult = _paramcache.get(key);
-		if (cacheResult != null) {
+		if (cacheResult != null)
 			return cacheResult;
-		}
 		String result = null;
 		// get from SQL
 		_paramcache.put(key, result);

@@ -108,9 +108,7 @@ public class Post
 		for (CPost cp : _post)
 		{
 			if (i == id)
-			{
 				return cp;
-			}
 			i++;
 		}
 		return null;

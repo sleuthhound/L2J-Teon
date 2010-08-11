@@ -79,15 +79,10 @@ public class Shutdown extends Thread
 		_log.warning("IP: " + IP + " issued shutdown command. " + MODE_TEXT[_shutdownMode] + " in " + seconds + " seconds!");
 		// _an.announceToAll("Server is " + _modeText[shutdownMode] + " in "+seconds+ " seconds!");
 		if (restart)
-		{
 			_shutdownMode = GM_RESTART;
-		}
 		else
-		{
 			_shutdownMode = GM_SHUTDOWN;
-		}
 		if (_shutdownMode > 0)
-		{
 			switch (seconds)
 			{
 				case 540:
@@ -110,11 +105,8 @@ public class Shutdown extends Thread
 				default:
 					SendServerQuit(seconds);
 			}
-		}
 		if (_counterInstance != null)
-		{
 			_counterInstance._abort();
-		}
 		_counterInstance = new Shutdown(seconds, restart);
 		_counterInstance.start();
 	}
@@ -156,18 +148,12 @@ public class Shutdown extends Thread
 	public Shutdown(int seconds, boolean restart)
 	{
 		if (seconds < 0)
-		{
 			seconds = 0;
-		}
 		_secondsShut = seconds;
 		if (restart)
-		{
 			_shutdownMode = GM_RESTART;
-		}
 		else
-		{
 			_shutdownMode = GM_SHUTDOWN;
-		}
 	}
 
 	/**
@@ -178,9 +164,7 @@ public class Shutdown extends Thread
 	public static Shutdown getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new Shutdown();
-		}
 		return _instance;
 	}
 
@@ -251,21 +235,13 @@ public class Shutdown extends Thread
 			try
 			{
 				if (Config.DATABASE_AUTO_ANALYZE)
-				{
 					DataOtimize.AnalyzeGame();
-				}
 				if (Config.DATABASE_AUTO_CHECK)
-				{
 					DataOtimize.CheckGame();
-				}
 				if (Config.DATABASE_AUTO_OPTIMIZE)
-				{
 					DataOtimize.OptimizeGame();
-				}
 				if (Config.DATABASE_AUTO_REPAIR)
-				{
 					DataOtimize.RepairGame();
-				}
 			}
 			catch (Throwable t)
 			{
@@ -281,13 +257,9 @@ public class Shutdown extends Thread
 			}
 			// server will quit, when this function ends.
 			if (_instance._shutdownMode == GM_RESTART)
-			{
 				Runtime.getRuntime().halt(2);
-			}
 			else
-			{
 				Runtime.getRuntime().halt(0);
-			}
 		}
 		else
 		{
@@ -323,15 +295,10 @@ public class Shutdown extends Thread
 	{
 		_log.warning("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") issued shutdown command. " + MODE_TEXT[_shutdownMode] + " in " + seconds + " seconds!");
 		if (restart)
-		{
 			_shutdownMode = GM_RESTART;
-		}
 		else
-		{
 			_shutdownMode = GM_SHUTDOWN;
-		}
 		if (_shutdownMode > 0)
-		{
 			switch (seconds)
 			{
 				case 540:
@@ -354,11 +321,8 @@ public class Shutdown extends Thread
 				default:
 					SendServerQuit(seconds);
 			}
-		}
 		if (_counterInstance != null)
-		{
 			_counterInstance._abort();
-		}
 		// the main instance should only run for shutdown hook, so we start a new instance
 		_counterInstance = new Shutdown(seconds, restart);
 		_counterInstance.start();
@@ -464,9 +428,8 @@ public class Shutdown extends Thread
 				_secondsShut--;
 				int delay = 1000; // milliseconds
 				Thread.sleep(delay);
-				if (_shutdownMode == ABORT) {
+				if (_shutdownMode == ABORT)
 					break;
-				}
 			}
 		}
 		catch (InterruptedException e)
@@ -492,9 +455,8 @@ public class Shutdown extends Thread
 				System.err.println("GM restart received. Restarting NOW!");
 				break;
 		}
-		if (Config.ACTIVATE_POSITION_RECORDER) {
+		if (Config.ACTIVATE_POSITION_RECORDER)
 			Universe.getInstance().implode(true);
-		}
 		try
 		{
 			Announcements _an = Announcements.getInstance();
@@ -506,9 +468,8 @@ public class Shutdown extends Thread
 		}
 		disconnectAllCharacters();
 		// seven signs data is now saved along with festival data
-		if (!SevenSigns.getInstance().isSealValidationPeriod()) {
+		if (!SevenSigns.getInstance().isSealValidationPeriod())
 			SevenSignsFestival.getInstance().saveFestivalData(false);
-		}
 		// save seven signs data before closing
 		SevenSigns.getInstance().saveSevenSignsData(null, true);
 		// save all Grandboss status
@@ -539,9 +500,8 @@ public class Shutdown extends Thread
 		// Save all global (non-player specific) Quest data that needs to persist after reboot
 		QuestManager.getInstance().save();
 		// NPCBuffer: save player schemes data
-		if (Config.NPCBUFFER_FEATURE_ENABLED && Config.NPCBUFFER_STORE_SCHEMES) {
+		if (Config.NPCBUFFER_FEATURE_ENABLED && Config.NPCBUFFER_STORE_SCHEMES)
 			CharSchemesTable.getInstance().onServerShutdown();
-		}
 		System.err.println("Quest Engine: Data Saved.");
 		// save items on ground
 		if (Config.SAVE_DROPPED_ITEM)
@@ -567,7 +527,6 @@ public class Shutdown extends Thread
 	{
 		// logout character
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
 			try
 			{
 				L2GameClient.saveCharToDisk(player);
@@ -577,7 +536,6 @@ public class Shutdown extends Thread
 			catch (Throwable t)
 			{ /* ignore all */
 			}
-		}
 		try
 		{
 			Thread.sleep(1000);
@@ -587,7 +545,6 @@ public class Shutdown extends Thread
 			_log.log(Level.INFO, "", t);
 		}
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
 			try
 			{
 				player.closeNetConnection();
@@ -597,6 +554,5 @@ public class Shutdown extends Thread
 			 * just to make sure we try to kill the connection
 			 */
 			}
-		}
 	}
 }

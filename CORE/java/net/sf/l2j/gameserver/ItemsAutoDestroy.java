@@ -35,11 +35,10 @@ public class ItemsAutoDestroy
 	{
 		_items = new FastList<L2ItemInstance>();
 		_sleep = Config.AUTODESTROY_ITEM_AFTER * 1000;
-		if (_sleep == 0) {
+		if (_sleep == 0)
 			// when
 			// AUTODESTROY_ITEM_AFTER = 0 but we never know..
 			_sleep = 3600000;
-		}
 		ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new CheckItemsForDestroy(), 5000, 5000);
 	}
 
@@ -61,45 +60,35 @@ public class ItemsAutoDestroy
 
 	public synchronized void removeItems()
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.info("[ItemsAutoDestroy] : " + _items.size() + " items to check.");
-		}
-		if (_items.isEmpty()) {
+		if (_items.isEmpty())
 			return;
-		}
 		long curtime = System.currentTimeMillis();
 		for (L2ItemInstance item : _items)
-		{
-			if (item == null || item.getDropTime() == 0 || item.getLocation() != L2ItemInstance.ItemLocation.VOID) {
+			if (item == null || item.getDropTime() == 0 || item.getLocation() != L2ItemInstance.ItemLocation.VOID)
 				_items.remove(item);
-			} else
+			else if (item.getItemType() == L2EtcItemType.HERB)
 			{
-				if (item.getItemType() == L2EtcItemType.HERB)
-				{
-					if (curtime - item.getDropTime() > Config.HERB_AUTO_DESTROY_TIME)
-					{
-						L2World.getInstance().removeVisibleObject(item, item.getWorldRegion());
-						L2World.getInstance().removeObject(item);
-						_items.remove(item);
-						if (Config.SAVE_DROPPED_ITEM) {
-							ItemsOnGroundManager.getInstance().removeObject(item);
-						}
-					}
-				}
-				else if (curtime - item.getDropTime() > _sleep)
+				if (curtime - item.getDropTime() > Config.HERB_AUTO_DESTROY_TIME)
 				{
 					L2World.getInstance().removeVisibleObject(item, item.getWorldRegion());
 					L2World.getInstance().removeObject(item);
 					_items.remove(item);
-					if (Config.SAVE_DROPPED_ITEM) {
+					if (Config.SAVE_DROPPED_ITEM)
 						ItemsOnGroundManager.getInstance().removeObject(item);
-					}
 				}
 			}
-		}
-		if (Config.DEBUG) {
+			else if (curtime - item.getDropTime() > _sleep)
+			{
+				L2World.getInstance().removeVisibleObject(item, item.getWorldRegion());
+				L2World.getInstance().removeObject(item);
+				_items.remove(item);
+				if (Config.SAVE_DROPPED_ITEM)
+					ItemsOnGroundManager.getInstance().removeObject(item);
+			}
+		if (Config.DEBUG)
 			_log.info("[ItemsAutoDestroy] : " + _items.size() + " items remaining.");
-		}
 	}
 
 	protected class CheckItemsForDestroy extends Thread

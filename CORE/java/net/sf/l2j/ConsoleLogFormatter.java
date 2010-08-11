@@ -46,7 +46,6 @@ public class ConsoleLogFormatter extends Formatter
 		output.append(record.getMessage());
 		output.append(CRLF);
 		if (record.getThrown() != null)
-		{
 			try
 			{
 				StringWriter sw = new StringWriter();
@@ -59,7 +58,6 @@ public class ConsoleLogFormatter extends Formatter
 			catch (Exception ex)
 			{
 			}
-		}
 		return output.toString();
 	}
 }
