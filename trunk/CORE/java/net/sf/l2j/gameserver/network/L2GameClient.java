@@ -553,7 +553,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 						//_log.info("checking offline mode");
 
-						if (!player.offline_shop_enabled && (player.isInStoreMode() && Config.ALLOW_OFFLINE_TRADE) || (player.isInCraftMode() && Config.ALLOW_OFFLINE_CRAFT)){
+						if (!player.offline_shop_enabled && player.isInStoreMode() && Config.ALLOW_OFFLINE_TRADE || player.isInCraftMode() && Config.ALLOW_OFFLINE_CRAFT){
 
 
 							player.leaveParty();
