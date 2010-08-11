@@ -76,16 +76,16 @@ public final class L2SiegeGuardInstance extends L2Attackable
 			if (!(attacker instanceof L2PcInstance))
 				return false;
 
-			boolean isCastle = ( getCastle() != null && getCastle().getCastleId() > 0
+			boolean isCastle = getCastle() != null && getCastle().getCastleId() > 0
                     && getCastle().getSiege().getIsInProgress()
-                             && !getCastle().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
+                             && !getCastle().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan());
 
-			boolean isFort = ( getFort() != null && getFort().getFortId() > 0
+			boolean isFort = getFort() != null && getFort().getFortId() > 0
                     && getFort().getSiege().getIsInProgress()
-                             && !getFort().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
+                             && !getFort().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan());
 
 			// Attackable during siege by all except defenders ( Castle or Fort )
-			return (isCastle || isFort);
+			return isCastle || isFort;
 		}
 
 		@Override
