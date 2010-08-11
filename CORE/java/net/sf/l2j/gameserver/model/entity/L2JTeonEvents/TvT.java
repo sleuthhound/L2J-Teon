@@ -1583,15 +1583,15 @@ public class TvT
 		switch (value)
 		{
 		case 0:
-			type = ("None");
+			type = "None";
 			break;
 
 		case 1:
-			type = ("Manual");
+			type = "Manual";
 			break;
 
 		case 2:
-			type = ("Automatic");
+			type = "Automatic";
 			break;
 		}
 		return type;
