@@ -109,13 +109,11 @@ public class Universe implements java.io.Serializable
 		{
 			Position o = (Position) obj;
 			int res = Integer.valueOf(_x).compareTo(o._x);
-			if (res != 0) {
+			if (res != 0)
 				return res;
-			}
 			res = Integer.valueOf(_y).compareTo(o._y);
-			if (res != 0) {
+			if (res != 0)
 				return res;
-			}
 			res = Integer.valueOf(_z).compareTo(o._z);
 			return res;
 		}
@@ -156,13 +154,11 @@ public class Universe implements java.io.Serializable
 		{
 			Position o = (Position) obj;
 			int res = Integer.valueOf(_x).compareTo(o._x);
-			if (res != 0) {
+			if (res != 0)
 				return res;
-			}
 			res = Integer.valueOf(_y).compareTo(o._y);
-			if (res != 0) {
+			if (res != 0)
 				return res;
-			}
 			res = Integer.valueOf(_z).compareTo(o._z);
 			return res;
 		}
@@ -177,9 +173,7 @@ public class Universe implements java.io.Serializable
 	public static Universe getInstance()
 	{
 		if (_instance == null && Config.ACTIVATE_POSITION_RECORDER)
-		{
 			_instance = new Universe();
-		}
 		return _instance;
 	}
 
@@ -267,21 +261,17 @@ public class Universe implements java.io.Serializable
 		int min_z = 0, max_z = 0;
 		for (Coord pos : _coordList)
 		{
-			if (pos == null) {
+			if (pos == null)
 				continue;
-			}
-			if (pos._z < min_z) {
+			if (pos._z < min_z)
 				min_z = pos._z;
-			}
-			if (pos._z > max_z) {
+			if (pos._z > max_z)
 				max_z = pos._z;
-			}
 		}
 		for (Coord pos : _coordList)
 		{
-			if (pos == null) {
+			if (pos == null)
 				continue;
-			}
 			int x = (pos._x - MIN_X) / zoom;
 			int y = (pos._y - MIN_Y) / zoom;
 			int color = (int) (((long) pos._z - MIN_Z) * 0xFFFFFF / (MAX_Z - MIN_Z));
@@ -321,9 +311,7 @@ public class Universe implements java.io.Serializable
 	{
 		int total = 0;
 		if (_coordList == null)
-		{
 			_coordList = new LinkedList<Coord>();
-		}
 		try
 		{
 			loadBinFiles();
@@ -354,9 +342,7 @@ public class Universe implements java.io.Serializable
 			int count = data.readInt();
 			List<Coord> newMap = new LinkedList<Coord>();
 			for (int i = 0; i < count; i++)
-			{
 				newMap.add(new Coord(data.readInt(), data.readInt(), data.readInt()));
-			}
 			data.close(); // Close the stream.
 			_log.info(newMap.size() + " map vertices loaded from file " + file.getName());
 			_coordList.addAll(newMap);
@@ -413,9 +399,7 @@ public class Universe implements java.io.Serializable
 			_log.info(temp.size() + " map vertices loaded from file " + file.getName());
 			in.close(); // Close the stream.
 			for (Position p : temp)
-			{
 				_coordList.add(new Coord(p._x, p._y, p._z));
-			}
 		}
 	}
 
@@ -431,9 +415,7 @@ public class Universe implements java.io.Serializable
 			// System.out.println("Univere Map has " + _map.size() + "
 			// nodes.");
 			if (size > 100000)
-			{
 				flush();
-			}
 		}
 	}
 
@@ -450,9 +432,8 @@ public class Universe implements java.io.Serializable
 	public int size()
 	{
 		int size = 0;
-		if (_coordList != null) {
+		if (_coordList != null)
 			size = _coordList.size();
-		}
 		return size;
 	}
 
@@ -461,9 +442,8 @@ public class Universe implements java.io.Serializable
 		try
 		{
 			String pad = "";
-			if (b) {
+			if (b)
 				pad = "" + System.currentTimeMillis();
-			}
 			FileOutputStream fos = new FileOutputStream("data/universe" + pad + ".fin"); // Save
 			// to
 			// file
@@ -472,17 +452,13 @@ public class Universe implements java.io.Serializable
 			// System.out.println("Size of dump: "+count);
 			data.writeInt(count);
 			if (_map != null)
-			{
 				for (Coord p : _map)
-				{
 					if (p != null)
 					{
 						data.writeInt(p._x);
 						data.writeInt(p._y);
 						data.writeInt(p._z);
 					}
-				}
-			}
 			data.flush();
 			data.close();
 			_log.info("Universe Map saved to: " + "data/universe" + pad + ".fin");

@@ -95,12 +95,10 @@ public class GameTimeController
 	 */
 	public synchronized void registerMovingObject(L2Character cha)
 	{
-		if (cha == null) {
+		if (cha == null)
 			return;
-		}
-		if (!_movingObjects.contains(cha)) {
+		if (!_movingObjects.contains(cha))
 			_movingObjects.add(cha);
-		}
 	}
 
 	/**
@@ -133,9 +131,8 @@ public class GameTimeController
 			if (end)
 			{
 				_movingObjects.remove(cha);
-				if (ended == null) {
+				if (ended == null)
 					ended = new FastList<L2Character>();
-				}
 				ended.add(cha);
 			}
 		}
@@ -145,9 +142,8 @@ public class GameTimeController
 		// then notify AI with EVT_ARRIVED
 		// TODO: maybe a general TP is needed for that kinda stuff (all
 		// knownlist updates should be done in a TP anyway).
-		if (ended != null) {
+		if (ended != null)
 			ThreadPoolManager.getInstance().executeTask(new MovingObjectArrived(ended));
-		}
 	}
 
 	public void stopTimer()
@@ -188,9 +184,8 @@ public class GameTimeController
 					// value
 					// (ticks
 					// now)
-					if (_oldTicks != _gameTicks) {
+					if (_oldTicks != _gameTicks)
 						moveObjects(); // XXX: if this makes objects go slower,
-					}
 					// remove it
 					// but I think it can't make that effect. is it better
 					// to
@@ -225,9 +220,8 @@ public class GameTimeController
 			{
 				String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
 				_log.warning(time + " TimerThread stop with following error. restart it.");
-				if (_timer._error != null) {
+				if (_timer._error != null)
 					_timer._error.printStackTrace();
-				}
 				_timer = new TimerThread();
 				_timer.start();
 			}
@@ -250,19 +244,15 @@ public class GameTimeController
 		public void run()
 		{
 			for (L2Character cha : _ended)
-			{
 				try
 				{
                     if (Config.MOVE_BASED_KNOWNLIST)
-                    {
-                    	cha.getKnownList().findObjects();
-                    }
+						cha.getKnownList().findObjects();
 					cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
 				}
 				catch (NullPointerException e)
 				{
 				}
-			}
 		}
 	}
 

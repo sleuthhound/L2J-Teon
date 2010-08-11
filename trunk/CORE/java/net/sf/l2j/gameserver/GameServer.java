@@ -199,9 +199,7 @@ public class GameServer
 		Util.printSection("Geodata - Path Finding");
 		GeoData.getInstance();
 		if (Config.GEODATA == 2)
-		{
 			GeoPathFinding.getInstance();
-		}
 		Util.printSection("Skills");
 		_skillTable = SkillTable.getInstance();
 		if (!_skillTable.isInitialized())
@@ -210,9 +208,7 @@ public class GameServer
 			throw new Exception("Could not initialize the skill table");
 		}
 		if (Config.ALLOW_NPC_WALKERS)
-		{
 			NpcWalkerRoutesTable.getInstance().load();
-		}
 		GmListTable.getInstance();
 		SkillTreeTable.getInstance();
 		SkillSpellbookTable.getInstance();
@@ -242,14 +238,10 @@ public class GameServer
 		Util.printSection("Henna");
 		_hennaTable = HennaTable.getInstance();
 		if (!_hennaTable.isInitialized())
-		{
 			throw new Exception("Could not initialize the Henna Table");
-		}
 		HennaTreeTable.getInstance();
 		if (!_hennaTable.isInitialized())
-		{
 			throw new Exception("Could not initialize the Henna Tree Table");
-		}
 		Util.printSection("Npc");
 		_npcTable = NpcTable.getInstance();
 		if (!_npcTable.isInitialized())
@@ -273,13 +265,9 @@ public class GameServer
 		BanditStrongholdSiege.getInstance();
 		WildBeastFarmSiege.getInstance();
 		if (Config.DEVASTATED_CASTLE_ENABLED)
-		{
 			DevastatedCastleManager.getInstance();
-		}
 		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
-		{
 			FortressofTheDeadManager.getInstance();
-		}
 		Util.printSection("Zones");
 		ZoneManager.getInstance();
 		MapRegionTable.getInstance();
@@ -299,9 +287,7 @@ public class GameServer
 		BuffTemplateTable.getInstance();
 		_log.config("BuffTemplateTable Initialized");
 		if (!_helperBuffTable.isInitialized())
-		{
 			throw new Exception("Could not initialize the Helper Buff Table");
-		}
 		Util.printSection("Teleport");
 		TeleportLocationTable.getInstance();
 		LevelUpData.getInstance();
@@ -328,20 +314,14 @@ public class GameServer
 		Util.printSection("Event Drop");
 		EventDroplist.getInstance();
 		if (Config.SAVE_DROPPED_ITEM)
-		{
 			ItemsOnGroundManager.getInstance();
-		}
 		if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
-		{
 			ItemsAutoDestroy.getInstance();
-		}
 		// Couple manager
 		if (!Config.ALLOW_WEDDING)
-		{
 			CoupleManager.getInstance();
 			// if ( _log.isDebugEnabled())_log.debug("CoupleManager
 			// initialized");
-		}
 		MonsterRace.getInstance();
 		StaticObjects.getInstance();
 		Util.printSection("Handlers");
@@ -359,9 +339,7 @@ public class GameServer
 		L2PetDataTable.getInstance().loadPetsData();
 		Universe.getInstance();
 		if (Config.ACCEPT_GEOEDITOR_CONN)
-		{
 			GeoEditorListener.getInstance();
-		}
 		Util.printSection("Doors");
 		_doorTable = DoorTable.getInstance();
 		_doorTable.parseData();
@@ -383,9 +361,7 @@ public class GameServer
 		{
 			_log.warning("There is errors in your Door.csv file. Update door.csv");
 			if (Config.DEBUG)
-			{
 				e.printStackTrace();
-			}
 		}
 		Util.printSection("Augmentation Data");
 		AugmentationData.getInstance();
@@ -409,9 +385,7 @@ public class GameServer
 			_log.info("Loading Server Scripts");
 			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
 			if (!Config.ALT_DEV_NO_QUESTS)
-			{
 				L2ScriptEngineManager.getInstance().executeScriptList(scripts);
-			}
 		}
 		catch (IOException ioe)
 		{
@@ -421,9 +395,7 @@ public class GameServer
 		{
 			CompiledScriptCache compiledScriptCache = L2ScriptEngineManager.getInstance().getCompiledScriptCache();
 			if (compiledScriptCache == null)
-			{
 				_log.info("Compiled Scripts Cache is disabled.");
-			}
 			else
 			{
 				compiledScriptCache.purge();
@@ -431,11 +403,8 @@ public class GameServer
 				{
 					compiledScriptCache.save();
 					_log.info("Compiled Scripts Cache was saved.");
-				}
-				else
-				{
+				} else
 					_log.info("Compiled Scripts Cache is up-to-date.");
-				}
 			}
 		}
 		catch (IOException e)
@@ -493,7 +462,6 @@ public class GameServer
 
 		InetAddress bindAddress = null;
 		if (!Config.GAMESERVER_HOSTNAME.equals("*"))
-		{
 			try
 			{
 				bindAddress = InetAddress.getByName(Config.GAMESERVER_HOSTNAME);
@@ -502,11 +470,8 @@ public class GameServer
 			{
 				_log.severe("WARNING: The GameServer bind address is invalid, using all avaliable IPs. Reason: "+e1.getMessage());
 				if (Config.DEVELOPER)
-				{
 					e1.printStackTrace();
-				}
 			}
-		}
 
 		try
 		{
@@ -516,9 +481,7 @@ public class GameServer
 		{
 			_log.severe("FATAL: Failed to open server socket. Reason: "+e.getMessage());
 			if (Config.DEVELOPER)
-			{
 				e.printStackTrace();
-			}
 			System.exit(1);
 		}
 
@@ -534,9 +497,7 @@ public class GameServer
 			serverConnect.doSendMsg();
 		}
 		if (Config.ONLINE_PLAYERS_AT_STARTUP)
-		{
 			OnlinePlayers.getInstance();
-		}
 		long serverLoadEnd = System.currentTimeMillis();
 		_log.info("Server Loaded in " + (serverLoadEnd - serverLoadStart) / 1000 + " Seconds");
 		Util.printSection("Game Server Started");
@@ -565,10 +526,7 @@ public class GameServer
 		{
 			_statusServer = new Status(Server.serverMode);
 			_statusServer.start();
-		}
-		else
-		{
+		} else
 			_log.info("Telnet server is currently disabled.");
-		}
 	}
 }

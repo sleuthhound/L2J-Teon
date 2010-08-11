@@ -297,9 +297,8 @@ public class Base64
 				gzos = new java.util.zip.GZIPOutputStream(b64os);
 				oos = new java.io.ObjectOutputStream(gzos);
 			} // end if: gzip
- else {
+ else
 				oos = new java.io.ObjectOutputStream(b64os);
-			}
 			oos.writeObject(serializableObject);
 		} // end try
 		catch (java.io.IOException e)
@@ -597,8 +596,7 @@ public class Base64
 			return 2;
 		}
 		// Example: DkLE
-		else
-		{
+ else
 			try
 			{
 				// Two ways to do the same thing. Don't know which way I
@@ -625,7 +623,6 @@ public class Base64
 				System.out.println("" + source[srcOffset + 3] + ": " + DECODABET[source[srcOffset + 3]]);
 				return -1;
 			} // e nd catch
-		}
 	} // end decodeToBytes
 
 	/**
@@ -666,9 +663,8 @@ public class Base64
 						outBuffPosn += decode4to3(b4, 0, outBuff, outBuffPosn);
 						b4Posn = 0;
 						// If that was the equals sign, break out of 'for' loop
-						if (sbiCrop == EQUALS_SIGN) {
+						if (sbiCrop == EQUALS_SIGN)
 							break;
-						}
 					} // end if: quartet built
 				} // end if: equals sign or better
 			} // end if: white space, equals sign or better
@@ -725,9 +721,7 @@ public class Base64
 					bais = new java.io.ByteArrayInputStream(bytes);
 					gzis = new java.util.zip.GZIPInputStream(bais);
 					while ((length = gzis.read(buffer)) >= 0)
-					{
 						baos.write(buffer, 0, length);
-					} // end while: reading input
 					// No error? Get new bytes.
 					bytes = baos.toByteArray();
 				} // end try
@@ -894,13 +888,11 @@ public class Base64
 		{
 			// Do we need to get data?
 			if (position < 0)
-			{
 				if (encode)
 				{
 					byte[] b3 = new byte[3];
 					int numBinaryBytes = 0;
 					for (int i = 0; i < 3; i++)
-					{
 						try
 						{
 							int b = in.read();
@@ -914,21 +906,17 @@ public class Base64
 						catch (java.io.IOException e)
 						{
 							// Only a problem if we got no data at all.
-							if (i == 0) {
+							if (i == 0)
 								throw e;
-							}
 						} // end catch
-					} // end for: each needed input byte
 					if (numBinaryBytes > 0)
 					{
 						encode3to4(b3, 0, numBinaryBytes, buffer, 0);
 						position = 0;
 						numSigBytes = 4;
 					} // end if: got data
-					else
-					{
+ else
 						return -1;
-					} // end else
 				} // end if: encoding
 				// Else decoding
 				else
@@ -940,13 +928,10 @@ public class Base64
 						// Read four "meaningful" bytes:
 						int b = 0;
 						do
-						{
 							b = in.read();
-						}
 						while (b >= 0 && DECODABET[b & 0x7f] <= WHITE_SPACE_ENC);
-						if (b < 0) {
+						if (b < 0)
 							break; // Reads a -1 if end of stream
-						}
 						b4[i] = (byte) b;
 					} // end for: each needed input byte
 					if (i == 4)
@@ -955,23 +940,17 @@ public class Base64
 						position = 0;
 					} // end if: got four characters
 					else if (i == 0)
-					{
 						return -1;
-					} // end else if: also padded correctly
 					else
-					{
 						// Must have broken out from above.
 						throw new java.io.IOException("Improperly padded Base64 input.");
-					} // end
 				} // end else: decode
-			} // end else: get data
 			// Got data?
 			if (position >= 0)
 			{
 				// End of relevant data?
-				if ( /* !encode && */position >= numSigBytes) {
+				if ( /* !encode && */position >= numSigBytes)
 					return -1;
-				}
 				if (encode && breakLines && lineLength >= MAX_LINE_LENGTH)
 				{
 					lineLength = 0;
@@ -981,9 +960,8 @@ public class Base64
 				// but throwing an extra "if" seems
 				// just as wasteful.
 				int b = buffer[position++];
-				if (position >= bufferLength) {
+				if (position >= bufferLength)
 					position = -1;
-				}
 				return b & 0xFF; // This is how you "cast" a byte that's
 				// intended to be unsigned.
 				// end else
@@ -1015,13 +993,12 @@ public class Base64
 				b = read();
 				// if( b < 0 && i == 0 )
 				// return -1;
-				if (b >= 0) {
+				if (b >= 0)
 					dest[off + i] = (byte) b;
-				} else if (i == 0) {
+				else if (i == 0)
 					return -1;
-				} else {
+				else
 					break; // Out of 'for' loop
-				}
 			} // end for: each byte read
 			return i;
 		} // end read
@@ -1129,25 +1106,20 @@ public class Base64
 				} // end if: enough to output
 			} // end if: encoding
 			// Else, Decoding
-			else
+ else // Meaningful Base64 character?
+			if (DECODABET[theByte & 0x7f] > WHITE_SPACE_ENC)
 			{
-				// Meaningful Base64 character?
-				if (DECODABET[theByte & 0x7f] > WHITE_SPACE_ENC)
+				buffer[position++] = (byte) theByte;
+				if (position >= bufferLength) // Enough to output.
 				{
-					buffer[position++] = (byte) theByte;
-					if (position >= bufferLength) // Enough to output.
-					{
-						int len = Base64.decode4to3(buffer, 0, b4, 0);
-						out.write(b4, 0, len);
-						// out.write( Base64.decode4to3( buffer ) );
-						position = 0;
-					} // end if: enough to output
-				} // end if: meaningful base64 character
-				else if (DECODABET[theByte & 0x7f] != WHITE_SPACE_ENC)
-				{
-					throw new java.io.IOException("Invalid character in Base64 data.");
-				} // end else: not white space either
-			} // end else: decoding
+					int len = Base64.decode4to3(buffer, 0, b4, 0);
+					out.write(b4, 0, len);
+					// out.write( Base64.decode4to3( buffer ) );
+					position = 0;
+				} // end if: enough to output
+			} // end if: meaningful base64 character
+			else if (DECODABET[theByte & 0x7f] != WHITE_SPACE_ENC)
+				throw new java.io.IOException("Invalid character in Base64 data.");
 		} // end write
 
 		/**
@@ -1171,9 +1143,7 @@ public class Base64
 				return;
 			} // end if: supsended
 			for (int i = 0; i < len; i++)
-			{
 				write(theBytes[off + i]);
-			} // end for: each byte written
 		} // end write
 
 		/**
@@ -1182,17 +1152,13 @@ public class Base64
 		public void flushBase64() throws java.io.IOException
 		{
 			if (position > 0)
-			{
 				if (encode)
 				{
 					out.write(encode3to4(b4, buffer, position));
 					position = 0;
 				} // end if: encoding
-				else
-				{
+ else
 					throw new java.io.IOException("Base64 input not properly padded.");
-				} // end else: decoding
-			} // end if: buffer partially full
 		} // end flush
 
 		/**

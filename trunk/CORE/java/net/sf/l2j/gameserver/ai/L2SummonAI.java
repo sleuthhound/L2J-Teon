@@ -43,11 +43,10 @@ public class L2SummonAI extends L2CharacterAI
 	protected void onIntentionActive()
 	{
 		L2Summon summon = (L2Summon) _actor;
-		if (summon.getFollowStatus()) {
+		if (summon.getFollowStatus())
 			setIntention(AI_INTENTION_FOLLOW, summon.getOwner());
-		} else {
+		else
 			super.onIntentionActive();
-		}
 	}
 
 	private void thinkAttack()
@@ -57,9 +56,8 @@ public class L2SummonAI extends L2CharacterAI
 			setAttackTarget(null);
 			return;
 		}
-		if (maybeMoveToPawn(getAttackTarget(), _actor.getPhysicalAttackRange())) {
+		if (maybeMoveToPawn(getAttackTarget(), _actor.getPhysicalAttackRange()))
 			return;
-		}
 		clientStopMoving(null);
 		_accessor.doAttack(getAttackTarget());
 		return;
@@ -73,9 +71,8 @@ public class L2SummonAI extends L2CharacterAI
 			setCastTarget(null);
 			return;
 		}
-		if (maybeMoveToPawn(getCastTarget(), _actor.getMagicalAttackRange(_skill))) {
+		if (maybeMoveToPawn(getCastTarget(), _actor.getMagicalAttackRange(_skill)))
 			return;
-		}
 		clientStopMoving(null);
 		summon.setFollowStatus(false);
 		setIntention(AI_INTENTION_IDLE);
@@ -85,12 +82,10 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkPickUp()
 	{
-		if (checkTargetLost(getTarget())) {
+		if (checkTargetLost(getTarget()))
 			return;
-		}
-		if (maybeMoveToPawn(getTarget(), 36)) {
+		if (maybeMoveToPawn(getTarget(), 36))
 			return;
-		}
 		setIntention(AI_INTENTION_IDLE);
 		((L2Summon.AIAccessor) _accessor).doPickupItem(getTarget());
 		return;
@@ -98,12 +93,10 @@ public class L2SummonAI extends L2CharacterAI
 
 	private void thinkInteract()
 	{
-		if (checkTargetLost(getTarget())) {
+		if (checkTargetLost(getTarget()))
 			return;
-		}
-		if (maybeMoveToPawn(getTarget(), 36)) {
+		if (maybeMoveToPawn(getTarget(), 36))
 			return;
-		}
 		setIntention(AI_INTENTION_IDLE);
 		return;
 	}
@@ -111,21 +104,19 @@ public class L2SummonAI extends L2CharacterAI
 	@Override
 	protected void onEvtThink()
 	{
-		if (_thinking || _actor.isAllSkillsDisabled() || _actor.isCastingNow()) {
+		if (_thinking || _actor.isAllSkillsDisabled() || _actor.isCastingNow())
 			return;
-		}
 		_thinking = true;
 		try
 		{
-			if (getIntention() == AI_INTENTION_ATTACK) {
+			if (getIntention() == AI_INTENTION_ATTACK)
 				thinkAttack();
-			} else if (getIntention() == AI_INTENTION_CAST) {
+			else if (getIntention() == AI_INTENTION_CAST)
 				thinkCast();
-			} else if (getIntention() == AI_INTENTION_PICK_UP) {
+			else if (getIntention() == AI_INTENTION_PICK_UP)
 				thinkPickUp();
-			} else if (getIntention() == AI_INTENTION_INTERACT) {
+			else if (getIntention() == AI_INTENTION_INTERACT)
 				thinkInteract();
-			}
 		}
 		finally
 		{

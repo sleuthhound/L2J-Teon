@@ -30,9 +30,8 @@ public class WarehouseCacheManager
 
 	public static WarehouseCacheManager getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new WarehouseCacheManager();
-		}
 		return _instance;
 	}
 
@@ -60,13 +59,11 @@ public class WarehouseCacheManager
 		{
 			long cTime = System.currentTimeMillis();
 			for (L2PcInstance pc : _cachedWh.keySet())
-			{
 				if (cTime - _cachedWh.get(pc) > _cacheTime)
 				{
 					pc.clearWarehouse();
 					_cachedWh.remove(pc);
 				}
-			}
 		}
 	}
 }

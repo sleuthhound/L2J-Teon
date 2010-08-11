@@ -39,33 +39,27 @@ public class GmListTable
 	public static GmListTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new GmListTable();
-		}
 		return _instance;
 	}
 
 	public FastList<L2PcInstance> getAllGms(boolean includeHidden)
 	{
 		FastList<L2PcInstance> tmpGmList = new FastList<L2PcInstance>();
-		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;) {
-			if (includeHidden || !n.getValue()) {
+		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;)
+			if (includeHidden || !n.getValue())
 				tmpGmList.add(n.getKey());
-			}
-		}
 		return tmpGmList;
 	}
 
 	public FastList<String> getAllGmNames(boolean includeHidden)
 	{
 		FastList<String> tmpGmList = new FastList<String>();
-		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;) {
-			if (!n.getValue()) {
+		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;)
+			if (!n.getValue())
 				tmpGmList.add(n.getKey().getName());
-			} else if (includeHidden) {
+			else if (includeHidden)
 				tmpGmList.add(n.getKey().getName() + " (invis)");
-			}
-		}
 		return tmpGmList;
 	}
 
@@ -79,17 +73,15 @@ public class GmListTable
 	 */
 	public void addGm(L2PcInstance player, boolean hidden)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("added gm: " + player.getName());
-		}
 		_gmList.put(player, hidden);
 	}
 
 	public void deleteGm(L2PcInstance player)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("deleted gm: " + player.getName());
-		}
 		_gmList.remove(player);
 	}
 
@@ -101,9 +93,8 @@ public class GmListTable
 	public void showGm(L2PcInstance player)
 	{
 		FastMap.Entry<L2PcInstance, Boolean> gm = _gmList.getEntry(player);
-		if (gm != null) {
+		if (gm != null)
 			gm.setValue(false);
-		}
 	}
 
 	/**
@@ -114,19 +105,15 @@ public class GmListTable
 	public void hideGm(L2PcInstance player)
 	{
 		FastMap.Entry<L2PcInstance, Boolean> gm = _gmList.getEntry(player);
-		if (gm != null) {
+		if (gm != null)
 			gm.setValue(true);
-		}
 	}
 
 	public boolean isGmOnline(boolean includeHidden)
 	{
 		for (FastMap.Entry<L2PcInstance, Boolean> n = _gmList.head(), end = _gmList.tail(); (n = n.getNext()) != end;)
-		{
-			if (includeHidden || !n.getValue()) {
+			if (includeHidden || !n.getValue())
 				return true;
-			}
-		}
 		return false;
 	}
 
@@ -153,20 +140,15 @@ public class GmListTable
 	public static void broadcastToGMs(L2GameServerPacket packet)
 	{
 		for (L2PcInstance gm : getInstance().getAllGms(true))
-		{
 			gm.sendPacket(packet);
-		}
 	}
 
 	public static void broadcastMessageToGMs(String message)
 	{
 		for (L2PcInstance gm : getInstance().getAllGms(true))
-		{
 			// L2EMU_ADD
-			if (gm != null) {
+			if (gm != null)
 				// L2EMU_ADD
 				gm.sendPacket(SystemMessage.sendString(message));
-			}
-		}
 	}
 }

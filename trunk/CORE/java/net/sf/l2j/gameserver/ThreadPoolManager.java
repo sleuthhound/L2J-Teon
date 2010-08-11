@@ -82,9 +82,7 @@ public class ThreadPoolManager
 	public static ThreadPoolManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new ThreadPoolManager();
-		}
 		return _instance;
 	}
 
@@ -116,9 +114,7 @@ public class ThreadPoolManager
 		try
 		{
 			if (delay < 0)
-			{
 				delay = 0;
-			}
 			return _effectsScheduledThreadPool.schedule(r, delay, TimeUnit.MILLISECONDS);
 		}
 		catch (RejectedExecutionException e)
@@ -133,13 +129,9 @@ public class ThreadPoolManager
 		try
 		{
 			if (delay < 0)
-			{
 				delay = 0;
-			}
 			if (initial < 0)
-			{
 				initial = 0;
-			}
 			return _effectsScheduledThreadPool.scheduleAtFixedRate(r, initial, delay, TimeUnit.MILLISECONDS);
 		}
 		catch (RejectedExecutionException e)
@@ -154,9 +146,7 @@ public class ThreadPoolManager
 		try
 		{
 			if (delay < 0)
-			{
 				delay = 0;
-			}
 			return _generalScheduledThreadPool.schedule(r, delay, TimeUnit.MILLISECONDS);
 		}
 		catch (RejectedExecutionException e)
@@ -171,13 +161,9 @@ public class ThreadPoolManager
 		try
 		{
 			if (delay < 0)
-			{
 				delay = 0;
-			}
 			if (initial < 0)
-			{
 				initial = 0;
-			}
 			return _generalScheduledThreadPool.scheduleAtFixedRate(r, initial, delay, TimeUnit.MILLISECONDS);
 		}
 		catch (RejectedExecutionException e)
@@ -192,9 +178,7 @@ public class ThreadPoolManager
 		try
 		{
 			if (delay < 0)
-			{
 				delay = 0;
-			}
 			return _aiScheduledThreadPool.schedule(r, delay, TimeUnit.MILLISECONDS);
 		}
 		catch (RejectedExecutionException e)
@@ -209,13 +193,9 @@ public class ThreadPoolManager
 		try
 		{
 			if (delay < 0)
-			{
 				delay = 0;
-			}
 			if (initial < 0)
-			{
 				initial = 0;
-			}
 			return _aiScheduledThreadPool.scheduleAtFixedRate(r, initial, delay, TimeUnit.MILLISECONDS);
 		}
 		catch (RejectedExecutionException e)
@@ -358,9 +338,7 @@ public class ThreadPoolManager
 			for (Thread t : threads)
 			{
 				if (t == null)
-				{
 					continue;
-				}
 				tb.append(t.getName() + "\r\n");
 				for (StackTraceElement ste : t.getStackTrace())
 				{
@@ -390,9 +368,7 @@ public class ThreadPoolManager
 			for (Thread t : threads)
 			{
 				if (t == null)
-				{
 					continue;
-				}
 				tb.append(t.getName() + "\r\n");
 				for (StackTraceElement ste : t.getStackTrace())
 				{
@@ -422,9 +398,7 @@ public class ThreadPoolManager
 			for (Thread t : threads)
 			{
 				if (t == null)
-				{
 					continue;
-				}
 				tb.append(t.getName() + "\r\n");
 				for (StackTraceElement ste : t.getStackTrace())
 				{

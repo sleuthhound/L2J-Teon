@@ -74,9 +74,7 @@ public class TradeController
 	public static TradeController getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new TradeController();
-		}
 		return _instance;
 	}
 
@@ -97,14 +95,11 @@ public class TradeController
 				while ((line = lnr.readLine()) != null)
 				{
 					if (line.trim().length() == 0 || line.startsWith("#"))
-					{
 						continue;
-					}
 					dummyItemCount += parseList(line);
 				}
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("created " + dummyItemCount + " Dummy-Items for buylists");
-				}
 				_log.config("TradeController: Loaded " + _lists.size() + " Buylists.");
 			}
 			catch (Exception e)
@@ -156,11 +151,10 @@ public class TradeController
 						item.setPriceToSell(price);
 						item.setTime(time);
 						item.setInitCount(count);
-						if (currentCount > -1) {
+						if (currentCount > -1)
 							item.setCount(currentCount);
-						} else {
+						else
 							item.setCount(count);
-						}
 						buy1.addItem(item);
 						buy1.setNpcId(rset1.getString("npc_id"));
 						try
@@ -174,9 +168,8 @@ public class TradeController
 								time = rset.getInt("time");
 								currentCount = rset.getInt("currentCount");
 								L2ItemInstance item2 = ItemTable.getInstance().createDummyItem(itemId);
-								if (item2 == null) {
+								if (item2 == null)
 									continue;
-								}
 								if (count > -1)
 								{
 									item2.setCountDecrease(true);
@@ -185,11 +178,10 @@ public class TradeController
 								item2.setPriceToSell(price);
 								item2.setTime(time);
 								item2.setInitCount(count);
-								if (currentCount > -1) {
+								if (currentCount > -1)
 									item2.setCount(currentCount);
-								} else {
+								else
 									item2.setCount(count);
-								}
 								buy1.addItem(item2);
 							}
 						}
@@ -197,11 +189,10 @@ public class TradeController
 						{
 							_log.warning("TradeController: Problem with buylist " + buy1.getListId() + " item " + itemId);
 						}
-						if (LimitedItem) {
+						if (LimitedItem)
 							_listsTaskItem.put(new Integer(buy1.getListId()), buy1);
-						} else {
+						else
 							_lists.put(new Integer(buy1.getListId()), buy1);
-						}
 						_nextListId = Math.max(_nextListId, buy1.getListId() + 1);
 					}
 					rset.close();
@@ -209,9 +200,8 @@ public class TradeController
 				}
 				rset1.close();
 				statement1.close();
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("created " + dummyItemCount + " Dummy-Items for buylists");
-				}
 				_log.config("TradeController: Loaded " + _lists.size() + " Buylists.");
 				_log.config("TradeController: Loaded " + _listsTaskItem.size() + " Limited Buylists.");
 				if (Config.CUSTOM_MERCHANT_TABLES)
@@ -251,11 +241,10 @@ public class TradeController
 							item.setPriceToSell(price);
 							item.setTime(time);
 							item.setInitCount(count);
-							if (currentCount > -1) {
+							if (currentCount > -1)
 								item.setCount(currentCount);
-							} else {
+							else
 								item.setCount(count);
-							}
 							buy1.addItem(item);
 							buy1.setNpcId(rset1.getString("npc_id"));
 							try
@@ -269,9 +258,8 @@ public class TradeController
 									time = rset.getInt("time");
 									currentCount = rset.getInt("currentCount");
 									L2ItemInstance item2 = ItemTable.getInstance().createDummyItem(itemId);
-									if (item2 == null) {
+									if (item2 == null)
 										continue;
-									}
 									if (count > -1)
 									{
 										item2.setCountDecrease(true);
@@ -280,11 +268,10 @@ public class TradeController
 									item2.setPriceToSell(price);
 									item2.setTime(time);
 									item2.setInitCount(count);
-									if (currentCount > -1) {
+									if (currentCount > -1)
 										item2.setCount(currentCount);
-									} else {
+									else
 										item2.setCount(count);
-									}
 									buy1.addItem(item2);
 								}
 							}
@@ -292,11 +279,10 @@ public class TradeController
 							{
 								_log.warning("TradeController: Problem with custom buylist " + buy1.getListId() + " item " + itemId);
 							}
-							if (LimitedItem) {
+							if (LimitedItem)
 								_listsTaskItem.put(new Integer(buy1.getListId()), buy1);
-							} else {
+							else
 								_lists.put(new Integer(buy1.getListId()), buy1);
-							}
 							_nextListId = Math.max(_nextListId, buy1.getListId() + 1);
 						}
 						rset.close();
@@ -304,9 +290,8 @@ public class TradeController
 					}
 					rset1.close();
 					statement1.close();
-					if (Config.DEBUG) {
+					if (Config.DEBUG)
 						_log.fine("created " + (dummyItemCount - origDummy) + " Custom Dummy-Items for buylists");
-					}
 					_log.config("TradeController: Loaded " + (_lists.size() - origListSize) + " Custom Buylists.");
 					_log.config("TradeController: Loaded " + (_listsTaskItem.size() - origTaskSize) + " Custom Limited Buylists.");
 				}
@@ -324,11 +309,10 @@ public class TradeController
 					{
 						time = rset2.getInt("time");
 						savetimer = rset2.getLong("savetimer");
-						if (savetimer - currentMillis > 0) {
+						if (savetimer - currentMillis > 0)
 							ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(time), savetimer - System.currentTimeMillis());
-						} else {
+						else
 							ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(time), 0);
-						}
 					}
 					rset2.close();
 					statement2.close();
@@ -379,9 +363,8 @@ public class TradeController
 
 	public L2TradeList getBuyList(int listId)
 	{
-		if (_lists.get(new Integer(listId)) != null) {
+		if (_lists.get(new Integer(listId)) != null)
 			return _lists.get(new Integer(listId));
-		}
 		return _listsTaskItem.get(new Integer(listId));
 	}
 
@@ -390,33 +373,27 @@ public class TradeController
 		List<L2TradeList> lists = new FastList<L2TradeList>();
 		for (L2TradeList list : _lists.values())
 		{
-			if (list.getNpcId().startsWith("gm")) {
+			if (list.getNpcId().startsWith("gm"))
 				continue;
-			}
-			if (npcId == Integer.parseInt(list.getNpcId())) {
+			if (npcId == Integer.parseInt(list.getNpcId()))
 				lists.add(list);
-			}
 		}
 		for (L2TradeList list : _listsTaskItem.values())
 		{
-			if (list.getNpcId().startsWith("gm")) {
+			if (list.getNpcId().startsWith("gm"))
 				continue;
-			}
-			if (npcId == Integer.parseInt(list.getNpcId())) {
+			if (npcId == Integer.parseInt(list.getNpcId()))
 				lists.add(list);
-			}
 		}
 		return lists;
 	}
 
 	protected void restoreCount(int time)
 	{
-		if (_listsTaskItem == null) {
+		if (_listsTaskItem == null)
 			return;
-		}
-		for (L2TradeList list : _listsTaskItem.values()) {
+		for (L2TradeList list : _listsTaskItem.values())
 			list.restoreCount(time);
-		}
 	}
 
 	protected void dataTimerSave(int time)
@@ -453,20 +430,17 @@ public class TradeController
 		java.sql.Connection con = null;
 		PreparedStatement statement;
 		int listId;
-		if (_listsTaskItem == null) {
+		if (_listsTaskItem == null)
 			return;
-		}
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
 			for (L2TradeList list : _listsTaskItem.values())
 			{
-				if (list == null) {
+				if (list == null)
 					continue;
-				}
 				listId = list.getListId();
 				for (L2ItemInstance Item : list.getItems())
-				{
 					if (Item.getCount() < Item.getInitCount()) // needed?
 					{
 						statement = con.prepareStatement("UPDATE merchant_buylists SET currentCount=? WHERE item_id=? AND shop_id=?");
@@ -476,7 +450,6 @@ public class TradeController
 						statement.executeUpdate();
 						statement.close();
 					}
-				}
 			}
 		}
 		catch (Exception e)

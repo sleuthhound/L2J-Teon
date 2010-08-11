@@ -142,9 +142,7 @@ public class Forum
 						.parseInt(result.getString("topic_reply")));
 				_topic.put(t.getID(), t);
 				if (t.getID() > TopicBBSManager.getInstance().getMaxID(this))
-				{
 					TopicBBSManager.getInstance().setMaxID(t.getID(), this);
-				}
 			}
 			result.close();
 			statement.close();
@@ -179,9 +177,7 @@ public class Forum
 			statement.setInt(1, _forumId);
 			ResultSet result = statement.executeQuery();
 			while (result.next())
-			{
 				_children.add(new Forum(Integer.parseInt(result.getString("forum_id")), this));
-			}
 			result.close();
 			statement.close();
 		}
@@ -278,12 +274,8 @@ public class Forum
 			_loaded = true;
 		}
 		for (Forum f : _children)
-		{
 			if (f.getName().equals(name))
-			{
 				return f;
-			}
-		}
 		return null;
 	}
 

@@ -58,9 +58,7 @@ public class Announcements
 	public static Announcements getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new Announcements();
-		}
 		return _instance;
 	}
 
@@ -69,13 +67,9 @@ public class Announcements
 		_announcements.clear();
 		File file = new File(Config.DATAPACK_ROOT, "data/announcements.txt");
 		if (file.exists())
-		{
 			readFromDisk(file);
-		}
 		else
-		{
 			_log.config("data/announcements.txt doesn't exist");
-		}
 	}
 
 	public void showAnnouncements(L2PcInstance activeChar)
@@ -94,9 +88,8 @@ public class Announcements
 			if (!validDateRange.isValid() || validDateRange.isWithinRange(currentDate))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				for (String element : msg) {
+				for (String element : msg)
 					sm.addString(element);
-				}
 				activeChar.sendPacket(sm);
 			}
 		}
@@ -200,17 +193,13 @@ public class Announcements
 	{
 		CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
 			player.sendPacket(cs);
-		}
 	}
 
 	public void announceToAll(SystemMessage sm)
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
 			player.sendPacket(sm);
-		}
 	}
 
 	// Method fo handling announcements from admin
@@ -232,8 +221,7 @@ public class Announcements
 	public void announceToPlayers(String message)
 	{
 		// Get all players
-		for (L2PcInstance player : L2World.getInstance().getAllPlayers()) {
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			player.sendMessage(message);
-		}
 		}
 }

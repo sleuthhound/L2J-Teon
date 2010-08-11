@@ -60,54 +60,43 @@ public class SQLAccountManager
 		}
 		if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3"))
 		{
-			if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3")) {
+			if (_mode.equals("1") || _mode.equals("2") || _mode.equals("3"))
 				while (_uname.length() == 0)
 				{
 					System.out.print("Username: ");
 					_uname = _in.readLine().toLowerCase();
 				}
-			}
-			if (_mode.equals("1")) {
+			if (_mode.equals("1"))
 				while (_pass.length() == 0)
 				{
 					System.out.print("Password: ");
 					_pass = _in.readLine();
 				}
-			}
-			if (_mode.equals("1") || _mode.equals("2")) {
+			if (_mode.equals("1") || _mode.equals("2"))
 				while (_level.length() == 0)
 				{
 					System.out.print("Access level: ");
 					_level = _in.readLine();
 				}
-			}
 		}
 		if (_mode.equals("1"))
-		{
 			// Add or Update
 			addOrUpdateAccount(_uname, _pass, _level);
-		}
 		else if (_mode.equals("2"))
-		{
 			// Change Level
 			changeAccountLevel(_uname, _level);
-		}
 		else if (_mode.equals("3"))
 		{
 			// Delete
 			System.out.print("Do you really want to delete this account ? Y/N : ");
 			String yesno = _in.readLine();
 			if (yesno.equals("Y"))
-			{
 				// Yes
 				deleteAccount(_uname);
-			}
 		}
 		else if (_mode.equals("4"))
-		{
 			// List
 			printAccInfo();
-		}
 		return;
 	}
 
@@ -155,9 +144,7 @@ public class SQLAccountManager
 		statement.setString(1, account);
 		ResultSet rset = statement.executeQuery();
 		if (rset.next() == false)
-		{
 			System.out.println("false");
-		}
 		else if (rset.getInt(1) > 0)
 		{
 			// Exist
@@ -168,12 +155,9 @@ public class SQLAccountManager
 			statement.setString(2, account);
 			statement.executeUpdate();
 			System.out.println("Account " + account + " has been updated.");
-		}
-		else
-		{
+		} else
 			// Not Exist
 			System.out.println("Account " + account + " does not exist.");
-		}
 		rset.close();
 		// Close Connection
 		statement.close();
@@ -248,11 +232,8 @@ public class SQLAccountManager
 					statement = con.prepareStatement("DELETE FROM clan_subpledges WHERE clan_id=?;");
 					statement.setString(1, rset.getString("clanid"));
 					statement.executeUpdate();
-				}
-				else
-				{
+				} else
 					rcln.close();
-				}
 				// skills
 				statement.close();
 				statement = con.prepareStatement("DELETE FROM character_skills WHERE char_obj_id=?;");
@@ -311,12 +292,9 @@ public class SQLAccountManager
 			statement.setString(1, account);
 			statement.executeUpdate();
 			System.out.println("Account " + account + " has been deleted.");
-		}
-		else
-		{
+		} else
 			// Not Exist
 			System.out.println("Account " + account + " does not exist.");
-		}
 		// Close Connection
 		rset.close();
 		statement.close();

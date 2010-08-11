@@ -140,27 +140,20 @@ public class L2PlayerAI extends L2CharacterAI
 	protected void onEvtFinishCasting()
     {
         if (getIntention() == AI_INTENTION_CAST)
-        {
-            // run interrupted or next intention
+			// run interrupted or next intention
             if (_nextIntention != null)
             {
-                if (_nextIntention._crtlIntention != AI_INTENTION_CAST) // previous state shouldn't be casting
-                {
-                	setIntention(_nextIntention._crtlIntention, _nextIntention._arg0, _nextIntention._arg1);
-                } else {
+                if (_nextIntention._crtlIntention != AI_INTENTION_CAST)
+					setIntention(_nextIntention._crtlIntention, _nextIntention._arg0, _nextIntention._arg1);
+				else
 					setIntention(AI_INTENTION_IDLE);
-				}
-            }
-            else
-            {
-                /*
+            } else
+				/*
                  if (Config.DEBUG)
                  _log.warning("L2PlayerAI: no previous intention set... Setting it to IDLE");
                  */
                 // set intention to idle if skill doesn't change intention.
                 setIntention(AI_INTENTION_IDLE);
-            }
-        }
     }
 
 	@Override
@@ -171,9 +164,7 @@ public class L2PlayerAI extends L2CharacterAI
 			changeIntention(AI_INTENTION_REST, null, null);
 			setTarget(null);
 			if (getAttackTarget() != null)
-			{
 				setAttackTarget(null);
-			}
 			clientStopMoving(null);
 		}
 	}
@@ -247,10 +238,8 @@ public class L2PlayerAI extends L2CharacterAI
 		if (checkTargetLostOrDead(target))
 		{
 			if (target != null)
-			{
 				// Notify the target
 				setAttackTarget(null);
-			}
 			actionFailed();
 			return;
 		}
@@ -269,44 +258,36 @@ public class L2PlayerAI extends L2CharacterAI
 		// if (Config.DEBUG) _log.warning("L2PlayerAI: thinkCast -> Start");
 		if (_skill.getTargetType() == SkillTargetType.TARGET_GROUND && _actor instanceof L2PcInstance)
 		{
-			if (maybeMoveToPosition(((L2PcInstance) _actor).getCurrentSkillWorldPosition(), _actor.getMagicalAttackRange(_skill))) {
+			if (maybeMoveToPosition(((L2PcInstance) _actor).getCurrentSkillWorldPosition(), _actor.getMagicalAttackRange(_skill)))
 				return;
-			}
 		}
 		else
 		{
 			if (checkTargetLost(target))
 			{
 				if (_skill.isOffensive() && getAttackTarget() != null)
-				{
 					// Notify the target
 					setCastTarget(null);
-				}
 				return;
 			}
-			if (target != null && maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill))) {
+			if (target != null && maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill)))
 				return;
-			}
 		}
-		if (_skill.getHitTime() > 50) {
+		if (_skill.getHitTime() > 50)
 			clientStopMoving(null);
-		}
 		L2Object oldTarget = _actor.getTarget();
 		if (oldTarget != null)
 		{
 			// Replace the current target by the cast target
-			if (target != null && oldTarget != target) {
+			if (target != null && oldTarget != target)
 				_actor.setTarget(getCastTarget());
-			}
 			// Launch the Cast of the skill
 			_accessor.doCast(_skill);
 			// Restore the initial target
-			if (target != null && oldTarget != target) {
+			if (target != null && oldTarget != target)
 				_actor.setTarget(oldTarget);
-			}
-		} else {
+		} else
 			_accessor.doCast(_skill);
-		}
 		return;
 	}
 
@@ -335,19 +316,15 @@ public class L2PlayerAI extends L2CharacterAI
 
 	private void thinkInteract()
 	{
-		if (_actor.isAllSkillsDisabled()) {
+		if (_actor.isAllSkillsDisabled())
 			return;
-		}
 		L2Object target = getTarget();
-		if (checkTargetLost(target)) {
+		if (checkTargetLost(target))
 			return;
-		}
-		if (maybeMoveToPawn(target, 36)) {
+		if (maybeMoveToPawn(target, 36))
 			return;
-		}
-		if (!(target instanceof L2StaticObjectInstance)) {
+		if (!(target instanceof L2StaticObjectInstance))
 			((L2PcInstance.AIAccessor) _accessor).doInteract((L2Character) target);
-		}
 		setIntention(AI_INTENTION_IDLE);
 		return;
 	}
@@ -355,24 +332,22 @@ public class L2PlayerAI extends L2CharacterAI
 	@Override
 	protected void onEvtThink()
 	{
-		if (_thinking || _actor.isAllSkillsDisabled()) {
+		if (_thinking || _actor.isAllSkillsDisabled())
 			return;
-		}
 		/*
 		 * if (Config.DEBUG) _log.warning("L2PlayerAI: onEvtThink -> Check intention");
 		 */
 		_thinking = true;
 		try
 		{
-			if (getIntention() == AI_INTENTION_ATTACK) {
+			if (getIntention() == AI_INTENTION_ATTACK)
 				thinkAttack();
-			} else if (getIntention() == AI_INTENTION_CAST) {
+			else if (getIntention() == AI_INTENTION_CAST)
 				thinkCast();
-			} else if (getIntention() == AI_INTENTION_PICK_UP) {
+			else if (getIntention() == AI_INTENTION_PICK_UP)
 				thinkPickUp();
-			} else if (getIntention() == AI_INTENTION_INTERACT) {
+			else if (getIntention() == AI_INTENTION_INTERACT)
 				thinkInteract();
-			}
 		}
 		finally
 		{

@@ -34,9 +34,8 @@ public class Crypt
 
 	public void decrypt(ByteBuffer buf)
 	{
-		if (!_isEnabled) {
+		if (!_isEnabled)
 			return;
-		}
 		final int sz = buf.remaining();
 		int temp = 0;
 		for (int i = 0; i < sz; i++)
@@ -58,9 +57,8 @@ public class Crypt
 
 	public void encrypt(ByteBuffer buf)
 	{
-		if (!_isEnabled) {
+		if (!_isEnabled)
 			return;
-		}
 		int temp = 0;
 		final int sz = buf.remaining();
 		for (int i = 0; i < sz; i++)

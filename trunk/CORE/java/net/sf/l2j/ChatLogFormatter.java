@@ -41,13 +41,11 @@ public class ChatLogFormatter extends Formatter
 		output.append(']');
 		output.append(' ');
 		if (params != null)
-		{
 			for (Object p : params)
 			{
 				output.append(p);
 				output.append(' ');
 			}
-		}
 		output.append(record.getMessage());
 		output.append(CRLF);
 		return output.toString();
