@@ -141,14 +141,14 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		{
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
-			
+
 			// Logout seller if is offline
 			if(storePlayer.getClient().isDetached()){
 				storePlayer.getClient().isDetached(false);
 				storePlayer.deleteMe();
 				LoginServerThread.getInstance().sendLogout(storePlayer.getClient().getAccountName());
 			}
-			
+
 		}
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
 		{

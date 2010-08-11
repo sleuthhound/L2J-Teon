@@ -51,10 +51,10 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 	// implementation
 	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
 	{
-		
+
 		if (client.isDetached())
 			return null;
-		
+
 		int opcode = buf.get() & 0xFF;
 		ReceivablePacket<L2GameClient> msg = null;
 		GameClientState state = client.getState();

@@ -1583,14 +1583,14 @@ public class Olympiad
   					for(L2Skill skill: player.getClan().getAllSkills())
   						player.removeSkill(skill,false);
   				}
-  				//Abort casting if player casting  
+  				//Abort casting if player casting
   				if (player.isCastingNow())
   				{
-  					player.abortCast();  
+  					player.abortCast();
   				}
 
                                   //Force the character to be visible
-  				player.getAppearance().setVisible();  
+  				player.getAppearance().setVisible();
 
   				//Remove Hero Skills
   				if (player.isHero())
@@ -1598,7 +1598,7 @@ public class Olympiad
   					for(L2Skill skill: HeroSkillTable.GetHeroSkills())
   						player.removeSkill(skill,false);
   				}
-  				
+
   				//Remove Buffs
   				player.stopAllEffects();
                   player.stopSkillEffects(176);
@@ -1606,13 +1606,13 @@ public class Olympiad
   				player.stopSkillEffects(406);
   				player.stopSkillEffects(420);
 
-  				
+
   				//Remove Summon's Buffs
   				if (player.getPet() != null)
   				{
   					L2Summon summon = player.getPet();
   					summon.stopAllEffects();
-  					
+
   					if (summon instanceof L2PetInstance)
   						summon.unSummon(player);
   		    	}

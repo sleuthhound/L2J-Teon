@@ -75,7 +75,7 @@ final class EffectFear extends L2Effect
 		int posX = getEffected().getX();
 		int posY = getEffected().getY();
 		int posZ = getEffected().getZ();
-		
+
 		int signx=-1;
 		int signy=-1;
 		if (getEffected().getX()>getEffector().getX())

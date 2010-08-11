@@ -178,14 +178,14 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		{
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
-			
+
 			// Logout seller if is offline
 			if(storePlayer.getClient().isDetached()){
 				storePlayer.getClient().isDetached(false);
 				storePlayer.deleteMe();
 				LoginServerThread.getInstance().sendLogout(storePlayer.getClient().getAccountName());
 			}
-			
+
 		}
 		/*
 		 * Lease holders are currently not implemented else if (_seller != null) { // lease shop sell L2MerchantInstance seller = (L2MerchantInstance)_seller; L2ItemInstance ladena = seller.getLeaseAdena(); for (TradeItem ti : buyerlist) { L2ItemInstance li = seller.getLeaseItemByObjectId(ti.getObjectId()); if (li == null) { if (ti.getObjectId() == ladena.getObjectId()) {
