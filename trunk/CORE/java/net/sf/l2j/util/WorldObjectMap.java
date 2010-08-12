@@ -77,9 +77,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	public void put(T obj)
 	{
 		if (obj != null)
-		{
 			_objectMap.put(obj.getObjectId(), obj);
-		}
 	}
 
 	/*
@@ -90,9 +88,7 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	public void remove(T obj)
 	{
 		if (obj != null)
-		{
 			_objectMap.remove(obj.getObjectId());
-		}
 	}
 
 	/*
@@ -112,9 +108,8 @@ public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 	@Override
 	public boolean contains(T obj)
 	{
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
 		return _objectMap.get(obj.getObjectId()) != null;
 	}
 
