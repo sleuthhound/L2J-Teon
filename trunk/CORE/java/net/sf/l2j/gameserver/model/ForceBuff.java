@@ -57,16 +57,15 @@ public final class ForceBuff
         _forceLevel = skill.getTriggeredLevel();
 
         L2Effect effect = _target.getFirstEffect(_forceId);
-        if (effect != null) {
+        if (effect != null)
 			((EffectForce)effect).increaseForce();
-		} else
+		else
         {
             L2Skill force = SkillTable.getInstance().getInfo(_forceId, _forceLevel);
-            if (force != null) {
+            if (force != null)
 				force.getEffects(_caster, _target);
-			} else {
+			else
 				_log.warning("Triggered skill ["+_forceId+";"+_forceLevel+"] not found!");
-			}
         }
         _geoCheckTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new GeoCheckTask(), 1000, 1000);
     }
@@ -75,9 +74,8 @@ public final class ForceBuff
     {
         _caster.setForceBuff(null);
         L2Effect effect = _target.getFirstEffect(_forceId);
-        if (effect != null) {
+        if (effect != null)
 			((EffectForce)effect).decreaseForce();
-		}
 
         _geoCheckTask.cancel(true);
     }
@@ -88,13 +86,11 @@ public final class ForceBuff
         {
             try
             {
-                if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true)) {
+                if (!Util.checkIfInRange(_skillCastRange, _caster, _target, true))
 					_caster.abortCast();
-				}
 
-                if (!GeoData.getInstance().canSeeTarget(_caster, _target)) {
+                if (!GeoData.getInstance().canSeeTarget(_caster, _target))
 					_caster.abortCast();
-				}
             }
             catch (Exception e)
             {

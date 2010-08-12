@@ -97,9 +97,7 @@ public class Listener extends IRCEventAdapter implements IRCEventListener
 			String text = msg.replace(Config.IRC_KEYWORDTOIG, "");
 			CreatureSay csg = new CreatureSay(2000, 1, user.getNick() + "_IRC", text);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
 				player.sendPacket(csg);
-			}
 		}
 	}
 

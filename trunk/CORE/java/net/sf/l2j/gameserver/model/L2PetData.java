@@ -74,111 +74,57 @@ public class L2PetData
 	{
 		// if (stat.equalsIgnoreCase(PET_EXP)) { this.setPetExp(value); }
 		if (stat.equalsIgnoreCase(PET_MAX_EXP))
-		{
 			setPetMaxExp(value);
-		}
-		// else if (stat.equalsIgnoreCase(PET_HP)) { this.setPetHP(value); }
 		else if (stat.equalsIgnoreCase(PET_MAX_HP))
-		{
 			setPetMaxHP(value);
-		}
-		// else if (stat.equalsIgnoreCase(PET_MP)) { this.setPetMP(value); }
 		else if (stat.equalsIgnoreCase(PET_MAX_MP))
-		{
 			setPetMaxMP(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_PATK))
-		{
 			setPetPAtk(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_PDEF))
-		{
 			setPetPDef(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_MATK))
-		{
 			setPetMAtk(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_MDEF))
-		{
 			setPetMDef(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_ACCURACY))
-		{
 			setPetAccuracy(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_EVASION))
-		{
 			setPetEvasion(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_CRITICAL))
-		{
 			setPetCritical(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_SPEED))
-		{
 			setPetSpeed(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_ATK_SPEED))
-		{
 			setPetAtkSpeed(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_CAST_SPEED))
-		{
 			setPetCastSpeed(value);
-		}
-		// else if
-		// (stat.equalsIgnoreCase(PET_FEED))
-		// {
-		// this.setPetFeed(value);
-		// }
 		else if (stat.equalsIgnoreCase(PET_MAX_FEED))
-		{
 			setPetMaxFeed(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_FEED_NORMAL))
-		{
 			setPetFeedNormal(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_FEED_BATTLE))
-		{
 			setPetFeedBattle(value);
-		}
-		// else if
-		// (stat.equalsIgnoreCase(PET_LOAD))
-		// {
-		// this.setPetLoad(value);
-		// }
 		else if (stat.equalsIgnoreCase(PET_MAX_LOAD))
-		{
 			setPetMaxLoad(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_REGEN_HP))
-		{
 			setPetRegenHP(value);
-		}
 		else if (stat.equalsIgnoreCase(PET_REGEN_MP))
-		{
 			setPetRegenMP(value);
-		}
 	}
 
 	public void setStat(String stat, long value)
 	{
 		// if (stat.equalsIgnoreCase(PET_EXP)) { this.setPetExp(value); }
 		if (stat.equalsIgnoreCase(PET_MAX_EXP))
-		{
 			setPetMaxExp(value);
-		}
 	}
 
 	public void setStat(String stat, float value)
 	{
 		// if (stat.equalsIgnoreCase(PET_EXP)) { this.setPetExp(value); }
 		if (stat.equalsIgnoreCase(OWNER_EXP_TAKEN))
-		{
 			setOwnerExpTaken(value);
-		}
 	}
 
 	// ID

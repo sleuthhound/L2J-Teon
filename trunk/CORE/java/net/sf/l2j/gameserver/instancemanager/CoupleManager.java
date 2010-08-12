@@ -73,9 +73,7 @@ public class CoupleManager
 			statement = con.prepareStatement("Select id from couples order by id");
 			rs = statement.executeQuery();
 			while (rs.next())
-			{
 				getCouples().add(new Couple(rs.getInt("id")));
-			}
 			statement.close();
 			_log.info("Loaded: " + getCouples().size() + " couples(s)");
 		}
@@ -100,16 +98,14 @@ public class CoupleManager
 	public final Couple getCouple(int coupleId)
 	{
 		int index = getCoupleIndex(coupleId);
-		if (index >= 0) {
+		if (index >= 0)
 			return getCouples().get(index);
-		}
 		return null;
 	}
 
 	public void createCouple(L2PcInstance player1, L2PcInstance player2)
 	{
 		if (player1 != null && player2 != null)
-		{
 			if (player1.getPartnerId() == 0 && player2.getPartnerId() == 0)
 			{
 				int _player1id = player1.getObjectId();
@@ -121,7 +117,6 @@ public class CoupleManager
 				player1.setCoupleId(_new.getId());
 				player2.setCoupleId(_new.getId());
 			}
-		}
 	}
 
 	public void deleteCouple(int coupleId)
@@ -223,9 +218,8 @@ public class CoupleManager
 		int i = 0;
 		for (Couple temp : getCouples())
 		{
-			if (temp != null && temp.getId() == coupleId) {
+			if (temp != null && temp.getId() == coupleId)
 				return i;
-			}
 			i++;
 		}
 		return -1;
@@ -233,9 +227,8 @@ public class CoupleManager
 
 	public final FastList<Couple> getCouples()
 	{
-		if (_couples == null) {
+		if (_couples == null)
 			_couples = new FastList<Couple>();
-		}
 		return _couples;
 	}
 }

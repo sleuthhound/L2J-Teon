@@ -29,9 +29,7 @@ public class version implements IVoicedCommandHandler
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.equalsIgnoreCase("version"))
-		{
 			activeChar.sendMessage("L2JTeon Rev " + Config.SERVER_VERSION + " http://www.assembla.com/spaces/L2JTeon/stream");
-		}
 		return true;
 	}
 

@@ -136,9 +136,7 @@ public class L2Request
 	public void onRequestResponse()
 	{
 		if (_partner != null)
-		{
 			_partner.getRequest().clear();
-		}
 		clear();
 	}
 

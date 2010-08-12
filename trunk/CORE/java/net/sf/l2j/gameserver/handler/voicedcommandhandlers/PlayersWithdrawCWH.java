@@ -28,9 +28,7 @@ public class PlayersWithdrawCWH implements IVoicedCommandHandler
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String targetTxt)
 	{
 		if (!command.startsWith("cwh_withdraw_on") && !command.startsWith("cwh_withdraw_off"))
-		{
 			return false;
-		}
 		if (!Config.ALLOW_WITHDRAW_CWH_CMD)
 		{
 			activeChar.sendMessage("Команда отключена администратором.");

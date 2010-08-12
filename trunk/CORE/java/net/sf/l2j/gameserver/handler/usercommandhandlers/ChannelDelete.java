@@ -31,11 +31,9 @@ public class ChannelDelete implements IUserCommandHandler
 	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (id != COMMAND_IDS[0]) {
+		if (id != COMMAND_IDS[0])
 			return false;
-		}
 		if (activeChar.isInParty())
-		{
 			if (activeChar.getParty().isLeader(activeChar) && activeChar.getParty().isInCommandChannel() && activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
 			{
 				L2CommandChannel channel = activeChar.getParty().getCommandChannel();
@@ -44,7 +42,6 @@ public class ChannelDelete implements IUserCommandHandler
 				channel.disbandChannel();
 				return true;
 			}
-		}
 		return false;
 	}
 

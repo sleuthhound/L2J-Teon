@@ -42,12 +42,10 @@ public class NpcInventory extends Inventory
 	public void Reset()
 	{
 		this.destroyAllItems("Reset", null, null);
-		if (_owner.getTemplate().ss > 0) {
+		if (_owner.getTemplate().ss > 0)
 			this.addItem("Reset", 1835, _owner.getTemplate().ss, null, null);
-		}
-		if (_owner.getTemplate().bss > 0) {
+		if (_owner.getTemplate().bss > 0)
 			this.addItem("Reset", 3947, _owner.getTemplate().bss, null, null);
-		}
 	}
 
 	@Override
@@ -65,11 +63,8 @@ public class NpcInventory extends Inventory
 	{
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
 		for (L2ItemInstance item : _items)
-		{
-			if (item.getItemId() == itemId) {
+			if (item.getItemId() == itemId)
 				list.add(item);
-			}
-		}
 
 		return list.toArray(new L2ItemInstance[list.size()]);
 	}

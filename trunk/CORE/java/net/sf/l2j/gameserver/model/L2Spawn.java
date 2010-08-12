@@ -111,9 +111,8 @@ public class L2Spawn
 			try
 			{
 				// doSpawn();
-				if (_doRespawn) {
+				if (_doRespawn)
 					respawnNpc(_oldNpc);
-				}
 			}
 			catch (Exception e)
 			{
@@ -147,21 +146,15 @@ public class L2Spawn
 		// Set the _template of the L2Spawn
 		_template = mobTemplate;
 		if (_template == null)
-		{
 			return;
-		}
 		// The Name of the L2NpcInstance type managed by this L2Spawn
 		String implementationName = _template.type; // implementing class
 		// name
 		if (mobTemplate.npcId == 30995)
-		{
 			implementationName = "L2RaceManager";
-		}
 		// if (mobTemplate.npcId == 8050)
 		if (mobTemplate.npcId >= 31046 && mobTemplate.npcId <= 31053)
-		{
 			implementationName = "L2SymbolMaker";
-		}
 		// Create the generic constructor of L2NpcInstance managed by this
 		// L2Spawn
 		Class[] parameters = { int.class, Class.forName("net.sf.l2j.gameserver.templates.L2NpcTemplate") };
@@ -284,9 +277,8 @@ public class L2Spawn
 	{
 		// [L2J_JP EDIT SANDMAN]
 		// _maximumCount = amount;
-		if (amount < 1) {
+		if (amount < 1)
 			amount = 1;
-		}
 		_maximumCount = amount;
 	}
 
@@ -409,9 +401,7 @@ public class L2Spawn
 	public int init()
 	{
 		while (_currentCount < _maximumCount)
-		{
 			doSpawn();
-		}
 		_doRespawn = true;
 		return _currentCount;
 	}
@@ -484,9 +474,7 @@ public class L2Spawn
 			((L2Object) tmp).setInstanceId(_instanceId);
 			// Check if the Instance is a L2NpcInstance
 			if (!(tmp instanceof L2NpcInstance))
-			{
 				return mob;
-			}
 			mob = (L2NpcInstance) tmp;
 			return intializeNpcInstance(mob);
 		}
@@ -509,9 +497,7 @@ public class L2Spawn
 		if (getLocx() == 0 && getLocy() == 0)
 		{
 			if (getLocation() == 0)
-			{
 				return mob;
-			}
 			// Calculate the random position in the location area
 			int p[] = Territory.getInstance().getRandomPoint(getLocation());
 			// Set the calculated position of the L2NpcInstance
@@ -527,32 +513,20 @@ public class L2Spawn
 			newlocx = getLocx();
 			newlocy = getLocy();
 			if (Config.GEODATA > 0)
-			{
 				newlocz = GeoData.getInstance().getSpawnHeight(newlocx, newlocy, getLocz(), getLocz(), _id);
-			}
 			else
-			{
 				newlocz = getLocz();
-			}
 		}
 		for (L2Effect f : mob.getAllEffects())
-		{
 			if (f != null)
-			{
 				mob.removeEffect(f);
-			}
-		}
 		// Set the HP and MP of the L2NpcInstance to the max
 		mob.setCurrentHpMp(mob.getMaxHp(), mob.getMaxMp());
 		// Set the heading of the L2NpcInstance (random heading if not defined)
 		if (getHeading() == -1)
-		{
 			mob.setHeading(Rnd.nextInt(61794));
-		}
 		else
-		{
 			mob.setHeading(getHeading());
-		}
 		// Reset decay info
 		mob.setDecayed(false);
 		// Link the L2NpcInstance to this L2Spawn
@@ -563,9 +537,7 @@ public class L2Spawn
 		L2Spawn.notifyNpcSpawned(mob);
 		_lastSpawn = mob;
 		if (Config.DEBUG)
-		{
 			_log.finest("spawned Mob ID: " + _template.npcId + " ,at: " + mob.getX() + " x, " + mob.getY() + " y, " + mob.getZ() + " z");
-		}
 		// Increase the current number of L2NpcInstance managed by this L2Spawn
 		_currentCount++;
 		return mob;
@@ -592,9 +564,7 @@ public class L2Spawn
 		synchronized (_spawnListeners)
 		{
 			for (SpawnListener listener : _spawnListeners)
-			{
 				listener.npcSpawned(npc);
-			}
 		}
 	}
 
@@ -605,13 +575,9 @@ public class L2Spawn
 	public void setRespawnDelay(int i)
 	{
 		if (i < 0)
-		{
 			_log.warning("respawn delay is negative for spawnId:" + _id);
-		}
 		if (i < 60)
-		{
 			i = 60;
-		}
 		_respawnDelay = i * 1000;
 	}
 

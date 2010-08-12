@@ -100,9 +100,8 @@ public final class L2World
 	{
 		if (_allObjects.get(object.getObjectId()) != null)
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.warning("[L2World] objectId " + object.getObjectId() + " already exist in OID map!");
-			}
 			return;
 		}
 		_allObjects.put(object);
@@ -134,18 +133,16 @@ public final class L2World
 
 	public void removeObjects(List<L2Object> list)
 	{
-		for (L2Object o : list) {
+		for (L2Object o : list)
 			_allObjects.remove(o); // suggestion by whatev
 		// IdFactory.getInstance().releaseId(object.getObjectId());
-		}
 	}
 
 	public void removeObjects(L2Object[] objects)
 	{
-		for (L2Object o : objects) {
+		for (L2Object o : objects)
 			_allObjects.remove(o); // suggestion by whatev
 		// IdFactory.getInstance().releaseId(object.getObjectId());
-		}
 	}
 
 	public long timeRemoveObject(L2Object object)
@@ -374,27 +371,21 @@ public final class L2World
 				}
 				_allPlayers.put(player.getName().toLowerCase(), player);
 			}
-	        if (!newRegion.isActive()) {
+	        if (!newRegion.isActive())
 				return;
-			}
 			// DaRkRaGe [L2JOneo]
 			// If selected L2Object is a Koof or Noob Faction Added as Known Object
 			if (((L2PcInstance) object).isKoof())
-			{
 				_allkoofPlayers.put(player.getName().toLowerCase(), player);
-			}
 			else if (((L2PcInstance) object).isNoob())
-			{
 				_allnoobPlayers.put(player.getName().toLowerCase(), player);
-			}
 			_allPlayers.put(player.getName().toLowerCase(), player);
 		}
 		// Get all visible objects contained in the _visibleObjects of L2WorldRegions
 		// in a circular area of 2000 units
 		FastList<L2Object> visibles = getVisibleObjects(object, 2000);
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.finest("objects in range:" + visibles.size());
-		}
 		// tell the player about the surroundings
 		// Go through the visible objects contained in the circular area
 		for (L2Object visible : visibles)
@@ -453,9 +444,8 @@ public final class L2World
 	 */
 	public void removeVisibleObject(L2Object object, L2WorldRegion oldRegion)
 	{
-		if (object == null) {
+		if (object == null)
 			return;
-		}
 		// removeObject(object);
 		if (oldRegion != null)
 		{
@@ -464,37 +454,30 @@ public final class L2World
 			oldRegion.removeVisibleObject(object);
 			// Go through all surrounding L2WorldRegion L2Characters
 			for (L2WorldRegion reg : oldRegion.getSurroundingRegions())
-			{
 				for (L2Object obj : reg.getVisibleObjects())
 				{
 					// Remove the L2Object from the L2ObjectHashSet(L2Object) _knownObjects of the surrounding L2WorldRegion L2Characters
 					// If object is a L2PcInstance, remove the L2Object from the L2ObjectHashSet(L2PcInstance) _knownPlayer of the surrounding L2WorldRegion L2Characters
 					// If object is targeted by one of the surrounding L2WorldRegion L2Characters, cancel ATTACK and cast
-					if (obj.getKnownList() != null) {
+					if (obj.getKnownList() != null)
 						obj.getKnownList().removeKnownObject(object);
-					}
 					// Remove surrounding L2WorldRegion L2Characters from the L2ObjectHashSet(L2Object) _KnownObjects of object
 					// If surrounding L2WorldRegion L2Characters is a L2PcInstance, remove it from the L2ObjectHashSet(L2PcInstance) _knownPlayer of object
 					// TODO Delete this line if all the stuff is done by the next line object.removeAllKnownObjects()
-					if (object.getKnownList() != null) {
+					if (object.getKnownList() != null)
 						object.getKnownList().removeKnownObject(obj);
-					}
 				}
-			}
 			// If object is a L2Character :
 			// Remove all L2Object from L2ObjectHashSet(L2Object) containing all L2Object detected by the L2Character
 			// Remove all L2PcInstance from L2ObjectHashSet(L2PcInstance) containing all player ingame detected by the L2Character
 			object.getKnownList().removeAllKnownObjects();
 			// If selected L2Object is a L2PcIntance, remove it from L2ObjectHashSet(L2PcInstance) _allPlayers of L2World
 			if (object instanceof L2PcInstance)
-			{
-				if (!((L2PcInstance) object).isTeleporting()) {
+				if (!((L2PcInstance) object).isTeleporting())
 					removeFromAllPlayers((L2PcInstance) object);
 				// If selected L2Object is a GM L2PcInstance, remove it from Set(L2PcInstance) _gmList of GmListTable
 				// if (((L2PcInstance)object).isGM())
 				// GmListTable.getInstance().deleteGm((L2PcInstance)object);
-				}
-			}
 		}
 	}
 
@@ -516,28 +499,23 @@ public final class L2World
 	public FastList<L2Object> getVisibleObjects(L2Object object)
 	{
 		L2WorldRegion reg = object.getWorldRegion();
-		if (reg == null) {
+		if (reg == null)
 			return null;
-		}
 		// Create an FastList in order to contain all visible L2Object
 		FastList<L2Object> result = new FastList<L2Object>();
 		// Create a FastList containing all regions around the current region
 		FastList<L2WorldRegion> _regions = reg.getSurroundingRegions();
 		// Go through the FastList of region
 		for (int i = 0; i < _regions.size(); i++)
-		{
 			// Go through visible objects of the selected region
 			for (L2Object _object : _regions.get(i).getVisibleObjects())
 			{
-				if (_object.equals(object)) {
+				if (_object.equals(object))
 					continue; // skip our own character
-				}
-				if (!_object.isVisible()) {
+				if (!_object.isVisible())
 					continue; // skip dying objects
-				}
 				result.add(_object);
 			}
-		}
 		return result;
 	}
 
@@ -560,9 +538,8 @@ public final class L2World
 	 */
 	public FastList<L2Object> getVisibleObjects(L2Object object, int radius)
 	{
-		if (object == null || !object.isVisible()) {
+		if (object == null || !object.isVisible())
 			return new FastList<L2Object>();
-		}
 		int x = object.getX();
 		int y = object.getY();
 		int sqRadius = radius * radius;
@@ -572,13 +549,11 @@ public final class L2World
 		FastList<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
 		// Go through the FastList of region
 		for (int i = 0; i < _regions.size(); i++)
-		{
 			// Go through visible objects of the selected region
 			for (L2Object _object : _regions.get(i).getVisibleObjects())
 			{
-				if (_object.equals(object)) {
+				if (_object.equals(object))
 					continue; // skip our own character
-				}
 				int x1 = _object.getX();
 				int y1 = _object.getY();
 				double dx = x1 - x;
@@ -589,11 +564,9 @@ public final class L2World
 				// continue;
 				// If the visible object is inside the circular area
 				// add the object to the FastList result
-				if (dx * dx + dy * dy < sqRadius) {
+				if (dx * dx + dy * dy < sqRadius)
 					result.add(_object);
-				}
 			}
-		}
 		return result;
 	}
 
@@ -617,9 +590,8 @@ public final class L2World
 	 */
 	public FastList<L2Object> getVisibleObjects3D(L2Object object, int radius)
 	{
-		if (object == null || !object.isVisible()) {
+		if (object == null || !object.isVisible())
 			return new FastList<L2Object>();
-		}
 		int x = object.getX();
 		int y = object.getY();
 		int z = object.getZ();
@@ -630,12 +602,10 @@ public final class L2World
 		FastList<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
 		// Go through visible object of the selected region
 		for (int i = 0; i < _regions.size(); i++)
-		{
 			for (L2Object _object : _regions.get(i).getVisibleObjects())
 			{
-				if (_object.equals(object)) {
+				if (_object.equals(object))
 					continue; // skip our own character
-				}
 				int x1 = _object.getX();
 				int y1 = _object.getY();
 				int z1 = _object.getZ();
@@ -646,11 +616,9 @@ public final class L2World
 				// if (dy > radius || -dy > radius)
 				// continue;
 				long dz = z1 - z;
-				if (dx * dx + dy * dy + dz * dz < sqRadius) {
+				if (dx * dx + dy * dy + dz * dz < sqRadius)
 					result.add(_object);
-				}
 			}
-		}
 		return result;
 	}
 
@@ -672,9 +640,8 @@ public final class L2World
 	public FastList<L2PlayableInstance> getVisiblePlayable(L2Object object)
 	{
 		L2WorldRegion reg = object.getWorldRegion();
-		if (reg == null) {
+		if (reg == null)
 			return null;
-		}
 		// Create an FastList in order to contain all visible L2Object
 		FastList<L2PlayableInstance> result = new FastList<L2PlayableInstance>();
 		// Create a FastList containing all regions around the current region
@@ -688,15 +655,12 @@ public final class L2World
 			while (_playables.hasNext())
 			{
 				L2PlayableInstance _object = _playables.next();
-				if (_object == null) {
+				if (_object == null)
 					continue;
-				}
-				if (_object.equals(object)) {
+				if (_object.equals(object))
 					continue; // skip our own character
-				}
-				if (!_object.isVisible()) {
+				if (!_object.isVisible())
 					continue; // skip dying objects
-				}
 				result.add(_object);
 			}
 		}
@@ -767,28 +731,14 @@ public final class L2World
 		_log.config("L2World: Setting up World Regions");
 		_worldRegions = new L2WorldRegion[REGIONS_X + 1][REGIONS_Y + 1];
 		for (int i = 0; i <= REGIONS_X; i++)
-		{
 			for (int j = 0; j <= REGIONS_Y; j++)
-			{
 				_worldRegions[i][j] = new L2WorldRegion(i, j);
-			}
-		}
 		for (int x = 0; x <= REGIONS_X; x++)
-		{
 			for (int y = 0; y <= REGIONS_Y; y++)
-			{
 				for (int a = -1; a <= 1; a++)
-				{
 					for (int b = -1; b <= 1; b++)
-					{
 						if (validRegion(x + a, y + b))
-						{
 							_worldRegions[x + a][y + b].addSurroundingRegion(_worldRegions[x][y]);
-						}
-					}
-				}
-			}
-		}
 		_log.config("L2World: (" + REGIONS_X + " by " + REGIONS_Y + ") World Region Grid set up.");
 	}
 
@@ -799,12 +749,8 @@ public final class L2World
 	{
 		_log.info("Deleting all visible NPC's.");
 		for (int i = 0; i <= REGIONS_X; i++)
-		{
 			for (int j = 0; j <= REGIONS_Y; j++)
-			{
 				_worldRegions[i][j].deleteVisibleNpcSpawns();
-			}
-		}
 		_log.info("All visible NPC's deleted.");
 	}
 }

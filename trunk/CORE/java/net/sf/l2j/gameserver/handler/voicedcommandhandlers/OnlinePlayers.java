@@ -30,9 +30,7 @@ public class OnlinePlayers implements IVoicedCommandHandler
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.startsWith("online"))
-		{
 			showPlayers(activeChar, target);
-		}
 		return true;
 	}
 

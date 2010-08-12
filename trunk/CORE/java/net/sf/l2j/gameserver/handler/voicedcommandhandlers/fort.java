@@ -35,39 +35,30 @@ public class fort implements IVoicedCommandHandler
 		{
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());
-			if (door == null || fort == null) {
+			if (door == null || fort == null)
 				return false;
-			}
 			if (fort.checkIfInZone(door.getX(), door.getY(), door.getZ()))
-			{
 				door.openMe();
-			}
 		}
 		else if (command.startsWith("close doors") && target.equals("fort") && activeChar.isClanLeader())
 		{
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());
-			if (door == null || fort == null) {
+			if (door == null || fort == null)
 				return false;
-			}
 			if (fort.checkIfInZone(door.getX(), door.getY(), door.getZ()))
-			{
 				door.closeMe();
-			}
 		}
 		else if (command.startsWith("ride wyvern") && target.equals("fort"))
-		{
 			if (activeChar.getClan().getHasFort() > 0 && activeChar.isClanLeader())
 			{
-				if (!activeChar.disarmWeapons()) {
+				if (!activeChar.disarmWeapons())
 					return false;
-				}
 				Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, 12621);
 				activeChar.sendPacket(mount);
 				activeChar.broadcastPacket(mount);
 				activeChar.setMountType(mount.getMountType());
 			}
-		}
 		return true;
 	}
 

@@ -52,13 +52,12 @@ public class Wedding implements IVoicedCommandHandler
 	 */
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
-		if (command.startsWith("engage")) {
+		if (command.startsWith("engage"))
 			return engage(activeChar);
-		} else if (command.startsWith("divorce")) {
+		else if (command.startsWith("divorce"))
 			return divorce(activeChar);
-		} else if (command.startsWith("gotolove")) {
+		else if (command.startsWith("gotolove"))
 			return gotolove(activeChar);
-		}
 		return false;
 	}
 
@@ -66,9 +65,7 @@ public class Wedding implements IVoicedCommandHandler
 	{
 		// no partner?!
 		if (playerA.getPartnerId() == 0)
-		{
 			return false;
-		}
 		// try to found partner
 		L2PcInstance playerB = (L2PcInstance) L2World.getInstance().findObject(playerA.getPartnerId());
 		// divorce or couple broke?
@@ -76,11 +73,8 @@ public class Wedding implements IVoicedCommandHandler
 		{
 			playerA.sendMessage("You are now devorced.");
 			playerA.getInventory().reduceAdena("Wedding", Config.WEDDING_DIVORCE_COSTS, playerA, null);
-		}
-		else
-		{
+		} else
 			playerA.sendMessage("You have broken up as a couple.");
-		}
 		// partner found?
 		if (playerB != null)
 		{
@@ -90,11 +84,8 @@ public class Wedding implements IVoicedCommandHandler
 			{
 				playerB.sendMessage("Your spouse has decided to break up with you.");
 				playerB.addAdena("WEDDING", Config.WEDDING_DIVORCE_COSTS, null, false);
-			}
-			else
-			{
+			} else
 				playerB.sendMessage("Your fiance has decided to break the engagement with you.");
-			}
 		}
 		// delete couple
 		CoupleManager.getInstance().deleteCouple(playerA.getCoupleId());
@@ -122,9 +113,7 @@ public class Wedding implements IVoicedCommandHandler
 			// try to tell about it to partner
 			L2PcInstance playerB = (L2PcInstance) L2World.getInstance().findObject(playerA.getPartnerId());
 			if (playerB != null)
-			{
 				playerB.sendMessage("--> Your partner has tried to engage with another player! <--");
-			}
 			// any punishment?
 			if (Config.WEDDING_PUNISH_INFIDELITY)
 			{
@@ -178,13 +167,11 @@ public class Wedding implements IVoicedCommandHandler
 			return false;
 		}
 		if (!Config.WEDDING_SAMESEX)
-		{
 			if (playerA.getAppearance().getSex() == playerB.getAppearance().getSex())
 			{
 				playerA.sendMessage("Homosexual marriage is not allowed on this server!");
 				return false;
 			}
-		}
 		// check if target has player on friendlist
 		java.sql.Connection con = null;
 		try
@@ -360,9 +347,7 @@ public class Wedding implements IVoicedCommandHandler
 		public void run()
 		{
 			if (_activeChar.isDead())
-			{
 				return;
-			}
 			_activeChar.setIsIn7sDungeon(_to7sDungeon);
 			_activeChar.enableAllSkills();
 			try

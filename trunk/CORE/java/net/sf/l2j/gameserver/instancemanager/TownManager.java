@@ -54,9 +54,8 @@ public class TownManager
 	// Property - Public
 	public void addTown(L2TownZone arena)
 	{
-		if (_towns == null) {
+		if (_towns == null)
 			_towns = new FastList<L2TownZone>();
-		}
 		_towns.add(arena);
 	}
 
@@ -114,9 +113,8 @@ public class TownManager
 		if (castleIndex > 0)
 		{
 			Castle castle = CastleManager.getInstance().getCastles().get(CastleManager.getInstance().getCastleIndex(castleIndex));
-			if (castle != null) {
+			if (castle != null)
 				return castle.getSiege().getIsInProgress();
-			}
 		}
 		return false;
 	}
@@ -131,20 +129,17 @@ public class TownManager
 		if (castleIndex > 0)
 		{
 			Castle castle = CastleManager.getInstance().getCastles().get(CastleManager.getInstance().getCastleIndex(castleIndex));
-			if (castle != null) {
+			if (castle != null)
 				return castle.getSiege().getIsInProgress();
-			}
 		}
 		return false;
 	}
 
 	public final L2TownZone getTown(int townId)
 	{
-		for (L2TownZone temp : _towns) {
-			if (temp.getTownId() == townId) {
+		for (L2TownZone temp : _towns)
+			if (temp.getTownId() == townId)
 				return temp;
-			}
-		}
 		return null;
 	}
 
@@ -159,11 +154,8 @@ public class TownManager
 	public final static L2TownZone getTown(int x, int y, int z)
 	{
 		for (L2ZoneType temp : ZoneManager.getInstance().getZones(x, y, z))
-		{
-			if (temp instanceof L2TownZone) {
+			if (temp instanceof L2TownZone)
 				return (L2TownZone) temp;
-			}
-		}
 		return null;
 	}
 }

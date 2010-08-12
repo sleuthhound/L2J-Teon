@@ -40,9 +40,7 @@ public class Escape implements IUserCommandHandler
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
 		if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isInOlympiadMode())
-		{
 			return false;
-		}
 		int unstuckTimer = activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 1000 : Config.UNSTUCK_INTERVAL * 1000;
 		// int unstuckTimer = (activeChar.getAccessLevel() ? 1000 : Config.UNSTUCK_INTERVAL * 1000);
 		// int unstuckTimer = activeChar.getAccessLevel() >= REQUIRED_LEVEL ? 5000 : Config.UNSTUCK_INTERVAL * 1000;
@@ -59,13 +57,11 @@ public class Escape implements IUserCommandHandler
 		}
 		// Check to see if the player is in faction.
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
-		{
 			if (activeChar.isNoob() || activeChar.isKoof())
 			{
 				activeChar.sendMessage("You may not use an escape command in Faction mode.");
 				return false;
 			}
-		}
 		// Check to see if player is in jail
 		if (activeChar.isInJail())
 		{
@@ -100,16 +96,10 @@ public class Escape implements IUserCommandHandler
 				activeChar.doCast(escape);
 				return true;
 			}
-		}
+		} else if (Config.UNSTUCK_INTERVAL > 100)
+			activeChar.sendMessage("You use Escape: " + unstuckTimer / 60000 + " minutes.");
 		else
-		{
-			if (Config.UNSTUCK_INTERVAL > 100)
-			{
-				activeChar.sendMessage("You use Escape: " + unstuckTimer / 60000 + " minutes.");
-			} else {
-				activeChar.sendMessage("You use Escape: " + unstuckTimer / 1000 + " seconds.");
-			}
-		}
+			activeChar.sendMessage("You use Escape: " + unstuckTimer / 1000 + " seconds.");
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		// SoE Animation section
 		activeChar.setTarget(activeChar);
@@ -138,27 +128,22 @@ public class Escape implements IUserCommandHandler
 		public void run()
 		{
 			if (_activeChar.isDead())
-			{
 				return;
-			}
 			_activeChar.setIsIn7sDungeon(false);
 			_activeChar.enableAllSkills();
 			try
 			{
-				if (_activeChar.isKoof()) {
+				if (_activeChar.isKoof())
 					_activeChar.teleToLocation(146334, 25767, -2013);
-				} else if (_activeChar.isNoob()) {
+				else if (_activeChar.isNoob())
 					_activeChar.teleToLocation(59669, -42221, -2992);
-				} else {
+				else
 					_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-				}
 			}
 			catch (Throwable e)
 			{
 				if (Config.DEBUG)
-				{
 					e.printStackTrace();
-				}
 			}
 		}
 	}

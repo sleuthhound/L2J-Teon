@@ -97,10 +97,7 @@ public class L2MinionData
 		{
 			_minionAmount = Rnd.get(_minionAmountMin, _minionAmountMax);
 			return _minionAmount;
-		}
-		else
-		{
+		} else
 			return _minionAmountMin;
-		}
 	}
 }

@@ -31,9 +31,8 @@ public class SqlUtils
 	// Property - Public
 	public static SqlUtils getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new SqlUtils();
-		}
 		return _instance;
 	}
 
@@ -50,9 +49,8 @@ public class SqlUtils
 			query = L2DatabaseFactory.getInstance().prepQuerySelect(new String[] { resultField }, tableName, whereClause, true);
 			statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
 			rset = statement.executeQuery();
-			if (rset.next()) {
+			if (rset.next())
 				res = rset.getInt(1);
-			}
 		}
 		catch (Exception e)
 		{
@@ -91,19 +89,15 @@ public class SqlUtils
 			statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
 			rset = statement.executeQuery();
 			int rows = 0;
-			while (rset.next()) {
+			while (rset.next())
 				rows++;
-			}
-			if (rows == 0) {
+			if (rows == 0)
 				return new Integer[0];
-			}
 			res = new Integer[rows - 1];
 			rset.first();
 			int row = 0;
 			while (rset.next())
-			{
 				res[row] = rset.getInt(1);
-			}
 		}
 		catch (Exception e)
 		{
@@ -143,17 +137,15 @@ public class SqlUtils
 			statement = L2DatabaseFactory.getInstance().getConnection().prepareStatement(query);
 			rset = statement.executeQuery();
 			int rows = 0;
-			while (rset.next()) {
+			while (rset.next())
 				rows++;
-			}
 			res = new Integer[rows - 1][resultFields.length];
 			rset.first();
 			int row = 0;
 			while (rset.next())
 			{
-				for (int i = 0; i < resultFields.length; i++) {
+				for (int i = 0; i < resultFields.length; i++)
 					res[row][i] = rset.getInt(i + 1);
-				}
 				row++;
 			}
 		}

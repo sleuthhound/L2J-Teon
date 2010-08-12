@@ -45,21 +45,18 @@ public class L2GroupSpawn extends L2Spawn
 		L2NpcInstance mob = null;
 		try
 		{
-			if (_template.type.equalsIgnoreCase("L2Pet") || _template.type.equalsIgnoreCase("L2Minion")) {
+			if (_template.type.equalsIgnoreCase("L2Pet") || _template.type.equalsIgnoreCase("L2Minion"))
 				return null;
-			}
 			Object[] parameters = { IdFactory.getInstance().getNextId(), _template };
 			Object tmp = _constructor.newInstance(parameters);
-			if (!(tmp instanceof L2NpcInstance)) {
+			if (!(tmp instanceof L2NpcInstance))
 				return null;
-			}
 			mob = (L2NpcInstance) tmp;
 			int newlocx, newlocy, newlocz;
 			if (getLocx() == 0 && getLocy() == 0)
 			{
-				if (getLocation() == 0) {
+				if (getLocation() == 0)
 					return null;
-				}
 				int p[] = Territory.getInstance().getRandomPoint(getLocation());
 				newlocx = p[0];
 				newlocy = p[1];
@@ -72,17 +69,15 @@ public class L2GroupSpawn extends L2Spawn
 				newlocz = getLocz();
 			}
 			mob.setCurrentHpMp(mob.getMaxHp(), mob.getMaxMp());
-			if (getHeading() == -1) {
+			if (getHeading() == -1)
 				mob.setHeading(Rnd.nextInt(61794));
-			} else {
+			else
 				mob.setHeading(getHeading());
-			}
 			mob.setSpawn(this);
 			mob.spawnMe(newlocx, newlocy, newlocz);
 			mob.onSpawn();
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.finest("spawned Mob ID: " + _template.npcId + " ,at: " + mob.getX() + " x, " + mob.getY() + " y, " + mob.getZ() + " z");
-			}
 			return mob;
 		}
 		catch (Exception e)

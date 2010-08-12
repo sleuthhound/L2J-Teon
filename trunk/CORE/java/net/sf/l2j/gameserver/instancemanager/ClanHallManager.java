@@ -75,21 +75,18 @@ public class ClanHallManager
 			while (rs.next())
 			{
 				id = rs.getInt("id");
-				if (rs.getInt("ownerId") == 0) {
+				if (rs.getInt("ownerId") == 0)
 					_freeClanHall.put(id, new ClanHall(id, rs.getString("name"), rs.getInt("ownerId"), rs.getInt("lease"), rs.getString("desc"), rs.getString("location"), 0, rs.getInt("Grade"), rs.getBoolean("paid")));
-				} else
+				else if (ClanTable.getInstance().getClan(rs.getInt("ownerId")) != null)
 				{
-					if (ClanTable.getInstance().getClan(rs.getInt("ownerId")) != null)
-					{
-						_clanHall.put(id, new ClanHall(id, rs.getString("name"), rs.getInt("ownerId"), rs.getInt("lease"), rs.getString("desc"), rs.getString("location"), rs.getLong("paidUntil"), rs.getInt("Grade"), rs.getBoolean("paid")));
-						ClanTable.getInstance().getClan(rs.getInt("ownerId")).setHasHideout(id);
-					}
-					else
-					{
-						_freeClanHall.put(id, new ClanHall(id, rs.getString("name"), rs.getInt("ownerId"), rs.getInt("lease"), rs.getString("desc"), rs.getString("location"), rs.getLong("paidUntil"), rs.getInt("Grade"), rs.getBoolean("paid")));
-						_freeClanHall.get(id).free();
-						AuctionManager.getInstance().initNPC(id);
-					}
+					_clanHall.put(id, new ClanHall(id, rs.getString("name"), rs.getInt("ownerId"), rs.getInt("lease"), rs.getString("desc"), rs.getString("location"), rs.getLong("paidUntil"), rs.getInt("Grade"), rs.getBoolean("paid")));
+					ClanTable.getInstance().getClan(rs.getInt("ownerId")).setHasHideout(id);
+				}
+				else
+				{
+					_freeClanHall.put(id, new ClanHall(id, rs.getString("name"), rs.getInt("ownerId"), rs.getInt("lease"), rs.getString("desc"), rs.getString("location"), rs.getLong("paidUntil"), rs.getInt("Grade"), rs.getBoolean("paid")));
+					_freeClanHall.get(id).free();
+					AuctionManager.getInstance().initNPC(id);
 				}
 			}
 			statement.close();
@@ -129,9 +126,8 @@ public class ClanHallManager
 	/** Check is free ClanHall */
 	public final boolean isFree(int chId)
 	{
-		if (_freeClanHall.containsKey(chId)) {
+		if (_freeClanHall.containsKey(chId))
 			return true;
-		}
 		return false;
 	}
 
@@ -151,9 +147,8 @@ public class ClanHallManager
 		{
 			_clanHall.put(chId, _freeClanHall.get(chId));
 			_freeClanHall.remove(chId);
-		} else {
+		} else
 			_clanHall.get(chId).free();
-		}
 		ClanTable.getInstance().getClan(clan.getClanId()).setHasHideout(chId);
 		_clanHall.get(chId).setOwner(clan);
 	}
@@ -161,12 +156,10 @@ public class ClanHallManager
 	/** Get Clan Hall by Id */
 	public final ClanHall getClanHallById(int clanHallId)
 	{
-		if (_clanHall.containsKey(clanHallId)) {
+		if (_clanHall.containsKey(clanHallId))
 			return _clanHall.get(clanHallId);
-		}
-		if (_freeClanHall.containsKey(clanHallId)) {
+		if (_freeClanHall.containsKey(clanHallId))
 			return _freeClanHall.get(clanHallId);
-		}
 		return null;
 	}
 
@@ -176,27 +169,21 @@ public class ClanHallManager
 	 */
 	public final ClanHall getNearbyClanHall(int x, int y, int maxDist)
 	{
-		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet()) {
-			if (ch.getValue().getZone().getDistanceToZone(x, y) < maxDist) {
+		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
+			if (ch.getValue().getZone().getDistanceToZone(x, y) < maxDist)
 				return ch.getValue();
-			}
-		}
-		for (Map.Entry<Integer, ClanHall> ch : _freeClanHall.entrySet()) {
-			if (ch.getValue().getZone().getDistanceToZone(x, y) < maxDist) {
+		for (Map.Entry<Integer, ClanHall> ch : _freeClanHall.entrySet())
+			if (ch.getValue().getZone().getDistanceToZone(x, y) < maxDist)
 				return ch.getValue();
-			}
-		}
 		return null;
 	}
 
 	/** Get Clan Hall by Owner */
 	public final ClanHall getClanHallByOwner(L2Clan clan)
 	{
-		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet()) {
-			if (clan.getClanId() == ch.getValue().getOwnerId()) {
+		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
+			if (clan.getClanId() == ch.getValue().getOwnerId())
 				return ch.getValue();
-			}
-		}
 		return null;
 	}
 }

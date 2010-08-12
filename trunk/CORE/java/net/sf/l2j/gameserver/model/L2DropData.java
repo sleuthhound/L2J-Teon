@@ -177,9 +177,7 @@ public class L2DropData
 	{
 		String out = "ItemID: " + getItemId() + " Min: " + getMinDrop() + " Max: " + getMaxDrop() + " Chance: " + getChance() / 10000.0 + "%";
 		if (isQuestDrop())
-		{
 			out += " QuestID: " + getQuestID() + " StateID's: " + Arrays.toString(getStateIDs());
-		}
 		return out;
 	}
 

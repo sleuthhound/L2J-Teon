@@ -54,9 +54,8 @@ public class DayNightSpawnManager
 		{
 			_log.warning("DayNightSpawnManager: Spawn already added into day map");
 			return;
-		} else {
+		} else
 			_dayCreatures.put(spawnDat, null);
-		}
 	}
 
 	public void addNightCreature(L2Spawn spawnDat)
@@ -65,9 +64,8 @@ public class DayNightSpawnManager
 		{
 			_log.warning("DayNightSpawnManager: Spawn already added into night map");
 			return;
-		} else {
+		} else
 			_nightCreatures.put(spawnDat, null);
-		}
 	}
 
 	/*
@@ -98,16 +96,14 @@ public class DayNightSpawnManager
 				int i = 0;
 				for (L2NpcInstance dayCreature : UnSpawnCreatures.values())
 				{
-					if (dayCreature == null) {
+					if (dayCreature == null)
 						continue;
-					}
 					dayCreature.getSpawn().stopRespawn();
 					dayCreature.deleteMe();
 					i++;
 				}
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.info("DayNightSpawnManager: Deleted " + i + " " + UnspawnLogInfo + " creatures");
-				}
 			}
 			int i = 0;
 			L2NpcInstance creature = null;
@@ -116,43 +112,36 @@ public class DayNightSpawnManager
 				if (SpawnCreatures.get(spawnDat) == null)
 				{
 					creature = spawnDat.doSpawn();
-					if (creature == null) {
+					if (creature == null)
 						continue;
-					}
 					SpawnCreatures.remove(spawnDat);
 					SpawnCreatures.put(spawnDat, creature);
 					creature.setCurrentHp(creature.getMaxHp());
 					creature.setCurrentMp(creature.getMaxMp());
 					creature.getSpawn().startRespawn();
-					if (creature.isDecayed()) {
+					if (creature.isDecayed())
 						creature.setDecayed(false);
-					}
-					if (creature.isDead()) {
+					if (creature.isDead())
 						creature.doRevive();
-					}
 				}
 				else
 				{
 					creature = SpawnCreatures.get(spawnDat);
-					if (creature == null) {
+					if (creature == null)
 						continue;
-					}
 					creature.getSpawn().startRespawn();
-					if (creature.isDecayed()) {
+					if (creature.isDecayed())
 						creature.setDecayed(false);
-					}
-					if (creature.isDead()) {
+					if (creature.isDead())
 						creature.doRevive();
-					}
 					creature.setCurrentHp(creature.getMaxHp());
 					creature.setCurrentMp(creature.getMaxMp());
 					creature.spawnMe();
 				}
 				i++;
 			}
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.info("DayNightSpawnManager: Spawning " + i + " " + SpawnLogInfo + " creatures");
-			}
 		}
 		catch (Exception e)
 		{
@@ -162,9 +151,8 @@ public class DayNightSpawnManager
 
 	private void changeMode(int mode)
 	{
-		if (_nightCreatures.isEmpty() && _dayCreatures.isEmpty()) {
+		if (_nightCreatures.isEmpty() && _dayCreatures.isEmpty())
 			return;
-		}
 		switch (mode)
 		{
 			case 0:
@@ -185,11 +173,10 @@ public class DayNightSpawnManager
 	{
 		try
 		{
-			if (GameTimeController.getInstance().isNowNight()) {
+			if (GameTimeController.getInstance().isNowNight())
 				changeMode(1);
-			} else {
+			else
 				changeMode(0);
-			}
 		}
 		catch (Exception e)
 		{
@@ -219,12 +206,10 @@ public class DayNightSpawnManager
 					_bosses.put(spawn, boss);
 					continue;
 				}
-				if (boss == null && mode == 0) {
+				if (boss == null && mode == 0)
 					continue;
-				}
-				if (boss.getNpcId() == 25328 && boss.getRaidStatus().equals(RaidBossSpawnManager.StatusEnum.ALIVE)) {
+				if (boss.getNpcId() == 25328 && boss.getRaidStatus().equals(RaidBossSpawnManager.StatusEnum.ALIVE))
 					handleHellmans(boss, mode);
-				}
 				return;
 			}
 		}
@@ -251,17 +236,15 @@ public class DayNightSpawnManager
 
 	public L2RaidBossInstance handleBoss(L2Spawn spawnDat)
 	{
-		if (_bosses.containsKey(spawnDat)) {
+		if (_bosses.containsKey(spawnDat))
 			return _bosses.get(spawnDat);
-		}
 		if (GameTimeController.getInstance().isNowNight())
 		{
 			L2RaidBossInstance raidboss = (L2RaidBossInstance) spawnDat.doSpawn();
 			_bosses.put(spawnDat, raidboss);
 			return raidboss;
-		} else {
+		} else
 			_bosses.put(spawnDat, null);
-		}
 		return null;
 	}
 

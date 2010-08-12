@@ -48,15 +48,11 @@ public class StackIDFactory extends IdFactory
 			// tmp_obj_id");
 			int[] tmp_obj_ids = extractUsedObjectIDTable();
 			if (tmp_obj_ids.length > 0)
-			{
 				_curOID = tmp_obj_ids[tmp_obj_ids.length - 1];
-			}
 			System.out.println("Max Id = " + _curOID);
 			int N = tmp_obj_ids.length;
 			for (int idx = 0; idx < N; idx++)
-			{
 				N = insertUntil(tmp_obj_ids, idx, N, con);
-			}
 			_curOID++;
 			_log.config("IdFactory: Next usable Object ID is: " + _curOID);
 			_initialized = true;
@@ -88,7 +84,6 @@ public class StackIDFactory extends IdFactory
 		}
 		// check these IDs not present in DB
 		if (Config.BAD_ID_CHECKING)
-		{
 			for (String check : ID_CHECKS)
 			{
 				PreparedStatement ps = con.prepareStatement(check);
@@ -105,12 +100,10 @@ public class StackIDFactory extends IdFactory
 				rs.close();
 				ps.close();
 			}
-		}
 		// int hole = id - _curOID;
 		int hole = id - _tempOID;
-		if (hole > N - idx) {
+		if (hole > N - idx)
 			hole = N - idx;
-		}
 		for (int i = 1; i <= hole; i++)
 		{
 			// System.out.println("Free ID added " + (_tempOID));
@@ -118,9 +111,8 @@ public class StackIDFactory extends IdFactory
 			_tempOID++;
 			// _curOID++;
 		}
-		if (hole < N - idx) {
+		if (hole < N - idx)
 			_tempOID++;
-		}
 		return N - hole;
 	}
 
@@ -133,9 +125,9 @@ public class StackIDFactory extends IdFactory
 	public synchronized int getNextId()
 	{
 		int id;
-		if (!_freeOIDStack.empty()) {
+		if (!_freeOIDStack.empty())
 			id = _freeOIDStack.pop();
-		} else
+		else
 		{
 			id = _curOID;
 			_curOID = _curOID + 1;

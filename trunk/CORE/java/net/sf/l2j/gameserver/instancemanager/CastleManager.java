@@ -69,9 +69,8 @@ public class CastleManager
 			for (int i = 0; i < getCastles().size(); i++)
 			{
 				castle = getCastles().get(i);
-				if (castle == null) {
+				if (castle == null)
 					continue;
-				}
 				distance = castle.getDistance(obj);
 				if (closestDistance > distance)
 				{
@@ -96,9 +95,7 @@ public class CastleManager
 			statement = con.prepareStatement("Select id from castle order by id");
 			rs = statement.executeQuery();
 			while (rs.next())
-			{
 				getCastles().add(new Castle(rs.getInt("id")));
-			}
 			statement.close();
 			System.out.println("Loaded: " + getCastles().size() + " castles");
 		}
@@ -124,44 +121,32 @@ public class CastleManager
 	public final Castle getCastleById(int castleId)
 	{
 		for (Castle temp : getCastles())
-		{
-			if (temp.getCastleId() == castleId) {
+			if (temp.getCastleId() == castleId)
 				return temp;
-			}
-		}
 		return null;
 	}
 
 	public final Castle getCastleByOwner(L2Clan clan)
 	{
 		for (Castle temp : getCastles())
-		{
-			if (temp.getOwnerId() == clan.getClanId()) {
+			if (temp.getOwnerId() == clan.getClanId())
 				return temp;
-			}
-		}
 		return null;
 	}
 
 	public final Castle getCastle(String name)
 	{
 		for (Castle temp : getCastles())
-		{
-			if (temp.getName().equalsIgnoreCase(name.trim())) {
+			if (temp.getName().equalsIgnoreCase(name.trim()))
 				return temp;
-			}
-		}
 		return null;
 	}
 
 	public final Castle getCastle(int x, int y, int z)
 	{
 		for (Castle temp : getCastles())
-		{
-			if (temp.checkIfInZone(x, y, z)) {
+			if (temp.checkIfInZone(x, y, z))
 				return temp;
-			}
-		}
 		return null;
 	}
 
@@ -176,9 +161,8 @@ public class CastleManager
 		for (int i = 0; i < getCastles().size(); i++)
 		{
 			castle = getCastles().get(i);
-			if (castle != null && castle.getCastleId() == castleId) {
+			if (castle != null && castle.getCastleId() == castleId)
 				return i;
-			}
 		}
 		return -1;
 	}
@@ -194,18 +178,16 @@ public class CastleManager
 		for (int i = 0; i < getCastles().size(); i++)
 		{
 			castle = getCastles().get(i);
-			if (castle != null && castle.checkIfInZone(x, y, z)) {
+			if (castle != null && castle.checkIfInZone(x, y, z))
 				return i;
-			}
 		}
 		return -1;
 	}
 
 	public final List<Castle> getCastles()
 	{
-		if (_castles == null) {
+		if (_castles == null)
 			_castles = new FastList<Castle>();
-		}
 		return _castles;
 	}
 
@@ -224,11 +206,9 @@ public class CastleManager
 				maxTax = 15;
 				break;
 		}
-		for (Castle castle : _castles) {
-			if (castle.getTaxPercent() > maxTax) {
+		for (Castle castle : _castles)
+			if (castle.getTaxPercent() > maxTax)
 				castle.setTaxPercent(maxTax);
-			}
-		}
 	}
 
 	int _castleId = 1; // from this castle
@@ -240,40 +220,35 @@ public class CastleManager
 
 	public int getCircletByCastleId(int castleId)
 	{
-		if (castleId > 0 && castleId < 10) {
+		if (castleId > 0 && castleId < 10)
 			return _castleCirclets[castleId];
-		}
 		return 0;
 	}
 
 	// remove this castle's circlets from the clan
 	public void removeCirclet(L2Clan clan, int castleId)
 	{
-		for (L2ClanMember member : clan.getMembers()) {
+		for (L2ClanMember member : clan.getMembers())
 			removeCirclet(member, castleId);
-		}
 	}
 
 	public void removeCirclet(L2ClanMember member, int castleId)
 	{
-		if (member == null) {
+		if (member == null)
 			return;
-		}
 		L2PcInstance player = member.getPlayerInstance();
 		int circletId = getCircletByCastleId(castleId);
 		if (circletId != 0)
 		{
 			// online-player circlet removal
 			if (player != null)
-			{
 				try
 				{
 					L2ItemInstance circlet = player.getInventory().getItemByItemId(circletId);
 					if (circlet != null)
 					{
-						if (circlet.isEquipped()) {
+						if (circlet.isEquipped())
 							player.getInventory().unEquipItemInSlotAndRecord(circlet.getEquipSlot());
-						}
 						player.destroyItemByItemId("CastleCircletRemoval", circletId, 1, player, true);
 					}
 					return;
@@ -282,7 +257,6 @@ public class CastleManager
 				{
 					// continue removing offline
 				}
-			}
 			// else offline-player circlet removal
 			java.sql.Connection con = null;
 			try

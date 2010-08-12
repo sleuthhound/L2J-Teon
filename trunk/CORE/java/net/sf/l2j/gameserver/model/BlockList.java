@@ -156,9 +156,7 @@ public class BlockList
 			statement.setString(1, _owner.getName());
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
-			{
 				_blockSet.add(rset.getString("blocked"));
-			}
 			rset.close();
 			statement.close();
 		}
@@ -241,9 +239,8 @@ public class BlockList
 			{
 			}
 		}
-		if (!found) {
+		if (!found)
 			throw new IllegalArgumentException();
-		}
 		return acl;
 	}
 
@@ -257,11 +254,8 @@ public class BlockList
 			sm = new SystemMessage(SystemMessageId.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
 			sm.addString(character.getName());
 			listOwner.sendPacket(sm);
-		}
-		else
-		{
+		} else
 			listOwner.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST));
-		}
 	}
 
 	public static void addToBlockList(L2PcInstance listOwner, String name)
@@ -271,11 +265,8 @@ public class BlockList
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
 			sm.addString(name);
 			listOwner.sendPacket(sm);
-		}
-		else
-		{
+		} else
 			listOwner.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST));
-		}
 	}
 
 	public static void removeFromBlockList(L2PcInstance listOwner, L2PcInstance character)
@@ -285,11 +276,8 @@ public class BlockList
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
 			sm.addString(character.getName());
 			listOwner.sendPacket(sm);
-		}
-		else
-		{
+		} else
 			listOwner.sendMessage("Failed to unblock " + character.getName() + ".");
-		}
 	}
 
 	public static void removeFromBlockList(L2PcInstance listOwner, String name)
@@ -299,11 +287,8 @@ public class BlockList
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
 			sm.addString(name);
 			listOwner.sendPacket(sm);
-		}
-		else
-		{
+		} else
 			listOwner.sendMessage("Failed to unblock " + name + ".");
-		}
 	}
 
 	public static boolean isInBlockList(L2PcInstance listOwner, L2PcInstance character)
@@ -329,9 +314,7 @@ public class BlockList
 	{
 		listOwner.sendPacket(new SystemMessage(SystemMessageId.BLOCK_LIST_HEADER));
 		for (String playerName : listOwner.getBlockList().getBlockList())
-		{
 			listOwner.sendMessage(playerName);
-		}
 		listOwner.sendPacket(new SystemMessage(SystemMessageId.FRIEND_LIST_FOOT));
 	}
 }

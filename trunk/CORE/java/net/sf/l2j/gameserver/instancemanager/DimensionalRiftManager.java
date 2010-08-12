@@ -103,9 +103,8 @@ public class DimensionalRiftManager
 				int yT = rs.getInt("yT");
 				int zT = rs.getInt("zT");
 				boolean isBossRoom = rs.getByte("boss") > 0;
-				if (!_rooms.containsKey(type)) {
+				if (!_rooms.containsKey(type))
 					_rooms.put(type, new FastMap<Byte, DimensionalRiftRoom>());
-				}
 				_rooms.get(type).put(room_id, new DimensionalRiftRoom(type, room_id, xMin, xMax, yMin, yMax, z1, z2, xT, yT, zT, isBossRoom));
 			}
 			s.close();
@@ -127,9 +126,8 @@ public class DimensionalRiftManager
 		}
 		int typeSize = _rooms.keySet().size();
 		int roomSize = 0;
-		for (Byte b : _rooms.keySet()) {
+		for (Byte b : _rooms.keySet())
 			roomSize += _rooms.get(b).keySet().size();
-		}
 		_log.info("DimensionalRiftManager: Loaded " + typeSize + " room types with " + roomSize + " rooms.");
 	}
 
@@ -142,9 +140,8 @@ public class DimensionalRiftManager
 			factory.setValidating(false);
 			factory.setIgnoringComments(true);
 			File file = new File(Config.DATAPACK_ROOT + "/data/dimensionalRift.xml");
-			if (!file.exists()) {
+			if (!file.exists())
 				throw new IOException();
-			}
 			Document doc = factory.newDocumentBuilder().parse(file);
 			NamedNodeMap attrs;
 			byte type, roomId;
@@ -152,23 +149,18 @@ public class DimensionalRiftManager
 			L2Spawn spawnDat;
 			L2NpcTemplate template;
 			for (Node rift = doc.getFirstChild(); rift != null; rift = rift.getNextSibling())
-			{
 				if ("rift".equalsIgnoreCase(rift.getNodeName()))
-				{
 					for (Node area = rift.getFirstChild(); area != null; area = area.getNextSibling())
-					{
 						if ("area".equalsIgnoreCase(area.getNodeName()))
 						{
 							attrs = area.getAttributes();
 							type = Byte.parseByte(attrs.getNamedItem("type").getNodeValue());
 							for (Node room = area.getFirstChild(); room != null; room = room.getNextSibling())
-							{
 								if ("room".equalsIgnoreCase(room.getNodeName()))
 								{
 									attrs = room.getAttributes();
 									roomId = Byte.parseByte(attrs.getNamedItem("id").getNodeValue());
 									for (Node spawn = room.getFirstChild(); spawn != null; spawn = spawn.getNextSibling())
-									{
 										if ("spawn".equalsIgnoreCase(spawn.getNodeName()))
 										{
 											attrs = spawn.getAttributes();
@@ -176,14 +168,12 @@ public class DimensionalRiftManager
 											delay = Integer.parseInt(attrs.getNamedItem("delay").getNodeValue());
 											count = Integer.parseInt(attrs.getNamedItem("count").getNodeValue());
 											template = NpcTable.getInstance().getTemplate(mobId);
-											if (template == null) {
+											if (template == null)
 												_log.warn("Template " + mobId + " not found!");
-											}
-											if (!_rooms.containsKey(type)) {
+											if (!_rooms.containsKey(type))
 												_log.warn("Type " + type + " not found!");
-											} else if (!_rooms.get(type).containsKey(roomId)) {
+											else if (!_rooms.get(type).containsKey(roomId))
 												_log.warn("Room " + roomId + " in Type " + type + " not found!");
-											}
 											for (int i = 0; i < count; i++)
 											{
 												DimensionalRiftRoom riftRoom = _rooms.get(type).get(roomId);
@@ -202,20 +192,12 @@ public class DimensionalRiftManager
 													SpawnTable.getInstance().addNewSpawn(spawnDat, false);
 													_rooms.get(type).get(roomId).getSpawns().add(spawnDat);
 													countGood++;
-												}
-												else
-												{
+												} else
 													countBad++;
-												}
 											}
 										}
-									}
 								}
-							}
 						}
-					}
-				}
-			}
 		}
 		catch (Exception e)
 		{
@@ -230,9 +212,7 @@ public class DimensionalRiftManager
 		for (Byte b : _rooms.keySet())
 		{
 			for (int i : _rooms.get(b).keySet())
-			{
 				_rooms.get(b).get(i).getSpawns().clear();
-			}
 			_rooms.get(b).clear();
 		}
 		_rooms.clear();
@@ -242,11 +222,10 @@ public class DimensionalRiftManager
 
 	public boolean checkIfInRiftZone(int x, int y, int z, boolean ignorePeaceZone)
 	{
-		if (ignorePeaceZone) {
+		if (ignorePeaceZone)
 			return _rooms.get((byte) 0).get((byte) 1).checkIfInZone(x, y, z);
-		} else {
+		else
 			return _rooms.get((byte) 0).get((byte) 1).checkIfInZone(x, y, z) && !_rooms.get((byte) 0).get((byte) 0).checkIfInZone(x, y, z);
-		}
 	}
 
 	public boolean checkIfInPeaceZone(int x, int y, int z)
@@ -287,11 +266,9 @@ public class DimensionalRiftManager
 			player.sendPacket(html);
 			return;
 		}
-		for (L2PcInstance p : player.getParty().getPartyMembers()) {
-			if (!checkIfInPeaceZone(p.getX(), p.getY(), p.getZ())) {
+		for (L2PcInstance p : player.getParty().getPartyMembers())
+			if (!checkIfInPeaceZone(p.getX(), p.getY(), p.getZ()))
 				canPass = false;
-			}
-		}
 		if (!canPass)
 		{
 			showHtmlFile(player, "data/html/seven_signs/rift/NotInWaitingRoom.htm", npc);
@@ -306,11 +283,9 @@ public class DimensionalRiftManager
 				canPass = false;
 				break;
 			}
-			if (i.getCount() > 0) {
-				if (i.getCount() < getNeededItems(type)) {
+			if (i.getCount() > 0)
+				if (i.getCount() < getNeededItems(type))
 					canPass = false;
-				}
-			}
 		}
 		if (!canPass)
 		{
@@ -331,21 +306,17 @@ public class DimensionalRiftManager
 
 	public void killRift(DimensionalRift d)
 	{
-		if (d.getTeleportTimerTask() != null) {
+		if (d.getTeleportTimerTask() != null)
 			d.getTeleportTimerTask().cancel();
-		}
 		d.setTeleportTimerTask(null);
-		if (d.getTeleportTimer() != null) {
+		if (d.getTeleportTimer() != null)
 			d.getTeleportTimer().cancel();
-		}
 		d.setTeleportTimer(null);
-		if (d.getSpawnTimerTask() != null) {
+		if (d.getSpawnTimerTask() != null)
 			d.getSpawnTimerTask().cancel();
-		}
 		d.setSpawnTimerTask(null);
-		if (d.getSpawnTimer() != null) {
+		if (d.getSpawnTimer() != null)
 			d.getSpawnTimer().cancel();
-		}
 		d.setSpawnTimer(null);
 	}
 
@@ -426,9 +397,8 @@ public class DimensionalRiftManager
 			for (L2Spawn spawn : _roomSpawns)
 			{
 				spawn.stopRespawn();
-				if (spawn.getLastSpawn() != null) {
+				if (spawn.getLastSpawn() != null)
 					spawn.getLastSpawn().deleteMe();
-				}
 			}
 		}
 	}
