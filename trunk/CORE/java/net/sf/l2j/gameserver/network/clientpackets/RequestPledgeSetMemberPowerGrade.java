@@ -43,17 +43,14 @@ public final class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		L2Clan clan = activeChar.getClan();
-		if (clan == null) {
+		if (clan == null)
 			return;
-		}
 		L2ClanMember member = clan.getClanMember(_member);
-		if (member == null) {
+		if (member == null)
 			return;
-		}
 		if (member.getPledgeType() == L2Clan.SUBUNIT_ACADEMY)
 		{
 			// also checked from client side

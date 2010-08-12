@@ -42,9 +42,8 @@ public final class RequestPledgeInfo extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("infos for clan " + _clanId + " requested");
-		}
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2Clan clan = ClanTable.getInstance().getClan(_clanId);
 		if (clan == null)
@@ -54,12 +53,10 @@ public final class RequestPledgeInfo extends L2GameClientPacket
 		}
 		PledgeInfo pc = new PledgeInfo(clan);
 		if (activeChar != null)
-		{
 			activeChar.sendPacket(pc);
 			/*
 			 * if (clan.getClanId() == activeChar.getClanId()) { activeChar.sendPacket(new PledgeShowMemberListDeleteAll()); PledgeShowMemberListAll pm = new PledgeShowMemberListAll(clan, activeChar); activeChar.sendPacket(pm); }
 			 */
-		}
 	}
 
 	/*

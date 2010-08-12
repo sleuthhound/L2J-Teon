@@ -44,20 +44,16 @@ public final class RequestPetUseItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		L2PetInstance pet = (L2PetInstance) activeChar.getPet();
-		if (pet == null) {
+		if (pet == null)
 			return;
-		}
 		L2ItemInstance item = pet.getInventory().getItemByObjectId(_objectId);
-		if (item == null) {
+		if (item == null)
 			return;
-		}
-		if (item.isWear()) {
+		if (item.isWear())
 			return;
-		}
 		int itemId = item.getItemId();
 		if (activeChar.isAlikeDead() || pet.isDead())
 		{
@@ -67,9 +63,8 @@ public final class RequestPetUseItem extends L2GameClientPacket
 			sm = null;
 			return;
 		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.finest(activeChar.getObjectId() + ": pet use item " + _objectId);
-		}
 		// check if the item matches the pet
 		if (item.isEquipable())
 		{
@@ -135,15 +130,11 @@ public final class RequestPetUseItem extends L2GameClientPacket
 				return;
 			}
 			else if (L2PetDataTable.isBaby(pet.getNpcId()) && L2PetDataTable.isBabyFood(itemId))
-			{
 				feed(activeChar, pet, item);
-			}
 		}
 		IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
 		if (handler != null)
-		{
 			useItem(pet, item, activeChar);
-		}
 		else
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS);
@@ -156,11 +147,10 @@ public final class RequestPetUseItem extends L2GameClientPacket
 	{
 		if (item.isEquipable())
 		{
-			if (item.isEquipped()) {
+			if (item.isEquipped())
 				pet.getInventory().unEquipItemInSlot(item.getEquipSlot());
-			} else {
+			else
 				pet.getInventory().equipItem(item);
-			}
 			PetItemList pil = new PetItemList(pet);
 			activeChar.sendPacket(pil);
 			PetInfo pi = new PetInfo(pet);
@@ -170,11 +160,10 @@ public final class RequestPetUseItem extends L2GameClientPacket
 		{
 			// _log.finest("item not equipable id:"+ item.getItemId());
 			IItemHandler handler = ItemHandler.getInstance().getItemHandler(item.getItemId());
-			if (handler == null) {
+			if (handler == null)
 				_log.warning("no itemhandler registered for itemId:" + item.getItemId());
-			} else {
+			else
 				handler.useItem(pet, item);
-			}
 		}
 	}
 
@@ -187,9 +176,8 @@ public final class RequestPetUseItem extends L2GameClientPacket
 	private void feed(L2PcInstance player, L2PetInstance pet, L2ItemInstance item)
 	{
 		// if pet has food in inventory
-		if (pet.destroyItem("Feed", item.getObjectId(), 1, pet, false)) {
+		if (pet.destroyItem("Feed", item.getObjectId(), 1, pet, false))
 			pet.setCurrentFed(pet.getCurrentFed() + 100);
-		}
 		pet.broadcastStatusUpdate();
 	}
 

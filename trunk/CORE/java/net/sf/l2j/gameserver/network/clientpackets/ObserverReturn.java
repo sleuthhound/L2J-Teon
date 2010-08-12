@@ -36,14 +36,12 @@ public final class ObserverReturn extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
-		if (activeChar.inObserverMode()) {
+		if (activeChar.inObserverMode())
 			activeChar.leaveObserverMode();
 		// activeChar.teleToLocation(activeChar.getObsX(), activeChar.getObsY(),
 		// activeChar.getObsZ());
-		}
 	}
 
 	/*

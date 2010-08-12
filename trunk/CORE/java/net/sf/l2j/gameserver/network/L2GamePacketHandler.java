@@ -62,17 +62,11 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 		{
 			case CONNECTED:
 				if (opcode == 0x00)
-				{
 					msg = new ProtocolVersion();
-				}
 				else if (opcode == 0x08)
-				{
 					msg = new AuthLogin();
-				}
 				else
-				{
 					printDebug(opcode, buf, state, client);
-				}
 				break;
 			case AUTHED:
 				switch (opcode)
@@ -235,9 +229,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 						break;
 					case 0x31:
 						if (Config.ALLOW_WAREHOUSE)
-						{
 							msg = new SendWareHouseDepositList();
-						}
 						break;
 					case 0x32:
 						msg = new SendWareHouseWithDrawList();
@@ -660,9 +652,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					case 0xd0:
 						int id2 = -1;
 						if (buf.remaining() >= 2)
-						{
 							id2 = buf.getShort() & 0xffff;
-						}
 						else
 						{
 							_log.warning("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
@@ -835,9 +825,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 		buf.get(array);
 		_log.warning(Util.printData(array, size));
 		if (Config.ENABLE_PACKET_PROTECTION)
-		{
 			unknownPacketProtection(client);
-		}
 	}
 
 	private void printDebugDoubleOpcode(int opcode, int id2, ByteBuffer buf, GameClientState state, L2GameClient client)
@@ -848,9 +836,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 		buf.get(array);
 		_log.warning(Util.printData(array, size));
 		if (Config.ENABLE_PACKET_PROTECTION)
-		{
 			unknownPacketProtection(client);
-		}
 	}
 
 	private void unknownPacketProtection(L2GameClient client)
@@ -868,9 +854,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 		{
 			case 1:
 				if (client.getActiveChar() != null)
-				{
 					GmListTable.broadcastMessageToGMs("Player " + client.getActiveChar().toString() + " flooding unknown packets.");
-				}
 				break;
 			case 2:
 				_log.warning("PacketProtection: " + client.toString() + " got kicked due flooding of unknown packets");
@@ -905,21 +889,15 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 		try
 		{
 			if (rp.getClient().getState() == GameClientState.IN_GAME)
-			{
 				ThreadPoolManager.getInstance().executePacket(rp);
-			}
 			else
-			{
 				ThreadPoolManager.getInstance().executeIOPacket(rp);
-			}
 		}
 		catch (RejectedExecutionException e)
 		{
 			// if the server is shutdown we ignore
 			if (!ThreadPoolManager.getInstance().isShutdown())
-			{
 				_log.severe("Failed executing: " + rp.getClass().getSimpleName() + " for Client: " + rp.getClient().toString());
-			}
 		}
 	}
 }

@@ -36,21 +36,18 @@ public final class SendBypassBuildCmd extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_command = readS();
-		if (_command != null) {
+		if (_command != null)
 			_command = _command.trim();
-		}
 	}
 
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
-		if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_" + _command)) {
+		if (Config.ALT_PRIVILEGES_ADMIN && !AdminCommandHandler.getInstance().checkPrivileges(activeChar, "admin_" + _command))
 			return;
-		}
 		if (!activeChar.isGM() && !"gm".equalsIgnoreCase(_command))
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Warning!! Non-gm character " + activeChar.getName() + " requests gm bypass handler, hack?", Config.DEFAULT_PUNISH);
@@ -59,9 +56,7 @@ public final class SendBypassBuildCmd extends L2GameClientPacket
 		}
 		IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler("admin_" + _command);
 		if (ach != null)
-		{
 			ach.useAdminCommand("admin_" + _command, activeChar);
-		}
 	}
 
 	/*

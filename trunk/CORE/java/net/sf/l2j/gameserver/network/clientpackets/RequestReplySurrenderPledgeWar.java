@@ -36,13 +36,11 @@ public final class RequestReplySurrenderPledgeWar extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		L2PcInstance requestor = activeChar.getActiveRequester();
-		if (requestor == null) {
+		if (requestor == null)
 			return;
-		}
 		if (_answer == 1)
 		{
 			requestor.deathPenalty(false);

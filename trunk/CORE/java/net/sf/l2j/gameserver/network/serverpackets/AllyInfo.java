@@ -37,9 +37,8 @@ public class AllyInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		if (activeChar.getAllyId() == 0)
 		{
 			_cha.sendPacket(new SystemMessage(SystemMessageId.NO_CURRENT_ALLIANCES));
@@ -56,14 +55,12 @@ public class AllyInfo extends L2GameServerPacket
 		int count = 0;
 		int clancount = 0;
 		for (L2Clan clan : ClanTable.getInstance().getClans())
-		{
 			if (clan.getAllyId() == _cha.getAllyId())
 			{
 				clancount++;
 				online += clan.getOnlineMembers("").length;
 				count += clan.getMembers().length;
 			}
-		}
 		// Connection
 		sm = new SystemMessage(SystemMessageId.CONNECTION_S1_TOTAL_S2);
 		sm.addString("" + online);
@@ -82,7 +79,6 @@ public class AllyInfo extends L2GameServerPacket
 		sm = new SystemMessage(SystemMessageId.CLAN_INFO_HEAD);
 		_cha.sendPacket(sm);
 		for (L2Clan clan : ClanTable.getInstance().getClans())
-		{
 			if (clan.getAllyId() == _cha.getAllyId())
 			{
 				// clan name
@@ -101,7 +97,6 @@ public class AllyInfo extends L2GameServerPacket
 				sm = new SystemMessage(SystemMessageId.CLAN_INFO_SEPARATOR);
 				_cha.sendPacket(sm);
 			}
-		}
 		// =========================
 		sm = new SystemMessage(SystemMessageId.CLAN_INFO_FOOT);
 		_cha.sendPacket(sm);

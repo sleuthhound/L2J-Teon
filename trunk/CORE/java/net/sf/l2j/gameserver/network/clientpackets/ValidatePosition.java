@@ -73,9 +73,8 @@ public class ValidatePosition extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null || activeChar.isTeleporting()) {
+		if (activeChar == null || activeChar.isTeleporting())
 			return;
-		}
 		if (Config.COORD_SYNCHRONIZE > 0)
 		{
 			activeChar.setClientX(_x);
@@ -92,30 +91,21 @@ public class ValidatePosition extends L2GameClientPacket
 			 * if (Config.DEVELOPER && false) { int dxs = (_x - activeChar._lastClientPosition.x); int dys = (_y - activeChar._lastClientPosition.y); int dist = (int)Math.sqrt(dxsdxs + dysdys); int heading = dist > 0 ? (int)(Math.atan2(-dys/dist, -dxs/dist) 10430.378350470452724949566316381) + 32768 : 0; System.out.println("Client X:" + _x + ", Y:" + _y + ", Z:" + _z + ", H:" + _heading +
 			 * ", Dist:" + activeChar.getLastClientDistance(_x, _y, _z)); System.out.println("Server X:" + realX + ", Y:" + realY + ", Z:" + realZ + ", H:" + activeChar.getHeading() + ", Dist:" + activeChar.getLastServerDistance(realX, realY, realZ)); }
 			 */
-			if (diffSq > 0 && diffSq < 250000) // if too large, messes observation
-			{
+			if (diffSq > 0 && diffSq < 250000)
 				if ((Config.COORD_SYNCHRONIZE & 1) == 1 && (!activeChar.isMoving() // character is not moving, take coordinates from client
 						|| !activeChar.validateMovementHeading(_heading))) // Heading changed on client = possible obstacle
 				{
-					if (diffSq < 2500) {
+					if (diffSq < 2500)
 						activeChar.setXYZ(realX, realY, _z);
-					} else {
+					else
 						activeChar.setXYZ(_x, _y, _z);
-					}
 					activeChar.setHeading(_heading);
 				}
-				else if ((Config.COORD_SYNCHRONIZE & 2) == 2 && diffSq > 10000) // more than can be considered to be result of latency
-				{
+				else if ((Config.COORD_SYNCHRONIZE & 2) == 2 && diffSq > 10000)
 					if (activeChar.isInBoat())
-					{
 						sendPacket(new ValidateLocationInVehicle(activeChar));
-					}
 					else
-					{
 						activeChar.sendPacket(new ValidateLocation(activeChar));
-					}
-				}
-			}
 			activeChar.setLastClientPosition(_x, _y, _z);
 			activeChar.setLastServerPosition(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 		}
@@ -131,41 +121,25 @@ public class ValidatePosition extends L2GameClientPacket
 			double dx = _x - realX;
 			double dy = _y - realY;
 			double diffSq = dx * dx + dy * dy;
-			if (diffSq < 250000) {
+			if (diffSq < 250000)
 				activeChar.setXYZ(realX, realY, _z);
-			}
-			if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId())) {
+			if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId()))
 				Universe.getInstance().registerHeight(realX, realY, _z);
-			}
 			if (Config.DEVELOPER)
-			{
 				if (diffSq > 1000000)
-				{
 					if (activeChar.isInBoat())
-					{
 						sendPacket(new ValidateLocationInVehicle(activeChar));
-					}
 					else
-					{
 						activeChar.sendPacket(new ValidateLocation(activeChar));
-					}
-				}
-			}
 		}
-		if (activeChar.getParty() != null) {
+		if (activeChar.getParty() != null)
 			activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
-		}
-		if (Config.ACCEPT_GEOEDITOR_CONN) {
-			if (GeoEditorListener.getInstance().getThread() != null && GeoEditorListener.getInstance().getThread().isWorking() && GeoEditorListener.getInstance().getThread().isSend(activeChar)) {
+		if (Config.ACCEPT_GEOEDITOR_CONN)
+			if (GeoEditorListener.getInstance().getThread() != null && GeoEditorListener.getInstance().getThread().isWorking() && GeoEditorListener.getInstance().getThread().isSend(activeChar))
 				GeoEditorListener.getInstance().getThread().sendGmPosition(_x, _y, (short) _z);
-			}
-		}
 		if (activeChar.getPet() != null)
-		{
 			activeChar.getPet().setInRange(true);
-		}
 		if (!Config.FLYING_WYVERN_DURING_SIEGE && activeChar.getMountType() == 2)
-		{
 			if (activeChar.isInsideZone(L2Character.ZONE_SIEGE) && !(activeChar.getClan() != null && CastleManager.getInstance().getCastle(activeChar) == CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) && activeChar == activeChar.getClan().getLeader().getPlayerInstance()))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
@@ -173,7 +147,6 @@ public class ValidatePosition extends L2GameClientPacket
 				activeChar.sendPacket(sm);
 				activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
 			}
-		}
 	}
 
 	@Override

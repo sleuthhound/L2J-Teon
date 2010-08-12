@@ -32,9 +32,7 @@ public class BlowFishKeygen
 		{
 			// randomize the 8 first bytes
 			for (int j = 0; j < CRYPT_KEYS[i].length; j++)
-			{
 				CRYPT_KEYS[i][j] = (byte) Rnd.get(255);
-			}
 			// the last 8 bytes are static
 			CRYPT_KEYS[i][8] = (byte) 0xc8;
 			CRYPT_KEYS[i][9] = (byte) 0x27;

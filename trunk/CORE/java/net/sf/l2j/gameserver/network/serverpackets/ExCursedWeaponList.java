@@ -41,9 +41,7 @@ public class ExCursedWeaponList extends L2GameServerPacket
 		writeH(0x45);
 		writeD(_cursedWeaponIds.size());
 		for (Integer i : _cursedWeaponIds)
-		{
 			writeD(i.intValue());
-		}
 	}
 
 	/**

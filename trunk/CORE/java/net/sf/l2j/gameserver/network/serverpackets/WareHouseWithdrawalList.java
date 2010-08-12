@@ -51,12 +51,8 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 		}
 		_items = _activeChar.getActiveWarehouse().getItems();
 		if (Config.DEBUG)
-		{
 			for (L2ItemInstance item : _items)
-			{
 				_log.fine("item:" + item.getItem().getName() + " type1:" + item.getItem().getType1() + " type2:" + item.getItem().getType2());
-			}
-		}
 	}
 
 	@Override
@@ -88,11 +84,8 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 			{
 				writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
 				writeD(item.getAugmentation().getAugmentationId() >> 16);
-			}
-			else
-			{
+			} else
 				writeQ(0x00);
-			}
 		}
 	}
 

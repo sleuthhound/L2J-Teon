@@ -61,9 +61,8 @@ public final class RequestDestroyItem extends L2GameClientPacket
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		if (_count <= 0)
 		{
 			if (_count < 0)
@@ -81,18 +80,15 @@ public final class RequestDestroyItem extends L2GameClientPacket
 		}
 		L2ItemInstance itemToRemove = activeChar.getInventory().getItemByObjectId(_objectId);
 		// if we cant find requested item, its actualy a cheat!
-		if (itemToRemove == null) {
+		if (itemToRemove == null)
 			return;
-		}
 		// Cannot discard item that the skill is consumming
 		if (activeChar.isCastingNow())
-		{
 			if (activeChar.getCurrentSkill() != null && activeChar.getCurrentSkill().getSkill().getItemConsumeId() == itemToRemove.getItemId())
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 				return;
 			}
-		}
 		int itemId = itemToRemove.getItemId();
 		if (itemToRemove == null || itemToRemove.isWear() || !itemToRemove.isDestroyable() || CursedWeaponsManager.getInstance().isCursed(itemId))
 		{
@@ -105,9 +101,8 @@ public final class RequestDestroyItem extends L2GameClientPacket
 			activeChar.closeNetConnection(); // kick
 			return;
 		}
-		if (_count > itemToRemove.getCount()) {
+		if (_count > itemToRemove.getCount())
 			count = itemToRemove.getCount();
-		}
 		if (itemToRemove.isEquipped())
 		{
 			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getEquipSlot());
@@ -125,9 +120,7 @@ public final class RequestDestroyItem extends L2GameClientPacket
 			try
 			{
 				if (activeChar.getPet() != null && activeChar.getPet().getControlItemId() == _objectId)
-				{
 					activeChar.getPet().unSummon(activeChar);
-				}
 				// if it's a pet control item, delete the pet
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement statement = con.prepareStatement("DELETE FROM pets WHERE item_obj_id=?");
@@ -151,22 +144,19 @@ public final class RequestDestroyItem extends L2GameClientPacket
 			}
 		}
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, count, activeChar, null);
-		if (removedItem == null) {
+		if (removedItem == null)
 			return;
-		}
 		if (!Config.FORCE_INVENTORY_UPDATE)
 		{
 			InventoryUpdate iu = new InventoryUpdate();
-			if (removedItem.getCount() == 0) {
+			if (removedItem.getCount() == 0)
 				iu.addRemovedItem(removedItem);
-			} else {
+			else
 				iu.addModifiedItem(removedItem);
-			}
 			// client.getConnection().sendPacket(iu);
 			activeChar.sendPacket(iu);
-		} else {
+		} else
 			sendPacket(new ItemList(activeChar, true));
-		}
 		StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, activeChar.getCurrentLoad());
 		activeChar.sendPacket(su);

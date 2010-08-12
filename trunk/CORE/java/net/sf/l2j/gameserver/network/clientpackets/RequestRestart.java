@@ -86,9 +86,7 @@ public final class RequestRestart extends L2GameClientPacket
 		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player) && !player.isGM())
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine("Player " + player.getName() + " tried to logout while fighting.");
-			}
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_RESTART_WHILE_FIGHTING));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -106,14 +104,10 @@ public final class RequestRestart extends L2GameClientPacket
 			}
 			L2Party playerParty = player.getParty();
 			if (playerParty != null)
-			{
 				player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName() + " has been removed from the upcoming festival."));
-			}
 		}
 		if (player.isFlying())
-		{
 			player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-		}
 		L2GameClient client = getClient();
 		// detach the client from the char so that the connection isnt closed in
 		// the deleteMe

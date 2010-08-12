@@ -41,9 +41,7 @@ public class PetInventoryUpdate extends L2GameServerPacket
 	{
 		_items = items;
 		if (Config.DEBUG)
-		{
 			showDebug();
-		}
 	}
 
 	public PetInventoryUpdate()
@@ -73,17 +71,14 @@ public class PetInventoryUpdate extends L2GameServerPacket
 
 	public void addItems(List<L2ItemInstance> items)
 	{
-		for (L2ItemInstance item : items) {
+		for (L2ItemInstance item : items)
 			_items.add(new ItemInfo(item));
-		}
 	}
 
 	private void showDebug()
 	{
 		for (ItemInfo item : _items)
-		{
 			_log.fine("oid:" + Integer.toHexString(item.getObjectId()) + " item:" + item.getItem().getName() + " last change:" + item.getChange());
-		}
 	}
 
 	@Override

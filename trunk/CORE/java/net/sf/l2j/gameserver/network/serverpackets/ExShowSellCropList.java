@@ -43,17 +43,11 @@ public class ExShowSellCropList extends L2GameServerPacket
 		{
 			L2ItemInstance item = player.getInventory().getItemByItemId(cropId);
 			if (item != null)
-			{
 				_cropsItems.put(cropId, item);
-			}
 		}
 		for (CropProcure crop : crops)
-		{
 			if (_cropsItems.containsKey(crop.getId()) && crop.getAmount() > 0)
-			{
 				_castleCrops.put(crop.getId(), crop);
-			}
-		}
 	}
 
 	@Override

@@ -89,55 +89,36 @@ public final class RequestSellItem extends L2GameClientPacket
 			return;
 		}
 		if (player == null)
-		{
 			return;
-		}
 		// Alt game - Karma punishment
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
-		{
 			return;
-		}
 		L2Object target = player.getTarget();
 		if (!player.isGM() && (target == null // No target (ie GM Shop))
 				|| !(target instanceof L2MerchantInstance || target instanceof L2MercManagerInstance) // Target not a merchant and not mercmanager
-		|| !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false))) // Distance is too far
-		{
+		|| !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))
 			return;
-		}
 		boolean ok = true;
 		String htmlFolder = "";
 		if (target != null)
 		{
 			if (target instanceof L2MerchantInstance)
-			{
 				htmlFolder = "merchant";
-			}
 			else if (target instanceof L2FishermanInstance)
-			{
 				htmlFolder = "fisherman";
-			}
 			else
-			{
 				ok = false;
-			}
-		}
-		else
-		{
+		} else
 			ok = false;
-		}
 		L2NpcInstance merchant = null;
 		if (ok)
-		{
 			merchant = (L2NpcInstance) target;
-		}
-		if (_listId > 1000000) // lease
-		{
+		if (_listId > 1000000)
 			if (merchant.getTemplate().npcId != _listId - 1000000)
 			{
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-		}
 		long totalPrice = 0;
 		// Proceed the sell
 		for (int i = 0; i < _count; i++)
@@ -157,9 +138,7 @@ public final class RequestSellItem extends L2GameClientPacket
 			}
 			L2ItemInstance item = player.checkItemManipulation(objectId, count, "sell");
 			if (item == null || !item.getItem().isSellable())
-			{
 				continue;
-			}
 			totalPrice += item.getReferencePrice() * count / 2;
 			if (totalPrice > Integer.MAX_VALUE)
 			{

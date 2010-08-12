@@ -54,58 +54,43 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
 			return;
-		}
 		L2FolkInstance trainer = activeChar.getLastFolkNPC();
 		if ((trainer == null || !activeChar.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !activeChar.isGM())
-		{
 			return;
-		}
 		L2Skill skill = SkillTable.getInstance().getInfo(_id, _level);
 		boolean canteach = false;
 		if (skill == null)
 		{
 			if (Config.DEBUG)
-			{
 				_log.warning("skill id " + _id + " level " + _level + " is undefined. aquireSkillInfo failed.");
-			}
 			return;
 		}
 		if (_skillType == 0)
 		{
 			if (!trainer.getTemplate().canTeach(activeChar.getSkillLearningClassId()))
-			{
 				return; // cheater
-			}
 			L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(activeChar, activeChar.getSkillLearningClassId());
 			for (L2SkillLearn s : skills)
-			{
 				if (s.getId() == _id && s.getLevel() == _level)
 				{
 					canteach = true;
 					break;
 				}
-			}
 			if (!canteach)
-			{
 				return; // cheater
-			}
 			int requiredSp = SkillTreeTable.getInstance().getSkillCost(activeChar, skill);
 			AquireSkillInfo asi = new AquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp, 0);
 			if (Config.ES_SP_BOOK_NEEDED)
 			{
 				int spbId = -1;
-				if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION) {
+				if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION)
 					spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
-				} else {
+				else
 					spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
-				}
 
                 if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1)
-                {
 					asi.addRequirement(99, spbId, 1, 50);
-				}
 			}
 			sendPacket(asi);
 		}
@@ -115,7 +100,6 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 			int itemId = 0;
 			L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(activeChar);
 			for (L2PledgeSkillLearn s : skills)
-			{
 				if (s.getId() == _id && s.getLevel() == _level)
 				{
 					canteach = true;
@@ -123,16 +107,11 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 					itemId = s.getItemId();
 					break;
 				}
-			}
 			if (!canteach)
-			{
 				return; // cheater
-			}
 			AquireSkillInfo asi = new AquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep, 2);
 			if (Config.LIFE_CRYSTAL_NEEDED)
-			{
 				asi.addRequirement(1, itemId, 1, 0);
-			}
 			sendPacket(asi);
 		}
 		else
@@ -146,9 +125,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 				if (sk == null || sk != skill)
-				{
 					continue;
-				}
 				canteach = true;
 				costid = s.getIdCost();
 				costcount = s.getCostCount();

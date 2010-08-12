@@ -59,9 +59,8 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 	{
 		// Get the current L2PcInstance of the player
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_skillId);
 		if (level <= 0)

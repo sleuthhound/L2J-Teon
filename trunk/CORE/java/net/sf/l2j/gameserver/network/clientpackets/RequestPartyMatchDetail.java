@@ -45,9 +45,8 @@ public final class RequestPartyMatchDetail extends L2GameClientPacket
 	{
 		// TODO: this packet is currently for starting auto join
 		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_objectId);
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		PartyMatchDetail details = new PartyMatchDetail(player);
 		sendPacket(details);
 	}

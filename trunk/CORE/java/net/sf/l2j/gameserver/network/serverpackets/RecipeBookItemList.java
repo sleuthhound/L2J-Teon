@@ -46,9 +46,7 @@ public class RecipeBookItemList extends L2GameServerPacket
 		writeD(_isDwarvenCraft ? 0x00 : 0x01); // 0 = Dwarven - 1 = Common
 		writeD(_maxMp);
 		if (_recipes == null)
-		{
 			writeD(0);
-		}
 		else
 		{
 			writeD(_recipes.length);// number of items in recipe book

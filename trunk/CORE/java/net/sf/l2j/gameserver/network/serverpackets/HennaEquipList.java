@@ -41,7 +41,7 @@ public class HennaEquipList extends L2GameServerPacket
 		// writeD(10); // total amount of symbol available which depends on
 		// difference classes
 		writeD(_hennaEquipList.length);
-		for (L2HennaInstance element : _hennaEquipList) {
+		for (L2HennaInstance element : _hennaEquipList)
 			/*
 			 * Player must have at least one dye in inventory to be able to see the henna that can be applied with it.
 			 */
@@ -65,7 +65,6 @@ public class HennaEquipList extends L2GameServerPacket
 				writeD(0x00);
 				writeD(0x00);
 			}
-		}
 	}
 
 	/*

@@ -93,9 +93,8 @@ public class EquipUpdate extends L2GameServerPacket
 				bodypart = 0x0f;
 				break;
 		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("body:" + bodypart);
-		}
 		writeD(bodypart);
 	}
 

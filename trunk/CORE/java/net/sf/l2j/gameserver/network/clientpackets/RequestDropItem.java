@@ -66,9 +66,7 @@ public final class RequestDropItem extends L2GameClientPacket
 			return;
 		}
 		if (activeChar == null || activeChar.isDead())
-		{
 			return;
-		}
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
 		if (item == null || _count == 0 || !activeChar.validateItemManipulation(_objectId, "drop") || !Config.ALLOW_DISCARDITEM && !activeChar.isGM() || !item.isDropable())
 		{
@@ -110,15 +108,11 @@ public final class RequestDropItem extends L2GameClientPacket
 			}
 		}
 		if (item.getItemType() == L2EtcItemType.QUEST)
-		{
 			return;
-		}
 		int itemId = item.getItemId();
 		// Cursed Weapons cannot be dropped
 		if (CursedWeaponsManager.getInstance().isCursed(itemId))
-		{
 			return;
-		}
 		if (_count > item.getCount())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
@@ -155,41 +149,32 @@ public final class RequestDropItem extends L2GameClientPacket
 		}
 		// Cannot discard item that the skill is consumming
 		if (activeChar.isCastingNow())
-		{
 			if (activeChar.getCurrentSkill() != null && activeChar.getCurrentSkill().getSkill().getItemConsumeId() == item.getItemId())
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 				return;
 			}
-		}
 		if (L2Item.TYPE2_QUEST == item.getItem().getType2() && !activeChar.isGM())
 		{
 			if (Config.DEBUG)
-			{
 				_log.finest(activeChar.getObjectId() + ":player tried to drop quest item");
-			}
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_EXCHANGE_ITEM));
 			return;
 		}
 		if (!activeChar.isInsideRadius(_x, _y, 150, false) || Math.abs(_z - activeChar.getZ()) > 50)
 		{
 			if (Config.DEBUG)
-			{
 				_log.finest(activeChar.getObjectId() + ": trying to drop too far away");
-			}
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_DISTANCE_TOO_FAR));
 			return;
 		}
 		if (Config.DEBUG)
-		{
 			_log.fine("requested drop item " + _objectId + "(" + item.getCount() + ") at " + _x + "/" + _y + "/" + _z);
-		}
 		if (item.isEquipped())
 		{
 			// Remove augementation boni on unequip
-			if (item.isAugmented()) {
+			if (item.isAugmented())
 				item.getAugmentation().removeBonus(activeChar);
-			}
 			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (L2ItemInstance element : unequiped) {
@@ -203,9 +188,7 @@ public final class RequestDropItem extends L2GameClientPacket
 		}
 		L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, null, false);
 		if (Config.DEBUG)
-		{
 			_log.fine("dropping " + _objectId + " item(" + _count + ") at: " + _x + " " + _y + " " + _z);
-		}
 		// activeChar.broadcastUserInfo();
 		if (activeChar.isGM())
 		{

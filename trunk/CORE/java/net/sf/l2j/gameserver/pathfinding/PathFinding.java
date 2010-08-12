@@ -32,13 +32,9 @@ public abstract class PathFinding
 	public static PathFinding getInstance()
 	{
 		if (_instance == null)
-		{
 			if (true /* Config.GEODATA_PATHFINDING */)
-			{
 				// Smaler Memory Usage, Higher Cpu Usage (CalculatedOnTheFly)
 				return GeoPathFinding.getInstance();
-			}
-		}
 		return _instance;
 	}
 
@@ -74,25 +70,22 @@ public abstract class PathFinding
 				// No Path found
 				return null;
 			}
-			if (node.equals(end)) {
+			if (node.equals(end))
 				return constructPath(node);
-			} else
+			else
 			{
 				i++;
 				visited.add(node);
 				node.attacheNeighbors();
 				Node[] neighbors = node.getNeighbors();
-				if (neighbors == null) {
+				if (neighbors == null)
 					continue;
-				}
 				for (Node n : neighbors)
-				{
 					if (!visited.contains(n) && !to_visit.contains(n))
 					{
 						n.setParent(node);
 						to_visit.add(n);
 					}
-				}
 			}
 		}
 		// No Path found
@@ -135,19 +128,17 @@ public abstract class PathFinding
 				// No Path found
 				return null;
 			}
-			if (node.equals(end)) {
+			if (node.equals(end))
 				return constructPath(node);
-			} else
+			else
 			{
 				i++;
 				visited.add(node);
 				node.attacheNeighbors();
 				Node[] neighbors = node.getNeighbors();
-				if (neighbors == null) {
+				if (neighbors == null)
 					continue;
-				}
 				for (Node n : neighbors)
-				{
 					if (!visited.containsRev(n) && !to_visit.contains(n))
 					{
 						added = false;
@@ -156,7 +147,6 @@ public abstract class PathFinding
 						dy = targety - n.getLoc().getNodeY();
 						n.setCost(dx * dx + dy * dy);
 						for (int index = 0; index < to_visit.size(); index++)
-						{
 							// supposed to find it quite early..
 							if (to_visit.get(index).getCost() > n.getCost())
 							{
@@ -164,12 +154,9 @@ public abstract class PathFinding
 								added = true;
 								break;
 							}
-						}
-						if (!added) {
+						if (!added)
 							to_visit.addLast(n);
-						}
 					}
-				}
 			}
 		}
 		// No Path found
@@ -202,14 +189,13 @@ public abstract class PathFinding
 				// No Path found
 				return null;
 			}
-			if (node.equals(end)) {
+			if (node.equals(end))
 				return constructPath(node);
-			} else
+			else
 			{
 				visited.add(node);
 				node.attacheNeighbors();
 				for (Node n : node.getNeighbors())
-				{
 					if (!visited.contains(n) && !to_visit.contains(n))
 					{
 						i++;
@@ -217,7 +203,6 @@ public abstract class PathFinding
 						n.setCost(Math.abs(start_x - n.getLoc().getNodeX()) + Math.abs(start_y - n.getLoc().getNodeY()) + Math.abs(end_x - n.getLoc().getNodeX()) + Math.abs(end_y - n.getLoc().getNodeY()));
 						to_visit.add(n);
 					}
-				}
 			}
 		}
 		// No Path found

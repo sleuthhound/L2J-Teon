@@ -47,9 +47,8 @@ public final class RequestGetItemFromPet extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getPet() == null || !(player.getPet() instanceof L2PetInstance)) {
+		if (player == null || player.getPet() == null || !(player.getPet() instanceof L2PetInstance))
 			return;
-		}
 		L2PetInstance pet = (L2PetInstance) player.getPet();
 		if (player.getActiveEnchantItem() != null)
 		{
@@ -63,13 +62,10 @@ public final class RequestGetItemFromPet extends L2GameClientPacket
 			player.closeNetConnection(); // kick
 			return;
 		}
-		else if (_amount == 0) {
+		else if (_amount == 0)
 			return;
-		}
 		if (pet.transferItem("Transfer", _objectId, _amount, player.getInventory(), player, pet) == null)
-		{
 			_log.warning("Invalid item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
-		}
 	}
 
 	@Override

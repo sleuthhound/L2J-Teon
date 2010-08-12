@@ -110,44 +110,39 @@ public class NpcHtmlMessage extends L2GameServerPacket
 
 	private final void buildBypassCache(L2PcInstance activeChar)
 	{
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		activeChar.clearBypass();
 		int len = _html.length();
 		for (int i = 0; i < len; i++)
 		{
 			int start = _html.indexOf("bypass -h", i);
 			int finish = _html.indexOf("\"", start);
-			if (start < 0 || finish < 0) {
+			if (start < 0 || finish < 0)
 				break;
-			}
 			start += 10;
 			i = start;
 			int finish2 = _html.indexOf("$", start);
-			if (finish2 < finish && finish2 > 0) {
+			if (finish2 < finish && finish2 > 0)
 				activeChar.addBypass2(_html.substring(start, finish2).trim());
-			} else {
+			else
 				activeChar.addBypass(_html.substring(start, finish).trim());
 			// System.err.println("["+_html.substring(start, finish)+"]");
-			}
 		}
 	}
 
 	private final void buildLinksCache(L2PcInstance activeChar)
 	{
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		activeChar.clearLinks();
 		int len = _html.length();
 		for (int i = 0; i < len; i++)
 		{
 			int start = _html.indexOf("link", i);
 			int finish = _html.indexOf("\"", start);
-			if (start < 0 || finish < 0) {
+			if (start < 0 || finish < 0)
 				break;
-			}
 			i = start;
 			activeChar.addLink(_html.substring(start + 5, finish).trim());
 		}

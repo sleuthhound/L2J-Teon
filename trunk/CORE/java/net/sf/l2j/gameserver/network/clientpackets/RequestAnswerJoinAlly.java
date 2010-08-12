@@ -42,14 +42,10 @@ public final class RequestAnswerJoinAlly extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
 			return;
-		}
 		L2PcInstance requestor = activeChar.getRequest().getPartner();
 		if (requestor == null)
-		{
 			return;
-		}
 		if (_response == 0)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_DID_NOT_RESPOND_TO_ALLY_INVITATION));
@@ -58,9 +54,7 @@ public final class RequestAnswerJoinAlly extends L2GameClientPacket
 		else
 		{
 			if (!(requestor.getRequest().getRequestPacket() instanceof RequestJoinAlly))
-			{
 				return; // hax
-			}
 			L2Clan clan = requestor.getClan();
 			// we must double check this cause of hack
 			if (clan.checkAllyJoinCondition(requestor, activeChar))

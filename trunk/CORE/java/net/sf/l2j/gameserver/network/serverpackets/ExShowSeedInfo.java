@@ -34,9 +34,7 @@ public class ExShowSeedInfo extends L2GameServerPacket
 		_manorId = manorId;
 		_seeds = seeds;
 		if (_seeds == null)
-		{
 			_seeds = new FastList<SeedProduction>();
-		}
 	}
 
 	@Override

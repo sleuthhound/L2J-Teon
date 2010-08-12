@@ -42,9 +42,8 @@ public final class ProtocolVersion extends L2GameClientPacket
 		// this packet is never encrypted
 		if (_version == -2)
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.info("Ping received");
-			}
 			// this is just a ping attempt from the new C2 client
 			getClient().getConnection().close(null);
 		}
@@ -57,9 +56,7 @@ public final class ProtocolVersion extends L2GameClientPacket
 		else
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine("Client Protocol Revision is ok: " + _version);
-			}
 			KeyPacket pk = new KeyPacket(getClient().enableCrypt());
 			getClient().sendPacket(pk);
 		}

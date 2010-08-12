@@ -60,18 +60,14 @@ public class Die extends L2GameServerPacket
 		_charObjId = cha.getObjectId();
 		_fake = !cha.isDead();
 		if (cha instanceof L2Attackable)
-		{
 			_sweepable = ((L2Attackable) cha).isSweepActive();
-		}
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
 		if (_fake || _inL2JOneoEvent)
-		{
 			return;
-		}
 		writeC(0x06);
 		writeD(_charObjId);
 		// NOTE:
@@ -93,18 +89,14 @@ public class Die extends L2GameServerPacket
 				// siege in progress
 				siegeClan = castle.getSiege().getAttackerClan(_clan);
 				if (siegeClan == null && castle.getSiege().checkIsDefender(_clan))
-				{
 					isInDefense = true;
-				}
 			}
 			else if (fort != null && fort.getSiege().getIsInProgress())
 			{
 				// fort siege in progress
 				siegeClan = fort.getSiege().getAttackerClan(_clan);
 				if (siegeClan == null && fort.getSiege().checkIsDefender(_clan))
-				{
 					isInDefense = true;
-				}
 			}
 			writeD(_clan.getHasHideout() > 0 ? 0x01 : 0x00); // 6d 01 00 00
 			// 00 - to hide
@@ -133,11 +125,7 @@ public class Die extends L2GameServerPacket
 		writeD(_sweepable ? 0x01 : 0x00); // sweepable (blue glow)
 		writeD(_access >= REQUIRED_LEVEL ? 0x01 : 0x00); // 6d 04 00 00
 		if (Config.DONATORS_REVIVE)
-		{
 			writeD(_donator ? 0x01 : 0x00); // 6d 04 00 00
-		}
-		// 00 -
-		// to FIXED
 	}
 
 	/*

@@ -36,9 +36,8 @@ public final class RequestShowMiniMap extends L2GameClientPacket
 	protected final void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		activeChar.sendPacket(new ShowMiniMap(1665));
 	}
 

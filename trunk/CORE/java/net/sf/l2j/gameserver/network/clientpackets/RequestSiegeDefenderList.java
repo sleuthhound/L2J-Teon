@@ -45,18 +45,16 @@ public final class RequestSiegeDefenderList extends L2GameClientPacket
 		if (_castleId < 100)
 		{
 			Castle castle = CastleManager.getInstance().getCastleById(_castleId);
-			if (castle == null) {
+			if (castle == null)
 				return;
-			}
 			SiegeDefenderList sdl = new SiegeDefenderList(castle);
 			sendPacket(sdl);
 		}
 		else
 		{
 			Fort fort = FortManager.getInstance().getFortById(_castleId);
-			if (fort == null) {
+			if (fort == null)
 				return;
-			}
 			FortSiegeDefenderList sdl = new FortSiegeDefenderList(fort);
 			sendPacket(sdl);
 		}

@@ -65,7 +65,6 @@ public class CharacterSelected extends L2GameClientPacket
 		// we should always be abble to acquire the lock
 		// but if we cant lock then nothing should be done (ie repeated packet)
 		if (getClient().getActiveCharLock().tryLock())
-		{
 			try
 			{
 				// should always be null
@@ -77,9 +76,7 @@ public class CharacterSelected extends L2GameClientPacket
 					// be
 					// attached to the L2GameClient
 					if (Config.DEBUG)
-					{
 						_log.fine("selected slot:" + _charSlot);
-					}
 					// load up character from disk
 					L2PcInstance cha = getClient().loadCharFromDisk(_charSlot);
 					if (cha == null)
@@ -104,7 +101,6 @@ public class CharacterSelected extends L2GameClientPacket
 			{
 				getClient().getActiveCharLock().unlock();
 			}
-		}
 	}
 
 	/*

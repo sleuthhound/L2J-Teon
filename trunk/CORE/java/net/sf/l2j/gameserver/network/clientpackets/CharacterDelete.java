@@ -44,37 +44,26 @@ public final class CharacterDelete extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("deleting slot:" + _charSlot);
-		}
 		L2PcInstance character = null;
 		try
 		{
-			if (Config.DELETE_DAYS == 0) {
+			if (Config.DELETE_DAYS == 0)
 				character = getClient().deleteChar(_charSlot);
-			} else {
+			else
 				character = getClient().markToDeleteChar(_charSlot);
-			}
 		}
 		catch (Exception e)
 		{
 			_log.log(Level.SEVERE, "Error:", e);
 		}
 		if (character == null)
-		{
 			sendPacket(new CharDeleteOk());
-		}
+		else if (character.isClanLeader())
+			sendPacket(new CharDeleteFail(CharDeleteFail.REASON_CLAN_LEADERS_MAY_NOT_BE_DELETED));
 		else
-		{
-			if (character.isClanLeader())
-			{
-				sendPacket(new CharDeleteFail(CharDeleteFail.REASON_CLAN_LEADERS_MAY_NOT_BE_DELETED));
-			}
-			else
-			{
-				sendPacket(new CharDeleteFail(CharDeleteFail.REASON_YOU_MAY_NOT_DELETE_CLAN_MEMBER));
-			}
-		}
+			sendPacket(new CharDeleteFail(CharDeleteFail.REASON_YOU_MAY_NOT_DELETE_CLAN_MEMBER));
 		CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1, 0);
 		sendPacket(cl);
 		getClient().setCharSelection(cl.getCharInfo());

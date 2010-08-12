@@ -40,12 +40,10 @@ public final class Appearing extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
-		if (activeChar.isTeleporting()) {
+		if (activeChar.isTeleporting())
 			activeChar.onTeleported();
-		}
 		sendPacket(new UserInfo(activeChar));
 	}
 

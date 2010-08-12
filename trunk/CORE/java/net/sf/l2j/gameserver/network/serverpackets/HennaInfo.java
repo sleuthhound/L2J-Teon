@@ -35,9 +35,7 @@ public final class HennaInfo extends L2GameServerPacket
 		{
 			L2HennaInstance h = _activeChar.getHenna(i + 1);
 			if (h != null)
-			{
 				_hennas[j++] = h;
-			}
 		}
 		_count = j;
 	}

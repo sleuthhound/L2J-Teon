@@ -41,15 +41,13 @@ public final class RequestSurrenderPersonally extends L2GameClientPacket
 	protected void runImpl()
 	{
 		_activeChar = getClient().getActiveChar();
-		if (_activeChar == null) {
+		if (_activeChar == null)
 			return;
-		}
 		_log.info("RequestSurrenderPersonally by " + getClient().getActiveChar().getName() + " with " + _pledgeName);
 		_clan = getClient().getActiveChar().getClan();
 		L2Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);
-		if (_clan == null) {
+		if (_clan == null)
 			return;
-		}
 		if (clan == null)
 		{
 			_activeChar.sendMessage("No such clan.");

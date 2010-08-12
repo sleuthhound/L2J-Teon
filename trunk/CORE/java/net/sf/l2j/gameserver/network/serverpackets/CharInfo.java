@@ -101,11 +101,10 @@ public class CharInfo extends L2GameServerPacket
 		if (_activeChar.getAppearance().getInvisible())
 		{
 			L2PcInstance tmp = getClient().getActiveChar();
-			if (tmp != null && tmp.isGM()) {
+			if (tmp != null && tmp.isGM())
 				gmSeeInvis = true;
-			} else {
+			else
 				return;
-			}
 		}
 		if (_activeChar.getPoly().isMorphed())
 		{
@@ -148,11 +147,8 @@ public class CharInfo extends L2GameServerPacket
 				writeC(_activeChar.isInCombat() ? 1 : 0);
 				writeC(_activeChar.isAlikeDead() ? 1 : 0);
 				if (gmSeeInvis)
-				{
 					writeC(0);
-				}
 				else
-				{
 					writeC(_activeChar.getAppearance().getInvisible() ? 1 : 0); // invisible
 					// ??
 					// 0=false
@@ -166,37 +162,25 @@ public class CharInfo extends L2GameServerPacket
 					// a
 					// summon
 					// animation)
-				}
 				writeS(_activeChar.getName());
 				if (gmSeeInvis)
-				{
 					writeS("Invisible");
-				}
 				else
-				{
 					writeS(_activeChar.getTitle());
-				}
 				writeD(0);
 				writeD(0);
 				writeD(0000); // hmm karma ??
 				if (gmSeeInvis)
-				{
 					writeD((_activeChar.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
-				}
 				else
-				{
 					writeD(_activeChar.getAbnormalEffect()); // C2
-				}
 				writeD(0); // C2
 				writeD(0); // C2
 				writeD(0); // C2
 				writeD(0); // C2
 				writeC(0); // C2
-			}
-			else
-			{
+			} else
 				_log.warning("Character " + _activeChar.getName() + " (" + _activeChar.getObjectId() + ") morphed in a Npc (" + _activeChar.getPoly().getPolyId() + ") w/o template.");
-			}
 		}
 		else
 		{
@@ -209,11 +193,10 @@ public class CharInfo extends L2GameServerPacket
 			writeS(_activeChar.getName());
 			writeD(_activeChar.getRace().ordinal());
 			writeD(_activeChar.getAppearance().getSex() ? 1 : 0);
-			if (_activeChar.getClassIndex() == 0) {
+			if (_activeChar.getClassIndex() == 0)
 				writeD(_activeChar.getClassId().getId());
-			} else {
+			else
 				writeD(_activeChar.getBaseClass());
-			}
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DHAIR));
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
@@ -271,13 +254,9 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_activeChar.getAppearance().getHairColor());
 			writeD(_activeChar.getAppearance().getFace());
 			if (gmSeeInvis)
-			{
 				writeS("Invisible");
-			}
 			else
-			{
 				writeS(_activeChar.getTitle());
-			}
 			writeD(_activeChar.getClanId());
 			writeD(_activeChar.getClanCrestId());
 			writeD(_activeChar.getAllyId());
@@ -293,32 +272,23 @@ public class CharInfo extends L2GameServerPacket
 			writeC(_activeChar.isInCombat() ? 1 : 0);
 			writeC(_activeChar.isAlikeDead() ? 1 : 0);
 			if (gmSeeInvis)
-			{
 				writeC(0);
-			}
 			else
-			{
 				writeC(_activeChar.getAppearance().getInvisible() ? 1 : 0); // invisible
 				// = 1
 				// visible
 				// =0
-			}
 			writeC(_activeChar.getMountType()); // 1 on strider 2 on wyvern 0 no
 			// mount
 			writeC(_activeChar.getPrivateStoreType()); // 1 - sellshop
 			writeH(_activeChar.getCubics().size());
-			for (int id : _activeChar.getCubics().keySet()) {
+			for (int id : _activeChar.getCubics().keySet())
 				writeH(id);
-			}
 			writeC(0x00); // find party members
 			if (gmSeeInvis)
-			{
 				writeD((_activeChar.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH));
-			}
 			else
-			{
 				writeD(_activeChar.getAbnormalEffect());
-			}
 			writeC(_activeChar.getRecomLeft()); // Changed by Thorgrim
 			writeH(_activeChar.getRecomHave()); // Blue value for name (0 =
 			// white, 255 = pure blue)
@@ -326,13 +296,12 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_maxCp);
 			writeD((int) _activeChar.getCurrentCp());
 			writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
-			if (_activeChar.getTeam() == 1) {
+			if (_activeChar.getTeam() == 1)
 				writeC(0x01); // team circle around feet 1= Blue, 2 = red
-			} else if (_activeChar.getTeam() == 2) {
+			else if (_activeChar.getTeam() == 2)
 				writeC(0x02); // team circle around feet 1= Blue, 2 = red
-			} else {
+			else
 				writeC(0x00); // team circle around feet 1= Blue, 2 = red
-			}
 			writeD(_activeChar.getClanCrestLargeId());
 			writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu
 			// ctrl+I
@@ -350,11 +319,10 @@ public class CharInfo extends L2GameServerPacket
 			writeD(0x00); // ??
 			writeD(_activeChar.getAppearance().getTitleColor());
 			// writeD(0x00); // ??
-			if (_activeChar.isCursedWeaponEquiped()) {
+			if (_activeChar.isCursedWeaponEquiped())
 				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
-			} else {
+			else
 				writeD(0x00);
-			}
 		}
 	}
 

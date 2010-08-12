@@ -46,23 +46,19 @@ public final class RequestRecipeShopMakeItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		L2PcInstance manufacturer = (L2PcInstance) L2World.getInstance().findObject(_id);
-		if (manufacturer == null) {
+		if (manufacturer == null)
 			return;
-		}
 		if (activeChar.getPrivateStoreType() != 0)
 		{
 			activeChar.sendMessage("Cannot make items while trading");
 			return;
 		}
 		if (manufacturer.getPrivateStoreType() != 5)
-		{
 			// activeChar.sendMessage("Cannot make items while trading");
 			return;
-		}
 		if (activeChar.isInCraftMode() || manufacturer.isInCraftMode())
 		{
 			activeChar.sendMessage("Currently in Craft Mode");
@@ -73,9 +69,8 @@ public final class RequestRecipeShopMakeItem extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
 			return;
 		}
-		if (Util.checkIfInRange(150, activeChar, manufacturer, true)) {
+		if (Util.checkIfInRange(150, activeChar, manufacturer, true))
 			RecipeController.getInstance().requestManufactureItem(manufacturer, _recipeId, activeChar);
-		}
 	}
 
 	/*

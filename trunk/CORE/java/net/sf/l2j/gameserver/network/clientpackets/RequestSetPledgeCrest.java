@@ -43,9 +43,8 @@ public final class RequestSetPledgeCrest extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_length = readD();
-		if (_length < 0 || _length > 256) {
+		if (_length < 0 || _length > 256)
 			return;
-		}
 		_data = new byte[_length];
 		readB(_data);
 	}
@@ -54,13 +53,11 @@ public final class RequestSetPledgeCrest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		L2Clan clan = activeChar.getClan();
-		if (clan == null) {
+		if (clan == null)
 			return;
-		}
 		if (clan.getDissolvingExpiryTime() > System.currentTimeMillis())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS));
@@ -81,9 +78,8 @@ public final class RequestSetPledgeCrest extends L2GameClientPacket
 			CrestCache.getInstance().removePledgeCrest(clan.getCrestId());
 			clan.setHasCrest(false);
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED));
-			for (L2PcInstance member : clan.getOnlineMembers("")) {
+			for (L2PcInstance member : clan.getOnlineMembers(""))
 				member.broadcastUserInfo();
-			}
 			return;
 		}
 		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_REGISTER_CREST) == L2Clan.CP_CL_REGISTER_CREST)
@@ -96,9 +92,7 @@ public final class RequestSetPledgeCrest extends L2GameClientPacket
 			CrestCache crestCache = CrestCache.getInstance();
 			int newId = IdFactory.getInstance().getNextId();
 			if (clan.hasCrest())
-			{
 				crestCache.removePledgeCrest(newId);
-			}
 			if (!crestCache.savePledgeCrest(newId, _data))
 			{
 				_log.log(Level.INFO, "Error loading crest of clan:" + clan.getName());
@@ -130,9 +124,8 @@ public final class RequestSetPledgeCrest extends L2GameClientPacket
 			}
 			clan.setCrestId(newId);
 			clan.setHasCrest(true);
-			for (L2PcInstance member : clan.getOnlineMembers("")) {
+			for (L2PcInstance member : clan.getOnlineMembers(""))
 				member.broadcastUserInfo();
-			}
 		}
 	}
 

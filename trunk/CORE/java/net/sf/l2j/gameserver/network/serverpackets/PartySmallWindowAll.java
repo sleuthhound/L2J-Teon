@@ -45,9 +45,8 @@ public class PartySmallWindowAll extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		if (!_playerSelected) {
+		if (!_playerSelected)
 			_player = getClient().getActiveChar();
-		}
 		writeC(0x4e);
 		writeD(_partyMembers.get(0).getObjectId()); // c3 party leader id
 		writeD(_partyMembers.get(0).getParty().getLootDistribution());// c3

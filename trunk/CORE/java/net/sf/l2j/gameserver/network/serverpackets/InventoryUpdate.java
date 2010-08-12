@@ -55,9 +55,7 @@ public class InventoryUpdate extends L2GameServerPacket
 	{
 		_items = new FastList<ItemInfo>();
 		if (Config.DEBUG)
-		{
 			showDebug();
-		}
 	}
 
 	/**
@@ -67,56 +65,45 @@ public class InventoryUpdate extends L2GameServerPacket
 	{
 		_items = items;
 		if (Config.DEBUG)
-		{
 			showDebug();
-		}
 	}
 
 	public void addItem(L2ItemInstance item)
 	{
-		if (item != null) {
+		if (item != null)
 			_items.add(new ItemInfo(item));
-		}
 	}
 
 	public void addNewItem(L2ItemInstance item)
 	{
-		if (item != null) {
+		if (item != null)
 			_items.add(new ItemInfo(item, 1));
-		}
 	}
 
 	public void addModifiedItem(L2ItemInstance item)
 	{
-		if (item != null) {
+		if (item != null)
 			_items.add(new ItemInfo(item, 2));
-		}
 	}
 
 	public void addRemovedItem(L2ItemInstance item)
 	{
-		if (item != null) {
+		if (item != null)
 			_items.add(new ItemInfo(item, 3));
-		}
 	}
 
 	public void addItems(List<L2ItemInstance> items)
 	{
-		if (items != null) {
-			for (L2ItemInstance item : items) {
-				if (item != null) {
+		if (items != null)
+			for (L2ItemInstance item : items)
+				if (item != null)
 					_items.add(new ItemInfo(item));
-				}
-			}
-		}
 	}
 
 	private void showDebug()
 	{
 		for (ItemInfo item : _items)
-		{
 			_log.fine("oid:" + Integer.toHexString(item.getObjectId()) + " item:" + item.getItem().getName() + " last change:" + item.getChange());
-		}
 	}
 
 	@Override

@@ -74,13 +74,11 @@ public class RequestBuyProcure extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0) {
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && player.getKarma() > 0)
 			return;
-		}
 		L2Object target = player.getTarget();
 		if (_count < 1)
 		{
@@ -108,11 +106,10 @@ public class RequestBuyProcure extends L2GameClientPacket
 			}
 			L2Item template = ItemTable.getInstance().getTemplate(L2Manor.getInstance().getRewardItem(itemId, manor.getCastle().getCrop(itemId, CastleManorManager.PERIOD_CURRENT).getReward()));
 			weight += count * template.getWeight();
-			if (!template.isStackable()) {
+			if (!template.isStackable())
 				slots += count;
-			} else if (player.getInventory().getItemByItemId(itemId) == null) {
+			else if (player.getInventory().getItemByItemId(itemId) == null)
 				slots++;
-			}
 		}
 		if (!player.getInventory().validateWeight(weight))
 		{
@@ -131,9 +128,8 @@ public class RequestBuyProcure extends L2GameClientPacket
 		{
 			int itemId = _items[i * 2 + 0];
 			int count = _items[i * 2 + 1];
-			if (count < 0) {
+			if (count < 0)
 				count = 0;
-			}
 			int rewradItemId = L2Manor.getInstance().getRewardItem(itemId, manor.getCastle().getCrop(itemId, CastleManorManager.PERIOD_CURRENT).getReward());
 			int rewradItemCount = 1; // L2Manor.getInstance().getRewardAmount(itemId,
 			// manor.getCastle().getCropReward(itemId));
@@ -141,15 +137,13 @@ public class RequestBuyProcure extends L2GameClientPacket
 			// Add item to Inventory and adjust update packet
 			L2ItemInstance item = player.getInventory().addItem("Manor", rewradItemId, rewradItemCount, player, manor);
 			L2ItemInstance iteme = player.getInventory().destroyItemByItemId("Manor", itemId, count, player, manor);
-			if (item == null || iteme == null) {
+			if (item == null || iteme == null)
 				continue;
-			}
 			playerIU.addRemovedItem(iteme);
-			if (item.getCount() > rewradItemCount) {
+			if (item.getCount() > rewradItemCount)
 				playerIU.addModifiedItem(item);
-			} else {
+			else
 				playerIU.addNewItem(item);
-			}
 			// Send Char Buy Messages
 			SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 			sm.addItemName(rewradItemId);

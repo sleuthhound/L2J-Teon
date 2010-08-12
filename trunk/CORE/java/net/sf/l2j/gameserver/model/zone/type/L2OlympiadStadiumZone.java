@@ -38,11 +38,9 @@ public class L2OlympiadStadiumZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("stadiumId"))
-		{
 			_stadiumId = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -52,9 +50,7 @@ public class L2OlympiadStadiumZone extends L2ZoneType
 		character.setInsideZone(L2Character.ZONE_NOLANDING, false);
 		character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 		if (character instanceof L2PcInstance)
-		{
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
-		}
 	}
 
 	@Override
@@ -64,9 +60,7 @@ public class L2OlympiadStadiumZone extends L2ZoneType
 		character.setInsideZone(L2Character.ZONE_NOLANDING, true);
 		character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 		if (character instanceof L2PcInstance)
-		{
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-		}
 	}
 
 	@Override

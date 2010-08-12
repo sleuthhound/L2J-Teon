@@ -49,10 +49,9 @@ public final class ChangeWaitType2 extends L2GameClientPacket
 				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-			if (player.getMountType() != 0) {
+			if (player.getMountType() != 0)
 				// riding
 				return;
-			}
 			if (target != null && !player.isSitting() && target instanceof L2StaticObjectInstance && ((L2StaticObjectInstance) target).getType() == 1 && CastleManager.getInstance().getCastle(target) != null && player.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false))
 			{
 				ChairSit cs = new ChairSit(player, ((L2StaticObjectInstance) target).getStaticObjectId());
@@ -60,11 +59,10 @@ public final class ChangeWaitType2 extends L2GameClientPacket
 				player.sitDown();
 				player.broadcastPacket(cs);
 			}
-			if (_typeStand) {
+			if (_typeStand)
 				player.standUp();
-			} else {
+			else
 				player.sitDown();
-			}
 		}
 	}
 

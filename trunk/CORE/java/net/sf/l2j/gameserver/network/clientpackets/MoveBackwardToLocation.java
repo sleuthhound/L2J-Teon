@@ -92,35 +92,25 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		_curX = activeChar.getX();
 		_curY = activeChar.getY();
 		_curZ = activeChar.getZ();
 		if (activeChar.isInBoat())
-		{
 			activeChar.setInBoat(false);
-		}
 		if (activeChar.getTeleMode() > 0)
 		{
-			if (activeChar.getTeleMode() == 1) {
+			if (activeChar.getTeleMode() == 1)
 				activeChar.setTeleMode(0);
-			}
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
 			return;
 		}
-		if (_moveMovement == 0 && Config.GEODATA < 1) // cursor movement
-		// without geodata is
-		// disabled
-		{
+		if (_moveMovement == 0 && Config.GEODATA < 1)
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-		}
 		else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null && activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
-		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
-		}
 		else
 		{
 			double dx = _targetX - _curX;
@@ -133,9 +123,8 @@ public class MoveBackwardToLocation extends L2GameClientPacket
 				return;
 			}
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_targetX, _targetY, _targetZ, 0));
-			if (activeChar.getParty() != null) {
+			if (activeChar.getParty() != null)
 				activeChar.getParty().broadcastToPartyMembers(activeChar, new PartyMemberPosition(activeChar));
-			}
 		}
 	}
 

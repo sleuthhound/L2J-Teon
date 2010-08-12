@@ -36,14 +36,10 @@ public final class AllyDismiss extends L2GameClientPacket
 	protected void runImpl()
 	{
 		if (_clanName == null)
-		{
 			return;
-		}
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
-		{
 			return;
-		}
 		if (player.getClan() == null)
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_A_CLAN_MEMBER));

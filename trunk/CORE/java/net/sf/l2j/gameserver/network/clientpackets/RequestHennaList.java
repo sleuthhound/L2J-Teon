@@ -41,9 +41,8 @@ public final class RequestHennaList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		L2HennaInstance[] henna = HennaTreeTable.getInstance().getAvailableHenna(activeChar.getClassId());
 		HennaEquipList he = new HennaEquipList(activeChar, henna);
 		activeChar.sendPacket(he);

@@ -45,12 +45,10 @@ public final class RequestPledgeWarList extends L2GameClientPacket
 		// System.out.println("C5: RequestPledgeWarList d:"+_unk1);
 		// System.out.println("C5: RequestPledgeWarList d:"+_tab);
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
-		if (activeChar.getClan() == null) {
+		if (activeChar.getClan() == null)
 			return;
-		}
 		// do we need powers to do that??
 		activeChar.sendPacket(new PledgeReceiveWarList(activeChar.getClan(), _tab));
 	}

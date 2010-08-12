@@ -51,13 +51,11 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("request unequip slot " + _slot);
-		}
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		if (activeChar._haveFlagCTF)
 		{
 			activeChar.sendMessage("You can't unequip a CTF flag.");
@@ -65,43 +63,32 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		}
 		L2ItemInstance item = activeChar.getInventory().getPaperdollItemByL2ItemId(_slot);
 		if (item != null && item.isWear())
-		{
 			// Wear-items are not to be unequipped
 			return;
-		}
 		// Prevent of unequiping a cursed weapon
 		if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
-		{
 			// Message ?
 			return;
-		}
 		// Prevent player from unequipping items in special conditions
 		if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed() || activeChar.isAlikeDead())
 		{
 			activeChar.sendMessage("Your status does not allow you to do that.");
 			return;
 		}
-		if (activeChar.isCastingNow()) {
+		if (activeChar.isCastingNow())
 			return;
-		}
 		// Remove augmentation bonus
 		if (item != null && item.isAugmented())
-		{
 			item.getAugmentation().removeBonus(activeChar);
-		}
 		// remove skill of cupid's bow
 		if (item != null && item.isCupidBow())
-		{
 			if (item.getItemId() == 9140)
-			{
 				activeChar.removeSkill(SkillTable.getInstance().getInfo(3261, 1));
-			}
 			else
 			{
 				activeChar.removeSkill(SkillTable.getInstance().getInfo(3260, 0));
 				activeChar.removeSkill(SkillTable.getInstance().getInfo(3262, 0));
 			}
-		}
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
 		// show the update in the inventory
 		InventoryUpdate iu = new InventoryUpdate();

@@ -43,11 +43,9 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("name"))
-		{
 			_zoneName = value;
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -55,45 +53,40 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 	{
 		if (character instanceof L2PcInstance && FortResistSiegeManager.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Fortress of Resistance")) {
+			if (_zoneName.equalsIgnoreCase("Fortress of Resistance"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Bandit Stronghold")) {
+			if (_zoneName.equalsIgnoreCase("Bandit Stronghold"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && DevastatedCastleManager.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Devastated Castle")) {
+			if (_zoneName.equalsIgnoreCase("Devastated Castle"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && WildBeastFarmSiege.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Beast Farm")) {
+			if (_zoneName.equalsIgnoreCase("Beast Farm"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && FortressofTheDeadManager.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Fortress of the Dead")) {
+			if (_zoneName.equalsIgnoreCase("Fortress of the Dead"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
@@ -107,45 +100,40 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 	{
 		if (character instanceof L2PcInstance && FortResistSiegeManager.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Fortress of Resistance")) {
+			if (_zoneName.equalsIgnoreCase("Fortress of Resistance"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && BanditStrongholdSiege.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Bandit Stronghold")) {
+			if (_zoneName.equalsIgnoreCase("Bandit Stronghold"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && DevastatedCastleManager.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Devastated Castle")) {
+			if (_zoneName.equalsIgnoreCase("Devastated Castle"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && WildBeastFarmSiege.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Beast Farm")) {
+			if (_zoneName.equalsIgnoreCase("Beast Farm"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		if (character instanceof L2PcInstance && FortressofTheDeadManager.getInstance().getIsInProgress())
 		{
-			if (_zoneName.equalsIgnoreCase("Fortress of the Dead")) {
+			if (_zoneName.equalsIgnoreCase("Fortress of the Dead"))
 				character.setInsideZone(L2Character.ZONE_PVP, true);
-			}
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
@@ -173,12 +161,10 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 	{
 		for (L2Character temp : _characterList.values())
 		{
-			if (!(temp instanceof L2PcInstance)) {
+			if (!(temp instanceof L2PcInstance))
 				continue;
-			}
-			if (((L2PcInstance) temp).getClanId() == owningClanId) {
+			if (((L2PcInstance) temp).getClanId() == owningClanId)
 				continue;
-			}
 			((L2PcInstance) temp).teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		}
 	}
@@ -191,11 +177,8 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 	public void announceToPlayers(String message)
 	{
 		for (L2Character temp : _characterList.values())
-		{
-			if (temp instanceof L2PcInstance) {
+			if (temp instanceof L2PcInstance)
 				((L2PcInstance) temp).sendMessage(message);
-			}
-		}
 	}
 
 	/**
@@ -207,11 +190,8 @@ public class L2ClanHallSiegeZone extends L2ZoneType
 	{
 		FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 		for (L2Character temp : _characterList.values())
-		{
-			if (temp instanceof L2PcInstance) {
+			if (temp instanceof L2PcInstance)
 				players.add((L2PcInstance) temp);
-			}
-		}
 		return players;
 	}
 

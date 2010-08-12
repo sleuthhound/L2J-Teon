@@ -68,9 +68,7 @@ public abstract class GameServerBasePacket
 		try
 		{
 			if (text != null)
-			{
 				_bao.write(text.getBytes("UTF-16LE"));
-			}
 		}
 		catch (Exception e)
 		{
@@ -103,12 +101,8 @@ public abstract class GameServerBasePacket
 		writeD(0x00); // reserve for checksum
 		int padding = _bao.size() % 8;
 		if (padding != 0)
-		{
 			for (int i = padding; i < 8; i++)
-			{
 				writeC(0x00);
-			}
-		}
 		return _bao.toByteArray();
 	}
 

@@ -44,24 +44,18 @@ public class L2DamageZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("dmgHPSec"))
-		{
 			_damageHPPerSec = Integer.parseInt(value);
-		}
 		else if (name.equals("dmgMPSec"))
-		{
 			_damageMPPerSec = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		if (_task == null && (_damageHPPerSec != 0 || _damageMPPerSec != 0))
-		{
 			_task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ApplyDamage(this), 10, 3300);
-		}
 	}
 
 	@Override
@@ -101,17 +95,13 @@ public class L2DamageZone extends L2ZoneType
 		public void run()
 		{
 			for (L2Character temp : _dmgZone.getCharacterList())
-			{
 				if (temp != null && !temp.isDead())
 				{
-					if (getHPDamagePerSecond() != 0) {
+					if (getHPDamagePerSecond() != 0)
 						temp.reduceCurrentHp(_dmgZone.getHPDamagePerSecond(), null);
-					}
-					if (getMPDamagePerSecond() != 0) {
+					if (getMPDamagePerSecond() != 0)
 						temp.reduceCurrentMp(_dmgZone.getMPDamagePerSecond());
-					}
 				}
-			}
 		}
 	}
 

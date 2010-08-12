@@ -52,9 +52,8 @@ public final class RequestBlock extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		switch (_type)
 		{
 			case BLOCK:
@@ -94,17 +93,9 @@ public final class RequestBlock extends L2GameClientPacket
 				if (_target == null)
 				{
 					if (BlockList.isInBlockList(activeChar, _name))
-					{
 						BlockList.removeFromBlockList(activeChar, _name);
-					}
-				}
-				else
-				{
-					if (BlockList.isInBlockList(activeChar, _target))
-					{
-						BlockList.removeFromBlockList(activeChar, _target);
-					}
-				}
+				} else if (BlockList.isInBlockList(activeChar, _target))
+					BlockList.removeFromBlockList(activeChar, _target);
 				break;
 			case BLOCKLIST:
 				BlockList.sendListToOwner(activeChar);

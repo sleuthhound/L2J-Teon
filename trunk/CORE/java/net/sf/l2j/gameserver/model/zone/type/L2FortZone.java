@@ -53,19 +53,13 @@ public class L2FortZone extends L2ZoneType
 			_fort.setZone(this);
 		}
 		else if (name.equals("spawnX"))
-		{
 			_spawnLoc[0] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnY"))
-		{
 			_spawnLoc[1] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnZ"))
-		{
 			_spawnLoc[2] = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -77,12 +71,10 @@ public class L2FortZone extends L2ZoneType
 			character.setInsideZone(L2Character.ZONE_SIEGE, true);
 			character.setInsideZone(L2Character.ZONE_FORT, true);
 			character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
-			if (character instanceof L2PcInstance) {
+			if (character instanceof L2PcInstance)
 				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
-			}
-		} else {
+		} else
 			character.setInsideZone(L2Character.ZONE_FORT, true);
-		}
 	}
 
 	@Override
@@ -98,17 +90,13 @@ public class L2FortZone extends L2ZoneType
 			{
 				((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 				// Set pvp flag
-				if (((L2PcInstance) character).getPvpFlag() == 0) {
+				if (((L2PcInstance) character).getPvpFlag() == 0)
 					((L2PcInstance) character).startPvPFlag();
-				}
 			}
-		} else {
+		} else
 			character.setInsideZone(L2Character.ZONE_FORT, true);
-		}
 		if (character instanceof L2SiegeSummonInstance)
-		{
 			((L2SiegeSummonInstance) character).unSummon(((L2SiegeSummonInstance) character).getOwner());
-		}
 	}
 
 	@Override
@@ -124,9 +112,7 @@ public class L2FortZone extends L2ZoneType
 	public void updateZoneStatusForCharactersInside()
 	{
 		if (_fort.getSiege().getIsInProgress())
-		{
 			for (L2Character character : _characterList.values())
-			{
 				try
 				{
 					onEnter(character);
@@ -134,31 +120,22 @@ public class L2FortZone extends L2ZoneType
 				catch (NullPointerException e)
 				{
 				}
-			}
-		}
 		else
-		{
 			for (L2Character character : _characterList.values())
-			{
 				try
 				{
 					character.setInsideZone(L2Character.ZONE_PVP, false);
 					character.setInsideZone(L2Character.ZONE_SIEGE, false);
 					character.setInsideZone(L2Character.ZONE_FORT, false);
 					character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
-					if (character instanceof L2PcInstance) {
+					if (character instanceof L2PcInstance)
 						((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-					}
 					if (character instanceof L2SiegeSummonInstance)
-					{
 						((L2SiegeSummonInstance) character).unSummon(((L2SiegeSummonInstance) character).getOwner());
-					}
 				}
 				catch (NullPointerException e)
 				{
 				}
-			}
-		}
 	}
 
 	/**
@@ -170,12 +147,10 @@ public class L2FortZone extends L2ZoneType
 	{
 		for (L2Character temp : _characterList.values())
 		{
-			if (!(temp instanceof L2PcInstance)) {
+			if (!(temp instanceof L2PcInstance))
 				continue;
-			}
-			if (((L2PcInstance) temp).getClanId() == owningClanId) {
+			if (((L2PcInstance) temp).getClanId() == owningClanId)
 				continue;
-			}
 			((L2PcInstance) temp).teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		}
 	}
@@ -188,11 +163,8 @@ public class L2FortZone extends L2ZoneType
 	public void announceToPlayers(String message)
 	{
 		for (L2Character temp : _characterList.values())
-		{
-			if (temp instanceof L2PcInstance) {
+			if (temp instanceof L2PcInstance)
 				((L2PcInstance) temp).sendMessage(message);
-			}
-		}
 	}
 
 	/**
@@ -204,11 +176,8 @@ public class L2FortZone extends L2ZoneType
 	{
 		FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 		for (L2Character temp : _characterList.values())
-		{
-			if (temp instanceof L2PcInstance) {
+			if (temp instanceof L2PcInstance)
 				players.add((L2PcInstance) temp);
-			}
-		}
 		return players;
 	}
 

@@ -34,18 +34,14 @@ public class Attack extends L2GameServerPacket
 		{
 			_targetId = target.getObjectId();
 			_damage = damage;
-			if (soulshot) {
+			if (soulshot)
 				_flags |= 0x10 | _grade;
-			}
-			if (crit) {
+			if (crit)
 				_flags |= 0x20;
-			}
-			if (shld) {
+			if (shld)
 				_flags |= 0x40;
-			}
-			if (miss) {
+			if (miss)
 				_flags |= 0x80;
-			}
 		}
 	}
 
@@ -87,9 +83,8 @@ public class Attack extends L2GameServerPacket
 		// Create a new Hit object
 		Hit[] tmp = new Hit[pos + 1];
 		// Add the new Hit object to hits table
-		for (int i = 0; i < _hits.length; i++) {
+		for (int i = 0; i < _hits.length; i++)
 			tmp[i] = _hits[i];
-		}
 		tmp[pos] = new Hit(target, damage, miss, crit, shld);
 		_hits = tmp;
 	}
