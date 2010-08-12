@@ -37,21 +37,17 @@ public class FastNodeList
 
 	public boolean contains(Node n)
 	{
-		for (int i = 0; i < _size; i++) {
-			if (_list[i].equals(n)) {
+		for (int i = 0; i < _size; i++)
+			if (_list[i].equals(n))
 				return true;
-			}
-		}
 		return false;
 	}
 
 	public boolean containsRev(Node n)
 	{
-		for (int i = _size - 1; i >= 0; i--) {
-			if (_list[i].equals(n)) {
+		for (int i = _size - 1; i >= 0; i--)
+			if (_list[i].equals(n))
 				return true;
-			}
-		}
 		return false;
 	}
 }

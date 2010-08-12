@@ -57,29 +57,23 @@ public class CompiledScriptCache implements Serializable
 		if (csh != null && csh.matches(file))
 		{
 			if (Config.DEBUG)
-			{
 				LOG.fine("Reusing cached compiled script: " + file);
-			}
 			return csh.getCompiledScript();
 		}
 		else
 		{
 			if (Config.DEBUG)
-			{
 				LOG.info("Compiling script: " + file);
-			}
 			Compilable eng = (Compilable) engine;
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			// TODO lock file
 			CompiledScript cs = eng.compile(reader);
 			if (cs instanceof Serializable)
-			{
 				synchronized (_compiledScriptCache)
 				{
 					_compiledScriptCache.put(relativeName, new CompiledScriptHolder(cs, file));
 					_modified = true;
 				}
-			}
 			return cs;
 		}
 	}

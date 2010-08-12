@@ -39,9 +39,8 @@ public class FaenorEventParser extends FaenorParser
 	public void parseScript(Node eventNode, ScriptContext context)
 	{
 		String ID = attribute(eventNode, "ID");
-		if (DEBUG) {
+		if (DEBUG)
 			_log.fine("Parsing Event \"" + ID + "\"");
-		}
 		_eventDates = DateRange.parse(attribute(eventNode, "Active"), DATE_FORMAT);
 		Date currentDate = new Date();
 		if (_eventDates.getEndDate().before(currentDate))
@@ -50,31 +49,22 @@ public class FaenorEventParser extends FaenorParser
 			return;
 		}
 		for (Node node = eventNode.getFirstChild(); node != null; node = node.getNextSibling())
-		{
 			if (isNodeName(node, "DropList"))
-			{
 				parseEventDropList(node);
-			}
 			else if (isNodeName(node, "Message"))
-			{
 				parseEventMessage(node);
-			}
-		}
 	}
 
 	private void parseEventMessage(Node sysMsg)
 	{
-		if (DEBUG) {
+		if (DEBUG)
 			_log.fine("Parsing Event Message.");
-		}
 		try
 		{
 			String type = attribute(sysMsg, "Type");
 			String[] message = attribute(sysMsg, "Msg").split("\n");
 			if (type.equalsIgnoreCase("OnJoin"))
-			{
 				_bridge.onPlayerLogin(message, _eventDates);
-			}
 		}
 		catch (Exception e)
 		{
@@ -85,23 +75,17 @@ public class FaenorEventParser extends FaenorParser
 
 	private void parseEventDropList(Node dropList)
 	{
-		if (DEBUG) {
+		if (DEBUG)
 			_log.fine("Parsing Droplist.");
-		}
 		for (Node node = dropList.getFirstChild(); node != null; node = node.getNextSibling())
-		{
 			if (isNodeName(node, "AllDrop"))
-			{
 				parseEventDrop(node);
-			}
-		}
 	}
 
 	private void parseEventDrop(Node drop)
 	{
-		if (DEBUG) {
+		if (DEBUG)
 			_log.fine("Parsing Drop.");
-		}
 		try
 		{
 			int[] items = IntList.parse(attribute(drop, "Items"));

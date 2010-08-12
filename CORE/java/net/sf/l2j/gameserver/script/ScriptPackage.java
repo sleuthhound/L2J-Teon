@@ -65,7 +65,6 @@ public class ScriptPackage
 		{
 			ZipEntry entry = e.nextElement();
 			if (entry.getName().endsWith(".xml"))
-			{
 				try
 				{
 					ScriptDocument newScript = new ScriptDocument(entry.getName(), pack.getInputStream(entry));
@@ -76,11 +75,8 @@ public class ScriptPackage
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			}
 			else if (!entry.isDirectory())
-			{
 				_otherFiles.add(entry.getName());
-			}
 		}
 	}
 
@@ -95,25 +91,20 @@ public class ScriptPackage
 	@Override
 	public String toString()
 	{
-		if (getScriptFiles().isEmpty() && getOtherFiles().isEmpty()) {
+		if (getScriptFiles().isEmpty() && getOtherFiles().isEmpty())
 			return "Empty Package.";
-		}
 		String out = "Package Name: " + getName() + "\n";
 		if (!getScriptFiles().isEmpty())
 		{
 			out += "Xml Script Files...\n";
 			for (ScriptDocument script : getScriptFiles())
-			{
 				out += script.getName() + "\n";
-			}
 		}
 		if (!getOtherFiles().isEmpty())
 		{
 			out += "Other Files...\n";
 			for (String fileName : getOtherFiles())
-			{
 				out += fileName + "\n";
-			}
 		}
 		return out;
 	}

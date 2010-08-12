@@ -34,16 +34,12 @@ public class FaenorQuestParser extends FaenorParser
 	@Override
 	public void parseScript(Node questNode, ScriptContext context)
 	{
-		if (DEBUG) {
+		if (DEBUG)
 			_log.info("Parsing Quest.");
-		}
 		String questID = attribute(questNode, "ID");
 		for (Node node = questNode.getFirstChild(); node != null; node = node.getNextSibling())
-		{
 			if (isNodeName(node, "DROPLIST"))
-			{
 				parseQuestDropList(node.cloneNode(true), questID);
-			}
 			else if (isNodeName(node, "DIALOG WINDOWS"))
 			{
 				// parseDialogWindows(node.cloneNode(true));
@@ -56,28 +52,21 @@ public class FaenorQuestParser extends FaenorParser
 			{
 				// parseState(node.cloneNode(true));
 			}
-		}
 	}
 
 	private void parseQuestDropList(Node dropList, String questID) throws NullPointerException
 	{
-		if (DEBUG) {
+		if (DEBUG)
 			_log.info("Parsing Droplist.");
-		}
 		for (Node node = dropList.getFirstChild(); node != null; node = node.getNextSibling())
-		{
 			if (isNodeName(node, "DROP"))
-			{
 				parseQuestDrop(node.cloneNode(true), questID);
-			}
-		}
 	}
 
 	private void parseQuestDrop(Node drop, String questID)// throws NullPointerException
 	{
-		if (DEBUG) {
+		if (DEBUG)
 			_log.info("Parsing Drop.");
-		}
 		int npcID;
 		int itemID;
 		int min;
@@ -97,9 +86,8 @@ public class FaenorQuestParser extends FaenorParser
 		{
 			throw new NullPointerException("Incorrect Drop Data");
 		}
-		if (DEBUG) {
+		if (DEBUG)
 			_log.info("Adding Drop to NpcID: " + npcID);
-		}
 		_bridge.addQuestDrop(npcID, itemID, min, max, chance, questID, states);
 	}
 

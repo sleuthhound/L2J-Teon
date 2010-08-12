@@ -35,7 +35,6 @@ public class DateRange
 	{
 		String[] date = dateRange.split("-");
 		if (date.length == 2)
-		{
 			try
 			{
 				Date start = format.parse(date[0]);
@@ -47,7 +46,6 @@ public class DateRange
 				System.err.println("Invalid Date Format.");
 				e.printStackTrace();
 			}
-		}
 		return new DateRange(null, null);
 	}
 

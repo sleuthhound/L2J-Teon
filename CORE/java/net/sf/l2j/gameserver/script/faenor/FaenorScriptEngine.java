@@ -50,9 +50,7 @@ public class FaenorScriptEngine extends ScriptEngine
 	public static FaenorScriptEngine getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new FaenorScriptEngine();
-		}
 		return _instance;
 	}
 
@@ -80,9 +78,8 @@ public class FaenorScriptEngine extends ScriptEngine
 			}
 		};
 		File[] files = packDirectory.listFiles(fileFilter);
-		if (files == null) {
+		if (files == null)
 			return;
-		}
 		ZipFile zipPack;
 		for (File file : files) {
 			try
@@ -102,9 +99,7 @@ public class FaenorScriptEngine extends ScriptEngine
 			ScriptPackage module = new ScriptPackage(zipPack);
 			List<ScriptDocument> scrpts = module.getScriptFiles();
 			for (ScriptDocument script : scrpts)
-			{
 				_scripts.add(script);
-			}
 		}
 		/*
 		 * for (ScriptDocument script : scripts) { _log.sss("Script: "+script); } _log.sss("Sorting"); orderScripts(); for (ScriptDocument script : scripts) { _log.sss("Script: "+script); }
@@ -114,22 +109,14 @@ public class FaenorScriptEngine extends ScriptEngine
 	public void orderScripts()
 	{
 		if (_scripts.size() > 1)
-		{
 			// ScriptDocument npcInfo = null;
 			for (int i = 0; i < _scripts.size();)
-			{
 				if (_scripts.get(i).getName().contains("NpcStatData"))
-				{
 					_scripts.addFirst(_scripts.remove(i));
 					// scripts.set(i, scripts.get(0));
 					// scripts.set(0, npcInfo);
-				}
 				else
-				{
 					i++;
-				}
-			}
-		}
 	}
 
 	public void parsePackages()
@@ -141,9 +128,7 @@ public class FaenorScriptEngine extends ScriptEngine
 			sem.eval("beanshell", "double log1p(double d) { return Math.log1p(d); }");
 			sem.eval("beanshell", "double pow(double d, double p) { return Math.pow(d,p); }");
 			for (ScriptDocument script : _scripts)
-			{
 				parseScript(script, context);
-			}
 		}
 		catch (ScriptException e)
 		{
@@ -154,9 +139,7 @@ public class FaenorScriptEngine extends ScriptEngine
 	public void parseScript(ScriptDocument script, ScriptContext context)
 	{
 		if (DEBUG)
-		{
 			_log.fine("Parsing Script: " + script.getName());
-		}
 		Node node = script.getDocument().getFirstChild();
 		String parserClass = "faenor.Faenor" + node.getNodeName() + "Parser";
 		Parser parser = null;
@@ -189,14 +172,11 @@ public class FaenorScriptEngine extends ScriptEngine
 	@Override
 	public String toString()
 	{
-		if (_scripts.isEmpty()) {
+		if (_scripts.isEmpty())
 			return "No Packages Loaded.";
-		}
 		String out = "Script Packages currently loaded:\n";
 		for (ScriptDocument script : _scripts)
-		{
 			out += script;
-		}
 		return out;
 	}
 }
