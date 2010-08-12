@@ -53,9 +53,8 @@ public class NewCrypt
 	{
 		// check if size is multiple of 4 and if there is more then only the
 		// checksum
-		if ((size & 3) != 0 || size <= 4) {
+		if ((size & 3) != 0 || size <= 4)
 			return false;
-		}
 		long chksum = 0;
 		int count = size - 4;
 		long check = -1;
@@ -158,9 +157,8 @@ public class NewCrypt
 	{
 		byte[] result = new byte[raw.length];
 		int count = raw.length / 8;
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++)
 			_decrypt.processBlock(raw, i * 8, result, i * 8);
-		}
 		return result;
 	}
 
@@ -168,9 +166,8 @@ public class NewCrypt
 	{
 		byte[] result = new byte[size];
 		int count = size / 8;
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++)
 			_decrypt.processBlock(raw, offset + i * 8, result, i * 8);
-		}
 		// TODO can the crypt and decrypt go direct to the array
 		System.arraycopy(result, 0, raw, offset, size);
 	}
@@ -179,9 +176,8 @@ public class NewCrypt
 	{
 		int count = raw.length / 8;
 		byte[] result = new byte[raw.length];
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++)
 			_crypt.processBlock(raw, i * 8, result, i * 8);
-		}
 		return result;
 	}
 
@@ -189,9 +185,8 @@ public class NewCrypt
 	{
 		int count = size / 8;
 		byte[] result = new byte[size];
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++)
 			_crypt.processBlock(raw, offset + i * 8, result, i * 8);
-		}
 		// TODO can the crypt and decrypt go direct to the array
 		System.arraycopy(result, 0, raw, offset, size);
 	}

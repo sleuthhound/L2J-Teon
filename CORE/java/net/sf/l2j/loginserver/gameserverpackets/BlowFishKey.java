@@ -48,12 +48,8 @@ public class BlowFishKey extends ClientBasePacket
 			int i = 0;
 			int len = tempDecryptKey.length;
 			for (; i < len; i++)
-			{
 				if (tempDecryptKey[i] != 0)
-				{
 					break;
-				}
-			}
 			_key = new byte[len - i];
 			System.arraycopy(tempDecryptKey, i, _key, 0, len - i);
 		}

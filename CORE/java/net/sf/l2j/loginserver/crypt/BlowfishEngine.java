@@ -107,25 +107,15 @@ public class BlowfishEngine
 	public final int processBlock(byte[] in, int inOff, byte[] out, int outOff) throws IOException
 	{
 		if (workingKey == null)
-		{
 			throw new IllegalStateException("Blowfish not initialised");
-		}
 		if (inOff + BLOCK_SIZE > in.length)
-		{
 			throw new IOException("input buffer too short");
-		}
 		if (outOff + BLOCK_SIZE > out.length)
-		{
 			throw new IOException("output buffer too short");
-		}
 		if (encrypting)
-		{
 			encryptBlock(in, inOff, out, outOff);
-		}
 		else
-		{
 			decryptBlock(in, inOff, out, outOff);
-		}
 		return BLOCK_SIZE;
 	}
 
@@ -193,9 +183,7 @@ public class BlowfishEngine
 				data = data << 8 | key[keyIndex++] & 0xff;
 				// wrap when we get to the end of the key
 				if (keyIndex >= keyLength)
-				{
 					keyIndex = 0;
-				}
 			}
 			// XOR the newly created 32 bit chunk onto the P-array
 			P[i] ^= data;

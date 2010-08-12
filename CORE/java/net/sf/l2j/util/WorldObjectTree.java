@@ -145,9 +145,8 @@ public class WorldObjectTree<T extends L2Object> extends L2ObjectMap<T>
 	@Override
 	public boolean contains(T obj)
 	{
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
 		_r.lock();
 		try
 		{

@@ -50,17 +50,16 @@ public class LoginStatusThread extends Thread
 
 	private void telnetOutput(int type, String text)
 	{
-		if (type == 1) {
+		if (type == 1)
 			System.out.println("TELNET | " + text);
-		} else if (type == 2) {
+		else if (type == 2)
 			System.out.print("TELNET | " + text);
-		} else if (type == 3) {
+		else if (type == 3)
 			System.out.print(text);
-		} else if (type == 4) {
+		else if (type == 4)
 			System.out.println(text);
-		} else {
+		else
 			System.out.println("TELNET | " + text);
-		}
 	}
 
 	private boolean isValidIP(Socket client)
@@ -71,9 +70,8 @@ public class LoginStatusThread extends Thread
 		String clientStringIP = ClientIP.getHostAddress();
 		telnetOutput(1, "Connection from: " + clientStringIP);
 		// read and loop thru list of IPs, compare with newIP
-		if (Config.DEVELOPER) {
+		if (Config.DEVELOPER)
 			telnetOutput(2, "");
-		}
 		try
 		{
 			Properties telnetSettings = new Properties();
@@ -81,35 +79,28 @@ public class LoginStatusThread extends Thread
 			telnetSettings.load(telnetIS);
 			telnetIS.close();
 			String HostList = telnetSettings.getProperty("ListOfHosts", "127.0.0.1,localhost");
-			if (Config.DEVELOPER) {
+			if (Config.DEVELOPER)
 				telnetOutput(3, "Comparing ip to list...");
-			}
 			// compare
 			String ipToCompare = null;
 			for (String ip : HostList.split(","))
-			{
 				if (!result)
 				{
 					ipToCompare = InetAddress.getByName(ip).getHostAddress();
-					if (clientStringIP.equals(ipToCompare)) {
+					if (clientStringIP.equals(ipToCompare))
 						result = true;
-					}
-					if (Config.DEVELOPER) {
+					if (Config.DEVELOPER)
 						telnetOutput(3, clientStringIP + " = " + ipToCompare + "(" + ip + ") = " + result);
-					}
 				}
-			}
 		}
 		catch (IOException e)
 		{
-			if (Config.DEVELOPER) {
+			if (Config.DEVELOPER)
 				telnetOutput(4, "");
-			}
 			telnetOutput(1, "Error: " + e);
 		}
-		if (Config.DEVELOPER) {
+		if (Config.DEVELOPER)
 			telnetOutput(4, "Allow IP: " + result);
-		}
 		return result;
 	}
 
@@ -133,22 +124,18 @@ public class LoginStatusThread extends Thread
 				_print.flush();
 				_cSocket.close();
 				return;
+			} else if (!validLogin(tmpLine))
+			{
+				_print.println("Incorrect Login!");
+				_print.println("Disconnected...");
+				_print.flush();
+				_cSocket.close();
+				return;
 			}
 			else
 			{
-				if (!validLogin(tmpLine))
-				{
-					_print.println("Incorrect Login!");
-					_print.println("Disconnected...");
-					_print.flush();
-					_cSocket.close();
-					return;
-				}
-				else
-				{
-					_print.println("Login Correct!");
-					_print.flush();
-				}
+				_print.println("Login Correct!");
+				_print.flush();
 			}
 			_print.println("Please Insert Your Password!");
 			_print.print("Password: ");
@@ -160,24 +147,20 @@ public class LoginStatusThread extends Thread
 				_print.println("Disconnected...");
 				_print.flush();
 				_cSocket.close();
+			} else if (!validPassword(tmpLine))
+			{
+				_print.println("Incorrect Password!");
+				_print.println("Disconnected...");
+				_print.flush();
+				_cSocket.close();
 			}
 			else
 			{
-				if (!validPassword(tmpLine))
-				{
-					_print.println("Incorrect Password!");
-					_print.println("Disconnected...");
-					_print.flush();
-					_cSocket.close();
-				}
-				else
-				{
-					_print.println("Password Correct!");
-					_print.println("[L2J]");
-					_print.print("");
-					_print.flush();
-					start();
-				}
+				_print.println("Password Correct!");
+				_print.println("[L2J]");
+				_print.print("");
+				_print.flush();
+				start();
 			}
 		}
 		else
@@ -201,12 +184,8 @@ public class LoginStatusThread extends Thread
 			byte[] raw = password.getBytes("UTF-8");
 			byte[] hash = md.digest(raw);
 			for (int i = 0; i < expectedPass.length; i++)
-			{
 				if (hash[i] != expectedPass[i])
-				{
 					return false;
-				}
-			}
 			return true;
 		}
 		catch (NoSuchAlgorithmException e)
@@ -226,9 +205,8 @@ public class LoginStatusThread extends Thread
 	 */
 	private boolean validLogin(String login)
 	{
-		if (!LoginController.getInstance().isGM(login)) {
+		if (!LoginController.getInstance().isGM(login))
 			return false;
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -290,10 +268,8 @@ public class LoginStatusThread extends Thread
 					_print.println("");
 				}
 				else if (_usrCommand.equals("status"))
-				{
 					// TODO enhance the output
 					_print.println("Registered Server Count: " + GameServerTable.getInstance().getRegisteredGameServers().size());
-				}
 				else if (_usrCommand.equals("info"))
 				{
 					_print.flush();
@@ -306,7 +282,6 @@ public class LoginStatusThread extends Thread
 					_print.println("-L2JTeon-");
 				}
 				else if (_usrCommand.startsWith("unblock"))
-				{
 					try
 					{
 						_usrCommand = _usrCommand.substring(8);
@@ -314,17 +289,13 @@ public class LoginStatusThread extends Thread
 						{
 							_log.warning("IP removed via TELNET by host: " + _cSocket.getInetAddress().getHostAddress());
 							_print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
-						}
-						else
-						{
+						} else
 							_print.println("IP not found in hack protection list...");
-						}
 					}
 					catch (StringIndexOutOfBoundsException e)
 					{
 						_print.println("Please Enter the IP to Unblock!");
 					}
-				}
 				else if (_usrCommand.startsWith("shutdown"))
 				{
 					L2LoginServer.getInstance().shutdown(false);
@@ -340,9 +311,7 @@ public class LoginStatusThread extends Thread
 					_cSocket.close();
 				}
 				else if (_usrCommand.equals("RedirectLogger"))
-				{
 					_redirectLogger = true;
-				}
 				else if (_usrCommand.equals("quit"))
 				{ /*
 				 * Do Nothing :p - Just here to save us from the "Command Not Understood" Text
@@ -352,11 +321,8 @@ public class LoginStatusThread extends Thread
 				{ /*
 				 * Do Nothing Again - Same reason as the quit part
 				 */
-				}
-				else
-				{
+				} else
 					_print.println("Invalid Command");
-				}
 				_print.print("");
 				_print.flush();
 			}

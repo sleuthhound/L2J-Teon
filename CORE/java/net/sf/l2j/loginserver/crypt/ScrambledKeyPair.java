@@ -51,17 +51,14 @@ public class ScrambledKeyPair
 			scrambledMod[0x4d + i] = temp;
 		}
 		// step 2 : xor first 0x40 bytes with last 0x40 bytes
-		for (int i = 0; i < 0x40; i++) {
+		for (int i = 0; i < 0x40; i++)
 			scrambledMod[i] = (byte) (scrambledMod[i] ^ scrambledMod[0x40 + i]);
-		}
 		// step 3 : xor bytes 0x0d-0x10 with bytes 0x34-0x38
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++)
 			scrambledMod[0x0d + i] = (byte) (scrambledMod[0x0d + i] ^ scrambledMod[0x34 + i]);
-		}
 		// step 4 : xor last 0x40 bytes with first 0x40 bytes
-		for (int i = 0; i < 0x40; i++) {
+		for (int i = 0; i < 0x40; i++)
 			scrambledMod[0x40 + i] = (byte) (scrambledMod[0x40 + i] ^ scrambledMod[i]);
-		}
 		_log.fine("Modulus was scrambled");
 		return scrambledMod;
 	}

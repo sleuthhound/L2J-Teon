@@ -79,11 +79,9 @@ public final class PrimeFinder
 	{
 		int i = Arrays.binarySearch(PRIME_CAPACITIES, desiredCapacity);
 		if (i < 0)
-		{
 			// desired capacity not found, choose next prime greater
 			// than desired capacity
 			i = -i - 1; // remember the semantics of binarySearch...
-		}
 		return PRIME_CAPACITIES[i];
 	}
 }
