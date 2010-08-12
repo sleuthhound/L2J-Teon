@@ -29,8 +29,7 @@ public class ScriptEngine
 	protected static Parser createParser(String name) throws ParserNotCreatedException
 	{
 		ParserFactory s = parserFactories.get(name);
-		if (s == null) // shape not found
-		{
+		if (s == null)
 			try
 			{
 				Class.forName("net.sf.l2j.gameserver.script." + name);
@@ -39,10 +38,8 @@ public class ScriptEngine
 				// the shape is expected to have put its factory
 				// in the hashtable.
 				s = parserFactories.get(name);
-				if (s == null) // if the shape factory is not there even now
-				{
+				if (s == null)
 					throw new ParserNotCreatedException();
-				}
 			}
 			catch (ClassNotFoundException e)
 			{
@@ -50,7 +47,6 @@ public class ScriptEngine
 				// the shape could not be created
 				throw new ParserNotCreatedException();
 			}
-		}
 		return s.create();
 	}
 }

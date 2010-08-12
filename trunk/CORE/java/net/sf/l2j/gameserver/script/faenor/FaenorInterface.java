@@ -44,9 +44,7 @@ public class FaenorInterface implements EngineInterface
 	public static FaenorInterface getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new FaenorInterface();
-		}
 		return _instance;
 	}
 
@@ -73,9 +71,7 @@ public class FaenorInterface implements EngineInterface
 	{
 		L2NpcTemplate npc = npcTable.getTemplate(npcID);
 		if (npc == null)
-		{
 			throw new NullPointerException();
-		}
 		L2DropData drop = new L2DropData();
 		drop.setItemId(itemID);
 		drop.setMinDrop(min);
@@ -96,9 +92,8 @@ public class FaenorInterface implements EngineInterface
 		L2NpcTemplate npc = npcTable.getTemplate(npcID);
 		if (npc == null)
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.warning("Npc doesnt Exist");
-			}
 			throw new NullPointerException();
 		}
 		L2DropData drop = new L2DropData();
@@ -118,19 +113,15 @@ public class FaenorInterface implements EngineInterface
 	 */
 	public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep)
 	{
-		if (sweep) {
+		if (sweep)
 			addDrop(npc, drop, -1);
-		} else
+		else
 		{
 			int maxCategory = -1;
-			if (npc.getDropData() != null) {
+			if (npc.getDropData() != null)
 				for (L2DropCategory cat : npc.getDropData())
-				{
-					if (maxCategory < cat.getCategoryType()) {
+					if (maxCategory < cat.getCategoryType())
 						maxCategory = cat.getCategoryType();
-					}
-				}
-			}
 			maxCategory++;
 			npc.addDropData(drop, maxCategory);
 		}
@@ -155,21 +146,13 @@ public class FaenorInterface implements EngineInterface
 	{
 		L2NpcTemplate npc = npcTable.getTemplate(npcID);
 		if (npc == null)
-		{
 			return null;
-		}
 		List<L2DropData> questDrops = new FastList<L2DropData>();
-		if (npc.getDropData() != null) {
-			for (L2DropCategory cat : npc.getDropData()) {
+		if (npc.getDropData() != null)
+			for (L2DropCategory cat : npc.getDropData())
 				for (L2DropData drop : cat.getAllDrops())
-				{
 					if (drop.getQuestID() != null)
-					{
 						questDrops.add(drop);
-					}
-				}
-			}
-		}
 		return questDrops;
 	}
 

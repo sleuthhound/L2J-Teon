@@ -38,9 +38,8 @@ public class WorldPathFinding extends PathFinding
 
 	public static WorldPathFinding getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new WorldPathFinding();
-		}
 		return _instance;
 	}
 

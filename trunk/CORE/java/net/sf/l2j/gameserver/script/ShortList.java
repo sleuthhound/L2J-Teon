@@ -22,13 +22,9 @@ public class ShortList
 	public static short[] parse(String range)
 	{
 		if (range.contains("-"))
-		{
 			return getShortList(range.split("-"));
-		}
 		else if (range.contains(","))
-		{
 			return getShortList(range.split(","));
-		}
 		short[] list = { getShort(range) };
 		return list;
 	}
@@ -41,9 +37,8 @@ public class ShortList
 	private static short[] getShortList(String[] numbers)
 	{
 		short[] list = new short[numbers.length];
-		for (int i = 0; i < list.length; i++) {
+		for (int i = 0; i < list.length; i++)
 			list[i] = getShort(numbers[i]);
-		}
 		return list;
 	}
 }

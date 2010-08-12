@@ -40,16 +40,11 @@ public class FaenorWorldDataParser extends FaenorParser
 	@Override
 	public void parseScript(Node eventNode, ScriptContext context)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.info("Parsing WorldData");
-		}
 		for (Node node = eventNode.getFirstChild(); node != null; node = node.getNextSibling())
-		{
 			if (isNodeName(node, PET_DATA))
-			{
 				parsePetData(node, context);
-			}
-		}
 	}
 
 	public class PetData
@@ -76,12 +71,8 @@ public class FaenorWorldDataParser extends FaenorParser
 			petData.levelStart = levelRange[0];
 			petData.levelEnd = levelRange[1];
 			for (Node node = petNode.getFirstChild(); node != null; node = node.getNextSibling())
-			{
 				if (isNodeName(node, "Stat"))
-				{
 					parseStat(node, petData);
-				}
-			}
 			_bridge.addPetData(context, petData.petId, petData.levelStart, petData.levelEnd, petData.statValues);
 		}
 		catch (Exception e)
@@ -99,13 +90,11 @@ public class FaenorWorldDataParser extends FaenorParser
 		{
 			String statName = attribute(stat, "Name");
 			for (Node node = stat.getFirstChild(); node != null; node = node.getNextSibling())
-			{
 				if (isNodeName(node, "Formula"))
 				{
 					String formula = parseForumla(node);
 					petData.statValues.put(statName, formula);
 				}
-			}
 		}
 		catch (Exception e)
 		{
