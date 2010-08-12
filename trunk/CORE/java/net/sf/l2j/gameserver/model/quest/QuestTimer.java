@@ -28,14 +28,12 @@ public class QuestTimer
 	{
 		public void run()
 		{
-			if (this == null || !getIsActive()) {
+			if (this == null || !getIsActive())
 				return;
-			}
 			try
 			{
-				if (!getIsRepeating()) {
+				if (!getIsRepeating())
 					cancel();
-				}
 				getQuest().notifyEvent(getName(), getNpc(), getPlayer());
 			}
 			catch (Throwable t)
@@ -63,11 +61,10 @@ public class QuestTimer
 		_player = player;
 		_npc = npc;
 		_isRepeating = repeating;
-		if (repeating) {
+		if (repeating)
 			_schedular = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ScheduleTimerTask(), time, time); // Prepare auto end task
-		} else {
+		else
 			_schedular = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTimerTask(), time); // Prepare auto end task
-		}
 	}
 
 	public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player)
@@ -85,9 +82,8 @@ public class QuestTimer
 	public void cancel()
 	{
 		_isActive = false;
-		if (_schedular != null) {
+		if (_schedular != null)
 			_schedular.cancel(false);
-		}
 		getQuest().removeQuestTimer(this);
 	}
 
@@ -105,12 +101,10 @@ public class QuestTimer
 	 */
 	public boolean isMatch(Quest quest, String name, L2NpcInstance npc, L2PcInstance player)
 	{
-		if (quest == null || name == null) {
+		if (quest == null || name == null)
 			return false;
-		}
-		if (quest != getQuest() || name.compareToIgnoreCase(getName()) != 0) {
+		if (quest != getQuest() || name.compareToIgnoreCase(getName()) != 0)
 			return false;
-		}
 		return npc == getNpc() && player == getPlayer();
 	}
 

@@ -56,7 +56,6 @@ public class RaidFightManager
 			seconds--; // here because we don't want to see two time announce
 			// at the same time
 			if (L2RaidEvent.isParticipating())
-			{
 				switch (seconds)
 				{
 					case 3600: // 1 hour left
@@ -83,10 +82,8 @@ public class RaidFightManager
 						Announcements.getInstance().announceToAll("L2Raid Event: " + seconds + " second(s) untill Boss Disapears!");
 						break;
 				}
-			}
 			long oneSecWaitStart = System.currentTimeMillis();
 			while (oneSecWaitStart + 1000L > System.currentTimeMillis())
-			{
 				try
 				{
 					Thread.sleep(1);
@@ -94,7 +91,6 @@ public class RaidFightManager
 				catch (InterruptedException ie)
 				{
 				}
-			}
 		}
 	}
 }

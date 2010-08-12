@@ -173,13 +173,12 @@ public class L2RaidEvent
 	{
 		setState(EventState.STARTING);
 		// Increase the number of Current Events.
-		if (!L2EventManagerInstance.addEvent()) {
+		if (!L2EventManagerInstance.addEvent())
 			return;
-		}
 		// Set the coordinates for the Event.
-		if (setCoords(_player)) {
+		if (setCoords(_player))
 			;
-		} else
+		else
 		{
 			L2EventManagerInstance.removeEvent();
 			return;
@@ -203,11 +202,10 @@ public class L2RaidEvent
 		if (_ce == 0 || _ce > Config.RAID_SYSTEM_MAX_EVENTS)
 		{
 			String reason = null;
-			if (_ce == 0) {
+			if (_ce == 0)
 				reason = "Current Events = 0.";
-			} else if (_ce > Config.RAID_SYSTEM_MAX_EVENTS) {
+			else if (_ce > Config.RAID_SYSTEM_MAX_EVENTS)
 				reason = "Too many Events going on";
-			}
 			player.sendMessage("Raid Engines [setCoords()]: Error while setting spawn positions for players and Monsters. Reason: " + reason);
 			return false;
 		}
@@ -238,9 +236,8 @@ public class L2RaidEvent
 		}
 		for (L2PcInstance member : _participatingPlayers)
 		{
-			if (member == null) {
+			if (member == null)
 				continue;
-			}
 			switch (_eventType)
 			{
 				case 1:
@@ -296,9 +293,8 @@ public class L2RaidEvent
 		if (_eventType == 1)
 		{
 			int previousPoints = player.getEventPoints();
-			if (Config.RAID_SYSTEM_GIVE_BUFFS) {
+			if (Config.RAID_SYSTEM_GIVE_BUFFS)
 				L2BufferTeonInstance.makeBuffs(player, buffList, efector, false);
-			}
 			player.setEventPoints(player.getEventPoints() - eventPoints);
 			player.sendMessage("Event Manager: " + eventPoints + " Event Points have Been used. " + "You had " + previousPoints + " and now you have " + player.getEventPoints() + "Event Points.");
 		}
@@ -318,13 +314,11 @@ public class L2RaidEvent
 			{
 				// Define the previous points for each member of the clan.
 				int previousPoints;
-				if (member == null) {
+				if (member == null)
 					continue;
-				}
 				// Apply the Buffs if allowed
-				if (Config.RAID_SYSTEM_GIVE_BUFFS) {
+				if (Config.RAID_SYSTEM_GIVE_BUFFS)
 					L2BufferTeonInstance.makeBuffs(member, buffList, efector, false);
-				}
 				/*
 				 * In this case we will generate an HTML to notify the member of the action taken. 1. In the first case, we will check if the subject has enough Event Points as to pay the Buffs, and enroll into the event. 2. If that's not the case we will proceed into the first IF: 2a. The even points will be replaced by 0 since the player doesn't have enough event points to pay the normal quota.
 				 * 2b. We will notify him of this situation. We will also deduce the missing points from other Clan Members. (Sharing is good right? xD) 3. If 1 is Affirmative we will proceed onto the second IF: 3a. Deduction of event points = to what's needed to participate in the event/online clan members. 3b. Notify this situation and inform the player of the amount of points that he/she has at
@@ -367,12 +361,10 @@ public class L2RaidEvent
 			// individualPrice = Math.round(individualPrice);
 			for (L2PcInstance member : _participatingPlayers)
 			{
-				if (member == null) {
+				if (member == null)
 					continue;
-				}
-				if (Config.RAID_SYSTEM_GIVE_BUFFS) {
+				if (Config.RAID_SYSTEM_GIVE_BUFFS)
 					L2BufferTeonInstance.makeBuffs(member, buffList, efector, false);
-				}
 				member.inPartyEvent = true;
 				if (individualPrice > member.getEventPoints())
 				{
@@ -423,16 +415,13 @@ public class L2RaidEvent
 	 */
 	private static void startEvent(L2PcInstance player, int npcId, int ammount)
 	{
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		int currentEvents = L2EventManagerInstance._currentEvents;
-		if (currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS) {
+		if (currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS)
 			return;
-		}
-		if (currentEvents == 0) {
+		if (currentEvents == 0)
 			return;
-		}
 		setState(EventState.STARTED);
 		// Teleport Player or Members depending on the Event Type.
 		doTeleport(player, _locX, _locY, _locZ, 10, false);
@@ -489,16 +478,14 @@ public class L2RaidEvent
 		L2NpcTemplate template;
 		int monsterTemplate = monsterId;
 		template = NpcTable.getInstance().getTemplate(monsterTemplate);
-		if (template == null) {
+		if (template == null)
 			return;
-		}
 		_eventMobs = mobCount;
 		// Support for multiple spawns.
 		if (mobCount > 1)
 		{
 			int n = 1;
 			while (n <= mobCount)
-			{
 				try
 				{
 					L2Spawn spawn = new L2Spawn(template);
@@ -509,11 +496,10 @@ public class L2RaidEvent
 					spawn.setAmount(1);
 					spawn.setHeading(0);
 					spawn.setRespawnDelay(respawnDelay);
-					if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null) {
+					if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
 						RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getStatsSet().getDouble("baseHpMax"), template.getStatsSet().getDouble("baseMpMax"), false);
-					} else {
+					else
 						SpawnTable.getInstance().addNewSpawn(spawn, false);
-					}
 					spawn.init();
 					/*
 					 * Define the properties of every spawn. TODO: Change the Mob statistics according on Event Participants and Server Rates.
@@ -533,7 +519,6 @@ public class L2RaidEvent
 					_log.warning("L2EventManager: Exception Upon MULTIPLE NPC SPAWN.");
 					e.printStackTrace();
 				}
-			}
 			setState(EventState.PARTICIPATING);
 		}
 		else
@@ -547,11 +532,10 @@ public class L2RaidEvent
 				spawn.setAmount(1);
 				spawn.setHeading(0);
 				spawn.setRespawnDelay(respawnDelay);
-				if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null) {
+				if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
 					RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getStatsSet().getDouble("baseHpMax"), template.getStatsSet().getDouble("baseMpMax"), false);
-				} else {
+				else
 					SpawnTable.getInstance().addNewSpawn(spawn, false);
-				}
 				spawn.init();
 				_lastNpcSpawn = spawn.getLastSpawn();
 				_npcSpawn = spawn;
@@ -611,9 +595,8 @@ public class L2RaidEvent
 	 */
 	public static boolean checkPossibleReward()
 	{
-		if (_eventMobs == 0) {
+		if (_eventMobs == 0)
 			return false;
-		}
 		if (_eventMobs < 1)
 		{
 			_eventMobs = 0;
@@ -636,11 +619,10 @@ public class L2RaidEvent
 	 */
 	public static void chooseReward(L2PcInstance player)
 	{
-		if (_eventMobs == 1) {
+		if (_eventMobs == 1)
 			_eventMobs = 0;
-		} else {
+		else
 			return;
-		}
 		loadData(_rewardLevel);
 		// Case Single Event
 		if (_eventType == 1)
@@ -652,38 +634,33 @@ public class L2RaidEvent
 			clearFromEvent(player);
 			// Teleport back to previous-event location.
 			doTeleport(player, _pX, _pY, _pZ, 10, true);
-			if (L2EventManagerInstance._currentEvents != 0) {
+			if (L2EventManagerInstance._currentEvents != 0)
 				L2EventManagerInstance._currentEvents = L2EventManagerInstance._currentEvents - 1;
-			}
 		}
 		// Case Clan Event
 		if (_eventType == 2)
 		{
 			for (L2PcInstance member : _participatingPlayers)
 			{
-				if (member == null) {
+				if (member == null)
 					continue;
-				}
 				handOutItems(member, _first_id, _first_ammount, _second_id, _second_ammount, _event_ammount);
 				doTeleport(member, _pX, _pY, _pZ, 10, true);
 			}
 			unSpawnNPC();
 			clearFromEvent(player);
-			if (L2EventManagerInstance._currentEvents != 0) {
+			if (L2EventManagerInstance._currentEvents != 0)
 				L2EventManagerInstance._currentEvents = L2EventManagerInstance._currentEvents - 1;
-			}
 		}
 		// Case Party Event.
 		if (_eventType == 3)
 		{
 			if (player.getParty() != null)
-			{
 				for (L2PcInstance member : _participatingPlayers)
 				{
 					handOutItems(member, _first_id, _first_ammount, _second_id, _second_ammount, _event_ammount);
 					doTeleport(member, _pX, _pY, _pZ, 10, true);
 				}
-			}
 			else
 			{
 				player.sendMessage("You don't have a party anymore?! Well then the rewards go for you only.");
@@ -694,16 +671,14 @@ public class L2RaidEvent
 				clearFromEvent(player);
 				// Teleport back to previous-event location.
 				doTeleport(player, _pX, _pY, _pZ, 10, true);
-				if (L2EventManagerInstance._currentEvents != 0) {
+				if (L2EventManagerInstance._currentEvents != 0)
 					L2EventManagerInstance._currentEvents = L2EventManagerInstance._currentEvents - 1;
-				}
 				return;
 			}
 			unSpawnNPC();
 			clearFromEvent(player);
-			if (L2EventManagerInstance._currentEvents != 0) {
+			if (L2EventManagerInstance._currentEvents != 0)
 				L2EventManagerInstance._currentEvents = L2EventManagerInstance._currentEvents - 1;
-			}
 		}
 		return;
 	}
@@ -723,46 +698,35 @@ public class L2RaidEvent
 	private synchronized static void clearFromEvent(L2PcInstance player)
 	{
 		setState(EventState.INACTIVATING);
-		if (_eventType != 1 && _eventType != 2 && _eventType != 3) {
+		if (_eventType != 1 && _eventType != 2 && _eventType != 3)
 			return;
-		}
 		if (_eventType == 1)
-		{
 			player.inSoloEvent = false;
-		}
 		if (_eventType == 2)
-		{
 			if (_participatingPlayers.size() != 0)
 			{
 				for (L2PcInstance member : _participatingPlayers)
 				{
-					if (member == null) {
+					if (member == null)
 						continue;
-					}
 					member.inClanEvent = false;
 				}
 				// Clear Clan Members from event.
-				if (_participatingPlayers.size() != 0) {
+				if (_participatingPlayers.size() != 0)
 					_participatingPlayers.clear();
-				}
 			}
-		}
 		if (_eventType == 3)
-		{
 			if (player.getParty() != null)
 			{
 				player.inPartyEvent = false;
 				for (L2PcInstance member : _participatingPlayers)
 				{
-					if (member == null) {
+					if (member == null)
 						continue;
-					}
 					member.inPartyEvent = false;
 				}
-			} else {
+			} else
 				player.inPartyEvent = false;
-			}
-		}
 		setState(EventState.INACTIVE);
 	}
 
@@ -781,21 +745,16 @@ public class L2RaidEvent
 		boolean hasItem1 = false;
 		boolean hasItem2 = false;
 		boolean hasEventPoints = false;
-		if (item1 == 0 && item2 == 0 && eventPoints == 0) {
+		if (item1 == 0 && item2 == 0 && eventPoints == 0)
 			return;
-		}
-		if (item1 != 0) {
+		if (item1 != 0)
 			hasItem1 = true;
-		}
-		if (item2 != 0) {
+		if (item2 != 0)
 			hasItem2 = true;
-		}
-		if (eventPoints != 0) {
+		if (eventPoints != 0)
 			hasEventPoints = true;
-		}
 		PcInventory inv = player.getInventory();
 		if (hasItem1)
-		{
 			if (item1 == 57)
 			{
 				inv.addAdena("Event - Adena", ammount1, player, player);
@@ -807,23 +766,18 @@ public class L2RaidEvent
 			}
 			else
 			{
-				if (ItemTable.getInstance().createDummyItem(item1).isStackable()) {
+				if (ItemTable.getInstance().createDummyItem(item1).isStackable())
 					inv.addItem("Event", item1, ammount1, player, player);
-				} else
-				{
-					for (int i = 0; i <= ammount1 - 1; i++) {
+				else
+					for (int i = 0; i <= ammount1 - 1; i++)
 						inv.addItem("Event", item1, ammount1, player, player);
-					}
-				}
 				SystemMessage smItem;
 				smItem = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				smItem.addItemName(item1);
 				smItem.addNumber(ammount1);
 				player.sendPacket(smItem);
 			}
-		}
 		if (hasItem2)
-		{
 			if (item2 == 57)
 			{
 				inv.addAdena("Event - Adena", ammount2, player, player);
@@ -835,21 +789,17 @@ public class L2RaidEvent
 			}
 			else
 			{
-				if (ItemTable.getInstance().createDummyItem(item2).isStackable()) {
+				if (ItemTable.getInstance().createDummyItem(item2).isStackable())
 					inv.addItem("Event", item2, ammount2, player, player);
-				} else
-				{
-					for (int i = 0; i <= ammount2 - 1; i++) {
+				else
+					for (int i = 0; i <= ammount2 - 1; i++)
 						inv.addItem("Event", item2, ammount2, player, player);
-					}
-				}
 				SystemMessage smItem;
 				smItem = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				smItem.addItemName(item2);
 				smItem.addNumber(ammount2);
 				player.sendPacket(smItem);
 			}
-		}
 		if (hasEventPoints)
 		{
 			player.setEventPoints(player.getEventPoints() + eventPoints);
@@ -878,9 +828,7 @@ public class L2RaidEvent
 			replyMSG.append("<tr><td>- " + ammount2 + " " + item2name + ".</td></tr><br>");
 		}
 		if (hasEventPoints)
-		{
 			replyMSG.append("<tr><td>- " + eventPoints + " Event Points.</td></tr><br>");
-		}
 		replyMSG.append("<br><tr><td>Congratulations!!</td></tr><br><br><br>");
 		replyMSG.append("<tr><td>Developed by: Polbat02.</td></tr>");
 		replyMSG.append("</body></html>");
@@ -1056,11 +1004,8 @@ public class L2RaidEvent
 	public static void sysMsgToAllParticipants(String message)
 	{
 		for (L2PcInstance player : _participatingPlayers)
-		{
-			if (player != null) {
+			if (player != null)
 				player.sendMessage(message);
-			}
-		}
 	}
 
 	private static void loadSpawns(int eventNum)
