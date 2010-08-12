@@ -42,9 +42,8 @@ class EffectRelax extends L2Effect
 		{
 			setRelax(true);
 			((L2PcInstance) getEffected()).sitDown();
-		} else {
+		} else
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
-		}
 		super.onStart();
 	}
 
@@ -63,17 +62,12 @@ class EffectRelax extends L2Effect
 	public boolean onActionTime()
 	{
 		boolean retval = true;
-		if (getEffected().isDead()) {
+		if (getEffected().isDead())
 			retval = false;
-		}
 		if (getEffected() instanceof L2PcInstance)
-		{
-			if (!((L2PcInstance) getEffected()).isSitting()) {
+			if (!((L2PcInstance) getEffected()).isSitting())
 				retval = false;
-			}
-		}
 		if (getEffected().getCurrentHp() + 1 > getEffected().getMaxHp())
-		{
 			if (getSkill().isToggle())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
@@ -83,10 +77,8 @@ class EffectRelax extends L2Effect
 				// ((L2PcInstance)getEffected()).standUp();
 				retval = false;
 			}
-		}
 		double manaDam = calc();
 		if (manaDam > getEffected().getCurrentMp())
-		{
 			if (getSkill().isToggle())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
@@ -95,19 +87,16 @@ class EffectRelax extends L2Effect
 				// ((L2PcInstance)getEffected()).standUp();
 				retval = false;
 			}
-		}
-		if (!retval) {
+		if (!retval)
 			setRelax(retval);
-		} else {
+		else
 			getEffected().reduceCurrentMp(manaDam);
-		}
 		return retval;
 	}
 
 	private void setRelax(boolean val)
 	{
-		if (getEffected() instanceof L2PcInstance) {
+		if (getEffected() instanceof L2PcInstance)
 			((L2PcInstance) getEffected()).setRelax(val);
-		}
 	}
 }

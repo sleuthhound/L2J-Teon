@@ -30,9 +30,8 @@ public class ConditionTargetClassIdRestriction extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
-		if (!(env.target instanceof L2PcInstance)) {
+		if (!(env.target instanceof L2PcInstance))
 			return true;
-		}
 		return !_classIds.contains(((L2PcInstance) env.target).getClassId().getId());
 	}
 }

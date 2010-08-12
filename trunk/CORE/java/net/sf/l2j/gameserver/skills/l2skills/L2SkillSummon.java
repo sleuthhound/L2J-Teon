@@ -55,16 +55,12 @@ public class L2SkillSummon extends L2Skill
 			if (_isCubic)
 			{
 				if (getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
-				{
 					return true; // Player is always able to cast mass
 					// cubic
 					// skill
-				}
 				int mastery = player.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
 				if (mastery < 0)
-				{
 					mastery = 0;
-				}
 				int count = player.getCubics().size();
 				if (count > mastery)
 				{
@@ -77,9 +73,7 @@ public class L2SkillSummon extends L2Skill
 			else
 			{
 				if (player.inObserverMode())
-				{
 					return false;
-				}
 				if (player.getPet() != null)
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
@@ -96,9 +90,7 @@ public class L2SkillSummon extends L2Skill
 	public void useSkill(L2Character caster, L2Object[] targets)
 	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
-		{
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) caster;
 		if (_npcId == 0)
 		{
@@ -108,21 +100,16 @@ public class L2SkillSummon extends L2Skill
 			return;
 		}
 		if (_isCubic)
-		{
 			if (targets.length > 1) // Mass cubic skill
 			{
 				for (L2Object obj : targets)
 				{
 					if (!(obj instanceof L2PcInstance))
-					{
 						continue;
-					}
 					L2PcInstance player = (L2PcInstance) obj;
 					int mastery = player.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
 					if (mastery < 0)
-					{
 						mastery = 0;
-					}
 					if (mastery == 0 && player.getCubics().size() > 0)
 					{
 						// Player can have only 1 cubic - we shuld replace old
@@ -135,13 +122,9 @@ public class L2SkillSummon extends L2Skill
 						player.getCubics().clear();
 					}
 					if (player.getCubics().size() > mastery)
-					{
 						continue;
-					}
 					if (player.getCubics().containsKey(_npcId))
-					{
 						player.sendMessage("You already have such cubic");
-					}
 					else
 					{
 						player.addCubic(_npcId, getLevel());
@@ -155,15 +138,11 @@ public class L2SkillSummon extends L2Skill
 			{
 				int mastery = activeChar.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
 				if (mastery < 0)
-				{
 					mastery = 0;
-				}
 				if (activeChar.getCubics().size() > mastery)
 				{
 					if (Config.DEBUG)
-					{
 						_log.fine("player can't summon any more cubics. ignore summon skill");
-					}
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED));
 					return;
 				}
@@ -176,25 +155,18 @@ public class L2SkillSummon extends L2Skill
 				activeChar.broadcastUserInfo();
 				return;
 			}
-		}
 		if (activeChar.getPet() != null || activeChar.isMounted())
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine("player has a pet already. ignore summon skill");
-			}
 			return;
 		}
 		L2SummonInstance summon;
 		L2NpcTemplate summonTemplate = NpcTable.getInstance().getTemplate(_npcId);
 		if (summonTemplate.type.equalsIgnoreCase("L2SiegeSummon"))
-		{
 			summon = new L2SiegeSummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, this);
-		}
 		else
-		{
 			summon = new L2SummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, this);
-		}
 		summon.setName(summonTemplate.name);
 		summon.setTitle(activeChar.getName());
 		summon.setExpPenalty(_expPenalty);
@@ -202,11 +174,8 @@ public class L2SkillSummon extends L2Skill
 		{
 			summon.getStat().setExp(Experience.LEVEL[Experience.LEVEL.length - 1]);
 			_log.warning("Summon (" + summon.getName() + ") NpcID: " + summon.getNpcId() + " has a level above 75. Please rectify.");
-		}
-		else
-		{
+		} else
 			summon.getStat().setExp(Experience.LEVEL[(summon.getLevel() % Experience.LEVEL.length)]);
-		}
 		summon.setCurrentHp(summon.getMaxHp());
 		summon.setCurrentMp(summon.getMaxMp());
 		summon.setHeading(activeChar.getHeading());

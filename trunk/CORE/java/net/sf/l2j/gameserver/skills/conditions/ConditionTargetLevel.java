@@ -31,9 +31,8 @@ public class ConditionTargetLevel extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
-		if (env.target == null) {
+		if (env.target == null)
 			return false;
-		}
 		return env.target.getLevel() >= _level;
 	}
 }

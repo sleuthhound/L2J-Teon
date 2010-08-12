@@ -26,12 +26,10 @@ public class ConditionLogicOr extends Condition
 
 	public void add(Condition condition)
 	{
-		if (condition == null) {
+		if (condition == null)
 			return;
-		}
-		if (getListener() != null) {
+		if (getListener() != null)
 			condition.setListener(this);
-		}
 		final int len = conditions.length;
 		final Condition[] tmp = new Condition[len + 1];
 		System.arraycopy(conditions, 0, tmp, 0, len);
@@ -43,17 +41,11 @@ public class ConditionLogicOr extends Condition
 	void setListener(ConditionListener listener)
 	{
 		if (listener != null)
-		{
-			for (Condition c : conditions) {
+			for (Condition c : conditions)
 				c.setListener(this);
-			}
-		}
 		else
-		{
-			for (Condition c : conditions) {
+			for (Condition c : conditions)
 				c.setListener(null);
-			}
-		}
 		super.setListener(listener);
 	}
 
@@ -61,11 +53,8 @@ public class ConditionLogicOr extends Condition
 	public boolean testImpl(Env env)
 	{
 		for (Condition c : conditions)
-		{
-			if (c.test(env)) {
+			if (c.test(env))
 				return true;
-			}
-		}
 		return false;
 	}
 }

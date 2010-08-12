@@ -29,9 +29,8 @@ public abstract class Task
 
 	public void initializate()
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.info("Task" + getName() + " inializate");
-		}
 	}
 
 	@SuppressWarnings("unchecked")

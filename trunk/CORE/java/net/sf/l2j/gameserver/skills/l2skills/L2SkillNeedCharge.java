@@ -38,9 +38,7 @@ public class L2SkillNeedCharge extends L2Skill
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())
-		{
 			return;
-		}
 		// get the effect
 		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
 		if (effect == null || effect.numCharges < numCharges)
@@ -56,15 +54,10 @@ public class L2SkillNeedCharge extends L2Skill
 		activeChar.updateEffectIcons();
 		// maybe exit? no charge
 		if (effect.numCharges == 0)
-		{
 			effect.exit();
-		}
 		// apply effects
 		if (hasEffects())
-		{
-			for (L2Object target : targets) {
+			for (L2Object target : targets)
 				getEffects(activeChar, (L2Character) target);
-			}
-		}
 	}
 }

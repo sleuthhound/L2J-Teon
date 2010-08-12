@@ -61,13 +61,9 @@ public class EffectForce extends L2Effect
 	{
 		forces--;
 		if (forces < 1)
-		{
 			exit();
-		}
 		else
-		{
 			updateBuff();
-		}
 	}
 
 	public void updateBuff()

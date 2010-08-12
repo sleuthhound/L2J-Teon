@@ -31,27 +31,22 @@ public class L2SkillSeed extends L2Skill
 	@Override
 	public void useSkill(L2Character caster, L2Object[] targets)
 	{
-		if (caster.isAlikeDead()) {
+		if (caster.isAlikeDead())
 			return;
-		}
 		// Update Seeds Effects
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
-			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB) {
+			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
-			}
 			EffectSeed oldEffect = (EffectSeed) target.getFirstEffect(getId());
-			if (oldEffect == null) {
+			if (oldEffect == null)
 				getEffects(caster, target);
-			} else {
+			else
 				oldEffect.increasePower();
-			}
 			L2Effect[] effects = target.getAllEffects();
-			for (L2Effect effect : effects) {
-				if (effect.getEffectType() == L2Effect.EffectType.SEED) {
+			for (L2Effect effect : effects)
+				if (effect.getEffectType() == L2Effect.EffectType.SEED)
 					effect.rescheduleEffect();
-				}
-			}
 		}
 	}
 }

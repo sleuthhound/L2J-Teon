@@ -56,34 +56,27 @@ public class KnownListUpdateTaskManager
         	try
             {
             	for (L2WorldRegion regions[] : L2World.getInstance().getAllWorldRegions())
-            	{
-            		for (L2WorldRegion r : regions) // go through all world regions
-            		{
-                        // avoid stopping update if something went wrong in updateRegion()
+					for (L2WorldRegion r : regions)
+						// avoid stopping update if something went wrong in updateRegion()
             			try
             			{
-	            			if (r.isActive()) // and check only if the region is active
-	            			{
-	        					updateRegion(r, (_fullUpdateTimer == FULL_UPDATE_TIMER), updatePass);
-	            			}
+	            			if (r.isActive())
+								updateRegion(r, (_fullUpdateTimer == FULL_UPDATE_TIMER), updatePass);
             			}
                         catch (Exception e)
                         {
                             e.printStackTrace();
                         }
-            		}
-            	}
             }
             catch (Exception e)
             {
             	_log.warning(e.toString());
 			}
             updatePass = !updatePass;
-            if (_fullUpdateTimer > 0) {
+            if (_fullUpdateTimer > 0)
 				_fullUpdateTimer--;
-			} else {
+			else
 				_fullUpdateTimer = FULL_UPDATE_TIMER;
-			}
             ThreadPoolManager.getInstance().scheduleAi(new KnownListUpdate(), Config.KNOWNLIST_UPDATE_INTERVAL);
         }
     }
@@ -92,9 +85,8 @@ public class KnownListUpdateTaskManager
     {
     	for (L2Object object : region.getVisibleObjects()) // and for all members in region
 		{
-        	if (object == null || !object.isVisible()) {
+        	if (object == null || !object.isVisible())
 				continue;   // skip dying objects
-			}
         	if (forgetObjects)
         	{
         		object.getKnownList().forgetObjects((object instanceof L2PlayableInstance || Config.GUARD_ATTACK_AGGRO_MOB && object instanceof L2GuardInstance || fullUpdate));
@@ -102,32 +94,17 @@ public class KnownListUpdateTaskManager
         	}
         	if (object instanceof L2PlayableInstance || Config.GUARD_ATTACK_AGGRO_MOB && object instanceof L2GuardInstance || fullUpdate)
         	{
-        		for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
-        		{
-        			for (L2Object _object : regi.getVisibleObjects())
-        			{
-        				if (_object != object)
-        				{
-        					object.getKnownList().addKnownObject(_object);
-        				}
-        			}
-        		}
+        		for (L2WorldRegion regi : region.getSurroundingRegions())
+					for (L2Object _object : regi.getVisibleObjects())
+						if (_object != object)
+							object.getKnownList().addKnownObject(_object);
         	}
         	else if (object instanceof L2Character)
-        	{
-        		for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
-        		{
-        			if (regi.isActive()) {
+				for (L2WorldRegion regi : region.getSurroundingRegions())
+					if (regi.isActive())
 						for (L2Object _object : regi.getVisiblePlayable())
-						{
 							if (_object != object)
-							{
 								object.getKnownList().addKnownObject(_object);
-							}
-						}
-					}
-        		}
-        	}
 		}
     }
     private static final class SingletonHolder

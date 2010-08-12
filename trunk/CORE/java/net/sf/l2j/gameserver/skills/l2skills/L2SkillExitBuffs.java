@@ -41,9 +41,7 @@ public class L2SkillExitBuffs extends L2Skill
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())
-		{
 			return;
-		}
 		// get the effect
 		EffectCharge effect = (EffectCharge) activeChar.getFirstEffect(chargeSkillId);
 		if (effect == null || effect.numCharges < numCharges)
@@ -59,9 +57,7 @@ public class L2SkillExitBuffs extends L2Skill
 		activeChar.updateEffectIcons();
 		// maybe exit? no charge
 		if (effect.numCharges == 0)
-		{
 			effect.exit();
-		}
 		// what skills we need to debaff?
 		String[] buffList = exitBuffs.split(";");
 		// debaff it
@@ -69,12 +65,8 @@ public class L2SkillExitBuffs extends L2Skill
 		{
 			int effectId = Effect.getSkill().getId();
 			for (String buffItem : buffList)
-			{
 				if (Integer.parseInt(buffItem) == effectId)
-				{
 					Effect.exit();
-				}
-			}
 		}
 	}
 }

@@ -76,11 +76,8 @@ public enum Stats
 	{
 		name = name.intern();
 		for (Stats s : values())
-		{
-			if (s.getValue().equals(name)) {
+			if (s.getValue().equals(name))
 				return s;
-			}
-		}
 		throw new NoSuchElementException("Unknown name '" + name + "' for enum BaseStats");
 	}
 }
