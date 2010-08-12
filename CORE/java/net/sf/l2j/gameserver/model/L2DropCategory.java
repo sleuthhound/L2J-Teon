@@ -53,10 +53,8 @@ public class L2DropCategory
 		else
 		{
 			if (Config.CUSTOM_DROPLIST_TABLE)
-			{
 				// If the drop exists is replaced
 				for (L2DropData d : _drops)
-				{
 					if (d.getItemId() == drop.getItemId())
 					{
 						d.setMinDrop(drop.getMinDrop());
@@ -73,8 +71,6 @@ public class L2DropCategory
 						found = true;
 						break;
 					}
-				}
-			}
 			if (!found)
 			{
 				_drops.add(drop);
@@ -108,20 +104,18 @@ public class L2DropCategory
 	// (but may return 0 or many drops)
 	public int getCategoryChance()
 	{
-		if (getCategoryType() >= 0) {
+		if (getCategoryType() >= 0)
 			return _categoryChance;
-		} else {
+		else
 			return L2DropData.MAX_CHANCE;
-		}
 	}
 
 	public int getCategoryBalancedChance()
 	{
-		if (getCategoryType() >= 0) {
+		if (getCategoryType() >= 0)
 			return _categoryBalancedChance;
-		} else {
+		else
 			return L2DropData.MAX_CHANCE;
-		}
 	}
 
 	public int getCategoryType()
@@ -139,13 +133,11 @@ public class L2DropCategory
 		FastList<L2DropData> drops = new FastList<L2DropData>();
 		int subCatChance = 0;
 		for (L2DropData drop : getAllDrops())
-		{
 			if (drop.getItemId() == 57 || drop.getItemId() == 6360 || drop.getItemId() == 6361 || drop.getItemId() == 6362)
 			{
 				drops.add(drop);
 				subCatChance += drop.getChance();
 			}
-		}
 		// among the results choose one.
 		int randomIndex = Rnd.get(subCatChance);
 		int sum = 0;
@@ -179,9 +171,8 @@ public class L2DropCategory
 		for (L2DropData drop : getAllDrops())
 		{
 			sum += Math.min((drop.getChance() * Config.RATE_DROP_ITEMS), L2DropData.MAX_CHANCE);
-			if (sum >= randomIndex) {
+			if (sum >= randomIndex)
 				return drop;
-			}
 		}
 		return null;
 	}

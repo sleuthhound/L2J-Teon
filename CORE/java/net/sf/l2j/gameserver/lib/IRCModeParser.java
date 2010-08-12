@@ -133,9 +133,7 @@ public class IRCModeParser
 		{
 			c = modes.charAt(i);
 			if (c == '+' || c == '-')
-			{
 				operator = c;
-			}
 			else
 			{
 				// add the operator (which was found earlier in the loop)
@@ -144,16 +142,12 @@ public class IRCModeParser
 				if (c == 'o' || c == 'v' || c == 'b' || c == 'k'
 				// arg
 						|| c == 'l' && operator == '+')
-				{ // key comes
 					// with arg if
 					// '+'
 					argsArr[n] = j < argsTmp.length ? argsTmp[j++] : "";
-				}
 				else
-				{
 					argsArr[n] = ""; // null if mode has no argument (for
 					// example m, p, s)
-				}
 				n++; // increase n, not i. n is used to fill the arrays
 			}
 		}
@@ -170,11 +164,9 @@ public class IRCModeParser
 	private int getModesCount(String modes)
 	{
 		int count = 0;
-		for (int i = 0, c, len = modes.length(); i < len; i++) {
-			if ((c = modes.charAt(i)) != '+' && c != '-') {
+		for (int i = 0, c, len = modes.length(); i < len; i++)
+			if ((c = modes.charAt(i)) != '+' && c != '-')
 				count++;
-			}
-		}
 		return count;
 	}
 

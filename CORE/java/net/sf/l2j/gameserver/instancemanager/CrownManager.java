@@ -34,9 +34,8 @@ public class CrownManager
 
 	public static final CrownManager getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new CrownManager();
-		}
 		return _instance;
 	}
 
@@ -47,47 +46,35 @@ public class CrownManager
 
 	public void checkCrowns(L2Clan clan)
 	{
-		if (clan == null) {
+		if (clan == null)
 			return;
-		}
 		for (L2ClanMember member : clan.getMembers())
-		{
 			if (member != null && member.isOnline() && member.getPlayerInstance() != null)
-			{
 				checkCrowns(member.getPlayerInstance());
-			}
-		}
 	}
 
 	public void checkCrowns(L2PcInstance activeChar)
 	{
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		boolean isLeader = false;
 		int crownId = -1;
 		L2Clan activeCharClan = activeChar.getClan();
 		// L2EMU_EDIT_BEGIN
 		L2ClanMember activeCharClanLeader;
-		if (activeCharClan != null) {
+		if (activeCharClan != null)
 			activeCharClanLeader = activeChar.getClan().getLeader();
-		} else {
+		else
 			activeCharClanLeader = null;
-		}
 		// L2EMU_EDIT_END
 		if (activeCharClan != null)
 		{
 			Castle activeCharCastle = CastleManager.getInstance().getCastleByOwner(activeCharClan);
 			if (activeCharCastle != null)
-			{
 				crownId = CrownTable.getCrownId(activeCharCastle.getCastleId());
-			}
 			// L2EMU_EDIT
 			if (activeCharClanLeader != null && activeCharClanLeader.getObjectId() == activeChar.getObjectId())
-			// L2EMU_EDIT
-			{
 				isLeader = true;
-			}
 		}
 		if (crownId > 0)
 		{
@@ -105,11 +92,9 @@ public class CrownManager
 		boolean alreadyFoundCirclet = false;
 		boolean alreadyFoundCrown = false;
 		for (L2ItemInstance item : activeChar.getInventory().getItems())
-		{
 			if (CrownTable.getCrownList().contains(item.getItemId()))
 			{
 				if (crownId > 0)
-				{
 					if (item.getItemId() == crownId)
 					{
 						if (!alreadyFoundCirclet)
@@ -119,17 +104,13 @@ public class CrownManager
 						}
 					}
 					else if (item.getItemId() == 6841 && isLeader)
-					{
 						if (!alreadyFoundCrown)
 						{
 							alreadyFoundCrown = true;
 							continue;
 						}
-					}
-				}
 				activeChar.destroyItem("Removing Crown", item, activeChar, true);
 				activeChar.getInventory().updateDatabase();
 			}
-		}
 	}
 }

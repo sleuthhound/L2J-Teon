@@ -55,17 +55,13 @@ public class Lottery
 		_isStarted = false;
 		_enddate = System.currentTimeMillis();
 		if (Config.ALLOW_LOTTERY)
-		{
 			new startLottery().run();
-		}
 	}
 
 	public static Lottery getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new Lottery();
-		}
 		return _instance;
 	}
 
@@ -193,9 +189,7 @@ public class Lottery
 				}
 			}
 			if (Config.DEBUG)
-			{
 				_log.info("Lottery: Starting ticket sell for lottery #" + getId() + ".");
-			}
 			_isSellingTickets = true;
 			_isStarted = true;
 			Announcements.getInstance().announceToAll("Lottery tickets are now available for Lucky Lottery #" + getId() + ".");
@@ -256,9 +250,7 @@ public class Lottery
 		public void run()
 		{
 			if (Config.DEBUG)
-			{
 				_log.info("Lottery: Stopping ticket sell for lottery #" + getId() + ".");
-			}
 			_isSellingTickets = false;
 			Announcements.getInstance().announceToAll(new SystemMessage(SystemMessageId.LOTTERY_TICKET_SALES_TEMP_SUSPENDED));
 		}
@@ -274,9 +266,7 @@ public class Lottery
 		public void run()
 		{
 			if (Config.DEBUG)
-			{
 				_log.info("Lottery: Ending lottery #" + getId() + ".");
-			}
 			int[] luckynums = new int[5];
 			int luckynum = 0;
 			for (int i = 0; i < 5; i++)
@@ -287,36 +277,22 @@ public class Lottery
 					luckynum = Rnd.get(20) + 1;
 					found = false;
 					for (int j = 0; j < i; j++)
-					{
 						if (luckynums[j] == luckynum)
-						{
 							found = true;
-						}
-					}
 				}
 				luckynums[i] = luckynum;
 			}
 			if (Config.DEBUG)
-			{
 				_log.info("Lottery: The lucky numbers are " + luckynums[0] + ", " + luckynums[1] + ", " + luckynums[2] + ", " + luckynums[3] + ", " + luckynums[4] + ".");
-			}
 			int enchant = 0;
 			int type2 = 0;
 			for (int i = 0; i < 5; i++)
-			{
 				if (luckynums[i] < 17)
-				{
 					enchant += Math.pow(2, luckynums[i] - 1);
-				}
 				else
-				{
 					type2 += Math.pow(2, luckynums[i] - 17);
-				}
-			}
 			if (Config.DEBUG)
-			{
 				_log.info("Lottery: Encoded lucky numbers are " + enchant + ", " + type2);
-			}
 			int count1 = 0;
 			int count2 = 0;
 			int count3 = 0;
@@ -334,41 +310,27 @@ public class Lottery
 					int curenchant = rset.getInt("enchant_level") & enchant;
 					int curtype2 = rset.getInt("custom_type2") & type2;
 					if (curenchant == 0 && curtype2 == 0)
-					{
 						continue;
-					}
 					int count = 0;
 					for (int i = 1; i <= 16; i++)
 					{
 						int val = curenchant / 2;
 						if (val != (double) curenchant / 2)
-						{
 							count++;
-						}
 						int val2 = curtype2 / 2;
 						if (val2 != (double) curtype2 / 2)
-						{
 							count++;
-						}
 						curenchant = val;
 						curtype2 = val2;
 					}
 					if (count == 5)
-					{
 						count1++;
-					}
 					else if (count == 4)
-					{
 						count2++;
-					}
 					else if (count == 3)
-					{
 						count3++;
-					}
 					else if (count > 0)
-					{
 						count4++;
-					}
 				}
 				rset.close();
 				statement.close();
@@ -392,17 +354,11 @@ public class Lottery
 			int prize2 = 0;
 			int prize3 = 0;
 			if (count1 > 0)
-			{
 				prize1 = (int) ((getPrize() - prize4) * Config.ALT_LOTTERY_5_NUMBER_RATE / count1);
-			}
 			if (count2 > 0)
-			{
 				prize2 = (int) ((getPrize() - prize4) * Config.ALT_LOTTERY_4_NUMBER_RATE / count2);
-			}
 			if (count3 > 0)
-			{
 				prize3 = (int) ((getPrize() - prize4) * Config.ALT_LOTTERY_3_NUMBER_RATE / count3);
-			}
 			if (Config.DEBUG)
 			{
 				_log.info("Lottery: " + count1 + " players with all FIVE numbers each win " + prize1 + ".");
@@ -412,9 +368,7 @@ public class Lottery
 			}
 			int newprize = getPrize() - (prize1 + prize2 + prize3 + prize4);
 			if (Config.DEBUG)
-			{
 				_log.info("Lottery: Jackpot for next lottery is " + newprize + ".");
-			}
 			SystemMessage sm;
 			if (count1 > 0)
 			{
@@ -530,14 +484,10 @@ public class Lottery
 				{
 					int val = curenchant / 2;
 					if (val != (double) curenchant / 2)
-					{
 						count++;
-					}
 					int val2 = curtype2 / 2;
 					if (val2 != (double) curtype2 / 2)
-					{
 						count++;
-					}
 					curenchant = val;
 					curtype2 = val2;
 				}
@@ -562,9 +512,7 @@ public class Lottery
 						res[1] = 200;
 				}
 				if (Config.DEBUG)
-				{
 					_log.warning("count: " + count + ", id: " + id + ", enchant: " + enchant + ", type2: " + type2);
-				}
 			}
 			rset.close();
 			statement.close();

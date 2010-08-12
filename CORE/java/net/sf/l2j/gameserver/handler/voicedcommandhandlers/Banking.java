@@ -40,9 +40,7 @@ public class Banking implements IVoicedCommandHandler
 			return false;
 		}
 		if (command.equalsIgnoreCase("bank"))
-		{
 			activeChar.sendMessage(".deposit (" + Config.BANKING_SYSTEM_ADENA + " Adena = " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar) / .withdraw (" + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar = " + Config.BANKING_SYSTEM_ADENA + " Adena)");
-		}
 		else if (command.equalsIgnoreCase("deposit"))
 		{
 			if (activeChar.getInventory().getInventoryItemCount(57, 0) >= Config.BANKING_SYSTEM_ADENA)
@@ -53,14 +51,10 @@ public class Banking implements IVoicedCommandHandler
 				activeChar.getInventory().updateDatabase();
 				activeChar.sendPacket(iu);
 				activeChar.sendMessage("Thank you, you now have " + Config.BANKING_SYSTEM_GOLDBARS + " Goldbar(s), and " + Config.BANKING_SYSTEM_ADENA + " less adena.");
-			}
-			else
-			{
+			} else
 				activeChar.sendMessage("You do not have enough Adena to convert to Goldbar(s), you need " + Config.BANKING_SYSTEM_ADENA + " Adena.");
-			}
 		}
 		else if (command.equalsIgnoreCase("withdraw"))
-		{
 			if (activeChar.getInventory().getInventoryItemCount(3470, 0) >= Config.BANKING_SYSTEM_GOLDBARS)
 			{
 				InventoryUpdate iu = new InventoryUpdate();
@@ -69,12 +63,8 @@ public class Banking implements IVoicedCommandHandler
 				activeChar.getInventory().updateDatabase();
 				activeChar.sendPacket(iu);
 				activeChar.sendMessage("Thank you, you now have " + Config.BANKING_SYSTEM_ADENA + " Adena, and " + Config.BANKING_SYSTEM_GOLDBARS + " less Goldbar(s).");
-			}
-			else
-			{
+			} else
 				activeChar.sendMessage("You do not have any Goldbars to turn into " + Config.BANKING_SYSTEM_ADENA + " Adena.");
-			}
-		}
 		return true;
 	}
 

@@ -48,9 +48,8 @@ public class FortResistSiegeManager extends ClanHallSiege
 
 	public static final FortResistSiegeManager getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new FortResistSiegeManager();
-		}
 		return _instance;
 	}
 
@@ -113,9 +112,8 @@ public class FortResistSiegeManager extends ClanHallSiege
 		if (GameServer._instanceOk)
 		{
 			setIsInProgress(true);
-			if (!_clansDamageInfo.isEmpty()) {
+			if (!_clansDamageInfo.isEmpty())
 				_clansDamageInfo.clear();
-			}
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 30);
 			_endSiegeTask.schedule(1000);
@@ -137,16 +135,12 @@ public class FortResistSiegeManager extends ClanHallSiege
 			L2Clan clanIdMaxDamage = null;
 			long tempMaxDamage = 0;
 			for (DamageInfo damageInfo : _clansDamageInfo.values())
-			{
 				if (damageInfo != null)
-				{
 					if (damageInfo._damage > tempMaxDamage)
 					{
 						tempMaxDamage = damageInfo._damage;
 						clanIdMaxDamage = damageInfo._clan;
 					}
-				}
-			}
 			if (clanIdMaxDamage != null)
 			{
 				ClanHall clanhall = null;
@@ -164,9 +158,9 @@ public class FortResistSiegeManager extends ClanHallSiege
 	{
 		setIsInProgress(true);
 		DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
-		if (clanDamage != null) {
+		if (clanDamage != null)
 			clanDamage._damage += damage;
-		} else
+		else
 		{
 			clanDamage = new DamageInfo();
 			clanDamage._clan = clan;

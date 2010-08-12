@@ -62,9 +62,8 @@ public class L2Fishing implements Runnable
 			// Time is up, so that fish got away
 			_fisher.sendPacket(new SystemMessage(SystemMessageId.FISH_SPIT_THE_HOOK));
 			doDie(false);
-		} else {
+		} else
 			aiTask();
-		}
 	}
 
 	// =========================================================
@@ -93,17 +92,14 @@ public class L2Fishing implements Runnable
 		// Succeeded in getting a bite
 		_fisher.sendPacket(new SystemMessage(SystemMessageId.GOT_A_BITE));
 		if (_fishAiTask == null)
-		{
 			_fishAiTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(this, 1000, 1000);
-		}
 	}
 
 	public void changeHp(int hp, int pen)
 	{
 		_fishCurHp -= hp;
-		if (_fishCurHp < 0) {
+		if (_fishCurHp < 0)
 			_fishCurHp = 0;
-		}
 		ExFishingHpRegen efhr = new ExFishingHpRegen(_fisher, _time, _fishCurHp, _mode, _goodUse, _anim, pen, _deceptiveMode);
 		_fisher.broadcastPacket(efhr);
 		_anim = 0;
@@ -123,16 +119,13 @@ public class L2Fishing implements Runnable
 	public synchronized void doDie(boolean win)
 	{
 		_fishAiTask = null;
-		if (_fisher == null) {
+		if (_fisher == null)
 			return;
-		}
 		if (win)
 		{
 			int check = Rnd.get(100);
 			if (check <= 5)
-			{
 				PenaltyMonster();
-			}
 			else
 			{
 				_fisher.sendPacket(new SystemMessage(SystemMessageId.YOU_CAUGHT_SOMETHING));
@@ -145,55 +138,41 @@ public class L2Fishing implements Runnable
 
 	protected void aiTask()
 	{
-		if (_thinking) {
+		if (_thinking)
 			return;
-		}
 		_thinking = true;
 		_time--;
 		try
 		{
 			if (_mode == 1)
 			{
-				if (_deceptiveMode == 0) {
+				if (_deceptiveMode == 0)
 					_fishCurHp += (int) _regenHp;
-				}
-			}
-			else
-			{
-				if (_deceptiveMode == 1) {
-					_fishCurHp += (int) _regenHp;
-				}
-			}
+			} else if (_deceptiveMode == 1)
+				_fishCurHp += (int) _regenHp;
 			if (_stop == 0)
 			{
 				_stop = 1;
 				int check = Rnd.get(100);
 				if (check >= 70)
-				{
 					_mode = _mode == 0 ? 1 : 0;
-				}
 				if (_isUpperGrade)
 				{
 					check = Rnd.get(100);
-					if (check >= 90) {
+					if (check >= 90)
 						_deceptiveMode = _deceptiveMode == 0 ? 1 : 0;
-					}
 				}
-			}
-			else
-			{
+			} else
 				_stop--;
-			}
 		}
 		finally
 		{
 			_thinking = false;
 			ExFishingHpRegen efhr = new ExFishingHpRegen(_fisher, _time, _fishCurHp, _mode, 0, _anim, 0, _deceptiveMode);
-			if (_anim != 0) {
+			if (_anim != 0)
 				_fisher.broadcastPacket(efhr);
-			} else {
+			else
 				_fisher.sendPacket(efhr);
-			}
 		}
 	}
 
@@ -207,9 +186,8 @@ public class L2Fishing implements Runnable
 			changeHp(0, pen);
 			return;
 		}
-		if (_fisher == null) {
+		if (_fisher == null)
 			return;
-		}
 		if (_mode == 1)
 		{
 			if (_deceptiveMode == 0)
@@ -236,33 +214,29 @@ public class L2Fishing implements Runnable
 				_goodUse = 2;
 				changeHp(-dmg, pen);
 			}
+		} else if (_deceptiveMode == 0)
+		{
+			// Reeling failed, Damage: $s1
+			SystemMessage sm = new SystemMessage(SystemMessageId.FISH_RESISTED_REELING_S1_HP_REGAINED);
+			sm.addNumber(dmg);
+			_fisher.sendPacket(sm);
+			_goodUse = 2;
+			changeHp(-dmg, pen);
 		}
 		else
 		{
-			if (_deceptiveMode == 0)
+			// Reeling is successful, Damage: $s1
+			SystemMessage sm = new SystemMessage(SystemMessageId.REELING_SUCCESFUL_S1_DAMAGE);
+			sm.addNumber(dmg);
+			_fisher.sendPacket(sm);
+			if (pen == 50)
 			{
-				// Reeling failed, Damage: $s1
-				SystemMessage sm = new SystemMessage(SystemMessageId.FISH_RESISTED_REELING_S1_HP_REGAINED);
-				sm.addNumber(dmg);
+				sm = new SystemMessage(SystemMessageId.REELING_SUCCESSFUL_PENALTY_S1);
+				sm.addNumber(pen);
 				_fisher.sendPacket(sm);
-				_goodUse = 2;
-				changeHp(-dmg, pen);
 			}
-			else
-			{
-				// Reeling is successful, Damage: $s1
-				SystemMessage sm = new SystemMessage(SystemMessageId.REELING_SUCCESFUL_S1_DAMAGE);
-				sm.addNumber(dmg);
-				_fisher.sendPacket(sm);
-				if (pen == 50)
-				{
-					sm = new SystemMessage(SystemMessageId.REELING_SUCCESSFUL_PENALTY_S1);
-					sm.addNumber(pen);
-					_fisher.sendPacket(sm);
-				}
-				_goodUse = 1;
-				changeHp(dmg, pen);
-			}
+			_goodUse = 1;
+			changeHp(dmg, pen);
 		}
 	}
 
@@ -276,9 +250,8 @@ public class L2Fishing implements Runnable
 			changeHp(0, pen);
 			return;
 		}
-		if (_fisher == null) {
+		if (_fisher == null)
 			return;
-		}
 		if (_mode == 0)
 		{
 			if (_deceptiveMode == 0)
@@ -305,33 +278,29 @@ public class L2Fishing implements Runnable
 				_goodUse = 2;
 				changeHp(-dmg, pen);
 			}
+		} else if (_deceptiveMode == 0)
+		{
+			// Pumping failed, Regained: $s1
+			SystemMessage sm = new SystemMessage(SystemMessageId.FISH_RESISTED_PUMPING_S1_HP_REGAINED);
+			sm.addNumber(dmg);
+			_fisher.sendPacket(sm);
+			_goodUse = 2;
+			changeHp(-dmg, pen);
 		}
 		else
 		{
-			if (_deceptiveMode == 0)
+			// Pumping is successful. Damage: $s1
+			SystemMessage sm = new SystemMessage(SystemMessageId.PUMPING_SUCCESFUL_S1_DAMAGE);
+			sm.addNumber(dmg);
+			_fisher.sendPacket(sm);
+			if (pen == 50)
 			{
-				// Pumping failed, Regained: $s1
-				SystemMessage sm = new SystemMessage(SystemMessageId.FISH_RESISTED_PUMPING_S1_HP_REGAINED);
-				sm.addNumber(dmg);
+				sm = new SystemMessage(SystemMessageId.PUMPING_SUCCESSFUL_PENALTY_S1);
+				sm.addNumber(pen);
 				_fisher.sendPacket(sm);
-				_goodUse = 2;
-				changeHp(-dmg, pen);
 			}
-			else
-			{
-				// Pumping is successful. Damage: $s1
-				SystemMessage sm = new SystemMessage(SystemMessageId.PUMPING_SUCCESFUL_S1_DAMAGE);
-				sm.addNumber(dmg);
-				_fisher.sendPacket(sm);
-				if (pen == 50)
-				{
-					sm = new SystemMessage(SystemMessageId.PUMPING_SUCCESSFUL_PENALTY_S1);
-					sm.addNumber(pen);
-					_fisher.sendPacket(sm);
-				}
-				_goodUse = 1;
-				changeHp(dmg, pen);
-			}
+			_goodUse = 1;
+			changeHp(dmg, pen);
 		}
 	}
 
@@ -374,7 +343,6 @@ public class L2Fishing implements Runnable
 		L2NpcTemplate temp;
 		temp = NpcTable.getInstance().getTemplate(npcid);
 		if (temp != null)
-		{
 			try
 			{
 				L2Spawn spawn = new L2Spawn(temp);
@@ -390,6 +358,5 @@ public class L2Fishing implements Runnable
 			{
 				// Nothing
 			}
-		}
 	}
 }

@@ -52,9 +52,7 @@ public class QuestManager extends ScriptManager<Quest>
 	{
 		Quest q = getQuest(questFolder);
 		if (q == null)
-		{
 			return false;
-		}
 		return q.reload();
 	}
 
@@ -70,9 +68,7 @@ public class QuestManager extends ScriptManager<Quest>
 	{
 		Quest q = this.getQuest(questId);
 		if (q == null)
-		{
 			return false;
-		}
 		return q.reload();
 	}
 
@@ -83,11 +79,8 @@ public class QuestManager extends ScriptManager<Quest>
 		{
 			// unload all scripts
 			for (Quest quest : _quests.values())
-			{
-				if (quest != null) {
+				if (quest != null)
 					quest.unload();
-				}
-			}
 			// now load all scripts
 			File scripts = new File(Config.DATAPACK_ROOT + "/data/scripts.cfg");
 			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
@@ -107,9 +100,7 @@ public class QuestManager extends ScriptManager<Quest>
 	public final void save()
 	{
 		for (Quest q : _quests.values())
-		{
 			q.saveGlobalData();
-		}
 	}
 
 	// =========================================================
@@ -122,20 +113,15 @@ public class QuestManager extends ScriptManager<Quest>
 	public final Quest getQuest(int questId)
 	{
 		for (Quest q : _quests.values())
-		{
-			if (q.getQuestIntId() == questId) {
+			if (q.getQuestIntId() == questId)
 				return q;
-			}
-		}
 		return null;
 	}
 
 	public final void addQuest(Quest newQuest)
 	{
 		if (newQuest == null)
-		{
 			throw new IllegalArgumentException("Quest argument cannot be null");
-		}
 		Quest old = _quests.get(newQuest.getName());
 		// FIXME: unloading the old quest at this point is a tad too late.
 		// the new quest has already initialized itself and read the data, starting

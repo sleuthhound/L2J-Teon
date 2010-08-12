@@ -35,13 +35,11 @@ public class set implements IVoicedCommandHandler
 			int n = Integer.parseInt(command.substring(15));
 			L2PcInstance pc = (L2PcInstance) activeChar.getTarget();
 			if (pc != null)
-			{
 				if (activeChar.getClan().getClanId() == pc.getClan().getClanId() && activeChar.getClanPrivileges() > n || activeChar.isClanLeader())
 				{
 					pc.setClanPrivileges(n);
 					activeChar.sendMessage("Your clan privileges have been set to " + n + " by " + activeChar.getName());
 				}
-			}
 		}
 		return true;
 	}

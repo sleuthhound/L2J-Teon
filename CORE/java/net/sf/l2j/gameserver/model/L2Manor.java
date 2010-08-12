@@ -48,9 +48,7 @@ public class L2Manor
 	public static L2Manor getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new L2Manor();
-		}
 		return _instance;
 	}
 
@@ -58,12 +56,8 @@ public class L2Manor
 	{
 		FastList<Integer> crops = new FastList<Integer>();
 		for (SeedData seed : _seeds.values())
-		{
 			if (!crops.contains(seed.getCrop()) && seed.getCrop() != 0 && !crops.contains(seed.getCrop()))
-			{
 				crops.add(seed.getCrop());
-			}
-		}
 		return crops;
 	}
 
@@ -71,44 +65,33 @@ public class L2Manor
 	{
 		L2Item seedItem = ItemTable.getInstance().getTemplate(seedId);
 		if (seedItem != null)
-		{
 			return seedItem.getReferencePrice();
-		}
 		else
-		{
 			return 0;
-		}
 	}
 
 	public int getSeedBasicPriceByCrop(int cropId)
 	{
 		for (SeedData seed : _seeds.values())
-		{
-			if (seed.getCrop() == cropId) {
+			if (seed.getCrop() == cropId)
 				return getSeedBasicPrice(seed.getId());
-			}
-		}
 		return 0;
 	}
 
 	public int getCropBasicPrice(int cropId)
 	{
 		L2Item cropItem = ItemTable.getInstance().getTemplate(cropId);
-		if (cropItem != null) {
+		if (cropItem != null)
 			return cropItem.getReferencePrice();
-		} else {
+		else
 			return 0;
-		}
 	}
 
 	public int getMatureCrop(int cropId)
 	{
 		for (SeedData seed : _seeds.values())
-		{
-			if (seed.getCrop() == cropId) {
+			if (seed.getCrop() == cropId)
 				return seed.getMature();
-			}
-		}
 		return 0;
 	}
 
@@ -127,30 +110,24 @@ public class L2Manor
 	public int getSeedMinLevel(int seedId)
 	{
 		SeedData seed = _seeds.get(seedId);
-		if (seed != null) {
+		if (seed != null)
 			return seed.getLevel() - 5;
-		}
 		return -1;
 	}
 
 	public int getSeedMaxLevel(int seedId)
 	{
 		SeedData seed = _seeds.get(seedId);
-		if (seed != null) {
+		if (seed != null)
 			return seed.getLevel() + 5;
-		}
 		return -1;
 	}
 
 	public int getSeedLevelByCrop(int cropId)
 	{
 		for (SeedData seed : _seeds.values())
-		{
 			if (seed.getCrop() == cropId)
-			{
 				return seed.getLevel();
-			}
-		}
 		return 0;
 	}
 
@@ -158,45 +135,34 @@ public class L2Manor
 	{
 		SeedData seed = _seeds.get(seedId);
 		if (seed != null)
-		{
 			return seed.getLevel();
-		}
 		return -1;
 	}
 
 	public boolean isAlternative(int seedId)
 	{
 		for (SeedData seed : _seeds.values())
-		{
 			if (seed.getId() == seedId)
-			{
 				return seed.isAlternative();
-			}
-		}
 		return false;
 	}
 
 	public int getCropType(int seedId)
 	{
 		SeedData seed = _seeds.get(seedId);
-		if (seed != null) {
+		if (seed != null)
 			return seed.getCrop();
-		}
 		return -1;
 	}
 
 	public synchronized int getRewardItem(int cropId, int type)
 	{
 		for (SeedData seed : _seeds.values())
-		{
 			if (seed.getCrop() == cropId)
-			{
 				return seed.getReward(type); // there can be several
 				// seeds with same crop, but
 				// reward should be the same for
 				// all
-			}
-		}
 		return -1;
 	}
 
@@ -204,9 +170,7 @@ public class L2Manor
 	{
 		SeedData seed = _seeds.get(seedId);
 		if (seed != null)
-		{
 			return seed.getReward(type);
-		}
 		return 0;
 	}
 
@@ -220,12 +184,8 @@ public class L2Manor
 	{
 		FastList<Integer> crops = new FastList<Integer>();
 		for (SeedData seed : _seeds.values())
-		{
 			if (seed.getManorId() == castleId && !crops.contains(seed.getCrop()))
-			{
 				crops.add(seed.getCrop());
-			}
-		}
 		return crops;
 	}
 
@@ -240,12 +200,8 @@ public class L2Manor
 	{
 		FastList<Integer> seedsID = new FastList<Integer>();
 		for (SeedData seed : _seeds.values())
-		{
 			if (seed.getManorId() == castleId && !seedsID.contains(seed.getId()))
-			{
 				seedsID.add(seed.getId());
-			}
-		}
 		return seedsID;
 	}
 
@@ -259,9 +215,7 @@ public class L2Manor
 	{
 		SeedData seed = _seeds.get(seedId);
 		if (seed != null)
-		{
 			return seed.getManorId();
-		}
 		return 0;
 	}
 
@@ -269,21 +223,15 @@ public class L2Manor
 	{
 		SeedData seed = _seeds.get(seedId);
 		if (seed != null)
-		{
 			return seed.getSeedLimit();
-		}
 		return 0;
 	}
 
 	public int getCropPuchaseLimit(int cropId)
 	{
 		for (SeedData seed : _seeds.values())
-		{
 			if (seed.getCrop() == cropId)
-			{
 				return seed.getCropLimit();
-			}
-		}
 		return 0;
 	}
 
@@ -376,9 +324,7 @@ public class L2Manor
 			while ((line = lnr.readLine()) != null)
 			{
 				if (line.trim().length() == 0 || line.startsWith("#"))
-				{
 					continue;
-				}
 				SeedData seed = parseList(line);
 				_seeds.put(seed.getId(), seed);
 			}

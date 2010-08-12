@@ -52,13 +52,11 @@ public class ShortCuts
 		L2ShortCut sc = _shortCuts.get(slot + page * 12);
 		// verify shortcut
 		if (sc != null && sc.getType() == L2ShortCut.TYPE_ITEM)
-		{
 			if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
 			{
 				deleteShortCut(sc.getSlot(), sc.getPage());
 				sc = null;
 			}
-		}
 		return sc;
 	}
 
@@ -70,9 +68,8 @@ public class ShortCuts
 
 	private void registerShortCutInDb(L2ShortCut shortcut, L2ShortCut oldShortCut)
 	{
-		if (oldShortCut != null) {
+		if (oldShortCut != null)
 			deleteShortCutFromDb(oldShortCut);
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -110,9 +107,8 @@ public class ShortCuts
 	public synchronized void deleteShortCut(int slot, int page)
 	{
 		L2ShortCut old = _shortCuts.remove(slot + page * 12);
-		if (old == null || _owner == null) {
+		if (old == null || _owner == null)
 			return;
-		}
 		deleteShortCutFromDb(old);
 		if (old.getType() == L2ShortCut.TYPE_ITEM)
 		{
@@ -124,25 +120,21 @@ public class ShortCuts
 			}
 		}
 		_owner.sendPacket(new ShortCutInit(_owner));
-		for (int shotId : _owner.getAutoSoulShot().values()) {
+		for (int shotId : _owner.getAutoSoulShot().values())
 			_owner.sendPacket(new ExAutoSoulShot(shotId, 1));
-		}
 	}
 
 	public synchronized void deleteShortCutByObjectId(int objectId)
 	{
 		L2ShortCut toRemove = null;
 		for (L2ShortCut shortcut : _shortCuts.values())
-		{
 			if (shortcut.getType() == L2ShortCut.TYPE_ITEM && shortcut.getId() == objectId)
 			{
 				toRemove = shortcut;
 				break;
 			}
-		}
-		if (toRemove != null) {
+		if (toRemove != null)
 			deleteShortCut(toRemove.getSlot(), toRemove.getPage());
-		}
 	}
 
 	/**
@@ -218,13 +210,8 @@ public class ShortCuts
 		}
 		// verify shortcuts
 		for (L2ShortCut sc : getAllShortCuts())
-		{
 			if (sc.getType() == L2ShortCut.TYPE_ITEM)
-			{
-				if (_owner.getInventory().getItemByObjectId(sc.getId()) == null) {
+				if (_owner.getInventory().getItemByObjectId(sc.getId()) == null)
 					deleteShortCut(sc.getSlot(), sc.getPage());
-				}
-			}
-		}
 	}
 }

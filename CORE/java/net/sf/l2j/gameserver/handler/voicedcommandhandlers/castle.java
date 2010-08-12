@@ -37,79 +37,62 @@ public class castle implements IVoicedCommandHandler
 		if (command.startsWith("opendoor") && activeChar.getClan() != null)
 		{
 			// Can the player opene/close the doors ?
-			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR) {
+			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR)
 				return false;
-			}
 			// Is a door the target ?
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
-			if (door == null) {
+			if (door == null)
 				return false;
-			}
 			Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
 			if (castle != null)
-			{
 				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
 				{
 					door.openMe();
 					return true;
 				}
-			}
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());
 			if (fort != null && door.getFort() != null)
-			{
 				if (fort.getFortId() == door.getFort().getFortId())
 				{
 					door.openMe();
 					return true;
 				}
-			}
 			return false;
 		}
 		else if (command.startsWith("closedoor") && activeChar.getClan() != null)
 		{
 			// Can the player open/close the doors ?
-			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR) {
+			if ((activeChar.getClanPrivileges() & L2Clan.CP_CS_OPEN_DOOR) != L2Clan.CP_CS_OPEN_DOOR)
 				return false;
-			}
 			L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
-			if (door == null) {
+			if (door == null)
 				return false;
-			}
 			Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
 			if (castle != null)
-			{
 				if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
-				{
 					door.closeMe();
-				}
-			}
 			Fort fort = FortManager.getInstance().getFortById(activeChar.getClan().getHasFort());
 			if (fort != null && door.getFort() != null)
-			{
 				if (fort.getFortId() == door.getFort().getFortId())
 				{
 					door.closeMe();
 					return true;
 				}
-			}
 			return false;
 		}
 		else if (command.startsWith("ridewyvern") && activeChar.getClan() != null)
 		{
 			Castle castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
 			if (castle != null && activeChar.isClanLeader())
-			{
 				if (castle.checkIfInZone(activeChar.getX(), activeChar.getY(), activeChar.getZ()))
 				{
-					if (!activeChar.disarmWeapons()) {
+					if (!activeChar.disarmWeapons())
 						return false;
-					}
 					Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, 12621);
 					activeChar.sendPacket(mount);
 					activeChar.broadcastPacket(mount);
 					activeChar.setMountType(mount.getMountType());
 				}
-			}
 		}
 		return true;
 	}

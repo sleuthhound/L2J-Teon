@@ -99,28 +99,23 @@ public class SiegeManager
 	 */
 	public final boolean checkIfOkToSummon(L2Character activeChar, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
-		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
 		Castle castle = CastleManager.getInstance().getCastle(player);
-        if (FortressSiege._started && ((L2PcInstance)activeChar)._inEventFOS && ((L2PcInstance)activeChar)._teamNameFOS.equals(FortressSiege._teams.get(0)) && activeChar.isInsideRadius(FortressSiege.eventCenterX, FortressSiege.eventCenterY, 10000, false)) {
+        if (FortressSiege._started && ((L2PcInstance)activeChar)._inEventFOS && ((L2PcInstance)activeChar)._teamNameFOS.equals(FortressSiege._teams.get(0)) && activeChar.isInsideRadius(FortressSiege.eventCenterX, FortressSiege.eventCenterY, 10000, false))
 			return true;
-		}
-		if (castle == null || castle.getCastleId() <= 0) {
+		if (castle == null || castle.getCastleId() <= 0)
 			sm.addString("You must be on castle ground to summon this");
-		} else if (!castle.getSiege().getIsInProgress()) {
+		else if (!castle.getSiege().getIsInProgress())
 			sm.addString("You can only summon this during a siege.");
-		} else if (player.getClanId() != 0 && castle.getSiege().getAttackerClan(player.getClanId()) == null) {
+		else if (player.getClanId() != 0 && castle.getSiege().getAttackerClan(player.getClanId()) == null)
 			sm.addString("You can only summon this as a registered attacker.");
-		} else {
+		else
 			return true;
-		}
 		if (!isCheckOnly)
-		{
 			player.sendPacket(sm);
-		}
 		return false;
 	}
 
@@ -133,12 +128,10 @@ public class SiegeManager
 	 */
 	public final boolean checkIsRegistered(L2Clan clan, int castleid)
 	{
-		if (clan == null) {
+		if (clan == null)
 			return false;
-		}
-		if (clan.getHasCastle() > 0) {
+		if (clan.getHasCastle() > 0)
 			return true;
-		}
 		java.sql.Connection con = null;
 		boolean register = false;
 		try
@@ -206,9 +199,8 @@ public class SiegeManager
 				for (int i = 1; i < 0xFF; i++)
 				{
 					String _spawnParams = siegeSettings.getProperty(castle.getName() + "ControlTower" + Integer.toString(i), "");
-					if (_spawnParams.length() == 0) {
+					if (_spawnParams.length() == 0)
 						break;
-					}
 					StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
 					try
 					{
@@ -228,9 +220,8 @@ public class SiegeManager
 				for (int i = 1; i < 0xFF; i++)
 				{
 					String _spawnParams = siegeSettings.getProperty(castle.getName() + "Artefact" + Integer.toString(i), "");
-					if (_spawnParams.length() == 0) {
+					if (_spawnParams.length() == 0)
 						break;
-					}
 					StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
 					try
 					{
@@ -262,20 +253,18 @@ public class SiegeManager
 	// Property - Public
 	public final FastList<SiegeSpawn> getArtefactSpawnList(int _castleId)
 	{
-		if (_artefactSpawnList.containsKey(_castleId)) {
+		if (_artefactSpawnList.containsKey(_castleId))
 			return _artefactSpawnList.get(_castleId);
-		} else {
+		else
 			return null;
-		}
 	}
 
 	public final FastList<SiegeSpawn> getControlTowerSpawnList(int _castleId)
 	{
-		if (_controlTowerSpawnList.containsKey(_castleId)) {
+		if (_controlTowerSpawnList.containsKey(_castleId))
 			return _controlTowerSpawnList.get(_castleId);
-		} else {
+		else
 			return null;
-		}
 	}
 
 	public final int getAttackerMaxClans()
@@ -305,11 +294,9 @@ public class SiegeManager
 
 	public final Siege getSiege(int x, int y, int z)
 	{
-		for (Castle castle : CastleManager.getInstance().getCastles()) {
-			if (castle.getSiege().checkIfInZone(x, y, z)) {
+		for (Castle castle : CastleManager.getInstance().getCastles())
+			if (castle.getSiege().checkIfInZone(x, y, z))
 				return castle.getSiege();
-			}
-		}
 		return null;
 	}
 
@@ -325,25 +312,22 @@ public class SiegeManager
 
 	public final List<Siege> getSieges()
 	{
-		if (_sieges == null) {
+		if (_sieges == null)
 			_sieges = new FastList<Siege>();
-		}
 		return _sieges;
 	}
 
 	public final void addSiege(Siege siege)
 	{
-		if (_sieges == null) {
+		if (_sieges == null)
 			_sieges = new FastList<Siege>();
-		}
 		_sieges.add(siege);
 	}
 
 	public final void removeSiege(Siege siege)
 	{
-		if (_sieges == null) {
+		if (_sieges == null)
 			_sieges = new FastList<Siege>();
-		}
 		_sieges.remove(siege);
 	}
 
@@ -352,9 +336,7 @@ public class SiegeManager
 		for (Siege siege : getSieges())
 		{
 			if (!siege.getIsInProgress())
-			{
 				continue;
-			}
 			if (siege.checkIsAttacker(activeChar.getClan()))
 			{
 				activeChar.setSiegeState((byte) 1);

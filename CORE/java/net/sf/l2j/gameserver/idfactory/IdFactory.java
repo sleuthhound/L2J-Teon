@@ -211,9 +211,7 @@ public abstract class IdFactory
 			result = s.executeQuery("select object_id from temporaryObjectTable ORDER BY object_id");
 			int idx = 0;
 			while (result.next())
-			{
 				tmp_obj_ids[idx++] = result.getInt(1);
-			}
 			result.close();
 			s.close();
 			return tmp_obj_ids;

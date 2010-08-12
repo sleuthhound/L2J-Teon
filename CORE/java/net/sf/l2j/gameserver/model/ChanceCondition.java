@@ -95,9 +95,8 @@ public final class ChanceCondition
 		{
 			TriggerType trigger = set.getEnum("chanceType", TriggerType.class, null);
 			int chance = set.getInteger("activationChance", 0);
-			if (trigger != null && chance > 0) {
+			if (trigger != null && chance > 0)
 				return new ChanceCondition(trigger, chance);
-			}
 		}
 		catch (Exception e)
 		{
@@ -109,15 +108,13 @@ public final class ChanceCondition
     {
         try
         {
-            if (chance <= 0 || chanceType == null) {
+            if (chance <= 0 || chanceType == null)
 				return null;
-			}
 
             TriggerType trigger = Enum.valueOf(TriggerType.class, chanceType);
 
-            if (trigger != null) {
+            if (trigger != null)
 				return new ChanceCondition(trigger, chance);
-			}
         }
         catch (Exception e)
         {

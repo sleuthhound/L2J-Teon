@@ -159,9 +159,8 @@ public class IRCConnection extends Thread
 	 */
 	public IRCConnection(String host, int[] ports, String pass, String nick, String username, String realname)
 	{
-		if (host == null || ports == null || ports.length == 0) {
+		if (host == null || ports == null || ports.length == 0)
 			throw new IllegalArgumentException("Host and ports may not be null.");
-		}
 		this.host = host;
 		this.ports = ports;
 		this.pass = pass != null && pass.length() == 0 ? null : pass;
@@ -220,9 +219,8 @@ public class IRCConnection extends Thread
 			portMax = tmp;
 		}
 		int[] ports = new int[portMax - portMin + 1];
-		for (int i = 0; i < ports.length; i++) {
+		for (int i = 0; i < ports.length; i++)
 			ports[i] = portMin + i;
-		}
 		return ports;
 	}
 
@@ -244,13 +242,11 @@ public class IRCConnection extends Thread
 	 */
 	public void connect() throws IOException
 	{
-		if (level != 0) {
+		if (level != 0)
 			throw new SocketException("Socket closed or already open (" + level + ")");
-		}
 		IOException exception = null;
 		Socket s = null;
 		for (int i = 0; i < ports.length && s == null; i++)
-		{
 			try
 			{
 				s = new Socket(host, ports[i]);
@@ -258,16 +254,13 @@ public class IRCConnection extends Thread
 			}
 			catch (IOException exc)
 			{
-				if (s != null) {
+				if (s != null)
 					s.close();
-				}
 				s = null;
 				exception = exc;
 			}
-		}
-		if (exception != null) {
+		if (exception != null)
 			throw exception; // connection wasn't successful at any port
-		}
 		prepare(s);
 	}
 
@@ -287,9 +280,8 @@ public class IRCConnection extends Thread
 	 */
 	protected void prepare(Socket s) throws IOException
 	{
-		if (s == null) {
+		if (s == null)
 			throw new SocketException("Socket s is null, not connected");
-		}
 		socket = s;
 		level = 1;
 		s.setSoTimeout(timeout);
@@ -312,9 +304,8 @@ public class IRCConnection extends Thread
 	 */
 	private void register()
 	{
-		if (pass != null) {
+		if (pass != null)
 			send("PASS " + pass);
-		}
 		send("NICK " + nick);
 		send("USER " + username + " " + socket.getLocalAddress() + " " + host + " :" + realname);
 	}
@@ -332,11 +323,10 @@ public class IRCConnection extends Thread
 			while (!isInterrupted())
 			{
 				line = in.readLine();
-				if (line != null) {
+				if (line != null)
 					get(line);
-				} else {
+				else
 					close();
-				}
 			}
 		}
 		catch (IOException exc)
@@ -361,9 +351,8 @@ public class IRCConnection extends Thread
 			if (level == 1)
 			{ // not registered
 				IRCParser p = new IRCParser(line);
-				if (p.getCommand().equalsIgnoreCase("NICK")) {
+				if (p.getCommand().equalsIgnoreCase("NICK"))
 					nick = p.getParameter(1).trim();
-				}
 			}
 		}
 		catch (Exception exc)
@@ -398,9 +387,8 @@ public class IRCConnection extends Thread
 			IRCUser user = p.getUser();
 			String middle = p.getMiddle();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onPrivmsg(middle, user, trailing);
-			}
 		}
 		else if (command.equalsIgnoreCase("MODE"))
 		{ // MODE
@@ -410,65 +398,56 @@ public class IRCConnection extends Thread
 				IRCUser user = p.getUser();
 				String param2 = p.getParameter(2);
 				String paramsFrom3 = p.getParametersFrom(3);
-				for (int i = listeners.length - 1; i >= 0; i--) {
+				for (int i = listeners.length - 1; i >= 0; i--)
 					listeners[i].onMode(chan, user, new IRCModeParser(param2, paramsFrom3));
-				}
 			}
 			else
 			{
 				IRCUser user = p.getUser();
 				String paramsFrom2 = p.getParametersFrom(2);
-				for (int i = listeners.length - 1; i >= 0; i--) {
+				for (int i = listeners.length - 1; i >= 0; i--)
 					listeners[i].onMode(user, chan, paramsFrom2);
-				}
 			}
 		}
 		else if (command.equalsIgnoreCase("PING"))
 		{ // PING
 			String ping = p.getTrailing(); // no int cause sometimes
 			// it's text
-			if (pongAutomatic) {
+			if (pongAutomatic)
 				doPong(ping);
-			} else {
-				for (int i = listeners.length - 1; i >= 0; i--) {
+			else
+				for (int i = listeners.length - 1; i >= 0; i--)
 					listeners[i].onPing(ping);
-				}
-			}
 			if (level == 1)
 			{ // not registered
 				level = 2; // first PING received -> connection
-				for (int i = listeners.length - 1; i >= 0; i--) {
+				for (int i = listeners.length - 1; i >= 0; i--)
 					listeners[i].onRegistered();
-				}
 			}
 		}
 		else if (command.equalsIgnoreCase("JOIN"))
 		{ // JOIN
 			IRCUser user = p.getUser();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onJoin(trailing, user);
-			}
 		}
 		else if (command.equalsIgnoreCase("NICK"))
 		{ // NICK
 			IRCUser user = p.getUser();
 			String changingNick = p.getNick();
 			String newNick = p.getTrailing();
-			if (changingNick.equalsIgnoreCase(nick)) {
+			if (changingNick.equalsIgnoreCase(nick))
 				nick = newNick;
-			}
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onNick(user, newNick);
-			}
 		}
 		else if (command.equalsIgnoreCase("QUIT"))
 		{ // QUIT
 			IRCUser user = p.getUser();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onQuit(user, trailing);
-			}
 		}
 		else if (command.equalsIgnoreCase("PART"))
 		{ // PART
@@ -479,18 +458,16 @@ public class IRCConnection extends Thread
 			// msg, "PART #zentrum :cjo all"
 			// is with msg. so we cannot use getMiddle
 			// and getTrailing :-/
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onPart(chan, user, msg);
-			}
 		}
 		else if (command.equalsIgnoreCase("NOTICE"))
 		{ // NOTICE
 			IRCUser user = p.getUser();
 			String middle = p.getMiddle();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onNotice(middle, user, trailing);
-			}
 		}
 		else if ((reply = IRCUtil.parseInt(command)) >= 1 && reply < 400)
 		{ // RPL
@@ -498,34 +475,30 @@ public class IRCConnection extends Thread
 			if ((level == 1 || level == 2) && nick.length() > potNick.length() && nick.substring(0, potNick.length()).equalsIgnoreCase(potNick))
 			{
 				nick = potNick;
-				if (level == 2) {
+				if (level == 2)
 					level = 3;
-				}
 			}
 			if (level == 1)
 			{ // not registered
 				level = 2; // if first PING
 				// wasn't received,
 				// we're
-				for (int i = listeners.length - 1; i >= 0; i--) {
+				for (int i = listeners.length - 1; i >= 0; i--)
 					listeners[i].onRegistered(); // connected
 				// now
 				// for
 				// sure
-				}
 			}
 			String middle = p.getMiddle();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onReply(reply, middle, trailing);
-			}
 		}
 		else if (reply >= 400 && reply < 600)
 		{ // ERROR
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onError(reply, trailing);
-			}
 		}
 		else if (command.equalsIgnoreCase("KICK"))
 		{ // KICK
@@ -533,43 +506,38 @@ public class IRCConnection extends Thread
 			String param1 = p.getParameter(1);
 			String param2 = p.getParameter(2);
 			String msg = p.getParameterCount() > 2 ? p.getTrailing() : "";
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onKick(param1, user, param2, msg);
-			}
 		}
 		else if (command.equalsIgnoreCase("INVITE"))
 		{ // INVITE
 			IRCUser user = p.getUser();
 			String middle = p.getMiddle();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onInvite(trailing, user, middle);
-			}
 		}
 		else if (command.equalsIgnoreCase("TOPIC"))
 		{ // TOPIC
 			IRCUser user = p.getUser();
 			String middle = p.getMiddle();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onTopic(middle, user, trailing);
-			}
 		}
 		else if (command.equalsIgnoreCase("ERROR"))
 		{ // ERROR
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onError(trailing);
-			}
 		}
 		else
 		{ // OTHER
 			String prefix = p.getPrefix();
 			String middle = p.getMiddle();
 			String trailing = p.getTrailing();
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].unknown(prefix, command, middle, trailing);
-			}
 		}
 	}
 
@@ -587,9 +555,8 @@ public class IRCConnection extends Thread
 	{
 		try
 		{
-			if (!isInterrupted()) {
+			if (!isInterrupted())
 				interrupt();
-			}
 		}
 		catch (Exception exc)
 		{
@@ -597,9 +564,8 @@ public class IRCConnection extends Thread
 		}
 		try
 		{
-			if (socket != null) {
+			if (socket != null)
 				socket.close();
-			}
 		}
 		catch (Exception exc)
 		{
@@ -607,9 +573,8 @@ public class IRCConnection extends Thread
 		}
 		try
 		{
-			if (out != null) {
+			if (out != null)
 				out.close();
-			}
 		}
 		catch (Exception exc)
 		{
@@ -617,9 +582,8 @@ public class IRCConnection extends Thread
 		}
 		try
 		{
-			if (in != null) {
+			if (in != null)
 				in.close();
-			}
 		}
 		catch (Exception exc)
 		{
@@ -628,9 +592,8 @@ public class IRCConnection extends Thread
 		if (level != -1)
 		{
 			level = -1;
-			for (int i = listeners.length - 1; i >= 0; i--) {
+			for (int i = listeners.length - 1; i >= 0; i--)
 				listeners[i].onDisconnected();
-			}
 		}
 		socket = null;
 		in = null;
@@ -649,9 +612,8 @@ public class IRCConnection extends Thread
 	 */
 	public synchronized void addIRCEventListener(IRCEventListener l)
 	{
-		if (l == null) {
+		if (l == null)
 			throw new IllegalArgumentException("Listener is null.");
-		}
 		int len = listeners.length;
 		IRCEventListener[] oldListeners = listeners;
 		listeners = new IRCEventListener[len + 1];
@@ -669,28 +631,23 @@ public class IRCConnection extends Thread
 	 */
 	public synchronized boolean removeIRCEventListener(IRCEventListener l)
 	{
-		if (l == null) {
+		if (l == null)
 			return false;
-		}
 		int index = -1;
-		for (int i = 0; i < listeners.length; i++) {
+		for (int i = 0; i < listeners.length; i++)
 			if (listeners[i].equals(l))
 			{
 				index = i;
 				break;
 			}
-		}
-		if (index == -1) {
+		if (index == -1)
 			return false;
-		}
 		listeners[index] = null;
 		int len = listeners.length - 1;
 		IRCEventListener[] newListeners = new IRCEventListener[len];
-		for (int i = 0, j = 0; i < len; j++) {
-			if (listeners[j] != null) {
+		for (int i = 0, j = 0; i < len; j++)
+			if (listeners[j] != null)
 				newListeners[i++] = listeners[j];
-			}
-		}
 		listeners = newListeners;
 		return true;
 	}
@@ -737,7 +694,7 @@ public class IRCConnection extends Thread
 	 */
 	public void setTimeout(int millis)
 	{
-		if (socket != null) {
+		if (socket != null)
 			try
 			{
 				socket.setSoTimeout(millis);
@@ -746,7 +703,6 @@ public class IRCConnection extends Thread
 			{
 				exc.printStackTrace();
 			}
-		}
 		timeout = millis;
 	}
 
@@ -885,7 +841,7 @@ public class IRCConnection extends Thread
 	 */
 	public int getTimeout()
 	{
-		if (socket != null) {
+		if (socket != null)
 			try
 			{
 				return socket.getSoTimeout();
@@ -895,9 +851,8 @@ public class IRCConnection extends Thread
 				exc.printStackTrace();
 				return -1;
 			}
-		} else {
+		else
 			return timeout;
-		}
 	}
 
 	// ------------------------------

@@ -47,12 +47,8 @@ public class L2Multisell
 		synchronized (_entries)
 		{
 			for (MultiSellListContainer list : _entries)
-			{
 				if (list.getListId() == id)
-				{
 					return list;
-				}
-			}
 		}
 		_log.warning("[L2Multisell] can't find list with id: " + id);
 		return null;
@@ -92,29 +88,20 @@ public class L2Multisell
 		MultiSellListContainer listTemplate = L2Multisell.getInstance().getList(listId);
 		MultiSellListContainer list = new MultiSellListContainer();
 		if (listTemplate == null)
-		{
 			return list;
-		}
 		list = L2Multisell.getInstance().new MultiSellListContainer();
 		list.setListId(listId);
 		if (inventoryOnly)
 		{
 			if (player == null)
-			{
 				return list;
-			}
 			L2ItemInstance[] items;
 			if (listTemplate.getMaintainEnchantment())
-			{
 				items = player.getInventory().getUniqueItemsByEnchantLevel(false, false, false);
-			}
 			else
-			{
 				items = player.getInventory().getUniqueItems(false, false, false);
-			}
 			int enchantLevel;
 			for (L2ItemInstance item : items)
-			{
 				// only do the matchup on equipable items that are not currently
 				// equipped
 				// so for each appropriate item, produce a set of entries for
@@ -130,34 +117,24 @@ public class L2Multisell
 						// check ingredients of this entry to see if it's an
 						// entry we'd like to include.
 						for (MultiSellIngredient ing : ent.getIngredients())
-						{
 							if (item.getItemId() == ing.getItemId())
 							{
 								doInclude = true;
 								break;
 							}
-						}
 						// manipulate the ingredients of the template entry for
 						// this particular instance shown
 						// i.e: Assign enchant levels and/or apply taxes as
 						// needed.
 						if (doInclude)
-						{
 							list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), listTemplate.getMaintainEnchantment(), enchantLevel, taxRate));
-						}
 					}
 				}
-			} // end for each inventory item.
 		} // end if "inventory-only"
-		else
-		// this is a list-all type
-		{
+ else
 			// if no taxes are applied, no modifications are needed
 			for (MultiSellEntry ent : listTemplate.getEntries())
-			{
 				list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), false, 0, taxRate));
-			}
-		}
 		return list;
 	}
 
@@ -187,15 +164,10 @@ public class L2Multisell
 				if (ing.isTaxIngredient())
 				{
 					if (applyTaxes)
-					{
 						adenaAmount = (int) Math.round(ing.getItemCount() * taxRate);
-					}
 					adenaAmount = ing.getItemCount() + adenaAmount;
-				}
-				else
-				{
+				} else
 					adenaAmount = ing.getItemCount();
-				}
 				continue;
 			}
 			// if it is an armor/weapon, modify the enchantment level
@@ -204,18 +176,14 @@ public class L2Multisell
 			{
 				L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
 				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
-				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
-				}
 			}
 			// finally, add this ingredient to the entry
 			newEntry.addIngredient(newIngredient);
 		}
 		// now add the adena, if any.
 		if (adenaAmount > 0)
-		{
 			newEntry.addIngredient(L2Multisell.getInstance().new MultiSellIngredient(57, adenaAmount, 0, false, false));
-		}
 		// Now modify the enchantment level of products, if necessary
 		for (MultiSellIngredient ing : templateEntry.getProducts())
 		{
@@ -229,9 +197,7 @@ public class L2Multisell
 				// will result to a +0)
 				L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
 				if (tempItem instanceof L2Armor || tempItem instanceof L2Weapon)
-				{
 					newIngredient.setEnchantmentLevel(enchantLevel);
-				}
 			}
 			newEntry.addProduct(newIngredient);
 		}
@@ -486,12 +452,8 @@ public class L2Multisell
 		}
 		File[] files = dir.listFiles();
 		for (File f : files)
-		{
 			if (f.getName().endsWith(".xml"))
-			{
 				hash.add(f);
-			}
-		}
 	}
 
 	private void parse()
@@ -531,43 +493,31 @@ public class L2Multisell
 	{
 		MultiSellListContainer list = new MultiSellListContainer();
 		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
-		{
 			if ("list".equalsIgnoreCase(n.getNodeName()))
 			{
 				Node attribute;
 				attribute = n.getAttributes().getNamedItem("applyTaxes");
 				if (attribute == null)
-				{
 					list.setApplyTaxes(false);
-				}
 				else
-				{
 					list.setApplyTaxes(Boolean.parseBoolean(attribute.getNodeValue()));
-				}
 				attribute = n.getAttributes().getNamedItem("maintainEnchantment");
 				if (attribute == null)
-				{
 					list.setMaintainEnchantment(false);
-				}
 				else
-				{
 					list.setMaintainEnchantment(Boolean.parseBoolean(attribute.getNodeValue()));
-				}
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
-				{
 					if ("item".equalsIgnoreCase(d.getNodeName()))
 					{
 						MultiSellEntry e = parseEntry(d);
 						list.addEntry(e);
 					}
-				}
 			}
 			else if ("item".equalsIgnoreCase(n.getNodeName()))
 			{
 				MultiSellEntry e = parseEntry(n);
 				list.addEntry(e);
 			}
-		}
 		return list;
 	}
 
@@ -577,7 +527,6 @@ public class L2Multisell
 		Node first = n.getFirstChild();
 		MultiSellEntry entry = new MultiSellEntry();
 		for (n = first; n != null; n = n.getNextSibling())
-		{
 			if ("ingredient".equalsIgnoreCase(n.getNodeName()))
 			{
 				Node attribute;
@@ -586,14 +535,10 @@ public class L2Multisell
 				boolean isTaxIngredient = false, mantainIngredient = false;
 				attribute = n.getAttributes().getNamedItem("isTaxIngredient");
 				if (attribute != null)
-				{
 					isTaxIngredient = Boolean.parseBoolean(attribute.getNodeValue());
-				}
 				attribute = n.getAttributes().getNamedItem("mantainIngredient");
 				if (attribute != null)
-				{
 					mantainIngredient = Boolean.parseBoolean(attribute.getNodeValue());
-				}
 				MultiSellIngredient e = new MultiSellIngredient(id, count, isTaxIngredient, mantainIngredient);
 				entry.addIngredient(e);
 			}
@@ -604,7 +549,6 @@ public class L2Multisell
 				MultiSellIngredient e = new MultiSellIngredient(id, count, false, false);
 				entry.addProduct(e);
 			}
-		}
 		entry.setEntryId(entryId);
 		return entry;
 	}

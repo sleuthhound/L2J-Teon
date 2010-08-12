@@ -50,9 +50,8 @@ public class SiegeGuardManager
 	 */
 	public void addSiegeGuard(L2PcInstance activeChar, int npcId)
 	{
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		addSiegeGuard(activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading(), npcId);
 	}
 
@@ -71,9 +70,8 @@ public class SiegeGuardManager
 	 */
 	public void hireMerc(L2PcInstance activeChar, int npcId)
 	{
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		hireMerc(activeChar.getX(), activeChar.getY(), activeChar.getZ(), activeChar.getHeading(), npcId);
 	}
 
@@ -157,11 +155,9 @@ public class SiegeGuardManager
 	public void spawnSiegeGuard()
 	{
 		loadSiegeGuard();
-		for (L2Spawn spawn : getSiegeGuardSpawn()) {
-			if (spawn != null) {
+		for (L2Spawn spawn : getSiegeGuardSpawn())
+			if (spawn != null)
 				spawn.init();
-			}
-		}
 	}
 
 	/**
@@ -172,9 +168,8 @@ public class SiegeGuardManager
 	{
 		for (L2Spawn spawn : getSiegeGuardSpawn())
 		{
-			if (spawn == null) {
+			if (spawn == null)
 				continue;
-			}
 			spawn.stopRespawn();
 			spawn.getLastSpawn().doDie(spawn.getLastSpawn());
 		}
@@ -195,13 +190,12 @@ public class SiegeGuardManager
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM castle_siege_guards Where castleId = ? And isHired = ?");
 			statement.setInt(1, getCastle().getCastleId());
-			if (getCastle().getOwnerId() > 0) {
+			if (getCastle().getOwnerId() > 0)
 				// then don't spawn default
 				// guards
 				statement.setInt(2, 1);
-			} else {
+			else
 				statement.setInt(2, 0);
-			}
 			ResultSet rs = statement.executeQuery();
 			L2Spawn spawn1;
 			L2NpcTemplate template1;
@@ -220,11 +214,8 @@ public class SiegeGuardManager
 					spawn1.setRespawnDelay(rs.getInt("respawnDelay"));
 					spawn1.setLocation(0);
 					_siegeGuardSpawn.add(spawn1);
-				}
-				else
-				{
+				} else
 					_log.warning("Missing npc data in npc table for id: " + rs.getInt("npcId"));
-				}
 			}
 			statement.close();
 		}
@@ -261,11 +252,10 @@ public class SiegeGuardManager
 			statement.setInt(4, y);
 			statement.setInt(5, z);
 			statement.setInt(6, heading);
-			if (isHire == 1) {
+			if (isHire == 1)
 				statement.setInt(7, 0);
-			} else {
+			else
 				statement.setInt(7, 600);
-			}
 			statement.setInt(8, isHire);
 			statement.execute();
 			statement.close();

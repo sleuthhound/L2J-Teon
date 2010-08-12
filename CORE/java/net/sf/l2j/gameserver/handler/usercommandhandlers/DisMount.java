@@ -31,14 +31,12 @@ public class DisMount implements IUserCommandHandler
 	 */
 	public synchronized boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (id != COMMAND_IDS[0]) {
+		if (id != COMMAND_IDS[0])
 			return false;
-		}
-		if (activeChar.isRentedPet()) {
+		if (activeChar.isRentedPet())
 			activeChar.stopRentPet();
-		} else if (activeChar.isMounted()) {
+		else if (activeChar.isMounted())
 			activeChar.dismount();
-		}
 		return true;
 	}
 

@@ -119,33 +119,24 @@ public class MercTicketManager
 	// returns the castleId for the passed ticket item id
 	public int getTicketCastleId(int itemId)
 	{
-		if (itemId >= ITEM_IDS[0] && itemId <= ITEM_IDS[9] || itemId >= ITEM_IDS[10] && itemId <= ITEM_IDS[19]) {
+		if (itemId >= ITEM_IDS[0] && itemId <= ITEM_IDS[9] || itemId >= ITEM_IDS[10] && itemId <= ITEM_IDS[19])
 			return 1; // Gludio
-		}
-		if (itemId >= ITEM_IDS[20] && itemId <= ITEM_IDS[29] || itemId >= ITEM_IDS[30] && itemId <= ITEM_IDS[39]) {
+		if (itemId >= ITEM_IDS[20] && itemId <= ITEM_IDS[29] || itemId >= ITEM_IDS[30] && itemId <= ITEM_IDS[39])
 			return 2; // Dion
-		}
-		if (itemId >= ITEM_IDS[40] && itemId <= ITEM_IDS[49] || itemId >= ITEM_IDS[50] && itemId <= ITEM_IDS[59]) {
+		if (itemId >= ITEM_IDS[40] && itemId <= ITEM_IDS[49] || itemId >= ITEM_IDS[50] && itemId <= ITEM_IDS[59])
 			return 3; // Giran
-		}
-		if (itemId >= ITEM_IDS[60] && itemId <= ITEM_IDS[69] || itemId >= ITEM_IDS[70] && itemId <= ITEM_IDS[79]) {
+		if (itemId >= ITEM_IDS[60] && itemId <= ITEM_IDS[69] || itemId >= ITEM_IDS[70] && itemId <= ITEM_IDS[79])
 			return 4; // Oren
-		}
-		if (itemId >= ITEM_IDS[80] && itemId <= ITEM_IDS[89] || itemId >= ITEM_IDS[90] && itemId <= ITEM_IDS[99]) {
+		if (itemId >= ITEM_IDS[80] && itemId <= ITEM_IDS[89] || itemId >= ITEM_IDS[90] && itemId <= ITEM_IDS[99])
 			return 5; // Aden
-		}
-		if (itemId >= ITEM_IDS[100] && itemId <= ITEM_IDS[109] || itemId >= ITEM_IDS[110] && itemId <= ITEM_IDS[119]) {
+		if (itemId >= ITEM_IDS[100] && itemId <= ITEM_IDS[109] || itemId >= ITEM_IDS[110] && itemId <= ITEM_IDS[119])
 			return 6; // Innadril
-		}
-		if (itemId >= ITEM_IDS[120] && itemId <= ITEM_IDS[129] || itemId >= ITEM_IDS[130] && itemId <= ITEM_IDS[139]) {
+		if (itemId >= ITEM_IDS[120] && itemId <= ITEM_IDS[129] || itemId >= ITEM_IDS[130] && itemId <= ITEM_IDS[139])
 			return 7; // Goddard
-		}
-		if (itemId >= ITEM_IDS[140] && itemId <= ITEM_IDS[149] || itemId >= ITEM_IDS[150] && itemId <= ITEM_IDS[159]) {
+		if (itemId >= ITEM_IDS[140] && itemId <= ITEM_IDS[149] || itemId >= ITEM_IDS[150] && itemId <= ITEM_IDS[159])
 			return 8; // Rune
-		}
-		if (itemId >= ITEM_IDS[160] && itemId <= ITEM_IDS[169] || itemId >= ITEM_IDS[170] && itemId <= ITEM_IDS[179]) {
+		if (itemId >= ITEM_IDS[160] && itemId <= ITEM_IDS[169] || itemId >= ITEM_IDS[170] && itemId <= ITEM_IDS[179])
 			return 9; // Schuttgart
-		}
 		return -1;
 	}
 
@@ -187,12 +178,11 @@ public class MercTicketManager
 				y = rs.getInt("y");
 				z = rs.getInt("z");
 				Castle castle = CastleManager.getInstance().getCastle(x, y, z);
-				if (castle != null) {
+				if (castle != null)
 					startindex = 20 * (castle.getCastleId() - 1);
-				}
 				// find the FIRST ticket itemId with spawns the saved NPC in the
 				// saved location
-				for (int i = startindex; i < NPC_IDS.length; i++) {
+				for (int i = startindex; i < NPC_IDS.length; i++)
 					if (NPC_IDS[i] == npcId) // Find the index of the item
 					// used
 					{
@@ -213,7 +203,6 @@ public class MercTicketManager
 						}
 						break;
 					}
-				}
 			}
 			statement.close();
 			System.out.println("Loaded: " + getDroppedTickets().size() + " Mercenary Tickets");
@@ -244,28 +233,24 @@ public class MercTicketManager
 	{
 		int limit = -1;
 		// find the max value for this item
-		for (int i = 0; i < ITEM_IDS.length; i++) {
+		for (int i = 0; i < ITEM_IDS.length; i++)
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{
 				limit = MAX_MERC_PER_TYPE[i];
 				break;
 			}
-		}
-		if (limit <= 0) {
+		if (limit <= 0)
 			return true;
-		}
 		int count = 0;
 		L2ItemInstance ticket;
 		for (int i = 0; i < getDroppedTickets().size(); i++)
 		{
 			ticket = getDroppedTickets().get(i);
-			if (ticket != null && ticket.getItemId() == itemId) {
+			if (ticket != null && ticket.getItemId() == itemId)
 				count++;
-			}
 		}
-		if (count >= limit) {
+		if (count >= limit)
 			return true;
-		}
 		return false;
 	}
 
@@ -275,25 +260,21 @@ public class MercTicketManager
 	public boolean isAtCasleLimit(int itemId)
 	{
 		int castleId = getTicketCastleId(itemId);
-		if (castleId <= 0) {
+		if (castleId <= 0)
 			return true;
-		}
 		int limit = MERCS_MAX_PER_CASTLE[castleId - 1];
-		if (limit <= 0) {
+		if (limit <= 0)
 			return true;
-		}
 		int count = 0;
 		L2ItemInstance ticket;
 		for (int i = 0; i < getDroppedTickets().size(); i++)
 		{
 			ticket = getDroppedTickets().get(i);
-			if (ticket != null && getTicketCastleId(ticket.getItemId()) == castleId) {
+			if (ticket != null && getTicketCastleId(ticket.getItemId()) == castleId)
 				count++;
-			}
 		}
-		if (count >= limit) {
+		if (count >= limit)
 			return true;
-		}
 		return false;
 	}
 
@@ -307,12 +288,10 @@ public class MercTicketManager
 		int z = activeChar.getZ();
 		int heading = activeChar.getHeading();
 		Castle castle = CastleManager.getInstance().getCastle(activeChar);
-		if (castle == null) {
+		if (castle == null)
 			return -1;
-		}
 		// check if this item can be added here
 		for (int i = 0; i < ITEM_IDS.length; i++)
-		{
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{
 				spawnMercenary(NPC_IDS[i], x, y, z, 3000, messages, 0);
@@ -332,7 +311,6 @@ public class MercTicketManager
 				_droppedTickets.add(dropticket);
 				return NPC_IDS[i];
 			}
-		}
 		return -1;
 	}
 
@@ -345,11 +323,9 @@ public class MercTicketManager
 			npc.setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp());
 			npc.setDecayed(false);
 			npc.spawnMe(x, y, (z + 20));
-			if (messages != null && messages.length > 0) {
+			if (messages != null && messages.length > 0)
 				AutoChatHandler.getInstance().registerChat(npc, messages, chatDelay);
-			}
 			if (despawnDelay > 0)
-			{
 				ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 				{
 					public void run()
@@ -357,7 +333,6 @@ public class MercTicketManager
 						npc.deleteMe();
 					}
 				}, despawnDelay);
-			}
 		}
 	}
 
@@ -376,9 +351,8 @@ public class MercTicketManager
 				L2World.getInstance().removeObject(item);
 				// remove from the list
 				getDroppedTickets().remove(i);
-			} else {
+			} else
 				i++;
-			}
 		}
 	}
 
@@ -391,19 +365,16 @@ public class MercTicketManager
 		int npcId = -1;
 		// find the FIRST ticket itemId with spawns the saved NPC in the saved
 		// location
-		for (int i = 0; i < ITEM_IDS.length; i++) {
+		for (int i = 0; i < ITEM_IDS.length; i++)
 			if (ITEM_IDS[i] == itemId) // Find the index of the item used
 			{
 				npcId = NPC_IDS[i];
 				break;
 			}
-		}
 		// find the castle where this item is
 		Castle castle = CastleManager.getInstance().getCastleById(getTicketCastleId(itemId));
 		if (npcId > 0 && castle != null)
-		{
 			new SiegeGuardManager(castle).removeMerc(npcId, item.getX(), item.getY(), item.getZ());
-		}
 		getDroppedTickets().remove(item);
 	}
 
@@ -414,9 +385,8 @@ public class MercTicketManager
 
 	public final List<L2ItemInstance> getDroppedTickets()
 	{
-		if (_droppedTickets == null) {
+		if (_droppedTickets == null)
 			_droppedTickets = new FastList<L2ItemInstance>();
-		}
 		return _droppedTickets;
 	}
 }

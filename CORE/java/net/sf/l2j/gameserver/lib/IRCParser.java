@@ -117,9 +117,8 @@ public class IRCParser
 		int index = 0;
 		int trail;
 		buf = new StringBuffer(line);
-		if (!colorsEnabled) {
+		if (!colorsEnabled)
 			buf = IRCUtil.parseColors(buf);
-		}
 		len = buf.length();
 		// prefix
 		if (buf.charAt(0) == ':')
@@ -127,21 +126,18 @@ public class IRCParser
 			prefix = buf.substring(1, (index = indexOf(' ', index)));
 			index++;
 		}
-		while (buf.charAt(index) == ' ') {
+		while (buf.charAt(index) == ' ')
 			index++;
-		}
 		// command
 		command = buf.substring(index, (index = indexOf(' ', index)) != -1 ? index : (index = len));
-		while (index < len && buf.charAt(index) == ' ') {
+		while (index < len && buf.charAt(index) == ' ')
 			index++;
-		}
 		index--;
 		// middle & trailing
-		if ((trail = indexOf(" :", index)) != -1) {
+		if ((trail = indexOf(" :", index)) != -1)
 			trailing = buf.substring(trail + 2, len);
-		} else if ((trail = lastIndexOf(' ')) != -1 && trail >= index) {
+		else if ((trail = lastIndexOf(' ')) != -1 && trail >= index)
 			trailing = buf.substring(trail + 1, len);
-		}
 		middle = index < trail ? buf.substring(index + 1, trail) : "";
 		// save
 		prefix = prefix != null ? prefix : "";
@@ -162,11 +158,9 @@ public class IRCParser
 	 */
 	private int indexOf(int c, int i)
 	{
-		while (i < len) {
-			if (buf.charAt(i++) == c) {
+		while (i < len)
+			if (buf.charAt(i++) == c)
 				return --i;
-			}
-		}
 		return -1;
 	}
 
@@ -185,15 +179,12 @@ public class IRCParser
 		int sublen = str.length();
 		int index = -1;
 		int j;
-		for (; i < len; i++) {
-			for (index = i, j = 0; i < len && j < sublen; i++, j++) {
-				if (buf.charAt(i) != str.charAt(j)) {
+		for (; i < len; i++)
+			for (index = i, j = 0; i < len && j < sublen; i++, j++)
+				if (buf.charAt(i) != str.charAt(j))
 					break;
-				} else if (j + 1 == sublen) {
+				else if (j + 1 == sublen)
 					return index;
-				}
-			}
-		}
 		return -1;
 	}
 
@@ -212,13 +203,11 @@ public class IRCParser
 	{
 		int i = len;
 		boolean ok = false;
-		while (i > 0) {
-			if (buf.charAt(--i) != c) {
+		while (i > 0)
+			if (buf.charAt(--i) != c)
 				ok = true;
-			} else if (ok) {
+			else if (ok)
 				return i;
-			}
-		}
 		return -1;
 	}
 
@@ -321,9 +310,8 @@ public class IRCParser
 	public String getNick()
 	{
 		int i = prefix.indexOf('!');
-		if (i != -1 || (i = prefix.indexOf('@')) != -1) {
+		if (i != -1 || (i = prefix.indexOf('@')) != -1)
 			return prefix.substring(0, i);
-		}
 		return prefix.length() != 0 ? prefix : null;
 	}
 
@@ -398,9 +386,8 @@ public class IRCParser
 	public String getHost()
 	{
 		int i = prefix.indexOf('@') + 1;
-		if (i != 0) {
+		if (i != 0)
 			return prefix.substring(i, prefix.length());
-		}
 		return null;
 	}
 
@@ -427,9 +414,8 @@ public class IRCParser
 	 */
 	public int getParameterCount()
 	{
-		if (parameters == null) {
+		if (parameters == null)
 			initParameters();
-		}
 		return parameters.length;
 	}
 
@@ -443,15 +429,13 @@ public class IRCParser
 	 */
 	public String getParameter(int i)
 	{
-		if (parameters == null) {
+		if (parameters == null)
 			initParameters();
-		}
 		--i;
-		if (i >= 0 && i < parameters.length) {
+		if (i >= 0 && i < parameters.length)
 			return parameters[i];
-		} else {
+		else
 			return "";
-		}
 	}
 
 	// ------------------------------
@@ -464,13 +448,11 @@ public class IRCParser
 	 */
 	public String getParametersFrom(int i)
 	{
-		if (parameters == null) {
+		if (parameters == null)
 			initParameters();
-		}
 		StringBuffer params = new StringBuffer();
-		for (i--; i < parameters.length; i++) {
+		for (i--; i < parameters.length; i++)
 			params.append(parameters[i] + " ");
-		}
 		return params.toString();
 	}
 
@@ -484,14 +466,12 @@ public class IRCParser
 	 */
 	public String getParametersTo(int i)
 	{
-		if (parameters == null) {
+		if (parameters == null)
 			initParameters();
-		}
 		StringBuffer params = new StringBuffer();
 		int max = i < parameters.length ? i : parameters.length;
-		for (i = 0; i < max; i++) {
+		for (i = 0; i < max; i++)
 			params.append(parameters[i] + " ");
-		}
 		return params.toString();
 	}
 

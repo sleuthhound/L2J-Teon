@@ -28,18 +28,13 @@ public class AutoLootHerbs implements IVoicedCommandHandler
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		// is command enabled?
-		if (!Config.ALLOW_AUTOHERBS_CMD) {
+		if (!Config.ALLOW_AUTOHERBS_CMD)
 			return false;
-		}
 		// check command syntax and do work
 		if (command.startsWith("autoherbs_on"))
-		{
 			activeChar.setAutoLootHerbs(1);
-		}
 		else if (command.startsWith("autoherbs_off"))
-		{ // auto loot off
 			activeChar.setAutoLootHerbs(0);
-		}
 		else
 		{ // show cmd syntax
 			activeChar.sendMessage("AutoHerbs Syntax:");

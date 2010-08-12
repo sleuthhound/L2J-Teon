@@ -70,18 +70,16 @@ public class MacroList
 		if (macro.id == 0)
 		{
 			macro.id = _macroId++;
-			while (_macroses.get(macro.id) != null) {
+			while (_macroses.get(macro.id) != null)
 				macro.id = _macroId++;
-			}
 			_macroses.put(macro.id, macro);
 			registerMacroInDb(macro);
 		}
 		else
 		{
 			L2Macro old = _macroses.put(macro.id, macro);
-			if (old != null) {
+			if (old != null)
 				deleteMacroFromDb(old);
-			}
 			registerMacroInDb(macro);
 		}
 		sendUpdate();
@@ -91,17 +89,12 @@ public class MacroList
 	{
 		L2Macro toRemove = _macroses.get(id);
 		if (toRemove != null)
-		{
 			deleteMacroFromDb(toRemove);
-		}
 		_macroses.remove(id);
 		L2ShortCut[] allShortCuts = _owner.getAllShortCuts();
 		for (L2ShortCut sc : allShortCuts)
-		{
-			if (sc.getId() == id && sc.getType() == L2ShortCut.TYPE_MACRO) {
+			if (sc.getId() == id && sc.getType() == L2ShortCut.TYPE_MACRO)
 				_owner.deleteShortCut(sc.getSlot(), sc.getPage());
-			}
-		}
 		sendUpdate();
 	}
 
@@ -110,16 +103,10 @@ public class MacroList
 		_revision++;
 		L2Macro[] all = getAllMacroses();
 		if (all.length == 0)
-		{
 			_owner.sendPacket(new SendMacroList(_revision, all.length, null));
-		}
 		else
-		{
 			for (L2Macro m : all)
-			{
 				_owner.sendPacket(new SendMacroList(_revision, all.length, m));
-			}
-		}
 	}
 
 	private void registerMacroInDb(L2Macro macro)
@@ -142,9 +129,8 @@ public class MacroList
 				sb.append(cmd.type).append(',');
 				sb.append(cmd.d1).append(',');
 				sb.append(cmd.d2);
-				if (cmd.cmd != null && cmd.cmd.length() > 0) {
+				if (cmd.cmd != null && cmd.cmd.length() > 0)
 					sb.append(',').append(cmd.cmd);
-				}
 				sb.append(';');
 			}
 			statement.setString(7, sb.toString());
@@ -164,9 +150,7 @@ public class MacroList
 				allowRegister = false;
 			}
 			if (allowRegister)
-			{
 				statement.execute();
-			}
 			statement.close();
 		}
 		catch (Exception e)
@@ -238,16 +222,14 @@ public class MacroList
 				while (st1.hasMoreTokens())
 				{
 					StringTokenizer st = new StringTokenizer(st1.nextToken(), ",");
-					if (st.countTokens() < 3) {
+					if (st.countTokens() < 3)
 						continue;
-					}
 					int type = Integer.parseInt(st.nextToken());
 					int d1 = Integer.parseInt(st.nextToken());
 					int d2 = Integer.parseInt(st.nextToken());
 					String cmd = "";
-					if (st.hasMoreTokens()) {
+					if (st.hasMoreTokens())
 						cmd = st.nextToken();
-					}
 					L2MacroCmd mcmd = new L2MacroCmd(commands.size(), type, d1, d2, cmd);
 					commands.add(mcmd);
 				}

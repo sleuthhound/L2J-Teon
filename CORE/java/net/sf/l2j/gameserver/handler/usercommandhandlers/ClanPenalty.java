@@ -33,9 +33,8 @@ public class ClanPenalty implements IUserCommandHandler
 	 */
 	public boolean useUserCommand(int id, L2PcInstance activeChar)
 	{
-		if (id != COMMAND_IDS[0]) {
+		if (id != COMMAND_IDS[0])
 			return false;
-		}
 		String penaltyStr = "No current penalties in effect.";
 		TextBuilder htmlContent = new TextBuilder("<html><body>");
 		htmlContent.append("<center><table width=\"270\" border=\"0\" bgcolor=\"111111\">");

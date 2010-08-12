@@ -78,16 +78,13 @@ public class BoatManager
 			String line = null;
 			while ((line = lnr.readLine()) != null)
 			{
-				if (line.trim().length() == 0 || line.startsWith("#")) {
+				if (line.trim().length() == 0 || line.startsWith("#"))
 					continue;
-				}
 				L2BoatInstance boat = parseLine(line);
 				boat.spawn();
 				_staticItems.put(boat.getObjectId(), boat);
 				if (Config.DEBUG)
-				{
 					System.out.println("Boat ID : " + boat.getObjectId());
-				}
 			}
 		}
 		catch (FileNotFoundException e)
@@ -208,9 +205,8 @@ public class BoatManager
 	 */
 	public L2BoatInstance GetBoat(int boatId)
 	{
-		if (_staticItems == null) {
+		if (_staticItems == null)
 			_staticItems = new FastMap<Integer, L2BoatInstance>();
-		}
 		return _staticItems.get(boatId);
 	}
 }

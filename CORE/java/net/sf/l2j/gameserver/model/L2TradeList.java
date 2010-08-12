@@ -71,9 +71,7 @@ public class L2TradeList
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getItemId() == itemID)
-			{
 				item.setPriceToSell(price);
-			}
 		}
 	}
 
@@ -83,9 +81,7 @@ public class L2TradeList
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getItemId() == itemID)
-			{
 				item.setCount(item.getCount() - count);
-			}
 		}
 	}
 
@@ -95,9 +91,7 @@ public class L2TradeList
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getCountDecrease() && item.getTime() == time)
-			{
 				item.restoreInitCount();
-			}
 		}
 	}
 
@@ -107,9 +101,7 @@ public class L2TradeList
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getItemId() == itemID)
-			{
 				_items.remove(i);
-			}
 		}
 	}
 
@@ -160,9 +152,7 @@ public class L2TradeList
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getItemId() == itemId)
-			{
 				return item.getPriceToSell();
-			}
 		}
 		return -1;
 	}
@@ -173,9 +163,7 @@ public class L2TradeList
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getItemId() == itemId)
-			{
 				return item.getCountDecrease();
-			}
 		}
 		return false;
 	}
@@ -183,12 +171,8 @@ public class L2TradeList
 	public boolean containsItemId(int itemId)
 	{
 		for (L2ItemInstance item : _items)
-		{
 			if (item.getItemId() == itemId)
-			{
 				return true;
-			}
-		}
 		return false;
 	}
 
@@ -198,9 +182,7 @@ public class L2TradeList
 		{
 			L2ItemInstance item = _items.get(i);
 			if (item.getObjectId() == ObjectId)
-			{
 				return item;
-			}
 		}
 		return null;
 	}
@@ -224,9 +206,7 @@ public class L2TradeList
 			if (temp.getObjectId() == objId)
 			{
 				if (count == temp.getCount())
-				{
 					_items.remove(temp);
-				}
 				break;
 			}
 		}
@@ -257,9 +237,7 @@ public class L2TradeList
 			temp = _items.get(y);
 			playerItem = playersInv.getItemByObjectId(temp.getObjectId());
 			if (playerItem == null || playerItem.getCount() < temp.getCount())
-			{
 				return false;
-			}
 		}
 		return true;
 	}
@@ -284,9 +262,7 @@ public class L2TradeList
 			playerItem = playersInv.getItemByObjectId(temp.getObjectId());
 			// FIXME: why is this null??
 			if (playerItem == null)
-			{
 				continue;
-			}
 			newitem = itemTable.createItem("L2TradeList", playerItem.getItemId(), playerItem.getCount(), player);
 			newitem.setEnchantLevel(temp.getEnchantLevel());
 			// DIRTY FIX: Fix for trading pet collar not updating pet with
@@ -318,9 +294,7 @@ public class L2TradeList
 				continue;
 			}
 			if (playerItem.getLastChange() == L2ItemInstance.MODIFIED)
-			{
 				update.addModifiedItem(playerItem);
-			}
 			else
 			{
 				L2World world = L2World.getInstance();
@@ -330,13 +304,9 @@ public class L2TradeList
 			player.sendPacket(update);
 			update = new InventoryUpdate();
 			if (recieverItem.getLastChange() == L2ItemInstance.MODIFIED)
-			{
 				update.addModifiedItem(recieverItem);
-			}
 			else
-			{
 				update.addNewItem(recieverItem);
-			}
 			reciever.sendPacket(update);
 		}
 		// weight status update both player and reciever
@@ -391,14 +361,10 @@ public class L2TradeList
 			{
 				list.remove(count);
 				count = count - 1;
-			}
-			else
+			} else if (temp.getCount() == 0)
 			{
-				if (temp.getCount() == 0)
-				{
-					list.remove(count);
-					count = count - 1;
-				}
+				list.remove(count);
+				count = count - 1;
 			}
 			count++;
 		}
@@ -418,14 +384,8 @@ public class L2TradeList
 			{
 				list.remove(count);
 				count = count - 1;
-			}
-			else
-			{
-				if (temp2.getCount() < temp.getCount())
-				{
-					temp.setCount(temp2.getCount());
-				}
-			}
+			} else if (temp2.getCount() < temp.getCount())
+				temp.setCount(temp2.getCount());
 			count++;
 		}
 	}
@@ -463,17 +423,11 @@ public class L2TradeList
 			if (sellerItem != null)
 			{
 				if (buyerItem.getCount() > temp2.getCount())
-				{
 					amount = temp2.getCount();
-				}
 				if (buyerItem.getCount() > sellerItem.getCount())
-				{
 					amount = sellerItem.getCount();
-				}
 				else
-				{
 					amount = buyerItem.getCount();
-				}
 				if (buyerItem.getCount() > Integer.MAX_VALUE / buyerItem.getOwnersPrice())
 				{
 					_log.warning("Integer Overflow on Cost. Possible Exploit attempt between " + buyer.getName() + " and " + seller.getName() + ".");
@@ -515,22 +469,12 @@ public class L2TradeList
 				{
 					sellerslist.remove(temp2);
 					buyerItem.setCount(0);
-				}
+				} else if (buyerItem.getCount() < temp2.getCount())
+					temp2.setCount(temp2.getCount() - buyerItem.getCount());
 				else
-				{
-					if (buyerItem.getCount() < temp2.getCount())
-					{
-						temp2.setCount(temp2.getCount() - buyerItem.getCount());
-					}
-					else
-					{
-						buyerItem.setCount(buyerItem.getCount() - temp2.getCount());
-					}
-				}
+					buyerItem.setCount(buyerItem.getCount() - temp2.getCount());
 				if (sellerItem.getLastChange() == L2ItemInstance.MODIFIED)
-				{
 					sellerupdate.addModifiedItem(sellerItem);
-				}
 				else
 				{
 					L2World world = L2World.getInstance();
@@ -538,13 +482,9 @@ public class L2TradeList
 					sellerupdate.addRemovedItem(sellerItem);
 				}
 				if (temp.getLastChange() == L2ItemInstance.MODIFIED)
-				{
 					buyerupdate.addModifiedItem(temp);
-				}
 				else
-				{
 					buyerupdate.addNewItem(temp);
-				}
 				// }
 				sellerItem = null;
 			}
@@ -562,7 +502,6 @@ public class L2TradeList
 			buyer.sendPacket(buyerupdate);
 			y = 0;
 			for (x = 0; x < sysmsgs.size(); x++)
-			{
 				if (y == 0)
 				{
 					seller.sendPacket(sysmsgs.get(x));
@@ -573,7 +512,6 @@ public class L2TradeList
 					buyer.sendPacket(sysmsgs.get(x));
 					y = 0;
 				}
-			}
 		}
 	}
 }

@@ -50,9 +50,7 @@ public class RaidBossPointsManager
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM `character_raid_points`");
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
-			{
 				_chars.add(rset.getInt("charId"));
-			}
 			rset.close();
 			statement.close();
 			for (FastList.Node<Integer> n = _chars.head(), end = _chars.tail(); (n = n.getNext()) != end;)
@@ -63,9 +61,7 @@ public class RaidBossPointsManager
 				statement.setInt(1, charId);
 				rset = statement.executeQuery();
 				while (rset.next())
-				{
 					values.put(rset.getInt("boss_id"), rset.getInt("points"));
-				}
 				rset.close();
 				statement.close();
 				_list.put(charId, values);
@@ -94,9 +90,8 @@ public class RaidBossPointsManager
 
 	public final static void loadPoints(L2PcInstance player)
 	{
-		if (_points == null) {
+		if (_points == null)
 			_points = new FastMap<Integer, Map<Integer, Integer>>();
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -171,9 +166,8 @@ public class RaidBossPointsManager
 	{
 		int ownerId = player.getObjectId();
 		Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
-		if (_points == null) {
+		if (_points == null)
 			_points = new FastMap<Integer, Map<Integer, Integer>>();
-		}
 		tmpPoint = _points.get(ownerId);
 		if (tmpPoint == null || tmpPoint.isEmpty())
 		{
@@ -197,18 +191,14 @@ public class RaidBossPointsManager
 	public final static int getPointsByOwnerId(int ownerId)
 	{
 		Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
-		if (_points == null) {
+		if (_points == null)
 			_points = new FastMap<Integer, Map<Integer, Integer>>();
-		}
 		tmpPoint = _points.get(ownerId);
 		int totalPoints = 0;
-		if (tmpPoint == null || tmpPoint.isEmpty()) {
+		if (tmpPoint == null || tmpPoint.isEmpty())
 			return 0;
-		}
 		for (int bossId : tmpPoint.keySet())
-		{
 			totalPoints += tmpPoint.get(bossId);
-		}
 		return totalPoints;
 	}
 
@@ -257,9 +247,7 @@ public class RaidBossPointsManager
 		{
 			totalPoints = getPointsByOwnerId(ownerId);
 			if (totalPoints != 0)
-			{
 				tmpRanking.put(ownerId, totalPoints);
-			}
 		}
 		Vector<Entry<Integer, Integer>> list = new Vector<Map.Entry<Integer, Integer>>(tmpRanking.entrySet());
 		Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>()
@@ -273,16 +261,14 @@ public class RaidBossPointsManager
 		for (Map.Entry<Integer, Integer> entry : list)
 		{
 			Map<Integer, Integer> tmpPoint = new FastMap<Integer, Integer>();
-			if (tmpPoints.get(entry.getKey()) != null) {
+			if (tmpPoints.get(entry.getKey()) != null)
 				tmpPoint = tmpPoints.get(entry.getKey());
-			}
 			tmpPoint.put(-1, ranking++);
 			tmpPoints.put(entry.getKey(), tmpPoint);
 		}
 		Map<Integer, Integer> rank = tmpPoints.get(player.getObjectId());
-		if (rank != null) {
+		if (rank != null)
 			return rank.get(-1);
-		}
 		return 0;
 	}
 }

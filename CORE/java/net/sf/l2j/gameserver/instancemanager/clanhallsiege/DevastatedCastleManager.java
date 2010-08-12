@@ -47,9 +47,8 @@ public class DevastatedCastleManager extends ClanHallSiege
 
 	public static final DevastatedCastleManager getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new DevastatedCastleManager();
-		}
 		return _instance;
 	}
 
@@ -71,9 +70,8 @@ public class DevastatedCastleManager extends ClanHallSiege
 		if (GameServer._instanceOk)
 		{
 			setIsInProgress(true);
-			if (!_clansDamageInfo.isEmpty()) {
+			if (!_clansDamageInfo.isEmpty())
 				_clansDamageInfo.clear();
-			}
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 60);
 			_endSiegeTask.schedule(1000);
@@ -96,16 +94,12 @@ public class DevastatedCastleManager extends ClanHallSiege
 			L2Clan clanIdMaxDamage = null;
 			long tempMaxDamage = 0;
 			for (DamageInfo damageInfo : _clansDamageInfo.values())
-			{
 				if (damageInfo != null)
-				{
 					if (damageInfo._damage > tempMaxDamage)
 					{
 						tempMaxDamage = damageInfo._damage;
 						clanIdMaxDamage = damageInfo._clan;
 					}
-				}
-			}
 			if (clanIdMaxDamage != null)
 			{
 				ClanHall clanhall = null;
@@ -125,9 +119,9 @@ public class DevastatedCastleManager extends ClanHallSiege
 	{
 		setIsInProgress(true);
 		DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
-		if (clanDamage != null) {
+		if (clanDamage != null)
 			clanDamage._damage += damage;
-		} else
+		else
 		{
 			clanDamage = new DamageInfo();
 			clanDamage._clan = clan;

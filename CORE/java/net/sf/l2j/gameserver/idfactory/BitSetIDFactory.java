@@ -52,9 +52,7 @@ public class BitSetIDFactory extends IdFactory
 		public void run()
 		{
 			if (reachingBitSetCapacity())
-			{
 				increaseBitSetCapacity();
-			}
 		}
 	}
 
@@ -102,9 +100,8 @@ public class BitSetIDFactory extends IdFactory
 		{
 			_freeIds.clear(objectID - FIRST_OID);
 			_freeIdCount.incrementAndGet();
-		} else {
+		} else
 			_log.warning("BitSet ID Factory: release objectID " + objectID + " failed (< " + FIRST_OID + ")");
-		}
 	}
 
 	@Override
@@ -115,20 +112,12 @@ public class BitSetIDFactory extends IdFactory
 		_freeIdCount.decrementAndGet();
 		int nextFree = _freeIds.nextClearBit(newID);
 		if (nextFree < 0)
-		{
 			nextFree = _freeIds.nextClearBit(0);
-		}
 		if (nextFree < 0)
-		{
 			if (_freeIds.size() < FREE_OBJECT_ID_SIZE)
-			{
 				increaseBitSetCapacity();
-			}
 			else
-			{
 				throw new NullPointerException("Ran out of valid Id's.");
-			}
-		}
 		_nextFreeId.set(nextFree);
 		return newID + FIRST_OID;
 	}

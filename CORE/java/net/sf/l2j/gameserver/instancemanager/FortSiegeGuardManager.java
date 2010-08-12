@@ -49,14 +49,12 @@ public class FortSiegeGuardManager
 		{
 			FastList<L2Spawn> monsterList = getSiegeGuardSpawn().get(getFort().getFortId());
 			if (monsterList != null)
-			{
 				for (L2Spawn spawnDat : monsterList)
 				{
 					spawnDat.doSpawn();
 					spawnDat.stopRespawn();
 					spawnDat.startRespawn();
 				}
-			}
 		}
 		catch (Exception e)
 		{
@@ -75,13 +73,11 @@ public class FortSiegeGuardManager
 		{
 			FastList<L2Spawn> monsterList = getSiegeGuardSpawn().get(getFort().getFortId());
 			if (monsterList != null)
-			{
 				for (L2Spawn spawnDat : monsterList)
 				{
 					spawnDat.stopRespawn();
 					spawnDat.getLastSpawn().doDie(spawnDat.getLastSpawn());
 				}
-			}
 		}
 		catch (Exception e)
 		{
@@ -123,11 +119,8 @@ public class FortSiegeGuardManager
 					spawn1.setRespawnDelay(rs.getInt("respawnDelay"));
 					spawn1.setLocation(0);
 					_siegeGuardsSpawns.add(spawn1);
-				}
-				else
-				{
+				} else
 					_log.warning("Missing npc data in npc table for id: " + rs.getInt("npcId"));
-				}
 				_siegeGuards.put(fortId, _siegeGuardsSpawns);
 			}
 			rs.close();

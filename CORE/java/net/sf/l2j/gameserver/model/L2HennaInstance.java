@@ -55,32 +55,30 @@ public class L2HennaInstance
 	public String getName()
 	{
 		String res = "";
-		if (_statINT > 0) {
+		if (_statINT > 0)
 			res = res + "INT +" + _statINT;
-		} else if (_statSTR > 0) {
+		else if (_statSTR > 0)
 			res = res + "STR +" + _statSTR;
-		} else if (_statCON > 0) {
+		else if (_statCON > 0)
 			res = res + "CON +" + _statCON;
-		} else if (_statMEM > 0) {
+		else if (_statMEM > 0)
 			res = res + "MEN +" + _statMEM;
-		} else if (_statDEX > 0) {
+		else if (_statDEX > 0)
 			res = res + "DEX +" + _statDEX;
-		} else if (_statWIT > 0) {
+		else if (_statWIT > 0)
 			res = res + "WIT +" + _statWIT;
-		}
-		if (_statINT < 0) {
+		if (_statINT < 0)
 			res = res + ", INT " + _statINT;
-		} else if (_statSTR < 0) {
+		else if (_statSTR < 0)
 			res = res + ", STR " + _statSTR;
-		} else if (_statCON < 0) {
+		else if (_statCON < 0)
 			res = res + ", CON " + _statCON;
-		} else if (_statMEM < 0) {
+		else if (_statMEM < 0)
 			res = res + ", MEN " + _statMEM;
-		} else if (_statDEX < 0) {
+		else if (_statDEX < 0)
 			res = res + ", DEX " + _statDEX;
-		} else if (_statWIT < 0) {
+		else if (_statWIT < 0)
 			res = res + ", WIT " + _statWIT;
-		}
 		return res;
 	}
 

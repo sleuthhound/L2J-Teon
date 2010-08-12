@@ -53,9 +53,8 @@ public final class L2Radar
 	public void removeAllMarkers()
 	{
 		// TODO: Need method to remove all markers from radar at once
-		for (RadarMarker tempMarker : _markers) {
+		for (RadarMarker tempMarker : _markers)
 			_player.sendPacket(new RadarControl(1, tempMarker._type, tempMarker._x, tempMarker._y, tempMarker._z));
-		}
 		_markers.removeAllElements();
 	}
 
@@ -92,9 +91,8 @@ public final class L2Radar
 			try
 			{
 				RadarMarker temp = (RadarMarker) obj;
-				if (temp._x == _x && temp._y == _y && temp._z == _z && temp._type == _type) {
+				if (temp._x == _x && temp._y == _y && temp._z == _z && temp._type == _type)
 					return true;
-				}
 				return false;
 			}
 			catch (Exception e)
@@ -118,14 +116,11 @@ public final class L2Radar
 		{
 			try
 			{
-				if (_me == null || _me.isOnline() == 0) {
+				if (_me == null || _me.isOnline() == 0)
 					return;
-				}
 				_me.sendPacket(new RadarControl(1, 1, _me.getX(), _me.getY(), _me.getZ()));
 				if (_myTarget == null || _myTarget.isOnline() == 0 || !_myTarget._haveFlagCTF)
-				{
 					return;
-				}
 				_me.sendPacket(new RadarControl(0, 1, _myTarget.getX(), _myTarget.getY(), _myTarget.getZ()));
 				ThreadPoolManager.getInstance().scheduleGeneral(new RadarOnPlayer(_myTarget, _me), 15000);
 			}

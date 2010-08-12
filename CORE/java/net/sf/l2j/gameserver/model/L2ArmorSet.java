@@ -63,38 +63,29 @@ public final class L2ArmorSet
 		int head = 0;
 		int gloves = 0;
 		int feet = 0;
-		if (legsItem != null) {
+		if (legsItem != null)
 			legs = legsItem.getItemId();
-		}
-		if (headItem != null) {
+		if (headItem != null)
 			head = headItem.getItemId();
-		}
-		if (glovesItem != null) {
+		if (glovesItem != null)
 			gloves = glovesItem.getItemId();
-		}
-		if (feetItem != null) {
+		if (feetItem != null)
 			feet = feetItem.getItemId();
-		}
 		return containAll(_chest, legs, head, gloves, feet);
 	}
 
 	public boolean containAll(int chest, int legs, int head, int gloves, int feet)
 	{
-		if (_chest != 0 && _chest != chest) {
+		if (_chest != 0 && _chest != chest)
 			return false;
-		}
-		if (_legs != 0 && _legs != legs) {
+		if (_legs != 0 && _legs != legs)
 			return false;
-		}
-		if (_head != 0 && _head != head) {
+		if (_head != 0 && _head != head)
 			return false;
-		}
-		if (_gloves != 0 && _gloves != gloves) {
+		if (_gloves != 0 && _gloves != gloves)
 			return false;
-		}
-		if (_feet != 0 && _feet != feet) {
+		if (_feet != 0 && _feet != feet)
 			return false;
-		}
 		return true;
 	}
 
@@ -126,17 +117,15 @@ public final class L2ArmorSet
 	{
 		Inventory inv = player.getInventory();
 		L2ItemInstance shieldItem = inv.getPaperdollItem(Inventory.PAPERDOLL_LHAND);
-		if (shieldItem != null && shieldItem.getItemId() == _shield) {
+		if (shieldItem != null && shieldItem.getItemId() == _shield)
 			return true;
-		}
 		return false;
 	}
 
 	public boolean containShield(int shield_id)
 	{
-		if (_shield == 0) {
+		if (_shield == 0)
 			return false;
-		}
 		return _shield == shield_id;
 	}
 
@@ -159,30 +148,24 @@ public final class L2ArmorSet
 	public boolean isEnchanted6(L2PcInstance player)
 	{
 		// Player don't have full set
-		if (!containAll(player)) {
+		if (!containAll(player))
 			return false;
-		}
 		Inventory inv = player.getInventory();
 		L2ItemInstance chestItem = inv.getPaperdollItem(Inventory.PAPERDOLL_CHEST);
 		L2ItemInstance legsItem = inv.getPaperdollItem(Inventory.PAPERDOLL_LEGS);
 		L2ItemInstance headItem = inv.getPaperdollItem(Inventory.PAPERDOLL_HEAD);
 		L2ItemInstance glovesItem = inv.getPaperdollItem(Inventory.PAPERDOLL_GLOVES);
 		L2ItemInstance feetItem = inv.getPaperdollItem(Inventory.PAPERDOLL_FEET);
-		if (chestItem.getEnchantLevel() < 6) {
+		if (chestItem.getEnchantLevel() < 6)
 			return false;
-		}
-		if (_legs != 0 && legsItem.getEnchantLevel() < 6) {
+		if (_legs != 0 && legsItem.getEnchantLevel() < 6)
 			return false;
-		}
-		if (_gloves != 0 && glovesItem.getEnchantLevel() < 6) {
+		if (_gloves != 0 && glovesItem.getEnchantLevel() < 6)
 			return false;
-		}
-		if (_head != 0 && headItem.getEnchantLevel() < 6) {
+		if (_head != 0 && headItem.getEnchantLevel() < 6)
 			return false;
-		}
-		if (_feet != 0 && feetItem.getEnchantLevel() < 6) {
+		if (_feet != 0 && feetItem.getEnchantLevel() < 6)
 			return false;
-		}
 		return true;
 	}
 }
