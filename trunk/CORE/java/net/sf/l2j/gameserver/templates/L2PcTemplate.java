@@ -68,9 +68,8 @@ public class L2PcTemplate extends L2CharTemplate
 	public void addItem(int itemId)
 	{
 		L2Item item = ItemTable.getInstance().getTemplate(itemId);
-		if (item != null) {
+		if (item != null)
 			_items.add(item);
-		}
 	}
 
 	/**

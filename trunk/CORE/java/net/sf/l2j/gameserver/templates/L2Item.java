@@ -295,7 +295,7 @@ public abstract class L2Item
 	 */
 	public final int getCrystalCount(int enchantLevel)
 	{
-		if (enchantLevel > 3) {
+		if (enchantLevel > 3)
 			switch (_type2)
 			{
 				case TYPE2_SHIELD_ARMOR:
@@ -306,7 +306,7 @@ public abstract class L2Item
 				default:
 					return _crystalCount;
 			}
-		} else if (enchantLevel > 0) {
+		else if (enchantLevel > 0)
 			switch (_type2)
 			{
 				case TYPE2_SHIELD_ARMOR:
@@ -317,9 +317,8 @@ public abstract class L2Item
 				default:
 					return _crystalCount;
 			}
-		} else {
+		else
 			return _crystalCount;
-		}
 	}
 
 	/**
@@ -503,9 +502,8 @@ public abstract class L2Item
 	 */
 	public Func[] getStatFuncs(L2ItemInstance instance, L2Character player)
 	{
-		if (_funcTemplates == null) {
+		if (_funcTemplates == null)
 			return _emptyFunctionSet;
-		}
 		List<Func> funcs = new FastList<Func>();
 		for (FuncTemplate t : _funcTemplates)
 		{
@@ -514,13 +512,11 @@ public abstract class L2Item
 			env.target = player;
 			env.item = instance;
 			Func f = t.getFunc(env, this); // skill is owner
-			if (f != null) {
+			if (f != null)
 				funcs.add(f);
-			}
 		}
-		if (funcs.size() == 0) {
+		if (funcs.size() == 0)
 			return _emptyFunctionSet;
-		}
 		return funcs.toArray(new Func[funcs.size()]);
 	}
 
@@ -535,9 +531,8 @@ public abstract class L2Item
 	 */
 	public L2Effect[] getEffects(L2ItemInstance instance, L2Character player)
 	{
-		if (_effectTemplates == null) {
+		if (_effectTemplates == null)
 			return _emptyEffectSet;
-		}
 		List<L2Effect> effects = new FastList<L2Effect>();
 		for (EffectTemplate et : _effectTemplates)
 		{
@@ -546,13 +541,11 @@ public abstract class L2Item
 			env.target = player;
 			env.item = instance;
 			L2Effect e = et.getEffect(env);
-			if (e != null) {
+			if (e != null)
 				effects.add(e);
-			}
 		}
-		if (effects.size() == 0) {
+		if (effects.size() == 0)
 			return _emptyEffectSet;
-		}
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
@@ -567,25 +560,20 @@ public abstract class L2Item
 	 */
 	public L2Effect[] getSkillEffects(L2Character caster, L2Character target)
 	{
-		if (_skills == null) {
+		if (_skills == null)
 			return _emptyEffectSet;
-		}
 		List<L2Effect> effects = new FastList<L2Effect>();
 		for (L2Skill skill : _skills)
 		{
-			if (!skill.checkCondition(caster, target, true)) {
+			if (!skill.checkCondition(caster, target, true))
 				continue; // Skill condition not met
-			}
-			if (target.getFirstEffect(skill.getId()) != null) {
+			if (target.getFirstEffect(skill.getId()) != null)
 				target.removeEffect(target.getFirstEffect(skill.getId()));
-			}
-			for (L2Effect e : skill.getEffects(caster, target)) {
+			for (L2Effect e : skill.getEffects(caster, target))
 				effects.add(e);
-			}
 		}
-		if (effects.size() == 0) {
+		if (effects.size() == 0)
 			return _emptyEffectSet;
-		}
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
@@ -600,9 +588,7 @@ public abstract class L2Item
 		// If _functTemplates is empty, create it and add the FuncTemplate f in
 		// it
 		if (_funcTemplates == null)
-		{
 			_funcTemplates = new FuncTemplate[] { f };
-		}
 		else
 		{
 			int len = _funcTemplates.length;
@@ -627,9 +613,7 @@ public abstract class L2Item
 	public void attach(EffectTemplate effect)
 	{
 		if (_effectTemplates == null)
-		{
 			_effectTemplates = new EffectTemplate[] { effect };
-		}
 		else
 		{
 			int len = _effectTemplates.length;
@@ -654,9 +638,7 @@ public abstract class L2Item
 	public void attach(L2Skill skill)
 	{
 		if (_skills == null)
-		{
 			_skills = new L2Skill[] { skill };
-		}
 		else
 		{
 			int len = _skills.length;

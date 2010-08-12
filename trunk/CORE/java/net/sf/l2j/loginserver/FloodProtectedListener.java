@@ -40,11 +40,10 @@ public abstract class FloodProtectedListener extends Thread
 	{
 		_port = port;
 		_listenIp = listenIp;
-		if (_listenIp.equals("*")) {
+		if (_listenIp.equals("*"))
 			_serverSocket = new ServerSocket(_port);
-		} else {
+		else
 			_serverSocket = new ServerSocket(_port, 50, InetAddress.getByName(_listenIp));
-		}
 	}
 
 	@Override
@@ -52,7 +51,6 @@ public abstract class FloodProtectedListener extends Thread
 	{
 		Socket connection = null;
 		while (true)
-		{
 			try
 			{
 				connection = _serverSocket.accept();
@@ -72,9 +70,8 @@ public abstract class FloodProtectedListener extends Thread
 							fConnection.lastConnection = System.currentTimeMillis();
 							connection.close();
 							fConnection.connectionNumber -= 1;
-							if (!fConnection.isFlooding) {
+							if (!fConnection.isFlooding)
 								_log.warning("Potential flood from " + connection.getInetAddress().getHostAddress());
-							}
 							fConnection.isFlooding = true;
 							continue;
 						}
@@ -113,7 +110,6 @@ public abstract class FloodProtectedListener extends Thread
 					break;
 				}
 			}
-		}
 	}
 
 	protected static class ForeignConnection
@@ -137,18 +133,16 @@ public abstract class FloodProtectedListener extends Thread
 	@SuppressWarnings("null")
 	public void removeFloodProtection(String ip)
 	{
-		if (!Config.FLOOD_PROTECTION) {
+		if (!Config.FLOOD_PROTECTION)
 			return;
-		}
 		ForeignConnection fConnection = _floodProtection.get(ip);
-		if (fConnection != null) {
+		if (fConnection != null)
 			_log.warning("Removing a flood protection for a GameServer that was not in the connection map??? :" + ip);
-		} else
+		else
 		{
 			fConnection.connectionNumber -= 1;
-			if (fConnection.connectionNumber == 0) {
+			if (fConnection.connectionNumber == 0)
 				_floodProtection.remove(fConnection);
-			}
 		}
 	}
 

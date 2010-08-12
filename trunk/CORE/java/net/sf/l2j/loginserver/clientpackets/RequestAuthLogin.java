@@ -72,11 +72,8 @@ public class RequestAuthLogin extends L2LoginClientPacket
 		{
 			readB(_raw);
 			return true;
-		}
-		else
-		{
+		} else
 			return false;
-		}
 	}
 
 	@Override
@@ -113,13 +110,9 @@ public class RequestAuthLogin extends L2LoginClientPacket
 					client.setState(LoginClientState.AUTHED_LOGIN);
 					client.setSessionKey(lc.assignSessionKeyToClient(_user, client));
 					if (Config.SHOW_LICENCE)
-					{
 						client.sendPacket(new LoginOk(getClient().getSessionKey()));
-					}
 					else
-					{
 						getClient().sendPacket(new ServerList(getClient()));
-					}
 					break;
 				case INVALID_PASSWORD:
 					client.close(LoginFailReason.REASON_USER_OR_PASS_WRONG);
@@ -138,9 +131,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
 						GameServerInfo gsi;
 
 						if ((gsi = lc.getAccountOnGameServer(_user)) != null)
-						{
 							gsi.getGameServerThread().kickPlayer(_user);
-						}
 
 					}
 					break;
@@ -151,9 +142,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
 						client.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
 						// kick from there
 						if (gsi.isAuthed())
-						{
 							gsi.getGameServerThread().kickPlayer(_user);
-						}
 					}
 			}
 		}

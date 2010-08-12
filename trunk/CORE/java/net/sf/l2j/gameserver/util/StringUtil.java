@@ -178,9 +178,7 @@ public final class StringUtil
 	{
 		final StringBuilder sbString = new StringBuilder(getLength(strings));
 		for (final String string : strings)
-		{
 			sbString.append(string);
-		}
 		return sbString.toString();
 	}
 
@@ -199,9 +197,7 @@ public final class StringUtil
 		final int length = getLength(strings);
 		final StringBuilder sbString = new StringBuilder(sizeHint > length ? sizeHint : length);
 		for (final String string : strings)
-		{
 			sbString.append(string);
-		}
 		return sbString;
 	}
 
@@ -218,9 +214,7 @@ public final class StringUtil
 	{
 		sbString.ensureCapacity(sbString.length() + getLength(strings));
 		for (final String string : strings)
-		{
 			sbString.append(string);
-		}
 	}
 
 	/**
@@ -234,9 +228,7 @@ public final class StringUtil
 	{
 		int length = 0;
 		for (final String string : strings)
-		{
 			length += string.length();
-		}
 		return length;
 	}
 }

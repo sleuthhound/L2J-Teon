@@ -41,9 +41,8 @@ public class GameServerListener extends FloodProtectedListener
 	@Override
 	public void addClient(Socket s)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.info("Received gameserver connection from: " + s.getInetAddress().getHostAddress());
-		}
 		GameServerThread gst = new GameServerThread(s);
 		_gameServers.add(gst);
 	}
