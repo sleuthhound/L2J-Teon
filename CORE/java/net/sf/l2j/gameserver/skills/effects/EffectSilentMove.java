@@ -35,9 +35,8 @@ final class EffectSilentMove extends L2Effect
 	{
 		super.onStart();
 		L2Character effected = getEffected();
-		if (effected instanceof L2PlayableInstance) {
+		if (effected instanceof L2PlayableInstance)
 			((L2PlayableInstance) effected).setSilentMoving(true);
-		}
 	}
 
 	/** Notify exited */
@@ -46,9 +45,8 @@ final class EffectSilentMove extends L2Effect
 	{
 		super.onExit();
 		L2Character effected = getEffected();
-		if (effected instanceof L2PlayableInstance) {
+		if (effected instanceof L2PlayableInstance)
 			((L2PlayableInstance) effected).setSilentMoving(false);
-		}
 	}
 
 	@Override
@@ -61,12 +59,10 @@ final class EffectSilentMove extends L2Effect
 	public boolean onActionTime()
 	{
 		// Only cont skills shouldn't end
-		if (getSkill().getSkillType() != SkillType.CONT) {
+		if (getSkill().getSkillType() != SkillType.CONT)
 			return false;
-		}
-		if (getEffected().isDead()) {
+		if (getEffected().isDead())
 			return false;
-		}
 		double manaDam = calc();
 		if (manaDam > getEffected().getCurrentMp())
 		{

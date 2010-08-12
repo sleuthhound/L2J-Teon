@@ -65,17 +65,12 @@ public class SkillsEngine
 		}
 		File[] files = dir.listFiles();
 		for (File f : files)
-		{
-			if (f.getName().endsWith(".xml")) {
-				if (!f.getName().startsWith("custom")) {
+			if (f.getName().endsWith(".xml"))
+				if (!f.getName().startsWith("custom"))
 					hash.add(f);
-				}
-			}
-		}
 		File customfile = new File(Config.DATAPACK_ROOT, dirname + "/custom.xml");
-		if (customfile.exists()) {
+		if (customfile.exists())
 			hash.add(customfile);
-		}
 	}
 
 	public List<L2Skill> loadSkills(File file)
@@ -96,9 +91,8 @@ public class SkillsEngine
 		for (File file : _skillFiles)
 		{
 			List<L2Skill> s = loadSkills(file);
-			if (s == null) {
+			if (s == null)
 				continue;
-			}
 			for (L2Skill skill : s)
 			{
 				allSkills.put(SkillTable.getSkillHashCode(skill), skill);
@@ -112,9 +106,7 @@ public class SkillsEngine
 	{
 		List<L2Armor> list = new FastList<L2Armor>();
 		for (L2Item item : loadData(armorData, _armorFiles))
-		{
 			list.add((L2Armor) item);
-		}
 		return list;
 	}
 
@@ -122,9 +114,7 @@ public class SkillsEngine
 	{
 		List<L2Weapon> list = new FastList<L2Weapon>();
 		for (L2Item item : loadData(weaponData, _weaponFiles))
-		{
 			list.add((L2Weapon) item);
-		}
 		return list;
 	}
 
@@ -132,16 +122,10 @@ public class SkillsEngine
 	{
 		List<L2EtcItem> list = new FastList<L2EtcItem>();
 		for (L2Item item : loadData(itemData, _etcitemFiles))
-		{
 			list.add((L2EtcItem) item);
-		}
 		if (list.size() == 0)
-		{
 			for (Item item : itemData.values())
-			{
 				list.add(new L2EtcItem((L2EtcItemType) item.type, item.set));
-			}
-		}
 		return list;
 	}
 

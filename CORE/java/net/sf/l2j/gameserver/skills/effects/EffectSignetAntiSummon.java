@@ -52,32 +52,28 @@ final class EffectSignetAntiSummon extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getCount() == getTotalCount() - 1) {
+		if (getCount() == getTotalCount() - 1)
 			return true; // do nothing first time
-		}
 		int mpConsume = getSkill().getMpConsume();
 		for (L2Character cha : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
 		{
-			if (cha == null) {
+			if (cha == null)
 				continue;
-			}
 			if (cha instanceof L2PlayableInstance)
 			{
 				L2PcInstance owner = null;
-				if (cha instanceof L2Summon) {
+				if (cha instanceof L2Summon)
 					owner = ((L2Summon) cha).getOwner();
-				} else {
+				else
 					owner = (L2PcInstance) cha;
-				}
 				if (owner != null && owner.getPet() != null)
 				{
 					if (mpConsume > getEffector().getCurrentMp())
 					{
 						getEffector().sendPacket(new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP));
 						return false;
-					} else {
+					} else
 						getEffector().reduceCurrentMp(mpConsume);
-					}
 					owner.getPet().unSummon(owner);
 					owner.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, getEffector());
 				}
@@ -90,8 +86,6 @@ final class EffectSignetAntiSummon extends L2Effect
 	public void onExit()
 	{
 		if (_actor != null)
-		{
 			_actor.deleteMe();
-		}
 	}
 }

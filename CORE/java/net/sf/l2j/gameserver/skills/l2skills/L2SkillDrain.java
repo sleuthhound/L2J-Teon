@@ -42,19 +42,16 @@ public class L2SkillDrain extends L2Skill
 	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead()) {
+		if (activeChar.isAlikeDead())
 			return;
-		}
 		boolean ss = false;
 		boolean bss = false;
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
-			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB) {
+			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
-			}
-			if (activeChar != target && target.isInvul()) {
+			if (activeChar != target && target.isInvul())
 				continue; // No effect on invulnerable chars unless they
-			}
 			// cast
 			// it themselves.
 			L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
@@ -100,17 +97,15 @@ public class L2SkillDrain extends L2Skill
 
             if (_cp > 0)
             {
-            	if (damage < _cp) {
+            	if (damage < _cp)
 					_drain = 0;
-				} else {
+				else
 					_drain = damage - _cp;
-				}
             }
-            else if (damage > _hp) {
+            else if (damage > _hp)
 				_drain = _hp;
-			} else {
+			else
 				_drain = damage;
-			}
 
 			double hpAdd = _absorbAbs + _absorbPart * _drain;
 
@@ -131,7 +126,6 @@ public class L2SkillDrain extends L2Skill
 				}
 				activeChar.sendDamageMessage(target, damage, mcrit, false, false);
 				if (hasEffects() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
-				{
 					if (target.reflectSkill(this))
 					{
 						activeChar.stopSkillEffects(getId());
@@ -144,9 +138,9 @@ public class L2SkillDrain extends L2Skill
 					{
 						// activate attacked effects, if any
 						target.stopSkillEffects(getId());
-						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, this, false, ss, bss)) {
+						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, this, false, ss, bss))
 							getEffects(activeChar, target);
-						} else
+						else
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
 							sm.addString(target.getName());
@@ -154,22 +148,17 @@ public class L2SkillDrain extends L2Skill
 							activeChar.sendPacket(sm);
 						}
 					}
-				}
 				target.reduceCurrentHp(damage, activeChar);
 			}
 			// Check to see if we should do the decay right after the cast
 			if (target.isDead() && getTargetType() == SkillTargetType.TARGET_CORPSE_MOB && target instanceof L2NpcInstance)
-			{
 				((L2NpcInstance) target).endDecayTask();
-			}
 		}
 		// effect self :]
 		L2Effect effect = activeChar.getFirstEffect(getId());
 		if (effect != null && effect.isSelfEffect())
-		{
 			// Replace old effect with new one.
 			effect.exit();
-		}
 		// cast self effect if any
 		getEffectsSelf(activeChar);
 	}

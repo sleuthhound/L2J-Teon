@@ -53,9 +53,8 @@ final class EffectImmobilePetBuff extends L2Effect
 	@Override
 	public void onExit()
 	{
-		if (_pet != null) {
+		if (_pet != null)
 			_pet.setIsImmobilized(false);
-		}
 	}
 
 	@Override

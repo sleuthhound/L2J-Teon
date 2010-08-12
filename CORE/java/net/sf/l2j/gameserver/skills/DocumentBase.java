@@ -139,42 +139,37 @@ abstract class DocumentBase
 	{
 		Condition condition = null;
 		n = n.getFirstChild();
-		if (n == null) {
+		if (n == null)
 			return;
-		}
 		if ("cond".equalsIgnoreCase(n.getNodeName()))
 		{
 			condition = parseCondition(n.getFirstChild(), template);
 			Node msg = n.getAttributes().getNamedItem("msg");
-			if (condition != null && msg != null) {
+			if (condition != null && msg != null)
 				condition.setMessage(msg.getNodeValue());
-			}
 			n = n.getNextSibling();
 		}
 		for (; n != null; n = n.getNextSibling())
-		{
-			if ("add".equalsIgnoreCase(n.getNodeName())) {
+			if ("add".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Add", condition);
-			} else if ("sub".equalsIgnoreCase(n.getNodeName())) {
+			else if ("sub".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Sub", condition);
-			} else if ("mul".equalsIgnoreCase(n.getNodeName())) {
+			else if ("mul".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Mul", condition);
-			} else if ("div".equalsIgnoreCase(n.getNodeName())) {
+			else if ("div".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Div", condition);
-			} else if ("set".equalsIgnoreCase(n.getNodeName())) {
+			else if ("set".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Set", condition);
-			} else if ("enchant".equalsIgnoreCase(n.getNodeName())) {
+			else if ("enchant".equalsIgnoreCase(n.getNodeName()))
 				attachFunc(n, template, "Enchant", condition);
-			} else if ("skill".equalsIgnoreCase(n.getNodeName())) {
+			else if ("skill".equalsIgnoreCase(n.getNodeName()))
 				attachSkill(n, template, condition);
-			} else if ("effect".equalsIgnoreCase(n.getNodeName()))
+			else if ("effect".equalsIgnoreCase(n.getNodeName()))
 			{
-				if (template instanceof EffectTemplate) {
+				if (template instanceof EffectTemplate)
 					throw new RuntimeException("Nested effects");
-				}
 				attachEffect(n, template, condition);
 			}
-		}
 	}
 
 	protected void attachFunc(Node n, Object template, String name, Condition attachCond)
@@ -185,13 +180,12 @@ abstract class DocumentBase
 		int ord = Integer.decode(getValue(order, template));
 		Condition applayCond = parseCondition(n.getFirstChild(), template);
 		FuncTemplate ft = new FuncTemplate(attachCond, applayCond, name, stat, ord, lambda);
-		if (template instanceof L2Item) {
+		if (template instanceof L2Item)
 			((L2Item) template).attach(ft);
-		} else if (template instanceof L2Skill) {
+		else if (template instanceof L2Skill)
 			((L2Skill) template).attach(ft);
-		} else if (template instanceof EffectTemplate) {
+		else if (template instanceof EffectTemplate)
 			((EffectTemplate) template).attach(ft);
-		}
 	}
 
 	protected void attachLambdaFunc(Node n, Object template, LambdaCalc calc)
@@ -212,122 +206,96 @@ abstract class DocumentBase
 		// String name = getValue(attrs.getNamedItem("name").getNodeValue().intern(), template);
 		int time, count = 1;
 		if (attrs.getNamedItem("count") != null)
-		{
 			count = Integer.decode(getValue(attrs.getNamedItem("count").getNodeValue(), template));
-		}
 		if (attrs.getNamedItem("time") != null)
 		{
 			time = Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template));
 			if (Config.ENABLE_MODIFY_SKILL_DURATION)
-			{
 				if (Config.SKILL_DURATION_LIST.containsKey(((L2Skill) template).getId()))
 				{
-					if (((L2Skill) template).getLevel() < 100) {
+					if (((L2Skill) template).getLevel() < 100)
 						time = Config.SKILL_DURATION_LIST.get(((L2Skill) template).getId());
-					} else if (((L2Skill) template).getLevel() >= 100 && ((L2Skill) template).getLevel() < 140) {
+					else if (((L2Skill) template).getLevel() >= 100 && ((L2Skill) template).getLevel() < 140)
 						time += Config.SKILL_DURATION_LIST.get(((L2Skill) template).getId());
-					} else if (((L2Skill) template).getLevel() > 140) {
+					else if (((L2Skill) template).getLevel() > 140)
 						time = Config.SKILL_DURATION_LIST.get(((L2Skill) template).getId());
-					}
-					if (Config.DEBUG) {
+					if (Config.DEBUG)
 						_log.info("*** Skill " + ((L2Skill) template).getName() + " (" + ((L2Skill) template).getLevel() + ") changed duration to " + time + " seconds.");
-					}
 					Config.MODIFIED_SKILL_COUNT += 1;
 				}
-			}
-		} else {
+		} else
 			time = ((L2Skill) template).getBuffDuration() / 1000 / count;
-		}
 		boolean self = false;
 		if (attrs.getNamedItem("self") != null)
-		{
-			if (Integer.decode(getValue(attrs.getNamedItem("self").getNodeValue(), template)) == 1) {
+			if (Integer.decode(getValue(attrs.getNamedItem("self").getNodeValue(), template)) == 1)
 				self = true;
-			}
-		}
 		boolean icon = true;
 		if (attrs.getNamedItem("noicon") != null)
-		{
-			if (Integer.decode(getValue(attrs.getNamedItem("noicon").getNodeValue(), template)) == 1) {
+			if (Integer.decode(getValue(attrs.getNamedItem("noicon").getNodeValue(), template)) == 1)
 				icon = false;
-			}
-		}
 		Lambda lambda = getLambda(n, template);
 		Condition applayCond = parseCondition(n.getFirstChild(), template);
 		int abnormal = 0;
 		if (attrs.getNamedItem("abnormal") != null)
 		{
 			String abn = attrs.getNamedItem("abnormal").getNodeValue();
-			if (abn.equals("poison")) {
+			if (abn.equals("poison"))
 				abnormal = L2Character.ABNORMAL_EFFECT_POISON;
-			} else if (abn.equals("bleeding")) {
+			else if (abn.equals("bleeding"))
 				abnormal = L2Character.ABNORMAL_EFFECT_BLEEDING;
-			} else if (abn.equals("flame")) {
+			else if (abn.equals("flame"))
 				abnormal = L2Character.ABNORMAL_EFFECT_FLAME;
-			} else if (abn.equals("bighead")) {
+			else if (abn.equals("bighead"))
 				abnormal = L2Character.ABNORMAL_EFFECT_BIG_HEAD;
-			} else if (abn.equals("stealth")) {
+			else if (abn.equals("stealth"))
 				abnormal = L2Character.ABNORMAL_EFFECT_STEALTH;
-			}
 		}
 		float stackOrder = 0;
 		String stackType = "none";
 		if (attrs.getNamedItem("stackType") != null)
-		{
 			stackType = attrs.getNamedItem("stackType").getNodeValue();
-		}
 		if (attrs.getNamedItem("stackOrder") != null)
-		{
 			stackOrder = Float.parseFloat(getValue(attrs.getNamedItem("stackOrder").getNodeValue(), template));
-		}
         EffectTemplate lt;
 
         final boolean isChanceSkillTrigger = name == EffectChanceSkillTrigger.class.getName();
         int trigId = 0;
-		if (attrs.getNamedItem("triggeredId") != null) {
+		if (attrs.getNamedItem("triggeredId") != null)
 			trigId = Integer.parseInt(getValue(attrs.getNamedItem("triggeredId").getNodeValue(), template));
-		} else if (isChanceSkillTrigger) {
+		else if (isChanceSkillTrigger)
 			throw new NoSuchElementException(name + " requires triggerId");
-		}
 
 		int trigLvl = 1;
-		if (attrs.getNamedItem("triggeredLevel") != null) {
+		if (attrs.getNamedItem("triggeredLevel") != null)
 			trigLvl = Integer.parseInt(getValue(attrs.getNamedItem("triggeredLevel").getNodeValue(), template));
-		}
 
 		String chanceCond = null;
-		if (attrs.getNamedItem("chanceType") != null) {
+		if (attrs.getNamedItem("chanceType") != null)
 			chanceCond = getValue(attrs.getNamedItem("chanceType").getNodeValue(), template);
-		} else if (isChanceSkillTrigger) {
+		else if (isChanceSkillTrigger)
 			throw new NoSuchElementException(name + " requires chanceType");
-		}
 
 		int activationChance = 0;
-		if (attrs.getNamedItem("activationChance") != null) {
+		if (attrs.getNamedItem("activationChance") != null)
 			activationChance = Integer.parseInt(getValue(attrs.getNamedItem("activationChance").getNodeValue(), template));
-		} else if (isChanceSkillTrigger) {
+		else if (isChanceSkillTrigger)
 			throw new NoSuchElementException(name + " requires activationChance");
-		}
 
 		ChanceCondition chance = ChanceCondition.parse(chanceCond, activationChance);
 
-		if (chance == null && isChanceSkillTrigger) {
+		if (chance == null && isChanceSkillTrigger)
 			throw new NoSuchElementException("Invalid chance condition: " + chanceCond + " "
 			        + activationChance);
-		}
 
         lt = new EffectTemplate(attachCond, applayCond, name, lambda, count, time, abnormal, stackType, stackOrder, icon, trigId, trigLvl, chance);
 		parseTemplate(n, lt);
-		if (template instanceof L2Item) {
+		if (template instanceof L2Item)
 			((L2Item) template).attach(lt);
-		} else if (template instanceof L2Skill)
-		{
-			if (self) {
+		else if (template instanceof L2Skill)
+			if (self)
 				((L2Skill) template).attachSelf(lt);
-			} else {
+			else
 				((L2Skill) template).attach(lt);
-			}
-		}
 	}
 
 	protected void attachSkill(Node n, Object template, Condition attachCond)
@@ -335,82 +303,57 @@ abstract class DocumentBase
 		NamedNodeMap attrs = n.getAttributes();
 		int id = 0, lvl = 1;
 		if (attrs.getNamedItem("id") != null)
-		{
 			id = Integer.decode(getValue(attrs.getNamedItem("id").getNodeValue(), template));
-		}
 		if (attrs.getNamedItem("lvl") != null)
-		{
 			lvl = Integer.decode(getValue(attrs.getNamedItem("lvl").getNodeValue(), template));
-		}
 		L2Skill skill = SkillTable.getInstance().getInfo(id, lvl);
 		if (attrs.getNamedItem("chance") != null)
-		{
 			if (template instanceof L2Weapon || template instanceof L2Item)
-			{
 				skill.attach(new ConditionGameChance(Integer.decode(getValue(attrs.getNamedItem("chance").getNodeValue(), template))), true);
-			}
 			else
-			{
 				skill.attach(new ConditionGameChance(Integer.decode(getValue(attrs.getNamedItem("chance").getNodeValue(), template))), false);
-			}
-		}
 		if (template instanceof L2Weapon)
 		{
-			if (attrs.getNamedItem("onUse") != null || attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null) {
+			if (attrs.getNamedItem("onUse") != null || attrs.getNamedItem("onCrit") == null && attrs.getNamedItem("onCast") == null)
 				((L2Weapon) template).attach(skill); // Attach as skill
-			}
 			// triggered on use
-			if (attrs.getNamedItem("onCrit") != null) {
+			if (attrs.getNamedItem("onCrit") != null)
 				((L2Weapon) template).attachOnCrit(skill); // Attach as
-			}
 			// skill
 			// triggered on
 			// critical hit
-			if (attrs.getNamedItem("onCast") != null) {
+			if (attrs.getNamedItem("onCast") != null)
 				((L2Weapon) template).attachOnCast(skill); // Attach as
 			// skill
 			// triggered on cast
-			}
 		}
 		else if (template instanceof L2Item)
-		{
 			((L2Item) template).attach(skill); // Attach as skill triggered
 			// on use
-		}
 	}
 
 	protected Condition parseCondition(Node n, Object template)
 	{
-		while (n != null && n.getNodeType() != Node.ELEMENT_NODE) {
+		while (n != null && n.getNodeType() != Node.ELEMENT_NODE)
 			n = n.getNextSibling();
-		}
-		if (n == null) {
+		if (n == null)
 			return null;
-		}
-		if ("and".equalsIgnoreCase(n.getNodeName())) {
+		if ("and".equalsIgnoreCase(n.getNodeName()))
 			return parseLogicAnd(n, template);
-		}
-		if ("or".equalsIgnoreCase(n.getNodeName())) {
+		if ("or".equalsIgnoreCase(n.getNodeName()))
 			return parseLogicOr(n, template);
-		}
-		if ("not".equalsIgnoreCase(n.getNodeName())) {
+		if ("not".equalsIgnoreCase(n.getNodeName()))
 			return parseLogicNot(n, template);
-		}
-		if ("player".equalsIgnoreCase(n.getNodeName())) {
+		if ("player".equalsIgnoreCase(n.getNodeName()))
 			return parsePlayerCondition(n);
-		}
-		if ("target".equalsIgnoreCase(n.getNodeName())) {
+		if ("target".equalsIgnoreCase(n.getNodeName()))
 			return parseTargetCondition(n, template);
-		}
-		if ("skill".equalsIgnoreCase(n.getNodeName())) {
+		if ("skill".equalsIgnoreCase(n.getNodeName()))
 			return parseSkillCondition(n);
-		}
-		if ("using".equalsIgnoreCase(n.getNodeName())) {
+		if ("using".equalsIgnoreCase(n.getNodeName()))
 			return parseUsingCondition(n);
-		}
-		if ("game".equalsIgnoreCase(n.getNodeName())) {
+		if ("game".equalsIgnoreCase(n.getNodeName()))
 			return parseGameCondition(n);
-		}
 		return null;
 	}
 
@@ -418,14 +361,10 @@ abstract class DocumentBase
 	{
 		ConditionLogicAnd cond = new ConditionLogicAnd();
 		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if (n.getNodeType() == Node.ELEMENT_NODE) {
+			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
-			}
-		}
-		if (cond.conditions == null || cond.conditions.length == 0) {
+		if (cond.conditions == null || cond.conditions.length == 0)
 			_log.severe("Empty <and> condition in " + _file);
-		}
 		return cond;
 	}
 
@@ -433,26 +372,18 @@ abstract class DocumentBase
 	{
 		ConditionLogicOr cond = new ConditionLogicOr();
 		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if (n.getNodeType() == Node.ELEMENT_NODE) {
+			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
-			}
-		}
-		if (cond.conditions == null || cond.conditions.length == 0) {
+		if (cond.conditions == null || cond.conditions.length == 0)
 			_log.severe("Empty <or> condition in " + _file);
-		}
 		return cond;
 	}
 
 	protected Condition parseLogicNot(Node n, Object template)
 	{
 		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
-		{
 			if (n.getNodeType() == Node.ELEMENT_NODE)
-			{
 				return new ConditionLogicNot(parseCondition(n, template));
-			}
-		}
 		_log.severe("Empty <not> condition in " + _file);
 		return null;
 	}
@@ -522,49 +453,31 @@ abstract class DocumentBase
 				cond = joinAnd(cond, new ConditionPlayerMp(hp));
 			}
 			else if ("seed_fire".equalsIgnoreCase(a.getNodeName()))
-			{
 				ElementSeeds[0] = Integer.decode(getValue(a.getNodeValue(), null));
-			}
 			else if ("seed_water".equalsIgnoreCase(a.getNodeName()))
-			{
 				ElementSeeds[1] = Integer.decode(getValue(a.getNodeValue(), null));
-			}
 			else if ("seed_wind".equalsIgnoreCase(a.getNodeName()))
-			{
 				ElementSeeds[2] = Integer.decode(getValue(a.getNodeValue(), null));
-			}
 			else if ("seed_various".equalsIgnoreCase(a.getNodeName()))
-			{
 				ElementSeeds[3] = Integer.decode(getValue(a.getNodeValue(), null));
-			}
 			else if ("seed_any".equalsIgnoreCase(a.getNodeName()))
-			{
 				ElementSeeds[4] = Integer.decode(getValue(a.getNodeValue(), null));
-			}
 			else if ("battle_force".equalsIgnoreCase(a.getNodeName()))
-			{
 				forces[0] = Byte.decode(getValue(a.getNodeValue(), null));
-			}
 			else if ("spell_force".equalsIgnoreCase(a.getNodeName()))
-			{
 				forces[1] = Byte.decode(getValue(a.getNodeValue(), null));
-			}
 		}
 		// Elemental seed condition processing
-		for (int elementSeed : ElementSeeds) {
+		for (int elementSeed : ElementSeeds)
 			if (elementSeed > 0)
 			{
 				cond = joinAnd(cond, new ConditionElementSeed(ElementSeeds));
 				break;
 			}
-		}
 		if (forces[0] + forces[1] > 0)
-		{
 			cond = joinAnd(cond, new ConditionForceBuff(forces));
-		}
-		if (cond == null) {
+		if (cond == null)
 			_log.severe("Unrecognized <player> condition in " + _file);
-		}
 		return cond;
 	}
 
@@ -615,28 +528,23 @@ abstract class DocumentBase
 				{
 					String item = st.nextToken().trim();
 					for (L2WeaponType wt : L2WeaponType.values())
-					{
 						if (wt.toString().equals(item))
 						{
 							mask |= wt.mask();
 							break;
 						}
-					}
 					for (L2ArmorType at : L2ArmorType.values())
-					{
 						if (at.toString().equals(item))
 						{
 							mask |= at.mask();
 							break;
 						}
-					}
 				}
 				cond = joinAnd(cond, new ConditionTargetUsesWeaponKind(mask));
 			}
 		}
-		if (cond == null) {
+		if (cond == null)
 			_log.severe("Unrecognized <target> condition in " + _file);
-		}
 		return cond;
 	}
 
@@ -662,21 +570,17 @@ abstract class DocumentBase
 				{
 					String item = st.nextToken().trim();
 					for (L2WeaponType wt : L2WeaponType.values())
-					{
 						if (wt.toString().equals(item))
 						{
 							mask |= wt.mask();
 							break;
 						}
-					}
 					for (L2ArmorType at : L2ArmorType.values())
-					{
 						if (at.toString().equals(item))
 						{
 							mask |= at.mask();
 							break;
 						}
-					}
 				}
 				cond = joinAnd(cond, new ConditionUsingItemType(mask));
 			}
@@ -691,15 +595,13 @@ abstract class DocumentBase
 				int id = Integer.parseInt(st.nextToken().trim());
 				int slot = Integer.parseInt(st.nextToken().trim());
 				int enchant = 0;
-				if (st.hasMoreTokens()) {
+				if (st.hasMoreTokens())
 					enchant = Integer.parseInt(st.nextToken().trim());
-				}
 				cond = joinAnd(cond, new ConditionSlotItemId(slot, id, enchant));
 			}
 		}
-		if (cond == null) {
+		if (cond == null)
 			_log.severe("Unrecognized <using> condition in " + _file);
-		}
 		return cond;
 	}
 
@@ -726,9 +628,8 @@ abstract class DocumentBase
 				cond = joinAnd(cond, new ConditionGameChance(val));
 			}
 		}
-		if (cond == null) {
+		if (cond == null)
 			_log.severe("Unrecognized <game> condition in " + _file);
-		}
 		return cond;
 	}
 
@@ -736,20 +637,16 @@ abstract class DocumentBase
 	{
 		NamedNodeMap attrs = n.getAttributes();
 		String name = attrs.getNamedItem("name").getNodeValue();
-		if (name.charAt(0) != '#') {
+		if (name.charAt(0) != '#')
 			throw new IllegalArgumentException("Table name must start with #");
-		}
 		StringTokenizer data = new StringTokenizer(n.getFirstChild().getNodeValue());
 		List<String> array = new FastList<String>();
-		while (data.hasMoreTokens()) {
+		while (data.hasMoreTokens())
 			array.add(data.nextToken());
-		}
 		String[] res = new String[array.size()];
 		int i = 0;
 		for (String str : array)
-		{
 			res[i++] = str;
-		}
 		setTable(name, res);
 	}
 
@@ -758,11 +655,10 @@ abstract class DocumentBase
 		String name = n.getAttributes().getNamedItem("name").getNodeValue().trim();
 		String value = n.getAttributes().getNamedItem("val").getNodeValue().trim();
 		char ch = value.length() == 0 ? ' ' : value.charAt(0);
-		if (ch == '#' || ch == '-' || Character.isDigit(ch)) {
+		if (ch == '#' || ch == '-' || Character.isDigit(ch))
 			set.set(name, String.valueOf(getValue(value, level)));
-		} else {
+		else
 			set.set(name, value);
-		}
 	}
 
 	protected Lambda getLambda(Node n, Object template)
@@ -772,51 +668,37 @@ abstract class DocumentBase
 		{
 			String val = nval.getNodeValue();
 			if (val.charAt(0) == '#')
-			{ // table by level
 				return new LambdaConst(Double.parseDouble(getTableValue(val)));
-			}
 			else if (val.charAt(0) == '$')
 			{
-				if (val.equalsIgnoreCase("$player_level")) {
+				if (val.equalsIgnoreCase("$player_level"))
 					return new LambdaStats(LambdaStats.StatsType.PLAYER_LEVEL);
-				}
-				if (val.equalsIgnoreCase("$target_level")) {
+				if (val.equalsIgnoreCase("$target_level"))
 					return new LambdaStats(LambdaStats.StatsType.TARGET_LEVEL);
-				}
-				if (val.equalsIgnoreCase("$player_max_hp")) {
+				if (val.equalsIgnoreCase("$player_max_hp"))
 					return new LambdaStats(LambdaStats.StatsType.PLAYER_MAX_HP);
-				}
-				if (val.equalsIgnoreCase("$player_max_mp")) {
+				if (val.equalsIgnoreCase("$player_max_mp"))
 					return new LambdaStats(LambdaStats.StatsType.PLAYER_MAX_MP);
-				}
 				// try to find value out of item fields
 				StatsSet set = getStatsSet();
 				String field = set.getString(val.substring(1));
 				if (field != null)
-				{
 					return new LambdaConst(Double.parseDouble(getValue(field, template)));
-				}
 				// failed
 				throw new IllegalArgumentException("Unknown value " + val);
-			}
-			else
-			{
+			} else
 				return new LambdaConst(Double.parseDouble(val));
-			}
 		}
 		LambdaCalc calc = new LambdaCalc();
 		n = n.getFirstChild();
-		while (n != null && n.getNodeType() != Node.ELEMENT_NODE) {
+		while (n != null && n.getNodeType() != Node.ELEMENT_NODE)
 			n = n.getNextSibling();
-		}
-		if (n == null || !"val".equals(n.getNodeName())) {
+		if (n == null || !"val".equals(n.getNodeName()))
 			throw new IllegalArgumentException("Value not specified");
-		}
 		for (n = n.getFirstChild(); n != null; n = n.getNextSibling())
 		{
-			if (n.getNodeType() != Node.ELEMENT_NODE) {
+			if (n.getNodeType() != Node.ELEMENT_NODE)
 				continue;
-			}
 			attachLambdaFunc(n, template, calc);
 		}
 		return calc;
@@ -826,23 +708,19 @@ abstract class DocumentBase
 	{
 		// is it a table?
 		if (value.charAt(0) == '#')
-		{
-			if (template instanceof L2Skill) {
+			if (template instanceof L2Skill)
 				return getTableValue(value);
-			} else if (template instanceof Integer) {
+			else if (template instanceof Integer)
 				return getTableValue(value, ((Integer) template).intValue());
-			} else {
+			else
 				throw new IllegalStateException();
-			}
-		}
 		return value;
 	}
 
 	protected Condition joinAnd(Condition cond, Condition c)
 	{
-		if (cond == null) {
+		if (cond == null)
 			return c;
-		}
 		if (cond instanceof ConditionLogicAnd)
 		{
 			((ConditionLogicAnd) cond).add(c);

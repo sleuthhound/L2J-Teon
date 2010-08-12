@@ -44,9 +44,8 @@ public final class L2SkillSignet extends L2Skill
 	@Override
 	public void useSkill(L2Character caster, L2Object[] targets)
 	{
-		if (caster.isAlikeDead()) {
+		if (caster.isAlikeDead())
 			return;
-		}
 		L2NpcTemplate template = NpcTable.getInstance().getTemplate(_effectNpcId);
 		L2EffectPointInstance effectPoint = new L2EffectPointInstance(IdFactory.getInstance().getNextId(), template, caster);
 		effectPoint.setCurrentHp(effectPoint.getMaxHp());

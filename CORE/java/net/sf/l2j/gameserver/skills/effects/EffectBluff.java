@@ -43,19 +43,14 @@ final class EffectBluff extends L2Effect
 	public void onStart()
 	{
 		if (getEffected() instanceof L2FolkInstance)
-		{
 			return;
-		}
 		// if(getEffected() instanceof L2SiegeGuardInstance) return;
 		// Cannot be used on Headquarters Flag.
 		// bluff now is a PVE PVP skill
 		if (getEffected() instanceof L2NpcInstance && ((L2NpcInstance) getEffected()).getNpcId() == 35062 || getSkill().getId() != 358)
-		{
 			return;
-		}
-		if (getEffected() instanceof L2SiegeSummonInstance) {
+		if (getEffected() instanceof L2SiegeSummonInstance)
 			return;
-		}
 		getEffected().broadcastPacket(new BeginRotation(getEffected().getObjectId(), getEffected().getHeading(), 1, 65535));
 		getEffected().broadcastPacket(new StopRotation(getEffected().getObjectId(), getEffector().getHeading(), 65535));
 		getEffected().setHeading(getEffector().getHeading());

@@ -36,13 +36,9 @@ public class ConditionTargetAggro extends Condition
 	{
 		L2Character target = env.target;
 		if (target instanceof L2MonsterInstance)
-		{
 			return ((L2MonsterInstance) target).isAggressive() == _isAggro;
-		}
 		if (target instanceof L2PcInstance)
-		{
 			return ((L2PcInstance) target).getKarma() > 0;
-		}
 		return false;
 	}
 }

@@ -43,9 +43,7 @@ public class ConditionPlayerState extends Condition
 		{
 			case RESTING:
 				if (env.player instanceof L2PcInstance)
-				{
 					return ((L2PcInstance) env.player).isSitting() == _required;
-				}
 				return !_required;
 			case MOVING:
 				return env.player.isMoving() == _required;

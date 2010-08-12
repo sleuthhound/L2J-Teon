@@ -46,24 +46,17 @@ final class EffectSignetNoise extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if (getCount() == getTotalCount() - 1) {
+		if (getCount() == getTotalCount() - 1)
 			return true; // do nothing first time
-		}
 		for (L2Character target : _actor.getKnownList().getKnownCharactersInRadius(getSkill().getSkillRadius()))
 		{
-			if (target == null) {
+			if (target == null)
 				continue;
-			}
 			L2Effect[] effects = target.getAllEffects();
-			if (effects != null) {
+			if (effects != null)
 				for (L2Effect effect : effects)
-				{
-					if (effect.getSkill().isDance()) {
+					if (effect.getSkill().isDance())
 						effect.exit();
-					}
-				}
-			// there doesn't seem to be a visible effect?
-			}
 		}
 		return true;
 	}
@@ -72,8 +65,6 @@ final class EffectSignetNoise extends L2Effect
 	public void onExit()
 	{
 		if (_actor != null)
-		{
 			_actor.deleteMe();
-		}
 	}
 }

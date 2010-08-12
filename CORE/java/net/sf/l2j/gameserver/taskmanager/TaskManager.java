@@ -102,9 +102,7 @@ public final class TaskManager
 				}
 			}
 			if (type == TYPE_SHEDULED || type == TYPE_TIME)
-			{
 				stopTask();
-			}
 		}
 
 		@Override
@@ -141,9 +139,8 @@ public final class TaskManager
 		public void stopTask()
 		{
 			task.onDestroy();
-			if (scheduled != null) {
+			if (scheduled != null)
 				scheduled.cancel(true);
-			}
 			_currentTasks.remove(this);
 		}
 	}
@@ -151,9 +148,7 @@ public final class TaskManager
 	public static TaskManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new TaskManager();
-		}
 		return _instance;
 	}
 
@@ -197,16 +192,14 @@ public final class TaskManager
 				while (rset.next())
 				{
 					Task task = _tasks.get(rset.getString("task").trim().toLowerCase().hashCode());
-					if (task == null) {
+					if (task == null)
 						continue;
-					}
 					TaskTypes type = TaskTypes.valueOf(rset.getString("type"));
 					if (type != TYPE_NONE)
 					{
 						ExecutedTask current = new ExecutedTask(task, type, rset);
-						if (launchTask(current)) {
+						if (launchTask(current))
 							_currentTasks.add(current);
-						}
 					}
 				}
 				rset.close();
@@ -254,7 +247,6 @@ public final class TaskManager
 			return true;
 		}
 		else if (type == TYPE_TIME)
-		{
 			try
 			{
 				Date desired = DateFormat.getInstance().parse(task.getParams()[0]);
@@ -269,7 +261,6 @@ public final class TaskManager
 			catch (Exception e)
 			{
 			}
-		}
 		else if (type == TYPE_SPECIAL)
 		{
 			ScheduledFuture result = task.getTask().launchSpecial(task);
@@ -304,9 +295,7 @@ public final class TaskManager
 			}
 			long delay = min.getTimeInMillis() - System.currentTimeMillis();
 			if (check.after(min) || delay < 0)
-			{
 				delay += interval;
-			}
 			task.scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay, interval);
 			return true;
 		}

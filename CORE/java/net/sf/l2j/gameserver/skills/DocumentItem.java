@@ -82,11 +82,9 @@ final class DocumentItem extends DocumentBase
 	protected void parseDocument(Document doc)
 	{
 		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
-		{
 			if ("list".equalsIgnoreCase(n.getNodeName()))
 			{
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
-				{
 					if ("item".equalsIgnoreCase(d.getNodeName()))
 					{
 						setCurrentItem(new Item());
@@ -94,7 +92,6 @@ final class DocumentItem extends DocumentBase
 						_itemsInFile.add(_currentItem.item);
 						resetTable();
 					}
-				}
 			}
 			else if ("item".equalsIgnoreCase(n.getNodeName()))
 			{
@@ -102,7 +99,6 @@ final class DocumentItem extends DocumentBase
 				parseItem(n);
 				_itemsInFile.add(_currentItem.item);
 			}
-		}
 	}
 
 	protected void parseItem(Node n)
@@ -113,48 +109,36 @@ final class DocumentItem extends DocumentBase
 		_currentItem.name = itemName;
 		Item item;
 		if ((item = _itemData.get(_currentItem.id)) == null)
-		{
 			throw new IllegalStateException("No SQL data for Item ID: " + itemId + " - name: " + itemName);
-		}
 		_currentItem.set = item.set;
 		_currentItem.type = item.type;
 		Node first = n.getFirstChild();
 		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("table".equalsIgnoreCase(n.getNodeName())) {
+			if ("table".equalsIgnoreCase(n.getNodeName()))
 				parseTable(n);
-			}
-		}
 		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("set".equalsIgnoreCase(n.getNodeName())) {
+			if ("set".equalsIgnoreCase(n.getNodeName()))
 				parseBeanSet(n, _itemData.get(_currentItem.id).set, 1);
-			}
-		}
 		for (n = first; n != null; n = n.getNextSibling())
-		{
 			if ("for".equalsIgnoreCase(n.getNodeName()))
 			{
 				makeItem();
 				parseTemplate(n, _currentItem.item);
 			}
-		}
 	}
 
 	private void makeItem()
 	{
-		if (_currentItem.item != null) {
+		if (_currentItem.item != null)
 			return;
-		}
-		if (_currentItem.type instanceof L2ArmorType) {
+		if (_currentItem.type instanceof L2ArmorType)
 			_currentItem.item = new L2Armor((L2ArmorType) _currentItem.type, _currentItem.set);
-		} else if (_currentItem.type instanceof L2WeaponType) {
+		else if (_currentItem.type instanceof L2WeaponType)
 			_currentItem.item = new L2Weapon((L2WeaponType) _currentItem.type, _currentItem.set);
-		} else if (_currentItem.type instanceof L2EtcItemType) {
+		else if (_currentItem.type instanceof L2EtcItemType)
 			_currentItem.item = new L2EtcItem((L2EtcItemType) _currentItem.type, _currentItem.set);
-		} else {
+		else
 			throw new Error("Unknown item type " + _currentItem.type);
-		}
 	}
 
 	/**

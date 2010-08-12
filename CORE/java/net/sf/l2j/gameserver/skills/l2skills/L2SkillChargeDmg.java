@@ -63,9 +63,7 @@ public class L2SkillChargeDmg extends L2Skill
 	public void useSkill(L2Character caster, L2Object[] targets)
 	{
 		if (caster.isAlikeDead())
-		{
 			return;
-		}
 		// get the effect
 		EffectCharge effect = (EffectCharge) caster.getFirstEffect(chargeSkillId);
 		if (effect == null || effect.numCharges < numCharges)
@@ -77,22 +75,17 @@ public class L2SkillChargeDmg extends L2Skill
 		}
 		double modifier = 0;
 		modifier = (effect.numCharges - numCharges) * 0.33;
-		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE) {
+		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
 			effect.numCharges -= numCharges;
-		}
-		if (caster instanceof L2PcInstance) {
+		if (caster instanceof L2PcInstance)
 			caster.sendPacket(new EtcStatusUpdate((L2PcInstance) caster));
-		}
 		if (effect.numCharges == 0)
-		{
 			effect.exit();
-		}
 		for (L2Object target2 : targets) {
 			L2ItemInstance weapon = caster.getActiveWeaponInstance();
 			L2Character target = (L2Character) target2;
-			if (target.isAlikeDead()) {
+			if (target.isAlikeDead())
 				continue;
-			}
 			// Calculate skill evasion
 			boolean skillIsEvaded = Formulas.calcPhysicalSkillEvasion(target, this);
 			if (skillIsEvaded)
@@ -119,21 +112,18 @@ public class L2SkillChargeDmg extends L2Skill
 			// call twice
 			boolean shld = Formulas.getInstance().calcShldUse(caster, target);
 			boolean crit = false;
-			if (getBaseCritRate() > 0) {
+			if (getBaseCritRate() > 0)
 				crit = Formulas.getInstance().calcCrit(getBaseCritRate() * 10 * Formulas.getInstance().getSTRBonus(caster));
-			}
 			boolean soul = weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER;
 			// damage calculation, crit is static 2x
 			int damage = (int) Formulas.getInstance().calcPhysDam(caster, target, this, shld, false, false, soul);
-			if (crit) {
+			if (crit)
 				damage *= 2;
-			}
 			if (caster instanceof L2PcInstance)
 			{
 				L2PcInstance activeCaster = (L2PcInstance) caster;
-				if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE) {
+				if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
 					damage = 0;
-				}
 			}
 			if (damage > 0)
 			{
@@ -141,21 +131,15 @@ public class L2SkillChargeDmg extends L2Skill
 				finalDamage = finalDamage + modifier * finalDamage;
 				target.reduceCurrentHp(finalDamage, caster);
 				caster.sendDamageMessage(target, (int) finalDamage, false, crit, false);
-				if (soul && weapon != null) {
+				if (soul && weapon != null)
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-				}
-			}
-			else
-			{
+			} else
 				caster.sendDamageMessage(target, 0, false, false, true);
-			}
 		} // effect self :]
 		L2Effect seffect = caster.getFirstEffect(getId());
 		if (seffect != null && seffect.isSelfEffect())
-		{
 			// Replace old effect with new one.
 			seffect.exit();
-		}
 		// cast self effect if any
 		getEffectsSelf(caster);
 	}

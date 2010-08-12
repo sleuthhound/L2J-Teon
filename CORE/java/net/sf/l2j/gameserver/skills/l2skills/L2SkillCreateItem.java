@@ -49,9 +49,8 @@ public class L2SkillCreateItem extends L2Skill
 	@Override
 	public void useSkill(L2Character activeChar, L2Object[] targets)
 	{
-		if (activeChar.isAlikeDead()) {
+		if (activeChar.isAlikeDead())
 			return;
-		}
 		if (_createItemId == null || _createItemCount == 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_NOT_AVAILABLE);
@@ -76,9 +75,8 @@ public class L2SkillCreateItem extends L2Skill
 	public void giveItems(L2PcInstance activeChar, int itemId, int count)
 	{
 		L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
-		if (item == null) {
+		if (item == null)
 			return;
-		}
 		item.setCount(count);
 		activeChar.getInventory().addItem("Skill", item, activeChar, activeChar);
 		if (count > 1)
