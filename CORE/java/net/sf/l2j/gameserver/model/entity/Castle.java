@@ -86,9 +86,8 @@ public class Castle
 	public Castle(int castleId)
 	{
 		_castleId = castleId;
-		if (_castleId == 7 || castleId == 9) {
+		if (_castleId == 7 || castleId == 9)
 			_nbArtifact = 2;
-		}
 		load();
 		loadDoor();
 	}
@@ -100,39 +99,32 @@ public class Castle
 		{
 			boolean rst = true;
 			for (int id : _engrave.values())
-			{
-				if (id != clan.getClanId()) {
+				if (id != clan.getClanId())
 					rst = false;
-				}
-			}
 			if (rst)
 			{
 				_engrave.clear();
 				setOwner(clan);
-			} else {
+			} else
 				getSiege().announceToPlayer("Clan " + clan.getName() + " has finished to engrave one of the rulers.", true);
-			}
-		} else {
+		} else
 			getSiege().announceToPlayer("Clan " + clan.getName() + " has finished to engrave one of the rulers.", true);
-		}
 	}
 
 	// This method add to the treasury
 	/** Add amount to castle instance's treasury (warehouse). */
 	public void addToTreasury(int amount)
 	{
-		if (getOwnerId() <= 0) {
+		if (getOwnerId() <= 0)
 			return;
-		}
 		if (_name.equalsIgnoreCase("Schuttgart") || _name.equalsIgnoreCase("Goddard"))
 		{
 			Castle rune = CastleManager.getInstance().getCastle("rune");
 			if (rune != null)
 			{
 				int runeTax = (int) (amount * rune.getTaxRate());
-				if (rune.getOwnerId() > 0) {
+				if (rune.getOwnerId() > 0)
 					rune.addToTreasury(runeTax);
-				}
 				amount -= runeTax;
 			}
 		}
@@ -157,9 +149,8 @@ public class Castle
 				// castle
 				// instance's
 				// income
-				if (aden.getOwnerId() > 0) {
+				if (aden.getOwnerId() > 0)
 					aden.addToTreasury(adenTax); // Only bother to really
-				}
 				// add the tax to the
 				// treasury if not npc
 				// owned
@@ -173,25 +164,18 @@ public class Castle
 	/** Add amount to castle instance's treasury (warehouse), no tax paying. */
 	public boolean addToTreasuryNoTax(int amount)
 	{
-		if (getOwnerId() <= 0) {
+		if (getOwnerId() <= 0)
 			return false;
-		}
 		if (amount < 0)
 		{
 			amount *= -1;
-			if (_treasury < amount) {
+			if (_treasury < amount)
 				return false;
-			}
 			_treasury -= amount;
-		}
+		} else if ((long) _treasury + amount > Integer.MAX_VALUE)
+			_treasury = Integer.MAX_VALUE;
 		else
-		{
-			if ((long) _treasury + amount > Integer.MAX_VALUE) {
-				_treasury = Integer.MAX_VALUE;
-			} else {
-				_treasury += amount;
-			}
-		}
+			_treasury += amount;
 		java.sql.Connection con = null;
 		try
 		{
@@ -233,11 +217,10 @@ public class Castle
 	public boolean checkIfInZone(int x, int y, int z)
 	{
 		L2CastleZone zone = getZone();
-		if (zone == null) {
+		if (zone == null)
 			return false;
-		} else {
+		else
 			return _zone.isInsideZone(x, y, z);
-		}
 	}
 
 	/**
@@ -293,18 +276,14 @@ public class Castle
 
 	public void openCloseDoor(L2PcInstance activeChar, int doorId, boolean open)
 	{
-		if (activeChar.getClanId() != getOwnerId()) {
+		if (activeChar.getClanId() != getOwnerId())
 			return;
-		}
 		L2DoorInstance door = getDoor(doorId);
 		if (door != null)
-		{
-			if (open) {
+			if (open)
 				door.openMe();
-			} else {
+			else
 				door.closeMe();
-			}
-		}
 	}
 
 	// This method is used to begin removing all castle upgrades
@@ -330,9 +309,7 @@ public class Castle
 				{
 					_formerOwner = oldOwner;
 					if (Config.REMOVE_CASTLE_CIRCLETS)
-					{
 						CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
-					}
 				}
 				oldOwner.setHasCastle(0); // Unset has castle flag for old
 				// owner
@@ -341,12 +318,10 @@ public class Castle
 		}
 		updateOwnerInDB(clan); // Update in database
 		// if clan have fortress, remove it
-		if (clan.getHasFort() > 0) {
+		if (clan.getHasFort() > 0)
 			FortManager.getInstance().getFortByOwner(clan).removeOwner(clan);
-		}
-		if (getSiege().getIsInProgress()) {
+		if (getSiege().getIsInProgress())
 			getSiege().midVictory(); // Mid victory phase of siege
-		}
 		updateClansReputation();
 	}
 
@@ -356,17 +331,14 @@ public class Castle
 		{
 			_formerOwner = clan;
 			if (Config.REMOVE_CASTLE_CIRCLETS)
-			{
 				CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
-			}
 			clan.setHasCastle(0);
 			Announcements.getInstance().announceToAll(clan.getName() + " has lost " + getName() + " castle");
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 		}
 		updateOwnerInDB(null);
-		if (getSiege().getIsInProgress()) {
+		if (getSiege().getIsInProgress())
 			getSiege().midVictory();
-		}
 		updateClansReputation();
 	}
 
@@ -446,15 +418,13 @@ public class Castle
 				door.decayMe(); // Kill current if not killed already
 				door = DoorTable.parseList(_doorDefault.get(i));
 				DoorTable.getInstance().putDoor(door); // Readd the new door to the DoorTable By Erb
-				if (isDoorWeak) {
+				if (isDoorWeak)
 					door.setCurrentHp(door.getMaxHp() / 2);
-				}
 				door.spawnMe(door.getX(), door.getY(), door.getZ());
 				getDoors().set(i, door);
 			}
-			else if (door.getOpen() == 0) {
+			else if (door.getOpen() == 0)
 				door.closeMe();
-			}
 		}
 		loadDoorUpgrade(); // Check for any upgrade the doors may have
 	}
@@ -463,9 +433,8 @@ public class Castle
 	public void upgradeDoor(int doorId, int hp, int pDef, int mDef)
 	{
 		L2DoorInstance door = getDoor(doorId);
-		if (door == null) {
+		if (door == null)
 			return;
-		}
 		if (door != null && door.getDoorId() == doorId)
 		{
 			door.setCurrentHp(door.getMaxHp() + hp);
@@ -495,13 +464,11 @@ public class Castle
 				_siegeDate = Calendar.getInstance();
 				_siegeDate.setTimeInMillis(rs.getLong("siegeDate"));
 				_siegeDayOfWeek = rs.getInt("siegeDayOfWeek");
-				if (_siegeDayOfWeek < 1 || _siegeDayOfWeek > 7) {
+				if (_siegeDayOfWeek < 1 || _siegeDayOfWeek > 7)
 					_siegeDayOfWeek = 7;
-				}
 				_siegeHourOfDay = rs.getInt("siegeHourOfDay");
-				if (_siegeHourOfDay < 0 || _siegeHourOfDay > 23) {
+				if (_siegeHourOfDay < 0 || _siegeHourOfDay > 23)
 					_siegeHourOfDay = 20;
-				}
 				_taxPercent = rs.getInt("taxPercent");
 				_treasury = rs.getInt("treasury");
 			}
@@ -511,9 +478,7 @@ public class Castle
 			statement.setInt(1, getCastleId());
 			rs = statement.executeQuery();
 			while (rs.next())
-			{
 				_ownerId = rs.getInt("clan_id");
-			}
 			if (getOwnerId() > 0)
 			{
 				L2Clan clan = ClanTable.getInstance().getClan(getOwnerId()); // Try
@@ -596,9 +561,7 @@ public class Castle
 			statement.setInt(1, getCastleId());
 			ResultSet rs = statement.executeQuery();
 			while (rs.next())
-			{
 				upgradeDoor(rs.getInt("id"), rs.getInt("hp"), rs.getInt("pDef"), rs.getInt("mDef"));
-			}
 			statement.close();
 		}
 		catch (Exception e)
@@ -679,11 +642,10 @@ public class Castle
 
 	private void updateOwnerInDB(L2Clan clan)
 	{
-		if (clan != null) {
+		if (clan != null)
 			_ownerId = clan.getClanId(); // Update owner id property
-		} else {
+		else
 			_ownerId = 0; // Remove owner
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -742,15 +704,13 @@ public class Castle
 
 	public final L2DoorInstance getDoor(int doorId)
 	{
-		if (doorId <= 0) {
+		if (doorId <= 0)
 			return null;
-		}
 		for (int i = 0; i < getDoors().size(); i++)
 		{
 			L2DoorInstance door = getDoors().get(i);
-			if (door.getDoorId() == doorId) {
+			if (door.getDoorId() == doorId)
 				return door;
-			}
 		}
 		return null;
 	}
@@ -772,9 +732,8 @@ public class Castle
 
 	public final Siege getSiege()
 	{
-		if (_siege == null) {
+		if (_siege == null)
 			_siege = new Siege(new Castle[] { this });
-		}
 		return _siege;
 	}
 
@@ -820,43 +779,33 @@ public class Castle
 
 	public void setSeedProduction(FastList<SeedProduction> seed, int period)
 	{
-		if (period == CastleManorManager.PERIOD_CURRENT) {
+		if (period == CastleManorManager.PERIOD_CURRENT)
 			_production = seed;
-		} else {
+		else
 			_productionNext = seed;
-		}
 	}
 
 	public void setCropProcure(FastList<CropProcure> crop, int period)
 	{
-		if (period == CastleManorManager.PERIOD_CURRENT) {
+		if (period == CastleManorManager.PERIOD_CURRENT)
 			_procure = crop;
-		} else {
+		else
 			_procureNext = crop;
-		}
 	}
 
 	public synchronized SeedProduction getSeed(int seedId, int period)
 	{
 		for (SeedProduction seed : getSeedProduction(period))
-		{
 			if (seed.getId() == seedId)
-			{
 				return seed;
-			}
-		}
 		return null;
 	}
 
 	public synchronized CropProcure getCrop(int cropId, int period)
 	{
 		for (CropProcure crop : getCropProcure(period))
-		{
 			if (crop.getId() == cropId)
-			{
 				return crop;
-			}
-		}
 		return null;
 	}
 
@@ -876,19 +825,11 @@ public class Castle
 		}
 		int total = 0;
 		if (production != null)
-		{
 			for (SeedProduction seed : production)
-			{
 				total += L2Manor.getInstance().getSeedBuyPrice(seed.getId()) * seed.getStartProduce();
-			}
-		}
 		if (procure != null)
-		{
 			for (CropProcure crop : procure)
-			{
 				total += crop.getPrice() * crop.getStartAmount();
-			}
-		}
 		return total;
 	}
 
@@ -918,9 +859,7 @@ public class Castle
 				{
 					query += values[0];
 					for (int i = 1; i < values.length; i++)
-					{
 						query += "," + values[i];
-					}
 					statement = con.prepareStatement(query);
 					statement.execute();
 					statement.close();
@@ -940,9 +879,7 @@ public class Castle
 				{
 					query += values[0];
 					for (int i = 1; i < values.length; i++)
-					{
 						query += "," + values[i];
-					}
 					statement = con.prepareStatement(query);
 					statement.execute();
 					statement.close();
@@ -994,9 +931,7 @@ public class Castle
 				{
 					query += values[0];
 					for (int i = 1; i < values.length; i++)
-					{
 						query += "," + values[i];
-					}
 					statement = con.prepareStatement(query);
 					statement.execute();
 					statement.close();
@@ -1045,9 +980,7 @@ public class Castle
 				{
 					query += values[0];
 					for (int i = 1; i < values.length; i++)
-					{
 						query += "," + values[i];
-					}
 					statement = con.prepareStatement(query);
 					statement.execute();
 					statement.close();
@@ -1067,9 +1000,7 @@ public class Castle
 				{
 					query += values[0];
 					for (int i = 1; i < values.length; i++)
-					{
 						query += "," + values[i];
-					}
 					statement = con.prepareStatement(query);
 					statement.execute();
 					statement.close();
@@ -1121,9 +1052,7 @@ public class Castle
 				{
 					query += values[0];
 					for (int i = 1; i < values.length; i++)
-					{
 						query += "," + values[i];
-					}
 					statement = con.prepareStatement(query);
 					statement.execute();
 					statement.close();
@@ -1232,9 +1161,8 @@ public class Castle
 					owner.setReputationScore(owner.getReputationScore() + Math.min(1000, maxreward), true);
 					owner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(owner));
 				}
-			} else {
+			} else
 				_formerOwner.setReputationScore(_formerOwner.getReputationScore() + 500, true);
-			}
 			_formerOwner.broadcastToOnlineMembers(new PledgeShowInfoUpdate(_formerOwner));
 		}
 		else

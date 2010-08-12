@@ -50,9 +50,7 @@ public final class L2TownPetInstance extends L2Attackable
 		public void run()
 		{
 			if (getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
-			{
 				returnHome();
-			}
 		}
 	}
 
@@ -60,9 +58,7 @@ public final class L2TownPetInstance extends L2Attackable
 	public final TownPetKnownList getKnownList()
 	{
 		if (super.getKnownList() == null || !(super.getKnownList() instanceof TownPetKnownList))
-		{
 			setKnownList(new TownPetKnownList(this));
-		}
 		return (TownPetKnownList) super.getKnownList();
 	}
 
@@ -87,9 +83,7 @@ public final class L2TownPetInstance extends L2Attackable
 		_homeY = getY();
 		_homeZ = getZ();
 		if (Config.DEBUG)
-		{
 			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		}
 	}
 
 	public int getHomeX()
@@ -108,9 +102,7 @@ public final class L2TownPetInstance extends L2Attackable
 		if (!isInsideRadius(_homeX, _homeY, 2, false))
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine(getObjectId() + ": moving hometo" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-			}
 			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_homeX, _homeY, _homeZ, 0));
 		}
 	}
@@ -122,16 +114,12 @@ public final class L2TownPetInstance extends L2Attackable
 		_homeY = getY();
 		_homeZ = getZ();
 		if (Config.DEBUG)
-		{
 			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		}
 		// check the region where this mob is, do not activate the AI if region
 		// is inactive.
 		L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
 		if (region != null && !region.isActive())
-		{
 			((L2AttackableAI) getAI()).stopAITask();
-		}
 	}
 
 	@Override

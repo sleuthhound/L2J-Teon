@@ -66,15 +66,12 @@ public final class L2MinionInstance extends L2MonsterInstance
 		// Notify Leader that Minion has Spawned
 		getLeader().notifyMinionSpawned(this);
 		if (getLeader().isRaid())
-		{
 			setIsRaidMinion(true);
-		}
 		// check the region where this mob is, do not activate the AI if region
 		// is inactive.
 		L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
-		if (region != null && !region.isActive()) {
+		if (region != null && !region.isActive())
 			((L2AttackableAI) getAI()).stopAITask();
-		}
 	}
 
 	/**
@@ -101,9 +98,7 @@ public final class L2MinionInstance extends L2MonsterInstance
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
-		{
 			return false;
-		}
 		_master.notifyMinionDied(this);
 		return true;
 	}

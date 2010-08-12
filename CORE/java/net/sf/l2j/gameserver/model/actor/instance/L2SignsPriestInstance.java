@@ -48,9 +48,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (player.getLastFolkNPC() == null || player.getLastFolkNPC().getObjectId() != this.getObjectId())
-		{
 			return;
-		}
 		if (command.startsWith("SevenSignsDesc"))
 		{
 			int val = Integer.parseInt(command.substring(15));
@@ -67,11 +65,9 @@ public class L2SignsPriestInstance extends L2FolkInstance
 			L2ItemInstance ancientAdena = player.getInventory().getItemByItemId(SevenSigns.ANCIENT_ADENA_ID);
 			int ancientAdenaAmount = ancientAdena == null ? 0 : ancientAdena.getCount();
 			int val = Integer.parseInt(command.substring(11, 12).trim());
-			if (command.length() > 12) {
+			if (command.length() > 12)
 				val = Integer.parseInt(command.substring(11, 13).trim());
-			}
 			if (command.length() > 13)
-			{
 				try
 				{
 					cabal = Integer.parseInt(command.substring(14, 15).trim());
@@ -96,7 +92,6 @@ public class L2SignsPriestInstance extends L2FolkInstance
 						}
 					}
 				}
-			}
 			switch (val)
 			{
 				case 2: // Purchase Record of the Seven Signs
@@ -144,9 +139,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
 						break;
 					}
 					else if (player.getClassId().level() >= 2)
-					{
 						if (Config.ALT_GAME_REQUIRE_CASTLE_DAWN)
-						{
 							if (getPlayerAllyHasCastle(player))
 							{
 								if (cabal == SevenSigns.CABAL_DUSK)
@@ -157,46 +150,39 @@ public class L2SignsPriestInstance extends L2FolkInstance
 							}
 							/*
 							 * if (!getPlayerAllyHasCastle(player)) { if (cabal == SevenSigns.CABAL_DAWN) { player.sendMessage("You must be a member of a castle-owning clan to join the Lords Of Dawn."); return; } }
+							 */ else /*
+							 * If the player is trying to join the Lords of Dawn, check if they are carrying a Lord's certificate. If not then try to take the required amount of adena instead.
 							 */
-							else
+							if (cabal == SevenSigns.CABAL_DAWN)
 							{
-								/*
-								 * If the player is trying to join the Lords of Dawn, check if they are carrying a Lord's certificate. If not then try to take the required amount of adena instead.
-								 */
-								if (cabal == SevenSigns.CABAL_DAWN)
+								boolean allowJoinDawn = false;
+								if (player.destroyItemByItemId("SevenSigns", SevenSigns.CERTIFICATE_OF_APPROVAL_ID, 1, this, false))
 								{
-									boolean allowJoinDawn = false;
-									if (player.destroyItemByItemId("SevenSigns", SevenSigns.CERTIFICATE_OF_APPROVAL_ID, 1, this, false))
-									{
-										sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-										sm.addNumber(1);
-										sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
-										player.sendPacket(sm);
-										allowJoinDawn = true;
-									}
-									else if (player.reduceAdena("SevenSigns", SevenSigns.ADENA_JOIN_DAWN_COST, this, false))
-									{
-										sm = new SystemMessage(SystemMessageId.DISSAPEARED_ADENA);
-										sm.addNumber(SevenSigns.ADENA_JOIN_DAWN_COST);
-										player.sendPacket(sm);
-										allowJoinDawn = true;
-									}
-									if (!allowJoinDawn)
-									{
-										player.sendMessage("You must be a member of a castle-owning clan, have a Certificate of Lord's Approval, or pay 50000 adena to join the Lords of Dawn.");
-										return;
-									}
+									sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
+									sm.addNumber(1);
+									sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
+									player.sendPacket(sm);
+									allowJoinDawn = true;
+								}
+								else if (player.reduceAdena("SevenSigns", SevenSigns.ADENA_JOIN_DAWN_COST, this, false))
+								{
+									sm = new SystemMessage(SystemMessageId.DISSAPEARED_ADENA);
+									sm.addNumber(SevenSigns.ADENA_JOIN_DAWN_COST);
+									player.sendPacket(sm);
+									allowJoinDawn = true;
+								}
+								if (!allowJoinDawn)
+								{
+									player.sendMessage("You must be a member of a castle-owning clan, have a Certificate of Lord's Approval, or pay 50000 adena to join the Lords of Dawn.");
+									return;
 								}
 							}
-						}
-					}
 					SevenSigns.getInstance().setPlayerInfo(player, cabal, newSeal);
-					if (cabal == SevenSigns.CABAL_DAWN) {
+					if (cabal == SevenSigns.CABAL_DAWN)
 						player.sendPacket(new SystemMessage(SystemMessageId.SEVENSIGNS_PARTECIPATION_DAWN)); // Joined
 					// Dawn
-					} else {
+					else
 						player.sendPacket(new SystemMessage(SystemMessageId.SEVENSIGNS_PARTECIPATION_DUSK)); // Joined
-					}
 					// Dusk
 					// Show a confirmation message to the user, indicating
 					// which seal they chose.
@@ -238,65 +224,49 @@ public class L2SignsPriestInstance extends L2FolkInstance
 						{
 							case 1:
 								blueContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore) / SevenSigns.BLUE_CONTRIB_POINTS;
-								if (blueContribCount > blueStoneCount) {
+								if (blueContribCount > blueStoneCount)
 									blueContribCount = blueStoneCount;
-								}
 								break;
 							case 2:
 								greenContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore) / SevenSigns.GREEN_CONTRIB_POINTS;
-								if (greenContribCount > greenStoneCount) {
+								if (greenContribCount > greenStoneCount)
 									greenContribCount = greenStoneCount;
-								}
 								break;
 							case 3:
 								redContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - contribScore) / SevenSigns.RED_CONTRIB_POINTS;
-								if (redContribCount > redStoneCount) {
+								if (redContribCount > redStoneCount)
 									redContribCount = redStoneCount;
-								}
 								break;
 							case 4:
 								int tempContribScore = contribScore;
 								redContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore) / SevenSigns.RED_CONTRIB_POINTS;
-								if (redContribCount > redStoneCount) {
+								if (redContribCount > redStoneCount)
 									redContribCount = redStoneCount;
-								}
 								tempContribScore += redContribCount * SevenSigns.RED_CONTRIB_POINTS;
 								greenContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore) / SevenSigns.GREEN_CONTRIB_POINTS;
-								if (greenContribCount > greenStoneCount) {
+								if (greenContribCount > greenStoneCount)
 									greenContribCount = greenStoneCount;
-								}
 								tempContribScore += greenContribCount * SevenSigns.GREEN_CONTRIB_POINTS;
 								blueContribCount = (Config.ALT_MAXIMUM_PLAYER_CONTRIB - tempContribScore) / SevenSigns.BLUE_CONTRIB_POINTS;
-								if (blueContribCount > blueStoneCount) {
+								if (blueContribCount > blueStoneCount)
 									blueContribCount = blueStoneCount;
-								}
 								break;
 						}
 						if (redContribCount > 0)
-						{
-							if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_RED_ID, redContribCount, this, false)) {
+							if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_RED_ID, redContribCount, this, false))
 								stonesFound = true;
-							}
-						}
 						if (greenContribCount > 0)
-						{
-							if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_GREEN_ID, greenContribCount, this, false)) {
+							if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_GREEN_ID, greenContribCount, this, false))
 								stonesFound = true;
-							}
-						}
 						if (blueContribCount > 0)
-						{
-							if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_BLUE_ID, blueContribCount, this, false)) {
+							if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_BLUE_ID, blueContribCount, this, false))
 								stonesFound = true;
-							}
-						}
 						if (!stonesFound)
 						{
 							player.sendMessage("You do not have any seal stones of that type.");
 							break;
-						} else {
+						} else
 							contribScore = SevenSigns.getInstance().addPlayerStoneContrib(player, blueContribCount, greenContribCount, redContribCount);
-						}
 						sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED);
 						sm.addNumber(contribScore);
 						player.sendPacket(sm);
@@ -365,11 +335,8 @@ public class L2SignsPriestInstance extends L2FolkInstance
 						int z = Integer.parseInt(st.nextToken());
 						int ancientAdenaCost = Integer.parseInt(st.nextToken());
 						if (ancientAdenaCost > 0)
-						{
-							if (!player.reduceAncientAdena("SevenSigns", ancientAdenaCost, this, true)) {
+							if (!player.reduceAncientAdena("SevenSigns", ancientAdenaCost, this, true))
 								break;
-							}
-						}
 						player.teleToLocation(x, y, z, true);
 					}
 					catch (Exception e)
@@ -404,9 +371,8 @@ public class L2SignsPriestInstance extends L2FolkInstance
 							break;
 					}
 					L2ItemInstance stoneInstance = player.getInventory().getItemByItemId(stoneId);
-					if (stoneInstance != null) {
+					if (stoneInstance != null)
 						stoneCount = stoneInstance.getCount();
-					}
 					path = SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_17.htm";
 					content = HtmCache.getInstance().getHtm(path);
 					if (content != null)
@@ -419,11 +385,8 @@ public class L2SignsPriestInstance extends L2FolkInstance
 						NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 						html.setHtml(content);
 						player.sendPacket(html);
-					}
-					else
-					{
+					} else
 						_log.warning("Problem with HTML text " + SevenSigns.SEVEN_SIGNS_HTML_PATH + "signs_17.htm: " + path);
-					}
 					break;
 				case 18: // Exchange Seal Stones for Ancient Adena -
 					// SevenSigns 18 xxxx xxxxxx
@@ -473,11 +436,8 @@ public class L2SignsPriestInstance extends L2FolkInstance
 							su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 							sendPacket(su);
 						}
-					}
-					else
-					{
+					} else
 						player.sendMessage("You do not have that many seal stones.");
-					}
 					break;
 				case 19: // Seal Information (for when joining a cabal)
 					int chosenSeal = Integer.parseInt(command.substring(16));
@@ -489,11 +449,10 @@ public class L2SignsPriestInstance extends L2FolkInstance
 					for (int i = 1; i < 4; i++)
 					{
 						int sealOwner = SevenSigns.getInstance().getSealOwner(i);
-						if (sealOwner != SevenSigns.CABAL_NULL) {
+						if (sealOwner != SevenSigns.CABAL_NULL)
 							contentBuffer.append("[" + SevenSigns.getSealName(i, false) + ": " + SevenSigns.getCabalName(sealOwner) + "]<br>");
-						} else {
+						else
 							contentBuffer.append("[" + SevenSigns.getSealName(i, false) + ": Nothingness]<br>");
-						}
 					}
 					contentBuffer.append("<a action=\"bypass -h npc_" + getObjectId() + "_SevenSigns 3 " + cabal + "\">Go back.</a></body></html>");
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -507,20 +466,16 @@ public class L2SignsPriestInstance extends L2FolkInstance
 					showChatWindow(player, val, null, false);
 					break;
 			}
-		}
-		else
-		{
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	private final boolean getPlayerAllyHasCastle(L2PcInstance player)
 	{
 		L2Clan playerClan = player.getClan();
 		// The player is not in a clan, so return false.
-		if (playerClan == null) {
+		if (playerClan == null)
 			return false;
-		}
 		// If castle ownage check is clan-based rather than ally-based,
 		// check if the player's clan has a castle and return the result.
 		if (!Config.ALT_GAME_REQUIRE_CLAN_CASTLE)
@@ -532,13 +487,10 @@ public class L2SignsPriestInstance extends L2FolkInstance
 				// Check if another clan in the same alliance owns a castle,
 				// by traversing the list of clans and act accordingly.
 				L2Clan[] clanList = ClanTable.getInstance().getClans();
-				for (L2Clan clan : clanList) {
-					if (clan.getAllyId() == allyId) {
-						if (clan.getHasCastle() > 0) {
+				for (L2Clan clan : clanList)
+					if (clan.getAllyId() == allyId)
+						if (clan.getHasCastle() > 0)
 							return true;
-						}
-					}
-				}
 			}
 		}
 		return playerClan.getHasCastle() > 0;

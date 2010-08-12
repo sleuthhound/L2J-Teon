@@ -39,9 +39,8 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -52,31 +51,19 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 			player.sendPacket(my);
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
-		else
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+		else if (CastleManorManager.getInstance().isDisabled())
 		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				if (CastleManorManager.getInstance().isDisabled())
-				{
-					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-					html.setFile("data/html/npcdefault.htm");
-					html.replace("%objectId%", String.valueOf(getObjectId()));
-					html.replace("%npcname%", getName());
-					player.sendPacket(html);
-				}
-				else
-				{
-					showMessageWindow(player, 0);
-				}
-			}
-		}
+			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+			html.setFile("data/html/npcdefault.htm");
+			html.replace("%objectId%", String.valueOf(getObjectId()));
+			html.replace("%npcname%", getName());
+			player.sendPacket(html);
+		} else
+			showMessageWindow(player, 0);
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -94,13 +81,11 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 			return;
 		}
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE) {
+		if (condition <= COND_ALL_FALSE)
 			return;
-		}
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
-		} else if (condition == COND_OWNER)
-		{
+		else if (condition == COND_OWNER)
 			if (command.startsWith("Chat"))
 			{
 				int val = 0;
@@ -115,12 +100,8 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 				{
 				}
 				showMessageWindow(player, val);
-			}
-			else
-			{
+			} else
 				super.onBypassFeedback(player, command);
-			}
-		}
 	}
 
 	private void showMessageWindow(L2PcInstance player, int val)
@@ -128,18 +109,13 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 		String filename = "data/html/castleblacksmith/castleblacksmith-no.htm";
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
-		{
-			if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/castleblacksmith/castleblacksmith-busy.htm"; // Busy because of siege
-			} else if (condition == COND_OWNER) // Clan owns castle
-			{
-				if (val == 0) {
+			else if (condition == COND_OWNER)
+				if (val == 0)
 					filename = "data/html/castleblacksmith/castleblacksmith.htm";
-				} else {
+				else
 					filename = "data/html/castleblacksmith/castleblacksmith-" + val + ".htm";
-				}
-			}
-		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -150,21 +126,15 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 
 	protected int validateCondition(L2PcInstance player)
 	{
-		if (player.isGM()) {
+		if (player.isGM())
 			return COND_OWNER;
-		}
 		if (getCastle() != null && getCastle().getCastleId() > 0)
-		{
 			if (player.getClan() != null)
-			{
-				if (getCastle().getSiege().getIsInProgress()) {
+				if (getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				} else if (getCastle().getOwnerId() == player.getClanId() // Clan owns castle
-						&& player.isClanLeader()) {
+				else if (getCastle().getOwnerId() == player.getClanId() // Clan owns castle
+						&& player.isClanLeader())
 					return COND_OWNER; // Owner
-				}
-			}
-		}
 		return COND_ALL_FALSE;
 	}
 }

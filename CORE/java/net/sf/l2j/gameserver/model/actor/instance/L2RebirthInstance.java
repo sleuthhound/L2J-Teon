@@ -53,9 +53,7 @@ public class L2RebirthInstance extends L2FolkInstance
 		String actualCommand = st.nextToken();
 		String val = "";
 		if (st.countTokens() >= 1)
-		{
 			val = st.nextToken();
-		}
 		if (actualCommand.equalsIgnoreCase("rebirth"))
 		{
 			setTarget(player);
@@ -80,11 +78,8 @@ public class L2RebirthInstance extends L2FolkInstance
 					html.replace("%lvl%", String.valueOf(player.getLevel()));
 					sendHtmlMessage(player, html);
 				}
-			}
-			else
-			{
+			} else
 				player.sendMessage("You have to be at least level 80 to use Rebirth Engine.");
-			}
 			return;
 		}
 		else if (actualCommand.equalsIgnoreCase("Reward"))
@@ -98,11 +93,8 @@ public class L2RebirthInstance extends L2FolkInstance
 					html.setFile("data/html/mods/Rebirth/reward.htm");
 					html.replace("%lvl%", String.valueOf(player.getLevel()));
 					sendHtmlMessage(player, html);
-				}
-				else
-				{
+				} else
 					player.sendMessage("You Need Rebirth Book.");
-				}
 			}
 		}
 		else if (actualCommand.equalsIgnoreCase("skill1"))
@@ -174,11 +166,8 @@ public class L2RebirthInstance extends L2FolkInstance
 			player.destroyItem("Consume", Config.REBIRTH_ITEM, 1, null, false);
 			L2Skill skill = SkillTable.getInstance().getInfo(Config.REBIRTH_SKILL10, Config.REBIRTH_SKILL10_LVL);
 			player.addSkill(skill, true);
-		}
-		else
-		{
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override

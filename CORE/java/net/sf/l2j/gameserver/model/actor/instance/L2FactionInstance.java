@@ -54,9 +54,7 @@ public class L2FactionInstance extends L2FolkInstance
 		String actualCommand = st.nextToken();
 		String val = "";
 		if (st.countTokens() >= 1)
-		{
 			val = st.nextToken();
-		}
 		if (actualCommand.equalsIgnoreCase("delevel"))
 		{
 			setTarget(player);
@@ -78,11 +76,8 @@ public class L2FactionInstance extends L2FolkInstance
 					html.replace("%lvl%", String.valueOf(player.getLevel()));
 					sendHtmlMessage(player, html);
 				}
-			}
-			else
-			{
+			} else
 				player.sendMessage("You have to be at least level 40 to use the delevel faction.");
-			}
 			return;
 		}
 		else if (actualCommand.equalsIgnoreCase("levelup"))
@@ -125,9 +120,7 @@ public class L2FactionInstance extends L2FolkInstance
 					ResultSet rset = statement.executeQuery();
 					int objId = 0;
 					if (rset.next())
-					{
 						objId = rset.getInt(1);
-					}
 					rset.close();
 					statement.close();
 					if (objId == 0)
@@ -166,74 +159,64 @@ public class L2FactionInstance extends L2FolkInstance
 			{
 				player.sendMessage("You are allready a " + Config.KOOFS_NAME_TEAM + " faction.");
 				player.sendPacket(ActionFailed.STATIC_PACKET);
-			}
-			else
+			} else if (player.isNoob())
 			{
-				if (player.isNoob())
+				player.sendMessage("You Cant Change Faction.");
+				player.sendPacket(ActionFailed.STATIC_PACKET);
+			} else // int getnoobs = L2World.getInstance().getAllnoobPlayers().size();
+			// int getkoofs = L2World.getInstance().getAllkoofPlayers().size();
+			// if (getkoofs > getnoobs)
+			{
+				// player.sendMessage("It is more " + Config.KOOF_NAME_TEAM + " members online.");
+				// player.sendPacket(ActionFailed.STATIC_PACKET);
+				// } else
+				// {
+				player.setKoof(true);
+				Connection connection = null;
+				try
 				{
-					player.sendMessage("You Cant Change Faction.");
-					player.sendPacket(ActionFailed.STATIC_PACKET);
-				}
-				else
-				{
-					// int getnoobs = L2World.getInstance().getAllnoobPlayers().size();
-					// int getkoofs = L2World.getInstance().getAllkoofPlayers().size();
-					// if (getkoofs > getnoobs)
+					connection = L2DatabaseFactory.getInstance().getConnection();
+					PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
+					statement.setString(1, player.getName());
+					ResultSet rset = statement.executeQuery();
+					int objId = 0;
+					if (rset.next())
+						objId = rset.getInt(1);
+					rset.close();
+					statement.close();
+					if (objId == 0)
 					{
-						// player.sendMessage("It is more " + Config.KOOF_NAME_TEAM + " members online.");
-						// player.sendPacket(ActionFailed.STATIC_PACKET);
-						// } else
-						// {
-						player.setKoof(true);
-						Connection connection = null;
-						try
-						{
-							connection = L2DatabaseFactory.getInstance().getConnection();
-							PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
-							statement.setString(1, player.getName());
-							ResultSet rset = statement.executeQuery();
-							int objId = 0;
-							if (rset.next())
-							{
-								objId = rset.getInt(1);
-							}
-							rset.close();
-							statement.close();
-							if (objId == 0)
-							{
-								connection.close();
-								return;
-							}
-							statement = connection.prepareStatement("UPDATE characters SET koof=1 WHERE obj_id=?");
-							statement.setInt(1, objId);
-							statement.execute();
-							statement.close();
-							connection.close();
-						}
-						catch (Exception e)
-						{
-							_log.warn("Could not set koof status of char:");
-						}
-						finally
-						{
-							try
-							{
-								connection.close();
-							}
-							catch (Exception e)
-							{
-							}
-						}
-						System.out.println("##KvN Engine## : Player " + player.getName() + " has choose " + Config.KOOFS_NAME_TEAM + " faction");
-						if (player.isKoof() == true)
-						{
-							player.broadcastUserInfo();
-							player.sendMessage("You are fighiting now for " + Config.KOOFS_NAME_TEAM + " faction ");
-							player.getAppearance().setNameColor(Config.KOOFS_NAME_COLOR);
-							player.setTitle(Config.KOOFS_NAME_TEAM);
-							player.teleToLocation(146334, 25767, -2013);
-						}
+						connection.close();
+						return;
 					}
+					statement = connection.prepareStatement("UPDATE characters SET koof=1 WHERE obj_id=?");
+					statement.setInt(1, objId);
+					statement.execute();
+					statement.close();
+					connection.close();
+				}
+				catch (Exception e)
+				{
+					_log.warn("Could not set koof status of char:");
+				}
+				finally
+				{
+					try
+					{
+						connection.close();
+					}
+					catch (Exception e)
+					{
+					}
+				}
+				System.out.println("##KvN Engine## : Player " + player.getName() + " has choose " + Config.KOOFS_NAME_TEAM + " faction");
+				if (player.isKoof() == true)
+				{
+					player.broadcastUserInfo();
+					player.sendMessage("You are fighiting now for " + Config.KOOFS_NAME_TEAM + " faction ");
+					player.getAppearance().setNameColor(Config.KOOFS_NAME_COLOR);
+					player.setTitle(Config.KOOFS_NAME_TEAM);
+					player.teleToLocation(146334, 25767, -2013);
 				}
 			}
 		}
@@ -244,83 +227,74 @@ public class L2FactionInstance extends L2FolkInstance
 			{
 				player.sendMessage("You are allready a " + Config.NOOBS_NAME_TEAM + " faction.");
 				player.sendPacket(ActionFailed.STATIC_PACKET);
+			} else if (player.isKoof())
+			{
+				player.sendMessage("You cant change faction.");
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 			else
 			{
-				if (player.isKoof())
+				@SuppressWarnings("unused")
+				int getnoobs = L2World.getInstance().getAllnoobPlayers().size();
+				@SuppressWarnings("unused")
+				int getkoofs = L2World.getInstance().getAllkoofPlayers().size();
+				// if (getnoobs > getkoofs)
 				{
-					player.sendMessage("You cant change faction.");
-					player.sendPacket(ActionFailed.STATIC_PACKET);
-				}
-				else
-				{
-					@SuppressWarnings("unused")
-					int getnoobs = L2World.getInstance().getAllnoobPlayers().size();
-					@SuppressWarnings("unused")
-					int getkoofs = L2World.getInstance().getAllkoofPlayers().size();
-					// if (getnoobs > getkoofs)
+					// player.sendMessage("It is more " + Config.NOOB_NAME_TEAM + " members online.");
+					// player.sendPacket(ActionFailed.STATIC_PACKET);
+					// } else
+					// {
+					player.setNoob(true);
+					Connection connection = null;
+					try
 					{
-						// player.sendMessage("It is more " + Config.NOOB_NAME_TEAM + " members online.");
-						// player.sendPacket(ActionFailed.STATIC_PACKET);
-						// } else
-						// {
-						player.setNoob(true);
-						Connection connection = null;
+						connection = L2DatabaseFactory.getInstance().getConnection();
+						PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
+						statement.setString(1, player.getName());
+						ResultSet rset = statement.executeQuery();
+						int objId = 0;
+						if (rset.next())
+							objId = rset.getInt(1);
+						rset.close();
+						statement.close();
+						if (objId == 0)
+						{
+							connection.close();
+							return;
+						}
+						statement = connection.prepareStatement("UPDATE characters SET noob=1 WHERE obj_id=?");
+						statement.setInt(1, objId);
+						statement.execute();
+						statement.close();
+						connection.close();
+					}
+					catch (Exception e)
+					{
+						_log.warn("Could not set noob status of char:");
+					}
+					finally
+					{
 						try
 						{
-							connection = L2DatabaseFactory.getInstance().getConnection();
-							PreparedStatement statement = connection.prepareStatement("SELECT obj_id FROM characters where char_name=?");
-							statement.setString(1, player.getName());
-							ResultSet rset = statement.executeQuery();
-							int objId = 0;
-							if (rset.next())
-							{
-								objId = rset.getInt(1);
-							}
-							rset.close();
-							statement.close();
-							if (objId == 0)
-							{
-								connection.close();
-								return;
-							}
-							statement = connection.prepareStatement("UPDATE characters SET noob=1 WHERE obj_id=?");
-							statement.setInt(1, objId);
-							statement.execute();
-							statement.close();
 							connection.close();
 						}
 						catch (Exception e)
 						{
-							_log.warn("Could not set noob status of char:");
 						}
-						finally
-						{
-							try
-							{
-								connection.close();
-							}
-							catch (Exception e)
-							{
-							}
-						}
-						System.out.println("##KvN Engine## : player " + player.getName() + " Has choose " + Config.NOOBS_NAME_TEAM + " Faction");
-						if (player.isNoob() == true)
-						{
-							player.broadcastUserInfo();
-							player.sendMessage("You are fighiting now for " + Config.NOOBS_NAME_TEAM + " faction ");
-							player.getAppearance().setNameColor(Config.NOOBS_NAME_COLOR);
-							player.setTitle(Config.NOOBS_NAME_TEAM);
-							player.teleToLocation(59669, -42221, -2992);
-						}
+					}
+					System.out.println("##KvN Engine## : player " + player.getName() + " Has choose " + Config.NOOBS_NAME_TEAM + " Faction");
+					if (player.isNoob() == true)
+					{
+						player.broadcastUserInfo();
+						player.sendMessage("You are fighiting now for " + Config.NOOBS_NAME_TEAM + " faction ");
+						player.getAppearance().setNameColor(Config.NOOBS_NAME_COLOR);
+						player.setTitle(Config.NOOBS_NAME_TEAM);
+						player.teleToLocation(59669, -42221, -2992);
 					}
 				}
 			}
-		}
-		else
-		{
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override

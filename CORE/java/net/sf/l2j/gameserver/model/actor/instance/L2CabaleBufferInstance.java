@@ -42,9 +42,8 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 
 		if (this != player.getTarget())
 		{
@@ -58,22 +57,16 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 
 			// Send a Server->Client packet ValidateLocation to correct the L2ArtefactInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
 		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				// Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
-				// to display a social action of the L2NpcInstance on their client
-				SocialAction sa = new SocialAction(getObjectId(), Rnd.get(8));
-				broadcastPacket(sa);
-			}
+			// Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
+			// to display a social action of the L2NpcInstance on their client
+			SocialAction sa = new SocialAction(getObjectId(), Rnd.get(8));
+			broadcastPacket(sa);
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -98,11 +91,10 @@ public class L2CabaleBufferInstance extends L2NpcInstance
             final int winningCabal = SevenSigns.getInstance().getCabalHighestScore();
             int losingCabal = SevenSigns.CABAL_NULL;
 
-            if (winningCabal == SevenSigns.CABAL_DAWN) {
+            if (winningCabal == SevenSigns.CABAL_DAWN)
 				losingCabal = SevenSigns.CABAL_DUSK;
-			} else if (winningCabal == SevenSigns.CABAL_DUSK) {
+			else if (winningCabal == SevenSigns.CABAL_DUSK)
 				losingCabal = SevenSigns.CABAL_DAWN;
-			}
 
             /**
              * For each known player in range, cast either the positive or negative buff.
@@ -130,39 +122,28 @@ public class L2CabaleBufferInstance extends L2NpcInstance
                             isBuffAWinner = true;
                             continue;
                         }
-                    }
-                    else
-                    {
-                        if (handleCast(player, 4365))
-                        {
-                            isBuffAWinner = true;
-                            continue;
-                        }
-                    }
+                    } else if (handleCast(player, 4365))
+					{
+					    isBuffAWinner = true;
+					    continue;
+					}
                 }
                 else if (playerCabal == losingCabal && playerCabal != SevenSigns.CABAL_NULL && _caster.getNpcId() == SevenSigns.PREACHER_NPC_ID)
-                {
-                    if (!player.isMageClass())
+					if (!player.isMageClass())
                     {
                         if (handleCast(player, 4361))
                         {
                             isBuffALoser = true;
                             continue;
                         }
-                    }
-                    else
-                    {
-                        if (handleCast(player, 4362))
-                        {
-                            isBuffALoser = true;
-                            continue;
-                        }
-                    }
-                }
+                    } else if (handleCast(player, 4362))
+					{
+					    isBuffALoser = true;
+					    continue;
+					}
 
-                if (isBuffAWinner && isBuffALoser) {
+                if (isBuffAWinner && isBuffALoser)
 					break;
-				}
             }
         }
 
@@ -170,9 +151,8 @@ public class L2CabaleBufferInstance extends L2NpcInstance
         {
             int skillLevel = player.getLevel() > 40 ? 1 : 2;
 
-            if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false)) {
+            if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false))
 				return false;
-			}
 
             L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
             if (player.getFirstEffect(skill) == null)
@@ -194,9 +174,8 @@ public class L2CabaleBufferInstance extends L2NpcInstance
     {
         super(objectId, template);
 
-        if (_aiTask != null) {
+        if (_aiTask != null)
 			_aiTask.cancel(true);
-		}
 
         _aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new CabalaAI(this), 3000, 3000);
     }

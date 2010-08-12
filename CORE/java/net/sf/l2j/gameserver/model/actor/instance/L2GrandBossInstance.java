@@ -66,9 +66,8 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	public void onSpawn()
 	{
 		setIsRaid(true);
-		if (getNpcId() == 29020 || getNpcId() == 29028) {
+		if (getNpcId() == 29020 || getNpcId() == 29028)
 			super.disableCoreAI(true);
-		}
 		super.onSpawn();
 	}
 
@@ -88,27 +87,21 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!super.doDie(killer)) {
+		if (!super.doDie(killer))
 			return false;
-		}
 		L2PcInstance player = null;
-		if (killer instanceof L2PcInstance) {
+		if (killer instanceof L2PcInstance)
 			player = (L2PcInstance) killer;
-		} else if (killer instanceof L2Summon) {
+		else if (killer instanceof L2Summon)
 			player = ((L2Summon) killer).getOwner();
-		}
 		if (player != null)
 		{
 			broadcastPacket(new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
 			if (player.getParty() != null)
-			{
 				for (L2PcInstance member : player.getParty().getPartyMembers())
-				{
 					RaidBossPointsManager.addPoints(member, getNpcId(), getLevel() / 2 + Rnd.get(-5, 5));
-				}
-			} else {
+			else
 				RaidBossPointsManager.addPoints(player, getNpcId(), getLevel() / 2 + Rnd.get(-5, 5));
-			}
 		}
 		return true;
 	}
@@ -116,20 +109,18 @@ public final class L2GrandBossInstance extends L2MonsterInstance
 	@Override
 	public void doAttack(L2Character target)
 	{
-		if (_isInSocialAction) {
+		if (_isInSocialAction)
 			return;
-		} else {
+		else
 			super.doAttack(target);
-		}
 	}
 
 	@Override
 	public void doCast(L2Skill skill)
 	{
-		if (_isInSocialAction) {
+		if (_isInSocialAction)
 			return;
-		} else {
+		else
 			super.doCast(skill);
-		}
 	}
 }

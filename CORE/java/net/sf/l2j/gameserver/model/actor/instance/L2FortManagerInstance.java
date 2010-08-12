@@ -56,9 +56,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		player.setLastFolkNPC(this);
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
@@ -70,20 +69,12 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			player.sendPacket(my);
 			// Send a Server->Client packet ValidateLocation to correct the zL2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
+			showMessageWindow(player);
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -93,25 +84,21 @@ public class L2FortManagerInstance extends L2MerchantInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		// BypassValidation Exploit plug.
-		if (player.getLastFolkNPC().getObjectId() != this.getObjectId()) {
+		if (player.getLastFolkNPC().getObjectId() != this.getObjectId())
 			return;
-		}
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE) {
+		if (condition <= COND_ALL_FALSE)
 			return;
-		}
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
-		} else if (condition == COND_OWNER)
+		else if (condition == COND_OWNER)
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
 			String actualCommand = st.nextToken(); // Get actual command
 			String val = "";
 			if (st.countTokens() >= 1)
-			{
 				val = st.nextToken();
-			}
 			if (actualCommand.equalsIgnoreCase("banish_foreigner"))
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CS_DISMISS) == L2Clan.CP_CS_DISMISS)
@@ -191,9 +178,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 					if (val != "")
 					{
 						boolean open = Integer.parseInt(val) == 1;
-						while (st.hasMoreTokens()) {
+						while (st.hasMoreTokens())
 							getFort().openCloseDoor(player, Integer.parseInt(st.nextToken()), open);
-						}
 					}
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/fortress/" + getTemplate().npcId + "-d.htm");
@@ -224,46 +210,42 @@ public class L2FortManagerInstance extends L2MerchantInstance
 				if (val.equalsIgnoreCase("tele"))
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
-					if (getFort().getFunction(Fort.FUNC_TELEPORT) == null) {
+					if (getFort().getFunction(Fort.FUNC_TELEPORT) == null)
 						html.setFile("data/html/fortress/foreman-nac.htm");
-					} else {
+					else
 						html.setFile("data/html/fortress/" + getNpcId() + "-t" + getFort().getFunction(Fort.FUNC_TELEPORT).getLvl() + ".htm");
-					}
 					sendHtmlMessage(player, html);
 				}
 				else if (val.equalsIgnoreCase("support"))
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
-					if (getFort().getFunction(Fort.FUNC_SUPPORT) == null) {
+					if (getFort().getFunction(Fort.FUNC_SUPPORT) == null)
 						html.setFile("data/html/fortress/foreman-nac.htm");
-					} else
+					else
 					{
 						html.setFile("data/html/fortress/support" + getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() + ".htm");
 						html.replace("%mp%", String.valueOf((int) getCurrentMp()));
 					}
 					sendHtmlMessage(player, html);
 				}
-				else if (val.equalsIgnoreCase("back")) {
+				else if (val.equalsIgnoreCase("back"))
 					showMessageWindow(player);
-				} else
+				else
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(1);
 					html.setFile("data/html/fortress/foreman-functions.htm");
-					if (getFort().getFunction(Fort.FUNC_RESTORE_EXP) != null) {
+					if (getFort().getFunction(Fort.FUNC_RESTORE_EXP) != null)
 						html.replace("%xp_regen%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_EXP).getLvl()));
-					} else {
+					else
 						html.replace("%xp_regen%", "0");
-					}
-					if (getFort().getFunction(Fort.FUNC_RESTORE_HP) != null) {
+					if (getFort().getFunction(Fort.FUNC_RESTORE_HP) != null)
 						html.replace("%hp_regen%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_HP).getLvl()));
-					} else {
+					else
 						html.replace("%hp_regen%", "0");
-					}
-					if (getFort().getFunction(Fort.FUNC_RESTORE_MP) != null) {
+					if (getFort().getFunction(Fort.FUNC_RESTORE_MP) != null)
 						html.replace("%mp_regen%", String.valueOf(getFort().getFunction(Fort.FUNC_RESTORE_MP).getLvl()));
-					} else {
+					else
 						html.replace("%mp_regen%", "0");
-					}
 					sendHtmlMessage(player, html);
 				}
 			}
@@ -379,14 +361,12 @@ public class L2FortManagerInstance extends L2MerchantInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG) {
+									if (Config.DEBUG)
 										_log.warning("Mp editing invoked");
-									}
 									val = st.nextToken();
 									NpcHtmlMessage html = new NpcHtmlMessage(1);
 									html.setFile("data/html/fortress/functions-apply_confirmed.htm");
 									if (getFort().getFunction(Fort.FUNC_RESTORE_HP) != null)
-									{
 										if (getFort().getFunction(Fort.FUNC_RESTORE_HP).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
@@ -394,7 +374,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 											sendHtmlMessage(player, html);
 											return;
 										}
-									}
 									int percent = Integer.valueOf(val);
 									switch (percent)
 									{
@@ -423,14 +402,12 @@ public class L2FortManagerInstance extends L2MerchantInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG) {
+									if (Config.DEBUG)
 										_log.warning("Mp editing invoked");
-									}
 									val = st.nextToken();
 									NpcHtmlMessage html = new NpcHtmlMessage(1);
 									html.setFile("data/html/fortress/functions-apply_confirmed.htm");
 									if (getFort().getFunction(Fort.FUNC_RESTORE_MP) != null)
-									{
 										if (getFort().getFunction(Fort.FUNC_RESTORE_MP).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
@@ -438,7 +415,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 											sendHtmlMessage(player, html);
 											return;
 										}
-									}
 									int percent = Integer.valueOf(val);
 									switch (percent)
 									{
@@ -467,14 +443,12 @@ public class L2FortManagerInstance extends L2MerchantInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG) {
+									if (Config.DEBUG)
 										_log.warning("Exp editing invoked");
-									}
 									val = st.nextToken();
 									NpcHtmlMessage html = new NpcHtmlMessage(1);
 									html.setFile("data/html/fortress/functions-apply_confirmed.htm");
 									if (getFort().getFunction(Fort.FUNC_RESTORE_EXP) != null)
-									{
 										if (getFort().getFunction(Fort.FUNC_RESTORE_EXP).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
@@ -482,7 +456,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 											sendHtmlMessage(player, html);
 											return;
 										}
-									}
 									int percent = Integer.valueOf(val);
 									switch (percent)
 									{
@@ -627,14 +600,12 @@ public class L2FortManagerInstance extends L2MerchantInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG) {
+									if (Config.DEBUG)
 										_log.warning("Tele editing invoked");
-									}
 									val = st.nextToken();
 									NpcHtmlMessage html = new NpcHtmlMessage(1);
 									html.setFile("data/html/fortress/functions-apply_confirmed.htm");
 									if (getFort().getFunction(Fort.FUNC_TELEPORT) != null)
-									{
 										if (getFort().getFunction(Fort.FUNC_TELEPORT).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
@@ -642,7 +613,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 											sendHtmlMessage(player, html);
 											return;
 										}
-									}
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
 									{
@@ -671,14 +641,12 @@ public class L2FortManagerInstance extends L2MerchantInstance
 								if (st.countTokens() >= 1)
 								{
 									int fee;
-									if (Config.DEBUG) {
+									if (Config.DEBUG)
 										_log.warning("Support editing invoked");
-									}
 									val = st.nextToken();
 									NpcHtmlMessage html = new NpcHtmlMessage(1);
 									html.setFile("data/html/fortress/functions-apply_confirmed.htm");
 									if (getFort().getFunction(Fort.FUNC_SUPPORT) != null)
-									{
 										if (getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() == Integer.valueOf(val))
 										{
 											html.setFile("data/html/fortress/functions-used.htm");
@@ -686,7 +654,6 @@ public class L2FortManagerInstance extends L2MerchantInstance
 											sendHtmlMessage(player, html);
 											return;
 										}
-									}
 									int lvl = Integer.valueOf(val);
 									switch (lvl)
 									{
@@ -705,9 +672,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 									{
 										html.setFile("data/html/fortress/low_adena.htm");
 										sendHtmlMessage(player, html);
-									} else {
+									} else
 										sendHtmlMessage(player, html);
-									}
 								}
 								return;
 							}
@@ -742,9 +708,9 @@ public class L2FortManagerInstance extends L2MerchantInstance
 						}
 						sendHtmlMessage(player, html);
 					}
-					else if (val.equalsIgnoreCase("back")) {
+					else if (val.equalsIgnoreCase("back"))
 						showMessageWindow(player);
-					} else
+					else
 					{
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						html.setFile("data/html/fortress/manage.htm");
@@ -763,31 +729,27 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			{
 				setTarget(player);
 				L2Skill skill;
-				if (val == "") {
+				if (val == "")
 					return;
-				}
 				try
 				{
 					int skill_id = Integer.parseInt(val);
 					try
 					{
-						if (getFort().getFunction(Fort.FUNC_SUPPORT) == null) {
+						if (getFort().getFunction(Fort.FUNC_SUPPORT) == null)
 							return;
-						}
-						if (getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() == 0) {
+						if (getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() == 0)
 							return;
-						}
 						NpcHtmlMessage html = new NpcHtmlMessage(1);
 						int skill_lvl = 0;
-						if (st.countTokens() >= 1) {
+						if (st.countTokens() >= 1)
 							skill_lvl = Integer.parseInt(st.nextToken());
-						}
 						skill = SkillTable.getInstance().getInfo(skill_id, skill_lvl);
 						player.doCast(skill);
 						{
-							if (!(skill.getMpConsume() + skill.getMpInitialConsume() > this.getCurrentMp())) {
+							if (!(skill.getMpConsume() + skill.getMpInitialConsume() > this.getCurrentMp()))
 								this.doCast(skill);
-							} else
+							else
 							{
 								html.setFile("data/html/fortress/support-no_mana.htm");
 								html.replace("%mp%", String.valueOf((int) getCurrentMp()));
@@ -813,9 +775,8 @@ public class L2FortManagerInstance extends L2MerchantInstance
 			else if (actualCommand.equalsIgnoreCase("support_back"))
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
-				if (getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() == 0) {
+				if (getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() == 0)
 					return;
-				}
 				html.setFile("data/html/fortress/support" + getFort().getFunction(Fort.FUNC_SUPPORT).getLvl() + ".htm");
 				html.replace("%mp%", String.valueOf((int) getStatus().getCurrentMp()));
 				sendHtmlMessage(player, html);
@@ -836,13 +797,10 @@ public class L2FortManagerInstance extends L2MerchantInstance
 		String filename = "data/html/fortress/foreman-no.htm";
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
-		{
-			if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/fortress/foreman-busy.htm"; // Busy because of siege
-			} else if (condition == COND_OWNER) {
+			else if (condition == COND_OWNER)
 				filename = "data/html/fortress/foreman.htm"; // Owner message window
-			}
-		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -852,38 +810,30 @@ public class L2FortManagerInstance extends L2MerchantInstance
 
 	private void doTeleport(L2PcInstance player, int val)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.warning("doTeleport(L2PcInstance player, int val) is called");
-		}
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
 		if (list != null)
 		{
 			if (player.reduceAdena("Teleport", list.getPrice(), this, true))
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.warning("Teleporting player " + player.getName() + " for Fortress to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
-				}
 				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
 			}
-		} else {
+		} else
 			_log.warning("No teleport destination with id:" + val);
-		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	protected int validateCondition(L2PcInstance player)
 	{
 		if (getFort() != null && getFort().getFortId() > 0)
-		{
 			if (player.getClan() != null)
-			{
-				if (getFort().getSiege().getIsInProgress()) {
+				if (getFort().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				} else if (getFort().getOwnerId() == player.getClanId()) {
+				else if (getFort().getOwnerId() == player.getClanId())
 					return COND_OWNER; // Owner
-				}
-			}
-		}
 		return COND_ALL_FALSE;
 	}
 }

@@ -41,9 +41,7 @@ public class PetStat extends SummonStat
 	public boolean addExp(int value)
 	{
 		if (!super.addExp(value))
-		{
 			return false;
-		}
 		/*
 		 * Micht : Use of PetInfo for C5 StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId()); su.addAttribute(StatusUpdate.EXP, getExp()); getActiveChar().broadcastPacket(su);
 		 */
@@ -55,9 +53,7 @@ public class PetStat extends SummonStat
 	public boolean addExpAndSp(long addToExp, int addToSp)
 	{
 		if (!super.addExpAndSp(addToExp, addToSp))
-		{
 			return false;
-		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.PET_EARNED_S1_EXP);
 		sm.addNumber((int) addToExp);
 		getActiveChar().getOwner().sendPacket(sm);
@@ -68,19 +64,13 @@ public class PetStat extends SummonStat
 	public final boolean addLevel(byte value)
 	{
 		if (getLevel() + value > Experience.MAX_LEVEL - 1)
-		{
 			return false;
-		}
 		boolean levelIncreased = super.addLevel(value);
 		// Sync up exp with current level
 		if (getExp() > getExpForLevel(getLevel() + 1) || getExp() < getExpForLevel(getLevel()))
-		{
 			setExp(Experience.LEVEL[getLevel()]);
-		}
 		if (levelIncreased)
-		{
 			getActiveChar().getOwner().sendMessage("Your pet has increased it's level.");
-		}
 		StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
 		su.addAttribute(StatusUpdate.LEVEL, getLevel());
 		su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
@@ -89,9 +79,7 @@ public class PetStat extends SummonStat
 		// Send a Server->Client packet PetInfo to the L2PcInstance
 		getActiveChar().getOwner().sendPacket(new PetInfo(getActiveChar()));
 		if (getActiveChar().getControlItem() != null)
-		{
 			getActiveChar().getControlItem().setEnchantLevel(getLevel());
-		}
 		return levelIncreased;
 	}
 
@@ -129,9 +117,7 @@ public class PetStat extends SummonStat
 		getActiveChar().setPetData(L2PetDataTable.getInstance().getPetData(getActiveChar().getTemplate().npcId, getLevel()));
 		getActiveChar().startFeed(false);
 		if (getActiveChar().getControlItem() != null)
-		{
 			getActiveChar().getControlItem().setEnchantLevel(getLevel());
-		}
 	}
 
 	public final int getMaxFeed()
@@ -157,7 +143,6 @@ public class PetStat extends SummonStat
 		double attack = getActiveChar().getPetData().getPetMAtk();
 		Stats stat = skill == null ? null : skill.getStat();
 		if (stat != null)
-		{
 			switch (stat)
 			{
 				case AGGRESSION:
@@ -203,11 +188,8 @@ public class PetStat extends SummonStat
 					attack += getActiveChar().getTemplate().baseDark;
 					break;
 			}
-		}
 		if (skill != null)
-		{
 			attack += skill.getPower();
-		}
 		return (int) calcStat(Stats.MAGIC_ATTACK, attack, target, skill);
 	}
 

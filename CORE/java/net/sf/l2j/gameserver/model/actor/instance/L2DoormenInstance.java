@@ -51,9 +51,8 @@ public class L2DoormenInstance extends L2NpcInstance
 
 	public final ClanHall getClanHall()
 	{
-		if (_clanHall == null) {
+		if (_clanHall == null)
 			_clanHall = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
-		}
 		return _clanHall;
 	}
 
@@ -61,13 +60,11 @@ public class L2DoormenInstance extends L2NpcInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE) {
+		if (condition <= COND_ALL_FALSE)
 			return;
-		}
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
-		} else if (condition == COND_CASTLE_OWNER || condition == COND_HALL_OWNER || condition == COND_FORT_OWNER)
-		{
+		else if (condition == COND_CASTLE_OWNER || condition == COND_HALL_OWNER || condition == COND_FORT_OWNER)
 			if (command.startsWith("Chat"))
 			{
 				showMessageWindow(player);
@@ -89,9 +86,7 @@ public class L2DoormenInstance extends L2NpcInstance
 					if (condition == 2)
 					{
 						while (st.hasMoreTokens())
-						{
 							getCastle().openDoor(player, Integer.parseInt(st.nextToken()));
-						}
 						return;
 					}
 				}
@@ -103,15 +98,12 @@ public class L2DoormenInstance extends L2NpcInstance
 					if (condition == 4)
 					{
 						while (st.hasMoreTokens())
-						{
 							getFort().openDoor(player, Integer.parseInt(st.nextToken()));
-						}
 						return;
 					}
 				}
 			}
 			else if (command.startsWith("close_doors"))
-			{
 				if (condition == COND_HALL_OWNER)
 				{
 					getClanHall().openCloseDoors(false);
@@ -126,9 +118,7 @@ public class L2DoormenInstance extends L2NpcInstance
 					if (condition == 2)
 					{
 						while (st.hasMoreTokens())
-						{
 							getCastle().closeDoor(player, Integer.parseInt(st.nextToken()));
-						}
 						return;
 					}
 				}
@@ -141,14 +131,10 @@ public class L2DoormenInstance extends L2NpcInstance
 					if (condition == 4)
 					{
 						while (st.hasMoreTokens())
-						{
 							getFort().closeDoor(player, Integer.parseInt(st.nextToken()));
-						}
 						return;
 					}
 				}
-			}
-		}
 		super.onBypassFeedback(player, command);
 	}
 
@@ -160,9 +146,8 @@ public class L2DoormenInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -173,20 +158,12 @@ public class L2DoormenInstance extends L2NpcInstance
 			player.sendPacket(my);
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
+			showMessageWindow(player);
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -196,11 +173,10 @@ public class L2DoormenInstance extends L2NpcInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/doormen/" + getTemplate().npcId + "-no.htm";
 		int condition = validateCondition(player);
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			filename = "data/html/doormen/" + getTemplate().npcId + "-busy.htm"; // Busy because of siege
-		} else if (condition == COND_CASTLE_OWNER || condition == COND_FORT_OWNER) {
+		else if (condition == COND_CASTLE_OWNER || condition == COND_FORT_OWNER)
 			filename = "data/html/doormen/" + getTemplate().npcId + ".htm"; // Owner message window
-		}
 		// Prepare doormen for clan hall
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		String str;
@@ -224,17 +200,15 @@ public class L2DoormenInstance extends L2NpcInstance
 				else
 				{
 					int ClanHallID = _clanHall.getId();
-					if (ClanHallID == 21 || ClanHallID == 34 || ClanHallID == 35 || ClanHallID == 62 || ClanHallID == 63 || ClanHallID == 64) {
+					if (ClanHallID == 21 || ClanHallID == 34 || ClanHallID == 35 || ClanHallID == 62 || ClanHallID == 63 || ClanHallID == 64)
 						str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName() + "</font> has no owner. <br> To get this clan hall must visit the messenger</body></html>";
-					} else {
+					else
 						str = "<html><body>Clan Hall <font color=\"LEVEL\">" + getClanHall().getName() + "</font> has no owner. <br> To purchase, go to the Auction.</body></html>";
-					}
 				}
 			}
 			html.setHtml(str);
-		} else {
+		} else
 			html.setFile(filename);
-		}
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
@@ -245,31 +219,22 @@ public class L2DoormenInstance extends L2NpcInstance
 		{
 			// Prepare doormen for clan hall
 			if (getClanHall() != null)
-			{
-				if (player.getClanId() == getClanHall().getOwnerId()) {
+				if (player.getClanId() == getClanHall().getOwnerId())
 					return COND_HALL_OWNER;
-				} else {
+				else
 					return COND_ALL_FALSE;
-				}
-			}
 			if (getCastle() != null && getCastle().getCastleId() > 0)
-			{
 				// if (getCastle().getSiege().getIsInProgress())
 				// return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
 				// else
-				if (getCastle().getOwnerId() == player.getClanId()) {
+				if (getCastle().getOwnerId() == player.getClanId())
 					return COND_CASTLE_OWNER; // Owner
-				}
-			}
 			if (getFort() != null && getFort().getFortId() > 0)
-			{
 				// if (getFort().getSiege().getIsInProgress())
 				// return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
 				// else
-				if (getFort().getOwnerId() == player.getClanId()) {
+				if (getFort().getOwnerId() == player.getClanId())
 					return COND_FORT_OWNER; // Owner
-				}
-			}
 		}
 		return COND_ALL_FALSE;
 	}

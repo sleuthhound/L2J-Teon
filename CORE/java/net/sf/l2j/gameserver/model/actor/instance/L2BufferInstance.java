@@ -80,14 +80,12 @@ public class L2BufferInstance extends L2FolkInstance
 			if (cost == 0 || cost <= player.getInventory().getAdena())
 			{
 				L2Character target = player;
-				if (targettype.equalsIgnoreCase("pet")) {
+				if (targettype.equalsIgnoreCase("pet"))
 					target = player.getPet();
-				} else if (target != null)
+				else if (target != null)
 				{
 					for (L2Skill sk : CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key))
-					{
 						sk.getEffects(this, target);
-					}
 					player.reduceAdena("NPC Buffer", cost, this, true);
 				}
 				else
@@ -128,24 +126,18 @@ public class L2BufferInstance extends L2FolkInstance
 			int level = BufferSkillsTable.getInstance().getSkillLevelById(skill_id);
 			if (currentCommand.startsWith("skillselect") && !scheme_key.equalsIgnoreCase("unselected"))
 			{
-				if (CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key).size() < Config.NPCBUFFER_MAX_SKILLS) {
+				if (CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key).size() < Config.NPCBUFFER_MAX_SKILLS)
 					CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key).add(SkillTable.getInstance().getInfo(skill_id, level));
-				} else {
+				else
 					player.sendMessage("This scheme has reached maximun amount of buffs");
-				}
 			}
 			else if (currentCommand.startsWith("skillunselect"))
-			{
 				CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key).remove(SkillTable.getInstance().getInfo(skill_id, level));
-			}
 			showEditSchemeWindow(player, skill_group, scheme_key);
 		}
 		// manage schemes {create, delete, clear}
 		else if (currentCommand.startsWith("manageschemes"))
-		{
 			showManageSchemeWindow(player);
-		}
-		// handles creation
 		else if (currentCommand.startsWith("createscheme"))
 		{
 			String name = st.nextToken();
@@ -166,9 +158,8 @@ public class L2BufferInstance extends L2FolkInstance
 			}
 			else
 			{
-				if (CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()) == null) {
+				if (CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()) == null)
 					CharSchemesTable.getInstance().getSchemesTable().put(player.getObjectId(), new FastMap<String, FastList<L2Skill>>(Config.NPCBUFFER_MAX_SCHEMES + 1));
-				}
 				CharSchemesTable.getInstance().setScheme(player.getObjectId(), name.trim(), new FastList<L2Skill>(Config.NPCBUFFER_MAX_SKILLS + 1));
 				showManageSchemeWindow(player);
 			}
@@ -200,9 +191,8 @@ public class L2BufferInstance extends L2FolkInstance
 	public void onAction(L2PcInstance player)
 	{
 		player.setLastFolkNPC(this);
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -213,22 +203,18 @@ public class L2BufferInstance extends L2FolkInstance
 			player.sendPacket(my);
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+		{
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			// note: commented out so the player must stand close
+			// player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		}
 		else
 		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				// note: commented out so the player must stand close
-				// player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				NpcHtmlMessage html = new NpcHtmlMessage(1);
-				html.setFile(PARENT_DIR + "menu.htm");
-				sendHtmlMessage(player, html);
-			}
+			NpcHtmlMessage html = new NpcHtmlMessage(1);
+			html.setFile(PARENT_DIR + "menu.htm");
+			sendHtmlMessage(player, html);
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -238,9 +224,8 @@ public class L2BufferInstance extends L2FolkInstance
 	public void onActionShift(L2GameClient client)
 	{
 		L2PcInstance player = client.getActiveChar();
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
 		{
 			TextBuilder tb = new TextBuilder();
@@ -273,9 +258,9 @@ public class L2BufferInstance extends L2FolkInstance
 		tb.append("<html><title>Buffer - Giving buffs to " + targettype + "</title>");
 		tb.append("<body> Here are your defined profiles and their fee, just click on it to receive effects<br>");
 		FastMap<String, FastList<L2Skill>> map = CharSchemesTable.getInstance().getAllSchemes(player.getObjectId());
-		if (CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()) == null || CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()).isEmpty()) {
+		if (CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()) == null || CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()).isEmpty())
 			tb.append("You have not defined any valid scheme, please go to Manage scheme and create at least one");
-		} else
+		else
 		{
 			int cost;
 			tb.append("<table>");
@@ -303,9 +288,7 @@ public class L2BufferInstance extends L2FolkInstance
 		tb.append("<html><title>Buffer - Manage Schemes</title>");
 		tb.append("<body><br>");
 		if (CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()) == null || CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()).isEmpty())
-		{
 			tb.append("<font color=\"LEVEL\">You have not created any scheme</font><br>");
-		}
 		else
 		{
 			tb.append("Here is a list of your schemes. To delete one just click on drop button. To create, fill name box and press create. " + "Each scheme must have different name. Name must have up to 14 chars. Spaces (\" \") are not allowed. DO NOT click on Create until you have filled quick box<br>");
@@ -362,24 +345,21 @@ public class L2BufferInstance extends L2FolkInstance
 	 */
 	private String getPlayerSchemeListFrame(L2PcInstance player, String skill_group, String scheme_key)
 	{
-		if (CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()) == null || CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()).isEmpty()) {
+		if (CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()) == null || CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()).isEmpty())
 			return "Please create at least one scheme";
-		} else
+		else
 		{
-			if (skill_group == null) {
+			if (skill_group == null)
 				skill_group = "def";
-			}
-			if (scheme_key == null) {
+			if (scheme_key == null)
 				scheme_key = "def";
-			}
 			TextBuilder tb = new TextBuilder();
 			tb.append("<table>");
 			int count = 0;
 			for (FastMap.Entry<String, FastList<L2Skill>> e = CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()).head(), end = CharSchemesTable.getInstance().getAllSchemes(player.getObjectId()).tail(); (e = e.getNext()) != end;)
 			{
-				if (count == 0) {
+				if (count == 0)
 					tb.append("<tr>");
-				}
 				tb.append("<td width=\"90\"><a action=\"bypass -h npc_%objectId%_editschemes " + skill_group + " " + e.getKey() + "\">" + e.getKey() + "</a></td>");
 				if (count == 3)
 				{
@@ -388,9 +368,8 @@ public class L2BufferInstance extends L2FolkInstance
 				}
 				count++;
 			}
-			if (!tb.toString().endsWith("</tr>")) {
+			if (!tb.toString().endsWith("</tr>"))
 				tb.append("</tr>");
-			}
 			tb.append("</table>");
 			return tb.toString();
 		}
@@ -404,23 +383,19 @@ public class L2BufferInstance extends L2FolkInstance
 	 */
 	private String getGroupSkillListFrame(L2PcInstance player, String skill_group, String scheme_key)
 	{
-		if (skill_group == null || skill_group == "unselected") {
+		if (skill_group == null || skill_group == "unselected")
 			return "Please, select a valid group of skills";
-		} else if (scheme_key == null || scheme_key == "unselected") {
+		else if (scheme_key == null || scheme_key == "unselected")
 			return "Please, select a valid scheme";
-		}
 		TextBuilder tb = new TextBuilder();
 		tb.append("<table>");
 		int count = 0;
 		for (L2Skill sk : BufferSkillsTable.getInstance().getSkillsByType(skill_group))
 		{
 			if (CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key) != null && !CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key).isEmpty() && CharSchemesTable.getInstance().getSchemeContainsSkill(player.getObjectId(), scheme_key, sk.getId()))
-			{
 				continue;
-			}
-			if (count == 0) {
+			if (count == 0)
 				tb.append("<tr>");
-			}
 			tb.append("<td width=\"100\"><a action=\"bypass -h npc_%objectId%_skillselect " + skill_group + " " + scheme_key + " " + String.valueOf(sk.getId()) + "\">" + sk.getName() + " (" + String.valueOf(sk.getLevel()) + ")</a></td>");
 			if (count == 3)
 			{
@@ -429,9 +404,8 @@ public class L2BufferInstance extends L2FolkInstance
 			}
 			count++;
 		}
-		if (!tb.toString().endsWith("</tr>")) {
+		if (!tb.toString().endsWith("</tr>"))
 			tb.append("</tr>");
-		}
 		tb.append("</table>");
 		return tb.toString();
 	}
@@ -444,26 +418,22 @@ public class L2BufferInstance extends L2FolkInstance
 	 */
 	private String getPlayerSkillListFrame(L2PcInstance player, String skill_group, String scheme_key)
 	{
-		if (skill_group == null || skill_group == "unselected") {
+		if (skill_group == null || skill_group == "unselected")
 			return "<br>Please, select a valid group of skills";
-		} else if (scheme_key == null || scheme_key == "unselected") {
+		else if (scheme_key == null || scheme_key == "unselected")
 			return "<br>Please, select a valid scheme";
-		}
-		if (CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key) == null) {
+		if (CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key) == null)
 			return "Please choose your Scheme";
-		}
-		if (CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key).isEmpty()) {
+		if (CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key).isEmpty())
 			return "Empty Scheme";
-		}
 		TextBuilder tb = new TextBuilder();
 		tb.append("Scheme: " + scheme_key + "<br>");
 		tb.append("<table>");
 		int count = 0;
 		for (L2Skill sk : CharSchemesTable.getInstance().getScheme(player.getObjectId(), scheme_key))
 		{
-			if (count == 0) {
+			if (count == 0)
 				tb.append("<tr>");
-			}
 			tb.append("<td><a action=\"bypass -h npc_%objectId%_skillunselect " + skill_group + " " + scheme_key + " " + String.valueOf(sk.getId()) + "\">" + sk.getName() + "</a></td>");
 			count++;
 			if (count == 3)
@@ -472,9 +442,8 @@ public class L2BufferInstance extends L2FolkInstance
 				count = 0;
 			}
 		}
-		if (!tb.toString().endsWith("<tr>")) {
+		if (!tb.toString().endsWith("<tr>"))
 			tb.append("<tr>");
-		}
 		tb.append("</table>");
 		return tb.toString();
 	}
@@ -488,14 +457,12 @@ public class L2BufferInstance extends L2FolkInstance
 		TextBuilder tb = new TextBuilder();
 		tb.append("<table>");
 		int count = 0;
-		if (scheme_key == null) {
+		if (scheme_key == null)
 			scheme_key = "unselected";
-		}
 		for (String s : BufferSkillsTable.getInstance().getSkillsTypeList())
 		{
-			if (count == 0) {
+			if (count == 0)
 				tb.append("<tr>");
-			}
 			tb.append("<td width=\"90\"><a action=\"bypass -h npc_%objectId%_editscheme " + s + " " + scheme_key + "\">" + s + "</a></td>");
 			if (count == 2)
 			{
@@ -504,9 +471,8 @@ public class L2BufferInstance extends L2FolkInstance
 			}
 			count++;
 		}
-		if (!tb.toString().endsWith("</tr>")) {
+		if (!tb.toString().endsWith("</tr>"))
 			tb.append("</tr>");
-		}
 		tb.append("</table>");
 		return tb.toString();
 	}
@@ -518,14 +484,12 @@ public class L2BufferInstance extends L2FolkInstance
 	private int getFee(FastList<L2Skill> list)
 	{
 		int fee = 0;
-		if (Config.NPCBUFFER_STATIC_BUFF_COST >= 0) {
+		if (Config.NPCBUFFER_STATIC_BUFF_COST >= 0)
 			return list.size() * Config.NPCBUFFER_STATIC_BUFF_COST;
-		} else
+		else
 		{
 			for (L2Skill sk : list)
-			{
 				fee += BufferSkillsTable.getInstance().getSkillFee(sk.getId());
-			}
 			return fee;
 		}
 	}

@@ -44,9 +44,8 @@ public final class L2MercManagerInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		player.setLastFolkNPC(this);
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
@@ -58,20 +57,12 @@ public final class L2MercManagerInstance extends L2FolkInstance
 			player.sendPacket(my);
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
+			showMessageWindow(player);
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -79,30 +70,25 @@ public final class L2MercManagerInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) {
+		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
 			return;
-		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		int condition = validateCondition(player);
-		if (condition <= COND_ALL_FALSE) {
+		if (condition <= COND_ALL_FALSE)
 			return;
-		}
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			return;
-		} else if (condition == COND_OWNER)
+		else if (condition == COND_OWNER)
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
 			String actualCommand = st.nextToken(); // Get actual command
 			String val = "";
 			if (st.countTokens() >= 1)
-			{
 				val = st.nextToken();
-			}
 			if (actualCommand.equalsIgnoreCase("hire"))
 			{
-				if (val == "") {
+				if (val == "")
 					return;
-				}
 				showBuyWindow(player, Integer.parseInt(val));
 				return;
 			}
@@ -113,9 +99,8 @@ public final class L2MercManagerInstance extends L2FolkInstance
 	private void showBuyWindow(L2PcInstance player, int val)
 	{
 		player.tempInvetoryDisable();
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing buylist");
-		}
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
 		if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
 		{
@@ -133,11 +118,10 @@ public final class L2MercManagerInstance extends L2FolkInstance
 	{
 		String filename = "data/html/mercmanager/mercmanager-no.htm";
 		int condition = validateCondition(player);
-		if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 			filename = "data/html/mercmanager/mercmanager-busy.htm"; // Busy
-		} else if (condition == COND_OWNER) {
+		else if (condition == COND_OWNER)
 			filename = "data/html/mercmanager/mercmanager.htm"; // Owner
-		}
 		// message
 		// window
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -151,21 +135,12 @@ public final class L2MercManagerInstance extends L2FolkInstance
 	private int validateCondition(L2PcInstance player)
 	{
 		if (getCastle() != null && getCastle().getCastleId() > 0)
-		{
 			if (player.getClan() != null)
-			{
-				if (getCastle().getSiege().getIsInProgress()) {
+				if (getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				} else if (getCastle().getOwnerId() == player.getClanId()) // Clan
-				// owns
-				// castle
-				{
-					if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES) {
+				else if (getCastle().getOwnerId() == player.getClanId())
+					if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES)
 						return COND_OWNER;
-					}
-				}
-			}
-		}
 		return COND_ALL_FALSE;
 	}
 }

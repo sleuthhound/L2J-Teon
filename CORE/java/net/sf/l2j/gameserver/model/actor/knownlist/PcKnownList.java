@@ -94,25 +94,21 @@ public class PcKnownList extends PlayableKnownList
 	@Override
 	public boolean addKnownObject(L2Object object, L2Character dropper)
 	{
-		if (!super.addKnownObject(object, dropper)) {
+		if (!super.addKnownObject(object, dropper))
 			return false;
-		}
 		if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
-		{
 			// if (object.getPolytype().equals("item"))
 			getActiveChar().sendPacket(new SpawnItemPoly(object));
 			// else if (object.getPolytype().equals("npc"))
 			// sendPacket(new NpcInfoPoly(object, this));
-		}
 		else
 		{
 			if (object instanceof L2ItemInstance)
 			{
-				if (dropper != null) {
+				if (dropper != null)
 					getActiveChar().sendPacket(new DropItem((L2ItemInstance) object, dropper.getObjectId()));
-				} else {
+				else
 					getActiveChar().sendPacket(new SpawnItem((L2ItemInstance) object));
-				}
 			}
 			else if (object instanceof L2DoorInstance)
 			{
@@ -121,23 +117,19 @@ public class PcKnownList extends PlayableKnownList
 			}
 			else if (object instanceof L2BoatInstance)
 			{
-				if (!getActiveChar().isInBoat()) {
+				if (!getActiveChar().isInBoat())
 					if (object != getActiveChar().getBoat())
 					{
 						getActiveChar().sendPacket(new VehicleInfo((L2BoatInstance) object));
 						((L2BoatInstance) object).sendVehicleDeparture(getActiveChar());
 					}
-				}
 			}
 			else if (object instanceof L2StaticObjectInstance)
-			{
 				getActiveChar().sendPacket(new StaticObject((L2StaticObjectInstance) object));
-			}
 			else if (object instanceof L2NpcInstance)
 			{
-				if (Config.CHECK_KNOWN) {
+				if (Config.CHECK_KNOWN)
 					getActiveChar().sendMessage("Added NPC: " + ((L2NpcInstance) object).getName());
-				}
 				getActiveChar().sendPacket(new NpcInfo((L2NpcInstance) object, getActiveChar()));
 			}
 			else if (object instanceof L2Summon)
@@ -149,12 +141,9 @@ public class PcKnownList extends PlayableKnownList
 				{
 					getActiveChar().sendPacket(new PetInfo(summon));
 					if (summon instanceof L2PetInstance)
-					{
 						getActiveChar().sendPacket(new PetItemList((L2PetInstance) summon));
-					}
-				} else {
+				} else
 					getActiveChar().sendPacket(new NpcInfo(summon, getActiveChar()));
-				}
 			}
 			else if (object instanceof L2PcInstance)
 			{
@@ -164,9 +153,8 @@ public class PcKnownList extends PlayableKnownList
 					otherPlayer.getPosition().setWorldPosition(otherPlayer.getBoat().getPosition().getWorldPosition());
 					getActiveChar().sendPacket(new CharInfo(otherPlayer));
 					int relation = otherPlayer.getRelation(getActiveChar());
-					if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation) {
+					if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation)
 						getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation, getActiveChar().isAutoAttackable(otherPlayer)));
-					}
 					getActiveChar().sendPacket(new GetOnVehicle(otherPlayer, otherPlayer.getBoat(), otherPlayer.getInBoatPosition().getX(), otherPlayer.getInBoatPosition().getY(), otherPlayer.getInBoatPosition().getZ()));
 					/*
 					 * if(otherPlayer.getBoat().GetVehicleDeparture() == null) { int xboat = otherPlayer.getBoat().getX(); int yboat= otherPlayer.getBoat().getY(); double modifier = Math.PI/2; if (yboat == 0) { yboat = 1; } if(yboat < 0) { modifier = -modifier; } double angleboat = modifier - Math.atan(xboat/yboat); int xp = otherPlayer.getX(); int yp = otherPlayer.getY(); modifier = Math.PI/2; if
@@ -178,17 +166,15 @@ public class PcKnownList extends PlayableKnownList
 				{
 					getActiveChar().sendPacket(new CharInfo(otherPlayer));
 					int relation = otherPlayer.getRelation(getActiveChar());
-					if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation) {
+					if (otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != null && otherPlayer.getKnownList().getKnownRelations().get(getActiveChar().getObjectId()) != relation)
 						getActiveChar().sendPacket(new RelationChanged(otherPlayer, relation, getActiveChar().isAutoAttackable(otherPlayer)));
-					}
 				}
-				if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL) {
+				if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL)
 					getActiveChar().sendPacket(new PrivateStoreMsgSell(otherPlayer));
-				} else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY) {
+				else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY)
 					getActiveChar().sendPacket(new PrivateStoreMsgBuy(otherPlayer));
-				} else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_MANUFACTURE) {
+				else if (otherPlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_MANUFACTURE)
 					getActiveChar().sendPacket(new RecipeShopMsg(otherPlayer));
-				}
 			}
 			if (object instanceof L2Character)
 			{
@@ -212,14 +198,12 @@ public class PcKnownList extends PlayableKnownList
 	@Override
 	public boolean removeKnownObject(L2Object object)
 	{
-		if (!super.removeKnownObject(object)) {
+		if (!super.removeKnownObject(object))
 			return false;
-		}
 		// Send Server-Client Packet DeleteObject to the L2PcInstance
 		getActiveChar().sendPacket(new DeleteObject(object));
-		if (Config.CHECK_KNOWN && object instanceof L2NpcInstance) {
+		if (Config.CHECK_KNOWN && object instanceof L2NpcInstance)
 			getActiveChar().sendMessage("Removed NPC: " + ((L2NpcInstance) object).getName());
-		}
 		return true;
 	}
 
@@ -240,33 +224,27 @@ public class PcKnownList extends PlayableKnownList
 		// the same as the previous watch range, or it becomes possible that
 		// extra charinfo packets are being sent (watch-forget-watch-forget)
 		int knownlistSize = getKnownObjects().size();
-		if (knownlistSize <= 25) {
+		if (knownlistSize <= 25)
 			return 4000;
-		}
-		if (knownlistSize <= 35) {
+		if (knownlistSize <= 35)
 			return 3500;
-		}
-		if (knownlistSize <= 70) {
+		if (knownlistSize <= 70)
 			return 2910;
-		} else {
+		else
 			return 2310;
-		}
 	}
 
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
 	{
 		int knownlistSize = getKnownObjects().size();
-		if (knownlistSize <= 25) {
+		if (knownlistSize <= 25)
 			return 3400; // empty field
-		}
-		if (knownlistSize <= 35) {
+		if (knownlistSize <= 35)
 			return 2900;
-		}
-		if (knownlistSize <= 70) {
+		if (knownlistSize <= 70)
 			return 2300;
-		} else {
+		else
 			return 1700; // Siege, TOI, city
-		}
 	}
 }

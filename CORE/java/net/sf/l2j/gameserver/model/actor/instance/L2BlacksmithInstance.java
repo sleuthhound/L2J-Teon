@@ -43,13 +43,9 @@ public class L2BlacksmithInstance extends L2FolkInstance
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return "data/html/blacksmith/" + pom + ".htm";
 	}
 }

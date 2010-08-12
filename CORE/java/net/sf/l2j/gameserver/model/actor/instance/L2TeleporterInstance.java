@@ -95,9 +95,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 					break;
 			}
 			if (st.countTokens() <= 0)
-			{
 				return;
-			}
 			int whereTo = Integer.parseInt(st.nextToken());
 			if (condition == COND_REGULAR)
 			{
@@ -110,15 +108,12 @@ public final class L2TeleporterInstance extends L2FolkInstance
 				// level when privilege level is
 				// implemented
 				if (st.countTokens() >= 1)
-				{
 					minPrivilegeLevel = Integer.parseInt(st.nextToken());
-				}
-				if (10 >= minPrivilegeLevel) {
+				if (10 >= minPrivilegeLevel)
 					// privilege level of player
 					doTeleport(player, whereTo);
-				} else {
+				else
 					player.sendMessage("You don't have the sufficient access level to teleport there.");
-				}
 				return;
 			}
 		}
@@ -130,13 +125,9 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return "data/html/teleporter/" + pom + ".htm";
 	}
 
@@ -151,13 +142,10 @@ public final class L2TeleporterInstance extends L2FolkInstance
 			return;
 		}
 		else if (condition > COND_ALL_FALSE)
-		{
-			if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/teleporter/castleteleporter-busy.htm"; // Busy because of siege
-			} else if (condition == COND_OWNER) {
+			else if (condition == COND_OWNER)
 				filename = getHtmlPath(getNpcId(), 0); // Owner message window
-			}
-		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -199,46 +187,36 @@ public final class L2TeleporterInstance extends L2FolkInstance
 				return;
 			}
 			else if (player.isAlikeDead())
-			{
 				return;
-			}
 			else if (!list.getIsForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.reduceAdena("Teleport", list.getPrice(), this, true)))
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
-				}
 				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
 			}
 			else if (list.getIsForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.destroyItemByItemId("Noble Teleport", 6651, list.getPrice(), this, true)))
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
-				}
 				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
 			}
-		}
-		else
-		{
+		} else
 			_log.warning("No teleport destination with id:" + val);
-		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private int validateCondition(L2PcInstance player)
 	{
-		if (CastleManager.getInstance().getCastleIndex(this) < 0) {
+		if (CastleManager.getInstance().getCastleIndex(this) < 0)
 			// isn't on
 			// castle
 			// ground
 			return COND_REGULAR; // Regular access
-		} else if (getCastle().getSiege().getIsInProgress()) {
+		else if (getCastle().getSiege().getIsInProgress())
 			return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-		} else if (player.getClan() != null) // Teleporter is on castle ground and player is in a clan
-		{
-			if (getCastle().getOwnerId() == player.getClanId()) {
+		else if (player.getClan() != null)
+			if (getCastle().getOwnerId() == player.getClanId())
 				return COND_OWNER; // Owner
-			}
-		}
 		return COND_ALL_FALSE;
 	}
 }

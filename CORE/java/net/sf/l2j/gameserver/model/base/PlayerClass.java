@@ -122,9 +122,7 @@ public enum PlayerClass
 			}
 			Set<PlayerClass> unavailableClasses = subclassSetMap.get(this);
 			if (unavailableClasses != null)
-			{
 				subclasses.removeAll(unavailableClasses);
-			}
 		}
 		return subclasses;
 	}
@@ -133,15 +131,9 @@ public enum PlayerClass
 	{
 		EnumSet<PlayerClass> allOf = EnumSet.noneOf(PlayerClass.class);
 		for (PlayerClass playerClass : EnumSet.allOf(PlayerClass.class))
-		{
 			if (race == null || playerClass.isOfRace(race))
-			{
 				if (level == null || playerClass.isOfLevel(level))
-				{
 					allOf.add(playerClass);
-				}
-			}
-		}
 		return allOf;
 	}
 

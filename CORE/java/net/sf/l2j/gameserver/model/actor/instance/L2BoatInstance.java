@@ -142,9 +142,8 @@ public class L2BoatInstance extends L2Character
 				String line = null;
 				while ((line = lnr.readLine()) != null)
 				{
-					if (line.trim().length() == 0 || !line.startsWith(idWaypoint1 + ";")) {
+					if (line.trim().length() == 0 || !line.startsWith(idWaypoint1 + ";"))
 						continue;
-					}
 					parseLine(line);
 					return;
 				}
@@ -193,23 +192,15 @@ public class L2BoatInstance extends L2Character
 				// _boat.getTemplate().baseRunSpd = bp.speed1;
 				_boat.moveToLocation(bp.x, bp.y, bp.z, (float) bp.speed1);
 				Collection<L2PcInstance> knownPlayers = _boat.getKnownList().getKnownPlayers().values();
-				if (knownPlayers == null || knownPlayers.isEmpty()) {
+				if (knownPlayers == null || knownPlayers.isEmpty())
 					return bp.time;
-				}
 				for (L2PcInstance player : knownPlayers)
-				{
 					player.sendPacket(_boat._vd);
-				}
 				if (bp.time == 0)
-				{
 					bp.time = 1;
-				}
 				return bp.time;
-			}
-			else
-			{
+			} else
 				return 0;
-			}
 		}
 	}
 
@@ -244,9 +235,8 @@ public class L2BoatInstance extends L2Character
 		final int dx = x - curX;
 		final int dy = y - curY;
 		double distance = Math.sqrt(dx * dx + dy * dy);
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_logBoat.fine("distance to target:" + distance);
-		}
 		// Define movement angles needed
 		// ^
 		// | X (x,y)
@@ -273,9 +263,8 @@ public class L2BoatInstance extends L2Character
 		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
 		heading += 32768;
 		getPosition().setHeading(heading);
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_logBoat.fine("dist:" + distance + "speed:" + speed + " ttt:" + m._ticksToMove + " dx:" + (int) m._xSpeedTicks + " dy:" + (int) m._ySpeedTicks + " heading:" + heading);
-		}
 		m._xDestination = x;
 		m._yDestination = y;
 		m._zDestination = z; // this is what was requested from client
@@ -286,12 +275,10 @@ public class L2BoatInstance extends L2Character
 		m._zMoveFrom = curZ;
 		// If necessary set Nb ticks needed to a min value to ensure small
 		// distancies movements
-		if (m._ticksToMove < 1) {
+		if (m._ticksToMove < 1)
 			m._ticksToMove = 1;
-		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_logBoat.fine("time to target:" + m._ticksToMove);
-		}
 		// Set the L2Character _move object to MoveData object
 		_move = m;
 		// Add the L2Character to movingObjects of the GameTimeController
@@ -432,9 +419,7 @@ public class L2BoatInstance extends L2Character
 	public void sendVehicleDeparture(L2PcInstance activeChar)
 	{
 		if (_vd != null)
-		{
 			activeChar.sendPacket(_vd);
-		}
 	}
 
 	public VehicleDeparture getVehicleDeparture()
@@ -483,22 +468,18 @@ public class L2BoatInstance extends L2Character
 			{
 				L2PcInstance player = _inboat.get(i);
 				if (player != null && player.isInBoat())
-				{
 					if (player.getBoat() == this)
 					{
 						// player.getKnownList().addKnownObject(this);
 						player.getPosition().setXYZ(x, y, z);
 						player.revalidateZone(false);
 					}
-				}
 				if (check == true)
-				{
 					if (needOnVehicleCheckLocation == true)
 					{
 						OnVehicleCheckLocation vcl = new OnVehicleCheckLocation(this, x, y, z);
 						player.sendPacket(vcl);
 					}
-				}
 			}
 		}
 	}
@@ -516,7 +497,6 @@ public class L2BoatInstance extends L2Character
 				_inboat = new FastMap<Integer, L2PcInstance>();
 				int i = 0;
 				for (L2PcInstance player : knownPlayers)
-				{
 					if (player.isInBoat())
 					{
 						L2ItemInstance it;
@@ -534,13 +514,9 @@ public class L2BoatInstance extends L2Character
 						{
 							_inboat.put(i, player);
 							i++;
-						}
-						else
-						{
+						} else
 							player.teleToLocation(_t1.ntx1, _t1.nty1, _t1.ntz1, false);
-						}
 					}
-				}
 			}
 			Boatrun bc = new Boatrun(0, this);
 			ThreadPoolManager.getInstance().scheduleGeneral(bc, 0);
@@ -553,7 +529,6 @@ public class L2BoatInstance extends L2Character
 				_inboat = new FastMap<Integer, L2PcInstance>();
 				int i = 0;
 				for (L2PcInstance player : knownPlayers)
-				{
 					if (player.isInBoat())
 					{
 						L2ItemInstance it;
@@ -571,13 +546,9 @@ public class L2BoatInstance extends L2Character
 						{
 							_inboat.put(i, player);
 							i++;
-						}
-						else
-						{
+						} else
 							player.teleToLocation(_t2.ntx1, _t2.nty1, _t2.ntz1, false);
-						}
 					}
-				}
 			}
 			Boatrun bc = new Boatrun(0, this);
 			ThreadPoolManager.getInstance().scheduleGeneral(bc, 0);
@@ -596,17 +567,12 @@ public class L2BoatInstance extends L2Character
 		{
 			case 10:
 				if (_cycle == 1)
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess10_1);
-				}
 				else
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess10_1);
-				}
 				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
-				if (knownPlayers == null || knownPlayers.isEmpty()) {
+				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
-				}
 				for (L2PcInstance player : knownPlayers)
 				{
 					player.sendPacket(sm);
@@ -615,17 +581,12 @@ public class L2BoatInstance extends L2Character
 				break;
 			case 5:
 				if (_cycle == 1)
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess5_1);
-				}
 				else
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess5_1);
-				}
 				ps = new PlaySound(0, "itemsound.ship_5min", 1, getObjectId(), getX(), getY(), getZ());
-				if (knownPlayers == null || knownPlayers.isEmpty()) {
+				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
-				}
 				for (L2PcInstance player : knownPlayers)
 				{
 					player.sendPacket(sm);
@@ -634,17 +595,12 @@ public class L2BoatInstance extends L2Character
 				break;
 			case 1:
 				if (_cycle == 1)
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess1_1);
-				}
 				else
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess1_1);
-				}
 				ps = new PlaySound(0, "itemsound.ship_1min", 1, getObjectId(), getX(), getY(), getZ());
-				if (knownPlayers == null || knownPlayers.isEmpty()) {
+				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
-				}
 				for (L2PcInstance player : knownPlayers)
 				{
 					player.sendPacket(sm);
@@ -653,31 +609,20 @@ public class L2BoatInstance extends L2Character
 				break;
 			case 0:
 				if (_cycle == 1)
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmess0_1);
-				}
 				else
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmess0_1);
-				}
-				if (knownPlayers == null || knownPlayers.isEmpty()) {
+				if (knownPlayers == null || knownPlayers.isEmpty())
 					return;
-				}
 				for (L2PcInstance player : knownPlayers)
-				{
 					player.sendPacket(sm);
 					// player.sendPacket(ps);
-				}
 				break;
 			case -1:
 				if (_cycle == 1)
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t1.npc1, _t1.sysmessb_1);
-				}
 				else
-				{
 					sm = new CreatureSay(0, Say2.SHOUT, _t2.npc1, _t2.sysmessb_1);
-				}
 				ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
 				for (L2PcInstance player : knownPlayers)
 				{
@@ -697,13 +642,11 @@ public class L2BoatInstance extends L2Character
 		Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values();
 		_cycle = 1;
 		beginCycle();
-		if (knownPlayers == null || knownPlayers.isEmpty()) {
+		if (knownPlayers == null || knownPlayers.isEmpty())
 			return;
-		}
 		VehicleInfo vi = new VehicleInfo(this);
-		for (L2PcInstance player : knownPlayers) {
+		for (L2PcInstance player : knownPlayers)
 			player.sendPacket(vi);
-		}
 	}
 
 	/**

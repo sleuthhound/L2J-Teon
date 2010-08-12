@@ -53,15 +53,12 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	public L2SepulcherNpcInstance(int objectID, L2NpcTemplate template)
 	{
 		super(objectID, template);
-		if (_closeTask != null) {
+		if (_closeTask != null)
 			_closeTask.cancel(true);
-		}
-		if (_spawnNextMysteriousBoxTask != null) {
+		if (_spawnNextMysteriousBoxTask != null)
 			_spawnNextMysteriousBoxTask.cancel(true);
-		}
-		if (_spawnMonsterTask != null) {
+		if (_spawnMonsterTask != null)
 			_spawnMonsterTask.cancel(true);
-		}
 		_closeTask = null;
 		_spawnNextMysteriousBoxTask = null;
 		_spawnMonsterTask = null;
@@ -97,15 +94,13 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.info("new target selected:" + getObjectId());
-			}
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 			// Check if the player is attackable (without a forced attack)
@@ -140,31 +135,20 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 			// Check if the player is attackable (without a forced attack) and
 			// isn't dead
 			if (isAutoAttackable(player) && !isAlikeDead())
-			{
 				// Check the height difference
-				if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth
-				// difference might
-				// need some tweaking
-				{
+				if (Math.abs(player.getZ() - getZ()) < 400)
 					// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-				}
 				else
-				{
 					// Send a Server->Client packet ActionFailed (target is out
 					// of attack range) to the L2PcInstance player
 					player.sendPacket(ActionFailed.STATIC_PACKET);
-				}
-			}
 			if (!isAutoAttackable(player))
-			{
 				// Calculate the distance between the L2PcInstance and the
 				// L2NpcInstance
 				if (!canInteract(player))
-				{
 					// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-				}
 				else
 				{
 					// Send a Server->Client packet SocialAction to the all
@@ -175,7 +159,6 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 					broadcastPacket(sa);
 					doAction(player);
 				}
-			}
 			// Send a Server->Client ActionFailed to the L2PcInstance in order
 			// to avoid that the client wait another packet
 			player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -213,9 +196,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 			case 31487:
 				setIsInvul(false);
 				reduceCurrentHp(getMaxHp() + 1, player);
-				if (_spawnMonsterTask != null) {
+				if (_spawnMonsterTask != null)
 					_spawnMonsterTask.cancel(true);
-				}
 				_spawnMonsterTask = ThreadPoolManager.getInstance().scheduleEffect(new SpawnMonster(getNpcId()), 3500);
 				break;
 			case 31455:
@@ -233,23 +215,20 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 			case 31467:
 				setIsInvul(false);
 				reduceCurrentHp(getMaxHp() + 1, player);
-				if (player.getParty() != null && !player.getParty().isLeader(player)) {
+				if (player.getParty() != null && !player.getParty().isLeader(player))
 					player = player.getParty().getLeader();
-				}
 				player.addItem("Quest", HALLS_KEY, 1, player, true);
 				break;
 			default:
 			{
 				Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
-				if (qlsa != null && qlsa.length > 0) {
+				if (qlsa != null && qlsa.length > 0)
 					player.setLastQuestNpcObject(getObjectId());
-				}
 				Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
-				if (qlst != null && qlst.length == 1) {
+				if (qlst != null && qlst.length == 1)
 					qlst[0].notifyFirstTalk(this, player);
-				} else {
+				else
 					showChatWindow(player, 0);
-				}
 			}
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -260,13 +239,9 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return HTML_FILE_PATH + pom + ".htm";
 	}
 
@@ -312,11 +287,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		{
 			L2ItemInstance hallsKey = player.getInventory().getItemByItemId(HALLS_KEY);
 			if (hallsKey == null)
-			{
 				showHtmlFile(player, "Gatekeeper-no.htm");
-			}
 			else if (FourSepulchersManager.getInstance().isAttackTime())
-			{
 				switch (getNpcId())
 				{
 					case 31929:
@@ -330,22 +302,14 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 						if (player.getParty() != null)
 						{
 							for (L2PcInstance mem : player.getParty().getPartyMembers())
-							{
-								if (mem.getInventory().getItemByItemId(HALLS_KEY) != null) {
+								if (mem.getInventory().getItemByItemId(HALLS_KEY) != null)
 									mem.destroyItemByItemId("Quest", HALLS_KEY, mem.getInventory().getItemByItemId(HALLS_KEY).getCount(), mem, true);
-								}
-							}
-						} else {
+						} else
 							player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
-						}
 					}
 				}
-			}
-		}
-		else
-		{
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	public void openNextDoor(int npcId)
@@ -353,13 +317,11 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		int doorId = FourSepulchersManager.getInstance().getHallGateKeepers().get(npcId).intValue();
 		DoorTable _doorTable = DoorTable.getInstance();
 		_doorTable.getDoor(doorId).openMe();
-		if (_closeTask != null) {
+		if (_closeTask != null)
 			_closeTask.cancel(true);
-		}
 		_closeTask = ThreadPoolManager.getInstance().scheduleEffect(new CloseNextDoor(doorId), 10000);
-		if (_spawnNextMysteriousBoxTask != null) {
+		if (_spawnNextMysteriousBoxTask != null)
 			_spawnNextMysteriousBoxTask.cancel(true);
-		}
 		_spawnNextMysteriousBoxTask = ThreadPoolManager.getInstance().scheduleEffect(new SpawnNextMysteriousBox(npcId), 0);
 	}
 
@@ -419,22 +381,18 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 
 	public void sayInShout(String msg)
 	{
-		if (msg == null || msg == "") {
+		if (msg == null || msg == "")
 			return;// wrong usage
-		}
 		Collection<L2PcInstance> knownPlayers = L2World.getInstance().getAllPlayers();
-		if (knownPlayers == null || knownPlayers.isEmpty()) {
+		if (knownPlayers == null || knownPlayers.isEmpty())
 			return;
-		}
 		CreatureSay sm = new CreatureSay(0, 1, this.getName(), msg);
 		for (L2PcInstance player : knownPlayers)
 		{
-			if (player == null) {
+			if (player == null)
 				continue;
-			}
-			if (Util.checkIfInRange(15000, player, this, true)) {
+			if (Util.checkIfInRange(15000, player, this, true))
 				player.sendPacket(sm);
-			}
 		}
 	}
 

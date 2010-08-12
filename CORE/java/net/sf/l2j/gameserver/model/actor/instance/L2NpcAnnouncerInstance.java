@@ -41,11 +41,10 @@ public class L2NpcAnnouncerInstance extends L2NpcInstance
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
-		if (val == 0) {
+		if (val == 0)
 			pom = "" + npcId;
-		} else {
+		else
 			pom = npcId + "-" + val;
-		}
 		return HtmlPathService.ANNOUNCER_NPC_HTML_PATH + pom + ".htm";
 	}
 
@@ -55,9 +54,7 @@ public class L2NpcAnnouncerInstance extends L2NpcInstance
 		// Get the distance between the L2PcInstance and the
 		// L2NpcAnnouncerInstance
 		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-		{
 			player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-		}
 		if (command.equalsIgnoreCase("request_announce"))
 		{
 			int playerlevel = player.getLevel();
@@ -113,7 +110,6 @@ public class L2NpcAnnouncerInstance extends L2NpcInstance
 			}
 			// checks if donator mode is active
 			if (Config.NPC_ANNOUNCER_DONATOR_ONLY)
-			{
 				if (!player.isDonator() && !player.isGM())
 				{
 					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());// will
@@ -137,11 +133,9 @@ public class L2NpcAnnouncerInstance extends L2NpcInstance
 						return;
 					}
 				}
-			}
 			// if player has already announce the count of max announces per
 			// day
 			if (player.getAnnounceCount() == Config.NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY)
-			{
 				if (player.getLastAnnounceDate() == Calendar.DAY_OF_WEEK)// player
 				// is
 				// in
@@ -171,7 +165,6 @@ public class L2NpcAnnouncerInstance extends L2NpcInstance
 						return;
 					}
 				}
-			}
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());// will
 			// add
 			// proper

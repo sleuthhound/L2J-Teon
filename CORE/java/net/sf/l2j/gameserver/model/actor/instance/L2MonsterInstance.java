@@ -64,9 +64,7 @@ public class L2MonsterInstance extends L2Attackable
 	public final MonsterKnownList getKnownList()
 	{
 		if (super.getKnownList() == null || !(super.getKnownList() instanceof MonsterKnownList))
-		{
 			setKnownList(new MonsterKnownList(this));
-		}
 		return (MonsterKnownList) super.getKnownList();
 	}
 
@@ -78,9 +76,7 @@ public class L2MonsterInstance extends L2Attackable
 	public boolean isAutoAttackable(L2Character attacker)
 	{
 		if (attacker instanceof L2MonsterInstance)
-		{
 			return false;
-		}
 		return !isEventMob;
 	}
 
@@ -99,15 +95,12 @@ public class L2MonsterInstance extends L2Attackable
 	{
 		super.onSpawn();
 		if (getTemplate().getMinionData() != null)
-		{
 			try
 			{
 				for (L2MinionInstance minion : getSpawnedMinions())
 				{
 					if (minion == null)
-					{
 						continue;
-					}
 					getSpawnedMinions().remove(minion);
 					minion.deleteMe();
 				}
@@ -117,7 +110,6 @@ public class L2MonsterInstance extends L2Attackable
 			catch (NullPointerException e)
 			{
 			}
-		}
 	}
 
 	protected int getMaintenanceInterval()
@@ -142,9 +134,7 @@ public class L2MonsterInstance extends L2Attackable
 	public void callMinions()
 	{
 		if (_minionList.hasMinions())
-		{
 			for (L2MinionInstance minion : _minionList.getSpawnedMinions())
-			{
 				// Get actual coords of the minion and check to see if it's too
 				// far away from this L2MonsterInstance
 				if (!isInsideRadius(minion, 200, false, false))
@@ -168,12 +158,8 @@ public class L2MonsterInstance extends L2Attackable
 					}
 					// Move the minion to the new coords
 					if (!minion.isInCombat() && !minion.isDead() && !minion.isMovementDisabled())
-					{
 						minion.moveToLocation(minionX, minionY, minionZ, 0);
-					}
 				}
-			}
-		}
 	}
 
 	public void callMinionsToAssist(L2Character attacker)
@@ -190,13 +176,10 @@ public class L2MonsterInstance extends L2Attackable
 					minion = itr.next();
 					// Trigger the aggro condition of the minion
 					if (minion != null && !minion.isDead())
-					{
-						if (isRaid() && !isRaidMinion()) {
+						if (isRaid() && !isRaidMinion())
 							minion.addDamage(attacker, 100);
-						} else {
+						else
 							minion.addDamage(attacker, 1);
-						}
-					}
 				}
 			}
 		}
@@ -205,15 +188,12 @@ public class L2MonsterInstance extends L2Attackable
 	@Override
 	public boolean doDie(L2Character killer)
 	{
-		if (!super.doDie(killer)) {
+		if (!super.doDie(killer))
 			return false;
-		}
-		if (_minionMaintainTask != null) {
+		if (_minionMaintainTask != null)
 			_minionMaintainTask.cancel(true); // doesn't do it?
-		}
-		if (isRaid() && !isRaidMinion()) {
+		if (isRaid() && !isRaidMinion())
 			deleteSpawnedMinions();
-		}
 		return true;
 	}
 
@@ -251,9 +231,7 @@ public class L2MonsterInstance extends L2Attackable
 	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
 		if (!(attacker instanceof L2MonsterInstance))
-		{
 			super.addDamageHate(attacker, damage, aggro);
-		}
 	}
 
 	@Override
@@ -262,9 +240,7 @@ public class L2MonsterInstance extends L2Attackable
 		if (hasMinions())
 		{
 			if (_minionMaintainTask != null)
-			{
 				_minionMaintainTask.cancel(true);
-			}
 			deleteSpawnedMinions();
 		}
 		super.deleteMe();
@@ -275,9 +251,7 @@ public class L2MonsterInstance extends L2Attackable
 		for (L2MinionInstance minion : getSpawnedMinions())
 		{
 			if (minion == null)
-			{
 				continue;
-			}
 			minion.abortAttack();
 			minion.abortCast();
 			minion.deleteMe();

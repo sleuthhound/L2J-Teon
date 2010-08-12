@@ -92,19 +92,17 @@ public class L2CubicInstance
 				_skills.add(5116);
 				break;
 		}
-		if (_disappearTask == null) {
+		if (_disappearTask == null)
 			_disappearTask = ThreadPoolManager.getInstance().scheduleGeneral(new Disappear(), 1200000); // disappear
 		// in
 		// 20
 		// mins
-		}
 	}
 
 	public void doAction(L2Character target)
 	{
-		if (_target == target) {
+		if (_target == target)
 			return;
-		}
 		stopAction();
 		_target = target;
 		switch (_id)
@@ -188,7 +186,6 @@ public class L2CubicInstance
 				return;
 			}
 			if (_target != null)
-			{
 				try
 				{
 					if (Rnd.get(1, 100) < _chance)
@@ -208,13 +205,9 @@ public class L2CubicInstance
 							if (x * x + y * y + z * z <= range * range)
 							{
 								if (handler != null)
-								{
 									handler.useSkill(_owner, skill, targets);
-								}
 								else
-								{
 									skill.useSkill(_owner, targets);
-								}
 								MagicSkillUser msu = new MagicSkillUser(_owner, _target, skill.getId(), _level, 0, 0);
 								_owner.broadcastPacket(msu);
 							}
@@ -225,7 +218,6 @@ public class L2CubicInstance
 				{
 					_log.log(Level.SEVERE, "", e);
 				}
-			}
 		}
 	}
 
@@ -285,42 +277,30 @@ public class L2CubicInstance
 										x = caster.getX() - partyMember.getX();
 										y = caster.getY() - partyMember.getY();
 										z = caster.getZ() - partyMember.getZ();
-										if (x * x + y * y + z * z > range * range) {
+										if (x * x + y * y + z * z > range * range)
 											continue;
-										}
 										// member is in cubic casting range,
 										// check if he need heal and if he have
 										// the lowest HP
 										if (partyMember.getCurrentHp() < partyMember.getMaxHp())
-										{
 											if (percentleft > partyMember.getCurrentHp() / partyMember.getMaxHp())
 											{
 												percentleft = partyMember.getCurrentHp() / partyMember.getMaxHp();
 												target = partyMember;
 											}
-										}
 									}
 								}
 							}
-						}
-						else
-						{
-							if (_owner.getCurrentHp() < _owner.getMaxHp()) {
-								target = _owner;
-							}
-						}
+						} else if (_owner.getCurrentHp() < _owner.getMaxHp())
+							target = _owner;
 						if (target != null)
 						{
 							L2Character[] targets = { target };
 							ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 							if (handler != null)
-							{
 								handler.useSkill(_owner, skill, targets);
-							}
 							else
-							{
 								skill.useSkill(_owner, targets);
-							}
 							MagicSkillUser msu = new MagicSkillUser(_owner, target, skill.getId(), _level, 0, 0);
 							_owner.broadcastPacket(msu);
 						}

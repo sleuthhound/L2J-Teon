@@ -74,23 +74,20 @@ public final class L2ChestInstance extends L2MonsterInstance
 	{
 		int id = getTemplate().npcId;
 		if (!_specialDrop)
-		{
-			if (id >= 18265 && id <= 18286) {
+			if (id >= 18265 && id <= 18286)
 				id += 3536;
-			} else if (id == 18287 || id == 18288) {
+			else if (id == 18287 || id == 18288)
 				id = 21671;
-			} else if (id == 18289 || id == 18290) {
+			else if (id == 18289 || id == 18290)
 				id = 21694;
-			} else if (id == 18291 || id == 18292) {
+			else if (id == 18291 || id == 18292)
 				id = 21717;
-			} else if (id == 18293 || id == 18294) {
+			else if (id == 18293 || id == 18294)
 				id = 21740;
-			} else if (id == 18295 || id == 18296) {
+			else if (id == 18295 || id == 18296)
 				id = 21763;
-			} else if (id == 18297 || id == 18298) {
+			else if (id == 18297 || id == 18298)
 				id = 21786;
-			}
-		}
 		super.doItemDrop(NpcTable.getInstance().getTemplate(id), lastAttacker);
 	}
 
@@ -101,68 +98,60 @@ public final class L2ChestInstance extends L2MonsterInstance
 		int rnd = Rnd.get(120);
 		if (getTemplate().level >= 61)
 		{
-			if (rnd >= 90) {
+			if (rnd >= 90)
 				trapSkillId = 4139;
-			} else
+			else
 			// explosion
-			if (rnd >= 50) {
+			if (rnd >= 50)
 				trapSkillId = 4118;
-			} else
+			else
 			// area paralysys
-			if (rnd >= 20) {
+			if (rnd >= 20)
 				trapSkillId = 1167;
-			} else {
+			else
 				// poison cloud
 				trapSkillId = 223; // sting
-			}
 		}
 		else if (getTemplate().level >= 41)
 		{
-			if (rnd >= 90) {
+			if (rnd >= 90)
 				trapSkillId = 4139;
-			} else
+			else
 			// explosion
-			if (rnd >= 60) {
+			if (rnd >= 60)
 				trapSkillId = 96;
-			} else
+			else
 			// bleed
-			if (rnd >= 20) {
+			if (rnd >= 20)
 				trapSkillId = 1167;
-			} else {
+			else
 				// poison cloud
 				trapSkillId = 4118; // area paralysys
-			}
 		}
 		else if (getTemplate().level >= 21)
 		{
-			if (rnd >= 80) {
+			if (rnd >= 80)
 				trapSkillId = 4139;
-			} else
+			else
 			// explosion
-			if (rnd >= 50) {
+			if (rnd >= 50)
 				trapSkillId = 96;
-			} else
+			else
 			// bleed
-			if (rnd >= 20) {
+			if (rnd >= 20)
 				trapSkillId = 1167;
-			} else {
+			else
 				// poison cloud
 				trapSkillId = 129; // poison
-			}
-		}
+		} else if (rnd >= 80)
+			trapSkillId = 4139;
 		else
-		{
-			if (rnd >= 80) {
-				trapSkillId = 4139;
-			} else
-			// explosion
-			if (rnd >= 50) {
-				trapSkillId = 96;
-			} else {
-				// bleed
-				trapSkillId = 129; // poison
-			}
-		}
+		// explosion
+		if (rnd >= 50)
+			trapSkillId = 96;
+		else
+			// bleed
+			trapSkillId = 129; // poison
 		player.sendPacket(SystemMessage.sendString("There was a trap!"));
 		handleCast(player, trapSkillId);
 	}
@@ -172,16 +161,14 @@ public final class L2ChestInstance extends L2MonsterInstance
 	{
 		int skillLevel = 1;
 		byte lvl = getTemplate().level;
-		if (lvl > 20 && lvl <= 40) {
+		if (lvl > 20 && lvl <= 40)
 			skillLevel = 3;
-		} else if (lvl > 40 && lvl <= 60) {
+		else if (lvl > 40 && lvl <= 60)
 			skillLevel = 5;
-		} else if (lvl > 60) {
+		else if (lvl > 60)
 			skillLevel = 6;
-		}
-		if (player.isDead() || !player.isVisible() || !player.isInsideRadius(this, getDistanceToWatchObject(player), false, false)) {
+		if (player.isDead() || !player.isVisible() || !player.isInsideRadius(this, getDistanceToWatchObject(player), false, false))
 			return false;
-		}
 		L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
 		if (player.getFirstEffect(skill) == null)
 		{
@@ -195,12 +182,10 @@ public final class L2ChestInstance extends L2MonsterInstance
 	@Override
 	public boolean isMovementDisabled()
 	{
-		if (super.isMovementDisabled()) {
+		if (super.isMovementDisabled())
 			return true;
-		}
-		if (isInteracted()) {
+		if (isInteracted())
 			return false;
-		}
 		return true;
 	}
 

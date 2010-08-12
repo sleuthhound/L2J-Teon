@@ -69,17 +69,15 @@ public class DM
 
 	public static boolean checkMaxLevel(int maxlvl)
 	{
-		if (_minlvl >= maxlvl) {
+		if (_minlvl >= maxlvl)
 			return false;
-		}
 		return true;
 	}
 
 	public static boolean checkMinLevel(int minlvl)
 	{
-		if (_maxlvl <= minlvl) {
+		if (_maxlvl <= minlvl)
 			return false;
-		}
 		return true;
 	}
 
@@ -92,9 +90,8 @@ public class DM
 
 	public static boolean checkPlayerOk()
 	{
-		if (_started || _teleport || _joining) {
+		if (_started || _teleport || _joining)
 			return false;
-		}
 		return true;
 	}
 
@@ -102,9 +99,8 @@ public class DM
 	{
 		if (!startJoinOk())
 		{
-			if (_log.isDebugEnabled()) {
+			if (_log.isDebugEnabled())
 				_log.debug("DM Engine[startJoin(" + activeChar.getName() + ")]: startJoinOk() = false");
-			}
 			return;
 		}
 		_joining = true;
@@ -114,9 +110,8 @@ public class DM
 
 	private static boolean startJoinOk()
 	{
-		if (_started || _teleport || _joining || _eventName.equals("") || _joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 || _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 || _playerX == 0 || _playerY == 0 || _playerZ == 0) {
+		if (_started || _teleport || _joining || _eventName.equals("") || _joiningLocationName.equals("") || _eventDesc.equals("") || _npcId == 0 || _npcX == 0 || _npcY == 0 || _npcZ == 0 || _rewardId == 0 || _rewardAmount == 0 || _playerX == 0 || _playerY == 0 || _playerZ == 0)
 			return false;
-		}
 		return true;
 	}
 
@@ -144,17 +139,15 @@ public class DM
 		}
 		catch (Exception e)
 		{
-			if (_log.isDebugEnabled()) {
+			if (_log.isDebugEnabled())
 				_log.debug("DM Engine[spawnEventNpc(" + activeChar.getName() + ")]: exception: " + e.getMessage());
-			}
 		}
 	}
 
 	public static void teleportStart()
 	{
-		if (!_joining || _started || _teleport) {
+		if (!_joining || _started || _teleport)
 			return;
-		}
 		_joining = false;
 		Announcements.getInstance().announceToAll(_eventName + "(DM): Teleport to team spot in 20 seconds!");
 		setUserData();
@@ -164,32 +157,22 @@ public class DM
 			{
 				DM.sit();
 				for (L2PcInstance player : DM._players)
-				{
 					if (player != null)
 					{
 						if (Config.DM_ON_START_UNSUMMON_PET)
-						{
 							// Remove Summon's buffs
 							if (player.getPet() != null)
 							{
 								L2Summon summon = player.getPet();
-								for (L2Effect e : summon.getAllEffects()) {
+								for (L2Effect e : summon.getAllEffects())
 									e.exit();
-								}
-								if (summon instanceof L2PetInstance) {
+								if (summon instanceof L2PetInstance)
 									summon.unSummon(player);
-								}
 							}
-						}
 						if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
-						{
 							for (L2Effect e : player.getAllEffects())
-							{
-								if (e != null) {
+								if (e != null)
 									e.exit();
-								}
-							}
-						}
 						// Remove player from his party
 						if (player.getParty() != null)
 						{
@@ -198,7 +181,6 @@ public class DM
 						}
 						player.teleToLocation(_playerX, _playerY, _playerZ);
 					}
-				}
 			}
 		}, 20000);
 		_teleport = true;
@@ -208,9 +190,8 @@ public class DM
 	{
 		if (!startEventOk())
 		{
-			if (_log.isDebugEnabled()) {
+			if (_log.isDebugEnabled())
 				_log.debug("DM Engine[startEvent(" + activeChar.getName() + ")]: startEventOk() = false");
-			}
 			return;
 		}
 		_teleport = false;
@@ -221,9 +202,8 @@ public class DM
 
 	private static boolean startEventOk()
 	{
-		if (_joining || !_teleport || _started) {
+		if (_joining || !_teleport || _started)
 			return false;
-		}
 		return true;
 	}
 
@@ -257,17 +237,16 @@ public class DM
 	{
 		if (!finishEventOk())
 		{
-			if (_log.isDebugEnabled()) {
+			if (_log.isDebugEnabled())
 				_log.debug("DM Engine[finishEvent(" + activeChar.getName() + ")]: finishEventOk() = false");
-			}
 			return;
 		}
 		_started = false;
 		unspawnEventNpc();
 		processTopPlayer();
-		if (_topKills == 0) {
+		if (_topKills == 0)
 			Announcements.getInstance().announceToAll(_eventName + "(DM): No players win the match(nobody killed).");
-		} else
+		else
 		{
 			Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer.getName() + " wins the match! " + _topKills + " kills.");
 			rewardPlayer(activeChar);
@@ -277,22 +256,19 @@ public class DM
 
 	private static boolean finishEventOk()
 	{
-		if (!_started) {
+		if (!_started)
 			return false;
-		}
 		return true;
 	}
 
 	public static void processTopPlayer()
 	{
 		for (L2PcInstance player : _players)
-		{
 			if (player._countDMkills > _topKills)
 			{
 				_topPlayer = player;
 				_topKills = player._countDMkills;
 			}
-		}
 	}
 
 	public static void rewardPlayer(L2PcInstance activeChar)
@@ -315,9 +291,8 @@ public class DM
 
 	public static void abortEvent()
 	{
-		if (!_joining && !_teleport && !_started) {
+		if (!_joining && !_teleport && !_started)
 			return;
-		}
 		_joining = false;
 		_teleport = false;
 		_started = false;
@@ -328,32 +303,21 @@ public class DM
 
 	public static void sit()
 	{
-		if (_sitForced) {
+		if (_sitForced)
 			_sitForced = false;
-		} else {
+		else
 			_sitForced = true;
-		}
 		for (L2PcInstance player : _players)
-		{
 			if (player != null)
-			{
 				if (_sitForced)
 				{
 					player.stopMove(null, false);
 					player.abortAttack();
 					player.abortCast();
-					if (!player.isSitting()) {
+					if (!player.isSitting())
 						player.sitDown();
-					}
-				}
-				else
-				{
-					if (player.isSitting()) {
-						player.standUp();
-					}
-				}
-			}
-		}
+				} else if (player.isSitting())
+					player.standUp();
 	}
 
 	public static void dumpData()
@@ -395,18 +359,14 @@ public class DM
 		System.out.println("##################################");
 		System.out.println("Total Players : " + _players.size());
 		for (L2PcInstance player : _players)
-		{
-			if (player != null) {
+			if (player != null)
 				System.out.println("Name: " + player.getName() + " kills :" + player._countDMkills);
-			}
-		}
 		System.out.println("");
 		System.out.println("################################");
 		System.out.println("# _savePlayers(Vector<String>) #");
 		System.out.println("################################");
-		for (String player : _savePlayers) {
+		for (String player : _savePlayers)
 			System.out.println("Name: " + player);
-		}
 		System.out.println("");
 		System.out.println("");
 	}
@@ -536,9 +496,9 @@ public class DM
 			replyMSG.append("Current event...<br1>");
 			replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
 			replyMSG.append("    ... description:&nbsp;<font color=\"00FF00\">" + _eventDesc + "</font><br><br>");
-			if (!_started && !_joining) {
+			if (!_started && !_joining)
 				replyMSG.append("<center>Wait till the admin/gm start the participation.</center>");
-			} else if (!_started && _joining && eventPlayer.getLevel() >= _minlvl && eventPlayer.getLevel() <= _maxlvl)
+			else if (!_started && _joining && eventPlayer.getLevel() >= _minlvl && eventPlayer.getLevel() <= _maxlvl)
 			{
 				if (_players.contains(eventPlayer))
 				{
@@ -557,9 +517,9 @@ public class DM
 					replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_dmevent_player_join\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
 				}
 			}
-			else if (_started && !_joining) {
+			else if (_started && !_joining)
 				replyMSG.append("<center>DM match is in progress.</center>");
-			} else if (eventPlayer.getLevel() < _minlvl || eventPlayer.getLevel() > _maxlvl)
+			else if (eventPlayer.getLevel() < _minlvl || eventPlayer.getLevel() > _maxlvl)
 			{
 				replyMSG.append("Your lvl : <font color=\"00FF00\">" + eventPlayer.getLevel() + "</font><br>");
 				replyMSG.append("Admin set min lvl : <font color=\"00FF00\">" + _minlvl + "</font><br>");
@@ -580,9 +540,8 @@ public class DM
 
 	public static void addPlayer(L2PcInstance player)
 	{
-		if (!addPlayerOk(player)) {
+		if (!addPlayerOk(player))
 			return;
-		}
 		_players.add(player);
 		player._originalNameColorDM = player.getAppearance().getNameColor();
 		player._originalKarmaDM = player.getKarma();
@@ -621,14 +580,9 @@ public class DM
 		if (!_players.contains(player) && _savePlayers.contains(player.getName()))
 		{
 			if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
-			{
 				for (L2Effect e : player.getAllEffects())
-				{
-					if (e != null) {
+					if (e != null)
 						e.exit();
-					}
-				}
-			}
 			_players.add(player);
 			player._originalNameColorDM = player.getAppearance().getNameColor();
 			player._originalKarmaDM = player.getKarma();
@@ -647,17 +601,13 @@ public class DM
 	public static void removePlayer(L2PcInstance player)
 	{
 		if (player != null)
-		{
 			_players.remove(player);
-		}
 	}
 
 	public static void cleanDM()
 	{
 		for (L2PcInstance player : _players)
-		{
 			removePlayer(player);
-		}
 		_savePlayers = new Vector<String>();
 		_topPlayer = null;
 		_npcSpawn = null;
@@ -671,9 +621,8 @@ public class DM
 
 	public static void unspawnEventNpc()
 	{
-		if (_npcSpawn == null) {
+		if (_npcSpawn == null)
 			return;
-		}
 		_npcSpawn.getLastSpawn().deleteMe();
 		_npcSpawn.stopRespawn();
 		SpawnTable.getInstance().deleteSpawn(_npcSpawn, true);
@@ -688,11 +637,8 @@ public class DM
 			public void run()
 			{
 				for (L2PcInstance player : _players)
-				{
-					if (player != null) {
+					if (player != null)
 						player.teleToLocation(_npcX, _npcY, _npcZ);
-					}
-				}
 				cleanDM();
 			}
 		}, 20000);

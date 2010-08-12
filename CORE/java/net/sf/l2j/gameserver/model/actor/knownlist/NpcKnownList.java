@@ -54,18 +54,14 @@ public class NpcKnownList extends CharKnownList
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
 	{
-		if (object instanceof L2FestivalGuideInstance) {
+		if (object instanceof L2FestivalGuideInstance)
 			return 4000;
-		}
-		if (object instanceof L2FolkInstance || !(object instanceof L2Character)) {
+		if (object instanceof L2FolkInstance || !(object instanceof L2Character))
 			return 0;
-		}
-		if (object instanceof L2CabaleBufferInstance) {
+		if (object instanceof L2CabaleBufferInstance)
 			return 900;
-		}
-		if (object instanceof L2PlayableInstance) {
+		if (object instanceof L2PlayableInstance)
 			return 1500;
-		}
 		return 500;
 	}
 }

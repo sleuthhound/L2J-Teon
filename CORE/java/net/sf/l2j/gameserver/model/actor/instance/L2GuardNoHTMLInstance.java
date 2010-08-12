@@ -50,9 +50,8 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	{
 		public void run()
 		{
-			if (getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE) {
+			if (getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 				returnHome();
-			}
 		}
 	}
 
@@ -79,9 +78,8 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	@Override
 	public final GuardNoHTMLKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof GuardNoHTMLKnownList)) {
+		if (super.getKnownList() == null || !(super.getKnownList() instanceof GuardNoHTMLKnownList))
 			setKnownList(new GuardNoHTMLKnownList(this));
-		}
 		return (GuardNoHTMLKnownList) super.getKnownList();
 	}
 
@@ -108,9 +106,8 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 		_homeX = getX();
 		_homeY = getY();
 		_homeZ = getZ();
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		}
 	}
 
 	public int getHomeX()
@@ -127,9 +124,8 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 	{
 		if (!isInsideRadius(_homeX, _homeY, 150, false))
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine(getObjectId() + ": moving hometo" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-			}
 			clearAggroList();
 			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_homeX, _homeY, _homeZ, 0));
 		}
@@ -145,14 +141,12 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 		_homeX = getX();
 		_homeY = getY();
 		_homeZ = getZ();
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		}
 		// check the region where this mob is, do not activate the AI if region is inactive.
 		L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
-		if (region != null && !region.isActive()) {
+		if (region != null && !region.isActive())
 			((L2AttackableAI) getAI()).stopAITask();
-		}
 	}
 
 	/**
@@ -182,9 +176,8 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 		{
 			// Set the L2PcInstance Intention to AI_INTENTION_IDLE
 			player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine(player.getObjectId() + ": Targetted guard " + getObjectId());
-			}
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance
@@ -194,34 +187,23 @@ public final class L2GuardNoHTMLInstance extends L2Attackable
 			// Send a Server->Client packet ValidateLocation to correct the
 			// L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Check if the L2PcInstance is in the _aggroList of the L2GuardInstance
+		if (containsTarget(player))
+		{
+			if (Config.DEBUG)
+				_log.fine(player.getObjectId() + ": Attacked guard " + getObjectId());
+			// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+			// Set the L2PcInstance Intention to AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
 		{
-			// Check if the L2PcInstance is in the _aggroList of the L2GuardInstance
-			if (containsTarget(player))
-			{
-				if (Config.DEBUG) {
-					_log.fine(player.getObjectId() + ": Attacked guard " + getObjectId());
-				}
-				// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-			}
-			else
-			{
-				// Calculate the distance between the L2PcInstance and the L2NpcInstance
-				if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-				{
-					// Set the L2PcInstance Intention to AI_INTENTION_INTERACT
-					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-				}
-				else
-				{
-					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-					player.sendPacket(ActionFailed.STATIC_PACKET);
-					// Set the L2PcInstance Intention to AI_INTENTION_IDLE
-					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, null);
-				}
-			}
+			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			// Set the L2PcInstance Intention to AI_INTENTION_IDLE
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, null);
 		}
 	}
 }

@@ -72,59 +72,43 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		String cmdParams = "";
 		String cmdParams2 = "";
 		if (commandStr.length >= 2)
-		{
 			cmdParams = commandStr[1];
-		}
 		if (commandStr.length >= 3)
-		{
 			cmdParams2 = commandStr[2];
-		}
 		if (actualCommand.equalsIgnoreCase("create_clan"))
 		{
 			if (cmdParams.equals(""))
-			{
 				return;
-			}
 			ClanTable.getInstance().createClan(player, cmdParams);
 		}
 		else if (actualCommand.equalsIgnoreCase("create_academy"))
 		{
 			if (cmdParams.equals(""))
-			{
 				return;
-			}
 			createSubPledge(player, cmdParams, null, L2Clan.SUBUNIT_ACADEMY, 5);
 		}
 		else if (actualCommand.equalsIgnoreCase("create_royal"))
 		{
 			if (cmdParams.equals(""))
-			{
 				return;
-			}
 			createSubPledge(player, cmdParams, cmdParams2, L2Clan.SUBUNIT_ROYAL1, 6);
 		}
 		else if (actualCommand.equalsIgnoreCase("create_knight"))
 		{
 			if (cmdParams.equals(""))
-			{
 				return;
-			}
 			createSubPledge(player, cmdParams, cmdParams2, L2Clan.SUBUNIT_KNIGHT1, 7);
 		}
 		else if (actualCommand.equalsIgnoreCase("assign_subpl_leader"))
 		{
 			if (cmdParams.equals(""))
-			{
 				return;
-			}
 			assignSubPledgeLeader(player, cmdParams, cmdParams2);
 		}
 		else if (actualCommand.equalsIgnoreCase("create_ally"))
 		{
 			if (cmdParams.equals(""))
-			{
 				return;
-			}
 			if (!player.isClanLeader())
 			{
 				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_CLAN_LEADER_CREATE_ALLIANCE));
@@ -142,21 +126,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			player.getClan().dissolveAlly(player);
 		}
 		else if (actualCommand.equalsIgnoreCase("dissolve_clan"))
-		{
 			dissolveClan(player, player.getClanId());
-		}
 		else if (actualCommand.equalsIgnoreCase("change_clan_leader"))
 		{
 			if (cmdParams.equals(""))
-			{
 				return;
-			}
 			changeClanLeader(player, cmdParams);
 		}
 		else if (actualCommand.equalsIgnoreCase("recover_clan"))
-		{
 			recoverClan(player, player.getClanId());
-		}
 		else if (actualCommand.equalsIgnoreCase("increase_clan_level"))
 		{
 			if (!player.isClanLeader())
@@ -167,9 +145,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			player.getClan().levelUpClan(player);
 		}
 		else if (actualCommand.equalsIgnoreCase("learn_clan_skills"))
-		{
 			showPledgeSkillList(player);
-		}
 		else if (command.startsWith("Subclass"))
 		{
 			int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
@@ -225,9 +201,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					{
 						content.append("Add Subclass:<br>Which sub class do you wish to add?<br>");
 						for (PlayerClass subClass : subsAvailable)
-						{
 							content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 4 " + subClass.ordinal() + "\" msg=\"1268;" + formatClassForDisplay(subClass) + "\">" + formatClassForDisplay(subClass) + "</a><br>");
-						}
 					}
 					else
 					{
@@ -244,32 +218,22 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					content.append("Change Subclass:<br>");
 					final int baseClassId = player.getBaseClass();
 					if (player.getSubClasses().isEmpty())
-					{
 						content.append("You can't change sub classes when you don't have a sub class to begin with.<br>" + "<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 1\">Add subclass.</a>");
-					}
 					else
 					{
 						content.append("Which class would you like to switch to?<br>");
 						if (baseClassId == player.getActiveClass())
-						{
 							content.append(CharTemplateTable.getClassNameById(baseClassId) + "&nbsp;<font color=\"LEVEL\">(Base Class)</font><br><br>");
-						}
 						else
-						{
 							content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 5 0\">" + CharTemplateTable.getClassNameById(baseClassId) + "</a>&nbsp;" + "<font color=\"LEVEL\">(Base Class)</font><br><br>");
-						}
 						for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 						{
 							SubClass subClass = subList.next();
 							int subClassId = subClass.getClassId();
 							if (subClassId == player.getActiveClass())
-							{
 								content.append(CharTemplateTable.getClassNameById(subClassId) + "<br>");
-							}
 							else
-							{
 								content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 5 " + subClass.getClassIndex() + "\">" + CharTemplateTable.getClassNameById(subClassId) + "</a><br>");
-							}
 						}
 					}
 					break;
@@ -301,9 +265,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			          player.sendPacket(ActionFailed.STATIC_PACKET);
 			          return;
 			        }
-                    if (!ItemRestriction(player)) {
+                    if (!ItemRestriction(player))
 						return;//Check the player for items during subclass..to avoid bugs
-					}
 
 					if (player.getLevel() < 75)
 					{
@@ -316,13 +279,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						return;
 					}
 					if (player.isCursedWeaponEquiped())
-					{
 						return;
-					}
 					if (allowAddition)
-					{
 						if (!player.getSubClasses().isEmpty())
-						{
 							for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
 							{
 								SubClass subClass = subList.next();
@@ -333,8 +292,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 									break;
 								}
 							}
-						}
-					}
 					/*
 					 * If quest checking is enabled, verify if the character has completed the Mimir's Elixir (Path to Subclass) and Fate's Whisper (A Grade Weapon) quests by checking for instances of their unique reward items. If they both exist, remove both unique items and continue with adding the sub-class.
 					 */
@@ -386,11 +343,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.abortCast();
 						content.append("Add Subclass:<br>The sub class of <font color=\"LEVEL\">" + className + "</font> has been added.");
 						player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER)); // Transfer to new class.
-					}
-					else
-					{
+					} else
 						html.setFile("data/html/villagemaster/SubClass_Fail.htm");
-					}
 					break;
 				case 5: // Change Class - Action
 					/*
@@ -408,9 +362,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     					return;
     				}
 
-                    if (!ItemRestriction(player)) {
+                    if (!ItemRestriction(player))
 						return;//Check the player for items during subclass..to avoid bugs
-					}
 
 					if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 					{
@@ -418,9 +371,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						return;
 					}
 					if (player.isCursedWeaponEquiped())
-					{
 						return;
-					}
 			        player.getInventory().setPaperdollItem(8, null);
 			        player.getInventory().setPaperdollItem(7, null);
 			        player.getInventory().setPaperdollItem(14, null);
@@ -439,18 +390,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						return;
 					}
 					if (player.isCursedWeaponEquiped())
-					{
 						return;
-					}
 					content.append("Please choose a sub class to change to. If the one you are looking for is not here, " + "please seek out the appropriate master for that class.<br>" + "<font color=\"LEVEL\">Warning!</font> All classes and skills for this class will be removed.<br><br>");
 					subsAvailable = getAvailableSubClasses(player);
 					if (subsAvailable != null && !subsAvailable.isEmpty())
-					{
 						for (PlayerClass subClass : subsAvailable)
-						{
 							content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 7 " + paramOne + " " + subClass.ordinal() + "\">" + formatClassForDisplay(subClass) + "</a><br>");
-						}
-					}
 					else
 					{
 						player.sendMessage("There are no sub classes available at this time.");
@@ -472,9 +417,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 						return;
 					}
-                	if (!ItemRestriction(player)) {
+                	if (!ItemRestriction(player))
 						return;//Check the player for items during subclass..to avoid bugs
-					}
 
 					if (player.modifySubClass(paramOne, paramTwo))
 					{
@@ -489,9 +433,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(new SystemMessage(SystemMessageId.ADD_NEW_SUBCLASS)); // Subclass added.
 						// check player skills
 						if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-						{
 							player.checkAllowedSkills();
-						}
 					}
 					else
 					{
@@ -514,16 +456,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			 * If the content is // greater than for a basic blank page, then assume no external HTML file was assigned.
 			 */
 			if (content.length() > 26)
-			{
 				html.setHtml(content.toString());
-			}
 			player.sendPacket(html);
-		}
-		else
-		{
+		} else
 			// this class dont know any other commands, let forward the command to the parent class
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override
@@ -531,22 +468,17 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return "data/html/villagemaster/" + pom + ".htm";
 	}
 
 	// Private stuff
 	public void dissolveClan(L2PcInstance player, int clanId)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested dissolve a clan from " + getObjectId() + "(" + getName() + ")");
-		}
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
@@ -577,13 +509,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			return;
 		}
 		for (Castle castle : CastleManager.getInstance().getCastles())
-		{
 			if (SiegeManager.getInstance().checkIsRegistered(clan, castle.getCastleId()))
 			{
 				player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISSOLVE_CAUSE_CLAN_WILL_PARTICIPATE_IN_CASTLE_SIEGE));
 				return;
 			}
-		}
 		if (player.isInsideZone(L2Character.ZONE_SIEGE))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISSOLVE_WHILE_IN_SIEGE));
@@ -604,9 +534,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	public void recoverClan(L2PcInstance player, int clanId)
 	{
 		if (Config.DEBUG)
-		{
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested recover a clan from " + getObjectId() + "(" + getName() + ")");
-		}
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
@@ -620,18 +548,14 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	public void changeClanLeader(L2PcInstance player, String target)
 	{
 		if (Config.DEBUG)
-		{
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested change a clan leader from " + getObjectId() + "(" + getName() + ")");
-		}
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
 			return;
 		}
 		if (player.getName().equalsIgnoreCase(target))
-		{
 			return;
-		}
 		L2Clan clan = player.getClan();
 		L2ClanMember member = clan.getClanMember(target);
 		if (member == null)
@@ -668,13 +592,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		if (clan.getLevel() < minClanLvl)
 		{
 			if (pledgeType == L2Clan.SUBUNIT_ACADEMY)
-			{
 				player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN_ACADEMY));
-			}
 			else
-			{
 				player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_MILITARY_UNIT));
-			}
 			return;
 		}
 		if (!Util.isAlphaNumeric(clanName) || 2 > clanName.length())
@@ -688,7 +608,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			return;
 		}
 		for (L2Clan tempClan : ClanTable.getInstance().getClans())
-		{
 			if (tempClan.getSubPledge(clanName) != null)
 			{
 				if (pledgeType == L2Clan.SUBUNIT_ACADEMY)
@@ -697,33 +616,21 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					sm.addString(clanName);
 					player.sendPacket(sm);
 					sm = null;
-				}
-				else
-				{
+				} else
 					player.sendPacket(new SystemMessage(SystemMessageId.ANOTHER_MILITARY_UNIT_IS_ALREADY_USING_THAT_NAME));
-				}
 				return;
 			}
-		}
 		if (pledgeType != L2Clan.SUBUNIT_ACADEMY)
-		{
 			if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getPledgeType() != 0)
 			{
 				if (pledgeType >= L2Clan.SUBUNIT_KNIGHT1)
-				{
 					player.sendPacket(new SystemMessage(SystemMessageId.CAPTAIN_OF_ORDER_OF_KNIGHTS_CANNOT_BE_APPOINTED));
-				}
 				else if (pledgeType >= L2Clan.SUBUNIT_ROYAL1)
-				{
 					player.sendPacket(new SystemMessage(SystemMessageId.CAPTAIN_OF_ROYAL_GUARD_CANNOT_BE_APPOINTED));
-				}
 				return;
 			}
-		}
 		if (clan.createSubPledge(player, pledgeType, leaderName, clanName) == null)
-		{
 			return;
-		}
 		SystemMessage sm;
 		if (pledgeType == L2Clan.SUBUNIT_ACADEMY)
 		{
@@ -739,19 +646,14 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		{
 			sm = new SystemMessage(SystemMessageId.THE_ROYAL_GUARD_OF_S1_HAVE_BEEN_CREATED);
 			sm.addString(player.getClan().getName());
-		}
-		else
-		{
+		} else
 			sm = new SystemMessage(SystemMessageId.CLAN_CREATED);
-		}
 		player.sendPacket(sm);
 		if (pledgeType != L2Clan.SUBUNIT_ACADEMY)
 		{
 			L2ClanMember leaderSubPledge = clan.getClanMember(leaderName);
 			if (leaderSubPledge.getPlayerInstance() == null)
-			{
 				return;
-			}
 			leaderSubPledge.getPlayerInstance().setPledgeClass(leaderSubPledge.calculatePledgeClass(leaderSubPledge.getPlayerInstance()));
 			leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
 		}
@@ -760,9 +662,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	public void assignSubPledgeLeader(L2PcInstance player, String clanName, String leaderName)
 	{
 		if (Config.DEBUG)
-		{
 			_log.fine(player.getObjectId() + "(" + player.getName() + ") requested to assign sub clan" + clanName + "leader " + "(" + leaderName + ")");
-		}
 		if (!player.isClanLeader())
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
@@ -793,13 +693,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getPledgeType() != 0)
 		{
 			if (subPledge.getId() >= L2Clan.SUBUNIT_KNIGHT1)
-			{
 				player.sendPacket(new SystemMessage(SystemMessageId.CAPTAIN_OF_ORDER_OF_KNIGHTS_CANNOT_BE_APPOINTED));
-			}
 			else if (subPledge.getId() >= L2Clan.SUBUNIT_ROYAL1)
-			{
 				player.sendPacket(new SystemMessage(SystemMessageId.CAPTAIN_OF_ROYAL_GUARD_CANNOT_BE_APPOINTED));
-			}
 			return;
 		}
 		subPledge.setLeaderName(leaderName);
@@ -819,9 +715,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	{
 		int charClassId = player.getBaseClass();
 		if (charClassId >= 88)
-		{
 			charClassId = player.getClassId().getParent().ordinal();
-		}
 		final PlayerRace npcRace = getVillageMasterRace();
 		final ClassType npcTeachType = getVillageMasterTeachType();
 		PlayerClass currClass = PlayerClass.values()[charClassId];
@@ -831,7 +725,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		 */
 		Set<PlayerClass> availSubs = currClass.getAvailableSubclasses();
 		if (availSubs != null)
-		{
 			for (PlayerClass availSub : availSubs)
 			{
 				for (Iterator<SubClass> subList = iterSubClasses(player); subList.hasNext();)
@@ -839,13 +732,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					SubClass prevSubClass = subList.next();
 					int subClassId = prevSubClass.getClassId();
 					if (subClassId >= 88)
-					{
 						subClassId = ClassId.values()[subClassId].getParent().getId();
-					}
 					if (availSub.ordinal() == subClassId || availSub.ordinal() == player.getBaseClass())
-					{
 						availSubs.remove(PlayerClass.values()[availSub.ordinal()]);
-					}
 				}
 				if (npcRace == PlayerRace.Human || npcRace == PlayerRace.LightElf)
 				{
@@ -853,26 +742,15 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					 * If the master is human or light elf, ensure that fighter-type masters only teach fighter classes, and priest-type masters only teach priest classes etc.
 					 */
 					if (!availSub.isOfType(npcTeachType))
-					{
 						availSubs.remove(availSub);
-					}
 					else if (!availSub.isOfRace(PlayerRace.Human) && !availSub.isOfRace(PlayerRace.LightElf))
-					{
 						availSubs.remove(availSub);
-					}
-				}
-				else
-				{
-					/*
-					 * If the master is not human and not light elf, then remove any classes not of the same race as the master.
-					 */
-					if (npcRace != PlayerRace.Human && npcRace != PlayerRace.LightElf && !availSub.isOfRace(npcRace))
-					{
-						availSubs.remove(availSub);
-					}
-				}
+				} else /*
+				 * If the master is not human and not light elf, then remove any classes not of the same race as the master.
+				 */
+				if (npcRace != PlayerRace.Human && npcRace != PlayerRace.LightElf && !availSub.isOfRace(npcRace))
+					availSubs.remove(availSub);
 			}
-		}
 		return availSubs;
 	}
 
@@ -884,13 +762,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	public void showPledgeSkillList(L2PcInstance player)
 	{
 		if (Config.DEBUG)
-		{
 			_log.fine("PledgeSkillList activated on: " + getObjectId());
-		}
 		if (player.getClan() == null)
-		{
 			return;
-		}
 		L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
 		AquireSkillList asl = new AquireSkillList(AquireSkillList.skillType.Clan);
 		int counts = 0;
@@ -918,11 +792,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				html.setHtml(sb.toString());
 				player.sendPacket(html);
 			}
-		}
-		else
-		{
+		} else
 			player.sendPacket(asl);
-		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
@@ -931,12 +802,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		String classNameStr = className.toString();
 		char[] charArray = classNameStr.toCharArray();
 		for (int i = 1; i < charArray.length; i++)
-		{
 			if (Character.isUpperCase(charArray[i]))
-			{
 				classNameStr = classNameStr.substring(0, i) + " " + classNameStr.substring(i);
-			}
-		}
 		return classNameStr;
 	}
 
@@ -944,21 +811,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	{
 		String npcClass = getTemplate().getStatsSet().getString("jClass").toLowerCase();
 		if (npcClass.indexOf("human") > -1)
-		{
 			return PlayerRace.Human;
-		}
 		if (npcClass.indexOf("darkelf") > -1)
-		{
 			return PlayerRace.DarkElf;
-		}
 		if (npcClass.indexOf("elf") > -1)
-		{
 			return PlayerRace.LightElf;
-		}
 		if (npcClass.indexOf("orc") > -1)
-		{
 			return PlayerRace.Orc;
-		}
 		return PlayerRace.Dwarf;
 	}
 
@@ -966,13 +825,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 	{
 		String npcClass = getTemplate().getStatsSet().getString("jClass");
 		if (npcClass.indexOf("sanctuary") > -1 || npcClass.indexOf("clergyman") > -1)
-		{
 			return ClassType.Priest;
-		}
 		if (npcClass.indexOf("mageguild") > -1 || npcClass.indexOf("patriarch") > -1)
-		{
 			return ClassType.Mystic;
-		}
 		return ClassType.Fighter;
 	}
 

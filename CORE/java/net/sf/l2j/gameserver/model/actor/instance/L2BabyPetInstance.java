@@ -44,29 +44,23 @@ public final class L2BabyPetInstance extends L2PetInstance
 		L2Skill skill1 = null;
 		L2Skill skill2 = null;
 		for (L2Skill skill : skills.values())
-		{
 			// just in case, also allow cp heal and mp recharges to be
 			// considered here...you never know ;)
 			if (skill.isActive()
 					&& skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET
 					&& (skill.getSkillType() == L2Skill.SkillType.HEAL || skill.getSkillType() == L2Skill.SkillType.HOT || skill.getSkillType() == L2Skill.SkillType.BALANCE_LIFE || skill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT || skill.getSkillType() == L2Skill.SkillType.HEAL_STATIC || skill.getSkillType() == L2Skill.SkillType.COMBATPOINTHEAL
 							|| skill.getSkillType() == L2Skill.SkillType.CPHOT || skill.getSkillType() == L2Skill.SkillType.MANAHEAL || skill.getSkillType() == L2Skill.SkillType.MANA_BY_LEVEL || skill.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT || skill.getSkillType() == L2Skill.SkillType.MANARECHARGE || skill.getSkillType() == L2Skill.SkillType.MPHOT))
-			{
 				// only consider two skills. If the pet has more, too bad...they
 				// won't be used by its AI.
 				// for now assign the first two skills in the order they come.
 				// Once we have both skills, re-arrange them
 				if (skill1 == null)
-				{
 					skill1 = skill;
-				}
 				else
 				{
 					skill2 = skill;
 					break;
 				}
-			}
-		}
 		// process the results. Only store the ID of the skills. The levels are
 		// generated on the fly, based on the pet's level!
 		if (skill1 != null)
@@ -77,20 +71,16 @@ public final class L2BabyPetInstance extends L2PetInstance
 				// and emergency situations
 				_weakHeal = skill1;
 				_strongHeal = skill1;
+			} else // arrange the weak and strong skills appropriately
+			if (skill1.getPower() > skill2.getPower())
+			{
+				_weakHeal = skill2;
+				_strongHeal = skill1;
 			}
 			else
 			{
-				// arrange the weak and strong skills appropriately
-				if (skill1.getPower() > skill2.getPower())
-				{
-					_weakHeal = skill2;
-					_strongHeal = skill1;
-				}
-				else
-				{
-					_weakHeal = skill1;
-					_strongHeal = skill2;
-				}
+				_weakHeal = skill1;
+				_strongHeal = skill2;
 			}
 			// start the healing task
 			_healingTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Heal(this), 0, 1000);
@@ -101,9 +91,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
-		{
 			return false;
-		}
 		if (_healingTask != null)
 		{
 			_healingTask.cancel(false);
@@ -128,9 +116,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 	{
 		super.doRevive();
 		if (_healingTask == null)
-		{
 			_healingTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new Heal(this), 0, 1000);
-		}
 	}
 
 	private class Heal implements Runnable
@@ -162,13 +148,9 @@ public final class L2BabyPetInstance extends L2PetInstance
 				// chance for strong heal
 				// otherwise, have a low chance for weak heal
 				if (owner.getCurrentHp() / owner.getMaxHp() < 0.2 && Rnd.get(4) < 3)
-				{
 					_baby.useMagic(_strongHeal, false, false);
-				}
 				else if (owner.getCurrentHp() / owner.getMaxHp() < 0.8 && Rnd.get(4) < 1)
-				{
 					_baby.useMagic(_weakHeal, false, false);
-				}
 				// calling useMagic changes the follow status, if the babypet
 				// actually casts
 				// (as opposed to failing due some factors, such as too low MP,
@@ -185,9 +167,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 				// merely because the timer stroke and without taking any other
 				// action...
 				if (previousFollowStatus != _baby.getFollowStatus())
-				{
 					setFollowStatus(previousFollowStatus);
-				}
 			}
 		}
 	}

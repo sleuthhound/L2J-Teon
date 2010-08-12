@@ -49,9 +49,8 @@ public class GuardKnownList extends AttackableKnownList
 	@Override
 	public boolean addKnownObject(L2Object object, L2Character dropper)
 	{
-		if (!super.addKnownObject(object, dropper)) {
+		if (!super.addKnownObject(object, dropper))
 			return false;
-		}
 
 		if (object instanceof L2PcInstance)
 		{
@@ -59,13 +58,11 @@ public class GuardKnownList extends AttackableKnownList
 			L2PcInstance player = (L2PcInstance) object;
 			if (player.getKarma() > 0)
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine(getActiveChar().getObjectId() + ": PK " + player.getObjectId() + " entered scan range");
-				}
 				// Set the L2GuardInstance Intention to AI_INTENTION_ACTIVE
-				if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE) {
+				if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 					getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-				}
 			}
 		}
 		else if (Config.GUARD_ATTACK_AGGRO_MOB && getActiveChar().isInActiveRegion() && object instanceof L2MonsterInstance)
@@ -74,13 +71,11 @@ public class GuardKnownList extends AttackableKnownList
 			L2MonsterInstance mob = (L2MonsterInstance) object;
 			if (mob.isAggressive())
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine(getActiveChar().getObjectId() + ": Aggressive mob " + mob.getObjectId() + " entered scan range");
-				}
 				// Set the L2GuardInstance Intention to AI_INTENTION_ACTIVE
-				if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE) {
+				if (getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 					getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-				}
 			}
 		}
 		return true;
@@ -89,18 +84,16 @@ public class GuardKnownList extends AttackableKnownList
 	@Override
 	public boolean removeKnownObject(L2Object object)
 	{
-		if (!super.removeKnownObject(object)) {
+		if (!super.removeKnownObject(object))
 			return false;
-		}
 		// Check if the _aggroList of the L2GuardInstance is Empty
 		if (getActiveChar().noTarget())
 		{
 			// removeAllKnownObjects();
 			// Set the L2GuardInstance to AI_INTENTION_IDLE
 			L2CharacterAI ai = getActiveChar().getAI();
-			if (ai != null) {
+			if (ai != null)
 				ai.setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-			}
 		}
 		return true;
 	}

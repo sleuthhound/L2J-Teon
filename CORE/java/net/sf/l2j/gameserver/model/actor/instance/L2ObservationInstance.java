@@ -48,18 +48,14 @@ public final class L2ObservationInstance extends L2FolkInstance
 			StringTokenizer st = new StringTokenizer(val);
 			st.nextToken(); // Bypass cost
 			if (SiegeManager.getInstance().getSiege(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())) != null)
-			{
 				doObserve(player, val);
-			} else {
+			else
 				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_VIEW_SIEGE));
-			}
 		}
 		else if (command.startsWith("observe"))
-		{
 			doObserve(player, command.substring(8));
-		} else {
+		else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override
@@ -67,13 +63,9 @@ public final class L2ObservationInstance extends L2FolkInstance
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return "data/html/observation/" + pom + ".htm";
 	}
 
