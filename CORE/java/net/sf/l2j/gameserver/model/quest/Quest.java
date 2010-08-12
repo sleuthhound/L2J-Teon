@@ -183,14 +183,12 @@ public class Quest extends ManagedScript
 		_questId = questId;
 		_name = name;
 		_descr = descr;
-		if (questId != 0) {
+		if (questId != 0)
 			QuestManager.getInstance().addQuest(Quest.this);
-		} else {
+		else
 			_allEventsS.put(name, this);
-		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.info("Loaded Script: " + name);
-		}
 		init_LoadGlobalData();
 	}
 
@@ -334,43 +332,32 @@ public class Quest extends ManagedScript
 			_allEventTimers.put(name, timers);
 		}
 		// a timer with this name exists, but may not be for the same set of npc and player
-		else
-		{
-			// if there exists a timer with this name, allow the timer only if the [npc, player] set is unique
-			// nulls act as wildcards
-			if (getQuestTimer(name, npc, player) == null)
+ else // if there exists a timer with this name, allow the timer only if the [npc, player] set is unique
+		// nulls act as wildcards
+		if (getQuestTimer(name, npc, player) == null)
+			try
 			{
-				try
-				{
-					_rwLock.writeLock().lock();
-					timers.add(new QuestTimer(this, name, time, npc, player, repeating));
-				}
-				finally
-				{
-					_rwLock.writeLock().unlock();
-				}
+				_rwLock.writeLock().lock();
+				timers.add(new QuestTimer(this, name, time, npc, player, repeating));
 			}
-		}
+			finally
+			{
+				_rwLock.writeLock().unlock();
+			}
 	}
 
 	public QuestTimer getQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
 	{
 		FastList<QuestTimer> qt = getQuestTimers(name);
-		if (qt == null || qt.isEmpty()) {
+		if (qt == null || qt.isEmpty())
 			return null;
-		}
 		try
 		{
 			_rwLock.readLock().lock();
 			for (QuestTimer timer : qt)
-			{
 				if (timer != null)
-				{
-					if (timer.isMatch(this, name, npc, player)) {
+					if (timer.isMatch(this, name, npc, player))
 						return timer;
-					}
-				}
-			}
 		}
 		finally
 		{
@@ -387,19 +374,14 @@ public class Quest extends ManagedScript
 	public void cancelQuestTimers(String name)
 	{
 		FastList<QuestTimer> timers = getQuestTimers(name);
-		if (timers == null) {
+		if (timers == null)
 			return;
-		}
 		try
 		{
 			_rwLock.writeLock().lock();
 			for (QuestTimer timer : timers)
-			{
 				if (timer != null)
-				{
 					timer.cancel();
-				}
-			}
 		}
 		finally
 		{
@@ -410,20 +392,17 @@ public class Quest extends ManagedScript
 	public void cancelQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
 	{
 		QuestTimer timer = getQuestTimer(name, npc, player);
-		if (timer != null) {
+		if (timer != null)
 			timer.cancel();
-		}
 	}
 
 	public void removeQuestTimer(QuestTimer timer)
 	{
-		if (timer == null) {
+		if (timer == null)
 			return;
-		}
 		FastList<QuestTimer> timers = getQuestTimers(timer.getName());
-		if (timers == null) {
+		if (timers == null)
 			return;
-		}
 		try
 		{
 			_rwLock.writeLock().lock();
@@ -528,12 +507,10 @@ public class Quest extends ManagedScript
 			if (altMethodCall)
 			{
 				QuestState st = killer.getQuestState(getName());
-				if (st != null) {
+				if (st != null)
 					res = onKill(npc, st);
-				}
-			} else {
+			} else
 				res = onKill(npc, killer, isPet);
-			}
 		}
 		catch (Exception e)
 		{
@@ -547,11 +524,10 @@ public class Quest extends ManagedScript
 		String res = null;
 		try
 		{
-			if (altMethodCall) {
+			if (altMethodCall)
 				res = onTalk(npc, qs);
-			} else {
+			else
 				res = onTalk(npc, qs.getPlayer());
-			}
 		}
 		catch (Exception e)
 		{
@@ -574,12 +550,11 @@ public class Quest extends ManagedScript
 			return showError(player, e);
 		}
 		// if the quest returns text to display, display it.
-		if (res != null && res.length() > 0) {
+		if (res != null && res.length() > 0)
 			return showResult(player, res);
 		// else tell the player that
-		} else {
+		else
 			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
 		// note: if the default html for this npc needs to be shown, onFirstTalk should
 		// call npc.showChatWindow(player) and then return null.
 		return true;
@@ -619,11 +594,10 @@ public class Quest extends ManagedScript
 		try
 		{
 			res = onAcquireSkill(npc, player, skill);
-			if (res == "true") {
+			if (res == "true")
 				return true;
-			} else if (res == "false") {
+			else if (res == "false")
 				return false;
-			}
 		}
 		catch (Exception e)
 		{
@@ -728,13 +702,11 @@ public class Quest extends ManagedScript
 		}
 		catch (Exception e)
 		{
-			if (player != null) {
+			if (player != null)
 				return showError(player, e);
-			}
 		}
-		if (player != null) {
+		if (player != null)
 			return showResult(player, res);
-		}
 		return true;
 	}
 
@@ -748,13 +720,11 @@ public class Quest extends ManagedScript
 		}
 		catch (Exception e)
 		{
-			if (player != null) {
+			if (player != null)
 				return showError(player, e);
-			}
 		}
-		if (player != null) {
+		if (player != null)
 			return showResult(player, res);
-		}
 		return true;
 	}
 
@@ -771,11 +741,10 @@ public class Quest extends ManagedScript
 
 	public String onDeath(L2Character killer, L2Character victim, QuestState qs)
 	{
-		if (killer instanceof L2NpcInstance) {
+		if (killer instanceof L2NpcInstance)
 			return onAdvEvent("", (L2NpcInstance) killer, qs.getPlayer());
-		} else {
+		else
 			return onAdvEvent("", null, qs.getPlayer());
-		}
 	}
 
 	public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player)
@@ -783,9 +752,8 @@ public class Quest extends ManagedScript
 		// if not overridden by a subclass, then default to the returned value of the simpler (and older) onEvent override
 		// if the player has a state, use it as parameter in the next call, else return null
 		QuestState qs = player.getQuestState(getName());
-		if (qs != null) {
+		if (qs != null)
 			return onEvent(event, qs);
-		}
 		return null;
 	}
 
@@ -913,21 +881,19 @@ public class Quest extends ManagedScript
 	 */
 	public boolean showResult(L2PcInstance player, String res)
 	{
-		if (res == null || res.isEmpty() || player == null) {
+		if (res == null || res.isEmpty() || player == null)
 			return true;
-		}
-		if (res.endsWith(".htm")) {
+		if (res.endsWith(".htm"))
 			showHtmlFile(player, res);
-		} else if (res.startsWith("<html>"))
+		else if (res.startsWith("<html>"))
 		{
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
 			npcReply.setHtml(res);
 			npcReply.replace("%playername%", player.getName());
 			player.sendPacket(npcReply);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
-		} else {
+		} else
 			player.sendMessage(res);
-		}
 		return false;
 	}
 
@@ -1025,9 +991,7 @@ public class Quest extends ManagedScript
 		}
 		// events
 		for (String name : _allEventsS.keySet())
-		{
 			player.processQuestEvent(name, "enter");
-		}
 	}
 
 	/**
@@ -1088,9 +1052,8 @@ public class Quest extends ManagedScript
 			statement.setString(1, getName());
 			statement.setString(2, var);
 			ResultSet rs = statement.executeQuery();
-			if (rs.first()) {
+			if (rs.first())
 				result = rs.getString(1);
-			}
 			rs.close();
 			statement.close();
 		}
@@ -1386,9 +1349,8 @@ public class Quest extends ManagedScript
 		try
 		{
 			L2NpcTemplate t = NpcTable.getInstance().getTemplate(npcId);
-			if (t != null) {
+			if (t != null)
 				t.addQuestEvent(eventType, this);
-			}
 			return t;
 		}
 		catch (Exception e)
@@ -1458,9 +1420,8 @@ public class Quest extends ManagedScript
 
 	public void addKillId(int[] killIds)
 	{
-		for (int id : killIds) {
+		for (int id : killIds)
 			addKillId(id);
-		}
 	}
 
 	/**
@@ -1478,9 +1439,8 @@ public class Quest extends ManagedScript
 
 	public void addTalkId(int[] talkIds)
 	{
-		for (int id : talkIds) {
+		for (int id : talkIds)
 			addTalkId(id);
-		}
 	}
 
 	/**
@@ -1546,9 +1506,7 @@ public class Quest extends ManagedScript
 		{
 			L2ZoneType zone = ZoneManager.getInstance().getZoneById(zoneId);
 			if (zone != null)
-			{
 				zone.addQuestEvent(Quest.QuestEventType.ON_ENTER_ZONE, this);
-			}
 			return zone;
 		}
 		catch (Exception e)
@@ -1564,9 +1522,7 @@ public class Quest extends ManagedScript
 		{
 			L2ZoneType zone = ZoneManager.getInstance().getZoneById(zoneId);
 			if (zone != null)
-			{
 				zone.addQuestEvent(Quest.QuestEventType.ON_EXIT_ZONE, this);
-			}
 			return zone;
 		}
 		catch (Exception e)
@@ -1581,12 +1537,10 @@ public class Quest extends ManagedScript
 	public L2PcInstance getRandomPartyMember(L2PcInstance player)
 	{
 		// NPE prevention. If the player is null, there is nothing to return
-		if (player == null) {
+		if (player == null)
 			return null;
-		}
-		if (player.getParty() == null || player.getParty().getPartyMembers().size() == 0) {
+		if (player.getParty() == null || player.getParty().getPartyMembers().size() == 0)
 			return player;
-		}
 		L2Party party = player.getParty();
 		return party.getPartyMembers().get(Rnd.get(party.getPartyMembers().size()));
 	}
@@ -1617,13 +1571,11 @@ public class Quest extends ManagedScript
 	public L2PcInstance getRandomPartyMember(L2PcInstance player, String var, String value)
 	{
 		// if no valid player instance is passed, there is nothing to check...
-		if (player == null) {
+		if (player == null)
 			return null;
-		}
 		// for null var condition, return any random party member.
-		if (var == null) {
+		if (var == null)
 			return getRandomPartyMember(player);
-		}
 		// normal cases...if the player is not in a party, check the player's state
 		QuestState temp = null;
 		L2Party party = player.getParty();
@@ -1631,9 +1583,8 @@ public class Quest extends ManagedScript
 		if (party == null || party.getPartyMembers().size() == 0)
 		{
 			temp = player.getQuestState(getName());
-			if (temp != null && temp.get(var) != null && ((String) temp.get(var)).equalsIgnoreCase(value)) {
+			if (temp != null && temp.get(var) != null && ((String) temp.get(var)).equalsIgnoreCase(value))
 				return player; // match
-			}
 			return null; // no match
 		}
 		// if the player is in a party, gather a list of all matching party members (possibly
@@ -1641,23 +1592,19 @@ public class Quest extends ManagedScript
 		FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
 		// get the target for enforcing distance limitations.
 		L2Object target = player.getTarget();
-		if (target == null) {
+		if (target == null)
 			target = player;
-		}
 		for (L2PcInstance partyMember : party.getPartyMembers())
 		{
-			if (partyMember == null) {
+			if (partyMember == null)
 				continue;
-			}
 			temp = partyMember.getQuestState(getName());
-			if (temp != null && temp.get(var) != null && ((String) temp.get(var)).equalsIgnoreCase(value) && partyMember.isInsideRadius(target, 1500, true, false)) {
+			if (temp != null && temp.get(var) != null && ((String) temp.get(var)).equalsIgnoreCase(value) && partyMember.isInsideRadius(target, 1500, true, false))
 				candidates.add(partyMember);
-			}
 		}
 		// if there was no match, return null...
-		if (candidates.size() == 0) {
+		if (candidates.size() == 0)
 			return null;
-		}
 		// if a match was found from the party, return one of them at random.
 		return candidates.get(Rnd.get(candidates.size()));
 	}
@@ -1674,9 +1621,8 @@ public class Quest extends ManagedScript
 	public L2PcInstance getRandomPartyMemberState(L2PcInstance player, byte state)
 	{
 		// if no valid player instance is passed, there is nothing to check...
-		if (player == null) {
+		if (player == null)
 			return null;
-		}
 		// normal cases...if the player is not in a partym check the player's state
 		QuestState temp = null;
 		L2Party party = player.getParty();
@@ -1684,9 +1630,8 @@ public class Quest extends ManagedScript
 		if (party == null || party.getPartyMembers().size() == 0)
 		{
 			temp = player.getQuestState(getName());
-			if (temp != null && temp.getState() == state) {
+			if (temp != null && temp.getState() == state)
 				return player; // match
-			}
 			return null; // no match
 		}
 		// if the player is in a party, gather a list of all matching party members (possibly
@@ -1694,23 +1639,19 @@ public class Quest extends ManagedScript
 		FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
 		// get the target for enforcing distance limitations.
 		L2Object target = player.getTarget();
-		if (target == null) {
+		if (target == null)
 			target = player;
-		}
 		for (L2PcInstance partyMember : party.getPartyMembers())
 		{
-			if (partyMember == null) {
+			if (partyMember == null)
 				continue;
-			}
 			temp = partyMember.getQuestState(getName());
-			if (temp != null && temp.getState() == state && partyMember.isInsideRadius(target, 1500, true, false)) {
+			if (temp != null && temp.getState() == state && partyMember.isInsideRadius(target, 1500, true, false))
 				candidates.add(partyMember);
-			}
 		}
 		// if there was no match, return null...
-		if (candidates.size() == 0) {
+		if (candidates.size() == 0)
 			return null;
-		}
 		// if a match was found from the party, return one of them at random.
 		return candidates.get(Rnd.get(candidates.size()));
 	}
@@ -1727,12 +1668,10 @@ public class Quest extends ManagedScript
 		// Create handler to file linked to the quest
 		String directory = getDescr().toLowerCase();
 		String content = HtmCache.getInstance().getHtm("data/scripts/" + directory + "/" + questId + "/" + fileName);
-		if (content == null) {
+		if (content == null)
 			content = HtmCache.getInstance().getHtmForce("data/scripts/quests/" + questId + "/" + fileName);
-		}
-		if (player != null && player.getTarget() != null) {
+		if (player != null && player.getTarget() != null)
 			content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
-		}
 		// Send message to client if message not empty
 		if (content != null)
 		{
@@ -1811,16 +1750,14 @@ public class Quest extends ManagedScript
 				{
 					int offset;
 					offset = Rnd.get(2); // Get the direction of the offset
-					if (offset == 0) {
+					if (offset == 0)
 						offset = -1;
-					}
 					// make offset negative
 					offset *= Rnd.get(50, 100);
 					x += offset;
 					offset = Rnd.get(2); // Get the direction of the offset
-					if (offset == 0) {
+					if (offset == 0)
 						offset = -1;
-					}
 					// make offset negative
 					offset *= Rnd.get(50, 100);
 					y += offset;
@@ -1832,9 +1769,8 @@ public class Quest extends ManagedScript
 				spawn.setLocz(z + 20);
 				spawn.stopRespawn();
 				result = spawn.spawnOne();
-				if (despawnDelay > 0) {
+				if (despawnDelay > 0)
 					ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
-				}
 				return result;
 			}
 		}
@@ -1889,11 +1825,9 @@ public class Quest extends ManagedScript
 		// if timers ought to be restarted, the quest can take care of it
 		// with its code (example: save global data indicating what timer must
 		// be restarted).
-		for (FastList<QuestTimer> timers : _allEventTimers.values()) {
-			for (QuestTimer timer : timers) {
+		for (FastList<QuestTimer> timers : _allEventTimers.values())
+			for (QuestTimer timer : timers)
 				timer.cancel();
-			}
-		}
 		_allEventTimers.clear();
 		return QuestManager.getInstance().removeQuest(this);
 	}
@@ -1919,19 +1853,17 @@ public class Quest extends ManagedScript
 
 	protected boolean isIntInArray(int i, int[] ia)
 	{
-		for (int v : ia) {
-			if (i == v) {
+		for (int v : ia)
+			if (i == v)
 				return true;
-			}
-		}
 		return false;
 	}
 
 	protected void addQuestItem(int item)
 	{
-		if (questItemIds == null) {
+		if (questItemIds == null)
 			questItemIds = new int[] { item };
-		} else
+		else
 		{
 			int[] newarr = new int[questItemIds.length + 1];
 			System.arraycopy(questItemIds, 0, newarr, 0, questItemIds.length);
@@ -1942,9 +1874,9 @@ public class Quest extends ManagedScript
 
 	protected void addQuestItem(int[] items)
 	{
-		if (questItemIds == null) {
+		if (questItemIds == null)
 			questItemIds = items;
-		} else
+		else
 		{
 			int[] newarr = new int[questItemIds.length + items.length];
 			System.arraycopy(questItemIds, 0, newarr, 0, questItemIds.length);

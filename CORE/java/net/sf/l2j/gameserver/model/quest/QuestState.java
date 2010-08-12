@@ -103,32 +103,26 @@ public final class QuestState
 
 	String setInternal(String var, String val)
 	{
-		if (_vars == null) {
+		if (_vars == null)
 			_vars = new FastMap<String, String>();
-		}
-		if (val == null) {
+		if (val == null)
 			val = "";
-		}
 		_vars.put(var, val);
 		return val;
 	}
 
 	public String set(String var, String val)
 	{
-		if (_vars == null) {
+		if (_vars == null)
 			_vars = new FastMap<String, String>();
-		}
-		if (val == null) {
+		if (val == null)
 			val = "";
-		}
 		String old = _vars.put(var, val);
-		if (old != null) {
+		if (old != null)
 			Quest.updateQuestVarInDb(this, var, val);
-		} else {
+		else
 			Quest.createQuestVarInDb(this, var, val);
-		}
 		if (var == "cond")
-		{
 			try
 			{
 				int previousVal = 0;
@@ -146,7 +140,6 @@ public final class QuestState
 			{
 				_log.finer(getPlayer().getName() + ", " + getQuestName() + " cond [" + val + "] is not an integer.  Value stored, but no packet was sent: " + e);
 			}
-		}
 		return val;
 	}
 
@@ -167,19 +160,16 @@ public final class QuestState
 	{
 		int completedStateFlags = 0; // initializing...
 		// if there is no change since last setting, there is nothing to do here
-		if (cond == old) {
+		if (cond == old)
 			return;
-		}
 		// cond 0 and 1 do not need completedStateFlags. Also, if cond > 1, the 1st step must
 		// always exist (i.e. it can never be skipped). So if cond is 2, we can still safely
 		// assume no steps have been skipped.
 		// Finally, more than 31 steps CANNOT be supported in any way with skipping.
 		if (cond < 3 || cond > 31)
-		{
 			unset("__compltdStateFlags");
-		} else {
+		else
 			completedStateFlags = getInt("__compltdStateFlags");
-		}
 		// case 1: No steps have been skipped so far...
 		if (completedStateFlags == 0)
 		{
@@ -202,39 +192,35 @@ public final class QuestState
 			}
 		}
 		// case 2: There were exist previously skipped steps
-		else
+ else // if this is a push back to a previous step, clear all completion flags ahead
+		if (cond < old)
 		{
-			// if this is a push back to a previous step, clear all completion flags ahead
-			if (cond < old)
-			{
-				completedStateFlags &= (1 << cond) - 1; // note, this also unsets the flag indicating that there exist skips
-				// now, check if this resulted in no steps being skipped any more
-				if (completedStateFlags == (1 << cond) - 1) {
-					unset("__compltdStateFlags");
-				} else
-				{
-					// set the most significant bit back to 1 again, to correctly indicate that this skips states.
-					// also, ensure that the least significant bit is an 1 (the first step is never skipped, no matter
-					// what the cond says)
-					completedStateFlags |= 0x80000001;
-					set("__compltdStateFlags", String.valueOf(completedStateFlags));
-				}
-			}
-			// if this moves forward, it changes nothing on previously skipped steps...so just mark this
-			// state and we are done
+			completedStateFlags &= (1 << cond) - 1; // note, this also unsets the flag indicating that there exist skips
+			// now, check if this resulted in no steps being skipped any more
+			if (completedStateFlags == (1 << cond) - 1)
+				unset("__compltdStateFlags");
 			else
 			{
-				completedStateFlags |= 1 << cond - 1;
+				// set the most significant bit back to 1 again, to correctly indicate that this skips states.
+				// also, ensure that the least significant bit is an 1 (the first step is never skipped, no matter
+				// what the cond says)
+				completedStateFlags |= 0x80000001;
 				set("__compltdStateFlags", String.valueOf(completedStateFlags));
 			}
+		}
+		// if this moves forward, it changes nothing on previously skipped steps...so just mark this
+		// state and we are done
+		else
+		{
+			completedStateFlags |= 1 << cond - 1;
+			set("__compltdStateFlags", String.valueOf(completedStateFlags));
 		}
 		// send a packet to the client to inform it of the quest progress (step change)
 		QuestList ql = new QuestList();
 		getPlayer().sendPacket(ql);
 		int questId = getQuest().getQuestIntId();
-		if (questId > 0 && questId < 999 && cond > 0) {
+		if (questId > 0 && questId < 999 && cond > 0)
 			getPlayer().sendPacket(new ExShowQuestMark(questId));
-		}
 	}
 
 	/**
@@ -248,13 +234,11 @@ public final class QuestState
 	 */
 	public String unset(String var)
 	{
-		if (_vars == null) {
+		if (_vars == null)
 			return null;
-		}
 		String old = _vars.remove(var);
-		if (old != null) {
+		if (old != null)
 			Quest.deleteQuestVarInDb(this, var);
-		}
 		return old;
 	}
 
@@ -267,9 +251,8 @@ public final class QuestState
 	 */
 	public Object get(String var)
 	{
-		if (_vars == null) {
+		if (_vars == null)
 			return null;
-		}
 		return _vars.get(var);
 	}
 
@@ -304,9 +287,8 @@ public final class QuestState
 	 */
 	public void addNotifyOfDeath(L2Character character)
 	{
-		if (character == null) {
+		if (character == null)
 			return;
-		}
 		character.addNotifyQuestOfDeath(this);
 	}
 
@@ -320,11 +302,9 @@ public final class QuestState
 	public int getQuestItemsCount(int itemId)
 	{
 		int count = 0;
-		for (L2ItemInstance item : getPlayer().getInventory().getItems()) {
-			if (item.getItemId() == itemId) {
+		for (L2ItemInstance item : getPlayer().getInventory().getItems())
+			if (item.getItemId() == itemId)
 				count += item.getCount();
-			}
-		}
 		return count;
 	}
 
@@ -338,9 +318,8 @@ public final class QuestState
 	public int getEnchantLevel(int itemId)
 	{
 		L2ItemInstance enchanteditem = getPlayer().getInventory().getItemByItemId(itemId);
-		if (enchanteditem == null) {
+		if (enchanteditem == null)
 			return 0;
-		}
 		return enchanteditem.getEnchantLevel();
 	}
 
@@ -368,43 +347,35 @@ public final class QuestState
 
 	public void giveItems(int itemId, int count, int enchantlevel)
 	{
-		if (count <= 0) {
+		if (count <= 0)
 			return;
-		}
 		// If item for reward is adena (ID=57), modify count with rate for quest reward if rates available
-		if (itemId == 57 && !(enchantlevel > 0)) {
+		if (itemId == 57 && !(enchantlevel > 0))
 			count = (int) (count * Config.RATE_QUESTS_REWARD);
-		}
 		// Add items to player's inventory
 		L2ItemInstance item = getPlayer().getInventory().addItem("Quest", itemId, count, getPlayer(), getPlayer().getTarget());
-		if (item == null) {
+		if (item == null)
 			return;
-		}
 		// set enchant level for item if that item is not adena
-		if (enchantlevel > 0 && itemId != 57) {
+		if (enchantlevel > 0 && itemId != 57)
 			item.setEnchantLevel(enchantlevel);
-		}
 		if (itemId == 57)
 		{
 			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ADENA);
 			smsg.addNumber(count);
 			getPlayer().sendPacket(smsg);
+		} else if (count > 1)
+		{
+			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+			smsg.addItemName(item.getItemId());
+			smsg.addNumber(count);
+			getPlayer().sendPacket(smsg);
 		}
 		else
 		{
-			if (count > 1)
-			{
-				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-				smsg.addItemName(item.getItemId());
-				smsg.addNumber(count);
-				getPlayer().sendPacket(smsg);
-			}
-			else
-			{
-				SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
-				smsg.addItemName(item.getItemId());
-				getPlayer().sendPacket(smsg);
-			}
+			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
+			smsg.addItemName(item.getItemId());
+			getPlayer().sendPacket(smsg);
 		}
 		getPlayer().sendPacket(new ItemList(getPlayer(), false));
 		StatusUpdate su = new StatusUpdate(getPlayer().getObjectId());
@@ -421,42 +392,36 @@ public final class QuestState
 	{
 		dropChance *= Config.RATE_DROP_QUEST / (getPlayer().getParty() != null ? getPlayer().getParty().getMemberCount() : 1);
 		int currentCount = getQuestItemsCount(itemId);
-		if (neededCount > 0 && currentCount >= neededCount) {
+		if (neededCount > 0 && currentCount >= neededCount)
 			return true;
-		}
-		if (currentCount >= neededCount) {
+		if (currentCount >= neededCount)
 			return true;
-		}
 		int itemCount = 0;
 		int random = Rnd.get(L2DropData.MAX_CHANCE);
 		while (random < dropChance)
 		{
 			// Get the item quantity dropped
-			if (minCount < maxCount) {
+			if (minCount < maxCount)
 				itemCount += Rnd.get(minCount, maxCount);
-			} else if (minCount == maxCount) {
+			else if (minCount == maxCount)
 				itemCount += minCount;
-			} else {
+			else
 				itemCount++;
-			}
 			// Prepare for next iteration if dropChance > L2DropData.MAX_CHANCE
 			dropChance -= L2DropData.MAX_CHANCE;
 		}
 		if (itemCount > 0)
 		{
 			// if over neededCount, just fill the gap
-			if (neededCount > 0 && currentCount + itemCount > neededCount) {
+			if (neededCount > 0 && currentCount + itemCount > neededCount)
 				itemCount = neededCount - currentCount;
-			}
 			// Inventory slot check
-			if (!getPlayer().getInventory().validateCapacityByItemId(itemId)) {
+			if (!getPlayer().getInventory().validateCapacityByItemId(itemId))
 				return false;
-			}
 			// Give the item to Player
 			getPlayer().addItem("Quest", itemId, itemCount, getPlayer().getTarget(), true);
-			if (sound) {
+			if (sound)
 				playSound(currentCount + itemCount < neededCount ? "Itemsound.quest_itemget" : "Itemsound.quest_middle");
-			}
 		}
 		return neededCount > 0 && currentCount + itemCount >= neededCount;
 	}
@@ -493,19 +458,16 @@ public final class QuestState
 	{
 		// Get object item from player's inventory list
 		L2ItemInstance item = getPlayer().getInventory().getItemByItemId(itemId);
-		if (item == null) {
+		if (item == null)
 			return;
-		}
 		// Tests on count value in order not to have negative value
-		if (count < 0 || count > item.getCount()) {
+		if (count < 0 || count > item.getCount())
 			count = item.getCount();
-		}
 		// Destroy the quantity of items wanted
-		if (itemId == 57) {
+		if (itemId == 57)
 			getPlayer().reduceAdena("Quest", count, getPlayer(), true);
-		} else {
+		else
 			getPlayer().destroyItemByItemId("Quest", itemId, count, getPlayer(), true);
-		}
 	}
 
 	/**
@@ -700,19 +662,15 @@ public final class QuestState
 	 */
 	public QuestState exitQuest(boolean repeatable)
 	{
-		if (isCompleted()) {
+		if (isCompleted())
 			return this;
-		}
 		// Say quest is completed
 		setState(State.COMPLETED);
 		// Clean registered quest items
 		int[] itemIdList = getQuest().getRegisteredItemIds();
 		if (itemIdList != null)
-		{
-			for (int element : itemIdList) {
+			for (int element : itemIdList)
 				takeItems(element, -1);
-			}
-		}
 		// If quest is repeatable, delete quest from list of quest of the player and from database (quest CAN be created again => repeatable)
 		if (repeatable)
 		{
@@ -723,11 +681,9 @@ public final class QuestState
 		else
 		{
 			// Otherwise, delete variables for quest and update database (quest CANNOT be created again => not repeatable)
-			if (_vars != null) {
-				for (String var : _vars.keySet()) {
+			if (_vars != null)
+				for (String var : _vars.keySet())
 					unset(var);
-				}
-			}
 			Quest.updateQuestInDb(this);
 		}
 		return this;

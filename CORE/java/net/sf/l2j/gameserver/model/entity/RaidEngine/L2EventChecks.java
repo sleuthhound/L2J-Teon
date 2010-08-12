@@ -52,9 +52,8 @@ public class L2EventChecks
 	{
 		int eventPoints = 0;
 		// Let's avoid NPEs
-		if (player == null) {
+		if (player == null)
 			return false;
-		}
 		// If there's not enough clan members online to fill the MinPeople
 		// requirement
 		// return false.
@@ -69,9 +68,8 @@ public class L2EventChecks
 			/*
 			 * In case of finding a disconnected player, we will continue the for statement.
 			 */
-			if (member == null) {
+			if (member == null)
 				continue;
-			}
 			// Let's check if any of the members is in another Event.
 			if (checkIfOtherEvent(member))
 			{
@@ -91,9 +89,8 @@ public class L2EventChecks
 			{
 				case 2:
 				{
-					if (_eventPlayers.contains(player) && member.getClan().getName().equals(player.getClan().getName())) {
+					if (_eventPlayers.contains(player) && member.getClan().getName().equals(player.getClan().getName()))
 						eventPoints += member.getEventPoints();
-					}
 					break;
 				}
 				case 3:
@@ -116,15 +113,10 @@ public class L2EventChecks
 		if (eventPoints >= points)
 		{
 			for (L2PcInstance member : _eventPlayers)
-			{
 				// Deletion of all the Buffs from all the Clan members
 				for (L2Effect effect : member.getAllEffects())
-				{
-					if (effect != null) {
+					if (effect != null)
 						effect.exit();
-					}
-				}
-			}
 			return true;
 		}
 		// Else The Clan doesn't have enough event points to participate.
@@ -146,19 +138,11 @@ public class L2EventChecks
 	private static void notifyBadRequestor(L2PcInstance player, String badRequestor, int type, Vector<L2PcInstance> _eventPlayers)
 	{
 		if (type == 2)
-		{
 			for (L2PcInstance member : _eventPlayers)
-			{
 				member.sendMessage("You can't access the event while " + badRequestor + "is singed up for another event.");
-			}
-		}
 		if (type == 3)
-		{
 			for (L2PcInstance member : _eventPlayers)
-			{
 				member.sendMessage("You can't access the event while " + badRequestor + "is singed up for another event.");
-			}
-		}
 	}
 
 	public static boolean usualChecks(L2PcInstance player, int minLevel)
@@ -194,15 +178,14 @@ public class L2EventChecks
 	public static String eType(int type)
 	{
 		String sType;
-		if (type == 1) {
+		if (type == 1)
 			sType = "Single";
-		} else if (type == 2) {
+		else if (type == 2)
 			sType = "Clan";
-		} else if (type == 3) {
+		else if (type == 3)
 			sType = "Party";
-		} else {
+		else
 			sType = "error ocurred while getting type of Event.";
-		}
 		return sType;
 	}
 }

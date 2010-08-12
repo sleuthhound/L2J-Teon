@@ -53,9 +53,8 @@ public class ZoneCuboid extends L2ZoneForm
 	@Override
 	public boolean isInsideZone(int x, int y, int z)
 	{
-		if (x < _x1 || x > _x2 || y < _y1 || y > _y2 || z < _z1 || z > _z2) {
+		if (x < _x1 || x > _x2 || y < _y1 || y > _y2 || z < _z1 || z > _z2)
 			return false;
-		}
 		return true;
 	}
 
@@ -63,57 +62,41 @@ public class ZoneCuboid extends L2ZoneForm
 	public boolean intersectsRectangle(int ax1, int ax2, int ay1, int ay2)
 	{
 		// Check if any point inside this rectangle
-		if (isInsideZone(ax1, ay1, (_z2 - 1))) {
+		if (isInsideZone(ax1, ay1, (_z2 - 1)))
 			return true;
-		}
-		if (isInsideZone(ax1, ay2, (_z2 - 1))) {
+		if (isInsideZone(ax1, ay2, (_z2 - 1)))
 			return true;
-		}
-		if (isInsideZone(ax2, ay1, (_z2 - 1))) {
+		if (isInsideZone(ax2, ay1, (_z2 - 1)))
 			return true;
-		}
-		if (isInsideZone(ax2, ay2, (_z2 - 1))) {
+		if (isInsideZone(ax2, ay2, (_z2 - 1)))
 			return true;
-		}
 		// Check if any point from this rectangle is inside the other one
-		if (_x1 > ax1 && _x1 < ax2 && _y1 > ay1 && _y1 < ay2) {
+		if (_x1 > ax1 && _x1 < ax2 && _y1 > ay1 && _y1 < ay2)
 			return true;
-		}
-		if (_x1 > ax1 && _x1 < ax2 && _y2 > ay1 && _y2 < ay2) {
+		if (_x1 > ax1 && _x1 < ax2 && _y2 > ay1 && _y2 < ay2)
 			return true;
-		}
-		if (_x2 > ax1 && _x2 < ax2 && _y1 > ay1 && _y1 < ay2) {
+		if (_x2 > ax1 && _x2 < ax2 && _y1 > ay1 && _y1 < ay2)
 			return true;
-		}
-		if (_x2 > ax1 && _x2 < ax2 && _y2 > ay1 && _y2 < ay2) {
+		if (_x2 > ax1 && _x2 < ax2 && _y2 > ay1 && _y2 < ay2)
 			return true;
-		}
 		// Horizontal lines may intersect vertical lines
-		if (lineSegmentsIntersect(_x1, _y1, _x2, _y1, ax1, ay1, ax1, ay2)) {
+		if (lineSegmentsIntersect(_x1, _y1, _x2, _y1, ax1, ay1, ax1, ay2))
 			return true;
-		}
-		if (lineSegmentsIntersect(_x1, _y1, _x2, _y1, ax2, ay1, ax2, ay2)) {
+		if (lineSegmentsIntersect(_x1, _y1, _x2, _y1, ax2, ay1, ax2, ay2))
 			return true;
-		}
-		if (lineSegmentsIntersect(_x1, _y2, _x2, _y2, ax1, ay1, ax1, ay2)) {
+		if (lineSegmentsIntersect(_x1, _y2, _x2, _y2, ax1, ay1, ax1, ay2))
 			return true;
-		}
-		if (lineSegmentsIntersect(_x1, _y2, _x2, _y2, ax2, ay1, ax2, ay2)) {
+		if (lineSegmentsIntersect(_x1, _y2, _x2, _y2, ax2, ay1, ax2, ay2))
 			return true;
-		}
 		// Vertical lines may intersect horizontal lines
-		if (lineSegmentsIntersect(_x1, _y1, _x1, _y2, ax1, ay1, ax2, ay1)) {
+		if (lineSegmentsIntersect(_x1, _y1, _x1, _y2, ax1, ay1, ax2, ay1))
 			return true;
-		}
-		if (lineSegmentsIntersect(_x1, _y1, _x1, _y2, ax1, ay2, ax2, ay2)) {
+		if (lineSegmentsIntersect(_x1, _y1, _x1, _y2, ax1, ay2, ax2, ay2))
 			return true;
-		}
-		if (lineSegmentsIntersect(_x2, _y1, _x2, _y2, ax1, ay1, ax2, ay1)) {
+		if (lineSegmentsIntersect(_x2, _y1, _x2, _y2, ax1, ay1, ax2, ay1))
 			return true;
-		}
-		if (lineSegmentsIntersect(_x2, _y1, _x2, _y2, ax1, ay2, ax2, ay2)) {
+		if (lineSegmentsIntersect(_x2, _y1, _x2, _y2, ax1, ay2, ax2, ay2))
 			return true;
-		}
 		return false;
 	}
 
@@ -124,22 +107,18 @@ public class ZoneCuboid extends L2ZoneForm
 		// we just use the minimum z coordinate to prevent the
 		// function from saying we aren't in the zone because
 		// of a bad z coordinate.
-		if (isInsideZone(x, y, _z1)) {
+		if (isInsideZone(x, y, _z1))
 			return 0; // If you are inside the zone distance to zone is 0.
-		}
 		double test, shortestDist = Math.pow(_x1 - x, 2) + Math.pow(_y1 - y, 2);
 		test = Math.pow(_x1 - x, 2) + Math.pow(_y2 - y, 2);
-		if (test < shortestDist) {
+		if (test < shortestDist)
 			shortestDist = test;
-		}
 		test = Math.pow(_x2 - x, 2) + Math.pow(_y1 - y, 2);
-		if (test < shortestDist) {
+		if (test < shortestDist)
 			shortestDist = test;
-		}
 		test = Math.pow(_x2 - x, 2) + Math.pow(_y2 - y, 2);
-		if (test < shortestDist) {
+		if (test < shortestDist)
 			shortestDist = test;
-		}
 		return Math.sqrt(shortestDist);
 	}
 

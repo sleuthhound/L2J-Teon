@@ -38,9 +38,8 @@ public class ZoneCylinder extends L2ZoneForm
 	@Override
 	public boolean isInsideZone(int x, int y, int z)
 	{
-		if (Math.pow(_x - x, 2) + Math.pow(_y - y, 2) > _radS || z < _z1 || z > _z2) {
+		if (Math.pow(_x - x, 2) + Math.pow(_y - y, 2) > _radS || z < _z1 || z > _z2)
 			return false;
-		}
 		return true;
 	}
 
@@ -48,40 +47,31 @@ public class ZoneCylinder extends L2ZoneForm
 	public boolean intersectsRectangle(int ax1, int ax2, int ay1, int ay2)
 	{
 		// Circles point inside the rectangle?
-		if (_x > ax1 && _x < ax2 && _y > ay1 && _y < ay2) {
+		if (_x > ax1 && _x < ax2 && _y > ay1 && _y < ay2)
 			return true;
-		}
 		// Any point of the rectangle intersecting the Circle?
-		if (Math.pow(ax1 - _x, 2) + Math.pow(ay1 - _y, 2) < _radS) {
+		if (Math.pow(ax1 - _x, 2) + Math.pow(ay1 - _y, 2) < _radS)
 			return true;
-		}
-		if (Math.pow(ax1 - _x, 2) + Math.pow(ay2 - _y, 2) < _radS) {
+		if (Math.pow(ax1 - _x, 2) + Math.pow(ay2 - _y, 2) < _radS)
 			return true;
-		}
-		if (Math.pow(ax2 - _x, 2) + Math.pow(ay1 - _y, 2) < _radS) {
+		if (Math.pow(ax2 - _x, 2) + Math.pow(ay1 - _y, 2) < _radS)
 			return true;
-		}
-		if (Math.pow(ax2 - _x, 2) + Math.pow(ay2 - _y, 2) < _radS) {
+		if (Math.pow(ax2 - _x, 2) + Math.pow(ay2 - _y, 2) < _radS)
 			return true;
-		}
 		// Collision on any side of the rectangle?
 		if (_x > ax1 && _x < ax2)
 		{
-			if (Math.abs(_y - ay2) < _rad) {
+			if (Math.abs(_y - ay2) < _rad)
 				return true;
-			}
-			if (Math.abs(_y - ay1) < _rad) {
+			if (Math.abs(_y - ay1) < _rad)
 				return true;
-			}
 		}
 		if (_y > ay1 && _y < ay2)
 		{
-			if (Math.abs(_x - ax2) < _rad) {
+			if (Math.abs(_x - ax2) < _rad)
 				return true;
-			}
-			if (Math.abs(_x - ax1) < _rad) {
+			if (Math.abs(_x - ax1) < _rad)
 				return true;
-			}
 		}
 		return false;
 	}
@@ -93,9 +83,8 @@ public class ZoneCylinder extends L2ZoneForm
 		// we just use the minimum z coordinate to prevent the
 		// function from saying we aren't in the zone because
 		// of a bad z coordinate.
-		if (isInsideZone(x, y, _z1)) {
+		if (isInsideZone(x, y, _z1))
 			return 0; // If you are inside the zone distance to zone is 0.
-		}
 		return Math.sqrt((Math.pow(_x - x, 2) + Math.pow(_y - y, 2))) - _rad;
 	}
 
