@@ -43,9 +43,8 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -55,20 +54,12 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
 			player.sendPacket(my);
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showSiegeInfoWindow(player);
-			}
-		}
+			showSiegeInfoWindow(player);
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -81,9 +72,9 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 	 */
 	public void showSiegeInfoWindow(L2PcInstance player)
 	{
-		if (validateCondition(player)) {
+		if (validateCondition(player))
 			getCastle().getSiege().listRegisterClan(player);
-		} else
+		else
 		{
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile("data/html/siege/" + getTemplate().npcId + "-busy.htm");
@@ -96,9 +87,8 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 
 	private boolean validateCondition(L2PcInstance player)
 	{
-		if (getCastle().getSiege().getIsInProgress()) {
+		if (getCastle().getSiege().getIsInProgress())
 			return false; // Busy because of siege
-		}
 		return true;
 	}
 }

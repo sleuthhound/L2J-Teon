@@ -53,7 +53,6 @@ public class L2EventManagerInstance extends L2NpcInstance
 		String actualCommand = st.nextToken();
 		_finalPlayers = new Vector<L2PcInstance>();
 		if (actualCommand.equalsIgnoreCase("iEvent"))
-		{
 			try
 			{
 				/* Type:1- Single //2- Clan //3- Party */
@@ -73,20 +72,17 @@ public class L2EventManagerInstance extends L2NpcInstance
 				/* Level of The Prize to Hand out */
 				int prizeLevel = Integer.parseInt(st.nextToken());
 				if (player == null)
-				{
 					return;
-				}
 				setTarget(player);
 				if (_currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS)
 				{
 					player.sendMessage("There's alredy " + _currentEvents + " events in progress. " + "Wait untill one of them ends to get into another one.");
 					return;
 				}
-				if (L2EventChecks.usualChecks(player, minLevel)) {
+				if (L2EventChecks.usualChecks(player, minLevel))
 					_finalPlayers.add(player);
-				} else {
+				else
 					return;
-				}
 				// If the player has passed the checks, then continue.
 				switch (type)
 				{
@@ -102,15 +98,12 @@ public class L2EventManagerInstance extends L2NpcInstance
 						for (L2PcInstance member : onlineclanMembers)
 						{
 							boolean eligible = true;
-							if (member == null) {
+							if (member == null)
 								continue;
-							}
-							if (!L2EventChecks.usualChecks(member, minLevel)) {
+							if (!L2EventChecks.usualChecks(member, minLevel))
 								eligible = false;
-							}
-							if (eligible && !_finalPlayers.contains(member)) {
+							if (eligible && !_finalPlayers.contains(member))
 								_finalPlayers.add(member);
-							}
 						}
 						if (_finalPlayers.size() > 1 && _finalPlayers.size() >= minPeople)
 						{
@@ -123,13 +116,12 @@ public class L2EventManagerInstance extends L2NpcInstance
 						else
 						{
 							String reason;
-							if (_finalPlayers.size() > 1) {
+							if (_finalPlayers.size() > 1)
 								reason = ": Only 1 Clan Member Online.";
-							} else if (_finalPlayers.size() < minPeople) {
+							else if (_finalPlayers.size() < minPeople)
 								reason = ": Not enough members online to participate.";
-							} else {
+							else
 								reason = ".";
-							}
 							player.sendMessage("Cannot participate" + reason);
 						}
 						break;
@@ -146,15 +138,12 @@ public class L2EventManagerInstance extends L2NpcInstance
 						for (L2PcInstance member : partyMembers)
 						{
 							boolean eligible = true;
-							if (member == null) {
+							if (member == null)
 								continue;
-							}
-							if (!L2EventChecks.usualChecks(member, minLevel)) {
+							if (!L2EventChecks.usualChecks(member, minLevel))
 								eligible = false;
-							}
-							if (eligible && !_finalPlayers.contains(member)) {
+							if (eligible && !_finalPlayers.contains(member))
 								_finalPlayers.add(member);
-							}
 						}
 						if (_finalPlayers.size() > 1 && _finalPlayers.size() >= minPeople)
 						{
@@ -167,13 +156,12 @@ public class L2EventManagerInstance extends L2NpcInstance
 						else
 						{
 							String reason;
-							if (_finalPlayers.size() > 1) {
+							if (_finalPlayers.size() > 1)
 								reason = ": Only 1 Party Member.";
-							} else if (_finalPlayers.size() < minPeople) {
+							else if (_finalPlayers.size() < minPeople)
 								reason = ": Not enough members to participate.";
-							} else {
+							else
 								reason = ".";
-							}
 							player.sendMessage("Cannot participate" + reason);
 						}
 						break;
@@ -191,7 +179,6 @@ public class L2EventManagerInstance extends L2NpcInstance
 				_log.warning("L2EventManagerInstance: Error while getting html command");
 				e.printStackTrace();
 			}
-		}
 		super.onBypassFeedback(player, command);
 	}
 
@@ -200,21 +187,17 @@ public class L2EventManagerInstance extends L2NpcInstance
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return "data/html/mods/raidevent/" + pom + ".htm";
 	}
 
 	public static boolean addEvent()
 	{
-		if (_currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS) {
+		if (_currentEvents >= Config.RAID_SYSTEM_MAX_EVENTS)
 			return false;
-		} else
+		else
 		{
 			_currentEvents += 1;
 			return true;
@@ -227,8 +210,7 @@ public class L2EventManagerInstance extends L2NpcInstance
 		{
 			_currentEvents -= 1;
 			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
 }

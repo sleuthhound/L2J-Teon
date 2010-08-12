@@ -50,9 +50,8 @@ public class L2EffectPointInstance extends L2NpcInstance
 	public void onActionShift(L2GameClient client)
 	{
 		L2PcInstance player = client.getActiveChar();
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

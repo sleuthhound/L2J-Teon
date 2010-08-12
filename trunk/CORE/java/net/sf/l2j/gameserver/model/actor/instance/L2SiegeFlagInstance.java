@@ -36,9 +36,8 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 		_player = player;
 		_siege = SiegeManager.getInstance().getSiege(_player.getX(), _player.getY(), _player.getZ());
 		if (_player.getClan() == null || _siege == null)
-		{
 			deleteMe();
-		} else {
+		else {
 			L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
 			if (sc == null)
 				deleteMe();
@@ -98,16 +97,10 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 			player.sendPacket(su);
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100)
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 		else
-		{
-			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100) {
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-			} else
-			{
-				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-				player.sendPacket(ActionFailed.STATIC_PACKET);
-			}
-		}
+			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

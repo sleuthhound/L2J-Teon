@@ -48,24 +48,21 @@ public class L2FishermanInstance extends L2FolkInstance
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
-		if (val == 0) {
+		if (val == 0)
 			pom = "" + npcId;
-		} else {
+		else
 			pom = npcId + "-" + val;
-		}
 		return "data/html/fisherman/" + pom + ".htm";
 	}
 
 	private void showBuyWindow(L2PcInstance player, int val)
 	{
 		double taxRate = 0;
-		if (getIsInTown()) {
+		if (getIsInTown())
 			taxRate = getCastle().getTaxRate();
-		}
 		player.tempInvetoryDisable();
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing buylist");
-		}
 		L2TradeList list = TradeController.getInstance().getBuyList(val);
 		if (list != null && list.getNpcId().equals(String.valueOf(getNpcId())))
 		{
@@ -82,13 +79,11 @@ public class L2FishermanInstance extends L2FolkInstance
 
 	private void showSellWindow(L2PcInstance player)
 	{
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing selllist");
-		}
 		player.sendPacket(new SellList(player));
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing sell window");
-		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
@@ -104,20 +99,15 @@ public class L2FishermanInstance extends L2FolkInstance
 		String command2 = st.nextToken();
 		if (command2.equalsIgnoreCase("Buy"))
 		{
-			if (st.countTokens() < 1) {
+			if (st.countTokens() < 1)
 				return;
-			}
 			int val = Integer.parseInt(st.nextToken());
 			showBuyWindow(player, val);
 		}
 		else if (command2.equalsIgnoreCase("Sell"))
-		{
 			showSellWindow(player);
-		}
 		else
-		{
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	public void showSkillList(L2PcInstance player)
@@ -128,9 +118,8 @@ public class L2FishermanInstance extends L2FolkInstance
 		for (L2SkillLearn s : skills)
 		{
 			L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-			if (sk == null) {
+			if (sk == null)
 				continue;
-			}
 			counts++;
 			asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), s.getSpCost(), 1);
 		}
@@ -154,11 +143,8 @@ public class L2FishermanInstance extends L2FolkInstance
 				html.setHtml(sb.toString());
 				player.sendPacket(html);
 			}
-		}
-		else
-		{
+		} else
 			player.sendPacket(asl);
-		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

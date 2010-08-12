@@ -75,9 +75,8 @@ public class L2XmassTreeInstance extends L2NpcInstance
 	@Override
 	public void deleteMe()
 	{
-		if (_aiTask != null) {
+		if (_aiTask != null)
 			_aiTask.cancel(true);
-		}
 		super.deleteMe();
 	}
 

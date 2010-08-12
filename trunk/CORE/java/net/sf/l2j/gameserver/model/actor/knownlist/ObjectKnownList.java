@@ -48,17 +48,14 @@ public class ObjectKnownList
 
 	public boolean addKnownObject(L2Object object, L2Character dropper)
 	{
-		if (object == null) {
+		if (object == null)
 			return false;
-		}
 		// Check if already know object
-		if (knowsObject(object)) {
+		if (knowsObject(object))
 			return false;
-		}
 		// Check if object is not inside distance to watch object
-		if (!Util.checkIfInShortRadius(getDistanceToWatchObject(object), getActiveObject(), object, true)) {
+		if (!Util.checkIfInShortRadius(getDistanceToWatchObject(object), getActiveObject(), object, true))
 			return false;
-		}
 		return getKnownObjects().put(object.getObjectId(), object) == null;
 	}
 
@@ -75,9 +72,8 @@ public class ObjectKnownList
 
 	public boolean removeKnownObject(L2Object object)
 	{
-		if (object == null) {
+		if (object == null)
 			return false;
-		}
 		return getKnownObjects().remove(object.getObjectId()) != null;
 	}
 
@@ -86,41 +82,26 @@ public class ObjectKnownList
 	public final void findObjects()
 	{
 		L2WorldRegion region = getActiveObject().getWorldRegion();
-		if (region == null) {
+		if (region == null)
 			return;
-		}
 
 		if (getActiveObject() instanceof L2PlayableInstance)
 		{
-			for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
-			{
+			for (L2WorldRegion regi : region.getSurroundingRegions())
 				for (L2Object _object : regi.getVisibleObjects())
-				{
 					if (_object != getActiveObject())
 					{
 						addKnownObject(_object);
-						if (_object instanceof L2Character) {
+						if (_object instanceof L2Character)
 							_object.getKnownList().addKnownObject(getActiveObject());
-						}
 					}
-				}
-			}
 		}
 		else if (getActiveObject() instanceof L2Character)
-		{
-			for (L2WorldRegion regi : region.getSurroundingRegions()) // offer members of this and surrounding regions
-			{
-				if (regi.isActive()) {
+			for (L2WorldRegion regi : region.getSurroundingRegions())
+				if (regi.isActive())
 					for (L2Object _object : regi.getVisiblePlayable())
-					{
 						if (_object != getActiveObject())
-						{
 							addKnownObject(_object);
-						}
-					}
-				}
-			}
-		}
 	}
 
     // Remove invisible and too far L2Object from _knowObject and if necessary from _knownPlayers of the L2Character
@@ -129,12 +110,11 @@ public class ObjectKnownList
 		// Go through knownObjects
         for (L2Object object: getKnownObjects().values())
 		{
-            if (!fullCheck && !(object instanceof L2PlayableInstance)) {
+            if (!fullCheck && !(object instanceof L2PlayableInstance))
 				continue;
-			}
 			// Remove all invisible object
 			// Remove all too far object
-			if (!object.isVisible() || !Util.checkIfInShortRadius(getDistanceToForgetObject(object), getActiveObject(), object, true)) {
+			if (!object.isVisible() || !Util.checkIfInShortRadius(getDistanceToForgetObject(object), getActiveObject(), object, true))
 				if (object instanceof L2BoatInstance && getActiveObject() instanceof L2PcInstance)
 				{
 					if (((L2BoatInstance) object).getVehicleDeparture() == null)
@@ -146,22 +126,12 @@ public class ObjectKnownList
 						if (((L2PcInstance) getActiveObject()).getBoat() == object)
 						{
 							//
-						}
-						else
-						{
+						} else
 							removeKnownObject(object);
-						}
-					}
-					else
-					{
+					} else
 						removeKnownObject(object);
-					}
-				}
-				else
-				{
+				} else
 					removeKnownObject(object);
-				}
-			}
 		}
 	}
 
@@ -187,9 +157,8 @@ public class ObjectKnownList
 	 */
 	public final Map<Integer, L2Object> getKnownObjects()
 	{
-		if (_knownObjects == null) {
+		if (_knownObjects == null)
 			_knownObjects = new FastMap<Integer, L2Object>().shared();
-		}
 		return _knownObjects;
 	}
 }

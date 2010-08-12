@@ -64,23 +64,17 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		if (player.getClan() != null)
-		{
 			if (player.getClan().getLevel() == 0)
-			{
 				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-			}
 			else
 			{
 				if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
-				{
 					player.sendPacket(new SystemMessage(SystemMessageId.ONLY_CLAN_LEADER_CAN_RETRIEVE_ITEMS_FROM_CLAN_WAREHOUSE));
-				}
 				player.setActiveWarehouse(player.getClan().getWarehouse());
 				player.tempInvetoryDisable();
 				WareHouseDepositList dl = new WareHouseDepositList(player, WareHouseDepositList.CLAN);
 				player.sendPacket(dl);
 			}
-		}
 	}
 
 	private void showWithdrawWindowClan(L2PcInstance player)
@@ -90,18 +84,12 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
 			return;
-		}
+		} else if (player.getClan().getLevel() == 0)
+			player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
 		else
 		{
-			if (player.getClan().getLevel() == 0)
-			{
-				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-			}
-			else
-			{
-				player.setActiveWarehouse(player.getClan().getWarehouse());
-				player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
-			}
+			player.setActiveWarehouse(player.getClan().getWarehouse());
+			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
 		}
 	}
 
@@ -114,15 +102,15 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 			player.closeNetConnection();
 			return;
 		}
-		if (command.startsWith("WithdrawP")) {
+		if (command.startsWith("WithdrawP"))
 			showRetrieveWindow(player);
-		} else if (command.equals("DepositP")) {
+		else if (command.equals("DepositP"))
 			showDepositWindow(player);
-		} else if (command.equals("WithdrawC")) {
+		else if (command.equals("WithdrawC"))
 			showWithdrawWindowClan(player);
-		} else if (command.equals("DepositC")) {
+		else if (command.equals("DepositC"))
 			showDepositWindowClan(player);
-		} else if (command.startsWith("Chat"))
+		else if (command.startsWith("Chat"))
 		{
 			int val = 0;
 			try
@@ -136,9 +124,8 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 			{
 			}
 			showChatWindow(player, val);
-		} else {
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override
@@ -148,18 +135,13 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 		String filename = "data/html/castlewarehouse/castlewarehouse-no.htm";
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
-		{
-			if (condition == COND_BUSY_BECAUSE_OF_SIEGE) {
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/castlewarehouse/castlewarehouse-busy.htm"; // Busy because of siege
-			} else if (condition == COND_OWNER) // Clan owns castle
-			{
-				if (val == 0) {
+			else if (condition == COND_OWNER)
+				if (val == 0)
 					filename = "data/html/castlewarehouse/castlewarehouse.htm";
-				} else {
+				else
 					filename = "data/html/castlewarehouse/castlewarehouse-" + val + ".htm";
-				}
-			}
-		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -169,20 +151,14 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 
 	protected int validateCondition(L2PcInstance player)
 	{
-		if (player.isGM()) {
+		if (player.isGM())
 			return COND_OWNER;
-		}
 		if (getCastle() != null && getCastle().getCastleId() > 0)
-		{
 			if (player.getClan() != null)
-			{
-				if (getCastle().getSiege().getIsInProgress()) {
+				if (getCastle().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				} else if (getCastle().getOwnerId() == player.getClanId()) {
+				else if (getCastle().getOwnerId() == player.getClanId())
 					return COND_OWNER;
-				}
-			}
-		}
 		return COND_ALL_FALSE;
 	}
 }

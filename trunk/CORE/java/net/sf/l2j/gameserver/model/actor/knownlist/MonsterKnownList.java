@@ -43,28 +43,23 @@ public class MonsterKnownList extends AttackableKnownList
 	@Override
 	public boolean addKnownObject(L2Object object, L2Character dropper)
 	{
-		if (!super.addKnownObject(object, dropper)) {
+		if (!super.addKnownObject(object, dropper))
 			return false;
-		}
 		// Set the L2MonsterInstance Intention to AI_INTENTION_ACTIVE if the
 		// state was AI_INTENTION_IDLE
-		if (object instanceof L2PcInstance && getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE) {
+		if (object instanceof L2PcInstance && getActiveChar().getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
 			getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-		}
 		return true;
 	}
 
 	@Override
 	public boolean removeKnownObject(L2Object object)
 	{
-		if (!super.removeKnownObject(object)) {
+		if (!super.removeKnownObject(object))
 			return false;
-		}
-		if (!(object instanceof L2Character)) {
+		if (!(object instanceof L2Character))
 			return true;
-		}
 		if (getActiveChar().hasAI())
-		{
 			// Notify the L2MonsterInstance AI with EVT_FORGET_OBJECT
 			getActiveChar().getAI().notifyEvent(CtrlEvent.EVT_FORGET_OBJECT, object);
 			// TODO Remove this function because it's already done in
@@ -75,9 +70,7 @@ public class MonsterKnownList extends AttackableKnownList
 			// L2Character temp = (L2Character)object;
 			// if (getTarget() == temp)
 			// setTarget(null);
-		}
 		if (getActiveChar().isVisible() && getKnownPlayers().isEmpty())
-		{
 			// Clear the _aggroList of the L2MonsterInstance
 			getActiveChar().clearAggroList();
 			// Remove all L2Object from _knownObjects and _knownPlayer of
@@ -89,7 +82,6 @@ public class MonsterKnownList extends AttackableKnownList
 			// Set the L2MonsterInstance AI to AI_INTENTION_IDLE
 			// if (hasAI())
 			// getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-		}
 		return true;
 	}
 

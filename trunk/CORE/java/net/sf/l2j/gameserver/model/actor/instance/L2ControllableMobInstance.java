@@ -62,20 +62,15 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	public L2CharacterAI getAI()
 	{
 		if (_ai == null)
-		{
 			synchronized (this)
 			{
 				if (_ai == null && _aiBackup == null)
 				{
 					_ai = new L2ControllableMobAI(new ControllableAIAcessor());
 					_aiBackup = (L2ControllableMobAI) _ai;
-				}
-				else
-				{
+				} else
 					_ai = _aiBackup;
-				}
 			}
-		}
 		return _ai;
 	}
 
@@ -94,30 +89,21 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake)
 	{
 		if (isInvul() || isDead())
-		{
 			return;
-		}
 		if (awake)
-		{
 			stopSleeping(null);
-		}
-		if (isImmobileUntilAttacked()) {
+		if (isImmobileUntilAttacked())
 			stopImmobileUntilAttacked(null);
-		}
 		i = getCurrentHp() - i;
 		if (i < 0)
-		{
 			i = 0;
-		}
 		setCurrentHp(i);
 		if (isDead())
 		{
 			// first die (and calculate rewards), if currentHp < 0,
 			// then overhit may be calculated
 			if (Config.DEBUG)
-			{
 				_log.fine("char is dead.");
-			}
 			stopMove(null);
 			// Start the doDie process
 			doDie(attacker);
@@ -130,9 +116,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	public boolean doDie(L2Character killer)
 	{
 		if (!super.doDie(killer))
-		{
 			return false;
-		}
 		removeAI();
 		return true;
 	}

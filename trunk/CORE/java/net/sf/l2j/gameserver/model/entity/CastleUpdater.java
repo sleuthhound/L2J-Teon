@@ -47,30 +47,21 @@ public class CastleUpdater implements Runnable
 			{
 				Castle castle = CastleManager.getInstance().getCastleById(_clan.getHasCastle());
 				if (!Config.ALT_MANOR_SAVE_ALL_ACTIONS)
-				{
 					if (_runCount % Config.ALT_MANOR_SAVE_PERIOD_RATE == 0)
 					{
 						castle.saveSeedData();
 						castle.saveCropData();
 						_log.info("Manor System: all data for " + castle.getName() + " saved");
 					}
-				}
 				if (_runCount % 3 == 0)
-				{
 					warehouse.addItem("Castle", 5126, 1, null, null);
-				}
 				if (_runCount % 24 == 0)
-				{
-					if (castle.getCastleId() >= 1 && castle.getCastleId() < 5 || castle.getCastleId() == 6) {
+					if (castle.getCastleId() >= 1 && castle.getCastleId() < 5 || castle.getCastleId() == 6)
 						warehouse.addItem("Castle", 6622, 1, null, null);
-					} else {
+					else
 						warehouse.addItem("Castle", 6622, 2, null, null);
-					}
-				}
 				if (_runCount % 6 == 0)
-				{
 					_clan.setReputationScore(_clan.getReputationScore() + 1, true);
-				}
 				_runCount++;
 				CastleUpdater cu = new CastleUpdater(_clan, _runCount);
 				ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);

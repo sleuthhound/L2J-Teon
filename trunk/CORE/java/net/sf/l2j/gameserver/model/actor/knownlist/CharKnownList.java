@@ -51,9 +51,8 @@ public class CharKnownList extends ObjectKnownList
 	@Override
 	public boolean addKnownObject(L2Object object, L2Character dropper)
 	{
-		if (!super.addKnownObject(object, dropper)) {
+		if (!super.addKnownObject(object, dropper))
 			return false;
-		}
 		if (object instanceof L2PcInstance)
 		{
 			getKnownPlayers().put(object.getObjectId(), (L2PcInstance) object);
@@ -87,26 +86,23 @@ public class CharKnownList extends ObjectKnownList
 		// Cancel Attack or Cast
 		getActiveChar().setTarget(null);
 		// Cancel AI Task
-		if (getActiveChar().hasAI()) {
+		if (getActiveChar().hasAI())
 			getActiveChar().setAI(null);
-		}
 	}
 
 	@Override
 	public boolean removeKnownObject(L2Object object)
 	{
-		if (!super.removeKnownObject(object)) {
+		if (!super.removeKnownObject(object))
 			return false;
-		}
 		if (object instanceof L2PcInstance)
 		{
 			getKnownPlayers().remove(object.getObjectId());
 			getKnownRelations().remove(object.getObjectId());
 		}
 		// If object is targeted by the L2Character, cancel Attack or Cast
-		if (object == getActiveChar().getTarget()) {
+		if (object == getActiveChar().getTarget())
 			getActiveChar().setTarget(null);
-		}
 		return true;
 	}
 
@@ -135,11 +131,8 @@ public class CharKnownList extends ObjectKnownList
 	{
 		FastList<L2Character> result = new FastList<L2Character>();
 		for (L2Object obj : getKnownObjects().values())
-		{
-			if (obj instanceof L2Character) {
+			if (obj instanceof L2Character)
 				result.add((L2Character) obj);
-			}
-		}
 		return result;
 	}
 
@@ -147,53 +140,42 @@ public class CharKnownList extends ObjectKnownList
 	{
 		FastList<L2Character> result = new FastList<L2Character>();
 		for (L2Object obj : getKnownObjects().values())
-		{
 			if (obj instanceof L2PcInstance)
 			{
-				if (Util.checkIfInRange((int) radius, getActiveChar(), obj, true)) {
+				if (Util.checkIfInRange((int) radius, getActiveChar(), obj, true))
 					result.add((L2PcInstance) obj);
-				}
 			}
 			else if (obj instanceof L2MonsterInstance)
 			{
-				if (Util.checkIfInRange((int) radius, getActiveChar(), obj, true)) {
+				if (Util.checkIfInRange((int) radius, getActiveChar(), obj, true))
 					result.add((L2MonsterInstance) obj);
-				}
 			}
 			else if (obj instanceof L2NpcInstance)
-			{
-				if (Util.checkIfInRange((int) radius, getActiveChar(), obj, true)) {
+				if (Util.checkIfInRange((int) radius, getActiveChar(), obj, true))
 					result.add((L2NpcInstance) obj);
-				}
-			}
-		}
 		return result;
 	}
 
 	public final Map<Integer, L2PcInstance> getKnownPlayers()
 	{
-		if (_knownPlayers == null) {
+		if (_knownPlayers == null)
 			_knownPlayers = new FastMap<Integer, L2PcInstance>().shared();
-		}
 		return _knownPlayers;
 	}
 
 	public final Map<Integer, Integer> getKnownRelations()
 	{
-		if (_knownRelations == null) {
+		if (_knownRelations == null)
 			_knownRelations = new FastMap<Integer, Integer>().shared();
-		}
 		return _knownRelations;
 	}
 
 	public final Collection<L2PcInstance> getKnownPlayersInRadius(long radius)
 	{
 		FastList<L2PcInstance> result = new FastList<L2PcInstance>();
-		for (L2PcInstance player : getKnownPlayers().values()) {
-			if (Util.checkIfInRange((int) radius, getActiveChar(), player, true)) {
+		for (L2PcInstance player : getKnownPlayers().values())
+			if (Util.checkIfInRange((int) radius, getActiveChar(), player, true))
 				result.add(player);
-			}
-		}
 		return result;
 	}
 }

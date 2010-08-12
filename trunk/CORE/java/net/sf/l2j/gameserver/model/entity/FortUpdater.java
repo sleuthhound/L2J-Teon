@@ -42,9 +42,7 @@ public class FortUpdater implements Runnable
 			if (_clan.getHasFort() > 0)
 			{
 				if (_runCount % 6 == 0)
-				{
 					_clan.setReputationScore(_clan.getReputationScore() + 1, true);
-				}
 				_runCount++;
 				FortUpdater cu = new FortUpdater(_clan, _runCount);
 				ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);

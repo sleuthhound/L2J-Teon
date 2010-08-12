@@ -133,16 +133,12 @@ public class Siege
 		public void run()
 		{
 			if (!getIsInProgress())
-			{
 				return;
-			}
 			try
 			{
 				long timeRemaining = _siegeEndDate.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
 				if (timeRemaining > 3600000)
-				{
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining - 3600000); // Prepare task for 1 hr left.
-				}
 				else if (timeRemaining <= 3600000 && timeRemaining > 600000)
 				{
 					announceToPlayer(Math.round(timeRemaining / 60000) + " minute(s) until " + getCastle().getName() + " siege conclusion.", true);
@@ -162,11 +158,8 @@ public class Siege
 				{
 					announceToPlayer(getCastle().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) left!", true);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleEndSiegeTask(_castleInst), timeRemaining); // Prepare task for second count down
-				}
-				else
-				{
+				} else
 					_castleInst.getSiege().endSiege();
-				}
 			}
 			catch (Throwable t)
 			{
@@ -186,16 +179,12 @@ public class Siege
 		public void run()
 		{
 			if (getIsInProgress())
-			{
 				return;
-			}
 			try
 			{
 				long timeRemaining = getSiegeDate().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
 				if (timeRemaining > 86400000)
-				{
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining - 86400000); // Prepare task for 24 before siege start to end registration
-				}
 				else if (timeRemaining <= 86400000 && timeRemaining > 13600000)
 				{
 					announceToPlayer("The registration term for " + getCastle().getName() + " has ended.", false);
@@ -222,11 +211,8 @@ public class Siege
 				{
 					announceToPlayer(getCastle().getName() + " siege " + Math.round(timeRemaining / 1000) + " second(s) to start!", false);
 					ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleStartSiegeTask(_castleInst), timeRemaining); // Prepare task for second count down
-				}
-				else
-				{
+				} else
 					_castleInst.getSiege().startSiege();
-				}
 			}
 			catch (Throwable t)
 			{
@@ -272,9 +258,7 @@ public class Siege
 		{
 			announceToPlayer("The siege of " + getCastle().getName() + " has finished!", false);
 			if (getCastle().getOwnerId() <= 0)
-			{
 				announceToPlayer("The siege of " + getCastle().getName() + " has ended in a draw.", false);
-			}
 			removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
 			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town);
 			// Teleport to the second closest town
@@ -290,9 +274,7 @@ public class Siege
 			removeControlTower(); // Remove all control tower from this castle
 			_siegeGuardManager.unspawnSiegeGuard(); // Remove all spawned siege guard from this castle
 			if (getCastle().getOwnerId() > 0)
-			{
 				_siegeGuardManager.removeMercs();
-			}
 			getCastle().spawnDoor(); // Respawn door to castle
 			getCastle().getZone().updateZoneStatusForCharactersInside();
 			SiegeManager.getInstance().removeSiege(this);
@@ -302,25 +284,19 @@ public class Siege
 	private void removeDefender(L2SiegeClan sc)
 	{
 		if (sc != null)
-		{
 			getDefenderClans().remove(sc);
-		}
 	}
 
 	private void removeAttacker(L2SiegeClan sc)
 	{
 		if (sc != null)
-		{
 			getAttackerClans().remove(sc);
-		}
 	}
 
 	private void addDefender(L2SiegeClan sc, SiegeClanType type)
 	{
 		if (sc == null)
-		{
 			return;
-		}
 		sc.setType(type);
 		getDefenderClans().add(sc);
 	}
@@ -328,9 +304,7 @@ public class Siege
 	private void addAttacker(L2SiegeClan sc)
 	{
 		if (sc == null)
-		{
 			return;
-		}
 		sc.setType(SiegeClanType.ATTACKER);
 		getAttackerClans().add(sc);
 	}
@@ -344,10 +318,8 @@ public class Siege
 		if (getIsInProgress()) // Siege still in progress
 		{
 			if (getCastle().getOwnerId() > 0)
-			{
 				_siegeGuardManager.removeMercs(); // Remove all merc entry
 				// from db
-			}
 			if (getDefenderClans().size() == 0 && // If defender doesn't exist (Pc vs Npc)
 					getAttackerClans().size() == 1) // Only 1 attacker
 			{
@@ -361,22 +333,14 @@ public class Siege
 			{
 				int allyId = ClanTable.getInstance().getClan(getCastle().getOwnerId()).getAllyId();
 				if (getDefenderClans().size() == 0)
-				// If defender doesn't exist (Pc vs Npc) and only an alliance attacks
-				{
 					// The player's clan is in an alliance
 					if (allyId != 0)
 					{
 						boolean allinsamealliance = true;
 						for (L2SiegeClan sc : getAttackerClans())
-						{
 							if (sc != null)
-							{
 								if (ClanTable.getInstance().getClan(sc.getClanId()).getAllyId() != allyId)
-								{
 									allinsamealliance = false;
-								}
-							}
-						}
 						if (allinsamealliance)
 						{
 							L2SiegeClan sc_newowner = getAttackerClan(getCastle().getOwnerId());
@@ -386,15 +350,12 @@ public class Siege
 							return;
 						}
 					}
-				}
 				for (L2SiegeClan sc : getDefenderClans())
-				{
 					if (sc != null)
 					{
 						removeDefender(sc);
 						addAttacker(sc);
 					}
-				}
 				L2SiegeClan sc_newowner = getAttackerClan(getCastle().getOwnerId());
 				removeAttacker(sc_newowner);
 				addDefender(sc_newowner, SiegeClanType.OWNER);
@@ -403,7 +364,6 @@ public class Siege
 				{
 					L2Clan[] clanList = ClanTable.getInstance().getClans();
 					for (L2Clan clan : clanList)
-					{
 						if (clan.getAllyId() == allyId)
 						{
 							L2SiegeClan sc = getAttackerClan(clan.getClanId());
@@ -413,7 +373,6 @@ public class Siege
 								addDefender(sc, SiegeClanType.DEFENDER);
 							}
 						}
-					}
 				}
 				teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.SiegeFlag);
 				// Teleport to the second closest town
@@ -444,13 +403,9 @@ public class Siege
 			{
 				SystemMessage sm;
 				if (getCastle().getOwnerId() <= 0)
-				{
 					sm = new SystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_BEEN_CANCELED_DUE_TO_LACK_OF_INTEREST);
-				}
 				else
-				{
 					sm = new SystemMessage(SystemMessageId.S1_SIEGE_WAS_CANCELED_BECAUSE_NO_CLANS_PARTICIPATED);
-				}
 				sm.addString(getCastle().getName());
 				Announcements.getInstance().announceToAll(sm);
 				return;
@@ -501,9 +456,7 @@ public class Siege
 		}
 		// Get all players
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
 			player.sendMessage(message);
-		}
 	}
 
 	public void updatePlayerSiegeStateFlags(boolean clear)
@@ -515,18 +468,12 @@ public class Siege
 			for (L2PcInstance member : clan.getOnlineMembers(""))
 			{
 				if (clear)
-				{
 					member.setSiegeState((byte) 0);
-				}
 				else
-				{
 					member.setSiegeState((byte) 1);
-				}
 				member.sendPacket(new UserInfo(member));
 				for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
-				{
 					player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
-				}
 			}
 		}
 		for (L2SiegeClan siegeclan : getDefenderClans())
@@ -535,18 +482,12 @@ public class Siege
 			for (L2PcInstance member : clan.getOnlineMembers(""))
 			{
 				if (clear)
-				{
 					member.setSiegeState((byte) 0);
-				}
 				else
-				{
 					member.setSiegeState((byte) 2);
-				}
 				member.sendPacket(new UserInfo(member));
 				for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
-				{
 					player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
-				}
 			}
 		}
 	}
@@ -561,9 +502,7 @@ public class Siege
 	public void approveSiegeDefenderClan(int clanId)
 	{
 		if (clanId <= 0)
-		{
 			return;
-		}
 		saveSiegeClan(ClanTable.getInstance().getClan(clanId), 0, true);
 		loadSiegeClan();
 	}
@@ -697,12 +636,8 @@ public class Siege
 		{
 			clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
 			for (L2PcInstance player : clan.getOnlineMembers(""))
-			{
 				if (checkIfInZone(player.getX(), player.getY(), player.getZ()))
-				{
 					players.add(player);
-				}
-			}
 		}
 		return players;
 	}
@@ -718,16 +653,10 @@ public class Siege
 		{
 			clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
 			if (clan.getClanId() == getCastle().getOwnerId())
-			{
 				continue;
-			}
 			for (L2PcInstance player : clan.getOnlineMembers(""))
-			{
 				if (checkIfInZone(player.getX(), player.getY(), player.getZ()))
-				{
 					players.add(player);
-				}
-			}
 		}
 		return players;
 	}
@@ -747,16 +676,10 @@ public class Siege
 		{
 			clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
 			if (clan.getClanId() != getCastle().getOwnerId())
-			{
 				continue;
-			}
 			for (L2PcInstance player : clan.getOnlineMembers(""))
-			{
 				if (checkIfInZone(player.getX(), player.getY(), player.getZ()))
-				{
 					players.add(player);
-				}
-			}
 		}
 		return players;
 	}
@@ -771,13 +694,9 @@ public class Siege
 		{
 			// quick check from player states, which don't include siege number however
 			if (!player.isInsideZone(L2Character.ZONE_SIEGE) || player.getSiegeState() != 0)
-			{
 				continue;
-			}
 			if (checkIfInZone(player.getX(), player.getY(), player.getZ()))
-			{
 				players.add(player);
-			}
 		}
 		return players;
 	}
@@ -786,25 +705,18 @@ public class Siege
 	public void killedCT(L2NpcInstance ct)
 	{
 		_controlTowerCount--;
-		if (_controlTowerCount < 0) {
+		if (_controlTowerCount < 0)
 			_controlTowerCount = 0;
-		}
 	}
 
 	/** Remove the flag that was killed */
 	public void killedFlag(L2NpcInstance flag)
 	{
 		if (flag == null)
-		{
 			return;
-		}
 		for (int i = 0; i < getAttackerClans().size(); i++)
-		{
 			if (getAttackerClan(i).removeFlag(flag))
-			{
 				return;
-			}
-		}
 	}
 
 	/** Display list of registered clans */
@@ -828,26 +740,18 @@ public class Siege
 	public void registerAttacker(L2PcInstance player, boolean force)
 	{
 		if (player.getClan() == null)
-		{
 			return;
-		}
 		int allyId = 0;
 		if (getCastle().getOwnerId() != 0)
-		{
 			allyId = ClanTable.getInstance().getClan(getCastle().getOwnerId()).getAllyId();
-		}
 		if (allyId != 0)
-		{
 			if (player.getClan().getAllyId() == allyId && !force)
 			{
 				player.sendMessage("You cannot register as an attacker because your alliance owns the castle");
 				return;
 			}
-		}
 		if (force || checkIfCanRegister(player))
-		{
 			saveSiegeClan(player.getClan(), 1, false); // Save to database
-		}
 	}
 
 	/**
@@ -865,13 +769,9 @@ public class Siege
 	public void registerDefender(L2PcInstance player, boolean force)
 	{
 		if (getCastle().getOwnerId() <= 0)
-		{
 			player.sendMessage("You cannot register as a defender because " + getCastle().getName() + " is owned by NPC.");
-		}
 		else if (force || checkIfCanRegister(player))
-		{
 			saveSiegeClan(player.getClan(), 2, false); // Save to database
-		}
 	}
 
 	/**
@@ -884,9 +784,7 @@ public class Siege
 	public void removeSiegeClan(int clanId)
 	{
 		if (clanId <= 0)
-		{
 			return;
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -923,9 +821,7 @@ public class Siege
 	public void removeSiegeClan(L2Clan clan)
 	{
 		if (clan == null || clan.getHasCastle() == getCastle().getCastleId() || !SiegeManager.getInstance().checkIsRegistered(clan, getCastle().getCastleId()))
-		{
 			return;
-		}
 		removeSiegeClan(clan.getClanId());
 	}
 
@@ -983,9 +879,8 @@ public class Siege
 		}
 		for (L2PcInstance player : players)
 		{
-			if (player.isGM() || player.isInJail()) {
+			if (player.isGM() || player.isInJail())
 				continue;
-			}
 			player.teleToLocation(teleportWhere);
 		}
 	}
@@ -1054,36 +949,22 @@ public class Siege
 	private boolean checkIfCanRegister(L2PcInstance player)
 	{
 		if (getIsRegistrationOver())
-		{
 			player.sendMessage("The deadline to register for the siege of " + getCastle().getName() + " has passed.");
-		}
 		else if (getIsInProgress())
-		{
 			player.sendMessage("This is not the time for siege registration and so registration and cancellation cannot be done.");
-		}
 		else if (player.getClan() == null || player.getClan().getLevel() < SiegeManager.getInstance().getSiegeClanMinLevel())
-		{
 			player.sendMessage("Only clans with Level " + SiegeManager.getInstance().getSiegeClanMinLevel() + " and higher may register for a castle siege.");
-		}
 		else if (player.getClan().getHasCastle() > 0)
-		{
 			player.sendMessage("You cannot register because your clan already own a castle.");
-		}
 		else if (player.getClan().getClanId() == getCastle().getOwnerId())
-		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING));
-		}
 		else
-		{
-	        for(int i=0; i<10; i++)
-	        {
-	            if (SiegeManager.getInstance().checkIsRegistered(player.getClan(), i))
+			for(int i=0; i<10; i++)
+				if (SiegeManager.getInstance().checkIsRegistered(player.getClan(), i))
 	            {
 	                player.sendMessage("You are already registered in a Siege.");
 	                return false;
 	            }
-	        }
-		}
 		return true;
 	}
 
@@ -1116,9 +997,7 @@ public class Siege
 		}
 		getCastle().getSiegeDate().set(Calendar.MINUTE, 0);
 		if (corrected)
-		{
 			saveSiegeDate();
-		}
 	}
 
 	/** Load siege clans. */
@@ -1134,9 +1013,7 @@ public class Siege
 			// are on
 			// the top of the defender list)
 			if (getCastle().getOwnerId() > 0)
-			{
 				addDefender(getCastle().getOwnerId(), SiegeClanType.OWNER);
-			}
 			PreparedStatement statement = null;
 			ResultSet rs = null;
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -1148,17 +1025,11 @@ public class Siege
 			{
 				typeId = rs.getInt("type");
 				if (typeId == 0)
-				{
 					addDefender(rs.getInt("clan_id"));
-				}
 				else if (typeId == 1)
-				{
 					addAttacker(rs.getInt("clan_id"));
-				}
 				else if (typeId == 2)
-				{
 					addDefenderWaiting(rs.getInt("clan_id"));
-				}
 			}
 			statement.close();
 		}
@@ -1186,12 +1057,8 @@ public class Siege
 		{
 			// Remove all instance of artifact for this castle
 			for (L2ArtefactInstance art : _artifacts)
-			{
 				if (art != null)
-				{
 					art.decayMe();
-				}
-			}
 			_artifacts = null;
 		}
 	}
@@ -1203,12 +1070,8 @@ public class Siege
 		{
 			// Remove all instance of control tower for this castle
 			for (L2ControlTowerInstance ct : _controlTowers)
-			{
 				if (ct != null)
-				{
 					ct.decayMe();
-				}
-			}
 			_controlTowers = null;
 		}
 	}
@@ -1217,31 +1080,19 @@ public class Siege
 	private void removeFlags()
 	{
 		for (L2SiegeClan sc : getAttackerClans())
-		{
 			if (sc != null)
-			{
 				sc.removeFlags();
-			}
-		}
 		for (L2SiegeClan sc : getDefenderClans())
-		{
 			if (sc != null)
-			{
 				sc.removeFlags();
-			}
-		}
 	}
 
 	/** Remove flags from defenders. */
 	private void removeDefenderFlags()
 	{
 		for (L2SiegeClan sc : getDefenderClans())
-		{
 			if (sc != null)
-			{
 				sc.removeFlags();
-			}
-		}
 	}
 
 	/** Save castle siege related to database. */
@@ -1294,26 +1145,16 @@ public class Siege
 	private void saveSiegeClan(L2Clan clan, int typeId, boolean isUpdateRegistration)
 	{
 		if (clan.getHasCastle() > 0)
-		{
 			return;
-		}
 		java.sql.Connection con = null;
 		try
 		{
 			if (typeId == 0 || typeId == 2 || typeId == -1)
 			{
 				if (getDefenderClans().size() + getDefenderWaitingClans().size() >= SiegeManager.getInstance().getDefenderMaxClans())
-				{
 					return;
-				}
-			}
-			else
-			{
-				if (getAttackerClans().size() >= SiegeManager.getInstance().getAttackerMaxClans())
-				{
-					return;
-				}
-			}
+			} else if (getAttackerClans().size() >= SiegeManager.getInstance().getAttackerMaxClans())
+				return;
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
 			if (!isUpdateRegistration)
@@ -1371,14 +1212,12 @@ public class Siege
 	private void setNextSiegeDate()
 	{
 		while (getCastle().getSiegeDate().getTimeInMillis() < Calendar.getInstance().getTimeInMillis())
-		{
 			// Set next siege date if siege has passed
 			getCastle().getSiegeDate().add(Calendar.DAY_OF_MONTH, 14); // Schedule
 			// to
 			// happen
 			// in 14
 			// days
-		}
 		_isRegistrationOver = false; // Allow registration for next siege
 	}
 
@@ -1387,9 +1226,7 @@ public class Siege
 	{
 		// Set artefact array size if one does not exist
 		if (_artifacts == null)
-		{
 			_artifacts = new FastList<L2ArtefactInstance>();
-		}
 		for (SiegeSpawn _sp : SiegeManager.getInstance().getArtefactSpawnList(Id))
 		{
 			L2ArtefactInstance art;
@@ -1406,9 +1243,7 @@ public class Siege
 	{
 		// Set control tower array size if one does not exist
 		if (_controlTowers == null)
-		{
 			_controlTowers = new FastList<L2ControlTowerInstance>();
-		}
 		for (SiegeSpawn _sp : SiegeManager.getInstance().getControlTowerSpawnList(Id))
 		{
 			L2ControlTowerInstance ct;
@@ -1445,17 +1280,13 @@ public class Siege
 			for (L2Spawn spawn : getSiegeGuardManager().getSiegeGuardSpawn())
 			{
 				if (spawn == null)
-				{
 					continue;
-				}
 				closestCt = null;
 				distanceClosest = 0;
 				for (L2ControlTowerInstance ct : _controlTowers)
 				{
 					if (ct == null)
-					{
 						continue;
-					}
 					x = spawn.getLocx() - ct.getX();
 					y = spawn.getLocy() - ct.getY();
 					z = spawn.getLocz() - ct.getZ();
@@ -1467,9 +1298,7 @@ public class Siege
 					}
 				}
 				if (closestCt != null)
-				{
 					closestCt.registerGuard(spawn);
-				}
 			}
 		}
 	}
@@ -1477,30 +1306,22 @@ public class Siege
 	public final L2SiegeClan getAttackerClan(L2Clan clan)
 	{
 		if (clan == null)
-		{
 			return null;
-		}
 		return getAttackerClan(clan.getClanId());
 	}
 
 	public final L2SiegeClan getAttackerClan(int clanId)
 	{
 		for (L2SiegeClan sc : getAttackerClans())
-		{
 			if (sc != null && sc.getClanId() == clanId)
-			{
 				return sc;
-			}
-		}
 		return null;
 	}
 
 	public final List<L2SiegeClan> getAttackerClans()
 	{
 		if (_isNormalSide)
-		{
 			return _attackerClans;
-		}
 		return _defenderClans;
 	}
 
@@ -1512,60 +1333,44 @@ public class Siege
 	public final Castle getCastle()
 	{
 		if (_castle == null || _castle.length <= 0)
-		{
 			return null;
-		}
 		return _castle[0];
 	}
 
 	public final L2SiegeClan getDefenderClan(L2Clan clan)
 	{
 		if (clan == null)
-		{
 			return null;
-		}
 		return getDefenderClan(clan.getClanId());
 	}
 
 	public final L2SiegeClan getDefenderClan(int clanId)
 	{
 		for (L2SiegeClan sc : getDefenderClans())
-		{
 			if (sc != null && sc.getClanId() == clanId)
-			{
 				return sc;
-			}
-		}
 		return null;
 	}
 
 	public final List<L2SiegeClan> getDefenderClans()
 	{
 		if (_isNormalSide)
-		{
 			return _defenderClans;
-		}
 		return _attackerClans;
 	}
 
 	public final L2SiegeClan getDefenderWaitingClan(L2Clan clan)
 	{
 		if (clan == null)
-		{
 			return null;
-		}
 		return getDefenderWaitingClan(clan.getClanId());
 	}
 
 	public final L2SiegeClan getDefenderWaitingClan(int clanId)
 	{
 		for (L2SiegeClan sc : getDefenderWaitingClans())
-		{
 			if (sc != null && sc.getClanId() == clanId)
-			{
 				return sc;
-			}
-		}
 		return null;
 	}
 
@@ -1595,9 +1400,7 @@ public class Siege
 		{
 			L2SiegeClan sc = getAttackerClan(clan);
 			if (sc != null)
-			{
 				return sc.getFlag();
-			}
 		}
 		return null;
 	}
@@ -1605,9 +1408,7 @@ public class Siege
 	public final SiegeGuardManager getSiegeGuardManager()
 	{
 		if (_siegeGuardManager == null)
-		{
 			_siegeGuardManager = new SiegeGuardManager(getCastle());
-		}
 		return _siegeGuardManager;
 	}
 

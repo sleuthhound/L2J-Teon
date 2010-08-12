@@ -51,9 +51,7 @@ public class L2BuffInstance extends L2NpcInstance
 			client.sendPacket(new MyTargetSelected(getObjectId(), 0));
 			client.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 			if (!isInsideRadius(client, 150, false, false))
-			{
 				client.sendPacket(ActionFailed.STATIC_PACKET);
-			}
 			else
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -110,15 +108,13 @@ public class L2BuffInstance extends L2NpcInstance
 			catch (IndexOutOfBoundsException ioobe)
 			{
 			}
-			if (quest.length() == 0) {
+			if (quest.length() == 0)
 				showQuestWindow(client);
-			} else {
+			else
 				showQuestWindow(client, quest);
-			}
 		}
-		if (bFail) {
+		if (bFail)
 			client.sendPacket(ActionFailed.STATIC_PACKET);
-		}
 	}
 
 	@Override
@@ -164,11 +160,8 @@ public class L2BuffInstance extends L2NpcInstance
 			client.sendPacket(html);
 			client.setTarget(this);
 			client.sendPacket(new MyTargetSelected(getObjectId(), 0));
-		}
-		else
-		{
+		} else
 			onAction(client);
-		}
 	}
 
 	@Override

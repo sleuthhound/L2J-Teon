@@ -39,9 +39,8 @@ public class PlayableStatus extends CharStatus
 	@Override
 	public void reduceHp(double value, L2Character attacker, boolean awake)
 	{
-		if (getActiveChar().isDead()) {
+		if (getActiveChar().isDead())
 			return;
-		}
 		super.reduceHp(value, attacker, awake);
 		/*
 		 * if (attacker != null && attacker != getActiveChar()) { // Flag the attacker if it's a L2PcInstance outside a PvP area L2PcInstance player = null; if (attacker instanceof L2PcInstance) player = (L2PcInstance)attacker; else if (attacker instanceof L2Summon) player = ((L2Summon)attacker).getOwner(); if (player != null) player.updatePvPStatus(getActiveChar()); }

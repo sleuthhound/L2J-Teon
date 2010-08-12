@@ -37,9 +37,8 @@ public class L2CHSiegeInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -52,18 +51,13 @@ public class L2CHSiegeInstance extends L2NpcInstance
 			// Send a Server->Client packet ValidateLocation to correct the
 			// L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Calculate the distance between the L2PcInstance and the
+		// L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
-		{
-			// Calculate the distance between the L2PcInstance and the
-			// L2NpcInstance
-			if (!canInteract(player)) {
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			} else {
-				showChatWindow(player, 0);
-			}
-		}
+			showChatWindow(player, 0);
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to
 		// avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);
@@ -97,11 +91,10 @@ public class L2CHSiegeInstance extends L2NpcInstance
 			catch (IndexOutOfBoundsException ioobe)
 			{
 			}
-			if (quest.length() == 0) {
+			if (quest.length() == 0)
 				showQuestWindow(player);
-			} else {
+			else
 				showQuestWindow(player, quest);
-			}
 		}
 		else if (command.startsWith("Registration"))
 		{
@@ -123,33 +116,24 @@ public class L2CHSiegeInstance extends L2NpcInstance
 						return;
 					}
 					if (FortressofTheDeadManager.getInstance().clanhall.getOwnerClan() == Clan)
+						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+					else if (FortressofTheDeadManager.getInstance().isClanOnSiege(Clan))
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
+						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
 					}
 					else
 					{
-						if (FortressofTheDeadManager.getInstance().isClanOnSiege(Clan))
+						int res = FortressofTheDeadManager.getInstance().registerClanOnSiege(player, Clan);
+						if (res == 0)
 						{
-							str += "Your clan is already registered for the siege, what more do you want from me?<br>";
-							str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
+							str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
+							str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
 						}
-						else
-						{
-							int res = FortressofTheDeadManager.getInstance().registerClanOnSiege(player, Clan);
-							if (res == 0)
-							{
-								str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
-								str += "Now you need to select no more than 18 igokov who will take part in the siege, a member of your clan.<br>";
-							}
-							else if (res == 1)
-							{
-								str += "You have participation in the siege";
-							}
-							else if (res == 2)
-							{
-								str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
-							}
-						}
+						else if (res == 1)
+							str += "You have participation in the siege";
+						else if (res == 2)
+							str += "Unfortunately, you are late. Five tribal leaders have already filed an application for registration.<br>";
 					}
 					break;
 			}
@@ -184,9 +168,8 @@ public class L2CHSiegeInstance extends L2NpcInstance
 					html.replace("%objectId%", String.valueOf(getObjectId()));
 					player.sendPacket(html);
 				}
-			} else {
+			} else
 				_log.warning("Attention!!! player " + player.getName() + " use packet hack, try unregister clan.");
-			}
 		}
 	}
 
@@ -197,11 +180,10 @@ public class L2CHSiegeInstance extends L2NpcInstance
 		long startSiege = 0;
 		int npcId = getTemplate().getNpcId();
 		String filename;
-		if (val == 0) {
+		if (val == 0)
 			filename = "data/html/siege/clanhall/" + npcId + ".htm";
-		} else {
+		else
 			filename = "data/html/siege/clanhall/" + npcId + "-" + val + ".htm";
-		}
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		if (npcId == 35639)
@@ -231,11 +213,10 @@ public class L2CHSiegeInstance extends L2NpcInstance
 			html.replace("%clan%", String.valueOf(clans));
 			L2Clan clan = clanhall.getOwnerClan();
 			String clanName;
-			if (clan == null) {
+			if (clan == null)
 				clanName = "NPC";
-			} else {
+			else
 				clanName = clan.getName();
-			}
 			html.replace("%clanname%", String.valueOf(clanName));
 		}
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");

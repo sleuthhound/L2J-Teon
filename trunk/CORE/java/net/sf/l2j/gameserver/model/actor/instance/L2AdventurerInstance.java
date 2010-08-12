@@ -39,7 +39,6 @@ public class L2AdventurerInstance extends L2FolkInstance
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (command.startsWith("npcfind_byid"))
-		{
 			try
 			{
 				int bossId = Integer.parseInt(command.substring(12).trim());
@@ -59,36 +58,28 @@ public class L2AdventurerInstance extends L2FolkInstance
 			{
 				_log.warning("Invalid Bypass to Server command parameter.");
 			}
-		}
 		else if (command.startsWith("raidInfo"))
 		{
 			int bossLevel = Integer.parseInt(command.substring(9).trim());
 			String filename = "data/html/adventurer_guildsman/raid_info/info.htm";
 			if (bossLevel != 0)
-			{
 				filename = "data/html/adventurer_guildsman/raid_info/level" + bossLevel + ".htm";
-			}
 			showChatWindow(player, bossLevel, filename);
 		}
 		else if (command.equalsIgnoreCase("questlist"))
-		{
 			player.sendPacket(new ExQuestInfo());
-		}
 		else
-		{
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
-		if (val == 0) {
+		if (val == 0)
 			pom = "" + npcId;
-		} else {
+		else
 			pom = npcId + "-" + val;
-		}
 		return "data/html/adventurer_guildsman/" + pom + ".htm";
 	}
 

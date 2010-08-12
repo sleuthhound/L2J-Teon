@@ -44,15 +44,13 @@ public class L2BufferTeonInstance
 	 */
 	public static void makeBuffs(L2PcInstance player, int _templateId, L2Object efector, boolean paymentRequired)
 	{
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		getbufferType(efector).setTarget(player);
 		FastList<L2BuffTemplate> _templateBuffs = new FastList<L2BuffTemplate>();
 		_templateBuffs = BuffTemplateTable.getInstance().getBuffTemplate(_templateId);
-		if (_templateBuffs == null || _templateBuffs.size() == 0) {
+		if (_templateBuffs == null || _templateBuffs.size() == 0)
 			return;
-		}
 		int _priceTotal = 0;
 		int _pricePoints = 0;
 		for (L2BuffTemplate _buff : _templateBuffs)
@@ -72,7 +70,6 @@ public class L2BufferTeonInstance
 			}
 			getbufferType(efector).setTarget(player);
 			if (_buff.checkPlayer(player) && _buff.checkPrice(player))
-			{
 				if (player.getInventory().getAdena() >= _priceTotal + _buff.getAdenaPrice() && player.getEventPoints() >= _buff.getPointsPrice())
 				{
 					_priceTotal += _buff.getAdenaPrice();
@@ -96,14 +93,10 @@ public class L2BufferTeonInstance
 							MagicSkillUser msu = new MagicSkillUser(player, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
 							player.broadcastPacket(msu);
 							for (L2Effect effect : _buff.getSkill().getEffectsSelf(player))
-							{
 								player.addEffect(effect);
-							}
 							// newbie summons
 							if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
-							{
 								player.doCast(_buff.getSkill());
-							}
 						}
 						else
 						{ // Ignora el tiempo de casteo del skill,
@@ -113,9 +106,7 @@ public class L2BufferTeonInstance
 							player.broadcastPacket(msu);
 						}
 						for (L2Effect effect : _buff.getSkill().getEffects(getbufferType(efector), player))
-						{
 							player.addEffect(effect);
-						}
 						try
 						{
 							Thread.sleep(50);
@@ -125,7 +116,6 @@ public class L2BufferTeonInstance
 						}
 					}
 				}
-			}
 		}
 		if (paymentRequired && (_pricePoints > 0 || _priceTotal > 0))
 		{
@@ -135,9 +125,8 @@ public class L2BufferTeonInstance
 				player.setEventPoints(player.getEventPoints() - _pricePoints);
 				player.sendMessage("You had " + previousPoints + " Event Points, and now you have " + player.getEventPoints() + " Event Points.");
 			}
-			if (_priceTotal > 0) {
+			if (_priceTotal > 0)
 				player.reduceAdena("NpcBuffer", _priceTotal, player.getLastFolkNPC(), true);
-			}
 		}
 	}
 

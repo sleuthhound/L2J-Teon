@@ -71,9 +71,8 @@ public class L2NpcBufferInstance extends L2NpcInstance
 				abort = _buffing;
 				_buffing = true;
 			}
-			if (abort) {
+			if (abort)
 				return;
-			}
 			try
 			{
 				Thread.sleep(1);
@@ -96,23 +95,20 @@ public class L2NpcBufferInstance extends L2NpcInstance
 					skillLevel = _skillLevels.get(index);
 				}
 			}
-			if (index == -1) {
+			if (index == -1)
 				return;
-			}
 			L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
 			if (playerInstance != null && skill != null)
 			{
 				// if (_me.isInsideRadius(playerInstance.getX(), playerInstance.getY(), skill.getCastRange(), true))
 				// continue;
 				int skillTime = Formulas.getInstance().calcMAtkSpd(_me, skill, skill.getHitTime());
-				if (skill.isDance()) {
+				if (skill.isDance())
 					_me.broadcastPacket(new MagicSkillUser(_me, _me, skillId, skillLevel, skillTime, 0));
-				} else {
+				else
 					_me.broadcastPacket(new MagicSkillUser(_me, playerInstance, skillId, skillLevel, skillTime, 0));
-				}
 				long continueTime = System.currentTimeMillis() + skillTime;
 				while (continueTime >= System.currentTimeMillis())
-				{
 					try
 					{
 						Thread.sleep(1);
@@ -120,24 +116,15 @@ public class L2NpcBufferInstance extends L2NpcInstance
 					catch (InterruptedException ie)
 					{
 					}
-				}
 				L2Effect[] effects = playerInstance.getAllEffects();
 				if (effects != null)
-				{
 					for (L2Effect e : effects)
-					{
 						if (e != null && skill != null)
-						{
-							if (e.getSkill().getId() == skill.getId()) {
+							if (e.getSkill().getId() == skill.getId())
 								e.exit();
-							}
-						}
-					}
-				}
 				skill.getEffects(playerInstance, playerInstance);
-			} else {
+			} else
 				System.out.println("NpcBuffer warning(" + getNpcId() + " at " + getX() + ", " + getY() + ", " + getZ() + "): Skill or Player null!");
-			}
 			synchronized (_playerInstances)
 			{
 				_playerInstances.remove(index);
@@ -172,11 +159,10 @@ public class L2NpcBufferInstance extends L2NpcInstance
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
-		if (val == 0) {
+		if (val == 0)
 			pom = "" + npcId;
-		} else {
+		else
 			pom = npcId + "-" + val;
-		}
 		return "data/html/mods/buffer/" + pom + ".htm";
 	}
 
@@ -191,9 +177,8 @@ public class L2NpcBufferInstance extends L2NpcInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance playerInstance, String command)
 	{
-		if (playerInstance == null) {
+		if (playerInstance == null)
 			return;
-		}
 		int npcId = getNpcId();
 		if (command.startsWith("npc_buffer_heal"))
 		{
@@ -203,9 +188,7 @@ public class L2NpcBufferInstance extends L2NpcInstance
 				return;
 			}
 			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
-			{
 				playerInstance.sendMessage("You can't do that in combat!!!");
-			}
 			else
 			{
 				playerInstance.setCurrentCp(playerInstance.getMaxCp());
@@ -221,13 +204,9 @@ public class L2NpcBufferInstance extends L2NpcInstance
 				return;
 			}
 			if (playerInstance.getCurrentHp() == 0 || playerInstance.getPvpFlag() > 0)
-			{
 				playerInstance.sendMessage("You can't do that!!!");
-			}
 			else
-			{
 				removeAllBuffs(playerInstance);
-			}
 		}
 		if (command.startsWith("npc_buffer_buff"))
 		{
@@ -267,13 +246,9 @@ public class L2NpcBufferInstance extends L2NpcInstance
 						playerInstance.sendMessage("You do not have enought items!");
 						return;
 					}
-				}
-				else
-				{
-					for (int i = 0; i < skillFeeAmount; i++) {
+				} else
+					for (int i = 0; i < skillFeeAmount; i++)
 						playerInstance.destroyItemByItemId("Npc Buffer", skillFeeId, 1, playerInstance.getTarget(), true);
-					}
-				}
 			}
 			L2Skill skill;
 			skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
@@ -289,10 +264,7 @@ public class L2NpcBufferInstance extends L2NpcInstance
 		{
 			player.stopAllEffects();
 			player.sendMessage("Your buffs were removed.");
-		}
-		else
-		{
+		} else
 			player.sendMessage("Your buffs could not be removed.");
-		}
 	}
 }

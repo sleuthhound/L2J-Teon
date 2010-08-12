@@ -48,13 +48,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return "data/html/warehouse/" + pom + ".htm";
 	}
 
@@ -67,9 +63,8 @@ public final class L2WarehouseInstance extends L2FolkInstance
 			player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
 			return;
 		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing stored items");
-		}
 		player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.PRIVATE));
 	}
 
@@ -78,9 +73,8 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		player.setActiveWarehouse(player.getWarehouse());
 		player.tempInvetoryDisable();
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing items to deposit");
-		}
 		player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.PRIVATE));
 	}
 
@@ -88,20 +82,17 @@ public final class L2WarehouseInstance extends L2FolkInstance
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		if (player.getClan() != null)
-		{
-			if (player.getClan().getLevel() == 0) {
+			if (player.getClan().getLevel() == 0)
 				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-			} else
+			else
 			{
 				player.setActiveWarehouse(player.getClan().getWarehouse());
 				player.tempInvetoryDisable();
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.fine("Showing items to deposit - clan");
-				}
 				WareHouseDepositList dl = new WareHouseDepositList(player, WareHouseDepositList.CLAN);
 				player.sendPacket(dl);
 			}
-		}
 	}
 
 	private void showWithdrawWindowClan(L2PcInstance player)
@@ -111,65 +102,44 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
 			return;
-		}
+		} else if (player.getClan().getLevel() == 0)
+			player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
 		else
 		{
-			if (player.getClan().getLevel() == 0) {
-				player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-			} else
-			{
-				player.setActiveWarehouse(player.getClan().getWarehouse());
-				if (Config.DEBUG) {
-					_log.fine("Showing items to deposit - clan");
-				}
-				player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
-			}
+			player.setActiveWarehouse(player.getClan().getWarehouse());
+			if (Config.DEBUG)
+				_log.fine("Showing items to deposit - clan");
+			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
 		}
 	}
 
 	private void showWithdrawWindowFreight(L2PcInstance player)
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing freightened items");
-		}
 		PcFreight freight = player.getFreight();
 		if (freight != null)
 		{
 			if (freight.getSize() > 0)
 			{
 				if (Config.ALT_GAME_FREIGHTS)
-				{
 					freight.setActiveLocation(0);
-				}
 				else
-				{
 					freight.setActiveLocation(getWorldRegion().hashCode());
-				}
 				player.setActiveWarehouse(freight);
 				player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT));
-			}
-			else
-			{
+			} else
 				player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
-			}
-		}
-		else
-		{
-			if (Config.DEBUG) {
-				_log.fine("no items freightened");
-			}
-		}
+		} else if (Config.DEBUG)
+			_log.fine("no items freightened");
 	}
 
 	private void showDepositWindowFreight(L2PcInstance player)
 	{
 		// No other chars in the account of this player
 		if (player.getAccountChars().size() == 0)
-		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CHARACTER_DOES_NOT_EXIST));
-		}
-		// One or more chars other than this player for this account
 		else
 		{
 			Map<Integer, String> chars = player.getAccountChars();
@@ -179,9 +149,8 @@ public final class L2WarehouseInstance extends L2FolkInstance
 				return;
 			}
 			player.sendPacket(new PackageToList(chars));
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("Showing destination chars to freight - char src: " + player.getName());
-			}
 		}
 	}
 
@@ -192,26 +161,20 @@ public final class L2WarehouseInstance extends L2FolkInstance
 		if (destChar == null)
 		{
 			// Something went wrong!
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.warning("Error retrieving a target object for char " + player.getName() + " - using freight.");
-			}
 			return;
 		}
 		PcFreight freight = destChar.getFreight();
 		if (Config.ALT_GAME_FREIGHTS)
-		{
 			freight.setActiveLocation(0);
-		}
 		else
-		{
 			freight.setActiveLocation(getWorldRegion().hashCode());
-		}
 		player.setActiveWarehouse(freight);
 		player.tempInvetoryDisable();
 		destChar.deleteMe();
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("Showing items to freight");
-		}
 		player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.FREIGHT));
 	}
 
@@ -226,34 +189,22 @@ public final class L2WarehouseInstance extends L2FolkInstance
 			return;
 		}
 		if (command.startsWith("WithdrawP"))
-		{
 			showRetrieveWindow(player);
-		}
 		else if (command.equals("DepositP"))
-		{
 			showDepositWindow(player);
-		}
 		else if (command.equals("WithdrawC"))
-		{
 			showWithdrawWindowClan(player);
-		}
 		else if (command.equals("DepositC"))
-		{
 			showDepositWindowClan(player);
-		}
 		else if (command.startsWith("WithdrawF"))
 		{
 			if (Config.ALLOW_FREIGHT)
-			{
 				showWithdrawWindowFreight(player);
-			}
 		}
 		else if (command.startsWith("DepositF"))
 		{
 			if (Config.ALLOW_FREIGHT)
-			{
 				showDepositWindowFreight(player);
-			}
 		}
 		else if (command.startsWith("FreightChar"))
 		{
@@ -263,12 +214,9 @@ public final class L2WarehouseInstance extends L2FolkInstance
 				String id = command.substring(startOfId);
 				showDepositWindowFreight(player, Integer.parseInt(id));
 			}
-		}
-		else
-		{
+		} else
 			// this class dont know any other commands, let forward
 			// the command to the parent class
 			super.onBypassFeedback(player, command);
-		}
 	}
 }

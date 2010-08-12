@@ -38,17 +38,13 @@ public class FactionPlayers
 	public static FactionPlayers getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new FactionPlayers();
-		}
 		return _instance;
 	}
 
 	private FactionPlayers()
 	{
 		if (Config.FACTION_ANNOUNCE_TIME > 0)
-		{
 			ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceFaction(), Config.FACTION_ANNOUNCE_TIME);
-		}
 	}
 }

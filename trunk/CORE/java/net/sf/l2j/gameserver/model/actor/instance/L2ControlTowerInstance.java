@@ -59,9 +59,8 @@ public class L2ControlTowerInstance extends L2NpcInstance
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -76,17 +75,13 @@ public class L2ControlTowerInstance extends L2NpcInstance
 			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
 			player.sendPacket(su);
 			player.sendPacket(new ValidateLocation(this));
-		}
-		else
+		} else if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 // Less then max height difference, delete check when geo )
+				&& GeoData.getInstance().canSeeTarget(player, this))
 		{
-			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 // Less then max height difference, delete check when geo )
-					&& GeoData.getInstance().canSeeTarget(player, this))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-				player.sendPacket(ActionFailed.STATIC_PACKET);
-			}
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 	}
 
@@ -96,16 +91,13 @@ public class L2ControlTowerInstance extends L2NpcInstance
 		{
 			getCastle().getSiege().killedCT(this);
 			if (getGuards() != null && getGuards().size() > 0)
-			{
 				for (L2Spawn spawn : getGuards())
 				{
-					if (spawn == null) {
+					if (spawn == null)
 						continue;
-					}
 					spawn.stopRespawn();
 					// spawn.getLastSpawn().doDie(spawn.getLastSpawn());
 				}
-			}
 		}
 	}
 
@@ -116,9 +108,8 @@ public class L2ControlTowerInstance extends L2NpcInstance
 
 	public final List<L2Spawn> getGuards()
 	{
-		if (_guards == null) {
+		if (_guards == null)
 			_guards = new FastList<L2Spawn>();
-		}
 		return _guards;
 	}
 }

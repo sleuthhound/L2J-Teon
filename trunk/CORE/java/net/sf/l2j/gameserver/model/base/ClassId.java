@@ -106,12 +106,10 @@ public enum ClassId
 	 */
 	public final boolean childOf(ClassId cid)
 	{
-		if (_parent == null) {
+		if (_parent == null)
 			return false;
-		}
-		if (_parent == cid) {
+		if (_parent == cid)
 			return true;
-		}
 		return _parent.childOf(cid);
 	}
 
@@ -136,9 +134,8 @@ public enum ClassId
 	 */
 	public final int level()
 	{
-		if (_parent == null) {
+		if (_parent == null)
 			return 0;
-		}
 		return 1 + _parent.level();
 	}
 

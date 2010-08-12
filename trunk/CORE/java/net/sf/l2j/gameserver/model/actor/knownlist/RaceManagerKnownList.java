@@ -43,9 +43,8 @@ public class RaceManagerKnownList extends NpcKnownList
 	@Override
 	public boolean addKnownObject(L2Object object, L2Character dropper)
 	{
-		if (!super.addKnownObject(object, dropper)) {
+		if (!super.addKnownObject(object, dropper))
 			return false;
-		}
 		/*
 		 * DONT KNOW WHY WE NEED THIS WHEN RACE MANAGER HAS A METHOD THAT BROADCAST TO ITS KNOW PLAYERS if (object instanceof L2PcInstance) { if (packet != null) ((L2PcInstance) object).sendPacket(packet); }
 		 */
@@ -55,9 +54,8 @@ public class RaceManagerKnownList extends NpcKnownList
 	@Override
 	public boolean removeKnownObject(L2Object object)
 	{
-		if (!super.removeKnownObject(object)) {
+		if (!super.removeKnownObject(object))
 			return false;
-		}
 		if (object instanceof L2PcInstance)
 		{
 			// System.out.println("Sending delete monsrac info.");

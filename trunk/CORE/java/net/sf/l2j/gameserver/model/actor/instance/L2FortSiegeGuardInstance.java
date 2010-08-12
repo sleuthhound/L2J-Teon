@@ -53,9 +53,8 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 	@Override
 	public final FortSiegeGuardKnownList getKnownList()
 	{
-		if (super.getKnownList() == null || !(super.getKnownList() instanceof FortSiegeGuardKnownList)) {
+		if (super.getKnownList() == null || !(super.getKnownList() instanceof FortSiegeGuardKnownList))
 			setKnownList(new FortSiegeGuardKnownList(this));
-		}
 		return (FortSiegeGuardKnownList) super.getKnownList();
 	}
 
@@ -64,9 +63,8 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 	{
 		synchronized (this)
 		{
-			if (_ai == null) {
+			if (_ai == null)
 				_ai = new L2FortSiegeGuardAI(new AIAccessor());
-			}
 		}
 		return _ai;
 	}
@@ -93,9 +91,8 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 		_homeX = getX();
 		_homeY = getY();
 		_homeZ = getZ();
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		}
 	}
 
 	public int getHomeX()
@@ -116,14 +113,12 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 	{
 		if (!isInsideRadius(_homeX, _homeY, 40, false))
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine(getObjectId() + ": moving home");
-			}
 			setisReturningToSpawnPoint(true);
 			clearAggroList();
-			if (hasAI()) {
+			if (hasAI())
 				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_homeX, _homeY, _homeZ, 0));
-			}
 		}
 	}
 
@@ -133,15 +128,13 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("new target selected:" + getObjectId());
-			}
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
@@ -158,24 +151,15 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 		else
 		{
 			if (isAutoAttackable(player) && !isAlikeDead())
-			{
-				if (Math.abs(player.getZ() - getZ()) < 600) // this max heigth difference might need some tweaking
-				{
+				if (Math.abs(player.getZ() - getZ()) < 600)
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-				}
 				else
-				{
 					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 					player.sendPacket(ActionFailed.STATIC_PACKET);
-				}
-			}
 			if (!isAutoAttackable(player))
-			{
 				if (!canInteract(player))
-				{
 					// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-				}
 				else
 				{
 					SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
@@ -183,19 +167,15 @@ public final class L2FortSiegeGuardInstance extends L2Attackable
 					sendPacket(sa);
 					showChatWindow(player, 0);
 				}
-			}
 		}
 	}
 
 	@Override
 	public void addDamageHate(L2Character attacker, int damage, int aggro)
 	{
-		if (attacker == null) {
+		if (attacker == null)
 			return;
-		}
 		if (!(attacker instanceof L2FortSiegeGuardInstance))
-		{
 			super.addDamageHate(attacker, damage, aggro);
-		}
 	}
 }

@@ -77,9 +77,8 @@ public class CharStatus
 	 */
 	public final void addStatusListener(L2Character object)
 	{
-		if (object == getActiveChar()) {
+		if (object == getActiveChar())
 			return;
-		}
 		synchronized (getStatusListener())
 		{
 			getStatusListener().add(object);
@@ -88,11 +87,10 @@ public class CharStatus
 
 	public final void reduceCp(int value)
 	{
-		if (getCurrentCp() > value) {
+		if (getCurrentCp() > value)
 			setCurrentCp(getCurrentCp() - value);
-		} else {
+		else
 			setCurrentCp(0);
-		}
 	}
 
 	/**
@@ -117,70 +115,53 @@ public class CharStatus
 
 	public void reduceHp(double value, L2Character attacker, boolean awake)
 	{
-		if (getActiveChar().isInvul()) {
+		if (getActiveChar().isInvul())
 			return;
-		}
 		if (getActiveChar() instanceof L2PcInstance)
 		{
 			if (((L2PcInstance) getActiveChar()).isInDuel())
 			{
 				// the duel is finishing - players do not recive damage
-				if (((L2PcInstance) getActiveChar()).getDuelState() == Duel.DUELSTATE_DEAD) {
+				if (((L2PcInstance) getActiveChar()).getDuelState() == Duel.DUELSTATE_DEAD)
 					return;
-				} else if (((L2PcInstance) getActiveChar()).getDuelState() == Duel.DUELSTATE_WINNER) {
+				else if (((L2PcInstance) getActiveChar()).getDuelState() == Duel.DUELSTATE_WINNER)
 					return;
-				}
 				// cancel duel if player got hit by another player, that is not part of the duel or a monster
 				if (!(attacker instanceof L2SummonInstance) && !(attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getDuelId() == ((L2PcInstance) getActiveChar()).getDuelId()))
-				{
 					((L2PcInstance) getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
-				}
 			}
-			if (getActiveChar().isDead() && !getActiveChar().isFakeDeath()) {
+			if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
 				return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
-			}
 		}
 		else
 		{
-			if (getActiveChar().isDead()) {
+			if (getActiveChar().isDead())
 				return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
-			}
-			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isInDuel() && !(getActiveChar() instanceof L2SummonInstance && ((L2SummonInstance) getActiveChar()).getOwner().getDuelId() == ((L2PcInstance) attacker).getDuelId())) // Duelling player attacks mob
-			{
+			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).isInDuel() && !(getActiveChar() instanceof L2SummonInstance && ((L2SummonInstance) getActiveChar()).getOwner().getDuelId() == ((L2PcInstance) attacker).getDuelId()))
 				((L2PcInstance) attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
-			}
 		}
-		if (awake && getActiveChar().isSleeping()) {
+		if (awake && getActiveChar().isSleeping())
 			getActiveChar().stopSleeping(null);
-		}
-		if (getActiveChar().isStunned() && Rnd.get(10) == 0) {
+		if (getActiveChar().isStunned() && Rnd.get(10) == 0)
 			getActiveChar().stopStunning(null);
-		}
-		if (getActiveChar().isImmobileUntilAttacked()) {
+		if (getActiveChar().isImmobileUntilAttacked())
 			getActiveChar().stopImmobileUntilAttacked(null);
-		}
-		if (getActiveChar().isAfraid()) {
+		if (getActiveChar().isAfraid())
 			getActiveChar().stopFear(null);
-		}
 		// Add attackers to npc's attacker list
-		if (getActiveChar() instanceof L2NpcInstance) {
+		if (getActiveChar() instanceof L2NpcInstance)
 			getActiveChar().addAttackerToAttackByList(attacker);
-		}
 		if (value > 0) // Reduce Hp if any
 		{
 			// If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
 			// Anything else, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
-			{
-				if (((L2Attackable) getActiveChar()).isOverhit()) {
+				if (((L2Attackable) getActiveChar()).isOverhit())
 					((L2Attackable) getActiveChar()).setOverhitValues(attacker, value);
-				} else {
+				else
 					((L2Attackable) getActiveChar()).overhitEnabled(false);
-				}
-			}
 			value = getCurrentHp() - value; // Get diff of Hp vs value
 			if (value <= 0)
-			{
 				// is the dieing one a duelist? if so change his duel state to dead
 				if (getActiveChar() instanceof L2PcInstance && ((L2PcInstance) getActiveChar()).isInDuel())
 				{
@@ -191,64 +172,45 @@ public class CharStatus
 					// let the DuelManager know of his defeat
 					DuelManager.getInstance().onPlayerDefeat((L2PcInstance) getActiveChar());
 					value = 1;
-				} else {
+				} else
 					value = 0; // Set value to 0 if Hp < 0
-				}
-			}
 			setCurrentHp(value); // Set Hp
-		}
-		else
-		{
-			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
-			if (getActiveChar() instanceof L2Attackable)
-			{
-				((L2Attackable) getActiveChar()).overhitEnabled(false);
-			}
-		}
+		} else // If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
+		if (getActiveChar() instanceof L2Attackable)
+			((L2Attackable) getActiveChar()).overhitEnabled(false);
 		if (getActiveChar().isDead())
 		{
 			getActiveChar().abortAttack();
 			getActiveChar().abortCast();
 			if (getActiveChar() instanceof L2PcInstance)
-			{
 				if (((L2PcInstance) getActiveChar()).isInOlympiadMode())
 				{
 					stopHpMpRegeneration();
 					return;
 				}
-			}
 			// first die (and calculate rewards), if currentHp < 0, then overhit may be calculated
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("char is dead.");
-			}
 			// Start the doDie process
 			getActiveChar().doDie(attacker);
 			// now reset currentHp to zero
 			if (getActiveChar() instanceof L2PcInstance)
 			{
 				QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial");
-				if (qs != null) {
+				if (qs != null)
 					qs.getQuest().notifyEvent("CE30", null, ((L2PcInstance) getActiveChar()));
-				}
 			}
 			setCurrentHp(0);
-		}
-		else
-		{
-			// If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
-			if (getActiveChar() instanceof L2Attackable)
-			{
-				((L2Attackable) getActiveChar()).overhitEnabled(false);
-			}
-		}
+		} else // If we're dealing with an L2Attackable Instance and the attacker's hit didn't kill the mob, clear the over-hit flag
+		if (getActiveChar() instanceof L2Attackable)
+			((L2Attackable) getActiveChar()).overhitEnabled(false);
 	}
 
 	public final void reduceMp(double value)
 	{
 		value = getCurrentMp() - value;
-		if (value < 0) {
+		if (value < 0)
 			value = 0;
-		}
 		setCurrentMp(value);
 	}
 
@@ -287,9 +249,8 @@ public class CharStatus
 	{
 		if (_regTask == null && !getActiveChar().isDead())
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("HP/MP/CP regen started");
-			}
 			// Get the Regeneration periode
 			int period = Formulas.getInstance().getRegeneratePeriod(getActiveChar());
 			// Create the HP/MP/CP Regeneration task
@@ -309,9 +270,8 @@ public class CharStatus
 	{
 		if (_regTask != null)
 		{
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("HP/MP/CP regen stop");
-			}
 			// Stop the HP/MP/CP Regeneration task
 			_regTask.cancel(false);
 			_regTask = null;
@@ -345,18 +305,16 @@ public class CharStatus
 		{
 			// Get the Max CP of the L2Character
 			int maxCp = getActiveChar().getStat().getMaxCp();
-			if (newCp < 0) {
+			if (newCp < 0)
 				newCp = 0;
-			}
 			if (newCp >= maxCp)
 			{
 				// Set the RegenActive flag to false
 				_currentCp = maxCp;
 				_flagsRegenActive &= ~REGEN_FLAG_CP;
 				// Stop the HP/MP/CP Regeneration task
-				if (_flagsRegenActive == 0) {
+				if (_flagsRegenActive == 0)
 					stopHpMpRegeneration();
-				}
 			}
 			else
 			{
@@ -368,9 +326,8 @@ public class CharStatus
 			}
 		}
 		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
-		if (broadcastPacket) {
+		if (broadcastPacket)
 			getActiveChar().broadcastStatusUpdate();
-		}
 	}
 
 	public final double getCurrentHp()
@@ -396,38 +353,31 @@ public class CharStatus
 				_currentHp = maxHp;
 				_flagsRegenActive &= ~REGEN_FLAG_HP;
 				// Stop the HP/MP/CP Regeneration task
-				if (_flagsRegenActive == 0) {
+				if (_flagsRegenActive == 0)
 					stopHpMpRegeneration();
-				}
 			}
 			else
 			{
 				// Set the RegenActive flag to true
 				_currentHp = newHp;
 				_flagsRegenActive |= REGEN_FLAG_HP;
-				if (!getActiveChar().isDead()) {
+				if (!getActiveChar().isDead())
 					getActiveChar().setIsKilledAlready(false);
-				}
 				// Start the HP/MP/CP Regeneration task with Medium priority
 				startHpMpRegeneration();
 			}
 		}
 		if (getActiveChar() instanceof L2PcInstance)
-		{
 			if (getCurrentHp() <= maxHp * .3)
 			{
 				QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial");
-				if (qs != null) {
+				if (qs != null)
 					qs.getQuest().notifyEvent("CE45", null, ((L2PcInstance) getActiveChar()));
-				}
 			}
-		}
 		// Send the Server->Client packet StatusUpdate with current HP and MP to
 		// all other L2PcInstance to inform
 		if (broadcastPacket)
-		{
 			getActiveChar().broadcastStatusUpdate();
-		}
 	}
 
 	public final void setCurrentHpMp(double newHp, double newMp)
@@ -458,9 +408,8 @@ public class CharStatus
 				_currentMp = maxMp;
 				_flagsRegenActive &= ~REGEN_FLAG_MP;
 				// Stop the HP/MP/CP Regeneration task
-				if (_flagsRegenActive == 0) {
+				if (_flagsRegenActive == 0)
 					stopHpMpRegeneration();
-				}
 			}
 			else
 			{
@@ -472,9 +421,8 @@ public class CharStatus
 			}
 		}
 		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
-		if (broadcastPacket) {
+		if (broadcastPacket)
 			getActiveChar().broadcastStatusUpdate();
-		}
 	}
 
 	/**
@@ -489,9 +437,8 @@ public class CharStatus
 	 */
 	public final Set<L2Character> getStatusListener()
 	{
-		if (_StatusListener == null) {
+		if (_StatusListener == null)
 			_StatusListener = new CopyOnWriteArraySet<L2Character>();
-		}
 		return _StatusListener;
 	}
 
@@ -506,27 +453,22 @@ public class CharStatus
 			{
 				CharStat charstat = getActiveChar().getStat();
 				// Modify the current CP of the L2Character and broadcast Server->Client packet StatusUpdate
-				if (getCurrentCp() < charstat.getMaxCp()) {
+				if (getCurrentCp() < charstat.getMaxCp())
 					setCurrentCp(getCurrentCp() + Formulas.getInstance().calcCpRegen(getActiveChar()), false);
-				}
 				// Modify the current HP of the L2Character and broadcast Server->Client packet StatusUpdate
-				if (getCurrentHp() < charstat.getMaxHp()) {
+				if (getCurrentHp() < charstat.getMaxHp())
 					setCurrentHp(getCurrentHp() + Formulas.getInstance().calcHpRegen(getActiveChar()), false);
-				}
 				// Modify the current MP of the L2Character and broadcast Server->Client packet StatusUpdate
-				if (getCurrentMp() < charstat.getMaxMp()) {
+				if (getCurrentMp() < charstat.getMaxMp())
 					setCurrentMp(getCurrentMp() + Formulas.getInstance().calcMpRegen(getActiveChar()), false);
-				}
 				if (!getActiveChar().isInActiveRegion())
 				{
 					// no broadcast necessary for characters that are in inactive regions.
 					// stop regeneration for characters who are filled up and in an inactive region.
-					if (getCurrentCp() == charstat.getMaxCp() && getCurrentHp() == charstat.getMaxHp() && getCurrentMp() == charstat.getMaxMp()) {
+					if (getCurrentCp() == charstat.getMaxCp() && getCurrentHp() == charstat.getMaxHp() && getCurrentMp() == charstat.getMaxMp())
 						stopHpMpRegeneration();
-					}
-				} else {
+				} else
 					getActiveChar().broadcastStatusUpdate(); // send the StatusUpdate packet
-				}
 			}
 			catch (Throwable e)
 			{

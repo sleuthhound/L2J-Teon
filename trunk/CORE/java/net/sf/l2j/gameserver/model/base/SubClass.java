@@ -86,9 +86,8 @@ public final class SubClass
 
 	public void setExp(long expValue)
 	{
-		if (expValue > Experience.LEVEL[Experience.MAX_LEVEL]) {
+		if (expValue > Experience.LEVEL[Experience.MAX_LEVEL])
 			expValue = Experience.LEVEL[Experience.MAX_LEVEL];
-		}
 		_exp = expValue;
 	}
 
@@ -104,28 +103,25 @@ public final class SubClass
 
 	public void setLevel(byte levelValue)
 	{
-		if (levelValue > Experience.MAX_LEVEL - 1) {
+		if (levelValue > Experience.MAX_LEVEL - 1)
 			levelValue = Experience.MAX_LEVEL - 1;
-		} else if (levelValue < 40) {
+		else if (levelValue < 40)
 			levelValue = 40;
-		}
 		_level = levelValue;
 	}
 
 	public void incLevel()
 	{
-		if (getLevel() == Experience.MAX_LEVEL - 1) {
+		if (getLevel() == Experience.MAX_LEVEL - 1)
 			return;
-		}
 		_level++;
 		setExp(Experience.LEVEL[getLevel()]);
 	}
 
 	public void decLevel()
 	{
-		if (getLevel() == 40) {
+		if (getLevel() == 40)
 			return;
-		}
 		_level--;
 		setExp(Experience.LEVEL[getLevel()]);
 	}

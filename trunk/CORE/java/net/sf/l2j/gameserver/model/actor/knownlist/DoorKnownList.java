@@ -45,24 +45,20 @@ public class DoorKnownList extends CharKnownList
 	@Override
 	public int getDistanceToForgetObject(L2Object object)
 	{
-		if (object instanceof L2SiegeGuardInstance) {
+		if (object instanceof L2SiegeGuardInstance)
 			return 800;
-		}
-		if (!(object instanceof L2PcInstance)) {
+		if (!(object instanceof L2PcInstance))
 			return 0;
-		}
 		return 4000;
 	}
 
 	@Override
 	public int getDistanceToWatchObject(L2Object object)
 	{
-		if (object instanceof L2SiegeGuardInstance) {
+		if (object instanceof L2SiegeGuardInstance)
 			return 600;
-		}
-		if (!(object instanceof L2PcInstance)) {
+		if (!(object instanceof L2PcInstance))
 			return 0;
-		}
 		return 2000;
 	}
 }

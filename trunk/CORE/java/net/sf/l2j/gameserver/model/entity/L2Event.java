@@ -61,11 +61,8 @@ public class L2Event
 			LinkedList temp = players.get(i);
 			Iterator it = temp.iterator();
 			while (it.hasNext())
-			{
-				if (it.next().equals(name)) {
+				if (it.next().equals(name))
 					return i;
-				}
-			}
 		}
 		return 0;
 	}
@@ -89,23 +86,19 @@ public class L2Event
 				LinkedList temp = players.get(i);
 				Iterator it = temp.iterator();
 				while (it.hasNext())
-				{
 					try
 					{
 						L2PcInstance player = L2World.getInstance().getPlayer((String) it.next());
 						if (!killersTemp.contains(player.getName()))
-						{
 							if (player.kills.size() > kills)
 							{
 								kills = player.kills.size();
 								playerTemp = player.getName();
 							}
-						}
 					}
 					catch (Exception e)
 					{
 					}
-				}
 			}
 			killersTemp.add(playerTemp);
 		}
@@ -114,7 +107,6 @@ public class L2Event
 			kills = 0;
 			Iterator it = killersTemp.iterator();
 			while (it.hasNext())
-			{
 				try
 				{
 					L2PcInstance player = L2World.getInstance().getPlayer((String) it.next());
@@ -127,7 +119,6 @@ public class L2Event
 				catch (Exception e)
 				{
 				}
-			}
 			killers[i] = playerTemp;
 			killersTemp.remove(playerTemp);
 		}
@@ -144,11 +135,10 @@ public class L2Event
 			TextBuilder replyMSG = new TextBuilder("<html><body>");
 			replyMSG.append("<center><font color=\"LEVEL\">" + eventName + "</font><font color=\"FF0000\"> bY " + inbr.readLine() + "</font></center><br>");
 			replyMSG.append("<br>" + inbr.readLine());
-			if (L2Event.participatingPlayers.contains(player.getName())) {
+			if (L2Event.participatingPlayers.contains(player.getName()))
 				replyMSG.append("<br><center>You are already in the event players list !!</center></body></html>");
-			} else {
+			else
 				replyMSG.append("<br><center><button value=\"Participate !! \" action=\"bypass -h npc_" + objectid + "_event_participate\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>");
-			}
 			adminReply.setHtml(replyMSG.toString());
 			player.sendPacket(adminReply);
 		}
@@ -193,9 +183,7 @@ public class L2Event
 	{
 		CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		{
 			player.sendPacket(cs);
-		}
 	}
 
 	public static boolean isOnEvent(L2PcInstance player)
@@ -207,9 +195,8 @@ public class L2Event
 			while (it.hasNext())
 			{
 				temp = player.getName().equalsIgnoreCase(it.next().toString());
-				if (temp) {
+				if (temp)
 					return true;
-				}
 			}
 		}
 		return false;

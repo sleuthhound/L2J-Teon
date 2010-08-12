@@ -77,9 +77,8 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 					}
 					else
 					{
-						if (!player.disarmWeapons()) {
+						if (!player.disarmWeapons())
 							return;
-						}
 						player.getPet().unSummon(player);
 						player.getInventory().destroyItemByItemId("Wyvern", 1460, 10, player, player.getTarget());
 						Ride mount = new Ride(player.getObjectId(), Ride.ACTION_MOUNT, 12621);
@@ -108,17 +107,15 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 				player.sendPacket(sm);
 				return;
 			}
-		} else {
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	@Override
 	public void onAction(L2PcInstance player)
 	{
-		if (!canTarget(player)) {
+		if (!canTarget(player))
 			return;
-		}
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
@@ -129,20 +126,12 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 			player.sendPacket(my);
 			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Calculate the distance between the L2PcInstance and the L2NpcInstance
+		if (!canInteract(player))
+			// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
-		{
-			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!canInteract(player))
-			{
-				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				showMessageWindow(player);
-			}
-		}
+			showMessageWindow(player);
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
@@ -150,19 +139,15 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 	{
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/wyvernmanager/wyvernmanager-no-fort.htm";
-		if (getClanHall() != null) {
+		if (getClanHall() != null)
 			filename = "data/html/wyvernmanager/wyvernmanager-clan-no.htm";
-		}
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
-		{
-			if (condition == COND_OWNER) {
+			if (condition == COND_OWNER)
 				// Owner message window
 				filename = "data/html/wyvernmanager/wyvernmanager.htm";
-			} else if (condition == COND_CLAN_OWNER) {
+			else if (condition == COND_CLAN_OWNER)
 				filename = "data/html/wyvernmanager/wyvernmanager-clan.htm";
-			}
-		}
 		NpcHtmlMessage html = new NpcHtmlMessage(1);
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -176,12 +161,10 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 		if (_clanHallId < 0)
 		{
 			ClanHall temp = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
-			if (temp != null) {
+			if (temp != null)
 				_clanHallId = temp.getId();
-			}
-			if (_clanHallId < 0) {
+			if (_clanHallId < 0)
 				return null;
-			}
 		}
 		return ClanHallManager.getInstance().getClanHallById(_clanHallId);
 	}
@@ -191,22 +174,16 @@ public class L2FortWyvernManagerInstance extends L2FortManagerInstance
 	{
 		if (getClanHall() != null && player.getClan() != null)
 		{
-			if (getClanHall().getOwnerId() == player.getClanId() && player.isClanLeader()) {
+			if (getClanHall().getOwnerId() == player.getClanId() && player.isClanLeader())
 				return COND_CLAN_OWNER; // Owner of the clanhall
-			}
 		}
 		else if (super.getFort() != null && super.getFort().getFortId() > 0)
-		{
 			if (player.getClan() != null)
-			{
-				if (super.getFort().getSiege().getIsInProgress()) {
+				if (super.getFort().getSiege().getIsInProgress())
 					return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
-				} else if (super.getFort().getOwnerId() == player.getClanId() // Clan owns Fort
-						&& player.isClanLeader()) {
+				else if (super.getFort().getOwnerId() == player.getClanId() // Clan owns Fort
+						&& player.isClanLeader())
 					return COND_OWNER; // Owner
-				}
-			}
-		}
 		return COND_ALL_FALSE;
 	}
 }

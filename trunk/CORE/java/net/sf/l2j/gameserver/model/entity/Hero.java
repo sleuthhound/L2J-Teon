@@ -68,9 +68,7 @@ public class Hero
 	public static Hero getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new Hero();
-		}
 		return _instance;
 	}
 
@@ -182,9 +180,7 @@ public class Hero
 		{
 			_log.warning("Hero System: Couldnt load Heroes");
 			if (Config.DEBUG)
-			{
 				e.printStackTrace();
-			}
 		}
 		_log.info("Hero System: Loaded " + _heroes.size() + " Heroes.");
 		_log.info("Hero System: Loaded " + _completeHeroes.size() + " all time Heroes.");
@@ -202,63 +198,46 @@ public class Hero
 		L2ItemInstance[] items;
 		InventoryUpdate iu;
 		if (_heroes.size() != 0)
-		{
 			for (StatsSet hero : _heroes.values())
 			{
 				String name = hero.getString(Olympiad.CHAR_NAME);
 				L2PcInstance player = L2World.getInstance().getPlayer(name);
 				if (player == null)
-				{
 					continue;
-				}
 				try
 				{
 					player.setHero(false);
 					items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_LR_HAND);
 					iu = new InventoryUpdate();
 					for (L2ItemInstance item : items)
-					{
 						iu.addModifiedItem(item);
-					}
 					player.sendPacket(iu);
 					items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_R_HAND);
 					iu = new InventoryUpdate();
 					for (L2ItemInstance item : items)
-					{
 						iu.addModifiedItem(item);
-					}
 					player.sendPacket(iu);
 					items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_HAIR);
 					iu = new InventoryUpdate();
 					for (L2ItemInstance item : items)
-					{
 						iu.addModifiedItem(item);
-					}
 					player.sendPacket(iu);
 					items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_FACE);
 					iu = new InventoryUpdate();
 					for (L2ItemInstance item : items)
-					{
 						iu.addModifiedItem(item);
-					}
 					player.sendPacket(iu);
 					items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_DHAIR);
 					iu = new InventoryUpdate();
 					for (L2ItemInstance item : items)
-					{
 						iu.addModifiedItem(item);
-					}
 					player.sendPacket(iu);
 					for (L2ItemInstance item : player.getInventory().getAvailableItems(false))
 					{
 						if (item == null)
-						{
 							continue;
-						}
 						if (!heroItems.contains(item.getItemId()))
-						{
 							continue;
-						}
 						player.destroyItem("Hero", item, null, true);
 						iu = new InventoryUpdate();
 						iu.addRemovedItem(item);
@@ -271,7 +250,6 @@ public class Hero
 				{
 				}
 			}
-		}
 		if (newHeroes.size() == 0)
 		{
 			_heroes.clear();
@@ -448,9 +426,7 @@ public class Hero
 		{
 			_log.warning("Hero System: Couldnt update Heroes");
 			if (Config.DEBUG)
-			{
 				e.printStackTrace();
-			}
 		}
 		finally
 		{

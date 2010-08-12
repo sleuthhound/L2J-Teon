@@ -245,11 +245,8 @@ public class Auction
 		{
 			_endDate = currentTime + 7 * 24 * 60 * 60 * 1000;
 			saveAuctionDate();
-		}
-		else
-		{
+		} else
 			taskDelay = _endDate - currentTime;
-		}
 		ThreadPoolManager.getInstance().scheduleGeneral(new AutoEndTask(), taskDelay);
 	}
 
@@ -292,27 +289,22 @@ public class Auction
 	{
 		int requiredAdena = bid;
 		if (getHighestBidderName().equals(bidder.getClan().getLeaderName()))
-		{
 			requiredAdena = bid - getHighestBidderMaxBid();
-		}
 		if (getHighestBidderId() > 0 && bid > getHighestBidderMaxBid() || getHighestBidderId() == 0 && bid >= getStartingBid())
-		{
 			if (takeItem(bidder, 57, requiredAdena))
 			{
 				updateInDB(bidder, bid);
 				bidder.getClan().setAuctionBiddedAt(_id, true);
 				return;
 			}
-		}
 		bidder.sendMessage("Invalid bid!");
 	}
 
 	/** Return Item in WHC */
 	private void returnItem(String Clan, int itemId, int quantity, boolean penalty)
 	{
-		if (penalty) {
+		if (penalty)
 			quantity *= 0.9; // take 10% tax fee if needed
-		}
 		ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", _adenaId, quantity, null, null);
 	}
 
@@ -361,17 +353,13 @@ public class Auction
 				statement.execute();
 				statement.close();
 				if (L2World.getInstance().getPlayer(_highestBidderName) != null)
-				{
 					L2World.getInstance().getPlayer(_highestBidderName).sendMessage("You have been out bidded");
-				}
 			}
 			_highestBidderId = bidder.getClanId();
 			_highestBidderMaxBid = bid;
 			_highestBidderName = bidder.getClan().getLeaderName();
 			if (_bidders.get(_highestBidderId) == null)
-			{
 				_bidders.put(_highestBidderId, new Bidder(_highestBidderName, bidder.getClan().getName(), bid, Calendar.getInstance().getTimeInMillis()));
-			}
 			else
 			{
 				_bidders.get(_highestBidderId).setBid(bid);
@@ -426,17 +414,10 @@ public class Auction
 		for (Bidder b : _bidders.values())
 		{
 			if (ClanTable.getInstance().getClanByName(b.getClanName()).getHasHideout() == 0)
-			{
 				returnItem(b.getClanName(), 57, 9 * b.getBid() / 10, false); // 10 %
 				// tax
-			}
-			else
-			{
-				if (L2World.getInstance().getPlayer(b.getName()) != null)
-				{
-					L2World.getInstance().getPlayer(b.getName()).sendMessage("Congratulation you have won ClanHall!");
-				}
-			}
+			else if (L2World.getInstance().getPlayer(b.getName()) != null)
+				L2World.getInstance().getPlayer(b.getName()).sendMessage("Congratulation you have won ClanHall!");
 			ClanTable.getInstance().getClanByName(b.getClanName()).setAuctionBiddedAt(0, true);
 		}
 		_bidders.clear();
@@ -502,12 +483,9 @@ public class Auction
 			Clan.setAuctionBiddedAt(0, true);
 			removeBids();
 			ClanHallManager.getInstance().setOwner(_itemId, Clan);
-		}
-		else
-		{
+		} else
 			/** Task waiting ClanHallManager is loaded every 3s */
 			ThreadPoolManager.getInstance().scheduleGeneral(new AutoEndTask(), 3000);
-		}
 	}
 
 	/** Cancel bid */
