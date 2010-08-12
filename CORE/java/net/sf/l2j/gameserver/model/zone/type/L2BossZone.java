@@ -62,33 +62,19 @@ public class L2BossZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("name"))
-		{
 			_zoneName = value;
-		}
 		else if (name.equals("InvadeTime"))
-		{
 			_timeInvade = Integer.parseInt(value);
-		}
 		else if (name.equals("EnabledByDefault"))
-		{
 			_enabled = Boolean.parseBoolean(value);
-		}
 		else if (name.equals("oustX"))
-		{
 			_oustLoc[0] = Integer.parseInt(value);
-		}
 		else if (name.equals("oustY"))
-		{
 			_oustLoc[1] = Integer.parseInt(value);
-		}
 		else if (name.equals("oustZ"))
-		{
 			_oustLoc[2] = Integer.parseInt(value);
-		}
 		else
-		{
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -99,7 +85,6 @@ public class L2BossZone extends L2ZoneType
 	protected void onEnter(L2Character character)
 	{
 		if (_enabled)
-		{
 			if (character instanceof L2PcInstance)
 			{
 				this.aOnEnter(character);
@@ -120,28 +105,24 @@ public class L2BossZone extends L2ZoneType
 					if (expirationTime == null) // legal null expirationTime entries
 					{
 						long serverStartTime = GameServer.dateTimeServerStarted.getTimeInMillis();
-						if (serverStartTime > System.currentTimeMillis() - _timeInvade) {
+						if (serverStartTime > System.currentTimeMillis() - _timeInvade)
 							return;
-						}
 					}
 					else
 					{
 						// legal non-null logoutTime entries
 						_playerAllowedReEntryTimes.remove(player.getObjectId());
-						if (expirationTime.longValue() > System.currentTimeMillis()) {
+						if (expirationTime.longValue() > System.currentTimeMillis())
 							return;
-						}
 					}
 					_playersAllowed.remove(_playersAllowed.indexOf(player.getObjectId()));
 				}
 				// teleport out all players who attempt "illegal" (re-)entry
-				if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0) {
+				if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 					player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2]);
-				} else {
+				else
 					player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-				}
 			}
-		}
 	}
 
 	@Override
@@ -163,64 +144,49 @@ public class L2BossZone extends L2ZoneType
 				// decisions can be made later about allowing or not the player
 				// to log into the zone
 				if (player.isOnline() == 0 && _playersAllowed.contains(player.getObjectId()))
-				{
 					// mark the time that the player left the zone
 					_playerAllowedReEntryTimes.put(player.getObjectId(), System.currentTimeMillis() + _timeInvade);
-				}
 				else
 				{
-					if (_playersAllowed.contains(player.getObjectId())) {
+					if (_playersAllowed.contains(player.getObjectId()))
 						_playersAllowed.remove(_playersAllowed.indexOf(player.getObjectId()));
-					}
 					_playerAllowedReEntryTimes.remove(player.getObjectId());
 				}
 			}
 			if (character instanceof L2PlayableInstance)
-			{
 				if (getCharactersInside() != null && !getCharactersInside().isEmpty())
 				{
 					_raidList.clear();
 					int count = 0;
 					for (L2Character obj : getCharactersInside().values())
 					{
-						if (obj == null) {
+						if (obj == null)
 							continue;
-						}
-						if (obj instanceof L2PlayableInstance) {
+						if (obj instanceof L2PlayableInstance)
 							count++;
-						} else if (obj instanceof L2Attackable && obj.isRaid())
-						{
+						else if (obj instanceof L2Attackable && obj.isRaid())
 							_raidList.add(obj);
-						}
 					}
 					// if inside zone isnt any player, force all boss instance return to its spawn points
 					if (count == 0 && !_raidList.isEmpty())
-					{
 						for (int i = 0; i < _raidList.size(); i++)
 						{
 							L2Attackable raid = (L2Attackable) _raidList.get(i);
-							if (raid == null || raid.isDead()) {
+							if (raid == null || raid.isDead())
 								continue;
-							}
-							if (!raid.isInsideRadius(raid.getSpawn().getLocx(), raid.getSpawn().getLocy(), 150, false)) {
+							if (!raid.isInsideRadius(raid.getSpawn().getLocx(), raid.getSpawn().getLocy(), 150, false))
 								raid.returnHome();
-							}
 						}
-					}
 				}
-			}
 		}
 		if (character instanceof L2Attackable && character.isRaid() && !character.isDead())
-		{
 			((L2Attackable) character).returnHome();
-		}
 	}
 
 	public void setZoneEnabled(boolean flag)
 	{
-		if (_enabled != flag) {
+		if (_enabled != flag)
 			oustAllPlayers();
-		}
 		_enabled = flag;
 	}
 
@@ -236,9 +202,8 @@ public class L2BossZone extends L2ZoneType
 
 	public void setAllowedPlayers(L2FastList<Integer> players)
 	{
-		if (players != null) {
+		if (players != null)
 			_playersAllowed = players;
-		}
 	}
 
 	public L2FastList<Integer> getAllowedPlayers()
@@ -248,17 +213,16 @@ public class L2BossZone extends L2ZoneType
 
 	public boolean isPlayerAllowed(L2PcInstance player)
 	{
-		if (player.isGM()) {
+		if (player.isGM())
 			return true;
-		} else if (_playersAllowed.contains(player.getObjectId())) {
+		else if (_playersAllowed.contains(player.getObjectId()))
 			return true;
-		} else
+		else
 		{
-			if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0) {
+			if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 				player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2]);
-			} else {
+			else
 				player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-			}
 			return false;
 		}
 	}
@@ -272,19 +236,15 @@ public class L2BossZone extends L2ZoneType
 	 */
 	public void movePlayersTo(int x, int y, int z)
 	{
-		if (_characterList.isEmpty()) {
+		if (_characterList.isEmpty())
 			return;
-		}
 		for (L2Character character : _characterList.values())
-		{
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
-				if (player.isOnline() == 1) {
+				if (player.isOnline() == 1)
 					player.teleToLocation(x, y, z);
-				}
 			}
-		}
 	}
 
 	/**
@@ -292,24 +252,18 @@ public class L2BossZone extends L2ZoneType
 	 */
 	public void oustAllPlayers()
 	{
-		if (_characterList.isEmpty()) {
+		if (_characterList.isEmpty())
 			return;
-		}
 		for (L2Character character : _characterList.values())
-		{
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
 				if (player.isOnline() == 1)
-				{
-					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0) {
+					if (_oustLoc[0] != 0 && _oustLoc[1] != 0 && _oustLoc[2] != 0)
 						player.teleToLocation(_oustLoc[0], _oustLoc[1], _oustLoc[2]);
-					} else {
+					else
 						player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-					}
-				}
 			}
-		}
 		_playerAllowedReEntryTimes.clear();
 		_playersAllowed.clear();
 	}
@@ -326,9 +280,8 @@ public class L2BossZone extends L2ZoneType
 	{
 		if (!player.isGM())
 		{
-			if (!_playersAllowed.contains(player.getObjectId())) {
+			if (!_playersAllowed.contains(player.getObjectId()))
 				_playersAllowed.add(player.getObjectId());
-			}
 			_playerAllowedReEntryTimes.put(player.getObjectId(), System.currentTimeMillis() + durationInSec * 1000);
 		}
 	}
@@ -347,20 +300,17 @@ public class L2BossZone extends L2ZoneType
 	@Override
 	public void broadcastPacket(L2GameServerPacket packet)
 	{
-		if (_characterList == null || _characterList.isEmpty()) {
+		if (_characterList == null || _characterList.isEmpty())
 			return;
-		}
 		for (L2Character character : _characterList.values())
 		{
-			if (character == null) {
+			if (character == null)
 				continue;
-			}
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
-				if (player.isOnline() == 1) {
+				if (player.isOnline() == 1)
 					player.sendPacket(packet);
-				}
 			}
 		}
 	}
@@ -368,21 +318,18 @@ public class L2BossZone extends L2ZoneType
 	// these are methods that java calls to invoke scripts
 	public void updateKnownList(L2NpcInstance npc)
 	{
-		if (_characterList == null || _characterList.isEmpty()) {
+		if (_characterList == null || _characterList.isEmpty())
 			return;
-		}
 		Map<Integer, L2PcInstance> npcKnownPlayers = npc.getKnownList().getKnownPlayers();
 		for (L2Character character : _characterList.values())
 		{
-			if (character == null) {
+			if (character == null)
 				continue;
-			}
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
-				if (player.isOnline() == 1) {
+				if (player.isOnline() == 1)
 					npcKnownPlayers.put(player.getObjectId(), player);
-				}
 			}
 		}
 		return;
@@ -395,11 +342,8 @@ public class L2BossZone extends L2ZoneType
 		{
 			L2PcInstance player = (L2PcInstance) character;
 			if (player.isGM())
-			{
-				if (_zoneName.equalsIgnoreCase("AltarofSacrifice")) {
+				if (_zoneName.equalsIgnoreCase("AltarofSacrifice"))
 					VanHalterManager.getInstance().intruderDetection((L2PcInstance) character);
-				}
-			}
 		}
 	}
 }

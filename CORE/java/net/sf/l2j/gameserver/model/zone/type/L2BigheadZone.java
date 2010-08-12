@@ -34,18 +34,14 @@ public class L2BigheadZone extends L2ZoneType
 	protected void onEnter(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
-		{
 			character.startAbnormalEffect(0x2000);
-		}
 	}
 
 	@Override
 	protected void onExit(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
-		{
 			character.stopAbnormalEffect((short) 0x2000);
-		}
 	}
 
 	@Override

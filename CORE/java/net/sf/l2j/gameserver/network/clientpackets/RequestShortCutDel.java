@@ -39,9 +39,8 @@ public final class RequestShortCutDel extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		activeChar.deleteShortCut(_slot, _page);
 		// client needs no confirmation. this packet is just to inform the
 		// server

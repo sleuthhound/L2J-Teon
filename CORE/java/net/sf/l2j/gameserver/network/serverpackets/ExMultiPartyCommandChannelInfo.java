@@ -45,9 +45,8 @@ public class ExMultiPartyCommandChannelInfo extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		if (_channel == null) {
+		if (_channel == null)
 			return;
-		}
 		// L2PcInstance player = this.getClient().getActiveChar();
 		writeC(0xfe);
 		writeH(0x31);

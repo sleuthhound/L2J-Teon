@@ -142,9 +142,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	{
 		activeChar = pActiveChar;
 		if (activeChar != null)
-		{
 			L2World.getInstance().storeObject(getActiveChar());
-		}
 	}
 
 	public ReentrantLock getActiveCharLock()
@@ -205,13 +203,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk(getActiveChar()); if (Config.DEBUG) { _log.fine("active Char saved"); } this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0) {
+		if (objid < 0)
 			return null;
-		}
 		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0) {
+		if (character.getClanId() != 0)
 			return character;
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -248,13 +244,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if (Config.DEBUG) _log.fine("active Char saved"); this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0) {
+		if (objid < 0)
 			return null;
-		}
 		L2PcInstance character = L2PcInstance.load(objid);
-		if (character.getClanId() != 0) {
+		if (character.getClanId() != 0)
 			return character;
-		}
 		deleteCharByObjId(objid);
 		return null;
 	}
@@ -281,9 +275,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		 * if (getActiveChar() != null) { saveCharToDisk (getActiveChar()); if (Config.DEBUG) _log.fine("active Char saved"); this.setActiveChar(null); }
 		 */
 		int objid = getObjectIdForSlot(charslot);
-		if (objid < 0) {
+		if (objid < 0)
 			return;
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -311,9 +304,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 	public static void deleteCharByObjId(int objid)
 	{
-		if (objid < 0) {
+		if (objid < 0)
 			return;
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -423,11 +415,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			character.sendPacket(new UserInfo(character));
 			character.broadcastKarma();
 			character.setOnlineStatus(true);
-		}
-		else
-		{
+		} else
 			_log.severe("could not restore in slot: " + charslot);
-		}
 		// setCharacter(character);
 		return character;
 	}
@@ -489,11 +478,10 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		if (this.getActiveChar() != null && !this.getActiveChar().getFloodProtectors().getWnk().tryPerformAction("unknownPacketCount"))
 		{
 			unknownPacketCount++;
-			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS) {
+			if (unknownPacketCount >= Config.MAX_UNKNOWN_PACKETS)
 				return true;
-			} else {
+			else
 				return false;
-			}
 		}
 		else
 		{
@@ -549,10 +537,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 					if (!player.isInOlympiadMode() /*&& player.isInsideZone(L2Character.ZONE_PEACE)*/ && !player.isInDuel() &&
 						(player.getParty()==null || !player.getParty().isInDimensionalRift()) && !player.isFestivalParticipant() &&
-				    	!player.atEvent && !player.isInJail()){
-
-						//_log.info("checking offline mode");
-
+				    	!player.atEvent && !player.isInJail())
 						if (!player.offline_shop_enabled && player.isInStoreMode() && Config.ALLOW_OFFLINE_TRADE || player.isInCraftMode() && Config.ALLOW_OFFLINE_CRAFT){
 
 
@@ -570,15 +555,12 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 							//if is in offline mode, dnt call the clean me
 				   			return;
 
-				    	}else if (player.offline_shop_enabled){
+				    	}else if (player.offline_shop_enabled)
 							//player.offline_shop_enabled = false;
 							isDetached(false);
-						}
-				    }
 
-					if (player.isInCombat()){
-				    	fast = false;
-					}
+					if (player.isInCombat())
+						fast = false;
 
 				}
 
@@ -596,9 +578,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 		try{
 			synchronized(this){
-				if (_cleanupTask == null){
-				   	_cleanupTask = ThreadPoolManager.getInstance().scheduleGeneral(new CleanupTask(), fast ? 5 : 15000L);
-				}
+				if (_cleanupTask == null)
+					_cleanupTask = ThreadPoolManager.getInstance().scheduleGeneral(new CleanupTask(), fast ? 5 : 15000L);
 			}
 
 		}catch (Exception e1){
@@ -638,20 +619,17 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 						L2Event.connectionLossData.put(player.getName(), data);
 					}
 					if (player.isFlying())
-					{
 						player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-					}
 					// notify the world about our disconnect
 					player.deleteMe();
 					try
 					{
-						if(isDetached()){
+						if(isDetached())
 							isDetached(false);
-						}else{
+						else
 							// notify the world about our disconnect
 							player.deleteMe();
 							//_log.info("called deleteme");
-						}
 
 						saveCharToDisk(player);
 					}
@@ -680,9 +658,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			{
 				L2PcInstance player = L2GameClient.this.getActiveChar();
 				if (player != null)
-				{
 					saveCharToDisk(player);
-				}
 			}
 			catch (Throwable e)
 			{

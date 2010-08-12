@@ -54,16 +54,12 @@ public final class Logout extends L2GameClientPacket
 		// Dont allow leaving if player is fighting
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
-		{
 			return;
-		}
 		player.getInventory().updateDatabase();
 		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(player) && !player.isGM())
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine("Player " + player.getName() + " tried to logout while fighting");
-			}
 			player.sendPacket(new SystemMessage(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING));
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
@@ -105,14 +101,10 @@ public final class Logout extends L2GameClientPacket
 			}
 			L2Party playerParty = player.getParty();
 			if (playerParty != null)
-			{
 				player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName() + " has been removed from the upcoming festival."));
-			}
 		}
 		if (player.isFlying())
-		{
 			player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-		}
 
 		if (player.isInStoreMode() && Config.ALLOW_OFFLINE_TRADE || player.isInCraftMode() && Config.ALLOW_OFFLINE_CRAFT){
 			player.closeNetConnection();
@@ -140,10 +132,8 @@ public final class Logout extends L2GameClientPacket
 			{
 				friendName = rset.getString("friend_name");
 				friend = L2World.getInstance().getPlayer(friendName);
-				if (friend != null) // friend logged in.
-				{
+				if (friend != null)
 					friend.sendPacket(new FriendList(friend));
-				}
 			}
 			rset.close();
 			statement.close();

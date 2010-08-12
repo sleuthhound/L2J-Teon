@@ -44,9 +44,7 @@ public final class RequestJoinPledge extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
 			return;
-		}
 		if (!(L2World.getInstance().findObject(_target) instanceof L2PcInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET));
@@ -55,13 +53,9 @@ public final class RequestJoinPledge extends L2GameClientPacket
 		L2PcInstance target = (L2PcInstance) L2World.getInstance().findObject(_target);
 		L2Clan clan = activeChar.getClan();
 		if (!clan.checkClanJoinCondition(activeChar, target, _pledgeType))
-		{
 			return;
-		}
 		if (!activeChar.getRequest().setRequest(target, this))
-		{
 			return;
-		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_INVITED_YOU_TO_JOIN_THE_CLAN_S2);
 		sm.addString(activeChar.getName());
 		sm.addString(activeChar.getClan().getName());

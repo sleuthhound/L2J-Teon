@@ -148,12 +148,10 @@ public class ConfirmDlg extends L2GameServerPacket
 				}
 			}
 			// timed dialog (Summon Friend skill request)
-			if (_time != 0) {
+			if (_time != 0)
 				writeD(_time);
-			}
-			if (_requesterId != 0) {
+			if (_requesterId != 0)
 				writeD(_requesterId);
-			}
 		}
 		else
 		{

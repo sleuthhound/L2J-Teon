@@ -34,18 +34,14 @@ public class L2NoLandingZone extends L2ZoneType
 	protected void onEnter(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
-		{
 			character.setInsideZone(L2Character.ZONE_NOLANDING, true);
-		}
 	}
 
 	@Override
 	protected void onExit(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
-		{
 			character.setInsideZone(L2Character.ZONE_NOLANDING, false);
-		}
 	}
 
 	@Override

@@ -35,21 +35,17 @@ public class RecipeShopManageList extends L2GameServerPacket
 	{
 		_seller = seller;
 		_isDwarven = isDwarven;
-		if (_isDwarven && _seller.hasDwarvenCraft()) {
+		if (_isDwarven && _seller.hasDwarvenCraft())
 			_recipes = _seller.getDwarvenRecipeBook();
-		} else {
+		else
 			_recipes = _seller.getCommonRecipeBook();
-		}
 		// clean previous recipes
 		if (_seller.getCreateList() != null)
 		{
 			L2ManufactureList list = _seller.getCreateList();
 			for (L2ManufactureItem item : list.getList())
-			{
-				if (item.isDwarven() != _isDwarven) {
+				if (item.isDwarven() != _isDwarven)
 					list.getList().remove(item);
-				}
-			}
 		}
 	}
 
@@ -61,9 +57,7 @@ public class RecipeShopManageList extends L2GameServerPacket
 		writeD(_seller.getAdena());
 		writeD(_isDwarven ? 0x00 : 0x01);
 		if (_recipes == null)
-		{
 			writeD(0);
-		}
 		else
 		{
 			writeD(_recipes.length);// number of items in recipe book
@@ -75,9 +69,7 @@ public class RecipeShopManageList extends L2GameServerPacket
 			}
 		}
 		if (_seller.getCreateList() == null)
-		{
 			writeD(0);
-		}
 		else
 		{
 			L2ManufactureList list = _seller.getCreateList();

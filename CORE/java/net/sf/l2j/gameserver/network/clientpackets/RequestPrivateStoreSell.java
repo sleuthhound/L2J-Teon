@@ -50,9 +50,7 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 		_count = readD();
 		// count*20 is the size of a for iteration of each item
 		if (_count < 0 || _count * 20 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
-		{
 			_count = 0;
-		}
 		_items = new ItemRequest[_count];
 		long priceTotal = 0;
 		for (int i = 0; i < _count; i++)
@@ -95,28 +93,18 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 			return;
 		}
 		if (player == null)
-		{
 			return;
-		}
 		L2Object object = L2World.getInstance().findObject(_storePlayerId);
 		if (object == null || !(object instanceof L2PcInstance))
-		{
 			return;
-		}
 		L2PcInstance storePlayer = (L2PcInstance) object;
 		if (storePlayer.getPrivateStoreType() != L2PcInstance.STORE_PRIVATE_BUY)
-		{
 			return;
-		}
 		if (player.isCursedWeaponEquiped())
-		{
 			return;
-		}
 		TradeList storeList = storePlayer.getBuyList();
 		if (storeList == null)
-		{
 			return;
-		}
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
@@ -151,14 +139,12 @@ public final class RequestPrivateStoreSell extends L2GameClientPacket
 
 		}
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
-		{
 			if (storePlayer.isNoob() && player.isKoof() || storePlayer.isKoof() && player.isNoob())
 			{
 				player.sendMessage("You cant sell on enemy Faction");
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-		}
 	}
 
 	@Override

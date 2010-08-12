@@ -40,9 +40,7 @@ public class ShowBoard extends L2GameServerPacket
 	{
 		int len = _id.getBytes().length * 2 + 2;
 		for (String arg : _arg)
-		{
 			len += (arg.getBytes().length + 4) * 2;
-		}
 		byte data[] = new byte[len];
 		int i = 0;
 		for (int j = 0; j < _id.getBytes().length; j++, i += 2)
@@ -91,9 +89,8 @@ public class ShowBoard extends L2GameServerPacket
 			// getBytes is a very costy operation, and should only be called
 			// once
 			byte htmlBytes[] = null;
-			if (_htmlCode != null) {
+			if (_htmlCode != null)
 				htmlBytes = _htmlCode.getBytes();
-			}
 			byte data[] = new byte[2 + 2 + 2 + _id.getBytes().length * 2 + 2 * (_htmlCode != null ? htmlBytes.length : 0)];
 			int i = 0;
 			for (int j = 0; j < _id.getBytes().length; j++, i += 2)
@@ -107,25 +104,19 @@ public class ShowBoard extends L2GameServerPacket
 			i++;
 			if (_htmlCode == null)
 			{
-			}
-			else
-			{
+			} else
 				for (int j = 0; j < htmlBytes.length; i += 2, j++)
 				{
 					data[i] = htmlBytes[j];
 					data[i + 1] = 0;
 				}
-			}
 			data[i] = 0;
 			i++;
 			data[i] = 0;
 			// writeS(_htmlCode); // current page
 			writeB(data);
-		}
-		else
-		{
+		} else
 			writeB(get1002());
-		}
 	}
 
 	/*

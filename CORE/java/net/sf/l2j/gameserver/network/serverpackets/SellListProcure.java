@@ -45,9 +45,7 @@ public class SellListProcure extends L2GameServerPacket
 		{
 			L2ItemInstance item = _activeChar.getInventory().getItemByItemId(c.getId());
 			if (item != null && c.getAmount() > 0)
-			{
 				_sellList.put(item, c.getAmount());
-			}
 		}
 	}
 

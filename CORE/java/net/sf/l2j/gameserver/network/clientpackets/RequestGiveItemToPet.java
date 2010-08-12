@@ -47,14 +47,10 @@ public final class RequestGiveItemToPet extends L2GameClientPacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null || player.getPet() == null || !(player.getPet() instanceof L2PetInstance))
-		{
 			return;
-		}
 		// Alt game - Karma punishment
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TRADE && player.getKarma() > 0)
-		{
 			return;
-		}
 		if (player.getPrivateStoreType() != 0)
 		{
 			player.sendMessage("Cannot exchange items while trading");
@@ -80,13 +76,9 @@ public final class RequestGiveItemToPet extends L2GameClientPacket
 			return;
 		}
 		if (_amount < 0)
-		{
 			return;
-		}
 		if (player.transferItem("Transfer", _objectId, _amount, pet.getInventory(), pet) == null)
-		{
 			_log.warning("Invalid Item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
-		}
 	}
 
 	@Override

@@ -45,9 +45,8 @@ public class RequestGiveNickName extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		// Noblesse can bestow a title to themselves
 		if (activeChar.isNoble() && _target.matches(activeChar.getName()))
 		{

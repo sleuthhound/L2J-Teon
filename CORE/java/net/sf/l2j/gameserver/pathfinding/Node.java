@@ -43,11 +43,10 @@ public class Node
 
 	public void attacheNeighbors()
 	{
-		if (_loc == null) {
+		if (_loc == null)
 			_neighbors = null;
-		} else {
+		else
 			_neighbors = PathFinding.getInstance().readNeighbors(_loc.getNodeX(), _loc.getNodeY(), _neighborsIdx);
-		}
 	}
 
 	public Node[] getNeighbors()
@@ -76,9 +75,8 @@ public class Node
 	@Override
 	public boolean equals(Object arg0)
 	{
-		if (!(arg0 instanceof Node)) {
+		if (!(arg0 instanceof Node))
 			return false;
-		}
 		Node n = (Node) arg0;
 		// Check if x,y,z are the same
 		return _loc.getX() == n.getLoc().getX() && _loc.getY() == n.getLoc().getY() && _loc.getZ() == n.getLoc().getZ();

@@ -49,14 +49,12 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 		_pledgeType = 0;
 		writePledge(0);
 		SubPledge[] subPledge = _clan.getAllSubPledges();
-		for (SubPledge element : subPledge) {
+		for (SubPledge element : subPledge)
 			_activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(element));
-		}
 		for (L2ClanMember m : _members)
 		{
-			if (m.getPledgeType() == 0) {
+			if (m.getPledgeType() == 0)
 				continue;
-			}
 			_activeChar.sendPacket(new PledgeShowMemberListAdd(m));
 		}
 		// unless this is sent sometimes, the client doesn't recognise the
@@ -87,9 +85,8 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 		writeD(_clan.getSubPledgeMembersCount(_pledgeType));
 		for (L2ClanMember m : _members)
 		{
-			if (m.getPledgeType() != _pledgeType) {
+			if (m.getPledgeType() != _pledgeType)
 				continue;
-			}
 			writeS(m.getName());
 			writeD(m.getLevel());
 			writeD(m.getClassId());

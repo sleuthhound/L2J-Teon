@@ -43,9 +43,8 @@ public class RequestUserCommand extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		IUserCommandHandler handler = UserCommandHandler.getInstance().getUserCommandHandler(_command);
 		if (handler == null)
 		{
@@ -53,11 +52,8 @@ public class RequestUserCommand extends L2GameClientPacket
 			sm.addString("user commandID " + _command + " not implemented yet");
 			player.sendPacket(sm);
 			sm = null;
-		}
-		else
-		{
+		} else
 			handler.useUserCommand(_command, getClient().getActiveChar());
-		}
 	}
 
 	/*

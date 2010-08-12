@@ -38,11 +38,9 @@ public class L2SwampZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("move_bonus"))
-		{
 			_move_bonus = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -50,9 +48,7 @@ public class L2SwampZone extends L2ZoneType
 	{
 		character.setInsideZone(L2Character.ZONE_SWAMP, true);
 		if (character instanceof L2PcInstance)
-		{
 			((L2PcInstance) character).broadcastUserInfo();
-		}
 	}
 
 	@Override
@@ -60,9 +56,7 @@ public class L2SwampZone extends L2ZoneType
 	{
 		character.setInsideZone(L2Character.ZONE_SWAMP, false);
 		if (character instanceof L2PcInstance)
-		{
 			((L2PcInstance) character).broadcastUserInfo();
-		}
 	}
 
 	public int getMoveBonus()

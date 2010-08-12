@@ -39,9 +39,8 @@ public class SetPrivateStoreMsgSell extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null || player.getSellList() == null) {
+		if (player == null || player.getSellList() == null)
 			return;
-		}
 		player.getSellList().setTitle(_storeMsg);
 		sendPacket(new PrivateStoreMsgSell(player));
 	}

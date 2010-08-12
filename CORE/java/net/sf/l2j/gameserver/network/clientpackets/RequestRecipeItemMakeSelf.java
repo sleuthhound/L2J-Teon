@@ -37,9 +37,8 @@ public final class RequestRecipeItemMakeSelf extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		if (activeChar.getPrivateStoreType() != 0)
 		{
 			activeChar.sendMessage("Cannot make items while trading");

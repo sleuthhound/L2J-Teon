@@ -49,19 +49,18 @@ public class L2TownZone extends L2ZoneType
 	@Override
 	public void setParameter(String s, String s1)
 	{
-		if (s.equals("name")) {
+		if (s.equals("name"))
 			_townName = s1;
-		} else if (s.equals("townId")) {
+		else if (s.equals("townId"))
 			_townId = Integer.parseInt(s1);
-		} else if (s.equals("redirectTownId")) {
+		else if (s.equals("redirectTownId"))
 			_redirectTownId = Integer.parseInt(s1);
-		} else if (s.equals("taxById")) {
+		else if (s.equals("taxById"))
 			_taxById = Integer.parseInt(s1);
-		} else if (s.equals("isPeaceZone")) {
+		else if (s.equals("isPeaceZone"))
 			_noPeace = Boolean.parseBoolean(s1);
-		} else {
+		else
 			super.setParameter(s, s1);
-		}
 	}
 
 	@Override
@@ -69,39 +68,32 @@ public class L2TownZone extends L2ZoneType
 	{
 		int ai[] = new int[3];
 		Node node1 = node.getAttributes().getNamedItem("X");
-		if (node1 != null) {
+		if (node1 != null)
 			ai[0] = Integer.parseInt(node1.getNodeValue());
-		}
 		node1 = node.getAttributes().getNamedItem("Y");
-		if (node1 != null) {
+		if (node1 != null)
 			ai[1] = Integer.parseInt(node1.getNodeValue());
-		}
 		node1 = node.getAttributes().getNamedItem("Z");
-		if (node1 != null) {
+		if (node1 != null)
 			ai[2] = Integer.parseInt(node1.getNodeValue());
-		}
-		if (ai != null) {
+		if (ai != null)
 			_spawnLocs.add(ai);
-		}
 	}
 
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (character instanceof L2PcInstance && ((L2PcInstance) character).getSiegeState() != 0 && Config.ZONE_TOWN == 1) {
+		if (character instanceof L2PcInstance && ((L2PcInstance) character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
 			return;
-		}
-		if (!_noPeace && Config.ZONE_TOWN != 2) {
+		if (!_noPeace && Config.ZONE_TOWN != 2)
 			character.setInsideZone(2, true);
-		}
 	}
 
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (!_noPeace) {
+		if (!_noPeace)
 			character.setInsideZone(2, false);
-		}
 	}
 
 	@Override

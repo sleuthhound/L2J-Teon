@@ -36,9 +36,8 @@ public class PartyMemberPosition extends L2GameServerPacket
 		writeD(_party.getMemberCount());
 		for (L2PcInstance pm : _party.getPartyMembers())
 		{
-			if (pm == null) {
+			if (pm == null)
 				continue;
-			}
 			writeD(pm.getObjectId());
 			writeD(pm.getX());
 			writeD(pm.getY());

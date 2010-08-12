@@ -46,14 +46,10 @@ public final class RequestAnswerJoinPledge extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
 			return;
-		}
 		L2PcInstance requestor = activeChar.getRequest().getPartner();
 		if (requestor == null)
-		{
 			return;
-		}
 		if (_answer == 0)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_NOT_RESPOND_TO_S1_CLAN_INVITATION);
@@ -68,9 +64,7 @@ public final class RequestAnswerJoinPledge extends L2GameClientPacket
 		else
 		{
 			if (!(requestor.getRequest().getRequestPacket() instanceof RequestJoinPledge))
-			{
 				return; // hax
-			}
 			RequestJoinPledge requestPacket = (RequestJoinPledge) requestor.getRequest().getRequestPacket();
 			L2Clan clan = requestor.getClan();
 			// we must double check this cause during response time
@@ -85,13 +79,10 @@ public final class RequestAnswerJoinPledge extends L2GameClientPacket
 				{
 					activeChar.setPowerGrade(9); // adademy
 					activeChar.setLvlJoinedAcademy(activeChar.getLevel());
-				}
-				else
-				{
+				} else
 					activeChar.setPowerGrade(5); // new member starts at
 					// 5,
 					// not confirmed
-				}
 				clan.addClanMember(activeChar);
 				activeChar.setClanPrivileges(activeChar.getClan().getRankPrivs(activeChar.getPowerGrade()));
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.ENTERED_THE_CLAN));

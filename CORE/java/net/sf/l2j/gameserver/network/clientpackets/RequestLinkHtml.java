@@ -38,9 +38,8 @@ public final class RequestLinkHtml extends L2GameClientPacket
 	public void runImpl()
 	{
 		L2PcInstance actor = getClient().getActiveChar();
-		if (actor == null) {
+		if (actor == null)
 			return;
-		}
 		if (_link.contains("..") || !_link.contains(".htm"))
 		{
 			_log.warning("[RequestLinkHtml] hack? link contains prohibited characters: '" + _link + "', skipped");

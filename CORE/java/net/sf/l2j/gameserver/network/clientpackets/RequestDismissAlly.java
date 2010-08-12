@@ -40,9 +40,7 @@ public final class RequestDismissAlly extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
 			return;
-		}
 		if (!activeChar.isClanLeader())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));

@@ -43,15 +43,12 @@ public class RequestCursedWeaponList extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2Character activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		// send a ExCursedWeaponList :p
 		List<Integer> list = new FastList<Integer>();
 		for (int id : CursedWeaponsManager.getInstance().getCursedWeaponsIds())
-		{
 			list.add(id);
-		}
 		activeChar.sendPacket(new ExCursedWeaponList(list));
 	}
 

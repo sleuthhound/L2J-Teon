@@ -54,9 +54,8 @@ public final class AddTradeItem extends L2GameClientPacket
 	protected void runImpl()
 	{
 		final L2PcInstance player = getClient().getActiveChar();
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		final TradeList trade = player.getActiveTradeList();
 		if (trade == null)
 		{
@@ -67,9 +66,8 @@ public final class AddTradeItem extends L2GameClientPacket
 		if (partner == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null || partner.getActiveTradeList() == null)
 		{
 			// Trade partner not found, cancel trade
-			if (partner != null) {
+			if (partner != null)
 				_log.warning("Character:" + player.getName() + " requested invalid trade object: " + _objectId);
-			}
 			SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 			player.sendPacket(msg);
 			player.cancelActiveTrade();

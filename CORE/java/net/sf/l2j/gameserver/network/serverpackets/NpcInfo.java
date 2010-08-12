@@ -56,28 +56,18 @@ public class NpcInfo extends L2GameServerPacket
 		_collisionHeight = cha.getCollisionHeight();
 		_collisionRadius = cha.getCollisionRadius();
 		if (cha.getTemplate().serverSideName)
-		{
 			_name = cha.getTemplate().name;
-		}
 		if (Config.CHAMPION_ENABLE && cha.isChampion())
-		{
 			_title = "Champion";
-		}
 		else if (cha.getTemplate().serverSideTitle)
-		{
 			_title = cha.getTemplate().title;
-		}
 		else
-		{
 			_title = cha.getTitle();
-		}
 		if (Config.SHOW_NPC_LVL && _activeChar instanceof L2MonsterInstance)
 		{
 			String t = "Lv " + cha.getLevel() + (cha.getAggroRange() > 0 ? "*" : "");
 			if (_title != null)
-			{
 				t += " " + _title;
-			}
 			_title = t;
 		}
 		_x = _activeChar.getX();
@@ -123,12 +113,8 @@ public class NpcInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		if (_activeChar instanceof L2Summon)
-		{
 			if (((L2Summon) _activeChar).getOwner() != null && ((L2Summon) _activeChar).getOwner().getAppearance().getInvisible())
-			{
 				return;
-			}
-		}
 		writeC(0x16);
 		writeD(_activeChar.getObjectId());
 		writeD(_idTemplate + 1000000); // npctype id

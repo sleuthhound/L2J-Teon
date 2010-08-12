@@ -35,13 +35,11 @@ public class MoveToLocationInVehicle extends L2GameServerPacket
 	 */
 	public MoveToLocationInVehicle(L2Character actor, L2CharPosition destination, L2CharPosition origin)
 	{
-		if (!(actor instanceof L2PcInstance)) {
+		if (!(actor instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance player = (L2PcInstance) actor;
-		if (player.getBoat() == null) {
+		if (player.getBoat() == null)
 			return;
-		}
 		_charObjId = player.getObjectId();
 		_boatId = player.getBoat().getObjectId();
 		_destination = destination;

@@ -67,13 +67,9 @@ public final class RequestRestartPoint extends L2GameClientPacket
 				Castle castle = null;
 				Fort fort = null;
 				if (activeChar.isInJail())
-				{
 					_requestedPointType = 27;
-				}
 				else if (activeChar.isFestivalParticipant())
-				{
 					_requestedPointType = 4;
-				}
 				switch (_requestedPointType)
 				{
 					case 1: // to clanhall
@@ -87,9 +83,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						}
 						loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
 						if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()) != null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP) != null)
-						{
 							activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl());
-						}
 						break;
 					case 2: // to castle
 						Boolean isInDefense = false;
@@ -98,13 +92,9 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						if (castle != null)
 						{
 							if (castle.getSiege().getIsInProgress())
-							{
 								// siege in progress
 								if (castle.getSiege().checkIsDefender(activeChar.getClan()))
-								{
 									isInDefense = true;
-								}
-							}
 							if (activeChar.getClan().getHasCastle() == 0 && !isInDefense)
 							{
 								// cheater
@@ -117,13 +107,9 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						else if (fort != null)
 						{
 							if (fort.getSiege().getIsInProgress())
-							{
 								// siege in progress
 								if (fort.getSiege().checkIsDefender(activeChar.getClan()))
-								{
 									isInDefense = true;
-								}
-							}
 							if (activeChar.getClan().getHasFort() == 0 && !isInDefense)
 							{
 								// cheater
@@ -142,9 +128,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						if (castle != null)
 						{
 							if (castle.getSiege().getIsInProgress())
-							{
 								siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
-							}
 							if (siegeClan == null || siegeClan.getFlag().size() == 0)
 							{
 								// cheater
@@ -157,9 +141,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						else if (fort != null)
 						{
 							if (fort.getSiege().getIsInProgress())
-							{
 								siegeClan = fort.getSiege().getAttackerClan(activeChar.getClan());
-							}
 							if (siegeClan == null || siegeClan.getFlag().size() == 0)
 							{
 								// cheater
@@ -184,9 +166,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 						break;
 					case 27: // to jail
 						if (!activeChar.isInJail())
-						{
 							return;
-						}
 						loc = new Location(-114356, -249645, -2984);
 						break;
 					default:
@@ -209,9 +189,7 @@ public final class RequestRestartPoint extends L2GameClientPacket
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-		{
 			return;
-		}
 		if (activeChar.isInFunEvent())
 		{
 			activeChar.sendMessage("You cant logout in event.");
@@ -237,41 +215,33 @@ public final class RequestRestartPoint extends L2GameClientPacket
 			activeChar.inPartyEvent = false;
 			activeChar.inSoloEvent = false;
 			if (L2RaidEvent._eventType == 2)
-			{
-				if (L2RaidEvent._participatingPlayers.contains(activeChar)) {
+				if (L2RaidEvent._participatingPlayers.contains(activeChar))
 					// Clear player from Event.
 					L2RaidEvent._participatingPlayers.remove(activeChar);
-				}
-			}
 			if (L2RaidEvent._eventType == 3)
 			{
-				if (activeChar.getParty() != null) {
+				if (activeChar.getParty() != null)
 					activeChar.leaveParty();
-				}
 				activeChar.sendMessage("You have been kicked from the party");
 			}
 			activeChar.sendMessage("You've been erased from the event!");
 			int num = L2RaidEvent._participatingPlayers.size();
-			if (num > 0 && num != 1) {
+			if (num > 0 && num != 1)
 				num -= 1;
-			} else {
+			else
 				L2RaidEvent.hardFinish();
-			}
 		}
 		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 		if (castle != null && castle.getSiege().getIsInProgress())
-		{
 			// DeathFinalizer df = new DeathFinalizer(10000);
 			if (activeChar.getClan() != null && castle.getSiege().checkIsAttacker(activeChar.getClan()))
 			{
 				// Schedule respawn delay for attacker
 				ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
-				if (castle.getSiege().getAttackerRespawnDelay() > 0) {
+				if (castle.getSiege().getAttackerRespawnDelay() > 0)
 					activeChar.sendMessage("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay() / 1000 + " seconds");
-				}
 				return;
 			}
-		}
 		// run immediatelly (no need to schedule)
 		ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), 1);
 	}

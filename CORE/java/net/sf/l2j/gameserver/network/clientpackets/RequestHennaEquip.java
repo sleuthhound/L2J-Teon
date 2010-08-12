@@ -54,13 +54,11 @@ public final class RequestHennaEquip extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
-		if (template == null) {
+		if (template == null)
 			return;
-		}
 		L2HennaInstance temp = new L2HennaInstance(template);
 		int _count = 0;
 		/*
@@ -68,13 +66,11 @@ public final class RequestHennaEquip extends L2GameClientPacket
 		 */
 		boolean cheater = true;
 		for (L2HennaInstance h : HennaTreeTable.getInstance().getAvailableHenna(activeChar.getClassId()))
-		{
 			if (h.getSymbolId() == temp.getSymbolId())
 			{
 				cheater = false;
 				break;
 			}
-		}
 		try
 		{
 			_count = activeChar.getInventory().getItemByItemId(temp.getItemIdDye()).getCount();
@@ -98,11 +94,8 @@ public final class RequestHennaEquip extends L2GameClientPacket
 			iu.addModifiedItem(activeChar.getInventory().getAdenaInstance());
 			iu.addModifiedItem(dyeToUpdate);
 			activeChar.sendPacket(iu);
-		}
-		else
-		{
+		} else
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_DRAW_SYMBOL));
-		}
 		if (!activeChar.isGM() && cheater)
 		{
 			Util.handleIllegalPlayerAction(activeChar, "Exploit attempt: Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " tryed to add a forbidden henna.", Config.DEFAULT_PUNISH);

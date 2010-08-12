@@ -50,27 +50,17 @@ public class L2CastleTeleportZone extends L2ZoneType
 			_castle.setTeleZone(this);
 		}
 		else if (name.equals("spawnMinX"))
-		{
 			_spawnLoc[0] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnMaxX"))
-		{
 			_spawnLoc[1] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnMinY"))
-		{
 			_spawnLoc[2] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnMaxY"))
-		{
 			_spawnLoc[3] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnZ"))
-		{
 			_spawnLoc[4] = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -104,33 +94,26 @@ public class L2CastleTeleportZone extends L2ZoneType
 	{
 		FastList<L2PcInstance> players = new FastList<L2PcInstance>();
 		for (L2Character temp : _characterList.values())
-		{
-			if (temp instanceof L2PcInstance) {
+			if (temp instanceof L2PcInstance)
 				players.add((L2PcInstance) temp);
-			}
-		}
 		return players;
 	}
 
 	public void oustAllPlayers()
 	{
-		if (_characterList == null) {
+		if (_characterList == null)
 			return;
-		}
-		if (_characterList.isEmpty()) {
+		if (_characterList.isEmpty())
 			return;
-		}
 		for (L2Character character : _characterList.values())
 		{
-			if (character == null) {
+			if (character == null)
 				continue;
-			}
 			if (character instanceof L2PcInstance)
 			{
 				L2PcInstance player = (L2PcInstance) character;
-				if (player.isOnline() == 1) {
+				if (player.isOnline() == 1)
 					player.teleToLocation(Rnd.get(_spawnLoc[0], _spawnLoc[1]), Rnd.get(_spawnLoc[2], _spawnLoc[3]), _spawnLoc[4]);
-				}
 			}
 		}
 	}

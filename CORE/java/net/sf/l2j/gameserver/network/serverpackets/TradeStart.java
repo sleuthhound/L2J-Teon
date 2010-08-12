@@ -37,9 +37,8 @@ public class TradeStart extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{// 0x2e TradeStart d h (h dddhh dhhh)
-		if (_activeChar.getActiveTradeList() == null || _activeChar.getActiveTradeList().getPartner() == null) {
+		if (_activeChar.getActiveTradeList() == null || _activeChar.getActiveTradeList().getPartner() == null)
 			return;
-		}
 		writeC(0x1E);
 		writeD(_activeChar.getActiveTradeList().getPartner().getObjectId());
 		// writeD((_activeChar != null || _activeChar.getTransactionRequester()

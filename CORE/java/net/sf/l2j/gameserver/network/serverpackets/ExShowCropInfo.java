@@ -34,9 +34,7 @@ public class ExShowCropInfo extends L2GameServerPacket
 		_manorId = manorId;
 		_crops = crops;
 		if (_crops == null)
-		{
 			_crops = new FastList<CropProcure>();
-		}
 	}
 
 	@Override

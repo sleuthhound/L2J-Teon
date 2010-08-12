@@ -49,19 +49,13 @@ public class L2ClanHallZone extends L2ZoneType
 			ClanHallManager.getInstance().getClanHallById(_clanHallId).setZone(this);
 		}
 		else if (name.equals("spawnX"))
-		{
 			_spawnLoc[0] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnY"))
-		{
 			_spawnLoc[1] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnZ"))
-		{
 			_spawnLoc[2] = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -72,9 +66,8 @@ public class L2ClanHallZone extends L2ZoneType
 			// Set as in clan hall
 			character.setInsideZone(L2Character.ZONE_CLANHALL, true);
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallById(_clanHallId);
-			if (clanHall == null) {
+			if (clanHall == null)
 				return;
-			}
 			// Send decoration packet
 			ClanHallDecoration deco = new ClanHallDecoration(clanHall);
 			((L2PcInstance) character).sendPacket(deco);
@@ -85,10 +78,8 @@ public class L2ClanHallZone extends L2ZoneType
 	protected void onExit(L2Character character)
 	{
 		if (character instanceof L2PcInstance)
-		{
 			// Unset clanhall zone
 			character.setInsideZone(L2Character.ZONE_CLANHALL, false);
-		}
 	}
 
 	@Override
@@ -110,12 +101,10 @@ public class L2ClanHallZone extends L2ZoneType
 	{
 		for (L2Character temp : _characterList.values())
 		{
-			if (!(temp instanceof L2PcInstance)) {
+			if (!(temp instanceof L2PcInstance))
 				continue;
-			}
-			if (((L2PcInstance) temp).getClanId() == owningClanId) {
+			if (((L2PcInstance) temp).getClanId() == owningClanId)
 				continue;
-			}
 			((L2PcInstance) temp).teleToLocation(MapRegionTable.TeleportWhereType.Town);
 		}
 	}

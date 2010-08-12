@@ -42,9 +42,8 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 	protected void readImpl()
 	{
 		_length = readD();
-		if (_length < 0 || _length > 192) {
+		if (_length < 0 || _length > 192)
 			return;
-		}
 		_data = new byte[_length];
 		readB(_data);
 	}
@@ -53,9 +52,8 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		if (_length < 0)
 		{
 			activeChar.sendMessage("File transfer error.");
@@ -70,9 +68,7 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 		{
 			L2Clan leaderclan = ClanTable.getInstance().getClan(activeChar.getAllyId());
 			if (activeChar.getClanId() != leaderclan.getClanId() || !activeChar.isClanLeader())
-			{
 				return;
-			}
 			CrestCache crestCache = CrestCache.getInstance();
 			int newId = IdFactory.getInstance().getNextId();
 			if (!crestCache.saveAllyCrest(newId, _data))
@@ -81,9 +77,7 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 				return;
 			}
 			if (leaderclan.getAllyCrestId() != 0)
-			{
 				crestCache.removeAllyCrest(leaderclan.getAllyCrestId());
-			}
 			java.sql.Connection con = null;
 			try
 			{
@@ -109,15 +103,12 @@ public final class RequestSetAllyCrest extends L2GameClientPacket
 				}
 			}
 			for (L2Clan clan : ClanTable.getInstance().getClans())
-			{
 				if (clan.getAllyId() == activeChar.getAllyId())
 				{
 					clan.setAllyCrestId(newId);
-					for (L2PcInstance member : clan.getOnlineMembers("")) {
+					for (L2PcInstance member : clan.getOnlineMembers(""))
 						member.broadcastUserInfo();
-					}
 				}
-			}
 		}
 	}
 

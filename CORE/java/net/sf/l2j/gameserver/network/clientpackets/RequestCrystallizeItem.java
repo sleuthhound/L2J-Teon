@@ -91,19 +91,14 @@ public final class RequestCrystallizeItem extends L2GameClientPacket
 				return;
 			}
 			int itemId = item.getItemId();
-			if (itemId >= 6611 && itemId <= 6621 || itemId == 6842) {
+			if (itemId >= 6611 && itemId <= 6621 || itemId == 6842)
 				return;
-			}
 			if (_count > item.getCount())
-			{
 				_count = activeChar.getInventory().getItemByObjectId(_objectId).getCount();
-			}
 		}
 		L2ItemInstance itemToRemove = activeChar.getInventory().getItemByObjectId(_objectId);
 		if (itemToRemove == null || itemToRemove.isWear())
-		{
 			return;
-		}
 		if (!itemToRemove.getItem().isCrystallizable() || itemToRemove.getItem().getCrystalCount() <= 0 || itemToRemove.getItem().getCrystalType() == L2Item.CRYSTAL_NONE)
 		{
 			_log.warning("" + activeChar.getObjectId() + " tried to crystallize " + itemToRemove.getItem().getItemId());
@@ -155,9 +150,8 @@ public final class RequestCrystallizeItem extends L2GameClientPacket
 		{
 			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getEquipSlot());
 			InventoryUpdate iu = new InventoryUpdate();
-			for (L2ItemInstance element : unequiped) {
+			for (L2ItemInstance element : unequiped)
 				iu.addModifiedItem(element);
-			}
 			activeChar.sendPacket(iu);
 			// activeChar.updatePDef();
 			// activeChar.updatePAtk();
@@ -181,20 +175,17 @@ public final class RequestCrystallizeItem extends L2GameClientPacket
 		if (!Config.FORCE_INVENTORY_UPDATE)
 		{
 			InventoryUpdate iu = new InventoryUpdate();
-			if (removedItem.getCount() == 0) {
+			if (removedItem.getCount() == 0)
 				iu.addRemovedItem(removedItem);
-			} else {
+			else
 				iu.addModifiedItem(removedItem);
-			}
-			if (createditem.getCount() != crystalAmount) {
+			if (createditem.getCount() != crystalAmount)
 				iu.addModifiedItem(createditem);
-			} else {
+			else
 				iu.addNewItem(createditem);
-			}
 			activeChar.sendPacket(iu);
-		} else {
+		} else
 			activeChar.sendPacket(new ItemList(activeChar, false));
-		}
 		// status & user info
 		StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
 		su.addAttribute(StatusUpdate.CUR_LOAD, activeChar.getCurrentLoad());

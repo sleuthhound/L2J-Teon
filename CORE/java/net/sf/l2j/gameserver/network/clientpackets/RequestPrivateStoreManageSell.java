@@ -39,9 +39,7 @@ public final class RequestPrivateStoreManageSell extends L2GameClientPacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
-		{
 			return;
-		}
 		// Player shouldn't be able to set stores if he/she is alike dead (dead
 		// or fake death)
 		if (player.isAlikeDead())
@@ -55,19 +53,13 @@ public final class RequestPrivateStoreManageSell extends L2GameClientPacket
 			return;
 		}
 		if (player.getMountType() != 0)
-		{
 			return;
-		}
 		if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL || player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL + 1 || player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
-		{
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-		}
 		if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_NONE)
 		{
 			if (player.isSitting())
-			{
 				player.standUp();
-			}
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_SELL + 1);
 			player.sendPacket(new PrivateStoreManageListSell(player));
 		}

@@ -35,13 +35,9 @@ public class L2VanHalterZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("name"))
-		{
 			_zoneName = value;
-		}
 		else
-		{
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -56,9 +52,8 @@ public class L2VanHalterZone extends L2ZoneType
 				player.sendMessage("You entered " + _zoneName);
 				return;
 			}
-			if (_zoneName.equalsIgnoreCase("Altar of Sacrifice")) {
+			if (_zoneName.equalsIgnoreCase("Altar of Sacrifice"))
 				VanHalterManager.getInstance().intruderDetection((L2PcInstance) character);
-			}
 		}
 	}
 

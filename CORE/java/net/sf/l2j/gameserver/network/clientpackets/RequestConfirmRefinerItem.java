@@ -55,9 +55,8 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance targetItem = (L2ItemInstance) L2World.getInstance().findObject(_targetItemObjId);
 		L2ItemInstance refinerItem = (L2ItemInstance) L2World.getInstance().findObject(_refinerItemObjId);
-		if (targetItem == null || refinerItem == null) {
+		if (targetItem == null || refinerItem == null)
 			return;
-		}
 		int itemGrade = targetItem.getItem().getItemGrade();
 		int refinerItemId = refinerItem.getItem().getItemId();
 		// is the item a life stone?
@@ -119,15 +118,12 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 	private int getLifeStoneGrade(int itemId)
 	{
 		itemId -= 8723;
-		if (itemId < 10) {
+		if (itemId < 10)
 			return 0; // normal grade
-		}
-		if (itemId < 20) {
+		if (itemId < 20)
 			return 1; // mid grade
-		}
-		if (itemId < 30) {
+		if (itemId < 30)
 			return 2; // high grade
-		}
 		return 3; // top grade
 	}
 

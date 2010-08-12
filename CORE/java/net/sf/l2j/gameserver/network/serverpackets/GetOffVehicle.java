@@ -56,9 +56,8 @@ public class GetOffVehicle extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		if (_boat == null || _activeChar == null) {
+		if (_boat == null || _activeChar == null)
 			return;
-		}
 		writeC(0x5d);
 		writeD(_activeChar.getObjectId());
 		writeD(_boat.getObjectId());

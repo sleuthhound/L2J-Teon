@@ -44,11 +44,10 @@ public class L2SignetZone extends L2ZoneType
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (!_isOffensive) {
+		if (!_isOffensive)
 			_skill.getEffects(_owner, character);
-		} else if (character != _owner && !L2Character.isInsidePeaceZone(_owner, character)) {
+		else if (character != _owner && !L2Character.isInsidePeaceZone(_owner, character))
 			_skill.getEffects(_owner, character);
-		}
 	}
 
 	@Override
@@ -65,45 +64,38 @@ public class L2SignetZone extends L2ZoneType
 	public void remove()
 	{
 		_region.removeZone(this);
-		for (L2Character member : _characterList.values()) {
+		for (L2Character member : _characterList.values())
 			member.stopSkillEffects(_skill.getId());
-		}
-		if (!_isOffensive) {
+		if (!_isOffensive)
 			_owner.stopSkillEffects(_skill.getId());
-		}
 	}
 
 	@Override
 	public void onDieInside(L2Character character)
 	{
-		if (character == _owner && _toRemoveOnOwnerExit > 0) {
+		if (character == _owner && _toRemoveOnOwnerExit > 0)
 			_owner.stopSkillEffects(_toRemoveOnOwnerExit);
-		} else {
+		else
 			character.stopSkillEffects(_skill.getId());
-		}
 	}
 
 	@Override
 	public void onReviveInside(L2Character character)
 	{
-		if (!_isOffensive) {
+		if (!_isOffensive)
 			_skill.getEffects(_owner, character);
-		} else if (character != _owner && !L2Character.isInsidePeaceZone(_owner, character)) {
+		else if (character != _owner && !L2Character.isInsidePeaceZone(_owner, character))
 			_skill.getEffects(_owner, character);
-		}
 	}
 
 	public L2Character[] getCharactersInZone()
 	{
 		FastList<L2Character> charsInZone = new FastList<L2Character>();
 		for (L2Character character : _characterList.values())
-		{
-			if (!_isOffensive) {
+			if (!_isOffensive)
 				charsInZone.add(character);
-			} else if (character != _owner && !L2Character.isInsidePeaceZone(_owner, character)) {
+			else if (character != _owner && !L2Character.isInsidePeaceZone(_owner, character))
 				charsInZone.add(character);
-			}
-		}
 		return charsInZone.toArray(new L2Character[_characterList.size()]);
 	}
 }

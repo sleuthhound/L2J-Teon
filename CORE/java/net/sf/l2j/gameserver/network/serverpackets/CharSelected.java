@@ -69,9 +69,7 @@ public class CharSelected extends L2GameServerPacket
 		writeD(_activeChar.getDEX());
 		writeD(_activeChar.getWIT());
 		for (int i = 0; i < 30; i++)
-		{
 			writeD(0x00);
-		}
 		// writeD(0); //c3
 		// writeD(0); //c3
 		// writeD(0); //c3

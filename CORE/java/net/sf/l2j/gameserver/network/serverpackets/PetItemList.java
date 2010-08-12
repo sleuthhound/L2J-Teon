@@ -38,9 +38,7 @@ public class PetItemList extends L2GameServerPacket
 		{
 			L2ItemInstance[] items = _activeChar.getInventory().getItems();
 			for (L2ItemInstance temp : items)
-			{
 				_log.fine("item:" + temp.getItem().getName() + " type1:" + temp.getItem().getType1() + " type2:" + temp.getItem().getType2());
-			}
 		}
 	}
 
@@ -60,13 +58,9 @@ public class PetItemList extends L2GameServerPacket
 			writeH(temp.getItem().getType2()); // item type2
 			writeH(0xff); // ?
 			if (temp.isEquipped())
-			{
 				writeH(0x01);
-			}
 			else
-			{
 				writeH(0x00);
-			}
 			writeD(temp.getItem().getBodyPart()); // rev 415 slot
 			// 0006-lr.ear
 			// 0008-neck 0030-lr.finger

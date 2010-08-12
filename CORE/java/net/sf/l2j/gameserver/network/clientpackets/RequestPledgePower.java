@@ -34,26 +34,22 @@ public final class RequestPledgePower extends L2GameClientPacket
 		_rank = readD();
 		_action = readD();
 		if (_action == 2)
-		{
 			_privs = readD();
-		} else {
+		else
 			_privs = 0;
-		}
 	}
 
 	@Override
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		if (_action == 2)
 		{
 			if (player.getClan() != null && player.isClanLeader())
 			{
 				if (_rank == 9)
-				{
 					// The rights below cannot be bestowed upon Academy
 					// members:
 					// Join a clan or be dismissed
@@ -67,7 +63,6 @@ public final class RequestPledgePower extends L2GameClientPacket
 					// => Leaves only CP_CL_VIEW_WAREHOUSE, CP_CH_OPEN_DOOR,
 					// CP_CS_OPEN_DOOR?
 					_privs = (_privs & L2Clan.CP_CL_VIEW_WAREHOUSE) + (_privs & L2Clan.CP_CH_OPEN_DOOR) + (_privs & L2Clan.CP_CS_OPEN_DOOR);
-				}
 				player.getClan().setRankPrivs(_rank, _privs);
 			}
 		}

@@ -59,7 +59,6 @@ public class MultiSellList extends L2GameServerPacket
 		writeD(0x28); // size of pages
 		writeD(_list == null ? 0 : _list.getEntries().size()); // list lenght
 		if (_list != null)
-		{
 			for (MultiSellEntry ent : _list.getEntries())
 			{
 				writeD(ent.getEntryId());
@@ -82,9 +81,8 @@ public class MultiSellList extends L2GameServerPacket
 				{
 					int items = i.getItemId();
 					int typeE = 65535;
-					if (items != 65336) {
+					if (items != 65336)
 						typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
-					}
 					writeH(items); // ID
 					writeH(typeE);
 					writeD(i.getItemCount()); // Count
@@ -93,7 +91,6 @@ public class MultiSellList extends L2GameServerPacket
 					writeD(0x00); // C6
 				}
 			}
-		}
 	}
 
 	@Override

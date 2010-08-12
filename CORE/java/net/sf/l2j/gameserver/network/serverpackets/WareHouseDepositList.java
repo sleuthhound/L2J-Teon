@@ -46,20 +46,12 @@ public class WareHouseDepositList extends L2GameServerPacket
 		_playerAdena = _activeChar.getAdena();
 		_items = new FastList<L2ItemInstance>();
 		for (L2ItemInstance temp : _activeChar.getInventory().getAvailableItems(true))
-		{
 			_items.add(temp);
-		}
 		// non-tradeable, augmented and shadow items can be stored in private wh
 		if (_whType == PRIVATE)
-		{
 			for (L2ItemInstance temp : player.getInventory().getItems())
-			{
 				if (temp != null && !temp.isEquipped() && (temp.isShadowItem() || temp.isAugmented()) || !temp.isTradeable())
-				{
 					_items.add(temp);
-				}
-			}
-		}
 	}
 
 	@Override
@@ -73,9 +65,7 @@ public class WareHouseDepositList extends L2GameServerPacket
 		writeD(_playerAdena);
 		int count = _items.size();
 		if (Config.DEBUG)
-		{
 			_log.fine("count:" + count);
-		}
 		writeH(count);
 		for (L2ItemInstance item : _items)
 		{
@@ -96,11 +86,8 @@ public class WareHouseDepositList extends L2GameServerPacket
 			{
 				writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
 				writeD(item.getAugmentation().getAugmentationId() >> 16);
-			}
-			else
-			{
+			} else
 				writeQ(0x00);
-			}
 		}
 	}
 

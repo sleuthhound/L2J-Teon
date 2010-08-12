@@ -40,24 +40,17 @@ public final class RequestPledgeCrest extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (_crestId == 0) {
+		if (_crestId == 0)
 			return;
-		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("crestid " + _crestId + " requested");
-		}
 		byte[] data = CrestCache.getInstance().getPledgeCrest(_crestId);
 		if (data != null)
 		{
 			PledgeCrest pc = new PledgeCrest(_crestId, data);
 			sendPacket(pc);
-		}
-		else
-		{
-			if (Config.DEBUG) {
-				_log.fine("crest is missing:" + _crestId);
-			}
-		}
+		} else if (Config.DEBUG)
+			_log.fine("crest is missing:" + _crestId);
 	}
 
 	/*

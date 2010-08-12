@@ -71,16 +71,10 @@ public class RequestPartyMatchList extends L2GameClientPacket
 		else if (_status == 3)
 		{
 			// client does not need any more updates
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("PartyMatch window was closed.");
-			}
-		}
-		else
-		{
-			if (Config.DEBUG) {
-				_log.fine("party match status: " + _status);
-			}
-		}
+		} else if (Config.DEBUG)
+			_log.fine("party match status: " + _status);
 	}
 
 	/*

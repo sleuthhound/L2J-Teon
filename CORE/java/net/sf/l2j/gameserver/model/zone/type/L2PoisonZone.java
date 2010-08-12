@@ -48,28 +48,20 @@ public class L2PoisonZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("skillId"))
-		{
 			_skillId = Integer.parseInt(value);
-		}
 		else if (name.equals("chance"))
-		{
 			_chance = Integer.parseInt(value);
-		}
 		else if (name.equals("initialDelay"))
-		{
 			_initialDelay = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		if (_task == null && Rnd.get(100) < _chance)
-		{
 			_task = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ApplySkill(this), _initialDelay, 10000);
-		}
 	}
 
 	@Override
@@ -104,18 +96,13 @@ public class L2PoisonZone extends L2ZoneType
 		public void run()
 		{
 			for (L2Character temp : _poisonZone.getCharacterList())
-			{
 				if (temp != null && !temp.isDead())
 				{
 					L2Effect[] effects = temp.getAllEffects();
 					for (L2Effect e : effects)
-					{
-						if (e.getSkill().getId() != getSkillId()) {
+						if (e.getSkill().getId() != getSkillId())
 							e.getSkill().getEffects(temp, temp);
-						}
-					}
 				}
-			}
 		}
 	}
 

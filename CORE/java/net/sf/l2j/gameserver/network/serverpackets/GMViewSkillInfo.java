@@ -27,9 +27,8 @@ public class GMViewSkillInfo extends L2GameServerPacket
 	{
 		_activeChar = cha;
 		_skills = _activeChar.getAllSkills();
-		if (_skills.length == 0) {
+		if (_skills.length == 0)
 			_skills = new L2Skill[0];
-		}
 	}
 
 	@Override

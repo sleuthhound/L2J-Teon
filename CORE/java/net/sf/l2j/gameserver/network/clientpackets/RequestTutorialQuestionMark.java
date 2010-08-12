@@ -31,13 +31,11 @@ public class RequestTutorialQuestionMark extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-		if (player == null) {
+		if (player == null)
 			return;
-		}
 		QuestState qs = player.getQuestState("255_Tutorial");
-		if (qs != null) {
+		if (qs != null)
 			qs.getQuest().notifyEvent("QM" + _number + "", null, player);
-		}
 	}
 
 	@Override

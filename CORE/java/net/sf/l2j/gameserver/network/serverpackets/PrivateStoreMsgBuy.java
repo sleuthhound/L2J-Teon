@@ -30,9 +30,8 @@ public class PrivateStoreMsgBuy extends L2GameServerPacket
 	public PrivateStoreMsgBuy(L2PcInstance player)
 	{
 		_activeChar = player;
-		if (_activeChar.getBuyList() != null) {
+		if (_activeChar.getBuyList() != null)
 			_storeMsg = _activeChar.getBuyList().getTitle();
-		}
 	}
 
 	@Override

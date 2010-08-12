@@ -64,28 +64,18 @@ public class RequestAquireSkill extends L2GameClientPacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
-		{
 			return;
-		}
 		L2FolkInstance trainer = player.getLastFolkNPC();
 		if (trainer == null)
-		{
 			return;
-		}
 		int npcid = trainer.getNpcId();
 		if (!player.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false) && !player.isGM())
-		{
 			return;
-		}
 		if (!Config.ALT_GAME_SKILL_LEARN)
-		{
 			player.setSkillLearningClassId(player.getClassId());
-		}
 		if (player.getSkillLevel(_id) >= _level)
-		{
 			// already knows the skill with this level
 			return;
-		}
 		L2Skill skill = SkillTable.getInstance().getInfo(_id, _level);
 		int counts = 0;
 		int _requiredSp = 10000000;
@@ -96,9 +86,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 				if (sk == null || sk != skill || !sk.getCanLearn(player.getSkillLearningClassId()) || !sk.canTeachBy(npcid))
-				{
 					continue;
-				}
 				counts++;
 				_requiredSp = SkillTreeTable.getInstance().getSkillCost(player, skill);
 			}
@@ -114,11 +102,10 @@ public class RequestAquireSkill extends L2GameClientPacket
 				if (Config.ES_SP_BOOK_NEEDED)
 				{
 					int spbId = -1;
-					if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION) {
+					if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION)
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
-					} else {
+					else
 						spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
-					}
 
                     if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION || skill.getLevel() == 1 && spbId > -1)
                     {
@@ -152,9 +139,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 				if (sk == null || sk != skill)
-				{
 					continue;
-				}
 				counts++;
 				costid = s.getIdCost();
 				costcount = s.getCostCount();
@@ -206,9 +191,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 				if (sk == null || sk != skill)
-				{
 					continue;
-				}
 				counts++;
 				itemId = s.getItemId();
 				repCost = s.getRepCost();
@@ -247,9 +230,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			player.getClan().setReputationScore(player.getClan().getReputationScore() - repCost, true);
 			player.getClan().addNewSkill(skill);
 			if (Config.DEBUG)
-			{
 				_log.fine("Learned pledge skill " + _id + " for " + _requiredSp + " SP.");
-			}
 			SystemMessage cr = new SystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP);
 			cr.addNumber(repCost);
 			player.sendPacket(cr);
@@ -259,9 +240,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 			sm = null;
 			player.getClan().broadcastToOnlineMembers(new PledgeSkillList(player.getClan()));
 			for (L2PcInstance member : player.getClan().getOnlineMembers(""))
-			{
 				member.sendSkillList();
-			}
 			((L2VillageMasterInstance) trainer).showPledgeSkillList(player); // Maybe we should add a check here...
 			return;
 		}
@@ -272,9 +251,7 @@ public class RequestAquireSkill extends L2GameClientPacket
 		}
 		player.addSkill(skill, true);
 		if (Config.DEBUG)
-		{
 			_log.fine("Learned skill " + _id + " for " + _requiredSp + " SP.");
-		}
 		player.setSp(player.getSp() - _requiredSp);
 		StatusUpdate su = new StatusUpdate(player.getObjectId());
 		su.addAttribute(StatusUpdate.SP, player.getSp());
@@ -291,23 +268,17 @@ public class RequestAquireSkill extends L2GameClientPacket
 		{
 			L2ShortCut[] allShortCuts = player.getAllShortCuts();
 			for (L2ShortCut sc : allShortCuts)
-			{
 				if (sc.getId() == _id && sc.getType() == L2ShortCut.TYPE_SKILL)
 				{
 					L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _level, 1);
 					player.sendPacket(new ShortCutRegister(newsc));
 					player.registerShortCut(newsc);
 				}
-			}
 		}
 		if (trainer instanceof L2FishermanInstance)
-		{
 			((L2FishermanInstance) trainer).showSkillList(player);
-		}
 		else
-		{
 			trainer.showSkillList(player, player.getSkillLearningClassId());
-		}
 		if (_id >= 1368 && _id <= 1372) // if skill is expand sendpacket :)
 		{
 			ExStorageMaxCount esmc = new ExStorageMaxCount(player);

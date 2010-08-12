@@ -51,18 +51,14 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 		_count = readD();
 		// count*12 is the size of a for iteration of each item
 		if (_count < 0 || _count * 12 > _buf.remaining() || _count > Config.MAX_ITEM_IN_PACKET)
-		{
 			_count = 0;
-		}
 		_items = new ItemRequest[_count];
 		for (int i = 0; i < _count; i++)
 		{
 			int objectId = readD();
 			long count = readD();
 			if (count > Integer.MAX_VALUE)
-			{
 				count = Integer.MAX_VALUE;
-			}
 			int price = readD();
 			_items[i] = new ItemRequest(objectId, (int) count, price);
 		}
@@ -78,37 +74,25 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 			return;
 		}
 		if (player == null)
-		{
 			return;
-		}
 		L2Object object = L2World.getInstance().findObject(_storePlayerId);
 		if (object == null || !(object instanceof L2PcInstance))
-		{
 			return;
-		}
 		if (player.isCursedWeaponEquiped())
-		{
 			return;
-		}
 		L2PcInstance storePlayer = (L2PcInstance) object;
 		if (!(storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL || storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL))
-		{
 			return;
-		}
 		TradeList storeList = storePlayer.getSellList();
 		if (storeList == null)
-		{
 			return;
-		}
 		if (Config.ENABLE_FACTION_KOOFS_NOOBS)
-		{
 			if (storePlayer.isNoob() && player.isKoof() || storePlayer.isKoof() && player.isNoob())
 			{
 				player.sendMessage("You cant buy from enemy Faction");
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
-		}
 		if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disable for your Access Level");
@@ -159,7 +143,6 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 			return;
 		}
 		if (storePlayer.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
-		{
 			if (storeList.getItemCount() > _count)
 			{
 				String msgErr = "[RequestPrivateStoreBuy] player " + getClient().getActiveChar().getName() + " tried to buy less items then sold by package-sell, ban this player for bot-usage!";
@@ -167,7 +150,6 @@ public final class RequestPrivateStoreBuy extends L2GameClientPacket
 				player.closeNetConnection(); // kick
 				return;
 			}
-		}
 		if (!storeList.PrivateStoreBuy(player, _items, (int) priceTotal))
 		{
 			sendPacket(ActionFailed.STATIC_PACKET);

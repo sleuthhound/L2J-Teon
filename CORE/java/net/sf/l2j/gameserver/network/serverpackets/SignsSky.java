@@ -29,13 +29,11 @@ public class SignsSky extends L2GameServerPacket
 	public SignsSky()
 	{
 		int compWinner = SevenSigns.getInstance().getCabalHighestScore();
-		if (SevenSigns.getInstance().isSealValidationPeriod()) {
-			if (compWinner == SevenSigns.CABAL_DAWN) {
+		if (SevenSigns.getInstance().isSealValidationPeriod())
+			if (compWinner == SevenSigns.CABAL_DAWN)
 				_state = 2;
-			} else if (compWinner == SevenSigns.CABAL_DUSK) {
+			else if (compWinner == SevenSigns.CABAL_DUSK)
 				_state = 1;
-			}
-		}
 	}
 
 	public SignsSky(int state)
@@ -47,13 +45,12 @@ public class SignsSky extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xf8);
-		if (_state == 2) {
+		if (_state == 2)
 			writeH(258);
-		} else if (_state == 1) {
+		else if (_state == 1)
 			writeH(257);
 		// else
 		// writeH(256);
-		}
 	}
 
 	/*

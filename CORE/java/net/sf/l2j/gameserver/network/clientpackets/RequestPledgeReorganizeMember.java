@@ -50,18 +50,15 @@ public final class RequestPledgeReorganizeMember extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
 		// do we need powers to do that??
 		L2Clan clan = activeChar.getClan();
-		if (clan == null) {
+		if (clan == null)
 			return;
-		}
 		L2ClanMember member = clan.getClanMember(_memberName);
-		if (member == null) {
+		if (member == null)
 			return;
-		}
 		member.setPledgeType(_newPledgeType);
 		clan.broadcastToOnlineMembers(new PledgeShowMemberListUpdate(member));
 	}

@@ -45,23 +45,15 @@ public final class RequestAnswerJoinParty extends L2GameClientPacket
 		{
 			L2PcInstance requestor = player.getActiveRequester();
 			if (player.isNoob() && requestor.isKoof())
-			{
 				return;
-			}
 			if (player.isKoof() && requestor.isNoob())
-			{
 				return;
-			}
 			if (requestor == null)
-			{
 				return;
-			}
 			JoinParty join = new JoinParty(_response);
 			requestor.sendPacket(join);
 			if (_response == 1)
-			{
 				player.joinParty(requestor.getParty());
-			}
 			else
 			{
 				SystemMessage msg = new SystemMessage(SystemMessageId.PLAYER_DECLINED);
@@ -70,12 +62,9 @@ public final class RequestAnswerJoinParty extends L2GameClientPacket
 				// activate garbage collection if there are no other members in
 				// party (happens when we were creating new one)
 				if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1)
-				{
 					requestor.setParty(null);
-				}
 			}
 			if (requestor.getParty() != null)
-			{
 				requestor.getParty().decreasePendingInvitationNumber(); // if
 				// party
 				// is
@@ -85,7 +74,6 @@ public final class RequestAnswerJoinParty extends L2GameClientPacket
 				// need
 				// of
 				// decreasing
-			}
 			player.setActiveRequester(null);
 			requestor.onTransactionResponse();
 		}

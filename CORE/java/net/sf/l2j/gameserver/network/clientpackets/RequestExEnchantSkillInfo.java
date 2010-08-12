@@ -52,16 +52,13 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null) {
+		if (activeChar == null)
 			return;
-		}
-		if (activeChar.getLevel() < 76) {
+		if (activeChar.getLevel() < 76)
 			return;
-		}
 		L2FolkInstance trainer = activeChar.getLastFolkNPC();
-		if ((trainer == null || !activeChar.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !activeChar.isGM()) {
+		if ((trainer == null || !activeChar.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !activeChar.isGM())
 			return;
-		}
 		L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
 		boolean canteach = false;
 		if (skill == null || skill.getId() != _skillId)
@@ -72,21 +69,17 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 			activeChar.sendMessage("This skill doesn't yet have enchant info in Datapack");
 			return;
 		}
-		if (!trainer.getTemplate().canTeach(activeChar.getClassId())) {
+		if (!trainer.getTemplate().canTeach(activeChar.getClassId()))
 			return; // cheater
-		}
 		L2EnchantSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableEnchantSkills(activeChar);
 		for (L2EnchantSkillLearn s : skills)
-		{
 			if (s.getId() == _skillId && s.getLevel() == _skillLvl)
 			{
 				canteach = true;
 				break;
 			}
-		}
-		if (!canteach) {
+		if (!canteach)
 			return; // cheater
-		}
 		int requiredSp = SkillTreeTable.getInstance().getSkillSpCost(activeChar, skill);
 		int requiredExp = SkillTreeTable.getInstance().getSkillExpCost(activeChar, skill);
 		byte rate = SkillTreeTable.getInstance().getSkillRate(activeChar, skill);

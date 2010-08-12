@@ -41,10 +41,8 @@ public class PartyMatchList extends L2GameServerPacket
 		writeC(0x96);
 		int size = _matchingPlayers.length;
 		if (size > 40)
-		{
 			size = 40; // the client only displays 40 players, so we also limit
 			// the list to 40
-		}
 		writeD(size);
 		for (int i = 0; i < size; i++)
 		{

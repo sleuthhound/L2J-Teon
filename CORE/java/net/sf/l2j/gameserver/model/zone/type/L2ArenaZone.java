@@ -41,23 +41,15 @@ public class L2ArenaZone extends L2ZoneType
 	public void setParameter(String name, String value)
 	{
 		if (name.equals("name"))
-		{
 			_arenaName = value;
-		}
 		else if (name.equals("spawnX"))
-		{
 			_spawnLoc[0] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnY"))
-		{
 			_spawnLoc[1] = Integer.parseInt(value);
-		}
 		else if (name.equals("spawnZ"))
-		{
 			_spawnLoc[2] = Integer.parseInt(value);
-		} else {
+		else
 			super.setParameter(name, value);
-		}
 	}
 
 	@Override
@@ -66,9 +58,7 @@ public class L2ArenaZone extends L2ZoneType
 		character.setInsideZone(L2Character.ZONE_PVP, true);
 		character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, true);
 		if (character instanceof L2PcInstance)
-		{
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
-		}
 	}
 
 	@Override
@@ -77,9 +67,7 @@ public class L2ArenaZone extends L2ZoneType
 		character.setInsideZone(L2Character.ZONE_PVP, false);
 		character.setInsideZone(L2Character.ZONE_NOSUMMONFRIEND, false);
 		if (character instanceof L2PcInstance)
-		{
 			((L2PcInstance) character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-		}
 	}
 
 	@Override
