@@ -36,24 +36,16 @@ public class AdminInvul implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), (activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target"), command);
 		if (command.equals("admin_invul"))
-		{
 			handleInvul(activeChar);
-		}
 		if (command.equals("admin_setinvul"))
 		{
 			L2Object target = activeChar.getTarget();
 			if (target instanceof L2PcInstance)
-			{
 				handleInvul((L2PcInstance) target);
-			}
 		}
 		return true;
 	}
@@ -76,18 +68,14 @@ public class AdminInvul implements IAdminCommandHandler
 			activeChar.setIsInvul(false);
 			text = activeChar.getName() + " is now mortal";
 			if (Config.DEBUG)
-			{
 				_log.fine("GM: Gm removed invul mode from character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
-			}
 		}
 		else
 		{
 			activeChar.setIsInvul(true);
 			text = activeChar.getName() + " is now invulnerable";
 			if (Config.DEBUG)
-			{
 				_log.fine("GM: Gm activated invul mode for character " + activeChar.getName() + "(" + activeChar.getObjectId() + ")");
-			}
 		}
 		activeChar.sendMessage(text);
 	}

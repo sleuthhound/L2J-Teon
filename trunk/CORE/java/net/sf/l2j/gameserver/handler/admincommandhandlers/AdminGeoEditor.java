@@ -32,11 +32,9 @@ public class AdminGeoEditor implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		if (!Config.ACCEPT_GEOEDITOR_CONN)
@@ -45,9 +43,7 @@ public class AdminGeoEditor implements IAdminCommandHandler
 			return true;
 		}
 		if (command.startsWith("admin_ge_status"))
-		{
 			activeChar.sendMessage(GeoEditorListener.getInstance().getStatus());
-		}
 		else if (command.startsWith("admin_ge_mode"))
 		{
 			if (GeoEditorListener.getInstance().getThread() == null)

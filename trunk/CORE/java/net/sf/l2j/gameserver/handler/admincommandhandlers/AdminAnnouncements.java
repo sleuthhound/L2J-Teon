@@ -32,15 +32,11 @@ public class AdminAnnouncements implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
 		if (command.equals("admin_list_announcements"))
-		{
 			Announcements.getInstance().listAnnouncements(activeChar);
-		}
 		else if (command.equals("admin_reload_announcements"))
 		{
 			Announcements.getInstance().loadAnnouncements();
@@ -55,16 +51,13 @@ public class AdminAnnouncements implements IAdminCommandHandler
 		else if (command.equals("admin_announce_announcements"))
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
 				Announcements.getInstance().showAnnouncements(player);
-			}
 			Announcements.getInstance().listAnnouncements(activeChar);
 		}
 		else if (command.startsWith("admin_add_announcement"))
 		{
 			// FIXME the player can send only 16 chars (if you try to send more it sends null), remove this function or not?
 			if (!command.equals("admin_add_announcement"))
-			{
 				try
 				{
 					String val = command.substring(23);
@@ -74,10 +67,8 @@ public class AdminAnnouncements implements IAdminCommandHandler
 				catch (StringIndexOutOfBoundsException e)
 				{
 				}// ignore errors
-			}
 		}
 		else if (command.startsWith("admin_del_announcement"))
-		{
 			try
 			{
 				int val = new Integer(command.substring(23)).intValue();
@@ -87,8 +78,6 @@ public class AdminAnnouncements implements IAdminCommandHandler
 			catch (StringIndexOutOfBoundsException e)
 			{
 			}
-		}
-		// Command is admin announce
 		else if (command.startsWith("admin_announce"))
 		{
 			// Call method from another class

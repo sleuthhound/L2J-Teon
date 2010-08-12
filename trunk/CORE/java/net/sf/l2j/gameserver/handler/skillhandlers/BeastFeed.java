@@ -33,14 +33,11 @@ public class BeastFeed implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
-		}
 		L2Object[] targetList = skill.getTargetList(activeChar);
 		if (targetList == null)
-		{
 			return;
-		}
 		_log.fine("Beast Feed casting succeded.");
 		// This is just a dummy skill handler for the golden food and crystal
 		// food skills,

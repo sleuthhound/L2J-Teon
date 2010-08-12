@@ -46,17 +46,11 @@ public class Scrolls implements IItemHandler
 	{
 		L2PcInstance activeChar;
 		if (playable instanceof L2PcInstance)
-		{
 			activeChar = (L2PcInstance) playable;
-		}
 		else if (playable instanceof L2PetInstance)
-		{
 			activeChar = ((L2PetInstance) playable).getOwner();
-		}
 		else
-		{
 			return;
-		}
 		if (activeChar.isAllSkillsDisabled())
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -71,9 +65,7 @@ public class Scrolls implements IItemHandler
 		if (itemId >= 8594 && itemId <= 8599) // Scrolls of recovery XML: 2286
 		{
 			if (activeChar.getKarma() > 0)
-			{
 				return; // Chaotic can not use it
-			}
 			if (itemId == 8594 && activeChar.getExpertiseIndex() == 0 || // Scroll:
 					itemId == 8595 && activeChar.getExpertiseIndex() == 1 || // Scroll:
 					itemId == 8596 && activeChar.getExpertiseIndex() == 2 || // Scroll:
@@ -85,17 +77,12 @@ public class Scrolls implements IItemHandler
 			// Grade)
 			{
 				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-				{
 					return;
-				}
 				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2286, 1, 1, 0));
 				activeChar.reduceDeathPenaltyBuffLevel();
 				useScroll(activeChar, 2286, itemId - 8593);
-			}
-			else
-			{
+			} else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE));
-			}
 			return;
 		}
 		else if (itemId == 5703 || itemId >= 5803 && itemId <= 5807)
@@ -120,15 +107,13 @@ public class Scrolls implements IItemHandler
 			// (S
 			// Grade)
 			{
-				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
+				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 					return;
-				}
 				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 2168, activeChar.getExpertiseIndex() + 1, 1, 0));
 				useScroll(activeChar, 2168, activeChar.getExpertiseIndex() + 1);
 				activeChar.setCharmOfLuck(true);
-			} else {
+			} else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE));
-			}
 			return;
 		}
 		else if (itemId >= 8515 && itemId <= 8520) // Charm of Courage XML:
@@ -146,29 +131,20 @@ public class Scrolls implements IItemHandler
 			// Grade)
 			{
 				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-				{
 					return;
-				}
 				activeChar.broadcastPacket(new MagicSkillUser(playable, playable, 5041, 1, 1, 0));
 				useScroll(activeChar, 5041, 1);
 				activeChar.setCharmOfCourage(true);
-			}
-			else
-			{
+			} else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE));
-			}
 			return;
 		}
 		else if (itemId >= 8954 && itemId <= 8956)
 		{
 			if (activeChar.getLevel() < 76)
-			{
 				return;
-			}
 			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-			{
 				return;
-			}
 			switch (itemId)
 			{
 				case 8954: // Blue Primeval Crystal XML: 2306
@@ -193,9 +169,7 @@ public class Scrolls implements IItemHandler
 		}
 		// for the rest, there are no extra conditions
 		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
-		{
 			return;
-		}
 		switch (itemId)
 		{
 			case 3926: // Scroll of Guidance XML:2050
@@ -310,9 +284,7 @@ public class Scrolls implements IItemHandler
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
 		if (skill != null)
-		{
 			activeChar.doCast(skill);
-		}
 	}
 
 	public int[] getItemIds()

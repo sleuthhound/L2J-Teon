@@ -37,9 +37,8 @@ public class SkillTable
 
 	public static SkillTable getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new SkillTable();
-		}
 		return _instance;
 	}
 
@@ -48,9 +47,8 @@ public class SkillTable
 		Config.MODIFIED_SKILL_COUNT = 0;
 		_skills = new FastMap<Integer, L2Skill>();
 		SkillsEngine.getInstance().loadAllSkills(_skills);
-		if (Config.MODIFIED_SKILL_COUNT > 0) {
+		if (Config.MODIFIED_SKILL_COUNT > 0)
 			_log.info("SkillsEngine: Modified " + Config.MODIFIED_SKILL_COUNT + " Skill templates duration.");
-		}
 	}
 
 	public static void reload()
@@ -101,9 +99,8 @@ public class SkillTable
 		{
 			level++;
 			temp = _skills.get(SkillTable.getSkillHashCode(magicId, level));
-			if (temp == null) {
+			if (temp == null)
 				return level - 1;
-			}
 		}
 		return level;
 	}
@@ -112,15 +109,12 @@ public class SkillTable
 
 	public int calcWeaponsAllowed(int mask)
 	{
-		if (mask == 0) {
+		if (mask == 0)
 			return 0;
-		}
 		int weaponsAllowed = 0;
-		for (int i = 0; i < weaponDbMasks.length; i++) {
-			if ((mask & 1 << i) != 0) {
+		for (int i = 0; i < weaponDbMasks.length; i++)
+			if ((mask & 1 << i) != 0)
 				weaponsAllowed |= weaponDbMasks[i].mask();
-			}
-		}
 		return weaponsAllowed;
 	}
 }

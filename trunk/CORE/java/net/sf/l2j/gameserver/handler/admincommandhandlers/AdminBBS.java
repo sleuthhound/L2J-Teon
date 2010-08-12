@@ -33,13 +33,9 @@ public class AdminBBS implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				// System.out.println("Not required level");
 				return false;
-			}
-		}
 		AdminBBSManager.getInstance().parsecmd(command, activeChar);
 		return true;
 	}

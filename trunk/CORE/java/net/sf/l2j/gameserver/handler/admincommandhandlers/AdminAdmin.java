@@ -50,17 +50,11 @@ public class AdminAdmin implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), (activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target"), command);
 		if (command.startsWith("admin_admin"))
-		{
 			showMainPage(activeChar, command);
-		}
 		else if (command.startsWith("admin_gmliston"))
 		{
 			GmListTable.getInstance().showGm(activeChar);
@@ -142,7 +136,6 @@ public class AdminAdmin implements IAdminCommandHandler
 			}
 		}
 		else if (command.startsWith("admin_diet"))
-		{
 			try
 			{
 				StringTokenizer st = new StringTokenizer(command);
@@ -175,9 +168,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			{
 				activeChar.refreshOverloaded();
 			}
-		}
 		else if (command.startsWith("admin_tradeoff"))
-		{
 			try
 			{
 				String mode = command.substring(15);
@@ -205,7 +196,6 @@ public class AdminAdmin implements IAdminCommandHandler
 					activeChar.sendMessage("Trade refusal enabled");
 				}
 			}
-		}
 		else if (command.startsWith("admin_reload"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -274,34 +264,22 @@ public class AdminAdmin implements IAdminCommandHandler
 				String pName = parameter[0].trim();
 				String pValue = parameter[1].trim();
 				if (Config.setParameterValue(pName, pValue))
-				{
 					activeChar.sendMessage("parameter " + pName + " succesfully set to " + pValue);
-				}
 				else
-				{
 					activeChar.sendMessage("Invalid parameter!");
-				}
 			}
 			catch (Exception e)
 			{
 				if (cmd.length == 2)
-				{
 					activeChar.sendMessage("Usage: //set parameter=value");
-				}
 			}
 			finally
 			{
 				if (cmd.length == 3)
-				{
 					if (cmd[2].equalsIgnoreCase("menu"))
-					{
 						AdminHelpPage.showHelpPage(activeChar, "settings.htm");
-					}
 					else if (cmd[2].equalsIgnoreCase("mod"))
-					{
 						AdminHelpPage.showHelpPage(activeChar, "mods_menu.htm");
-					}
-				}
 			}
 		}
 		return true;
@@ -347,13 +325,9 @@ public class AdminAdmin implements IAdminCommandHandler
 				break;
 			default:
 				if (Config.GM_ADMIN_MENU_STYLE.equals("modern"))
-				{
 					filename = "main";
-				}
 				else
-				{
 					filename = "classic";
-				}
 				break;
 		}
 		AdminHelpPage.showHelpPage(activeChar, filename + "_menu.htm");

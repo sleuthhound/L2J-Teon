@@ -40,21 +40,13 @@ public class EnergyStone implements IItemHandler
 	{
 		L2PcInstance activeChar;
 		if (playable instanceof L2PcInstance)
-		{
 			activeChar = (L2PcInstance) playable;
-		}
 		else if (playable instanceof L2PetInstance)
-		{
 			activeChar = ((L2PetInstance) playable).getOwner();
-		}
 		else
-		{
 			return;
-		}
 		if (item.getItemId() != 5589)
-		{
 			return;
-		}
 		int classid = activeChar.getClassId().getId();
 		if (classid == 2 || classid == 48 || classid == 88 || classid == 114)
 		{
@@ -99,9 +91,7 @@ public class EnergyStone implements IItemHandler
 				activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
 			}
 			else if (_effect.getLevel() == 2)
-			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED));
-			}
 			SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
 			sm.addNumber(_effect.getLevel());
 			activeChar.sendPacket(sm);
@@ -120,12 +110,8 @@ public class EnergyStone implements IItemHandler
 	{
 		L2Effect[] effects = activeChar.getAllEffects();
 		for (L2Effect e : effects)
-		{
 			if (e.getSkill().getSkillType() == L2Skill.SkillType.CHARGE)
-			{
 				return (EffectCharge) e;
-			}
-		}
 		return null;
 	}
 
@@ -133,12 +119,8 @@ public class EnergyStone implements IItemHandler
 	{
 		L2Skill[] skills = activeChar.getAllSkills();
 		for (L2Skill s : skills)
-		{
 			if (s.getId() == 50 || s.getId() == 8)
-			{
 				return (L2SkillCharge) s;
-			}
-		}
 		return null;
 	}
 

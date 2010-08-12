@@ -66,9 +66,8 @@ public class ChatHandler
 	{
 		int[] ids = handler.getChatTypeList();
 		for (int id : ids) {
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("Adding handler for chat type " + id);
-			}
 			_datatable.put(id, handler);
 		}
 	}

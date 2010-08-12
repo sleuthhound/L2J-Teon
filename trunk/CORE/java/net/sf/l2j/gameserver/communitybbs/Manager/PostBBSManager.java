@@ -37,9 +37,7 @@ public class PostBBSManager extends BaseBBSManager
 	public static PostBBSManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new PostBBSManager();
-		}
 		return _instance;
 	}
 
@@ -71,9 +69,7 @@ public class PostBBSManager extends BaseBBSManager
 	public void addPostByTopic(Post p, Topic t)
 	{
 		if (_postByTopic.get(t) == null)
-		{
 			_postByTopic.put(t, p);
-		}
 	}
 
 	/**
@@ -103,18 +99,12 @@ public class PostBBSManager extends BaseBBSManager
 			int idp = Integer.parseInt(st.nextToken());
 			String index = null;
 			if (st.hasMoreTokens())
-			{
 				index = st.nextToken();
-			}
 			int ind = 0;
 			if (index == null)
-			{
 				ind = 1;
-			}
 			else
-			{
 				ind = Integer.parseInt(index);
-			}
 			showPost(TopicBBSManager.getInstance().getTopicByID(idp), ForumsBBSManager.getInstance().getForumByID(idf), activeChar, ind);
 		}
 		else if (command.startsWith("_bbsposts;edit;"))
@@ -151,11 +141,8 @@ public class PostBBSManager extends BaseBBSManager
 			activeChar.sendPacket(sb);
 			activeChar.sendPacket(new ShowBoard(null, "102"));
 			activeChar.sendPacket(new ShowBoard(null, "103"));
-		}
-		else
-		{
+		} else
 			showHtmlEditPost(topic, activeChar, forum, p);
-		}
 	}
 
 	/**
@@ -175,9 +162,7 @@ public class PostBBSManager extends BaseBBSManager
 			activeChar.sendPacket(new ShowBoard(null, "103"));
 		}
 		else if (forum.getType() == Forum.MEMO)
-		{
 			showMemoPost(topic, activeChar, forum);
-		}
 		else
 		{
 			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the forum: " + forum.getName() + " is not implemented yet</center><br><br></body></html>", "101");
@@ -348,9 +333,7 @@ public class PostBBSManager extends BaseBBSManager
 				CPost cp = null;
 				Post p = getGPosttByTopic(t);
 				if (p != null)
-				{
 					cp = p.getCPost(idp);
-				}
 				if (cp == null)
 				{
 					ShowBoard sb = new ShowBoard("<html><body><br><br><center>the post: " + idp + " does not exist !</center><br><br></body></html>", "101");

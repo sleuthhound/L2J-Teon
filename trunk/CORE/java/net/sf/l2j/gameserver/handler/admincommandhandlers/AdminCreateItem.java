@@ -37,17 +37,11 @@ public class AdminCreateItem implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), (activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target"), command);
 		if (command.equals("admin_itemcreate"))
-		{
 			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
-		}
 		else if (command.startsWith("admin_create_item"))
 		{
 			try

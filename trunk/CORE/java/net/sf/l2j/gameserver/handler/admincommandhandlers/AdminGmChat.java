@@ -35,19 +35,15 @@ public class AdminGmChat implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
-		if (command.startsWith("admin_gmchat")) {
+		if (command.startsWith("admin_gmchat"))
 			handleGmChat(command, activeChar);
-		} else if (command.startsWith("admin_snoop")) {
+		else if (command.startsWith("admin_snoop"))
 			snoop(command, activeChar);
-		}
-		if (command.startsWith("admin_gmchat_menu")) {
+		if (command.startsWith("admin_gmchat_menu"))
 			AdminHelpPage.showHelpPage(activeChar, "main_menu.htm");
-		}
 		return true;
 	}
 
@@ -83,11 +79,10 @@ public class AdminGmChat implements IAdminCommandHandler
 		{
 			int offset = 0;
 			String text;
-			if (command.contains("menu")) {
+			if (command.contains("menu"))
 				offset = 17;
-			} else {
+			else
 				offset = 13;
-			}
 			text = command.substring(offset);
 			CreatureSay cs = new CreatureSay(0, 9, activeChar.getName(), text);
 			GmListTable.broadcastToGMs(cs);

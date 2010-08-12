@@ -49,22 +49,18 @@ public class AdminEditPrivs implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!activeChar.isGM()) {
+		if (!activeChar.isGM())
 			return false;
-		}
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), (activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target"), command);
 		if (command.startsWith("admin_edit_priv"))
 		{
-			if (!Config.ALT_PRIVILEGES_ADMIN) {
-				if (!checkLevel(activeChar.getAccessLevel())) {
+			if (!Config.ALT_PRIVILEGES_ADMIN)
+				if (!checkLevel(activeChar.getAccessLevel()))
 					return false;
-				}
-			}
 			try
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.info(command);
-				}
 				savePrivs(activeChar, command);
 			}
 			catch (StringIndexOutOfBoundsException e)
@@ -73,11 +69,9 @@ public class AdminEditPrivs implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_view_priv"))
 		{
-			if (!Config.ALT_PRIVILEGES_ADMIN) {
-				if (!checkLevel2(activeChar.getAccessLevel())) {
+			if (!Config.ALT_PRIVILEGES_ADMIN)
+				if (!checkLevel2(activeChar.getAccessLevel()))
 					return false;
-				}
-			}
 			try
 			{
 				String val = command.substring(16);
@@ -86,9 +80,8 @@ public class AdminEditPrivs implements IAdminCommandHandler
 			}
 			catch (Exception e)
 			{
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.info(e.getMessage());
-				}
 				activeChar.sendMessage("Wrong usage: //edit_priv pagenumber");
 			}
 		}
@@ -113,23 +106,17 @@ public class AdminEditPrivs implements IAdminCommandHandler
 		}
 		List<String> allPrivs = new ArrayList<String>(Settings.size());
 		for (Enumeration e = Settings.propertyNames(); e.hasMoreElements();)
-		{
 			allPrivs.add(String.valueOf(e.nextElement()));
-		}
 		Collections.sort(allPrivs);
 		String[] privs = allPrivs.toArray(new String[allPrivs.size()]);
 		int MaxPrivsPerPage = 20;
 		int MaxPages = Settings.size() / MaxPrivsPerPage;
 		if (Settings.size() > MaxPrivsPerPage * MaxPages)
-		{
 			MaxPages++;
-		}
 		int PrivStart = MaxPrivsPerPage * page;
 		int PrivEnd = Settings.size();
 		if (PrivEnd - PrivStart > MaxPrivsPerPage)
-		{
 			PrivEnd = PrivStart + MaxPrivsPerPage;
-		}
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/editpriv.htm");
 		TextBuilder replyMSG = new TextBuilder();
@@ -154,14 +141,11 @@ public class AdminEditPrivs implements IAdminCommandHandler
 	private void savePrivs(L2PcInstance activeChar, String command)
 	{
 		String[] commandSplit = command.split(" ");
-		if (commandSplit.length < 3) {
+		if (commandSplit.length < 3)
 			return;
-		}
 		if (replaceCommandPriv(commandSplit[1], Integer.parseInt(commandSplit[2])))
-		{
 			// Update also in memory
 			AdminCommandHandler.getInstance().setPrivilegeValue(activeChar, commandSplit[1], Integer.parseInt(commandSplit[2]));
-		}
 	}
 
 	private boolean replaceCommandPriv(String commandName, int newValue)
@@ -174,9 +158,7 @@ public class AdminEditPrivs implements IAdminCommandHandler
 			while ((line = br.readLine()) != null)
 			{
 				if (line.startsWith(commandName + " "))
-				{
 					line = commandName + " = " + newValue;
-				}
 				fs.add(line);
 			} // end while
 			br.close();

@@ -41,16 +41,10 @@ public class AdminMonsterRace implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		if (command.equalsIgnoreCase("admin_mons"))
-		{
 			handleSendPacket(activeChar);
-		}
 		return true;
 	}
 

@@ -38,9 +38,8 @@ public class DungeonKeys implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		int itemId = item.getItemId();
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2Object target = activeChar.getTarget();
 		if (!(target instanceof L2DoorInstance))
@@ -63,9 +62,8 @@ public class DungeonKeys implements IItemHandler
 			return;
 		}
 		int openChance = 35;
-		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
+		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			return;
-		}
 		switch (itemId)
 		{
 			case 8056: // Gate of Splendor
@@ -99,11 +97,8 @@ public class DungeonKeys implements IItemHandler
 						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
 						activeChar.sendPacket(playSound);
 					}
-				}
-				else
-				{
+				} else
 					activeChar.sendMessage("Incorrect Door.");
-				}
 				break;
 			case 8274: // Chapel key, Chapel Door has a Gatekeeper?? I use this key for Altar Entrance
 				if (door.getDoorName().startsWith("Altar_Entrance"))
@@ -122,11 +117,8 @@ public class DungeonKeys implements IItemHandler
 						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
 						activeChar.sendPacket(playSound);
 					}
-				}
-				else
-				{
+				} else
 					activeChar.sendMessage("Incorrect Door.");
-				}
 				break;
 			case 8275: // Key of Darkness
 				if (door.getDoorName().startsWith("Door_of_Darkness"))
@@ -145,11 +137,8 @@ public class DungeonKeys implements IItemHandler
 						PlaySound playSound = new PlaySound("interfacesound.system_close_01");
 						activeChar.sendPacket(playSound);
 					}
-				}
-				else
-				{
+				} else
 					activeChar.sendMessage("Incorrect Door.");
-				}
 				break;
 		}
 	}

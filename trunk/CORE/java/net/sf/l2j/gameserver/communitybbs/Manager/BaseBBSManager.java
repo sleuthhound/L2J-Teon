@@ -28,9 +28,8 @@ public abstract class BaseBBSManager
 
 	protected void separateAndSend(String html, L2PcInstance acha)
 	{
-		if (html == null) {
+		if (html == null)
 			return;
-		}
 		if (html.length() < 4090)
 		{
 			acha.sendPacket(new ShowBoard(html, "101"));
@@ -57,9 +56,7 @@ public abstract class BaseBBSManager
 	protected void send1001(String html, L2PcInstance acha)
 	{
 		if (html.length() < 8180)
-		{
 			acha.sendPacket(new ShowBoard(html, "1001"));
-		}
 	}
 
 	/**

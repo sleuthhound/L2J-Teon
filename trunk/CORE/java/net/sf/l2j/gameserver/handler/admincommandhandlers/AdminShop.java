@@ -39,14 +39,9 @@ public class AdminShop implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		if (command.startsWith("admin_buy"))
-		{
 			try
 			{
 				handleBuyRequest(activeChar, command.substring(10));
@@ -55,11 +50,8 @@ public class AdminShop implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Please specify buylist.");
 			}
-		}
 		else if (command.equals("admin_gmshop"))
-		{
 			AdminHelpPage.showHelpPage(activeChar, "gmshops.htm");
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		return true;
@@ -91,14 +83,9 @@ public class AdminShop implements IAdminCommandHandler
 		{
 			activeChar.sendPacket(new BuyList(list, activeChar.getAdena()));
 			if (Config.DEBUG)
-			{
 				_log.fine("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") opened GM shop id " + val);
-			}
-		}
-		else
-		{
+		} else
 			_log.warning("no buylist with id:" + val);
-		}
 		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

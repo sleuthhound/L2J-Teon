@@ -37,35 +37,26 @@ public class SiegeFlag implements ISkillHandler
 
     public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
     {
-        if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
+        if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return;
-		}
 
         L2PcInstance player = (L2PcInstance)activeChar;
 
-        if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId()) {
+        if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId())
 			return;
-		}
 
         Castle castle = CastleManager.getInstance().getCastle(player);
 		Fort fort = FortManager.getInstance().getFort(player);
 
-		if (castle == null && fort == null) {
+		if (castle == null && fort == null)
 			return;
-		}
 
 		if (castle != null)
 		{
-			if (!checkIfOkToPlaceFlag(player, castle, true)) {
+			if (!checkIfOkToPlaceFlag(player, castle, true))
 				return;
-			}
-		}
-		else
-		{
-			if (!checkIfOkToPlaceFlag(player, fort, true)) {
-				return;
-			}
-		}
+		} else if (!checkIfOkToPlaceFlag(player, fort, true))
+			return;
 
 		try
 		{
@@ -74,11 +65,10 @@ public class SiegeFlag implements ISkillHandler
             flag.setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
             flag.setHeading(player.getHeading());
             flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-            if (castle != null) {
+            if (castle != null)
 				castle.getSiege().getFlag(player.getClan()).add(flag);
-			} else {
+			else
 				fort.getSiege().getFlag(player.getClan()).add(flag);
-			}
 
         }
         catch (Exception e)
@@ -97,71 +87,63 @@ public class SiegeFlag implements ISkillHandler
 		Castle castle = CastleManager.getInstance().getCastle(activeChar);
 		Fort fort = FortManager.getInstance().getFort(activeChar);
 
-		if (castle == null && fort == null) {
+		if (castle == null && fort == null)
 			return false;
-		}
-		if (castle != null) {
+		if (castle != null)
 			return checkIfOkToPlaceFlag(activeChar, castle, isCheckOnly);
-		} else {
+		else
 			return checkIfOkToPlaceFlag(activeChar, fort, isCheckOnly);
-		}
 	}
 
 	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, Castle castle, boolean isCheckOnly)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return false;
-		}
 
 		String text = "";
 		L2PcInstance player = (L2PcInstance) activeChar;
 
-		if (castle == null || castle.getCastleId() <= 0) {
+		if (castle == null || castle.getCastleId() <= 0)
 			text = "You must be on castle ground to place a flag.";
-		} else if (!castle.getSiege().getIsInProgress()) {
+		else if (!castle.getSiege().getIsInProgress())
 			text = "You can only place a flag during a siege.";
-		} else if (castle.getSiege().getAttackerClan(player.getClan()) == null) {
+		else if (castle.getSiege().getAttackerClan(player.getClan()) == null)
 			text = "You must be an attacker to place a flag.";
-		} else if (player.getClan() == null || !player.isClanLeader()) {
+		else if (player.getClan() == null || !player.isClanLeader())
 			text = "You must be a clan leader to place a flag.";
-		} else if (castle.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= SiegeManager.getInstance().getFlagMaxCount()) {
+		else if (castle.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= SiegeManager.getInstance().getFlagMaxCount())
 			text = "You have already placed the maximum number of flags possible.";
-		} else {
+		else
 			return true;
-		}
 
-		if (!isCheckOnly) {
+		if (!isCheckOnly)
 			player.sendMessage(text);
-		}
 		return false;
 	}
 
 	public static boolean checkIfOkToPlaceFlag(L2Character activeChar, Fort fort, boolean isCheckOnly)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return false;
-		}
 
 		String text = "";
 		L2PcInstance player = (L2PcInstance) activeChar;
 
-		if (fort == null || fort.getFortId() <= 0) {
+		if (fort == null || fort.getFortId() <= 0)
 			text = "You must be on fort ground to place a flag.";
-		} else if (!fort.getSiege().getIsInProgress()) {
+		else if (!fort.getSiege().getIsInProgress())
 			text = "You can only place a flag during a siege.";
-		} else if (fort.getSiege().getAttackerClan(player.getClan()) == null) {
+		else if (fort.getSiege().getAttackerClan(player.getClan()) == null)
 			text = "You must be an attacker to place a flag.";
-		} else if (player.getClan() == null || !player.isClanLeader()) {
+		else if (player.getClan() == null || !player.isClanLeader())
 			text = "You must be a clan leader to place a flag.";
-		} else if (fort.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= FortSiegeManager.getInstance().getFlagMaxCount()) {
+		else if (fort.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= FortSiegeManager.getInstance().getFlagMaxCount())
 			text = "You have already placed the maximum number of flags possible.";
-		} else {
+		else
 			return true;
-		}
 
-		if (!isCheckOnly) {
+		if (!isCheckOnly)
 			player.sendMessage(text);
-		}
 		return false;
 	}
 

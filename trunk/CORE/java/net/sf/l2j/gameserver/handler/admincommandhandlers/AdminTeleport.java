@@ -52,57 +52,34 @@ public class AdminTeleport implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		if (command.equals("admin_teleto"))
-		{
 			activeChar.setTeleMode(1);
-		}
 		if (command.equals("admin_teleto r"))
-		{
 			activeChar.setTeleMode(2);
-		}
 		if (command.equals("admin_teleto end"))
-		{
 			activeChar.setTeleMode(0);
-		}
 		if (command.equals("admin_show_moves"))
-		{
 			AdminHelpPage.showHelpPage(activeChar, "teleports.htm");
-		}
 		if (command.equals("admin_show_moves_other"))
-		{
 			AdminHelpPage.showHelpPage(activeChar, "tele/other.html");
-		}
 		else if (command.equals("admin_show_teleport"))
-		{
 			AdminHelpPage.showHelpPage(activeChar, "tele/fort/fortress.html");
-		}
 		else if (command.equals("admin_show_teleport_fort"))
-		{
 			showTeleportCharWindow(activeChar);
-		}
 		else if (command.equals("admin_recall_npc"))
-		{
 			recallNPC(activeChar);
-		}
 		else if (command.equals("admin_teleport_to_character"))
-		{
 			teleportToCharacter(activeChar, activeChar.getTarget());
-		}
 		else if (command.equals("admin_explore") && Config.ACTIVATE_POSITION_RECORDER)
 		{
 			activeChar._exploring = !activeChar._exploring;
 			activeChar.explore();
 		}
 		else if (command.startsWith("admin_walk"))
-		{
 			try
 			{
 				String val = command.substring(11);
@@ -119,13 +96,9 @@ public class AdminTeleport implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				if (Config.DEBUG)
-				{
 					_log.info("admin_walk: " + e);
-				}
 			}
-		}
 		else if (command.startsWith("admin_move_to"))
-		{
 			try
 			{
 				String val = command.substring(14);
@@ -136,16 +109,12 @@ public class AdminTeleport implements IAdminCommandHandler
 				// Case of empty or missing coordinates
 				AdminHelpPage.showHelpPage(activeChar, "teleports.htm");
 			}
-		}
 		else if (command.startsWith("admin_teleport_character"))
-		{
 			try
 			{
 				String val = command.substring(25);
 				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
-				{
 					teleportCharacter(activeChar, val);
-				}
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -156,9 +125,7 @@ public class AdminTeleport implements IAdminCommandHandler
 				// character
 				// teleport
 			}
-		}
 		else if (command.startsWith("admin_teleportto "))
-		{
 			try
 			{
 				String targetName = command.substring(17);
@@ -168,26 +135,19 @@ public class AdminTeleport implements IAdminCommandHandler
 			catch (StringIndexOutOfBoundsException e)
 			{
 			}
-		}
 		else if (command.startsWith("admin_recall "))
-		{
 			try
 			{
 				String targetName = command.substring(13);
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
 				if (activeChar.getAccessLevel() >= REQUIRED_LEVEL2)
-				{
 					teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
-				}
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
 			}
-		}
 		else if (command.equals("admin_tele"))
-		{
 			showTeleportWindow(activeChar);
-		}
 		else if (command.startsWith("admin_go"))
 		{
 			int intVal = 150;
@@ -198,33 +158,19 @@ public class AdminTeleport implements IAdminCommandHandler
 				StringTokenizer st = new StringTokenizer(val);
 				String dir = st.nextToken();
 				if (st.hasMoreTokens())
-				{
 					intVal = Integer.parseInt(st.nextToken());
-				}
 				if (dir.equals("east"))
-				{
 					x += intVal;
-				}
 				else if (dir.equals("west"))
-				{
 					x -= intVal;
-				}
 				else if (dir.equals("north"))
-				{
 					y -= intVal;
-				}
 				else if (dir.equals("south"))
-				{
 					y += intVal;
-				}
 				else if (dir.equals("up"))
-				{
 					z += intVal;
-				}
 				else if (dir.equals("down"))
-				{
 					z -= intVal;
-				}
 				activeChar.teleToLocation(x, y, z, false);
 				showTeleportWindow(activeChar);
 			}
@@ -279,9 +225,7 @@ public class AdminTeleport implements IAdminCommandHandler
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
 		if (target instanceof L2PcInstance)
-		{
 			player = (L2PcInstance) target;
-		}
 		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
@@ -311,20 +255,15 @@ public class AdminTeleport implements IAdminCommandHandler
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
 		if (target instanceof L2PcInstance)
-		{
 			player = (L2PcInstance) target;
-		}
 		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
 		if (player.getObjectId() == activeChar.getObjectId())
-		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
-		}
 		else
-		{
 			try
 			{
 				StringTokenizer st = new StringTokenizer(Cords);
@@ -339,7 +278,6 @@ public class AdminTeleport implements IAdminCommandHandler
 			catch (NoSuchElementException nsee)
 			{
 			}
-		}
 	}
 
 	/**
@@ -363,18 +301,14 @@ public class AdminTeleport implements IAdminCommandHandler
 	{
 		L2PcInstance player = null;
 		if (target != null && target instanceof L2PcInstance)
-		{
 			player = (L2PcInstance) target;
-		}
 		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
 		if (player.getObjectId() == activeChar.getObjectId())
-		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
-		}
 		else
 		{
 			int x = player.getX();
@@ -437,10 +371,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Target is not in game.");
 			}
-		}
-		else
-		{
+		} else
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-		}
 	}
 }

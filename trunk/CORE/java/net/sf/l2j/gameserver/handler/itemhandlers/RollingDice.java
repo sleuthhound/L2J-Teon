@@ -36,9 +36,8 @@ public class RollingDice implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
 		if (activeChar.isInOlympiadMode())
@@ -60,19 +59,17 @@ public class RollingDice implements IItemHandler
 			sm.addString(activeChar.getName());
 			sm.addNumber(number);
 			activeChar.sendPacket(sm);
-			if (activeChar.isInsideZone(L2Character.ZONE_PEACE)) {
+			if (activeChar.isInsideZone(L2Character.ZONE_PEACE))
 				Broadcast.toKnownPlayers(activeChar, sm);
-			} else if (activeChar.isInParty()) {
+			else if (activeChar.isInParty())
 				activeChar.getParty().broadcastToPartyMembers(activeChar, sm);
-			}
 		}
 	}
 
 	private int rollDice(L2PcInstance player)
 	{
-		if (!player.getFloodProtectors().getRollDice().tryPerformAction("roll dice")) {
+		if (!player.getFloodProtectors().getRollDice().tryPerformAction("roll dice"))
 			return 0;
-		}
 		// Check if the dice is ready
 		return Rnd.get(1, 6);
 	}

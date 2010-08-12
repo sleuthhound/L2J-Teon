@@ -73,17 +73,14 @@ public class JackpotSeed implements IItemHandler
 		int lifeTime = 0;
 		int itemId = item.getItemId();
 		for (int i = 0; i < _itemIds.length; i++)
-		{
 			if (_itemIds[i] == itemId)
 			{
 				template1 = NpcTable.getInstance().getTemplate(_npcIds[i]);
 				lifeTime = _npcLifeTime[i];
 				break;
 			}
-		}
-		if (template1 == null) {
+		if (template1 == null)
 			return;
-		}
 		try
 		{
 			L2Spawn spawn = new L2Spawn(template1);

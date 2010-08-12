@@ -44,18 +44,12 @@ public class AdminPledge implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!activeChar.isGM() || activeChar.getAccessLevel() < Config.GM_ACCESSLEVEL || activeChar.getTarget() == null || !(activeChar.getTarget() instanceof L2PcInstance))
-			{
 				return false;
-			}
-		}
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
 		if (target instanceof L2PcInstance)
-		{
 			player = (L2PcInstance) target;
-		}
 		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
@@ -84,9 +78,7 @@ public class AdminPledge implements IAdminCommandHandler
 				player.setClanCreateExpiryTime(0);
 				L2Clan clan = ClanTable.getInstance().createClan(player, parameter);
 				if (clan != null)
-				{
 					activeChar.sendMessage("Clan " + parameter + " created. Leader: " + player.getName());
-				}
 				else
 				{
 					player.setClanCreateExpiryTime(cet);
@@ -104,22 +96,14 @@ public class AdminPledge implements IAdminCommandHandler
 				ClanTable.getInstance().destroyClan(player.getClanId());
 				L2Clan clan = player.getClan();
 				if (clan == null)
-				{
 					activeChar.sendMessage("Clan disbanded.");
-				}
 				else
-				{
 					activeChar.sendMessage("There was a problem while destroying the clan.");
-				}
 			}
 			else if (action.equals("info"))
-			{
 				activeChar.sendPacket(new GMViewPledgeInfo(player.getClan(), player));
-			}
 			else if (parameter == null)
-			{
 				activeChar.sendMessage("Usage: //pledge <setlevel|rep> <number>");
-			}
 			else if (action.equals("setlevel"))
 			{
 				int level = Integer.parseInt(parameter);
@@ -127,14 +111,10 @@ public class AdminPledge implements IAdminCommandHandler
 				{
 					player.getClan().changeLevel(level);
 					activeChar.sendMessage("You set level " + level + " for clan " + player.getClan().getName());
-				}
-				else
-				{
+				} else
 					activeChar.sendMessage("Level incorrect.");
-				}
 			}
 			else if (action.startsWith("rep"))
-			{
 				try
 				{
 					int points = Integer.parseInt(parameter);
@@ -152,7 +132,6 @@ public class AdminPledge implements IAdminCommandHandler
 				{
 					activeChar.sendMessage("Usage: //pledge <rep> <number>");
 				}
-			}
 		}
 		showMainPage(activeChar);
 		return true;

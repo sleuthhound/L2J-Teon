@@ -37,12 +37,11 @@ public class AdminDMEngine implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 			return false;
-		}
-		if (command.equals("admin_dmevent")) {
+		if (command.equals("admin_dmevent"))
 			showMainPage(activeChar);
-		} else if (command.startsWith("admin_dmevent_name "))
+		else if (command.startsWith("admin_dmevent_name "))
 		{
 			DM._eventName = command.substring(19);
 			showMainPage(activeChar);
@@ -54,17 +53,15 @@ public class AdminDMEngine implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_dmevent_minlvl "))
 		{
-			if (!DM.checkMinLevel(Integer.valueOf(command.substring(21)))) {
+			if (!DM.checkMinLevel(Integer.valueOf(command.substring(21))))
 				return false;
-			}
 			DM._minlvl = Integer.valueOf(command.substring(21));
 			showMainPage(activeChar);
 		}
 		else if (command.startsWith("admin_dmevent_maxlvl "))
 		{
-			if (!DM.checkMaxLevel(Integer.valueOf(command.substring(21)))) {
+			if (!DM.checkMaxLevel(Integer.valueOf(command.substring(21))))
 				return false;
-			}
 			DM._maxlvl = Integer.valueOf(command.substring(21));
 			showMainPage(activeChar);
 		}
@@ -144,9 +141,8 @@ public class AdminDMEngine implements IAdminCommandHandler
 			DM.saveData();
 			showMainPage(activeChar);
 		}
-		else if (command.equals("admin_dmevent_dump")) {
+		else if (command.equals("admin_dmevent_dump"))
 			DM.dumpData();
-		}
 		return true;
 	}
 

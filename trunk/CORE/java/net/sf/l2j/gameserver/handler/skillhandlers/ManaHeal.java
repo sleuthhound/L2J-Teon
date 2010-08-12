@@ -53,13 +53,11 @@ public class ManaHeal implements ISkillHandler
         for (L2Object target2 : targets) {
             target = (L2Character)target2;
             double mp = skill.getPower();
-            if (skill.getSkillType() == SkillType.MANAHEAL_PERCENT){
-            	//double mp = skill.getPower();
-             mp = target.getMaxMp() * mp / 100.0;
-            }
-            else {
-             mp = skill.getSkillType() == SkillType.MANARECHARGE ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
-            }
+            if (skill.getSkillType() == SkillType.MANAHEAL_PERCENT)
+				//double mp = skill.getPower();
+				 mp = target.getMaxMp() * mp / 100.0;
+			else
+				mp = skill.getSkillType() == SkillType.MANARECHARGE ? target.calcStat(Stats.RECHARGE_MP_RATE,mp, null, null) : mp;
 			//int cLev = activeChar.getLevel();
 			//hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
             target.setLastHealAmount((int)mp);

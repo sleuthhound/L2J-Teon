@@ -133,17 +133,14 @@ public class FishTable
 		}
 		for (FishData f : _Fishs)
 		{
-			if (f.getLevel() != lvl) {
+			if (f.getLevel() != lvl)
 				continue;
-			}
-			if (f.getType() != type) {
+			if (f.getType() != type)
 				continue;
-			}
 			result.add(f);
 		}
-		if (result.size() == 0) {
+		if (result.size() == 0)
 			_log.warning("Cant Find Any Fish!? - Lvl: " + lvl + " Type: " + type);
-		}
 		return result;
 	}
 }

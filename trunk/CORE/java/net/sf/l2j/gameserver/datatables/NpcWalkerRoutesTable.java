@@ -101,12 +101,8 @@ public class NpcWalkerRoutesTable
 	{
 		FastList<L2NpcWalkerNode> _return = new FastList<L2NpcWalkerNode>();
 		for (FastList.Node<L2NpcWalkerNode> n = _routes.head(), end = _routes.tail(); (n = n.getNext()) != end;)
-		{
 			if (n.getValue().getNpcId() == id)
-			{
 				_return.add(n.getValue());
-			}
-		}
 		return _return;
 	}
 }

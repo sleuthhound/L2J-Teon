@@ -38,18 +38,12 @@ public class HeroCustomItem  implements IItemHandler
         if(Config.ALLOW_HERO_CUSTOM_ITEM)
         {
             if(!(playable instanceof L2PcInstance))
-            {
-            	return;
-            }
+				return;
             L2PcInstance activeChar = (L2PcInstance)playable;
             if(activeChar.isHero())
-            {
-            	activeChar.sendMessage("You Are Already A Hero!");
-            }
+				activeChar.sendMessage("You Are Already A Hero!");
             if (activeChar.isInOlympiadMode())
-            {
-            	activeChar.sendMessage("This Item Cannot Be Used On Olympiad Games.");
-            }
+				activeChar.sendMessage("This Item Cannot Be Used On Olympiad Games.");
             if (!activeChar.isNoble())
             {
             	activeChar.sendPacket(ActionFailed.STATIC_PACKET);

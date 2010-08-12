@@ -108,16 +108,12 @@ public class BufferSkillsTable
 		 * Now building final maps with sorted info. Firstly _bufferSkillsMap allocates one new map as value per each skill type
 		 */
 		for (String t : _buffTypes)
-		{
 			_bufferSkillsMap.put(t, new FastList<L2Skill>());
-		}
 		/*
 		 * Secondly info contained in auxMap is loaded into _bufferSkillsMap, in different list sorted by type
 		 */
 		for (FastMap.Entry<Integer, SkillInfo> e = _allSkills.head(), end = _allSkills.tail(); (e = e.getNext()) != end;)
-		{
 			_bufferSkillsMap.get(e.getValue()._skillType).add(SkillTable.getInstance().getInfo(e.getKey(), e.getValue()._skillLevel));
-		}
 	}
 
 	/**
@@ -156,9 +152,8 @@ public class BufferSkillsTable
 
 	public static BufferSkillsTable getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new BufferSkillsTable();
-		}
 		return _instance;
 	}
 

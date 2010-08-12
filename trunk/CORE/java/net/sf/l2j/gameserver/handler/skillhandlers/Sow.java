@@ -46,23 +46,18 @@ public class Sow implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
-		}
 		_activeChar = (L2PcInstance) activeChar;
 		L2Object[] targetList = skill.getTargetList(activeChar);
 		if (targetList == null)
-		{
 			return;
-		}
-		if (_log.isDebugEnabled()) {
+		if (_log.isDebugEnabled())
 			_log.info("Casting sow");
-		}
 		for (int index = 0; index < targetList.length; index++)
 		{
-			if (!(targetList[0] instanceof L2MonsterInstance)) {
+			if (!(targetList[0] instanceof L2MonsterInstance))
 				continue;
-			}
 			_target = (L2MonsterInstance) targetList[0];
 			if (_target.isSeeded())
 			{
@@ -94,19 +89,12 @@ public class Sow implements ISkillHandler
 				_activeChar.sendPacket(new PlaySound("Itemsound.quest_itemget"));
 				_target.setSeeded();
 				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_SUCCESSFULLY_SOWN);
-			}
-			else
-			{
+			} else
 				sm = new SystemMessage(SystemMessageId.THE_SEED_WAS_NOT_SOWN);
-			}
 			if (_activeChar.getParty() == null)
-			{
 				_activeChar.sendPacket(sm);
-			}
 			else
-			{
 				_activeChar.getParty().broadcastToPartyMembers(sm);
-			}
 			// TODO: Mob should not agro on player, this way doesn't work really nice
 			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
@@ -124,25 +112,20 @@ public class Sow implements ISkillHandler
 		int levelTarget = _target.getLevel(); // taret Level
 		// 5% decrease in chance if player level
 		// is more then +/- 5 levels to _seed's_ level
-		if (levelTarget < minlevelSeed) {
+		if (levelTarget < minlevelSeed)
 			basicSuccess -= 5;
-		}
-		if (levelTarget > maxlevelSeed) {
+		if (levelTarget > maxlevelSeed)
 			basicSuccess -= 5;
-		}
 		// 5% decrease in chance if player level
 		// is more than +/- 5 levels to _target's_ level
 		int diff = levelPlayer - levelTarget;
-		if (diff < 0) {
+		if (diff < 0)
 			diff = -diff;
-		}
-		if (diff > 5) {
+		if (diff > 5)
 			basicSuccess -= 5 * (diff - 5);
-		}
 		// chance can't be less than 1%
-		if (basicSuccess < 1) {
+		if (basicSuccess < 1)
 			basicSuccess = 1;
-		}
 		int rate = Rnd.nextInt(99);
 		return rate < basicSuccess;
 	}

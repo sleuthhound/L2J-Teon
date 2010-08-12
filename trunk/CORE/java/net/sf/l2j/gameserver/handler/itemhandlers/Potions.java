@@ -81,16 +81,14 @@ public class Potions implements IItemHandler
 	{
 		L2PcInstance activeChar;
 		boolean res = false;
-		if (playable instanceof L2PetInstance) {
+		if (playable instanceof L2PetInstance)
 			return;
-		}
-		if (playable instanceof L2PcInstance) {
+		if (playable instanceof L2PcInstance)
 			activeChar = (L2PcInstance) playable;
-		} else if (playable instanceof L2PetInstance) {
+		else if (playable instanceof L2PetInstance)
 			activeChar = ((L2PetInstance) playable).getOwner();
-		} else {
+		else
 			return;
-		}
 		if (activeChar._inEventTvT && TvT._started && !Config.TVT_ALLOW_POTIONS)
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -147,9 +145,8 @@ public class Potions implements IItemHandler
 				return;
 				// HEALING AND SPEED POTIONS
 			case 65: // red_potion, xml: 2001
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					L2Skill skill;
 					skill = SkillTable.getInstance().getInfo(2001, 1);
@@ -164,9 +161,8 @@ public class Potions implements IItemHandler
 				}
 				return;
 			case 725: // healing_drug, xml: 2002
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					L2Skill skill;
 					skill = SkillTable.getInstance().getInfo(2002, 1);
@@ -181,9 +177,8 @@ public class Potions implements IItemHandler
 				}
 				return;
 			case 727: // _healing_potion, xml: 2032
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					L2Skill skill;
 					skill = SkillTable.getInstance().getInfo(2032, 1);
@@ -227,9 +222,8 @@ public class Potions implements IItemHandler
 				return;
 			case 1060: // lesser_healing_potion,
 			case 1073: // beginner's potion, xml: 2031
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					L2Skill skill;
 					skill = SkillTable.getInstance().getInfo(2031, 1);
@@ -244,9 +238,8 @@ public class Potions implements IItemHandler
 				}
 				return;
 			case 1061: // healing_potion, xml: 2032
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					L2Skill skill;
 					skill = SkillTable.getInstance().getInfo(2032, 1);
@@ -303,9 +296,8 @@ public class Potions implements IItemHandler
 			}
 				return;
 			case 1539: // greater_healing_potion, xml: 2037
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					L2Skill skill;
 					skill = SkillTable.getInstance().getInfo(2037, 1);
@@ -320,9 +312,8 @@ public class Potions implements IItemHandler
 				}
 				return;
 			case 1540: // quick_healing_potion, xml: 2038
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					activeChar.setCurrentHp(435 + activeChar.getCurrentHp());
 					StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
@@ -337,9 +328,8 @@ public class Potions implements IItemHandler
 				}
 				return;
 			case 5591:
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					activeChar.setCurrentCp(50 + activeChar.getCurrentCp());
 					StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
@@ -354,9 +344,8 @@ public class Potions implements IItemHandler
 				}
 				return;
 			case 5592: // CP and Greater CP
-				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, itemId)) {
+				if (!isEffectReplaceable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, itemId))
 					return;
-				}
 				{
 					activeChar.setCurrentCp(200 + activeChar.getCurrentCp());
 					StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
@@ -406,12 +395,11 @@ public class Potions implements IItemHandler
 			case 8626:
 			case 8627:
 				// elixir of Life
-				if (!isNegotov(activeChar, itemId, 2287)) {
+				if (!isNegotov(activeChar, itemId, 2287))
 					return;
-				}
-				if (itemId == 8622 && activeChar.getExpertiseIndex() == 0 || itemId == 8623 && activeChar.getExpertiseIndex() == 1 || itemId == 8624 && activeChar.getExpertiseIndex() == 2 || itemId == 8625 && activeChar.getExpertiseIndex() == 3 || itemId == 8626 && activeChar.getExpertiseIndex() == 4 || itemId == 8627 && activeChar.getExpertiseIndex() == 5) {
+				if (itemId == 8622 && activeChar.getExpertiseIndex() == 0 || itemId == 8623 && activeChar.getExpertiseIndex() == 1 || itemId == 8624 && activeChar.getExpertiseIndex() == 2 || itemId == 8625 && activeChar.getExpertiseIndex() == 3 || itemId == 8626 && activeChar.getExpertiseIndex() == 4 || itemId == 8627 && activeChar.getExpertiseIndex() == 5)
 					res = usePotion(activeChar, 2287, (activeChar.getExpertiseIndex() + 1));
-				} else
+				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE); // INCOMPATIBLE_ITEM_GRADE
 					sm.addItemName(itemId);
@@ -426,12 +414,11 @@ public class Potions implements IItemHandler
 			case 8632:
 			case 8633:
 				// elixir of Strength
-				if (!isNegotov(activeChar, itemId, 2288)) {
+				if (!isNegotov(activeChar, itemId, 2288))
 					return;
-				}
-				if (itemId == 8628 && activeChar.getExpertiseIndex() == 0 || itemId == 8629 && activeChar.getExpertiseIndex() == 1 || itemId == 8630 && activeChar.getExpertiseIndex() == 2 || itemId == 8631 && activeChar.getExpertiseIndex() == 3 || itemId == 8632 && activeChar.getExpertiseIndex() == 4 || itemId == 8633 && activeChar.getExpertiseIndex() == 5) {
+				if (itemId == 8628 && activeChar.getExpertiseIndex() == 0 || itemId == 8629 && activeChar.getExpertiseIndex() == 1 || itemId == 8630 && activeChar.getExpertiseIndex() == 2 || itemId == 8631 && activeChar.getExpertiseIndex() == 3 || itemId == 8632 && activeChar.getExpertiseIndex() == 4 || itemId == 8633 && activeChar.getExpertiseIndex() == 5)
 					res = usePotion(activeChar, 2288, (activeChar.getExpertiseIndex() + 1));
-				} else
+				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE); // INCOMPATIBLE_ITEM_GRADE
 					sm.addItemName(itemId);
@@ -446,12 +433,11 @@ public class Potions implements IItemHandler
 			case 8638:
 			case 8639:
 				// elixir of cp
-				if (!isNegotov(activeChar, itemId, 2289)) {
+				if (!isNegotov(activeChar, itemId, 2289))
 					return;
-				}
-				if (itemId == 8634 && activeChar.getExpertiseIndex() == 0 || itemId == 8635 && activeChar.getExpertiseIndex() == 1 || itemId == 8636 && activeChar.getExpertiseIndex() == 2 || itemId == 8637 && activeChar.getExpertiseIndex() == 3 || itemId == 8638 && activeChar.getExpertiseIndex() == 4 || itemId == 8639 && activeChar.getExpertiseIndex() == 5) {
+				if (itemId == 8634 && activeChar.getExpertiseIndex() == 0 || itemId == 8635 && activeChar.getExpertiseIndex() == 1 || itemId == 8636 && activeChar.getExpertiseIndex() == 2 || itemId == 8637 && activeChar.getExpertiseIndex() == 3 || itemId == 8638 && activeChar.getExpertiseIndex() == 4 || itemId == 8639 && activeChar.getExpertiseIndex() == 5)
 					res = usePotion(activeChar, 2289, (activeChar.getExpertiseIndex() + 1));
-				} else
+				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE); // INCOMPATIBLE_ITEM_GRADE
 					sm.addItemName(itemId);
@@ -604,31 +590,26 @@ public class Potions implements IItemHandler
 			// END
 			default:
 		}
-		if (res) {
+		if (res)
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
-		}
 	}
 
 	@SuppressWarnings("unchecked")
 	private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, int itemId)
 	{
 		L2Effect[] effects = activeChar.getAllEffects();
-		if (effects == null) {
+		if (effects == null)
 			return true;
-		}
 		for (L2Effect e : effects)
-		{
 			if (e.getEffectType() == effectType)
 			{
-				if (e.getTaskTime() > e.getSkill().getBuffDuration() * 67 / 100000) {
+				if (e.getTaskTime() > e.getSkill().getBuffDuration() * 67 / 100000)
 					return true;
-				}
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addItemName(itemId);
 				activeChar.sendPacket(sm);
 				return false;
 			}
-		}
 		return true;
 	}
 
@@ -647,16 +628,14 @@ public class Potions implements IItemHandler
 		}
 		else
 		{
-			if (magicId > 2277 && magicId < 2285 && _herbstask >= 100) {
+			if (magicId > 2277 && magicId < 2285 && _herbstask >= 100)
 				_herbstask -= 100;
-			}
 			L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
 			if (skill != null)
 			{
 				activeChar.doCast(skill);
-				if (!(activeChar.isSitting() && !skill.isPotion())) {
+				if (!(activeChar.isSitting() && !skill.isPotion()))
 					return true;
-				}
 			}
 		}
 		return false;

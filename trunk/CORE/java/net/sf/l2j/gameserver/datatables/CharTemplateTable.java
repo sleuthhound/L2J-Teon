@@ -45,9 +45,7 @@ public class CharTemplateTable
 	public static CharTemplateTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new CharTemplateTable();
-		}
 		return _instance;
 	}
 
@@ -106,12 +104,8 @@ public class CharTemplateTable
 				ct = new L2PcTemplate(set);
 				// 5items must go here
 				for (int x = 1; x < 6; x++)
-				{
 					if (rset.getInt("items" + x) != 0)
-					{
 						ct.addItem(rset.getInt("items" + x));
-					}
-				}
 				_templates.put(ct.classId.getId(), ct);
 			}
 			rset.close();
@@ -155,9 +149,8 @@ public class CharTemplateTable
 		int currId = 1;
 		for (String name : CHAR_CLASSES)
 		{
-			if (name.equalsIgnoreCase(className)) {
+			if (name.equalsIgnoreCase(className))
 				break;
-			}
 			currId++;
 		}
 		return currId;

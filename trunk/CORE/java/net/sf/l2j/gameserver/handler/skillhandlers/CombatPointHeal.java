@@ -49,9 +49,8 @@ public class CombatPointHeal implements ISkillHandler
 		try
 		{
 			ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(SkillType.BUFF);
-			if (handler != null) {
+			if (handler != null)
 				handler.useSkill(actChar, skill, targets);
-			}
 		}
 		catch (Exception e)
 		{

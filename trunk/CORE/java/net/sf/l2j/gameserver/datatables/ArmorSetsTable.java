@@ -38,9 +38,8 @@ public class ArmorSetsTable
 
 	public static ArmorSetsTable getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new ArmorSetsTable();
-		}
 		return _instance;
 	}
 
@@ -81,7 +80,6 @@ public class ArmorSetsTable
 			_log.severe("ArmorSetsTable: Error reading ArmorSets table: " + e);
 		}
 		if (Config.CUSTOM_ARMORSETS_TABLE)
-		{
 			try
 			{
 				int cSets = _armorSets.size();
@@ -110,7 +108,6 @@ public class ArmorSetsTable
 			{
 				_log.severe("ArmorSetsTable: Error reading Custom ArmorSets table: " + e);
 			}
-		}
 	}
 
 	public boolean setExists(int chestId)

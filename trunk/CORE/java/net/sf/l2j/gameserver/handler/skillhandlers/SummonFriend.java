@@ -37,9 +37,8 @@ public class SummonFriend implements ISkillHandler
 
 	public static boolean checkSummonerStatus(L2PcInstance summonerChar)
 	{
-		if (summonerChar == null) {
+		if (summonerChar == null)
 			return false;
-		}
 		if (summonerChar.isInOlympiadMode())
 		{
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
@@ -52,9 +51,7 @@ public class SummonFriend implements ISkillHandler
 			return false;
 		}
 		if (summonerChar.inObserverMode())
-		{
 			return false;
-		}
 		if (summonerChar.isInsideZone(L2Character.ZONE_NOSUMMONFRIEND))
 		{
 			summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
@@ -65,9 +62,8 @@ public class SummonFriend implements ISkillHandler
 
 	public static boolean checkTargetStatus(L2PcInstance targetChar, L2PcInstance summonerChar)
 	{
-		if (targetChar == null) {
+		if (targetChar == null)
 			return false;
-		}
 		if (targetChar.isAlikeDead())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED);
@@ -130,14 +126,10 @@ public class SummonFriend implements ISkillHandler
 					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
 					return false;
 				}
-			}
-			else
+			} else if (targetCabal == SevenSigns.CABAL_NULL)
 			{
-				if (targetCabal == SevenSigns.CABAL_NULL)
-				{
-					summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
-					return false;
-				}
+				summonerChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
+				return false;
 			}
 		}
 		return true;
@@ -145,15 +137,12 @@ public class SummonFriend implements ISkillHandler
 
 	public static void teleToTarget(L2PcInstance targetChar, L2PcInstance summonerChar, L2Skill summonSkill)
 	{
-		if (targetChar == null || summonerChar == null || summonSkill == null) {
+		if (targetChar == null || summonerChar == null || summonSkill == null)
 			return;
-		}
-		if (!checkSummonerStatus(summonerChar)) {
+		if (!checkSummonerStatus(summonerChar))
 			return;
-		}
-		if (!checkTargetStatus(targetChar, summonerChar)) {
+		if (!checkTargetStatus(targetChar, summonerChar))
 			return;
-		}
 		int itemConsumeId = summonSkill.getTargetConsumeId();
 		int itemConsumeCount = summonSkill.getTargetConsume();
 		if (itemConsumeId != 0 && itemConsumeCount != 0)
@@ -179,28 +168,23 @@ public class SummonFriend implements ISkillHandler
 	 */
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return; // currently not implemented for others
-		}
 		L2PcInstance activePlayer = (L2PcInstance) activeChar;
-		if (!checkSummonerStatus(activePlayer)) {
+		if (!checkSummonerStatus(activePlayer))
 			return;
-		}
 		try
 		{
 			for (L2Character target : (L2Character[]) targets)
 			{
-				if (activeChar == target) {
+				if (activeChar == target)
 					continue;
-				}
 				if (target instanceof L2PcInstance)
 				{
 					L2PcInstance targetPlayer = (L2PcInstance) target;
-					if (!checkTargetStatus(targetPlayer, activePlayer)) {
+					if (!checkTargetStatus(targetPlayer, activePlayer))
 						continue;
-					}
 					if (!Util.checkIfInRange(0, activeChar, target, false))
-					{
 						if (!targetPlayer.teleportRequest(activePlayer, skill))
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.S1_ALREADY_SUMMONED);
@@ -217,16 +201,13 @@ public class SummonFriend implements ISkillHandler
 							teleToTarget(targetPlayer, activePlayer, skill);
 							targetPlayer.teleportRequest(null, null);
 						}
-					}
 				}
 			}
 		}
 		catch (Exception e)
 		{
 			if (Config.DEBUG)
-			{
 				e.printStackTrace();
-			}
 		}
 	}
 

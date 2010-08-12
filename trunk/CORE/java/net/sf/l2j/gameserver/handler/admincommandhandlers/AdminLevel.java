@@ -31,14 +31,11 @@ public class AdminLevel implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (activeChar == null) {
+		if (activeChar == null)
 			return false;
-		}
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
 				return false;
-			}
-		}
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String cmd = st.nextToken(); // get command
 		if (cmd.equals("admin_addlevel") || cmd.equals("admin_setlevel") || cmd.equals("admin_remlevel"))
@@ -65,21 +62,17 @@ public class AdminLevel implements IAdminCommandHandler
 				{
 					xpcur = target.getStat().getExp();
 					xpres = target.getStat().getExpForLevel(reslevel);
-					if (xpcur > xpres) {
+					if (xpcur > xpres)
 						target.getStat().removeExp(xpcur - xpres);
-					} else {
+					else
 						target.getStat().addExp(xpres - xpcur);
-					}
 				}
 				catch (Exception e)
 				{
 					activeChar.sendMessage("Incorrect level amount or number.");
 				}
-			}
-			else
-			{
+			} else
 				showAdminCommandHelp(activeChar, cmd);
-			}
 		}
 		return true;
 	}
@@ -93,23 +86,16 @@ public class AdminLevel implements IAdminCommandHandler
 	private void showAdminCommandHelp(L2PcInstance activeChar, String command)
 	{
 		for (String[] element : ADMIN_COMMANDS)
-		{
 			if (command.equals(element[0]))
-			{
-				for (int k = 1; k < element.length; k++) {
+				for (int k = 1; k < element.length; k++)
 					activeChar.sendMessage(element[k]);
-				}
-			}
-		}
 	}
 
 	public String[] getAdminCommandList()
 	{
 		String[] _adminCommandsOnly = new String[ADMIN_COMMANDS.length];
 		for (int i = 0; i < ADMIN_COMMANDS.length; i++)
-		{
 			_adminCommandsOnly[i] = ADMIN_COMMANDS[i][0];
-		}
 		return _adminCommandsOnly;
 	}
 }

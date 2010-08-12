@@ -37,13 +37,12 @@ public class ScrollsValakas implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		L2PcInstance activeChar;
-		if (playable instanceof L2PcInstance) {
+		if (playable instanceof L2PcInstance)
 			activeChar = (L2PcInstance) playable;
-		} else if (playable instanceof L2PetInstance) {
+		else if (playable instanceof L2PetInstance)
 			activeChar = ((L2PetInstance) playable).getOwner();
-		} else {
+		else
 			return;
-		}
 		if (activeChar.isAllSkillsDisabled())
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
@@ -52,9 +51,8 @@ public class ScrollsValakas implements IItemHandler
 		int itemId = item.getItemId();
 		if (itemId >= 6653 && itemId <= 6655)
 		{
-			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
+			if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 				return;
-			}
 			switch (itemId)
 			{
 				case 6653: // Amulet: Flames of Valakas - xz nuzen li on vobwe
@@ -75,17 +73,15 @@ public class ScrollsValakas implements IItemHandler
 			return;
 		}
 		// for the rest, there are no extra conditions
-		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) {
+		if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			return;
-		}
 	}
 
 	public void useScroll(L2PcInstance activeChar, int magicId, int level)
 	{
 		L2Skill skill = SkillTable.getInstance().getInfo(magicId, level);
-		if (skill != null) {
+		if (skill != null)
 			activeChar.doCast(skill);
-		}
 	}
 
 	public int[] getItemIds()

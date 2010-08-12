@@ -35,9 +35,7 @@ public class BuffTemplateTable
 	public static BuffTemplateTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new BuffTemplateTable();
-		}
 		return _instance;
 	}
 
@@ -69,9 +67,8 @@ public class BuffTemplateTable
 				while (rset.next())
 				{
 					StatsSet Buff = new StatsSet();
-					if (templateId != rset.getInt("id")) {
+					if (templateId != rset.getInt("id"))
 						_buffTemplates++;
-					}
 					templateId = rset.getInt("id");
 					Buff.set("id", templateId);
 					Buff.set("name", rset.getString("name"));
@@ -89,11 +86,9 @@ public class BuffTemplateTable
 					// Add this buff to the Table.
 					L2BuffTemplate template = new L2BuffTemplate(Buff);
 					if (template.getSkill() == null)
-					{
 						_log.warn("Error while loading buff template Id " + template.getId() + " skill Id " + template.getSkillId());
-					} else {
+					else
 						_buffs.add(template);
-					}
 				}
 				_log.info("BuffTemplateTable: Loaded " + _buffTemplates + " Buff Templates.");
 				rset.close();
@@ -123,12 +118,8 @@ public class BuffTemplateTable
 	{
 		FastList<L2BuffTemplate> _templateBuffs = new FastList<L2BuffTemplate>();
 		for (L2BuffTemplate _bt : _buffs)
-		{
 			if (_bt.getId() == Id)
-			{
 				_templateBuffs.add(_bt);
-			}
-		}
 		return _templateBuffs;
 	}
 
@@ -139,13 +130,11 @@ public class BuffTemplateTable
 	{
 		int _id = 0;
 		for (L2BuffTemplate _bt : _buffs)
-		{
 			if (_bt.getName().equals(_name))
 			{
 				_id = _bt.getId();
 				break;
 			}
-		}
 		return _id;
 	}
 
@@ -156,12 +145,8 @@ public class BuffTemplateTable
 	{
 		int _lowestLevel = 255;
 		for (L2BuffTemplate _bt : _buffs)
-		{
 			if (_bt.getId() == Id && _lowestLevel > _bt.getMinLevel())
-			{
 				_lowestLevel = _bt.getMinLevel();
-			}
-		}
 		return _lowestLevel;
 	}
 
@@ -172,12 +157,8 @@ public class BuffTemplateTable
 	{
 		int _highestLevel = 0;
 		for (L2BuffTemplate _bt : _buffs)
-		{
 			if (_bt.getId() == Id && _highestLevel < _bt.getMaxLevel())
-			{
 				_highestLevel = _bt.getMaxLevel();
-			}
-		}
 		return _highestLevel;
 	}
 

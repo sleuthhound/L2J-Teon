@@ -40,9 +40,7 @@ public class TopicBBSManager extends BaseBBSManager
 	public static TopicBBSManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new TopicBBSManager();
-		}
 		return _instance;
 	}
 
@@ -75,21 +73,15 @@ public class TopicBBSManager extends BaseBBSManager
 	{
 		Integer i = _maxId.get(f);
 		if (i == null)
-		{
 			return 0;
-		}
 		return i;
 	}
 
 	public Topic getTopicByID(int idf)
 	{
 		for (Topic t : _table)
-		{
 			if (t.getID() == idf)
-			{
 				return t;
-			}
-		}
 		return null;
 	}
 
@@ -146,9 +138,7 @@ public class TopicBBSManager extends BaseBBSManager
 					// CPost cp = null;
 					Post p = PostBBSManager.getInstance().getGPosttByTopic(t);
 					if (p != null)
-					{
 						p.deleteme(t);
-					}
 					t.deleteme(f);
 					parsecmd("_bbsmemo", activeChar);
 				}
@@ -171,9 +161,7 @@ public class TopicBBSManager extends BaseBBSManager
 	public void parsecmd(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("_bbsmemo"))
-		{
 			showTopics(activeChar.getMemo(), activeChar, 1, activeChar.getMemo().getID());
-		}
 		else if (command.startsWith("_bbstopics;read"))
 		{
 			StringTokenizer st = new StringTokenizer(command, ";");
@@ -182,18 +170,12 @@ public class TopicBBSManager extends BaseBBSManager
 			int idf = Integer.parseInt(st.nextToken());
 			String index = null;
 			if (st.hasMoreTokens())
-			{
 				index = st.nextToken();
-			}
 			int ind = 0;
 			if (index == null)
-			{
 				ind = 1;
-			}
 			else
-			{
 				ind = Integer.parseInt(index);
-			}
 			showTopics(ForumsBBSManager.getInstance().getForumByID(idf), activeChar, ind, idf);
 		}
 		else if (command.startsWith("_bbstopics;crea"))
@@ -234,9 +216,7 @@ public class TopicBBSManager extends BaseBBSManager
 					// CPost cp = null;
 					Post p = PostBBSManager.getInstance().getGPosttByTopic(t);
 					if (p != null)
-					{
 						p.deleteme(t);
-					}
 					t.deleteme(f);
 					parsecmd("_bbsmemo", activeChar);
 				}
@@ -266,9 +246,7 @@ public class TopicBBSManager extends BaseBBSManager
 			activeChar.sendPacket(new ShowBoard(null, "103"));
 		}
 		else if (forum.getType() == Forum.MEMO)
-		{
 			showMemoNewTopics(forum, activeChar);
-		}
 		else
 		{
 			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the forum: " + forum.getName() + " is not implemented yet</center><br><br></body></html>", "101");
@@ -343,9 +321,7 @@ public class TopicBBSManager extends BaseBBSManager
 			activeChar.sendPacket(new ShowBoard(null, "103"));
 		}
 		else if (forum.getType() == Forum.MEMO)
-		{
 			showMemoTopics(forum, activeChar, index);
-		}
 		else
 		{
 			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the forum: " + forum.getName() + " is not implemented yet</center><br><br></body></html>", "101");
@@ -380,9 +356,7 @@ public class TopicBBSManager extends BaseBBSManager
 		for (int i = 0, j = getMaxID(forum) + 1; i < 12 * index; j--)
 		{
 			if (j < 0)
-			{
 				break;
-			}
 			Topic t = forum.gettopic(j);
 			if (t != null)
 			{
@@ -410,38 +384,22 @@ public class TopicBBSManager extends BaseBBSManager
 		html.append("<td width=510 align=center>");
 		html.append("<table border=0><tr>");
 		if (index == 1)
-		{
 			html.append("<td><button action=\"\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16 ></td>");
-		}
 		else
-		{
 			html.append("<td><button action=\"bypass _bbstopics;read;" + forum.getID() + ";" + (index - 1) + "\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16 ></td>");
-		}
 		int nbp;
 		nbp = forum.getTopicSize() / 8;
 		if (nbp * 8 != ClanTable.getInstance().getClans().length)
-		{
 			nbp++;
-		}
 		for (int i = 1; i <= nbp; i++)
-		{
 			if (i == index)
-			{
 				html.append("<td> " + i + " </td>");
-			}
 			else
-			{
 				html.append("<td><a action=\"bypass _bbstopics;read;" + forum.getID() + ";" + i + "\"> " + i + " </a></td>");
-			}
-		}
 		if (index == nbp)
-		{
 			html.append("<td><button action=\"\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td>");
-		}
 		else
-		{
 			html.append("<td><button action=\"bypass _bbstopics;read;" + forum.getID() + ";" + (index + 1) + "\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td>");
-		}
 		html.append("</tr></table> </td> ");
 		html.append("<td align=right><button value = \"&$421;\" action=\"bypass _bbstopics;crea;" + forum.getID() + "\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td></tr>");
 		html.append("<tr><td><img src=\"l2ui.mini_logo\" width=5 height=10></td></tr>");

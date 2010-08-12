@@ -42,11 +42,8 @@ public class AdminLogin implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL) {
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
 				return false;
-			}
-		}
 		if (command.equals("admin_server_gm_only"))
 		{
 			gmOnly();
@@ -76,11 +73,8 @@ public class AdminLogin implements IAdminCommandHandler
 				{
 					activeChar.sendMessage("Max players must be a number.");
 				}
-			}
-			else
-			{
+			} else
 				activeChar.sendMessage("Format is server_max_player <max>");
-			}
 		}
 		else if (command.startsWith("admin_server_list_clock"))
 		{
@@ -102,21 +96,13 @@ public class AdminLogin implements IAdminCommandHandler
 					Config.SERVER_LIST_CLOCK = false;
 					activeChar.sendMessage("The clock will not be displayed");
 					showMainPage(activeChar);
-				}
-				else
-				{
+				} else
 					activeChar.sendMessage("Format is server_list_clock <on/off>");
-				}
-			}
-			else
-			{
+			} else
 				activeChar.sendMessage("Format is server_list_clock <on/off>");
-			}
 		}
 		else if (command.equals("admin_server_login"))
-		{
 			showMainPage(activeChar);
-		}
 		return true;
 	}
 

@@ -37,18 +37,16 @@ public class Maps implements IItemHandler
 	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
 		final L2PcInstance activeChar = (L2PcInstance) playable;
 		final int itemId = item.getItemId();
 		if (itemId == 7063)
 		{
 			activeChar.sendPacket(new ShowMiniMap(1665));
 			activeChar.sendPacket(new RadarControl(0, 1, 51995, -51265, -3104));
-		} else {
+		} else
 			activeChar.sendPacket(new ShowMiniMap(itemId));
-		}
 		return;
 	}
 

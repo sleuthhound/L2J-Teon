@@ -39,19 +39,14 @@ public class AdminCache implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		if (command.startsWith("admin_cache_htm_rebuild") || command.equals("admin_cache_htm_reload"))
 		{
 			HtmCache.getInstance().reload(Config.DATAPACK_ROOT);
 			activeChar.sendMessage("Cache[HTML]: " + HtmCache.getInstance().getMemoryUsage() + " MB on " + HtmCache.getInstance().getLoadedFiles() + " file(s) loaded.");
 		}
 		else if (command.startsWith("admin_cache_reload_path "))
-		{
 			try
 			{
 				String path = command.split(" ")[1];
@@ -62,26 +57,19 @@ public class AdminCache implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Usage: //cache_reload_path <path>");
 			}
-		}
 		else if (command.startsWith("admin_cache_reload_file "))
-		{
 			try
 			{
 				String path = command.split(" ")[1];
 				if (HtmCache.getInstance().loadFile(new File(Config.DATAPACK_ROOT, path)) != null)
-				{
 					activeChar.sendMessage("Cache[HTML]: file was loaded");
-				}
 				else
-				{
 					activeChar.sendMessage("Cache[HTML]: file can't be loaded");
-				}
 			}
 			catch (Exception e)
 			{
 				activeChar.sendMessage("Usage: //cache_reload_file <relative_path/file>");
 			}
-		}
 		else if (command.startsWith("admin_cache_crest_rebuild") || command.startsWith("admin_cache_crest_reload"))
 		{
 			CrestCache.getInstance().reload();

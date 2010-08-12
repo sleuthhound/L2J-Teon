@@ -35,13 +35,11 @@ public class AdminBanChat implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!checkLevel(activeChar.getAccessLevel()))
 			{
 				System.out.println("Not required level.");
 				return false;
 			}
-		}
 		String[] cmdParams = command.split(" ");
 		// checking syntax
 		if (cmdParams.length < 3 && command.startsWith("admin_banchat"))
@@ -81,9 +79,7 @@ public class AdminBanChat implements IAdminCommandHandler
 			}
 			// ban chat reason
 			if (cmdParams.length > 3)
-			{
 				banReason = cmdParams[3];
-			}
 			// apply ban chat
 			activeChar.sendMessage(targetPlayer.getName() + "'s chat is banned for " + banLength + " seconds.");
 			targetPlayer.setChatBanned(true, banLength, banReason);

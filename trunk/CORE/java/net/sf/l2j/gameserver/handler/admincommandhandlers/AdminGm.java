@@ -36,14 +36,10 @@ public class AdminGm implements IAdminCommandHandler
 	{
 		// don't check for gm status ;)
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!checkLevel(activeChar.getAccessLevel())) {
+			if (!checkLevel(activeChar.getAccessLevel()))
 				return false;
-			}
-		}
-		if (command.equals("admin_gm")) {
+		if (command.equals("admin_gm"))
 			handleGm(activeChar);
-		}
 		return true;
 	}
 
@@ -64,18 +60,16 @@ public class AdminGm implements IAdminCommandHandler
 			GmListTable.getInstance().deleteGm(activeChar);
 			activeChar.setIsGM(false);
 			activeChar.sendMessage("You no longer have GM status.");
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") turned his GM status off");
-			}
 		}
 		else
 		{
 			GmListTable.getInstance().addGm(activeChar, false);
 			activeChar.setIsGM(true);
 			activeChar.sendMessage("You now have GM status.");
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("GM: " + activeChar.getName() + "(" + activeChar.getObjectId() + ") turned his GM status on");
-			}
 		}
 	}
 }

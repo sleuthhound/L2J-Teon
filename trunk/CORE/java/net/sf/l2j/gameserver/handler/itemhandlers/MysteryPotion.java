@@ -37,9 +37,8 @@ public class MysteryPotion implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		// item.getItem().getEffects(item, activeChar);
 		// Use a summon skill effect for fun ;)
@@ -68,9 +67,8 @@ public class MysteryPotion implements IItemHandler
 		{
 			try
 			{
-				if (!(_playable instanceof L2PcInstance)) {
+				if (!(_playable instanceof L2PcInstance))
 					return;
-				}
 				((L2PcInstance) _playable).stopAbnormalEffect(BIGHEAD_EFFECT);
 			}
 			catch (Throwable t)

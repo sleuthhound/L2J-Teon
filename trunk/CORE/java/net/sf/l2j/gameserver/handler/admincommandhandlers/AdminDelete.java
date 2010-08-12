@@ -41,16 +41,10 @@ public class AdminDelete implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		if (command.equals("admin_delete"))
-		{
 			handleDelete(activeChar);
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		return true;
@@ -79,13 +73,9 @@ public class AdminDelete implements IAdminCommandHandler
 			{
 				spawn.stopRespawn();
 				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()))
-				{
 					RaidBossSpawnManager.getInstance().deleteSpawn(spawn, true);
-				}
 				else
-				{
 					SpawnTable.getInstance().deleteSpawn(spawn, true);
-				}
 			}
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("Deleted " + target.getName() + " from " + target.getObjectId() + ".");

@@ -40,9 +40,8 @@ public class BeastSoulShot implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (playable == null) {
+		if (playable == null)
 			return;
-		}
 		L2PcInstance activeOwner = null;
 		if (playable instanceof L2Summon)
 		{
@@ -51,12 +50,9 @@ public class BeastSoulShot implements IItemHandler
 			return;
 		}
 		else if (playable instanceof L2PcInstance)
-		{
 			activeOwner = (L2PcInstance) playable;
-		}
-		if (activeOwner == null) {
+		if (activeOwner == null)
 			return;
-		}
 		L2Summon activePet = activeOwner.getPet();
 		if (activePet == null)
 		{
@@ -82,10 +78,8 @@ public class BeastSoulShot implements IItemHandler
 				return;
 			}
 			if (weaponInst.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE)
-			{
 				// SoulShots are already active.
 				return;
-			}
 			int shotCount = item.getCount();
 			shotConsumption = weaponItem.getSoulShotCount();
 			if (shotConsumption == 0)
@@ -103,9 +97,8 @@ public class BeastSoulShot implements IItemHandler
 		}
 		else
 		{
-			if (activePet.getChargedSoulShot() != L2ItemInstance.CHARGED_NONE) {
+			if (activePet.getChargedSoulShot() != L2ItemInstance.CHARGED_NONE)
 				return;
-			}
 			activePet.setChargedSoulShot(L2ItemInstance.CHARGED_SOULSHOT);
 		}
 		// If the player doesn't have enough beast soulshot remaining, remove

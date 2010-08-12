@@ -42,21 +42,16 @@ public class FishShots implements IItemHandler
 	 */
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
 		if (weaponInst == null || weaponItem.getItemType() != L2WeaponType.ROD)
-		{
 			return;
-		}
 		if (weaponInst.getChargedFishshot())
-		{
 			// spiritshot is already active
 			return;
-		}
 		int FishshotId = item.getItemId();
 		int grade = weaponItem.getCrystalType();
 		int count = item.getCount();
@@ -68,9 +63,7 @@ public class FishShots implements IItemHandler
 			return;
 		}
 		if (count < 1)
-		{
 			return;
-		}
 		weaponInst.setChargedFishshot(true);
 		activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false);
 		L2Object oldTarget = activeChar.getTarget();

@@ -39,9 +39,7 @@ public class HennaTable
 	public static HennaTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new HennaTable();
-		}
 		return _instance;
 	}
 

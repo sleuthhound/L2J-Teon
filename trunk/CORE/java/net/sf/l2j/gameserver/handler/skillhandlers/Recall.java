@@ -34,21 +34,17 @@ public class Recall implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		if (activeChar instanceof L2PcInstance)
-		{
 			if (((L2PcInstance) activeChar).isInOlympiadMode())
 			{
 				((L2PcInstance) activeChar).sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
 				return;
 			}
-		}
 		try
 		{
 			for (int index = 0; index < targets.length; index++)
 			{
 				if (!(targets[index] instanceof L2Character))
-				{
 					continue;
-				}
 				L2Character target = (L2Character) targets[index];
 				if (target instanceof L2PcInstance)
 				{
@@ -85,9 +81,7 @@ public class Recall implements ISkillHandler
 		catch (Throwable e)
 		{
 			if (Config.DEBUG)
-			{
 				e.printStackTrace();
-			}
 		}
 	}
 

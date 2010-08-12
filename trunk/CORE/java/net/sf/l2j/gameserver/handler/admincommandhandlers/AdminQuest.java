@@ -35,14 +35,11 @@ public class AdminQuest implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (activeChar == null) {
+		if (activeChar == null)
 			return false;
-		}
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
 				return false;
-			}
-		}
 		// syntax will either be:
 		// //quest_reload <id>
 		// //quest_reload <questName>
@@ -56,36 +53,24 @@ public class AdminQuest implements IAdminCommandHandler
 		{
 			String[] parts = command.split(" ");
 			if (parts.length < 2)
-			{
 				activeChar.sendMessage("Syntax: //quest_reload <questFolder>.<questSubFolders...>.questName> or //quest_reload <id>");
-			}
 			else
-			{
 				// try the first param as id
 				try
 				{
 					int questId = Integer.parseInt(parts[1]);
 					if (QuestManager.getInstance().reload(questId))
-					{
 						activeChar.sendMessage("Quest Reloaded Successfully.");
-					}
 					else
-					{
 						activeChar.sendMessage("Quest Reloaded Failed");
-					}
 				}
 				catch (NumberFormatException e)
 				{
 					if (QuestManager.getInstance().reload(parts[1]))
-					{
 						activeChar.sendMessage("Quest Reloaded Successfully.");
-					}
 					else
-					{
 						activeChar.sendMessage("Quest Reloaded Failed");
-					}
 				}
-			}
 		}
 		// script load should NOT be used in place of reload. If a script is already loaded
 		// successfully, quest_reload ought to be used. The script_load command should only
@@ -97,15 +82,12 @@ public class AdminQuest implements IAdminCommandHandler
 		{
 			String[] parts = command.split(" ");
 			if (parts.length < 2)
-			{
 				// activeChar.sendMessage("Example: //script_load <questFolder>/<questSubFolders...>/<filename>.<ext> ");
 				activeChar.sendMessage("Example: //script_load quests/SagasSuperclass/__init__.py");
-			}
 			else
 			{
 				File file = new File(L2ScriptEngineManager.SCRIPT_FOLDER, parts[1]);
 				if (file.isFile())
-				{
 					try
 					{
 						L2ScriptEngineManager.getInstance().executeScript(file);
@@ -119,11 +101,8 @@ public class AdminQuest implements IAdminCommandHandler
 					{
 						activeChar.sendMessage("Failed loading: " + parts[1]);
 					}
-				}
 				else
-				{
 					activeChar.sendMessage("File Not Found: " + parts[1]);
-				}
 			}
 		}
 		return true;
