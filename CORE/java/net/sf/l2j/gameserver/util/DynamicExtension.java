@@ -43,9 +43,8 @@ public class DynamicExtension
 	 */
 	private DynamicExtension()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = this;
-		}
 		_getters = new ConcurrentHashMap<String, ExtensionFunction>();
 		_setters = new ConcurrentHashMap<String, ExtensionFunction>();
 		initExtensions();
@@ -58,9 +57,8 @@ public class DynamicExtension
 	 */
 	public static DynamicExtension getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new DynamicExtension();
-		}
 		return _instance;
 	}
 
@@ -101,9 +99,7 @@ public class DynamicExtension
 		{
 			String k = (String) o;
 			if (k.endsWith("Class"))
-			{
 				res += initExtension(_prop.getProperty(k)) + "\n";
-			}
 		}
 		return res;
 	}
@@ -124,9 +120,8 @@ public class DynamicExtension
 			_classLoader.addJarFile(p[1]);
 			className = p[0];
 		}
-		if (_loadedExtensions.containsKey(className)) {
+		if (_loadedExtensions.containsKey(className))
 			return "already loaded";
-		}
 		try
 		{
 			Class<?> extension = Class.forName(className, true, _classLoader);
@@ -157,9 +152,8 @@ public class DynamicExtension
 	public String unloadExtensions()
 	{
 		String res = "";
-		for (String e : _loadedExtensions.keySet()) {
+		for (String e : _loadedExtensions.keySet())
 			res += unloadExtension(e) + "\n";
-		}
 		return res;
 	}
 
@@ -266,9 +260,8 @@ public class DynamicExtension
 	public Object get(String name, String arg)
 	{
 		ExtensionFunction func = _getters.get(name);
-		if (func != null) {
+		if (func != null)
 			return func.get(arg);
-		}
 		return "<none>";
 	}
 
@@ -309,9 +302,8 @@ public class DynamicExtension
 	public void set(String name, String arg, Object obj)
 	{
 		ExtensionFunction func = _setters.get(name);
-		if (func != null) {
+		if (func != null)
 			func.set(arg, obj);
-		}
 	}
 
 	public JarClassLoader getClassLoader()

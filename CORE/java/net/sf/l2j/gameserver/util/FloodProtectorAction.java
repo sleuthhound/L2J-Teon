@@ -94,24 +94,16 @@ public final class FloodProtectorAction
 			{
 				_punishmentInProgress = true;
 				if ("ban".equals(_config.PUNISHMENT_TYPE))
-				{
 					banAccount();
-				}
 				else if ("jail".equals(_config.PUNISHMENT_TYPE))
-				{
 					jailChar();
-				}
 				_punishmentInProgress = false;
 			}
 			return false;
 		}
 		if (_count.get() > 0)
-		{
 			if (_config.LOG_FLOODING && _log.isLoggable(Level.WARNING))
-			{
 				_log.warning(StringUtil.concat(_config.FLOOD_PROTECTOR_TYPE, ": Player [", _player.getName(), "] issued [", String.valueOf(_count), "] extra requests within [~", String.valueOf(_config.FLOOD_PROTECTION_INTERVAL * GameTimeController.MILLIS_IN_TICK), " ms]"));
-			}
-		}
 		_nextGameTick = curTick + _config.FLOOD_PROTECTION_INTERVAL;
 		_logged = false;
 		_count.set(0);
@@ -125,9 +117,7 @@ public final class FloodProtectorAction
 	{
 		_player.setPunishLevel(L2PcInstance.PunishLevel.ACC, _config.PUNISHMENT_TIME);
 		if (_log.isLoggable(Level.WARNING))
-		{
 			_log.warning(StringUtil.concat(_config.FLOOD_PROTECTOR_TYPE, ": Account [", _player.getAccountName(), "] banned for flooding [char ", _player.getName(), "] ", _config.PUNISHMENT_TIME <= 0 ? "forever" : "for " + _config.PUNISHMENT_TIME + " mins"));
-		}
 		_player.logout();
 	}
 
@@ -138,8 +128,6 @@ public final class FloodProtectorAction
 	{
 		_player.setPunishLevel(L2PcInstance.PunishLevel.JAIL, _config.PUNISHMENT_TIME);
 		if (_log.isLoggable(Level.WARNING))
-		{
 			_log.warning(StringUtil.concat(_config.FLOOD_PROTECTOR_TYPE, ": Player [", _player.getName(), "] jailed for flooding [char ", _player.getName(), "] ", _config.PUNISHMENT_TIME <= 0 ? "forever" : "for " + _config.PUNISHMENT_TIME + " mins"));
-		}
 	}
 }

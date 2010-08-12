@@ -58,9 +58,8 @@ public class RequestServerList extends L2LoginClientPacket
 			_skey1 = readD(); // loginOk 1
 			_skey2 = readD(); // loginOk 2
 			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
 
 	/**
@@ -69,10 +68,9 @@ public class RequestServerList extends L2LoginClientPacket
 	@Override
 	public void run()
 	{
-		if (getClient().getSessionKey().checkLoginPair(_skey1, _skey2)) {
+		if (getClient().getSessionKey().checkLoginPair(_skey1, _skey2))
 			getClient().sendPacket(new ServerList(getClient()));
-		} else {
+		else
 			getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
-		}
 	}
 }

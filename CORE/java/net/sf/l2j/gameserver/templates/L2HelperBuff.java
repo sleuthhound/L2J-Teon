@@ -47,11 +47,10 @@ public class L2HelperBuff
 		_upperLevel = set.getInteger("upperLevel");
 		_skillID = set.getInteger("skillID");
 		_skillLevel = set.getInteger("skillLevel");
-		if ("false".equals(set.getString("isMagicClass"))) {
+		if ("false".equals(set.getString("isMagicClass")))
 			_isMagicClass = false;
-		} else {
+		else
 			_isMagicClass = true;
-		}
 	}
 
 	/**

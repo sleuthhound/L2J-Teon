@@ -63,9 +63,8 @@ public class RequestServerLogin extends L2LoginClientPacket
 			_skey2 = readD();
 			_serverId = readC();
 			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
 
 	/**
@@ -82,11 +81,9 @@ public class RequestServerLogin extends L2LoginClientPacket
 			{
 				getClient().setJoinedGS(true);
 				getClient().sendPacket(new PlayOk(sk));
-			} else {
+			} else
 				getClient().close(PlayFailReason.REASON_TOO_MANY_PLAYERS);
-			}
-		} else {
+		} else
 			getClient().close(LoginFailReason.REASON_ACCESS_FAILED);
-		}
 	}
 }

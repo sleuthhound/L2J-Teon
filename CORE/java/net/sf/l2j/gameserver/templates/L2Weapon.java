@@ -95,15 +95,11 @@ public final class L2Weapon extends L2Item
 		int sId = set.getInteger("item_skill_id");
 		int sLv = set.getInteger("item_skill_lvl");
 		if (sId > 0 && sLv > 0)
-		{
 			_itemSkill = SkillTable.getInstance().getInfo(sId, sLv);
-		}
 		sId = set.getInteger("enchant4_skill_id");
 		sLv = set.getInteger("enchant4_skill_lvl");
 		if (sId > 0 && sLv > 0)
-		{
 			_enchant4Skill = SkillTable.getInstance().getInfo(sId, sLv);
-		}
 		sId = set.getInteger("onCast_skill_id");
 		sLv = set.getInteger("onCast_skill_lvl");
 		int sCh = set.getInteger("onCast_skill_chance");
@@ -311,7 +307,6 @@ public final class L2Weapon extends L2Item
 	{
 		List<Func> funcs = new FastList<Func>();
 		if (_funcTemplates != null)
-		{
 			for (FuncTemplate t : _funcTemplates)
 			{
 				Env env = new Env();
@@ -319,11 +314,8 @@ public final class L2Weapon extends L2Item
 				env.item = instance;
 				Func f = t.getFunc(env, instance);
 				if (f != null)
-				{
 					funcs.add(f);
-				}
 			}
-		}
 		return funcs.toArray(new Func[funcs.size()]);
 	}
 
@@ -341,33 +333,21 @@ public final class L2Weapon extends L2Item
 	public L2Effect[] getSkillEffects(L2Character caster, L2Character target, boolean crit)
 	{
 		if (_skillsOnCrit == null || !crit)
-		{
 			return _emptyEffectSet;
-		}
 		List<L2Effect> effects = new FastList<L2Effect>();
 		for (L2Skill skill : _skillsOnCrit)
 		{
 			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT))
-			{
 				continue; // These skills should not work on RaidBoss
-			}
 			if (!skill.checkCondition(caster, target, true))
-			{
 				continue; // Skill condition not met
-			}
 			if (target.getFirstEffect(skill.getId()) != null)
-			{
 				target.getFirstEffect(skill.getId()).exit();
-			}
 			for (L2Effect e : skill.getEffects(caster, target))
-			{
 				effects.add(e);
-			}
 		}
 		if (effects.size() == 0)
-		{
 			return _emptyEffectSet;
-		}
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
@@ -384,24 +364,19 @@ public final class L2Weapon extends L2Item
 	 */
 	public L2Effect[] getSkillEffects(L2Character caster, L2Character target, L2Skill trigger)
 	{
-		if (_skillsOnCast == null) {
+		if (_skillsOnCast == null)
 			return _emptyEffectSet;
-		}
 		List<L2Effect> effects = new FastList<L2Effect>();
 		for (L2Skill skill : _skillsOnCast)
 		{
-			if (trigger.isOffensive() != skill.isOffensive()) {
+			if (trigger.isOffensive() != skill.isOffensive())
 				continue; // Trigger only same type of skill
-			}
-			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT)) {
+			if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT))
 				continue; // These skills should not work on RaidBoss
-			}
-			if (trigger.isToggle() && skill.getSkillType() == SkillType.BUFF) {
+			if (trigger.isToggle() && skill.getSkillType() == SkillType.BUFF)
 				continue; // No buffing with toggle skills
-			}
-			if (!skill.checkCondition(caster, target, true)) {
+			if (!skill.checkCondition(caster, target, true))
 				continue; // Skill condition not met
-			}
 			try
 			{
 				// Get the skill handler corresponding to the skill type
@@ -409,11 +384,10 @@ public final class L2Weapon extends L2Item
 				L2Character[] targets = new L2Character[1];
 				targets[0] = target;
 				// Launch the magic skill and calculate its effects
-				if (handler != null) {
+				if (handler != null)
 					handler.useSkill(caster, skill, targets);
-				} else {
+				else
 					skill.useSkill(caster, targets);
-				}
 				// notify quests of a skill use
 				if (caster instanceof L2PcInstance)
 				{
@@ -422,17 +396,13 @@ public final class L2Weapon extends L2Item
 					// synchronized (caster.getKnownList().getKnownObjects())
 					{
 						for (L2Object spMob : objs)
-						{
 							if (spMob instanceof L2NpcInstance)
 							{
 								L2NpcInstance npcMob = (L2NpcInstance) spMob;
-								if (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) != null) {
-									for (Quest quest : npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE)) {
+								if (npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE) != null)
+									for (Quest quest : npcMob.getTemplate().getEventQuests(Quest.QuestEventType.ON_SKILL_SEE))
 										quest.notifySkillSee(npcMob, (L2PcInstance) caster, _skillsOnCast[0], targets, false);// XXX not sure of this
-									}
-								}
 							}
-						}
 					}
 				}
 			}
@@ -440,9 +410,8 @@ public final class L2Weapon extends L2Item
 			{
 			}
 		}
-		if (effects.size() == 0) {
+		if (effects.size() == 0)
 			return _emptyEffectSet;
-		}
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
 
@@ -455,9 +424,7 @@ public final class L2Weapon extends L2Item
 	public void attachOnCrit(L2Skill skill)
 	{
 		if (_skillsOnCrit == null)
-		{
 			_skillsOnCrit = new L2Skill[] { skill };
-		}
 		else
 		{
 			int len = _skillsOnCrit.length;
@@ -482,9 +449,7 @@ public final class L2Weapon extends L2Item
 	public void attachOnCast(L2Skill skill)
 	{
 		if (_skillsOnCast == null)
-		{
 			_skillsOnCast = new L2Skill[] { skill };
-		}
 		else
 		{
 			int len = _skillsOnCast.length;

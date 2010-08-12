@@ -65,9 +65,7 @@ public final class Util
 	{
 		double angleTarget = Math.toDegrees(Math.atan2(obj1Y - obj2Y, obj1X - obj2X));
 		if (angleTarget <= 0)
-		{
 			angleTarget += 360;
-		}
 		return angleTarget;
 	}
 
@@ -94,19 +92,14 @@ public final class Util
 		{
 			double dz = z1 - z2;
 			return Math.sqrt(dx * dx + dy * dy + dz * dz);
-		}
-		else
-		{
+		} else
 			return Math.sqrt(dx * dx + dy * dy);
-		}
 	}
 
 	public static double calculateDistance(L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
 		if (obj1 == null || obj2 == null)
-		{
 			return 1000000;
-		}
 		return calculateDistance(obj1.getPosition().getX(), obj1.getPosition().getY(), obj1.getPosition().getZ(), obj2.getPosition().getX(), obj2.getPosition().getY(), obj2.getPosition().getZ(), includeZAxis);
 	}
 
@@ -122,9 +115,7 @@ public final class Util
 	{
 		str = str.trim();
 		if (str.length() > 0 && Character.isLetter(str.charAt(0)))
-		{
 			return str.substring(0, 1).toUpperCase() + str.substring(1);
-		}
 		return str;
 	}
 
@@ -145,9 +136,7 @@ public final class Util
 		for (int i = 0; i < charArray.length; i++)
 		{
 			if (Character.isWhitespace(charArray[i]))
-			{
 				charArray[i + 1] = Character.toUpperCase(charArray[i + 1]);
-			}
 			result += Character.toString(charArray[i]);
 		}
 		return result;
@@ -159,22 +148,14 @@ public final class Util
 	public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
 	{
 		if (obj1 == null || obj2 == null)
-		{
 			return false;
-		}
 		if (range == -1)
-		{
 			return true; // not limited
-		}
 		int rad = 0;
 		if (obj1 instanceof L2Character)
-		{
 			rad += ((L2Character) obj1).getTemplate().collisionRadius;
-		}
 		if (obj2 instanceof L2Character)
-		{
 			rad += ((L2Character) obj2).getTemplate().collisionRadius;
-		}
 		double dx = obj1.getX() - obj2.getX();
 		double dy = obj1.getY() - obj2.getY();
 		if (includeZAxis)
@@ -193,9 +174,7 @@ public final class Util
 	public static double convertHeadingToDegree(int heading)
 	{
 		if (heading == 0)
-		{
 			return 360;
-		}
 		return 9.0 * heading / 1610.0; // = 360.0 * (heading / 64400.0)
 	}
 
@@ -207,12 +186,10 @@ public final class Util
  	*/
     public static boolean checkIfInShortRadius(int radius, L2Object obj1, L2Object obj2, boolean includeZAxis)
     {
-        if (obj1 == null || obj2 == null) {
+        if (obj1 == null || obj2 == null)
 			return false;
-		}
-        if (radius == -1) {
+        if (radius == -1)
 			return true; // not limited
-		}
 
         int dx = obj1.getX() - obj2.getX();
         int dy = obj1.getY() - obj2.getY();
@@ -221,11 +198,8 @@ public final class Util
         {
             int dz = obj1.getZ() - obj2.getZ();
             return dx*dx + dy*dy + dz*dz <= radius*radius;
-        }
-        else
-        {
-            return dx*dx + dy*dy <= radius*radius;
-        }
+        } else
+			return dx*dx + dy*dy <= radius*radius;
     }
 
 	/**
@@ -254,9 +228,7 @@ public final class Util
 	{
 		String result = "";
 		for (String strValue : strArray)
-		{
 			result += strValue + strDelim;
-		}
 		return result;
 	}
 
@@ -286,9 +258,7 @@ public final class Util
 	public static float roundTo(float val, int numPlaces)
 	{
 		if (numPlaces <= 1)
-		{
 			return Math.round(val);
-		}
 		float exponent = (float) Math.pow(10, numPlaces);
 		return Math.round(val * exponent) / exponent;
 	}
@@ -298,13 +268,11 @@ public final class Util
 		boolean result = true;
 		char[] chars = text.toCharArray();
 		for (int i = 0; i < chars.length; i++)
-		{
 			if (!Character.isLetterOrDigit(chars[i]))
 			{
 				result = false;
 				break;
 			}
-		}
 		return result;
 	}
 
@@ -323,13 +291,9 @@ public final class Util
 		while (amount > 0)
 		{
 			if (rem < 99)
-			{
 				s = '0' + s;
-			}
 			if (rem < 9)
-			{
 				s = '0' + s;
-			}
 			rem = amount % 1000;
 			s = Integer.toString(rem) + "," + s;
 			amount = (amount - rem) / 1000;
@@ -348,20 +312,18 @@ public final class Util
 	public static int calcCameraAngle(int heading)
 	{
 		int angle;
-		if (heading == 0) {
+		if (heading == 0)
 			angle = 360;
-		} else {
+		else
 			angle = (int) (heading / 182.04);
-		}
-		if (angle <= 90) {
+		if (angle <= 90)
 			angle = angle + 90;
-		} else if (angle > 90 && angle <= 180) {
+		else if (angle > 90 && angle <= 180)
 			angle = angle - 90;
-		} else if (angle > 180 && angle <= 270) {
+		else if (angle > 180 && angle <= 270)
 			angle = angle + 90;
-		} else if (angle > 270 && angle <= 360) {
+		else if (angle > 270 && angle <= 360)
 			angle = angle - 90;
-		}
 		return angle;
 	}
 

@@ -60,9 +60,7 @@ public class GameServerRegister
 			if (_choice.equalsIgnoreCase("help"))
 			{
 				for (Map.Entry<Integer, String> entry : gameServerTable.getServerNames().entrySet())
-				{
 					System.out.println("Server: ID: " + entry.getKey() + "\t- " + entry.getValue() + " - In Use: " + (gameServerTable.hasRegisteredGameServerOnId(entry.getKey()) ? "YES" : "NO"));
-				}
 				System.out.println("You can also see servername.xml");
 			}
 			else if (_choice.equalsIgnoreCase("clean"))
@@ -73,14 +71,9 @@ public class GameServerRegister
 				{
 					GameServerRegister.cleanRegisteredGameServersFromDB();
 					gameServerTable.getRegisteredGameServers().clear();
-				}
-				else
-				{
+				} else
 					System.out.println("ABORTED");
-				}
-			}
-			else
-			{
+			} else
 				try
 				{
 					int id = new Integer(_choice).intValue();
@@ -95,29 +88,22 @@ public class GameServerRegister
 					{
 						System.out.println("No name for id: " + id);
 						continue;
-					}
+					} else if (gameServerTable.hasRegisteredGameServerOnId(id))
+						System.out.println("This id is not free");
 					else
 					{
-						if (gameServerTable.hasRegisteredGameServerOnId(id))
-						{
-							System.out.println("This id is not free");
-						}
-						else
-						{
-							byte[] hexId = LoginServerThread.generateHex(16);
-							gameServerTable.registerServerOnDB(hexId, id, "");
-							Config.saveHexid(id, new BigInteger(hexId).toString(16), "hexid(server " + id + ").txt");
-							System.out.println("Server Registered hexid saved to 'hexid(server " + id + ").txt'");
-							System.out.println("Put this file in the /config folder of your gameserver and rename it to 'hexid.txt'");
-							return;
-						}
+						byte[] hexId = LoginServerThread.generateHex(16);
+						gameServerTable.registerServerOnDB(hexId, id, "");
+						Config.saveHexid(id, new BigInteger(hexId).toString(16), "hexid(server " + id + ").txt");
+						System.out.println("Server Registered hexid saved to 'hexid(server " + id + ").txt'");
+						System.out.println("Put this file in the /config folder of your gameserver and rename it to 'hexid.txt'");
+						return;
 					}
 				}
 				catch (NumberFormatException nfe)
 				{
 					System.out.println("Please, type a number or 'help'");
 				}
-			}
 		}
 	}
 

