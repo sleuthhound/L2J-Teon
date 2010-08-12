@@ -50,9 +50,7 @@ public class HelperBuffTable
 	public static HelperBuffTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new HelperBuffTable();
-		}
 		return _instance;
 	}
 
@@ -120,21 +118,17 @@ public class HelperBuffTable
 			// from Newbie Helper
 			if ("false".equals(HelperBuffData.getString("is_magic_class")))
 			{
-				if (HelperBuffData.getInt("lower_level") < _physicClassLowestLevel) {
+				if (HelperBuffData.getInt("lower_level") < _physicClassLowestLevel)
 					_physicClassLowestLevel = HelperBuffData.getInt("lower_level");
-				}
-				if (HelperBuffData.getInt("upper_level") > _physicClassHighestLevel) {
+				if (HelperBuffData.getInt("upper_level") > _physicClassHighestLevel)
 					_physicClassHighestLevel = HelperBuffData.getInt("upper_level");
-				}
 			}
 			else
 			{
-				if (HelperBuffData.getInt("lower_level") < _magicClassLowestLevel) {
+				if (HelperBuffData.getInt("lower_level") < _magicClassLowestLevel)
 					_magicClassLowestLevel = HelperBuffData.getInt("lower_level");
-				}
-				if (HelperBuffData.getInt("upper_level") > _magicClassHighestLevel) {
+				if (HelperBuffData.getInt("upper_level") > _magicClassHighestLevel)
 					_magicClassHighestLevel = HelperBuffData.getInt("upper_level");
-				}
 			}
 			// Add this Helper Buff to the Helper Buff List
 			L2HelperBuff template = new L2HelperBuff(helperBuffDat);

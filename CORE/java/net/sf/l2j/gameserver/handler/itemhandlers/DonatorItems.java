@@ -35,9 +35,7 @@ public class DonatorItems implements IItemHandler
 		if (Config.DONATOR_ITEMS)
 		{
 			if (!(playable instanceof L2PcInstance))
-			{
 				return;
-			}
 			L2PcInstance activeChar = (L2PcInstance) playable;
 			int itemId = item.getItemId();
 			String filename = "data/html/mods/donator/" + itemId + ".htm";

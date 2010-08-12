@@ -37,20 +37,15 @@ public class AdminAutoAnnouncements implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance admin)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(admin.getAccessLevel()) && admin.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(admin.getAccessLevel()) && admin.isGM()))
 				return false;
-			}
-		}
 		if (command.equals("admin_list_autoannouncements"))
-		{
 			AutoAnnouncementHandler.getInstance().listAutoAnnouncements(admin);
-		}
 		else if (command.startsWith("admin_add_autoannouncement"))
 		{
 			// FIXME the player can send only 16 chars (if you try to send more it sends null), remove this function or not?
 			if (!command.equals("admin_add_autoannouncement"))
-			{
 				try
 				{
 					StringTokenizer st = new StringTokenizer(command.substring(27));
@@ -59,9 +54,7 @@ public class AdminAutoAnnouncements implements IAdminCommandHandler
 					if (delay > 30)
 					{
 						while (st.hasMoreTokens())
-						{
 							autoAnnounce = autoAnnounce + " " + st.nextToken();
-						}
 						;
 						AutoAnnouncementHandler.getInstance().registerAnnouncment(autoAnnounce, delay);
 						AutoAnnouncementHandler.getInstance().listAutoAnnouncements(admin);
@@ -70,10 +63,8 @@ public class AdminAutoAnnouncements implements IAdminCommandHandler
 				catch (StringIndexOutOfBoundsException e)
 				{
 				}// ignore errors
-			}
 		}
 		else if (command.startsWith("admin_del_autoannouncement"))
-		{
 			try
 			{
 				int val = new Integer(command.substring(27)).intValue();
@@ -83,13 +74,9 @@ public class AdminAutoAnnouncements implements IAdminCommandHandler
 			catch (StringIndexOutOfBoundsException e)
 			{
 			}
-		}
-		// Command is admin autoannounce
 		else if (command.startsWith("admin_autoannounce"))
-		{
 			// Call method from another class
 			AutoAnnouncementHandler.getInstance().listAutoAnnouncements(admin);
-		}
 		return true;
 	}
 

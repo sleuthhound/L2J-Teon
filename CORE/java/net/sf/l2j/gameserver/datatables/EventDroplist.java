@@ -35,9 +35,7 @@ public class EventDroplist
 	public static EventDroplist getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new EventDroplist();
-		}
 		return _instance;
 	}
 
@@ -104,9 +102,7 @@ public class EventDroplist
 			// "+
 			// currentDate);
 			if (drop.dateRange.isWithinRange(currentDate))
-			{
 				list.add(drop);
-			}
 		}
 		return list;
 	}

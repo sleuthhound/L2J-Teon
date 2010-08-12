@@ -34,9 +34,7 @@ public class CharNameTable
 	public static CharNameTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new CharNameTable();
-		}
 		return _instance;
 	}
 
@@ -82,9 +80,7 @@ public class CharNameTable
 			statement.setString(1, account);
 			ResultSet rset = statement.executeQuery();
 			while (rset.next())
-			{
 				number = rset.getInt(1);
-			}
 			rset.close();
 			statement.close();
 		}

@@ -63,37 +63,32 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
         try{
-    	if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+    	if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 			return false;
-		}
-        if (command.equals("admin_fos")) {
+        if (command.equals("admin_fos"))
 			showMainPage(activeChar);
-		} else if (command.startsWith("admin_fos_name ")){
+		else if (command.startsWith("admin_fos_name ")){
             FortressSiege._eventName = command.substring(15);
             showMainPage(activeChar);
         }
         else if (command.equals("admin_fos_tele1")){
-        	if (!(FortressSiege._teamsX.get(0)==0 && FortressSiege._teamsY.get(0)==0 && FortressSiege._teamsZ.get(0)==0)) {
+        	if (!(FortressSiege._teamsX.get(0)==0 && FortressSiege._teamsY.get(0)==0 && FortressSiege._teamsZ.get(0)==0))
 				activeChar.teleToLocation(FortressSiege._teamsX.get(0), FortressSiege._teamsY.get(0), FortressSiege._teamsZ.get(0));
-			}
             showMainPage(activeChar);
         }
         else if (command.equals("admin_fos_tele2")){
-        	if (!(FortressSiege._teamsX.get(1)==0 && FortressSiege._teamsY.get(1)==0 && FortressSiege._teamsZ.get(1)==0)) {
+        	if (!(FortressSiege._teamsX.get(1)==0 && FortressSiege._teamsY.get(1)==0 && FortressSiege._teamsZ.get(1)==0))
 				activeChar.teleToLocation(FortressSiege._teamsX.get(1), FortressSiege._teamsY.get(1), FortressSiege._teamsZ.get(1));
-			}
             showMainPage(activeChar);
         }
         else if (command.equals("admin_fos_tele3")){
-        	if (!(FortressSiege._flagX==0 && FortressSiege._flagY==0 && FortressSiege._flagZ==0)) {
+        	if (!(FortressSiege._flagX==0 && FortressSiege._flagY==0 && FortressSiege._flagZ==0))
 				activeChar.teleToLocation(FortressSiege._flagX, FortressSiege._flagY, FortressSiege._flagZ);
-			}
             showMainPage(activeChar);
         }
         else if (command.equals("admin_fos_tele4")){
-        	if (!(FortressSiege._npcX==0 && FortressSiege._npcY==0 && FortressSiege._npcZ==0)) {
+        	if (!(FortressSiege._npcX==0 && FortressSiege._npcY==0 && FortressSiege._npcZ==0))
 				activeChar.teleToLocation(FortressSiege._npcX, FortressSiege._npcY, FortressSiege._npcZ);
-			}
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_fos_desc ")){
@@ -101,24 +96,21 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_fos_minlvl ")){
-            if (!FortressSiege.checkMinLevel(Integer.valueOf(command.substring(17)))) {
+            if (!FortressSiege.checkMinLevel(Integer.valueOf(command.substring(17))))
 				return false;
-			}
             FortressSiege._minlvl = Integer.valueOf(command.substring(17));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_fos_door")){
             L2Object target = activeChar.getTarget();
-            if (target==null) {
+            if (target==null)
 				activeChar.sendMessage("Nothing targeted!");
-			} else if (target instanceof L2DoorInstance){
+			else if (target instanceof L2DoorInstance){
             	int doorId = ((L2DoorInstance)target).getDoorId();
-            	if (doorId>0) {
+            	if (doorId>0)
 					FortressSiege._door[Integer.valueOf(command.substring(14))-1]=doorId;
-				}
-            } else {
+            } else
 				activeChar.sendMessage("Incorrect target.");
-			}
             showMainPage(activeChar);
         }
         else if (command.equals("admin_fos_team_flag")){
@@ -134,9 +126,8 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_fos_maxlvl ")){
-            if (!FortressSiege.checkMaxLevel(Integer.valueOf(command.substring(17)))) {
+            if (!FortressSiege.checkMaxLevel(Integer.valueOf(command.substring(17))))
 				return false;
-			}
             FortressSiege._maxlvl = Integer.valueOf(command.substring(17));
             showMainPage(activeChar);
         }
@@ -210,18 +201,16 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
         }
         else if (command.equals("admin_fos_teleport"))
         {
-            if (FortressSiege._joining) {
+            if (FortressSiege._joining)
 				FortressSiege.teleportStart();
-			}
             showMainPage(activeChar);
         }
         else if(command.equals("admin_fos_start"))
         {
-        	if (FortressSiege._joining) {
+        	if (FortressSiege._joining)
 				FortressSiege.teleportStart();
-			} else if (FortressSiege._teleport) {
+			else if (FortressSiege._teleport)
 				FortressSiege.startEvent(activeChar);
-			}
             showMainPage(activeChar);
         }
         else if(command.equals("admin_fos_abort"))
@@ -240,10 +229,9 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
             FortressSiege.sit();
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_fos_load")){
-        	showSiegeLoadPage(activeChar,false);
-        }
-        else if (command.startsWith("admin_fos_load ")){
+        else if (command.equals("admin_fos_load"))
+			showSiegeLoadPage(activeChar,false);
+		else if (command.startsWith("admin_fos_load ")){
         	String siegeName = command.substring(15);
         	FortressSiege.loadData(siegeName);
             showMainPage(activeChar);
@@ -254,11 +242,10 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
         		activeChar.sendMessage("Event is already in progress. Wait until the event ends or Abort it.");
         		return false;
         	}
-        	if(FortressSiege._joinTime>0 && FortressSiege._eventTime>0){
-        		FortressSiege.autoEvent();
-        	} else {
+        	if(FortressSiege._joinTime>0 && FortressSiege._eventTime>0)
+				FortressSiege.autoEvent();
+			else
 				activeChar.sendMessage("Wrong usage: join time or event time invallid.");
-			}
             showMainPage(activeChar);
         }
         else if (command.equals("admin_fos_save"))
@@ -270,12 +257,10 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
             FortressSiege.dumpData();
             showMainPage(activeChar);
         }
-        else if (command.equals("admin_fos_pg2")){
-        	showEditEventPage(activeChar);
-        }
-        else if (command.equals("admin_fos_pg3")){
-        	showControlEventPage(activeChar);
-        }
+        else if (command.equals("admin_fos_pg2"))
+			showEditEventPage(activeChar);
+		else if (command.equals("admin_fos_pg3"))
+			showControlEventPage(activeChar);
         return true;
         }catch(Throwable t){
         	activeChar.sendMessage("The command was not used correctly:"+t.toString());
@@ -319,26 +304,23 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
                 rs.getInt("team1X");rs.getInt("team1Y");rs.getInt("team1Z");rs.getInt("team1Color");
                 rs.getString("team2Name");rs.getInt("team2X");rs.getInt("team2Y");rs.getInt("team2Z");
                 rs.getInt("team2Color");rs.getInt("flagX");rs.getInt("flagY");rs.getInt("flagZ");
-                if (FortressSiege._eventName!=null && FortressSiege._eventName.equals(_eventName)) {
+                if (FortressSiege._eventName!=null && FortressSiege._eventName.equals(_eventName))
 					replyMSG.append("<a action=\"bypass -h admin_fos_load "+_eventName+"\"><font color=\"FF0000\">"+_eventName+"</font><font color=\"LEVEL\"><-- *loaded*</font></a><br1>");
-				} else {
+				else
 					replyMSG.append("<a action=\"bypass -h admin_fos_load "+_eventName+"\"><font color=\"00FF00\">"+_eventName+"</font></a><br1>");
-				}
             }
             statement.close();
             if (autoLoad){
             	FortressSiege.loadData(_eventName);
-                if (activeChar!=null) {
+                if (activeChar!=null)
 					showMainPage(activeChar);
-				}
             	return;
             }
             replyMSG.append("<center><button value=\"Back\" action=\"bypass -h admin_fos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center>");
             replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
-            if (activeChar!=null) {
+            if (activeChar!=null)
 				activeChar.sendPacket(adminReply);
-			}
         }catch (Exception e){
             System.out.println("Exception: AdminFortressSiegeEngine.showSiegeLoadPage: " + e.getMessage());
         }finally {try { con.close(); } catch (Exception e) {}}
@@ -456,11 +438,10 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
         replyMSG.append("    ... joining NPC ID:&nbsp;<font color=\"00FF00\">" + FortressSiege._npcId + " on pos " + FortressSiege._npcX + "," + FortressSiege._npcY + "," + FortressSiege._npcZ + "</font>");
         replyMSG.append("<td width=\"100\"><button value=\"Tele>NPC\" action=\"bypass -h admin_fos_tele4\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><br1>");
         replyMSG.append("    ... reward ID  :&nbsp;<font color=\"00FF00\">" + FortressSiege._rewardId + "</font><br1>");
-        if ( ItemTable.getInstance().getTemplate(FortressSiege._rewardId) != null) {
+        if ( ItemTable.getInstance().getTemplate(FortressSiege._rewardId) != null)
 			replyMSG.append("    ... reward Item:&nbsp;<font color=\"00FF00\">" +  ItemTable.getInstance().getTemplate(FortressSiege._rewardId).getName() + "</font><br1>");
-		} else {
+		else
 			replyMSG.append("    ... reward Item:&nbsp;<font color=\"00FF00\">(unknown)</font><br1>");
-		}
         replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + FortressSiege._rewardAmount + "</font><br><br>");
         replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + FortressSiege._minlvl + "</font><br1>");
         replyMSG.append("    ... Max lvl:&nbsp;<font color=\"00FF00\">" + FortressSiege._maxlvl + "</font><br>");
@@ -471,33 +452,27 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
         replyMSG.append("Current teams:<br1>");
         replyMSG.append("<center><table border=\"0\">");
 
-        if (FortressSiege._teams!=null && !FortressSiege._teams.isEmpty()) {
+        if (FortressSiege._teams!=null && !FortressSiege._teams.isEmpty())
 			for (String team : FortressSiege._teams){
 			    replyMSG.append("<tr><td width=\"100\">Name:<font color=\"LEVEL\">" + team + "</font>");
-			    if (Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE")) {
+			    if (Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE"))
 					replyMSG.append(" (" + FortressSiege._teamPlayersCount.get(FortressSiege._teams.indexOf(team)) + " joined)");
-				} else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE")){
-			        if (FortressSiege._teleport || FortressSiege._started) {
+				else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
+					if (FortressSiege._teleport || FortressSiege._started)
 						replyMSG.append(" (" + FortressSiege._teamPlayersCount.get(FortressSiege._teams.indexOf(team)) + " in)");
-					}
-			    }
 			    replyMSG.append("</td></tr><tr><td>");
 			    String c = Integer.toHexString(FortressSiege._teamColors.get(FortressSiege._teams.indexOf(team)));
-			    while (c.length()<6) {
+			    while (c.length()<6)
 					c="0"+c;
-				}
 			    replyMSG.append("Color: <font color=\"00FF00\">0x"+c.toUpperCase()+"</font><font color=\""+c+"\"> 8D </font>");
 			    replyMSG.append("</td></tr><tr><td>");
 			    replyMSG.append("Position: <font color=\"00FF00\">("+FortressSiege._teamsX.get(FortressSiege._teams.indexOf(team)) + ", " + FortressSiege._teamsY.get(FortressSiege._teams.indexOf(team)) + ", " + FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(team))+")</font>");
 			    replyMSG.append("</td></tr><tr>");
-			    if (team.equals(FortressSiege._teams.get(0))) {
+			    if (team.equals(FortressSiege._teams.get(0)))
 					replyMSG.append("<td width=\"100\"><button value=\"Tele>Team1\" action=\"bypass -h admin_fos_tele1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
-				}
-			    if (team.equals(FortressSiege._teams.get(1))) {
+			    if (team.equals(FortressSiege._teams.get(1)))
 					replyMSG.append("<td width=\"100\"><button value=\"Tele>Team2\" action=\"bypass -h admin_fos_tele2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
-				}
 			}
-		}
         replyMSG.append("<tr><td>Artifact:  <font color=\"00FF00\">("+FortressSiege._flagX + ", " + FortressSiege._flagY+ ", " + FortressSiege._flagZ+")</font></td></tr>");
         replyMSG.append("<tr><td width=\"100\"><button value=\"Tele>Artif\" action=\"bypass -h admin_fos_tele3\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
         replyMSG.append("<tr><td>Center Room: <font color=\"00FF00\">("+FortressSiege.eventCenterX + ", " + FortressSiege.eventCenterY+ ", " + FortressSiege.eventCenterZ+")</font></td></tr>");
@@ -506,13 +481,12 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
         replyMSG.append("<tr><td><font color=\"00FF00\">("+FortressSiege._door[0] + ", " + FortressSiege._door[1] + "),</td></tr>");
         replyMSG.append("<tr><td>("+FortressSiege._door[2] + ", " + FortressSiege._door[3]+")</font></td></tr>");
         replyMSG.append("</table></center>");
-        if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE")){
-            if (FortressSiege._joining){
+        if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
+			if (FortressSiege._joining){
                 replyMSG.append("<br1>");
                 replyMSG.append(FortressSiege._playersShuffle.size() + " players participating. Waiting to shuffle teams (done on teleport)");
                 replyMSG.append("<br><br>");
             }
-        }
         replyMSG.append("</body></html>");
         adminReply.setHtml(replyMSG.toString());
         activeChar.sendPacket(adminReply);

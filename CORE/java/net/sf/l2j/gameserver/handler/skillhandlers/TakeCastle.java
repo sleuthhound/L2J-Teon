@@ -40,28 +40,23 @@ public class TakeCastle implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance player = (L2PcInstance) activeChar;
-		if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId()) {
+		if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId())
 			return;
-		}
 		Castle castle = CastleManager.getInstance().getCastle(player);
 		Fort fort = FortManager.getInstance().getFort(player);
-		if (castle == null && fort == null) {
+		if (castle == null && fort == null)
 			return;
-		}
 		if (castle != null)
 		{
-			if (!checkIfOkToCastSealOfRule(player, castle, true)) {
+			if (!checkIfOkToCastSealOfRule(player, castle, true))
 				return;
-			}
 			try
 			{
-				if (targets[0] instanceof L2ArtefactInstance) {
+				if (targets[0] instanceof L2ArtefactInstance)
 					castle.Engrave(player.getClan(), targets[0].getObjectId());
-				}
 			}
 			catch (Exception e)
 			{
@@ -69,14 +64,12 @@ public class TakeCastle implements ISkillHandler
 		}
 		if (fort != null)
 		{
-			if (!checkIfOkToCastSealOfRule(player, fort, true)) {
+			if (!checkIfOkToCastSealOfRule(player, fort, true))
 				return;
-			}
 			try
 			{
-				if (targets[0] instanceof L2ArtefactInstance) {
+				if (targets[0] instanceof L2ArtefactInstance)
 					fort.Engrave(player.getClan(), targets[0].getObjectId());
-				}
 			}
 			catch (Exception e)
 			{
@@ -100,75 +93,65 @@ public class TakeCastle implements ISkillHandler
 	{
 		Castle castle = CastleManager.getInstance().getCastle(activeChar);
 		Fort fort = FortManager.getInstance().getFort(activeChar);
-		if (castle == null && fort == null) {
+		if (castle == null && fort == null)
 			return false;
-		}
-		if (castle != null) {
+		if (castle != null)
 			return checkIfOkToCastSealOfRule(activeChar, castle, isCheckOnly);
-		} else {
+		else
 			return checkIfOkToCastSealOfRule(activeChar, fort, isCheckOnly);
-		}
 	}
 
 	public static boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
-		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
-		if (castle == null || castle.getCastleId() <= 0) {
+		if (castle == null || castle.getCastleId() <= 0)
 			sm.addString("You must be on castle ground to use this skill");
-		} else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance)) {
+		else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance))
 			sm.addString("You can only use this skill on an artifact");
-		} else if (!castle.getSiege().getIsInProgress()) {
+		else if (!castle.getSiege().getIsInProgress())
 			sm.addString("You can only use this skill during a siege.");
-		} else if (!Util.checkIfInRange(200, player, player.getTarget(), true)) {
+		else if (!Util.checkIfInRange(200, player, player.getTarget(), true))
 			sm.addString("You are not in range of the artifact.");
-		} else if (castle.getSiege().getAttackerClan(player.getClan()) == null) {
+		else if (castle.getSiege().getAttackerClan(player.getClan()) == null)
 			sm.addString("You must be an attacker to use this skill");
-		} else
+		else
 		{
-			if (!isCheckOnly) {
+			if (!isCheckOnly)
 				castle.getSiege().announceToPlayer("Clan " + player.getClan().getName() + " has begun to engrave the ruler.", true);
-			}
 			return true;
 		}
 		if (!isCheckOnly)
-		{
 			player.sendPacket(sm);
-		}
 		return false;
 	}
 
 	public static boolean checkIfOkToCastSealOfRule(L2Character activeChar, Fort fort, boolean isCheckOnly)
 	{
-		if (activeChar == null || !(activeChar instanceof L2PcInstance)) {
+		if (activeChar == null || !(activeChar instanceof L2PcInstance))
 			return false;
-		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 		L2PcInstance player = (L2PcInstance) activeChar;
-		if (fort == null || fort.getFortId() <= 0) {
+		if (fort == null || fort.getFortId() <= 0)
 			sm.addString("You must be on fort ground to use this skill");
-		} else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance)) {
+		else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance))
 			sm.addString("You can only use this skill on an artifact");
-		} else if (!fort.getSiege().getIsInProgress()) {
+		else if (!fort.getSiege().getIsInProgress())
 			sm.addString("You can only use this skill during a siege.");
-		} else if (!Util.checkIfInRange(200, player, player.getTarget(), true)) {
+		else if (!Util.checkIfInRange(200, player, player.getTarget(), true))
 			sm.addString("You are not in range of the artifact.");
-		} else if (fort.getSiege().getAttackerClan(player.getClan()) == null) {
+		else if (fort.getSiege().getAttackerClan(player.getClan()) == null)
 			sm.addString("You must be an attacker to use this skill");
-		} else
+		else
 		{
-			if (!isCheckOnly) {
+			if (!isCheckOnly)
 				fort.getSiege().announceToPlayer("Clan " + player.getClan().getName() + " has begun to engrave the ruler.", true);
-			}
 			return true;
 		}
 		if (!isCheckOnly)
-		{
 			player.sendPacket(sm);
-		}
 		return false;
 	}
 }

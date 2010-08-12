@@ -31,9 +31,8 @@ public class CrystalCarol implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		int itemId = item.getItemId();
 		if (itemId == 5562)

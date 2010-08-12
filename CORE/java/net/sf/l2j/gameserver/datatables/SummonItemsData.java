@@ -32,9 +32,8 @@ public class SummonItemsData
 
 	public static SummonItemsData getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new SummonItemsData();
-		}
 		return _instance;
 	}
 
@@ -61,9 +60,8 @@ public class SummonItemsData
 				commentLinesCount++;
 				continue;
 			}
-			else if (line.equals("")) {
+			else if (line.equals(""))
 				continue;
-			}
 			String[] lineSplit = line.split(";");
 			boolean ok = true;
 			int itemID = 0, npcID = 0;
@@ -80,9 +78,8 @@ public class SummonItemsData
 				System.out.println("		" + line);
 				ok = false;
 			}
-			if (!ok) {
+			if (!ok)
 				continue;
-			}
 			L2SummonItem summonitem = new L2SummonItem(itemID, npcID, summonType);
 			_summonitems.put(itemID, summonitem);
 		}

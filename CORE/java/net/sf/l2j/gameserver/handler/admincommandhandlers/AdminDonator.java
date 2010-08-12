@@ -42,25 +42,17 @@ public class AdminDonator implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		if (command.startsWith("admin_setdonator"))
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			if (target instanceof L2PcInstance)
-			{
 				player = (L2PcInstance) target;
-			}
 			else
-			{
 				player = activeChar;
-			}
 			if (player.isDonator())
 			{
 				player.setDonator(false);
@@ -74,9 +66,7 @@ public class AdminDonator implements IAdminCommandHandler
 					ResultSet rset = statement.executeQuery();
 					int objId = 0;
 					if (rset.next())
-					{
 						objId = rset.getInt(1);
-					}
 					rset.close();
 					statement.close();
 					if (objId == 0)
@@ -118,9 +108,7 @@ public class AdminDonator implements IAdminCommandHandler
 					ResultSet rset = statement.executeQuery();
 					int objId = 0;
 					if (rset.next())
-					{
 						objId = rset.getInt(1);
-					}
 					rset.close();
 					statement.close();
 					if (objId == 0)
@@ -152,9 +140,7 @@ public class AdminDonator implements IAdminCommandHandler
 			player.sendPacket(sm);
 			player.broadcastUserInfo();
 			if (player.isDonator() == true)
-			{
 				Announcements.getInstance().announceToAll(player.getName() + " Has Become a Server Donator!");
-			}
 		}
 		return false;
 	}

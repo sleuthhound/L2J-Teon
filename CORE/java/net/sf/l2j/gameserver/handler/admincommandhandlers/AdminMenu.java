@@ -46,18 +46,12 @@ public class AdminMenu implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		if (command.equals("admin_char_manage"))
-		{
 			showMainPage(activeChar);
-		}
 		else if (command.startsWith("admin_teleport_character_to_menu"))
 		{
 			String[] data = command.split(" ");
@@ -66,14 +60,11 @@ public class AdminMenu implements IAdminCommandHandler
 				String playerName = data[1];
 				L2PcInstance player = L2World.getInstance().getPlayer(playerName);
 				if (player != null)
-				{
 					teleportCharacter(player, Integer.parseInt(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4]), activeChar, "Admin is teleporting you.");
-				}
 			}
 			showMainPage(activeChar);
 		}
 		else if (command.startsWith("admin_recall_char_menu"))
-		{
 			try
 			{
 				String targetName = command.substring(23);
@@ -83,7 +74,6 @@ public class AdminMenu implements IAdminCommandHandler
 			catch (StringIndexOutOfBoundsException e)
 			{
 			}
-		}
 		else if (command.startsWith("admin_recall_party_menu"))
 		{
 			int x = activeChar.getX(), y = activeChar.getY(), z = activeChar.getZ();
@@ -103,9 +93,7 @@ public class AdminMenu implements IAdminCommandHandler
 					return true;
 				}
 				for (L2PcInstance pm : player.getParty().getPartyMembers())
-				{
 					teleportCharacter(pm, x, y, z, activeChar, "Your party is being teleported by an Admin.");
-				}
 			}
 			catch (Exception e)
 			{
@@ -131,16 +119,14 @@ public class AdminMenu implements IAdminCommandHandler
 					return true;
 				}
 				L2PcInstance[] members = clan.getOnlineMembers("");
-				for (L2PcInstance member : members) {
+				for (L2PcInstance member : members)
 					teleportCharacter(member, x, y, z, activeChar, "Your clan is being teleported by an Admin.");
-				}
 			}
 			catch (Exception e)
 			{
 			}
 		}
 		else if (command.startsWith("admin_goto_char_menu"))
-		{
 			try
 			{
 				String targetName = command.substring(21);
@@ -150,11 +136,8 @@ public class AdminMenu implements IAdminCommandHandler
 			catch (StringIndexOutOfBoundsException e)
 			{
 			}
-		}
 		else if (command.equals("admin_kill_menu"))
-		{
 			handleKill(activeChar);
-		}
 		else if (command.startsWith("admin_kick_menu"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -168,11 +151,8 @@ public class AdminMenu implements IAdminCommandHandler
 				{
 					plyr.logout();
 					sm.addString("You kicked " + plyr.getName() + " from the game.");
-				}
-				else
-				{
+				} else
 					sm.addString("Player " + player + " was not found in the game.");
-				}
 				activeChar.sendPacket(sm);
 			}
 			showMainPage(activeChar);
@@ -186,9 +166,7 @@ public class AdminMenu implements IAdminCommandHandler
 				String player = st.nextToken();
 				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 				if (plyr != null)
-				{
 					plyr.logout();
-				}
 				setAccountAccessLevel(player, activeChar, -100);
 			}
 			showMainPage(activeChar);
@@ -231,9 +209,7 @@ public class AdminMenu implements IAdminCommandHandler
 		{
 			L2PcInstance plyr = L2World.getInstance().getPlayer(player);
 			if (plyr != null)
-			{
 				target = plyr;
-			}
 			activeChar.sendMessage("You killed " + plyr.getName());
 		}
 		if (target != null)
@@ -244,18 +220,11 @@ public class AdminMenu implements IAdminCommandHandler
 				filename = "charmanage.htm";
 			}
 			else if (Config.CHAMPION_ENABLE && target.isChampion())
-			{
 				target.reduceCurrentHp(target.getMaxHp() * Config.CHAMPION_HP + 1, activeChar);
-			}
 			else
-			{
 				target.reduceCurrentHp(target.getMaxHp() + 1, activeChar);
-			}
-		}
-		else
-		{
+		} else
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-		}
 		AdminHelpPage.showHelpPage(activeChar, filename);
 	}
 
@@ -273,18 +242,14 @@ public class AdminMenu implements IAdminCommandHandler
 	{
 		L2PcInstance player = null;
 		if (target != null && target instanceof L2PcInstance)
-		{
 			player = (L2PcInstance) target;
-		}
 		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
 		if (player.getObjectId() == activeChar.getObjectId())
-		{
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
-		}
 		else
 		{
 			activeChar.teleToLocation(player.getX(), player.getY(), player.getZ(), true);
@@ -319,26 +284,18 @@ public class AdminMenu implements IAdminCommandHandler
 				{
 					LoginServerThread.getInstance().sendAccessLevel(acc_name, banLevel);
 					sm.addString("Account Access Level for " + player + " set to " + banLevel + ".");
-				}
-				else
-				{
+				} else
 					sm.addString("Couldn't find player: " + player + ".");
-				}
 				activeChar.sendPacket(sm);
-			}
-			else
-			{
+			} else
 				activeChar.sendMessage("Specified player name didn't lead to a valid account.");
-			}
 			statement.close();
 		}
 		catch (Exception e)
 		{
 			_log.warning("Could not set accessLevel:" + e);
 			if (Config.DEBUG)
-			{
 				e.printStackTrace();
-			}
 		}
 		finally
 		{

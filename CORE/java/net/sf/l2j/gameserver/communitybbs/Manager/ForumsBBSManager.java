@@ -57,9 +57,7 @@ public class ForumsBBSManager extends BaseBBSManager
 	{
 		_table.add(ff);
 		if (ff.getID() > _lastid)
-		{
 			_lastid = ff.getID();
-		}
 	}
 
 	/**
@@ -115,12 +113,8 @@ public class ForumsBBSManager extends BaseBBSManager
 	public Forum getForumByName(String Name)
 	{
 		for (Forum f : _table)
-		{
 			if (f.getName().equals(Name))
-			{
 				return f;
-			}
-		}
 		return null;
 	}
 
@@ -153,12 +147,8 @@ public class ForumsBBSManager extends BaseBBSManager
 	public Forum getForumByID(int idf)
 	{
 		for (Forum f : _table)
-		{
 			if (f.getID() == idf)
-			{
 				return f;
-			}
-		}
 		return null;
 	}
 

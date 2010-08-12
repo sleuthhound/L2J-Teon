@@ -39,13 +39,10 @@ public class AdminShutdown implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
 		if (command.startsWith("admin_server_shutdown"))
-		{
 			try
 			{
 				int val = Integer.parseInt(command.substring(22));
@@ -55,9 +52,7 @@ public class AdminShutdown implements IAdminCommandHandler
 			{
 				sendHtmlForm(activeChar);
 			}
-		}
 		else if (command.startsWith("admin_server_restart"))
-		{
 			try
 			{
 				int val = Integer.parseInt(command.substring(21));
@@ -67,11 +62,8 @@ public class AdminShutdown implements IAdminCommandHandler
 			{
 				sendHtmlForm(activeChar);
 			}
-		}
 		else if (command.startsWith("admin_server_abort"))
-		{
 			serverAbort(activeChar);
-		}
 		return true;
 	}
 

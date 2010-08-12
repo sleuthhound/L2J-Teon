@@ -60,54 +60,33 @@ public class Continuous implements ISkillHandler
 		L2Character target = null;
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
-		{
 			player = (L2PcInstance) activeChar;
-		}
 		if (skill.getEffectId() != 0)
 		{
 			int skillLevel = skill.getEffectLvl();
 			int skillEffectId = skill.getEffectId();
 			if (skillLevel == 0)
-			{
 				_skill = SkillTable.getInstance().getInfo(skillEffectId, 1);
-			}
 			else
-			{
 				_skill = SkillTable.getInstance().getInfo(skillEffectId, skillLevel);
-			}
-			if (_skill != null) {
+			if (_skill != null)
 				skill = _skill;
-			}
 		}
 		for (L2Object target2 : targets) {
 			target = (L2Character) target2;
 			if (skill.getSkillType() != L2Skill.SkillType.BUFF && skill.getSkillType() != L2Skill.SkillType.HOT && skill.getSkillType() != L2Skill.SkillType.CPHOT && skill.getSkillType() != L2Skill.SkillType.MPHOT && skill.getSkillType() != L2Skill.SkillType.UNDEAD_DEFENSE && skill.getSkillType() != L2Skill.SkillType.AGGDEBUFF && skill.getSkillType() != L2Skill.SkillType.CONT)
-			{
 				if (target.reflectSkill(skill))
-				{
 					target = activeChar;
-				}
-			}
 			// Walls and Door should not be buffed
 			if (target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
-			{
 				continue;
-			}
 			// Player holding a cursed weapon can't be buffed and can't buff
 			if (skill.getSkillType() == L2Skill.SkillType.BUFF && !(activeChar instanceof L2ClanHallManagerInstance))
-			{
 				if (target != activeChar)
-				{
 					if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquiped())
-					{
 						continue;
-					}
 					else if (player != null && player.isCursedWeaponEquiped())
-					{
 						continue;
-					}
-				}
-			}
 			if (skill.isOffensive())
 			{
 				boolean ss = false;
@@ -117,35 +96,27 @@ public class Continuous implements ISkillHandler
 				{
 					L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 					if (weaponInst != null)
-					{
 						if (skill.isMagic())
 						{
 							if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 							{
 								bss = true;
 								if (skill.getId() != 1020)
-								{
 									weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-								}
 							}
 							else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 							{
 								sps = true;
 								if (skill.getId() != 1020)
-								{
 									weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-								}
 							}
 						}
 						else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
 						{
 							ss = true;
 							if (skill.getId() != 1020)
-							{
 								weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-							}
 						}
-					}
 				}
 				else if (activeChar instanceof L2Summon)
 				{
@@ -184,23 +155,15 @@ public class Continuous implements ISkillHandler
             boolean stopped = false;
             L2Effect[] effects = target.getAllEffects();
             if (effects != null)
-            {
-            	for (L2Effect e : effects)
-            	{
-            		if (e != null && skill != null)
-            		{
-            			if (e.getSkill().getId() == skill.getId())
+				for (L2Effect e : effects)
+					if (e != null && skill != null)
+						if (e.getSkill().getId() == skill.getId())
             			{
             				e.exit();
             				stopped = true;
             			}
-            		}
-            	}
-            }
             if (skill.isToggle() && stopped)
-            {
-            	return;
-            }
+				return;
 			// if this is a debuff let the duel manager know about it
 			// so the debuff can be removed after the duel
 			// (player & target must be in the same duel)
@@ -208,43 +171,24 @@ public class Continuous implements ISkillHandler
 			{
 				DuelManager dm = DuelManager.getInstance();
 				for (L2Effect buff : skill.getEffects(activeChar, target))
-				{
 					if (buff != null)
-					{
 						dm.onBuff(((L2PcInstance) target), buff);
-					}
-				}
-			}
-			else
-			{
+			} else
 				skill.getEffects(activeChar, target);
-			}
 			if (skill.getSkillType() == L2Skill.SkillType.AGGDEBUFF)
-			{
 				if (target instanceof L2Attackable)
-				{
 					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) skill.getPower());
-				}
 				else if (target instanceof L2PlayableInstance)
-				{
 					if (target.getTarget() == activeChar)
-					{
 						target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
-					}
 					else
-					{
 						target.setTarget(activeChar);
-					}
-				}
-			}
 		}
 		// self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
 		if (effect != null && effect.isSelfEffect())
-		{
 			// Replace old effect with new one.
 			effect.exit();
-		}
 		skill.getEffectsSelf(activeChar);
 	}
 

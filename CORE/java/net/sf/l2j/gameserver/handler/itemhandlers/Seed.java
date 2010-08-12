@@ -49,12 +49,10 @@ public class Seed implements IItemHandler
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
-		if (CastleManorManager.getInstance().isDisabled()) {
+		if (CastleManorManager.getInstance().isDisabled())
 			return;
-		}
 		_activeChar = (L2PcInstance) playable;
 		L2Object target = _activeChar.getTarget();
 		if (!(target instanceof L2NpcInstance))
@@ -89,11 +87,8 @@ public class Seed implements IItemHandler
 			L2Skill skill = SkillTable.getInstance().getInfo(2097, 3); // sowing
 			// skill
 			_activeChar.useMagic(skill, false, false);
-		}
-		else
-		{
+		} else
 			_activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_SEED_MAY_NOT_BE_SOWN_HERE));
-		}
 	}
 
 	private boolean areaValid(int castleId)

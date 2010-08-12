@@ -44,9 +44,8 @@ public class BlessedSpiritShot implements IItemHandler
 	 */
 	public synchronized void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
-		if (!(playable instanceof L2PcInstance)) {
+		if (!(playable instanceof L2PcInstance))
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		L2Weapon weaponItem = activeChar.getActiveWeaponItem();
@@ -62,9 +61,8 @@ public class BlessedSpiritShot implements IItemHandler
 		// Check if Blessed Spiritshot can be used
 		if (weaponInst == null || weaponItem.getSpiritShotCount() == 0)
 		{
-			if (!activeChar.getAutoSoulShot().containsKey(itemId)) {
+			if (!activeChar.getAutoSoulShot().containsKey(itemId))
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_SPIRITSHOTS));
-			}
 			return;
 		}
 		if (activeChar.isParalyzed())
@@ -75,16 +73,14 @@ public class BlessedSpiritShot implements IItemHandler
 		}
 		// Check if Blessed Spiritshot is already active (it can be charged over
 		// Spiritshot)
-		if (weaponInst.getChargedSpiritshot() != L2ItemInstance.CHARGED_NONE) {
+		if (weaponInst.getChargedSpiritshot() != L2ItemInstance.CHARGED_NONE)
 			return;
-		}
 		// Check for correct grade
 		int weaponGrade = weaponItem.getCrystalType();
 		if (weaponGrade == L2Item.CRYSTAL_NONE && itemId != 3947 || weaponGrade == L2Item.CRYSTAL_D && itemId != 3948 || weaponGrade == L2Item.CRYSTAL_C && itemId != 3949 || weaponGrade == L2Item.CRYSTAL_B && itemId != 3950 || weaponGrade == L2Item.CRYSTAL_A && itemId != 3951 || weaponGrade == L2Item.CRYSTAL_S && itemId != 3952)
 		{
-			if (!activeChar.getAutoSoulShot().containsKey(itemId)) {
+			if (!activeChar.getAutoSoulShot().containsKey(itemId))
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH));
-			}
 			return;
 		}
 		// Consume Blessed Spiritshot if player has enough of them
@@ -97,9 +93,8 @@ public class BlessedSpiritShot implements IItemHandler
 				SystemMessage sm = new SystemMessage(SystemMessageId.AUTO_USE_OF_S1_CANCELLED);
 				sm.addString(item.getItem().getName());
 				activeChar.sendPacket(sm);
-			} else {
+			} else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_SPIRITSHOTS));
-			}
 			return;
 		}
 		// Charge Blessed Spiritshot

@@ -51,9 +51,7 @@ public class LevelUpData
 	public static LevelUpData getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new LevelUpData();
-		}
 		return _instance;
 	}
 

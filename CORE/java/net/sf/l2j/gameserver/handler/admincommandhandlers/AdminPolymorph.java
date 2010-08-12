@@ -38,11 +38,9 @@ public class AdminPolymorph implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
 		if (command.startsWith("admin_polymorph"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -55,9 +53,8 @@ public class AdminPolymorph implements IAdminCommandHandler
 				{
 					String p2 = st.nextToken();
 					doPolymorph(activeChar, target, p2, p1);
-				} else {
+				} else
 					doPolymorph(activeChar, target, p1, "npc");
-				}
 			}
 			catch (Exception e)
 			{
@@ -65,12 +62,9 @@ public class AdminPolymorph implements IAdminCommandHandler
 			}
 		}
 		else if (command.equals("admin_unpolymorph"))
-		{
 			doUnpoly(activeChar, activeChar.getTarget());
-		}
-		if (command.contains("menu")) {
+		if (command.contains("menu"))
 			showMainPage(activeChar);
-		}
 		return true;
 	}
 
@@ -108,9 +102,8 @@ public class AdminPolymorph implements IAdminCommandHandler
 			obj.decayMe();
 			obj.spawnMe(obj.getX(), obj.getY(), obj.getZ());
 			activeChar.sendMessage("Polymorph succeed");
-		} else {
+		} else
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-		}
 	}
 
 	/**
@@ -125,9 +118,8 @@ public class AdminPolymorph implements IAdminCommandHandler
 			target.decayMe();
 			target.spawnMe(target.getX(), target.getY(), target.getZ());
 			activeChar.sendMessage("Unpolymorph succeed");
-		} else {
+		} else
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-		}
 	}
 
 	private void showMainPage(L2PcInstance activeChar)

@@ -42,17 +42,12 @@ public class AdminManor implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
 		StringTokenizer st = new StringTokenizer(command);
 		command = st.nextToken();
 		if (command.equals("admin_manor"))
-		{
 			showMainPage(activeChar);
-		}
 		else if (command.equals("admin_manor_setnext"))
 		{
 			CastleManorManager.getInstance().setNextPeriod();
@@ -115,11 +110,10 @@ public class AdminManor implements IAdminCommandHandler
 		{
 			boolean mode = CastleManorManager.getInstance().isUnderMaintenance();
 			CastleManorManager.getInstance().setUnderMaintenance(!mode);
-			if (mode) {
+			if (mode)
 				activeChar.sendMessage("Manor System: not under maintenance");
-			} else {
+			else
 				activeChar.sendMessage("Manor System: under maintenance");
-			}
 			showMainPage(activeChar);
 		}
 		else if (command.equals("admin_manor_save"))
@@ -132,11 +126,10 @@ public class AdminManor implements IAdminCommandHandler
 		{
 			boolean mode = CastleManorManager.getInstance().isDisabled();
 			CastleManorManager.getInstance().setDisabled(!mode);
-			if (mode) {
+			if (mode)
 				activeChar.sendMessage("Manor System: enabled");
-			} else {
+			else
 				activeChar.sendMessage("Manor System: disabled");
-			}
 			showMainPage(activeChar);
 		}
 		return true;
@@ -155,9 +148,8 @@ public class AdminManor implements IAdminCommandHandler
 		secs -= mins * 60;
 		int hours = mins / 60;
 		mins -= hours * 60;
-		if (hours > 0) {
+		if (hours > 0)
 			s += hours + ":";
-		}
 		s += mins + ":";
 		s += secs;
 		return s;
@@ -185,9 +177,7 @@ public class AdminManor implements IAdminCommandHandler
 		replyMSG.append("<br><center>Castle Information:<table width=\"100%\">");
 		replyMSG.append("<tr><td></td><td>Current Period</td><td>Next Period</td></tr>");
 		for (Castle c : CastleManager.getInstance().getCastles())
-		{
 			replyMSG.append("<tr><td>" + c.getName() + "</td>" + "<td>" + c.getManorCost(CastleManorManager.PERIOD_CURRENT) + "a</td>" + "<td>" + c.getManorCost(CastleManorManager.PERIOD_NEXT) + "a</td>" + "</tr>");
-		}
 		replyMSG.append("</table><br>");
 		replyMSG.append("</body></html>");
 		adminReply.setHtml(replyMSG.toString());

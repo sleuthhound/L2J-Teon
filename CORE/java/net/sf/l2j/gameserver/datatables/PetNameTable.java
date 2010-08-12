@@ -34,9 +34,7 @@ public class PetNameTable
 	public static PetNameTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new PetNameTable();
-		}
 		return _instance;
 	}
 
@@ -52,9 +50,8 @@ public class PetNameTable
 			String cond = "";
 			for (int it : L2PetDataTable.getPetItemsAsNpc(petNpcId))
 			{
-				if (cond != "") {
+				if (cond != "")
 					cond += ", ";
-				}
 				cond += it;
 			}
 			statement.setString(2, cond);
@@ -83,9 +80,8 @@ public class PetNameTable
 	public boolean isValidPetName(String name)
 	{
 		boolean result = true;
-		if (!isAlphaNumeric(name)) {
+		if (!isAlphaNumeric(name))
 			return result;
-		}
 		Pattern pattern;
 		try
 		{
@@ -98,9 +94,7 @@ public class PetNameTable
 		}
 		Matcher regexp = pattern.matcher(name);
 		if (!regexp.matches())
-		{
 			result = false;
-		}
 		return result;
 	}
 
@@ -109,13 +103,11 @@ public class PetNameTable
 		boolean result = true;
 		char[] chars = text.toCharArray();
 		for (int i = 0; i < chars.length; i++)
-		{
 			if (!Character.isLetterOrDigit(chars[i]))
 			{
 				result = false;
 				break;
 			}
-		}
 		return result;
 	}
 }

@@ -37,12 +37,10 @@ public class MercTicket implements IItemHandler
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		Castle castle = CastleManager.getInstance().getCastle(activeChar);
 		int castleId = -1;
-		if (castle != null) {
+		if (castle != null)
 			castleId = castle.getCastleId();
-		}
 		// add check that certain tickets can only be placed in certain castles
 		if (MercTicketManager.getInstance().getTicketCastleId(itemId) != castleId)
-		{
 			switch (castleId)
 			{
 				case 1:
@@ -77,7 +75,6 @@ public class MercTicket implements IItemHandler
 					activeChar.sendMessage("Mercenary Tickets can only be used in a castle.");
 					return;
 			}
-		}
 		if (!activeChar.isCastleLord(castleId) && (activeChar.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) != L2Clan.CP_CS_MERCENARIES)
 		{
 			activeChar.sendMessage("You don't have the right to hire mercenaries!");

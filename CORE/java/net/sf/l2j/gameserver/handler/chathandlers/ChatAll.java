@@ -55,32 +55,21 @@ public class ChatAll implements IChatHandler
 			else
 			{
 				command = text.substring(1);
-				if (Config.DEBUG) {
+				if (Config.DEBUG)
 					_log.info("Command: " + command);
-				}
 				vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
 			}
 			if (vch != null)
-			{
 				vch.useVoicedCommand(command, activeChar, target);
-			}
-			else
-			{
-				if (Config.DEBUG) {
-					_log.warning("No handler registered for bypass '" + command + "'");
-				}
-			}
+			else if (Config.DEBUG)
+				_log.warning("No handler registered for bypass '" + command + "'");
 		}
 		else
 		{
 			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 			for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-			{
 				if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
-				{
 					player.sendPacket(cs);
-				}
-			}
 			activeChar.sendPacket(cs);
 		}
 	}

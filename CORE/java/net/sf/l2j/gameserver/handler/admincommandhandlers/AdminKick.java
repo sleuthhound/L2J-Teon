@@ -32,12 +32,8 @@ public class AdminKick implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		if (command.startsWith("admin_kick"))
@@ -60,7 +56,6 @@ public class AdminKick implements IAdminCommandHandler
 		{
 			int counter = 0;
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
 				if (!player.isGM())
 				{
 					counter++;
@@ -68,7 +63,6 @@ public class AdminKick implements IAdminCommandHandler
 					player.logout();
 					RegionBBSManager.getInstance().changeCommunityBoard();
 				}
-			}
 			activeChar.sendMessage("Kicked " + counter + " players");
 		}
 		return true;

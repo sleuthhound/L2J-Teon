@@ -33,21 +33,17 @@ public class DeluxeKey implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
-		}
 		L2Object[] targetList = skill.getTargetList(activeChar);
 		if (targetList == null)
-		{
 			return;
-		}
 		_log.fine("Delux key casting succeded.");
 		// This is just a dummy skill handler for the golden food and crystal
 		// food skills,
 		// since the AI responce onSkillUse handles the rest.
-		if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isGM()) {
+		if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isGM())
 			((L2PcInstance) activeChar).sendMessage("Deluxe key casting succeeded with DeluxeKey skill handler.");
-		}
 	}
 
 	public SkillType[] getSkillIds()

@@ -46,20 +46,13 @@ public class AdminTest implements IAdminCommandHandler
 	 */
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (activeChar.getAccessLevel() < REQUIRED_LEVEL) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (activeChar.getAccessLevel() < REQUIRED_LEVEL)
 				return false;
-			}
-		}
 		if (command.equals("admin_stats"))
-		{
 			for (String line : ThreadPoolManager.getInstance().getStats())
-			{
 				activeChar.sendMessage(line);
-			}
-		}
 		else if (command.startsWith("admin_skill_test") || command.startsWith("admin_st"))
-		{
 			try
 			{
 				StringTokenizer st = new StringTokenizer(command);
@@ -75,39 +68,26 @@ public class AdminTest implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Command format is //skill_test <ID>");
 			}
-		}
 		else if (command.startsWith("admin_test uni flush"))
 		{
 			Universe.getInstance().flush();
 			activeChar.sendMessage("Universe Map Saved.");
 		}
 		else if (command.startsWith("admin_test uni"))
-		{
 			activeChar.sendMessage("Universe Map Size is: " + Universe.getInstance().size());
-		}
 		else if (command.equals("admin_mp on"))
-		{
 			// .startPacketMonitor();
 			activeChar.sendMessage("command not working");
-		}
 		else if (command.equals("admin_mp off"))
-		{
 			// .stopPacketMonitor();
 			activeChar.sendMessage("command not working");
-		}
 		else if (command.equals("admin_mp dump"))
-		{
 			// .dumpPacketHistory();
 			activeChar.sendMessage("command not working");
-		}
 		else if (command.equals("admin_known on"))
-		{
 			Config.CHECK_KNOWN = true;
-		}
 		else if (command.equals("admin_known off"))
-		{
 			Config.CHECK_KNOWN = false;
-		}
 		return true;
 	}
 
@@ -120,13 +100,9 @@ public class AdminTest implements IAdminCommandHandler
 		L2Character player;
 		L2Object target = activeChar.getTarget();
 		if (target == null || !(target instanceof L2Character))
-		{
 			player = activeChar;
-		}
 		else
-		{
 			player = (L2Character) target;
-		}
 		player.broadcastPacket(new MagicSkillUser(activeChar, player, id, 1, 1, 1));
 	}
 

@@ -47,14 +47,12 @@ public class NpcBufferSkillIdsTable
 				int skillFeeAmount = rset.getInt("skill_fee_amount");
 				if (npcId != lastNpcId)
 				{
-					if (lastNpcId != 0) {
+					if (lastNpcId != 0)
 						_buffers.put(lastNpcId, skills);
-					}
 					skills = new NpcBufferSkills(npcId);
 					skills.addSkill(skillId, skillLevel, skillFeeId, skillFeeAmount);
-				} else {
+				} else
 					skills.addSkill(skillId, skillLevel, skillFeeId, skillFeeAmount);
-				}
 				lastNpcId = npcId;
 				skillCount++;
 			}
@@ -81,9 +79,8 @@ public class NpcBufferSkillIdsTable
 
 	public static NpcBufferSkillIdsTable getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new NpcBufferSkillIdsTable();
-		}
 		return _instance;
 	}
 
@@ -96,9 +93,8 @@ public class NpcBufferSkillIdsTable
 	public int[] getSkillInfo(int npcId, int skillId)
 	{
 		NpcBufferSkills skills = _buffers.get(npcId);
-		if (skills == null) {
+		if (skills == null)
 			return null;
-		}
 		return skills.getSkillInfo(skillId);
 	}
 }

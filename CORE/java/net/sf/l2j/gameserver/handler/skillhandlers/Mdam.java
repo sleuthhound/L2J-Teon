@@ -52,9 +52,7 @@ public class Mdam implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		if (activeChar.isAlikeDead())
-		{
 			return;
-		}
 		boolean ss = false;
 		boolean bss = false;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
@@ -97,13 +95,9 @@ public class Mdam implements ISkillHandler
 		for (L2Object target2 : targets) {
 			L2Character target = (L2Character) target2;
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())
-			{
 				target.stopFakeDeath(null);
-			}
 			else if (target.isAlikeDead())
-			{
 				continue;
-			}
 			// if (skill != null)
 			// if (skill.isOffensive())
 			// {
@@ -128,22 +122,14 @@ public class Mdam implements ISkillHandler
 			{
 				String name = "";
 				if (target instanceof L2RaidBossInstance)
-				{
 					name = "RaidBoss ";
-				}
 				if (target instanceof L2NpcInstance)
-				{
 					name += target.getName() + "(" + ((L2NpcInstance) target).getTemplate().npcId + ")";
-				}
 				if (target instanceof L2PcInstance)
-				{
 					name = target.getName() + "(" + target.getObjectId() + ") ";
-				}
 				name += target.getLevel() + " lvl";
 				if (Config.LOG_MDAM)
-				{
 					Log.add(activeChar.getName() + "(" + activeChar.getObjectId() + ") " + activeChar.getLevel() + " lvl did damage " + damage + " with skill " + skill.getName() + "(" + skill.getId() + ") to " + name, "damage_mdam");
-				}
 			}
 			// Why are we trying to reduce the current target HP here?
 			// Why not inside the below "if" condition, after the effects
@@ -164,7 +150,6 @@ public class Mdam implements ISkillHandler
 				}
 				activeChar.sendDamageMessage(target, damage, mcrit, false, false);
 				if (skill.hasEffects())
-				{
 					if (target.reflectSkill(skill))
 					{
 						activeChar.stopSkillEffects(skill.getId());
@@ -178,9 +163,7 @@ public class Mdam implements ISkillHandler
 						// activate attacked effects, if any
 						target.stopSkillEffects(skill.getId());
 						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, ss, bss))
-						{
 							skill.getEffects(activeChar, target);
-						}
 						else if (!skill.isAugmentationSkill())
 						{
 							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
@@ -189,17 +172,14 @@ public class Mdam implements ISkillHandler
 							activeChar.sendPacket(sm);
 						}
 					}
-				}
 				target.reduceCurrentHp(damage, activeChar);
 			}
 		}
 		// self Effect :]
 		L2Effect effect = activeChar.getFirstEffect(skill.getId());
 		if (effect != null && effect.isSelfEffect())
-		{
 			// Replace old effect with new one.
 			effect.exit();
-		}
 		skill.getEffectsSelf(activeChar);
 		if (skill.isSuicideAttack())
 		{

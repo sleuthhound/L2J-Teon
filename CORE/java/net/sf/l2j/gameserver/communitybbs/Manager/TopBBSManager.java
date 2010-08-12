@@ -32,18 +32,14 @@ public class TopBBSManager extends BaseBBSManager
 		{
 			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/index.htm");
 			if (content == null)
-			{
 				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/index.htm' </center></body></html>";
-			}
 			separateAndSend(content, activeChar);
 		}
 		else if (command.equals("_bbshome"))
 		{
 			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/index.htm");
 			if (content == null)
-			{
 				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/index.htm' </center></body></html>";
-			}
 			separateAndSend(content, activeChar);
 		}
 		else if (command.startsWith("_bbstop;"))
@@ -53,18 +49,14 @@ public class TopBBSManager extends BaseBBSManager
 			int idp = Integer.parseInt(st.nextToken());
 			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/" + idp + ".htm");
 			if (content == null)
-			{
 				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/" + idp + ".htm' </center></body></html>";
-			}
 			separateAndSend(content, activeChar);
 		}
 		else
 		{
 			String content = HtmCache.getInstance().getHtm("data/html/CommunityBoard/favorites.htm");
 			if (content == null)
-			{
 				content = "<html><body><br><br><center>404 :File Not foud: 'data/html/CommunityBoard/favorites.htm' </center></body></html>";
-			}
 			separateAndSend(content, activeChar);
 		}
 	}

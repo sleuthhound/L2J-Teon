@@ -43,18 +43,14 @@ public class VoicedCommandHandler
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
 		registerVoicedCommandHandler(new stats());
-		if (Config.ALLOW_WEDDING) {
+		if (Config.ALLOW_WEDDING)
 			registerVoicedCommandHandler(new Wedding());
-		}
-		if (Config.BANKING_SYSTEM_ENABLED) {
+		if (Config.BANKING_SYSTEM_ENABLED)
 			registerVoicedCommandHandler(new Banking());
-		}
-		if (Config.ONLINE_VOICE_COMMAND) {
+		if (Config.ONLINE_VOICE_COMMAND)
 			registerVoicedCommandHandler(new OnlinePlayers());
-		}
-		if (Config.ALLOW_TRADEOFF_VOICE_COMMAND) {
+		if (Config.ALLOW_TRADEOFF_VOICE_COMMAND)
 			registerVoicedCommandHandler(new tradeoff());
-		}
 		registerVoicedCommandHandler(new PlayersWithdrawCWH());
 		registerVoicedCommandHandler(new version());
 		_log.config("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");
@@ -64,9 +60,8 @@ public class VoicedCommandHandler
 	{
 		String[] ids = handler.getVoicedCommandList();
 		for (String id : ids) {
-			if (Config.DEBUG) {
+			if (Config.DEBUG)
 				_log.fine("Adding handler for command " + id);
-			}
 			_datatable.put(id, handler);
 		}
 	}
@@ -75,12 +70,9 @@ public class VoicedCommandHandler
 	{
 		String command = voicedCommand;
 		if (voicedCommand.indexOf(" ") != -1)
-		{
 			command = voicedCommand.substring(0, voicedCommand.indexOf(" "));
-		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("getting handler for command: " + command + " -> " + (_datatable.get(command) != null));
-		}
 		return _datatable.get(command);
 	}
 

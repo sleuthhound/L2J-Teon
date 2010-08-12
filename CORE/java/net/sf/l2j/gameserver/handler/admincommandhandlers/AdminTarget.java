@@ -34,14 +34,11 @@ public class AdminTarget implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
-		if (command.startsWith("admin_target")) {
+		if (command.startsWith("admin_target"))
 			handleTarget(command, activeChar);
-		}
 		return true;
 	}
 
@@ -62,9 +59,7 @@ public class AdminTarget implements IAdminCommandHandler
 			String targetName = command.substring(13);
 			L2Object obj = L2World.getInstance().getPlayer(targetName);
 			if (obj != null && obj instanceof L2PcInstance)
-			{
 				obj.onAction(activeChar);
-			}
 			else
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);

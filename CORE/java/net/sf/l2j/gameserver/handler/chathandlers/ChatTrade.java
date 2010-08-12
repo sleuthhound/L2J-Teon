@@ -46,22 +46,14 @@ public class ChatTrade implements IChatHandler
 		}
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 		if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") || Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM())
-		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
 				player.sendPacket(cs);
-			}
-		}
 		else if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("limited"))
 		{
 			int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
 				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(), player.getY()))
-				{
 					player.sendPacket(cs);
-				}
-			}
 		}
 	}
 

@@ -40,13 +40,12 @@ public class CharChangePotions implements IItemHandler
 	{
 		int itemId = item.getItemId();
 		L2PcInstance activeChar;
-		if (playable instanceof L2PcInstance) {
+		if (playable instanceof L2PcInstance)
 			activeChar = (L2PcInstance) playable;
-		} else if (playable instanceof L2PetInstance) {
+		else if (playable instanceof L2PetInstance)
 			activeChar = ((L2PetInstance) playable).getOwner();
-		} else {
+		else
 			return;
-		}
 		if (activeChar.isAllSkillsDisabled())
 		{
 			ActionFailed af = ActionFailed.STATIC_PACKET;

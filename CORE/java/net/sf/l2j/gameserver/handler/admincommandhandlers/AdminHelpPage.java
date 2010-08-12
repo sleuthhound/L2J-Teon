@@ -32,13 +32,10 @@ public class AdminHelpPage implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!checkLevel(activeChar.getAccessLevel())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!checkLevel(activeChar.getAccessLevel()))
 				return false;
-			}
-		}
 		if (command.startsWith("admin_help"))
-		{
 			try
 			{
 				String val = command.substring(11);
@@ -48,7 +45,6 @@ public class AdminHelpPage implements IAdminCommandHandler
 			{
 				// case of empty filename
 			}
-		}
 		return true;
 	}
 

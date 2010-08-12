@@ -48,25 +48,16 @@ public class ClanBBSManager extends BaseBBSManager
 			if (activeChar.getClan() != null)
 			{
 				if (activeChar.getClan().getLevel() >= 2)
-				{
 					clanhome(activeChar);
-				}
 				else
-				{
 					clanlist(activeChar, 1);
-				}
-			}
-			else
-			{
+			} else
 				clanlist(activeChar, 1);
-			}
 		}
 		else if (command.startsWith("_bbsclan_clanlist"))
 		{
 			if (command.equals("_bbsclan_clanlist"))
-			{
 				clanlist(activeChar, 1);
-			}
 			else if (command.startsWith("_bbsclan_clanlist;"))
 			{
 				StringTokenizer st = new StringTokenizer(command, ";");
@@ -78,9 +69,7 @@ public class ClanBBSManager extends BaseBBSManager
 		else if (command.startsWith("_bbsclan_clanhome"))
 		{
 			if (command.equals("_bbsclan_clanhome"))
-			{
 				clanhome(activeChar);
-			}
 			else if (command.startsWith("_bbsclan_clanhome;"))
 			{
 				StringTokenizer st = new StringTokenizer(command, ";");
@@ -89,9 +78,7 @@ public class ClanBBSManager extends BaseBBSManager
 				clanhome(activeChar, index);
 			}
 			else if (command.startsWith("_bbsclan_clannotice_edit;"))
-			{
 				clanNotice(activeChar, activeChar.getClan().getClanId());
-			}
 			else if (command.startsWith("_bbsclan_clannotice_enable"))
 			{
 				activeChar.getClan().setNoticeEnabled(true);
@@ -102,18 +89,14 @@ public class ClanBBSManager extends BaseBBSManager
 				activeChar.getClan().setNoticeEnabled(false);
 				clanNotice(activeChar, activeChar.getClan().getClanId());
 			}
-		}
-		else
-		{
+		} else
 			separateAndSend("<html><body><br><br><center>Commande : " + command + " pas encore implante</center><br><br></body></html>", activeChar);
-		}
 	}
 
 	private void clanNotice(L2PcInstance activeChar, int clanId)
 	{
 		L2Clan cl = ClanTable.getInstance().getClan(clanId);
 		if (cl != null)
-		{
 			if (cl.getLevel() < 2)
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CB_IN_MY_CLAN));
@@ -126,11 +109,10 @@ public class ClanBBSManager extends BaseBBSManager
 				if (activeChar.isClanLeader())
 				{
 					StringUtil.append(html, "<br><br><center>" + "<table width=610 border=0 cellspacing=0 cellpadding=0>" + "<tr><td fixwidth=610><font color=\"AAAAAA\">The Clan Notice function allows the clan leader to send messages through a pop-up window to clan members at login.</font> </td></tr>" + "<tr><td height=20></td></tr>");
-					if (activeChar.getClan().isNoticeEnabled()) {
+					if (activeChar.getClan().isNoticeEnabled())
 						StringUtil.append(html, "<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;on&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_disable\">off</a>");
-					} else {
+					else
 						StringUtil.append(html, "<tr><td fixwidth=610> Clan Notice Function:&nbsp;&nbsp;&nbsp;<a action=\"bypass _bbsclan_clannotice_enable\">on</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;off");
-					}
 					StringUtil.append(html, "</td></tr>" + "</table>" + "<img src=\"L2UI.Squaregray\" width=\"610\" height=\"1\">" + "<br> <br>" + "<table width=610 border=0 cellspacing=2 cellpadding=0>" + "<tr><td>Edit Notice: </td></tr>" + "<tr><td height=5></td></tr>" + "<tr><td>" + "<MultiEdit var =\"Content\" width=610 height=100>" + "</td></tr>" + "</table>" + "<br>"
 							+ "<table width=610 border=0 cellspacing=0 cellpadding=0>" + "<tr><td height=5></td></tr>" + "<tr>" + "<td align=center FIXWIDTH=65><button value=\"&$140;\" action=\"Write Notice Set _ Content Content Content\" back=\"l2ui_ch3.smallbutton2_down\" width=65 height=20 fore=\"l2ui_ch3.smallbutton2\" ></td>" + "<td align=center FIXWIDTH=45></td>"
 							+ "<td align=center FIXWIDTH=500></td>" + "</tr>" + "</table>" + "</center>" + "</body>" + "</html>");
@@ -141,14 +123,11 @@ public class ClanBBSManager extends BaseBBSManager
 				{
 					StringUtil.append(html, "<img src=\"L2UI.squareblank\" width=\"1\" height=\"10\">" + "<center>" + "<table border=0 cellspacing=0 cellpadding=0><tr>" + "<td>You are not your clan's leader, and therefore cannot change the clan notice</td>" + "</tr></table>");
 					if (activeChar.getClan().isNoticeEnabled())
-					{
 						StringUtil.append(html, "<table border=0 cellspacing=0 cellpadding=0>" + "<tr>" + "<td>The current clan notice:</td>" + "</tr>" + "<tr><td fixwidth=5></td>" + "<td FIXWIDTH=600 align=left>" + activeChar.getClan().getNotice() + "</td>" + "<td fixqqwidth=5></td>" + "</tr>" + "</table>");
-					}
 					StringUtil.append(html, "</center>" + "</body>" + "</html>");
 					separateAndSend(html.toString(), activeChar);
 				}
 			}
-		}
 	}
 
 	/**
@@ -157,9 +136,7 @@ public class ClanBBSManager extends BaseBBSManager
 	private void clanlist(L2PcInstance activeChar, int index)
 	{
 		if (index < 1)
-		{
 			index = 1;
-		}
 		// header
 		TextBuilder html = new TextBuilder("<html><body><br><br><center>");
 		html.append("<br1><br1><table border=0 cellspacing=0 cellpadding=0>");
@@ -195,9 +172,7 @@ public class ClanBBSManager extends BaseBBSManager
 		for (L2Clan cl : ClanTable.getInstance().getClans())
 		{
 			if (i > (index + 1) * 7)
-			{
 				break;
-			}
 			if (i >= (index - 1) * 7)
 			{
 				html.append("<img src=\"L2UI.SquareBlank\" width=\"610\" height=\"3\">");
@@ -220,39 +195,23 @@ public class ClanBBSManager extends BaseBBSManager
 		html.append("<img src=\"L2UI.SquareBlank\" width=\"610\" height=\"2\">");
 		html.append("<table cellpadding=0 cellspacing=2 border=0><tr>");
 		if (index == 1)
-		{
 			html.append("<td><button action=\"\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16 ></td>");
-		}
 		else
-		{
 			html.append("<td><button action=\"_bbsclan_clanlist;" + (index - 1) + "\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16 ></td>");
-		}
 		i = 0;
 		int nbp;
 		nbp = ClanTable.getInstance().getClans().length / 8;
 		if (nbp * 8 != ClanTable.getInstance().getClans().length)
-		{
 			nbp++;
-		}
 		for (i = 1; i <= nbp; i++)
-		{
 			if (i == index)
-			{
 				html.append("<td> " + i + " </td>");
-			}
 			else
-			{
 				html.append("<td><a action=\"bypass _bbsclan_clanlist;" + i + "\"> " + i + " </a></td>");
-			}
-		}
 		if (index == nbp)
-		{
 			html.append("<td><button action=\"\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td>");
-		}
 		else
-		{
 			html.append("<td><button action=\"bypass _bbsclan_clanlist;" + (index + 1) + "\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td>");
-		}
 		html.append("</tr></table>");
 		html.append("<table border=0 cellspacing=0 cellpadding=0>");
 		html.append("<tr><td width=610><img src=\"sek.cbui141\" width=\"610\" height=\"1\"></td></tr>");
@@ -284,7 +243,6 @@ public class ClanBBSManager extends BaseBBSManager
 	{
 		L2Clan cl = ClanTable.getInstance().getClan(clanId);
 		if (cl != null)
-		{
 			if (cl.getLevel() < 2)
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CB_IN_MY_CLAN));
@@ -368,7 +326,6 @@ public class ClanBBSManager extends BaseBBSManager
 				html.append("</html>");
 				separateAndSend(html.toString(), activeChar);
 			}
-		}
 	}
 
 	/*

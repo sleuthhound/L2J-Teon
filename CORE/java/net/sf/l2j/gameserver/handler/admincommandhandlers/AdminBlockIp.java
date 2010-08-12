@@ -58,7 +58,6 @@ public class AdminBlockIp implements IAdminCommandHandler
 			}
 		}
 		else if (command.startsWith("admin_unblockip "))
-		{
 			try
 			{
 				String ipAddress = command.substring(16);
@@ -76,7 +75,6 @@ public class AdminBlockIp implements IAdminCommandHandler
 				sm.addString("Usage mode: //unblockip <ip>");
 				activeChar.sendPacket(sm);
 			}
-		}
 		return true;
 	}
 

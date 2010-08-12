@@ -45,24 +45,19 @@ public class Harvest implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
-		}
 		_activeChar = (L2PcInstance) activeChar;
 		L2Object[] targetList = skill.getTargetList(activeChar);
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		if (targetList == null)
-		{
 			return;
-		}
-		if (_log.isDebugEnabled()) {
+		if (_log.isDebugEnabled())
 			_log.info("Casting harvest");
-		}
 		for (int index = 0; index < targetList.length; index++)
 		{
-			if (!(targetList[index] instanceof L2MonsterInstance)) {
+			if (!(targetList[index] instanceof L2MonsterInstance))
 				continue;
-			}
 			_target = (L2MonsterInstance) targetList[index];
 			if (_activeChar != _target.getSeeder())
 			{
@@ -84,14 +79,13 @@ public class Harvest implements ISkillHandler
 						for (L2Attackable.RewardItem ritem : items)
 						{
 							cropId = ritem.getItemId(); // always got 1 type of crop as reward
-							if (_activeChar.isInParty()) {
+							if (_activeChar.isInParty())
 								_activeChar.getParty().distributeItem(_activeChar, ritem, true, _target);
-							} else
+							else
 							{
 								L2ItemInstance item = _activeChar.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount() * Config.RATE_DROP_MANOR, _activeChar, _target);
-								if (iu != null) {
+								if (iu != null)
 									iu.addItem(item);
-								}
 								send = true;
 								total += ritem.getCount();
 							}
@@ -110,23 +104,16 @@ public class Harvest implements ISkillHandler
 								smsg.addItemName(cropId);
 								_activeChar.getParty().broadcastToPartyMembers(_activeChar, smsg);
 							}
-							if (iu != null) {
+							if (iu != null)
 								_activeChar.sendPacket(iu);
-							} else {
+							else
 								_activeChar.sendPacket(new ItemList(_activeChar, false));
-							}
 						}
 					}
-				}
-				else
-				{
+				} else
 					_activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_HARVEST_HAS_FAILED));
-				}
-			}
-			else
-			{
+			} else
 				_activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN));
-			}
 		}
 	}
 
@@ -136,23 +123,18 @@ public class Harvest implements ISkillHandler
 		int levelPlayer = _activeChar.getLevel();
 		int levelTarget = _target.getLevel();
 		int diff = levelPlayer - levelTarget;
-		if (diff < 0) {
+		if (diff < 0)
 			diff = -diff;
-		}
 		// apply penalty, target <=> player levels
 		// 5% penalty for each level
 		if (diff > 5)
-		{
 			basicSuccess -= (diff - 5) * 5;
-		}
 		// success rate cant be less than 1%
-		if (basicSuccess < 1) {
+		if (basicSuccess < 1)
 			basicSuccess = 1;
-		}
 		int rate = Rnd.nextInt(99);
-		if (rate < basicSuccess) {
+		if (rate < basicSuccess)
 			return true;
-		}
 		return false;
 	}
 

@@ -39,12 +39,8 @@ public class AdminRepairChar implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		handleRepair(command);
@@ -65,9 +61,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 	{
 		String[] parts = command.split(" ");
 		if (parts.length != 2)
-		{
 			return;
-		}
 		String cmd = "UPDATE characters SET x=-84318, y=244579, z=-3730 WHERE char_name=?";
 		java.sql.Connection connection = null;
 		try
@@ -82,9 +76,7 @@ public class AdminRepairChar implements IAdminCommandHandler
 			ResultSet rset = statement.executeQuery();
 			int objId = 0;
 			if (rset.next())
-			{
 				objId = rset.getInt(1);
-			}
 			rset.close();
 			statement.close();
 			if (objId == 0)

@@ -49,9 +49,7 @@ public class RegionBBSManager extends BaseBBSManager
 	public void parsecmd(String command, L2PcInstance activeChar)
 	{
 		if (command.equals("_bbsloc"))
-		{
 			showOldCommunity(activeChar, 1);
-		}
 		else if (command.startsWith("_bbsloc;page;"))
 		{
 			StringTokenizer st = new StringTokenizer(command, ";");
@@ -74,20 +72,14 @@ public class RegionBBSManager extends BaseBBSManager
 			st.nextToken();
 			String name = st.nextToken();
 			showOldCommunityPI(activeChar, name);
-		}
+		} else if (Config.COMMUNITY_TYPE.equals("old"))
+			showOldCommunity(activeChar, 1);
 		else
 		{
-			if (Config.COMMUNITY_TYPE.equals("old"))
-			{
-				showOldCommunity(activeChar, 1);
-			}
-			else
-			{
-				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>", "101");
-				activeChar.sendPacket(sb);
-				activeChar.sendPacket(new ShowBoard(null, "102"));
-				activeChar.sendPacket(new ShowBoard(null, "103"));
-			}
+			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the command: " + command + " is not implemented yet</center><br><br></body></html>", "101");
+			activeChar.sendPacket(sb);
+			activeChar.sendPacket(new ShowBoard(null, "102"));
+			activeChar.sendPacket(new ShowBoard(null, "103"));
 		}
 	}
 
@@ -104,22 +96,14 @@ public class RegionBBSManager extends BaseBBSManager
 		{
 			String sex = "Male";
 			if (player.getAppearance().getSex())
-			{
 				sex = "Female";
-			}
 			String levelApprox = "low";
 			if (player.getLevel() >= 60)
-			{
 				levelApprox = "very high";
-			}
 			else if (player.getLevel() >= 40)
-			{
 				levelApprox = "high";
-			}
 			else if (player.getLevel() >= 20)
-			{
 				levelApprox = "medium";
-			}
 			htmlCode.append("<table border=0><tr><td>" + player.getName() + " (" + sex + " " + player.getTemplate().className + "):</td></tr>");
 			htmlCode.append("<tr><td>Level: " + levelApprox + "</td></tr>");
 			htmlCode.append("<tr><td><br></td></tr>");
@@ -178,9 +162,7 @@ public class RegionBBSManager extends BaseBBSManager
 	public void parsewrite(String ar1, String ar2, String ar3, String ar4, String ar5, L2PcInstance activeChar)
 	{
 		if (activeChar == null)
-		{
 			return;
-		}
 		if (ar1.equals("PM"))
 		{
 			TextBuilder htmlCode = new TextBuilder("<html><body><br>");
@@ -274,9 +256,7 @@ public class RegionBBSManager extends BaseBBSManager
 	public static RegionBBSManager getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new RegionBBSManager();
-		}
 		return _instance;
 	}
 
@@ -297,9 +277,7 @@ public class RegionBBSManager extends BaseBBSManager
 		_onlineCount = 0;
 		_onlineCountGm = 0;
 		for (L2PcInstance player : sortedPlayers)
-		{
 			addOnlinePlayer(player);
-		}
 		_communityPages.clear();
 		writeCommunityPages();
 	}
@@ -308,16 +286,13 @@ public class RegionBBSManager extends BaseBBSManager
 	{
 		boolean added = false;
 		for (FastList<L2PcInstance> page : _onlinePlayers.values())
-		{
 			if (page.size() < Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
 			{
 				if (!page.contains(player))
 				{
 					page.add(player);
 					if (!player.getAppearance().getInvisible())
-					{
 						_onlineCount++;
-					}
 					_onlineCountGm++;
 				}
 				added = true;
@@ -328,7 +303,6 @@ public class RegionBBSManager extends BaseBBSManager
 				added = true;
 				break;
 			}
-		}
 		if (!added)
 		{
 			FastList<L2PcInstance> temp = new FastList<L2PcInstance>();
@@ -337,9 +311,7 @@ public class RegionBBSManager extends BaseBBSManager
 			{
 				_onlinePlayers.put(page, temp);
 				if (!player.getAppearance().getInvisible())
-				{
 					_onlineCount++;
-				}
 				_onlineCountGm++;
 			}
 		}
@@ -402,23 +374,15 @@ public class RegionBBSManager extends BaseBBSManager
 			{
 				cell++;
 				if (cell == 1)
-				{
 					htmlCode.append(trOpen);
-				}
 				htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;" + player.getName() + "\">");
 				if (player.isGM())
-				{
 					htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
-				}
 				else
-				{
 					htmlCode.append(player.getName());
-				}
 				htmlCode.append("</a></td>");
 				if (cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
-				{
 					htmlCode.append(colSpacer);
-				}
 				if (cell == Config.NAME_PER_ROW_COMMUNITYBOARD)
 				{
 					cell = 0;
@@ -426,9 +390,7 @@ public class RegionBBSManager extends BaseBBSManager
 				}
 			}
 			if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
-			{
 				htmlCode.append(trClose);
-			}
 			htmlCode.append("</table><br></td></tr>");
 			htmlCode.append(trOpen);
 			htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
@@ -439,24 +401,16 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append("<table border=0 width=600>");
 				htmlCode.append("<tr>");
 				if (page == 1)
-				{
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				else
-				{
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;" + (page - 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				htmlCode.append("<td FIXWIDTH=10></td>");
 				htmlCode.append("<td align=center valign=top width=200>Displaying " + ((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + 1) + " - " + ((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + getOnlinePlayers(page).size()) + " player(s)</td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
 				if (getOnlineCount("gm") <= page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
-				{
 					htmlCode.append("<td width=190><button value=\"Next\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				else
-				{
 					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;" + (page + 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				htmlCode.append("</tr>");
 				htmlCode.append("</table>");
 			}
@@ -505,28 +459,18 @@ public class RegionBBSManager extends BaseBBSManager
 			for (L2PcInstance player : getOnlinePlayers(page))
 			{
 				if (player == null || player.getAppearance().getInvisible())
-				{
 					continue; // Go to next
-				}
 				cell++;
 				if (cell == 1)
-				{
 					htmlCode.append(trOpen);
-				}
 				htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;" + player.getName() + "\">");
 				if (player.isGM())
-				{
 					htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
-				}
 				else
-				{
 					htmlCode.append(player.getName());
-				}
 				htmlCode.append("</a></td>");
 				if (cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
-				{
 					htmlCode.append(colSpacer);
-				}
 				if (cell == Config.NAME_PER_ROW_COMMUNITYBOARD)
 				{
 					cell = 0;
@@ -534,9 +478,7 @@ public class RegionBBSManager extends BaseBBSManager
 				}
 			}
 			if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD)
-			{
 				htmlCode.append(trClose);
-			}
 			htmlCode.append("</table><br></td></tr>");
 			htmlCode.append(trOpen);
 			htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
@@ -547,24 +489,16 @@ public class RegionBBSManager extends BaseBBSManager
 				htmlCode.append("<table border=0 width=600>");
 				htmlCode.append("<tr>");
 				if (page == 1)
-				{
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				else
-				{
 					htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;" + (page - 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				htmlCode.append("<td FIXWIDTH=10></td>");
 				htmlCode.append("<td align=center valign=top width=200>Displaying " + ((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + 1) + " - " + ((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD + getOnlinePlayers(page).size()) + " player(s)</td>");
 				htmlCode.append("<td FIXWIDTH=10></td>");
 				if (getOnlineCount("pl") <= page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD)
-				{
 					htmlCode.append("<td width=190><button value=\"Next\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				else
-				{
 					htmlCode.append("<td width=190><button value=\"Next\" action=\"bypass _bbsloc;page;" + (page + 1) + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-				}
 				htmlCode.append("</tr>");
 				htmlCode.append("</table>");
 			}
@@ -577,13 +511,9 @@ public class RegionBBSManager extends BaseBBSManager
 	private int getOnlineCount(String type)
 	{
 		if (type.equalsIgnoreCase("gm"))
-		{
 			return _onlineCountGm;
-		}
 		else
-		{
 			return _onlineCount;
-		}
 	}
 
 	private FastList<L2PcInstance> getOnlinePlayers(int page)
@@ -594,12 +524,8 @@ public class RegionBBSManager extends BaseBBSManager
 	public String getCommunityPage(int page, String type)
 	{
 		if (_communityPages.get(page) != null)
-		{
 			return _communityPages.get(page).get(type);
-		}
 		else
-		{
 			return null;
-		}
 	}
 }

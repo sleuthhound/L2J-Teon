@@ -33,14 +33,11 @@ public class DrainSoul implements ISkillHandler
 
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
-		if (!(activeChar instanceof L2PcInstance)) {
+		if (!(activeChar instanceof L2PcInstance))
 			return;
-		}
 		L2Object[] targetList = skill.getTargetList(activeChar);
 		if (targetList == null)
-		{
 			return;
-		}
 		_log.fine("Soul Crystal casting succeded.");
 		// This is just a dummy skill handler for the soul crystal skill,
 		// since the Soul Crystal item handler already does everything.

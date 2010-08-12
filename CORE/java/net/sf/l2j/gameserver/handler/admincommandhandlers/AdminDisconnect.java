@@ -37,16 +37,10 @@ public class AdminDisconnect implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		if (command.equals("admin_character_disconnect"))
-		{
 			disconnectCharacter(activeChar);
-		}
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
 		return true;
@@ -67,13 +61,9 @@ public class AdminDisconnect implements IAdminCommandHandler
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
 		if (target instanceof L2PcInstance)
-		{
 			player = (L2PcInstance) target;
-		}
 		else
-		{
 			return;
-		}
 		if (player.getObjectId() == activeChar.getObjectId())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);

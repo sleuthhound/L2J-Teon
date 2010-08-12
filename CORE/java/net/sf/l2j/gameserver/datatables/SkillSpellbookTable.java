@@ -31,9 +31,8 @@ public class SkillSpellbookTable
 
 	public static SkillSpellbookTable getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new SkillSpellbookTable();
-		}
 		return _instance;
 	}
 
@@ -46,9 +45,8 @@ public class SkillSpellbookTable
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT skill_id, item_id FROM skill_spellbooks");
 			ResultSet spbooks = statement.executeQuery();
-			while (spbooks.next()) {
+			while (spbooks.next())
 				_skillSpellbooks.put(spbooks.getInt("skill_id"), spbooks.getInt("item_id"));
-			}
 			spbooks.close();
 			statement.close();
 			_log.config("SkillSpellbookTable: Loaded " + _skillSpellbooks.size() + " Spellbooks.");
@@ -72,7 +70,6 @@ public class SkillSpellbookTable
 	public int getBookForSkill(int skillId, int level)
 	{
 		if (skillId == L2Skill.SKILL_DIVINE_INSPIRATION && level != -1)
-		{
 			switch (level)
 			{
 				case 1:
@@ -90,10 +87,8 @@ public class SkillSpellbookTable
 				default:
 					return -1;
 			}
-		}
-		if (!_skillSpellbooks.containsKey(skillId)) {
+		if (!_skillSpellbooks.containsKey(skillId))
 			return -1;
-		}
 		return _skillSpellbooks.get(skillId);
 	}
 

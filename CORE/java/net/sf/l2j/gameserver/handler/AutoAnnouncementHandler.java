@@ -117,9 +117,8 @@ public class AutoAnnouncementHandler
 
 	public static AutoAnnouncementHandler getInstance()
 	{
-		if (_instance == null) {
+		if (_instance == null)
 			_instance = new AutoAnnouncementHandler();
-		}
 		return _instance;
 	}
 
@@ -199,11 +198,8 @@ public class AutoAnnouncementHandler
 			statement = con.prepareStatement("SELECT id FROM auto_announcements ORDER BY id");
 			rs = statement.executeQuery();
 			while (rs.next())
-			{
-				if (rs.getInt("id") > nextId) {
+				if (rs.getInt("id") > nextId)
 					nextId = rs.getInt("id");
-				}
-			}
 			statement.close();
 			nextId++;
 		}
@@ -226,14 +222,12 @@ public class AutoAnnouncementHandler
 	private final AutoAnnouncementInstance registerAnnouncement(int id, String announcementTexts, long chatDelay)
 	{
 		AutoAnnouncementInstance announcementInst = null;
-		if (chatDelay < 0) {
+		if (chatDelay < 0)
 			chatDelay = DEFAULT_ANNOUNCEMENT_DELAY;
-		}
-		if (_registeredAnnouncements.containsKey(id)) {
+		if (_registeredAnnouncements.containsKey(id))
 			announcementInst = _registeredAnnouncements.get(id);
-		} else {
+		else
 			announcementInst = new AutoAnnouncementInstance(id, announcementTexts, chatDelay);
-		}
 		_registeredAnnouncements.put(id, announcementInst);
 		return announcementInst;
 	}
@@ -287,9 +281,8 @@ public class AutoAnnouncementHandler
 	 */
 	public boolean removeAnnouncement(AutoAnnouncementInstance announcementInst)
 	{
-		if (announcementInst == null) {
+		if (announcementInst == null)
 			return false;
-		}
 		_registeredAnnouncements.remove(announcementInst.getDefaultId());
 		announcementInst.setActive(false);
 		return true;
@@ -313,9 +306,8 @@ public class AutoAnnouncementHandler
 	 */
 	public void setAutoAnnouncementActive(boolean isActive)
 	{
-		for (AutoAnnouncementInstance announcementInst : _registeredAnnouncements.values()) {
+		for (AutoAnnouncementInstance announcementInst : _registeredAnnouncements.values())
 			announcementInst.setActive(isActive);
-		}
 	}
 
 	/**
@@ -380,19 +372,15 @@ public class AutoAnnouncementHandler
 
 		public void setActive(boolean activeValue)
 		{
-			if (_isActive == activeValue) {
+			if (_isActive == activeValue)
 				return;
-			}
 			_isActive = activeValue;
 			if (isActive())
 			{
 				AutoAnnouncementRunner acr = new AutoAnnouncementRunner(_defaultId);
 				_chatTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(acr, _defaultDelay, _defaultDelay);
-			}
-			else
-			{
+			} else
 				_chatTask.cancel(false);
-			}
 		}
 
 		/**
@@ -416,9 +404,8 @@ public class AutoAnnouncementHandler
 				AutoAnnouncementInstance announcementInst = _registeredAnnouncements.get(id);
 				String text;
 				text = announcementInst.getDefaultTexts();
-				if (text == null) {
+				if (text == null)
 					return;
-				}
 				Announcements.getInstance().announceToAll(text);
 			}
 		}

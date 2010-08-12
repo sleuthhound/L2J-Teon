@@ -111,9 +111,7 @@ public class SkillHandler
 	{
 		SkillType[] types = handler.getSkillIds();
 		for (SkillType t : types)
-		{
 			_datatable.put(t, handler);
-		}
 	}
 
 	public ISkillHandler getSkillHandler(SkillType skillType)

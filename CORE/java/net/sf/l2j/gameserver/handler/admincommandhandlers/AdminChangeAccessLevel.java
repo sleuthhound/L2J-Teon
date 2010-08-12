@@ -40,12 +40,8 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		handleChangeLevel(command, activeChar);
 		String target = activeChar.getTarget() != null ? activeChar.getTarget().getName() : "no-target";
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), target, command);
@@ -72,33 +68,25 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 	{
 		String[] parts = command.split(" ");
 		if (parts.length == 2)
-		{
 			try
 			{
 				int lvl = Integer.parseInt(parts[1]);
 				if (activeChar.getTarget() instanceof L2PcInstance)
-				{
 					onLineChange(activeChar, (L2PcInstance) activeChar.getTarget(), lvl);
-				}
 				else
-				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-				}
 			}
 			catch (Exception e)
 			{
 				activeChar.sendMessage("Usage: //changelvl <target_new_level> | <player_name> <new_level>");
 			}
-		}
 		else if (parts.length == 3)
 		{
 			String name = parts[1];
 			int lvl = Integer.parseInt(parts[2]);
 			L2PcInstance player = L2World.getInstance().getPlayer(name);
 			if (player != null)
-			{
 				onLineChange(activeChar, player, lvl);
-			}
 			else
 			{
 				Connection con = null;
@@ -112,21 +100,15 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 					int count = statement.getUpdateCount();
 					statement.close();
 					if (count == 0)
-					{
 						activeChar.sendMessage("Character not found or access level unaltered.");
-					}
 					else
-					{
 						activeChar.sendMessage("Character's access level is now set to " + lvl);
-					}
 				}
 				catch (SQLException se)
 				{
 					activeChar.sendMessage("SQLException while changing character's access level");
 					if (Config.DEBUG)
-					{
 						se.printStackTrace();
-					}
 				}
 				finally
 				{
@@ -151,9 +133,7 @@ public class AdminChangeAccessLevel implements IAdminCommandHandler
 	{
 		player.setAccessLevel(lvl);
 		if (lvl > 0)
-		{
 			player.sendMessage("Your access level has been changed to " + lvl);
-		}
 		else
 		{
 			player.sendMessage("Your character has been banned. Bye.");

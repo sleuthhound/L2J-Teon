@@ -32,11 +32,9 @@ public class AdminRideWyvern implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
-			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-			}
-		}
 		if (command.startsWith("admin_ride"))
 		{
 			if (activeChar.isMounted() || activeChar.getPet() != null)
@@ -47,13 +45,9 @@ public class AdminRideWyvern implements IAdminCommandHandler
 				return false;
 			}
 			if (command.startsWith("admin_ride_wyvern"))
-			{
 				_petRideId = 12621;
-			}
 			else if (command.startsWith("admin_ride_strider"))
-			{
 				_petRideId = 12526;
-			}
 			else
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
@@ -61,22 +55,19 @@ public class AdminRideWyvern implements IAdminCommandHandler
 				activeChar.sendPacket(sm);
 				return false;
 			}
-			if (!activeChar.disarmWeapons()) {
+			if (!activeChar.disarmWeapons())
 				return false;
-			}
 			Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, _petRideId);
 			activeChar.sendPacket(mount);
 			activeChar.broadcastPacket(mount);
 			activeChar.setMountType(mount.getMountType());
 		}
 		else if (command.startsWith("admin_unride"))
-		{
 			if (activeChar.setMountType(0))
 			{
 				Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
 				activeChar.broadcastPacket(dismount);
 			}
-		}
 		return true;
 	}
 

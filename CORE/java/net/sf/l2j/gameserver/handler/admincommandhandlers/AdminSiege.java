@@ -46,55 +46,46 @@ public class AdminSiege implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-		if (!Config.ALT_PRIVILEGES_ADMIN) {
+		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (activeChar.getAccessLevel() < REQUIRED_LEVEL || !activeChar.isGM())
-			{
 				return false;
-			}
-		}
 		StringTokenizer st = new StringTokenizer(command, " ");
 		command = st.nextToken(); // Get actual command
 		// Get castle
 		Castle castle = null;
 		ClanHall clanhall = null;
-		if (command.startsWith("admin_clanhall")) {
+		if (command.startsWith("admin_clanhall"))
 			clanhall = ClanHallManager.getInstance().getClanHallById(Integer.parseInt(st.nextToken()));
-		} else if (st.hasMoreTokens()) {
+		else if (st.hasMoreTokens())
 			castle = CastleManager.getInstance().getCastle(st.nextToken());
-		}
 		// Get castle
 		String val = "";
-		if (st.hasMoreTokens()) {
+		if (st.hasMoreTokens())
 			val = st.nextToken();
-		}
-		if ((castle == null || castle.getCastleId() < 0) && clanhall == null) {
+		if ((castle == null || castle.getCastleId() < 0) && clanhall == null)
 			// No castle specified
 			showCastleSelectPage(activeChar);
-		} else
+		else
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
-			if (target instanceof L2PcInstance) {
+			if (target instanceof L2PcInstance)
 				player = (L2PcInstance) target;
-			}
 			if (command.equalsIgnoreCase("admin_add_attacker"))
 			{
-				if (player == null) {
+				if (player == null)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				} else {
+				else
 					castle.getSiege().registerAttacker(player, true);
-				}
 			}
 			else if (command.equalsIgnoreCase("admin_add_defender"))
 			{
-				if (player == null) {
+				if (player == null)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				} else {
+				else
 					castle.getSiege().registerDefender(player, true);
-				}
 			}
 			else if (command.equalsIgnoreCase("admin_add_guard"))
-			{
 				try
 				{
 					int npcId = Integer.parseInt(val);
@@ -104,56 +95,45 @@ public class AdminSiege implements IAdminCommandHandler
 				{
 					activeChar.sendMessage("Usage: //add_guard npcId");
 				}
-			}
 			else if (command.equalsIgnoreCase("admin_clear_siege_list"))
-			{
 				castle.getSiege().clearSiegeClan();
-			}
 			else if (command.equalsIgnoreCase("admin_endsiege"))
-			{
 				castle.getSiege().endSiege();
-			}
 			else if (command.equalsIgnoreCase("admin_list_siege_clans"))
 			{
 				castle.getSiege().listRegisterClan(activeChar);
 				return true;
 			}
 			else if (command.equalsIgnoreCase("admin_move_defenders"))
-			{
 				activeChar.sendPacket(SystemMessage.sendString("Not implemented yet."));
-			}
 			else if (command.equalsIgnoreCase("admin_setcastle"))
 			{
-				if (player == null || player.getClan() == null) {
+				if (player == null || player.getClan() == null)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				} else {
+				else
 					castle.setOwner(player.getClan());
-				}
 			}
 			else if (command.equalsIgnoreCase("admin_removecastle"))
 			{
 				L2Clan clan = ClanTable.getInstance().getClan(castle.getOwnerId());
-				if (clan != null) {
+				if (clan != null)
 					castle.removeOwner(clan);
-				} else {
+				else
 					activeChar.sendMessage("Unable to remove castle");
-				}
 			}
 			else if (command.equalsIgnoreCase("admin_clanhallset"))
 			{
-				if (player == null || player.getClan() == null) {
+				if (player == null || player.getClan() == null)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				} else if (!ClanHallManager.getInstance().isFree(clanhall.getId())) {
+				else if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
 					activeChar.sendMessage("This ClanHall isn't free!");
-				} else if (player.getClan().getHasHideout() == 0)
+				else if (player.getClan().getHasHideout() == 0)
 				{
 					ClanHallManager.getInstance().setOwner(clanhall.getId(), player.getClan());
-					if (AuctionManager.getInstance().getAuction(clanhall.getId()) != null) {
+					if (AuctionManager.getInstance().getAuction(clanhall.getId()) != null)
 						AuctionManager.getInstance().getAuction(clanhall.getId()).deleteAuctionFromDB();
-					}
-				} else {
+				} else
 					activeChar.sendMessage("You have already a ClanHall!");
-				}
 			}
 			else if (command.equalsIgnoreCase("admin_clanhalldel"))
 			{
@@ -161,39 +141,27 @@ public class AdminSiege implements IAdminCommandHandler
 				{
 					ClanHallManager.getInstance().setFree(clanhall.getId());
 					AuctionManager.getInstance().initNPC(clanhall.getId());
-				} else {
+				} else
 					activeChar.sendMessage("This ClanHall is already Free!");
-				}
 			}
 			else if (command.equalsIgnoreCase("admin_clanhallopendoors"))
-			{
 				clanhall.openCloseDoors(true);
-			}
 			else if (command.equalsIgnoreCase("admin_clanhallclosedoors"))
-			{
 				clanhall.openCloseDoors(false);
-			}
 			else if (command.equalsIgnoreCase("admin_clanhallteleportself"))
 			{
 				L2ClanHallZone zone = clanhall.getZone();
 				if (zone != null)
-				{
 					activeChar.teleToLocation(zone.getSpawn(), true);
-				}
 			}
 			else if (command.equalsIgnoreCase("admin_spawn_doors"))
-			{
 				castle.spawnDoor();
-			}
 			else if (command.equalsIgnoreCase("admin_startsiege"))
-			{
 				castle.getSiege().startSiege();
-			}
-			if (clanhall != null) {
+			if (clanhall != null)
 				showClanHallPage(activeChar, clanhall);
-			} else {
+			else
 				showSiegePage(activeChar, castle.getName());
-			}
 		}
 		return true;
 	}
@@ -271,11 +239,10 @@ public class AdminSiege implements IAdminCommandHandler
 		adminReply.replace("%clanhallName%", clanhall.getName());
 		adminReply.replace("%clanhallId%", String.valueOf(clanhall.getId()));
 		L2Clan owner = ClanTable.getInstance().getClan(clanhall.getOwnerId());
-		if (owner == null) {
+		if (owner == null)
 			adminReply.replace("%clanhallOwner%", "None");
-		} else {
+		else
 			adminReply.replace("%clanhallOwner%", owner.getName());
-		}
 		activeChar.sendPacket(adminReply);
 	}
 

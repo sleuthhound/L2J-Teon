@@ -38,9 +38,7 @@ public class TeleportLocationTable
 	public static TeleportLocationTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new TeleportLocationTable();
-		}
 		return _instance;
 	}
 
@@ -89,7 +87,6 @@ public class TeleportLocationTable
 			}
 		}
 		if (Config.CUSTOM_TELEPORT_TABLE)
-		{
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
@@ -111,9 +108,8 @@ public class TeleportLocationTable
 				rset.close();
 				statement.close();
 				_cTeleCount = _teleports.size() - _cTeleCount;
-				if (_cTeleCount > 0) {
+				if (_cTeleCount > 0)
 					_log.config("TeleportLocationTable: Loaded " + _cTeleCount + " Custom Teleport Location Templates.");
-				}
 			}
 			catch (Exception e)
 			{
@@ -129,7 +125,6 @@ public class TeleportLocationTable
 				{
 				}
 			}
-		}
 	}
 
 	/**

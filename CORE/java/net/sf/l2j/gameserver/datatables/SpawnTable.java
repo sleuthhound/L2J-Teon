@@ -49,9 +49,8 @@ public class SpawnTable
 
 	private SpawnTable()
 	{
-		if (!Config.ALT_DEV_NO_SPAWNS) {
+		if (!Config.ALT_DEV_NO_SPAWNS)
 			fillSpawnTable();
-		}
 	}
 
 	public Map<Integer, L2Spawn> getSpawnTable()
@@ -67,13 +66,9 @@ public class SpawnTable
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
 			if (Config.DELETE_GMSPAWN_ON_CUSTOM)
-			{
 				statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM spawnlist where id NOT in ( select id from nospawnlist where isCustom = false ) ORDER BY id");
-			}
 			else
-			{
 				statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM spawnlist ORDER BY id");
-			}
 			ResultSet rset = statement.executeQuery();
 			L2Spawn spawnDat;
 			L2NpcTemplate template1;
@@ -125,15 +120,11 @@ public class SpawnTable
 								break;
 						}
 						_spawntable.put(spawnDat.getId(), spawnDat);
-						if (spawnDat.getId() > _highestId) {
+						if (spawnDat.getId() > _highestId)
 							_highestId = spawnDat.getId();
-						}
 					}
-				}
-				else
-				{
+				} else
 					_log.warning("SpawnTable: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
-				}
 			}
 			rset.close();
 			statement.close();
@@ -161,13 +152,9 @@ public class SpawnTable
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement statement;
 				if (Config.DELETE_GMSPAWN_ON_CUSTOM)
-				{
 					statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM custom_spawnlist where id NOT in ( select id from nospawnlist where isCustom = true ) ORDER BY id");
-				}
 				else
-				{
 					statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM custom_spawnlist ORDER BY id");
-				}
 				ResultSet rset = statement.executeQuery();
 				L2Spawn spawnDat;
 				L2NpcTemplate template1;
@@ -216,15 +203,11 @@ public class SpawnTable
 									break;
 							}
 							_spawntable.put(spawnDat.getId(), spawnDat);
-							if (spawnDat.getId() > _highestId) {
+							if (spawnDat.getId() > _highestId)
 								_highestId = spawnDat.getId();
-							}
 						}
-					}
-					else
-					{
+					} else
 						_log.warning("SpawnTable: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
-					}
 				}
 				rset.close();
 				statement.close();
@@ -244,13 +227,11 @@ public class SpawnTable
 				{
 				}
 			}
-			if (_cusSpawnCount > 0) {
+			if (_cusSpawnCount > 0)
 				_log.config("SpawnTable: Loaded " + _cusSpawnCount + " Custom Spawn Locations.");
-			}
 		}
-		if (Config.DEBUG) {
+		if (Config.DEBUG)
 			_log.fine("SpawnTable: Spawning completed, total number of NPCs in the world: " + (_npcSpawnCount + _cusSpawnCount));
-		}
 	}
 
 	public L2Spawn getTemplate(int id)
@@ -302,17 +283,14 @@ public class SpawnTable
 
 	public void deleteSpawn(L2Spawn spawn, boolean updateDb)
 	{
-		if (Config.SAVE_GMSPAWN_ON_CUSTOM && !spawn.isCustom()) {
+		if (Config.SAVE_GMSPAWN_ON_CUSTOM && !spawn.isCustom())
 			return;
-		}
-		if (_spawntable.remove(spawn.getId()) == null) {
+		if (_spawntable.remove(spawn.getId()) == null)
 			return;
-		}
 		if (updateDb)
 		{
 			java.sql.Connection con = null;
 			if (Config.DELETE_GMSPAWN_ON_CUSTOM)
-			{
 				try
 				{
 					con = L2DatabaseFactory.getInstance().getConnection();
@@ -337,9 +315,7 @@ public class SpawnTable
 					{
 					}
 				}
-			}
 			else
-			{
 				try
 				{
 					con = L2DatabaseFactory.getInstance().getConnection();
@@ -363,7 +339,6 @@ public class SpawnTable
 					{
 					}
 				}
-			}
 		}
 	}
 
@@ -385,24 +360,17 @@ public class SpawnTable
 	{
 		int index = 0;
 		for (L2Spawn spawn : _spawntable.values())
-		{
 			if (npcId == spawn.getNpcid())
 			{
 				index++;
 				if (teleportIndex > -1)
 				{
-					if (teleportIndex == index) {
+					if (teleportIndex == index)
 						activeChar.teleToLocation(spawn.getLocx(), spawn.getLocy(), spawn.getLocz(), true);
-					}
-				}
-				else
-				{
+				} else
 					activeChar.sendMessage(index + " - " + spawn.getTemplate().name + " (" + spawn.getId() + "): " + spawn.getLocx() + " " + spawn.getLocy() + " " + spawn.getLocz());
-				}
 			}
-		}
-		if (index == 0) {
+		if (index == 0)
 			activeChar.sendMessage("No current spawns found.");
-		}
 	}
 }

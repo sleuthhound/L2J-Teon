@@ -44,20 +44,16 @@ public class ChristmasTree implements IItemHandler
 		L2NpcTemplate template1 = null;
 		int itemId = item.getItemId();
 		for (int i = 0; i < ITEM_IDS.length; i++)
-		{
 			if (ITEM_IDS[i] == itemId)
 			{
 				template1 = NpcTable.getInstance().getTemplate(NPC_IDS[i]);
 				break;
 			}
-		}
-		if (template1 == null) {
+		if (template1 == null)
 			return;
-		}
 		L2Object target = activeChar.getTarget();
-		if (target == null) {
+		if (target == null)
 			target = activeChar;
-		}
 		try
 		{
 			L2Spawn spawn = new L2Spawn(template1);

@@ -48,9 +48,7 @@ public class SummonItems implements IItemHandler
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
 		if (!(playable instanceof L2PcInstance))
-		{
 			return;
-		}
 		L2PcInstance activeChar = (L2PcInstance) playable;
 		if (!activeChar.getFloodProtectors().getItemPetSummon().tryPerformAction("summon items"))
 		{
@@ -74,9 +72,8 @@ public class SummonItems implements IItemHandler
 			activeChar.sendPacket(af);
 			return;
 		}
-		if (activeChar.inObserverMode()) {
+		if (activeChar.inObserverMode())
 			return;
-		}
 		if (activeChar.isInOlympiadMode())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
@@ -100,14 +97,10 @@ public class SummonItems implements IItemHandler
 		}
 		int npcID = sitem.getNpcId();
 		if (npcID == 0)
-		{
 			return;
-		}
 		L2NpcTemplate npcTemplate = NpcTable.getInstance().getTemplate(npcID);
 		if (npcTemplate == null)
-		{
 			return;
-		}
 		switch (sitem.getType())
 		{
 			case 0: // static summons (like christmas tree)
@@ -115,9 +108,7 @@ public class SummonItems implements IItemHandler
 				{
 					L2Spawn spawn = new L2Spawn(npcTemplate);
 					if (spawn == null)
-					{
 						return;
-					}
 					spawn.setId(IdFactory.getInstance().getNextId());
 					spawn.setLocx(activeChar.getX());
 					spawn.setLocy(activeChar.getY());
@@ -134,9 +125,7 @@ public class SummonItems implements IItemHandler
 			case 1: // pet summons
 				L2PetInstance petSummon = L2PetInstance.spawnPet(npcTemplate, activeChar, item);
 				if (petSummon == null)
-				{
 					break;
-				}
 				petSummon.setTitle(activeChar.getName());
 				if (!petSummon.isRespawned())
 				{
@@ -147,9 +136,7 @@ public class SummonItems implements IItemHandler
 				}
 				petSummon.setRunning();
 				if (!petSummon.isRespawned())
-				{
 					petSummon.store();
-				}
 				activeChar.setPet(petSummon);
 				activeChar.sendPacket(new MagicSkillUser(activeChar, 2046, 1, 1000, 600000));
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.SUMMON_A_PET));
@@ -160,19 +147,13 @@ public class SummonItems implements IItemHandler
 				item.setEnchantLevel(petSummon.getLevel());
 				ThreadPoolManager.getInstance().scheduleGeneral(new PetSummonFinalizer(activeChar, petSummon), 900);
 				if (petSummon.getCurrentFed() <= 0)
-				{
 					ThreadPoolManager.getInstance().scheduleGeneral(new PetSummonFeedWait(activeChar, petSummon), 60000);
-				}
 				else
-				{
 					petSummon.startFeed(false);
-				}
 				break;
 			case 2: // wyvern
 				if (!activeChar.disarmWeapons())
-				{
 					return;
-				}
 				Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, sitem.getNpcId());
 				activeChar.sendPacket(mount);
 				activeChar.broadcastPacket(mount);
@@ -197,13 +178,9 @@ public class SummonItems implements IItemHandler
 			try
 			{
 				if (_petSummon.getCurrentFed() <= 0)
-				{
 					_petSummon.unSummon(_activeChar);
-				}
 				else
-				{
 					_petSummon.startFeed(false);
-				}
 			}
 			catch (Throwable e)
 			{

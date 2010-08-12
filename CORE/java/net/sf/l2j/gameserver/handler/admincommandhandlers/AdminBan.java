@@ -46,12 +46,8 @@ public class AdminBan implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!checkLevel(activeChar.getAccessLevel()))
-			{
 				return false;
-			}
-		}
 		StringTokenizer st = new StringTokenizer(command);
 		st.nextToken();
 		String account_name = "";
@@ -68,18 +64,12 @@ public class AdminBan implements IAdminCommandHandler
 			{
 				L2Object target = activeChar.getTarget();
 				if (target != null && target instanceof L2PcInstance)
-				{
 					plyr = (L2PcInstance) target;
-				}
 				else
-				{
 					activeChar.sendMessage("Usage: //ban [account_name] (if none, target char's account gets banned)");
-				}
 			}
 			if (plyr != null && plyr.equals(activeChar))
-			{
 				plyr.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
-			}
 			else if (plyr == null)
 			{
 				account_name = player;
@@ -96,7 +86,6 @@ public class AdminBan implements IAdminCommandHandler
 			}
 		}
 		else if (command.startsWith("admin_unban"))
-		{
 			try
 			{
 				account_name = st.nextToken();
@@ -107,13 +96,9 @@ public class AdminBan implements IAdminCommandHandler
 			{
 				activeChar.sendMessage("Usage: //unban <account_name>");
 				if (Config.DEBUG)
-				{
 					e.printStackTrace();
-				}
 			}
-		}
 		else if (command.startsWith("admin_jail"))
-		{
 			try
 			{
 				player = st.nextToken();
@@ -134,11 +119,8 @@ public class AdminBan implements IAdminCommandHandler
 				{
 					playerObj.setInJail(true, delay);
 					activeChar.sendMessage("Character " + player + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
-				}
-				else
-				{
+				} else
 					jailOfflinePlayer(activeChar, player, delay);
-				}
 			}
 			catch (NoSuchElementException nsee)
 			{
@@ -147,13 +129,9 @@ public class AdminBan implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				if (Config.DEBUG)
-				{
 					e.printStackTrace();
-				}
 			}
-		}
 		else if (command.startsWith("admin_unjail"))
-		{
 			try
 			{
 				player = st.nextToken();
@@ -162,11 +140,8 @@ public class AdminBan implements IAdminCommandHandler
 				{
 					playerObj.setInJail(false, 0);
 					activeChar.sendMessage("Character " + player + " removed from jail");
-				}
-				else
-				{
+				} else
 					unjailOfflinePlayer(activeChar, player);
-				}
 			}
 			catch (NoSuchElementException nsee)
 			{
@@ -175,11 +150,8 @@ public class AdminBan implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				if (Config.DEBUG)
-				{
 					e.printStackTrace();
-				}
 			}
-		}
 		new GmAudit(activeChar.getName(), activeChar.getObjectId(), player, command);
 		return true;
 	}
@@ -201,21 +173,15 @@ public class AdminBan implements IAdminCommandHandler
 			int count = statement.getUpdateCount();
 			statement.close();
 			if (count == 0)
-			{
 				activeChar.sendMessage("Character not found!");
-			}
 			else
-			{
 				activeChar.sendMessage("Character " + name + " jailed for " + (delay > 0 ? delay + " minutes." : "ever!"));
-			}
 		}
 		catch (SQLException se)
 		{
 			activeChar.sendMessage("SQLException while jailing player");
 			if (Config.DEBUG)
-			{
 				se.printStackTrace();
-			}
 		}
 		finally
 		{
@@ -226,9 +192,7 @@ public class AdminBan implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				if (Config.DEBUG)
-				{
 					e.printStackTrace();
-				}
 			}
 		}
 	}
@@ -250,21 +214,15 @@ public class AdminBan implements IAdminCommandHandler
 			int count = statement.getUpdateCount();
 			statement.close();
 			if (count == 0)
-			{
 				activeChar.sendMessage("Character not found!");
-			}
 			else
-			{
 				activeChar.sendMessage("Character " + name + " removed from jail");
-			}
 		}
 		catch (SQLException se)
 		{
 			activeChar.sendMessage("SQLException while jailing player");
 			if (Config.DEBUG)
-			{
 				se.printStackTrace();
-			}
 		}
 		finally
 		{
@@ -275,9 +233,7 @@ public class AdminBan implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				if (Config.DEBUG)
-				{
 					e.printStackTrace();
-				}
 			}
 		}
 	}

@@ -31,12 +31,8 @@ public class AdminPathNode implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
-		{
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-			{
 				return false;
-			}
-		}
 		// Config.NEW_NODE_ID
 		if (command.equals("admin_pn_info"))
 		{
@@ -70,14 +66,9 @@ public class AdminPathNode implements IAdminCommandHandler
 					return true;
 				}
 				for (AbstractNodeLoc a : path)
-				{
 					activeChar.sendMessage("x:" + a.getX() + " y:" + a.getY() + " z:" + a.getZ());
-				}
-			}
-			else
-			{
+			} else
 				activeChar.sendMessage("No Target!");
-			}
 		}
 		return true;
 	}
