@@ -55,7 +55,6 @@ public class GrandBossManager
 	private static final String UPDATE_GRAND_BOSS_DATA = "UPDATE grandboss_data set loc_x = ?, loc_y = ?, loc_z = ?, heading = ?, respawn_time = ?, currentHP = ?, currentMP = ?, status = ? where boss_id = ?";
 	private static final String UPDATE_GRAND_BOSS_DATA2 = "UPDATE grandboss_data set status = ? where boss_id = ?";
 	protected static Logger _log = Logger.getLogger(GrandBossManager.class.getName());
-	private static GrandBossManager _instance;
 	protected static Map<Integer, L2GrandBossInstance> _bosses;
 	protected static Map<Integer, StatsSet> _storedInfo;
 	private Map<Integer, Integer> _bossStatus;
@@ -63,12 +62,7 @@ public class GrandBossManager
 
 	public static GrandBossManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("Initializing GrandBossManager");
-			_instance = new GrandBossManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public GrandBossManager()
@@ -78,6 +72,7 @@ public class GrandBossManager
 
 	private void init()
 	{
+		_log.info("Initializing GrandBossManager");
 		_zones = new L2FastList<L2BossZone>();
 		_bosses = new FastMap<Integer, L2GrandBossInstance>();
 		_storedInfo = new FastMap<Integer, StatsSet>();
@@ -388,5 +383,11 @@ public class GrandBossManager
 			return 0;
 		else
 			return interval;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final GrandBossManager _instance = new GrandBossManager();
 	}
 }

@@ -14,8 +14,10 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
@@ -24,29 +26,23 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Couple;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author evill33t
  */
 public class CoupleManager
 {
-	private static final Log _log = LogFactory.getLog(CoupleManager.class.getName());
+	private static final Logger _log = Logger.getLogger(CoupleManager.class.getName());
 	// =========================================================
-	private static CoupleManager _instance;
-
-	public static final CoupleManager getInstance()
+	public static CoupleManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("Initializing CoupleManager");
-			_instance = new CoupleManager();
-			_instance.load();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
+	public CoupleManager()
+	{
+		_log.info("Initializing CoupleManager");
+		load();
+	}
 	// =========================================================
 	// =========================================================
 	// Data Field
@@ -64,7 +60,7 @@ public class CoupleManager
 	// Method - Private
 	private final void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -79,7 +75,7 @@ public class CoupleManager
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: CoupleManager.load(): " + e.getMessage(), e);
+			_log.warning("Exception: CoupleManager.load(): " + e);
 		}
 		finally
 		{
@@ -143,7 +139,7 @@ public class CoupleManager
 				{
 					Integer PlayerId = player1.getObjectId();
 					Integer ItemId = 9140;
-					java.sql.Connection con = null;
+					Connection con = null;
 					try
 					{
 						con = L2DatabaseFactory.getInstance().getConnection();
@@ -183,7 +179,7 @@ public class CoupleManager
 				{
 					Integer Player2Id = player2.getObjectId();
 					Integer Item2Id = 9140;
-					java.sql.Connection con = null;
+					Connection con = null;
 					try
 					{
 						con = L2DatabaseFactory.getInstance().getConnection();
@@ -230,5 +226,11 @@ public class CoupleManager
 		if (_couples == null)
 			_couples = new FastList<Couple>();
 		return _couples;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CoupleManager _instance = new CoupleManager();
 	}
 }

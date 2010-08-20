@@ -18,7 +18,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -26,17 +25,13 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /*
  * Author: MHard
  * Author: Maxi(modified)
  */
 public class FortResistSiegeManager extends ClanHallSiege
 {
-	protected static Log _log = LogFactory.getLog(FortResistSiegeManager.class.getName());
-	private static FortResistSiegeManager _instance;
+	ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(21);
 	private Map<Integer, DamageInfo> _clansDamageInfo;
 	private L2Clan _clan;
 
@@ -46,16 +41,14 @@ public class FortResistSiegeManager extends ClanHallSiege
 		public long _damage;
 	}
 
-	public static final FortResistSiegeManager getInstance()
+	public static FortResistSiegeManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new FortResistSiegeManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private FortResistSiegeManager()
 	{
-		_log.info("Fortress Of Resistence");
+		_log.info("ClanHallSiege: Fortress of Resistence");
 		long siegeDate = restoreSiegeDate(21);
 		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
@@ -86,6 +79,7 @@ public class FortResistSiegeManager extends ClanHallSiege
 			schedule(timeRemaining);
 		}
 	};
+
 	private final ExclusiveTask _startSiegeTask = new ExclusiveTask()
 	{
 		@Override
@@ -109,21 +103,17 @@ public class FortResistSiegeManager extends ClanHallSiege
 
 	public void startSiege()
 	{
-		if (GameServer._instanceOk)
+		setIsInProgress(true);
+//		if (!_clansDamageInfo.isEmpty())
+			_clansDamageInfo.clear();
+		_siegeEndDate = Calendar.getInstance();
+		_siegeEndDate.add(Calendar.MINUTE, 30);
+		_endSiegeTask.schedule(1000);
+		if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
 		{
-			setIsInProgress(true);
-			if (!_clansDamageInfo.isEmpty())
-				_clansDamageInfo.clear();
-			_siegeEndDate = Calendar.getInstance();
-			_siegeEndDate.add(Calendar.MINUTE, 30);
-			_endSiegeTask.schedule(1000);
-			ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(21);
-			if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
-			{
-				ClanTable.getInstance().getClan(clanhall.getOwnerId()).broadcastClanStatus();
-				ClanHallManager.getInstance().setFree(clanhall.getId());
-				clanhall.banishForeigners();
-			}
+			ClanTable.getInstance().getClan(clanhall.getOwnerId()).broadcastClanStatus();
+			ClanHallManager.getInstance().setFree(clanhall.getId());
+			clanhall.banishForeigners();
 		}
 	}
 
@@ -135,20 +125,22 @@ public class FortResistSiegeManager extends ClanHallSiege
 			L2Clan clanIdMaxDamage = null;
 			long tempMaxDamage = 0;
 			for (DamageInfo damageInfo : _clansDamageInfo.values())
+			{
 				if (damageInfo != null)
+				{
 					if (damageInfo._damage > tempMaxDamage)
 					{
 						tempMaxDamage = damageInfo._damage;
 						clanIdMaxDamage = damageInfo._clan;
 					}
+				}
+			}
 			if (clanIdMaxDamage != null)
 			{
-				ClanHall clanhall = null;
-				clanhall = ClanHallManager.getInstance().getClanHallById(21);
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), clanIdMaxDamage);
 				_clan.setReputationScore(_clan.getReputationScore() + 600, true);
 			}
-			_log.info("the siege of Fortress of Resistance to finish");
+			_log.info("The siege of Fortress of Resistance to finish");
 		}
 		setNewSiegeDate(getSiegeDate().getTimeInMillis(), 21, 22);
 		_startSiegeTask.schedule(1000);
@@ -156,7 +148,6 @@ public class FortResistSiegeManager extends ClanHallSiege
 
 	public void addSiegeDamage(L2Clan clan, double damage)
 	{
-		setIsInProgress(true);
 		DamageInfo clanDamage = _clansDamageInfo.get(clan.getClanId());
 		if (clanDamage != null)
 			clanDamage._damage += damage;
@@ -167,5 +158,11 @@ public class FortResistSiegeManager extends ClanHallSiege
 			clanDamage._damage += damage;
 			_clansDamageInfo.put(clan.getClanId(), clanDamage);
 		}
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FortResistSiegeManager _instance = new FortResistSiegeManager();
 	}
 }

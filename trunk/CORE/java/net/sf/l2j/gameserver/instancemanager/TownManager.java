@@ -26,17 +26,10 @@ import net.sf.l2j.gameserver.model.zone.type.L2TownZone;
 public class TownManager
 {
 	private static final Logger _log = Logger.getLogger(TownManager.class.getName());
-	// =========================================================
-	private static TownManager _instance;
 
-	public static final TownManager getInstance()
+	public static TownManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("Initializing TownManager");
-			_instance = new TownManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -48,6 +41,7 @@ public class TownManager
 	// Constructor
 	public TownManager()
 	{
+		_log.info("Initializing TownManager");
 	}
 
 	// =========================================================
@@ -157,5 +151,11 @@ public class TownManager
 			if (temp instanceof L2TownZone)
 				return (L2TownZone) temp;
 		return null;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final TownManager _instance = new TownManager();
 	}
 }

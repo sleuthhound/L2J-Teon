@@ -20,17 +20,9 @@ import net.sf.l2j.gameserver.model.zone.type.L2ArenaZone;
 
 public class ArenaManager
 {
-	// =========================================================
-	private static ArenaManager _instance;
-
-	public static final ArenaManager getInstance()
+	public static ArenaManager getInstance()
 	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing ArenaManager");
-			_instance = new ArenaManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -42,6 +34,7 @@ public class ArenaManager
 	// Constructor
 	public ArenaManager()
 	{
+		System.out.println("Initializing ArenaManager");
 	}
 
 	// =========================================================
@@ -59,5 +52,11 @@ public class ArenaManager
 			if (temp.isCharacterInZone(character))
 				return temp;
 		return null;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ArenaManager _instance = new ArenaManager();
 	}
 }

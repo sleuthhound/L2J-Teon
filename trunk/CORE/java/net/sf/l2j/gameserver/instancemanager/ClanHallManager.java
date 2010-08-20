@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
@@ -29,19 +30,13 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
  */
 public class ClanHallManager
 {
-	private static ClanHallManager _instance;
 	private Map<Integer, ClanHall> _clanHall;
 	private Map<Integer, ClanHall> _freeClanHall;
 	private boolean _loaded = false;
 
 	public static ClanHallManager getInstance()
 	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing ClanHallManager");
-			_instance = new ClanHallManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public boolean loaded()
@@ -51,6 +46,7 @@ public class ClanHallManager
 
 	private ClanHallManager()
 	{
+		System.out.println("Initializing ClanHallManager");
 		_clanHall = new FastMap<Integer, ClanHall>();
 		_freeClanHall = new FastMap<Integer, ClanHall>();
 		load();
@@ -63,7 +59,7 @@ public class ClanHallManager
 	/** Load All Clan Hall */
 	private final void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			int id;
@@ -185,5 +181,11 @@ public class ClanHallManager
 			if (clan.getClanId() == ch.getValue().getOwnerId())
 				return ch.getValue();
 		return null;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ClanHallManager _instance = new ClanHallManager();
 	}
 }

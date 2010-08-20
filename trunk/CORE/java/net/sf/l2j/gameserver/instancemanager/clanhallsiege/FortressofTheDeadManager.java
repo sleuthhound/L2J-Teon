@@ -19,32 +19,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
-import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/*
+/**
  * Author: Maxi
  */
 public class FortressofTheDeadManager extends ClanHallSiege
 {
 	protected static Log _log = LogFactory.getLog(FortressofTheDeadManager.class.getName());
-	private static FortressofTheDeadManager _instance;
 	private boolean _registrationPeriod = true;
 	private int _clanCounter = 0;
 	private Map<Integer, clansInfo> _clansInfo = new HashMap<Integer, clansInfo>();
-	private L2ClanHallZone zone;
 	public ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(64);
-	private clansInfo _ownerClanInfo = new clansInfo();
 	private Map<Integer, DamageInfo> _clansDamageInfo;
 	private L2Clan _clan;
 
@@ -54,11 +49,15 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		public long _damage;
 	}
 
-	public static final FortressofTheDeadManager getInstance()
+	public static FortressofTheDeadManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new FortressofTheDeadManager();
-		return _instance;
+		return SingletonHolder._instance;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FortressofTheDeadManager _instance = new FortressofTheDeadManager();
 	}
 
 	private class clansInfo
@@ -69,7 +68,7 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	private FortressofTheDeadManager()
 	{
-		_log.info("Fortress of The Dead");
+		_log.info("ClanHallSiege: Fortress of The Dead");
 		long siegeDate = restoreSiegeDate(64);
 		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
@@ -82,44 +81,40 @@ public class FortressofTheDeadManager extends ClanHallSiege
 
 	public void startSiege()
 	{
-		if (GameServer._instanceOk)
+		setRegistrationPeriod(false);
+		if (_clansInfo.size() == 0)
 		{
-			setRegistrationPeriod(false);
-			if (_clansInfo.size() == 0)
-			{
-				endSiege(false);
-				return;
-			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() == null)
-			{
-				endSiege(false);
-				return;
-			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
-			{
-				L2Clan clan = null;
-				for (clansInfo a : _clansInfo.values())
-					clan = ClanTable.getInstance().getClanByName(a._clanName);
-				setIsInProgress(true);
-				_siegeEndDate = Calendar.getInstance();
-				_siegeEndDate.add(Calendar.MINUTE, 60);
-				_endSiegeTask.schedule(1000);
-				return;
-			}
-			if (!_clansDamageInfo.isEmpty())
-				_clansDamageInfo.clear();
+			endSiege(false);
+			return;
+		}
+		if (_clansInfo.size() == 1 && clanhall.getOwnerClan() == null)
+		{
+			endSiege(false);
+			return;
+		}
+		if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
+		{
+			for (clansInfo a : _clansInfo.values())
+				_clan = ClanTable.getInstance().getClanByName(a._clanName);
 			setIsInProgress(true);
-			ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(64);
-			if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
-			{
-				ClanTable.getInstance().getClan(clanhall.getOwnerId()).broadcastClanStatus();
-				ClanHallManager.getInstance().setFree(clanhall.getId());
-				clanhall.banishForeigners();
-			}
 			_siegeEndDate = Calendar.getInstance();
 			_siegeEndDate.add(Calendar.MINUTE, 60);
 			_endSiegeTask.schedule(1000);
+			return;
 		}
+		if (!_clansDamageInfo.isEmpty())
+			_clansDamageInfo.clear();
+		setIsInProgress(true);
+		ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(64);
+		if (!ClanHallManager.getInstance().isFree(clanhall.getId()))
+		{
+			ClanTable.getInstance().getClan(clanhall.getOwnerId()).broadcastClanStatus();
+			ClanHallManager.getInstance().setFree(clanhall.getId());
+			clanhall.banishForeigners();
+		}
+		_siegeEndDate = Calendar.getInstance();
+		_siegeEndDate.add(Calendar.MINUTE, 60);
+		_endSiegeTask.schedule(1000);
 	}
 
 	public void endSiege(boolean type)
@@ -149,16 +144,6 @@ public class FortressofTheDeadManager extends ClanHallSiege
 		}
 		setNewSiegeDate(getSiegeDate().getTimeInMillis(), 64, 22);
 		_startSiegeTask.schedule(1000);
-	}
-
-	public L2Clan checkHaveWinner()
-	{
-		L2Clan res = null;
-		for (String clanName : getRegisteredClans()) 
-		{
-			L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
-		}
-		return null;
 	}
 
 	public void setRegistrationPeriod(boolean par)

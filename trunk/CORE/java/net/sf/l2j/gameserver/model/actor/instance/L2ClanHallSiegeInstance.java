@@ -18,9 +18,9 @@ import java.text.SimpleDateFormat;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
@@ -108,7 +108,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			switch (getTemplate().getNpcId())
 			{
 				case 35437:
-					if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+					if (!BanditStrongholdManager.getInstance().isRegistrationPeriod())
 					{
 						showChatWindow(player, 3);
 						return;
@@ -118,11 +118,11 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 						showChatWindow(player, 1);
 						return;
 					}
-					if (BanditStrongholdSiege.getInstance().clanhall.getOwnerClan() == playerClan)
+					if (BanditStrongholdManager.getInstance().clanhall.getOwnerClan() == playerClan)
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
 						str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
-					} else if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
+					} else if (BanditStrongholdManager.getInstance().isClanOnSiege(playerClan))
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
 						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
@@ -130,7 +130,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 					}
 					else
 					{
-						int res = BanditStrongholdSiege.getInstance().registerClanOnSiege(player, playerClan);
+						int res = BanditStrongholdManager.getInstance().registerClanOnSiege(player, playerClan);
 						if (res == 0)
 						{
 							str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
@@ -150,7 +150,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 					}
 					break;
 				case 35627:
-					if (!WildBeastFarmSiege.getInstance().isRegistrationPeriod())
+					if (!WildBeastFarmManager.getInstance().isRegistrationPeriod())
 					{
 						showChatWindow(player, 3);
 						return;
@@ -160,11 +160,11 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 						showChatWindow(player, 1);
 						return;
 					}
-					if (WildBeastFarmSiege.getInstance().clanhall.getOwnerClan() == playerClan)
+					if (WildBeastFarmManager.getInstance().clanhall.getOwnerClan() == playerClan)
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
 						str += "<a action=\"bypass -h npc_%objectId%_PlayerList\">Add / remove a member of the siege</a><br>";
-					} else if (WildBeastFarmSiege.getInstance().isClanOnSiege(playerClan))
+					} else if (WildBeastFarmManager.getInstance().isClanOnSiege(playerClan))
 					{
 						str += "Your clan is already registered for the siege, what more do you want from me?<br>";
 						str += "<a action=\"bypass -h npc_%objectId%_UnRegister\">Unsubscribe</a><br>";
@@ -172,7 +172,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 					}
 					else
 					{
-						int res = WildBeastFarmSiege.getInstance().registerClanOnSiege(player, playerClan);
+						int res = WildBeastFarmManager.getInstance().registerClanOnSiege(player, playerClan);
 						if (res == 0)
 						{
 							str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully registered for the siege clan hall.<br>";
@@ -205,16 +205,16 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 				_log.warning("Attention!!! player " + player.getName() + " use packet hack, try unregister clan.");
 				return;
 			}
-			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdManager.getInstance().isRegistrationPeriod())
 			{
 				showChatWindow(player, 3);
 				return;
 			}
 			NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			String str;
-			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
+			if (BanditStrongholdManager.getInstance().isClanOnSiege(playerClan))
 			{
-				if (BanditStrongholdSiege.getInstance().unRegisterClan(playerClan))
+				if (BanditStrongholdManager.getInstance().unRegisterClan(playerClan))
 				{
 					str = "<html><body>Newspaper!<br>";
 					str += "Your clan : <font color=\"LEVEL\">" + player.getClan().getName() + "</font>, successfully removed from the register at the siege clan hall.<br>";
@@ -231,12 +231,12 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			L2Clan playerClan = player.getClan();
 			if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 				return;
-			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdManager.getInstance().isRegistrationPeriod())
 			{
 				showChatWindow(player, 3);
 				return;
 			}
-			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
+			if (BanditStrongholdManager.getInstance().isClanOnSiege(playerClan))
 				showPlayersList(playerClan, player);
 		}
 		else if (command.startsWith("addPlayer"))
@@ -244,7 +244,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			L2Clan playerClan = player.getClan();
 			if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 				return;
-			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdManager.getInstance().isRegistrationPeriod())
 			{
 				showChatWindow(player, 3);
 				return;
@@ -252,8 +252,8 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			String val = command.substring(10);
 			if (playerClan.getClanMember(val) == null)
 				return;
-			BanditStrongholdSiege.getInstance().addPlayer(playerClan, val);
-			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
+			BanditStrongholdManager.getInstance().addPlayer(playerClan, val);
+			if (BanditStrongholdManager.getInstance().isClanOnSiege(playerClan))
 				showPlayersList(playerClan, player);
 		}
 		else if (command.startsWith("removePlayer"))
@@ -261,15 +261,15 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			L2Clan playerClan = player.getClan();
 			if (playerClan == null || playerClan.getLeaderName() != player.getName() || playerClan.getLevel() < 4)
 				return;
-			if (!BanditStrongholdSiege.getInstance().isRegistrationPeriod())
+			if (!BanditStrongholdManager.getInstance().isRegistrationPeriod())
 			{
 				showChatWindow(player, 3);
 				return;
 			}
 			String val = command.substring(13);
 			if (playerClan.getClanMember(val) != null)
-				BanditStrongholdSiege.getInstance().removePlayer(playerClan, val);
-			if (BanditStrongholdSiege.getInstance().isClanOnSiege(playerClan))
+				BanditStrongholdManager.getInstance().removePlayer(playerClan, val);
+			if (BanditStrongholdManager.getInstance().isClanOnSiege(playerClan))
 				showPlayersList(playerClan, player);
 		}
 	}
@@ -284,7 +284,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		str += "<table width=280 border=0 bgcolor=\"000000\"><tr><td width=170 align=center>Register bathrooms</td><td width=110 align=center>Action</td></tr></table>";
 		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";
 		str += "<table width=280 border=0>";
-		for (String temp : BanditStrongholdSiege.getInstance().getRegisteredPlayers(playerClan))
+		for (String temp : BanditStrongholdManager.getInstance().getRegisteredPlayers(playerClan))
 			str += "<tr><td width=170>" + temp + "</td><td width=110 align=center><a action=\"bypass -h npc_%objectId%_removePlayer " + temp + "\"> Remove</a></td></tr>";
 		str += "</table>";
 		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";
@@ -292,7 +292,7 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		str += "<img src=\"L2UI.SquareWhite\" width=280 height=1>";
 		str += "<table width=280 border=0>";
 		for (L2ClanMember temp : playerClan.getMembers())
-			if (!BanditStrongholdSiege.getInstance().getRegisteredPlayers(playerClan).contains(temp.getName()))
+			if (!BanditStrongholdManager.getInstance().getRegisteredPlayers(playerClan).contains(temp.getName()))
 				str += "<tr><td width=170>" + temp.getName() + "</td><td width=110 align=center><a action=\"bypass -h npc_%objectId%_addPlayer " + temp.getName() + "\"> Add</a></td></tr>";
 		str += "</table>";
 		str += "</body></html>";
@@ -326,20 +326,20 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 			{
 				case 35437:
 					clanhall = ClanHallManager.getInstance().getClanHallById(35);
-					startSiege = BanditStrongholdSiege.getInstance().getSiegeDate().getTimeInMillis();
-					for (String a : BanditStrongholdSiege.getInstance().getRegisteredClans())
+					startSiege = BanditStrongholdManager.getInstance().getSiegeDate().getTimeInMillis();
+					for (String a : BanditStrongholdManager.getInstance().getRegisteredClans())
 					{
 						clanCount++;
-						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
+						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdManager.getInstance().getPlayersCount(a) + "people.)</td></tr>";
 					}
 					break;
 				case 35627:
 					clanhall = ClanHallManager.getInstance().getClanHallById(63);
-					startSiege = WildBeastFarmSiege.getInstance().getSiegeDate().getTimeInMillis();
-					for (String a : WildBeastFarmSiege.getInstance().getRegisteredClans())
+					startSiege = WildBeastFarmManager.getInstance().getSiegeDate().getTimeInMillis();
+					for (String a : WildBeastFarmManager.getInstance().getRegisteredClans())
 					{
 						clanCount++;
-						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdSiege.getInstance().getPlayersCount(a) + "people.)</td></tr>";
+						clans += "<tr><td><font color=\"LEVEL\">" + a + "</font>  (Number :" + BanditStrongholdManager.getInstance().getPlayersCount(a) + "people.)</td></tr>";
 					}
 					break;
 			}
@@ -362,10 +362,5 @@ public class L2ClanHallSiegeInstance extends L2NpcInstance
 		html.replace("%SiegeDate%", String.valueOf(format.format(startSiege)));
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
-	}
-
-	private boolean validateCondition(L2PcInstance player)
-	{
-		return true;
 	}
 }

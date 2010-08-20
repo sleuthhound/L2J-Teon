@@ -42,12 +42,10 @@ import net.sf.l2j.util.Rnd;
 public class RaidBossSpawnManager
 {
 	private static Logger _log = Logger.getLogger(RaidBossSpawnManager.class.getName());
-	private static RaidBossSpawnManager _instance;
 	protected static Map<Integer, L2RaidBossInstance> _bosses;
 	protected static Map<Integer, L2Spawn> _spawns;
 	protected static Map<Integer, StatsSet> _storedInfo;
-	@SuppressWarnings("unchecked")
-	protected static Map<Integer, ScheduledFuture> _schedules;
+	protected static Map<Integer, ScheduledFuture<?>> _schedules;
 
 	public static enum StatusEnum
 	{
@@ -61,16 +59,13 @@ public class RaidBossSpawnManager
 
 	public static RaidBossSpawnManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new RaidBossSpawnManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void init()
 	{
 		_bosses = new FastMap<Integer, L2RaidBossInstance>();
-		_schedules = new FastMap<Integer, ScheduledFuture>();
+		_schedules = new FastMap<Integer, ScheduledFuture<?>>();
 		_storedInfo = new FastMap<Integer, StatsSet>();
 		_spawns = new FastMap<Integer, L2Spawn>();
 		Connection con = null;
@@ -157,7 +152,6 @@ public class RaidBossSpawnManager
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public void updateStatus(L2RaidBossInstance boss, boolean isBossDead)
 	{
 		if (!_storedInfo.containsKey(boss.getNpcId()))
@@ -175,14 +169,12 @@ public class RaidBossSpawnManager
 			info.set("currentMP", boss.getMaxMp());
 			info.set("respawnTime", respawnTime);
 			_log.info("RaidBossSpawnManager: Updated " + boss.getName() + " respawn time to " + respawnTime);
-			ScheduledFuture futureSpawn;
+			ScheduledFuture<?> futureSpawn;
 			futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new spawnSchedule(boss.getNpcId()), respawn_delay);
 			_schedules.put(boss.getNpcId(), futureSpawn);
-			// To update immediately Database uncomment on the following
-			// line,
+			// To update immediately Database uncomment on the following line,
 			// to post the hour of respawn raid boss on your site for
-			// example or
-			// to envisage a crash landing of the waiter.
+			// example or to envisage a crash landing of the waiter.
 			// updateDb();
 		}
 		else
@@ -196,7 +188,6 @@ public class RaidBossSpawnManager
 		_storedInfo.put(boss.getNpcId(), info);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void addNewSpawn(L2Spawn spawnDat, long respawnTime, double currentHP, double currentMP, boolean storeInDb)
 	{
 		if (spawnDat == null)
@@ -228,7 +219,7 @@ public class RaidBossSpawnManager
 		}
 		else
 		{
-			ScheduledFuture futureSpawn;
+			ScheduledFuture<?> futureSpawn;
 			long spawnTime = respawnTime - Calendar.getInstance().getTimeInMillis();
 			futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new spawnSchedule(bossId), spawnTime);
 			_schedules.put(bossId, futureSpawn);
@@ -236,7 +227,7 @@ public class RaidBossSpawnManager
 		_spawns.put(bossId, spawnDat);
 		if (storeInDb)
 		{
-			java.sql.Connection con = null;
+			Connection con = null;
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
@@ -451,7 +442,6 @@ public class RaidBossSpawnManager
 	/**
 	 * Saves all raidboss status and then clears all info from memory, including all schedules.
 	 */
-	@SuppressWarnings("unchecked")
 	public void cleanUp()
 	{
 		updateDb();
@@ -459,11 +449,17 @@ public class RaidBossSpawnManager
 		if (_schedules != null)
 			for (Integer bossId : _schedules.keySet())
 			{
-				ScheduledFuture f = _schedules.get(bossId);
+				ScheduledFuture<?> f = _schedules.get(bossId);
 				f.cancel(true);
 			}
 		_schedules.clear();
 		_storedInfo.clear();
 		_spawns.clear();
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final RaidBossSpawnManager _instance = new RaidBossSpawnManager();
 	}
 }

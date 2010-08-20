@@ -59,8 +59,13 @@ public class L2jConnect
 			}
 		}
 	}
-
-	public void L2jConnect()
+	
+	public void init()
+	{
+		new L2jConnect();
+	}
+	
+	public L2jConnect()
 	{
 		_server.addIRCEventListener(new Listener());
 		_server.setDaemon(true);

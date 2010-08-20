@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -30,18 +31,9 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 
 public class CastleManager
 {
-	// =========================================================
-	private static CastleManager _instance;
-
-	public static final CastleManager getInstance()
+	public static CastleManager getInstance()
 	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing CastleManager");
-			_instance = new CastleManager();
-			_instance.load();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -54,6 +46,7 @@ public class CastleManager
 
 	public CastleManager()
 	{
+		load();
 	}
 
 	// =========================================================
@@ -86,7 +79,8 @@ public class CastleManager
 	// Method - Private
 	private final void load()
 	{
-		java.sql.Connection con = null;
+		System.out.println("Initializing CastleManager");
+		Connection con = null;
 		try
 		{
 			PreparedStatement statement;
@@ -258,7 +252,7 @@ public class CastleManager
 					// continue removing offline
 				}
 			// else offline-player circlet removal
-			java.sql.Connection con = null;
+			Connection con = null;
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
@@ -284,5 +278,10 @@ public class CastleManager
 				}
 			}
 		}
+	}
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CastleManager _instance = new CastleManager();
 	}
 }

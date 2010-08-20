@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.util.logging.Logger;
+
 import net.sf.l2j.gameserver.datatables.CrownTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
@@ -21,22 +23,16 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author evill33t Reworked by NB4L1
  */
 public class CrownManager
 {
-	private static final Log _log = LogFactory.getLog(CrownManager.class.getName());
-	private static CrownManager _instance;
+	private static final Logger _log = Logger.getLogger(CrownManager.class.getName());
 
-	public static final CrownManager getInstance()
+	public static CrownManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new CrownManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public CrownManager()
@@ -112,5 +108,11 @@ public class CrownManager
 				activeChar.destroyItem("Removing Crown", item, activeChar, true);
 				activeChar.getInventory().updateDatabase();
 			}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CrownManager _instance = new CrownManager();
 	}
 }

@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -41,8 +42,12 @@ import net.sf.l2j.gameserver.templates.L2EtcItemType;
 public class ItemsOnGroundManager
 {
 	static final Logger _log = Logger.getLogger(ItemsOnGroundManager.class.getName());
-	private static ItemsOnGroundManager _instance;
 	protected List<L2ItemInstance> _items = null;
+
+	public static ItemsOnGroundManager getInstance()
+	{
+		return SingletonHolder._instance;
+	}
 
 	private ItemsOnGroundManager()
 	{
@@ -51,16 +56,7 @@ public class ItemsOnGroundManager
 		_items = new FastList<L2ItemInstance>();
 		if (Config.SAVE_DROPPED_ITEM_INTERVAL > 0)
 			ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new storeInDb(), Config.SAVE_DROPPED_ITEM_INTERVAL, Config.SAVE_DROPPED_ITEM_INTERVAL);
-	}
-
-	public static final ItemsOnGroundManager getInstance()
-	{
-		if (_instance == null)
-		{
-			_instance = new ItemsOnGroundManager();
-			_instance.load();
-		}
-		return _instance;
+		load();
 	}
 
 	private void load()
@@ -83,9 +79,7 @@ public class ItemsOnGroundManager
 					// items only
 					str = "update itemsonground set drop_time=? where drop_time=-1 and equipable=0";
 				else if (Config.DESTROY_EQUIPABLE_PLAYER_ITEM)
-					// items
-					// including
-					// equipable
+					// items including equipable
 					str = "update itemsonground set drop_time=? where drop_time=-1";
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement statement = con.prepareStatement(str);
@@ -110,7 +104,7 @@ public class ItemsOnGroundManager
 			}
 		}
 		// Add items to world
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			try
@@ -125,8 +119,7 @@ public class ItemsOnGroundManager
 					L2ItemInstance item = new L2ItemInstance(result.getInt(1), result.getInt(2));
 					L2World.getInstance().storeObject(item);
 					if (item.isStackable() && result.getInt(3) > 1)
-						// check
-						// and..
+						// check and..
 						item.setCount(result.getInt(3));
 					if (result.getInt(4) > 0)
 						item.setEnchantLevel(result.getInt(4));
@@ -201,7 +194,7 @@ public class ItemsOnGroundManager
 
 	public void emptyTable()
 	{
-		java.sql.Connection conn = null;
+		Connection conn = null;
 		try
 		{
 			conn = L2DatabaseFactory.getInstance().getConnection();
@@ -245,7 +238,7 @@ public class ItemsOnGroundManager
 				if (CursedWeaponsManager.getInstance().isCursed(item.getItemId()))
 					continue; // Cursed Items not saved to ground, prevent
 				// double save
-				java.sql.Connection con = null;
+				Connection con = null;
 				try
 				{
 					con = L2DatabaseFactory.getInstance().getConnection();
@@ -258,14 +251,9 @@ public class ItemsOnGroundManager
 					statement.setInt(6, item.getY());
 					statement.setInt(7, item.getZ());
 					if (item.isProtected())
-						statement.setLong(8, -1); // item will be
-					// protected
+						statement.setLong(8, -1); // item will be protected
 					else
-						statement.setLong(8, item.getDropTime()); // item
-					// will
-					// be added
-					// to
-					// ItemsAutoDestroy
+						statement.setLong(8, item.getDropTime()); // item will be added to ItemsAutoDestroy
 					if (item.isEquipable())
 						statement.setLong(9, 1); // set equipable
 					else
@@ -292,5 +280,11 @@ public class ItemsOnGroundManager
 			if (Config.DEBUG)
 				_log.warning("ItemsOnGroundManager: " + _items.size() + " items on ground saved");
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ItemsOnGroundManager _instance = new ItemsOnGroundManager();
 	}
 }

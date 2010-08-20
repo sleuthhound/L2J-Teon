@@ -18,61 +18,56 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Logger;
 
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.L2WorldRegion;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.ClanHallSiege;
-import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
-import net.sf.l2j.gameserver.network.SystemChatChannelId;
-import net.sf.l2j.gameserver.network.serverpackets.CreatureSay2;
+import net.sf.l2j.gameserver.model.zone.L2ZoneType;
+import net.sf.l2j.gameserver.model.zone.type.L2ClanHallSiegeZone;
+import net.sf.l2j.gameserver.network.clientpackets.Say2;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.taskmanager.ExclusiveTask;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-/*
+/**
  * Author: MHard
  */
-public class WildBeastFarmSiege extends ClanHallSiege
+public class WildBeastFarmManager extends ClanHallSiege
 {
-	protected static Log _log = LogFactory.getLog(WildBeastFarmSiege.class.getName());
-	private static WildBeastFarmSiege _instance;
+	protected static Logger _log = Logger.getLogger(WildBeastFarmManager.class.getName());
 	private boolean _registrationPeriod = false;
 	private int _clanCounter = 0;
 	private Map<Integer, clanPlayersInfo> _clansInfo = new HashMap<Integer, clanPlayersInfo>();
-	// private L2Zone zone = ZoneManager.getInstance().getZone(L2Zone.ZoneType.Clanhall, "Beast Farm");
+    private L2ZoneType zone = ZoneManager.getInstance().getZoneById(11142); // need to check this id
 	public ClanHall clanhall = ClanHallManager.getInstance().getClanHallById(63);
 	private clanPlayersInfo _ownerClanInfo = new clanPlayersInfo();
 	private boolean _finalStage = false;
 	private ScheduledFuture<?> _midTimer;
-	private L2ClanHallZone _zone;
 
-	public static final WildBeastFarmSiege getInstance()
+	public static WildBeastFarmManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new WildBeastFarmSiege();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
-	private WildBeastFarmSiege()
+	private WildBeastFarmManager()
 	{
-		// _ZoneType = "Beast Farm";
-		_log.info("SiegeManager of Wild Beasts Farm");
+		_log.info("ClanHallSiege: Wild Beasts Farm");
 		long siegeDate = restoreSiegeDate(63);
 		Calendar tmpDate = Calendar.getInstance();
 		tmpDate.setTimeInMillis(siegeDate);
@@ -84,49 +79,46 @@ public class WildBeastFarmSiege extends ClanHallSiege
 
 	public void startSiege()
 	{
-		if (GameServer._instanceOk)
+		setRegistrationPeriod(false);
+		if (_clansInfo.size() == 0)
 		{
-			setRegistrationPeriod(false);
-			if (_clansInfo.size() == 0)
-			{
-				endSiege(false);
-				return;
-			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() == null)
-			{
-				endSiege(false);
-				return;
-			}
-			if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
-			{
-				L2Clan clan = null;
-				for (clanPlayersInfo a : _clansInfo.values())
-					clan = ClanTable.getInstance().getClanByName(a._clanName);
-				setIsInProgress(true);
-				// ((L2ClanhallZone)zone).updateSiegeStatus();
-				startSecondStep(clan);
-				anonce("Take place at the siege of his headquarters.", 1);
-				_siegeEndDate = Calendar.getInstance();
-				_siegeEndDate.add(Calendar.MINUTE, 30);
-				_endSiegeTask.schedule(1000);
-				return;
-			}
-			setIsInProgress(true);
-			/* ((L2ClanhallZone)zone).updateSiegeStatus(); */
-			spawnFlags();
-			gateControl(1);
-			anonce("Take place at the siege of his headquarters.", 1);
-			ThreadPoolManager.getInstance().scheduleGeneral(new startFirstStep(), 5 * 60000);
-			_midTimer = ThreadPoolManager.getInstance().scheduleGeneral(new midSiegeStep(), 25 * 60000);
-			_siegeEndDate = Calendar.getInstance();
-			_siegeEndDate.add(Calendar.MINUTE, 60);
-			_endSiegeTask.schedule(1000);
+			endSiege(false);
+			return;
 		}
+		if (_clansInfo.size() == 1 && clanhall.getOwnerClan() == null)
+		{
+			endSiege(false);
+			return;
+		}
+		if (_clansInfo.size() == 1 && clanhall.getOwnerClan() != null)
+		{
+			L2Clan clan = null;
+			for (clanPlayersInfo a : _clansInfo.values())
+				clan = ClanTable.getInstance().getClanByName(a._clanName);
+			setIsInProgress(true);
+			((L2ClanHallSiegeZone)zone).updateSiegeStatus();
+			startSecondStep(clan);
+			anonce("Take place at the siege of his headquarters.", 1);
+			_siegeEndDate = Calendar.getInstance();
+			_siegeEndDate.add(Calendar.MINUTE, 30);
+			_endSiegeTask.schedule(1000);
+			return;
+		}
+		setIsInProgress(true);
+		((L2ClanHallSiegeZone)zone).updateSiegeStatus();
+		spawnFlags();
+		gateControl(1);
+		anonce("Take place at the siege of his headquarters.", 1);
+		ThreadPoolManager.getInstance().scheduleGeneral(new startFirstStep(), 5 * 60000);
+		_midTimer = ThreadPoolManager.getInstance().scheduleGeneral(new midSiegeStep(), 25 * 60000);
+		_siegeEndDate = Calendar.getInstance();
+		_siegeEndDate.add(Calendar.MINUTE, 60);
+		_endSiegeTask.schedule(1000);
 	}
 
 	public void startSecondStep(L2Clan winner)
 	{
-		FastList<String> winPlayers = WildBeastFarmSiege.getInstance().getRegisteredPlayers(winner);
+		FastList<String> winPlayers = getRegisteredPlayers(winner);
 		unSpawnAll();
 		_clansInfo.clear();
 		clanPlayersInfo regPlayers = new clanPlayersInfo();
@@ -151,12 +143,13 @@ public class WildBeastFarmSiege extends ClanHallSiege
 			if (winner != null)
 			{
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), winner);
-				anonce("Attention! Clan hall, farm beasts was conquered by the clan " + winner.getName(), 2);
-			} else
-				anonce("Attention! Clan hall, farm wild animals did not get new owner", 2);
+				anonce("Attention! Clan hall, Wild Beast Reserve was conquered by the clan " + winner.getName(), 2);
+			}
+			else
+				anonce("Attention! Clan hall, Wild Beast Reserve did not get new owner", 2);
 		}
 		setIsInProgress(false);
-		/* ((L2ClanhallZone)zone).updateSiegeStatus(); */
+		((L2ClanHallSiegeZone)zone).updateSiegeStatus();
 		unSpawnAll();
 		_clansInfo.clear();
 		_clanCounter = 0;
@@ -199,7 +192,7 @@ public class WildBeastFarmSiege extends ClanHallSiege
 
 	public void teleportPlayers()
 	{
-		for (L2Character cha : _zone.getCharactersInside().values())
+		for (L2Character cha : zone.getCharactersInside().values())
 			if (cha instanceof L2PcInstance)
 			{
 				L2Clan clan = ((L2PcInstance) cha).getClan();
@@ -237,7 +230,7 @@ public class WildBeastFarmSiege extends ClanHallSiege
 				if (clanhall.getOwnerClan() == null)
 				{
 					ClanHallManager.getInstance().setOwner(clanhall.getId(), winner);
-					anonce("Attention! Hall clan Fkrma wild animals was conquered by the clan " + winner.getName(), 2);
+					anonce("Attention! Clan Hall Wild Beast Reserve was conquered by the clan " + winner.getName(), 2);
 					endSiege(false);
 				} else
 					startSecondStep(winner);
@@ -258,9 +251,6 @@ public class WildBeastFarmSiege extends ClanHallSiege
 				L2NpcTemplate template;
 				L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
 				template = NpcTable.getInstance().getTemplate(35617 + mobCounter);
-				/*
-				 * template.setServerSideTitle(true); template.setTitle(clan.getName());
-				 */
 				L2MonsterInstance questMob = new L2MonsterInstance(IdFactory.getInstance().getNextId(), template);
 				questMob.setHeading(100);
 				questMob.getStatus().setCurrentHpMp(questMob.getMaxHp(), questMob.getMaxMp());
@@ -284,11 +274,39 @@ public class WildBeastFarmSiege extends ClanHallSiege
 	}
 
 	public void spawnFlags()
-	{/*
-	 * int flagCounter = 1; for(String clanName:getRegisteredClans()) { L2SiegeFlagInstance flag; L2NpcInstance flag; L2NpcTemplate template; L2Clan clan = ClanTable.getInstance().getClanByName(clanName); if (clan == clanhall.getOwnerClan()) template = NpcTable.getInstance().getTemplate(35422); else template = NpcTable.getInstance().getTemplate(35422 + flagCounter); L2SiegeFlagInstance flag = new
-	 * L2SiegeFlagInstance(null, IdFactory.getInstance().getNextId(), template, false,true,clan); flag.setTitle(clan.getName()); flag.setHeading(100); flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp()); if (clan == clanhall.getOwnerClan()) flag.spawnMe(58782,-93180,-1354); else { if (flagCounter == 1) flag.spawnMe(56769,-92097,-1360); else if (flagCounter == 2)
-	 * flag.spawnMe(59138,-92532,-1354); else if (flagCounter == 3) flag.spawnMe(57027,-93673,-1365); else if (flagCounter == 4) flag.spawnMe(58120,-91440,-1354); else if (flagCounter == 5) flag.spawnMe(58428,-93787,-1360); } clanPlayersInfo regPlayers = _clansInfo.get(clan.getClanId()); regPlayers._flag = flag; flagCounter++; }
-	 */
+	{
+		int flagCounter = 1;
+		for (String clanName : getRegisteredClans())
+		{
+			L2NpcTemplate template;
+			L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
+			if (clan == clanhall.getOwnerClan())
+				template = NpcTable.getInstance().getTemplate(35422);
+			else
+				template = NpcTable.getInstance().getTemplate(35422 + flagCounter);
+			L2SiegeFlagInstance flag = new L2SiegeFlagInstance(null, IdFactory.getInstance().getNextId(), template);
+			flag.setTitle(clan.getName());
+			flag.setHeading(100);
+			flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+			if (clan == clanhall.getOwnerClan())
+				flag.spawnMe(58782, -93180, -1354);
+			else
+			{
+				if (flagCounter == 1)
+					flag.spawnMe(56769, -92097, -1360);
+				else if (flagCounter == 2)
+                    flag.spawnMe(59138, -92532, -1354);
+				else if (flagCounter == 3)
+                    flag.spawnMe(57027, -93673, -1365);
+				else if (flagCounter == 4)
+                    flag.spawnMe(58120, -91440, -1354);
+				else if (flagCounter == 5)
+                    flag.spawnMe(58428, -93787, -1360);
+			}
+			clanPlayersInfo regPlayers = _clansInfo.get(clan.getClanId());
+			regPlayers._flag = flag;
+			flagCounter++;
+		}
 	}
 
 	public void setRegistrationPeriod(boolean par)
@@ -448,7 +466,7 @@ public class WildBeastFarmSiege extends ClanHallSiege
 					else
 						_ownerClanInfo._clanName = "";
 					setRegistrationPeriod(true);
-					anonce("Attention! The period of registration at the siege clan hall, farm wild animals.", 2);
+					anonce("Attention! The period of registration at the clan hall, Wild Beast Reserve.", 2);
 					remaining = siegeTimeRemaining;
 				}
 			if (siegeTimeRemaining <= 0)
@@ -463,11 +481,9 @@ public class WildBeastFarmSiege extends ClanHallSiege
 
 	public void anonce(String text, int type)
 	{
+		CreatureSay cs = new CreatureSay(0, Say2.SHOUT, "Messenger", text);
 		if (type == 1)
-		{/*
-		 * for(L2PcInstance ptl : _PartyLeaders) { ptl.sendMessage("Because there was a party which doesn't meet a condition, an entry was refused.");
-		 */
-			CreatureSay2 cs = new CreatureSay2(0, SystemChatChannelId.Chat_Shout, "Journal", text);
+		{
 			for (String clanName : getRegisteredClans())
 			{
 				L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
@@ -481,13 +497,13 @@ public class WildBeastFarmSiege extends ClanHallSiege
 		}
 		else
 		{
-			CreatureSay2 cs = new CreatureSay2(0, SystemChatChannelId.Chat_Shout, "Journal", text);
-			/* L2MapRegion region = MapRegionManager.getInstance().getRegion(53508, -93776, -1584); */
+			L2WorldRegion region = L2World.getInstance().getRegion(53508, -93776);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-				if /*
-					 * (region == MapRegionManager.getInstance().getRegion(player.getX(), player.getY(), player.getZ()) &&
-					 */(player.getInstanceId() == 0)
+			{
+				if (region == L2World.getInstance().getRegion(player.getX(), player.getY()) 
+						&& player.getInstanceId() == 0)
 					player.sendPacket(cs);
+			}
 		}
 	}
 
@@ -550,19 +566,9 @@ public class WildBeastFarmSiege extends ClanHallSiege
 		public FastList<String> _players = new FastList<String>();
 	}
 
-	/**
-	 * Sets this clan halls zone
-	 *
-	 * @param zone
-	 */
-	public void setZone(L2ClanHallZone zone)
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
 	{
-		_zone = zone;
-	}
-
-	/** Returns the zone of this clan hall */
-	public L2ClanHallZone getZone()
-	{
-		return _zone;
+		protected static final WildBeastFarmManager _instance = new WildBeastFarmManager();
 	}
 }

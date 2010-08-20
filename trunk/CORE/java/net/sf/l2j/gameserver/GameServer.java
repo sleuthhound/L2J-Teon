@@ -94,11 +94,11 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.BanditStrongholdManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.DevastatedCastleManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortResistSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.clanhallsiege.FortressofTheDeadManager;
-import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmSiege;
+import net.sf.l2j.gameserver.instancemanager.clanhallsiege.WildBeastFarmManager;
 import net.sf.l2j.gameserver.lib.L2jConnect;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
@@ -137,7 +137,6 @@ public class GameServer
 	private final NpcTable _npcTable;
 	private final HennaTable _hennaTable;
 	private final IdFactory _idFactory;
-	public static boolean _instanceOk = false;
 	public static GameServer gameServer;
 	private static ClanHallManager _cHManager;
     private final Shutdown _shutdownHandler;
@@ -262,8 +261,8 @@ public class GameServer
 		_cHManager = ClanHallManager.getInstance();
 		Util.printSection("Clan Hall Siege");
 		FortResistSiegeManager.getInstance();
-		BanditStrongholdSiege.getInstance();
-		WildBeastFarmSiege.getInstance();
+		BanditStrongholdManager.getInstance();
+		WildBeastFarmManager.getInstance();
 		if (Config.DEVASTATED_CASTLE_ENABLED)
 			DevastatedCastleManager.getInstance();
 		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
@@ -493,7 +492,7 @@ public class GameServer
 		if (Config.IRC_LOAD)
 		{
 			L2jConnect serverConnect = new L2jConnect();
-			serverConnect.L2jConnect();
+			serverConnect.init();
 			serverConnect.doSendMsg();
 		}
 		if (Config.ONLINE_PLAYERS_AT_STARTUP)

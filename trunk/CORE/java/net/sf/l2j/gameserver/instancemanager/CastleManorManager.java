@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -44,7 +45,6 @@ import net.sf.l2j.util.Rnd;
 public class CastleManorManager
 {
 	protected static Logger _log = Logger.getLogger(CastleManorManager.class.getName());
-	private static CastleManorManager _instance;
 	public static final int PERIOD_CURRENT = 0;
 	public static final int PERIOD_NEXT = 1;
 	private static final String CASTLE_MANOR_LOAD_PROCURE = "SELECT * FROM castle_manor_procure WHERE castle_id=?";
@@ -66,14 +66,9 @@ public class CastleManorManager
 	@SuppressWarnings("unchecked")
 	protected ScheduledFuture _scheduledNextPeriodapprove;
 
-	public static final CastleManorManager getInstance()
+	public static CastleManorManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("Initializing CastleManorManager");
-			_instance = new CastleManorManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	public class CropProcure
@@ -184,6 +179,7 @@ public class CastleManorManager
 
 	private CastleManorManager()
 	{
+		_log.info("Initializing CastleManorManager");
 		load(); // load data from database
 		init(); // schedule all manor related events
 		_underMaintenance = false;
@@ -195,7 +191,7 @@ public class CastleManorManager
 
 	private void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		ResultSet rs;
 		PreparedStatement statement;
 		try
@@ -544,5 +540,11 @@ public class CastleManorManager
 			c.saveSeedData();
 			c.saveCropData();
 		}
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CastleManorManager _instance = new CastleManorManager();
 	}
 }

@@ -44,18 +44,10 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 public class SiegeManager
 {
 	private static final Logger _log = Logger.getLogger(SiegeManager.class.getName());
-	// =========================================================
-	private static SiegeManager _instance;
 
-	public static final SiegeManager getInstance()
+	public static SiegeManager getInstance()
 	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing SiegeManager");
-			_instance = new SiegeManager();
-			_instance.load();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -80,6 +72,8 @@ public class SiegeManager
 	// Constructor
 	private SiegeManager()
 	{
+		System.out.println("Initializing SiegeManager");
+		load();
 	}
 
 	// =========================================================
@@ -399,5 +393,11 @@ public class SiegeManager
 		{
 			return _location;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final SiegeManager _instance = new SiegeManager();
 	}
 }

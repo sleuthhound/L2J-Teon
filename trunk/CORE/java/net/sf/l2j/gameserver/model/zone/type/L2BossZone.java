@@ -37,6 +37,7 @@ public class L2BossZone extends L2ZoneType
 	private String _zoneName;
 	private int _timeInvade;
 	private boolean _enabled = true; // default value, unless overridden by xml...
+	@SuppressWarnings("unused")
 	private String _QuestName = null;
 	// track the times that players got disconnected. Players are allowed
 	// to log back into the zone as long as their log-out was within _timeInvade

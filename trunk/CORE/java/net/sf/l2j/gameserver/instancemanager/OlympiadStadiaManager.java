@@ -24,16 +24,10 @@ public class OlympiadStadiaManager
 {
 	protected static Logger _log = Logger.getLogger(OlympiadStadiaManager.class.getName());
 	// =========================================================
-	private static OlympiadStadiaManager _instance;
 
-	public static final OlympiadStadiaManager getInstance()
+	public static OlympiadStadiaManager getInstance()
 	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing OlympiadStadiaManager");
-			_instance = new OlympiadStadiaManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -45,6 +39,7 @@ public class OlympiadStadiaManager
 	// Constructor
 	public OlympiadStadiaManager()
 	{
+		System.out.println("Initializing OlympiadStadiaManager");
 	}
 
 	// =========================================================
@@ -71,5 +66,11 @@ public class OlympiadStadiaManager
 			if (temp.getStadiumId() == olympiadStadiumId)
 				return temp;
 		return null;
+	}
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final OlympiadStadiaManager _instance = new OlympiadStadiaManager();
 	}
 }
