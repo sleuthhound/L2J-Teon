@@ -23,16 +23,10 @@ public class FishingZoneManager
 {
 	protected static final Logger _log = Logger.getLogger(FishingZoneManager.class.getName());
 	// =========================================================
-	private static FishingZoneManager _instance;
 
-	public static final FishingZoneManager getInstance()
+	public static FishingZoneManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_log.info("Initializing FishingZoneManager");
-			_instance = new FishingZoneManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -44,6 +38,7 @@ public class FishingZoneManager
 	// Constructor
 	public FishingZoneManager()
 	{
+		_log.info("Initializing FishingZoneManager");
 	}
 
 	// =========================================================
@@ -65,5 +60,11 @@ public class FishingZoneManager
 			if (temp.isInsideZone(x, y, temp.getWaterZ() - 10))
 				return temp;
 		return null;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FishingZoneManager _instance = new FishingZoneManager();
 	}
 }

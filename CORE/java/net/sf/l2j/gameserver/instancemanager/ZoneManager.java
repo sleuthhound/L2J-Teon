@@ -70,14 +70,11 @@ import org.w3c.dom.Node;
 public class ZoneManager
 {
 	private static final Logger _log = Logger.getLogger(ZoneManager.class.getName());
-	private static ZoneManager _instance;
 	private final FastMap<Integer, L2ZoneType> _zones = new FastMap<Integer, L2ZoneType>();
 
-	public static final ZoneManager getInstance()
+	public static ZoneManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new ZoneManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -96,7 +93,8 @@ public class ZoneManager
 		int count = 0;
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
 		for (L2WorldRegion[] worldRegion : worldRegions)
-			for (L2WorldRegion element : worldRegion) {
+			for (L2WorldRegion element : worldRegion)
+			{
 				element.getZones().clear();
 				count++;
 			}
@@ -208,8 +206,7 @@ public class ZoneManager
 								// Create this zone. Parsing for cuboids is a
 								// bit different than for other polygons
 								// cuboids need exactly 2 points to be defined.
-								// Other polygons need at least 3 (one per
-								// vertex)
+								// Other polygons need at least 3 (one per vertex)
 								if (zoneShape.equalsIgnoreCase("Cuboid"))
 								{
 									int[] x = { 0, 0 };
@@ -243,15 +240,13 @@ public class ZoneManager
 										fl_x.add(rset.getInt("x"));
 										fl_y.add(rset.getInt("y"));
 									}
-									// An nPoly needs to have at least 3
-									// vertices
+									// An nPoly needs to have at least 3 vertices
 									if (fl_x.size() == fl_y.size() && fl_x.size() > 2)
 									{
 										// Create arrays
 										int[] aX = new int[fl_x.size()];
 										int[] aY = new int[fl_y.size()];
-										// This runs only at server startup so
-										// dont complain :>
+										// This runs only at server startup so dont complain :>
 										for (int i = 0; i < fl_x.size(); i++)
 										{
 											aX[i] = fl_x.get(i);
@@ -270,8 +265,7 @@ public class ZoneManager
 								}
 								else if (zoneShape.equalsIgnoreCase("Cylinder"))
 								{
-									// A Cylinder zone requires a centre point
-									// at x,y and a radius
+									// A Cylinder zone requires a centre point at x,y and a radius
 									int zoneRad = Integer.parseInt(attrs.getNamedItem("rad").getNodeValue());
 									if (rset.next() && zoneRad > 0)
 									{
@@ -312,7 +306,6 @@ public class ZoneManager
 									String val = attrs.getNamedItem("val").getNodeValue();
 									temp.setParameter(name, val);
 								}
-								// L2JTeon add Maxi
 								if ("spawn".equalsIgnoreCase(cd.getNodeName()))
 									temp.setSpawnLocs(cd);
 							}
@@ -440,5 +433,11 @@ public class ZoneManager
 			if (zone.isInsideZone(x, y, z))
 				temp.add(zone);
 		return temp;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final ZoneManager _instance = new ZoneManager();
 	}
 }

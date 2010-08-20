@@ -121,6 +121,11 @@ public class ValidatePosition extends L2GameClientPacket
 			double dx = _x - realX;
 			double dy = _y - realY;
 			double diffSq = dx * dx + dy * dy;
+			if (Config.DEVELOPER)
+			{
+				_log.fine("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
+			 	_log.fine("server pos: "+realX+" "+realY+" "+realZ+" head "+activeChar.getHeading());
+			}
 			if (diffSq < 250000)
 				activeChar.setXYZ(realX, realY, _z);
 			if (Config.ACTIVATE_POSITION_RECORDER && !activeChar.isFlying() && Universe.getInstance().shouldLog(activeChar.getObjectId()))

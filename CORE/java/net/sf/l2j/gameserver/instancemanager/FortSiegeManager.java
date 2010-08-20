@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -45,19 +46,11 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 public class FortSiegeManager
 {
 	private static final Logger _log = Logger.getLogger(FortSiegeManager.class.getName());
-	// =========================================================
-	private static FortSiegeManager _instance;
 	public static final String FORTSIEGE_CONFIGURATION_FILE = "./config/fortsiege.properties";
 
-	public static final FortSiegeManager getInstance()
+	public static FortSiegeManager getInstance()
 	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing FortSiegeManager");
-			_instance = new FortSiegeManager();
-			_instance.load();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -84,6 +77,8 @@ public class FortSiegeManager
 	// Constructor
 	private FortSiegeManager()
 	{
+		System.out.println("Initializing FortSiegeManager");
+		load();
 	}
 
 	// =========================================================
@@ -134,7 +129,7 @@ public class FortSiegeManager
 			return false;
 		if (clan.getHasFort() > 0)
 			return true;
-		java.sql.Connection con = null;
+		Connection con = null;
 		boolean register = false;
 		try
 		{
@@ -413,5 +408,11 @@ public class FortSiegeManager
 		{
 			return _location;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FortSiegeManager _instance = new FortSiegeManager();
 	}
 }

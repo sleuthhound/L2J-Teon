@@ -224,9 +224,4 @@ public class L2CHSiegeInstance extends L2NpcInstance
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
 	}
-
-	private boolean validateCondition(L2PcInstance player)
-	{
-		return true;
-	}
 }

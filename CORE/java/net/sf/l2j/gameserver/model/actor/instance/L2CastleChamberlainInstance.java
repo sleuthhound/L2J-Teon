@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.text.SimpleDateFormat;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
@@ -24,11 +23,9 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TradeController;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.item.PcInventory;
@@ -61,13 +58,6 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 	public L2CastleChamberlainInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-	}
-
-	private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
-	{
-		html.replace("%objectId%", String.valueOf(getObjectId()));
-		html.replace("%npcId%", String.valueOf(getNpcId()));
-		player.sendPacket(html);
 	}
 
 	@Override
@@ -107,7 +97,6 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		// BypassValidation Exploit plug.
 		if (player.getLastFolkNPC().getObjectId() != this.getObjectId())
 			return;
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		int condition = validateCondition(player);
 		if (condition <= COND_ALL_FALSE)
 			return;
@@ -478,33 +467,13 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
 				filename = "data/html/chamberlain/chamberlain-busy.htm"; // Busy
 			else if (condition == COND_OWNER)
-				filename = "data/html/chamberlain/chamberlain.htm"; // Owner
-			// message
-			// window
+				filename = "data/html/chamberlain/chamberlain.htm"; // Owner message window
 		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcId%", String.valueOf(getNpcId()));
 		html.replace("%npcname%", getName());
 		player.sendPacket(html);
-	}
-
-	private void doTeleport(L2PcInstance player, int val)
-	{
-		if (Config.DEBUG)
-			_log.warning("doTeleport(L2PcInstance player, int val) is called");
-		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
-		if (list != null)
-		{
-			if (player.reduceAdena("Teleport", list.getPrice(), this, true))
-			{
-				if (Config.DEBUG)
-					_log.warning("Teleporting player " + player.getName() + " for Castle to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
-				player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
-			}
-		} else
-			_log.warning("No teleport destination with id:" + val);
-		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	protected int validateCondition(L2PcInstance player)

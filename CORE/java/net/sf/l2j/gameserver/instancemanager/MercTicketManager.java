@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -39,31 +40,21 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 public class MercTicketManager
 {
 	protected static Logger _log = Logger.getLogger(CastleManager.class.getName());
-	// =========================================================
-	private static MercTicketManager _instance;
 
-	public static final MercTicketManager getInstance()
+	public static MercTicketManager getInstance()
 	{
-		// CastleManager.getInstance();
-		if (_instance == null)
-		{
-			System.out.println("Initializing MercTicketManager");
-			_instance = new MercTicketManager();
-			_instance.load();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
 	// =========================================================
 	// Data Field
-	private List<L2ItemInstance> _droppedTickets; // to keep track of
-	// items on
-	// the ground
+	private List<L2ItemInstance> _droppedTickets; // to keep track of items on the ground
 	// TODO move all these values into siege.properties
 	// max tickets per merc type = 10 + (castleid * 2)?
 	// max ticker per castle = 40 + (castleid * 20)?
-	private static final int[] MAX_MERC_PER_TYPE = { 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // Gludio
+	private static final int[] MAX_MERC_PER_TYPE = { 
+			10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // Gludio
 			15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, // Dion
 			10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // Giran
 			10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // Oren
@@ -71,10 +62,11 @@ public class MercTicketManager
 			20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, // Innadril
 			20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, // Goddard
 			20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, // Rune
-			20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20
-	// Schuttgart
+			20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20  // Schuttgart
 	};
-	private static final int[] MERCS_MAX_PER_CASTLE = { 100, // Gludio
+
+	private static final int[] MERCS_MAX_PER_CASTLE = { 
+			100, // Gludio
 			150, // Dion
 			200, // Giran
 			300, // Oren
@@ -82,10 +74,11 @@ public class MercTicketManager
 			400, // Innadril
 			400, // Goddard
 			400, // Rune
-			400
-	// Schuttgart
+			400  // Schuttgart
 	};
-	private static final int[] ITEM_IDS = { 3960, 3961, 3962, 3963, 3964, 3965, 3966, 3967, 3968, 3969, 6038, 6039, 6040, 6041, 6042, 6043, 6044, 6045, 6046, 6047, // Gludio
+
+	private static final int[] ITEM_IDS = { 
+			3960, 3961, 3962, 3963, 3964, 3965, 3966, 3967, 3968, 3969, 6038, 6039, 6040, 6041, 6042, 6043, 6044, 6045, 6046, 6047, // Gludio
 			3973, 3974, 3975, 3976, 3977, 3978, 3979, 3980, 3981, 3982, 6051, 6052, 6053, 6054, 6055, 6056, 6057, 6058, 6059, 6060, // Dion
 			3986, 3987, 3988, 3989, 3990, 3991, 3992, 3993, 3994, 3995, 6064, 6065, 6066, 6067, 6068, 6069, 6070, 6071, 6072, 6073, // Giran
 			3999, 4000, 4001, 4002, 4003, 4004, 4005, 4006, 4007, 4008, 6077, 6078, 6079, 6080, 6081, 6082, 6083, 6084, 6085, 6086, // Oren
@@ -93,10 +86,11 @@ public class MercTicketManager
 			5205, 5206, 5207, 5208, 5209, 5210, 5211, 5212, 5213, 5214, 6105, 6106, 6107, 6108, 6109, 6110, 6111, 6112, 6113, 6114, // Innadril
 			6779, 6780, 6781, 6782, 6783, 6784, 6785, 6786, 6787, 6788, 6792, 6793, 6794, 6795, 6796, 6797, 6798, 6799, 6800, 6801, // Goddard
 			7973, 7974, 7975, 7976, 7977, 7978, 7979, 7980, 7981, 7982, 7988, 7989, 7990, 7991, 7992, 7993, 7994, 7995, 7996, 7997, // Rune
-			7918, 7919, 7920, 7921, 7922, 7923, 7924, 7925, 7926, 7927, 7931, 7932, 7933, 7934, 7935, 7936, 7937, 7938, 7939, 7940
-	// Schuttgart
+			7918, 7919, 7920, 7921, 7922, 7923, 7924, 7925, 7926, 7927, 7931, 7932, 7933, 7934, 7935, 7936, 7937, 7938, 7939, 7940  // Schuttgart
 	};
-	private static final int[] NPC_IDS = { 35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Gludio
+
+	private static final int[] NPC_IDS = { 
+			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Gludio
 			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Dion
 			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Giran
 			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Oren
@@ -104,14 +98,15 @@ public class MercTicketManager
 			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Innadril
 			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Goddard
 			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039, // Rune
-			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039
-	// Schuttgart
+			35010, 35011, 35012, 35013, 35014, 35015, 35016, 35017, 35018, 35019, 35030, 35031, 35032, 35033, 35034, 35035, 35036, 35037, 35038, 35039	// Schuttgart
 	};
 
 	// =========================================================
 	// Constructor
 	public MercTicketManager()
 	{
+		System.out.println("Initializing MercTicketManager");
+		load();
 	}
 
 	// =========================================================
@@ -150,7 +145,7 @@ public class MercTicketManager
 	// Method - Private
 	private final void load()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		// load merc tickets into the world
 		try
 		{
@@ -388,5 +383,11 @@ public class MercTicketManager
 		if (_droppedTickets == null)
 			_droppedTickets = new FastList<L2ItemInstance>();
 		return _droppedTickets;
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final MercTicketManager _instance = new MercTicketManager();
 	}
 }

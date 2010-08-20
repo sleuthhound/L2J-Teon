@@ -29,29 +29,21 @@ import net.sf.l2j.gameserver.model.entity.Fort;
  */
 public class FortManager
 {
-	// =========================================================
-	private static FortManager _instance;
-
-	public static final FortManager getInstance()
-	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing FortManager");
-			_instance = new FortManager();
-			_instance.load();
-		}
-		return _instance;
-	}
-
-	// =========================================================
-	// =========================================================
 	// Data Field
 	private List<Fort> _forts;
+	int _fortId = 1; // from this fort
+
+	public static FortManager getInstance()
+	{
+		return SingletonHolder._instance;
+	}
 
 	// =========================================================
 	// Constructor
 	public FortManager()
 	{
+		System.out.println("Initializing FortManager");
+		load();
 	}
 
 	// =========================================================
@@ -189,5 +181,10 @@ public class FortManager
 		return _forts;
 	}
 
-	int _fortId = 1; // from this fort
+	
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final FortManager _instance = new FortManager();
+	}
 }

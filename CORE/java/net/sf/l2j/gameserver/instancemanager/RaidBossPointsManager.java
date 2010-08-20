@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,7 +44,7 @@ public class RaidBossPointsManager
 	{
 		_list = new FastMap<Integer, Map<Integer, Integer>>();
 		FastList<Integer> _chars = new FastList<Integer>();
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -92,7 +93,7 @@ public class RaidBossPointsManager
 	{
 		if (_points == null)
 			_points = new FastMap<Integer, Map<Integer, Integer>>();
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			FastMap<Integer, Integer> tmpScore = new FastMap<Integer, Integer>();
@@ -134,7 +135,7 @@ public class RaidBossPointsManager
 
 	public final static void updatePointsInDB(L2PcInstance player, int raidId, int points)
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -209,7 +210,7 @@ public class RaidBossPointsManager
 
 	public final static void cleanUp()
 	{
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection();
@@ -256,7 +257,8 @@ public class RaidBossPointsManager
 			{
 				return entry.getValue().equals(entry1.getValue()) ? 0 : entry.getValue() < entry1.getValue() ? 1 : -1;
 			}
-		});
+		}
+		);
 		int ranking = 0;
 		for (Map.Entry<Integer, Integer> entry : list)
 		{

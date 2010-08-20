@@ -42,7 +42,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 public final class PetitionManager
 {
 	protected static final Logger _log = Logger.getLogger(PetitionManager.class.getName());
-	private static PetitionManager _instance;
 	private Map<Integer, Petition> _pendingPetitions;
 	private Map<Integer, Petition> _completedPetitions;
 
@@ -58,12 +57,7 @@ public final class PetitionManager
 
 	public static PetitionManager getInstance()
 	{
-		if (_instance == null)
-		{
-			System.out.println("Initializing PetitionManager");
-			_instance = new PetitionManager();
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private class Petition
@@ -120,8 +114,7 @@ public final class PetitionManager
 						getResponder().sendPacket(sm);
 					}
 				}
-			// End petition consultation and inform them, if they are still
-			// online.
+			// End petition consultation and inform them, if they are still online.
 			if (getPetitioner() != null && getPetitioner().isOnline() == 1)
 				getPetitioner().sendPacket(new SystemMessage(SystemMessageId.THIS_END_THE_PETITION_PLEASE_PROVIDE_FEEDBACK));
 			getCompletedPetitions().put(getId(), this);
@@ -203,6 +196,7 @@ public final class PetitionManager
 
 	private PetitionManager()
 	{
+		System.out.println("Initializing PetitionManager");
 		_pendingPetitions = new FastMap<Integer, Petition>();
 		_completedPetitions = new FastMap<Integer, Petition>();
 	}
@@ -430,8 +424,8 @@ public final class PetitionManager
 			htmlContent.append("<tr><td></td><td><font color=\"999999\">Petitioner</font></td>" + "<td><font color=\"999999\">Petition Type</font></td><td><font color=\"999999\">Submitted</font></td></tr>");
 		for (Petition currPetition : getPendingPetitions().values())
 		{
-			if (currPetition == null)
-				continue;
+			if (currPetition == null) continue;
+
 			htmlContent.append("<tr><td>");
 			if (currPetition.getState() != PetitionState.In_Process)
 				htmlContent.append("<button value=\"View\" action=\"bypass -h admin_view_petition " + currPetition.getId() + "\" " + "width=\"40\" height=\"15\" back=\"sek.cbui94\" fore=\"sek.cbui92\">");
@@ -447,27 +441,22 @@ public final class PetitionManager
 
 	public int submitPetition(L2PcInstance petitioner, String petitionText, int petitionType)
 	{
-		// Create a new petition instance and add it to the list of pending
-		// petitions.
+		// Create a new petition instance and add it to the list of pending petitions.
 		Petition newPetition = new Petition(petitioner, petitionText, petitionType);
 		int newPetitionId = newPetition.getId();
 		getPendingPetitions().put(newPetitionId, newPetition);
 		// Notify all GMs that a new petition has been submitted.
-		String msgContent = petitioner.getName() + " has submitted a new petition."; // (ID:
-		// " +
-		// newPetitionId
-		// +
-		// ").";
+		String msgContent = petitioner.getName() + " has submitted a new petition."; // (ID: " + newPetitionId + ").";
 		GmListTable.broadcastToGMs(new CreatureSay(petitioner.getObjectId(), 17, "Petition System", msgContent));
 		return newPetitionId;
 	}
 
 	public void viewPetition(L2PcInstance activeChar, int petitionId)
 	{
-		if (!activeChar.isGM())
-			return;
-		if (!isValidPetition(petitionId))
-			return;
+		if (!activeChar.isGM()) return;
+
+		if (!isValidPetition(petitionId)) return;
+
 		Petition currPetition = getPendingPetitions().get(petitionId);
 		TextBuilder htmlContent = new TextBuilder("<html><body>");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMM HH:mm z");
@@ -483,5 +472,11 @@ public final class PetitionManager
 		NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
 		htmlMsg.setHtml(htmlContent.toString());
 		activeChar.sendPacket(htmlMsg);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final PetitionManager _instance = new PetitionManager();
 	}
 }

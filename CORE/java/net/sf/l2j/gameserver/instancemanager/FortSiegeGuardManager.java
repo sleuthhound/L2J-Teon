@@ -90,7 +90,7 @@ public class FortSiegeGuardManager
 	 * Load guards.<BR>
 	 * <BR>
 	 */
-	private void loadSiegeGuard()
+	void loadSiegeGuard()
 	{
 		_siegeGuards.clear();
 		Connection con = null;

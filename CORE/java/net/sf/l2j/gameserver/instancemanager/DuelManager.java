@@ -26,13 +26,10 @@ public class DuelManager
 {
 	private static final Logger _log = Logger.getLogger(DuelManager.class.getName());
 	// =========================================================
-	private static DuelManager _instance;
 
-	public static final DuelManager getInstance()
+	public static DuelManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new DuelManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -192,5 +189,11 @@ public class DuelManager
 				duel.broadcastToTeam2(packet);
 			else if (duel.getPlayerB().getParty() != null && duel.getPlayerB().getParty().getPartyMembers().contains(player))
 				duel.broadcastToTeam1(packet);
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DuelManager _instance = new DuelManager();
 	}
 }

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -41,8 +42,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Rnd;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -52,25 +51,20 @@ import org.w3c.dom.Node;
  */
 public class DimensionalRiftManager
 {
-	private static Log _log = LogFactory.getLog(DimensionalRiftManager.class.getName());
-	private static DimensionalRiftManager _instance;
+	private static Logger _log = Logger.getLogger(DimensionalRiftManager.class.getName());
 	private FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>> _rooms = new FastMap<Byte, FastMap<Byte, DimensionalRiftRoom>>();
 	private final short DIMENSIONAL_FRAGMENT_ITEM_ID = 7079;
 
 	public static DimensionalRiftManager getInstance()
 	{
-		if (_instance == null)
-		{
-			_instance = new DimensionalRiftManager();
-			new Quest(635, "RiftQuest", "Dummy Quest shown in players' questlist when inside the rift");
-		}
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	private DimensionalRiftManager()
 	{
 		loadRooms();
 		loadSpawns();
+		new Quest(635, "RiftQuest", "Dummy Quest shown in players' questlist when inside the rift");
 	}
 
 	public DimensionalRiftRoom getRoom(byte type, byte room)
@@ -88,8 +82,7 @@ public class DimensionalRiftManager
 			ResultSet rs = s.executeQuery();
 			while (rs.next())
 			{
-				// 0 waiting room, 1 recruit, 2 soldier, 3 officer, 4 captain ,
-				// 5 commander, 6 hero
+				// 0 waiting room, 1 recruit, 2 soldier, 3 officer, 4 captain , 5 commander, 6 hero
 				byte type = rs.getByte("type");
 				byte room_id = rs.getByte("room_id");
 				// coords related
@@ -112,7 +105,7 @@ public class DimensionalRiftManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Can't load Dimension Rift zones. " + e);
+			_log.warning("Can't load Dimension Rift zones. " + e);
 		}
 		finally
 		{
@@ -169,11 +162,11 @@ public class DimensionalRiftManager
 											count = Integer.parseInt(attrs.getNamedItem("count").getNodeValue());
 											template = NpcTable.getInstance().getTemplate(mobId);
 											if (template == null)
-												_log.warn("Template " + mobId + " not found!");
+												_log.warning("Template " + mobId + " not found!");
 											if (!_rooms.containsKey(type))
-												_log.warn("Type " + type + " not found!");
+												_log.warning("Type " + type + " not found!");
 											else if (!_rooms.get(type).containsKey(roomId))
-												_log.warn("Room " + roomId + " in Type " + type + " not found!");
+												_log.warning("Room " + roomId + " in Type " + type + " not found!");
 											for (int i = 0; i < count; i++)
 											{
 												DimensionalRiftRoom riftRoom = _rooms.get(type).get(roomId);
@@ -201,7 +194,7 @@ public class DimensionalRiftManager
 		}
 		catch (Exception e)
 		{
-			_log.warn("Error on loading dimensional rift spawns: " + e);
+			_log.warning("Error on loading dimensional rift spawns: " + e);
 			e.printStackTrace();
 		}
 		_log.info("DimensionalRiftManager: Loaded " + countGood + " dimensional rift spawns, " + countBad + " errors.");
@@ -437,10 +430,16 @@ public class DimensionalRiftManager
 		showHtmlFile(player, "data/html/seven_signs/rift/Cheater.htm", npc);
 		if (!player.isGM())
 		{
-			_log.warn("Player " + player.getName() + "(" + player.getObjectId() + ") was cheating in dimension rift area!");
+			_log.warning("Player " + player.getName() + "(" + player.getObjectId() + ") was cheating in dimension rift area!");
 			Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName() + " tried to cheat in dimensional rift.", Config.DEFAULT_PUNISH);
 			player.closeNetConnection(); // kick
 			return;
 		}
+	}
+
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final DimensionalRiftManager _instance = new DimensionalRiftManager();
 	}
 }

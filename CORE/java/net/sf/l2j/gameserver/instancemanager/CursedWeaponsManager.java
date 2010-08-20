@@ -56,13 +56,10 @@ public class CursedWeaponsManager
 {
 	private static final Logger _log = Logger.getLogger(CursedWeaponsManager.class.getName());
 	// =========================================================
-	private static CursedWeaponsManager _instance;
-
-	public static final CursedWeaponsManager getInstance()
+	
+	public static CursedWeaponsManager getInstance()
 	{
-		if (_instance == null)
-			_instance = new CursedWeaponsManager();
-		return _instance;
+		return SingletonHolder._instance;
 	}
 
 	// =========================================================
@@ -73,21 +70,28 @@ public class CursedWeaponsManager
 	// Constructor
 	public CursedWeaponsManager()
 	{
+		init();
+	}
+
+	private void init()
+	{
 		_log.info("Initializing CursedWeaponsManager");
 		_cursedWeapons = new FastMap<Integer, CursedWeapon>();
+
 		if (!Config.ALLOW_CURSED_WEAPONS)
 			return;
+
 		load();
 		restore();
 		controlPlayers();
 		_log.info("Loaded : " + _cursedWeapons.size() + " cursed weapon(s).");
 	}
-
+	
 	// =========================================================
 	// Method - Private
 	public final void reload()
 	{
-		_instance = new CursedWeaponsManager();
+		init();
 	}
 
 	private final void load()
@@ -168,11 +172,10 @@ public class CursedWeaponsManager
 	{
 		if (Config.DEBUG)
 			System.out.print("  Restoring ... ");
-		java.sql.Connection con = null;
+		Connection con = null;
 		try
 		{
-			// Retrieve the L2PcInstance from the characters table of the
-			// database
+			// Retrieve the L2PcInstance from the characters table of the database
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = con.prepareStatement("SELECT itemId, playerId, playerKarma, playerPkKills, nbKills, endTime FROM cursed_weapons");
 			ResultSet rset = statement.executeQuery();
@@ -219,12 +222,11 @@ public class CursedWeaponsManager
 	private final void controlPlayers()
 	{
 		if (Config.DEBUG)
-			System.out.print("  Checking players ... ");
-		java.sql.Connection con = null;
+			System.out.print("Checking players...");
+		Connection con = null;
 		try
 		{
-			// Retrieve the L2PcInstance from the characters table of the
-			// database
+			// Retrieve the L2PcInstance from the characters table of the database
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement = null;
 			ResultSet rset = null;
@@ -456,7 +458,11 @@ public class CursedWeaponsManager
 		}
 		catch (Exception e)
 		{
-			/***/
 		}
+	}
+	@SuppressWarnings("synthetic-access")
+	private static class SingletonHolder
+	{
+		protected static final CursedWeaponsManager _instance = new CursedWeaponsManager();
 	}
 }

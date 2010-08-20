@@ -19,18 +19,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /*
  * Author: MHard
  */
 public abstract class ClanHallSiege
 {
-	protected static Log _log = LogFactory.getLog(ClanHallSiege.class.getName());
+	protected static Logger _log = Logger.getLogger(ClanHallSiege.class.getName());
 	private Calendar _siegeDate;
 	public Calendar _siegeEndDate;
 	private boolean _isInProgress = false;
@@ -50,9 +48,9 @@ public abstract class ClanHallSiege
 			rs.close();
 			statement.close();
 		}
-		catch (Exception e)
+		catch (SQLException e)
 		{
-			_log.error("Exception: can't get clanhall siege date: " + e.getMessage(), e);
+			_log.warning("Exception: can't get clanhall siege date: " + e);
 		}
 		finally
 		{
@@ -61,7 +59,7 @@ public abstract class ClanHallSiege
 				if (con != null)
 					con.close();
 			}
-			catch (SQLException e)
+			catch (Exception e)
 			{
 				e.printStackTrace();
 			}
@@ -91,9 +89,14 @@ public abstract class ClanHallSiege
 				statement.execute();
 				statement.close();
 			}
+			catch (SQLException e)
+			{
+				_log.warning("Exception: can't save clanhall siege date: " + e);
+				e.getMessage();
+			}
 			catch (Exception e)
 			{
-				_log.error("Exception: can't save clanhall siege date: " + e.getMessage(), e);
+				e.printStackTrace();
 			}
 			finally
 			{
@@ -102,9 +105,8 @@ public abstract class ClanHallSiege
 					if (con != null)
 						con.close();
 				}
-				catch (SQLException e)
+				catch (Exception e)
 				{
-					e.printStackTrace();
 				}
 			}
 		}
