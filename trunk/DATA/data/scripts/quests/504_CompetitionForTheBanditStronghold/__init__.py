@@ -1,6 +1,6 @@
 # L2JTeon
 import sys
-from net.sf.l2j.gameserver.instancemanager.clanhallsiege import BanditStrongholdSiege
+from net.sf.l2j.gameserver.instancemanager.clanhallsiege import BanditStrongholdManager
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -56,7 +56,7 @@ class Quest (JQuest) :
 		if not clan.getLeaderName() == player.getName():
 			htmltext = "a6.htm"
 			return htmltext
-		if BanditStrongholdSiege.getInstance().isRegistrationPeriod():
+		if BanditStrongholdManager.getInstance().isRegistrationPeriod():
 			if npcId == Messenger :
 				if cond == 0 :
 					htmltext = "a1.htm"
