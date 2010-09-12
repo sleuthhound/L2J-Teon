@@ -55,7 +55,7 @@ public final class RequestEnchantItem extends L2GameClientPacket {
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null || _objectId == 0)
 			return;
-		if (activeChar.getFloodProtectors().getUseItem().tryPerformAction("enchant"))
+		if (!activeChar.getFloodProtectors().getUseItem().tryPerformAction("enchant"))
 		{
 			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;

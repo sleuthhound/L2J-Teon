@@ -1085,11 +1085,6 @@ public final class Config
 	public static int NPC_ANNOUNCER_MAX_LVL_TO_ANNOUNCE;
 	public static boolean ALLOW_NPC_ANNOUNCER;
 	public static boolean NPC_ANNOUNCER_DONATOR_ONLY;
-	/** Offline Trade & Crafting */
-	public static boolean ALLOW_OFFLINE_TRADE;
-	public static boolean ALLOW_OFFLINE_CRAFT;
-	public static boolean OFFLINE_TARGET_COLOR;
-    public static int OFFLINE_COLOR;
 	// * Dimensional Drift *//
 	/**
 	 * Minimum size of a party that may enter dimensional rift, if number becomes lower then defined number, the party will be teleported back.
@@ -2668,13 +2663,6 @@ public final class Config
 					NPC_ANNOUNCER_MAX_ANNOUNCES_PER_DAY = Integer.parseInt(L2JTeonCustom.getProperty("AnnouncesPerDay", "20"));
 					NPC_ANNOUNCER_MIN_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MinLevelToAnnounce", "0"));
 					NPC_ANNOUNCER_MAX_LVL_TO_ANNOUNCE = Integer.parseInt(L2JTeonCustom.getProperty("MaxLevelToAnnounce", "80"));
-					// ************************** //
-					// *Offline Trade & Crafting* //
-					// ************************** //
-	                ALLOW_OFFLINE_TRADE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowOfflineTrade", "False"));
-	                ALLOW_OFFLINE_CRAFT = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowOfflineCraft", "False"));
-	                OFFLINE_TARGET_COLOR = Boolean.parseBoolean(L2JTeonCustom.getProperty("OfflineTargetColor", "False"));
-	                OFFLINE_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("OfflineColor", "00FFFF"));
 					// ********************//
 					/* Serv. Customizes. */
 					// ********************//

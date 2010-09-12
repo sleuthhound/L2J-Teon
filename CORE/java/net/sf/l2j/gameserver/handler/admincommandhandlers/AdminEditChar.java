@@ -31,7 +31,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.GmAudit;
-import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -643,17 +642,8 @@ public class AdminEditChar implements IAdminCommandHandler
 		if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
 			throw new IllegalArgumentException("Malformed IPv4 number");
 
-		boolean findDisconnected = false;
-
-		if (IpAdress.equals("disconnected"))
-			findDisconnected = true;
-		else if (!IpAdress.matches("^(?:(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))\\.){3}(?:[0-9]|[1-9][0-9]|1[0-9][0-9]|2(?:[0-4][0-9]|5[0-5]))$"))
-			throw new IllegalArgumentException("Malformed IPv4 number");
-
 		Collection<L2PcInstance> allPlayers = L2World.getInstance().getAllPlayers();
 		L2PcInstance[] players = allPlayers.toArray(new L2PcInstance[allPlayers.size()]);
-
-		L2GameClient client;
 
 		int CharactersFound = 0;
 		String name, ip = "0.0.0.0";
@@ -664,24 +654,10 @@ public class AdminEditChar implements IAdminCommandHandler
 			ip = player.getClient().getConnection().getInetAddress().getHostAddress();
 			if (ip.equals(IpAdress))
 			{
-				client = activeChar.getClient();
-				if (client.isDetached()){
-					if (!findDisconnected)
-						continue;
-				} else if (findDisconnected)
-					continue;
-				else{
-					ip=player.getClient().getConnection().getInetAddress().getHostAddress();
-					if (!ip.equals(IpAdress))
-						continue;
-				}
-
 				name = activeChar.getName();
 				CharactersFound = CharactersFound + 1;
-				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + activeChar.getTemplate().className + "</td><td width=40>" + activeChar.getLevel() + "</td></tr>");
-
-
-			}
+                replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + player.getTemplate().className + "</td><td width=40>" + player.getLevel() + "</td></tr>"); 
+            }
 			if (CharactersFound > 20)
 				break;
 		}
