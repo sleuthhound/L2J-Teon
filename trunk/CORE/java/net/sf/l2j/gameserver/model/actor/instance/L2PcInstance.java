@@ -264,8 +264,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	};
 	private static final int[] COMMON_CRAFT_LEVELS = { 5, 20, 28, 36, 43, 49, 55, 62 };
 
-	public boolean offline_shop_enabled = false;
-
 	// private static Logger _log = Logger.getLogger(L2PcInstance.class.getName());
 	public class AIAccessor extends L2Character.AIAccessor
 	{
@@ -3287,11 +3285,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void closeNetConnection()
 	{
 		if (_client != null)
-			//_client.close(new LeaveWorld());
-			if (_client.isDetached())
-				_client.cleanMe(true);
-			else if (!_client.getConnection().isClosed())
-				_client.close(new LeaveWorld());
+            _client.close(new LeaveWorld()); 
 	}
 
 	/**

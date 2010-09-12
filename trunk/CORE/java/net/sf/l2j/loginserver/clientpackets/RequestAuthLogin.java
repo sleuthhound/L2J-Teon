@@ -127,12 +127,6 @@ public class RequestAuthLogin extends L2LoginClientPacket
 						// kick the other client
 						oldClient.close(LoginFailReason.REASON_ACCOUNT_IN_USE);
 						lc.removeAuthedLoginClient(_user);
-
-						GameServerInfo gsi;
-
-						if ((gsi = lc.getAccountOnGameServer(_user)) != null)
-							gsi.getGameServerThread().kickPlayer(_user);
-
 					}
 					break;
 				case ALREADY_ON_GS:
