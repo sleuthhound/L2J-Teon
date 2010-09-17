@@ -191,12 +191,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 						return;
 					}
-					if (!player.getFloodProtectors().getSubclass().tryPerformAction("subclass"))
-					{
-						player.sendMessage("Don't change sub classes so rapidly, please wait.");
-						player.sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
 					if (player.getTotalSubClasses() == Config.MAX_SUBCLASSES)
 					{
 						player.sendMessage("You can now only change one of your current sub classes.");
@@ -247,12 +241,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 					if (Olympiad.getInstance().isRegisteredInComp(player) || player.getOlympiadGameId() > 0)
 					{
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
-						return;
-					}
-					if (!player.getFloodProtectors().getSubclass().tryPerformAction("subclass"))
-					{
-						player.sendMessage("Don't change sub classes so rapidly, please wait.");
-						player.sendPacket(ActionFailed.STATIC_PACKET);
 						return;
 					}
 					content.append("Change Subclass:<br>Which of the following sub classes would you like to change?<br>");
