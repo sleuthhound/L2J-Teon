@@ -80,7 +80,6 @@ public final class Config
 	public static final String OLYMPIAD_FILE              = "./config/custom/Olympiad.properties";
 	public static final String AUGMENT_CONFIG_FILE        = "./config/custom/Augment.properties";
 	public static final String DEV_CONFIG_FILE            = "./config/custom/Dev.properties";
-
 	/** Server and Datapack version */
 	public static String SERVER_VERSION;
 	public static String SERVER_BUILD_DATE;
@@ -183,7 +182,6 @@ public final class Config
 	public static float ORC_RAIDER_M_DMG;
 	public static float DWARF_M_DMG;
 	// Balance Classes END
-
 	// multiples damages Pet's and Mobs
 	public static float ALT_PETS_PHYSICAL_DAMAGE_MULTI;
 	public static float ALT_PETS_MAGICAL_DAMAGE_MULTI;
@@ -347,7 +345,6 @@ public final class Config
 	public static int GM_CAN_GIVE_DAMAGE;
 	public static int GM_DONT_TAKE_EXPSP;
 	public static int GM_DONT_TAKE_AGGRO;
-
 	/** The End GMacess.properties */
 	/** Start idfactory.properties */
 	/*
@@ -752,9 +749,7 @@ public final class Config
 	public static String PET_NAME_TEMPLATE;
 	/** Maximum number of characters per account */
 	public static int MAX_CHARACTERS_NUMBER_PER_ACCOUNT;
-	/** ************************************************** */
 	/** L2J Teon Mods Customizations -Begin * */
-	/** ************************************************** */
 	// * TVT Event Engine *//
 	public static String TVT_EVEN_TEAMS;
 	public static boolean TVT_ALLOW_INTERFERENCE;
@@ -853,7 +848,6 @@ public final class Config
 	public static int CHAMPION_REWARD_QTY;
 	/** ************************************************** */
 	/** L2J Teon Event Mods Customizations -End * */
-	/** ************************************************** */
 	/** ************************************************** */
 	/** L2J Teon Customizations -Begin * */
 	/** ************************************************** */
@@ -1282,7 +1276,6 @@ public final class Config
 	public static int BANKING_SYSTEM_GOLDBARS;
 	/** ************************************************** */
 	/** L2J Teon Customizations -End * */
-	/** ************************************************** */
 	/** ************************************************** **/
 	/** Fortress Settings -Begin **/
 	/** ************************************************** **/
@@ -2446,9 +2439,7 @@ public final class Config
 					e.printStackTrace();
 					throw new Error("Failed to Load " + RATES_CONFIG_FILE + " File.");
 				}
-				/** ************************************************** */
 				/** L2J Teon Mods Properties File -Begin * */
-				/** ************************************************** */
 				try
 				{
 					Properties L2JTeonEventMods = new Properties();
@@ -2491,17 +2482,17 @@ public final class Config
 					// -------------------- //
 					// Fortress Siege Event Engine //
 					// -------------------- //
-			           FortressSiege_EVEN_TEAMS = L2JTeonEventMods.getProperty("FortressSiegeEvenTeams", "BALANCE");
-			           FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeSameIPPlayersAllowed", "False"));
-			           FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowInterference", "False"));
-			           FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowPotions", "False"));
-			           FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowSummon", "False"));
-			           FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartRemoveAllEffects", "True"));
-			           FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartUnsummonPet", "True"));
-			           FortressSiege_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeReviveRecovery", "False"));
-			           FortressSiege_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAnnounceTeamStats", "False"));
-			           FortressSiege_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegePriceNoKills", "False"));
-			           FortressSiege_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeJoinWithCursedWeapon", "True"));
+			        FortressSiege_EVEN_TEAMS = L2JTeonEventMods.getProperty("FortressSiegeEvenTeams", "BALANCE");
+			        FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeSameIPPlayersAllowed", "False"));
+			        FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowInterference", "False"));
+			        FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowPotions", "False"));
+			        FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAllowSummon", "False"));
+			        FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartRemoveAllEffects", "True"));
+			        FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeOnStartUnsummonPet", "True"));
+			        FortressSiege_REVIVE_RECOVERY = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeReviveRecovery", "False"));
+			        FortressSiege_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeAnnounceTeamStats", "False"));
+			        FortressSiege_PRICE_NO_KILLS = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegePriceNoKills", "False"));
+			        FortressSiege_JOIN_CURSED = Boolean.parseBoolean(L2JTeonEventMods.getProperty("FortressSiegeJoinWithCursedWeapon", "True"));
 					// -------------------- //
 					// KvN Engine //
 					// -------------------- //
@@ -2775,9 +2766,6 @@ public final class Config
 					e.printStackTrace();
 					throw new Error("Failed to Load " + L2J_TEON_CUSTOM + " File.");
 				}
-				/** ************************************************** */
-				/** L2J Teon Voiced Properties File -End * */
-				/** ************************************************** */
 				// VoicedCommand Config
 				try
 				{
@@ -2801,7 +2789,7 @@ public final class Config
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					throw new Error("Failed to Load " + L2J_TEON_CUSTOM + " File.");
+					throw new Error("Failed to Load " + VOICED_COMMAND + " File.");
 				}
 				/** ************************************************** */
 				/** L2J Teon Custom Properties File -End * */
