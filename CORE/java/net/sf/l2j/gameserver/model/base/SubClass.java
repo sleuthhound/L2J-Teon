@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.model.base;
 
+import net.sf.l2j.Config;
+
 /**
  * Character Sub-Class Definition <BR>
  * Used to store key information about a character's sub-class.
@@ -23,9 +25,9 @@ package net.sf.l2j.gameserver.model.base;
 public final class SubClass
 {
 	private PlayerClass _class;
-	private long _exp = Experience.LEVEL[40];
+	private long    _exp            = Experience.LEVEL[Config.CUSTOM_SUBCLASS_LVL];
 	private int _sp = 0;
-	private byte _level = 40;
+	private byte    _level          = (byte)Config.CUSTOM_SUBCLASS_LVL;
 	private int _classIndex = 1;
 
 	public SubClass(int classId, long exp, int sp, byte level, int classIndex)
