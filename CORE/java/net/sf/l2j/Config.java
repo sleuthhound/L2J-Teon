@@ -806,6 +806,7 @@ public final class Config
 	public static boolean ALLOW_WEDDING;
 	public static boolean ALLOW_TRADEOFF_VOICE_COMMAND;
 	public static boolean ONLINE_VOICE_COMMAND;
+	public static boolean ENABLE_INFO;
 	/** This is the cost to get married. */
 	public static int WEDDING_PRICE;
 	/** This checks if a player should get punished for infedelity. */
@@ -2774,6 +2775,7 @@ public final class Config
 					// ********************//
 					ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("TradeOffCommand", "False"));
 					ONLINE_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("OnlineVCommand", "False"));
+					ENABLE_INFO = Boolean.parseBoolean(VoicedCommand.getProperty("InfoCommand","False"));
 					BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(VoicedCommand.getProperty("BankingSystemEnabled", "False"));
 					BANKING_SYSTEM_ADENA = Integer.parseInt(VoicedCommand.getProperty("BankingSystemAdena", "0"));
 					BANKING_SYSTEM_GOLDBARS = Integer.parseInt(VoicedCommand.getProperty("BankingSystemGoldBars", "0"));
