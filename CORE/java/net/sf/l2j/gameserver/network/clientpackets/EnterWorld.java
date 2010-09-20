@@ -265,6 +265,16 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.updatePvPColor(activeChar.getPvpKills());
 		if (activeChar.getPkKills() >= Config.PK_AMOUNT1 && Config.PK_COLOR_SYSTEM_ENABLED)
 			activeChar.updatePkColor(activeChar.getPkKills());
+         // Apply color settings to clan leader when entering 
+        if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL) 
+        {  
+        	activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR); 
+        }
+
+        if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_TITLE_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_TITLE_CLAN_LEVEL) 
+        {  
+        	activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_TITLE); 
+        }
 		// Color System checks - End =======================================================
 		// restore info about withdraw state
 		if (Config.ALLOW_WITHDRAW_CWH_CMD)
