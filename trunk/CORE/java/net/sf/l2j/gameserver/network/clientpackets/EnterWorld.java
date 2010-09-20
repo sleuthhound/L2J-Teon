@@ -266,8 +266,6 @@ public class EnterWorld extends L2GameClientPacket
 		if (activeChar.getPkKills() >= Config.PK_AMOUNT1 && Config.PK_COLOR_SYSTEM_ENABLED)
 			activeChar.updatePkColor(activeChar.getPkKills());
 		// Color System checks - End =======================================================
-		if (Config.ALLOW_AUTOHERBS_CMD)
-			activeChar.getAutoLootHerbs();
 		// restore info about withdraw state
 		if (Config.ALLOW_WITHDRAW_CWH_CMD)
 			activeChar.getCanWithdrawCWH();
