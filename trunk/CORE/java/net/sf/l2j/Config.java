@@ -1124,6 +1124,13 @@ public final class Config
 	public static int CLAN_SP_THIRD;
 	public static int CLAN_SP_FORTH;
 	public static int CLAN_SP_FIFTH;
+  	public static boolean CLAN_LEADER_COLOR_ENABLED; 
+	public static int     CLAN_LEADER_COLOR; 
+    public static int     CLAN_LEADER_COLOR_CLAN_LEVEL; 
+    public static boolean CLAN_LEADER_TITLE_ENABLED; 
+	public static int     CLAN_LEADER_TITLE; 
+    public static int     CLAN_LEADER_TITLE_CLAN_LEVEL; 
+
 	// * Server Customizations *//
 	/**
 	 * Safe Sigterm will disable some features during restart/shutdown to prevent enchant and sublcass exploits! *
@@ -1634,6 +1641,13 @@ public final class Config
 					CLAN_SP_THIRD = Integer.parseInt(clanSettings.getProperty("ClanSpThird", "500000"));
 					CLAN_SP_FORTH = Integer.parseInt(clanSettings.getProperty("ClanSpForth", "1400000"));
 					CLAN_SP_FIFTH = Integer.parseInt(clanSettings.getProperty("ClanSpFifth", "3500000"));
+       		        CLAN_LEADER_COLOR_ENABLED = Boolean.parseBoolean(clanSettings.getProperty("ClanLeaderNameColorEnabled", "False")); 
+				    CLAN_LEADER_COLOR = Integer.decode("0x" + clanSettings.getProperty("ClanLeaderColor", "00BFFF")); 
+				    CLAN_LEADER_COLOR_CLAN_LEVEL = Integer.parseInt(clanSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
+       		        CLAN_LEADER_TITLE_ENABLED = Boolean.parseBoolean(clanSettings.getProperty("ClanLeaderTitleColorEnabled", "False")); 
+				    CLAN_LEADER_TITLE = Integer.decode("0x" + clanSettings.getProperty("ClanLeaderTitle", "00BFFF")); 
+				    CLAN_LEADER_TITLE_CLAN_LEVEL = Integer.parseInt(clanSettings.getProperty("ClanLeaderTitleAtClanLevel", "1"));
+
 				}
 				catch (Exception e)
 				{
