@@ -45,40 +45,41 @@ public final class Config
 {
 	protected static final Logger _log = Logger.getLogger(Config.class.getName());
 	/** Configuration files */
-	public static final String CONFIGURATION_FILE = "./config/server.properties";
-	public static final String LOGIN_CONFIGURATION_FILE = "./config/loginserver.properties";
-	public static final String ALT_SETTINGS_FILE = "./config/altsettings.properties";
-	public static final String CLAN_SETTINGS_FILE = "./config/clan.properties";
-	public static final String CLANHALL_CONFIG_FILE = "./config/clanhall.properties";
-	public static final String COMMAND_PRIVILEGES_FILE = "./config/command-privileges.properties";
+	public static final String CONFIGURATION_FILE         = "./config/server.properties";
+	public static final String LOGIN_CONFIGURATION_FILE   = "./config/loginserver.properties";
+	public static final String ALT_SETTINGS_FILE          = "./config/altsettings.properties";
+	public static final String CLAN_SETTINGS_FILE         = "./config/clan.properties";
+	public static final String CLANHALL_CONFIG_FILE       = "./config/clanhall.properties";
+	public static final String COMMAND_PRIVILEGES_FILE    = "./config/command-privileges.properties";
 	public static final String FLOODPROTECTOR_CONFIG_FILE = "./config/custom/FloodProtector.properties";
-	public static final String GM_ACCESS_FILE = "./config/GMAccess.properties";
-	public static final String ENCHANT_CONFIG_FILE = "./config/enchant.properties";
-	public static final String ID_CONFIG_FILE = "./config/idfactory.properties";
-	public static final String IRC_FILE = "./config/irc.properties";
-	public static final String OPTIONS_FILE = "./config/options.properties";
-	public static final String OTHER_CONFIG_FILE = "./config/other.properties";
-	public static final String RATES_CONFIG_FILE = "./config/rates.properties";
-	public static final String PVP_CONFIG_FILE = "./config/pvp.properties";
-	public static final String TELNET_FILE = "./config/telnet.properties";
-    public static final String MMO_CONFIG_FILE = "./config/mmo.properties";
-	public static final String SERVER_VERSION_FILE = "./config/l2j-version.properties";
-	public static final String DATAPACK_VERSION_FILE = "./config/l2jdp-version.properties";
-	public static final String SIEGE_CONFIGURATION_FILE = "./config/siege.properties";
-	public static final String HEXID_FILE = "./config/hexid.txt";
-	public static final String CHAT_FILTER_FILE = "./config/ChatFilter.txt";
-	public static final String SEVENSIGNS_FILE = "./config/sevensigns.properties";
-	public static final String L2JMOD_CONFIG_FILE = "./config/l2jmods.properties";
-	public static final String FS_CONFIG_FILE = "./config/bosses/foursepulchers.properties";
-	public static final String L2J_TEON_CUSTOM = "./config/custom/L2JTeonCustom.properties";
-	public static final String L2JTEON_MODS = "./config/custom/L2JTeonMods.properties";
-	public static final String FEATURE_CONFIG_FILE = "./config/custom/Feature.properties";
-	public static final String GENERAL_CONFIG_FILE = "./config/custom/General.properties";
-	public static final String BALANCE_CONFIG_FILE = "./config/custom/BalanceClasses.properties";
-	public static final String CUSTOM_TABLES_FILE = "./config/custom/CustomTables.properties";
-	public static final String OLYMPIAD_FILE = "./config/custom/Olympiad.properties";
-	public static final String AUGMENT_CONFIG_FILE = "./config/custom/Augment.properties";
-	public static final String DEV_CONFIG_FILE = "./config/custom/Dev.properties";
+	public static final String GM_ACCESS_FILE             = "./config/GMAccess.properties";
+	public static final String ENCHANT_CONFIG_FILE        = "./config/enchant.properties";
+	public static final String ID_CONFIG_FILE             = "./config/idfactory.properties";
+	public static final String IRC_FILE                   = "./config/irc.properties";
+	public static final String OPTIONS_FILE               = "./config/options.properties";
+	public static final String OTHER_CONFIG_FILE          = "./config/other.properties";
+	public static final String RATES_CONFIG_FILE          = "./config/rates.properties";
+	public static final String PVP_CONFIG_FILE            = "./config/pvp.properties";
+	public static final String TELNET_FILE                = "./config/telnet.properties";
+    public static final String MMO_CONFIG_FILE            = "./config/mmo.properties";
+	public static final String SERVER_VERSION_FILE        = "./config/l2j-version.properties";
+	public static final String DATAPACK_VERSION_FILE      = "./config/l2jdp-version.properties";
+	public static final String SIEGE_CONFIGURATION_FILE   = "./config/siege.properties";
+	public static final String HEXID_FILE                 = "./config/hexid.txt";
+	public static final String CHAT_FILTER_FILE           = "./config/ChatFilter.txt";
+	public static final String SEVENSIGNS_FILE            = "./config/sevensigns.properties";
+	public static final String L2JMOD_CONFIG_FILE         = "./config/l2jmods.properties";
+	public static final String FS_CONFIG_FILE             = "./config/bosses/foursepulchers.properties";
+	public static final String L2J_TEON_CUSTOM            = "./config/custom/L2JTeonCustom.properties";
+	public static final String L2JTEON_MODS               = "./config/custom/L2JTeonMods.properties";
+	public static final String VOICED_COMMAND             = "./config/custom/L2JTeonMods.properties";
+	public static final String FEATURE_CONFIG_FILE        = "./config/custom/Feature.properties";
+	public static final String GENERAL_CONFIG_FILE        = "./config/custom/General.properties";
+	public static final String BALANCE_CONFIG_FILE        = "./config/custom/BalanceClasses.properties";
+	public static final String CUSTOM_TABLES_FILE         = "./config/custom/CustomTables.properties";
+	public static final String OLYMPIAD_FILE              = "./config/custom/Olympiad.properties";
+	public static final String AUGMENT_CONFIG_FILE        = "./config/custom/Augment.properties";
+	public static final String DEV_CONFIG_FILE            = "./config/custom/Dev.properties";
 
 	/** Server and Datapack version */
 	public static String SERVER_VERSION;
@@ -1051,10 +1052,6 @@ public final class Config
 	/** Allow walker NPC ? */
 	public static boolean ALLOW_NPC_WALKERS;
 	// * Player Commands *//
-	/**
-	 * Config allowing players to select auto-loot enabled or disabled for themselves.
-	 */
-	public static boolean ALLOW_AUTOHERBS_CMD;
 	/**
 	 * Allows clan leaders the power allow clan members withdraw items from clan warehouse.
 	 */
@@ -2591,8 +2588,6 @@ public final class Config
 					/** L2Walker Protection by Danielmwx **/
 					ALLOW_L2WALKER_PROTECTION = Boolean.parseBoolean(L2JTeonCustom.getProperty("L2WalkerProtection", "False"));
 					PVP_SAME_IP = Boolean.parseBoolean(L2JTeonCustom.getProperty("PvPSameIP", "False"));
-					ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("TradeOffCommand", "False"));
-					ONLINE_VOICE_COMMAND = Boolean.parseBoolean(L2JTeonCustom.getProperty("OnlineVCommand", "False"));
 					// ********************//
 					/* Character Statistics */
 					// ********************//
@@ -2641,11 +2636,6 @@ public final class Config
 					// ********************//
 					MIN_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MinMonsterAnimation", "0"));
 					MAX_MONSTER_ANIMATION = Integer.parseInt(L2JTeonCustom.getProperty("MaxMonsterAnimation", "0"));
-					// ********************//
-					/* Player Command */
-					// ********************//
-					ALLOW_AUTOHERBS_CMD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowAutoHerbsCommand", "False"));
-					ALLOW_WITHDRAW_CWH_CMD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPlayersWithdrawCWH", "False"));
 					// ********************//
 					/* Announcements */
 					// ********************//
@@ -2732,12 +2722,6 @@ public final class Config
 							}
 					}
 					// ************************//
-					/* Banking System */
-					// **********************//
-					BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("BankingSystemEnabled", "False"));
-					BANKING_SYSTEM_ADENA = Integer.parseInt(L2JTeonCustom.getProperty("BankingSystemAdena", "0"));
-					BANKING_SYSTEM_GOLDBARS = Integer.parseInt(L2JTeonCustom.getProperty("BankingSystemGoldBars", "0"));
-					// ************************//
 					/* PvP E Pk Color System */
 					// **********************//
 					PVP_COLOR_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnablePvPColorSystem", "False"));
@@ -2769,6 +2753,32 @@ public final class Config
 					ALLOW_PK_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPkRewardSystem", "False"));
 					PK_REWARD_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardItem", "57"));
 					PK_REWARD_COUNT = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardAmount", "1"));
+					
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+					throw new Error("Failed to Load " + L2J_TEON_CUSTOM + " File.");
+				}
+				/** ************************************************** */
+				/** L2J Teon Voiced Properties File -End * */
+				/** ************************************************** */
+				// VoicedCommand Config
+				try
+				{
+					Properties VoicedCommand = new Properties();
+					is = new FileInputStream(new File(VOICED_COMMAND));
+					VoicedCommand.load(is);
+					// ********************//
+					/* Player Command */
+					// ********************//
+					ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("TradeOffCommand", "False"));
+					ONLINE_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("OnlineVCommand", "False"));
+					BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(VoicedCommand.getProperty("BankingSystemEnabled", "False"));
+					BANKING_SYSTEM_ADENA = Integer.parseInt(VoicedCommand.getProperty("BankingSystemAdena", "0"));
+					BANKING_SYSTEM_GOLDBARS = Integer.parseInt(VoicedCommand.getProperty("BankingSystemGoldBars", "0"));
+					ALLOW_WITHDRAW_CWH_CMD = Boolean.parseBoolean(VoicedCommand.getProperty("AllowPlayersWithdrawCWH", "False"));
+
 				}
 				catch (Exception e)
 				{
@@ -3308,8 +3318,6 @@ public final class Config
 			AUTO_LOOT = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLootHerbs"))
 			AUTO_LOOT_HERBS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("AllowAutoHerbsCommand"))
-			ALLOW_AUTOHERBS_CMD = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("DisableGradePenalties"))
 			DISABLE_GRADE_PENALTIES = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("DisableWeightPenalties"))
