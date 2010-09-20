@@ -849,15 +849,26 @@
   <for>
   </for>
 </skill>
-<skill id="326" levels="1" name="Build Advanced Headquarters">
+ <skill id="326" levels="1" name="Build Advanced Headquarters">
   <set name="target" val="TARGET_NONE"/>
-  <set name="hitTime" val="4000"/>
+  <set name="mpInitialConsume" val="30"/>
+  <set name="itemConsumeId" val="2131"/>
+  <set name="itemConsumeCount" val="300"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="reuseDelay" val="1800000"/>
+   <set name="hitTime" val="4000"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
+  <set name="skillType" val="SIEGEFLAG"/>
+   <set name="operateType" val="OP_ACTIVE"/>
+   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+   <for>
+  	<effect name="Buff" time="7200" count="1" val="0">
+      <mul order="0x30" stat="maxHp" val="2."/>
+   </effect>
+   </for>
+ </skill>
 <skill id="327" levels="1" name="Wyvern Aegis">
   <set name="mpConsume" val="69"/>
   <set name="itemConsumeId" val="3031"/>
