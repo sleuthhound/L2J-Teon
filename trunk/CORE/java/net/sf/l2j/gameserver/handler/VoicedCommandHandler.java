@@ -20,6 +20,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Banking;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.OnlinePlayers;
+import net.sf.l2j.gameserver.handler.voicedcommandhandlers.info;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayersWithdrawCWH;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
@@ -49,6 +50,8 @@ public class VoicedCommandHandler
 			registerVoicedCommandHandler(new Banking());
 		if (Config.ONLINE_VOICE_COMMAND)
 			registerVoicedCommandHandler(new OnlinePlayers());
+		if (Config.ENABLE_INFO)
+			registerVoicedCommandHandler(new info());
 		if (Config.ALLOW_TRADEOFF_VOICE_COMMAND)
 			registerVoicedCommandHandler(new tradeoff());
 		registerVoicedCommandHandler(new PlayersWithdrawCWH());
