@@ -68,11 +68,10 @@ public final class Config
 	public static final String HEXID_FILE                 = "./config/hexid.txt";
 	public static final String CHAT_FILTER_FILE           = "./config/ChatFilter.txt";
 	public static final String SEVENSIGNS_FILE            = "./config/sevensigns.properties";
-	public static final String L2JMOD_CONFIG_FILE         = "./config/l2jmods.properties";
 	public static final String FS_CONFIG_FILE             = "./config/bosses/foursepulchers.properties";
 	public static final String L2J_TEON_CUSTOM            = "./config/custom/L2JTeonCustom.properties";
 	public static final String L2JTEON_MODS               = "./config/custom/L2JTeonMods.properties";
-	public static final String VOICED_COMMAND             = "./config/custom/L2JTeonMods.properties";
+	public static final String VOICED_COMMAND             = "./config/custom/VoicedCommand.properties";
 	public static final String FEATURE_CONFIG_FILE        = "./config/custom/Feature.properties";
 	public static final String GENERAL_CONFIG_FILE        = "./config/custom/General.properties";
 	public static final String BALANCE_CONFIG_FILE        = "./config/custom/BalanceClasses.properties";
