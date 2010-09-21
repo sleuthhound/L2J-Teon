@@ -701,10 +701,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
-	protected ForceBuff _forceBuff; 
-	
-	private int _lastKillerId = 0;
-	
 	/**
 	 * Skill casting information (used to queue when several skills are cast in a short time) *
 	 */
@@ -4461,15 +4457,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (checkIfPvP(target) && targetPlayer.getPvpFlag() != 0 || isInsideZone(ZONE_PVP) && targetPlayer.isInsideZone(ZONE_PVP)) // Player is inside pvp zone and and Target player is inside pvp zone
 		{
 			increasePvpKills();
-			if (targetPlayer.getLastKillerId() != getObjectId())
-				increasePvpKills();
 			return;
 		}
 		if (targetPlayer.getPvpFlag() != 0)
 		{
 			increasePvpKills();
-			if (targetPlayer.getLastKillerId() != getObjectId())
-				increasePvpKills();
 			return;
 		}
 		else
@@ -4493,8 +4485,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				increasePkKillsAndKarma(targetPlayer.getLevel());
 		}
 	}
-	targetPlayer.setLastKillerId(getObjectId());
-}
 
 	/**
 	 * Increase the pvp kills count and send the info to the player
@@ -11369,15 +11359,5 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void updateFOSTitleFlag(){
 		FortressSiege.setTitleSiegeFlags(this);
-	}
-	
-	public final int getLastKillerId()
-	{
-	return _lastKillerId;
-	}
-	
-	public final void setLastKillerId(int id)
-	{
-	_lastKillerId = id;
 	}
 }
