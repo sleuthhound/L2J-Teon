@@ -814,6 +814,13 @@ public class Fort
 
 	public final FortSiege getSiege()
 	{
+		if(_siege == null)
+		{
+			_siege = new FortSiege(new Fort[]
+			{
+				this
+			});
+		}
 		return _siege;
 	}
 

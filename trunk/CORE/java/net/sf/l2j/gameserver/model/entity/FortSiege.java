@@ -236,7 +236,6 @@ public class FortSiege
 		_fort = fort;
 		// ***_siegeGuardManager = new SiegeGuardManager(getFort());
 		checkAutoTask();
-		FortSiegeManager.getInstance().addSiege(this);
 	}
 
 	public void setHasCastle()
@@ -252,11 +251,14 @@ public class FortSiege
 	 */
 	public void endSiege()
 	{
-		if (getIsInProgress())
+		if(getIsInProgress())
 		{
 			announceToPlayer("The siege of " + getFort().getName() + " has finished!", false);
-			if (getFort().getOwnerId() <= 0 && !_hasCastle)
+			
+			if(getFort().getOwnerId() <= 0 && !_hasCastle)
+			{
 				announceToPlayer("The siege of " + getFort().getName() + " has ended in a draw.", false);
+			}
 			removeFlags(); // Removes all flags. Note: Remove flag before
 			// teleporting players
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport
