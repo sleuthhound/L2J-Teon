@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
@@ -237,6 +238,14 @@ public final class UseItem extends L2GameClientPacket
 				activeChar.sendMessage("Your status does not allow you to do that.");
 				return;
 			}
+		    // If Player isn't Gm and have Enchant item > 10 he will be jailed!
+			 if (!activeChar.isGM() && item.getEnchantLevel() > Config.MAX_ITEM_ENCHANT_KICK)
+		    {
+             activeChar.sendMessage("You have been kicked for using an item over +11!");
+			 Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
+			 activeChar.closeNetConnection();
+			 return;
+	        }  			 
 			int bodyPart = item.getItem().getBodyPart();
 			// Prevent player to remove the weapon on special conditions
 			if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted() || activeChar._inEventCTF && activeChar._haveFlagCTF) && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND))

@@ -344,6 +344,8 @@ public final class Config
 	public static int GM_CAN_GIVE_DAMAGE;
 	public static int GM_DONT_TAKE_EXPSP;
 	public static int GM_DONT_TAKE_AGGRO;
+	public static int MAX_ITEM_ENCHANT_KICK;
+
 	/** The End GMacess.properties */
 	/** Start idfactory.properties */
 	/*
@@ -1742,6 +1744,7 @@ public final class Config
 					ENCHANT_MAX_ALLOWED_WEAPON = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedWeapon", "25"));
 					ENCHANT_MAX_ALLOWED_ARMOR = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedArmor", "25"));
 					ENCHANT_MAX_ALLOWED_JEWELRY = Integer.parseInt(Enchant.getProperty("EnchantMaxAllowedJewelry", "25"));
+					MAX_ITEM_ENCHANT_KICK = Integer.parseInt(Enchant.getProperty("EnchantKick", "11"));
 
 				}
 				catch (Exception e)
