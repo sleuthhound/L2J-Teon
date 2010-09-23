@@ -71,7 +71,7 @@ public final class Config
 	public static final String FS_CONFIG_FILE             = "./config/bosses/foursepulchers.properties";
 	public static final String L2J_TEON_CUSTOM            = "./config/custom/L2JTeonCustom.properties";
 	public static final String L2JTEON_MODS               = "./config/custom/L2JTeonMods.properties";
-	public static final String VOICED_COMMAND             = "./config/custom/VoicedCommand.properties";
+	public static final String VOICE_COMMAND              = "./config/custom/VoicedCommand.properties";
 	public static final String FEATURE_CONFIG_FILE        = "./config/custom/Feature.properties";
 	public static final String GENERAL_CONFIG_FILE        = "./config/custom/General.properties";
 	public static final String BALANCE_CONFIG_FILE        = "./config/custom/BalanceClasses.properties";
@@ -2772,7 +2772,7 @@ public final class Config
 				try
 				{
 					Properties VoicedCommand = new Properties();
-					is = new FileInputStream(new File(VOICED_COMMAND));
+					is = new FileInputStream(new File(VOICE_COMMAND));
 					VoicedCommand.load(is);
 					// ********************//
 					/* Player Command */
@@ -2791,7 +2791,7 @@ public final class Config
 				catch (Exception e)
 				{
 					e.printStackTrace();
-					throw new Error("Failed to Load " + VOICED_COMMAND + " File.");
+					throw new Error("Failed to Load " + VOICE_COMMAND + " File.");
 				}
 				/** ************************************************** */
 				/** L2J Teon Custom Properties File -End * */
