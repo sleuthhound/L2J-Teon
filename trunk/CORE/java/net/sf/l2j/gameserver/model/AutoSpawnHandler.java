@@ -403,11 +403,15 @@ public class AutoSpawnHandler
 					newSpawn.setHeading(heading);
 				newSpawn.setAmount(spawnInst.getSpawnCount());
 				if (spawnInst._desDelay == 0)
+				{
 					newSpawn.setRespawnDelay(spawnInst._resDelay);
+				}
+				
 				// Add the new spawn information to the spawn table, but do not
 				// store it.
 				SpawnTable.getInstance().addNewSpawn(newSpawn, false);
 				L2NpcInstance npcInst = null;
+				
 				if (spawnInst._spawnCount == 1)
 				{
 					npcInst = newSpawn.doSpawn();
