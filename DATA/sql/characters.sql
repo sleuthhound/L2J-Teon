@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `event_points` DECIMAL( 11,0 )default NULL,
   `coupon` int(1) NOT NULL DEFAULT 0,
   `donator` decimal(1,0) NOT NULL DEFAULT 0,
+  `hero` decimal(1,0) NOT NULL DEFAULT 0,
   `death_penalty_level` int(2) NOT NULL DEFAULT '0',
   `chatban_timer` decimal(20,0) default '0',
   `chatban_reason` varchar(255) NOT NULL default '',
