@@ -4457,7 +4457,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (checkIfPvP(target) && targetPlayer.getPvpFlag() != 0 || isInsideZone(ZONE_PVP) && targetPlayer.isInsideZone(ZONE_PVP)) // Player is inside pvp zone and and Target player is inside pvp zone
 		{
 			increasePvpKills();
-			return;
+            if ( target instanceof L2PcInstance && Config.ANNOUNCE_PVP_KILL )
+            Announcements.getInstance().announceToPlayers("Player "+this.getName()+" hunted Player "+target.getName()); 
+            return; 
 		}
 		if (targetPlayer.getPvpFlag() != 0)
 		{
@@ -4473,6 +4475,10 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						// both way war = PvP
 						increasePvpKills();
+                        if ( target instanceof L2PcInstance && Config.ANNOUNCE_PVP_KILL ) // Announces a PvP kill 
+                        Announcements.getInstance().announceToPlayers("Player "+this.getName()+" hunted Player "+target.getName()); 
+                        else if ( target instanceof L2PcInstance && Config.ANNOUNCE_ALL_KILL ) // Announces a kill 
+                        Announcements.getInstance().announceToPlayers("Player "+this.getName()+" killed Player "+target.getName()); 
 						return;
 					}
 			// no war or one way war = PK
@@ -4480,9 +4486,15 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if (Config.KARMA_AWARD_PK_KILL)
 					increasePvpKills();
+                if ( target instanceof L2PcInstance && Config.ANNOUNCE_PVP_KILL ) // Announces a PvP kill 
+                Announcements.getInstance().announceToPlayers("Player "+this.getName()+" hunted Player "+target.getName()); 
 			}
 			else if (targetPlayer.getPvpFlag() == 0)
 				increasePkKillsAndKarma(targetPlayer.getLevel());
+            if ( target instanceof L2PcInstance && Config.ANNOUNCE_PK_KILL )
+                Announcements.getInstance().announceToPlayers("Player "+this.getName()+" has assassinated Player "+target.getName());
+            if ( target instanceof L2PcInstance && Config.ANNOUNCE_ALL_KILL )
+            Announcements.getInstance().announceToPlayers("Player "+this.getName()+" killed Player "+target.getName());
 		}
 	}
 
