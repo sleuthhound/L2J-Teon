@@ -618,29 +618,23 @@
   </for>
 </skill>
 <skill id="4552" levels="10" name="Hot Springs Cholera">
-  <table name="#rEvas"> 0 3 3 3 5 5 5 8 8 10 </table>
-  <table name="#accCombat"> 3 6 8 10 6 0 0 0 0 0 </table>
-  <set name="mpInitialConsume" val="14"/>
-  <set name="mpConsume" val="55"/>
-  <set name="power" val="0.0"/>
-  <set name="magicLvl" val="75"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
-  <set name="hitTime" val="0"/>
-  <set name="coolTime" val="0"/>
-  <set name="skillType" val="DEBUFF"/>
-  <set name="isMagic" val="true"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
-  <set name="aggroPoints" val="-100"/>
-  <for>
-   <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison"> <!-- needs core support for abnormal = spa_disease_b -->
-     <sub order="0x40" stat="rEvas" val="#rEvas"/>
-     <add order="0x40" stat="accCombat" val="#accCombat"/>
-   </effect>
-  </for>
-</skill>
+<!-- Done by Puka --> 
+<table name="#Tab-rEvas"> 0 3 3 3 5 5 5 8 8 10 </table> 
+<table name="#Tab-accCombat"> 3 6 8 10 6 0 0 0 0 0 </table> 
+<set name="mpConsume" val="69"/> 
+<set name="power" val="200"/> 
+<set name="target" val="TARGET_ONE"/> 
+<set name="hitTime" val="1"/> 
+<set name="skillType" val="BUFF"/> 
+<set name="operateType" val="OP_ACTIVE"/> 
+<set name="castRange" val="600"/> 
+<set name="effectRange" val="900"/> 
+<for> 
+<effect count="900" name="DamOverTime" time="4" val="0" abnormal="poison"> 
+<add order="0x40" stat="accCombat" val="#Tab-accCombat"/> 
+<sub order="0x40" stat="rEvas" val="#Tab-rEvas"/> 
+</effect> 
+</for> 
 <skill id="4553" levels="10" name="Hot Springs Flu">
   <table name="#pAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
   <table name="#pAtk"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85 </table>
@@ -666,29 +660,23 @@
   </for>
 </skill>
 <skill id="4554" levels="10" name="Hot Springs Malaria">
-  <table name="#mAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
-  <table name="#MpConsumeRate"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.84 </table>
-  <set name="mpInitialConsume" val="14"/>
-  <set name="mpConsume" val="55"/>
-  <set name="power" val="0.0"/>
-  <set name="magicLvl" val="75"/>
-  <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
-  <set name="hitTime" val="0"/>
-  <set name="coolTime" val="0"/>
-  <set name="skillType" val="DEBUFF"/>
-  <set name="isMagic" val="true"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
-  <set name="aggroPoints" val="-100"/>
-  <for>
-   <effect count="1" name="Debuff" time="3600" val="0" abnormal="poison"> <!-- needs core support for abnormal = spa_disease_d -->
-     <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
-     <mul order="0x30" stat="MpConsumeRate" val="#MpConsumeRate"/>
-   </effect>
-  </for>
-</skill>
+<!-- Done by Puka --> 
+<table name="#Tab-mAtkSpd">1.04 1.08 1.12 1.16 1.08 1 1 1 1 1</table>  
+<table name="#MpConsumeRate">1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.84</table>  
+<set name="mpConsume" val="55" />  
+<set name="power" val="200" />  
+<set name="target" val="TARGET_ONE" />  
+<set name="hitTime" val="1" />  
+<set name="skillType" val="BUFF" />  
+<set name="operateType" val="OP_ACTIVE" />  
+<set name="castRange" val="600" />  
+<set name="effectRange" val="900" />  
+<for> 
+<effect count="900" name="DamOverTime" time="4" val="0" abnormal="poison"> 
+<mul order="0x40" stat="mAtkSpd" val="#Tab-mAtkSpd" />  
+<mul order="0x40" stat="MpConsumeRate" val="#MpConsumeRate" />  
+</effect> 
+</for> 
 <skill id="4556" levels="1" name="Dispel Hot Spring Disease A_D">
 <!-- TODO -->
   <set name="mpConsume" val="69"/>
