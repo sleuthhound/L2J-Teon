@@ -1062,6 +1062,10 @@ public final class Config
 	// * Announcements and Messages *//
 	/* Show html window at login */
 	public static boolean SHOW_HTML_WELCOME;
+	public static boolean   SHOW_WELCOME_PM;
+	public static String    PM_FROM;
+	public static String    PM_TEXT1;
+	public static String    PM_TEXT2;
 	/** Announcement of GM Login. */
 	public static boolean SHOW_GM_LOGIN;
 	/** Show L2J License at login */
@@ -2653,6 +2657,10 @@ public final class Config
 					/* Announcements */
 					// ********************//
 					SHOW_HTML_WELCOME = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowTeonInfo", "True"));
+					SHOW_WELCOME_PM          = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowWelcomePM", "False"));
+					PM_FROM                  = L2JTeonCustom.getProperty("PMFrom", "Server");
+					PM_TEXT1                 = L2JTeonCustom.getProperty("PMText1", "Welcome to our server");
+					PM_TEXT2                 = L2JTeonCustom.getProperty("PMText2", "Visit our web http://Your.Web.Adress");
 					SHOW_GM_LOGIN = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowGMLogin", "False"));
 					SHOW_L2J_LICENSE = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowL2JLicense", "False"));
 					ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(L2JTeonCustom.getProperty("ShowOnlinePlayersAtStartup", "False"));
