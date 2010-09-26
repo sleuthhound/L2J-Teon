@@ -2778,7 +2778,7 @@ public final class Config
 					/* Player Command */
 					// ********************//
 					ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("TradeOffCommand", "False"));
-					ONLINE_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("OnlineVCommand", "False"));
+					ONLINE_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("OnlineCommand", "False"));
 					STARTING_LEVEL = Byte.parseByte(VoicedCommand.getProperty("AddLevels", "1"));
 					CUSTOM_SUBCLASS_LVL = Integer.parseInt(VoicedCommand.getProperty("CustomSubclassLvl", "40"));
 					ENABLE_INFO = Boolean.parseBoolean(VoicedCommand.getProperty("InfoCommand","False"));
