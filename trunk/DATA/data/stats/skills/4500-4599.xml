@@ -635,6 +635,7 @@
 <sub order="0x40" stat="rEvas" val="#Tab-rEvas"/> 
 </effect> 
 </for> 
+</skill>
 <skill id="4553" levels="10" name="Hot Springs Flu">
   <table name="#pAtkSpd"> 1.04 1.08 1.12 1.16 1.08 1 1 1 1 1 </table>
   <table name="#pAtk"> 1 0.96 0.96 0.96 0.92 0.92 0.92 0.88 0.88 0.85 </table>
@@ -677,6 +678,7 @@
 <mul order="0x40" stat="MpConsumeRate" val="#MpConsumeRate" />  
 </effect> 
 </for> 
+</skill>
 <skill id="4556" levels="1" name="Dispel Hot Spring Disease A_D">
 <!-- TODO -->
   <set name="mpConsume" val="69"/>
