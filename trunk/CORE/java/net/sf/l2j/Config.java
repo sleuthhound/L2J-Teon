@@ -634,7 +634,13 @@ public final class Config
 	public static List<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
 	// Pvp times
 	public static int PVP_NORMAL_TIME;
-	public static int PVP_PVP_TIME;
+	public static int PVP_PVP_TIME; 
+    /** Announce PvP */ 
+    public static boolean ANNOUNCE_PVP_KILL; 
+    /** Announce PK */ 
+    public static boolean ANNOUNCE_PK_KILL; 
+    /** Announce Kill */ 
+    public static boolean ANNOUNCE_ALL_KILL; 
 	/** The end pvp.properties */
 	/** Start rate.properties */
 	/* Rate control */
@@ -2842,6 +2848,17 @@ public final class Config
 						KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
 					PVP_NORMAL_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsNormalTime", "15000"));
 					PVP_PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsPvPTime", "30000"));
+                    ANNOUNCE_ALL_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnounceAllKill", "False")); // Get the AnnounceAllKill, AnnouncePvpKill and AnnouncePkKill values 
+                    if ( !ANNOUNCE_ALL_KILL ) 
+                    { 
+                    ANNOUNCE_PVP_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePvPKill", "False")); 
+                    ANNOUNCE_PK_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkKill", "False")); 
+                    } 
+                    else 
+                    { 
+                    ANNOUNCE_PVP_KILL = false; 
+                    ANNOUNCE_PK_KILL = false; 
+                    } 
 				}
 				catch (Exception e)
 				{
@@ -3442,6 +3459,9 @@ public final class Config
 			PVP_NORMAL_TIME = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("PvPVsPvPTime"))
 			PVP_PVP_TIME = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("AnnouncePvPKill") && !ANNOUNCE_ALL_KILL ) ANNOUNCE_PVP_KILL = Boolean.valueOf(pValue); 
+        else if (pName.equalsIgnoreCase("AnnouncePkKill") && !ANNOUNCE_ALL_KILL ) ANNOUNCE_PK_KILL = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("AnnounceAllKill") && !ANNOUNCE_PVP_KILL && !ANNOUNCE_PK_KILL ) ANNOUNCE_ALL_KILL = Boolean.valueOf(pValue); 
 		else if (pName.equalsIgnoreCase("GlobalChat"))
 			DEFAULT_GLOBAL_CHAT = pValue;
 		else if (pName.equalsIgnoreCase("TradeChat"))
