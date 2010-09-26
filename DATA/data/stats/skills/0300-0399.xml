@@ -180,12 +180,12 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
     <effect name="Buff" time="120" count="1" val="0">
-      <add order="0x40" stat="reflectDam" val="20"/>
+      <add order="0x30" stat="reflectDam" val="20"/>
     </effect>
   </for>
   <enchant1for>
     <effect name="Buff" time="#ench1time" count="1" val="0">
-      <add order="0x40" stat="reflectDam" val="20"/>
+      <add order="0x20" stat="reflectDam" val="10"/>
     </effect>
   </enchant1for>
 </skill>
