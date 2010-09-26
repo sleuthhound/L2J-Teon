@@ -1531,7 +1531,6 @@ public final class Config
 					SUBCLASS_WITH_ITEM_AND_NO_QUEST = Boolean.parseBoolean(altSettings.getProperty("SubclassWithItemAndNoQuest", "False"));
 					MAX_SUBCLASSES = Integer.parseInt(altSettings.getProperty("MaxSubClasses", "3"));
 					KEEP_SUBCLASS_SKILLS = Boolean.parseBoolean(altSettings.getProperty("KeepSubClassSkills", "False"));
-					RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(altSettings.getProperty("RestoreEffectsOnSubClassChange", "False"));
 					DWARF_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit", "50"));
 					COMMON_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit", "50"));
 					ALLOW_MANOR = Boolean.parseBoolean(altSettings.getProperty("AllowManor", "False"));
@@ -2774,13 +2773,12 @@ public final class Config
 					Properties VoicedCommand = new Properties();
 					is = new FileInputStream(new File(VOICE_COMMAND));
 					VoicedCommand.load(is);
-					// ********************//
 					/* Player Command */
-					// ********************//
 					ALLOW_TRADEOFF_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("TradeOffCommand", "False"));
 					ONLINE_VOICE_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("OnlineCommand", "False"));
 					STARTING_LEVEL = Byte.parseByte(VoicedCommand.getProperty("AddLevels", "1"));
 					CUSTOM_SUBCLASS_LVL = Integer.parseInt(VoicedCommand.getProperty("CustomSubclassLvl", "40"));
+					RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(VoicedCommand.getProperty("RestoreEffectsOnSubClassChange", "False"));
 					ENABLE_INFO = Boolean.parseBoolean(VoicedCommand.getProperty("InfoCommand","False"));
 					BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(VoicedCommand.getProperty("BankingSystemEnabled", "False"));
 					BANKING_SYSTEM_ADENA = Integer.parseInt(VoicedCommand.getProperty("BankingSystemAdena", "0"));
