@@ -67,6 +67,7 @@ import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowScreenMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ExStorageMaxCount;
 import net.sf.l2j.gameserver.network.serverpackets.FriendList;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -332,6 +333,15 @@ public class EnterWorld extends L2GameClientPacket
 			sm.addNumber(PLAYERS_ONLINE);
 			sendPacket(sm);
 		}
+
+		if (Config.SHOW_WELCOME_PM)
+		{
+			CreatureSay np = new CreatureSay(0, Say2.TELL,Config.PM_FROM,Config.PM_TEXT1); 
+			CreatureSay na = new CreatureSay(0, Say2.TELL,Config.PM_FROM,Config.PM_TEXT2); 
+			activeChar.sendPacket(np); 
+			activeChar.sendPacket(na);
+		}
+				  
 		// check any poending petitions
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
 		// sends welcome htm if enabled.
