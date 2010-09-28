@@ -3504,73 +3504,112 @@ public final class L2PcInstance extends L2PlayableInstance
 	}
 
 	// Custom PVP Color System - Start
-	public void updatePvPColor(int pvpKillAmount)
-	{
-		if (Config.PVP_COLOR_SYSTEM_ENABLED)
+		public void updatePvPColor(int pvpKillAmount)
 		{
-			// Check if the character has GM access and if so, let them be.
-			if (isGM())
-				return;
+			if (Config.PVP_COLOR_SYSTEM_ENABLED)
 			{
-				if (pvpKillAmount >= Config.PVP_AMOUNT1 && pvpKillAmount < Config.PVP_AMOUNT2)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT1);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT2 && pvpKillAmount < Config.PVP_AMOUNT3)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT2);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT3 && pvpKillAmount < Config.PVP_AMOUNT4)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT4 && pvpKillAmount < Config.PVP_AMOUNT5)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT5 && pvpKillAmount < Config.PVP_AMOUNT5)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT6 && pvpKillAmount < Config.PVP_AMOUNT6)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT6);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT7 && pvpKillAmount < Config.PVP_AMOUNT7)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT7);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT8 && pvpKillAmount < Config.PVP_AMOUNT8)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT8);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT9 && pvpKillAmount < Config.PVP_AMOUNT9)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT9);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT10)
-					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT10);
+				//Check if the character has GM access and if so, let them be.
+				if (isGM())
+					return;
+				{
+					if ((pvpKillAmount >= (Config.PVP_AMOUNT1)) && (pvpKillAmount <= (Config.PVP_AMOUNT1)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT1);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT2)) && (pvpKillAmount <= (Config.PVP_AMOUNT2)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT2);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT3)) && (pvpKillAmount <= (Config.PVP_AMOUNT3)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT4)) && (pvpKillAmount <= (Config.PVP_AMOUNT4)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT5)) && (pvpKillAmount <= (Config.PVP_AMOUNT5)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT6)) && (pvpKillAmount <= (Config.PVP_AMOUNT6)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT6);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT7)) && (pvpKillAmount <= (Config.PVP_AMOUNT7)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT7);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT8)) && (pvpKillAmount <= (Config.PVP_AMOUNT8)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT8);
+					}
+					else if ((pvpKillAmount >= (Config.PVP_AMOUNT9)) && (pvpKillAmount <= (Config.PVP_AMOUNT9)))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT9);
+					}
+					else if (pvpKillAmount >= (Config.PVP_AMOUNT10))
+					{
+						getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT10);
+					}
+				}
 			}
 		}
-	}
-
-	// Custom PVP Color System - End
-	// Custom Pk Color System - Start
-	public void updatePkColor(int pkKillAmount)
-	{
-		if (Config.PK_COLOR_SYSTEM_ENABLED)
+		//Custom PVP Color System - End
+		
+		// Custom Pk Color System - Start
+		public void updatePkColor(int pkKillAmount)
 		{
-			// Check if the character has GM access and if so, let them be, like above.
-			if (isGM())
-				return;
+			if (Config.PK_COLOR_SYSTEM_ENABLED)
 			{
-				if (pkKillAmount >= Config.PK_AMOUNT1 && pkKillAmount < Config.PVP_AMOUNT2)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT1);
-				else if (pkKillAmount >= Config.PK_AMOUNT2 && pkKillAmount < Config.PVP_AMOUNT3)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT2);
-				else if (pkKillAmount >= Config.PK_AMOUNT3 && pkKillAmount < Config.PVP_AMOUNT4)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3);
-				else if (pkKillAmount >= Config.PK_AMOUNT4 && pkKillAmount < Config.PVP_AMOUNT5)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4);
-				else if (pkKillAmount >= Config.PK_AMOUNT5 && pkKillAmount < Config.PVP_AMOUNT6)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5);
-				else if (pkKillAmount >= Config.PK_AMOUNT6 && pkKillAmount < Config.PVP_AMOUNT7)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT6);
-				else if (pkKillAmount >= Config.PK_AMOUNT7 && pkKillAmount < Config.PVP_AMOUNT8)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT7);
-				else if (pkKillAmount >= Config.PK_AMOUNT8 && pkKillAmount < Config.PVP_AMOUNT9)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT8);
-				else if (pkKillAmount >= Config.PK_AMOUNT9 && pkKillAmount < Config.PVP_AMOUNT10)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT9);
-				else if (pkKillAmount >= Config.PK_AMOUNT10)
-					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT10);
+				//Check if the character has GM access and if so, let them be, like above.
+				if (isGM())
+					return;
+				{
+					if ((pkKillAmount >= (Config.PK_AMOUNT1)) && (pkKillAmount <= (Config.PVP_AMOUNT1)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT1);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT2)) && (pkKillAmount <= (Config.PVP_AMOUNT2)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT2);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT3)) && (pkKillAmount <= (Config.PVP_AMOUNT3)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT4)) && (pkKillAmount <= (Config.PVP_AMOUNT4)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT5)) && (pkKillAmount <= (Config.PVP_AMOUNT5)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT6)) && (pkKillAmount <= (Config.PVP_AMOUNT6)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT6);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT7)) && (pkKillAmount <= (Config.PVP_AMOUNT7)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT7);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT8)) && (pkKillAmount <= (Config.PVP_AMOUNT8)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT8);
+					}
+					else if ((pkKillAmount >= (Config.PK_AMOUNT9)) && (pkKillAmount <= (Config.PVP_AMOUNT9)))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT9);
+					}
+					else if (pkKillAmount >= (Config.PK_AMOUNT10))
+					{
+						getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT10);
+					}
+				}
 			}
 		}
-	}
-
-	// Custom Pk Color System - End
+		//Custom Pk Color System - End
 	/**
 	 * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers.<BR>
 	 * <B><U> Concept</U> :</B><BR>
