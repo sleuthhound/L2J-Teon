@@ -3520,8 +3520,18 @@ public final class L2PcInstance extends L2PlayableInstance
 					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3);
 				else if (pvpKillAmount >= Config.PVP_AMOUNT4 && pvpKillAmount < Config.PVP_AMOUNT5)
 					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4);
-				else if (pvpKillAmount >= Config.PVP_AMOUNT5)
+				else if (pvpKillAmount >= Config.PVP_AMOUNT5 && pvpKillAmount < Config.PVP_AMOUNT5)
 					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5);
+				else if (pvpKillAmount >= Config.PVP_AMOUNT6 && pvpKillAmount < Config.PVP_AMOUNT6)
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT6);
+				else if (pvpKillAmount >= Config.PVP_AMOUNT7 && pvpKillAmount < Config.PVP_AMOUNT7)
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT7);
+				else if (pvpKillAmount >= Config.PVP_AMOUNT8 && pvpKillAmount < Config.PVP_AMOUNT8)
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT8);
+				else if (pvpKillAmount >= Config.PVP_AMOUNT9 && pvpKillAmount < Config.PVP_AMOUNT9)
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT9);
+				else if (pvpKillAmount >= Config.PVP_AMOUNT10)
+					getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT10);
 			}
 		}
 	}
@@ -3544,8 +3554,18 @@ public final class L2PcInstance extends L2PlayableInstance
 					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3);
 				else if (pkKillAmount >= Config.PK_AMOUNT4 && pkKillAmount < Config.PVP_AMOUNT5)
 					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4);
-				else if (pkKillAmount >= Config.PK_AMOUNT5)
+				else if (pkKillAmount >= Config.PK_AMOUNT5 && pkKillAmount < Config.PVP_AMOUNT6)
 					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5);
+				else if (pkKillAmount >= Config.PK_AMOUNT6 && pkKillAmount < Config.PVP_AMOUNT7)
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT6);
+				else if (pkKillAmount >= Config.PK_AMOUNT7 && pkKillAmount < Config.PVP_AMOUNT8)
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT7);
+				else if (pkKillAmount >= Config.PK_AMOUNT8 && pkKillAmount < Config.PVP_AMOUNT9)
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT8);
+				else if (pkKillAmount >= Config.PK_AMOUNT9 && pkKillAmount < Config.PVP_AMOUNT10)
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT9);
+				else if (pkKillAmount >= Config.PK_AMOUNT10)
+					getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT10);
 			}
 		}
 	}
