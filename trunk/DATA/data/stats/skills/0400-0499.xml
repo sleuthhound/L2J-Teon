@@ -757,7 +757,7 @@
     <add order="0x40" stat="pAtk" val="200">
       <using kind="Bow"/>
     </add>
-    <add order="0x40" stat="pAtkRange" val="300">
+    <add order="0x19" stat="pAtkRange" val="120">
       <using kind="Bow"/>
     </add>
   </for>
