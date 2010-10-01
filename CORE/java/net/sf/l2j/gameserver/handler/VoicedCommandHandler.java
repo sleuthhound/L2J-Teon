@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.handler.voicedcommandhandlers.OnlinePlayers;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.info;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.PlayersWithdrawCWH;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.Wedding;
-import net.sf.l2j.gameserver.handler.voicedcommandhandlers.stats;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.tradeoff;
 import net.sf.l2j.gameserver.handler.voicedcommandhandlers.version;
 
@@ -43,7 +42,6 @@ public class VoicedCommandHandler
 	private VoicedCommandHandler()
 	{
 		_datatable = new FastMap<String, IVoicedCommandHandler>();
-		registerVoicedCommandHandler(new stats());
 		if (Config.ALLOW_WEDDING)
 			registerVoicedCommandHandler(new Wedding());
 		if (Config.BANKING_SYSTEM_ENABLED)
