@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
@@ -244,13 +245,21 @@ public class SpawnTable
 		_highestId++;
 		spawn.setId(_highestId);
 		_spawntable.put(_highestId, spawn);
+		
 		if (storeInDb)
 		{
-			java.sql.Connection con = null;
+			Connection con = null;
+			String spawnTable;
+			if (spawn.isCustom() && Config.CUSTOM_SPAWNLIST_TABLE)
+				spawnTable = "custom_spawnlist";
+			else
+				spawnTable = "spawnlist";
+			
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
-				PreparedStatement statement = con.prepareStatement("INSERT INTO " + (spawn.isCustom() ? "custom_spawnlist" : "spawnlist") + " (id,count,npc_templateid,locx,locy,locz,heading,respawn_delay,loc_id) values(?,?,?,?,?,?,?,?,?)");
+				PreparedStatement statement = con.prepareStatement("INSERT INTO " + spawnTable
+						+ " (id,count,npc_templateid,locx,locy,locz,heading,respawn_delay,loc_id) values(?,?,?,?,?,?,?,?,?)");
 				statement.setInt(1, spawn.getId());
 				statement.setInt(2, spawn.getAmount());
 				statement.setInt(3, spawn.getNpcid());
