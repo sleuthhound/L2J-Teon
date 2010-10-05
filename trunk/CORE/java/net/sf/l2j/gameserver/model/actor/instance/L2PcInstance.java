@@ -4438,19 +4438,26 @@ public final class L2PcInstance extends L2PlayableInstance
 			return;
 		}
 		// medal reward
+		if (Config.PVP_SAME_IP) 
+		{
+			String player1 = getClient().getConnection().getInetAddress().getHostAddress();
+			String player1target = targetPlayer.getClient().getConnection().getInetAddress().getHostAddress();
+			if (player1.equals(player1target)) {
+			sendMessage("Boot Detected send To gm your name!.");
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+			}
 		if (Config.ALLOW_ADENA_REWARD && Config.ENABLE_FACTION_KOOFS_NOOBS)
-			if (isNoob() && targetPlayer.isNoob() || isKoof() && targetPlayer.isKoof())
-			{
+			if (isNoob() && targetPlayer.isNoob() || isKoof()
+					&& targetPlayer.isKoof()) {
 				sendMessage("Cant get adena reward from same faction.");
 				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
-			}
-			else
-			{
+			} else {
 				int itemReward = Config.ADENA_NUMBER_REWARD_ON_PVP;
 				addItem("Loot", 6392, itemReward, this, true);
 				sendMessage("You have obtained medal for killing enemy faction.");
-			}
+			}}
 		// hmm.. i think it's noobs shadow weapon cehckup
 		if (getInventory().getPaperdollItemId(7) >= 7816 && getInventory().getPaperdollItemId(7) <= 7831)
 		{
