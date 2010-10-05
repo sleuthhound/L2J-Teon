@@ -389,12 +389,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 						player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_ALREADY_BEEN_REGISTERED_IN_A_WAITING_LIST_OF_AN_EVENT));
 						return;
 					}
-					if (!player.getFloodProtectors().getSubclass().tryPerformAction("subclass"))
-					{
-						player.sendMessage("Don't change sub classes so rapidly, please wait.");
-						player.sendPacket(ActionFailed.STATIC_PACKET);
-						return;
-					}
 					if (player.isCursedWeaponEquiped())
 						return;
 					content.append("Please choose a sub class to change to. If the one you are looking for is not here, " + "please seek out the appropriate master for that class.<br>" + "<font color=\"LEVEL\">Warning!</font> All classes and skills for this class will be removed.<br><br>");
