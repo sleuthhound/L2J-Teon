@@ -22,6 +22,8 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import net.sf.l2j.gameserver.model.AutoSpawnHandler.AutoSpawner;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -339,11 +341,12 @@ public class AutoSpawnHandler
 	/**
 	 * AutoSpawner Class <BR>
 	 * <BR>
-	 * This handles the main spawn task for an auto spawn instance, and initializes a despawner if required.
+	 * This handles the main spawn task for an auto spawn instance, 
+	 * and initializes a despawner if required.
 	 *
 	 * @author Tempy
 	 */
-	private class AutoSpawner implements Runnable
+	public class AutoSpawner implements Runnable
 	{
 		private int _objectId;
 
