@@ -208,7 +208,7 @@ public class Duel
 					// unused
 					// stadium for duels
 					// currently only teleports to the same stadium
-					_duel.teleportPlayers(-102495, -209023, -3326);
+					_duel.teleportPlayers(149319, 46710, -3413);
 					// give players 20 seconds to complete teleport and get
 					// ready (its ought to be 30 on offical..)
 					ThreadPoolManager.getInstance().scheduleGeneral(this, 20000);
