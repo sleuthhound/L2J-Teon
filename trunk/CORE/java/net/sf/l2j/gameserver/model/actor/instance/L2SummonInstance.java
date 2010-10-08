@@ -287,6 +287,10 @@ public class L2SummonInstance extends L2Summon
 		{
 			if (pcrit || mcrit)
 				getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB));
+			if (getOwner().isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance) target).isInOlympiadMode() && ((L2PcInstance) target).getOlympiadGameId() == getOwner().getOlympiadGameId())
+			{
+				getOwner().dmgDealt += damage;
+			}
 			SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
 			sm.addNumber(damage);
 			getOwner().sendPacket(sm);
