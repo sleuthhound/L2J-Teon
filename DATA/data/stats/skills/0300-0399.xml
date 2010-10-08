@@ -515,7 +515,7 @@
     <cond>
       <player state="stand"/>
     </cond>
-    <effect count="1" name="ImobileBuff" time="120" val="0">
+    <effect count="1" name="ImmobileBuff" time="120" val="0">
       <add order="0x40" stat="pAtk" val="#pAtk">
       <using kind="Bow" /> 
      </add>
@@ -527,18 +527,18 @@
      </mul>
       <add order="0x40" stat="pAtkRange" val="300">
       <using kind="Bow" /> 
-	  </add>
+     </add>
     </effect>
   </for>
   <enchant1for>
     <cond>
       <player state="stand"/>
     </cond>
-    <effect count="1" name="ImobileBuff" time="120" val="0">
+    <effect count="1" name="ImmobileBuff" time="120" val="0">
       <add order="0x40" stat="pAtk" val="#ench1pAtk">
       <using kind="Bow" /> 
      </add>
-      <add order="0x40" stat="accCombat" val="#accCombat">
+      <add order="0x40" stat="accCombat" val="3">
       <using kind="Bow" /> 
      </add>
       <mul order="0x30" stat="rCrit" val="1.2">
