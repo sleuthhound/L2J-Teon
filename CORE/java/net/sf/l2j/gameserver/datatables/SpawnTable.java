@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.datatables;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
@@ -30,7 +29,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * This class ...
- *
+ * 
  * @author Nightmare
  * @version $Revision: 1.5.2.6.2.7 $ $Date: 2005/03/27 15:29:18 $
  */
@@ -67,9 +66,13 @@ public class SpawnTable
 			con = L2DatabaseFactory.getInstance().getConnection();
 			PreparedStatement statement;
 			if (Config.DELETE_GMSPAWN_ON_CUSTOM)
+			{
 				statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM spawnlist where id NOT in ( select id from nospawnlist where isCustom = false ) ORDER BY id");
+			}
 			else
+			{
 				statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM spawnlist ORDER BY id");
+			}
 			ResultSet rset = statement.executeQuery();
 			L2Spawn spawnDat;
 			L2NpcTemplate template1;
@@ -124,8 +127,11 @@ public class SpawnTable
 						if (spawnDat.getId() > _highestId)
 							_highestId = spawnDat.getId();
 					}
-				} else
+				}
+				else
+				{
 					_log.warning("SpawnTable: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+				}
 			}
 			rset.close();
 			statement.close();
@@ -153,9 +159,13 @@ public class SpawnTable
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement statement;
 				if (Config.DELETE_GMSPAWN_ON_CUSTOM)
+				{
 					statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM custom_spawnlist where id NOT in ( select id from nospawnlist where isCustom = true ) ORDER BY id");
+				}
 				else
+				{
 					statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay, loc_id, periodOfDay FROM custom_spawnlist ORDER BY id");
+				}
 				ResultSet rset = statement.executeQuery();
 				L2Spawn spawnDat;
 				L2NpcTemplate template1;
@@ -207,8 +217,11 @@ public class SpawnTable
 							if (spawnDat.getId() > _highestId)
 								_highestId = spawnDat.getId();
 						}
-					} else
+					}
+					else
+					{
 						_log.warning("SpawnTable: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+					}
 				}
 				rset.close();
 				statement.close();
@@ -245,21 +258,13 @@ public class SpawnTable
 		_highestId++;
 		spawn.setId(_highestId);
 		_spawntable.put(_highestId, spawn);
-		
 		if (storeInDb)
 		{
-			Connection con = null;
-			String spawnTable;
-			if (spawn.isCustom() && Config.CUSTOM_SPAWNLIST_TABLE)
-				spawnTable = "custom_spawnlist";
-			else
-				spawnTable = "spawnlist";
-			
+			java.sql.Connection con = null;
 			try
 			{
 				con = L2DatabaseFactory.getInstance().getConnection();
-				PreparedStatement statement = con.prepareStatement("INSERT INTO " + spawnTable
-						+ "(id,count,npc_templateid,locx,locy,locz,heading,respawn_delay,loc_id) values(?,?,?,?,?,?,?,?,?)");
+				PreparedStatement statement = con.prepareStatement("INSERT INTO " + (spawn.isCustom() ? "custom_spawnlist" : "spawnlist") + " (id,count,npc_templateid,locx,locy,locz,heading,respawn_delay,loc_id) values(?,?,?,?,?,?,?,?,?)");
 				statement.setInt(1, spawn.getId());
 				statement.setInt(2, spawn.getAmount());
 				statement.setInt(3, spawn.getNpcid());
@@ -300,6 +305,7 @@ public class SpawnTable
 		{
 			java.sql.Connection con = null;
 			if (Config.DELETE_GMSPAWN_ON_CUSTOM)
+			{
 				try
 				{
 					con = L2DatabaseFactory.getInstance().getConnection();
@@ -324,7 +330,9 @@ public class SpawnTable
 					{
 					}
 				}
+			}
 			else
+			{
 				try
 				{
 					con = L2DatabaseFactory.getInstance().getConnection();
@@ -348,6 +356,7 @@ public class SpawnTable
 					{
 					}
 				}
+			}
 		}
 	}
 
@@ -360,7 +369,7 @@ public class SpawnTable
 	/**
 	 * Get all the spawn of a NPC<BR>
 	 * <BR>
-	 *
+	 * 
 	 * @param npcId
 	 *            : ID of the NPC to find.
 	 * @return
@@ -369,6 +378,7 @@ public class SpawnTable
 	{
 		int index = 0;
 		for (L2Spawn spawn : _spawntable.values())
+		{
 			if (npcId == spawn.getNpcid())
 			{
 				index++;
@@ -376,9 +386,13 @@ public class SpawnTable
 				{
 					if (teleportIndex == index)
 						activeChar.teleToLocation(spawn.getLocx(), spawn.getLocy(), spawn.getLocz(), true);
-				} else
+				}
+				else
+				{
 					activeChar.sendMessage(index + " - " + spawn.getTemplate().name + " (" + spawn.getId() + "): " + spawn.getLocx() + " " + spawn.getLocy() + " " + spawn.getLocz());
+				}
 			}
+		}
 		if (index == 0)
 			activeChar.sendMessage("No current spawns found.");
 	}
