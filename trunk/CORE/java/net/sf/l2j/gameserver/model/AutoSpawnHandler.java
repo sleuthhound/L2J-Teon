@@ -22,8 +22,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-import net.sf.l2j.gameserver.model.AutoSpawnHandler.AutoSpawner;
-
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -42,7 +40,7 @@ import net.sf.l2j.util.Rnd;
  * Auto Spawn Handler Allows spawning of a NPC object based on a timer. (From the official idea used for the Merchant and Blacksmith of Mammon) General Usage: - Call registerSpawn() with the parameters listed below. int npcId int[][] spawnPoints or specify NULL to add points later. int initialDelay (If < 0 = default value) int respawnDelay (If < 0 = default value) int despawnDelay (If < 0 =
  * default value or if = 0, function disabled) spawnPoints is a standard two-dimensional int array containing X,Y and Z coordinates. The default respawn/despawn delays are currently every hour (as for Mammon on official servers). - The resulting AutoSpawnInstance object represents the newly added spawn index. - The interal methods of this object can be used to adjust random spawning, for instance
  * a call to setRandomSpawn(1, true); would set the spawn at index 1 to be randomly rather than sequentially-based. - Also they can be used to specify the number of NPC instances to spawn using setSpawnCount(), and broadcast a message to all users using setBroadcast(). Random Spawning = OFF by default Broadcasting = OFF by default
- *
+ * 
  * @author Tempy
  */
 public class AutoSpawnHandler
@@ -107,8 +105,10 @@ public class AutoSpawnHandler
 				statement2.setInt(1, rs.getInt("groupId"));
 				rs2 = statement2.executeQuery();
 				while (rs2.next())
+				{
 					// Add each location to the spawn group/instance.
 					spawnInst.addSpawnLocation(rs2.getInt("x"), rs2.getInt("y"), rs2.getInt("z"), rs2.getInt("heading"));
+				}
 				statement2.close();
 			}
 			statement.close();
@@ -133,7 +133,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Registers a spawn with the given parameters with the spawner, and marks it as active. Returns a AutoSpawnInstance containing info about the spawn.
-	 *
+	 * 
 	 * @param int npcId
 	 * @param int[][] spawnPoints
 	 * @param int initialDelay (If < 0 = default value)
@@ -165,7 +165,7 @@ public class AutoSpawnHandler
 	/**
 	 * Registers a spawn with the given parameters with the spawner, and marks it as active. Returns a AutoSpawnInstance containing info about the spawn. <BR>
 	 * <B>Warning:</B> Spawn locations must be specified separately using addSpawnLocation().
-	 *
+	 * 
 	 * @param int npcId
 	 * @param int initialDelay (If < 0 = default value)
 	 * @param int respawnDelay (If < 0 = default value)
@@ -179,7 +179,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Remove a registered spawn from the list, specified by the given spawn instance.
-	 *
+	 * 
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @return boolean removedSuccessfully
@@ -210,7 +210,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Remove a registered spawn from the list, specified by the given spawn object ID.
-	 *
+	 * 
 	 * @param int objectId
 	 * @return boolean removedSuccessfully
 	 */
@@ -221,7 +221,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Sets the active state of the specified spawn.
-	 *
+	 * 
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @param boolean isActive
@@ -258,7 +258,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Sets the active state of all auto spawn instances to that specified, and cancels the scheduled spawn task if necessary.
-	 *
+	 * 
 	 * @param boolean isActive
 	 */
 	public void setAllActive(boolean isActive)
@@ -272,7 +272,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Returns the number of milliseconds until the next occurrance of the given spawn.
-	 *
+	 * 
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @param long milliRemaining
@@ -288,7 +288,7 @@ public class AutoSpawnHandler
 	/**
 	 * Attempts to return the AutoSpawnInstance associated with the given NPC or Object ID type. <BR>
 	 * Note: If isObjectId == false, returns first instance for the specified NPC ID.
-	 *
+	 * 
 	 * @param int id
 	 * @param boolean isObjectId
 	 * @return AutoSpawnInstance spawnInst
@@ -299,10 +299,13 @@ public class AutoSpawnHandler
 		{
 			if (isSpawnRegistered(id))
 				return _registeredSpawns.get(id);
-		} else
+		}
+		else
+		{
 			for (AutoSpawnInstance spawnInst : _registeredSpawns.values())
 				if (spawnInst.getNpcId() == id)
 					return spawnInst;
+		}
 		return null;
 	}
 
@@ -317,7 +320,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Tests if the specified object ID is assigned to an auto spawn.
-	 *
+	 * 
 	 * @param int objectId
 	 * @return boolean isAssigned
 	 */
@@ -328,7 +331,7 @@ public class AutoSpawnHandler
 
 	/**
 	 * Tests if the specified spawn instance is assigned to an auto spawn.
-	 *
+	 * 
 	 * @param AutoSpawnInstance
 	 *            spawnInst
 	 * @return boolean isAssigned
@@ -341,12 +344,11 @@ public class AutoSpawnHandler
 	/**
 	 * AutoSpawner Class <BR>
 	 * <BR>
-	 * This handles the main spawn task for an auto spawn instance, and 
-	 * initializes a despawner if required.
-	 *
+	 * This handles the main spawn task for an auto spawn instance, and initializes a despawner if required.
+	 * 
 	 * @author Tempy
 	 */
-	public class AutoSpawner implements Runnable
+	private class AutoSpawner implements Runnable
 	{
 		private int _objectId;
 
@@ -406,7 +408,9 @@ public class AutoSpawnHandler
 					newSpawn.setHeading(heading);
 				newSpawn.setAmount(spawnInst.getSpawnCount());
 				if (spawnInst._desDelay == 0)
+				{
 					newSpawn.setRespawnDelay(spawnInst._resDelay);
+				}
 				// Add the new spawn information to the spawn table, but do not
 				// store it.
 				SpawnTable.getInstance().addNewSpawn(newSpawn, false);
@@ -416,7 +420,9 @@ public class AutoSpawnHandler
 					npcInst = newSpawn.doSpawn();
 					npcInst.setXYZ(npcInst.getX(), npcInst.getY(), npcInst.getZ());
 					spawnInst.addNpcInstance(npcInst);
-				} else
+				}
+				else
+				{
 					for (int i = 0; i < spawnInst._spawnCount; i++)
 					{
 						npcInst = newSpawn.doSpawn();
@@ -428,6 +434,7 @@ public class AutoSpawnHandler
 						// instances.
 						spawnInst.addNpcInstance(npcInst);
 					}
+				}
 				String nearestTown = MapRegionTable.getInstance().getClosestTownName(npcInst);
 				// Announce to all players that the spawn has taken place, with
 				// the nearest town location.
@@ -454,7 +461,7 @@ public class AutoSpawnHandler
 	 * AutoDespawner Class <BR>
 	 * <BR>
 	 * Simply used as a secondary class for despawning an auto spawn instance.
-	 *
+	 * 
 	 * @author Tempy
 	 */
 	private class AutoDespawner implements Runnable
@@ -497,7 +504,7 @@ public class AutoSpawnHandler
 	 * AutoSpawnInstance Class <BR>
 	 * <BR>
 	 * Stores information about a registered auto spawn.
-	 *
+	 * 
 	 * @author Tempy
 	 */
 	public class AutoSpawnInstance
