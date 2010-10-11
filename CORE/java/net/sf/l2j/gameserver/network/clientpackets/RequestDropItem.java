@@ -68,6 +68,11 @@ public final class RequestDropItem extends L2GameClientPacket
 		if (activeChar == null || activeChar.isDead())
 			return;
 		L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
+		if (item.isAugmented())
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTED_ITEM_CANNOT_BE_DISCARDED));
+			return; 
+		}
 		if (item == null || _count == 0 || !activeChar.validateItemManipulation(_objectId, "drop") || !Config.ALLOW_DISCARDITEM && !activeChar.isGM() || !item.isDropable())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
