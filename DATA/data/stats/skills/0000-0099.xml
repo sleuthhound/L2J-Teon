@@ -871,7 +871,7 @@
   <set name="hitTime" val="1080"/>
   <set name="coolTime" val="720" />
   <set name="skillType" val="BLOW"/>
-  <set name="baseCritRate" val="15"/>
+  <set name="baseCritRate" val="13"/>
   <set name="lethal1" val="5"/>
   <set name="dmgDirectlyToHp" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
