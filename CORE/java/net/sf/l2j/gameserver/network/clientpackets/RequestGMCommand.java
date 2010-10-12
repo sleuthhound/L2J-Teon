@@ -17,6 +17,8 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.GMViewCharacterInfo;
@@ -53,9 +55,15 @@ public final class RequestGMCommand extends L2GameClientPacket
 		if (!getClient().getActiveChar().isGM() || getClient().getActiveChar().getAccessLevel() < Config.GM_ALTG_MIN_LEVEL)
 			return;
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
+		
+		L2Clan clan = ClanTable.getInstance().getClanByName(_targetName);;
+
 		// player name was incorrect?
-		if (player == null)
+		if (player == null && (clan == null || _command != 6))
+		{
 			return;
+
+		}
 		switch (_command)
 		{
 			case 1: // player status
@@ -87,7 +95,11 @@ public final class RequestGMCommand extends L2GameClientPacket
 			case 6: // player warehouse
 			{
 				// gm warehouse view to be implemented
-				sendPacket(new GMViewWarehouseWithdrawList(player));
+				if (player != null) 
+	                  sendPacket(new GMViewWarehouseWithdrawList(player)); 
+                // clan warehouse 
+                else 
+                      sendPacket(new GMViewWarehouseWithdrawList(clan)); 
 				break;
 			}
 		}
