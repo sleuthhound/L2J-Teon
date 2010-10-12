@@ -253,35 +253,19 @@
   </for>
 </skill>
 <skill id="110" levels="2" name="Ultimate Defense" enchantLevels1="30" enchantLevels2="30" >
-  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
-  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
-  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 83 83 83 84 84 84 85 85 85 </table>
+  <table name="#ench1pDef"> 3636 3672 3708 3744 3780 3816 3852 3888 3924 3960 3996 4032 4068 4104 4140 4176 4212 4248 4284 4320 4356 4392 4428 4464 4500 4536 4572 4608 4644 4680 </table>
+  <table name="#ench1mDef"> 2727 2754 2781 2808 2835 2862 2889 2916 2943 2970 2997 3024 3051 3078 3105 3132 3159 3186 3213 3240 3267 3294 3321 3348 3375 3402 3429 3456 3483 3510 </table>
+  <table name="#ench1time"> 30 31 32 32 33 34 35 35 36 37 38 38 39 40 41 41 42 43 43 44 45 46 46 47 48 49 49 50 51 52 </table>
+  <table name="#ench2reuseDelay"> 1780000 1760000 1740000 1720000 1700000 1680000 1660000 1640000 1620000 1600000 1580000 1560000 1540000 1520000 1500000 1480000 1460000 1440000 1420000 1400000 1380000 1360000 1340000 1320000 1300000 1280000 1260000 1240000 1220000 1200000 </table>
   <table name="#pDef"> 1800 3600 </table>
   <table name="#mDef"> 1350 2700 </table>
-  <table name="#ench1pDef">
-  3636 3672 3708 3744 3780 3816 3852 3888 3924 3960
-  3996 4032 4068 4104 4140 4176 4212 4248 4284 4320
-  4356 4392 4428 4464 4500 4536 4572 4608 4644 4680
-  </table>
-  <table name="#ench1mDef">
-  2727 2754 2781 2808 2835 2862 2889 2916 2943 2970
-  2997 3024 3051 3078 3105 3132 3159 3186 3213 3240
-  3267 3294 3321 3348 3375 3402 3429 3456 3483 3510
-  </table>
   <table name="#mpConsume"> 10 21 </table>
-  <table name="#ench1time">
-  30 31 32 32 33 34 35 35 36 37
-  38 38 39 40 41 41 42 43 43 44
-  45 46 46 47 48 49 49 50 51 52
-  </table>
-  <table name="#ench2reuseDelay">
-  1780000 1760000 1740000 1720000 1700000 1680000 1660000 1640000 1620000 1600000
-  1580000 1560000 1540000 1520000 1500000 1480000 1460000 1440000 1420000 1400000
-  1380000 1360000 1340000 1320000 1300000 1280000 1260000 1240000 1220000 1200000
-  </table>
   <table name="#aggro"> 204 438  </table>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="reuseDelay" val="1800000"/>
   <set name="hitTime" val="1000"/>
@@ -290,26 +274,25 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
-  <enchant2 name="reuseDelay" val="#ench2reuseDelay"/>
   <for>
     <effect count="1" name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="pDefSpec">
       <add order="0x40" stat="pDef" val="#pDef"/>
       <add order="0x40" stat="mDef" val="#mDef"/>
-      <mul order="0x30" stat="cancelVuln" val="0.9"/> <!-- value to be confirmed -->
+      <mul order="0x30" stat="cancelVuln" val="0.4"/>
     </effect>
   </for>
   <enchant1for>
     <effect count="1" name="ImmobileBuff" time="#ench1time" val="0" stackOrder="1" stackType="pDefSpec">
       <add order="0x40" stat="pDef" val="#ench1pDef"/>
       <add order="0x40" stat="mDef" val="#ench1mDef"/>
-      <mul order="0x30" stat="cancelVuln" val="0.9"/> <!-- value to be confirmed -->
+      <mul order="0x30" stat="cancelVuln" val="0.4"/>
     </effect>
   </enchant1for>
   <enchant2for>
     <effect count="1" name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="pDefSpec">
       <add order="0x40" stat="pDef" val="#ench1pDef"/>
       <add order="0x40" stat="mDef" val="#ench1mDef"/>
-      <mul order="0x30" stat="cancelVuln" val="0.9"/> <!-- value to be confirmed -->
+      <mul order="0x30" stat="cancelVuln" val="0.4"/>
     </effect>
   </enchant2for>
 </skill>
