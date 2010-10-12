@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -32,10 +33,17 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 
 	public GMViewWarehouseWithdrawList(L2PcInstance cha)
 	{
-		_activeChar = cha;
+		_activeChar  = cha;
 		_items = _activeChar.getWarehouse().getItems();
 		_playerName = _activeChar.getName();
-		_money = _activeChar.getAdena();
+		_money = _activeChar.getWarehouse().getAdena(); 
+        } 
+        
+    public GMViewWarehouseWithdrawList(L2Clan clan) 
+    { 
+        _playerName = clan.getLeaderName(); 
+        _items = clan.getWarehouse().getItems(); 
+        _money = clan.getWarehouse().getAdena(); 
 	}
 
 	@Override
