@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import java.nio.BufferUnderflowException;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
@@ -41,10 +42,16 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			readImpl();
 			return true;
 		}
-		catch (Throwable t)
-		{
-			_log.severe("Client: " + getClient().toString() + " - Failed reading: " + getType() + " - L2J Server Version: " + Config.SERVER_VERSION + " - DP Revision: " + Config.DATAPACK_VERSION);
-			t.printStackTrace();
+		catch(Exception e)
+ 		{
+			if(e instanceof BufferUnderflowException)
+			return false;
+			
+			else
+			{
+				_log.severe("Client: "+getClient().toString()+" - Failed reading: "+getType()+" - L2J Server Version: "+Config.SERVER_VERSION+" - DP Revision: "+Config.DATAPACK_VERSION);
+				e.printStackTrace();
+			}
 		}
 		return false;
 	}
@@ -95,5 +102,8 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	/**
 	 * @return A String with this packet name for debuging purposes
 	 */
-	public abstract String getType();
+	public String getType()
+	{
+		return "[C] " + getClass().getSimpleName();
+	}
 }
