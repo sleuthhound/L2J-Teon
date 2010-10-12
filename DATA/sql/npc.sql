@@ -6696,6 +6696,6 @@ insert into npc values
 (32078,32078,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT'),
 (32079,32079,'Ice Sculpture',0,'',0,'NpcEV.ice_sculpture_c',16,20.5,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,50,120,'NULL',0,0,0,'LAST_HIT');
 
-UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (29096,25523,35410);
+UPDATE npc SET collision_height = '49' WHERE id = '25523';
 
-UPDATE npc SET `collision_height` = '65' WHERE idTemplate = 29061;
+UPDATE 'npc' SET 'patk'='9000', 'pdef'='5000', 'matk'='6000', 'mdef'='6000', 'exp'='4400000', 'sp'='4000000' WHERE ('id'='25523');
