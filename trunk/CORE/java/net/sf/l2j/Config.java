@@ -805,11 +805,15 @@ public final class Config
 	public static int RAID_SYSTEM_FIGHT_TIME;
 	// * Wedding System *//
 	/** Enable or Disable wedding system with this option. */
+	// * VoicedCommand System *//
 	public static boolean ALLOW_WEDDING;
 	public static boolean ALLOW_TRADEOFF_VOICE_COMMAND;
 	public static boolean ONLINE_VOICE_COMMAND;
 	public static boolean ENABLE_INFO;
 	public static int     CUSTOM_SUBCLASS_LVL;
+    public static boolean ALLOW_HERO_COMMAND;
+    public static int     HERO_ITEM_ID;
+    public static int     HERO_ITEM_COUNT;
 	/** This is the cost to get married. */
 	public static int WEDDING_PRICE;
 	/** This checks if a player should get punished for infedelity. */
@@ -2790,6 +2794,9 @@ public final class Config
 					CUSTOM_SUBCLASS_LVL = Integer.parseInt(VoicedCommand.getProperty("CustomSubclassLvl", "40"));
 					RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(VoicedCommand.getProperty("RestoreEffectsOnSubClassChange", "False"));
 					ENABLE_INFO = Boolean.parseBoolean(VoicedCommand.getProperty("InfoCommand","False"));
+            	    ALLOW_HERO_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("AllowHeroCommand", "false")); 
+                    HERO_ITEM_ID = Integer.parseInt(VoicedCommand.getProperty("HeroItemId", "3481"));
+                    HERO_ITEM_COUNT = Integer.parseInt(VoicedCommand.getProperty("HeroItemCount", "1"));
 					BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(VoicedCommand.getProperty("BankingSystemEnabled", "False"));
 					BANKING_SYSTEM_ADENA = Integer.parseInt(VoicedCommand.getProperty("BankingSystemAdena", "0"));
 					BANKING_SYSTEM_GOLDBARS = Integer.parseInt(VoicedCommand.getProperty("BankingSystemGoldBars", "0"));
