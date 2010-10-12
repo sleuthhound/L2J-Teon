@@ -952,9 +952,6 @@ public final class Config
 	public static boolean DONATOR_ITEMS;
 	/** Config to Enable Donator Auto revive. */
 	public static boolean DONATORS_REVIVE;
-	/** Config to Enable Custom Hero Item */
-	public static boolean ALLOW_HERO_CUSTOM_ITEM;
-	public static int HERO_CUSTOM_ITEM_ID;
 	/** Config to Enable Donators Pass Check Unlegit skills. */
 	public static boolean ALLOW_DONATORS_UNLEGIT_SKILLS;
 	/** Config to choose koofs Color on Enter. */
@@ -2616,8 +2613,6 @@ public final class Config
 					DONATOR_NAME_COLOR = Integer.decode("0x" + L2JTeonCustom.getProperty("DonatorColorName", "00FFFF"));
 					DONATOR_ITEMS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorItems", "False"));
 					DONATORS_REVIVE = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorAutoRevive", "False"));
-					ALLOW_HERO_CUSTOM_ITEM = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowHeroCustomItem", "False"));
-					HERO_CUSTOM_ITEM_ID = Integer.parseInt(L2JTeonCustom.getProperty("HeroCustomItemID", "7196"));
 					Config.ALLOW_DONATORS_UNLEGIT_SKILLS = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowDonatorsUnlegit", "False"));
 					CHAR_TITLE = Boolean.parseBoolean(L2JTeonCustom.getProperty("CharTitle", "False"));
 					ADD_CHAR_TITLE = L2JTeonCustom.getProperty("CharAddTitle", "TeonDevTeam");
