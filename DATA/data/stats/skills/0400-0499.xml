@@ -651,13 +651,9 @@
   </for>
 </skill>
 <skill id="426" levels="1" name="Battle Force">
-<!--
-  Description(s):
-      Transfers your strength to a party member. The effect can be cancelled if you incur damage.
--->
   <set name="mpInitialConsume" val="12"/>
   <set name="magicLvl" val="77"/>
-  <set name="forceId" val="5104"/>
+  <set name="triggeredId" val="5104"/>
   <set name="target" val="TARGET_PARTY_OTHER"/>
   <set name="hitTime" val="15000"/>
   <set name="skillType" val="FORCE_BUFF"/>
@@ -665,19 +661,13 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="1400"/>
   <set name="reuseDelay" val="30000"/>
-  <set name="isMagic" val="true"/>
-  <set name="power" val="0.0"/>
   <for>
   </for>
 </skill>
 <skill id="427" levels="1" name="Spell Force">
-<!--
-  Description(s):
-      Transfers your strength to a party member. The effect can be cancelled if you incur damage.
--->
   <set name="mpInitialConsume" val="12"/>
   <set name="magicLvl" val="77"/>
-  <set name="forceId" val="5105"/>
+  <set name="triggeredId" val="5105"/>
   <set name="target" val="TARGET_PARTY_OTHER"/>
   <set name="hitTime" val="15000"/>
   <set name="skillType" val="FORCE_BUFF"/>
@@ -685,8 +675,6 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="1400"/>
   <set name="reuseDelay" val="30000"/>
-  <set name="isMagic" val="true"/>
-  <set name="power" val="0.0"/>
   <for>
   </for>
 </skill>
