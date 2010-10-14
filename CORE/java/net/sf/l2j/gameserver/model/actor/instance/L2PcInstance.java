@@ -3285,7 +3285,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void closeNetConnection()
 	{
 		if (_client != null)
-            _client.close(new LeaveWorld()); 
+            _client.close(new LeaveWorld());
 	}
 
 	/**
@@ -3502,74 +3502,74 @@ public final class L2PcInstance extends L2PlayableInstance
 		}
 	}
 
-	 // Custom PVP Color System - Start 
- 	public void updatePvPColor(int pvpKillAmount) 
- 	{ 
- 			if (Config.PVP_COLOR_SYSTEM_ENABLED) 
- 	{ 
- 	// Check if the character has GM access and if so, let them be. 
- 			if (isGM()) 
- 			return; 
- 	{ 
- 	if ((pvpKillAmount >= (Config.PVP_AMOUNT1)) && (pvpKillAmount < (Config.PVP_AMOUNT2))) 
- 	{ 
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT1); 
- 	} 
- 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT2)) && (pvpKillAmount < (Config.PVP_AMOUNT3))) 
- 	{ 
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT2); 
- 	} 
- 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT3)) && (pvpKillAmount < (Config.PVP_AMOUNT4))) 
- 	{ 
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3); 
- 	} 
- 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT4)) && (pvpKillAmount < (Config.PVP_AMOUNT5))) 
- 	{ 
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4); 
- 	} 
- 	else if (pvpKillAmount >= (Config.PVP_AMOUNT5)) 
- 	{ 
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5); 
- 				} 
- 			} 
- 		} 
- 	} 
- 		 
- 	// Custom PVP Color System - End 
- 	// Custom Pk Color System - Start 
- 	public void updatePkColor(int pkKillAmount) 
- 	{ 
- 	if (Config.PK_COLOR_SYSTEM_ENABLED) 
- 	{ 
- 	// Check if the character has GM access and if so, let them be, like above. 
- 		if (isGM()) 
- 			return; 
- 	{ 
- 	if ((pkKillAmount >= (Config.PK_AMOUNT1)) && (pkKillAmount < (Config.PVP_AMOUNT2))) 
- 	{ 
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT1); 
- 	} 
- 	else if ((pkKillAmount >= (Config.PK_AMOUNT2)) && (pkKillAmount < (Config.PVP_AMOUNT3))) 
- 	{ 
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT2); 
- 	} 
- 	else if ((pkKillAmount >= (Config.PK_AMOUNT3)) && (pkKillAmount < (Config.PVP_AMOUNT4))) 
- 	{ 
- 			 getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3); 
- 	} 
- 	else if ((pkKillAmount >= (Config.PK_AMOUNT4)) && (pkKillAmount < (Config.PVP_AMOUNT5))) 
- 	{ 
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4); 
- 	} 
- 	else if (pkKillAmount >= (Config.PK_AMOUNT5)) 
- 	{ 
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5); 
- 				} 
- 			} 
- 		} 
- 	} 
- 	 
- 	// Custom Pk Color System - End 
+	 // Custom PVP Color System - Start
+ 	public void updatePvPColor(int pvpKillAmount)
+ 	{
+ 			if (Config.PVP_COLOR_SYSTEM_ENABLED)
+ 	{
+ 	// Check if the character has GM access and if so, let them be.
+ 			if (isGM())
+ 			return;
+ 	{
+ 	if ((pvpKillAmount >= (Config.PVP_AMOUNT1)) && (pvpKillAmount < (Config.PVP_AMOUNT2)))
+ 	{
+ 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT1);
+ 	}
+ 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT2)) && (pvpKillAmount < (Config.PVP_AMOUNT3)))
+ 	{
+ 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT2);
+ 	}
+ 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT3)) && (pvpKillAmount < (Config.PVP_AMOUNT4)))
+ 	{
+ 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3);
+ 	}
+ 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT4)) && (pvpKillAmount < (Config.PVP_AMOUNT5)))
+ 	{
+ 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4);
+ 	}
+ 	else if (pvpKillAmount >= (Config.PVP_AMOUNT5))
+ 	{
+ 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5);
+ 				}
+ 			}
+ 		}
+ 	}
+
+ 	// Custom PVP Color System - End
+ 	// Custom Pk Color System - Start
+ 	public void updatePkColor(int pkKillAmount)
+ 	{
+ 	if (Config.PK_COLOR_SYSTEM_ENABLED)
+ 	{
+ 	// Check if the character has GM access and if so, let them be, like above.
+ 		if (isGM())
+ 			return;
+ 	{
+ 	if ((pkKillAmount >= (Config.PK_AMOUNT1)) && (pkKillAmount < (Config.PVP_AMOUNT2)))
+ 	{
+ 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT1);
+ 	}
+ 	else if ((pkKillAmount >= (Config.PK_AMOUNT2)) && (pkKillAmount < (Config.PVP_AMOUNT3)))
+ 	{
+ 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT2);
+ 	}
+ 	else if ((pkKillAmount >= (Config.PK_AMOUNT3)) && (pkKillAmount < (Config.PVP_AMOUNT4)))
+ 	{
+ 			 getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3);
+ 	}
+ 	else if ((pkKillAmount >= (Config.PK_AMOUNT4)) && (pkKillAmount < (Config.PVP_AMOUNT5)))
+ 	{
+ 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4);
+ 	}
+ 	else if (pkKillAmount >= (Config.PK_AMOUNT5))
+ 	{
+ 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5);
+ 				}
+ 			}
+ 		}
+ 	}
+
+ 	// Custom Pk Color System - End
 	/**
 	 * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers.<BR>
 	 * <B><U> Concept</U> :</B><BR>
@@ -4434,7 +4434,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			return;
 		}
 		// medal reward
-		if (Config.PVP_SAME_IP) 
+		if (Config.PVP_SAME_IP)
 		{
 			String player1 = getClient().getConnection().getInetAddress().getHostAddress();
 			String player1target = targetPlayer.getClient().getConnection().getInetAddress().getHostAddress();
@@ -4480,9 +4480,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (checkIfPvP(target) && targetPlayer.getPvpFlag() != 0 || isInsideZone(ZONE_PVP) && targetPlayer.isInsideZone(ZONE_PVP)) // Player is inside pvp zone and and Target player is inside pvp zone
 		{
 			increasePvpKills();
-            if ( target instanceof L2PcInstance && Config.ANNOUNCE_PVP_KILL ) // Announces a PvP kill 
+            if ( target instanceof L2PcInstance && Config.ANNOUNCE_PVP_KILL ) // Announces a PvP kill
             Announcements.getInstance().announceToPlayers("Player "+this.getName()+" hunted Player "+target.getName());
-            return; 
+            return;
 		}
 		if (targetPlayer.getPvpFlag() != 0)
 		{

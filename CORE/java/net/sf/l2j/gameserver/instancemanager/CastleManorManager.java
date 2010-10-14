@@ -541,7 +541,7 @@ public class CastleManorManager
 			c.saveCropData();
 		}
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

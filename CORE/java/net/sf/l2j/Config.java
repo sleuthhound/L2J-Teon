@@ -634,13 +634,13 @@ public final class Config
 	public static List<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
 	// Pvp times
 	public static int PVP_NORMAL_TIME;
-	public static int PVP_PVP_TIME; 
-    /** Announce PvP */ 
-    public static boolean ANNOUNCE_PVP_KILL; 
-    /** Announce PK */ 
-    public static boolean ANNOUNCE_PK_KILL; 
-    /** Announce Kill */ 
-    public static boolean ANNOUNCE_ALL_KILL; 
+	public static int PVP_PVP_TIME;
+    /** Announce PvP */
+    public static boolean ANNOUNCE_PVP_KILL;
+    /** Announce PK */
+    public static boolean ANNOUNCE_PK_KILL;
+    /** Announce Kill */
+    public static boolean ANNOUNCE_ALL_KILL;
 	/** The end pvp.properties */
 	/** Start rate.properties */
 	/* Rate control */
@@ -870,50 +870,50 @@ public final class Config
 	public static int PK_REWARD_ITEM;
 	public static int PK_REWARD_COUNT;
 	// ** Colored pvp name system ** //
-	 // ** Colored pvp name system ** // 
- 	public static boolean PVP_COLOR_SYSTEM_ENABLED; 
- 	/** Colored pvp name system */ 
- 	public static int PVP_AMOUNT1; 
- 	/** Colored pvp name system */ 
- 	public static int PVP_AMOUNT2; 
- 	/** Colored pvp name system */ 
- 	public static int PVP_AMOUNT3; 
- 	/** Colored pvp name system */ 
- 	public static int PVP_AMOUNT4; 
- 	/** Colored pvp name system */ 
- 	public static int PVP_AMOUNT5; 
- 	/** Colored pvp name system */ 
- 	public static int NAME_COLOR_FOR_PVP_AMOUNT1; 
- 	/** Colored pvp name system */ 
- 	public static int NAME_COLOR_FOR_PVP_AMOUNT2; 
- 	/** Colored pvp name system */ 
- 	public static int NAME_COLOR_FOR_PVP_AMOUNT3; 
- 	/** Colored pvp name system */ 
- 	public static int NAME_COLOR_FOR_PVP_AMOUNT4; 
- 	/** Colored pvp name system */ 
- 	public static int NAME_COLOR_FOR_PVP_AMOUNT5; 
- 	/** Colored pvp name system */ 
- 	public static boolean PK_COLOR_SYSTEM_ENABLED; 
- 	/** Colored pk name system */ 
- 	public static int PK_AMOUNT1; 
- 	/** Colored pk name system */ 
- 	public static int PK_AMOUNT2; 
- 	/** Colored pk name system */ 
- 	public static int PK_AMOUNT3; 
- 	/** Colored pk name system */ 
- 	public static int PK_AMOUNT4; 
- 	/** Colored pk name system */ 
- 	public static int PK_AMOUNT5; 
- 	/** Colored pk name system */ 
- 	public static int TITLE_COLOR_FOR_PK_AMOUNT1; 
- 	/** Colored pk name system */ 
- 	public static int TITLE_COLOR_FOR_PK_AMOUNT2; 
- 	/** Colored pk name system */ 
- 	public static int TITLE_COLOR_FOR_PK_AMOUNT3; 
- 	/** Colored pk name system */ 
- 	public static int TITLE_COLOR_FOR_PK_AMOUNT4; 
- 	/** Colored pk name system */ 
- 	public static int TITLE_COLOR_FOR_PK_AMOUNT5; 
+	 // ** Colored pvp name system ** //
+ 	public static boolean PVP_COLOR_SYSTEM_ENABLED;
+ 	/** Colored pvp name system */
+ 	public static int PVP_AMOUNT1;
+ 	/** Colored pvp name system */
+ 	public static int PVP_AMOUNT2;
+ 	/** Colored pvp name system */
+ 	public static int PVP_AMOUNT3;
+ 	/** Colored pvp name system */
+ 	public static int PVP_AMOUNT4;
+ 	/** Colored pvp name system */
+ 	public static int PVP_AMOUNT5;
+ 	/** Colored pvp name system */
+ 	public static int NAME_COLOR_FOR_PVP_AMOUNT1;
+ 	/** Colored pvp name system */
+ 	public static int NAME_COLOR_FOR_PVP_AMOUNT2;
+ 	/** Colored pvp name system */
+ 	public static int NAME_COLOR_FOR_PVP_AMOUNT3;
+ 	/** Colored pvp name system */
+ 	public static int NAME_COLOR_FOR_PVP_AMOUNT4;
+ 	/** Colored pvp name system */
+ 	public static int NAME_COLOR_FOR_PVP_AMOUNT5;
+ 	/** Colored pvp name system */
+ 	public static boolean PK_COLOR_SYSTEM_ENABLED;
+ 	/** Colored pk name system */
+ 	public static int PK_AMOUNT1;
+ 	/** Colored pk name system */
+ 	public static int PK_AMOUNT2;
+ 	/** Colored pk name system */
+ 	public static int PK_AMOUNT3;
+ 	/** Colored pk name system */
+ 	public static int PK_AMOUNT4;
+ 	/** Colored pk name system */
+ 	public static int PK_AMOUNT5;
+ 	/** Colored pk name system */
+ 	public static int TITLE_COLOR_FOR_PK_AMOUNT1;
+ 	/** Colored pk name system */
+ 	public static int TITLE_COLOR_FOR_PK_AMOUNT2;
+ 	/** Colored pk name system */
+ 	public static int TITLE_COLOR_FOR_PK_AMOUNT3;
+ 	/** Colored pk name system */
+ 	public static int TITLE_COLOR_FOR_PK_AMOUNT4;
+ 	/** Colored pk name system */
+ 	public static int TITLE_COLOR_FOR_PK_AMOUNT5;
  	//** Colored pk name system */
 	// *Character Customizations*//
 	/** Max Critical Rate. */
@@ -1129,12 +1129,12 @@ public final class Config
 	public static int CLAN_SP_THIRD;
 	public static int CLAN_SP_FORTH;
 	public static int CLAN_SP_FIFTH;
-  	public static boolean CLAN_LEADER_COLOR_ENABLED; 
-	public static int     CLAN_LEADER_COLOR; 
-    public static int     CLAN_LEADER_COLOR_CLAN_LEVEL; 
-    public static boolean CLAN_LEADER_TITLE_ENABLED; 
-	public static int     CLAN_LEADER_TITLE; 
-    public static int     CLAN_LEADER_TITLE_CLAN_LEVEL; 
+  	public static boolean CLAN_LEADER_COLOR_ENABLED;
+	public static int     CLAN_LEADER_COLOR;
+    public static int     CLAN_LEADER_COLOR_CLAN_LEVEL;
+    public static boolean CLAN_LEADER_TITLE_ENABLED;
+	public static int     CLAN_LEADER_TITLE;
+    public static int     CLAN_LEADER_TITLE_CLAN_LEVEL;
 
 	// * Server Customizations *//
 	/**
@@ -1644,11 +1644,11 @@ public final class Config
 					CLAN_SP_THIRD = Integer.parseInt(clanSettings.getProperty("ClanSpThird", "500000"));
 					CLAN_SP_FORTH = Integer.parseInt(clanSettings.getProperty("ClanSpForth", "1400000"));
 					CLAN_SP_FIFTH = Integer.parseInt(clanSettings.getProperty("ClanSpFifth", "3500000"));
-       		        CLAN_LEADER_COLOR_ENABLED = Boolean.parseBoolean(clanSettings.getProperty("ClanLeaderNameColorEnabled", "False")); 
-				    CLAN_LEADER_COLOR = Integer.decode("0x" + clanSettings.getProperty("ClanLeaderColor", "00BFFF")); 
+       		        CLAN_LEADER_COLOR_ENABLED = Boolean.parseBoolean(clanSettings.getProperty("ClanLeaderNameColorEnabled", "False"));
+				    CLAN_LEADER_COLOR = Integer.decode("0x" + clanSettings.getProperty("ClanLeaderColor", "00BFFF"));
 				    CLAN_LEADER_COLOR_CLAN_LEVEL = Integer.parseInt(clanSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
-       		        CLAN_LEADER_TITLE_ENABLED = Boolean.parseBoolean(clanSettings.getProperty("ClanLeaderTitleColorEnabled", "False")); 
-				    CLAN_LEADER_TITLE = Integer.decode("0x" + clanSettings.getProperty("ClanLeaderTitle", "00BFFF")); 
+       		        CLAN_LEADER_TITLE_ENABLED = Boolean.parseBoolean(clanSettings.getProperty("ClanLeaderTitleColorEnabled", "False"));
+				    CLAN_LEADER_TITLE = Integer.decode("0x" + clanSettings.getProperty("ClanLeaderTitle", "00BFFF"));
 				    CLAN_LEADER_TITLE_CLAN_LEVEL = Integer.parseInt(clanSettings.getProperty("ClanLeaderTitleAtClanLevel", "1"));
 
 				}
@@ -2735,31 +2735,31 @@ public final class Config
 									System.out.println("[NoAutoLearnList]: invalid config property -> NoAutoLearnList \"" + skill);
 							}
 					}
-					// ************************// 
-				 	/* PvP E Pk Color System */ 
-				 	// **********************// 
-				 	PVP_COLOR_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnablePvPColorSystem", "False")); 
-				 	PVP_AMOUNT1 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount1", "500")); 
-				 	PVP_AMOUNT2 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount2", "1000")); 
-				 	PVP_AMOUNT3 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount3", "1500")); 
-				 	PVP_AMOUNT4 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount4", "2500")); 
-				 	PVP_AMOUNT5 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount5", "5000")); 
-				 	NAME_COLOR_FOR_PVP_AMOUNT1 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount1", "00FF00")); 
-				 	NAME_COLOR_FOR_PVP_AMOUNT2 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount2", "00FF00")); 
-				 	NAME_COLOR_FOR_PVP_AMOUNT3 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount3", "00FF00")); 
-				 	NAME_COLOR_FOR_PVP_AMOUNT4 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount4", "00FF00")); 
-				 	NAME_COLOR_FOR_PVP_AMOUNT5 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount5", "00FF00")); 
-				 	PK_COLOR_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnablePkColorSystem", "False")); 
-				 	PK_AMOUNT1 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount1", "500")); 
-				 	PK_AMOUNT2 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount2", "1000")); 
-				 	PK_AMOUNT3 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount3", "1500")); 
-				 	PK_AMOUNT4 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount4", "2500")); 
-				 	PK_AMOUNT5 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount5", "5000")); 
-				 	TITLE_COLOR_FOR_PK_AMOUNT1 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount1", "00FF00")); 
-				 	TITLE_COLOR_FOR_PK_AMOUNT2 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount2", "00FF00")); 
-				 	TITLE_COLOR_FOR_PK_AMOUNT3 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount3", "00FF00")); 
-				 	TITLE_COLOR_FOR_PK_AMOUNT4 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount4", "00FF00")); 
-				 	TITLE_COLOR_FOR_PK_AMOUNT5 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount5", "00FF00")); 
+					// ************************//
+				 	/* PvP E Pk Color System */
+				 	// **********************//
+				 	PVP_COLOR_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnablePvPColorSystem", "False"));
+				 	PVP_AMOUNT1 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount1", "500"));
+				 	PVP_AMOUNT2 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount2", "1000"));
+				 	PVP_AMOUNT3 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount3", "1500"));
+				 	PVP_AMOUNT4 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount4", "2500"));
+				 	PVP_AMOUNT5 = Integer.parseInt(L2JTeonCustom.getProperty("PvpAmount5", "5000"));
+				 	NAME_COLOR_FOR_PVP_AMOUNT1 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount1", "00FF00"));
+				 	NAME_COLOR_FOR_PVP_AMOUNT2 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount2", "00FF00"));
+				 	NAME_COLOR_FOR_PVP_AMOUNT3 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount3", "00FF00"));
+				 	NAME_COLOR_FOR_PVP_AMOUNT4 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount4", "00FF00"));
+				 	NAME_COLOR_FOR_PVP_AMOUNT5 = Integer.decode("0x" + L2JTeonCustom.getProperty("ColorForAmount5", "00FF00"));
+				 	PK_COLOR_SYSTEM_ENABLED = Boolean.parseBoolean(L2JTeonCustom.getProperty("EnablePkColorSystem", "False"));
+				 	PK_AMOUNT1 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount1", "500"));
+				 	PK_AMOUNT2 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount2", "1000"));
+				 	PK_AMOUNT3 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount3", "1500"));
+				 	PK_AMOUNT4 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount4", "2500"));
+				 	PK_AMOUNT5 = Integer.parseInt(L2JTeonCustom.getProperty("PkAmount5", "5000"));
+				 	TITLE_COLOR_FOR_PK_AMOUNT1 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount1", "00FF00"));
+				 	TITLE_COLOR_FOR_PK_AMOUNT2 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount2", "00FF00"));
+				 	TITLE_COLOR_FOR_PK_AMOUNT3 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount3", "00FF00"));
+				 	TITLE_COLOR_FOR_PK_AMOUNT4 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount4", "00FF00"));
+				 	TITLE_COLOR_FOR_PK_AMOUNT5 = Integer.decode("0x" + L2JTeonCustom.getProperty("TitleForAmount5", "00FF00"));
 					// PvP and PK Reward
 					ALLOW_PVP_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPvpRewardSystem", "False"));
 					PVP_REWARD_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("PvpRewardItem", "57"));
@@ -2767,7 +2767,7 @@ public final class Config
 					ALLOW_PK_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPkRewardSystem", "False"));
 					PK_REWARD_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardItem", "57"));
 					PK_REWARD_COUNT = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardAmount", "1"));
-					
+
 				}
 				catch (Exception e)
 				{
@@ -2787,7 +2787,7 @@ public final class Config
 					CUSTOM_SUBCLASS_LVL = Integer.parseInt(VoicedCommand.getProperty("CustomSubclassLvl", "40"));
 					RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(VoicedCommand.getProperty("RestoreEffectsOnSubClassChange", "False"));
 					ENABLE_INFO = Boolean.parseBoolean(VoicedCommand.getProperty("InfoCommand","False"));
-            	    ALLOW_HERO_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("AllowHeroCommand", "false")); 
+            	    ALLOW_HERO_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("AllowHeroCommand", "false"));
                     HERO_ITEM_ID = Integer.parseInt(VoicedCommand.getProperty("HeroItemId", "3481"));
                     HERO_ITEM_COUNT = Integer.parseInt(VoicedCommand.getProperty("HeroItemCount", "1"));
 					BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(VoicedCommand.getProperty("BankingSystemEnabled", "False"));
@@ -2852,17 +2852,17 @@ public final class Config
 						KARMA_LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id));
 					PVP_NORMAL_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsNormalTime", "15000"));
 					PVP_PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsPvPTime", "30000"));
-                    ANNOUNCE_ALL_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnounceAllKill", "False")); // Get the AnnounceAllKill, AnnouncePvpKill and AnnouncePkKill values 
-                    if ( !ANNOUNCE_ALL_KILL ) 
-                    { 
-                    ANNOUNCE_PVP_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePvPKill", "False")); 
-                    ANNOUNCE_PK_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkKill", "False")); 
-                    } 
-                    else 
-                    { 
-                    ANNOUNCE_PVP_KILL = false; 
-                    ANNOUNCE_PK_KILL = false; 
-                    } 
+                    ANNOUNCE_ALL_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnounceAllKill", "False")); // Get the AnnounceAllKill, AnnouncePvpKill and AnnouncePkKill values
+                    if ( !ANNOUNCE_ALL_KILL )
+                    {
+                    ANNOUNCE_PVP_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePvPKill", "False"));
+                    ANNOUNCE_PK_KILL = Boolean.parseBoolean(pvpSettings.getProperty("AnnouncePkKill", "False"));
+                    }
+                    else
+                    {
+                    ANNOUNCE_PVP_KILL = false;
+                    ANNOUNCE_PK_KILL = false;
+                    }
 				}
 				catch (Exception e)
 				{
@@ -3463,9 +3463,9 @@ public final class Config
 			PVP_NORMAL_TIME = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("PvPVsPvPTime"))
 			PVP_PVP_TIME = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("AnnouncePvPKill") && !ANNOUNCE_ALL_KILL ) ANNOUNCE_PVP_KILL = Boolean.valueOf(pValue); 
+        else if (pName.equalsIgnoreCase("AnnouncePvPKill") && !ANNOUNCE_ALL_KILL ) ANNOUNCE_PVP_KILL = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AnnouncePkKill") && !ANNOUNCE_ALL_KILL ) ANNOUNCE_PK_KILL = Boolean.valueOf(pValue);
-        else if (pName.equalsIgnoreCase("AnnounceAllKill") && !ANNOUNCE_PVP_KILL && !ANNOUNCE_PK_KILL ) ANNOUNCE_ALL_KILL = Boolean.valueOf(pValue); 
+        else if (pName.equalsIgnoreCase("AnnounceAllKill") && !ANNOUNCE_PVP_KILL && !ANNOUNCE_PK_KILL ) ANNOUNCE_ALL_KILL = Boolean.valueOf(pValue);
 		else if (pName.equalsIgnoreCase("GlobalChat"))
 			DEFAULT_GLOBAL_CHAT = pValue;
 		else if (pName.equalsIgnoreCase("TradeChat"))

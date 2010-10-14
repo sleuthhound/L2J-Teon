@@ -254,7 +254,7 @@ public class FortSiege
 		if(getIsInProgress())
 		{
 			announceToPlayer("The siege of " + getFort().getName() + " has finished!", false);
-			
+
 			if(getFort().getOwnerId() <= 0 && !_hasCastle)
 			{
 				announceToPlayer("The siege of " + getFort().getName() + " has ended in a draw.", false);

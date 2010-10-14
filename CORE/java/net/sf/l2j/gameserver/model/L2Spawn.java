@@ -354,7 +354,7 @@ public class L2Spawn
 	{
 		_customSpawn = custom;
 	}
-	
+
 	/**
 	 * Return type of spawn.<BR>
 	 * <BR>
@@ -379,7 +379,7 @@ public class L2Spawn
 		// sanity check
 		if (_currentCount <= 0)
 			return;
-		
+
 		// Decrease the current number of L2NpcInstance of this L2Spawn
 		_currentCount--;
 
@@ -388,7 +388,7 @@ public class L2Spawn
 		{
 			// Update the current number of SpawnTask in progress or stand by of this L2Spawn
 			_scheduledCount++;
-			
+
 			// Create a new SpawnTask to launch after the respawn Delay
 			// ClientScheduler.getInstance().scheduleLow(new SpawnTask(npcId), _respawnDelay);
 			ThreadPoolManager.getInstance().scheduleGeneral(new SpawnTask(oldNpc), _respawnDelay);
@@ -464,7 +464,7 @@ public class L2Spawn
 		try
 		{
 			// Check if the L2Spawn is not a L2Pet or L2Minion spawn
-			if (_template.type.equalsIgnoreCase("L2Pet") || _template.type.equalsIgnoreCase("L2Minion") 
+			if (_template.type.equalsIgnoreCase("L2Pet") || _template.type.equalsIgnoreCase("L2Minion")
 					|| _template.type.equalsIgnoreCase("L2EffectPoint"))
 			{
 				_currentCount++;
@@ -547,7 +547,7 @@ public class L2Spawn
 		{
 			mob.setHeading(getHeading());
 		}
-		
+
 		if (mob instanceof L2Attackable)
 		{
 			((L2Attackable) mob).setChampion(false);
@@ -562,19 +562,19 @@ public class L2Spawn
 					&& !getTemplate().isQuestMonster
 					&& !mob.isRaid()
 					&& !mob.isRaidMinion()
-					&& Config.CHAMPION_FREQUENCY > 0 
-					&& mob.getLevel() >= Config.CHAMPION_MIN_LVL 
+					&& Config.CHAMPION_FREQUENCY > 0
+					&& mob.getLevel() >= Config.CHAMPION_MIN_LVL
 					&& mob.getLevel() <= Config.CHAMPION_MAX_LVL
-					&& (getInstanceId() == 0) 
+					&& (getInstanceId() == 0)
 			)
 			{
 				int random = Rnd.get(100);
-				
+
 				if (random < Config.CHAMPION_FREQUENCY)
 					((L2Attackable) mob).setChampion(true);
 			}
 		}
-		
+
 		// Link the L2NpcInstance to this L2Spawn
 		mob.setSpawn(this);
 		// Init other values of the L2NpcInstance (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in the world as a visible object

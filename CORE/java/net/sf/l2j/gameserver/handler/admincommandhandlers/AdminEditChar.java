@@ -656,7 +656,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				name = activeChar.getName();
 				CharactersFound = CharactersFound + 1;
-                replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + player.getTemplate().className + "</td><td width=40>" + player.getLevel() + "</td></tr>"); 
+                replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list " + name + "\">" + name + "</a></td><td width=110>" + player.getTemplate().className + "</td><td width=40>" + player.getLevel() + "</td></tr>");
             }
 			if (CharactersFound > 20)
 				break;

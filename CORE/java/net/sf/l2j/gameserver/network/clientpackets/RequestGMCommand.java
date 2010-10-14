@@ -55,7 +55,7 @@ public final class RequestGMCommand extends L2GameClientPacket
 		if (!getClient().getActiveChar().isGM() || getClient().getActiveChar().getAccessLevel() < Config.GM_ALTG_MIN_LEVEL)
 			return;
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
-		
+
 		L2Clan clan = ClanTable.getInstance().getClanByName(_targetName);;
 
 		// player name was incorrect?
@@ -95,11 +95,11 @@ public final class RequestGMCommand extends L2GameClientPacket
 			case 6: // player warehouse
 			{
 				// gm warehouse view to be implemented
-				if (player != null) 
-	                  sendPacket(new GMViewWarehouseWithdrawList(player)); 
-                // clan warehouse 
-                else 
-                      sendPacket(new GMViewWarehouseWithdrawList(clan)); 
+				if (player != null)
+	                  sendPacket(new GMViewWarehouseWithdrawList(player));
+                // clan warehouse
+                else
+                      sendPacket(new GMViewWarehouseWithdrawList(clan));
 				break;
 			}
 		}

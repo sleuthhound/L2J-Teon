@@ -417,11 +417,11 @@ public class SpawnTable
 				}
 			}
 		}
-		
+
 		if (index == 0)
 			activeChar.sendMessage("No current spawns found.");
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

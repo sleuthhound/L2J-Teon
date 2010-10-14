@@ -571,7 +571,7 @@ public abstract class L2Character extends L2Object
 		broadcastPacket(new TeleportToLocation(this, x, y, z));
 		// Set the x, y, z coords of the object, but do not update it's world region yet - onTeleported() will do it
 		getPosition().setWorldPosition(x, y, z);
-		 
+
 
 		decayMe();
 

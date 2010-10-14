@@ -16,7 +16,7 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
- 
+
 import java.util.logging.Logger;
 
 import net.sf.l2j.gameserver.GameServer;
@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
- 
+
 /**
  * @author Rayder
  *
@@ -34,7 +34,7 @@ public class info implements IVoicedCommandHandler
 	private static final String[] VOICED_COMMANDS = {"info"};
 
 	private static final Logger _log = Logger.getLogger(GameServer.class.getName());
-	
+
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.equalsIgnoreCase("info"))
@@ -56,7 +56,7 @@ public class info implements IVoicedCommandHandler
 		}
 		return false;
     }
-	
+
 	public String[] getVoicedCommandList()
 	{
 		return VOICED_COMMANDS;

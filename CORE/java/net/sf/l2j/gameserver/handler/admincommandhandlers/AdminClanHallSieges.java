@@ -32,17 +32,17 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class AdminClanHallSieges implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = { 
-		"admin_startfortresist", 
-		"admin_endfortresist", 
-		"admin_startdevastated", 
-		"admin_enddevastated", 
-		"admin_startbandit", 
-		"admin_endbandit", 
-		"admin_startwildbeastfarm", 
-		"admin_endwildbeastfarm", 
-		"admin_startfortress", 
-		"admin_endfortress" 
+	private static final String[] ADMIN_COMMANDS = {
+		"admin_startfortresist",
+		"admin_endfortresist",
+		"admin_startdevastated",
+		"admin_enddevastated",
+		"admin_startbandit",
+		"admin_endbandit",
+		"admin_startwildbeastfarm",
+		"admin_endwildbeastfarm",
+		"admin_startfortress",
+		"admin_endfortress"
 	};
 
 	private static final int REQUIRED_LEVEL = Config.GM_FORTSIEGE;
