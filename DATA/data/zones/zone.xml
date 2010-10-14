@@ -238,7 +238,7 @@
 		<spawn X='17577' Y='170128' Z='-3534'/>
 		<spawn X='19737' Y='170976' Z='-3583'/>
 	</zone>
-	<zone id='11037' type='Town' shape='Cuboid' minZ='-3500' maxZ='-3400'>
+	<zone id='11037' type='Arena' shape='Cuboid' minZ='-3500' maxZ='-3400'>
 		<stat name='name' val='Primeval Isle'/>
 		<stat name='townId' val='19'/>
 		<stat name='taxById' val='8'/>
@@ -1008,7 +1008,7 @@
 	<zone id='11408' type='FishingZone' shape='NPoly' minZ='-1135' maxZ='-1045'>
 	</zone>  
 <!-- Primeval Isle  -->
-	<zone id='11409' type='FishingZone' shape='NPoly' minZ='-4679' maxZ='-3781'>
+	<zone id='11409' type='Arena' shape='NPoly' minZ='-4679' maxZ='-3781'>
 	</zone> 
 <!-- Heine  -->
 	<zone id='11410' type='FishingZone' shape='NPoly' minZ='-4810' maxZ='-3810'>
