@@ -4245,7 +4245,6 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 				if (pk != null)
 				{
-					if (Config.ALT_ANNOUNCE_PK)
 						if (pk.isNoob() && isKoof())
 							Announcements.getInstance().announceToAll(pk.getName() + " has Humiliate " + getName());
 						else if (pk.isKoof() && isNoob())
@@ -4258,8 +4257,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					}
 				}
 			}
-			else if (pk != null && Config.ALT_ANNOUNCE_PK && isInsideZone(ZONE_PVP))
-				Announcements.getInstance().announceToAll(pk.getName() + " has Pawned " + getName());
 		}
 		setPvpFlag(0); // Clear the pvp flag
 		// Unsummon Cubics

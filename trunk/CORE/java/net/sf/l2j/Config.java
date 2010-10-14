@@ -1080,8 +1080,6 @@ public final class Config
 	public static int ONLINE_PLAYERS_ANNOUNCE_INTERVAL;
 	/** Announce Castle Lords on login */
 	public static boolean ANNOUNCE_CASTLE_LORDS;
-	/** Announce Pk players */
-	public static boolean ALT_ANNOUNCE_PK;
 	/** Enable Pk Info mod. Displays number of times player has killed other */
 	public static boolean ENABLE_PK_INFO;
 	/** NPC Announcer */
@@ -2520,7 +2518,6 @@ public final class Config
 					ADENA_NUMBER_REWARD_ON_PVP = Integer.parseInt(L2JTeonEventMods.getProperty("AmmountAdenaGetByPvP", "1"));
 					LOOSE_ADENA_ON_DIE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("PlayerLooseAdena", "False"));
 					ADENA_NUMBER_LOST_ON_DIE = Integer.parseInt(L2JTeonEventMods.getProperty("AmmountAdenaLostWhenDies", "1"));
-					ALT_ANNOUNCE_PK = Boolean.parseBoolean(L2JTeonEventMods.getProperty("NoticePK", "False"));
 					FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("AnnounceTimeFaction", "0"));
 					// -------------------- //
 					// Rebith System //
