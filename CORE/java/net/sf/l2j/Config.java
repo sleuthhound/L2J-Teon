@@ -2588,12 +2588,8 @@ public final class Config
 					e.printStackTrace();
 					throw new Error("Failed to Load " + L2JTEON_MODS + " File.");
 				}
-				/** ************************************************** */
 				/** L2J Teon Mods Properties File -End * */
-				/** ************************************************** */
-				/** ************************************************** */
 				/** L2J Teon Custom Properties File -Begin * */
-				/** ************************************************** */
 				try
 				{
 					Properties L2JTeonCustom = new Properties();
