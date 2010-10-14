@@ -6700,11 +6700,3 @@ insert into npc values
 UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (29096,25523,35410);
 
 UPDATE npc SET `collision_height` = '65' WHERE idTemplate = 29061;
-
-UPDATE npc SET collision_height = '49' WHERE id = '25523';
-
-UPDATE 'npc' SET 'patk'='9000', 'pdef'='5000', 'matk'='6000', 'mdef'='6000', 'exp'='4400000', 'sp'='4000000' WHERE ('id'='25523');
-
-UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` IN (29096,25523,35410);
-
-UPDATE npc SET `collision_height` = '65' WHERE idTemplate = 29061;
