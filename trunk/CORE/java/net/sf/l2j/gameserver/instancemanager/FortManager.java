@@ -181,7 +181,7 @@ public class FortManager
 		return _forts;
 	}
 
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

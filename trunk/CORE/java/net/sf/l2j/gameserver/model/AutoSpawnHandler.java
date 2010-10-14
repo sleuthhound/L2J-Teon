@@ -90,11 +90,11 @@ public class AutoSpawnHandler
 			if (asi != null)
 				this.removeSpawn(asi);
 		}
-		
+
 		// create clean list
 		_registeredSpawns = new FastMap<Integer, AutoSpawnInstance>();
 		_runningSpawns = new FastMap<Integer, ScheduledFuture<?>>();
-		
+
 		// load
 		restoreSpawnData();
 	}
@@ -144,7 +144,7 @@ public class AutoSpawnHandler
 			statement2.close();
 			rs.close();
 			statement.close();
-			
+
 			if (Config.DEBUG)
 				_log.info("AutoSpawnHandler: Loaded " + numLoaded + " spawn group(s) from the database.");
 		}
@@ -178,13 +178,13 @@ public class AutoSpawnHandler
 	{
 		if (initialDelay < 0)
 			initialDelay = DEFAULT_INITIAL_SPAWN;
-		
+
 		if (respawnDelay < 0)
 			respawnDelay = DEFAULT_RESPAWN;
-		
+
 		if (despawnDelay < 0)
 			despawnDelay = DEFAULT_DESPAWN;
-		
+
 		AutoSpawnInstance newSpawn = new AutoSpawnInstance(npcId, initialDelay, respawnDelay, despawnDelay);
 
 		if (spawnPoints != null)
@@ -314,7 +314,7 @@ public class AutoSpawnHandler
 	{
 		if (_activeState == isActive)
 			return;
-		
+
 		for (AutoSpawnInstance spawnInst : _registeredSpawns.values())
 			setSpawnActive(spawnInst, isActive);
 
@@ -435,7 +435,7 @@ public class AutoSpawnHandler
 
 				int locationCount = locationList.length;
 				int locationIndex = Rnd.nextInt(locationCount);
-				
+
 				/*
 				 * If random spawning is disabled, the spawn at the next set of
 				 * co-ordinates after the last. If the index is greater than the
@@ -515,7 +515,7 @@ public class AutoSpawnHandler
 
 				if (Config.DEBUG)
 					_log.info("AutoSpawnHandler: Spawned NPC ID " + spawnInst.getNpcId() + " at " + x + ", " + y + ", " + z + " (Near " + nearestTown + ") for " + (spawnInst.getRespawnDelay() / 60000) + " minute(s).");
-			
+
 				// If there is no despawn time, do not create a despawn task.
 				if (spawnInst.getDespawnDelay() > 0)
 				{
@@ -590,27 +590,27 @@ public class AutoSpawnHandler
 		protected int _objectId;
 
 		protected int _spawnIndex;
-		
+
 		protected int _npcId;
-		
+
 		protected int _initDelay;
-		
+
 		protected int _resDelay;
-		
+
 		protected int _desDelay;
-		
+
 		protected int _spawnCount = 1;
-		
+
 		protected int _lastLocIndex = -1;
-		
+
 		private List<L2NpcInstance> _npcList = new FastList<L2NpcInstance>();
-		
+
 		private List<Location> _locList = new FastList<Location>();
-		
+
 		private boolean _spawnActive;
-		
+
 		private boolean _randomSpawn = false;
-		
+
 		private boolean _broadcastAnnouncement = false;
 
 		protected AutoSpawnInstance(int npcId, int initDelay, int respawnDelay, int despawnDelay)
@@ -748,7 +748,7 @@ public class AutoSpawnHandler
 			}
 		}
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

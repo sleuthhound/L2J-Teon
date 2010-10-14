@@ -500,7 +500,7 @@ public class WildBeastFarmManager extends ClanHallSiege
 			L2WorldRegion region = L2World.getInstance().getRegion(53508, -93776);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (region == L2World.getInstance().getRegion(player.getX(), player.getY()) 
+				if (region == L2World.getInstance().getRegion(player.getX(), player.getY())
 						&& player.getInstanceId() == 0)
 					player.sendPacket(cs);
 			}

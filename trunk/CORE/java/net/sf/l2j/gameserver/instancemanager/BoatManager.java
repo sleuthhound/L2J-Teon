@@ -205,7 +205,7 @@ public class BoatManager
 			_staticItems = new FastMap<Integer, L2BoatInstance>();
 		return _staticItems.get(boatId);
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

@@ -159,7 +159,7 @@ public class FortResistSiegeManager extends ClanHallSiege
 			_clansDamageInfo.put(clan.getClanId(), clanDamage);
 		}
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

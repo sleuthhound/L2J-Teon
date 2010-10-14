@@ -62,12 +62,12 @@ import net.sf.l2j.gameserver.model.olympiad.Olympiad;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.Die;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowScreenMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ExStorageMaxCount;
 import net.sf.l2j.gameserver.network.serverpackets.FriendList;
-import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.HennaInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -164,7 +164,7 @@ public class EnterWorld extends L2GameClientPacket
 			L2Event.restoreChar(activeChar);
 		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
 			L2Event.restoreAndTeleChar(activeChar);
-			
+
 			for (L2ItemInstance i : activeChar.getInventory().getItems())
 			{
 				if (!activeChar.isGM())
@@ -293,15 +293,15 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.updatePvPColor(activeChar.getPvpKills());
 		if (activeChar.getPkKills() >= Config.PK_AMOUNT1 && Config.PK_COLOR_SYSTEM_ENABLED)
 			activeChar.updatePkColor(activeChar.getPkKills());
-         // Apply color settings to clan leader when entering 
-        if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL) 
-        {  
-        	activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR); 
+         // Apply color settings to clan leader when entering
+        if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+        {
+        	activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
         }
 
-        if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_TITLE_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_TITLE_CLAN_LEVEL) 
-        {  
-        	activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_TITLE); 
+        if (activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_TITLE_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_TITLE_CLAN_LEVEL)
+        {
+        	activeChar.getAppearance().setTitleColor(Config.CLAN_LEADER_TITLE);
         }
 		// Color System checks - End =======================================================
 		// restore info about withdraw state
@@ -336,12 +336,12 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (Config.SHOW_WELCOME_PM)
 		{
-			CreatureSay np = new CreatureSay(0, Say2.TELL,Config.PM_FROM,Config.PM_TEXT1); 
-			CreatureSay na = new CreatureSay(0, Say2.TELL,Config.PM_FROM,Config.PM_TEXT2); 
-			activeChar.sendPacket(np); 
+			CreatureSay np = new CreatureSay(0, Say2.TELL,Config.PM_FROM,Config.PM_TEXT1);
+			CreatureSay na = new CreatureSay(0, Say2.TELL,Config.PM_FROM,Config.PM_TEXT2);
+			activeChar.sendPacket(np);
 			activeChar.sendPacket(na);
 		}
-				  
+
 		// check any poending petitions
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
 		// sends welcome htm if enabled.

@@ -56,7 +56,7 @@ public class CursedWeaponsManager
 {
 	private static final Logger _log = Logger.getLogger(CursedWeaponsManager.class.getName());
 	// =========================================================
-	
+
 	public static CursedWeaponsManager getInstance()
 	{
 		return SingletonHolder._instance;
@@ -86,7 +86,7 @@ public class CursedWeaponsManager
 		controlPlayers();
 		_log.info("Loaded : " + _cursedWeapons.size() + " cursed weapon(s).");
 	}
-	
+
 	// =========================================================
 	// Method - Private
 	public final void reload()

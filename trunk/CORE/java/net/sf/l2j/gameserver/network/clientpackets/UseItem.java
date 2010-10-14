@@ -245,7 +245,7 @@ public final class UseItem extends L2GameClientPacket
 			 Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " have item Overenchanted ", Config.DEFAULT_PUNISH);
 			 activeChar.closeNetConnection();
 			 return;
-	        }  			 
+	        }
 			int bodyPart = item.getItem().getBodyPart();
 			// Prevent player to remove the weapon on special conditions
 			if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted() || activeChar._inEventCTF && activeChar._haveFlagCTF) && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND))

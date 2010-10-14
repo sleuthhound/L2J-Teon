@@ -161,7 +161,7 @@ public class DevastatedCastleManager extends ClanHallSiege
 			schedule(timeRemaining);
 		}
 	};
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

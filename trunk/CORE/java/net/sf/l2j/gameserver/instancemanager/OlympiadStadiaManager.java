@@ -67,7 +67,7 @@ public class OlympiadStadiaManager
 				return temp;
 		return null;
 	}
-	
+
 	@SuppressWarnings("synthetic-access")
 	private static class SingletonHolder
 	{

@@ -110,7 +110,7 @@ public class L2ClanMember
 
 	public boolean isOnline()
 	{
-        return _player != null; 
+        return _player != null;
 	}
 
 	/**

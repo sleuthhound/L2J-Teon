@@ -46,7 +46,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
  		{
 			if(e instanceof BufferUnderflowException)
 			return false;
-			
+
 			else
 			{
 				_log.severe("Client: "+getClient().toString()+" - Failed reading: "+getType()+" - L2J Server Version: "+Config.SERVER_VERSION+" - DP Revision: "+Config.DATAPACK_VERSION);
