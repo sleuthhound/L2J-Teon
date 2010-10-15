@@ -1231,10 +1231,10 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="25"/>
+  <set name="power" val="5"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="180000"/>
-  <set name="hitTime" val="60000"/>
+  <set name="reuseDelay" val="120000"/>
+  <set name="hitTime" val="80000"/>
   <set name="skillType" val="CANCEL"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
