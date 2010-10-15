@@ -1957,7 +1957,7 @@
   <set name="weaponsAllowed" val="2"/>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="70"/>
+  <set name="power" val="65"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="12000"/>
@@ -1970,13 +1970,12 @@
   <enchant1 name="reuseDelay" val="#ench1Reuse"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun">
+    <effect count="1" name="Stun" time="5" val="0" stackOrder="1" stackType="Stun">
        <using kind="Shield"/>
     </effect>
   </for>
 </skill>
 <skill id="94" levels="2" name="Rage">
-  <!-- Done by dc -->
   <table name="#swordblunt"> 1.45 1.55 </table>
   <table name="#twohands"> 1.55 1.64 </table>
   <table name="#other"> 1.15 1.20 </table>
