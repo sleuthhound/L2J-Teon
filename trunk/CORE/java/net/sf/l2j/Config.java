@@ -105,6 +105,7 @@ public final class Config
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_TRADE = new FloodProtectorConfig("TradeFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_POTION = new FloodProtectorConfig("PotionFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_ENCHANT = new FloodProtectorConfig("EnchantFloodProtector");
+	// AUTO_LOOT
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
@@ -234,8 +235,8 @@ public final class Config
 	public static float ALT_LOTTERY_3_NUMBER_RATE;
 	public static int ALT_LOTTERY_2_AND_1_NUMBER_PRIZE;
 	// Chat Filter Configs
-	public static int     CHAT_FILTER_PUNISHMENT_PARAM1;
-	public static int     CHAT_FILTER_PUNISHMENT_PARAM2;
+	public static int CHAT_FILTER_PUNISHMENT_PARAM1;
+	public static int CHAT_FILTER_PUNISHMENT_PARAM2;
 	public static boolean USE_SAY_FILTER;
 	public static String  CHAT_FILTER_CHARS;
 	public static String  CHAT_FILTER_PUNISHMENT;
@@ -247,55 +248,55 @@ public final class Config
 	/** Start clanhall.properties */
 	// Clan Hall function related configs
 	public static long CH_TELE_FEE_RATIO;
-	public static int CH_TELE1_FEE;
-	public static int CH_TELE2_FEE;
+	public static int  CH_TELE1_FEE;
+	public static int  CH_TELE2_FEE;
 	public static long CH_ITEM_FEE_RATIO;
-	public static int CH_ITEM1_FEE;
-	public static int CH_ITEM2_FEE;
-	public static int CH_ITEM3_FEE;
+	public static int  CH_ITEM1_FEE;
+	public static int  CH_ITEM2_FEE;
+	public static int  CH_ITEM3_FEE;
 	public static long CH_MPREG_FEE_RATIO;
-	public static int CH_MPREG1_FEE;
-	public static int CH_MPREG2_FEE;
-	public static int CH_MPREG3_FEE;
-	public static int CH_MPREG4_FEE;
-	public static int CH_MPREG5_FEE;
+	public static int  CH_MPREG1_FEE;
+	public static int  CH_MPREG2_FEE;
+	public static int  CH_MPREG3_FEE;
+	public static int  CH_MPREG4_FEE;
+	public static int  CH_MPREG5_FEE;
 	public static long CH_HPREG_FEE_RATIO;
-	public static int CH_HPREG1_FEE;
-	public static int CH_HPREG2_FEE;
-	public static int CH_HPREG3_FEE;
-	public static int CH_HPREG4_FEE;
-	public static int CH_HPREG5_FEE;
-	public static int CH_HPREG6_FEE;
-	public static int CH_HPREG7_FEE;
-	public static int CH_HPREG8_FEE;
-	public static int CH_HPREG9_FEE;
-	public static int CH_HPREG10_FEE;
-	public static int CH_HPREG11_FEE;
-	public static int CH_HPREG12_FEE;
-	public static int CH_HPREG13_FEE;
+	public static int  CH_HPREG1_FEE;
+	public static int  CH_HPREG2_FEE;
+	public static int  CH_HPREG3_FEE;
+	public static int  CH_HPREG4_FEE;
+	public static int  CH_HPREG5_FEE;
+	public static int  CH_HPREG6_FEE;
+	public static int  CH_HPREG7_FEE;
+	public static int  CH_HPREG8_FEE;
+	public static int  CH_HPREG9_FEE;
+	public static int  CH_HPREG10_FEE;
+	public static int  CH_HPREG11_FEE;
+	public static int  CH_HPREG12_FEE;
+	public static int  CH_HPREG13_FEE;
 	public static long CH_EXPREG_FEE_RATIO;
-	public static int CH_EXPREG1_FEE;
-	public static int CH_EXPREG2_FEE;
-	public static int CH_EXPREG3_FEE;
-	public static int CH_EXPREG4_FEE;
-	public static int CH_EXPREG5_FEE;
-	public static int CH_EXPREG6_FEE;
-	public static int CH_EXPREG7_FEE;
+	public static int  CH_EXPREG1_FEE;
+	public static int  CH_EXPREG2_FEE;
+	public static int  CH_EXPREG3_FEE;
+	public static int  CH_EXPREG4_FEE;
+	public static int  CH_EXPREG5_FEE;
+	public static int  CH_EXPREG6_FEE;
+	public static int  CH_EXPREG7_FEE;
 	public static long CH_SUPPORT_FEE_RATIO;
-	public static int CH_SUPPORT1_FEE;
-	public static int CH_SUPPORT2_FEE;
-	public static int CH_SUPPORT3_FEE;
-	public static int CH_SUPPORT4_FEE;
-	public static int CH_SUPPORT5_FEE;
-	public static int CH_SUPPORT6_FEE;
-	public static int CH_SUPPORT7_FEE;
-	public static int CH_SUPPORT8_FEE;
+	public static int  CH_SUPPORT1_FEE;
+	public static int  CH_SUPPORT2_FEE;
+	public static int  CH_SUPPORT3_FEE;
+	public static int  CH_SUPPORT4_FEE;
+	public static int  CH_SUPPORT5_FEE;
+	public static int  CH_SUPPORT6_FEE;
+	public static int  CH_SUPPORT7_FEE;
+	public static int  CH_SUPPORT8_FEE;
 	public static long CH_CURTAIN_FEE_RATIO;
-	public static int CH_CURTAIN1_FEE;
-	public static int CH_CURTAIN2_FEE;
+	public static int  CH_CURTAIN1_FEE;
+	public static int  CH_CURTAIN2_FEE;
 	public static long CH_FRONT_FEE_RATIO;
-	public static int CH_FRONT1_FEE;
-	public static int CH_FRONT2_FEE;
+	public static int  CH_FRONT1_FEE;
+	public static int  CH_FRONT2_FEE;
 	/** The End clanhall.properties */
 	/** Start GMAcess.properties */
 	// GM access level
@@ -345,7 +346,7 @@ public final class Config
 	public static int GM_DONT_TAKE_EXPSP;
 	public static int GM_DONT_TAKE_AGGRO;
 	public static int MAX_ITEM_ENCHANT_KICK;
-
+	
 	/** The End GMacess.properties */
 	/** Start idfactory.properties */
 	/*
@@ -810,10 +811,11 @@ public final class Config
 	public static boolean ALLOW_TRADEOFF_VOICE_COMMAND;
 	public static boolean ONLINE_VOICE_COMMAND;
 	public static boolean ENABLE_INFO;
-	public static int     CUSTOM_SUBCLASS_LVL;
+	public static int CUSTOM_SUBCLASS_LVL;
     public static boolean ALLOW_HERO_COMMAND;
-    public static int     HERO_ITEM_ID;
-    public static int     HERO_ITEM_COUNT;
+    public static int HERO_ITEM_ID;
+    public static int HERO_ITEM_COUNT;
+	/** VoicedCommand System End. */
 	/** This is the cost to get married. */
 	public static int WEDDING_PRICE;
 	/** This checks if a player should get punished for infedelity. */
@@ -870,7 +872,7 @@ public final class Config
 	public static int PK_REWARD_ITEM;
 	public static int PK_REWARD_COUNT;
 	// ** Colored pvp name system ** //
-	 // ** Colored pvp name system ** //
+    // ** Colored pvp name system ** //
  	public static boolean PVP_COLOR_SYSTEM_ENABLED;
  	/** Colored pvp name system */
  	public static int PVP_AMOUNT1;
