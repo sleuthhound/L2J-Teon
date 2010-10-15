@@ -105,7 +105,6 @@ public final class Config
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_TRADE = new FloodProtectorConfig("TradeFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_POTION = new FloodProtectorConfig("PotionFloodProtector");
 	public static final FloodProtectorConfig FLOOD_PROTECTOR_ENCHANT = new FloodProtectorConfig("EnchantFloodProtector");
-	// AUTO_LOOT
 	/** Start AltSettings.properties */
 	// Auto loots configs
 	public static boolean AUTO_LOOT;
