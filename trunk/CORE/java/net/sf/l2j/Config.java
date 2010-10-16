@@ -632,14 +632,12 @@ public final class Config
 	// List of items that cannot be dropped (seperated by ",")
 	public static String NONDROPPABLE_ITEMS;
 	public static List<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-	// Pvp times
+	// PvP times
 	public static int PVP_NORMAL_TIME;
 	public static int PVP_PVP_TIME;
-    /** Announce PvP */
+    // * Announce PvP System *//
     public static boolean ANNOUNCE_PVP_KILL;
-    /** Announce PK */
     public static boolean ANNOUNCE_PK_KILL;
-    /** Announce Kill */
     public static boolean ANNOUNCE_ALL_KILL;
 	/** The end pvp.properties */
 	/** Start rate.properties */
