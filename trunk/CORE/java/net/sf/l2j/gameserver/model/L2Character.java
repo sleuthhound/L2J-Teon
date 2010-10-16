@@ -1111,6 +1111,7 @@ public abstract class L2Character extends L2Object
 	 * @param target
 	 *            The L2Character targeted
 	 * @return true if the hit isn't missed
+	 * 
 	 */
 	private boolean doAttackHitSimple(Attack attack, L2Character target, int sAtk)
 	{
@@ -1132,7 +1133,7 @@ public abstract class L2Character extends L2Object
 			// Calculate if hit is critical
 			crit1 = Formulas.getInstance().calcCrit(getStat().getCriticalHit(target, null));
 			// Calculate physical damages
-			damage1 = (int) Formulas.getInstance().calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
+			damage1 = (int)Formulas.getInstance().calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
 			if (attackpercent != 100)
 				damage1 = (int) (damage1 * attackpercent / 100);
 		}
