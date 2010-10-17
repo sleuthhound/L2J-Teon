@@ -702,7 +702,4 @@ INSERT INTO teleport VALUES
 ('Clan Hall -> North of Goddard Castle Town',12047,147731,-58930,-2976,0,0),
 ('Clan Hall -> East of Goddard Castle Town',12048,150561,-57489,-2976,0,0),
 ('Clan Hall -> West of Goddard Castle Town',12049,144866,-57464,-2976,0,0),
-('Mass Gatekeeper Giran',60004,116557,146117,-1866,0,0),
-('Mass Gatekeeper Giran 2',60005,147708,4608,-2815,0,0),
-('Mass Gatekeeper Giran 3',60006,-16985,109378,-1804,0,0),
-('Mass Gatekeeper Giran 4',60007,20912,160380,-1998,0,0);
+('Mass Gatekeeper Giran',60004,116507,145095,-2563,0,0);
