@@ -848,10 +848,9 @@
 </skill>
 <skill id="325" levels="1" name="Strider Siege Assault">
   <!-- SHOULD WORK ONLY DURING SIEGE -->
-  <table name="#itemConsumeCount"> 5 </table>
   <set name="mpConsume" val="168"/>
   <set name="itemConsumeId" val="3031"/>
-  <set name="itemConsumeCount" val="#itemConsumeCount"/>
+  <set name="itemConsumeCount" val="5"/>
   <set name="power" val="15005.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="1080"/>
