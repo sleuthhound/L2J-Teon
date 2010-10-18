@@ -89,33 +89,40 @@ public class RequestUnEquipItem extends L2GameClientPacket
 				activeChar.removeSkill(SkillTable.getInstance().getInfo(3260, 0));
 				activeChar.removeSkill(SkillTable.getInstance().getInfo(3262, 0));
 			}
-		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
+		L2ItemInstance[] unequiped = 
+			    activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
+		
 		// show the update in the inventory
 		InventoryUpdate iu = new InventoryUpdate();
-		for (L2ItemInstance element : unequiped) {
-			activeChar.checkSSMatch(null, element);
-			iu.addModifiedItem(element);
+
+		for (int i = 0; i < unequiped.length; i++)
+		{
+                        activeChar.checkSSMatch(null, unequiped[i]);
+
+			iu.addModifiedItem(unequiped[i]);
 		}
+		
 		activeChar.sendPacket(iu);
-		// On retail you don't stop hitting if unequip something. REOMVED: activeChar.abortAttack();
+		activeChar.abortAttack();
 		activeChar.broadcastUserInfo();
+		
 		// this can be 0 if the user pressed the right mousebutton twice very fast
 		if (unequiped.length > 0)
 		{
-			SystemMessage sm = null;
-			if (unequiped[0].getEnchantLevel() > 0)
-			{
-				sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-				sm.addNumber(unequiped[0].getEnchantLevel());
-				sm.addItemName(unequiped[0].getItemId());
-			}
-			else
-			{
-				sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-				sm.addItemName(unequiped[0].getItemId());
-			}
-			activeChar.sendPacket(sm);
-			sm = null;
+            SystemMessage sm = null;
+            if (unequiped[0].getEnchantLevel() > 0)
+            {
+            	sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+            	sm.addNumber(unequiped[0].getEnchantLevel());
+            	sm.addItemName(unequiped[0].getItemId());
+            }
+           else
+            {
+	            sm = new SystemMessage(SystemMessageId.S1_DISARMED);
+	            sm.addItemName(unequiped[0].getItemId());
+           }
+            activeChar.sendPacket(sm);
+            sm = null;
 		}
 	}
 
