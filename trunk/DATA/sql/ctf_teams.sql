@@ -14,3 +14,6 @@ CREATE TABLE IF NOT EXISTS `ctf_teams` (
   `flagZ` int(11) NOT NULL default '0',
   PRIMARY KEY (`teamId`)
 ) DEFAULT CHARSET=utf8;
+
+INSERT INTO ctf_teams VALUES ('0', 'team1', '174235', '-86421', '-5108', '255', '174692', '-86443', '-5108');
+INSERT INTO ctf_teams VALUES ('1', 'team2', '174240', '-89544', '-5107', '16763904', '174503', '-89470', '-5108');
