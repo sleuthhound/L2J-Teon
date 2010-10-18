@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.util.Point3D;
 import net.sf.l2j.util.Rnd;
@@ -341,7 +342,11 @@ public class CursedWeapon
 			dropIt(attackable, player);
 			// Start the Life Task
 			_endTime = System.currentTimeMillis() + _duration * 60000L;
-			_removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost * 12000L, _durationLost * 12000L);
+		{
+			if (_removeTask == null)
+				_removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost*12000L, _durationLost*12000L);
+		}
+
 			return true;
 		}
 		return false;
@@ -485,6 +490,7 @@ public class CursedWeapon
 	{
 		_nbKills++;
 		_player.setPkKills(_nbKills);
+		_player.sendPacket(new UserInfo(_player));
 		_player.broadcastUserInfo();
 		if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills * (_skillMaxLevel - 1))
 			giveSkill();
@@ -664,4 +670,12 @@ public class CursedWeapon
 			return _item.getPosition().getWorldPosition();
 		return null;
 	}
+
+    /**
+     * @return Returns the duration.
+     */
+    public int getDuration()
+    {
+    	return _duration;
+    }
 }
