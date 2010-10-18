@@ -15,4 +15,5 @@ CREATE TABLE IF NOT EXISTS global_tasks (
 -- ----------------------------
 -- Global Tasks
 -- ----------------------------
-INSERT INTO `global_tasks` VALUES ('998', 'jython', 'TYPE_FIXED_SHEDULED', '1206595935732', '10800000', '10800000', 'tvt.py');
+INSERT INTO global_tasks VALUES ('50', 'jython', 'TYPE_FIXED_SHEDULED', '1232168170817', '1800000', '3600000', 'tvt.py');
+INSERT INTO global_tasks VALUES ('51', 'jython', 'TYPE_FIXED_SHEDULED', '1232168230835', '7200000', '7200000', 'ctf.py');

@@ -11,3 +11,6 @@ CREATE TABLE IF NOT EXISTS `tvt_teams` (
   `teamColor` int(11) NOT NULL default '0',
   PRIMARY KEY (`teamId`)
 ) DEFAULT CHARSET=utf8;
+
+INSERT INTO tvt_teams VALUES ('0', 'team1', '148434', '46722', '-3411', '255');
+INSERT INTO tvt_teams VALUES ('1', 'team2', '150497', '46722', '-3411', '16711680');

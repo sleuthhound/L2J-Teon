@@ -21,3 +21,5 @@ CREATE TABLE IF NOT EXISTS `ctf` (
   `minPlayers` int(4) NOT NULL default '0',
   `maxPlayers` int(4) NOT NULL default '0'
 ) DEFAULT CHARSET=utf8;
+
+INSERT INTO ctf VALUES ('CTF Event', 'Capture the Flag', 'Giran Tower', '20', '85', '31229', '82360', '148424', '-3467', '53988', '4037', '10000', '2', '10', '15', '2', '100');
