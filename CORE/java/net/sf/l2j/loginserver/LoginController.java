@@ -153,6 +153,9 @@ public class LoginController
 
 	public void removeAuthedLoginClient(String account)
 	{
+		if (account == null)
+
+            return;
 		_loginServerClients.remove(account);
 	}
 
