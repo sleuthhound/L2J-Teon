@@ -69,6 +69,11 @@ public final class Logout extends L2GameClientPacket
 			player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event"));
 			return;
 		}
+		if (player.isCastingNow())
+		{
+			player.sendMessage("You may not restart using skill.");
+		    return;
+		}
 		if (player.isInFunEvent())
 		{
 			player.sendPacket(SystemMessage.sendString("You cant logout in event"));

@@ -57,6 +57,11 @@ public final class RequestRestart extends L2GameClientPacket
 			_log.warning("[RequestRestart] activeChar null!?");
 			return;
 		}
+		if (player.isCastingNow())
+		{
+		    player.sendMessage("You may not restart using skill.");
+		    return;
+		}
 		if (player.isInFunEvent())
 		{
 			player.sendMessage("You cant logout in event.");
