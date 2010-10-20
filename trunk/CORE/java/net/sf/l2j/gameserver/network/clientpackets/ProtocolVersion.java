@@ -44,15 +44,11 @@ public final class ProtocolVersion extends L2GameClientPacket
 		{
 			if (Config.DEBUG)
 				_log.info("Ping received");
-            if (!Config.PACKET_HANDLER_DEBUG)
-                return;
 			// this is just a ping attempt from the new C2 client
 			getClient().getConnection().close(null);
 		}
 		else if (_version < Config.MIN_PROTOCOL_REVISION || _version > Config.MAX_PROTOCOL_REVISION)
 		{
-            if (!Config.PACKET_HANDLER_DEBUG)
-                return;
 			_log.info("Client: " + getClient().toString() + " -> Protocol Revision: " + _version + " is invalid. Minimum is " + Config.MIN_PROTOCOL_REVISION + " and Maximum is " + Config.MAX_PROTOCOL_REVISION + " are supported. Closing connection.");
 			_log.warning("Wrong Protocol Version " + _version);
 			getClient().getConnection().close(null);
@@ -61,8 +57,6 @@ public final class ProtocolVersion extends L2GameClientPacket
 		{
 			if (Config.DEBUG)
 				_log.fine("Client Protocol Revision is ok: " + _version);
-            if (!Config.PACKET_HANDLER_DEBUG) 
-                return; 
 			KeyPacket pk = new KeyPacket(getClient().enableCrypt());
 			getClient().sendPacket(pk);
 		}
