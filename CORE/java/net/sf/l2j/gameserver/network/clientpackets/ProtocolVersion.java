@@ -41,7 +41,6 @@ public final class ProtocolVersion extends L2GameClientPacket
 	{
 		// this packet is never encrypted
 		if (_version == -2)
-
 		{
 			if (Config.DEBUG)
 				_log.info("Ping received");
