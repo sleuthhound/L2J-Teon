@@ -85,7 +85,6 @@ public class CursedWeapon
 				// Remove from player
 				_log.info(_name + " being removed online.");
 				_player.abortAttack();
-				_player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_LR_HAND);
 				_player.setKarma(_playerKarma);
 				_player.setPkKills(_playerPkKills);
 				_player.setCursedWeaponEquipedId(0);
