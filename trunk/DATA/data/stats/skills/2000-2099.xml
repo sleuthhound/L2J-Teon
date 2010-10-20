@@ -148,6 +148,7 @@
   </for>
 </skill>
 <skill id="2013" levels="1" name="Scroll Of Escape">
+  <set name="staticHitTime" val="true"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="20000"/>
@@ -160,6 +161,7 @@
 </skill>
 <skill id="2014" levels="1" name="Scroll Of Resurrection">
   <set name="power" val="0.0"/>
+  <set name="staticHitTime" val="true"/>
   <set name="target" val="TARGET_CORPSE_PLAYER"/>
   <set name="hitTime" val="15000"/>
   <set name="skillType" val="RESURRECT"/>
