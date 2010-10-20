@@ -813,8 +813,6 @@ public final class Config
     public static int HERO_ITEM_ID;
     public static int HERO_ITEM_COUNT;
 	/** VoicedCommand System End. */
-	// * PACKET System *//
-	public static boolean PACKET_HANDLER_DEBUG;
 	/** This is the cost to get married. */
 	public static int WEDDING_PRICE;
 	/** This checks if a player should get punished for infedelity. */
@@ -1490,7 +1488,6 @@ public final class Config
 					DATABASE_AUTO_CHECK = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoCheck", "False"));
 					DATABASE_AUTO_OPTIMIZE = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoOptimize", "False"));
 					DATABASE_AUTO_REPAIR = Boolean.parseBoolean(serverSettings.getProperty("DatabaseAutoRepair", "False"));
-					PACKET_HANDLER_DEBUG = Boolean.parseBoolean(serverSettings.getProperty("PacketHandlerDebug", "False"));
 				}
 				catch (Exception e)
 				{
