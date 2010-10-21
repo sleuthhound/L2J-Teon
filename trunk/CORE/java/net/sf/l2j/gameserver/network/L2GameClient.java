@@ -434,13 +434,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		return objectId.intValue();
 	}
 
-   {
-   if (Config.DEBUG)
-   System.out.println("Client "+toString()+" disconnected abnormally.");
-    } 
-
+	@Override
+    protected void onForcedDisconnection()
 	{
-		_log.info("Client " + toString() + " disconnected abnormally.");
+    if (Config.DEBUG)
+    System.out.println("Client "+toString()+" disconnected abnormally.");
 	}
 
 	@Override
@@ -576,9 +574,4 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 	}
 
-	@Override
-	protected void onForcedDisconnection() {
-		// TODO Auto-generated method stub
-		
-	}
 }
