@@ -701,7 +701,7 @@ INSERT INTO teleport VALUES
 ('Clan Hall -> Center of Goddard Castle Town',12046,147728,-56331,-2776,0,0),
 ('Clan Hall -> North of Goddard Castle Town',12047,147731,-58930,-2976,0,0),
 ('Clan Hall -> East of Goddard Castle Town',12048,150561,-57489,-2976,0,0),
-('Clan Hall -> West of Goddard Castle Town',12049,144866,-57464,-2976,0,0),
+('Clan Hall -> West of Goddard Castle Town',12049,144866,-57464,-2976,0,0);
 
 -- Castle Mass GK
 
