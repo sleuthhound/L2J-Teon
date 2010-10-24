@@ -168,7 +168,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		newChar.addAdena("Init", Config.STARTING_ADENA, null, false);
 		newChar.addAncientAdena("Init", Config.STARTING_AA, null, false);
 		if (Config.STARTING_LEVEL > 1)
-			newChar.getStat().addLevel(Config.STARTING_LEVEL);
+			newChar.getStat().addLevel((byte)(Config.STARTING_LEVEL - 1));
 		for (int[] startingItems : Config.CUSTOM_STARTER_ITEMS)
 		{
 			if (newChar == null)
