@@ -706,7 +706,7 @@ INSERT INTO teleport VALUES
 -- Castle Mass GK
 
 INSERT INTO teleport VALUES 
-('Gludio Throne',60000,-18112,109413,-2496,0,0),
+('Gludio Throne',60000,-18110,109418,-2523,0,0),
 ('Gludio Inside',60001,-18171,111572,-2649,0,0),
 ('Gludio Artefacts Room',60002,-18115,108365,-2590,0,0),
 ('Gludio Out of the Castle',60003,-18361,113887,-2767,0,0),
