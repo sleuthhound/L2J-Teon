@@ -1595,7 +1595,7 @@ public final class Config
 					ALT_LOTTERY_4_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery4NumberRate", "0.2"));
 					ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate", "0.2"));
 					ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize", "200"));
-					USE_SAY_FILTER = Boolean.parseBoolean(altSettings.getProperty("UseChatFilter", "false"));
+					USE_SAY_FILTER = Boolean.parseBoolean(altSettings.getProperty("UseChatFilter", "False"));
 					CHAT_FILTER_CHARS = altSettings.getProperty("ChatFilterChars", "***");				CHAT_FILTER_PUNISHMENT = altSettings.getProperty("ChatFilterPunishment", "off");
 					CHAT_FILTER_PUNISHMENT_PARAM1 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam1", "1"));
 					CHAT_FILTER_PUNISHMENT_PARAM2 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam2", "1"));
@@ -2786,7 +2786,7 @@ public final class Config
 					CUSTOM_SUBCLASS_LVL = Integer.parseInt(VoicedCommand.getProperty("CustomSubclassLvl", "40"));
 					RESTORE_EFFECTS_ON_SUBCLASS_CHANGE = Boolean.parseBoolean(VoicedCommand.getProperty("RestoreEffectsOnSubClassChange", "False"));
 					ENABLE_INFO = Boolean.parseBoolean(VoicedCommand.getProperty("InfoCommand","False"));
-            	    ALLOW_HERO_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("AllowHeroCommand", "false"));
+            	    ALLOW_HERO_COMMAND = Boolean.parseBoolean(VoicedCommand.getProperty("AllowHeroCommand", "False"));
                     HERO_ITEM_ID = Integer.parseInt(VoicedCommand.getProperty("HeroItemId", "3481"));
                     HERO_ITEM_COUNT = Integer.parseInt(VoicedCommand.getProperty("HeroItemCount", "1"));
 					BANKING_SYSTEM_ENABLED = Boolean.parseBoolean(VoicedCommand.getProperty("BankingSystemEnabled", "False"));
