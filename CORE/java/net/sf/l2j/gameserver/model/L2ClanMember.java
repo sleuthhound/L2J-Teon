@@ -115,7 +115,7 @@ public class L2ClanMember
 		if (_player.getClient() == null)
 			return false;
 			
-			eturn true;
+			return true;
 			
 	}
 
