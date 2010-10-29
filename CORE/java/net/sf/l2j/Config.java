@@ -1205,6 +1205,11 @@ public final class Config
 	public static boolean ENABLE_WAREHOUSESORTING_CLAN;
 	public static boolean ENABLE_WAREHOUSESORTING_PRIVATE;
 	public static boolean ENABLE_WAREHOUSESORTING_FREIGHT;
+	/**OffLine Shop */
+	public static boolean OFFLINE_TRADE_ENABLE;
+	public static boolean OFFLINE_CRAFT_ENABLE;
+	public static boolean OFFLINE_SET_NAME_COLOR;
+	public static int OFFLINE_NAME_COLOR;
 	/** Allow Summon Pet in Combat ? */
 	public static boolean DISABLE_SUMMON_IN_COMBAT;
 	/** Config for activeChar Attack Npcs in the list */
@@ -2581,7 +2586,14 @@ public final class Config
 					CHAMPION_REWARD = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionRewardItem", "0"));
 					CHAMPION_REWARD_ID = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionRewardItemID", "6393"));
 					CHAMPION_REWARD_QTY = Integer.parseInt(L2JTeonEventMods.getProperty("ChampionRewardItemQty", "1"));
-				}
+					// -------------------- //
+					// Offline Shop //
+					// -------------------- //
+					OFFLINE_TRADE_ENABLE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("OfflineTradeEnable", "False"));
+					OFFLINE_CRAFT_ENABLE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("OfflineCraftEnable", "False"));
+					OFFLINE_SET_NAME_COLOR = Boolean.parseBoolean(L2JTeonEventMods.getProperty("OfflineSetNameColor", "False"));
+					OFFLINE_NAME_COLOR = Integer.decode("0x" + L2JTeonEventMods.getProperty("OfflineNameColor", "808080"));
+					}
 				catch (Exception e)
 				{
 					e.printStackTrace();
