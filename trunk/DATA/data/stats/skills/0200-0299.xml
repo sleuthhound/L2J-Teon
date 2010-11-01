@@ -646,10 +646,11 @@
 </skill>
 <skill id="246" levels="1" name="Seal of Ruler">
   <set name="mpInitialConsume" val="50"/>
-  <set name="mpConsume" val="0"/>
-  <set name="power" val="0.0"/>
+  <set name="staticReuse" val="true"/>
+  <set name="staticHitTime" val="true" />
   <set name="target" val="TARGET_HOLY"/>
   <set name="hitTime" val="180000"/>
+  <set name="reuseDelay" val="5000" />
   <set name="skillType" val="TAKECASTLE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="85"/>
