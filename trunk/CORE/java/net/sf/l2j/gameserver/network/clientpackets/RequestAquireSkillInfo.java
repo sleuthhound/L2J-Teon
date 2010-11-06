@@ -81,6 +81,13 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
 				return; // cheater
 			int requiredSp = SkillTreeTable.getInstance().getSkillCost(activeChar, skill);
 			AquireSkillInfo asi = new AquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp, 0);
+			if (Config.SP_BOOK_NEEDED)
+			{
+				int spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
+
+				if (skill.getLevel() == 1 && spbId > -1)
+					asi.addRequirement(99, spbId, 1, 50);
+			}
 			if (Config.ES_SP_BOOK_NEEDED)
 			{
 				int spbId = -1;
