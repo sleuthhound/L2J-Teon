@@ -99,6 +99,27 @@ public class RequestAquireSkill extends L2GameClientPacket
 			}
 			if (player.getSp() >= _requiredSp)
 			{
+				if (Config.SP_BOOK_NEEDED)
+				{
+					int spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
+
+					if (skill.getLevel() == 1 && spbId > -1)
+					{          
+						L2ItemInstance spb = player.getInventory().getItemByItemId(spbId);
+
+						if (spb == null)
+						{
+							// Haven't spellbook
+							player.sendPacket(new SystemMessage(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL));
+							return;
+						}
+						// ok
+						player.destroyItem("Consume", spb, trainer, true);
+					}
+				}
+			}
+			if (player.getSp() >= _requiredSp)
+			{
 				if (Config.ES_SP_BOOK_NEEDED)
 				{
 					int spbId = -1;

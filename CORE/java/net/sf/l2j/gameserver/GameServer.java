@@ -210,7 +210,8 @@ public class GameServer
 			NpcWalkerRoutesTable.getInstance().load();
 		GmListTable.getInstance();
 		SkillTreeTable.getInstance();
-		SkillSpellbookTable.getInstance();
+		if (Config.SP_BOOK_NEEDED)
+			SkillSpellbookTable.getInstance();
 		NobleSkillTable.getInstance();
 		HeroSkillTable.getInstance();
 		Npcbuffer.getInstance().engineInit();

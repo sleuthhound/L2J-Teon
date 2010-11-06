@@ -188,6 +188,7 @@ public final class Config
 	public static float ALT_NPC_MAGICAL_DAMAGE_MULTI;
 	// Allow use Event Managers for change occupation ?
 	public static boolean ALLOW_CLASS_MASTERS;
+	public static boolean SP_BOOK_NEEDED;
 	public static boolean ES_SP_BOOK_NEEDED;
 	public static boolean ALT_GAME_SKILL_LEARN;
 	public static boolean ALT_GAME_SUBCLASS_WITHOUT_QUESTS;
@@ -1601,12 +1602,14 @@ public final class Config
 					ALT_LOTTERY_3_NUMBER_RATE = Float.parseFloat(altSettings.getProperty("AltLottery3NumberRate", "0.2"));
 					ALT_LOTTERY_2_AND_1_NUMBER_PRIZE = Integer.parseInt(altSettings.getProperty("AltLottery2and1NumberPrize", "200"));
 					USE_SAY_FILTER = Boolean.parseBoolean(altSettings.getProperty("UseChatFilter", "False"));
-					CHAT_FILTER_CHARS = altSettings.getProperty("ChatFilterChars", "***");				CHAT_FILTER_PUNISHMENT = altSettings.getProperty("ChatFilterPunishment", "off");
+					CHAT_FILTER_CHARS = altSettings.getProperty("ChatFilterChars", "***");
+					CHAT_FILTER_PUNISHMENT = altSettings.getProperty("ChatFilterPunishment", "off");
 					CHAT_FILTER_PUNISHMENT_PARAM1 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam1", "1"));
 					CHAT_FILTER_PUNISHMENT_PARAM2 = Integer.parseInt(altSettings.getProperty("ChatFilterPunishmentParam2", "1"));
 					BUFFS_MAX_AMOUNT = Byte.parseByte(altSettings.getProperty("MaxBuffAmount", "20"));
 					ALT_DEV_NO_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoQuests", "False"));
 					ALT_DEV_NO_SPAWNS = Boolean.parseBoolean(altSettings.getProperty("AltDevNoSpawns", "False"));
+					SP_BOOK_NEEDED = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
 				}
 				catch (Exception e)
 				{
@@ -3313,6 +3316,8 @@ public final class Config
 			MAX_PATK_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("MaxMAtkSpeed"))
 			MAX_MATK_SPEED = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("SpBookNeeded"))
+			SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("EnchantSkillSpBookNeeded"))
 			ES_SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("FrontBlow"))
