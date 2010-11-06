@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 ############################################
 ## Writen by DrLecter                     ##
 ## License: GNU GPL                       ##
