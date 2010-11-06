@@ -22077,3 +22077,11 @@ INSERT INTO `npcskills` VALUES ('14838', '5141', '1');
 INSERT INTO `npcskills` VALUES ('14838', '5142', '1');
 INSERT INTO `npcskills` VALUES ('14839', '5110', '1');
 INSERT INTO `npcskills` VALUES ('14839', '5111', '1');
+
+-- Fix Force Buffs: Delete Bugged Capture State Skills
+DELETE FROM `npcskills` WHERE `skillid` LIKE '5101';
+DELETE FROM `npcskills` WHERE `skillid` LIKE '5102';
+DELETE FROM `npcskills` WHERE `skillid` LIKE '5103';
+DELETE FROM `npcskills` WHERE `skillid` LIKE '5104';
+DELETE FROM `npcskills` WHERE `skillid` LIKE '5105';
+DELETE FROM `npcskills` WHERE `skillid` LIKE '5106';
