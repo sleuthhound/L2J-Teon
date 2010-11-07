@@ -970,30 +970,6 @@ public final class Config
 	public static String KOOFS_NAME_TEAM;
 	/** Config to choose Noobs Alternative Name. */
 	public static String NOOBS_NAME_TEAM;
-	/**
-	 * Config option allowing Rebirth Engine.
-	 */
-	public static int REBIRTH_ITEM;
-	public static int REBIRTH_SKILL1;
-	public static int REBIRTH_SKILL1_LVL;
-	public static int REBIRTH_SKILL2;
-	public static int REBIRTH_SKILL2_LVL;
-	public static int REBIRTH_SKILL3;
-	public static int REBIRTH_SKILL3_LVL;
-	public static int REBIRTH_SKILL4;
-	public static int REBIRTH_SKILL4_LVL;
-	public static int REBIRTH_SKILL5;
-	public static int REBIRTH_SKILL5_LVL;
-	public static int REBIRTH_SKILL6;
-	public static int REBIRTH_SKILL6_LVL;
-	public static int REBIRTH_SKILL7;
-	public static int REBIRTH_SKILL7_LVL;
-	public static int REBIRTH_SKILL8;
-	public static int REBIRTH_SKILL8_LVL;
-	public static int REBIRTH_SKILL9;
-	public static int REBIRTH_SKILL9_LVL;
-	public static int REBIRTH_SKILL10;
-	public static int REBIRTH_SKILL10_LVL;
 	/** Remote class Master By Danielmwx **/
 	public static boolean ALLOW_REMOTE_CLASS_MASTERS;
 	/** L2Walker protectio Master By Danielmwx **/
@@ -2526,30 +2502,6 @@ public final class Config
 					LOOSE_ADENA_ON_DIE = Boolean.parseBoolean(L2JTeonEventMods.getProperty("PlayerLooseAdena", "False"));
 					ADENA_NUMBER_LOST_ON_DIE = Integer.parseInt(L2JTeonEventMods.getProperty("AmmountAdenaLostWhenDies", "1"));
 					FACTION_ANNOUNCE_TIME = Integer.parseInt(L2JTeonEventMods.getProperty("AnnounceTimeFaction", "0"));
-					// -------------------- //
-					// Rebith System //
-					// -------------------- //
-					REBIRTH_ITEM = Integer.parseInt(L2JTeonEventMods.getProperty("RebirthItemId", "0"));
-					REBIRTH_SKILL1 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill1", "0"));
-					REBIRTH_SKILL1_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL1", "0"));
-					REBIRTH_SKILL2 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill2", "0"));
-					REBIRTH_SKILL2_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL2", "0"));
-					REBIRTH_SKILL3 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill3", "0"));
-					REBIRTH_SKILL3_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL3", "0"));
-					REBIRTH_SKILL4 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill4", "0"));
-					REBIRTH_SKILL4_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL4", "0"));
-					REBIRTH_SKILL5 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill5", "0"));
-					REBIRTH_SKILL5_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL5", "0"));
-					REBIRTH_SKILL6 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill6", "0"));
-					REBIRTH_SKILL6_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL6", "0"));
-					REBIRTH_SKILL7 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill7", "0"));
-					REBIRTH_SKILL7_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL7", "0"));
-					REBIRTH_SKILL8 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill8", "0"));
-					REBIRTH_SKILL8_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL8", "0"));
-					REBIRTH_SKILL9 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill9", "0"));
-					REBIRTH_SKILL9_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL9", "0"));
-					REBIRTH_SKILL10 = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKill10", "0"));
-					REBIRTH_SKILL10_LVL = Integer.parseInt(L2JTeonEventMods.getProperty("RewardSKillLvL10", "0"));
 					// -------------------- //
 					// RAID Event Engine //
 					// -------------------- //
