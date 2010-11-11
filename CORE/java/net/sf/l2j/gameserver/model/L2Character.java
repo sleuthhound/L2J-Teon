@@ -5149,7 +5149,7 @@ public abstract class L2Character extends L2Object
 					if (reflectPercent > 0)
 					{
 						int reflectedDamage = (int) (reflectPercent / 100. * damage);
-						damage -= reflectedDamage;
+						//damage -= reflectedDamage;
 						if (reflectedDamage > target.getMaxHp())
 							reflectedDamage = target.getMaxHp();
 						getStatus().reduceHp(reflectedDamage, target, true);
