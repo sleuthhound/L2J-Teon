@@ -44,7 +44,6 @@ import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
-import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
@@ -806,7 +805,7 @@ public abstract class L2Character extends L2Object
 			((L2Summon) this).getOwner().rechargeAutoSoulShot(true, false, true);
 		// Verify if soulshots are charged.
 		boolean wasSSCharged;
-        if (this instanceof L2Summon && !(this instanceof L2PetInstance)) 
+        if (this instanceof L2Summon && !(this instanceof L2PetInstance))
         	wasSSCharged = ((L2Summon) this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE;
 		else
 			wasSSCharged = weaponInst != null && weaponInst.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE;
@@ -1110,7 +1109,7 @@ public abstract class L2Character extends L2Object
 	 * @param target
 	 *            The L2Character targeted
 	 * @return true if the hit isn't missed
-	 * 
+	 *
 	 */
 	private boolean doAttackHitSimple(Attack attack, L2Character target, int sAtk)
 	{

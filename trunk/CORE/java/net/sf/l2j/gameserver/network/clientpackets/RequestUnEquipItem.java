@@ -89,9 +89,9 @@ public class RequestUnEquipItem extends L2GameClientPacket
 				activeChar.removeSkill(SkillTable.getInstance().getInfo(3260, 0));
 				activeChar.removeSkill(SkillTable.getInstance().getInfo(3262, 0));
 			}
-		L2ItemInstance[] unequiped = 
+		L2ItemInstance[] unequiped =
 			    activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot);
-		
+
 		// show the update in the inventory
 		InventoryUpdate iu = new InventoryUpdate();
 
@@ -101,11 +101,11 @@ public class RequestUnEquipItem extends L2GameClientPacket
 
 			iu.addModifiedItem(unequiped[i]);
 		}
-		
+
 		activeChar.sendPacket(iu);
 		activeChar.abortAttack();
 		activeChar.broadcastUserInfo();
-		
+
 		// this can be 0 if the user pressed the right mousebutton twice very fast
 		if (unequiped.length > 0)
 		{
