@@ -23,10 +23,6 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
-
-import java.util.List;
-
-import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Universe;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -40,11 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.templates.L2Weapon;
-import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.util.Point3D;
-import net.sf.l2j.util.Rnd;
 
 /**
  * This class manages AI of L2Character.<BR>
@@ -56,41 +48,24 @@ import net.sf.l2j.util.Rnd;
  */
 public class L2CharacterAI extends AbstractAI
 {
-    class IntentionCommand
-    {
-    	protected CtrlIntention _crtlIntention;
-    	protected Object _arg0, _arg1;
-
-    	protected IntentionCommand(CtrlIntention pIntention, Object pArg0, Object pArg1)
-    	{
-    		_crtlIntention = pIntention;
-    		_arg0 = pArg0;
-    		_arg1 = pArg1;
-    	}
-    }
-
-    /**
-     * Constructor of L2CharacterAI.<BR><BR>
-     *
-     * @param accessor The AI accessor of the L2Character
-     *
-     */
-    public L2CharacterAI(L2Character.AIAccessor accessor)
-    {
-        super(accessor);
-    }
-
-    public IntentionCommand getNextIntention()
-    {
-    	return null;
-    }
-
 	@Override
 	protected void onEvtAttacked(L2Character attacker)
 	{
 		// clientStartAutoAttack();
 		if (attacker instanceof L2Attackable && !((L2Attackable) attacker).isCoreAIDisabled())
 			clientStartAutoAttack();
+	}
+
+	/**
+	 * Constructor of L2CharacterAI.<BR>
+	 * <BR>
+	 *
+	 * @param accessor
+	 *            The AI accessor of the L2Character
+	 */
+	public L2CharacterAI(L2Character.AIAccessor accessor)
+	{
+		super(accessor);
 	}
 
 	/**
@@ -149,7 +124,9 @@ public class L2CharacterAI extends AbstractAI
 			// This is only for mobs - town npcs are handled in their
 			// constructor
 			if (_actor instanceof L2Attackable)
+			{
 				((L2NpcInstance) _actor).startRandomAnimationTimer();
+			}
 			// Launch the Think Event
 			onEvtThink();
 		}
@@ -215,8 +192,11 @@ public class L2CharacterAI extends AbstractAI
 				stopFollow();
 				// Launch the Think Event
 				notifyEvent(CtrlEvent.EVT_THINK, null);
-			} else
+			}
+			else
+			{
 				clientActionFailed(); // else client freezes until cancel target
+			}
 		}
 		else
 		{
@@ -265,6 +245,7 @@ public class L2CharacterAI extends AbstractAI
 		setCastTarget((L2Character) target);
 		// Stop actions client-side to cast the skill
 		if (skill.getHitTime() > 50)
+		{
 			// Abort the attack of the L2Character and send Server->Client
 			// ActionFailed packet
 			_actor.abortAttack();
@@ -273,6 +254,7 @@ public class L2CharacterAI extends AbstractAI
 			// no need for second ActionFailed packet, abortAttack() already
 			// sent it
 			// clientActionFailed();
+		}
 		// Set the AI skill used by INTENTION_CAST
 		_skill = skill;
 		// Change the Intention of this AbstractAI to AI_INTENTION_CAST
@@ -525,7 +507,9 @@ public class L2CharacterAI extends AbstractAI
 		// packet AutoAttackStop (broadcast)
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
 		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
+		{
 			AttackStanceTaskManager.getInstance().removeAttackStanceTask(_actor);
+		}
 		// Stop Server AutoAttack also
 		setAutoAttacking(false);
 		// Stop the actor movement server side AND client side by sending
@@ -552,7 +536,9 @@ public class L2CharacterAI extends AbstractAI
 		// packet AutoAttackStop (broadcast)
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
 		if (AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
+		{
 			AttackStanceTaskManager.getInstance().removeAttackStanceTask(_actor);
+		}
 		// stop Server AutoAttack also
 		setAutoAttacking(false);
 		// Stop the actor movement server side AND client side by sending
@@ -658,21 +644,32 @@ public class L2CharacterAI extends AbstractAI
 		if (_accessor.getActor() instanceof L2PcInstance)
 		{
 			if (Config.ACTIVATE_POSITION_RECORDER)
+			{
 				((L2PcInstance) _accessor.getActor()).explore();
+			}
 			((L2PcInstance) _accessor.getActor()).revalidateZone(true);
-		} else
+		}
+		else
+		{
 			_accessor.getActor().revalidateZone();
+		}
 		if (_accessor.getActor().moveToNextRoutePoint())
+		{
 			return;
+		}
 		clientStoppedMoving();
 		// If the Intention was AI_INTENTION_MOVE_TO, set the Intention to
 		// AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)
+		{
 			setIntention(AI_INTENTION_ACTIVE);
+		}
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
 		if (_actor instanceof L2BoatInstance)
+		{
 			((L2BoatInstance) _actor).evtArrived();
+		}
 	}
 
 	/**
@@ -707,14 +704,20 @@ public class L2CharacterAI extends AbstractAI
 		if (Config.ACTIVATE_POSITION_RECORDER && Universe.getInstance().shouldLog(_accessor.getActor().getObjectId()))
 		{
 			if (!_accessor.getActor().isFlying())
+			{
 				Universe.getInstance().registerObstacle(blocked_at_pos.x, blocked_at_pos.y, blocked_at_pos.z);
+			}
 			if (_accessor.getActor() instanceof L2PcInstance)
+			{
 				((L2PcInstance) _accessor.getActor()).explore();
+			}
 		}
 		// If the Intention was AI_INTENTION_MOVE_TO, tet the Intention to
 		// AI_INTENTION_ACTIVE
 		if (getIntention() == AI_INTENTION_MOVE_TO)
+		{
 			setIntention(AI_INTENTION_ACTIVE);
+		}
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
 	}
@@ -738,9 +741,13 @@ public class L2CharacterAI extends AbstractAI
 		{
 			setTarget(null);
 			if (getIntention() == AI_INTENTION_INTERACT)
+			{
 				setIntention(AI_INTENTION_ACTIVE);
+			}
 			else if (getIntention() == AI_INTENTION_PICK_UP)
+			{
 				setIntention(AI_INTENTION_ACTIVE);
+			}
 		}
 		// Check if the object was targeted to attack
 		if (getAttackTarget() == object)
@@ -802,7 +809,9 @@ public class L2CharacterAI extends AbstractAI
 		// Stop an AI Follow Task
 		stopFollow();
 		if (!AttackStanceTaskManager.getInstance().getAttackStanceTask(_actor))
+		{
 			_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
+		}
 		// Launch actions corresponding to the Event Think
 		onEvtThink();
 	}
@@ -824,7 +833,9 @@ public class L2CharacterAI extends AbstractAI
 		// AutoAttackStop, StopMove/StopRotation, Die (broadcast)
 		clientNotifyDead();
 		if (!(_actor instanceof L2PcInstance))
+		{
 			_actor.setWalking();
+		}
 	}
 
 	/**
@@ -922,10 +933,14 @@ public class L2CharacterAI extends AbstractAI
 			return false;
 		}
 		if (offset < 0)
+		{
 			return false; // skill radius -1
+		}
 		offset += _actor.getTemplate().collisionRadius;
 		if (target instanceof L2Character)
+		{
 			offset += ((L2Character) target).getTemplate().collisionRadius;
+		}
 		if (!_actor.isInsideRadius(target, offset, false, false))
 		{
 			if (getFollowTarget() != null)
@@ -933,34 +948,49 @@ public class L2CharacterAI extends AbstractAI
 				// allow larger hit range when the target is moving (check is
 				// run only once per second)
 				if (!_actor.isInsideRadius(target, offset + 100, false, false))
+				{
 					return true;
+				}
 				stopFollow();
 				return false;
 			}
 			if (_actor.isMovementDisabled())
+			{
 				return true;
+			}
 			// If not running, set the L2Character movement type to run and
 			// send
 			// Server->Client packet ChangeMoveType to all others
 			// L2PcInstance
 			if (!_actor.isRunning() && !(this instanceof L2PlayerAI))
+			{
 				_actor.setRunning();
+			}
 			stopFollow();
 			if (target instanceof L2Character && !(target instanceof L2DoorInstance))
 			{
 				if (((L2Character) target).isMoving())
+				{
 					offset -= 100;
+				}
 				if (offset < 5)
+				{
 					offset = 5;
+				}
 				startFollow((L2Character) target, offset);
-			} else
+			}
+			else
+			{
 				// Move the actor to Pawn server side AND client side by sending
 				// Server->Client packet MoveToPawn (broadcast)
 				moveToPawn(target, offset);
+			}
 			return true;
 		}
 		if (getFollowTarget() != null)
+		{
 			stopFollow();
+		}
 		// Stop the actor movement server side AND client side by sending
 		// Server->Client packet StopMove/StopRotation (broadcast)
 		// clientStopMoving(null);
@@ -1038,226 +1068,4 @@ public class L2CharacterAI extends AbstractAI
 		}
 		return false;
 	}
-
-    protected class SelfAnalysis
-    {
-        public boolean isMage = false;
-        public boolean isBalanced;
-        public boolean isArcher = false;
-        public boolean isHealer = false;
-        public boolean isFighter = false;
-        public boolean cannotMoveOnLand = false;
-        public List<L2Skill> generalSkills = new FastList<L2Skill>();
-        public List<L2Skill> buffSkills = new FastList<L2Skill>();
-        public int lastBuffTick = 0;
-        public List<L2Skill> debuffSkills = new FastList<L2Skill>();
-        public int lastDebuffTick = 0;
-        public List<L2Skill> cancelSkills = new FastList<L2Skill>();
-        public List<L2Skill> healSkills = new FastList<L2Skill>();
-        //public List<L2Skill> trickSkills = new FastList<L2Skill>();
-        public List<L2Skill> generalDisablers = new FastList<L2Skill>();
-        public List<L2Skill> sleepSkills = new FastList<L2Skill>();
-        public List<L2Skill> rootSkills = new FastList<L2Skill>();
-        public List<L2Skill> muteSkills = new FastList<L2Skill>();
-        public List<L2Skill> resurrectSkills = new FastList<L2Skill>();
-        public boolean hasHealOrResurrect = false;
-        public boolean hasLongRangeSkills = false;
-        public boolean hasLongRangeDamageSkills = false;
-        public int maxCastRange = 0;
-
-        public SelfAnalysis()
-        {
-        }
-
-        public void init()
-        {
-        	switch (((L2NpcTemplate)_actor.getTemplate()).AI)
-        	{
-        		case FIGHTER:
-        			isFighter = true;
-        			break;
-        		case MAGE:
-        			isMage = true;
-        			break;
-        		case BALANCED:
-        			isBalanced = true;
-        			break;
-        		case ARCHER:
-        			isArcher = true;
-        			break;
-                case HEALER:
-                    isHealer = true;
-        			break;
-        		default:
-        			isFighter = true;
-        			break;
-        	}
-            // water movement analysis
-            if (_actor instanceof L2NpcInstance)
-            {
-            	int npcId = ((L2NpcInstance)_actor).getNpcId();
-
-            	switch (npcId)
-            	{
-            		case 20314: // great white shark
-            		case 20849: // Light Worm
-            			cannotMoveOnLand = true;
-            			break;
-            		default:
-            			cannotMoveOnLand = false;
-            			break;
-            	}
-            }
-            // skill analysis
-            for (L2Skill sk : _actor.getAllSkills())
-            {
-                if (sk.isPassive())
-					continue;
-            	int castRange = sk.getCastRange();
-                boolean hasLongRangeDamageSkill = false;
-                switch(sk.getSkillType())
-                {
-                    case HEAL:
-                    case HEAL_PERCENT:
-                    case HEAL_STATIC:
-                    case BALANCE_LIFE:
-                    case HOT:
-                        healSkills.add(sk);
-                        hasHealOrResurrect = true;
-                        continue; // won't be considered something for fighting
-                    case BUFF:
-                        buffSkills.add(sk);
-                        continue; // won't be considered something for fighting
-                    case PARALYZE:
-                    case STUN:
-                        // hardcoding petrification until improvements are made to
-                    	// EffectTemplate... petrification is totally different for
-                    	// AI than paralyze
-                    	switch(sk.getId())
-                        {
-                        	case 367: case 4111: case 4383:
-                        	case 4616: case 4578:
-                        		sleepSkills.add(sk);
-                        		break;
-                        	default:
-                        		generalDisablers.add(sk);
-                        		break;
-                        }
-                        break;
-                    case MUTE:
-                        muteSkills.add(sk);
-                        break;
-                    case SLEEP:
-                        sleepSkills.add(sk);
-                        break;
-                    case ROOT:
-                        rootSkills.add(sk);
-                        break;
-                    case FEAR: // could be used as an alternative for healing?
-                    case CONFUSION:
-                    //  trickSkills.add(sk);
-                    case DEBUFF:
-                        debuffSkills.add(sk);
-                        break;
-                    case CANCEL:
-                    case MAGE_BANE:
-                    case WARRIOR_BANE:
-                    case NEGATE:
-                        cancelSkills.add(sk);
-                        break;
-                    case RESURRECT:
-                        resurrectSkills.add(sk);
-                        hasHealOrResurrect = true;
-                        break;
-                    case NOTDONE:
-                        continue; // won't be considered something for fighting
-                    default:
-                    	generalSkills.add(sk);
-                    	hasLongRangeDamageSkill = true;
-                        break;
-                }
-                if (castRange > 70) {
-                    hasLongRangeSkills = true;
-                    if (hasLongRangeDamageSkill)
-						hasLongRangeDamageSkills = true;
-                }
-                if (castRange > maxCastRange)
-					maxCastRange = castRange;
-
-            }
-            // Because of missing skills, some mages/balanced cannot play like mages
-            if (!hasLongRangeDamageSkills && isMage)
-            {
-                isBalanced = true;
-                isMage = false;
-                isFighter = false;
-            }
-            if (!hasLongRangeSkills && (isMage || isBalanced))
-            {
-                isBalanced = false;
-                isMage = false;
-                isFighter = true;
-            }
-            if (generalSkills.isEmpty() && isMage)
-            {
-                isBalanced = true;
-                isMage = false;
-            }
-        }
-    }
-
-    protected class TargetAnalysis
-    {
-        public L2Character character;
-        public boolean isMage;
-        public boolean isBalanced;
-        public boolean isArcher;
-        public boolean isFighter;
-        public boolean isCanceled;
-        public boolean isSlower;
-        public boolean isMagicResistant;
-
-        public TargetAnalysis()
-        {
-        }
-
-        public void update(L2Character target)
-        {
-            // update status once in 4 seconds
-            if (target == character && Rnd.nextInt(100) > 25)
-				return;
-            character = target;
-            if (target == null)
-				return;
-            isMage = false;
-            isBalanced = false;
-            isArcher = false;
-            isFighter = false;
-            isCanceled = false;
-
-            if (target.getMAtk(null, null) > 1.5*target.getPAtk(null))
-				isMage = true;
-			else if (target.getPAtk(null)*0.8 < target.getMAtk(null, null)
-                    || target.getMAtk(null, null)*0.8 > target.getPAtk(null))
-				isBalanced = true;
-			else
-            {
-                L2Weapon weapon = target.getActiveWeaponItem();
-                if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
-					isArcher = true;
-				else
-					isFighter = true;
-            }
-            if (target.getRunSpeed() < _actor.getRunSpeed()-3)
-				isSlower = true;
-			else
-				isSlower = false;
-            if (target.getMDef(null, null)*1.2 > _actor.getMAtk(null, null))
-				isMagicResistant = true;
-			else
-				isMagicResistant = false;
-            if (target.getBuffCount() < 4)
-				isCanceled = true;
-        }
-    }
 }

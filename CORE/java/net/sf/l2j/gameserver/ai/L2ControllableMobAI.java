@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.util.Rnd;
 
@@ -69,7 +69,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 	protected void onEvtThink()
 	{
 		if (isThinking() || _actor.isAllSkillsDisabled())
+		{
 			return;
+		}
 		setThinking(true);
 		try
 		{
@@ -77,7 +79,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 			{
 				case AI_IDLE:
 					if (getIntention() != CtrlIntention.AI_INTENTION_ACTIVE)
+					{
 						setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+					}
 					break;
 				case AI_FOLLOW:
 					thinkFollow();
@@ -93,9 +97,13 @@ public class L2ControllableMobAI extends L2AttackableAI
 					break;
 				default:
 					if (getIntention() == AI_INTENTION_ACTIVE)
+					{
 						thinkActive();
+					}
 					else if (getIntention() == AI_INTENTION_ATTACK)
+					{
 						thinkAttack();
+					}
 					break;
 			}
 		}
@@ -114,7 +122,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 			clientStopMoving(null);
 		}
 		if (getAttackTarget() == null)
+		{
 			return;
+		}
 		npc.setTarget(getAttackTarget());
 		L2Skill[] skills = null;
 		// double dist2 = 0;
@@ -143,7 +153,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 				max_range = Math.max(max_range, sk.getCastRange());
 			}
 			if (!isNotMoving())
+			{
 				moveToPawn(getAttackTarget(), max_range);
+			}
 			return;
 		}
 	}
@@ -158,7 +170,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 			clientStopMoving(null);
 		}
 		if (target == null)
+		{
 			return;
+		}
 		L2Skill[] skills = null;
 		double dist2 = 0;
 		int range = 0;
@@ -194,7 +208,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 				max_range = Math.max(max_range, castRange);
 			}
 			if (!isNotMoving())
+			{
 				moveToPawn(target, range);
+			}
 			return;
 		}
 		_accessor.doAttack(target);
@@ -239,7 +255,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 				max_range = Math.max(max_range, castRange);
 			}
 			if (!isNotMoving())
+			{
 				moveToPawn(getForcedTarget(), _actor.getPhysicalAttackRange()/* range */);
+			}
 			return;
 		}
 		_accessor.doAttack(getForcedTarget());
@@ -266,12 +284,18 @@ public class L2ControllableMobAI extends L2AttackableAI
 				for (L2Object obj : _actor.getKnownList().getKnownObjects().values())
 				{
 					if (!(obj instanceof L2NpcInstance))
+					{
 						continue;
+					}
 					L2NpcInstance npc = (L2NpcInstance) obj;
 					if (faction_id != npc.getFactionId())
+					{
 						continue;
+					}
 					if (_actor.isInsideRadius(npc, npc.getFactionRange(), false, true) && Math.abs(getAttackTarget().getZ() - npc.getZ()) < 200)
+					{
 						npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
+					}
 				}
 			}
 			L2Skill[] skills = null;
@@ -310,17 +334,24 @@ public class L2ControllableMobAI extends L2AttackableAI
 			// Force mobs to attack anybody if confused.
 			L2Character hated;
 			if (_actor.isConfused())
+			{
 				hated = findNextRndTarget();
+			}
 			else
+			{
 				hated = getAttackTarget();
+			}
 			if (hated == null)
 			{
 				setIntention(AI_INTENTION_ACTIVE);
 				return;
 			}
 			if (hated != getAttackTarget())
+			{
 				setAttackTarget(hated);
+			}
 			if (!_actor.isMuted() && skills.length > 0 && Rnd.nextInt(5) == 3)
+			{
 				for (L2Skill sk : skills)
 				{
 					int castRange = sk.getCastRange();
@@ -330,6 +361,7 @@ public class L2ControllableMobAI extends L2AttackableAI
 						return;
 					}
 				}
+			}
 			_accessor.doAttack(getAttackTarget());
 		}
 	}
@@ -339,9 +371,13 @@ public class L2ControllableMobAI extends L2AttackableAI
 		setAttackTarget(findNextRndTarget());
 		L2Character hated;
 		if (_actor.isConfused())
+		{
 			hated = findNextRndTarget();
+		}
 		else
+		{
 			hated = getAttackTarget();
+		}
 		if (hated != null)
 		{
 			_actor.setRunning();
@@ -353,22 +389,36 @@ public class L2ControllableMobAI extends L2AttackableAI
 	private boolean autoAttackCondition(L2Character target)
 	{
 		if (target == null || !(_actor instanceof L2Attackable))
+		{
 			return false;
+		}
 		L2Attackable me = (L2Attackable) _actor;
 		if (target instanceof L2FolkInstance || target instanceof L2DoorInstance)
+		{
 			return false;
+		}
 		if (target.isAlikeDead() || !me.isInsideRadius(target, me.getAggroRange(), false, false) || Math.abs(_actor.getZ() - target.getZ()) > 100)
+		{
 			return false;
+		}
 		// Check if the target isn't invulnerable
 		if (target.isInvul())
+		{
 			return false;
-		// Check if the target is a L2PlayableInstance
-		if (target instanceof L2PlayableInstance)
+		}
+		// Check if the target is a L2PcInstance
+		if (target instanceof L2PcInstance)
+		{
 			// Check if the target isn't in silent move mode
-			if (((L2PlayableInstance) target).isSilentMoving())
+			if (((L2PcInstance) target).isSilentMoving())
+			{
 				return false;
+			}
+		}
 		if (target instanceof L2NpcInstance)
+		{
 			return false;
+		}
 		return me.isAggressive();
 	}
 
@@ -383,7 +433,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 		for (L2Object obj : npc.getKnownList().getKnownObjects().values())
 		{
 			if (!(obj instanceof L2Character))
+			{
 				continue;
+			}
 			npcX = npc.getX();
 			npcY = npc.getY();
 			targetX = obj.getX();
@@ -391,13 +443,19 @@ public class L2ControllableMobAI extends L2AttackableAI
 			dx = npcX - targetX;
 			dy = npcY - targetY;
 			if (dx * dx + dy * dy > dblAggroRange)
+			{
 				continue;
+			}
 			L2Character target = (L2Character) obj;
 			if (autoAttackCondition(target))
+			{
 				potentialTarget.add(target);
+			}
 		}
 		if (potentialTarget.size() == 0)
+		{
 			return null;
+		}
 		// we choose a random target
 		int choice = Rnd.nextInt(potentialTarget.size());
 		L2Character target = potentialTarget.get(choice);

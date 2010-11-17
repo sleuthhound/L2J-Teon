@@ -56,7 +56,7 @@ public final class L2ItemInstance extends L2Object
 	/** Enumeration of locations for item */
 	public static enum ItemLocation
 	{
-		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, FREIGHT, NPC
+		VOID, INVENTORY, PAPERDOLL, WAREHOUSE, CLANWH, PET, PET_EQUIP, LEASE, FREIGHT
 	}
 
 	/** ID of the owner */
@@ -1060,7 +1060,7 @@ public final class L2ItemInstance extends L2Object
 		{
 			if (_count == 0 && _loc != ItemLocation.LEASE)
 				return;
-			if (_loc == ItemLocation.VOID || _loc == ItemLocation.NPC || _ownerId == 0)
+			if (_loc == ItemLocation.VOID || _ownerId == 0)
 				return;
 			insertIntoDb();
 		}

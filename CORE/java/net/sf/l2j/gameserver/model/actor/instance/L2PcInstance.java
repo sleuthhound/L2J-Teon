@@ -428,6 +428,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	private int _mountObjectID = 0;
 	public int _telemode = 0;
 	public boolean _exploring = false;
+    private boolean _isSilentMoving = false; 
 	private boolean _inCrystallize;
 	private boolean _inCraftMode;
 	public int _visibilityRange = 2000;
@@ -7366,7 +7367,13 @@ public final class L2PcInstance extends L2PlayableInstance
 				}
 		}
 		// ********* Check Casting Conditions
-
+        // Check if the caster own the weapon needed 
+        if (!skill.getWeaponDependancy(this)) 
+        {
+            // Send a Server->Client packet ActionFailed to the L2PcInstance 
+            sendPacket(ActionFailed.STATIC_PACKET); 
+        	return;
+        }
 		// Check if all casting conditions are completed
 		if (!skill.checkCondition(this, target, false))
 		{
@@ -7849,6 +7856,18 @@ public final class L2PcInstance extends L2PlayableInstance
 	{
 		return _lastFolkNpc;
 	}
+	
+    @Override 
+    public void setSilentMoving(boolean flag) 
+    {
+        _isSilentMoving = flag; 
+    }
+
+    @Override 
+    public boolean isSilentMoving() 
+    {
+        return _isSilentMoving; 
+    }
 
 	/**
 	 * Return true if L2PcInstance is a participant in the Festival of Darkness.<BR>
