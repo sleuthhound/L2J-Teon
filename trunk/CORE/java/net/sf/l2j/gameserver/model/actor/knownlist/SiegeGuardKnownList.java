@@ -46,6 +46,9 @@ public class SiegeGuardKnownList extends AttackableKnownList
 		if (!super.addKnownObject(object, dropper))
 			return false;
 
+        if (getActiveChar().getHomeX() == 0) 
+            getActiveChar().getHomeLocation(); 
+        
 		// Check if siege is in progress
 		if (getActiveChar().getCastle() != null && getActiveChar().getCastle().getSiege().getIsInProgress())
 		{

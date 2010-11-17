@@ -53,7 +53,6 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.MobGroupTable;
-import net.sf.l2j.gameserver.model.NpcInventory;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.knownlist.NpcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
@@ -76,7 +75,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowVariationCancelWindow;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowVariationMakeWindow;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
@@ -112,8 +110,6 @@ public class L2NpcInstance extends L2Character
 	public static final int INTERACTION_DISTANCE = 150;
 	/** The L2Spawn object that manage this L2NpcInstance */
 	private L2Spawn _spawn;
-
-    private NpcInventory _inventory = null;
 
 	/** The flag to specify if this L2NpcInstance is busy */
 	private boolean _isBusy = false;
@@ -284,8 +280,6 @@ public class L2NpcInstance extends L2Character
 		}
 		// Set the name of the L2Character
 		setName(template.name);
-        if ((template.ss > 0 || template.bss > 0) && template.ssRate > 0)
-			_inventory = new NpcInventory(this);
 	}
 
 	@Override
@@ -2219,9 +2213,6 @@ public class L2NpcInstance extends L2Character
 	@Override
 	public void onSpawn()
 	{
-        if (_inventory != null)
-			_inventory.Reset();
-
 		super.onSpawn();
 		if (getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN) != null)
 			for (Quest quest : getTemplate().getEventQuests(Quest.QuestEventType.ON_SPAWN))
@@ -2386,60 +2377,4 @@ public class L2NpcInstance extends L2Character
 		L2Skill skill = SkillTable.getInstance().getInfo(5182, 1);
 		doCast(skill);
 	}
-
-    public boolean rechargeAutoSoulShot(boolean physical, boolean magic)
-	{
-    	if (this.getTemplate().ssRate == 0)
-			return false;
-
-    	L2Weapon weaponItem = getActiveWeaponItem();
-    	if (weaponItem == null)
-			//_log.warning("NpcId "+getNpcId()+" missing weaponItem definition in DP - or wrong use of shots.");
-    		return false;
-		if (magic)
-		{
-	    	if (this.getTemplate().ssRate < Rnd.get(100))
-	    	{
-	    		_inventory.bshotInUse = false;
-	    		return false;
-	    	}
-
-			if (null != _inventory.destroyItemByItemId("Consume", 3947, weaponItem.getSpiritShotCount(), null, null))
-			{
-				_inventory.bshotInUse = true;
-				broadcastPacket(new MagicSkillUser(this, this, 2061, 1, 0, 0), 360000); // no grade
-				return true;
-			} else
-				_inventory.bshotInUse = false;
-
-		}
-		if (physical)
-		{
-			if (this.getTemplate().ssRate < Rnd.get(100))
-	    	{
-				_inventory.sshotInUse = false;
-	    		return false;
-	    	}
-
-			if (null != _inventory.destroyItemByItemId("Consume", 1835, weaponItem.getSoulShotCount(), null, null))
-			{
-				_inventory.sshotInUse = true;
-	       		broadcastPacket(new MagicSkillUser(this, this, 2039, 1, 0, 0), 360000); // no grade
-				return true;
-			} else
-				_inventory.sshotInUse = false;
-		}
-		return false;
-	}
-
-    public boolean isUsingShot(boolean physical)
-    {
-    	if (_inventory == null)
-			return false;
-    	if (physical && _inventory.sshotInUse)
-			return true;
-    	if (!physical && _inventory.bshotInUse)
-			return true;
-    	return false;
-    }
 }

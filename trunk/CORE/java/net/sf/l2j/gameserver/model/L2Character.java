@@ -806,10 +806,8 @@ public abstract class L2Character extends L2Object
 			((L2Summon) this).getOwner().rechargeAutoSoulShot(true, false, true);
 		// Verify if soulshots are charged.
 		boolean wasSSCharged;
-        if (this instanceof L2NpcInstance)
-			wasSSCharged = ((L2NpcInstance)this).rechargeAutoSoulShot(true, false);
-		else if (this instanceof L2Summon && !(this instanceof L2PetInstance))
-			wasSSCharged = ((L2Summon) this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE;
+        if (this instanceof L2Summon && !(this instanceof L2PetInstance)) 
+        	wasSSCharged = ((L2Summon) this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE;
 		else
 			wasSSCharged = weaponInst != null && weaponInst.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE;
 		// Get the Attack Speed of the L2Character (delay (in milliseconds)
@@ -1222,19 +1220,10 @@ public abstract class L2Character extends L2Object
 				return;
 			}
 		}
-		// Check if the caster own the weapon needed
-		if (!skill.getWeaponDependancy(this))
-		{
-			// Send a Server->Client packet ActionFailed to the L2PcInstance
-			sendPacket(ActionFailed.STATIC_PACKET);
-			return;
-		}
 		// Recharge AutoSoulShot
 		if (skill.useSoulShot())
 		{
-            if (this instanceof L2NpcInstance)
-				((L2NpcInstance)this).rechargeAutoSoulShot(true, false);
-			else if (this instanceof L2PcInstance)
+			if (this instanceof L2PcInstance)
 				((L2PcInstance) this).rechargeAutoSoulShot(true, false, false);
 			else if (this instanceof L2Summon)
 				((L2Summon) this).getOwner().rechargeAutoSoulShot(true, false, true);
@@ -1367,12 +1356,6 @@ public abstract class L2Character extends L2Object
 				}
 			}
 		}
-        else if (this instanceof L2NpcInstance && skill.useSpiritShot() && !effectWhileCasting)
-			if(((L2NpcInstance)this).rechargeAutoSoulShot(false, true))
-            {
-                hitTime = (int)(0.70 * hitTime);
-                coolTime = (int)(0.70 * coolTime);
-            }
 		// Set the _castEndTime and _castInterruptTim. +10 ticks for lag
 		// situations, will be reseted in onMagicFinalizer
 		setIsCastingNow(true);

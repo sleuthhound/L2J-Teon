@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -119,9 +118,6 @@ public class Heal implements ISkillHandler
 					activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 				}
 			}
-			else if (activeChar instanceof L2NpcInstance)
-				if(((L2NpcInstance)activeChar).isUsingShot(false))
-					hp *= 1.5;
 			// int cLev = activeChar.getLevel();
 			// hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
 			if (skill.getSkillType() == SkillType.HEAL_STATIC)
