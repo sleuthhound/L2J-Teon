@@ -51,10 +51,10 @@ public class GuardKnownList extends AttackableKnownList
 	{
 		if (!super.addKnownObject(object, dropper))
 			return false;
-		
-        // Set home location of the L2GuardInstance (if not already done) 
-        if (getActiveChar().getHomeX() == 0) 
-            getActiveChar().getHomeLocation(); 
+
+        // Set home location of the L2GuardInstance (if not already done)
+        if (getActiveChar().getHomeX() == 0)
+            getActiveChar().getHomeLocation();
 
 		if (object instanceof L2PcInstance)
 		{
@@ -69,7 +69,7 @@ public class GuardKnownList extends AttackableKnownList
 					getActiveChar().getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
 			}
 		}
-        else if (Config.ALLOW_GUARDS && object instanceof L2MonsterInstance) 
+        else if (Config.ALLOW_GUARDS && object instanceof L2MonsterInstance)
         {
 			// Check if the object added is an aggressive L2MonsterInstance
 			L2MonsterInstance mob = (L2MonsterInstance) object;

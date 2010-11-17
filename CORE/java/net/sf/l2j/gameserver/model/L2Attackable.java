@@ -558,7 +558,7 @@ public class L2Attackable extends L2NpcInstance
 			L2Character attacker, ddealer;
 			RewardInfo reward;
 
-            // While Interating over This Map Removing Object is Not Allowed 
+            // While Interating over This Map Removing Object is Not Allowed
 			synchronized (getAggroList())
 			{
 				// Go through the _aggroList of the L2Attackable

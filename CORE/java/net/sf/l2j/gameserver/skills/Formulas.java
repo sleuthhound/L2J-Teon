@@ -1868,7 +1868,7 @@ public final class Formulas
 	public boolean calcShldUse(L2Character attacker, L2Character target)
 	{
 		L2Weapon at_weapon = attacker.getActiveWeaponItem();
-		double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) 
+		double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null)
 			* DEXbonus[target.getDEX()];
 		if (shldRate == 0.0) return false;
 		// Check for passive skill Aegis (316) or Aegis Stance (318)
