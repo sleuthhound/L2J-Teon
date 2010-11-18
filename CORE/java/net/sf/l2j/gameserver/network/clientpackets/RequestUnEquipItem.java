@@ -95,11 +95,10 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		// show the update in the inventory
 		InventoryUpdate iu = new InventoryUpdate();
 
-		for (int i = 0; i < unequiped.length; i++)
-		{
-                        activeChar.checkSSMatch(null, unequiped[i]);
+		for (L2ItemInstance element : unequiped) {
+                        activeChar.checkSSMatch(null, element);
 
-			iu.addModifiedItem(unequiped[i]);
+			iu.addModifiedItem(element);
 		}
 
 		activeChar.sendPacket(iu);
