@@ -3488,14 +3488,12 @@ public final class L2PcInstance extends L2PlayableInstance
 						player.sendPacket(new ExOlympiadUserInfoSpectator(this, 1));
 			    }
 			if (Olympiad.getInstance().getSpectators(_olympiadGameId) != null && this.isOlympiadStart())
-			{
 				for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
 				{
 					if (spectator == null)
 						continue;
 					spectator.sendPacket(new ExOlympiadUserInfoSpectator(this, getOlympiadSide()));
 				}
-			}
 		if (isInDuel())
 		{
 			ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
@@ -3513,25 +3511,15 @@ public final class L2PcInstance extends L2PlayableInstance
  			return;
  	{
  	if ((pvpKillAmount >= (Config.PVP_AMOUNT1)) && (pvpKillAmount < (Config.PVP_AMOUNT2)))
- 	{
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT1);
- 	}
- 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT2)) && (pvpKillAmount < (Config.PVP_AMOUNT3)))
- 	{
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT2);
- 	}
- 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT3)) && (pvpKillAmount < (Config.PVP_AMOUNT4)))
- 	{
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3);
- 	}
- 	else if ((pvpKillAmount >= (Config.PVP_AMOUNT4)) && (pvpKillAmount < (Config.PVP_AMOUNT5)))
- 	{
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4);
- 	}
- 	else if (pvpKillAmount >= (Config.PVP_AMOUNT5))
- 	{
- 			getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5);
- 				}
+		getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT1);
+	else if ((pvpKillAmount >= (Config.PVP_AMOUNT2)) && (pvpKillAmount < (Config.PVP_AMOUNT3)))
+		getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT2);
+	else if ((pvpKillAmount >= (Config.PVP_AMOUNT3)) && (pvpKillAmount < (Config.PVP_AMOUNT4)))
+		getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT3);
+	else if ((pvpKillAmount >= (Config.PVP_AMOUNT4)) && (pvpKillAmount < (Config.PVP_AMOUNT5)))
+		getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT4);
+	else if (pvpKillAmount >= (Config.PVP_AMOUNT5))
+		getAppearance().setNameColor(Config.NAME_COLOR_FOR_PVP_AMOUNT5);
  			}
  		}
  	}
@@ -3547,25 +3535,15 @@ public final class L2PcInstance extends L2PlayableInstance
  			return;
  	{
  	if ((pkKillAmount >= (Config.PK_AMOUNT1)) && (pkKillAmount < (Config.PVP_AMOUNT2)))
- 	{
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT1);
- 	}
- 	else if ((pkKillAmount >= (Config.PK_AMOUNT2)) && (pkKillAmount < (Config.PVP_AMOUNT3)))
- 	{
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT2);
- 	}
- 	else if ((pkKillAmount >= (Config.PK_AMOUNT3)) && (pkKillAmount < (Config.PVP_AMOUNT4)))
- 	{
- 			 getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3);
- 	}
- 	else if ((pkKillAmount >= (Config.PK_AMOUNT4)) && (pkKillAmount < (Config.PVP_AMOUNT5)))
- 	{
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4);
- 	}
- 	else if (pkKillAmount >= (Config.PK_AMOUNT5))
- 	{
- 			getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5);
- 				}
+		getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT1);
+	else if ((pkKillAmount >= (Config.PK_AMOUNT2)) && (pkKillAmount < (Config.PVP_AMOUNT3)))
+		getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT2);
+	else if ((pkKillAmount >= (Config.PK_AMOUNT3)) && (pkKillAmount < (Config.PVP_AMOUNT4)))
+		getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT3);
+	else if ((pkKillAmount >= (Config.PK_AMOUNT4)) && (pkKillAmount < (Config.PVP_AMOUNT5)))
+		getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT4);
+	else if (pkKillAmount >= (Config.PK_AMOUNT5))
+		getAppearance().setTitleColor(Config.TITLE_COLOR_FOR_PK_AMOUNT5);
  			}
  		}
  	}
@@ -10851,9 +10829,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (mcrit)
 			sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_MAGIC));
 		if (isInOlympiadMode() && target instanceof L2PcInstance && ((L2PcInstance) target).isInOlympiadMode() && ((L2PcInstance) target).getOlympiadGameId() == getOlympiadGameId())
-		{
 			dmgDealt += damage;
-		}
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 		sm.addNumber(damage);
 		sendPacket(sm);

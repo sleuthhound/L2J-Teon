@@ -53,9 +53,7 @@ public final class L2GuardInstance extends L2Attackable
 		public void run()
 		{
 			if (getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
-			{
 				returnHome();
-			}
 		}
 	}
 
@@ -83,9 +81,7 @@ public final class L2GuardInstance extends L2Attackable
 	public final GuardKnownList getKnownList()
 	{
 		if (super.getKnownList() == null || !(super.getKnownList() instanceof GuardKnownList))
-		{
 			setKnownList(new GuardKnownList(this));
-		}
 		return (GuardKnownList) super.getKnownList();
 	}
 
@@ -113,9 +109,7 @@ public final class L2GuardInstance extends L2Attackable
 		_homeY = getY();
 		_homeZ = getZ();
 		if (Config.DEBUG)
-		{
 			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		}
 	}
 
 	public int getHomeX()
@@ -133,9 +127,7 @@ public final class L2GuardInstance extends L2Attackable
 		if (!isInsideRadius(_homeX, _homeY, 150, false))
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine(getObjectId() + ": moving hometo" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-			}
 			clearAggroList();
 			getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_homeX, _homeY, _homeZ, 0));
 		}
@@ -153,16 +145,12 @@ public final class L2GuardInstance extends L2Attackable
 		_homeY = getY();
 		_homeZ = getZ();
 		if (Config.DEBUG)
-		{
 			_log.finer(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-		}
 		// check the region where this mob is, do not activate the AI if region
 		// is inactive.
 		L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
 		if (region != null && !region.isActive())
-		{
 			((L2AttackableAI) getAI()).stopAITask();
-		}
 	}
 
 	/**
@@ -183,13 +171,9 @@ public final class L2GuardInstance extends L2Attackable
 	{
 		String pom = "";
 		if (val == 0)
-		{
 			pom = "" + npcId;
-		}
 		else
-		{
 			pom = npcId + "-" + val;
-		}
 		return "data/html/guard/" + pom + ".htm";
 	}
 
@@ -221,9 +205,7 @@ public final class L2GuardInstance extends L2Attackable
 		if (getObjectId() != player.getTargetId())
 		{
 			if (Config.DEBUG)
-			{
 				_log.fine(player.getObjectId() + ": Targetted guard " + getObjectId());
-			}
 			// Set the target of the L2PcInstance player
 			player.setTarget(this);
 			// Send a Server->Client packet MyTargetSelected to the
@@ -235,50 +217,38 @@ public final class L2GuardInstance extends L2Attackable
 			// Send a Server->Client packet ValidateLocation to correct the
 			// L2NpcInstance position and heading on the client
 			player.sendPacket(new ValidateLocation(this));
-		}
+		} else // Check if the L2PcInstance is in the _aggroList of the
+		// L2GuardInstance
+		if (containsTarget(player))
+		{
+			if (Config.DEBUG)
+				_log.fine(player.getObjectId() + ": Attacked guard " + getObjectId());
+			// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+		} else // Calculate the distance between the L2PcInstance and the
+		// L2NpcInstance
+		if (!canInteract(player))
+			// Set the L2PcInstance Intention to
+			// AI_INTENTION_INTERACT
+			player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 		else
 		{
-			// Check if the L2PcInstance is in the _aggroList of the
+			// Send a Server->Client packet SocialAction to the all
+			// L2PcInstance on the _knownPlayer of the L2NpcInstance
+			// to display a social action of the L2GuardInstance on
+			// their client
+			SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
+			broadcastPacket(sa);
+			// Open a chat window on client with the text of the
 			// L2GuardInstance
-			if (containsTarget(player))
-			{
-				if (Config.DEBUG)
-				{
-					_log.fine(player.getObjectId() + ": Attacked guard " + getObjectId());
-				}
-				// Set the L2PcInstance Intention to AI_INTENTION_ATTACK
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-			}
+			Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
+			if (qlsa != null && qlsa.length > 0)
+				player.setLastQuestNpcObject(getObjectId());
+			Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
+			if (qlst != null && qlst.length == 1)
+				qlst[0].notifyFirstTalk(this, player);
 			else
-			{
-				// Calculate the distance between the L2PcInstance and the
-				// L2NpcInstance
-				if (!canInteract(player))
-				{
-					// Set the L2PcInstance Intention to
-					// AI_INTENTION_INTERACT
-					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-				}
-				else
-				{
-					// Send a Server->Client packet SocialAction to the all
-					// L2PcInstance on the _knownPlayer of the L2NpcInstance
-					// to display a social action of the L2GuardInstance on
-					// their client
-					SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
-					broadcastPacket(sa);
-					// Open a chat window on client with the text of the
-					// L2GuardInstance
-					Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
-					if (qlsa != null && qlsa.length > 0)
-						player.setLastQuestNpcObject(getObjectId());
-					Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.ON_FIRST_TALK);
-					if (qlst != null && qlst.length == 1)
-						qlst[0].notifyFirstTalk(this, player);
-					else
-						showChatWindow(player, 0);
-				}
-			}
+				showChatWindow(player, 0);
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
 		player.sendPacket(ActionFailed.STATIC_PACKET);

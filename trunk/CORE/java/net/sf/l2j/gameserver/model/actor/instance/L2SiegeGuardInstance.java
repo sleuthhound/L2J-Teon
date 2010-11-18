@@ -151,23 +151,14 @@ public final class L2SiegeGuardInstance extends L2Attackable
 		else
 		{
 			if (isAutoAttackable(player) && !isAlikeDead())
-			{
-				if (Math.abs(player.getZ() - getZ()) < 600) // this max heigth difference might need some tweaking
-				{
+				if (Math.abs(player.getZ() - getZ()) < 600)
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-				}
 				else
-				{
 					player.sendPacket(ActionFailed.STATIC_PACKET);
-				}
-			}
 			if (!isAutoAttackable(player))
-			{
 				if (!canInteract(player))
-				{
 					// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-				}
 				else
 				{
 					SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
@@ -175,7 +166,6 @@ public final class L2SiegeGuardInstance extends L2Attackable
 					sendPacket(sa);
 					showChatWindow(player, 0);
 				}
-			}
 		}
 	}
 
@@ -185,8 +175,6 @@ public final class L2SiegeGuardInstance extends L2Attackable
 		if (attacker == null)
 			return;
 		if (!(attacker instanceof L2SiegeGuardInstance))
-		{
 			super.addDamageHate(attacker, damage, aggro);
-		}
 	}
 }

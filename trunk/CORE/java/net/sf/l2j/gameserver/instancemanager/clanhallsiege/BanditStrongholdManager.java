@@ -287,7 +287,7 @@ public class BanditStrongholdManager extends ClanHallSiege
 			flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
 			if (clan == clanhall.getOwnerClan())
 				flag.spawnMe(81700, -16300, -1828);
-			else {if (flagCounter == 1)
+			else if (flagCounter == 1)
 				flag.spawnMe(83452, -17654, -1828);
 			else if (flagCounter == 2)
 				flag.spawnMe(81718, -14826, -1829);
@@ -297,7 +297,6 @@ public class BanditStrongholdManager extends ClanHallSiege
 				flag.spawnMe(81222, -16803, -1829);
 			else if (flagCounter == 5)
 				flag.spawnMe(83486, -15069, -1828);
-			}
 			clanPlayersInfo regPlayers = _clansInfo.get(clan.getClanId());
 			regPlayers._flag = flag;
 			flagCounter++;
@@ -478,7 +477,6 @@ public class BanditStrongholdManager extends ClanHallSiege
 	{
 		CreatureSay cs = new CreatureSay(0, Say2.SHOUT, "Messenger", text);
 		if (type == 1)
-		{
 			for (String clanName : getRegisteredClans())
 			{
 				L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
@@ -489,15 +487,12 @@ public class BanditStrongholdManager extends ClanHallSiege
 						cha.sendPacket(cs);
 				}
 			}
-		}
 		else
 		{
 			L2WorldRegion region = L2World.getInstance().getRegion(88404, -21821);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
 				if (region == L2World.getInstance().getRegion(player.getX(), player.getY())	&& player.getInstanceId() == 0)
 					player.sendPacket(cs);
-			}
 		}
 	}
 

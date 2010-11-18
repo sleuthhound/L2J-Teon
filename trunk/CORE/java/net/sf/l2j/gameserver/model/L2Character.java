@@ -356,9 +356,7 @@ public abstract class L2Character extends L2Object
 			return;
 
                 if (this instanceof L2Summon)
- 		{
- 			((L2Summon)this).getOwner().sendPacket(new TeleportToLocation(this, getPosition().getX(), getPosition().getY(), getPosition().getZ()));
- 		}
+					((L2Summon)this).getOwner().sendPacket(new TeleportToLocation(this, getPosition().getX(), getPosition().getY(), getPosition().getZ()));
         spawnMe();
 		setIsTeleporting(false);
 		if (_isPendingRevive)
@@ -1335,7 +1333,6 @@ public abstract class L2Character extends L2Object
 		// Calculate altered Cast Speed due to BSpS/SpS
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
 		if (weaponInst != null && skill.isMagic() && !effectWhileCasting && skill.getTargetType() != SkillTargetType.TARGET_SELF)
-		{
 			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT || weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
 			{
 				// Only takes 70% of the time to cast a BSpS/SpS cast
@@ -1354,7 +1351,6 @@ public abstract class L2Character extends L2Object
 						break;
 				}
 			}
-		}
 		// Set the _castEndTime and _castInterruptTim. +10 ticks for lag
 		// situations, will be reseted in onMagicFinalizer
 		setIsCastingNow(true);

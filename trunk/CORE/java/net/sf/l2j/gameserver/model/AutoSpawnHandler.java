@@ -80,16 +80,12 @@ public class AutoSpawnHandler
 	{
 		// stop all timers
 		for (ScheduledFuture<?> sf : _runningSpawns.values())
-		{
 			if (sf != null)
 				sf.cancel(true);
-		}
 		// unregister all registered spawns
 		for (AutoSpawnInstance asi : _registeredSpawns.values())
-		{
 			if (asi != null)
 				this.removeSpawn(asi);
-		}
 
 		// create clean list
 		_registeredSpawns = new FastMap<Integer, AutoSpawnInstance>();
@@ -135,10 +131,8 @@ public class AutoSpawnHandler
 				statement2.clearParameters();
 
 				while (rs2.next())
-				{
 					// Add each location to the spawn group/instance.
 					spawnInst.addSpawnLocation(rs2.getInt("x"), rs2.getInt("y"), rs2.getInt("z"), rs2.getInt("heading"));
-				}
 				rs2.close();
 			}
 			statement2.close();
@@ -352,13 +346,10 @@ public class AutoSpawnHandler
 		{
 			if (isSpawnRegistered(id))
 				return _registeredSpawns.get(id);
-		}
-		else
-		{
+		} else
 			for (AutoSpawnInstance spawnInst : _registeredSpawns.values())
 				if (spawnInst.getNpcId() == id)
 					return spawnInst;
-		}
 		return null;
 	}
 
@@ -474,9 +465,7 @@ public class AutoSpawnHandler
 					newSpawn.setHeading(heading);
 				newSpawn.setAmount(spawnInst.getSpawnCount());
 				if (spawnInst._desDelay == 0)
-				{
 					newSpawn.setRespawnDelay(spawnInst._resDelay);
-				}
 
 				// Add the new spawn information to the spawn table, but do not
 				// store it.
@@ -488,9 +477,7 @@ public class AutoSpawnHandler
 					npcInst = newSpawn.doSpawn();
 					npcInst.setXYZ(npcInst.getX(), npcInst.getY(), npcInst.getZ());
 					spawnInst.addNpcInstance(npcInst);
-				}
-				else
-				{
+				} else
 					for (int i = 0; i < spawnInst._spawnCount; i++)
 					{
 						npcInst = newSpawn.doSpawn();
@@ -504,7 +491,6 @@ public class AutoSpawnHandler
 						// instances.
 						spawnInst.addNpcInstance(npcInst);
 					}
-				}
 
 				String nearestTown = MapRegionTable.getInstance().getClosestTownName(npcInst);
 

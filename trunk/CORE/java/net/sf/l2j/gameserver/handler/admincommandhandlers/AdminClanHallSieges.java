@@ -126,13 +126,11 @@ public class AdminClanHallSieges implements IAdminCommandHandler
 			}
 		}
 		else if (command.startsWith("admin_endfortress"))
-		{
 			if (FortressofTheDeadManager.getInstance().getIsInProgress())
 			{
 				FortressofTheDeadManager.getInstance().endSiege(true);
 				activeChar.sendMessage("End Siege Fortress of The Dead");
 			}
-		}
 		return true;
 	}
 

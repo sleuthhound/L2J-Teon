@@ -527,19 +527,17 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 					if (!player.isInOlympiadMode()
 							&& !player.isFestivalParticipant()
 							&& !player.isInJail())
-							{
-					if ((player.isInStoreMode() && Config.OFFLINE_TRADE_ENABLE)
-							|| (player.isInCraftMode() && Config.OFFLINE_CRAFT_ENABLE))
-							{
-							player.leaveParty();
-					if (Config.OFFLINE_SET_NAME_COLOR)
-							{
-							player.getAppearance().setNameColor(Config.OFFLINE_NAME_COLOR);
-							player.broadcastUserInfo();
-					}
-					return;
-						    }
-					}
+						if ((player.isInStoreMode() && Config.OFFLINE_TRADE_ENABLE)
+								|| (player.isInCraftMode() && Config.OFFLINE_CRAFT_ENABLE))
+								{
+								player.leaveParty();
+						if (Config.OFFLINE_SET_NAME_COLOR)
+								{
+								player.getAppearance().setNameColor(Config.OFFLINE_NAME_COLOR);
+								player.broadcastUserInfo();
+						}
+						return;
+							    }
 					// we store all data from players who are disconnected
 					// while
 					// in an event in order to restore it in the next login

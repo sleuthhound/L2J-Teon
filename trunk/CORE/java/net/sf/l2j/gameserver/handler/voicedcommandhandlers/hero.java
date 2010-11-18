@@ -29,8 +29,7 @@ public class hero implements IVoicedCommandHandler
 	public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
 	{
 		if (command.equalsIgnoreCase("hero"))
-		{
-            if(activeChar.getInventory().getItemByItemId(Config.HERO_ITEM_ID) != null && activeChar.getInventory().getItemByItemId(Config.HERO_ITEM_ID).getCount() >= Config.HERO_ITEM_COUNT)
+			if(activeChar.getInventory().getItemByItemId(Config.HERO_ITEM_ID) != null && activeChar.getInventory().getItemByItemId(Config.HERO_ITEM_ID).getCount() >= Config.HERO_ITEM_COUNT)
             {
             	activeChar.getInventory().destroyItemByItemId("GoldDragon", Config.HERO_ITEM_ID, Config.HERO_ITEM_COUNT, activeChar, activeChar.getTarget());
                 activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 16));
@@ -43,7 +42,6 @@ public class hero implements IVoicedCommandHandler
                	activeChar.sendMessage("You need 1 gold dragon to become hero.");
                 return true;
             }
-		}
 		return false;
 		}
 	public String[] getVoicedCommandList()

@@ -105,7 +105,6 @@ public class L2PlayerAI extends L2CharacterAI
 		if (_skill != null && _skill.isOffensive())
 			_interuptedIntentions.clear();
 		if (getIntention() == AI_INTENTION_CAST)
-		{
 			// run interupted intention if it remain.
 			if (!_interuptedIntentions.isEmpty())
 			{
@@ -120,26 +119,16 @@ public class L2PlayerAI extends L2CharacterAI
 				/*
 				 * if (Config.DEBUG) _log.warning("L2PlayerAI: onEvtFinishCasting -> " + cmd._intention + " " + cmd._arg0 + " " + cmd._arg1);
 				 */
-				if (cmd != null && cmd._crtlIntention != AI_INTENTION_CAST) // previous
-				// state
-				// shouldn't
-				// be
-				// casting
-				{
+				if (cmd != null && cmd._crtlIntention != AI_INTENTION_CAST)
 					setIntention(cmd._crtlIntention, cmd._arg0, cmd._arg1);
-				}
 				else
 					setIntention(AI_INTENTION_IDLE);
-			}
-			else
-			{
+			} else
 				/*
 				 * if (Config.DEBUG) _log.warning("L2PlayerAI: no previous intention set... Setting it to IDLE");
 				 */
 				// set intention to idle if skill doesn't change intention.
 				setIntention(AI_INTENTION_IDLE);
-			}
-		}
 	}
 
 	@Override
@@ -150,9 +139,7 @@ public class L2PlayerAI extends L2CharacterAI
 			changeIntention(AI_INTENTION_REST, null, null);
 			setTarget(null);
 			if (getAttackTarget() != null)
-			{
 				setAttackTarget(null);
-			}
 			clientStopMoving(null);
 		}
 	}
@@ -187,10 +174,8 @@ public class L2PlayerAI extends L2CharacterAI
 		if (checkTargetLostOrDead(target))
 		{
 			if (target != null)
-			{
 				// Notify the target
 				setAttackTarget(null);
-			}
 			actionFailed();
 			return;
 		}
@@ -217,10 +202,8 @@ public class L2PlayerAI extends L2CharacterAI
 			if (checkTargetLost(target))
 			{
 				if (_skill.isOffensive() && getAttackTarget() != null)
-				{
 					// Notify the target
 					setCastTarget(null);
-				}
 				return;
 			}
 			if (target != null && maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill)))

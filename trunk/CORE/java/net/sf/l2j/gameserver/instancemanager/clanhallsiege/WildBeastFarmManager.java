@@ -290,19 +290,16 @@ public class WildBeastFarmManager extends ClanHallSiege
 			flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
 			if (clan == clanhall.getOwnerClan())
 				flag.spawnMe(58782, -93180, -1354);
-			else
-			{
-				if (flagCounter == 1)
-					flag.spawnMe(56769, -92097, -1360);
-				else if (flagCounter == 2)
-                    flag.spawnMe(59138, -92532, -1354);
-				else if (flagCounter == 3)
-                    flag.spawnMe(57027, -93673, -1365);
-				else if (flagCounter == 4)
-                    flag.spawnMe(58120, -91440, -1354);
-				else if (flagCounter == 5)
-                    flag.spawnMe(58428, -93787, -1360);
-			}
+			else if (flagCounter == 1)
+				flag.spawnMe(56769, -92097, -1360);
+			else if (flagCounter == 2)
+			    flag.spawnMe(59138, -92532, -1354);
+			else if (flagCounter == 3)
+			    flag.spawnMe(57027, -93673, -1365);
+			else if (flagCounter == 4)
+			    flag.spawnMe(58120, -91440, -1354);
+			else if (flagCounter == 5)
+			    flag.spawnMe(58428, -93787, -1360);
 			clanPlayersInfo regPlayers = _clansInfo.get(clan.getClanId());
 			regPlayers._flag = flag;
 			flagCounter++;
@@ -483,7 +480,6 @@ public class WildBeastFarmManager extends ClanHallSiege
 	{
 		CreatureSay cs = new CreatureSay(0, Say2.SHOUT, "Messenger", text);
 		if (type == 1)
-		{
 			for (String clanName : getRegisteredClans())
 			{
 				L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
@@ -494,16 +490,13 @@ public class WildBeastFarmManager extends ClanHallSiege
 						cha.sendPacket(cs);
 				}
 			}
-		}
 		else
 		{
 			L2WorldRegion region = L2World.getInstance().getRegion(53508, -93776);
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			{
 				if (region == L2World.getInstance().getRegion(player.getX(), player.getY())
 						&& player.getInstanceId() == 0)
 					player.sendPacket(cs);
-			}
 		}
 	}
 
