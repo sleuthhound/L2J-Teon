@@ -15,7 +15,7 @@ REM ------------------------------------------------------------------------
 
 REM -------------------------------------
 REM Default parameters for a basic server.
-java -Dfile.encoding=UTF-8 -Xmx512m -cp bsf.jar;bsh-engine.jar;bsh-2.0b5.jar;mmocore.jar;javolution.jar;c3p0-0.9.1.2.jar;mysql-connector-java-5.1.6-bin.jar;l2jteon.jar;jython.jar;jython-engine.jar;commons-logging-1.1.jar;java-engine.jar net.sf.l2j.gameserver.GameServer
+java -Dfile.encoding=UTF-8 -Xmx1024m -cp bsf.jar;bsh-engine.jar;bsh-2.0b5.jar;mmocore.jar;javolution.jar;c3p0-0.9.1.2.jar;mysql-connector-java-5.1.6-bin.jar;l2jteon.jar;jython.jar;jython-engine.jar;commons-logging-1.1.jar;java-engine.jar net.sf.l2j.gameserver.GameServer
 REM
 REM If you have a big server and lots of memory, you could experiment for example with
 REM java -server -Xmx1536m -Xms1024m -Xmn512m -XX:PermSize=256m -XX:SurvivorRatio=8 -Xnoclassgc -XX:+AggressiveOpts
