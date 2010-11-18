@@ -88,6 +88,7 @@ public final class AnswerTradeRequest extends L2GameClientPacket
 			SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);
 			msg.addString(player.getName());
 			partner.sendPacket(msg);
+			player.setAllowTrade(true);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 			player.setAllowTrade(true);
 		}

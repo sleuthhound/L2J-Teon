@@ -135,6 +135,13 @@ public final class TradeRequest extends L2GameClientPacket
 			player.sendPacket(sm);
 			return;
 		}
+		if (partner.getAllowTrade() == false)
+		{
+		player.sendMessage("Target is not allowed to receive more than one trade request at the same time.");
+			return;
+		}
+		partner.setAllowTrade(false);
+		player.setAllowTrade(false);
 		player.onTransactionRequest(partner);
 		partner.sendPacket(new SendTradeRequest(player.getObjectId()));
 		SystemMessage sm = new SystemMessage(SystemMessageId.REQUEST_S1_FOR_TRADE);
