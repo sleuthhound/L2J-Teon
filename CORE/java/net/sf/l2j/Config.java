@@ -69,6 +69,7 @@ public final class Config
 	public static final String CHAT_FILTER_FILE           = "./config/ChatFilter.txt";
 	public static final String SEVENSIGNS_FILE            = "./config/sevensigns.properties";
 	public static final String FS_CONFIG_FILE             = "./config/bosses/foursepulchers.properties";
+	public static final String GB_CONFIG_FILE             = "./config/bosses/Grandboss.properties";
 	public static final String L2J_TEON_CUSTOM            = "./config/custom/L2JTeonCustom.properties";
 	public static final String L2JTEON_MODS               = "./config/custom/L2JTeonMods.properties";
 	public static final String VOICE_COMMAND              = "./config/custom/VoicedCommand.properties";

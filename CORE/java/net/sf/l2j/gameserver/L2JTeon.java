@@ -29,7 +29,7 @@ public class L2JTeon
 	public static void info()
 	{
 		_log.info("-------------------------------------------------------------------------------");
-		_log.info("                     >>>>>  Owners : Maxi56 and Meyknho  <<<<<                 ");
+		_log.info("                     >>>>>  Owners : Maxi56, Meyknho and Hawkye  <<<<<                 ");
 		_log.info("       >>>>>  Developers : vicfelipe, Paulinho Souza and killswith  <<<<<      ");
 		_log.info("-------------------------------------------------------------------------------");
 		Util.printCpuInfo();
