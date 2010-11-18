@@ -107,8 +107,8 @@ public final class Logout extends L2GameClientPacket
 			if (playerParty != null)
 				player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName() + " has been removed from the upcoming festival."));
 		}
-		if ((player.isInStoreMode() && Config.OFFLINE_TRADE_ENABLE)
-		 || (player.isInCraftMode() && Config.OFFLINE_CRAFT_ENABLE))
+		if (player.isInStoreMode() && Config.OFFLINE_TRADE_ENABLE
+		 || player.isInCraftMode() && Config.OFFLINE_CRAFT_ENABLE)
 			{
 				player.closeNetConnection();
 				return;
