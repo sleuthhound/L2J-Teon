@@ -589,3 +589,4 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	}
 
 }
+
