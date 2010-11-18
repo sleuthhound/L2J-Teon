@@ -46,7 +46,6 @@ public class Manadam implements ISkillHandler
 		boolean bss = false;
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 		if (weaponInst != null)
-		{
 			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 			{
 				bss = true;
@@ -57,7 +56,6 @@ public class Manadam implements ISkillHandler
 				ss = true;
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
-		}
 		for (L2Object target2 : targets) {
 			target = (L2Character) target2;
 			if (target.reflectSkill(skill))

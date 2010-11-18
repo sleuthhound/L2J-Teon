@@ -404,9 +404,7 @@ public class L2Spawn
 	public int init()
 	{
 		while (_currentCount < _maximumCount)
-		{
 			doSpawn();
-		}
 		_doRespawn = true;
 
 		return _currentCount;
@@ -528,10 +526,8 @@ public class L2Spawn
 		}
 
 		for (L2Effect f : mob.getAllEffects())
-		{
 			if (f != null)
 				mob.removeEffect(f);
-		}
 		mob.setIsKilledAlready(false);
 		// Reset decay info
 		mob.setDecayed(false);
@@ -540,21 +536,14 @@ public class L2Spawn
 
 		// Set the heading of the L2NpcInstance (random heading if not defined)
 		if (getHeading() == -1)
-		{
 			mob.setHeading(Rnd.nextInt(61794));
-		}
 		else
-		{
 			mob.setHeading(getHeading());
-		}
 
 		if (mob instanceof L2Attackable)
-		{
 			((L2Attackable) mob).setChampion(false);
-		}
 
 		if (Config.CHAMPION_ENABLE)
-		{
 			// Set champion on next spawn
 			if
 			(
@@ -573,7 +562,6 @@ public class L2Spawn
 				if (random < Config.CHAMPION_FREQUENCY)
 					((L2Attackable) mob).setChampion(true);
 			}
-		}
 
 		// Link the L2NpcInstance to this L2Spawn
 		mob.setSpawn(this);
@@ -611,9 +599,7 @@ public class L2Spawn
 		synchronized (_spawnListeners)
 		{
 			for (SpawnListener listener : _spawnListeners)
-			{
 				listener.npcSpawned(npc);
-			}
 		}
 	}
 

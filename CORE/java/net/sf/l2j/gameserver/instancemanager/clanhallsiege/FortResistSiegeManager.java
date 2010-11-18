@@ -125,16 +125,12 @@ public class FortResistSiegeManager extends ClanHallSiege
 			L2Clan clanIdMaxDamage = null;
 			long tempMaxDamage = 0;
 			for (DamageInfo damageInfo : _clansDamageInfo.values())
-			{
 				if (damageInfo != null)
-				{
 					if (damageInfo._damage > tempMaxDamage)
 					{
 						tempMaxDamage = damageInfo._damage;
 						clanIdMaxDamage = damageInfo._clan;
 					}
-				}
-			}
 			if (clanIdMaxDamage != null)
 			{
 				ClanHallManager.getInstance().setOwner(clanhall.getId(), clanIdMaxDamage);

@@ -256,9 +256,7 @@ public class FortSiege
 			announceToPlayer("The siege of " + getFort().getName() + " has finished!", false);
 
 			if(getFort().getOwnerId() <= 0 && !_hasCastle)
-			{
 				announceToPlayer("The siege of " + getFort().getName() + " has ended in a draw.", false);
-			}
 			removeFlags(); // Removes all flags. Note: Remove flag before
 			// teleporting players
 			teleportPlayer(FortSiege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport

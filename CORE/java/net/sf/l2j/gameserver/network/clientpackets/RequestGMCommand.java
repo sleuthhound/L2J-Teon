@@ -60,10 +60,7 @@ public final class RequestGMCommand extends L2GameClientPacket
 
 		// player name was incorrect?
 		if (player == null && (clan == null || _command != 6))
-		{
 			return;
-
-		}
 		switch (_command)
 		{
 			case 1: // player status

@@ -733,12 +733,10 @@ public class Castle
 	public final Siege getSiege()
 	{
 		if(_siege == null)
-		{
 			_siege = new Siege(new Castle[]
 			{
 				this
 			});
-		}
 
 		return _siege;
 	}

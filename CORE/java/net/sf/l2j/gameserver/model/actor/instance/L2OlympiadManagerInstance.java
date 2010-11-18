@@ -50,9 +50,8 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 		}
 		else if (command.startsWith("OlympiadNoble"))
 		{
-			if (!player.isNoble() || player.getClassId().getId() < 88) {
+			if (!player.isNoble() || player.getClassId().getId() < 88)
 				return;
-			}
 			int val = Integer.parseInt(command.substring(14));
 			NpcHtmlMessage reply;
 			TextBuilder replyMSG;
@@ -109,12 +108,9 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 						sm.addNumber(passes);
 						sm.addItemName(item.getItemId());
 						player.sendPacket(sm);
-					}
-					else
-					{
+					} else
 						player.sendMessage("Not enough points, or not currently in Valdation Period");
 						// TODO Send HTML packet "Saying not enough olympiad points.
-					}
 					break;
 				case 7:
 					L2Multisell.getInstance().SeparateAndSend(102, player, false, getCastle().getTaxRate());
@@ -136,19 +132,15 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 					int stad;
 					int showbattle;
 					replyMSG.append("Grand Olympiad Competition View<br>" + "Warning: If you watch an Olympiad game, the " + "summoning of your Servitors or Pets will be " + "cancelled.<br><br>");
-					if (matches == null) {
+					if (matches == null)
 						replyMSG.append("<br>There are no matches at the moment");
-					} else
-					{
+					else
 						for (String matche : matches) {
 							showbattle = Integer.parseInt(matche.substring(1, 2));
 							stad = Integer.parseInt(matche.substring(4, 5));
 							if (showbattle == 1)
-							{
 								replyMSG.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_Olympiad 3_" + stad + "\">" + matche + "</a>");
-							}
 						}
-					}
 					replyMSG.append("</body></html>");
 					reply.setHtml(replyMSG.toString());
 					player.sendPacket(reply);
@@ -193,9 +185,8 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 					_logOlymp.warning("Olympiad System: Couldnt send packet for request " + val);
 					break;
 			}
-		} else {
+		} else
 			super.onBypassFeedback(player, command);
-		}
 	}
 
 	private void showChatWindow(L2PcInstance player, int val, String suffix)
@@ -203,9 +194,8 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
 		String filename = Olympiad.OLYMPIAD_HTML_FILE;
 		filename += "noble_desc" + val;
 		filename += suffix != null ? suffix + ".htm" : ".htm";
-		if (filename.equals(Olympiad.OLYMPIAD_HTML_FILE + "noble_desc0.htm")) {
+		if (filename.equals(Olympiad.OLYMPIAD_HTML_FILE + "noble_desc0.htm"))
 			filename = Olympiad.OLYMPIAD_HTML_FILE + "noble_main.htm";
-		}
 		showChatWindow(player, filename);
 	}
 }
