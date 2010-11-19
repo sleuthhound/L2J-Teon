@@ -16,6 +16,8 @@ package net.sf.l2j.gameserver.skills;
 
 import java.util.logging.Logger;
 
+import net.sf.l2j.gameserver.skills.Stats;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
