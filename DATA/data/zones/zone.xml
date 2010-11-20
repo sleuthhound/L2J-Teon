@@ -845,7 +845,7 @@
 		<stat name='spawnMaxY' val='160706'/>
 		<stat name='spawnZ' val='-2690'/>
 	</zone>
-	<zone id='11211' type='CastleTeleportZone' shape='Cuboid' minZ='-1891' maxZ='-1750'>
+	<zone id='11211' type='CastleTeleportZone' shape='Cuboid' minZ='-1899' maxZ='-1790'>
 		<stat name='castleId' val='3'/>
 		<stat name='spawnMinX' val='116555'/>
 		<stat name='spawnMaxX' val='116894'/>
@@ -893,12 +893,12 @@
 		<stat name='spawnMaxY' val='-49498'/>
 		<stat name='spawnZ' val='-546'/>
 	</zone>
-	<zone id='11217' type='CastleTeleportZone' shape='Cuboid' minZ='746' maxZ='1136'>
+	<zone id='11217' type='CastleTeleportZone' shape='Cuboid' minZ='730' maxZ='800'>
 		<stat name='castleId' val='9'/>
 		<stat name='spawnMinX' val='77144'/>
 		<stat name='spawnMaxX' val='77927'/>
-		<stat name='spawnMinY' val='-152272'/>
-		<stat name='spawnMaxY' val='-152843'/>
+		<stat name='spawnMinY' val='-150330'/>
+		<stat name='spawnMaxY' val='-151240'/>
 		<stat name='spawnZ' val='-544'/>
 	</zone>
 
