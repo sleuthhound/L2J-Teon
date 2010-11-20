@@ -258,6 +258,9 @@ public class GameServer
 		SiegeManager.getInstance();
 		FortManager.getInstance();
 		FortSiegeManager.getInstance();
+		Util.printSection("Zones");
+		ZoneManager.getInstance();
+		MapRegionTable.getInstance();
 		// Load clan hall data before zone data
 		_cHManager = ClanHallManager.getInstance();
 		Util.printSection("Clan Hall Siege");
@@ -268,9 +271,6 @@ public class GameServer
 			DevastatedCastleManager.getInstance();
 		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
 			FortressofTheDeadManager.getInstance();
-		Util.printSection("Zones");
-		ZoneManager.getInstance();
-		MapRegionTable.getInstance();
 		Util.printSection("Recipes");
 		RecipeController.getInstance();
 		Util.printSection("Cache");
