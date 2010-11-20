@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -339,6 +340,10 @@ public class TvT
 						{
 							L2Party party = player.getParty();
 							party.removePartyMember(player);
+							if (player.isInDuel())
+							{
+								player.setDuelState(Duel.DUELSTATE_INTERRUPTED);
+							}
 						}
 						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
 					}
@@ -392,6 +397,10 @@ public class TvT
 						{
 							L2Party party = player.getParty();
 							party.removePartyMember(player);
+							if (player.isInDuel())
+							{
+								player.setDuelState(Duel.DUELSTATE_INTERRUPTED);
+							}
 						}
 						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
 					}
