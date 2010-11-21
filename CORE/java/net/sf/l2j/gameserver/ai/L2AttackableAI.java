@@ -536,8 +536,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 						if (getAttackTarget() == null || faction_id != npc.getFactionId())
 							continue;
 						// Check if the L2Object is inside the Faction Range of the actor
-						if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && GeoData.getInstance().canSeeTarget(_actor, npc) && Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600 && npc.getAI() != null && _actor.getAttackByList().contains(getAttackTarget())
-								&& (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE))
+						if(_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) && _actor != null && npc.getAI() != null && GeoData.getInstance().canSeeTarget(_actor, npc) && Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600 && _actor.getAttackByList().contains(getAttackTarget()) && (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE))
 						{
 							if (getAttackTarget() instanceof L2PcInstance && getAttackTarget().isInParty() && getAttackTarget().getParty().isInDimensionalRift())
 							{
@@ -750,10 +749,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		try
 		{
 			// Manage AI thinks of a L2Attackable
-			if (getIntention() == AI_INTENTION_ACTIVE)
+			if(getIntention() == AI_INTENTION_ACTIVE)
+			{
 				thinkActive();
-			if (getIntention() == AI_INTENTION_ATTACK)
+			}
+			if(getIntention() == AI_INTENTION_ATTACK)
+			{
 				thinkAttack();
+			}
 		}
 		finally
 		{
