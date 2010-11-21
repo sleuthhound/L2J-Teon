@@ -1030,14 +1030,14 @@ public abstract class L2Character extends L2Object
 		// distance between o1 and o2 = 87.24
 		// arctan2 = -120 (240) degree (excel arctan2(dx, dy); java arctan2(dy,
 		// dx))
-		//
+		// 
 		// o2
-		//
+		// 
 		// o1 ----- (heading)
 		// In the diagram above:
 		// o1 has a heading of 0/360 degree from horizontal (facing East)
 		// Degree of o2 in respect to o1 = -120 (240) degree
-		//
+		// 
 		// o2 / (heading)
 		// /
 		// o1
@@ -1274,29 +1274,29 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 			}
-			// if ((target instanceof L2PcInstance) && (this instanceof L2PcInstance))
-			// {
-			// if (((L2PcInstance) this).isKoof() && (((L2PcInstance) target).isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS))
-			// {
-			// ((L2PcInstance) this).sendMessage("Cant attack a player from your faction");
-			// sendPacket(ActionFailed.STATIC_PACKET);
-			// return;
-			// } else if (((L2PcInstance) this).isKoof() && ((((L2PcInstance) target).isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS && (skill.getSkillType() == SkillType.BUFF)) || (skill.getSkillType() == SkillType.HOT) || (skill.getSkillType() == SkillType.HEAL) || (skill.getSkillType() == SkillType.COMBATPOINTHEAL) || (skill.getSkillType() == SkillType.HEAL_PERCENT) || (skill.getSkillType() ==
-			// SkillType.MANAHEAL) || (skill.getSkillType() == SkillType.MANAHEAL_PERCENT) || (skill.getSkillType() == SkillType.BALANCE_LIFE) || (skill.getSkillType() == SkillType.CONT)))
-			// {
-			// return;
-			// }
-			// if (((L2PcInstance) this).isNoob() && ((L2PcInstance) target).isNoob())
-			// {
-			// ((L2PcInstance) this).sendMessage("Cant attack a player from your faction");
-			// sendPacket(ActionFailed.STATIC_PACKET);
-			// return;
-			// } else if (((L2PcInstance) this).isNoob() && ((((L2PcInstance) target).isNoob() && Config.ENABLE_FACTION_KOOFS_NOOBS && (skill.getSkillType() == SkillType.BUFF)) || (skill.getSkillType() == SkillType.HOT) || (skill.getSkillType() == SkillType.HEAL) || (skill.getSkillType() == SkillType.COMBATPOINTHEAL) || (skill.getSkillType() == SkillType.HEAL_PERCENT) || (skill.getSkillType() ==
-			// SkillType.MANAHEAL) || (skill.getSkillType() == SkillType.MANAHEAL_PERCENT) || (skill.getSkillType() == SkillType.BALANCE_LIFE) || (skill.getSkillType() == SkillType.CONT)))
-			// {
-			// return;
-			// }
-			// }
+			if ((target instanceof L2PcInstance) && (this instanceof L2PcInstance))
+			{
+			if (((L2PcInstance) this).isKoof() && (((L2PcInstance) target).isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS))
+			{
+			((L2PcInstance) this).sendMessage("Cant attack a player from your faction");
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+			} else if (((L2PcInstance) this).isKoof() && ((((L2PcInstance) target).isKoof() && Config.ENABLE_FACTION_KOOFS_NOOBS && (skill.getSkillType() == SkillType.BUFF)) || (skill.getSkillType() == SkillType.HOT) || (skill.getSkillType() == SkillType.HEAL) || (skill.getSkillType() == SkillType.COMBATPOINTHEAL) || (skill.getSkillType() == SkillType.HEAL_PERCENT) || (skill.getSkillType() ==
+			SkillType.MANAHEAL) || (skill.getSkillType() == SkillType.MANAHEAL_PERCENT) || (skill.getSkillType() == SkillType.BALANCE_LIFE) || (skill.getSkillType() == SkillType.CONT)))
+			{
+			return;
+			}
+			if (((L2PcInstance) this).isNoob() && ((L2PcInstance) target).isNoob())
+			{
+			((L2PcInstance) this).sendMessage("Cant attack a player from your faction");
+			sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+			} else if (((L2PcInstance) this).isNoob() && ((((L2PcInstance) target).isNoob() && Config.ENABLE_FACTION_KOOFS_NOOBS && (skill.getSkillType() == SkillType.BUFF)) || (skill.getSkillType() == SkillType.HOT) || (skill.getSkillType() == SkillType.HEAL) || (skill.getSkillType() == SkillType.COMBATPOINTHEAL) || (skill.getSkillType() == SkillType.HEAL_PERCENT) || (skill.getSkillType() ==
+			SkillType.MANAHEAL) || (skill.getSkillType() == SkillType.MANAHEAL_PERCENT) || (skill.getSkillType() == SkillType.BALANCE_LIFE) || (skill.getSkillType() == SkillType.CONT)))
+			{
+			return;
+			}
+			}
 		}
 		// AURA skills should always be using caster as target
 		if (skill.getTargetType() == SkillTargetType.TARGET_AURA || skill.getTargetType() == SkillTargetType.TARGET_GROUND)
