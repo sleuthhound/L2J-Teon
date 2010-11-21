@@ -435,8 +435,7 @@ public abstract class L2Character extends L2Object
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 			try
 			{
-				if (!isInsideRadius(player, radiusInKnownlist, false, false))
-					continue;
+				if (player != null && isInsideRadius(player, radiusInKnownlist, false, false))
 				player.sendPacket(mov);
 				if (mov instanceof CharInfo && this instanceof L2PcInstance)
 				{
