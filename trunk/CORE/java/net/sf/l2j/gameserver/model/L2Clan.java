@@ -1589,11 +1589,11 @@ public class L2Clan
 			while (rset.next())
 			{
 				int rank = rset.getInt("rank");
-				// int party = rset.getInt("party");
+				int party = rset.getInt("party");
 				int privileges = rset.getInt("privs");
 				// Create a SubPledge object for each record
-				// RankPrivs privs = new RankPrivs(rank, party, privileges);
-				// _Privs.put(rank, privs);
+				RankPrivs privs = new RankPrivs(rank, party, privileges);
+				_privs.put(rank, privs);
 				_privs.get(rank).setPrivs(privileges);
 			}
 			rset.close();
@@ -1641,8 +1641,7 @@ public class L2Clan
 			java.sql.Connection con = null;
 			try
 			{
-				// _log.warning("requested store clan privs in db for rank:
-				// "+rank+", privs: "+privs);
+				_log.warning("requested store clan privs in db for rank:"+rank+", privs: "+privs);
 				// Retrieve all skills of this L2PcInstance from the database
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privs) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE privs = ?");
@@ -1684,8 +1683,7 @@ public class L2Clan
 			java.sql.Connection con = null;
 			try
 			{
-				// _log.warning("requested store clan new privs in db for rank:
-				// "+rank);
+				_log.warning("requested store clan new privs in db for rank:"+rank);
 				// Retrieve all skills of this L2PcInstance from the database
 				con = L2DatabaseFactory.getInstance().getConnection();
 				PreparedStatement statement = con.prepareStatement("INSERT INTO clan_privs (clan_id,rank,party,privs) VALUES (?,?,?,?)");
