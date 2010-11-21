@@ -144,7 +144,7 @@ public abstract class L2Character extends L2Object
 	// Data Field
 	private List<L2Character> _attackByList;
 	private volatile boolean _isCastingNow = false;
-	// private L2Character _attackingChar;
+	private L2Character _attackingChar;
 	private L2Skill _lastSkillCast;
 	private boolean _isAfraid = false; // Flee in a random direction
 	private boolean _isConfused = false; // Attack anyone randomly
@@ -398,8 +398,8 @@ public abstract class L2Character extends L2Object
 	{
 		if (!(mov instanceof CharInfo))
 			sendPacket(mov);
-		// if (Config.DEBUG) _log.fine("players to notify:" +
-		// knownPlayers.size() + " packet:"+mov.getType());
+		// if (Config.DEBUG) _log.fine("players to notify:");
+		// knownPlayers.size()  "packet:"mov.getType();
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 			try
 			{
@@ -410,9 +410,8 @@ public abstract class L2Character extends L2Object
 					if (getKnownList().getKnownRelations().get(player.getObjectId()) != null && getKnownList().getKnownRelations().get(player.getObjectId()) != relation)
 						player.sendPacket(new RelationChanged((L2PcInstance) this, relation, player.isAutoAttackable(this)));
 				}
-				// if(Config.DEVELOPER && !isInsideRadius(player, 3500, false,
-				// false)) _log.warning("broadcastPacket: Too far player see
-				// event!");
+				if(Config.DEVELOPER && !isInsideRadius(player, 3500, false,
+				false)) _log.warning("broadcastPacket: Too far player see event!");
 			}
 			catch (NullPointerException e)
 			{
