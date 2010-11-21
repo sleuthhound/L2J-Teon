@@ -1689,7 +1689,8 @@ public abstract class L2Character extends L2Object
 			{
 				_status.setCurrentCp(getMaxCp() * Config.RESPAWN_RESTORE_CP);
 				_status.setCurrentHp(getMaxHp() * Config.RESPAWN_RESTORE_HP);
-				// _Status.setCurrentMp(getMaxMp() * Config.RESPAWN_RESTORE_MP);
+				_status.setCurrentMp(getMaxMp() * Config.RESPAWN_RESTORE_MP);
+
 			}
 			// Start broadcast status
 			broadcastPacket(new Revive(this));
