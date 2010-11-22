@@ -753,7 +753,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			{
 				thinkActive();
 			}
-			if(getIntention() == AI_INTENTION_ATTACK)
+			else if(getIntention() == AI_INTENTION_ATTACK)
 			{
 				thinkAttack();
 			}
