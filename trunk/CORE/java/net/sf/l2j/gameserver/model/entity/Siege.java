@@ -750,8 +750,7 @@ public class Siege
 				player.sendMessage("You cannot register as an attacker because your alliance owns the castle");
 				return;
 			}
-		if (force || checkIfCanRegister(player))
-			saveSiegeClan(player.getClan(), 1, false); // Save to database
+		if (force || checkIfCanRegister(player))saveSiegeClan(player.getClan(), 1, false); // Save to database
 	}
 
 	/**
@@ -770,8 +769,7 @@ public class Siege
 	{
 		if (getCastle().getOwnerId() <= 0)
 			player.sendMessage("You cannot register as a defender because " + getCastle().getName() + " is owned by NPC.");
-		else if (force || checkIfCanRegister(player))
-			saveSiegeClan(player.getClan(), 2, false); // Save to database
+		else if (force || checkIfCanRegister(player))saveSiegeClan(player.getClan(), 2, false); // Save to database
 	}
 
 	/**
