@@ -22,7 +22,7 @@ REM ############################################
 set mysqldumpPath="%mysqlBinPath%\mysqldump"
 set mysqlPath="%mysqlBinPath%\mysql"
 
-echo Welcome to L2JTeon opensource installer version 0.3
+echo Welcome to L2JSick installer version 0.3
 echo PLEASE EDIT THIS SCRIPT SO VALUES IN THE CONFIG SECTION MATCH YOUR DATABASE(S)
 echo.
 echo.
@@ -75,9 +75,9 @@ echo Deleting all GameServer tables for new content.
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < full_install.sql
 
 :upgradeinstall
-echo Installing  new L2JTeon Datapack Content.
+echo Installing  new L2JSick Datapack Content.
 echo The installer will install both official and custom content
-echo Version:Interlude
+echo Version: Interlude
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/account_data.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/armor.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/armorsets.sql
@@ -213,11 +213,11 @@ echo Almost finish
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/ctf_teams.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/dm.sql
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/forced_updates.sql
-echo Installation finish.Visit l2jteon.servegame.com for more info
+echo Installation Successful
 echo.
 :end
 echo.
-echo Powered by L2JTeon Developing Team
-echo 2009-2010
+echo Powered by L2JSick Team
+echo 2010-2011
 echo Script complete.
 pause

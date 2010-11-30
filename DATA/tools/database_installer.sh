@@ -352,7 +352,7 @@ $MYG < ../sql/raid_prizes.sql &> /dev/null
 $MYG < ../sql/olympiad_nobles.sql &> /dev/null
 $MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
 $MYG < ../sql/random_spawn.sql &> /dev/null
-$MYG < ../sql/random_spawn_loc.sql &> /dev/null
+$MYG < ../sql/random_spawn_loc.sql &> /dev/null$MYG < ../sql/record.sql &> /dev/null
 $MYG < ../sql/seven_signs.sql &> /dev/null
 $MYG < ../sql/seven_signs_festival.sql &> /dev/null
 $MYG < ../sql/seven_signs_status.sql &> /dev/null

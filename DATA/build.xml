@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<project name="L2JTeon_Datapack" default="dist" basedir=".">
+<project name="L2JSick_Datapack" default="dist" basedir=".">
   <description>
-        This script will build the L2JTeon_Datapack.
+        This script will build the L2JSick_Datapack.
         
         $Author: DrLecter $
         $Date: 2007-11-19 16:57:12 -0300 (mo, 19 nov 2007) $
@@ -24,8 +24,8 @@
 
   <property name="build" location="build"/>
   <property name="build.dist" location="${build}/dist"/>
-  <property name="build.dist.game" location="${build.dist}/L2JTeon_gameserver"/>
-  <property name="build.dist.login" location="${build.dist}/L2JTeon_login"/>
+  <property name="build.dist.game" location="${build.dist}/Game_Server"/>
+  <property name="build.dist.login" location="${build.dist}/Login_Server"/>
   <property name="build.dist.sql" location="${build.dist}/sql"/>
   <property name="build.dist.tools" location="${build.dist}/tools"/>
   <property name="build.dist.doc" location="${build.dist}/doc"/>
@@ -74,7 +74,7 @@
       <sync todir="${build.dist.tools}">
          <fileset dir="${basedir}/tools">
            <include name="*.*"/>
-           <exclude name="database_installer.rc"/>
+           <exclude name="Data Base Installer.bat"/>
            <exclude name="*.txt"/>
            <exclude name="*.log"/>
            <exclude name="*backup.sql"/>
@@ -90,13 +90,13 @@
     <target name="dist"
           depends="export"
           description="Creates a ZIP file. Suitable for distribution but building takes longer. See dist-deflate for faster builds.">
-      <zip destfile="${build}/L2JTeon_DataPack.zip" basedir="${build.dist}" update="true"/>
+      <zip destfile="${build}/L2JSick_DataPack.zip" basedir="${build.dist}" update="true"/>
     </target>
 
     <target name="dist-deflate"
           depends="export"
           description="Creates a datapack ZIP file with NO compression (bigger ZIP file but faster than regular dist target)">
-      <zip destfile="${build}/L2JTeon_DataPack-nocompress.zip" basedir="${build.dist}" update="true" compress="false"/>
+      <zip destfile="${build}/L2JSick_DataPack-nocompress.zip" basedir="${build.dist}" update="true" compress="false"/>
     </target>
   
   
