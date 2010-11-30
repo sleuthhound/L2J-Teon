@@ -87,21 +87,21 @@ class Quest (JQuest) :
              st.exitQuest(1)
          return htmltext
      elif event == "Jewel1_Timer1" :
-         npc.reduceCurrentHp(9999999,npc)
+         npc.reduceCurrentHp(9999999,npc,None)
          self.cancelQuestTimer("Jewel1_Timer2",npc,None)
      elif event == "Jewel1_Timer2" :
-         npc.reduceCurrentHp(9999999,npc)
+         npc.reduceCurrentHp(9999999,npc,None)
          self.cancelQuestTimer("Jewel1_Timer1",npc,None)
      elif event == "Jewel2_Timer1" :
-         npc.reduceCurrentHp(9999999,npc)
+         npc.reduceCurrentHp(9999999,npc,None)
          self.cancelQuestTimer("Jewel2_Timer2",npc,None)
      elif event == "Jewel2_Timer2" :
-         npc.reduceCurrentHp(9999999,npc)
+         npc.reduceCurrentHp(9999999,npc,None)
          self.cancelQuestTimer("Jewel2_Timer1",npc,None)
      return
 
  def onTalk (self,npc,player):
-    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+    htmltext = Quest.getNoQuestMsg(player)
     st = player.getQuestState(qn)
     if not st : return htmltext
     npcId = npc.getNpcId()
@@ -246,7 +246,7 @@ class Quest (JQuest) :
                  htmltext = "30755-04.htm"
     return htmltext
 
- def onAttack (self, npc, player, damage, isPet):
+ def onAttack (self, npc, player, damage, isPet, skill):
    st = player.getQuestState(qn)
    if st :
      npcId = npc.getNpcId()
@@ -266,9 +266,10 @@ class Quest (JQuest) :
                  st.playSound("ItemSound.quest_itemget")
                  self.startQuestTimer("Jewel1_Timer2",240000,npc,None)
          if nowHp < maxHp*0.1 :
-             npc.reduceCurrentHp(9999999,npc)
+             npc.reduceCurrentHp(9999999,npc,None)
              self.cancelQuestTimer("Jewel1_Timer1",npc,None)
              self.cancelQuestTimer("Jewel1_Timer2",npc,None)
+             st.set("aspawned","0")
      if npcId == ABYSS_JEWEL2 :
          if cond == 2 and st.getInt("helton")<>1:
              if nowHp < maxHp*0.8 and st.getInt("bspawned")<>1 :
@@ -282,9 +283,10 @@ class Quest (JQuest) :
                  st.playSound("ItemSound.quest_itemget")
                  self.startQuestTimer("Jewel2_Timer2",240000,npc,None)
          if nowHp < maxHp*0.1 :
-             npc.reduceCurrentHp(9999999,npc)
+             npc.reduceCurrentHp(9999999,npc,None)
              self.cancelQuestTimer("Jewel2_Timer1",npc,None)
              self.cancelQuestTimer("Jewel2_Timer2",npc,None)
+             st.set("bspawned","0")
      if npcId == ABYSS_JEWEL3 :
          if cond == 4 :
              if nowHp < maxHp*0.8 and st.getInt("cspawned")<>1 :
@@ -331,9 +333,11 @@ class Quest (JQuest) :
         elif cond == 2 :
             if npcId == GUARDIAN1 and st.getQuestItemsCount(MARA_FANG)==0 and st.getInt("moke")<>1 :
                 st.giveItems(MARA_FANG,1)
+                st.set("aspawned","1")
                 st.playSound("ItemSound.quest_itemget")
             elif npcId == GUARDIAN2 and st.getQuestItemsCount(MUSFEL_FANG)==0 and st.getInt("helton")<>1 :
                 st.giveItems(MUSFEL_FANG,1)
+                st.set("bspawned","1")
                 st.playSound("ItemSound.quest_itemget")
         elif cond == 4:
             if npcId in (CAVE_MAIDEN, CAVE_KEEPER, CAVE_KEEPER1, CAVE_MAIDEN1) and st.getQuestItemsCount(THIRD_FRAGMENT_OF_ABYSS_JEWEL)==0 and st.getRandom(5) == 0 :
@@ -359,3 +363,4 @@ for npc in NPCS :
 
 for mob in MOBS :
     QUEST.addKillId(mob)
+
