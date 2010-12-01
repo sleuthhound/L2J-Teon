@@ -32,19 +32,19 @@ public class GrandBossTeleporters extends Quest
 	{
 		13001,31859,31384,31385,31540,31686,31687,31759
 	};
-
+	
 	private Quest antharasAI()
 	{
 		return QuestManager.getInstance().getQuest("antharas");
 	}
-
+	
 	private Quest valakasAI()
 	{
 		return QuestManager.getInstance().getQuest("valakas");
 	}
-
+	
 	private int count = 0;
-
+	
 	public GrandBossTeleporters(int questId, String name, String descr)
 	{
 		super(questId, name, descr);
