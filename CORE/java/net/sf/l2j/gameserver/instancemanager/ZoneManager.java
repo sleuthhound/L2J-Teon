@@ -92,12 +92,14 @@ public class ZoneManager
 		// Get the world regions
 		int count = 0;
 		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
-		for (L2WorldRegion[] worldRegion : worldRegions)
-			for (L2WorldRegion element : worldRegion)
-			{
-				element.getZones().clear();
-				count++;
-			}
+        for (int x = 0; x < worldRegions.length; x++)
+        {
+            for (int y = 0; y < worldRegions[x].length; y++)
+            {
+	            worldRegions[x][y].getZones().clear();
+	            count++;
+            }
+        }
 		GrandBossManager.getInstance().getZones().clear();
 		_log.info("Removed zones in " + count + " regions.");
 		// Load the zones

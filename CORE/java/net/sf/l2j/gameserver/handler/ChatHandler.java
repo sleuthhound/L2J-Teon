@@ -65,10 +65,11 @@ public class ChatHandler
 	public void registerChatHandler(IChatHandler handler)
 	{
 		int[] ids = handler.getChatTypeList();
-		for (int id : ids) {
-			if (Config.DEBUG)
-				_log.fine("Adding handler for chat type " + id);
-			_datatable.put(id, handler);
+        for (int i = 0; i < ids.length; i++)
+        {
+            if (Config.DEBUG)
+                _log.fine("Adding handler for chat type " + ids[i]);
+            _datatable.put(ids[i], handler);
 		}
 	}
 

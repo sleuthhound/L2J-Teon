@@ -179,10 +179,11 @@ public class AdminCommandHandler
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)
 	{
 		String[] ids = handler.getAdminCommandList();
-		for (String id : ids) {
-			if (Config.DEBUG)
-				_log.fine("Adding handler for command " + id);
-			_datatable.put(id, handler);
+        for (int i = 0; i < ids.length; i++)
+        {
+            if (Config.DEBUG)
+                _log.fine("Adding handler for command " + ids[i]);
+            _datatable.put(ids[i], handler);
 		}
 	}
 

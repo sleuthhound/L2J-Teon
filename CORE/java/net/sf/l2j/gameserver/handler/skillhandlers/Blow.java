@@ -53,8 +53,9 @@ public class Blow implements ISkillHandler
 	{
 		if (activeChar.isAlikeDead())
 			return;
-		for (L2Object target2 : targets) {
-			L2Character target = (L2Character) target2;
+        for (int index = 0; index < targets.length; index++)
+        {
+            L2Character target = (L2Character) targets[index];
 			if (target.isAlikeDead())
 				continue;
 			// Check firstly if target dodges skill
