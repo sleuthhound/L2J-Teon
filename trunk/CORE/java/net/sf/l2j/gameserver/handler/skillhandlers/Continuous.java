@@ -71,8 +71,9 @@ public class Continuous implements ISkillHandler
 			if (_skill != null)
 				skill = _skill;
 		}
-		for (L2Object target2 : targets) {
-			target = (L2Character) target2;
+        for (int index = 0; index < targets.length; index++)
+        {
+            target = (L2Character) targets[index];
 			if (skill.getSkillType() != L2Skill.SkillType.BUFF && skill.getSkillType() != L2Skill.SkillType.HOT && skill.getSkillType() != L2Skill.SkillType.CPHOT && skill.getSkillType() != L2Skill.SkillType.MPHOT && skill.getSkillType() != L2Skill.SkillType.UNDEAD_DEFENSE && skill.getSkillType() != L2Skill.SkillType.AGGDEBUFF && skill.getSkillType() != L2Skill.SkillType.CONT)
 				if (target.reflectSkill(skill))
 					target = activeChar;

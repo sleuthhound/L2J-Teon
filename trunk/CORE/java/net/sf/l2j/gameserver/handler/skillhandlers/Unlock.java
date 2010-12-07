@@ -41,7 +41,9 @@ public class Unlock implements ISkillHandler
 		L2Object[] targetList = skill.getTargetList(activeChar);
 		if (targetList == null)
 			return;
-		for (L2Object target : targetList) {
+        for (int index = 0; index < targetList.length; index++)
+        {
+            L2Object target = targetList[index];
 			boolean success = Formulas.getInstance().calculateUnlockChance(skill);
 			if (target instanceof L2DoorInstance)
 			{
@@ -64,8 +66,8 @@ public class Unlock implements ISkillHandler
 			}
 			else if (target instanceof L2ChestInstance)
 			{
-				L2ChestInstance chest = (L2ChestInstance) target;
-				if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isGM())
+                L2ChestInstance chest = (L2ChestInstance) targetList[index];
+                if (activeChar instanceof L2PcInstance && ((L2PcInstance) activeChar).isGM())
 					((L2PcInstance) activeChar).sendMessage("Unlock casting succeeded with Unlock skill handler.");
 				if (chest.getCurrentHp() <= 0 || chest.isInteracted())
 				{

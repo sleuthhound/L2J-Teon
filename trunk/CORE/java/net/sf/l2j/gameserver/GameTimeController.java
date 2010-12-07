@@ -122,7 +122,9 @@ public class GameTimeController
 		// destination
 		List<L2Character> ended = null;
 		// Go throw the table containing L2Character in movement
-		for (L2Character cha : chars) {
+        for (int i = 0; i < chars.length; i++)
+        {
+            L2Character cha = chars[i];
 			// Update the position of the L2Character and return true if the
 			// movement is finished
 			boolean end = cha.updatePosition(_gameTicks);

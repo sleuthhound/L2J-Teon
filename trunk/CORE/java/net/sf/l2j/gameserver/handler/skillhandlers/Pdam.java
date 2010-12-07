@@ -68,8 +68,9 @@ public class Pdam implements ISkillHandler
 		if (Config.DEBUG)
 			if (Config.DEBUG)
 				_log.fine("Begin Skill processing in Pdam.java " + skill.getSkillType());
-		for (L2Object target2 : targets) {
-			L2Character target = (L2Character) target2;
+        for (int index = 0; index < targets.length; index++)
+        {
+            L2Character target = (L2Character) targets[index];
 			Formulas f = Formulas.getInstance();
 			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 			if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())

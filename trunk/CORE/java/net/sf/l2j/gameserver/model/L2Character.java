@@ -398,7 +398,7 @@ public abstract class L2Character extends L2Object
 	{
 		if (!(mov instanceof CharInfo))
 			sendPacket(mov);
-		// if (Config.DEBUG) _log.fine("players to notify:") + 
+		// if (Config.DEBUG) _log.fine("players to notify:") +
 		// knownPlayers.size() + " packet:"+mov.getType());
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values())
 			try
@@ -1030,14 +1030,14 @@ public abstract class L2Character extends L2Object
 		// distance between o1 and o2 = 87.24
 		// arctan2 = -120 (240) degree (excel arctan2(dx, dy); java arctan2(dy,
 		// dx))
-		// 
+		//
 		// o2
-		// 
+		//
 		// o1 ----- (heading)
 		// In the diagram above:
 		// o1 has a heading of 0/360 degree from horizontal (facing East)
 		// Degree of o2 in respect to o1 = -120 (240) degree
-		// 
+		//
 		// o2 / (heading)
 		// /
 		// o1
