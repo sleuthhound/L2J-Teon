@@ -253,7 +253,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * The table containing all autoAttackable L2Character in its Aggro Range and L2Character that attacked the L2Attackable This Map is Thread Safe, but Removing Object While Interating Over It Will Result NPE
 	 */
-	private FastMap<L2Character, AggroInfo> _aggroList = new FastMap<L2Character, AggroInfo>().setShared(true);
+	private FastMap<L2Character, AggroInfo> _aggroList = new FastMap<L2Character, AggroInfo>().shared();;
 
 	/**
 	 * Use this to Remove Object from this Map This Should be Synchronized While Interating over This Map - ie u cant interating and removing object at once
@@ -306,7 +306,7 @@ public class L2Attackable extends L2NpcInstance
 	/**
 	 * The table containing all L2PcInstance that successfuly absorbed the soul of this L2Attackable
 	 */
-	private FastMap<L2PcInstance, AbsorberInfo> _absorbersList = new FastMap<L2PcInstance, AbsorberInfo>().setShared(true);
+	private FastMap<L2PcInstance, AbsorberInfo> _absorbersList = new FastMap<L2PcInstance, AbsorberInfo>().shared();;
 	/** Have this L2Attackable to reward Exp and SP on Die? * */
 	private boolean _mustGiveExpSp;
 	private boolean _isUsingShots = false;
@@ -537,7 +537,7 @@ public class L2Attackable extends L2NpcInstance
 	protected void calculateRewards(L2Character lastAttacker)
 	{
 		// Creates an empty list of rewards
-		FastMap<L2Character, RewardInfo> rewards = new FastMap<L2Character, RewardInfo>().setShared(true);
+		FastMap<L2Character, RewardInfo> rewards = new FastMap<L2Character, RewardInfo>().shared();
 		try
 		{
 			if (getAggroList().isEmpty())
