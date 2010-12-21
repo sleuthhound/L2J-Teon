@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="L2JTeon" default="dist" basedir=".">
+<project name="L2jTeon_GameSever" default="dist" basedir=".">
     <description>
-        This script will build the L2JTeon Interlude server.
+        This script will build the L2jTeon_GameSever Interlude server.
         
     	This program is free software: you can redistribute it and/or modify it under
     	the terms of the GNU General Public License as published by the Free Software
@@ -23,8 +23,8 @@
     <property name="build" location="build"/>
     <property name="build.classes" location="${build}/classes"/>
     <property name="build.dist" location="${build}/dist"/>
-	<property name="build.dist.login" location="${build.dist}/L2JTeon_login"/>
-	<property name="build.dist.game" location="${build.dist}/L2JTeon_gameserver"/>
+	<property name="build.dist.login" location="${build.dist}/L2jTeon_Login"/>
+	<property name="build.dist.game" location="${build.dist}/L2jTeon_GameServer"/>
     
     <path id="classpath">
         <fileset dir="${lib}">
@@ -231,7 +231,7 @@
     	    </fileset>
     	</copy>
 
-        <zip destfile="${build}/L2JTeon_Game.zip"
+        <zip destfile="${build}/L2jTeon_GameServer.zip"
              basedir="${build.dist}" />
     </target>   
     
