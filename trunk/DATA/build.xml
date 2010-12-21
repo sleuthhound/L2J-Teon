@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<project name="L2JSick_Datapack" default="dist" basedir=".">
+<project name="L2jTeon_Datapack" default="dist" basedir=".">
   <description>
-        This script will build the L2JSick_Datapack.
+        This script will build the L2jTeon_Datapack.
         
         $Author: DrLecter $
         $Date: 2007-11-19 16:57:12 -0300 (mo, 19 nov 2007) $
@@ -24,8 +24,8 @@
 
   <property name="build" location="build"/>
   <property name="build.dist" location="${build}/dist"/>
-  <property name="build.dist.game" location="${build.dist}/Game_Server"/>
-  <property name="build.dist.login" location="${build.dist}/Login_Server"/>
+  <property name="build.dist.game" location="${build.dist}/L2jTeon_GameServer"/>
+  <property name="build.dist.login" location="${build.dist}/L2jTeon_Login"/>
   <property name="build.dist.sql" location="${build.dist}/sql"/>
   <property name="build.dist.tools" location="${build.dist}/tools"/>
   <property name="build.dist.doc" location="${build.dist}/doc"/>
@@ -90,13 +90,13 @@
     <target name="dist"
           depends="export"
           description="Creates a ZIP file. Suitable for distribution but building takes longer. See dist-deflate for faster builds.">
-      <zip destfile="${build}/L2JSick_DataPack.zip" basedir="${build.dist}" update="true"/>
+      <zip destfile="${build}/L2jTeon_DataPack.zip" basedir="${build.dist}" update="true"/>
     </target>
 
     <target name="dist-deflate"
           depends="export"
           description="Creates a datapack ZIP file with NO compression (bigger ZIP file but faster than regular dist target)">
-      <zip destfile="${build}/L2JSick_DataPack-nocompress.zip" basedir="${build.dist}" update="true" compress="false"/>
+      <zip destfile="${build}/L2jTeon_DataPack-nocompress.zip" basedir="${build.dist}" update="true" compress="false"/>
     </target>
   
   
