@@ -181,10 +181,11 @@ public class GameServer
 		new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
 		Util.printSection("World");
 		L2World.getInstance();
-		// load script engines
-		L2ScriptEngineManager.getInstance();
 		// start game time control early
 		GameTimeController.getInstance();
+		Util.printSection("Announcements");
+		Announcements.getInstance();
+		AutoAnnouncementHandler.getInstance();
 		Util.printSection("ID Factory");
 		// keep the references of Singletons to prevent garbage collection
 		CharNameTable.getInstance();
@@ -222,9 +223,8 @@ public class GameServer
 			BufferSkillsTable.getInstance();
 			CharSchemesTable.getInstance();
 		}
-		Util.printSection("Trade Controller");
-		TradeController.getInstance();
-		Util.printSection("Items");
+		
+		Util.printSection("Items - Trade Controller");
 		_itemTable = ItemTable.getInstance();
 		if (!_itemTable.isInitialized())
 		{
@@ -235,34 +235,36 @@ public class GameServer
 		SummonItemsData.getInstance();
 		ArmorSetsTable.getInstance();
 		FishTable.getInstance();
-		Util.printSection("Henna");
 		_hennaTable = HennaTable.getInstance();
 		if (!_hennaTable.isInitialized())
 			throw new Exception("Could not initialize the Henna Table");
 		HennaTreeTable.getInstance();
 		if (!_hennaTable.isInitialized())
 			throw new Exception("Could not initialize the Henna Tree Table");
-		Util.printSection("Npc");
+		TradeController.getInstance();
+		
+		Util.printSection("Npc - Spawnlist");
 		_npcTable = NpcTable.getInstance();
 		if (!_npcTable.isInitialized())
 		{
 			_log.severe("Could not find the extraced files. Please Check Your Data.");
 			throw new Exception("Could not initialize the npc table");
 		}
-		Util.printSection("Spawnlist");
 		SpawnTable.getInstance();
 		RaidBossSpawnManager.getInstance();
 		DayNightSpawnManager.getInstance().notifyChangeMode();
-		Util.printSection("Castle Sieges - Fortress Sieges");
-		CastleManager.getInstance();
-		SiegeManager.getInstance();
-		FortManager.getInstance();
-		FortSiegeManager.getInstance();
+		
 		Util.printSection("Zones");
 		ZoneManager.getInstance();
 		MapRegionTable.getInstance();
 		// Load clan hall data before zone data
 		_cHManager = ClanHallManager.getInstance();
+		
+		Util.printSection("Castle Sieges - Fortress Sieges");
+		CastleManager.getInstance();
+		SiegeManager.getInstance();
+		FortManager.getInstance();
+		FortSiegeManager.getInstance();
 		Util.printSection("Clan Hall Siege");
 		FortResistSiegeManager.getInstance();
 		BanditStrongholdManager.getInstance();
@@ -271,14 +273,23 @@ public class GameServer
 			DevastatedCastleManager.getInstance();
 		if (Config.FORTRESS_OF_THE_DEAD_ENABLED)
 			FortressofTheDeadManager.getInstance();
-		Util.printSection("Recipes");
-		RecipeController.getInstance();
-		Util.printSection("Cache");
+
+		Util.printSection("Cache - Recipes");
 		// Call to load caches
 		HtmCache.getInstance();
 		CrestCache.getInstance();
-		Util.printSection("Clan");
+		RecipeController.getInstance();
+
+		Util.printSection("Clan - Manor");
 		ClanTable.getInstance();
+		/** Load Manor data */
+		L2Manor.getInstance();
+		CastleManorManager.getInstance();
+
+		Util.printSection("Teleport");
+		TeleportLocationTable.getInstance();
+		LevelUpData.getInstance();
+		
 		Util.printSection("Helper Buff Table");
 		_helperBuffTable = HelperBuffTable.getInstance();
 		/**
@@ -288,16 +299,8 @@ public class GameServer
 		_log.config("BuffTemplateTable Initialized");
 		if (!_helperBuffTable.isInitialized())
 			throw new Exception("Could not initialize the Helper Buff Table");
-		Util.printSection("Teleport");
-		TeleportLocationTable.getInstance();
-		LevelUpData.getInstance();
-		Util.printSection("Announcements");
-		Announcements.getInstance();
-		AutoAnnouncementHandler.getInstance();
-		/** Load Manor data */
-		Util.printSection("Manor");
-		L2Manor.getInstance();
-		CastleManorManager.getInstance();
+
+		Util.printSection("Managers");
 		/** Load Manager */
 		AuctionManager.getInstance();
 		BoatManager.getInstance();
@@ -365,20 +368,26 @@ public class GameServer
 		}
 		Util.printSection("Augmentation Data");
 		AugmentationData.getInstance();
-		Util.printSection("Quest Manager");
-		QuestManager.getInstance();
-		Util.printSection("Dimensional Rift");
-		DimensionalRiftManager.getInstance();
+		
+		Util.printSection("Load Script Engines");
+		L2ScriptEngineManager.getInstance();
+		
 		Util.printSection("Olympiad");
 		Olympiad.getInstance();
 		Hero.getInstance();
 		TaskManager.getInstance();
 		GmListTable.getInstance();
+		
+		Util.printSection("Quest Manager");
+		QuestManager.getInstance();
+		Util.printSection("Dimensional Rift");
+		DimensionalRiftManager.getInstance();
 		Util.printSection("RaidBosses - GrandBosses");
 		RaidBossPointsManager.init();
 		GrandBossManager.getInstance();
 		FourSepulchersManager.getInstance().init();
 		VanHalterManager.getInstance().init();
+
 		Util.printSection("Quests - Scripts");
 		try
 		{
