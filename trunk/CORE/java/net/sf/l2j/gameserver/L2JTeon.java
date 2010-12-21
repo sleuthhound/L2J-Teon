@@ -29,22 +29,22 @@ public class L2JTeon
 	public static void info()
 	{
 		_log.info("-------------------------------------------------------------------------------");
-		_log.info("                     >>>>>  Owners : Maxi56, Meyknho and Hawkye  <<<<<                 ");
-		_log.info("       >>>>>  Developers : vicfelipe, Paulinho Souza and killswith  <<<<<      ");
+		_log.info("                           Owners: Maxi56 and Meyknho                          ");
+		_log.info("                 Developers: Killswith, Hawkye and Paulinho Souza              ");
 		_log.info("-------------------------------------------------------------------------------");
 		Util.printCpuInfo();
 		_log.info("-------------------------------------------------------------------------------");
 		Util.printOSInfo();
 		_log.info("-------------------------------------------------------------------------------");
-		_log.info("               #     #####   ###   #####  #####    ####   ##   #               ");
-		_log.info("               #         #    #      #    #       #    #  # #  #               ");
-		_log.info("               #       #      #      #    #####   #    #  #  # #               ");
-		_log.info("               #     #     #  #      #    #       #    #  #   ##               ");
-		_log.info("               ##### ##### ####      #    #####    ####   #    #               ");
+		_log.info("                #     #####   ###   #####  #####    ####   ##   #              ");
+		_log.info("                #         #    #      #    #       #    #  # #  #              ");
+		_log.info("                #       #      #      #    #####   #    #  #  # #              ");
+		_log.info("                #     #     #  #      #    #       #    #  #   ##              ");
+		_log.info("                ##### ##### ####      #    #####    ####   #    #              ");
 		_log.info("-------------------------------------------------------------------------------");
-		_log.info("                         L2J Teon Core Version:     " + Config.SERVER_VERSION);
-		_log.info("                         L2J Teon DataPack Version: " + Config.DATAPACK_VERSION);
-		_log.info("                         Have Fun With Our Software!                           ");
+		_log.info("                         L2j Teon Core Version:     " + Config.SERVER_VERSION);
+		_log.info("                         L2j Teon DataPack Version: " + Config.DATAPACK_VERSION);
+		_log.info("                              Copyright 2009-2010                              ");
 		_log.info("-------------------------------------------------------------------------------");
 	}
 }
