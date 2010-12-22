@@ -378,6 +378,7 @@ $MYG < ../sql/ctf.sql &> /dev/null
 $MYG < ../sql/ctf_teams.sql &> /dev/null
 $MYG < ../sql/dm.sql &> /dev/null
 $MYG < ../sql/forced_updates.sql &> /dev/null
+$MYG < ../sql/pkkills.sql &> /dev/null
 newbie_helper
 }
 
