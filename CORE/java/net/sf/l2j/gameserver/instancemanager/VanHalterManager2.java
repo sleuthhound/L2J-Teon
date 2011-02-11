@@ -228,11 +228,11 @@ public class VanHalterManager extends Entity
         }
 
     	// set time up.
-    	if (_TimeUpTask != null) _TimeUpTask.cancel(true);
+    	if (_TimeUpTask != null) _TimeUpTask.cancel(false);
     	_TimeUpTask = ThreadPoolManager.getInstance().scheduleEffect(new TimeUp(),Config.HPH_ACTIVITYTIMEOFHALTER * 1000);
 
     	// set bleeding to palyers.
-		if (_SetBleedTask != null) _SetBleedTask.cancel(true);
+		if (_SetBleedTask != null) _SetBleedTask.cancel(false);
 		_SetBleedTask = ThreadPoolManager.getInstance().scheduleEffect(new Bleeding(),2000);
 
 		// check state of High Priestess van Halter.
@@ -913,13 +913,13 @@ public class VanHalterManager extends Entity
     	{
     		_isLocked = false;
 
-    		if (_CloseDoorOfAltarTask != null) _CloseDoorOfAltarTask.cancel(true);
+    		if (_CloseDoorOfAltarTask != null) _CloseDoorOfAltarTask.cancel(false);
     		_CloseDoorOfAltarTask = null;
     		_CloseDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleEffect(new CloseDoorOfAltar(),Config.HPH_INTERVALOFDOOROFALTER * 1000);
     	}
     	else
     	{
-    		if (_CloseDoorOfAltarTask != null) _CloseDoorOfAltarTask.cancel(true);
+    		if (_CloseDoorOfAltarTask != null) _CloseDoorOfAltarTask.cancel(false);
     		_CloseDoorOfAltarTask = null;
     	}
     }
@@ -946,13 +946,13 @@ public class VanHalterManager extends Entity
 
     	if (loop)
     	{
-    		if(_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(true);
+    		if(_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(false);
     		_OpenDoorOfAltarTask = null;
     		_OpenDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleEffect(new OpenDoorOfAltar(),Config.HPH_INTERVALOFDOOROFALTER * 1000);
     	}
     	else
     	{
-    		if(_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(true);
+    		if(_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(false);
     		_OpenDoorOfAltarTask = null;
     	}
     }
@@ -1026,7 +1026,7 @@ public class VanHalterManager extends Entity
     	_vanHalter.setIsInvul(true);
     	spawnCameraMarker();
 
-    	if (_TimeUpTask != null) _TimeUpTask.cancel(true);
+    	if (_TimeUpTask != null) _TimeUpTask.cancel(false);
     	_TimeUpTask = null;
 
     	_MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(1),Config.HPH_APPTIMEOFHALTER * 1000);
@@ -1045,7 +1045,7 @@ public class VanHalterManager extends Entity
     // start fight against High Priestess van Halter.
     protected void combatBeginning()
     {
-    	if (_TimeUpTask != null) _TimeUpTask.cancel(true);
+    	if (_TimeUpTask != null) _TimeUpTask.cancel(false);
     	_TimeUpTask = ThreadPoolManager.getInstance().scheduleEffect(new TimeUp(),Config.HPH_FIGHTTIMEOFHALTER * 1000);
 
     	Map<Integer, L2PcInstance> _targets = new FastMap<Integer, L2PcInstance>();
@@ -1086,12 +1086,12 @@ public class VanHalterManager extends Entity
 
     		if (_RoyalGuardHepler.size() <= Config.HPH_CALLROYALGUARDHELPERCOUNT && !_vanHalter.isDead())
     		{
-	    		if (_CallRoyalGuardHelperTask != null) _CallRoyalGuardHelperTask.cancel(true);
+	    		if (_CallRoyalGuardHelperTask != null) _CallRoyalGuardHelperTask.cancel(false);
     			_CallRoyalGuardHelperTask = ThreadPoolManager.getInstance().scheduleEffect(new CallRoyalGuardHelper(),Config.HPH_CALLROYALGUARDHELPERINTERVAL * 1000);
     		}
     		else
     		{
-	    		if (_CallRoyalGuardHelperTask != null) _CallRoyalGuardHelperTask.cancel(true);
+	    		if (_CallRoyalGuardHelperTask != null) _CallRoyalGuardHelperTask.cancel(false);
         		_CallRoyalGuardHelperTask = null;
     		}
     	}
@@ -1138,13 +1138,13 @@ public class VanHalterManager extends Entity
         	        	_vanHalter.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,pos);
         	    	}
     			}
-    	  		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(true);
+    	  		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(false);
     	  		_HalterEscapeTask = ThreadPoolManager.getInstance().scheduleEffect(new HalterEscape(),5000);
     		}
     		else
     		{
             	_vanHalter.stopFear(null);
-    	   		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(true);
+    	   		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(false);
     	   		_HalterEscapeTask = null;
     		}
     	}
@@ -1197,7 +1197,7 @@ public class VanHalterManager extends Entity
     	{
     		addBleeding();
 
-    		if (_SetBleedTask != null) _SetBleedTask.cancel(true);
+    		if (_SetBleedTask != null) _SetBleedTask.cancel(false);
     		_SetBleedTask = ThreadPoolManager.getInstance().scheduleEffect(new Bleeding(),2000);
 
     	}
@@ -1207,28 +1207,28 @@ public class VanHalterManager extends Entity
     public void enterInterval()
     {
     	// cancel all task
-    	if (_CallRoyalGuardHelperTask != null)	_CallRoyalGuardHelperTask.cancel(true);
+    	if (_CallRoyalGuardHelperTask != null)	_CallRoyalGuardHelperTask.cancel(false);
    		_CallRoyalGuardHelperTask = null;
 
-   		if (_CloseDoorOfAltarTask != null)	_CloseDoorOfAltarTask.cancel(true);
+   		if (_CloseDoorOfAltarTask != null)	_CloseDoorOfAltarTask.cancel(false);
    		_CloseDoorOfAltarTask = null;
 
-   		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(true);
+   		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(false);
    		_HalterEscapeTask = null;
 
-   		if (_IntervalTask != null)	_IntervalTask.cancel(true);
+   		if (_IntervalTask != null)	_IntervalTask.cancel(false);
    		_IntervalTask = null;
 
-    	if (_LockUpDoorOfAltarTask != null) _LockUpDoorOfAltarTask.cancel(true);
+    	if (_LockUpDoorOfAltarTask != null) _LockUpDoorOfAltarTask.cancel(false);
    		_LockUpDoorOfAltarTask = null;
 
-   		if (_MovieTask != null) _MovieTask.cancel(true);
+   		if (_MovieTask != null) _MovieTask.cancel(false);
    		_MovieTask = null;
 
-   		if (_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(true);
+   		if (_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(false);
    		_OpenDoorOfAltarTask = null;
 
-   		if (_TimeUpTask != null) _TimeUpTask.cancel(true);
+   		if (_TimeUpTask != null) _TimeUpTask.cancel(false);
    		_TimeUpTask = null;
 
     	// delete monsters
@@ -1248,7 +1248,7 @@ public class VanHalterManager extends Entity
     	deleteGuardOfAltar();
 
     	// set interval end.
-    	if (_IntervalTask != null) _IntervalTask.cancel(true);
+    	if (_IntervalTask != null) _IntervalTask.cancel(false);
 
     	if (!_State.getState().equals(GrandBossState.StateEnum.INTERVAL))
     	{
@@ -1275,7 +1275,7 @@ public class VanHalterManager extends Entity
     		_PlayersInLair.clear();
     		setupAlter();
 
-    		if (_IntervalTask != null) _IntervalTask.cancel(true);
+    		if (_IntervalTask != null) _IntervalTask.cancel(false);
     		_IntervalTask = null;
     	}
     }
@@ -1284,28 +1284,28 @@ public class VanHalterManager extends Entity
     public void setupAlter()
     {
     	// cancel all task
-    	if (_CallRoyalGuardHelperTask != null)	_CallRoyalGuardHelperTask.cancel(true);
+    	if (_CallRoyalGuardHelperTask != null)	_CallRoyalGuardHelperTask.cancel(false);
    		_CallRoyalGuardHelperTask = null;
 
-   		if (_CloseDoorOfAltarTask != null)	_CloseDoorOfAltarTask.cancel(true);
+   		if (_CloseDoorOfAltarTask != null)	_CloseDoorOfAltarTask.cancel(false);
    		_CloseDoorOfAltarTask = null;
 
-   		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(true);
+   		if (_HalterEscapeTask != null)	_HalterEscapeTask.cancel(false);
    		_HalterEscapeTask = null;
 
-   		if (_IntervalTask != null)	_IntervalTask.cancel(true);
+   		if (_IntervalTask != null)	_IntervalTask.cancel(false);
    		_IntervalTask = null;
 
-    	if (_LockUpDoorOfAltarTask != null) _LockUpDoorOfAltarTask.cancel(true);
+    	if (_LockUpDoorOfAltarTask != null) _LockUpDoorOfAltarTask.cancel(false);
    		_LockUpDoorOfAltarTask = null;
 
-   		if (_MovieTask != null) _MovieTask.cancel(true);
+   		if (_MovieTask != null) _MovieTask.cancel(false);
    		_MovieTask = null;
 
-   		if (_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(true);
+   		if (_OpenDoorOfAltarTask != null) _OpenDoorOfAltarTask.cancel(false);
    		_OpenDoorOfAltarTask = null;
 
-   		if (_TimeUpTask != null) _TimeUpTask.cancel(true);
+   		if (_TimeUpTask != null) _TimeUpTask.cancel(false);
    		_TimeUpTask = null;
 
     	// delete all monsters
@@ -1339,7 +1339,7 @@ public class VanHalterManager extends Entity
     	_State.update();
 
     	// set time up.
-    	if (_TimeUpTask != null) _TimeUpTask.cancel(true);
+    	if (_TimeUpTask != null) _TimeUpTask.cancel(false);
     	_TimeUpTask = ThreadPoolManager.getInstance().scheduleEffect(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER * 1000);
     }
 
@@ -1355,7 +1355,7 @@ public class VanHalterManager extends Entity
     	{
     		enterInterval();
 
-       		if (_TimeUpTask != null) _TimeUpTask.cancel(true);
+       		if (_TimeUpTask != null) _TimeUpTask.cancel(false);
        		_TimeUpTask = null;
 
     	}
@@ -1399,7 +1399,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(2), 16);
 
@@ -1420,7 +1420,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(3), 1);
 
@@ -1441,7 +1441,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 		            _MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(4), 1500);
 
@@ -1462,7 +1462,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(5), 1);
 
@@ -1483,7 +1483,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(6), 1500);
 
@@ -1504,7 +1504,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(7), 1);
 
@@ -1525,7 +1525,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(8), 1500);
 
@@ -1546,7 +1546,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(9), 1);
 
@@ -1567,7 +1567,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(10), 1500);
 
@@ -1588,7 +1588,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(11), 1);
 
@@ -1609,7 +1609,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(12), 2000);
 
@@ -1630,7 +1630,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(13), 1000);
 
@@ -1646,7 +1646,7 @@ public class VanHalterManager extends Entity
 	        		_vanHalter.setIsImmobilized(true);
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(14), 4700);
 
@@ -1657,7 +1657,7 @@ public class VanHalterManager extends Entity
 	    			_RitualOffering.reduceCurrentHp(_RitualOffering.getMaxHp() * 2, _vanHalter);
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(15), 4300);
 
@@ -1681,7 +1681,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(16), 2000);
 
@@ -1702,7 +1702,7 @@ public class VanHalterManager extends Entity
 					}
 
 					// set next task.
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 		            _MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(17), 6000);
 
@@ -1719,7 +1719,7 @@ public class VanHalterManager extends Entity
 			    	_vanHalter.setIsImmobilized(false);
 			    	_vanHalter.setIsInvul(false);
 
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
 			    	_MovieTask = ThreadPoolManager.getInstance().scheduleEffect(new Movie(18), 1000);
 
@@ -1727,7 +1727,7 @@ public class VanHalterManager extends Entity
 
 	    		case 18:
 	    			combatBeginning();
-		            if(_MovieTask != null) _MovieTask.cancel(true);
+		            if(_MovieTask != null) _MovieTask.cancel(false);
 	            	_MovieTask = null;
     		}
         }
