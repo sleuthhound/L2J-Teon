@@ -114,7 +114,7 @@ public class Olympiad
 					try
 					{
 						int playerOnePoints = playerOneStat.getInteger(POINTS);
-						int transferPoints = playerOnePoints / 5;
+						int transferPoints = playerOnePoints / 3;
 						playerOneStat.set(POINTS, playerOnePoints - transferPoints);
 						_log.info("Olympia Result: " + _game._playerOneName + " vs " + _game._playerTwoName + " ... " + _game._playerOneName + " lost " + transferPoints + " points for crash");
 						int playerTwoPoints = playerTwoStat.getInteger(POINTS);
@@ -136,7 +136,7 @@ public class Olympiad
 					try
 					{
 						int playerTwoPoints = playerTwoStat.getInteger(POINTS);
-						int transferPoints = playerTwoPoints / 5;
+						int transferPoints = playerTwoPoints / 3;
 						playerTwoStat.set(POINTS, playerTwoPoints - transferPoints);
 						_log.info("Olympia Result: " + _game._playerTwoName + " vs " + _game._playerOneName + " ... " + _game._playerTwoName + " lost " + transferPoints + " points for crash");
 						int playerOnePoints = playerOneStat.getInteger(POINTS);
