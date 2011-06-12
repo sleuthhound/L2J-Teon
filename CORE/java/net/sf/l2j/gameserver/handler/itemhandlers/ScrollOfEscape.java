@@ -95,6 +95,14 @@ public class ScrollOfEscape implements IItemHandler
 			activeChar.sendPacket(SystemMessage.sendString("You cannot use escape skills during a duel."));
 			return;
 		}
+		if (activeChar.getPvpFlag() != 0 && !Config.PVP_NO_ESCAPE)
+		{
+			 if (item.getItemId() == 1538 || item.getItemId() == 5859 || item.getItemId() == 5858)
+			 {
+				 activeChar.sendMessage("Sorry, You cannot use this in PvP mode!");
+             return;
+			 }
+		}
 		// activeChar.abortCast();
 		activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		// SoE Animation section

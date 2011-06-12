@@ -871,6 +871,7 @@ public final class Config
 	public static boolean ALLOW_PK_REWARD;
 	public static int PK_REWARD_ITEM;
 	public static int PK_REWARD_COUNT;
+	public static boolean PVP_NO_ESCAPE;
 	// ** Colored pvp name system ** //
     // ** Colored pvp name system ** //
  	public static boolean PVP_COLOR_SYSTEM_ENABLED;
@@ -2739,7 +2740,7 @@ public final class Config
 					ALLOW_PK_REWARD = Boolean.parseBoolean(L2JTeonCustom.getProperty("AllowPkRewardSystem", "False"));
 					PK_REWARD_ITEM = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardItem", "57"));
 					PK_REWARD_COUNT = Integer.parseInt(L2JTeonCustom.getProperty("PkRewardAmount", "1"));
-
+					PVP_NO_ESCAPE = Boolean.parseBoolean(L2JTeonCustom.getProperty("UseEscapeInPvP", "False"));
 				}
 				catch (Exception e)
 				{
